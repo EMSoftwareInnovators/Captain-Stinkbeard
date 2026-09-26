@@ -1,0 +1,29 @@
+{
+  "//": "Ambience beds: looping sources plus randomly timed one-shots (generator name + variant number).",
+  "deck": {
+    "loops": [{ "source": "ocean", "volume": 0.55 }, { "source": "wind", "volume": 0.22 }],
+    "oneshots": [
+      { "sounds": ["creak0", "creak1", "creak2"], "every": [5, 11], "volume": 0.3 },
+      { "sounds": ["gull0", "gull1", "gull2"], "every": [8, 20], "volume": 0.26 }
+    ]
+  },
+  "cabin": {
+    "loops": [{ "source": "ocean", "muffled": true, "volume": 0.5 }],
+    "oneshots": [{ "sounds": ["creak0", "creak1", "creak2", "creak3"], "every": [4, 9], "volume": 0.4 }]
+  },
+  "below": {
+    "loops": [{ "source": "ocean", "muffled": true, "volume": 0.6 }],
+    "oneshots": [
+      { "sounds": ["creak0", "creak1", "creak2", "creak3"], "every": [3, 8], "volume": 0.42 },
+      { "sounds": ["thump0", "thump1"], "every": [7, 15], "volume": 0.4 }
+    ]
+  },
+  "hold": {
+    "loops": [{ "source": "ocean", "muffled": true, "volume": 0.72 }],
+    "oneshots": [
+      { "sounds": ["creak1", "creak2", "creak3"], "every": [3, 7], "volume": 0.5 },
+      { "sounds": ["drip0", "drip1", "drip2"], "every": [2, 6], "volume": 0.32 },
+      { "sounds": ["thump0", "thump1"], "every": [6, 12], "volume": 0.5 }
+    ]
+  }
+}

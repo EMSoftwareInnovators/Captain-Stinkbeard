@@ -1,0 +1,48 @@
+[
+  {
+    "id": "captains_rounds",
+    "title": "Captain's Rounds",
+    "category": "main",
+    "giver": "hale",
+    "summary": "Walk the ship and make sure she's in order.",
+    "description": "Every morning a captain walks his ship. Speak with Mister Hale, look over the helm, check on the galley and make sure the treasure hold is secure. Then report back.",
+    "objectives": [
+      { "id": "talk_first_mate", "text": "Speak with the First Mate", "type": "talk", "target": "hale" },
+      { "id": "inspect_deck", "text": "Inspect the Main Deck (the helm)", "type": "inspect", "target": "main_deck:helm" },
+      { "id": "check_galley", "text": "Check the Galley", "type": "visit", "target": "galley" },
+      { "id": "inspect_treasure", "text": "Inspect the Treasure Hold", "type": "inspect", "target": "treasure_hold:hoard" },
+      { "id": "report", "text": "Report to Mister Hale", "type": "talk", "target": "hale", "after": ["talk_first_mate", "inspect_deck", "check_galley", "inspect_treasure"] }
+    ],
+    "rewards": { "xp": 30, "gold": 25, "items": [{ "id": "rum_ration", "count": 2 }], "flags": ["rounds_complete"] },
+    "onComplete": "cutscene.tutorial_done"
+  },
+  {
+    "id": "rats_in_the_hold",
+    "title": "Rats in the Hold",
+    "category": "main",
+    "giver": "quill",
+    "summary": "Something has been eating the ship's biscuit.",
+    "description": "Quill's ledger won't balance and Mags is out of patience. Rats are loose in the cargo hold. Speak to the quartermaster, go below and clear them out.",
+    "objectives": [
+      { "id": "talk_quartermaster", "text": "Speak to the Quartermaster", "type": "talk", "target": "quill" },
+      { "id": "enter_hold", "text": "Enter the Cargo Hold", "type": "visit", "target": "cargo_hold", "after": ["talk_quartermaster"] },
+      { "id": "clear_hold", "text": "Defeat the rats", "type": "defeat", "tag": "hold_rats", "count": 3, "after": ["enter_hold"] },
+      { "id": "report_back", "text": "Report back to the Quartermaster", "type": "talk", "target": "quill", "after": ["clear_hold"] }
+    ],
+    "rewards": { "xp": 40, "gold": 60, "items": [{ "id": "rat_catchers_charm", "count": 1 }, { "id": "healing_tonic", "count": 1 }], "flags": ["rat_problem_complete"] },
+    "onComplete": "cutscene.tutorial_done"
+  },
+  {
+    "id": "brasks_fuse",
+    "title": "A Match for Brask",
+    "category": "side",
+    "giver": "brask",
+    "summary": "The master gunner has lost another fuse.",
+    "description": "Old Brask swears someone moved his spare cannon fuse. It is probably down in the cargo hold with the gunnery stores.",
+    "objectives": [
+      { "id": "find_fuse", "text": "Find a cannon fuse", "type": "obtain", "item": "cannon_fuse", "count": 1 },
+      { "id": "return_fuse", "text": "Bring it to Brask", "type": "talk", "target": "brask", "after": ["find_fuse"] }
+    ],
+    "rewards": { "xp": 15, "gold": 30, "flags": ["brask_fuse_returned"] }
+  }
+]

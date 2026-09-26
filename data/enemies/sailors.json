@@ -1,0 +1,24 @@
+[
+  {
+    "id": "sparring_sailor", "name": "Eager Deckhand", "sprite": "sparring_sailor",
+    "stats": { "maxHp": 46, "attack": 13, "defense": 6, "speed": 7, "luck": 3 },
+    "abilities": ["spar_club", "spar_taunt"],
+    "ai": [
+      { "ability": "spar_taunt", "weight": 1, "if": { "targetLacksStatus": "rattled" } },
+      { "ability": "spar_club", "weight": 4 }
+    ],
+    "xp": 5, "gold": [0, 0],
+    "tags": ["sparring"],
+    "description": "A volunteer from the crew. Volunteered by Rook, mostly."
+  },
+  {
+    "id": "cutthroat", "name": "Cutthroat", "sprite": "cutthroat",
+    "stats": { "maxHp": 60, "attack": 17, "defense": 7, "speed": 10, "luck": 6 },
+    "abilities": ["cutthroat_slash", "spar_taunt"],
+    "ai": [{ "ability": "cutthroat_slash", "weight": 4 }, { "ability": "spar_taunt", "weight": 1, "if": { "targetLacksStatus": "rattled" } }],
+    "xp": 18, "gold": [10, 20],
+    "drops": [{ "item": "rum_ration", "chance": 0.4 }],
+    "tags": ["pirate"],
+    "description": "A rival buccaneer. Used for test battles until the story gives you real enemies."
+  }
+]

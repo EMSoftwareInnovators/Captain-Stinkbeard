@@ -1,0 +1,96 @@
+[
+  {
+    "id": "hale", "name": "Mister Hale", "title": "First Mate", "appearance": "hale", "portrait": "hale", "voice": { "pitch": 0.85 },
+    "behavior": { "type": "stand", "lookAround": true },
+    "dialogue": [
+      { "if": { "objectiveActive": "captains_rounds.report" }, "script": "hale.rounds_report" },
+      { "if": { "objectiveActive": "captains_rounds.talk_first_mate" }, "script": "hale.rounds_intro" },
+      { "if": { "questActive": "captains_rounds" }, "script": "hale.rounds_reminder" },
+      { "if": { "questActive": "rats_in_the_hold" }, "script": "hale.rats_hint" },
+      { "if": { "flag": "tutorial_complete" }, "cycle": ["hale.idle_1", "hale.idle_2", "hale.idle_3"] },
+      { "script": "hale.idle_1" }
+    ]
+  },
+  {
+    "id": "quill", "name": "Mister Quill", "title": "Quartermaster", "appearance": "quill", "portrait": "quill", "voice": { "pitch": 1.15 },
+    "behavior": { "type": "stand" },
+    "dialogue": [
+      { "if": { "objectiveActive": "rats_in_the_hold.report_back" }, "script": "quill.rats_report" },
+      { "if": { "objectiveActive": "rats_in_the_hold.talk_quartermaster" }, "script": "quill.rats_brief" },
+      { "if": { "questActive": "rats_in_the_hold" }, "script": "quill.rats_reminder" },
+      { "if": { "questCompleted": "rats_in_the_hold" }, "script": "quill.after" },
+      { "script": "quill.default" }
+    ]
+  },
+  {
+    "id": "mags", "name": "Mags Tallow", "title": "Cook", "appearance": "mags", "portrait": "mags", "voice": { "pitch": 1.05 },
+    "behavior": { "type": "work" },
+    "dialogue": [
+      { "if": { "all": [{ "questActive": "rats_in_the_hold" }, { "objectiveNotDone": "rats_in_the_hold.clear_hold" }] }, "script": "mags.rats" },
+      { "script": "mags.default" }
+    ]
+  },
+  {
+    "id": "fennimore", "name": "Doc Fennimore", "title": "Surgeon", "appearance": "fennimore", "portrait": "fennimore", "voice": { "pitch": 0.95 },
+    "behavior": { "type": "stand", "lookAround": true },
+    "dialogue": [{ "script": "doc.default" }]
+  },
+  {
+    "id": "brask", "name": "Old Brask", "title": "Master Gunner", "appearance": "brask", "portrait": "brask", "voice": { "pitch": 0.75 },
+    "behavior": { "type": "work" },
+    "dialogue": [
+      { "if": { "objectiveActive": "brasks_fuse.return_fuse" }, "script": "brask.fuse_return" },
+      { "if": { "questActive": "brasks_fuse" }, "script": "brask.fuse_reminder" },
+      { "if": { "questCompleted": "brasks_fuse" }, "cycle": ["brask.after_1", "brask.after_2"] },
+      { "script": "brask.default" }
+    ]
+  },
+  {
+    "id": "nell", "name": "Nell Sounder", "title": "Navigator", "appearance": "nell", "portrait": "nell", "voice": { "pitch": 1.2 },
+    "behavior": { "type": "work" },
+    "dialogue": [
+      { "if": { "questActive": "captains_rounds" }, "script": "nell.rounds" },
+      { "cycle": ["nell.idle_1", "nell.idle_2", "nell.idle_3"] }
+    ]
+  },
+  {
+    "id": "wick", "name": "Wick", "title": "Cabin Boy", "appearance": "wick", "portrait": "wick", "voice": { "pitch": 1.45 },
+    "behavior": { "type": "stand", "lookAround": true },
+    "dialogue": [
+      { "if": { "questActive": "captains_rounds" }, "script": "wick.rounds" },
+      { "if": { "questActive": "rats_in_the_hold" }, "script": "wick.rats" },
+      { "cycle": ["wick.idle_1", "wick.idle_2", "wick.idle_3"] }
+    ]
+  },
+  {
+    "id": "rook", "name": "Tomas Rook", "title": "Deckhand", "appearance": "rook", "portrait": "rook", "voice": { "pitch": 0.6 },
+    "behavior": { "type": "work" },
+    "dialogue": [{ "script": "rook.default" }]
+  },
+  {
+    "id": "sully", "name": "Sully Crabbe", "title": "Deckhand", "appearance": "sully", "portrait": "sully", "voice": { "pitch": 1.0 },
+    "behavior": { "type": "work" },
+    "dialogue": [
+      { "if": { "questActive": "rats_in_the_hold" }, "script": "sully.rats" },
+      { "cycle": ["sully.idle_1", "sully.idle_2", "sully.idle_3"] }
+    ]
+  },
+  {
+    "id": "finch", "name": "Old Finch", "title": "Able Seaman", "appearance": "finch", "portrait": "finch", "voice": { "pitch": 0.9 },
+    "behavior": { "type": "sit", "facing": "down" },
+    "dialogue": [
+      { "if": { "all": [{ "hasItem": "rusty_key" }, { "notFlag": "finch_key_returned" }] }, "script": "finch.key_return" },
+      { "if": { "flag": "finch_key_returned" }, "script": "finch.after" },
+      { "script": "finch.default" }
+    ]
+  },
+  {
+    "id": "jory", "name": "Jory Adze", "title": "Carpenter", "appearance": "jory", "portrait": "jory", "voice": { "pitch": 1.1 },
+    "behavior": { "type": "work" },
+    "dialogue": [
+      { "if": { "all": [{ "questActive": "rats_in_the_hold" }, { "objectiveNotDone": "rats_in_the_hold.clear_hold" }] }, "script": "jory.rats" },
+      { "if": { "questCompleted": "rats_in_the_hold" }, "script": "jory.after" },
+      { "script": "jory.default" }
+    ]
+  }
+]

@@ -1,0 +1,171 @@
+{
+  "id": "galley",
+  "name": "Galley",
+  "tileset": "ship",
+  "music": "ship_theme",
+  "musicFilter": "muffled",
+  "ambience": "below",
+  "lighting": {
+    "ambient": "#a08a80"
+  },
+  "legend": {
+    " ": "void",
+    ".": "floor",
+    "W": "wall",
+    "O": "porthole",
+    "[": "side_l",
+    "]": "side_r",
+    "_": "cap",
+    "{": "cap_l",
+    "}": "cap_r",
+    "v": "exit_s",
+    "L": "diag_l",
+    "R": "diag_r",
+    "d": "door_t",
+    "D": "door",
+    "#": "ladder",
+    "l": "ladder_foot",
+    "x": "brick",
+    "q": "stairs_tl",
+    "w": "stairs_tr",
+    "e": "stairs_bl",
+    "r": "stairs_br"
+  },
+  "tiles": [
+    "                  ",
+    "[WWWWWWWWWWWWW#WW]",
+    "[WWWOWWWWOWWWW#WW]",
+    "[WWWWWWWWWWWWWlWW]",
+    "[xxxx............]",
+    "[xxxx............]",
+    "[xxxx............]",
+    "[................]",
+    "[................]",
+    "[................]",
+    "[...........qw...]",
+    "[...........er...]",
+    "{_______v________}"
+  ],
+  "props": [
+    "stove 1 4",
+    "galley_shelf 5 2",
+    "hanging_pots 10 2",
+    "prep_table 5 4",
+    "flour_sacks 8 4",
+    "flour_sacks 9 4",
+    "barrel_water 16 4",
+    "crate_stack 16 6",
+    "crate 15 6",
+    "sacks 16 8",
+    "bench 4 8",
+    "mess_table 4 9",
+    "bench 4 10",
+    "hanging_herbs 5 6",
+    "lantern_hanging 7 7",
+    "lantern_hanging 13 7"
+  ],
+  "onEnter": [
+    {
+      "if": {
+        "notFlag": "galley_argument_seen"
+      },
+      "script": "cutscene.galley_argument"
+    }
+  ],
+  "objects": [
+    {
+      "id": "ladder",
+      "type": "spawn",
+      "x": 14,
+      "y": 4,
+      "facing": "down"
+    },
+    {
+      "id": "south_door",
+      "type": "spawn",
+      "x": 8,
+      "y": 11,
+      "facing": "up"
+    },
+    {
+      "id": "stairs",
+      "type": "spawn",
+      "x": 14,
+      "y": 11,
+      "facing": "left"
+    },
+    {
+      "id": "to_deck",
+      "type": "warp",
+      "x": 14,
+      "y": 3,
+      "to": {
+        "map": "main_deck",
+        "spawn": "main_hatch"
+      },
+      "sfx": "ladder"
+    },
+    {
+      "id": "to_crew",
+      "type": "warp",
+      "x": 8,
+      "y": 12,
+      "to": {
+        "map": "crew_quarters",
+        "spawn": "north_door"
+      },
+      "sfx": "door"
+    },
+    {
+      "id": "to_hold",
+      "type": "warp",
+      "x": 12,
+      "y": 10,
+      "w": 2,
+      "h": 2,
+      "to": {
+        "map": "cargo_hold",
+        "spawn": "stairs"
+      },
+      "sfx": "stairs"
+    },
+    {
+      "id": "pot",
+      "type": "inspect",
+      "x": 1,
+      "y": 5,
+      "w": 2,
+      "script": "inspect.stew"
+    },
+    {
+      "id": "mags",
+      "type": "npc",
+      "npc": "mags",
+      "x": 3,
+      "y": 5,
+      "facing": "left"
+    },
+    {
+      "id": "quill",
+      "type": "npc",
+      "npc": "quill",
+      "x": 11,
+      "y": 6,
+      "facing": "down",
+      "if": {
+        "questNotCompleted": "rats_in_the_hold"
+      }
+    },
+    {
+      "id": "quill_after",
+      "type": "npc",
+      "npc": "quill",
+      "x": 13,
+      "y": 5,
+      "facing": "down",
+      "if": {
+        "questCompleted": "rats_in_the_hold"
+      }
+    }
+  ]
+}

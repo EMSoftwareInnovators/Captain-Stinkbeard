@@ -1,0 +1,47 @@
+{
+  "quill.default": [
+    "quill: Captain. Forgive me, I'm in the middle of a count. Forty-one... forty-two..."
+  ],
+  "quill.rats_brief": [
+    "quill: Captain. Thank you for coming. It's the hold stores. Something has been at them.",
+    "quill[concerned]: Eleven biscuits. Two sacks of peas. A wheel of cheese I was saving for your birthday.",
+    "captain[annoyed]: My birthday was in March.",
+    "quill: It was a very patient cheese, sir. Was.",
+    "quill: Rats, Captain. In the cargo hold. Jory's seen them, bold as brass, and one of them the size of a dog.",
+    "quill[concerned]: The crew won't go down. Well, they will, but they come back with less biscuit and more bites.",
+    "quill: I'd be grateful if you dealt with it. Personally. It sends a message.",
+    "captain: To the crew?",
+    "quill: To the rats, sir.",
+    { "giveItem": "bandage", "count": 2 },
+    "quill: Bandages from the stores, signed for. The stairs down to the hold are just there, by the aft bulkhead.",
+    { "setFlag": "rat_problem_started" }
+  ],
+  "quill.rats_reminder": [
+    "quill: Any luck below, Captain? I've been counting the biscuits again. I wish I hadn't.",
+    { "if": { "objectiveActive": "rats_in_the_hold.clear_hold" }, "then": [
+      "quill[concerned]: Jory reckons three nests. Three. I've started a separate ledger just for rats."
+    ] }
+  ],
+  "quill.rats_report": [
+    "quill: Captain! You're back. And you're...",
+    "quill[surprised]: ...Is that blood?",
+    "captain[smug]: Not mine.",
+    "quill[happy]: Then the hold is clear! I'll amend the ledger at once.",
+    "quill: 'Stores secured. Losses: eleven biscuits, two sacks of peas, one cheese, and approximately six rats.'",
+    "quill: The company thanks you. The company being, technically, you.",
+    "quill: Something from the stores for your trouble. And this, which Jory made from... well. You'll see.",
+    "quill[happy]: The ship's stores are open again, too. Everything in order. Everything accounted for.",
+    "captain: Everything?",
+    "quill[concerned]: ...Except the doubloon you borrowed for luck in March, sir. But I'm sure that's in hand."
+  ],
+  "quill.after": {
+    "start": [
+      "quill: Ship's stores, Captain. Fair prices. They're fair because I set them.",
+      { "choice": [
+        { "text": "Show me the stores", "then": [{ "shop": "ships_stores" }] },
+        { "text": "How are the accounts?", "then": ["quill[happy]: Balanced, sir. For the first time in a month. I may frame this page."] },
+        { "text": "Carry on, Quill" }
+      ] }
+    ]
+  }
+}

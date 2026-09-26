@@ -1,0 +1,107 @@
+{
+  "//": "Things the captain can look at. Script ids start with 'inspect.'.",
+  "inspect.desk": [
+    { "if": { "notFlag": "took_treasure_key" }, "then": [
+      "Charts of the Windward Passage, weighed down with a compass and last night's cold coffee.",
+      "The top drawer sticks, as it always does. Inside: the <y>Captain's Key</>.",
+      { "giveItem": "treasure_key" },
+      { "setFlag": "took_treasure_key" },
+      "captain: There you are."
+    ], "else": [
+      "Charts, dividers and a candle stub. The course is in Nell's neat hand; the curses in the margin are yours."
+    ] }
+  ],
+  "inspect.bed": {
+    "start": [
+      "Your bed. Feather mattress, red wool blanket. The only soft thing aboard.",
+      { "choice": [{ "text": "Rest a while", "goto": "rest" }, { "text": "Not now" }] }
+    ],
+    "rest": [
+      { "fade": "out", "duration": 500 },
+      { "heal": "party" },
+      { "sfx": "rest" },
+      { "wait": 1000 },
+      { "fade": "in", "duration": 500 },
+      "You rest your eyes for a turn of the glass. You feel ready to shout at someone again.",
+      { "if": { "notFlag": "bed_rested_once" }, "then": [
+        { "setFlag": "bed_rested_once" },
+        "(HP fully restored. Resting in your own bed is always free.)"
+      ] }
+    ]
+  },
+  "inspect.stern_windows": [
+    "Through the stern windows the wake unspools behind {ship}. Somewhere back there is yesterday. You don't miss it."
+  ],
+  "inspect.portrait": [
+    "A portrait of yourself, in oils. The artist was paid handsomely to add a few inches.",
+    "captain[smug]: Accurate."
+  ],
+  "inspect.helm": [
+    "She's seen better days, but she still answers the helm.",
+    { "if": { "objectiveActive": "captains_rounds.inspect_deck" }, "then": [
+      "nell: South-sou'west, Captain. Wind's steady on the quarter. She'll hold it till nightfall.",
+      "captain: Good. Keep her there."
+    ] }
+  ],
+  "inspect.rum_barrel": [
+    "Rum."
+  ],
+  "inspect.bell": {
+    "start": [
+      "The ship's bell, polished bright. It marks the watches.",
+      { "choice": [{ "text": "Ring it", "goto": "ring" }, { "text": "Leave it be" }] }
+    ],
+    "ring": [
+      { "sfx": "bell" },
+      { "wait": 900 },
+      { "if": { "notFlag": "rang_bell" }, "then": [
+        { "setFlag": "rang_bell" },
+        "crew: Is that the watch? That's not the change of watch! Who rang the—",
+        "crew: ...Oh. Morning, Captain.",
+        "captain[smug]: Just making sure it still works."
+      ], "else": [
+        "Somewhere below, several sailors groan in unison."
+      ] }
+    ]
+  },
+  "inspect.flag": [
+    "Your colours: a skull wearing a proper beard, over two crossed cutlasses. Merchants have been known to surrender on sight.",
+    "captain[smug]: As they should."
+  ],
+  "inspect.stew": [
+    "A cauldron of something brown. It's either stew or bilge, and Mags will be very hurt if you ask which."
+  ],
+  "inspect.dunstan": [
+    "sleeper: Hnnrk... five more minutes, Mother...",
+    "captain[annoyed]: ...",
+    "Dunstan of the middle watch. You'll deal with him later. Probably with a bucket."
+  ],
+  "inspect.finch_chest": [
+    { "if": { "flag": "finch_key_returned" }, "then": [
+      "Finch's old sea chest. Empty now, save for the smell of pipe tobacco and forty years of stories."
+    ], "else": [
+      "An old sea chest with a fish carved on the lid. Locked. The keyhole is crusted with rust.",
+      { "if": { "flag": "finch_mentioned_key" }, "then": ["This must be Old Finch's chest. The one he lost the key to."] }
+    ] }
+  ],
+  "inspect.treasure_door_locked": [
+    "The treasure hold door: iron-bound oak and a lock the size of your fist.",
+    "Locked. Even your own crew doesn't get free access to this.",
+    "captain[annoyed]: And my key is still in my desk. Of course it is."
+  ],
+  "inspect.hoard": [
+    "The ship's treasure: gold, silver, and a few things too pretty to spend. Every coin is in Quill's ledger.",
+    { "if": { "objectiveActive": "captains_rounds.inspect_treasure" }, "then": [
+      "captain: All present. Good.",
+      { "setFlag": "checked_treasure_hold" }
+    ], "else": [
+      "captain[smug]: Still here. Still mine. Mostly."
+    ] }
+  ],
+  "inspect.treasure_ledger": [
+    "Quill's inventory of the treasure hold, in a hand so neat it is almost threatening.",
+    "“One crown, jewelled. One idol, gold, emerald eyes (Finch objects). Four thousand two hundred and eleven coins, assorted.”",
+    "“Note: the Captain took one (1) doubloon on the 14th of March, for luck. To be returned.”",
+    "captain[annoyed]: He's still counting that one."
+  ]
+}

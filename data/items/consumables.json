@@ -1,0 +1,22 @@
+[
+  {
+    "id": "hardtack", "name": "Hardtack", "type": "consumable", "icon": "hardtack", "value": 4,
+    "description": "Ship's biscuit. Hard enough to stop a musket ball and about as tasty. Restores 18 HP.",
+    "use": { "target": "ally", "context": ["field", "battle"], "effects": [{ "type": "heal", "amount": 18 }] }
+  },
+  {
+    "id": "healing_tonic", "name": "Healing Tonic", "type": "consumable", "icon": "tonic", "value": 20,
+    "description": "Doc Fennimore's own recipe. Tastes of cloves and regret. Restores 45 HP.",
+    "use": { "target": "ally", "context": ["field", "battle"], "effects": [{ "type": "heal", "amount": 45 }] }
+  },
+  {
+    "id": "rum_ration", "name": "Rum Ration", "type": "consumable", "icon": "rum", "value": 8,
+    "description": "The daily tot. Restores 10 HP; in battle it also emboldens (Attack up for 3 turns).",
+    "use": { "target": "ally", "context": ["field", "battle"], "effects": [{ "type": "heal", "amount": 10 }, { "type": "applyStatus", "status": "emboldened", "duration": 3 }] }
+  },
+  {
+    "id": "bandage", "name": "Bandage", "type": "consumable", "icon": "bandage", "value": 6,
+    "description": "Clean linen. Well, linen. Restores 12 HP and cures a festering bite.",
+    "use": { "target": "ally", "context": ["field", "battle"], "effects": [{ "type": "heal", "amount": 12 }, { "type": "cure", "status": "sickened" }] }
+  }
+]

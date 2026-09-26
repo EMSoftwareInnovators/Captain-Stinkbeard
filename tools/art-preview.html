@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Art preview — Captain Stinkbeard</title>
+    <style>
+      body { background: #2a2a33; color: #ddd; font: 12px monospace; margin: 12px; }
+      h2 { margin: 16px 0 4px; font-size: 13px; color: #fc6; }
+      canvas { image-rendering: pixelated; background: #4a4a58; margin: 2px; vertical-align: top; }
+      .dark canvas { background: #111; }
+      .row { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px; }
+      .cell { display: inline-block; text-align: center; }
+      .cell span { display: block; font-size: 10px; color: #aaa; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./art-preview.js"></script>
+  </body>
+</html>

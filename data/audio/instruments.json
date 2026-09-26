@@ -1,0 +1,14 @@
+{
+  "//": "Synth instruments used by songs. See src/audio/synth/voices.js for the meaning of each field.",
+  "brass": { "type": "fm", "ratio": 1, "index": 2.6, "indexDecay": 0.22, "indexFloor": 0.4, "attack": 0.025, "decay": 0.14, "sustain": 0.72, "release": 0.1, "vibrato": { "rate": 5.2, "depth": 0.006, "delay": 0.22 }, "lowpass": 0.62, "gate": 0.92 },
+  "lead_pulse": { "wave": "square", "duty": 0.25, "attack": 0.008, "decay": 0.1, "sustain": 0.55, "release": 0.1, "vibrato": { "rate": 5.5, "depth": 0.007, "delay": 0.18 }, "lowpass": 0.42, "gate": 0.88 },
+  "flute": { "wave": "triangle", "attack": 0.035, "decay": 0.1, "sustain": 0.82, "release": 0.12, "vibrato": { "rate": 4.8, "depth": 0.009, "delay": 0.2 }, "breath": 0.06, "lowpass": 0.7, "gate": 0.9 },
+  "concertina": { "wave": "square", "duty": 0.35, "detune": 9, "attack": 0.04, "decay": 0.2, "sustain": 0.65, "release": 0.12, "lowpass": 0.22, "gate": 0.85 },
+  "pluck": { "type": "pluck", "brightness": 0.52, "damping": 0.994, "release": 0.08, "gate": 1 },
+  "pluck_bass": { "type": "pluck", "brightness": 0.3, "damping": 0.997, "release": 0.08, "gate": 1 },
+  "fm_bass": { "type": "fm", "ratio": 1, "index": 1.7, "indexDecay": 0.1, "indexFloor": 0.25, "attack": 0.004, "decay": 0.18, "sustain": 0.55, "release": 0.05, "lowpass": 0.45, "gate": 0.85 },
+  "tri_bass": { "wave": "triangle", "attack": 0.004, "decay": 0.08, "sustain": 0.85, "release": 0.05, "gate": 0.9 },
+  "pad": { "wave": "saw", "detune": 11, "attack": 0.25, "decay": 0.4, "sustain": 0.6, "release": 0.4, "lowpass": 0.06, "gate": 1 },
+  "bell": { "type": "fm", "ratio": 3.5, "index": 1.6, "indexDecay": 0.5, "indexFloor": 0.1, "attack": 0.002, "decay": 0.9, "sustain": 0.05, "release": 0.3, "gate": 1 },
+  "kit": { "type": "drums", "levels": { "k": 1.0, "s": 0.8, "h": 0.55, "o": 0.6, "t": 0.9, "T": 0.9, "c": 0.7 } }
+}

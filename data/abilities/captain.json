@@ -1,0 +1,19 @@
+[
+  {
+    "id": "cutlass_slash", "name": "Cutlass", "kind": "attack", "target": "enemy",
+    "power": 100, "accuracy": 100, "timing": "cutlass_strike", "anim": "slash", "sfx": "sword_hit",
+    "description": "A trusty slash. Press Confirm as the blade lands for extra damage."
+  },
+  {
+    "id": "order_brace", "name": "Brace!", "kind": "order", "target": "allies", "cost": { "command": 1 },
+    "effects": [{ "type": "applyStatus", "status": "braced", "duration": 3 }],
+    "anim": "order", "shout": "BRACE!", "sfx": "buff",
+    "description": "Captain's Order. Raises Defense by half for 3 turns."
+  },
+  {
+    "id": "order_focus_fire", "name": "Focus Fire!", "kind": "order", "target": "enemy", "cost": { "command": 2 },
+    "effects": [{ "type": "applyStatus", "status": "marked", "duration": 3 }],
+    "anim": "order", "shout": "FOCUS FIRE!", "sfx": "debuff",
+    "description": "Captain's Order. Marks a foe: it takes 50% more damage for 3 turns."
+  }
+]

@@ -1,0 +1,198 @@
+{
+  "id": "cargo_hold",
+  "name": "Cargo Hold",
+  "tileset": "ship",
+  "music": "ship_theme",
+  "musicFilter": "muffled",
+  "ambience": "hold",
+  "lighting": {
+    "ambient": "#5a5068"
+  },
+  "legend": {
+    " ": "void",
+    ".": "hold",
+    "%": "hold_wet",
+    "H": "hwall",
+    "[": "side_l",
+    "]": "side_r",
+    "_": "cap",
+    "{": "cap_l",
+    "}": "cap_r",
+    "v": "exit_s",
+    "t": "tdoor_t",
+    "T": "tdoor",
+    "<": "wstair_l",
+    ">": "wstair_r",
+    "L": "hdiag_l",
+    "R": "hdiag_r"
+  },
+  "tiles": [
+    "                    ",
+    "[HHHHHHHHHHHHH<>HHH]",
+    "[HHHtHHHHHHHHH<>HHH]",
+    "[HHHTHHHHHHHHH<>HHH]",
+    "[..................]",
+    "[.......%..........]",
+    "[..................]",
+    "[..................]",
+    "[............%.....]",
+    "[..................]",
+    "[..................]",
+    "[..%...............]",
+    "[..................]",
+    "[..................]",
+    "[..........%.......]",
+    "[..................]",
+    "[..................]",
+    "{__________________}"
+  ],
+  "props": [
+    "hull_patch 9 2",
+    "rat_hole 18 3",
+    "barrel 17 5",
+    "barrel 18 5",
+    "barrel_water 18 6",
+    "crate_stack 1 7",
+    "crate_big 2 6",
+    "crate 4 7",
+    "crate_stack 5 7",
+    "crate 6 7",
+    "crate_big 11 4",
+    "crate 13 5",
+    "powder_keg 1 10",
+    "powder_keg 2 10",
+    "cannonballs 1 11",
+    "mast_pillar 8 10",
+    "crate_stack 14 9",
+    "crate_wide 15 10",
+    "crate 17 9",
+    "sacks 18 10",
+    "barrel 5 12",
+    "barrel 6 13",
+    "crate 3 14",
+    "crate_marked 2 15",
+    "sacks 1 15",
+    "bilge_pump 10 15",
+    "sacks 17 15",
+    "crate 18 14",
+    "crate_stack 13 16",
+    "lantern_hanging 6 5",
+    "lantern_hanging 14 8",
+    "lantern_hanging 7 13",
+    "lantern_hanging 16 14"
+  ],
+  "onEnter": [
+    {
+      "if": {
+        "all": [
+          {
+            "questActive": "rats_in_the_hold"
+          },
+          {
+            "notFlag": "rats_intro_seen"
+          }
+        ]
+      },
+      "script": "cutscene.rats_intro"
+    }
+  ],
+  "objects": [
+    {
+      "id": "stairs",
+      "type": "spawn",
+      "x": 14,
+      "y": 4,
+      "facing": "down"
+    },
+    {
+      "id": "treasure_door",
+      "type": "spawn",
+      "x": 4,
+      "y": 4,
+      "facing": "down"
+    },
+    {
+      "id": "to_galley",
+      "type": "warp",
+      "x": 14,
+      "y": 3,
+      "w": 2,
+      "to": {
+        "map": "galley",
+        "spawn": "stairs"
+      },
+      "sfx": "stairs"
+    },
+    {
+      "id": "to_treasure",
+      "type": "warp",
+      "x": 4,
+      "y": 3,
+      "to": {
+        "map": "treasure_hold",
+        "spawn": "door"
+      },
+      "sfx": "heavy_door",
+      "if": {
+        "hasItem": "treasure_key"
+      },
+      "locked": "inspect.treasure_door_locked"
+    },
+    {
+      "id": "gunnery_crate",
+      "type": "chest",
+      "x": 2,
+      "y": 15,
+      "prop": "crate_marked",
+      "items": [
+        {
+          "id": "cannon_fuse",
+          "count": 1
+        }
+      ],
+      "text": "A crate of gunnery stores. Tucked between the wadding and the spare flints is a coil of slow match."
+    },
+    {
+      "id": "jory",
+      "type": "npc",
+      "npc": "jory",
+      "x": 9,
+      "y": 4,
+      "facing": "up"
+    },
+    {
+      "id": "rats_1",
+      "type": "enemy",
+      "encounter": "hold_rats_1",
+      "x": 12,
+      "y": 8,
+      "wander": 2,
+      "if": {
+        "questActive": "rats_in_the_hold"
+      }
+    },
+    {
+      "id": "rats_2",
+      "type": "enemy",
+      "encounter": "hold_rats_2",
+      "x": 4,
+      "y": 12,
+      "wander": 2,
+      "if": {
+        "questActive": "rats_in_the_hold"
+      }
+    },
+    {
+      "id": "rats_nest",
+      "type": "enemy",
+      "encounter": "hold_rats_nest",
+      "x": 15,
+      "y": 14,
+      "wander": 1,
+      "chase": 3,
+      "if": {
+        "questActive": "rats_in_the_hold"
+      }
+    }
+  ]
+}

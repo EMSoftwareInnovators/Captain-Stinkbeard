@@ -1,0 +1,93 @@
+{
+  "id": "treasure_hold",
+  "name": "Treasure Hold",
+  "tileset": "ship",
+  "music": "ship_theme",
+  "musicFilter": "muffled",
+  "ambience": "hold",
+  "lighting": {
+    "ambient": "#6a5a58",
+    "gold": true
+  },
+  "legend": {
+    " ": "void",
+    ".": "hold",
+    "%": "hold_wet",
+    "H": "hwall",
+    "[": "side_l",
+    "]": "side_r",
+    "_": "cap",
+    "{": "cap_l",
+    "}": "cap_r",
+    "v": "exit_s",
+    "t": "tdoor_t",
+    "T": "tdoor",
+    "<": "wstair_l",
+    ">": "wstair_r",
+    "L": "hdiag_l",
+    "R": "hdiag_r"
+  },
+  "tiles": [
+    "              ",
+    "[HHHHHHHHHHHH]",
+    "[HHHHHHHHHHHH]",
+    "[HHHHHHHHHHHH]",
+    "[............]",
+    "[............]",
+    "[............]",
+    "[............]",
+    "[............]",
+    "{_____v______}"
+  ],
+  "props": [
+    "shield_wall 5 2",
+    "gold_bars 1 4",
+    "treasure_chest_small 3 4",
+    "treasure_chest 5 4",
+    "crown_cushion 8 4",
+    "goblet_stand 10 4",
+    "idol 12 4",
+    "gold_pile 2 6",
+    "gold_pile 9 6",
+    "coin_pile 4 7",
+    "coin_pile 8 8",
+    "ledger_stand 1 7",
+    "strongbox 11 7",
+    "lantern_hanging 6 5"
+  ],
+  "objects": [
+    {
+      "id": "door",
+      "type": "spawn",
+      "x": 6,
+      "y": 8,
+      "facing": "up"
+    },
+    {
+      "id": "to_hold",
+      "type": "warp",
+      "x": 6,
+      "y": 9,
+      "to": {
+        "map": "cargo_hold",
+        "spawn": "treasure_door"
+      },
+      "sfx": "heavy_door"
+    },
+    {
+      "id": "hoard",
+      "type": "inspect",
+      "x": 5,
+      "y": 4,
+      "w": 2,
+      "script": "inspect.hoard"
+    },
+    {
+      "id": "ledger",
+      "type": "inspect",
+      "x": 1,
+      "y": 7,
+      "script": "inspect.treasure_ledger"
+    }
+  ]
+}

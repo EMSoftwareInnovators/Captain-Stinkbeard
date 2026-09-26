@@ -1,0 +1,14 @@
+[
+  { "id": "defending", "name": "Guarding", "kind": "buff", "duration": 1, "expires": "turnStart", "modifiers": { "damageTaken": 0.5 },
+    "description": "Takes half damage until the next turn." },
+  { "id": "braced", "name": "Braced", "kind": "buff", "duration": 3, "modifiers": { "defense": 1.5 },
+    "description": "Defense up." },
+  { "id": "marked", "name": "Marked", "kind": "debuff", "duration": 3, "modifiers": { "damageTaken": 1.5 },
+    "description": "Takes 50% more damage." },
+  { "id": "sickened", "name": "Sickened", "kind": "debuff", "duration": 3, "tick": { "damagePercent": 6, "min": 2 },
+    "description": "Loses a little HP at the end of each turn." },
+  { "id": "emboldened", "name": "Emboldened", "kind": "buff", "duration": 3, "modifiers": { "attack": 1.25 },
+    "description": "Attack up." },
+  { "id": "rattled", "name": "Rattled", "kind": "debuff", "duration": 2, "modifiers": { "defense": 0.75 },
+    "description": "Defense down." }
+]

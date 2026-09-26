@@ -1,0 +1,23 @@
+[
+  {
+    "id": "blackbeard",
+    "name": "Blackbeard",
+    "title": "Captain",
+    "aliases": ["captain"],
+    "appearance": "blackbeard",
+    "portrait": "blackbeard",
+    "voice": { "pitch": 0.62 },
+    "startLevel": 1,
+    "baseStats": { "maxHp": 64, "attack": 14, "defense": 9, "speed": 9, "luck": 6 },
+    "growth": { "maxHp": 9, "attack": 2, "defense": 1.5, "speed": 1, "luck": 0.6 },
+    "startEquipment": { "weapon": "cutlass", "body": "captains_coat", "feet": "sea_boots", "accessory": null },
+    "learnset": [
+      { "level": 1, "ability": "order_brace" },
+      { "level": 2, "ability": "order_focus_fire" }
+    ],
+    "battle": {
+      "attack": "cutlass_slash",
+      "resource": { "id": "command", "name": "Command", "short": "CMD", "max": 5, "start": 2, "onDefend": 1, "onTiming": { "great": 1, "perfect": 1 } }
+    }
+  }
+]

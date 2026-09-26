@@ -1,0 +1,17 @@
+{
+  "//": "Timed-input mechanics. Windows are milliseconds either side of the impact moment.",
+  "cutlass_strike": {
+    "type": "impactPress",
+    "label": "Press Confirm as the blade lands!",
+    "windows": { "perfect": 45, "great": 95, "good": 165 },
+    "multipliers": { "perfect": 1.5, "great": 1.3, "good": 1.15, "none": 1.0 },
+    "windupMs": 420,
+    "earlyLockoutMs": 260
+  },
+  "guard": {
+    "type": "guardPress",
+    "label": "Press Confirm as the blow lands to guard!",
+    "windows": { "perfect": 55, "good": 130 },
+    "reduction": { "perfect": 0.5, "good": 0.75, "none": 1.0 }
+  }
+}

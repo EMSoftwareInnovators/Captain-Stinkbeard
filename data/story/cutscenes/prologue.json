@@ -1,0 +1,80 @@
+{
+  "//": "Prologue cutscenes. Scripts run with player control locked; see docs/CONTENT_GUIDE.md for commands.",
+  "cutscene.opening": [
+    { "fade": "out", "duration": 0 },
+    { "banner": "PROLOGUE", "sub": "Life aboard the Revenge" },
+    { "narrate": "The Caribbean. A fair wind, a full hold, and a ship whose name makes honest merchants lock their cabins." },
+    { "narrate": "Her captain has been awake since the middle watch." },
+    { "close": true },
+    { "fade": "in", "duration": 900 },
+    { "wait": 700 },
+    { "sfx": "knock" },
+    { "wait": 500 },
+    { "emote": "player", "icon": "ellipsis" },
+    { "sfx": "door" },
+    { "spawn": "wick", "x": 8, "y": 10, "facing": "up" },
+    { "move": "wick", "path": ["up", 2], "speed": "run" },
+    { "emote": "wick", "icon": "exclaim", "duration": 500 },
+    "wick[happy]: Captain! Mister Hale's compliments, and the morning watch is set, and the crew's ready for your rounds!",
+    "wick: He said to say it politely.",
+    "captain[annoyed]: You've said it. Loudly.",
+    "wick[concerned]: He also said to tell you the cook's in a mood, the quartermaster's in a mood...",
+    "wick: ...and Old Finch says the sea's in a mood.",
+    "captain[annoyed]: And what mood am I in, Wick?",
+    { "emote": "wick", "icon": "sweat" },
+    "wick[concerned]: ...A captain's mood, sir?",
+    "captain[smug]: Good answer. Tell Hale I'm coming.",
+    "wick[happy]: Aye aye, Captain!",
+    { "move": "wick", "path": ["down", 2], "speed": "run" },
+    { "sfx": "door" },
+    { "despawn": "wick" },
+    { "wait": 400 },
+    "captain: Rounds, then. The deck, the galley and the treasure hold...",
+    "captain[annoyed]: ...which means the key. Which is in the desk. Where I left it.",
+    { "startQuest": "captains_rounds" },
+    { "setFlag": "opening_seen" },
+    { "tutorial": "Walk with {btn:move}. Talk and inspect with {btn:confirm}. Hold {btn:run} to run. Open the menu with {btn:menu}.", "title": "Controls" },
+    { "save": "auto" }
+  ],
+
+  "cutscene.galley_argument": [
+    { "setFlag": "galley_argument_seen" },
+    { "wait": 350 },
+    "mags[angry]: I did NOT eat eleven biscuits, Josiah Quill! I have <y>standards</>!",
+    "quill[concerned]: I'm not saying you ate them, Mags. I'm saying they've been eaten, and the ledger doesn't—",
+    { "face": "mags", "dir": "player" },
+    { "face": "quill", "dir": "player" },
+    { "parallel": [[{ "emote": "mags", "icon": "exclaim" }], [{ "emote": "quill", "icon": "exclaim" }]] },
+    "mags[surprised]: Captain!",
+    "quill: Captain. Good. You can settle this.",
+    "captain[annoyed]: Settle what?",
+    "quill[concerned]: Something's been at the stores. Biscuit, peas, the cheese. I've counted twice.",
+    "mags[annoyed]: It's <r>rats</>, Captain. I've seen their leavings in the flour. Filthy beasts.",
+    "quill: Then it's rats in the cargo hold. Captain, might I have a word? Properly, I mean.",
+    { "startQuest": "rats_in_the_hold" },
+    { "tutorial": "New quests go in the Quest Log. Open the menu with {btn:menu} to check your objectives any time.", "title": "Quests" }
+  ],
+
+  "cutscene.rats_intro": [
+    { "setFlag": "rats_intro_seen" },
+    { "wait": 400 },
+    { "sfx": "squeak" },
+    { "shake": 1, "duration": 220 },
+    "Something skitters behind the crates. Several somethings.",
+    { "face": "jory", "dir": "player" },
+    "jory[determined]: Captain! Mind your boots, they're bold today. Three nests, near as I can tell.",
+    "jory: Walk up to one and it'll fight you. Catch one from behind, though, and you get the first blow in.",
+    { "tutorial": "Enemies you can see can be fought: touch one to start a battle. Reach it from behind for a first strike, but let one reach your back and it strikes first.", "title": "Battles" }
+  ],
+
+  "cutscene.tutorial_done": [
+    { "if": { "all": [{ "questCompleted": "captains_rounds" }, { "questCompleted": "rats_in_the_hold" }, { "notFlag": "tutorial_complete" }] }, "then": [
+      { "setFlag": "tutorial_complete" },
+      { "wait": 500 },
+      "captain: Rounds done. Rats done. Ledger balanced.",
+      "captain[smug]: Not a bad morning's work.",
+      { "banner": "The ship is yours", "sub": "Explore, talk to the crew, spar with Rook" },
+      { "save": "auto" }
+    ] }
+  ]
+}

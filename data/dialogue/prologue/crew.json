@@ -1,0 +1,174 @@
+{
+  "mags.default": {
+    "start": [
+      "mags: Captain! Mind the pot, it spits.",
+      { "choice": [
+        { "text": "What's cooking?", "then": [
+          "mags[happy]: Stew. It's always stew. Today it's got fish in, and some of the fish is new.",
+          "captain[annoyed]: And the rest of the fish?",
+          "mags[laugh]: Seasoned, Captain. Very seasoned."
+        ] },
+        { "text": "I need provisions", "then": [{ "shop": "galley_stores" }] },
+        { "text": "Carry on, Mags" }
+      ] }
+    ]
+  },
+  "mags.rats": [
+    "mags[angry]: Rats, Captain! In MY stores! I'll not cook for a ship that feeds vermin before sailors!",
+    { "if": { "notFlag": "mags_biscuit_given" }, "then": [
+      "mags: Here. Take these down with you. Don't let the rats see you eating them, they'll get ideas.",
+      { "giveItem": "hardtack", "count": 2 },
+      { "setFlag": "mags_biscuit_given" }
+    ], "else": [
+      "mags[annoyed]: Go on, then. Give them what for."
+    ] }
+  ],
+
+  "doc.default": {
+    "start": [
+      "fennimore: Captain. Any new aches, pains, gunshot wounds or existential dread?",
+      { "choice": [
+        { "text": "Patch me up", "goto": "heal" },
+        { "text": "Show me your medicines", "then": [{ "shop": "doc_medicine" }] },
+        { "text": "Just passing" }
+      ] }
+    ],
+    "heal": [
+      { "heal": "party" },
+      { "sfx": "heal" },
+      "fennimore[smug]: There. Good as new, or at least as good as you were. Try not to bleed on my floor."
+    ]
+  },
+
+  "brask.default": [
+    "brask: WHAT? Oh! CAPTAIN! Morning!",
+    "captain: You don't have to shout, Brask.",
+    "brask[happy]: SORRY, CAPTAIN! Cotton in the ears! Guns are loud, you know!",
+    "brask: Speaking of which, some lubber's gone and moved my spare fuse again! Can't fire a gun without a fuse!",
+    "brask: If you see a coil of slow match lying about, it's MINE. Probably down in the hold with the gunnery stores.",
+    { "startQuest": "brasks_fuse" }
+  ],
+  "brask.fuse_reminder": [
+    "brask: ANY SIGN OF MY FUSE, CAPTAIN? The hold, I reckon. By the powder."
+  ],
+  "brask.fuse_return": [
+    "brask[surprised]: Is that... THAT'S MY FUSE!",
+    { "takeItem": "cannon_fuse" },
+    "brask[laugh]: Knew it'd turn up! Probably walked there by itself. They do that, fuses.",
+    "brask: Here, a bit of prize money I'd put by. Buy yourself something LOUD."
+  ],
+  "brask.after_1": [
+    "brask: GUNS ARE CLEAN, CAPTAIN! You could eat your dinner off 'em! Don't, though. Powder."
+  ],
+  "brask.after_2": [
+    "brask[happy]: Named this one Margaret. That one's Margaret too. Easier to remember!"
+  ],
+
+  "nell.rounds": [
+    "nell: South-sou'west, Captain, and she's sailing sweet. The wheel's right here if you want to look over the course."
+  ],
+  "nell.idle_1": [
+    "nell: Clear stars last night. We're exactly where I said we'd be. Hale owes me a shilling."
+  ],
+  "nell.idle_2": [
+    "nell[smug]: Finch says the gulls flying backwards means a storm. They're flying backwards because they're following the galley scraps."
+  ],
+  "nell.idle_3": [
+    "nell: I could use a better chart of these waters, Captain. Ours was drawn by a man who had clearly never been here."
+  ],
+
+  "wick.rounds": [
+    "wick[happy]: I told Mister Hale you were coming! Politely! ...Mostly politely.",
+    { "if": { "objectiveActive": "captains_rounds.inspect_treasure" }, "then": [
+      "wick: Can I see the treasure hold, Captain? Just once? I won't touch anything. Much."
+    ] }
+  ],
+  "wick.rats": [
+    "wick[concerned]: Rats in the hold? I'm not scared of rats. I'm just going to stay up here, where it's sunny."
+  ],
+  "wick.idle_1": [
+    "wick[happy]: Mister Rook says when I'm bigger he'll let me work the capstan all by myself!"
+  ],
+  "wick.idle_2": [
+    "wick: I've been practising my knots, Captain. This one's a bowline. This one's... a mess."
+  ],
+  "wick.idle_3": [
+    "wick[concerned]: Captain, is it true you once took a navy frigate with one pistol and a bad temper?",
+    "captain[smug]: Two pistols.",
+    "wick[surprised]: Sully said two!"
+  ],
+
+  "rook.default": {
+    "start": [
+      "rook: Morning, Cap'n. Fine day for work. Or for a bit of sport.",
+      { "choice": [
+        { "text": "Spar with the crew", "goto": "spar" },
+        { "text": "How's the capstan?", "then": [
+          "rook[happy]: Stiff as a bishop's collar, Cap'n. I've greased it twice. Next I'll try reasoning with it."
+        ] },
+        { "text": "Carry on, Rook" }
+      ] }
+    ],
+    "spar": [
+      "rook[laugh]: Ha! Right. Two volunteers: you, and you. Mind the Captain, lads. He bites.",
+      { "battle": "sparring_match",
+        "win": [
+          "rook[happy]: That's why he's captain, lads. Up you get. Rub some salt in it.",
+          { "setFlag": "sparred_with_crew" }
+        ],
+        "lose": [
+          "rook[concerned]: Easy, easy! Nobody hits the Captain that hard. Nobody who wants their supper."
+        ] }
+    ]
+  },
+
+  "sully.idle_1": [
+    "sully[annoyed]: Swab the deck, says Hale. So I swab the deck. Then it rains and the deck's wet again.",
+    "sully: There's a lesson in that, Captain. I just don't care for it."
+  ],
+  "sully.idle_2": [
+    "sully: I'm not lazy, Captain. I'm efficient. I do nothing very quickly."
+  ],
+  "sully.idle_3": [
+    "sully[happy]: Finch says there's a sea serpent following us. I told him if it wants to swab the deck it's welcome aboard."
+  ],
+  "sully.rats": [
+    "sully: Rats in the hold? Can't say I'm surprised, Captain. I've seen the way we eat."
+  ],
+
+  "finch.default": [
+    "finch: Mornin', Captain. The sea's in a mood today. Feel it? Like she's holding her breath.",
+    "captain: It's flat calm, Finch.",
+    "finch[concerned]: That's what I mean, sir. That's exactly what I mean.",
+    { "if": { "notFlag": "finch_mentioned_key" }, "then": [
+      "finch: You haven't seen an old key about, have you? Rusty thing. Lost it years back. My sea chest's been locked since the Azores.",
+      "finch: Rats took it, I'd wager. They take everything shiny. Even when it isn't shiny anymore.",
+      { "setFlag": "finch_mentioned_key" }
+    ] }
+  ],
+  "finch.key_return": [
+    "finch[surprised]: Is that... that's my key! Where'd you find it?",
+    "captain: In a rat's nest. With the rat.",
+    "finch[happy]: Told you. Rats take everything.",
+    { "takeItem": "rusty_key" },
+    "finch: Let me just... there. Forty years of sailing in this chest, Captain. And this.",
+    "finch: My fishbone charm. Kept me from drowning since I was a boy. You take it. A captain needs luck more than an old man does.",
+    { "giveItem": "fishbone_charm" },
+    { "setFlag": "finch_key_returned" }
+  ],
+  "finch.after": [
+    "finch[happy]: Feels lighter, having that chest open. Like the sea's let out her breath.",
+    "finch: ...Now she's just waiting."
+  ],
+
+  "jory.default": [
+    "jory: Morning, Captain. Found a sprung plank on the larboard side. Nothing serious. She weeps a little, is all. Old ships do."
+  ],
+  "jory.rats": [
+    "jory[annoyed]: They've been chewing my patch, Captain. My <y>patch</>. Do you know how long it takes to caulk a seam properly?",
+    "jory: The big one's in the far corner, by the bilge pump. Scar across its back. It looked me in the eye. I did not care for it."
+  ],
+  "jory.after": [
+    "jory[happy]: Quiet down here now. Just the hull, the drip and me. Thank you, Captain. I'll have this seam done by supper."
+  ]
+}

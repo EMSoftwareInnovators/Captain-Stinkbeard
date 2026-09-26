@@ -1,0 +1,151 @@
+{
+  "id": "captains_quarters",
+  "name": "Captain's Quarters",
+  "tileset": "ship",
+  "music": "ship_theme",
+  "musicFilter": "muffled",
+  "ambience": "cabin",
+  "lighting": {
+    "ambient": "#b9a8a0",
+    "windows": true
+  },
+  "legend": {
+    " ": "void",
+    ".": "floor",
+    "W": "wall",
+    "O": "porthole",
+    "[": "side_l",
+    "]": "side_r",
+    "_": "cap",
+    "{": "cap_l",
+    "}": "cap_r",
+    "v": "exit_s",
+    "L": "diag_l",
+    "R": "diag_r",
+    "d": "door_t",
+    "D": "door",
+    "#": "ladder",
+    "l": "ladder_foot",
+    "x": "brick",
+    "q": "stairs_tl",
+    "w": "stairs_tr",
+    "e": "stairs_bl",
+    "r": "stairs_br"
+  },
+  "tiles": [
+    "                  ",
+    "[WWWWWWWWWWWWWWWW]",
+    "[WWWWWWWWWWWWWWWW]",
+    "[WWWWWWWWWWWWWWWW]",
+    "[................]",
+    "[................]",
+    "[................]",
+    "[................]",
+    "[................]",
+    "[................]",
+    "[................]",
+    "{_______vv_______}"
+  ],
+  "props": [
+    "stern_windows 5 1",
+    "captain_portrait 13 1",
+    "weapon_rack 15 2",
+    "bookshelf 1 4",
+    "wardrobe 3 4",
+    "captain_bed 14 4",
+    "captain_desk 7 6",
+    "captain_chair 10 5",
+    "rug_red 6 8",
+    "globe 4 7",
+    "rum_cabinet 16 8",
+    "chair 12 9",
+    "lantern_hanging 4 6",
+    "lantern_hanging 12 7"
+  ],
+  "objects": [
+    {
+      "id": "start",
+      "type": "spawn",
+      "x": 8,
+      "y": 5,
+      "facing": "down"
+    },
+    {
+      "id": "door",
+      "type": "spawn",
+      "x": 8,
+      "y": 10,
+      "facing": "up"
+    },
+    {
+      "id": "to_deck",
+      "type": "warp",
+      "x": 8,
+      "y": 11,
+      "w": 2,
+      "to": {
+        "map": "main_deck",
+        "spawn": "cabin_door"
+      },
+      "sfx": "door"
+    },
+    {
+      "id": "desk",
+      "type": "inspect",
+      "x": 7,
+      "y": 6,
+      "w": 3,
+      "h": 2,
+      "script": "inspect.desk"
+    },
+    {
+      "id": "bed",
+      "type": "inspect",
+      "x": 14,
+      "y": 4,
+      "w": 2,
+      "h": 3,
+      "script": "inspect.bed"
+    },
+    {
+      "id": "windows",
+      "type": "inspect",
+      "x": 5,
+      "y": 3,
+      "w": 8,
+      "script": "inspect.stern_windows"
+    },
+    {
+      "id": "portrait",
+      "type": "inspect",
+      "x": 13,
+      "y": 3,
+      "script": "inspect.portrait"
+    },
+    {
+      "id": "weapon_rack",
+      "type": "inspect",
+      "x": 15,
+      "y": 3,
+      "w": 2,
+      "text": [
+        "Two spare cutlasses and a brace of pistols. Loaded, naturally."
+      ]
+    },
+    {
+      "id": "captain_chest",
+      "type": "chest",
+      "x": 1,
+      "y": 9,
+      "w": 2,
+      "prop": "sea_chest",
+      "items": [
+        {
+          "id": "lucky_doubloon",
+          "count": 1
+        }
+      ],
+      "text": "Your sea chest. Under the spare shirts, wrapped in oilcloth, is your oldest possession."
+    }
+  ]
+}

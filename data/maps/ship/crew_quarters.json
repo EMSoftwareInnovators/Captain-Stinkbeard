@@ -1,0 +1,150 @@
+{
+  "id": "crew_quarters",
+  "name": "Crew Quarters",
+  "tileset": "ship",
+  "music": "ship_theme",
+  "musicFilter": "muffled",
+  "ambience": "below",
+  "lighting": {
+    "ambient": "#8a7a8a"
+  },
+  "legend": {
+    " ": "void",
+    ".": "floor",
+    "W": "wall",
+    "O": "porthole",
+    "[": "side_l",
+    "]": "side_r",
+    "_": "cap",
+    "{": "cap_l",
+    "}": "cap_r",
+    "v": "exit_s",
+    "L": "diag_l",
+    "R": "diag_r",
+    "d": "door_t",
+    "D": "door",
+    "#": "ladder",
+    "l": "ladder_foot",
+    "x": "brick",
+    "q": "stairs_tl",
+    "w": "stairs_tr",
+    "e": "stairs_bl",
+    "r": "stairs_br"
+  },
+  "tiles": [
+    "                  ",
+    "[WWWWWWWWWWWW#WWW]",
+    "[WOWWWWWdWWWW#WOW]",
+    "[WWWWWWWDWWWWlWWW]",
+    "[................]",
+    "[................]",
+    "[................]",
+    "[................]",
+    "[................]",
+    "[................]",
+    "[................]",
+    "[................]",
+    "L................R",
+    " L..............R ",
+    "  L............R  ",
+    "   L..........R   ",
+    "   {__________}   ",
+    "                  "
+  ],
+  "props": [
+    "fiddle 4 2",
+    "wall_hooks 9 2",
+    "hammock 1 5",
+    "hammock_sleeper 1 8",
+    "hammock 1 11",
+    "hammock 5 6",
+    "hammock_sleeper 5 10",
+    "footlocker 4 5",
+    "footlocker_b 4 8",
+    "footlocker_c 4 11",
+    "footlocker 8 7",
+    "barrel_table 10 6",
+    "stool 11 6",
+    "card_table 10 10",
+    "stool 9 10",
+    "stool 12 10",
+    "medicine_cabinet 15 4",
+    "cot 16 6",
+    "cot 16 9",
+    "mast_pillar 8 13",
+    "clothesline 5 4",
+    "lantern_hanging 7 8",
+    "lantern_hanging 13 11"
+  ],
+  "objects": [
+    {
+      "id": "ladder",
+      "type": "spawn",
+      "x": 13,
+      "y": 4,
+      "facing": "down"
+    },
+    {
+      "id": "north_door",
+      "type": "spawn",
+      "x": 8,
+      "y": 4,
+      "facing": "down"
+    },
+    {
+      "id": "to_deck",
+      "type": "warp",
+      "x": 13,
+      "y": 3,
+      "to": {
+        "map": "main_deck",
+        "spawn": "fore_hatch"
+      },
+      "sfx": "ladder"
+    },
+    {
+      "id": "to_galley",
+      "type": "warp",
+      "x": 8,
+      "y": 3,
+      "to": {
+        "map": "galley",
+        "spawn": "south_door"
+      },
+      "sfx": "door"
+    },
+    {
+      "id": "dunstan",
+      "type": "inspect",
+      "x": 1,
+      "y": 8,
+      "w": 3,
+      "script": "inspect.dunstan"
+    },
+    {
+      "id": "dunstan2",
+      "type": "inspect",
+      "x": 5,
+      "y": 10,
+      "w": 3,
+      "text": [
+        "A sailor from the middle watch, dead asleep with one boot on. You let him be. This time."
+      ]
+    },
+    {
+      "id": "finch_chest",
+      "type": "inspect",
+      "x": 4,
+      "y": 11,
+      "script": "inspect.finch_chest"
+    },
+    {
+      "id": "fennimore",
+      "type": "npc",
+      "npc": "fennimore",
+      "x": 14,
+      "y": 7,
+      "facing": "left"
+    }
+  ]
+}

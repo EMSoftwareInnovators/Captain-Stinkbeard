@@ -1,0 +1,165 @@
+import * as Phaser from 'phaser';
+
+/**
+ * Rich text for the pixel fonts.
+ *
+ * Markup:  <y>gold</>  <r>red</>  <g>green</>  <b>blue</>  <p>purple</>
+ *          <c>cyan</>  <o>orange</>  <k>grey</>  <w>white</>
+ * Tokens:  {ship} (game constants)  {player}  {gold}  {item:hardtack}
+ *          {var:name}  {btn:confirm} (button glyph for the active device)
+ *
+ * Word wrap replaces spaces with newlines, so character indices never shift
+ * and colour spans stay aligned for BitmapText.setCharacterTint.
+ */
+export const TEXT_COLORS = {
+  y: 0xf8d86c,
+  r: 0xf07860,
+  g: 0x8cd46a,
+  b: 0x8ab4f0,
+  p: 0xd0a0e8,
+  c: 0x90e0ec,
+  o: 0xf8a040,
+  k: 0x9a98a8,
+  w: 0xffffff,
+};
+
+export const UI_COLORS = {
+  text: 0xffffff,
+  dim: 0x9a98b0,
+  disabled: 0x6c6a80,
+  gold: 0xf8d86c,
+  heading: 0xf8d86c,
+  good: 0x8cd46a,
+  bad: 0xf07860,
+  name: 0xf8d86c,
+};
+
+export function parseMarkup(str) {
+  let text = '';
+  const spans = [];
+  const stack = [];
+  const re = /<([a-z])>|<\/>/g;
+  let last = 0;
+  let m;
+  while ((m = re.exec(str))) {
+    text += str.slice(last, m.index);
+    last = re.lastIndex;
+    if (m[1]) stack.push({ color: TEXT_COLORS[m[1]] ?? 0xffffff, start: text.length });
+    else {
+      const open = stack.pop();
+      if (open) spans.push({ start: open.start, end: text.length, color: open.color });
+    }
+  }
+  text += str.slice(last);
+  return { text, spans };
+}
+
+/** Replaces {tokens} using the running game state. */
+export function formatTokens(str, { app = null, session = null } = {}) {
+  return str.replace(/\{([^{}]+)\}/g, (whole, token) => {
+    const idx = token.indexOf(':');
+    const kind = idx < 0 ? token : token.slice(0, idx);
+    const arg = idx < 0 ? null : token.slice(idx + 1);
+    if (kind === 'btn') return app?.input?.glyph(arg) ?? '';
+    if (kind === 'item') return app?.content?.items.get(arg)?.name ?? arg;
+    if (kind === 'var') return String(session?.story.getVar(arg) ?? 0);
+    if (kind === 'player' || kind === 'leader') return session?.party.leader()?.name ?? 'Captain';
+    if (kind === 'gold') return String(session?.inventory.gold ?? 0);
+    const constant = app?.content?.constant(kind);
+    return constant !== undefined ? String(constant) : whole;
+  });
+}
+
+export function measure(font, text) {
+  let w = 0;
+  for (const ch of text) {
+    const g = font.glyphs[ch.codePointAt(0)];
+    w += g ? g.advance : 6;
+  }
+  return w;
+}
+
+/** Wraps plain text to `maxWidth` pixels by turning spaces into newlines. */
+export function wrap(font, text, maxWidth) {
+  const chars = [...text];
+  let lineStart = 0;
+  let lastSpace = -1;
+  let width = 0;
+  for (let i = 0; i < chars.length; i++) {
+    const ch = chars[i];
+    if (ch === '\n') {
+      lineStart = i + 1;
+      lastSpace = -1;
+      width = 0;
+      continue;
+    }
+    if (ch === ' ') lastSpace = i;
+    const g = font.glyphs[ch.codePointAt(0)];
+    width += g ? g.advance : 6;
+    if (width > maxWidth && lastSpace > lineStart) {
+      chars[lastSpace] = '\n';
+      lineStart = lastSpace + 1;
+      lastSpace = -1;
+      width = measure(font, chars.slice(lineStart, i + 1).join(''));
+    }
+  }
+  return chars.join('');
+}
+
+/** Splits wrapped text into pages of `lines` lines, keeping absolute offsets. */
+export function paginate(wrapped, lines) {
+  const out = [];
+  const all = wrapped.split('\n');
+  let offset = 0;
+  for (let i = 0; i < all.length; i += lines) {
+    const pageLines = all.slice(i, i + lines);
+    const text = pageLines.join('\n');
+    out.push({ text, offset });
+    offset += text.length + 1;
+  }
+  return out;
+}
+
+/** Applies colour spans (absolute indices) to a BitmapText showing text[offset..]. */
+export function applySpans(bt, spans, offset = 0, visibleLength = Infinity) {
+  bt.setCharacterTint(0, -1, Phaser.TintModes.MULTIPLY, -1);
+  const len = Math.min(bt.text.length, visibleLength);
+  for (const s of spans) {
+    const start = Math.max(0, s.start - offset);
+    const end = Math.min(len, s.end - offset);
+    if (end > start) bt.setCharacterTint(start, end - start, Phaser.TintModes.MULTIPLY, s.color);
+  }
+}
+
+/** Creates a BitmapText with markup support. */
+export function addText(scene, x, y, str = '', { font = 'main', color = 0xffffff, align = 'left', maxWidth = 0, depth = 0 } = {}) {
+  const app = scene.game.app;
+  const metrics = app.fontMetrics[font];
+  const bt = scene.add.bitmapText(x, y, font, '', metrics.size);
+  bt.setOrigin(0, 0);
+  bt.setDepth(depth);
+  bt.maxTextWidth = maxWidth;
+  bt.fontName = font;
+  setText(bt, str, { color, align });
+  return bt;
+}
+
+export function setText(bt, str, { color = null, align = null } = {}) {
+  const app = bt.scene.game.app;
+  const metrics = app.fontMetrics[bt.fontName ?? 'main'];
+  const formatted = formatTokens(String(str), { app, session: app.session });
+  const { text, spans } = parseMarkup(formatted);
+  const finalText = bt.maxTextWidth ? wrap(metrics, text, bt.maxTextWidth) : text;
+  bt.setText(finalText);
+  if (color !== null) bt.setTint(color);
+  if (align) bt.setAlign?.(align);
+  applySpans(bt, spans);
+  bt.textWidth = Math.max(...finalText.split('\n').map((l) => measure(metrics, l)));
+  return bt;
+}
+
+/** Positions a text so it is horizontally centred on cx. */
+export function centerText(bt, cx) {
+  bt.x = Math.round(cx - bt.textWidth / 2);
+  return bt;
+}

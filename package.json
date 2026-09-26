@@ -1,0 +1,23 @@
+{
+  "name": "captain-stinkbeard",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Captain Stinkbeard — a retro-styled 2D pirate RPG (Phase 1 foundation).",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "validate": "vitest run tests/content.test.js"
+  },
+  "dependencies": {
+    "phaser": "^4.2.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "vite": "^8.3.1",
+    "vitest": "^5.0.2"
+  }
+}

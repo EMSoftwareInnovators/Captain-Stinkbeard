@@ -1,0 +1,416 @@
+{
+  "id": "ship",
+  "name": "Ship interiors and decks",
+  "tileSize": 16,
+  "image": "assets/environments/tileset_ship.png",
+  "frames": [
+    "void",
+    "deck_a",
+    "deck_b",
+    "deck_c",
+    "deck_d",
+    "qdeck_a",
+    "qdeck_b",
+    "qdeck_c",
+    "floor_a",
+    "floor_b",
+    "floor_c",
+    "hold_a",
+    "hold_b",
+    "hold_c",
+    "hold_wet",
+    "brick",
+    "wall_top",
+    "wall_mid",
+    "wall_bot",
+    "wall_single",
+    "wall_port",
+    "hwall_top",
+    "hwall_mid",
+    "hwall_bot",
+    "side_l",
+    "side_r",
+    "cap",
+    "cap_l",
+    "cap_r",
+    "cap_door",
+    "diag_l",
+    "diag_r",
+    "hdiag_l",
+    "hdiag_r",
+    "door_top",
+    "door_bot",
+    "tdoor_top",
+    "tdoor_bot",
+    "cdoor_tl",
+    "cdoor_tr",
+    "cdoor_bl",
+    "cdoor_br",
+    "ladder_top",
+    "ladder_mid",
+    "ladder_bot",
+    "wstair_tl",
+    "wstair_tr",
+    "wstair_ml",
+    "wstair_mr",
+    "wstair_bl",
+    "wstair_br",
+    "stairwell_tl",
+    "stairwell_tr",
+    "stairwell_bl",
+    "stairwell_br",
+    "hatch_l",
+    "hatch_r",
+    "grate_tl",
+    "grate_tr",
+    "grate_bl",
+    "grate_br",
+    "rail_l",
+    "rail_r",
+    "rail_l_port",
+    "rail_r_port",
+    "rail_l_chain",
+    "rail_r_chain",
+    "rail_dl",
+    "rail_dr",
+    "taffrail_l",
+    "taffrail_m",
+    "taffrail_r",
+    "qrail_l",
+    "qrail_m",
+    "qrail_r",
+    "bwall_top",
+    "bwall_win",
+    "bwall_bot",
+    "dstep_l",
+    "dstep_r",
+    "hullside_l_0",
+    "hullside_l_1",
+    "hullside_l_2",
+    "hullside_r_0",
+    "hullside_r_1",
+    "hullside_r_2"
+  ],
+  "types": {
+    "void": {
+      "frame": "void",
+      "solid": true
+    },
+    "sea": {
+      "empty": true,
+      "solid": true
+    },
+    "deck": {
+      "variants": [
+        "deck_a",
+        "deck_b",
+        "deck_c",
+        "deck_d"
+      ],
+      "weights": [
+        6,
+        3,
+        3,
+        2
+      ]
+    },
+    "qdeck": {
+      "variants": [
+        "qdeck_a",
+        "qdeck_b",
+        "qdeck_c"
+      ],
+      "weights": [
+        4,
+        3,
+        3
+      ]
+    },
+    "floor": {
+      "variants": [
+        "floor_a",
+        "floor_b",
+        "floor_c"
+      ],
+      "weights": [
+        4,
+        3,
+        3
+      ]
+    },
+    "hold": {
+      "variants": [
+        "hold_a",
+        "hold_b",
+        "hold_c"
+      ],
+      "weights": [
+        4,
+        3,
+        3
+      ]
+    },
+    "hold_wet": {
+      "frame": "hold_wet"
+    },
+    "brick": {
+      "frame": "brick"
+    },
+    "wall": {
+      "solid": true,
+      "column": {
+        "top": "wall_top",
+        "mid": "wall_mid",
+        "bottom": "wall_bot",
+        "single": "wall_single"
+      },
+      "joins": [
+        "porthole",
+        "door_t",
+        "ladder"
+      ]
+    },
+    "porthole": {
+      "frame": "wall_port",
+      "solid": true
+    },
+    "hwall": {
+      "solid": true,
+      "column": {
+        "top": "hwall_top",
+        "mid": "hwall_mid",
+        "bottom": "hwall_bot",
+        "single": "hwall_mid"
+      },
+      "joins": [
+        "tdoor_t"
+      ]
+    },
+    "side_l": {
+      "frame": "side_l",
+      "solid": true
+    },
+    "side_r": {
+      "frame": "side_r",
+      "solid": true
+    },
+    "cap": {
+      "frame": "cap",
+      "solid": true
+    },
+    "cap_l": {
+      "frame": "cap_l",
+      "solid": true
+    },
+    "cap_r": {
+      "frame": "cap_r",
+      "solid": true
+    },
+    "exit_s": {
+      "frame": "cap_door"
+    },
+    "diag_l": {
+      "frame": "diag_l",
+      "solid": true
+    },
+    "diag_r": {
+      "frame": "diag_r",
+      "solid": true
+    },
+    "hdiag_l": {
+      "frame": "hdiag_l",
+      "solid": true
+    },
+    "hdiag_r": {
+      "frame": "hdiag_r",
+      "solid": true
+    },
+    "door_t": {
+      "frame": "door_top",
+      "solid": true
+    },
+    "door": {
+      "frame": "door_bot"
+    },
+    "tdoor_t": {
+      "frame": "tdoor_top",
+      "solid": true
+    },
+    "tdoor": {
+      "frame": "tdoor_bot"
+    },
+    "cdoor_tl": {
+      "frame": "cdoor_tl",
+      "solid": true
+    },
+    "cdoor_tr": {
+      "frame": "cdoor_tr",
+      "solid": true
+    },
+    "cdoor_bl": {
+      "frame": "cdoor_bl"
+    },
+    "cdoor_br": {
+      "frame": "cdoor_br"
+    },
+    "ladder": {
+      "solid": true,
+      "column": {
+        "top": "ladder_top",
+        "mid": "ladder_mid",
+        "bottom": "ladder_mid",
+        "single": "ladder_top"
+      },
+      "joins": [
+        "ladder_foot"
+      ]
+    },
+    "ladder_foot": {
+      "frame": "ladder_bot"
+    },
+    "wstair_l": {
+      "column": {
+        "top": "wstair_tl",
+        "mid": "wstair_ml",
+        "bottom": "wstair_bl",
+        "single": "wstair_bl"
+      }
+    },
+    "wstair_r": {
+      "column": {
+        "top": "wstair_tr",
+        "mid": "wstair_mr",
+        "bottom": "wstair_br",
+        "single": "wstair_br"
+      }
+    },
+    "stairs_tl": {
+      "frame": "stairwell_tl"
+    },
+    "stairs_tr": {
+      "frame": "stairwell_tr"
+    },
+    "stairs_bl": {
+      "frame": "stairwell_bl"
+    },
+    "stairs_br": {
+      "frame": "stairwell_br"
+    },
+    "hatch_l": {
+      "frame": "hatch_l"
+    },
+    "hatch_r": {
+      "frame": "hatch_r"
+    },
+    "grate_tl": {
+      "frame": "grate_tl"
+    },
+    "grate_tr": {
+      "frame": "grate_tr"
+    },
+    "grate_bl": {
+      "frame": "grate_bl"
+    },
+    "grate_br": {
+      "frame": "grate_br"
+    },
+    "rail_l": {
+      "frame": "rail_l",
+      "solid": true
+    },
+    "rail_r": {
+      "frame": "rail_r",
+      "solid": true
+    },
+    "rail_l_port": {
+      "frame": "rail_l_port",
+      "solid": true
+    },
+    "rail_r_port": {
+      "frame": "rail_r_port",
+      "solid": true
+    },
+    "rail_l_chain": {
+      "frame": "rail_l_chain",
+      "solid": true
+    },
+    "rail_r_chain": {
+      "frame": "rail_r_chain",
+      "solid": true
+    },
+    "rail_dl": {
+      "frame": "rail_dl",
+      "solid": true
+    },
+    "rail_dr": {
+      "frame": "rail_dr",
+      "solid": true
+    },
+    "taffrail": {
+      "solid": true,
+      "row": {
+        "left": "taffrail_l",
+        "mid": "taffrail_m",
+        "right": "taffrail_r",
+        "single": "taffrail_m"
+      }
+    },
+    "qrail": {
+      "solid": true,
+      "row": {
+        "left": "qrail_l",
+        "mid": "qrail_m",
+        "right": "qrail_r",
+        "single": "qrail_m"
+      }
+    },
+    "bwall": {
+      "solid": true,
+      "column": {
+        "top": "bwall_top",
+        "mid": "bwall_top",
+        "bottom": "bwall_bot",
+        "single": "bwall_bot"
+      },
+      "joins": [
+        "bwall_win"
+      ]
+    },
+    "bwall_win": {
+      "frame": "bwall_win",
+      "solid": true
+    },
+    "dstep_l": {
+      "frame": "dstep_l"
+    },
+    "dstep_r": {
+      "frame": "dstep_r"
+    },
+    "hullside_l": {
+      "frame": "hullside_l_0",
+      "solid": true
+    },
+    "hullside_r": {
+      "frame": "hullside_r_0",
+      "solid": true
+    }
+  },
+  "animations": {
+    "hullside_l_0": {
+      "frames": [
+        "hullside_l_0",
+        "hullside_l_1",
+        "hullside_l_2"
+      ],
+      "ms": 260
+    },
+    "hullside_r_0": {
+      "frames": [
+        "hullside_r_0",
+        "hullside_r_1",
+        "hullside_r_2"
+      ],
+      "ms": 260
+    }
+  }
+}

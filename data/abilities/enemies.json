@@ -1,0 +1,18 @@
+[
+  { "id": "rat_bite", "name": "Bite", "kind": "attack", "target": "enemy", "power": 100, "accuracy": 92, "anim": "lunge", "sfx": "bite",
+    "description": "Teeth. Many small teeth." },
+  { "id": "rat_filthy_bite", "name": "Filthy Bite", "kind": "attack", "target": "enemy", "power": 75, "accuracy": 90, "anim": "lunge", "sfx": "bite",
+    "effects": [{ "type": "applyStatus", "status": "sickened", "duration": 3, "chance": 0.6 }],
+    "description": "A bite from something that lives in the bilge. May leave the wound sickened." },
+  { "id": "rat_gnash", "name": "Gnash", "kind": "attack", "target": "enemy", "power": 150, "accuracy": 85, "anim": "lunge", "sfx": "bite",
+    "description": "A heavy, grinding bite." },
+  { "id": "rat_squeal", "name": "Squeal", "kind": "summon", "target": "self", "summon": "bilge_rat", "maxAllies": 3, "anim": "shout", "sfx": "squeak",
+    "description": "Calls another rat out of the walls." },
+  { "id": "spar_club", "name": "Belaying Pin", "kind": "attack", "target": "enemy", "power": 100, "accuracy": 90, "anim": "lunge", "sfx": "thud",
+    "description": "A wooden pin from the rail, swung with enthusiasm." },
+  { "id": "spar_taunt", "name": "Jeer", "kind": "skill", "target": "enemy", "anim": "shout", "sfx": "debuff",
+    "effects": [{ "type": "applyStatus", "status": "rattled", "duration": 2, "chance": 0.8 }],
+    "description": "Heckling to throw a fighter off balance. Lowers Defense." },
+  { "id": "cutthroat_slash", "name": "Dirty Slash", "kind": "attack", "target": "enemy", "power": 115, "accuracy": 90, "anim": "lunge", "sfx": "sword_hit",
+    "description": "A low, mean cut." }
+]

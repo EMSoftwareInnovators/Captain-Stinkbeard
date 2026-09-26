@@ -1,0 +1,513 @@
+{
+  "id": "main_deck",
+  "name": "Main Deck",
+  "tileset": "ship",
+  "music": "ship_theme",
+  "ambience": "deck",
+  "background": "ocean",
+  "bob": 1,
+  "legend": {
+    "~": "sea",
+    ".": "deck",
+    ",": "qdeck",
+    "=": "taffrail",
+    "|": "rail_l",
+    "!": "rail_r",
+    "p": "rail_l_port",
+    "P": "rail_r_port",
+    "c": "rail_l_chain",
+    "C": "rail_r_chain",
+    "(": "hullside_l",
+    ")": "hullside_r",
+    "-": "qrail",
+    "s": "dstep_l",
+    "S": "dstep_r",
+    "m": "bwall",
+    "n": "bwall_win",
+    "1": "cdoor_tl",
+    "2": "cdoor_tr",
+    "3": "cdoor_bl",
+    "4": "cdoor_br",
+    "h": "hatch_l",
+    "j": "hatch_r",
+    "g": "grate_tl",
+    "G": "grate_tr",
+    "k": "grate_bl",
+    "K": "grate_br",
+    "\\": "rail_dl",
+    "/": "rail_dr"
+  },
+  "tiles": [
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~(==============)~~",
+    "~~(|,,,,,,,,,,,,!)~~",
+    "~~(|,,,,,,,,,,,,!)~~",
+    "~~(|,,,,,,,,,,,,!)~~",
+    "~~(c,,,,,,,,,,,,C)~~",
+    "~~(|,,,,,,,,,,,,!)~~",
+    "~~(|,,,,,,,,,,,,!)~~",
+    "~~(|sS--------sS!)~~",
+    "~~(|sSmnm12mnmsS!)~~",
+    "~~(|sSmmm34mmmsS!)~~",
+    "~~(|............!)~~",
+    "~~(|............!)~~",
+    "~~(p............P)~~",
+    "~~(|............!)~~",
+    "~~(|.....gG.....!)~~",
+    "~~(|.....kK.....!)~~",
+    "~~(p............P)~~",
+    "~~(c............C)~~",
+    "~~(c............C)~~",
+    "~~(|............!)~~",
+    "~~(p............P)~~",
+    "~~(|............!)~~",
+    "~~(|.....hj.....!)~~",
+    "~~(|............!)~~",
+    "~~(p............P)~~",
+    "~~(|............!)~~",
+    "~~(|............!)~~",
+    "~~(c............C)~~",
+    "~~(c............C)~~",
+    "~~(|............!)~~",
+    "~~(|............!)~~",
+    "~~(|.....hj.....!)~~",
+    "~~(|............!)~~",
+    "~~~\\............/~~~",
+    "~~~~\\........../~~~~",
+    "~~~~~\\......../~~~~~",
+    "~~~~~~\\....../~~~~~~",
+    "~~~~~~~\\..../~~~~~~~",
+    "~~~~~~~~\\../~~~~~~~~",
+    "~~~~~~~~~\\/~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~"
+  ],
+  "props": [
+    "flagstaff 9 3",
+    "stern_lantern 4 3",
+    "stern_lantern 15 3",
+    "helm 9 6",
+    "binnacle 11 6",
+    "rope_coil 5 7",
+    "barrel 15 8",
+    "barrel_water 4 8",
+    "capstan 9 14",
+    "cannon_l 4 14",
+    "cannon_r 14 14",
+    "cannon_l 4 18",
+    "cannon_r 14 18",
+    "cannon_l 4 22",
+    "cannon_r 14 22",
+    "cannon_l 4 26",
+    "cannon_r 14 26",
+    "barrel 4 16",
+    "barrel_rum 5 16",
+    "crate_stack 14 16",
+    "crate 15 16",
+    "barrel 15 17",
+    "mast 9 19",
+    "rope_coil 8 21",
+    "rope_coil 11 18",
+    "bucket_mop 12 21",
+    "barrel_water 4 20",
+    "crate_marked 15 24",
+    "sacks 14 24",
+    "stovepipe 12 27",
+    "foremast 9 29",
+    "rope_coil 11 31",
+    "crate_wide 4 31",
+    "barrel_water 14 31",
+    "barrel 15 31",
+    "ship_bell 12 33",
+    "bowsprit 9 44",
+    {
+      "prop": "mast_top",
+      "x": 9,
+      "y": 19
+    },
+    {
+      "prop": "foremast_top",
+      "x": 9,
+      "y": 29
+    }
+  ],
+  "ambient": [
+    {
+      "kind": "wake",
+      "x": 10,
+      "y": 1
+    },
+    {
+      "kind": "gulls"
+    },
+    {
+      "kind": "smoke",
+      "x": 12,
+      "y": 27
+    },
+    {
+      "kind": "perchedGull",
+      "x": 16,
+      "y": 23
+    },
+    {
+      "kind": "sailShadow",
+      "x": 10,
+      "y": 20
+    },
+    {
+      "kind": "sailShadow",
+      "x": 10,
+      "y": 30
+    }
+  ],
+  "objects": [
+    {
+      "id": "cabin_door",
+      "type": "spawn",
+      "x": 9,
+      "y": 12,
+      "facing": "down"
+    },
+    {
+      "id": "main_hatch",
+      "type": "spawn",
+      "x": 9,
+      "y": 25,
+      "facing": "down"
+    },
+    {
+      "id": "fore_hatch",
+      "type": "spawn",
+      "x": 9,
+      "y": 34,
+      "facing": "down"
+    },
+    {
+      "id": "to_cabin",
+      "type": "warp",
+      "x": 9,
+      "y": 11,
+      "w": 2,
+      "to": {
+        "map": "captains_quarters",
+        "spawn": "door"
+      },
+      "sfx": "door"
+    },
+    {
+      "id": "to_galley",
+      "type": "warp",
+      "x": 9,
+      "y": 24,
+      "w": 2,
+      "to": {
+        "map": "galley",
+        "spawn": "ladder"
+      },
+      "sfx": "ladder"
+    },
+    {
+      "id": "to_crew",
+      "type": "warp",
+      "x": 9,
+      "y": 33,
+      "w": 2,
+      "to": {
+        "map": "crew_quarters",
+        "spawn": "ladder"
+      },
+      "sfx": "ladder"
+    },
+    {
+      "id": "helm",
+      "type": "inspect",
+      "x": 9,
+      "y": 6,
+      "w": 2,
+      "script": "inspect.helm"
+    },
+    {
+      "id": "rum_barrel",
+      "type": "inspect",
+      "x": 5,
+      "y": 16,
+      "script": "inspect.rum_barrel"
+    },
+    {
+      "id": "bell",
+      "type": "inspect",
+      "x": 12,
+      "y": 33,
+      "script": "inspect.bell"
+    },
+    {
+      "id": "flag",
+      "type": "inspect",
+      "x": 9,
+      "y": 3,
+      "script": "inspect.flag"
+    },
+    {
+      "id": "stern_view",
+      "type": "inspect",
+      "x": 5,
+      "y": 2,
+      "w": 8,
+      "text": [
+        "The wake runs out behind {ship}, white and straight. Nell keeps a tidy course."
+      ]
+    },
+    {
+      "id": "bowsprit_view",
+      "type": "inspect",
+      "x": 9,
+      "y": 41,
+      "w": 2,
+      "text": [
+        "Open water ahead. Nothing on the horizon but more horizon."
+      ]
+    },
+    {
+      "id": "hale",
+      "type": "npc",
+      "npc": "hale",
+      "x": 7,
+      "y": 15,
+      "facing": "down",
+      "behavior": {
+        "type": "routine",
+        "steps": [
+          {
+            "go": [
+              7,
+              15
+            ]
+          },
+          {
+            "wait": 2600
+          },
+          {
+            "face": "right"
+          },
+          {
+            "wait": 1400
+          },
+          {
+            "go": [
+              7,
+              21
+            ]
+          },
+          {
+            "wait": 2200
+          },
+          {
+            "face": "left"
+          },
+          {
+            "wait": 1600
+          },
+          {
+            "face": "down"
+          },
+          {
+            "wait": 1200
+          }
+        ]
+      }
+    },
+    {
+      "id": "nell",
+      "type": "npc",
+      "npc": "nell",
+      "x": 9,
+      "y": 5,
+      "facing": "down"
+    },
+    {
+      "id": "rook",
+      "type": "npc",
+      "npc": "rook",
+      "x": 11,
+      "y": 14,
+      "facing": "left"
+    },
+    {
+      "id": "sully",
+      "type": "npc",
+      "npc": "sully",
+      "x": 12,
+      "y": 24,
+      "facing": "down",
+      "behavior": {
+        "type": "routine",
+        "steps": [
+          {
+            "go": [
+              12,
+              25
+            ]
+          },
+          {
+            "face": "down"
+          },
+          {
+            "anim": "work",
+            "ms": 3200
+          },
+          {
+            "go": [
+              12,
+              28
+            ]
+          },
+          {
+            "face": "down"
+          },
+          {
+            "anim": "work",
+            "ms": 3000
+          },
+          {
+            "go": [
+              13,
+              28
+            ]
+          },
+          {
+            "face": "left"
+          },
+          {
+            "anim": "work",
+            "ms": 2400
+          },
+          {
+            "emote": "ellipsis"
+          }
+        ]
+      }
+    },
+    {
+      "id": "brask",
+      "type": "npc",
+      "npc": "brask",
+      "x": 6,
+      "y": 14,
+      "facing": "left",
+      "behavior": {
+        "type": "routine",
+        "steps": [
+          {
+            "go": [
+              6,
+              14
+            ]
+          },
+          {
+            "face": "left"
+          },
+          {
+            "anim": "work",
+            "ms": 3600
+          },
+          {
+            "go": [
+              6,
+              18
+            ]
+          },
+          {
+            "face": "left"
+          },
+          {
+            "anim": "work",
+            "ms": 3600
+          },
+          {
+            "go": [
+              6,
+              22
+            ]
+          },
+          {
+            "face": "left"
+          },
+          {
+            "anim": "work",
+            "ms": 3600
+          }
+        ]
+      }
+    },
+    {
+      "id": "wick",
+      "type": "npc",
+      "npc": "wick",
+      "x": 12,
+      "y": 13,
+      "facing": "down",
+      "if": {
+        "flag": "opening_seen"
+      },
+      "behavior": {
+        "type": "routine",
+        "steps": [
+          {
+            "go": [
+              12,
+              13
+            ]
+          },
+          {
+            "wait": 1500
+          },
+          {
+            "face": "left"
+          },
+          {
+            "wait": 900
+          },
+          {
+            "go": [
+              12,
+              30
+            ]
+          },
+          {
+            "wait": 1800
+          },
+          {
+            "emote": "note"
+          },
+          {
+            "go": [
+              8,
+              32
+            ]
+          },
+          {
+            "wait": 1200
+          },
+          {
+            "face": "up"
+          },
+          {
+            "wait": 1000
+          }
+        ]
+      }
+    },
+    {
+      "id": "finch",
+      "type": "npc",
+      "npc": "finch",
+      "x": 6,
+      "y": 34,
+      "facing": "down"
+    }
+  ]
+}

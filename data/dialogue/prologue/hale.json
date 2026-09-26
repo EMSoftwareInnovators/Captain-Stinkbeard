@@ -1,0 +1,70 @@
+{
+  "hale.rounds_intro": {
+    "start": [
+      "hale: Captain. Morning watch is set, the decks are sanded and the crew's fed.",
+      "captain[annoyed]: Fed already? What did Mags burn this time?",
+      "hale[smug]: Only the porridge, sir. And the pot. Mostly the pot.",
+      "hale: Rounds as usual? I'd look in on the galley early. Mags and Quill have been at it since dawn.",
+      { "goto": "topics" }
+    ],
+    "topics": [
+      { "choice": [
+        { "text": "What are they arguing about?", "then": [
+          "hale: Biscuit. Quill says the stores are short. Mags says Quill can't count.",
+          "hale[concerned]: Quill can count, sir. That's rather the problem.",
+          { "goto": "topics" }
+        ] },
+        { "text": "How's the crew?", "then": [
+          "hale: Rested, paid and bored. The best kind of crew, and the most dangerous.",
+          "hale: Rook's running sparring matches by the capstan, if you fancy reminding them who's captain.",
+          { "goto": "topics" }
+        ] },
+        { "text": "Anything else I should know?", "then": [
+          "hale: Brask has lost another cannon fuse, Finch says the gulls are flying backwards, and Wick fell in the water butt.",
+          "captain[annoyed]: A normal morning, then.",
+          "hale[happy]: Entirely normal, sir.",
+          { "goto": "topics" }
+        ] },
+        { "text": "That'll do.", "goto": "finish" }
+      ] }
+    ],
+    "finish": [
+      "hale: Check the helm, the galley and the treasure hold, then come and find me. I'll be about the deck.",
+      { "setFlag": "met_first_mate" }
+    ]
+  },
+  "hale.rounds_reminder": [
+    "hale: Still on your rounds, Captain?",
+    { "if": { "objectiveActive": "captains_rounds.inspect_deck" }, "then": ["hale: Nell has the helm, up on the quarterdeck. She'll want you to look over the course."] },
+    { "if": { "objectiveActive": "captains_rounds.check_galley" }, "then": ["hale: The galley's through the main hatch, amidships. Follow the smell of smoke."] },
+    { "if": { "objectiveActive": "captains_rounds.inspect_treasure" }, "then": ["hale: The treasure hold's aft of the cargo hold, two decks down. Yours is the only key."] }
+  ],
+  "hale.rounds_report": [
+    "hale: Well, Captain?",
+    "captain: Deck's tight, the galley's in uproar and the treasure is where I left it.",
+    { "if": { "questActive": "rats_in_the_hold" }, "then": [
+      "captain[annoyed]: And there are rats in the hold. Quill's beside himself.",
+      "hale[concerned]: Rats. Well. That explains the biscuit."
+    ] },
+    { "if": { "questCompleted": "rats_in_the_hold" }, "then": [
+      "captain[smug]: And the rats in the hold are rats no longer.",
+      "hale[happy]: So I heard. Quill's already written it up. Twice."
+    ] },
+    "hale[happy]: Then she's a ship in good order, sir. For once.",
+    "hale: The men had a wager on whether you'd finish your rounds before noon. I'll collect on your behalf.",
+    "captain[smug]: See that you do."
+  ],
+  "hale.rats_hint": [
+    "hale: Rats, sir? Take a lantern and a sharp blade. And watch the big one; Jory swears it looked her in the eye."
+  ],
+  "hale.idle_1": [
+    "hale: Steady as she goes, Captain. The crew's in good spirits. Rook's taking bets on how long that lasts."
+  ],
+  "hale.idle_2": [
+    "hale: If I may, sir: the men appreciate you walking the ship. They'd sooner be flogged than say so, mind."
+  ],
+  "hale.idle_3": [
+    "hale: Nell reckons three more days to landfall. Quill reckons we run out of biscuit in four.",
+    "hale[smug]: I reckon we'll manage."
+  ]
+}
