@@ -489,9 +489,10 @@ export const SHIP_TILE_PAINTERS = {
   hold_c: hold('hc'),
   hold_wet: (c) => {
     hold('hw')(c);
-    c.ellipse(8, 9, 6, 3.5, '#1c2a30');
-    c.ellipse(7, 8, 3, 1.5, '#2e4450');
-    c.set(5, 8, '#6a8a98');
+    c.ellipse(8, 9, 6, 3.5, '#1c2a34');
+    c.ellipse(7, 8, 3, 1.5, '#34506a');
+    c.hline(5, 7, 8, '#8ab0c8');
+    c.set(10, 10, '#4a6a82');
   },
   brick: brick,
   wall_top: (c) => wallTop(c),

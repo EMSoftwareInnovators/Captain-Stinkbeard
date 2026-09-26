@@ -369,7 +369,7 @@ export class BattleHud {
   showResults({ xp, gold, items, levelUps }, content) {
     const lines = [];
     lines.push(`<k>EXP</>  <w>${xp}</>`);
-    lines.push(`<k>Gold</>  <y>${gold}</>`);
+    if (gold) lines.push(`<k>Gold</>  <y>${gold}</>`);
     for (const it of items) lines.push(`<k>Found</>  ${content.items.get(it.id)?.name ?? it.id}${it.count > 1 ? ` ×${it.count}` : ''}`);
     for (const lv of levelUps) {
       const name = content.characters.get(lv.character)?.name ?? lv.character;

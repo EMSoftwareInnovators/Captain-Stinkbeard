@@ -13,6 +13,20 @@ page.on('console', (m) => { if (!m.text().includes('[vite]')) logs.push(`[${m.ty
 page.on('pageerror', (e) => logs.push(`[pageerror] ${e.message}\n${e.stack}`));
 await page.goto(url);
 let failed = false;
+
+/** If a battle has started (e.g. a rat caught us), fight it out and dismiss the results. */
+async function settleBattle() {
+  const active = () => page.evaluate(() => window.__GAME__?.game.scene.isActive('Battle'));
+  if (!(await active())) return false;
+  for (let i = 0; i < 900 && (await active()); i++) {
+    await page.keyboard.down('KeyZ');
+    await page.waitForTimeout(40);
+    await page.keyboard.up('KeyZ');
+    await page.waitForTimeout(160);
+  }
+  await page.waitForTimeout(800);
+  return true;
+}
 for (const line of lines) {
   const [cmd, ...rest] = line.split(' ');
   const arg = rest.join(' ');
@@ -85,15 +99,22 @@ for (const line of lines) {
     let guard = 0;
     for (;;) {
       if (cmd === 'touch') {
-        const inBattle = await page.evaluate(() => window.__GAME__.game.scene.isActive('Battle') || window.__GAME__.game.scene.getScene('World').isBusy());
-        if (inBattle) break;
+        const st = await page.evaluate(() => ({ battle: window.__GAME__.game.scene.isActive('Battle'), busy: window.__GAME__.game.scene.getScene('World').isBusy() }));
+        if (st.battle) break;
+        if (st.busy) { await page.waitForTimeout(150); continue; }
       }
       if (++guard > 500) throw new Error(`could not reach ${arg}`);
       const r = await page.evaluate((t) => window.__GAME__.test.stepToward(t), target);
+      if (r.missing && cmd === 'touch') { console.log(`(${arg} already gone)`); break; }
       if (r.missing) throw new Error(`no actor ${arg}`);
       if (r.wait || r.stuck) { await page.waitForTimeout(150); continue; }
       const dir = r.done ? r.face : r.dir;
-      await page.waitForFunction(() => { const w = window.__GAME__.game.scene.getScene('World'); return !w.player.moving && !w.isBusy(); }, null, { timeout: 8000 });
+      if (cmd === 'approach' && (await settleBattle())) continue;
+      const ready = await page.waitForFunction(() => { const w = window.__GAME__.game.scene.getScene('World'); return !w.player.moving && !w.isBusy(); }, null, { timeout: 8000 }).then(() => true, () => false);
+      if (!ready) {
+        if (await settleBattle()) continue;
+        throw new Error('world stayed busy');
+      }
       await page.keyboard.down(keyOf[dir]);
       if (r.done) {
         await page.waitForTimeout(40);
@@ -171,6 +192,8 @@ for (const line of lines) {
     // fightuntil <outcome>: confirm through battle menus until the engine reports the outcome
     // and the scene is waiting (e.g. the victory window); does not dismiss it.
     const want = rest[0] || 'win';
+    const started = await page.waitForFunction(() => window.__GAME__.game.scene.isActive('Battle'), null, { timeout: 4000 }).then(() => true, () => false);
+    if (!started) { console.log('(no battle to fight)'); continue; }
     for (let i = 0; i < 800; i++) {
       const st = await page.evaluate(() => {
         const b = window.__GAME__.game.scene.getScene('Battle');
