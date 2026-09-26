@@ -466,11 +466,20 @@ export class WorldScene extends BaseScene {
   interact() {
     const t = this.interactionTarget();
     if (!t) return false;
+    if (t.kind !== 'npc') this.reach();
     if (t.kind === 'npc') this.talkTo(t.actor);
     else if (t.kind === 'inspect') this.inspectObject(t.obj);
     else if (t.kind === 'chest') this.openChest(t.obj);
     else if (t.kind === 'prop') this.inspectProp(t.prop, t.x, t.y);
     return true;
+  }
+
+  /** Short hands-forward animation when the captain examines or opens something. */
+  reach() {
+    this.player.playPose('work', true);
+    this.time.delayedCall(420, () => {
+      if (this.player.pose === 'work' && !this.player.moving) this.player.playPose('idle');
+    });
   }
 
   pickDialogue(selectors, counterKey) {
