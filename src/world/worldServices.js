@@ -97,11 +97,20 @@ export function createWorldServices(scene) {
       scene.occupancy.set(scene.key(x, y), a);
       if (facing) a.face(facing);
     },
+    /**
+     * pan: glide to a tile or actor and hold there; follow: glide to an actor
+     * and keep tracking it; reset: glide back to the captain and follow him.
+     */
     async camera(mode, { x, y, actor: target, duration = 600 }) {
-      if (mode === 'reset' || mode === 'follow') {
-        const goal = mode === 'follow' && target ? actor(target) : scene.player;
-        await panTo(goal.px, goal.py - 18, duration);
-        scene.cameraFocus = mode === 'follow' && target ? null : null;
+      if (mode === 'reset' || (mode === 'follow' && !target)) {
+        await panTo(scene.player.px, scene.player.py - 18, duration);
+        scene.cameraFocus = null;
+        return;
+      }
+      if (mode === 'follow') {
+        const a = actor(target);
+        await panTo(a.px, a.py - 18, duration);
+        scene.cameraFocus = a === scene.player ? null : { get x() { return a.px; }, get y() { return a.py - 18; } };
         return;
       }
       const goal = target ? actor(target) : null;

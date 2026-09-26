@@ -235,6 +235,7 @@ export class WorldScene extends BaseScene {
     const session = this.session;
     const firstVisit = session.world.visit(this.model.id);
     this.app.bus.emit('map:entered', { map: this.model.id, first: firstVisit });
+    this.updateRegions();
     if (this.entry.fadeIn !== false) await this.app.overlay.fadeIn(this.entry.newGame ? 700 : 260);
     if (!this.entry.newGame) this.app.overlay.locationTitle(this.model.name);
     if (this.entry.newGame) {
@@ -423,6 +424,7 @@ export class WorldScene extends BaseScene {
       this.takeWarp(warp);
       return;
     }
+    this.updateRegions();
     for (const obj of this.objects) {
       if (obj.type !== 'trigger' || !this.inRect(obj, p.tx, p.ty)) continue;
       const wkey = WorldState.key(this.model.id, obj.id);
@@ -432,6 +434,19 @@ export class WorldScene extends BaseScene {
       this.runScript(obj.script);
       return;
     }
+  }
+
+  /**
+   * Map regions ({ id, x, y, w, h } in the map's "regions" list) announce
+   * 'region:entered' when the captain walks into them (visit objectives).
+   */
+  updateRegions() {
+    const p = this.player;
+    const inside = new Set(this.model.meta.regions.filter((r) => this.inRect(r, p.tx, p.ty)).map((r) => r.id));
+    for (const id of inside) {
+      if (!this.regionsInside?.has(id)) this.app.bus.emit('region:entered', { region: id, map: this.model.id });
+    }
+    this.regionsInside = inside;
   }
 
   inRect(obj, x, y) {

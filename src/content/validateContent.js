@@ -506,6 +506,13 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       if ('if' in e) c.at(`onEnter[${i}]`).condition(e.if);
       c.at(`onEnter[${i}]`).script(e.script);
     });
+    model.meta.regions.forEach((r, i) => {
+      const rc = c.at(`regions[${i}]`);
+      if (!r.id) rc.error('region needs an id');
+      const ints = ['x', 'y', 'w', 'h'].every((k) => Number.isInteger(r[k]));
+      if (!ints) rc.error('region needs integer x, y, w, h');
+      else if (r.x < 0 || r.y < 0 || r.w < 1 || r.h < 1 || r.x + r.w > model.width || r.y + r.h > model.height) rc.error('region lies outside the map');
+    });
     const ids = new Set();
     for (const obj of model.objects) {
       const oc = c.at(`object "${obj.id}"`);

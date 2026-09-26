@@ -89,3 +89,17 @@ describe('content validation fails loudly', () => {
     expect(errors).toMatch(/totally_new_flag/);
   });
 });
+
+describe('map regions', () => {
+  it('are validated and usable as visit targets', () => {
+    const ok = validateWith((f) => {
+      f['/data/maps/ship/main_deck.json'].regions = [{ id: 'bowsprit', x: 8, y: 38, w: 4, h: 3 }];
+      find(f['/data/quests/prologue.json'], 'brasks_fuse').objectives.push({ id: 'look_bow', text: 'Look at the bow', type: 'visit', target: 'bowsprit' });
+    });
+    expect(ok).toBe('');
+    const bad = validateWith((f) => {
+      f['/data/maps/ship/main_deck.json'].regions = [{ id: 'nowhere', x: 30, y: 0, w: 4, h: 3 }];
+    });
+    expect(bad).toMatch(/outside the map/);
+  });
+});
