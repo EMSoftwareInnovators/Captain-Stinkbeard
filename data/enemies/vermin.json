@@ -1,7 +1,7 @@
 [
   {
     "id": "bilge_rat", "name": "Bilge Rat", "sprite": "bilge_rat",
-    "stats": { "maxHp": 26, "attack": 13, "defense": 3, "speed": 8, "luck": 4 },
+    "stats": { "maxHp": 24, "attack": 11, "defense": 3, "speed": 8, "luck": 4 },
     "abilities": ["rat_bite", "rat_filthy_bite"],
     "ai": [
       { "ability": "rat_filthy_bite", "weight": 2, "if": { "targetLacksStatus": "sickened" } },
@@ -14,7 +14,7 @@
   },
   {
     "id": "large_bilge_rat", "name": "Large Bilge Rat", "sprite": "large_bilge_rat",
-    "stats": { "maxHp": 72, "attack": 16, "defense": 6, "speed": 6, "luck": 5 },
+    "stats": { "maxHp": 60, "attack": 14, "defense": 6, "speed": 6, "luck": 5 },
     "abilities": ["rat_bite", "rat_gnash", "rat_squeal"],
     "ai": [
       { "ability": "rat_squeal", "weight": 3, "if": { "alliesAliveBelow": 2, "selfHpBelow": 75 } },
