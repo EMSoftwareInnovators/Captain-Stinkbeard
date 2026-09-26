@@ -57,16 +57,10 @@ if (!only || only.split(',').includes('ui')) {
 }
 
 import { resolveLook, paintCharacterFrame, FIELD_POSES } from '../src/art/characters/characterPainter.js';
-const TEST_LOOKS = [
-  { id: 'blackbeard', build: 'large', skin: 'tan', hair: { style: 'long', color: 'black' }, beard: { style: 'great', color: 'black' }, hat: { style: 'tricorn', color: 'black', trim: 'gold' }, outfit: { style: 'longcoat', primary: 'crimson', secondary: 'white', pants: 'black', boots: 'black', trim: 'gold' }, extras: ['baldric', 'cutlass'] },
-  { id: 'hale', build: 'thin', skin: 'dark', hair: { style: 'cropped', color: 'salt' }, beard: { style: 'mustache', color: 'grey' }, outfit: { style: 'coat', primary: 'navy', secondary: 'white', pants: 'charcoal', boots: 'black' } },
-  { id: 'mags', build: 'stout', skin: 'light', hair: { style: 'bun', color: 'ginger' }, hat: { style: 'kerchief', color: 'red' }, outfit: { style: 'dress', primary: 'olive', secondary: 'white', apron: 'white', rolledSleeves: true }, extras: ['apron'] },
-  { id: 'wick', build: 'small', skin: 'pale', hair: { style: 'wild', color: 'ginger' }, outfit: { style: 'shirt', secondary: 'cloth', pants: 'tan', barefoot: true } },
-  { id: 'rook', build: 'huge', skin: 'brown', hair: { style: 'bald', color: 'black' }, beard: { style: 'full', color: 'black' }, outfit: { style: 'vest', primary: 'brown', secondary: 'white', pants: 'navy', rolledSleeves: true } },
-  { id: 'sully', build: 'medium', skin: 'light', hair: { style: 'short', color: 'blond' }, beard: { style: 'stubble', color: 'blond' }, hat: { style: 'bandana', color: 'red' }, outfit: { style: 'striped', primary: 'navy', secondary: 'white', pants: 'tan' } },
-  { id: 'finch', build: 'thin', skin: 'tan', hair: { style: 'wild', color: 'white' }, beard: { style: 'full', color: 'white' }, hat: { style: 'knitcap', color: 'teal', trim: 'teal' }, outfit: { style: 'coat', primary: 'olive', secondary: 'cloth', pants: 'brown' }, extras: ['pipe'] },
-  { id: 'quill', build: 'thin', skin: 'pale', hair: { style: 'cropped', color: 'brown' }, outfit: { style: 'vest', primary: 'green', secondary: 'white', pants: 'charcoal' }, extras: ['spectacles'] },
-];
+import appearances from '../data/appearances/ship_crew.json';
+import portraits from '../data/portraits/ship_crew.json';
+const pick = new URLSearchParams(location.search).get('who');
+const TEST_LOOKS = appearances.filter((a) => !pick || pick.split(',').includes(a.id));
 if (!only || only.split(',').includes('chars')) {
   for (const app of TEST_LOOKS) {
     const L = resolveLook(app);
@@ -109,16 +103,7 @@ if (!only || only.split(',').includes('enemies')) {
 }
 
 import { paintPortrait, EXPRESSIONS } from '../src/art/portraits/portraitPainter.js';
-const TEST_PORTRAITS = {
-  blackbeard: { face: 'broad', nose: 'broad', brows: 'heavy', eyeColor: '#2a1a10' },
-  hale: { face: 'long', nose: 'pointed', age: 'old', eyeColor: '#2a1a10' },
-  mags: { face: 'round', nose: 'default', eyeColor: '#3a6a3a' },
-  wick: { face: 'young', nose: 'default', eyeColor: '#3a5a8a' },
-  rook: { face: 'broad', nose: 'broad' },
-  sully: { face: 'square' },
-  finch: { face: 'long', age: 'old', eyeColor: '#4a6a8a' },
-  quill: { face: 'long', nose: 'pointed', eyeColor: '#4a3a2a' },
-};
+const TEST_PORTRAITS = Object.fromEntries(portraits.map((p) => [p.id, p]));
 if (!only || only.split(',').includes('portraits')) {
   for (const app of TEST_LOOKS) {
     const row = section(`portrait ${app.id}`, true);

@@ -30,7 +30,7 @@ export class App {
     this.audio = new AudioEngine({ content: this.content, settings: this.settings, bus: this.bus });
     this.session = null;
     this.mapCache = new Map();
-    this.flags = { collisionView: false, noclip: false, showTriggers: false, autoTiming: null };
+    this.flags = { collisionView: false, noclip: false, showTriggers: false, autoTiming: null, infoHud: false };
   }
 
   /** Compiled (cached) map model by id. */

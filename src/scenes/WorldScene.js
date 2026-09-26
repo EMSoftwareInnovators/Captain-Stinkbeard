@@ -317,6 +317,7 @@ export class WorldScene extends BaseScene {
     }
     this.markerTime += dt;
     this.updateMarker(busy);
+    this.updateDebugDraw();
     this.ambient.update(dt, this.player);
     this.updateCamera(dt);
   }
@@ -547,7 +548,9 @@ export class WorldScene extends BaseScene {
       return;
     }
     let mx = t.x * TILE_SIZE + TILE_SIZE / 2;
-    let my = t.y * TILE_SIZE - 2;
+    // Above the target tile, or on it when the target is below the captain
+    // (so the bubble never sits on his own sprite).
+    let my = t.y > this.player.ty ? t.y * TILE_SIZE + TILE_SIZE - 1 : t.y * TILE_SIZE - 2;
     let frame = 'mark_look';
     let hint = 'Inspect';
     if (t.kind === 'npc') {
@@ -730,6 +733,35 @@ export class WorldScene extends BaseScene {
     if (!this.session) return;
     const res = this.app.saves.save('auto', this.session);
     if (!res.ok) console.warn(res.reason);
+  }
+
+  /** Collision / trigger visualisation toggled from the F2 debug overlay. */
+  updateDebugDraw() {
+    const f = this.app.flags;
+    const key = `${f.collisionView}|${f.showTriggers}`;
+    if (key === this.debugKey) return;
+    this.debugKey = key;
+    this.debugGfx?.destroy();
+    this.debugGfx = null;
+    if (!f.collisionView && !f.showTriggers) return;
+    const g = this.add.graphics().setDepth(90000);
+    const T = TILE_SIZE;
+    if (f.collisionView) {
+      g.fillStyle(0xff3048, 0.35);
+      for (let y = 0; y < this.model.height; y++) {
+        for (let x = 0; x < this.model.width; x++) if (this.isSolid(x, y)) g.fillRect(x * T, y * T, T, T);
+      }
+    }
+    if (f.showTriggers) {
+      const colors = { warp: 0x40a0ff, trigger: 0xffd040, inspect: 0x40ff90, chest: 0xff80ff, spawn: 0xffffff };
+      for (const o of this.model.objects) {
+        const c = colors[o.type];
+        if (c === undefined) continue;
+        g.lineStyle(1, c, 0.9);
+        g.strokeRect(o.x * T + 0.5, o.y * T + 0.5, (o.w || 1) * T - 1, (o.h || 1) * T - 1);
+      }
+    }
+    this.debugGfx = g;
   }
 
   // ---------------------------------------------------------------------------
