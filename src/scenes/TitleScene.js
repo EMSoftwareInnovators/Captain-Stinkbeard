@@ -87,13 +87,13 @@ export class TitleScene extends BaseScene {
 
   choose(value) {
     if (value === 'new') this.startNew();
-    if (value === 'continue') this.load(this.app.saves.latestSlot());
+    if (value === 'continue') this.loadSlot(this.app.saves.latestSlot());
     if (value === 'load') {
       this.menu.setFocused(false);
       this.panel = new SaveLoadPanel(this, {
         mode: 'load',
         depth: 20,
-        onPick: (slot) => this.load(slot),
+        onPick: (slot) => this.loadSlot(slot),
         onClose: () => {
           this.panel = null;
           this.menu.setFocused(true);
@@ -121,7 +121,7 @@ export class TitleScene extends BaseScene {
     this.scene.start('World', { map: loc.map, spawn: loc.spawn, x: loc.x, y: loc.y, facing: loc.facing, newGame: true, fadeIn: false });
   }
 
-  async load(slot) {
+  async loadSlot(slot) {
     if (this.state === 'leaving') return;
     this.state = 'leaving';
     const ok = await loadSlotAndEnter(this, slot);

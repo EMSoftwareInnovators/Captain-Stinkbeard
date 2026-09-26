@@ -1,236 +1,82 @@
-// Dev helper: drive the game with scripted input and capture screenshots.
-// Usage: node tools/play.mjs <script.txt> [outDir]
-// Script lines:  wait 500 | press KeyZ [holdMs] | hold ArrowUp 800 | shot name | eval <js> | log <js>
+// Dev helper: drive the running dev server with a small script and capture
+// screenshots. Uses the same GameDriver as the E2E tests.
+//
+//   node tools/play.mjs <script.txt> [outDir] [url]
+//
+// One command per line ('#' starts a comment):
+//   wait <ms>                 press <Key> [holdMs]        hold <Key> <ms>
+//   keys <Key> <Key> ...      mash <ms> [Key]             shot <name>
+//   eval <js>                 log <js>                    waitfor <js>
+//   newgame                   skip [choice...]            idle
+//   walk <dir> <tiles>        goto <x> <y>                travel <x> <y> <map>
+//   approach <npc>|<x> <y>    talk <npc>|<x> <y> [choice...]
+//   fight <enemyId>           fightuntil [win|lose]       battle (confirm until it ends)
+//   face <dir>
 import { chromium } from '@playwright/test';
 import fs from 'node:fs';
-const [scriptPath, outDir = '/tmp/claude-0/play', url = 'http://localhost:5173/'] = process.argv.slice(2);
+import { GameDriver } from '../e2e/driver.js';
+
+const [scriptPath, outDir = 'tmp/play', url = 'http://localhost:5173/'] = process.argv.slice(2);
+if (!scriptPath) {
+  console.log('usage: node tools/play.mjs <script.txt> [outDir] [url]');
+  process.exit(2);
+}
 fs.mkdirSync(outDir, { recursive: true });
 const lines = fs.readFileSync(scriptPath, 'utf8').split('\n').map((l) => l.trim()).filter((l) => l && !l.startsWith('#'));
-const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args: ['--use-gl=angle', '--use-angle=swiftshader', '--autoplay-policy=no-user-gesture-required'] });
+const browser = await chromium.launch({
+  executablePath: process.env.CHROMIUM_PATH || undefined,
+  args: ['--use-gl=angle', '--use-angle=swiftshader', '--autoplay-policy=no-user-gesture-required'],
+});
 const page = await browser.newPage({ viewport: { width: 960, height: 672 } });
 const logs = [];
 page.on('console', (m) => { if (!m.text().includes('[vite]')) logs.push(`[${m.type()}] ${m.text()}`); });
 page.on('pageerror', (e) => logs.push(`[pageerror] ${e.message}\n${e.stack}`));
 await page.goto(url);
-let failed = false;
+const g = new GameDriver(page);
+const target = (rest) => (rest.length >= 2 && !Number.isNaN(Number(rest[0])) ? [Number(rest[0]), Number(rest[1])] : rest[0]);
 
-/** If a battle has started (e.g. a rat caught us), fight it out and dismiss the results. */
-async function settleBattle() {
-  const active = () => page.evaluate(() => window.__GAME__?.game.scene.isActive('Battle'));
-  if (!(await active())) return false;
-  for (let i = 0; i < 900 && (await active()); i++) {
-    await page.keyboard.down('KeyZ');
-    await page.waitForTimeout(40);
-    await page.keyboard.up('KeyZ');
-    await page.waitForTimeout(160);
-  }
-  await page.waitForTimeout(800);
-  return true;
-}
+let failed = false;
 for (const line of lines) {
   const [cmd, ...rest] = line.split(' ');
   const arg = rest.join(' ');
   try {
-  if (cmd === 'wait') await page.waitForTimeout(Number(arg));
-  else if (cmd === 'press') {
-    const [key, hold = '60'] = rest;
-    await page.keyboard.down(key);
-    await page.waitForTimeout(Number(hold));
-    await page.keyboard.up(key);
-    await page.waitForTimeout(60);
-  } else if (cmd === 'hold') {
-    const [key, ms] = rest;
-    await page.keyboard.down(key);
-    await page.waitForTimeout(Number(ms));
-    await page.keyboard.up(key);
-  } else if (cmd === 'shot') await page.screenshot({ path: `${outDir}/${arg}.png` });
-  else if (cmd === 'eval') await page.evaluate(arg);
-  else if (cmd === 'log') console.log(`${arg} =>`, JSON.stringify(await page.evaluate(arg)));
-  else if (cmd === 'waitfor') await page.waitForFunction(arg, null, { timeout: 30000 });
-  else if (cmd === 'advance') {
-    // Press confirm N times, each time waiting until a dialogue page/tutorial/choice is waiting.
-    const n = Number(rest[0] || 1);
-    for (let i = 0; i < n; i++) {
-      await page.waitForFunction(() => {
-        const o = window.__GAME__?.app?.overlay;
-        if (!o) return false;
-        const d = o.dialogue;
-        return !!o.tutorialOpen || !!d.choiceMenu || (d.resolveLine && !d.typing);
-      }, null, { timeout: 20000 });
-      await page.waitForTimeout(80);
-      await page.keyboard.down('KeyZ');
-      await page.waitForTimeout(50);
-      await page.keyboard.up('KeyZ');
-      await page.waitForTimeout(60);
-    }
-  } else if (cmd === 'idle') {
-    // Wait until the world is free for player input.
-    await page.waitForFunction(() => {
-      const g = window.__GAME__;
-      const w = g?.game.scene.getScene('World');
-      return w && g.game.scene.isActive('World') && !w.isBusy() && !w.leaving;
-    }, null, { timeout: 30000 });
-  } else if (cmd === 'walk') {
-    // walk <dir> <tiles>: hold a direction long enough to cross N tiles
-    const [dir, tiles] = rest;
-    const key = { up: 'ArrowUp', down: 'ArrowDown', left: 'ArrowLeft', right: 'ArrowRight' }[dir];
-    await page.keyboard.down(key);
-    await page.waitForTimeout(Number(tiles) * 212 + 40);
-    await page.keyboard.up(key);
-    await page.waitForTimeout(260);
-  } else if (cmd === 'goto') {
-    // goto x y: path-find with the game's own BFS and walk it with real key presses
-    const [tx, ty] = rest.map(Number);
-    const path = await page.evaluate(([x, y]) => window.__GAME__.test.pathTo(x, y), [tx, ty]);
-    if (!path) { console.log(`no path to ${tx},${ty}`); continue; }
-    for (const dir of path) {
-      const key = { up: 'ArrowUp', down: 'ArrowDown', left: 'ArrowLeft', right: 'ArrowRight' }[dir];
-      await page.keyboard.down(key);
-      await page.waitForFunction(([d]) => { const w = window.__GAME__.game.scene.getScene('World'); return w.player.moving || w.isBusy() || w.leaving; }, [dir], { timeout: 3000 }).catch(() => {});
-      await page.keyboard.up(key);
-      await page.waitForFunction(() => { const w = window.__GAME__.game.scene.getScene('World'); return !w.player.moving; }, null, { timeout: 3000 }).catch(() => {});
-    }
-    await page.waitForTimeout(120);
-  } else if (cmd === 'approach' || cmd === 'touch') {
-    // approach <npcId> | approach x y : walk next to an NPC / tile and face it (does not press confirm)
-    // touch <enemyId> : walk up to a field enemy and step into it (starts a battle)
-    const target = rest.length === 2 ? rest.map(Number) : rest[0];
-    const keyOf = { up: 'ArrowUp', down: 'ArrowDown', left: 'ArrowLeft', right: 'ArrowRight' };
-    let guard = 0;
-    for (;;) {
-      if (cmd === 'touch') {
-        const st = await page.evaluate(() => ({ battle: window.__GAME__.game.scene.isActive('Battle'), busy: window.__GAME__.game.scene.getScene('World').isBusy() }));
-        if (st.battle) break;
-        if (st.busy) { await page.waitForTimeout(150); continue; }
+    switch (cmd) {
+      case 'wait': await g.wait(Number(arg)); break;
+      case 'press': await g.tap(rest[0], Number(rest[1] ?? 60), 60); break;
+      case 'hold': await page.keyboard.down(rest[0]); await g.wait(Number(rest[1])); await page.keyboard.up(rest[0]); break;
+      case 'keys': await g.keys(...rest); break;
+      case 'mash': {
+        const until = Date.now() + Number(rest[0]);
+        while (Date.now() < until) await g.tap(rest[1] ?? 'KeyZ', 40, 140);
+        break;
       }
-      if (++guard > 500) throw new Error(`could not reach ${arg}`);
-      const r = await page.evaluate((t) => window.__GAME__.test.stepToward(t), target);
-      if (r.missing && cmd === 'touch') { console.log(`(${arg} already gone)`); break; }
-      if (r.missing) throw new Error(`no actor ${arg}`);
-      if (r.wait || r.stuck) { await page.waitForTimeout(150); continue; }
-      const dir = r.done ? r.face : r.dir;
-      if (cmd === 'approach' && (await settleBattle())) continue;
-      const ready = await page.waitForFunction(() => { const w = window.__GAME__.game.scene.getScene('World'); return !w.player.moving && !w.isBusy(); }, null, { timeout: 8000 }).then(() => true, () => false);
-      if (!ready) {
-        if (await settleBattle()) continue;
-        throw new Error('world stayed busy');
+      case 'shot': await page.screenshot({ path: `${outDir}/${arg}.png` }); break;
+      case 'eval': await page.evaluate(arg); break;
+      case 'log': console.log(`${arg} =>`, JSON.stringify(await page.evaluate(arg))); break;
+      case 'waitfor': await g.waitFor(arg); break;
+      case 'newgame': await g.newGame(); break;
+      case 'skip': await g.skip(...rest.map(Number)); break;
+      case 'idle': await g.idle(); break;
+      case 'walk': await g.walk(rest[0], Number(rest[1])); break;
+      case 'goto': await g.goto(Number(rest[0]), Number(rest[1])); break;
+      case 'travel': await g.travel(Number(rest[0]), Number(rest[1]), rest[2]); break;
+      case 'approach': await g.approach(target(rest)); break;
+      case 'talk': {
+        const t = target(rest);
+        const picks = rest.slice(Array.isArray(t) ? 2 : 1).map(Number);
+        await g.interact(t, ...picks);
+        break;
       }
-      await page.keyboard.down(keyOf[dir]);
-      if (r.done) {
-        await page.waitForTimeout(40);
-        await page.keyboard.up(keyOf[dir]);
-        await page.waitForTimeout(140);
-        const facing = await page.evaluate(() => window.__GAME__.game.scene.getScene('World').player.facing);
-        if (facing === dir && cmd === 'approach') break;
-        continue;
-      }
-      await page.waitForFunction(() => { const w = window.__GAME__.game.scene.getScene('World'); return w.player.moving || w.isBusy() || w.leaving; }, null, { timeout: 3000 }).catch(() => {});
-      await page.keyboard.up(keyOf[dir]);
-      await page.waitForFunction(() => { const w = window.__GAME__.game.scene.getScene('World'); return !w.player.moving; }, null, { timeout: 3000 }).catch(() => {});
+      case 'fight': if (!(await g.fight(rest[0]))) console.log(`(${rest[0]} already gone)`); break;
+      case 'fightuntil': await g.fightUntil(rest[0] || 'win'); break;
+      case 'battle': await g.settleBattle(); break;
+      case 'face': await g.tap({ up: 'ArrowUp', down: 'ArrowDown', left: 'ArrowLeft', right: 'ArrowRight' }[rest[0]], 40, 150); break;
+      default: throw new Error(`unknown command "${cmd}"`);
     }
-  } else if (cmd === 'skip') {
-    // skip [choiceIndex...]: advance dialogue until the world is idle again; picks listed choices in order
-    const picks = rest.map(Number);
-    for (let n = 0; n < 400; n++) {
-      const st = await page.evaluate(() => {
-        const g = window.__GAME__;
-        const o = g.app.overlay;
-        const w = g.game.scene.getScene('World');
-        const d = o.dialogue;
-        if (o.tutorialOpen) return 'tutorial';
-        if (d.choiceMenu) return 'choice';
-        if (d.resolveLine && !d.typing) return 'line';
-        if (d.resolveLine && d.typing) return 'typing';
-        const worldIdle = w && g.game.scene.isActive('World') && !w.isBusy() && !w.leaving;
-        return worldIdle ? 'idle' : 'busy';
-      });
-      if (st === 'idle') break;
-      if (st === 'choice' && !picks.length) {
-        // No scripted pick: back out (choices default to their last option on cancel).
-        await page.keyboard.down('KeyX');
-        await page.waitForTimeout(50);
-        await page.keyboard.up('KeyX');
-        await page.waitForTimeout(120);
-        continue;
-      }
-      if (st === 'choice') {
-        const k = picks.shift();
-        for (let i = 0; i < k; i++) { await page.keyboard.press('ArrowDown'); await page.waitForTimeout(90); }
-      }
-      if (st === 'line' || st === 'tutorial' || st === 'choice') {
-        await page.waitForTimeout(60);
-        await page.keyboard.down('KeyZ');
-        await page.waitForTimeout(50);
-        await page.keyboard.up('KeyZ');
-      }
-      await page.waitForTimeout(90);
-    }
-  } else if (cmd === 'mash') {
-    // mash <ms> [key]: tap a key every 180ms for a while (menus, dialogue, battles)
-    const [ms, key = 'KeyZ'] = rest;
-    const until = Date.now() + Number(ms);
-    while (Date.now() < until) {
-      await page.keyboard.down(key);
-      await page.waitForTimeout(40);
-      await page.keyboard.up(key);
-      await page.waitForTimeout(140);
-    }
-  } else if (cmd === 'battle') {
-    // battle: confirm through menus until the battle scene closes (uses autoTiming if set)
-    await page.waitForFunction(() => window.__GAME__.game.scene.isActive('Battle'), null, { timeout: 10000 });
-    for (let i = 0; i < 600; i++) {
-      const active = await page.evaluate(() => window.__GAME__.game.scene.isActive('Battle') || window.__GAME__.game.scene.isActive('GameOver'));
-      if (!active) break;
-      const gameOver = await page.evaluate(() => window.__GAME__.game.scene.isActive('GameOver'));
-      if (gameOver) break;
-      await page.keyboard.down('KeyZ');
-      await page.waitForTimeout(40);
-      await page.keyboard.up('KeyZ');
-      await page.waitForTimeout(160);
-    }
-  } else if (cmd === 'fightuntil') {
-    // fightuntil <outcome>: confirm through battle menus until the engine reports the outcome
-    // and the scene is waiting (e.g. the victory window); does not dismiss it.
-    const want = rest[0] || 'win';
-    const started = await page.waitForFunction(() => window.__GAME__.game.scene.isActive('Battle'), null, { timeout: 4000 }).then(() => true, () => false);
-    if (!started) { console.log('(no battle to fight)'); continue; }
-    for (let i = 0; i < 800; i++) {
-      const st = await page.evaluate(() => {
-        const b = window.__GAME__.game.scene.getScene('Battle');
-        if (!window.__GAME__.game.scene.isActive('Battle')) return { gone: true };
-        return { outcome: b.engine?.outcome ?? null, waiting: !!b.inputHandler && !b.hud.menu && !b.hud.sub };
-      });
-      if (st.gone) throw new Error('battle ended before outcome');
-      if (st.outcome === want && st.waiting) break;
-      if (st.outcome && st.outcome !== want) throw new Error(`battle outcome ${st.outcome}`);
-      await page.keyboard.down('KeyZ');
-      await page.waitForTimeout(40);
-      await page.keyboard.up('KeyZ');
-      await page.waitForTimeout(160);
-    }
-  } else if (cmd === 'waitmenu') {
-    // waitmenu: wait until the battle command menu is waiting for input
-    await page.waitForFunction(() => { const b = window.__GAME__.game.scene.getScene('Battle'); return b && window.__GAME__.game.scene.isActive('Battle') && b.hud && b.hud.menu && !b.hud.sub; }, null, { timeout: 30000 });
-    await page.waitForTimeout(120);
-  } else if (cmd === 'keys') {
-    // keys ArrowDown ArrowDown KeyZ ... : tap keys in sequence
-    for (const key of rest) {
-      await page.keyboard.down(key);
-      await page.waitForTimeout(45);
-      await page.keyboard.up(key);
-      await page.waitForTimeout(150);
-    }
-  } else if (cmd === 'face') {
-    const key = { up: 'ArrowUp', down: 'ArrowDown', left: 'ArrowLeft', right: 'ArrowRight' }[rest[0]];
-    await page.keyboard.down(key);
-    await page.waitForTimeout(40);
-    await page.keyboard.up(key);
-    await page.waitForTimeout(150);
-  }
   } catch (err) {
     console.log(`FAILED at "${line}": ${err.message.split('\n')[0]}`);
     await page.screenshot({ path: `${outDir}/error.png` });
-    try { console.log('state:', JSON.stringify(await page.evaluate(() => window.__GAME__.test.state()))); } catch {}
+    try { console.log('state:', JSON.stringify(await g.state())); } catch { /* no game yet */ }
     failed = true;
     break;
   }

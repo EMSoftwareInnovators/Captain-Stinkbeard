@@ -77,6 +77,11 @@ export class NpcBrain {
     }
   }
 
+  /** Crew never stop on doorways, ladders or hatches, so exits stay clear. */
+  blocked(x, y) {
+    return this.world.isBlocked(x, y, this.actor) || !!this.world.warpAt(x, y);
+  }
+
   playerFacingMe() {
     const p = this.world.player;
     if (!p || p.moving) return false;
@@ -105,7 +110,7 @@ export class NpcBrain {
     const v = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] }[dir];
     const nx = this.actor.tx + v[0];
     const ny = this.actor.ty + v[1];
-    if (Math.abs(nx - this.home.x) > r || Math.abs(ny - this.home.y) > r) {
+    if (Math.abs(nx - this.home.x) > r || Math.abs(ny - this.home.y) > r || this.blocked(nx, ny)) {
       this.actor.face(dir);
       return;
     }
@@ -129,7 +134,7 @@ export class NpcBrain {
         return;
       }
       if (!this.path || this.path.length === 0) {
-        this.path = findPath(this.world.model.width, this.world.model.height, { x: a.tx, y: a.ty }, { x: gx, y: gy }, (x, y) => this.world.isBlocked(x, y, a));
+        this.path = findPath(this.world.model.width, this.world.model.height, { x: a.tx, y: a.ty }, { x: gx, y: gy }, (x, y) => this.blocked(x, y));
         if (!this.path) {
           // Blocked (probably by the player): wait a moment and retry.
           this.timer -= delta;

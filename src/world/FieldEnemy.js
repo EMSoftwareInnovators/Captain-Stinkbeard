@@ -36,7 +36,8 @@ export class FieldEnemy {
     if (this.timer > 0) return;
     if (dist <= this.chaseRange && !this.world.playerInvulnerable()) {
       this.timer = 260;
-      const path = findPath(this.world.model.width, this.world.model.height, { x: a.tx, y: a.ty }, { x: player.tx, y: player.ty }, (x, y) => this.world.isBlocked(x, y, a), 600);
+      const blocked = (x, y) => this.world.isBlocked(x, y, a) || (!!this.world.warpAt(x, y) && !(x === player.tx && y === player.ty));
+      const path = findPath(this.world.model.width, this.world.model.height, { x: a.tx, y: a.ty }, { x: player.tx, y: player.ty }, blocked, 600);
       if (path && path.length) {
         const dir = path[0];
         const v = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] }[dir];
@@ -54,7 +55,7 @@ export class FieldEnemy {
     const v = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] }[dir];
     const nx = a.tx + v[0];
     const ny = a.ty + v[1];
-    if (Math.abs(nx - this.home.x) > this.radius || Math.abs(ny - this.home.y) > this.radius) {
+    if (Math.abs(nx - this.home.x) > this.radius || Math.abs(ny - this.home.y) > this.radius || this.world.warpAt(nx, ny)) {
       a.face(dir);
       return;
     }

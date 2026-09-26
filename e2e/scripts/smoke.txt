@@ -1,0 +1,15 @@
+# Quick smoke run for tools/play.mjs: new game, talk to Hale, one battle.
+newgame
+skip
+talk 8 7
+travel 8 11 main_deck
+idle
+talk hale 3
+shot smoke-deck
+eval window.__GAME__.app.flags.autoTiming = 0
+eval window.__GAME__.test.battle('test_rats')
+fightuntil win
+shot smoke-victory
+battle
+idle
+log window.__GAME__.test.state().level

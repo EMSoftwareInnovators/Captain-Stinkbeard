@@ -1,19 +1,41 @@
-import { defineConfig } from 'vitest/config';
+import { defineConfig, loadEnv } from 'vite';
+
+/**
+ * Release builds never ship the F2 debug overlay or the test hooks. The code
+ * paths are already dead (see src/platform/env.js); this also drops the
+ * orphaned lazy chunks Rollup would otherwise still emit.
+ */
+function stripDebugChunks(keep) {
+  return {
+    name: 'strip-debug-chunks',
+    apply: 'build',
+    generateBundle(_options, bundle) {
+      if (keep) return;
+      for (const [file, chunk] of Object.entries(bundle)) {
+        if (chunk.type === 'chunk' && chunk.isDynamicEntry && chunk.facadeModuleId?.includes('/src/debug/')) delete bundle[file];
+      }
+    },
+  };
+}
 
 // Vite handles the dev server and production build; Vitest reuses this config
 // so `import.meta.glob` content discovery works identically in tests.
-export default defineConfig({
-  base: './',
-  server: { port: 5173, strictPort: false },
-  preview: { port: 4173 },
-  build: {
-    target: 'es2022',
-    outDir: 'dist',
-    assetsInlineLimit: 0,
-    chunkSizeWarningLimit: 2500,
-  },
-  test: {
-    include: ['tests/**/*.test.js'],
-    environment: 'node',
-  },
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+  return {
+    base: './',
+    server: { port: 5173, strictPort: false },
+    preview: { port: 4173 },
+    plugins: [stripDebugChunks(env.VITE_ENABLE_DEBUG === 'true')],
+    build: {
+      target: 'es2022',
+      outDir: 'dist',
+      assetsInlineLimit: 0,
+      chunkSizeWarningLimit: 2500,
+    },
+    test: {
+      include: ['tests/**/*.test.js'],
+      environment: 'node',
+    },
+  };
 });

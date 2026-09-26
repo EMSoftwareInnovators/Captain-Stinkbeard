@@ -62,13 +62,13 @@ export class GameOverScene extends BaseScene {
   }
 
   async choose(value) {
-    if (value === 'retry') this.load(AUTOSAVE_SLOT);
+    if (value === 'retry') this.loadSlot(AUTOSAVE_SLOT);
     if (value === 'load') {
       this.menu.setFocused(false);
       this.panel = new SaveLoadPanel(this, {
         mode: 'load',
         depth: 20,
-        onPick: (slot) => this.load(slot),
+        onPick: (slot) => this.loadSlot(slot),
         onClose: () => {
           this.panel = null;
           this.menu.setFocused(true);
@@ -84,7 +84,7 @@ export class GameOverScene extends BaseScene {
     }
   }
 
-  async load(slot) {
+  async loadSlot(slot) {
     if (this.state === 'leaving') return;
     this.state = 'leaving';
     const ok = await loadSlotAndEnter(this, slot);
