@@ -56,6 +56,12 @@ export class NpcBrain {
       if (a.updateMovement(delta)) this.world.releaseSource(a);
       return;
     }
+    // Courtesy: hold still while the captain stands facing us, so walking
+    // crew are easy to talk to.
+    if (this.behavior.type !== 'stand' && this.playerFacingMe()) {
+      if (a.pose === 'walk') a.stopWalking();
+      return;
+    }
     switch (this.behavior.type) {
       case 'stand':
         if (this.behavior.lookAround) this.lookAround(delta);
@@ -69,6 +75,13 @@ export class NpcBrain {
       default:
         break;
     }
+  }
+
+  playerFacingMe() {
+    const p = this.world.player;
+    if (!p || p.moving) return false;
+    const v = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] }[p.facing];
+    return p.tx + v[0] === this.actor.tx && p.ty + v[1] === this.actor.ty;
   }
 
   lookAround(delta) {

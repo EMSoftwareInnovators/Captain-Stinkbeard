@@ -60,7 +60,7 @@ export class GameSession {
       if (added > 0) summary.items.push({ id, count: added });
     }
     for (const flag of rewards.flags ?? []) this.story.set(flag);
-    if (summary.levelUps.length) this.bus?.emit('party:levelUp', { levelUps: summary.levelUps });
+    if (summary.levelUps.length) this.bus?.emit('party:levelUp', { levelUps: summary.levelUps, source: rewards.source ?? null });
     return summary;
   }
 

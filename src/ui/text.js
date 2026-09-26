@@ -120,14 +120,28 @@ export function paginate(wrapped, lines) {
   return out;
 }
 
-/** Applies colour spans (absolute indices) to a BitmapText showing text[offset..]. */
+/**
+ * Applies colour spans (absolute indices) to a BitmapText showing text[offset..].
+ * Phaser numbers tintable characters without counting newlines, so raw string
+ * indices are converted before tinting.
+ */
 export function applySpans(bt, spans, offset = 0, visibleLength = Infinity) {
   bt.setCharacterTint(0, -1, Phaser.TintModes.MULTIPLY, -1);
-  const len = Math.min(bt.text.length, visibleLength);
+  const text = bt.text;
+  const len = Math.min(text.length, visibleLength);
+  if (!spans.length || !len) return;
+  const glyphIndex = new Int32Array(text.length + 1);
+  for (let i = 0, n = 0; i <= text.length; i++) {
+    glyphIndex[i] = n;
+    if (i < text.length && text[i] !== '\n') n++;
+  }
   for (const s of spans) {
     const start = Math.max(0, s.start - offset);
     const end = Math.min(len, s.end - offset);
-    if (end > start) bt.setCharacterTint(start, end - start, Phaser.TintModes.MULTIPLY, s.color);
+    if (end <= start) continue;
+    const g0 = glyphIndex[start];
+    const g1 = glyphIndex[end];
+    if (g1 > g0) bt.setCharacterTint(g0, g1 - g0, Phaser.TintModes.MULTIPLY, s.color);
   }
 }
 

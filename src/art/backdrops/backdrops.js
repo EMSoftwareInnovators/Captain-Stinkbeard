@@ -66,9 +66,9 @@ function cargoHold() {
   c.blit(crate(), 96, 71);
   floorPerspective(c, 92, [PAL.hull0, PAL.hull1, PAL.hull2, PAL.hull3, PAL.hull4], 'hf');
   // puddles
-  c.ellipse(90, 128, 22, 4, '#1c2a30');
-  c.ellipse(86, 127, 10, 1.5, '#2e4450');
-  c.ellipse(230, 146, 18, 3, '#1c2a30');
+  // (kept clear of the battler slots so they never read as misplaced shadows)
+  c.ellipse(166, 151, 16, 3, '#1c2a30');
+  c.ellipse(162, 150, 7, 1.5, '#2e4450');
   lanternGlow(c, 160, 34, 34);
   lanternGlow(c, 40, 30, 22);
   // darken edges (vignette)

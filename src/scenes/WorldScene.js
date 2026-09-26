@@ -61,7 +61,7 @@ export class WorldScene extends BaseScene {
     this.addGlows(lights);
     this.ambient = new Ambient(this, this.def.ambient || []);
     this.marker = this.add.image(0, 0, 'ui', 'mark_talk').setOrigin(0.5, 1).setDepth(80000).setVisible(false);
-    this.markerTween = this.tweens.add({ targets: this.marker, y: '-=2', duration: 380, yoyo: true, repeat: -1, ease: 'Sine.InOut' });
+    this.markerTime = 0;
 
     this.runner = new ScriptRunner({
       registry: new CommandRegistry().registerAll(createCommandImplementations()),
@@ -214,7 +214,11 @@ export class WorldScene extends BaseScene {
     if (!this.model.meta.lighting) return;
     for (const l of lights) {
       if (!l.flicker) continue;
-      const glow = this.add.ellipse(l.x, l.y, l.radius * 1.3, l.radius, 0xfcd058, 0.07).setDepth(70001).setBlendMode('ADD');
+      // Keep the halo inside the map so it never tints the void around a room.
+      const rx = Math.min(l.radius * 0.65, l.x, this.worldMap.widthPx - l.x);
+      const ry = Math.min(l.radius * 0.5, l.y, this.worldMap.heightPx - l.y);
+      if (rx < 8 || ry < 8) continue;
+      const glow = this.add.ellipse(l.x, l.y, rx * 2, ry * 2, 0xfcd058, 0.07).setDepth(70001).setBlendMode('ADD');
       this.tweens.add({ targets: glow, alpha: 0.12, scaleX: 1.05, duration: 180 + Math.random() * 160, yoyo: true, repeat: -1, ease: 'Stepped', easeParams: [3] });
     }
   }
@@ -311,6 +315,7 @@ export class WorldScene extends BaseScene {
         this.player.stopWalking();
       }
     }
+    this.markerTime += dt;
     this.updateMarker(busy);
     this.ambient.update(dt, this.player);
     this.updateCamera(dt);
@@ -549,16 +554,14 @@ export class WorldScene extends BaseScene {
       frame = 'mark_talk';
       hint = 'Talk';
       mx = t.actor.sprite.x;
-      my = t.actor.sprite.y - 40;
+      my = t.actor.sprite.y - 45;
     } else if (t.kind === 'chest') {
       hint = this.session.world.isOpened(WorldState.key(this.model.id, t.obj.id)) ? 'Inspect' : 'Open';
     }
+    // Gentle 2px bob, stepped to whole pixels.
+    const bob = Math.round((Math.sin((this.markerTime / 760) * Math.PI * 2) - 1) * 1);
     this.marker.setFrame(frame);
-    if (this.marker.baseX !== mx || this.marker.baseY !== my) {
-      this.marker.baseX = mx;
-      this.marker.baseY = my;
-      this.marker.setPosition(mx, my);
-    }
+    this.marker.setPosition(Math.round(mx), Math.round(my) + bob);
     this.marker.setVisible(true);
     this.app.overlay.setHint(`{btn:confirm} ${hint}`);
   }
@@ -708,10 +711,11 @@ export class WorldScene extends BaseScene {
           advantage,
           onEnd: async (result) => {
             this.pendingResume = async () => {
-              if (result !== 'lose' || this.content.encounters.get(encounterId)?.nonLethal) {
-                this.app.audio.popMusic();
-                await this.app.overlay.fadeIn(300);
-              }
+              const audio = this.app.audio;
+              audio.popMusic();
+              audio.setMusicFilter(this.model.meta.musicFilter);
+              audio.setAmbience(this.model.meta.ambience);
+              await this.app.overlay.fadeIn(300);
               resolve(result);
             };
             if (this.sys.isPaused()) this.scene.resume();

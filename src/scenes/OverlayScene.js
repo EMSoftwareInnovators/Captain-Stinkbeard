@@ -36,7 +36,8 @@ export class OverlayScene extends BaseScene {
       this.toasts.push({ text: `Quest complete: <y>${quest.title}</>`, icon: 'ledger', sound: 'quest_complete', hold: 3200 });
       if (rewards) this.rewardToasts(rewards);
     });
-    on('party:levelUp', ({ levelUps }) => {
+    on('party:levelUp', ({ levelUps, source }) => {
+      if (source === 'battle') return; // the battle results screen announces these itself
       for (const lv of levelUps) {
         const name = this.app.content.characters.get(lv.character)?.name ?? lv.character;
         this.toasts.push({ text: `<y>${name}</> reached level ${lv.level}!`, sound: 'level_up', hold: 2600 });
@@ -164,14 +165,14 @@ export class OverlayScene extends BaseScene {
     });
   }
 
-  /** Small location title shown when entering a map. */
+  /** Small location title shown when entering a map (top-right, clear of toasts). */
   locationTitle(name) {
     this.locationParts?.forEach((p) => p.destroy());
     const t = addText(this, 0, 10, name, { font: 'bold', color: 0xfff4e0, depth: 850 });
     const w = t.textWidth + 24;
-    const x = Math.round((SCREEN_WIDTH - w) / 2);
+    const x = SCREEN_WIDTH - w - 6;
     const panel = addPanel(this, x, 5, w, 20, { depth: 849 });
-    centerText(t, SCREEN_WIDTH / 2);
+    t.x = x + 12;
     t.y = 10;
     const parts = [panel, t];
     this.locationParts = parts;

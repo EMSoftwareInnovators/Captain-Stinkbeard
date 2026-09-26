@@ -108,6 +108,33 @@ function wake(frame) {
   return c;
 }
 
+/** Timing cue ring of radius r (crisp midpoint circle with a dark rim). */
+function ring(r, color = '#ffffff', rim = '#20182a') {
+  const size = r * 2 + 5;
+  const c = new PixelCanvas(size, size);
+  const m = Math.floor(size / 2);
+  c.ellipseOutline(m, m, r + 1, r + 1, rim);
+  c.ellipseOutline(m, m, r - 1, r - 1, rim);
+  c.ellipseOutline(m, m, r, r, color);
+  return c;
+}
+
+/** Small shield that flashes on a successful guard. */
+function shield(frame) {
+  const c = new PixelCanvas(16, 18);
+  const rows = ['.oooooooooo.', 'oGGGGGGGGGGo', 'oGYYYYYYYYGo', 'oGYGGGGGGYGo', 'oGYGYYYYGYGo', 'oGYGYGGYGYGo', 'oGYGYGGYGYGo', '.oGYGYYGYGo.', '.oGYGGGGYGo.', '..oGYYYYGo..', '...oGGGGo...', '....oooo....'];
+  const pal = frame === 0 ? { o: '#ffffff', G: '#ffffff', Y: '#ffffff' } : { o: PAL.ink, G: frame === 1 ? '#fff4c0' : PAL.gold4, Y: frame === 1 ? '#ffffff' : PAL.gold2 };
+  c.stamp(rows, 2, 3, pal);
+  return c;
+}
+
+/** "!" burst used as an enemy attack tell. */
+function tell() {
+  const c = new PixelCanvas(9, 13);
+  c.stamp(['.ooooo.', 'oYYYYYo', 'oYWWWYo', 'oYWWWYo', 'oYWWWYo', '.oYWYo.', '.oYWYo.', '..oYo..', '..ooo..', '.oYYYo.', '.oYWYo.', '..ooo..'], 1, 0, { o: PAL.ink, Y: PAL.red3, W: '#ffffff' });
+  return c;
+}
+
 export function buildEffectsAtlas() {
   const atlas = new ShelfAtlas(512, 1);
   for (let f = 0; f < 4; f++) atlas.add(`slash_${f}`, slash(f));
@@ -120,6 +147,11 @@ export function buildEffectsAtlas() {
   for (let f = 0; f < 4; f++) atlas.add(`gull_${f}`, gull(f));
   for (let f = 0; f < 4; f++) atlas.add(`wake_${f}`, wake(f));
   atlas.add('gull_perched', gullPerched());
+  for (let r = 3; r <= 30; r++) atlas.add(`ring_${r}`, ring(r));
+  atlas.add('ring_target', ring(6, PAL.gold4));
+  atlas.add('ring_target_hit', ring(6, '#ffffff', PAL.gold3));
+  for (let f = 0; f < 3; f++) atlas.add(`shield_${f}`, shield(f));
+  atlas.add('tell', tell());
   atlas.add('shadow_s', shadow(14, 5));
   atlas.add('shadow_m', shadow(20, 6));
   atlas.add('shadow_l', shadow(28, 8));

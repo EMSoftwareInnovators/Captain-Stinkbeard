@@ -1,4 +1,5 @@
 import { BaseScene } from './BaseScene.js';
+import { loadSlotAndEnter } from './sceneFlow.js';
 import { addText, centerText, UI_COLORS } from '../ui/text.js';
 import { addPanel } from '../ui/Panel.js';
 import { ListMenu } from '../ui/ListMenu.js';
@@ -121,20 +122,10 @@ export class TitleScene extends BaseScene {
   }
 
   async load(slot) {
-    const res = this.app.loadGame(slot);
-    if (!res.ok) {
-      this.app.audio.ui('buzzer');
-      this.app.overlay.toasts.push({ text: `<r>Could not load:</> ${res.reason}`, hold: 3000 });
-      return;
-    }
+    if (this.state === 'leaving') return;
     this.state = 'leaving';
-    this.panel?.destroy();
-    this.panel = null;
-    this.app.audio.ui('save');
-    this.app.audio.stopMusic({ fade: 0.8 });
-    await this.app.overlay.fadeOut(600);
-    const loc = this.app.session.location;
-    this.scene.start('World', { map: loc.map, x: loc.x, y: loc.y, facing: loc.facing, loaded: true });
+    const ok = await loadSlotAndEnter(this, slot);
+    if (!ok) this.state = 'menu';
   }
 
   update() {

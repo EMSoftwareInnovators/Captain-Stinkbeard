@@ -30,7 +30,7 @@ export class App {
     this.audio = new AudioEngine({ content: this.content, settings: this.settings, bus: this.bus });
     this.session = null;
     this.mapCache = new Map();
-    this.flags = { collisionView: false, noclip: false, showTriggers: false };
+    this.flags = { collisionView: false, noclip: false, showTriggers: false, autoTiming: null };
   }
 
   /** Compiled (cached) map model by id. */
@@ -48,6 +48,12 @@ export class App {
     this.session = GameSession.newGame({ content: this.content, bus: this.bus, strictFlags: IS_DEV });
     this.bus.emit('session:started', { session: this.session, fresh: true });
     return this.session;
+  }
+
+  /** Ends the running game (returning to the title). */
+  endSession() {
+    this.session?.destroy();
+    this.session = null;
   }
 
   /** Loads a save slot into a new session. Returns { ok, reason }. */

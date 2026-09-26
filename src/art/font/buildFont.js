@@ -29,14 +29,23 @@ function renderMain(g) {
   return { canvas: c, advance: g.w + 1 };
 }
 
+/** True if doubling strokes would close a one-pixel gap (m, w, M, W...). */
+function hasNarrowGap(g) {
+  const ink = new Set(g.ink.map(([x, y]) => `${x},${y}`));
+  return g.ink.some(([x, y]) => !ink.has(`${x + 1},${y}`) && ink.has(`${x + 2},${y}`));
+}
+
 function renderBold(g) {
   const c = new PixelCanvas(g.w + 3, GLYPH_ROWS + 2);
+  // Strokes are doubled for weight, except in glyphs whose counters are only
+  // one pixel wide: those keep single strokes so they stay readable.
+  const double = !hasNarrowGap(g);
   for (const [x, y] of g.ink) {
     c.set(x + 1, y + 1, WHITE);
-    c.set(x + 2, y + 1, WHITE);
+    if (double) c.set(x + 2, y + 1, WHITE);
   }
   c.outline(OUTLINE);
-  return { canvas: c, advance: g.w + 2 };
+  return { canvas: c, advance: double ? g.w + 2 : g.w + 1 };
 }
 
 const BIG_SHADES = ['#ffffff', '#ffffff', '#f4f4f4', '#ececec', '#e0e0e0', '#d4d4d4', '#c8c8c8'];
