@@ -1,118 +1,70 @@
 import { addTexture, addGridTexture, addBitmapFont, addAnimations } from './textures.js';
-import { buildFonts } from '../art/font/buildFont.js';
-import { buildUiAtlas } from '../art/ui/uiSprites.js';
-import { buildItemIcons } from '../art/ui/itemIcons.js';
-import { buildEffectsAtlas, paintOcean } from '../art/effects/effects.js';
-import { paintTile } from '../art/tiles/shipTiles.js';
-import { GridSheet, ShelfAtlas } from '../art/atlas.js';
-import { PROP_PAINTERS, paintProp } from '../art/props/index.js';
-import { buildCharacterSheet, buildBattleSheet } from '../art/characters/buildSheets.js';
-import { ENEMY_PAINTERS, ENEMY_BATTLE_FRAMES } from '../art/enemies/enemyPainters.js';
-import { paintPortrait } from '../art/portraits/portraitPainter.js';
-import { paintBackdrop, BACKDROP_PAINTERS } from '../art/backdrops/backdrops.js';
-import { paintTitleSky, paintTitleSea, paintTitleShip, paintLogo } from '../art/title/titleArt.js';
-import { FIELD_DIRS } from '../art/characters/characterPainter.js';
-
-/** Frame rates for character animations. */
-const CHAR_RATES = { idle: 1.6, walk: 8, work: 3.5, sit: 0, point: 0, surprised: 0 };
+import {
+  fontSheet, uiSheet, fxSheet, oceanSheet, tileSheet, propAtlas, characterSheet, battlerSheet,
+  enemySheet, ENEMY_IDS, portraitAtlas, BACKDROP_IDS, backdropImage, titleImages, FX_ONESHOT,
+} from '../art/sheets.js';
 
 /**
- * Builds every generated texture. Returned as a list of steps so the boot
- * scene can show progress between them.
+ * Builds every generated texture from the engine-independent sheet builders
+ * in src/art/sheets.js. Returned as a list of steps so the boot scene can
+ * show progress between them.
  */
 export function assetSteps(scene, app) {
   const content = app.content;
   return [
     ['fonts', () => {
-      const { canvas, fonts } = buildFonts();
+      const { canvas, fonts } = fontSheet();
       addTexture(scene, 'fonts', { canvas });
       for (const [name, font] of Object.entries(fonts)) addBitmapFont(scene, name, 'fonts', font, canvas.width, canvas.height);
       app.fontMetrics = fonts;
     }],
     ['interface', () => {
-      addTexture(scene, 'ui', buildUiAtlas(buildItemIcons()));
-      const fx = buildEffectsAtlas();
+      addTexture(scene, 'ui', uiSheet());
+      const fx = fxSheet();
       addTexture(scene, 'fx', fx);
-      const seq = (prefix, n) => Array.from({ length: n }, (_, i) => `${prefix}_${i}`);
-      addAnimations(scene, 'fx', {
-        slash: seq('slash', 4), impact: seq('impact', 3), bite: seq('bite', 3), sparkle: seq('sparkle', 4),
-        buff: seq('buff', 4), debuff: seq('debuff', 4), smoke: seq('smoke', 4), gull: seq('gull', 4), wake: seq('wake', 4),
-      }, { slash: 24, impact: 18, bite: 18, sparkle: 12, buff: 10, debuff: 10, smoke: 5, gull: 8, wake: 4 });
-      for (const k of ['slash', 'impact', 'bite', 'sparkle', 'buff', 'debuff']) scene.anims.get(`fx:${k}`).repeat = 0;
-      const ocean = paintOcean(4);
-      addGridTexture(scene, 'ocean', { canvas: ocean, frameWidth: 64, frameHeight: 64 });
+      addAnimations(scene, 'fx', fx.anims, fx.rates);
+      for (const k of FX_ONESHOT) scene.anims.get(`fx:${k}`).repeat = 0;
+      addGridTexture(scene, 'ocean', oceanSheet());
     }],
     ['tiles', () => {
-      for (const ts of content.tilesets.list()) {
-        const sheet = new GridSheet(ts.tileSize, ts.tileSize, 16);
-        for (const frame of ts.frames) sheet.add(frame, paintTile(frame));
-        const built = sheet.build();
-        addGridTexture(scene, `tiles_${ts.id}`, { canvas: built.canvas, frameWidth: ts.tileSize, frameHeight: ts.tileSize });
-      }
+      for (const ts of content.tilesets.list()) addGridTexture(scene, `tiles_${ts.id}`, tileSheet(ts));
     }],
     ['props', () => {
-      const atlas = new ShelfAtlas(1024, 1);
-      const anims = {};
-      const rates = {};
-      for (const name of Object.keys(PROP_PAINTERS)) {
-        const { frames, ms } = paintProp(name);
-        if (frames.length === 1) atlas.add(name, frames[0]);
-        else {
-          anims[name] = frames.map((f, i) => {
-            atlas.add(`${name}_${i}`, f);
-            return `${name}_${i}`;
-          });
-          rates[name] = 1000 / ms;
-        }
-      }
-      const built = atlas.build();
-      addTexture(scene, 'props', built);
-      addAnimations(scene, 'props', anims, rates);
-      app.propFrames = built.frames;
-      app.propAnims = anims;
+      const props = propAtlas();
+      addTexture(scene, 'props', props);
+      addAnimations(scene, 'props', props.anims, props.rates);
+      app.propFrames = props.frames;
+      app.propAnims = props.anims;
     }],
     ['crew', () => {
       for (const appearance of content.appearances.list()) {
-        const sheet = buildCharacterSheet(appearance);
+        const sheet = characterSheet(appearance);
         addTexture(scene, `char_${appearance.id}`, sheet);
-        addAnimations(scene, `char_${appearance.id}`, sheet.anims, CHAR_RATES);
+        addAnimations(scene, `char_${appearance.id}`, sheet.anims, sheet.rates);
       }
     }],
     ['battlers', () => {
       for (const ch of content.characters.list()) {
-        const app2 = content.appearances.get(ch.appearance);
-        addTexture(scene, `battle_${ch.id}`, buildBattleSheet(app2));
-        addAnimations(scene, `battle_${ch.id}`, { ready: ['ready', 'ready2'], victory: ['victory', 'victory2'] }, { ready: 2.4, victory: 3 });
+        const sheet = battlerSheet(content.appearances.get(ch.appearance));
+        addTexture(scene, `battle_${ch.id}`, sheet);
+        addAnimations(scene, `battle_${ch.id}`, sheet.anims, sheet.rates);
       }
-      for (const [id, painter] of Object.entries(ENEMY_PAINTERS)) {
-        const field = new ShelfAtlas(256, 1);
-        const fieldAnims = {};
-        for (const dir of FIELD_DIRS) {
-          fieldAnims[`walk_${dir}`] = [0, 1].map((f) => {
-            field.add(`${dir}_${f}`, painter.field(dir, f));
-            return `${dir}_${f}`;
-          });
-        }
-        for (const frame of ENEMY_BATTLE_FRAMES) field.add(`battle_${frame}`, painter.battle(frame));
-        const built = field.build();
-        addTexture(scene, `enemy_${id}`, built);
-        addAnimations(scene, `enemy_${id}`, { ...fieldAnims, battle_idle: ['battle_idle0', 'battle_idle1'] }, { walk: 6, battle_idle: 2.5 });
+      for (const id of ENEMY_IDS) {
+        const sheet = enemySheet(id);
+        addTexture(scene, `enemy_${id}`, sheet);
+        addAnimations(scene, `enemy_${id}`, sheet.anims, sheet.rates);
       }
     }],
     ['portraits', () => {
-      const atlas = new ShelfAtlas(1024, 1);
-      for (const p of content.portraits.list()) {
-        const appearance = content.appearances.get(p.appearance ?? p.id);
-        for (const expr of p.expressions) atlas.add(`${p.id}_${expr}`, paintPortrait(appearance, p, expr));
-      }
-      addTexture(scene, 'portraits', atlas.build());
+      addTexture(scene, 'portraits', portraitAtlas(content));
     }],
     ['scenery', () => {
-      for (const name of Object.keys(BACKDROP_PAINTERS)) addTexture(scene, `backdrop_${name}`, { canvas: paintBackdrop(name) });
-      addTexture(scene, 'title_sky', { canvas: paintTitleSky() });
-      addGridTexture(scene, 'title_sea', { canvas: paintTitleSea(2), frameWidth: 320, frameHeight: 74 });
-      addTexture(scene, 'title_ship', { canvas: paintTitleShip() });
-      addTexture(scene, 'logo', { canvas: paintLogo() });
+      for (const name of BACKDROP_IDS) addTexture(scene, `backdrop_${name}`, backdropImage(name));
+      const title = titleImages();
+      addTexture(scene, 'title_sky', title.title_sky);
+      addGridTexture(scene, 'title_sea', title.title_sea);
+      addTexture(scene, 'title_ship', title.title_ship);
+      addTexture(scene, 'logo', title.logo);
     }],
   ];
 }

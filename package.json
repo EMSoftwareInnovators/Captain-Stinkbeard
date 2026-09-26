@@ -11,7 +11,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "validate": "vitest run tests/content.test.js",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "export": "node tools/export-assets.mjs"
   },
   "dependencies": {
     "phaser": "^4.2.1"
