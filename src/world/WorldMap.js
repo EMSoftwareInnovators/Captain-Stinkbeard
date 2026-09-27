@@ -24,6 +24,8 @@ export class WorldMap {
     const s = this.scene;
     if (this.model.meta.background === 'ocean') {
       const pad = 64;
+      this.oceanPad = pad;
+      this.bobTime = 0;
       this.ocean = s.add
         .tileSprite(-pad, -pad, this.widthPx + pad * 2, this.heightPx + pad * 2, 'ocean', 0)
         .setOrigin(0)
@@ -81,6 +83,13 @@ export class WorldMap {
     }
     if (this.ocean) {
       this.ocean.tilePositionY -= delta * 0.004;
+      // The swell: the sea rises and falls around a steady ship (map "bob" = pixels).
+      // Moving the water rather than the camera keeps the deck and the captain still.
+      const amp = this.model.meta.bob ?? 0;
+      if (amp) {
+        this.bobTime += delta;
+        this.ocean.y = -this.oceanPad + Math.round(Math.sin((this.bobTime / 2600) * Math.PI * 2) * amp * 2);
+      }
     }
   }
 

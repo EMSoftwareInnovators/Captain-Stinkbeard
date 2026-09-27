@@ -55,7 +55,7 @@ required; they just make fights shorter and safer.
 ## What's in Phase 1
 
 - **Blackbeard's ship**: Main Deck, Captain's Quarters, Crew Quarters, Galley,
-  Cargo Hold and Treasure Hold, with animated ocean, bobbing camera, flag and
+  Cargo Hold and Treasure Hold, with an animated ocean swell, flag and
   lantern animation, gulls, chimney smoke, crew routines and baked lighting.
 - **11 crew members** with portraits, several expressions and conditional
   dialogue; Blackbeard himself as the player character.

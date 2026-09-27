@@ -160,8 +160,11 @@ once the battle has ended and the world has resumed, so a script can write
 - **Movement** is strictly tile-based: an actor reserves its destination tile
   in an occupancy map before moving, so two actors never overlap, and nothing
   can slide through walls or stop between tiles. Diagonals don't exist.
-  Walking takes 210 ms per tile, running 125 ms; a brief turn-in-place delay
-  lets the player face a direction without stepping.
+  Walking moves exactly 2 px per 60 Hz frame (8 frames per tile) and running
+  3 px per frame; leftover time carries into the next step so a held direction
+  never hitches at tile edges, and the walk cycle is driven by step progress
+  (one stride per tile). Tapping a new direction for under 50 ms turns in
+  place without stepping; holding it walks.
 - **Depth** is y-sorted by feet position; overhead layers (rigging, beams) draw
   above actors.
 - **NPC brains** (`world/NpcBrain.js`): `stand` (optionally looking around),
@@ -178,7 +181,7 @@ once the battle has ended and the world has resumed, so a script can write
 - **Lighting**: each map may declare an ambient colour; lanterns and windows
   add light. The light map is baked once per map at half resolution and
   multiplied over the scene, with flickering glows on flame lights.
-- **Ambient life**: ocean with wake and bobbing camera, gulls, chimney smoke,
+- **Ambient life**: ocean with wake and a swell (the sea rises and falls, the deck stays steady), gulls, chimney smoke,
   animated flags and lanterns, drifting sail shadows, crew routines, and
   ambience beds with random one-shots (creaks, gulls, drips, bells).
 
@@ -227,9 +230,10 @@ officers can bring their own orders.
 ## UI
 
 All text uses a custom pixel font (`art/font/`) rendered as Phaser bitmap
-fonts in three styles (`main` with drop shadow, `bold` outlined, `big`
-2× banner). `ui/text.js` handles markup colours, tokens, word wrap and
-pagination. Windows are painted per size (`ui/Panel.js`), never stretched.
+fonts in four styles (`main` with drop shadow for dark windows, `ink` without
+a shadow for light parchment, `bold` outlined, `big` 2× banner). `ui/text.js`
+handles markup colours (with a darker ink palette on light surfaces), tokens,
+word wrap and pagination; button-prompt glyphs are never tinted. Windows are painted per size (`ui/Panel.js`), never stretched.
 `ListMenu` gives every menu the same controller-first behaviour (auto-repeat,
 wrap, disabled items with a buzzer, cancel). The dialogue box types text with
 punctuation pauses and per-speaker voice blips; holding cancel fast-forwards.

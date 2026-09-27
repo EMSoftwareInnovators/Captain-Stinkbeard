@@ -3,8 +3,9 @@ import { ShelfAtlas } from '../atlas.js';
 import { GLYPHS, GLYPH_ROWS, SPACE_ADVANCE, BUTTON_GLYPHS, MINI_LETTERS } from './glyphs.js';
 
 /**
- * Rasterises the pixel font into three styles sharing one atlas:
+ * Rasterises the pixel font into four styles sharing one atlas:
  *   main  — white ink + 1px drop shadow (dialogue, menus); tint to recolour
+ *   ink   — no shadow, for dark text on light surfaces (parchment tips)
  *   bold  — double-width strokes + outline (numbers, headings)
  *   big   — 2x scale + outline + shadow + subtle vertical shading (banners)
  */
@@ -33,6 +34,12 @@ function renderMain(g) {
 function hasNarrowGap(g) {
   const ink = new Set(g.ink.map(([x, y]) => `${x},${y}`));
   return g.ink.some(([x, y]) => !ink.has(`${x + 1},${y}`) && ink.has(`${x + 2},${y}`));
+}
+
+function renderInk(g) {
+  const c = new PixelCanvas(g.w + 1, GLYPH_ROWS + 1);
+  for (const [x, y] of g.ink) c.set(x, y, WHITE);
+  return { canvas: c, advance: g.w + 1 };
 }
 
 function renderBold(g) {
@@ -160,8 +167,8 @@ function buildButtonGlyphs() {
  */
 export function buildFonts() {
   const atlas = new ShelfAtlas(512, 1);
-  const styles = { main: renderMain, bold: renderBold, big: renderBig };
-  const meta = { main: {}, bold: {}, big: {} };
+  const styles = { main: renderMain, ink: renderInk, bold: renderBold, big: renderBig };
+  const meta = { main: {}, ink: {}, bold: {}, big: {} };
 
   for (const [ch, def] of Object.entries(GLYPHS)) {
     const g = parse(def);
@@ -180,13 +187,14 @@ export function buildFonts() {
     const name = `btn_${id}`;
     atlas.add(name, canvas);
     meta.main[code] = { name, advance: canvas.width + 1, yOffset: -1 };
+    meta.ink[code] = { name, advance: canvas.width + 1, yOffset: -1 };
     meta.bold[code] = { name, advance: canvas.width + 1, yOffset: 0 };
   }
 
   const { canvas, frames } = atlas.build();
   const fonts = {};
-  const lineHeights = { main: 11, bold: 12, big: 22 };
-  const spaces = { main: SPACE_ADVANCE, bold: SPACE_ADVANCE + 1, big: SPACE_ADVANCE * 2 };
+  const lineHeights = { main: 11, ink: 11, bold: 12, big: 22 };
+  const spaces = { main: SPACE_ADVANCE, ink: SPACE_ADVANCE, bold: SPACE_ADVANCE + 1, big: SPACE_ADVANCE * 2 };
   for (const style of Object.keys(meta)) {
     const glyphs = {};
     for (const [code, m] of Object.entries(meta[style])) {

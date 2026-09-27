@@ -450,7 +450,7 @@ Defeated map enemies stay defeated (saved per `map:object`).
 - `tiles` rows must all be the same width; each character maps through
   `legend` to a tile type of the tileset.
 - `background`: `void` (dark) or `ocean` (animated sea around the ship);
-  `bob` gently rocks the camera (pixels).
+  `bob` sets the height of the ocean swell around the ship (pixels).
 - `musicFilter: "muffled"` low-passes the music (below decks).
 - `ambient` life: `wake`, `gulls`, `smoke` (x, y), `perchedGull` (x, y),
   `sailShadow` (x, y).

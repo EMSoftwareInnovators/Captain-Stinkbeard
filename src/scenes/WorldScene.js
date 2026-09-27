@@ -13,8 +13,13 @@ import { TILE_SIZE, DIR_VECTORS, SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/c
 import { hash32 } from '../core/Rng.js';
 import { asArray } from '../core/util.js';
 
-const WALK_MS = 210;
-const RUN_MS = 125;
+// Step durations chosen so a 60 Hz frame moves a whole number of pixels:
+// walking is 2 px per frame (8 frames per tile), running 3 px per frame.
+const FRAME_MS = 1000 / 60;
+const WALK_MS = FRAME_MS * 8;
+const RUN_MS = (FRAME_MS * 16) / 3;
+/** Tap a new direction for less than this to turn in place without stepping. */
+const TURN_MS = 50;
 
 /**
  * Exploration. Loads one map, spawns the player, NPCs, props and visible
@@ -49,7 +54,6 @@ export class WorldScene extends BaseScene {
     this.turnHold = 0;
     this.wasMoving = false;
     this.leaving = false;
-    this.bobTime = 0;
 
     this.cameras.main.setBackgroundColor(this.model.meta.background === 'ocean' ? '#16416f' : '#07060b');
     this.worldMap = new WorldMap(this, this.model, this.tileset);
@@ -364,7 +368,7 @@ export class WorldScene extends BaseScene {
     }
     if (!this.wasMoving && dir !== p.facing) {
       p.face(dir);
-      this.turnHold = 85;
+      this.turnHold = TURN_MS;
       return;
     }
     if (this.turnHold > 0) {
@@ -406,7 +410,7 @@ export class WorldScene extends BaseScene {
     }
     this.occupancy.set(this.key(nx, ny), p);
     p.prevKey = this.key(p.tx, p.ty);
-    p.beginStep(dir, running ? RUN_MS : WALK_MS);
+    p.beginStep(dir, running ? RUN_MS : WALK_MS, this.wasMoving ? p.carryMs : 0);
     this.wasMoving = true;
   }
 
@@ -800,8 +804,6 @@ export class WorldScene extends BaseScene {
     let sy = focus.y - SCREEN_HEIGHT / 2;
     sx = W <= SCREEN_WIDTH ? (W - SCREEN_WIDTH) / 2 : Math.max(0, Math.min(W - SCREEN_WIDTH, sx));
     sy = H <= SCREEN_HEIGHT ? (H - SCREEN_HEIGHT) / 2 : Math.max(0, Math.min(H - SCREEN_HEIGHT, sy));
-    this.bobTime += dt;
-    const bob = this.model.meta.bob ? Math.round(Math.sin((this.bobTime / 2600) * Math.PI * 2) * this.model.meta.bob) : 0;
-    cam.setScroll(Math.round(sx), Math.round(sy) + bob);
+    cam.setScroll(Math.round(sx), Math.round(sy));
   }
 }

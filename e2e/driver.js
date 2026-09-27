@@ -166,7 +166,7 @@ export class GameDriver {
   /** Holds a direction long enough to cross `tiles` tiles. */
   async walk(dir, tiles) {
     await this.page.keyboard.down(DIR_KEYS[dir]);
-    await this.wait(tiles * 212 + 40);
+    await this.wait(tiles * 140 + 40);
     await this.page.keyboard.up(DIR_KEYS[dir]);
     await this.wait(260);
   }

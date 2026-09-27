@@ -218,7 +218,7 @@ well within per-line limits if they are spread vertically as they are now.
 | Baked multiply light map with coloured lights | every interior map (`WorldMap.buildLighting`) | pre-darkened tile palettes + lighter palettes near lanterns; SNES colour math (subtract) as an option |
 | Additive flickering glows | lanterns, stove | palette cycling |
 | Alpha fades and flashes | scene fades, camera flash, KO fade | brightness register (SNES INIDISP / palette fades on MD) |
-| Camera shake / bob | encounters, orders, deck bob | BG scroll offsets |
+| Camera shake / ocean swell | encounters, orders, sea around the deck | BG scroll offsets |
 | Scale tweens | emotes pop-in, shout panels, grade text | pre-drawn frames |
 | Half-transparent shadows | characters, props | dithered shadow sprites or colour-math (SNES) |
 | Sprite tint (white flash, red KO) | battle hits | palette swap for a few frames |

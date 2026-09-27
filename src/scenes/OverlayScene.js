@@ -114,20 +114,24 @@ export class OverlayScene extends BaseScene {
   tutorial({ title = 'Tip', text }) {
     return new Promise((resolve) => {
       const w = 264;
-      const bodyW = w - 24;
-      const body = addText(this, 0, 0, text, { color: 0x3a2410, maxWidth: bodyW, depth: 702 });
+      const bodyW = w - 28;
+      // Dark ink without a drop shadow: crisp on the light parchment.
+      const body = addText(this, 0, 0, text, { font: 'ink', color: 0x1e1008, maxWidth: bodyW, depth: 702 });
       const lines = body.text.split('\n').length;
-      const h = 34 + lines * 11 + 10;
+      const lineH = 12;
+      body.setLineSpacing?.(lineH - 11);
+      const h = 36 + lines * lineH + 12;
       const x = Math.round((SCREEN_WIDTH - w) / 2);
       const y = Math.round((SCREEN_HEIGHT - h) / 2) - 16;
       const panel = addPanel(this, x, y, w, h, { style: 'parchment', depth: 700 });
-      const head = addText(this, 0, y + 9, title.toUpperCase(), { font: 'bold', color: 0x7a2418, depth: 702 });
+      const head = addText(this, 0, y + 10, title.toUpperCase(), { font: 'ink', color: 0x8a1c10, depth: 702 });
       centerText(head, SCREEN_WIDTH / 2);
-      body.x = x + 12;
-      body.y = y + 26;
-      const hint = addText(this, 0, y + h - 14, '{btn:confirm}', { depth: 702 });
+      const rule = this.add.rectangle(Math.round(SCREEN_WIDTH / 2 - head.textWidth / 2 - 6), y + 21, head.textWidth + 12, 1, 0x8a1c10, 0.6).setOrigin(0).setDepth(702);
+      body.x = x + 14;
+      body.y = y + 28;
+      const hint = addText(this, 0, y + h - 15, '{btn:confirm}', { depth: 702 });
       hint.x = x + w - hint.textWidth - 10;
-      const parts = [panel, head, body, hint];
+      const parts = [panel, head, rule, body, hint];
       parts.forEach((p) => (p.alpha = 0));
       this.tweens.add({ targets: parts, alpha: 1, duration: 150 });
       this.app.audio.ui('menu_open');

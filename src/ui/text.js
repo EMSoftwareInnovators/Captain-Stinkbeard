@@ -19,14 +19,27 @@ export const TEXT_COLORS = {
   p: 0xd0a0e8,
   c: 0x90e0ec,
   o: 0xf8a040,
-  k: 0x9a98a8,
+  k: 0xbab8cc,
   w: 0xffffff,
+};
+
+/** Darker equivalents for text on light surfaces (parchment tips). */
+export const INK_COLORS = {
+  y: 0x8a5200,
+  r: 0x9a1a10,
+  g: 0x2a6a18,
+  b: 0x1a3a8a,
+  p: 0x5a2478,
+  c: 0x14666a,
+  o: 0x9a4400,
+  k: 0x5e4a38,
+  w: 0x1e1008,
 };
 
 export const UI_COLORS = {
   text: 0xffffff,
-  dim: 0x9a98b0,
-  disabled: 0x6c6a80,
+  dim: 0xbcbad0,
+  disabled: 0x807e96,
   gold: 0xf8d86c,
   heading: 0xf8d86c,
   good: 0x8cd46a,
@@ -34,7 +47,7 @@ export const UI_COLORS = {
   name: 0xf8d86c,
 };
 
-export function parseMarkup(str) {
+export function parseMarkup(str, palette = TEXT_COLORS) {
   let text = '';
   const spans = [];
   const stack = [];
@@ -44,7 +57,7 @@ export function parseMarkup(str) {
   while ((m = re.exec(str))) {
     text += str.slice(last, m.index);
     last = re.lastIndex;
-    if (m[1]) stack.push({ color: TEXT_COLORS[m[1]] ?? 0xffffff, start: text.length });
+    if (m[1]) stack.push({ color: palette[m[1]] ?? 0xffffff, start: text.length });
     else {
       const open = stack.pop();
       if (open) spans.push({ start: open.start, end: text.length, color: open.color });
@@ -129,7 +142,7 @@ export function applySpans(bt, spans, offset = 0, visibleLength = Infinity) {
   bt.setCharacterTint(0, -1, Phaser.TintModes.MULTIPLY, -1);
   const text = bt.text;
   const len = Math.min(text.length, visibleLength);
-  if (!spans.length || !len) return;
+  if (!len) return;
   const glyphIndex = new Int32Array(text.length + 1);
   for (let i = 0, n = 0; i <= text.length; i++) {
     glyphIndex[i] = n;
@@ -143,10 +156,15 @@ export function applySpans(bt, spans, offset = 0, visibleLength = Infinity) {
     const g1 = glyphIndex[end];
     if (g1 > g0) bt.setCharacterTint(g0, g1 - g0, Phaser.TintModes.MULTIPLY, s.color);
   }
+  // Button prompts are little pictures with their own colours: never tint them.
+  for (let i = 0; i < len; i++) {
+    const code = text.charCodeAt(i);
+    if (code >= 0xe000 && code <= 0xf8ff) bt.setCharacterTint(glyphIndex[i], 1, Phaser.TintModes.MULTIPLY, 0xffffff);
+  }
 }
 
 /** Creates a BitmapText with markup support. */
-export function addText(scene, x, y, str = '', { font = 'main', color = 0xffffff, align = 'left', maxWidth = 0, depth = 0 } = {}) {
+export function addText(scene, x, y, str = '', { font = 'main', color = 0xffffff, align = 'left', maxWidth = 0, depth = 0, palette = null } = {}) {
   const app = scene.game.app;
   const metrics = app.fontMetrics[font];
   const bt = scene.add.bitmapText(x, y, font, '', metrics.size);
@@ -154,6 +172,8 @@ export function addText(scene, x, y, str = '', { font = 'main', color = 0xffffff
   bt.setDepth(depth);
   bt.maxTextWidth = maxWidth;
   bt.fontName = font;
+  // The shadowless ink font is for light surfaces, so its highlights use dark inks.
+  bt.palette = palette ?? (font === 'ink' ? INK_COLORS : TEXT_COLORS);
   setText(bt, str, { color, align });
   return bt;
 }
@@ -162,7 +182,7 @@ export function setText(bt, str, { color = null, align = null } = {}) {
   const app = bt.scene.game.app;
   const metrics = app.fontMetrics[bt.fontName ?? 'main'];
   const formatted = formatTokens(String(str), { app, session: app.session });
-  const { text, spans } = parseMarkup(formatted);
+  const { text, spans } = parseMarkup(formatted, bt.palette ?? TEXT_COLORS);
   const finalText = bt.maxTextWidth ? wrap(metrics, text, bt.maxTextWidth) : text;
   bt.setText(finalText);
   if (color !== null) bt.setTint(color);
