@@ -227,29 +227,47 @@ the cancel button (default: the last option).
 | `markObject` | `"map:object"`, `set: {…}` | store per-object state |
 | `joinParty` / `leaveParty` | character | party changes |
 | `save` | `"auto"` | autosave |
-| `sfx` / `music` / `ambience` | id (`music` takes `fade` ms) | audio |
+| `sfx` / `music` / `ambience` | id (`music` takes `fade` ms; `null` for silence) | audio |
 | `move` | actor, `path` (`["up", 2, "left", 1]`) or `to` `[x, y]`, `speed` (`walk`, `run`, `slow` or ms per tile), `face`, `async` | walk an actor; `async` doesn't wait |
 | `face` | actor, `dir` (a direction, `"player"` or another actor) | turn |
-| `anim` | actor, `name` (`idle`, `walk`, `work`, `sit`, `point`, `surprised`), `duration` | pose |
+| `anim` | actor, `name` (`idle`, `walk`, `work`, `sit`, `point`, `surprised`, `fallen`, plus any extra pose the appearance opts into: `carry`, `smug`, `greedy`, `eat`, `nervous`, `clutch`, `panic`, `relief`, `slouch`, `hips`, `shrug`, `excited`; parrots: `fly`, `squawk`, `furious`, `shiver`), `duration` | pose (`carry` also switches walking to the carrying walk) |
 | `emote` | actor, `icon` (`exclaim`, `question`, `ellipsis`, `anger`, `sweat`, `note`, `heart`, `zzz`), `duration` | speech bubble icon |
 | `spawn` | npc, `id`, `x`, `y`, `facing` | add an NPC for the scene |
 | `despawn` | actor | remove |
 | `place` | actor, `x`, `y`, `facing` | teleport on the map |
 | `camera` | `pan` (`x`,`y` or `actor`), `follow` (`actor`), `reset`; `duration` | camera |
-| `shake` | intensity, `duration` | screen shake (respects the option) |
+| `shake` | intensity, `duration`, `to` (escalate to this intensity), `async` | screen shake (scaled by the Screen shake option) |
 | `flash` | `"#rrggbb"`, `duration` | screen flash |
 | `fade` | `in`/`out`, `duration`, `color` | full-screen fade |
-| `transition` | map, `spawn` or `x`/`y`, `facing` | change map (ends the script) |
+| `transition` | map, `spawn` or `x`/`y`, `facing`, `then` (script to run on arrival), `hidePlayer`, `fade` (ms), `keepMusic`, `noAutosave` | change map (ends the script; `then` continues the scene in the new room) |
 | `showObject` / `hideObject` | object or actor id | visibility |
 | `effect` | `slash`, `impact`, `sparkle`, `buff`, `debuff`, `smoke`…, `actor` or `x`/`y` | one-shot effect |
 | `battle` | encounter, `win` steps, `lose` steps | fight, then branch on the result |
+| `fly` | actor, `to` `[x, y]`, `from`, `fromAlt`, `alt`, `arc`, `duration`, `land` | through the air, ignoring walls (a parrot, a man hauled aboard) |
+| `hop` | actor, `height`, `duration` | a little jump |
+| `bark` | actor or `"none"` (with `x`, `y`), `text`, `duration`, `shout` | speech bubble that doesn't stop the game |
+| `burst` | `coins`, `gems`, `splinters`, `feathers`, `sparkle`, `fume`, `odor`, `splash`, `dust`, `dishes`; `actor` or `x`/`y`, `count` | particle burst (pooled, capped) |
+| `propFx` | `jiggle`, `swing`, `fall`, `frame`; `prop` (placement `id` or prop id) or `area` `[x, y, w, h]`, `duration`, `intensity` | shake the room's furniture |
+| `roll` | degrees, `duration` | tilt the view (the ship heeling) |
+| `sprite` / `moveSprite` / `spriteFrame` / `removeSprite` | id, `frame`, `x`/`y` in tiles, `anim`, `below`, `depth`, `bob`; move: `x`, `y`, `alpha`, `scale`, `angle`, `duration` | free stage sprites (a bathtub alongside, a rowboat) |
+| `tether` | `on` (with `x`, `y`) / `off` | the rescue rope, trailing the captain's path |
+| `respawn` | spawn id or `"safe"` | put the captain somewhere breathable |
+| `fumeCloud` | id, `level`, `x`, `y`, `w`, `h`, `grow` (ms), `remove` | a temporary fume zone for a set-piece |
+| `vista` / `vistaEnd` | vista id, `mask`, `caption`, `fade` | full-screen illustrated shot (data/story/vistas) |
+| `vistaMove` / `vistaFrame` / `vistaShow` / `vistaFx` | layer id; `x`, `y`, `scale`, `alpha`, `flip`, `duration` / `frame` / `visible` / burst kind at `x`, `y` | animate a vista layer |
+| `insert` | insert id, `caption`, `hold` | framed close-up (a label, a sign, a document) |
 | `shop` | shop id | open a shop and wait until it closes |
 
 Actors are `player` (or `captain`) or the id of an NPC/actor on the map.
 
 **Where scripts run**: NPC conversations, `inspect` objects, props' inspect
-text, `trigger` objects, map `onEnter` lists, `newGame.startScript`, quest
-`onComplete`, locked warps' `locked`, and `call`.
+text, `trigger` objects, map `onEnter` lists, a `transition`'s `then`, story
+triggers, `newGame.startScript`, quest `onComplete`, locked warps' `locked`,
+a map's `fumeCollapse`, and `call`.
+
+A step may name a parameter that is also a command (`move` with `face`,
+`transition` with `spawn` and `fade`, `sprite` with `anim`): the command is
+the one whose parameter list contains the others.
 
 ## Conditions
 
@@ -267,6 +285,7 @@ Used by `if` everywhere (dialogue selectors, steps, choices, map objects, warps,
 | `partyHas` / `partyLacks` | `{ "partyHas": "blackbeard" }` |
 | `level` | `{ "level": 3 }` or `{ "level": { "lt": 5 } }` (party leader) |
 | `visited` / `notVisited` | `{ "visited": "cargo_hold" }` |
+| `onMap` | `{ "onMap": "main_deck" }` (the captain's current map) |
 | `objectState` | `{ "objectState": { "key": "cargo_hold:gunnery_crate", "opened": true } }` |
 | `all` / `any` / `not` | `{ "all": [ … ] }`, `{ "not": { … } }` |
 | `always` / `never` | `{ "always": true }` |
@@ -475,12 +494,12 @@ Defeated map enemies stay defeated (saved per `map:object`).
 | --- | --- |
 | `spawn` | `x`, `y`, `facing` — entry points for warps and `newGame` |
 | `warp` | `x`, `y`, `w`, `h`, `to: { map, spawn }` (or `x`/`y`/`facing`), `sfx`, `if` (a live lock, see below), `locked` (script run when the lock holds) |
-| `npc` | `npc`, `x`, `y`, `facing`, `behavior`, `if` |
+| `npc` | `npc`, `x`, `y`, `facing`, `behavior`, `pose`, `if`, `absent` (this placement means "not in this room") — the first placement per NPC whose `if` holds wins |
 | `enemy` | `encounter`, `x`, `y`, `sprite`, `wander`, `chase`, `facing`, `if` |
 | `inspect` | `x`, `y`, `w`, `h`, and `text` (lines), `script`, or `dialogue` (selectors like NPCs); `tags` |
 | `chest` | `x`, `y`, `w`, `prop`, `items`, `gold`, `text` — opened once, remembered |
 | `trigger` | `x`, `y`, `w`, `h`, `script`, `once` (default true), `if` — runs when stepped on |
-| `block` | `x`, `y`, `w`, `h` — invisible wall |
+| `block` | `x`, `y`, `w`, `h`, `if` — invisible wall (live: appears and disappears with the story) |
 
 Inspecting fires `object:inspected` with id `"map:object"`, which `inspect`
 objectives use (`"treasure_hold:hoard"`).
@@ -495,6 +514,109 @@ door works without leaving the room).
 player onto a warp: they must be released first. Put a spawn on the tile
 beside its ladder or hatch, facing away from it (`"facing": "up"` below a
 hatch you just climbed out of), so arriving and walking on feels natural.
+
+**Story-driven map fields** (all optional):
+
+```json
+"musicVariants": [{ "if": { "flag": "guzzlegut_gust" }, "music": "yellow_alert", "ambience": "hold_fumes" }],
+"lightingVariants": [{ "if": { "flag": "trial_started" }, "ambient": "#c08870" }],
+"haze": [{ "if": { "flag": "fumes_thinned" }, "level": "faint" }, { "if": { "flag": "guzzlegut_gust" }, "level": "dense" }],
+"fumes": [{ "id": "core", "level": "center", "x": 3, "y": 4, "w": 4, "h": 3, "if": { … },
+           "path": [[3, 4], [6, 4]], "periodMs": 9000 }],
+"fumeCollapse": "hazard.collapse_hold",
+"fumeSafeSpawn": "stairs"
+```
+
+The first variant whose `if` holds wins, and the map switches live when the
+story changes. Props also take `if`, an `id` (for `propFx`/`hideObject
+"prop:<id>"`), `depthOffset` and `alpha`; a conditional solid prop is a live
+wall. Inspect objects and triggers check `if` live. `ambient` entries take
+`if`, and two more kinds: `glitter` (sparkles in an area: `x`, `y`, `w`, `h`,
+`every`) and `voice` (`x`, `y`, `lines`, `every` `[min, max]` ms, `sfx`,
+`loopFrom`: someone calling out, checked live).
+
+## Story Phase 2 formats
+
+### Patching a map from a later chapter
+
+A file with `"patch": "<mapId>"` (for example
+`data/maps/ship/phase2/galley.patch.json`) extends that map without editing
+it. `objects`, `musicVariants`, `lightingVariants` and `haze` are placed
+**before** the base map's (so a conditional placement overrides an older
+one); `props`, `onEnter`, `regions`, `ambient`, `fumes` and `collision` are
+appended; `lights` add to the lighting; `fumeCollapse` and `fumeSafeSpawn`
+replace. Anything else is an error.
+
+### Extending NPCs and characters, look variants
+
+```json
+{ "extend": "hale", "dialogue": [ { "if": { "flag": "trial_started" }, "script": "hale.tr" } ] }
+{ "id": "squawks", …, "variants": [
+  { "if": { "flag": "squawks_sweater" }, "appearance": "squawks_sweater", "portrait": "squawks_sweater" },
+  { "if": { "flag": "squawks_bald" }, "appearance": "squawks_bald", "portrait": "squawks_bald" } ] }
+```
+
+`extend` puts dialogue selectors ahead of the original ones and adds
+variants. Variants (first match wins) may change `appearance`, `portrait`,
+`name`, `voice` and `shadow`; sprites and portraits swap the moment the flag
+changes, in the world and in the dialogue box.
+
+### Chapters and time of day (`data/game.json`)
+
+```json
+"chapters": [{ "id": "ch1", "name": "Chapter 1: The Man in the Bathtub", "if": { "flag": "ch1_morning_started" } }],
+"timeOfDay": [{ "id": "evening", "grade": "#f2b894", "interior": 0.45, "if": { "flag": "trial_started" } }]
+```
+
+The last entry whose `if` holds is current. The chapter name shows in the
+save list and the debug overlay; the time of day is a colour grade multiplied
+over the world (`interior` is how much of it reaches below decks).
+
+### Story triggers (`data/story/triggers/`)
+
+```json
+{ "id": "ch2_begin", "if": { "all": [{ "questCompleted": "strange_cargo" }, { "questNotStarted": "new_recruit" }] },
+  "script": "ch2.begin", "once": false }
+```
+
+Checked whenever the story changes and the world is idle (never mid-scene).
+Use `"once": false` with a condition the script clears straight away
+(`startQuest`, `setFlag`): then an interrupted trigger simply runs again after
+loading. Add `onMap` when the scene needs a particular room.
+
+### Vistas (`data/story/vistas/`) and inserts
+
+```json
+"bathtub_view": { "sky": "morning", "sea": "morning", "horizon": 132, "mask": "telescope",
+  "layers": [{ "id": "tub", "frame": "tub_0", "frames": ["tub_0", "tub_1"], "frameMs": 340,
+               "x": 226, "y": 140, "scale": 0.45, "bob": 2 }] }
+```
+
+Skies and seas: `morning`, `day`, `afternoon`, `evening`, `sunset`, `dusk`.
+Layers are screen pixels anchored bottom-centre, and can be `hidden`, `flip`,
+`alpha`, `scale`, `depth`. Keep subjects above y ≈ 158: the dialogue box
+covers the rest. Inserts (`eel_jar_label`, `toll_sign_close`,
+`probation_rules`, `charge_sheet`) are painted in `src/art/inserts/`.
+
+### Fumes (`data/hazards/fumes.json`)
+
+Levels `light` (no exposure), `dense` and `center` (the Dead Center), each
+with an exposure rate per second and a visibility; `recoverPerSec`,
+`lightRecoverPerSec`, `max` and `warnAt`. Map zones and haze are described
+above. Collapsing runs the map's `fumeCollapse` script (default
+`hazard.fume_collapse`), which should `respawn` the captain somewhere safe.
+
+### Debug presets (`data/debug/presets.json`)
+
+```json
+{ "id": "squawks_rescue", "name": "Squawks Rescue", "after": "post_blast",
+  "flags": ["squawks_fell"], "clearFlags": [], "vars": {},
+  "quests": { "yellow_alert": "completed", "save_squawks": "active", "treasure_inspection": { "done": ["meet"] } },
+  "items": ["treasure_key"], "map": "main_deck", "x": 9, "y": 21, "facing": "down" }
+```
+
+`after` chains presets (flags accumulate, quests apply in order). They appear
+in the F2 *Story* tab and in `tools/play.mjs` (`preset <id>`).
 
 ## Tilesets and props
 

@@ -140,11 +140,11 @@ frame is required. Button prompt glyphs are per device (`PROMPT_GLYPHS`).
 
 ## Save schema
 
-`src/systems/save/SaveManager.js`, current `SAVE_VERSION = 1`:
+`src/systems/save/SaveManager.js`, current `SAVE_VERSION = 2` (Story Phase 2):
 
 ```json
 {
-  "format": "captain-stinkbeard-save", "version": 1, "savedAt": "ISO date", "slot": 1,
+  "format": "captain-stinkbeard-save", "version": 2, "savedAt": "ISO date", "slot": 1,
   "checksum": "FNV-1a of the state JSON",
   "summary": { "location": "Main Deck", "playTime": 812.4, "leader": "Blackbeard", "level": 3, "gold": 160, "chapter": "Prologue" },
   "state": {
@@ -168,7 +168,12 @@ well under 1 KB. Four slots (3 manual + autosave) fit easily in 8 KB SRAM.
 
 Versioning: every format change bumps `SAVE_VERSION` and adds a migration
 (`src/systems/save/migrations.js`); records carry the version, and loads of
-unknown/newer versions are refused politely.
+unknown/newer versions are refused politely. Version 2 adds nothing to the
+layout: story state is still flags, vars and per-object state (the chapter,
+time of day, characters' looks, fume zones and haze are all derived from
+flags). The 1 → 2 migration only moves a save made inside the rebuilt
+treasure hold to its door and guarantees `story.vars` exists. Fume exposure is
+deliberately not saved (loading always starts with clean lungs).
 
 ## Asset naming
 
@@ -225,6 +230,11 @@ well within per-line limits if they are spread vertically as they are now.
 | Stepped alpha flicker | invulnerability after fleeing | sprite blink (skip every other frame) |
 | Low-pass music filter below decks | `setMusicFilter('muffled')` | echo/filter on SPC; lower FM operator levels |
 | Parallax title sea | title screen | line scroll (HDMA on SNES, per-line scroll on MD) |
+| Time-of-day grade (multiply) | Story Phase 2 morning → evening | per-chapter palette sets or SNES fixed-colour subtraction |
+| Fume clouds (translucent, tinted blobs) and haze | Phase 2 fume zones | dithered cloud sprites over BG, colour math on SNES, a haze palette per room |
+| Fume vignette closing in | thick fumes | window registers (SNES) or a pre-drawn border sprite ring |
+| Camera roll (screen rotation) | the ship heeling in set-pieces | skip, or mode 7 on SNES; a sideways BG sweep elsewhere |
+| Vistas (full-screen illustrated shots) | telescope, frigate, epilogue | a separate BG scene with sprites; the telescope mask is a window |
 
 ## Audio
 

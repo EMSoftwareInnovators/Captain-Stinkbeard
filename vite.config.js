@@ -12,7 +12,10 @@ function stripDebugChunks(keep) {
     generateBundle(_options, bundle) {
       if (keep) return;
       for (const [file, chunk] of Object.entries(bundle)) {
-        if (chunk.type === 'chunk' && chunk.isDynamicEntry && chunk.facadeModuleId?.includes('/src/debug/')) delete bundle[file];
+        if (chunk.type !== 'chunk' || chunk.isEntry) continue;
+        // Lazy debug entries, and chunks shared only between them (presets).
+        const debugOnly = chunk.moduleIds.length > 0 && chunk.moduleIds.every((id) => id.includes('/src/debug/'));
+        if ((chunk.isDynamicEntry && chunk.facadeModuleId?.includes('/src/debug/')) || debugOnly) delete bundle[file];
       }
     },
   };

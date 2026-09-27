@@ -63,6 +63,15 @@ export class GameDriver {
     await this.wait(1200);
   }
 
+  /** Starts a fresh game at a story preset (data/debug/presets.json), fast text. */
+  async preset(id) {
+    await this.waitFor(() => window.__GAME__?.game.scene.isActive('Title') || window.__GAME__?.game.scene.isActive('World'), null, 30000);
+    await this.eval(() => window.__GAME__.app.settings.set('textSpeed', 'instant'));
+    await this.eval((p) => window.__GAME__.test.preset(p), id);
+    await this.waitFor(() => window.__GAME__.game.scene.isActive('World') && !window.__GAME__.game.scene.getScene('World').leaving, null, 15000);
+    await this.wait(700);
+  }
+
   /** Current UI state: tutorial | choice | line | typing | insert | idle | busy | battle. */
   uiState() {
     return this.eval(() => {

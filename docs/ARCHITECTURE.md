@@ -150,6 +150,7 @@ effects. Unit tests run scripts against mock services.
 | `Battle` | launched over the paused world; presents `BattleEngine` |
 | `Menu` | pause menu and shops, launched over the paused world |
 | `GameOver` | retry from autosave, load, or title |
+| `Cinema` | full-screen illustrated vistas and close-up inserts for set-pieces, above the world and below the dialogue box |
 | `Overlay` | always on top: dialogue box, tutorials, toasts, banners, location titles, hints, full-screen fades |
 | `Debug` | F2 overlay (development builds only) |
 
@@ -199,6 +200,58 @@ once the battle has ended and the world has resumed, so a script can write
 - **Ambient life**: ocean with wake and a swell (the sea rises and falls, the deck stays steady), gulls, chimney smoke,
   animated flags and lanterns, drifting sail shadows, crew routines, and
   ambience beds with random one-shots (creaks, gulls, drips, bells).
+
+## Story, set-pieces and hazards (Phase 2)
+
+Story Phase 2 added engine features, not special cases. Everything is data.
+
+- **Chapters extend earlier content without editing it.** A map file with
+  `"patch": "<mapId>"` (`data/maps/ship/phase2/*.patch.json`) prepends
+  objects, music/lighting variants and haze, and appends props, onEnter
+  scripts, regions, ambient life, fume zones and collision to the base map
+  (`ContentDB.applyExtensions`). An NPC or character record with
+  `"extend": "<id>"` puts its dialogue selectors ahead of the original ones
+  and adds look variants.
+- **Story state is flags.** The current chapter, the time-of-day colour grade
+  and every character's look (`variants`, resolved by
+  `systems/story/progress.js`) are pure functions of the saved flags, so none
+  of them is saved separately. `WorldScene.refreshStory()` re-applies
+  conditional props, dynamic solids (props, blocks, chests), lighting,
+  appearances, fumes, haze, the grade and music the moment a flag changes.
+  NPC *placements* are chosen when a map is built (first matching placement
+  per NPC wins, `absent` means "elsewhere"), so scenes that move people
+  mid-scene use `spawn`/`move`, and the next visit shows the new arrangement.
+- **Story triggers** (`data/story/triggers/*.json`) start chapters: a trigger
+  runs when its condition holds and the world is idle. Chapter triggers are
+  `"once": false` with a condition their script falsifies at once (for
+  example `questNotStarted` + `startQuest`), so a trigger interrupted by
+  closing the game simply runs again after loading; a unit test checks every
+  repeatable trigger clears its own condition.
+- **The world is busy until a map's arrival scripts have run**
+  (`WorldScene.enterMap`): a transition's `then` script and `onEnter` scripts
+  run before the player, fumes or triggers get a frame.
+- **Set-piece commands** (`fly`, `hop`, `bark`, `burst`, `propFx`, `roll`,
+  `sprite`/`moveSprite`, `tether`, `fumeCloud`, `vista…`, `insert`) are in
+  `worldServices.js` and `CinemaScene`. Stage sprites (`world/Stage.js`) are
+  free sprites placed in tile units (a bathtub alongside, a rowboat being
+  lowered) and the rescue rope, which follows the path the captain actually
+  walked. `FxPool` recycles particles with a hard cap (halved with Reduced
+  effects). `Barks` are speech bubbles that don't stop the game.
+- **Fumes** (`systems/hazards/fumes.js` rules, `world/FumeLayer.js` drawing):
+  zones of `light`/`dense`/`center` level (optionally drifting along a path),
+  exposure that builds in thick fumes and recovers in clean air, a warning at
+  65 %, and a collapse that is never fatal: the map's `fumeCollapse` script
+  (default `hazard.fume_collapse`) runs and the captain respawns somewhere
+  breathable. Exposure only builds under player control; during scenes the
+  clouds thin and the vignette opens so the scene reads. The *Fume hazard*
+  option scales the build-up (Normal 1, Gentle 0.5, Off 0).
+- **The dialogue window docks** at the top of the screen when the bottom
+  would hide the captain, the speaker, or the point the camera is held on
+  (`WorldScene.dialogueDock`), with hysteresis so it doesn't hop between lines.
+  Vistas keep it at the bottom.
+- **Debug presets** (`data/debug/presets.json`, `src/debug/presets.js`) build
+  a fresh session at any point of the story by chaining `after` presets; the
+  F2 *Story* tab, `window.__GAME__.test.preset(id)` and unit tests share them.
 
 ## Battle
 
@@ -298,8 +351,17 @@ menu, checksum + version per record, migrations table for future formats.
   `menus.spec.js` checks the shop never bleeds into the pause menu;
   `progression.spec.js` plays out of order (rats before Quill, a locked door
   without the key, holding a direction through ladders and hatches).
+  `phase2.spec.js` starts every chapter preset, plays the rescue (including
+  a collapse in the Dead Center), saves and continues mid-phase, plays a
+  scene with choices on a gamepad, and plays all of Story Phase 2 from the
+  end of the prologue to Garrick's probation.
   `e2e/driver.js` is the shared driver; `tools/play.mjs` runs quick scripted
   sessions for screenshots.
+- `tests/phase2_story.test.js` plays Story Phase 2 headlessly with the real
+  scripts, quests and triggers and mock services, twice (always the first
+  choice, always the last), and fails on any dead end, loop or script error.
+  `tests/phase2.test.js` covers the fume model, variants, chapters and time of
+  day, save migration 1 → 2, presets, trigger hygiene and the new options.
 
 ## Adding Chapter 8 (or anything else)
 
@@ -312,6 +374,11 @@ Nothing in the engine is prologue-specific:
 3. Story flags in `data/story/flags/<chapter>.json`, quests in
    `data/quests/<chapter>.json`, enemies/encounters/items/shops likewise.
 4. Link the new area to an existing one with a warp (or start it from a
-   cutscene `transition`).
+   cutscene `transition`), or patch an existing room with a
+   `"patch": "<mapId>"` file for new placements, props, fumes and music.
+5. Start the chapter from a story trigger (`data/story/triggers/`), add
+   `extend` records so the crew talk about it, and add debug presets so it
+   can be jumped to.
 
-The prologue's files are never edited to add a chapter.
+The prologue's files are never edited to add a chapter. (Phase 2 did rebuild
+the treasure hold, with a save migration for anyone saved inside it.)
