@@ -92,6 +92,9 @@ export class GameSession {
     this.location = { map: s.location?.map ?? null, x: s.location?.x ?? 0, y: s.location?.y ?? 0, facing: s.location?.facing ?? 'down' };
     this.playTime = Number.isFinite(s.playTime) ? s.playTime : 0;
     this.createdAt = s.createdAt ?? this.createdAt;
+    // Objectives that follow saved state (items held, enemies beaten...) are
+    // re-checked, so saves made before a content fix pick up their progress.
+    this.quests.refreshStateObjectives();
   }
 
   /** Stops listening to the shared event bus (call when abandoning this session). */

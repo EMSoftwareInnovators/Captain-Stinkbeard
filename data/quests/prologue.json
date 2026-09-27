@@ -25,9 +25,10 @@
     "description": "Quill's ledger won't balance and Mags is out of patience. Rats are loose in the cargo hold. Speak to the quartermaster, go below and clear them out.",
     "objectives": [
       { "id": "talk_quartermaster", "text": "Speak to the Quartermaster", "type": "talk", "target": "quill" },
-      { "id": "enter_hold", "text": "Enter the Cargo Hold", "type": "visit", "target": "cargo_hold", "after": ["talk_quartermaster"] },
-      { "id": "clear_hold", "text": "Defeat the rats", "type": "defeat", "tag": "hold_rats", "count": 3, "after": ["enter_hold"] },
-      { "id": "report_back", "text": "Report back to the Quartermaster", "type": "talk", "target": "quill", "after": ["clear_hold"] }
+      { "id": "enter_hold", "text": "Enter the Cargo Hold", "type": "visit", "target": "cargo_hold" },
+      { "id": "clear_hold", "text": "Defeat the rats", "type": "defeat", "count": 3,
+        "objects": ["cargo_hold:rats_1", "cargo_hold:rats_2", "cargo_hold:rats_nest"] },
+      { "id": "report_back", "text": "Report back to the Quartermaster", "type": "talk", "target": "quill", "after": ["talk_quartermaster", "clear_hold"] }
     ],
     "rewards": { "xp": 40, "gold": 60, "items": [{ "id": "rat_catchers_charm", "count": 1 }, { "id": "healing_tonic", "count": 1 }], "flags": ["rat_problem_complete"] },
     "onComplete": "cutscene.tutorial_done"

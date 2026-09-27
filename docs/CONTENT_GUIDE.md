@@ -292,9 +292,10 @@ free-form integers.
   "description": "Quill's ledger won't balance…",
   "objectives": [
     { "id": "talk_quartermaster", "text": "Speak to the Quartermaster", "type": "talk", "target": "quill" },
-    { "id": "enter_hold", "text": "Enter the Cargo Hold", "type": "visit", "target": "cargo_hold", "after": ["talk_quartermaster"] },
-    { "id": "clear_hold", "text": "Defeat the rats", "type": "defeat", "tag": "hold_rats", "count": 3, "after": ["enter_hold"] },
-    { "id": "report_back", "text": "Report back", "type": "talk", "target": "quill", "after": ["clear_hold"] }
+    { "id": "enter_hold", "text": "Enter the Cargo Hold", "type": "visit", "target": "cargo_hold" },
+    { "id": "clear_hold", "text": "Defeat the rats", "type": "defeat", "count": 3,
+      "objects": ["cargo_hold:rats_1", "cargo_hold:rats_2", "cargo_hold:rats_nest"] },
+    { "id": "report_back", "text": "Report back", "type": "talk", "target": "quill", "after": ["talk_quartermaster", "clear_hold"] }
   ],
   "rewards": { "xp": 40, "gold": 60, "items": [{ "id": "healing_tonic", "count": 1 }], "flags": ["rat_problem_complete"] },
   "onComplete": "cutscene.tutorial_done"
@@ -306,14 +307,27 @@ free-form integers.
 | `talk` | a conversation with the NPC ends | `target` (NPC id) |
 | `inspect` | an object is inspected | `target` `"map:object"` or `tag` |
 | `visit` | a map or region is entered | `target` (map id or region id) |
-| `defeat` | a battle is won | `target` (encounter id), `tag` (encounter tag) or `enemy` (counts each one), plus `count` |
+| `defeat` | a battle is won, or (with `objects`) the listed field enemies are beaten | `target` (encounter id), `tag` (encounter tag) or `enemy` (counts each one), plus `count`; or `objects` (`"map:object"` enemy ids) |
 | `obtain` | the inventory holds enough | `item`, `count` |
 | `event` | a script fires `{ "event": name }` | `target` |
 | `flag` | a story flag is set | `target` |
 | `manual` | only by `completeObjective` | — |
 
 `after` lists objectives that must be done first (they stay hidden in the quest
-log until then); `optional: true` objectives don't block completion. A quest
+log until then); `optional: true` objectives don't block completion.
+
+**Let players do things early.** Anything the player can do before the quest
+asks for it must still count. `obtain`, `flag`, `visit` (the current map) and
+`defeat` with `objects` follow saved state rather than one-off events: they are
+checked when the quest starts, when an objective unlocks, whenever the state
+changes and when a save loads. So rats beaten before Quill hands out the job
+still count, and old saves repair themselves. Prefer these for anything
+permanent (a map enemy stays beaten; a `tag` count only sees battles won while
+the objective is active), keep `after` for things that genuinely can't happen
+earlier (usually the final report), and give the quest giver a dialogue
+selector for "already done" (see `quill.rats_already_done`). One event
+completes at most one step of a chain: a single conversation can't finish
+"talk to Quill" and "report to Quill" together. A quest
 completes when all required objectives are done: rewards are granted, toasts
 shown and `onComplete` runs when the player is free. Categories `main` and
 `side` sort the quest log.
@@ -460,7 +474,7 @@ Defeated map enemies stay defeated (saved per `map:object`).
 | Type | Fields |
 | --- | --- |
 | `spawn` | `x`, `y`, `facing` — entry points for warps and `newGame` |
-| `warp` | `x`, `y`, `w`, `h`, `to: { map, spawn }` (or `x`/`y`/`facing`), `sfx`, `if`, `locked` (script run when `if` fails) |
+| `warp` | `x`, `y`, `w`, `h`, `to: { map, spawn }` (or `x`/`y`/`facing`), `sfx`, `if` (a live lock, see below), `locked` (script run when the lock holds) |
 | `npc` | `npc`, `x`, `y`, `facing`, `behavior`, `if` |
 | `enemy` | `encounter`, `x`, `y`, `sprite`, `wander`, `chase`, `facing`, `if` |
 | `inspect` | `x`, `y`, `w`, `h`, and `text` (lines), `script`, or `dialogue` (selectors like NPCs); `tags` |
@@ -470,6 +484,17 @@ Defeated map enemies stay defeated (saved per `map:object`).
 
 Inspecting fires `object:inspected` with id `"map:object"`, which `inspect`
 objectives use (`"treasure_hold:hoard"`).
+
+On every other object `if` decides whether it exists when the map loads. On a
+**warp** it is a lock, checked each time: while it fails the warp's tile is
+solid, walking into it bumps and runs `locked`, and so does pressing Confirm
+facing it. It opens the moment the condition holds (pick up the key and the
+door works without leaving the room).
+
+**Spawns next to warps.** Directions held when a map loads never carry the
+player onto a warp: they must be released first. Put a spawn on the tile
+beside its ladder or hatch, facing away from it (`"facing": "up"` below a
+hatch you just climbed out of), so arriving and walking on feels natural.
 
 ## Tilesets and props
 
@@ -545,6 +570,8 @@ optionally `muffled`) plus random one-shots (`creak0`–`creak3`, `gull0`–`gul
 { "id": "to_brig", "type": "warp", "x": 4, "y": 3, "to": { "map": "brig", "spawn": "door" },
   "if": { "hasItem": "brig_key" }, "locked": "inspect.brig_locked" }
 ```
+Without the key the door is solid and `inspect.brig_locked` runs when the
+player walks into it or presses Confirm on it; with it, the door just opens.
 
 **A one-time cutscene when entering a room**
 

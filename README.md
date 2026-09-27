@@ -92,7 +92,7 @@ src/
   ui/                   text, windows, list menus, dialogue box, menu pages
   debug/                F2 overlay and E2E test hooks (dev builds only)
 tests/                  Vitest unit tests
-e2e/                    Playwright end-to-end test and the shared game driver
+e2e/                    Playwright end-to-end tests and the shared game driver
 tools/                  art preview page, play-script runner, asset exporter
 docs/                   ARCHITECTURE, CONTENT_GUIDE, RETRO_PORT_NOTES
 ```

@@ -71,6 +71,7 @@ Systems announce changes on the bus; nothing polls. Quests, the overlay
 | --- | --- | --- |
 | `story:flagSet` / `story:flagCleared` / `story:varChanged` | `{ flag }` / `{ name, value }` | StoryState |
 | `inventory:changed`, `gold:changed` | counts | Inventory |
+| `world:objectChanged` | `{ key: "map:object", prop, value }` (defeated, opened...) | WorldState |
 | `party:changed`, `party:levelUp` | `{ levelUps, source }` | Party / GameSession |
 | `quest:started`, `quest:objectiveProgress`, `quest:objectiveCompleted`, `quest:completed`, `quest:reset` | quest + objective | QuestSystem |
 | `npc:talked` | `{ npc }` | WorldScene after a conversation |
@@ -81,7 +82,13 @@ Systems announce changes on the bus; nothing polls. Quests, the overlay
 | `session:started`, `settings:changed`, `input:device`, `audio:music` | | App / services |
 
 Quest objectives are data (`{ type: 'talk', target: 'hale' }`) matched
-against these events, so no quest ever needs code.
+against these events, so no quest ever needs code. Each event is matched
+against a snapshot of the objectives available *before* it, so one event
+advances at most one step of an `after` chain. Objectives about permanent
+state (`obtain`, `flag`, `visit` of the current map, `defeat` with `objects`)
+are also re-checked from the session on quest start, on unlock, on
+`inventory:changed` / `story:flagSet` / `world:objectChanged`, and after
+a save loads, so doing things before the quest asks still counts.
 
 ## Content pipeline
 
@@ -167,6 +174,12 @@ once the battle has ended and the world has resumed, so a script can write
   the frame it is read (walking into a wall or a person just turns you), the
   first step starts one frame in, and pressing the opposite way mid-step turns
   back at once instead of finishing the tile.
+- **Warps** take the player when a step lands on them. A warp with `if` is a
+  live lock: while the condition fails its tile blocks, and bumping or
+  confirming on it runs its `locked` script (once per push; the direction must
+  be released before it bumps again). Directions already held when a map loads
+  are latched: they walk the player around normally but never onto a warp until
+  released, so holding Up through a ladder can't bounce straight back.
 - **Depth** is y-sorted by feet position; overhead layers (rigging, beams) draw
   above actors.
 - **NPC brains** (`world/NpcBrain.js`): `stand` (optionally looking around),
@@ -277,9 +290,14 @@ menu, checksum + version per record, migrations table for future formats.
   tampered, newer, migrations), battle math and engine behaviour, timed-input
   tracking, guard reduction, content validation (shipped content passes;
   deliberately broken content fails with the right message) and a balance
-  simulation of the prologue fights.
-- `e2e/prologue.spec.js` (Playwright): a real browser plays from New Game
-  through both quests with real key presses, saves, reloads and continues.
+  simulation of the prologue fights, and quest objectives done in any order.
+- `e2e/` (Playwright), a real browser with real key presses:
+  `prologue.spec.js` plays from New Game through both quests, saves, reloads
+  and continues; `gamepad.spec.js` does the same by pad; `movement.spec.js`
+  measures input latency, pixels per frame and turning back mid-step;
+  `menus.spec.js` checks the shop never bleeds into the pause menu;
+  `progression.spec.js` plays out of order (rats before Quill, a locked door
+  without the key, holding a direction through ladders and hatches).
   `e2e/driver.js` is the shared driver; `tools/play.mjs` runs quick scripted
   sessions for screenshots.
 

@@ -16,6 +16,7 @@
     "behavior": { "type": "stand" },
     "dialogue": [
       { "if": { "objectiveActive": "rats_in_the_hold.report_back" }, "script": "quill.rats_report" },
+      { "if": { "all": [{ "objectiveActive": "rats_in_the_hold.talk_quartermaster" }, { "objectiveDone": "rats_in_the_hold.clear_hold" }] }, "script": "quill.rats_already_done" },
       { "if": { "objectiveActive": "rats_in_the_hold.talk_quartermaster" }, "script": "quill.rats_brief" },
       { "if": { "questActive": "rats_in_the_hold" }, "script": "quill.rats_reminder" },
       { "if": { "questCompleted": "rats_in_the_hold" }, "script": "quill.after" },

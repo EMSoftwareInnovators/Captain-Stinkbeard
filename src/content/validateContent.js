@@ -605,7 +605,20 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
           if (!db.maps.has(o.target) && ![...compiled.values()].some((m) => m.meta.regions.some((r) => r.id === o.target))) oc.error(`visit target "${o.target}" is not a map or region`);
           break;
         case 'defeat':
-          if (o.enemy) oc.enemy(o.enemy);
+          if (o.objects) {
+            // Map enemies counted from saved world state ("map:object").
+            if (!Array.isArray(o.objects) || o.objects.length === 0) oc.error('"objects" must be a non-empty list of "map:object" enemies');
+            else {
+              for (const ref of o.objects) {
+                const [mapId, objId] = String(ref).split(':');
+                const m = compiled.get(mapId);
+                const obj = m?.objects.find((x) => x.id === objId);
+                if (!m) oc.error(`defeat object "${ref}": unknown map "${mapId}"`);
+                else if (!obj || obj.type !== 'enemy') oc.error(`defeat object "${ref}" is not an enemy on map "${mapId}"`);
+              }
+              if ((o.count ?? o.objects.length) > o.objects.length) oc.error('count is larger than the number of listed enemies');
+            }
+          } else if (o.enemy) oc.enemy(o.enemy);
           else if (o.tag) { if (!encounterTags.has(o.tag)) oc.error(`no encounter has tag "${o.tag}"`); }
           else oc.encounter(o.target);
           break;

@@ -16,6 +16,18 @@
     "quill: Bandages from the stores, signed for. The stairs down to the hold are just there, by the aft bulkhead.",
     { "setFlag": "rat_problem_started" }
   ],
+  "quill.rats_already_done": [
+    "quill: Captain. Thank you for coming. It's the hold stores. Something has been at them, and I'd like you to...",
+    "captain[smug]: Rats. Three nests. Dealt with.",
+    "quill[surprised]: You... already? I haven't even finished the inventory.",
+    "captain: I was passing through. They weren't.",
+    { "setFlag": "rat_problem_started" },
+    { "completeObjective": "rats_in_the_hold.talk_quartermaster" },
+    { "completeObjective": "rats_in_the_hold.enter_hold" },
+    "quill[happy]: Then I'll amend the ledger at once. 'Losses: eleven biscuits, two sacks of peas, one cheese, and approximately six rats.'",
+    "quill: Something from the stores for your trouble. And this, which Jory made from... well. You'll see.",
+    { "completeObjective": "rats_in_the_hold.report_back" }
+  ],
   "quill.rats_reminder": [
     "quill: Any luck below, Captain? I've been counting the biscuits again. I wish I hadn't.",
     { "if": { "objectiveActive": "rats_in_the_hold.clear_hold" }, "then": [

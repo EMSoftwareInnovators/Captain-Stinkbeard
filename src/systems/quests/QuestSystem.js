@@ -12,13 +12,18 @@ import { asArray } from '../../core/util.js';
  *            'region:entered'    { region }         target = region id
  *   defeat   'battle:won'        { encounter, tags, enemies }
  *                                target = encounter id | tag | enemy (+count)
+ *            or world state      objects = ["map:enemyObject", ...] (+count):
+ *                                counts map enemies already beaten, so
+ *                                fights before the objective opens still count
  *   obtain   inventory count of `item` >= count (checked continuously)
  *   event    'script:event'      { name }           target = event name
  *   flag     story flag `target` is set
  *   manual   only via the completeObjective script command
  *
  * An objective only progresses while it is *available*: quest active,
- * prerequisites (`after`) complete, and not already done.
+ * prerequisites (`after`) complete, and not already done. One event advances
+ * only objectives that were available *before* it, so a single conversation
+ * can't tick off a whole chain of "talk to X" steps at once.
  */
 export const OBJECTIVE_TYPES = ['talk', 'inspect', 'visit', 'defeat', 'obtain', 'event', 'flag', 'manual'];
 
@@ -44,6 +49,7 @@ export class QuestSystem {
     on('script:event', (e) => this.onEvent('event', (o) => o.target === e.name));
     on('story:flagSet', () => this.refreshStateObjectives());
     on('inventory:changed', () => this.refreshStateObjectives());
+    on('world:objectChanged', () => this.refreshStateObjectives());
   }
 
   detach() {
@@ -183,26 +189,32 @@ export class QuestSystem {
     this.bus?.emit('quest:reset', { quest: this.def(questId) });
   }
 
-  onEvent(type, matches) {
+  /** Objectives available right now (snapshot taken before an event is applied). */
+  availableObjectives(filter) {
+    const out = [];
     for (const quest of this.activeQuests()) {
       for (const obj of quest.objectives) {
-        if (obj.type !== type || !matches(obj)) continue;
-        if (!this.isObjectiveAvailable(quest.id, obj.id)) continue;
-        this.advanceObjective(quest.id, obj.id, 1);
+        if (filter(obj) && this.isObjectiveAvailable(quest.id, obj.id)) out.push([quest, obj]);
       }
+    }
+    return out;
+  }
+
+  onEvent(type, matches) {
+    for (const [quest, obj] of this.availableObjectives((o) => o.type === type && matches(o))) {
+      if (this.isObjectiveAvailable(quest.id, obj.id)) this.advanceObjective(quest.id, obj.id, 1);
     }
   }
 
   onBattleWon({ encounter, tags = [], enemies = [] }) {
-    for (const quest of this.activeQuests()) {
-      for (const obj of quest.objectives) {
-        if (obj.type !== 'defeat' || !this.isObjectiveAvailable(quest.id, obj.id)) continue;
-        let amount = 0;
-        if (obj.enemy) amount = enemies.filter((e) => e === obj.enemy).length;
-        else if (obj.tag) amount = tags.includes(obj.tag) ? 1 : 0;
-        else if (obj.target) amount = obj.target === encounter ? 1 : 0;
-        if (amount > 0) this.advanceObjective(quest.id, obj.id, amount);
-      }
+    // Objectives listing map `objects` count from world state instead.
+    for (const [quest, obj] of this.availableObjectives((o) => o.type === 'defeat' && !o.objects)) {
+      if (!this.isObjectiveAvailable(quest.id, obj.id)) continue;
+      let amount = 0;
+      if (obj.enemy) amount = enemies.filter((e) => e === obj.enemy).length;
+      else if (obj.tag) amount = tags.includes(obj.tag) ? 1 : 0;
+      else if (obj.target) amount = obj.target === encounter ? 1 : 0;
+      if (amount > 0) this.advanceObjective(quest.id, obj.id, amount);
     }
   }
 
@@ -240,6 +252,19 @@ export class QuestSystem {
             } else if (obj.type === 'visit' && this.session?.location?.map === obj.target) {
               this.finishObjective(quest.id, obj.id);
               changed = true;
+            } else if (obj.type === 'defeat' && obj.objects && this.session?.world) {
+              const beaten = obj.objects.filter((ref) => this.session.world.isDefeated(ref)).length;
+              const st = this.state.get(quest.id).objectives[obj.id];
+              const count = obj.count ?? obj.objects.length;
+              const progress = Math.min(beaten, count);
+              if (progress !== st.progress) {
+                st.progress = progress;
+                this.bus?.emit('quest:objectiveProgress', { quest, objective: obj, progress, count });
+              }
+              if (beaten >= count) {
+                this.finishObjective(quest.id, obj.id);
+                changed = true;
+              }
             }
           }
         }

@@ -9,7 +9,7 @@ import { evaluateCondition } from '../systems/conditions/conditions.js';
 import { CommandRegistry, ScriptRunner } from '../systems/script/ScriptRunner.js';
 import { createCommandImplementations } from '../systems/script/commands.js';
 import { WorldState } from '../systems/world/WorldState.js';
-import { TILE_SIZE, DIR_VECTORS, OPPOSITE_DIR, SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
+import { TILE_SIZE, DIR_VECTORS, OPPOSITE_DIR, DIRECTIONS, SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
 import { hash32 } from '../core/Rng.js';
 import { asArray } from '../core/util.js';
 
@@ -60,6 +60,10 @@ export class WorldScene extends BaseScene {
     this.debugGfx = null;
     this.pendingResume = null;
     this.transitioning = false;
+    // Directions already held when this map loaded. They never carry the
+    // captain straight back through a doorway; release and press again.
+    this.entryHeld = new Set(DIRECTIONS.filter((d) => this.controls.isDown(d)));
+    this.lockedHold = null;
 
     this.cameras.main.setBackgroundColor(this.model.meta.background === 'ocean' ? '#16416f' : '#07060b');
     this.worldMap = new WorldMap(this, this.model, this.tileset);
@@ -134,7 +138,9 @@ export class WorldScene extends BaseScene {
     this.objects = [];
     const npcPlaced = new Set();
     for (const obj of this.model.objects) {
-      if (obj.if && !evaluateCondition(obj.if, session)) continue;
+      // A warp's `if` is a lock, checked live when the captain steps on it
+      // (so a door opens as soon as he has the key and can say it's locked).
+      if (obj.if && obj.type !== 'warp' && !evaluateCondition(obj.if, session)) continue;
       const wkey = WorldState.key(this.model.id, obj.id);
       switch (obj.type) {
         case 'npc': {
@@ -372,6 +378,8 @@ export class WorldScene extends BaseScene {
       }
     }
     if (input.pressed('debug')) return;
+    for (const d of this.entryHeld) if (!input.isDown(d)) this.entryHeld.delete(d);
+    if (this.lockedHold && !input.isDown(this.lockedHold)) this.lockedHold = null;
     const dir = input.heldDirection();
     if (!dir) {
       if (this.wasMoving || p.pose === 'walk') p.stopWalking();
@@ -407,10 +415,18 @@ export class WorldScene extends BaseScene {
       }
     }
     const warp = this.warpAt(nx, ny);
-    if (warp && warp.if && !evaluateCondition(warp.if, this.session)) {
+    if (warp && (this.entryHeld.has(dir) || this.lockedHold === dir)) {
+      // Still holding the key that brought us here (or that just hit a
+      // locked door): don't bounce through the doorway.
+      if (this.wasMoving || p.pose === 'walk') p.stopWalking();
+      this.wasMoving = false;
+      return;
+    }
+    if (warp && !this.warpUnlocked(warp)) {
       this.bump();
       p.stopWalking();
       this.wasMoving = false;
+      this.lockedHold = dir;
       if (warp.locked) this.runScript(warp.locked);
       return;
     }
@@ -439,7 +455,7 @@ export class WorldScene extends BaseScene {
     const p = this.player;
     this.session.location = { map: this.model.id, x: p.tx, y: p.ty, facing: p.facing };
     const warp = this.warpAt(p.tx, p.ty);
-    if (warp) {
+    if (warp && this.warpUnlocked(warp)) {
       this.takeWarp(warp);
       return;
     }
@@ -472,6 +488,10 @@ export class WorldScene extends BaseScene {
     return x >= obj.x && y >= obj.y && x < obj.x + (obj.w || 1) && y < obj.y + (obj.h || 1);
   }
 
+  warpUnlocked(warp) {
+    return !warp.if || evaluateCondition(warp.if, this.session);
+  }
+
   warpAt(x, y) {
     return this.objects.find((o) => o.type === 'warp' && this.inRect(o, x, y)) || null;
   }
@@ -494,6 +514,8 @@ export class WorldScene extends BaseScene {
     }
     const prop = this.propAt.get(this.key(x, y));
     if (prop?.def?.inspect) return { kind: 'prop', prop, x, y };
+    const warp = this.warpAt(x, y);
+    if (warp?.locked && !this.warpUnlocked(warp)) return { kind: 'locked', warp, x, y };
     return null;
   }
 
@@ -505,6 +527,7 @@ export class WorldScene extends BaseScene {
     else if (t.kind === 'inspect') this.inspectObject(t.obj);
     else if (t.kind === 'chest') this.openChest(t.obj);
     else if (t.kind === 'prop') this.inspectProp(t.prop, t.x, t.y);
+    else if (t.kind === 'locked') this.runScript(t.warp.locked);
     return true;
   }
 
