@@ -1,0 +1,110 @@
+{
+  "//": "Story Phase 2: inspectables, locked doors and fume-collapse handling.",
+
+  "hazard.fume_collapse": [
+    "Everything goes yellow. Then it goes black.",
+    { "fade": "out", "duration": 500 },
+    { "respawn": "safe" },
+    { "wait": 400 },
+    { "fade": "in", "duration": 700 },
+    { "sfx": "cough_heavy" },
+    "captain[coughing]: *cough* ...Note to self. Breathe the other stuff.",
+    { "tutorial": "You collapsed in the fumes and came round in cleaner air. Keep an eye on the Exposure meter, and step into clean air to recover.", "title": "Fumes" }
+  ],
+
+  "hazard.collapse_hold": [
+    { "if": { "all": [{ "flag": "squawks_fell" }, { "notFlag": "squawks_rescued" }] }, "else": [{ "call": "hazard.fume_collapse" }, { "end": true }] },
+    { "sfx": "rope_haul" },
+    "The line round your middle goes taut. Somewhere far above, Rook heaves.",
+    { "if": { "flag": "squawks_caught" }, "then": [
+      "You never let go of Squawks.",
+      { "call": "ch6.escape" },
+      { "end": true }
+    ] },
+    { "fade": "out", "duration": 500 },
+    { "respawn": "stairs" },
+    { "wait": 400 },
+    { "fade": "in", "duration": 600 },
+    { "sfx": "cough_heavy" },
+    { "say": "rook: Got you, Cap'n! Catch your breath and go again. He's still down there!", "name": "Rook (from above)" },
+    { "tutorial": "Rook hauled you back to the stairs. Follow Squawks's cries, and use clean or light air to recover on the way.", "title": "Rescue" }
+  ],
+
+  "cargo.treasure_door": [
+    { "if": { "objectiveActive": "treasure_inspection.meet" }, "then": [{ "call": "ch3.meet_at_door" }, { "end": true }] },
+    { "if": { "all": [{ "flag": "guzzlegut_gust" }, { "notFlag": "fumes_thinned" }] }, "then": [
+      "The door is shut. Thick yellow wisps curl out from underneath it and pool around your boots.",
+      "captain[coughing]: Not a chance. Not until it thins.",
+      { "end": true }
+    ] },
+    { "call": "inspect.treasure_door_locked" }
+  ],
+
+  "inspect.telescope": [
+    { "if": { "flag": "phase2_complete" }, "then": [
+      "You sweep the horizon. Half a mile downwind, a rowboat bobs along behind the ship.",
+      "Its passenger spots the glint of the lens and waves enthusiastically.",
+      { "end": true }
+    ] },
+    { "if": { "flag": "frigate_fled" }, "then": [
+      "Far to the east, a royal frigate is still running. Several of her crew appear to be hanging over the stern rail.",
+      { "end": true }
+    ] },
+    { "if": { "flag": "garrick_hauled_aboard" }, "then": [
+      "A brass telescope on a tripod. The sea is empty again. No more bathtubs. You check twice.",
+      { "end": true }
+    ] },
+    "A brass telescope on a tripod, trained out to starboard. Nothing but blue."
+  ],
+
+  "inspect.rowboat": [
+    "The ship's rowboat, freshly painted 'G.G.' on the bow in Quill's neatest lettering.",
+    "Inside: two oars, a bailing bucket, a clothes-peg, and a small sign reading BACK IN HALF A MILE."
+  ],
+
+  "inspect.bathtub_deck": [
+    "Garrick's 'vessel': an upturned bathtub on claw feet, drying in the sun.",
+    "A brass plate on the side reads PROPERTY OF THE HARBOURMASTER, PORT FARTHING. Two of its four screws are missing."
+  ],
+
+  "inspect.figurehead": [
+    "The figurehead used to gaze out to sea with serene oak dignity.",
+    "Now she's wrinkling her nose. Permanently. Wick has offered to sand it off. She is having none of it."
+  ],
+
+  "inspect.eel_jar": [
+    { "insert": "eel_jar_label", "caption": "Salty Jim's fermented eel paste, aged in the forepeak since before Wick was born." },
+    "The lid is waxed shut, and then tied shut, and then nailed shut. Jim does not want anyone opening this jar."
+  ],
+
+  "inspect.eel_jar_gone": [
+    "Where the eel paste jar used to stand, there's a clean ring on the table, and a smell that refuses to leave."
+  ],
+
+  "inspect.galley_portrait": [
+    "A portrait of you, looking heroic and slightly cross-eyed. Mags hung it 'so Bob knows he's being watched'.",
+    { "if": { "flag": "guzzlegut_gust" }, "then": ["The paint has taken on a yellowish tinge. So has your painted expression."] }
+  ],
+
+  "inspect.lunch_table": [
+    "The scene of the lunch. A dozen bowls, licked clean, and an empty jar lying on its side like a fallen soldier."
+  ],
+
+  "inspect.knitting": [
+    "Mags's knitting basket: red and cream wool, three needles, and a pattern labelled SMALL JUMPER (PARROT) (FURIOUS)."
+  ],
+
+  "inspect.shackle": [
+    "A chain runs from the pillar to Penhallow's ankle. He has polished it. Twice.",
+    { "if": { "flag": "merchant_test_done" }, "then": ["He has also, you notice, moved as far from your treasure as the chain allows."] }
+  ],
+
+  "inspect.perch": [
+    { "if": { "flag": "squawks_bald" }, "then": [
+      "Squawks's perch. A few red and blue feathers are still caught in the cracks.",
+      "Squawks has asked that nobody mention them. Or look at them. Or think about them.",
+      { "end": true }
+    ] },
+    "Squawks's perch, with a seed tray labelled PRIVATE in beak-scratched capitals."
+  ]
+}

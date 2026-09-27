@@ -1,0 +1,311 @@
+{
+ "garrick.s2": [
+  "garrick[businesslike]: Captain! Garrick Guzzlegut, reporting for piracy. I've been familiarising myself with the assets.",
+  "captain: Which assets?",
+  "garrick[greedy]: All of them, Captain. Due diligence."
+ ],
+ "garrick.s3": [
+  "garrick[pretend]: Afternoon, Captain. Lovely weather. Quiet weather. Nothing rumbling in it whatsoever."
+ ],
+ "garrick.s4": [
+  {
+   "if": {
+    "flag": "squawks_fell"
+   },
+   "then": [
+    "garrick[worried]: Captain, whatever you do down there, don't linger in the thick of it. The Dead Center is... well. It's the premium product.",
+    "garrick[nervous]: And watch your boots. I say that as a friend. And as a man who has ruined a great many boots."
+   ],
+   "else": [
+    "garrick[worried]: Captain, whatever happens, nobody goes near the middle of it.",
+    "garrick[businesslike]: I'm not being modest. It's a professional warning."
+   ]
+  }
+ ],
+ "garrick.s5": [
+  "garrick[nervous]: How is the bird, Captain? I'd like to send a card.",
+  "garrick[businesslike]: I'll sign it from 'the crew'. Plausible deniability."
+ ],
+ "garrick.s6": [
+  "garrick[worried]: The crew are looking at me the way my creditors used to, Captain.",
+  "garrick[pretend]: My creditors are also why I was in a bathtub. Unrelated. Mostly."
+ ],
+ "garrick.tr": [
+  "garrick[nervous]: Captain, as a valued employee, I'd like to request representation. Anyone at all.",
+  "garrick[alarmed]: Not the bird."
+ ],
+ "garrick.frigate_helm": [
+  "garrick[businesslike]: The helm, Captain! Put us upwind of them.",
+  "garrick[greedy]: The wind does the delivery. We just open the package."
+ ],
+ "garrick.frigate_sail": [
+  "garrick[greedy]: The line by the foremast, Captain! One pull and the whole pocket goes over.",
+  "garrick[businesslike]: Premium grade. I'd put my name on it. I have, in a sense."
+ ],
+ "garrick.s8_1": [
+  "garrick[businesslike]: Captain! I've drafted a proposal. 'Guzzlegut Maritime Deterrence, Limited.'",
+  "garrick[greedy]: Ships pay us not to sail upwind of them. Recurring revenue.",
+  "captain: No.",
+  "garrick: I'll put you down as 'considering it'."
+ ],
+ "garrick.s8_2": [
+  "garrick[relieved]: The rowboat's rather peaceful, Captain. I've started calling it my satellite office."
+ ],
+ "garrick.s8_3": [
+  "garrick[pretend]: No, Captain. That wasn't me. That was the hull. Settling.",
+  "garrick[nervous]: Please don't call the bird."
+ ],
+ "garrick.s8_4": [
+  "garrick[greedy]: I've been appraising the treasure again. Still worthless.",
+  "garrick[delighted]: But the smell is holding its value beautifully."
+ ],
+ "squawks.s2": [
+  "squawks[insulting]: SQUAWK! The bathtub man owes me a biscuit! He took it! He called it a 'loan'!",
+  "squawks[smug]: Captain, I've been thinking. Throw him back. SQUAWK."
+ ],
+ "squawks.s3": [
+  "squawks[worried]: Captain. Captain. His belly. It spoke.",
+  "squawks[horrified]: It spoke in a language only the damned understand. SQUAWK."
+ ],
+ "squawks.s5": [
+  "squawks[exhausted]: Don't look at me. Don't LOOK at me.",
+  "squawks[outraged]: I had a CREST, Captain! A MAGNIFICENT crest! Now I have THREE FEATHERS and a GRUDGE!"
+ ],
+ "squawks.s6": [
+  "squawks[furious]: Hang him! Keelhaul him! Put him in a rowboat and push it into the SUN! SQUAWK!"
+ ],
+ "squawks.tr": [
+  "squawks[outraged]: Don't say anything about the sweater. Mags made it. It is WARM. That is ALL."
+ ],
+ "squawks.s8_1": [
+  "squawks[smug]: SQUAWK! Captain, I've perfected the warning. Listen.",
+  "squawks[squawk]: DEADLY BREW! DEADLY BREW!",
+  "squawks[smug]: Rolls off the beak."
+ ],
+ "squawks.s8_2": [
+  "squawks: My feathers are coming back. Slowly. I have four now.",
+  "squawks[outraged]: FOUR, Captain."
+ ],
+ "squawks.s8_3": [
+  "squawks[insulting]: If the businessman so much as HICCUPS, I'm sounding the alarm. SQUAWK."
+ ],
+ "bob.lamp_oil": {
+  "start": [
+   "bob[happy]: Morning, Cap'n! Want a sip?",
+   "captain: Bob. That's lamp oil.",
+   "bob[happy]: I know! Tastes like spicy sunshine!",
+   {
+    "choice": [
+     {
+      "text": "Put it down. Now.",
+      "then": [
+       "captain[angry]: Put. It. Down.",
+       "bob[sad]: But the sunshine, Cap'n..."
+      ]
+     },
+     {
+      "text": "...Spicy sunshine?",
+      "then": [
+       "captain[annoyed]: 'Spicy sunshine', Bob?",
+       "bob[happy]: Like a warm day, but on fire! Doc says it'll make me glow. I'm hoping for green."
+      ]
+     },
+     {
+      "text": "Who gave you lamp oil?",
+      "then": [
+       "bob: The lamp, Cap'n.",
+       "captain: ...Of course it did."
+      ]
+     }
+    ]
+   },
+   "captain[annoyed]: Back in the lantern, Bob. All of it.",
+   "bob[sad]: Yes, Cap'n. Mostly all of it.",
+   {
+    "setFlag": "bob_lamp_oil_seen"
+   },
+   {
+    "addVar": "morning_beats",
+    "value": 1
+   }
+  ]
+ },
+ "bob.s1": [
+  "bob[happy]: I put it back in the lantern, Cap'n! Most of it!",
+  "bob: The lantern's burning ever so cheerful now."
+ ],
+ "bob.s2": [
+  "bob[happy]: The bathtub man says I've got a head for business!",
+  "bob: Then he asked if he could borrow it."
+ ],
+ "bob.s3": [
+  "bob: Cap'n, I heard his tummy! Sounded like my tummy after the lamp oil!",
+  "bob[happy]: Maybe HE drank lamp oil! We should compare!"
+ ],
+ "bob.s4": [
+  "bob[coughing]: Cap'n, it smells like the time I ate a candle! Only... more!"
+ ],
+ "bob.s5": [
+  "bob[sad]: Squawks is all pink now, Cap'n. Like a baby.",
+  "bob: A really, really angry baby."
+ ],
+ "bob.s6": [
+  "bob: If the gold's ruined, can I have some? I'll take the stinkiest bit. I don't mind. Haven't had a nose since Tuesday."
+ ],
+ "bob.tr": [
+  "bob[happy]: I'm on the jury! What are we deciding? Is it lunch?"
+ ],
+ "bob.s8_1": [
+  "bob[happy]: I asked if I could go in the rowboat too, Cap'n. They said I haven't earned it."
+ ],
+ "bob.s8_2": [
+  "bob: Garrick says his stomach is a 'proprietary weather system'.",
+  "bob[happy]: I want one."
+ ],
+ "ned.s1": [
+  "ned: Morning, Captain. Back on watch after the ague. One eye, all of it on the horizon.",
+  {
+   "addVar": "morning_beats",
+   "value": 1
+  }
+ ],
+ "ned.s2": [
+  "ned: Spotted him at a mile off, Captain. Thought he was a buoy.",
+  "ned: Still not convinced he isn't."
+ ],
+ "ned.s3": [
+  "ned[concerned]: Heard something from below, Captain. Checked the horizon for weather.",
+  "ned: Weather's fine. Weather isn't the problem."
+ ],
+ "ned.s4": [
+  "ned[coughing]: Can't see a thing in this, Captain. And I only had the one to start with."
+ ],
+ "ned.s5": [
+  "ned: Eye on the horizon, back to the hatch. Best arrangement on the ship right now."
+ ],
+ "ned.s6": [
+  "ned: Sail on the horizon earlier, Captain. A merchant.",
+  "ned: The wind shifted and she turned away so hard she nearly capsized. Can't blame her."
+ ],
+ "ned.tr": [
+  "ned: Navy colours, forty guns, and a captain who thinks he's having a good day."
+ ],
+ "ned.s8_1": [
+  "ned: Nobody comes near us now, Captain. Merchants, navy, gulls.",
+  "ned[smug]: Never had such an empty horizon. It's restful."
+ ],
+ "ned.s8_2": [
+  "ned: When the rowboat's out, I keep an eye on it.",
+  "ned: From a distance. The distance is the important part."
+ ],
+ "jim.s1": [
+  {
+   "if": {
+    "notFlag": "met_jim_today"
+   },
+   "then": [
+    "jim: Captain. Salting's done, every barrel in the forepeak full to the lid. So I'm back on the galley, and Mags has someone to shout at who isn't Quill.",
+    "jim: Pickled onions, pickled eggs, pickled herring. Mind the crocks on that shelf. Some of them are older than Wick.",
+    {
+     "setFlag": "met_jim_today"
+    },
+    {
+     "addVar": "morning_beats",
+     "value": 1
+    }
+   ],
+   "else": [
+    "jim: Something needs pickling, Captain? Everything needs pickling, eventually."
+   ]
+  }
+ ],
+ "jim.s2": [
+  "jim[annoyed]: Your new man came sniffing round my crocks, Captain. Said he was 'surveying the inventory'.",
+  "jim: I told him the inventory bites."
+ ],
+ "jim.s3": [
+  "jim[concerned]: Twelve onions, Captain. Twelve. And the eel paste.",
+  "jim: I've kept that jar sealed eleven years. Eleven years."
+ ],
+ "jim.s4": [
+  "jim[coughing]: The eel paste. I knew it. I KNEW it. Eleven years that jar sat quiet, and one afternoon with him..."
+ ],
+ "jim.s5": [
+  "jim: I've written a new label for the eel paste. It says 'NO.'",
+  "jim: I've put it on every jar aboard, to be safe."
+ ],
+ "jim.s6": [
+  "jim[annoyed]: Worthless, Captain? The whole hold? Then I'll pickle it.",
+  "jim: Pickled gold. Somebody'll buy anything if it's pickled."
+ ],
+ "jim.tr": [
+  "jim: Add a fifth charge, Captain: stealing bait. Put it at the top."
+ ],
+ "jim.s8_1": [
+  "jim: New galley rules. Mister Guzzlegut eats last, eats light, and eats on deck.",
+  "jim[angry]: And never, EVER anything out of a jar."
+ ],
+ "jim.s8_2": [
+  "jim[happy]: I kept one of those old sausages, Captain. Not for eating.",
+  "jim: It's nailed over the stove. As a warning."
+ ],
+ "penhallow.s1": [
+  {
+   "if": {
+    "notFlag": "met_penhallow"
+   },
+   "then": [
+    "penhallow[annoyed]: Captain. Aldous Penhallow, of Penhallow and Daughters, cloth and fine goods. I wish to register a complaint.",
+    "captain: About what?",
+    "penhallow: The hammock. The stew. The chain. And a man called Bob, who keeps asking to borrow my spectacles to look at the sun.",
+    "captain: Your ransom letter went out with the last ship. Your daughters will pay.",
+    "penhallow[offended]: My daughters are the ones who suggested I travel.",
+    {
+     "setFlag": "met_penhallow"
+    },
+    {
+     "addVar": "morning_beats",
+     "value": 1
+    }
+   ],
+   "else": [
+    "penhallow[annoyed]: I'd like it noted that the chain chafes, Captain. I would like it noted in ink."
+   ]
+  }
+ ],
+ "penhallow.s2": [
+  "penhallow: I hear you've taken on another passenger, Captain. Does he get a chain too?",
+  "penhallow[offended]: I'd like it noted that mine is too tight."
+ ],
+ "penhallow.s3": [
+  "penhallow[alarmed]: Captain, the deck just shook. Is the ship sinking?",
+  "penhallow: I haven't been ransomed yet. It would be such a waste."
+ ],
+ "penhallow.s4": [
+  "penhallow[coughing]: Captain! Unchain me! I'll pay! I'll pay my own ransom!",
+  "captain: Nobody's paying anything.",
+  "penhallow[terrified]: Then I'll pay for a WINDOW!"
+ ],
+ "penhallow.s5": [
+  "penhallow[disgusted]: I have lived in a hammock for nine days, Captain. I thought I knew what a bad smell was.",
+  "penhallow: I was a child."
+ ],
+ "penhallow.s6": [
+  "penhallow[disgusted]: I stand by my appraisal, Captain. Not one coin.",
+  "penhallow: I'd sooner be paid in herring. Pickled herring. From that nice man's jars."
+ ],
+ "penhallow.tr": [
+  "penhallow: I hear there's to be a trial. If he's found guilty, can he have my chain?"
+ ],
+ "penhallow.s8_1": [
+  "penhallow[smug]: A ship that smells like this cannot be boarded, Captain.",
+  "penhallow: As a merchant, I resent it. As a prisoner, I find it oddly reassuring."
+ ],
+ "penhallow.s8_2": [
+  "penhallow: My daughters wrote. They've heard about the smell.",
+  "penhallow[offended]: They've doubled the ransom. On condition that you keep me."
+ ],
+ "dunstan.default": [
+  "dunstan: Hnnrk... five more minutes..."
+ ]
+}

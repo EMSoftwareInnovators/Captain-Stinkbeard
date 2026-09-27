@@ -1,0 +1,44 @@
+{
+ "id": "rescue_tension",
+ "title": "Into the Cloud",
+ "bpm": 84,
+ "stepsPerBeat": 4,
+ "reverb": 0.3,
+ "channels": {
+  "pulse": {
+   "instrument": "tri_bass",
+   "volume": 0.42
+  },
+  "pad": {
+   "instrument": "pad",
+   "volume": 0.15
+  },
+  "lead": {
+   "instrument": "flute",
+   "volume": 0.2,
+   "pan": 0.15
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.2
+  }
+ },
+ "patterns": {
+  "R": {
+   "pulse": "A1:2 r:1 A1:1 r:12 | A1:2 r:1 A1:1 r:12 | F1:2 r:1 F1:1 r:12 | E1:2 r:1 E1:1 r:12",
+   "pad": "[A3 C4 E4]:16 | [A3 C4 F4]:16 | [F3 A3 C4]:16 | [E3 G#3 B3]:16",
+   "lead": "r:8 E5:4 D5:4 | C5:8 B4:8 | r:8 A4:4 C5:4 | B4:12 r:4",
+   "drums": "k.k............. k.k.........t... k.k............. k.k.....t...t.t."
+  },
+  "R2": {
+   "pulse": "A1:2 r:1 A1:1 r:4 A1:2 r:1 A1:1 r:4 | A1:2 r:1 A1:1 r:4 A1:2 r:1 A1:1 r:4 | F1:2 r:1 F1:1 r:4 F1:2 r:1 F1:1 r:4 | E1:2 r:1 E1:1 r:4 E1:2 r:1 E1:1 r:4",
+   "pad": "[A3 C4 E4]:16 | [A3 C4 F4]:16 | [F3 A3 D4]:16 | [E3 G#3 B3 D4]:16",
+   "lead": "r:8 E5:4 F5:4 | G5:8 E5:8 | r:8 D5:4 C5:4 | B4:16",
+   "drums": "k.k.....k.k..... k.k.....k.k..... k.k.....k.k..... k.k.t...k.k.tttt"
+  }
+ },
+ "sequence": [
+  "R",
+  "R2"
+ ]
+}

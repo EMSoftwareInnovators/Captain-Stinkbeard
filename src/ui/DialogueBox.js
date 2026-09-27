@@ -2,6 +2,7 @@ import { addPanel } from './Panel.js';
 import { addText, setText, parseMarkup, formatTokens, wrap, paginate, applySpans, measure, UI_COLORS } from './text.js';
 import { ListMenu } from './ListMenu.js';
 import { TEXT_SPEED_MS } from '../systems/settings/Settings.js';
+import { resolveVariant } from '../systems/story/progress.js';
 
 const BOX = { x: 4, y: 158, w: 312, h: 62 };
 const LINES = 4;
@@ -70,7 +71,8 @@ export class DialogueBox {
   }
 
   setSpeaker(line) {
-    const sp = line.speaker ? this.app.content.speaker(line.speaker) : null;
+    // A speaker's portrait and name can follow the story (see "variants").
+    const sp = line.speaker ? resolveVariant(this.app.content.speaker(line.speaker), this.app.session) : null;
     if (line.speaker && !sp) console.warn(`Unknown speaker ${line.speaker}`);
     const name = line.name ?? sp?.name ?? null;
     const portraitId = sp?.portrait ?? null;

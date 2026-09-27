@@ -128,6 +128,33 @@ export const BEARD_STYLES = {
     ],
     up: [],
   },
+  // Enormous mutton chops that sweep down the cheeks and stop short of the
+  // chin. No moustache.
+  muttonchops: {
+    down: [
+      ...Array(9).fill(''),
+      '.v............v.',
+      'vbv..........vbv',
+      'vbBv........vBbv',
+      'vbbbv......vbbbv',
+      '.vbbv......vbbv.',
+      '..vv........vv..',
+    ],
+    left: [
+      ...Array(9).fill(''),
+      '..........vbv...',
+      '.........vbBbv..',
+      '.........bbbbv..',
+      '..........vbbv..',
+      '...........vv...',
+    ],
+    up: [
+      ...Array(9).fill(''),
+      'vb............bv',
+      'vbb..........bbv',
+      '.vv..........vv.',
+    ],
+  },
   sideburns: {
     down: [
       ...Array(8).fill(''),

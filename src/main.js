@@ -10,6 +10,7 @@ import { BattleScene } from './scenes/BattleScene.js';
 import { MenuScene } from './scenes/MenuScene.js';
 import { GameOverScene } from './scenes/GameOverScene.js';
 import { OverlayScene } from './scenes/OverlayScene.js';
+import { CinemaScene } from './scenes/CinemaScene.js';
 
 /**
  * Entry point. Builds the App (content + services), then the Phaser game.
@@ -17,7 +18,7 @@ import { OverlayScene } from './scenes/OverlayScene.js';
  */
 async function main() {
   const app = new App();
-  const scenes = [BootScene, TitleScene, WorldScene, BattleScene, MenuScene, GameOverScene, OverlayScene];
+  const scenes = [BootScene, TitleScene, WorldScene, BattleScene, MenuScene, GameOverScene, CinemaScene, OverlayScene];
   if (DEBUG_ENABLED) {
     const { DebugScene } = await import('./debug/DebugScene.js');
     scenes.push(DebugScene);

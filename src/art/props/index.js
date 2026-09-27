@@ -1,8 +1,9 @@
 import { DECK_PROPS } from './deckProps.js';
 import { INTERIOR_PROPS } from './interiorProps.js';
+import { STORY_PROPS, withFoulTwins } from './storyProps.js';
 
-/** Every prop painter by sprite name. */
-export const PROP_PAINTERS = { ...DECK_PROPS, ...INTERIOR_PROPS };
+/** Every prop painter by sprite name (treasure also comes in a contaminated "_foul" twin). */
+export const PROP_PAINTERS = withFoulTwins({ ...DECK_PROPS, ...INTERIOR_PROPS, ...STORY_PROPS });
 
 /** Normalises a painter result to { frames: PixelCanvas[], ms }. */
 export function paintProp(name) {

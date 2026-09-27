@@ -1,5 +1,5 @@
 import { PixelCanvas } from '../PixelCanvas.js';
-import { PAL } from '../palette.js';
+import { PAL, rgba } from '../palette.js';
 import { resolveLook } from '../characters/characterPainter.js';
 
 /**
@@ -23,7 +23,25 @@ export const EXPRESSIONS = {
   smug: { brow: 'cocked', eye: 'half', mouth: 'smirk' },
   sad: { brow: 'up', eye: 'down', mouth: 'frown' },
   determined: { brow: 'down', eye: 'normal', mouth: 'tight' },
+  // Story phase 2 (Garrick and the crew's reactions to him)
+  greedy: { brow: 'raised', eye: 'shine', mouth: 'grin', fx: ['sparkle'] },
+  businesslike: { brow: 'cocked', eye: 'normal', mouth: 'tight' },
+  delighted: { brow: 'raised', eye: 'closed', mouth: 'grin', fx: ['blush'] },
+  nervous: { brow: 'up', eye: 'normal', mouth: 'wobble', fx: ['sweat'] },
+  worried: { brow: 'up', eye: 'wide', mouth: 'frown', fx: ['sweat'] },
+  gastro: { brow: 'up', eye: 'narrow', mouth: 'clench', fx: ['green', 'sweat', 'sweat2'] },
+  terrified: { brow: 'raised', eye: 'tiny', mouth: 'open', fx: ['pale', 'sweat'] },
+  relieved: { brow: 'up', eye: 'closed', mouth: 'smile', fx: ['blush'] },
+  pretend: { brow: 'flat', eye: 'side', mouth: 'whistle', fx: ['sweat'] },
+  offended: { brow: 'down', eye: 'half', mouth: 'pout' },
+  alarmed: { brow: 'raised', eye: 'wide', mouth: 'shout' },
+  disgusted: { brow: 'down', eye: 'narrow', mouth: 'wobble', fx: ['green'] },
+  devastated: { brow: 'up', eye: 'down', mouth: 'frown', fx: ['tear'] },
+  resigned: { brow: 'low', eye: 'half', mouth: 'neutral' },
+  coughing: { brow: 'up', eye: 'closed', mouth: 'open', fx: ['green'] },
 };
+
+export const EXPRESSION_NAMES = Object.keys(EXPRESSIONS);
 
 const FACES = {
   square: { w: 22, jaw: 20, top: 11, chin: 36 },
@@ -32,6 +50,7 @@ const FACES = {
   soft: { w: 21, jaw: 14, top: 12, chin: 35 },
   young: { w: 20, jaw: 13, top: 13, chin: 34 },
   broad: { w: 24, jaw: 21, top: 11, chin: 36 },
+  jowly: { w: 25, jaw: 23, top: 12, chin: 37, jowls: true },
 };
 
 function faceShape(face) {
@@ -133,6 +152,13 @@ function drawFace(c, L, face) {
   // cheek highlight
   c.set(CX - 7, 27, L.skin.S);
   c.set(CX - 6, 28, L.skin.S);
+  if (face.jowls) {
+    // A generous double chin and heavy cheeks.
+    c.hline(CX - 5, CX + 4, face.chin - 3, L.skin.d);
+    c.hline(CX - 4, CX + 3, face.chin - 2, L.skin.s);
+    c.set(CX - 10, 31, L.skin.d);
+    c.set(CX + 9, 31, L.skin.D);
+  }
   // ears
   for (const [ex, dir] of [[CX - face.w / 2 - 1, -1], [CX + face.w / 2, 1]]) {
     const x = Math.round(ex);
@@ -173,6 +199,26 @@ function drawEye(c, L, x, y, kind, mirror, color) {
       c.set(px(0), y + 1, '#f0ece6'); c.set(px(1), y + 1, '#f0ece6'); c.set(px(4), y + 1, '#f0ece6');
       c.set(px(2), y + 1, color); c.set(px(3), y + 1, color);
       c.set(px(2), y + 2, OUT); c.set(px(3), y + 2, OUT);
+      return;
+    case 'shine':
+      // Wide eyes with treasure reflected in them.
+      for (let i = 0; i < 5; i++) c.set(px(i), y - 1, OUT);
+      for (let j = 0; j < 3; j++) for (let i = 0; i < 5; i++) c.set(px(i), y + j, '#f4f0ea');
+      c.set(px(1), y + 1, color); c.set(px(2), y + 1, color); c.set(px(2), y + 2, color);
+      c.set(px(1), y, PAL.gold4); c.set(px(3), y + 1, PAL.gold3); c.set(px(2), y, PAL.gold5);
+      return;
+    case 'tiny':
+      for (let i = 0; i < 5; i++) c.set(px(i), y - 1, OUT);
+      for (let j = 0; j < 3; j++) for (let i = 0; i < 5; i++) c.set(px(i), y + j, '#f8f6f0');
+      c.set(px(2), y + 1, OUT);
+      return;
+    case 'side':
+      // Looking very hard at something else.
+      for (let i = 0; i < 5; i++) c.set(px(i), y, OUT);
+      for (let i = 0; i < 5; i++) c.set(px(i), y + 1, '#f4f0ea');
+      c.set(mirror ? px(0) : px(4), y + 1, color);
+      c.set(mirror ? px(1) : px(3), y + 1, OUT);
+      c.set(px(0), y + 2, lid); c.set(px(4), y + 2, lid);
       return;
     case 'normal':
     default:
@@ -252,12 +298,70 @@ function drawMouth(c, L, y, kind, hideLips = false) {
       for (let i = -3; i <= 1; i++) set(i, 0, dark);
       set(2, -1, dark); set(3, -2, dark);
       break;
+    case 'wobble':
+      for (let i = -3; i <= 2; i++) set(i, (i + 3) % 2, dark);
+      break;
+    case 'clench':
+      // Teeth gritted against the inevitable.
+      for (let i = -4; i <= 3; i++) set(i, -1, dark);
+      for (let i = -3; i <= 2; i++) set(i, 0, '#f8f4ec');
+      for (let i = -3; i <= 2; i += 2) set(i, 0, '#b8b0a4');
+      for (let i = -4; i <= 3; i++) set(i, 1, dark);
+      break;
+    case 'whistle':
+      set(-1, -1, dark); set(0, -1, dark);
+      set(-2, 0, dark); set(1, 0, dark); set(-1, 0, '#3a1418'); set(0, 0, '#3a1418');
+      set(-1, 1, dark); set(0, 1, dark);
+      break;
+    case 'pout':
+      for (let i = -2; i <= 1; i++) set(i, 0, dark);
+      for (let i = -2; i <= 1; i++) set(i, 1, lip);
+      set(-3, 1, dark); set(2, 1, dark);
+      break;
     case 'neutral':
     default:
       for (let i = -3; i <= 2; i++) set(i, 0, dark);
       if (!hideLips) for (let i = -2; i <= 1; i++) set(i, 1, lip);
   }
 }
+
+/** Overlays that sell an expression: sweat, a green tinge, a blush, sparkle... */
+function expressionFx(c, L, face, fx = []) {
+  const row = faceShape(face);
+  if (fx.includes('green') || fx.includes('pale')) {
+    // A wash over the skin that deepens toward the chin (queasy / drained).
+    const green = fx.includes('green');
+    const tint = green ? '#8ab83a' : '#eceae4';
+    const skins = [rgba(L.skin.s), rgba(L.skin.d), rgba(L.skin.S), rgba(L.skin.D)];
+    for (let y = face.top; y <= face.chin; y++) {
+      const r = row(y);
+      if (!r) continue;
+      const k = (green ? 0.12 : 0.2) + ((y - face.top) / (face.chin - face.top)) * (green ? 0.32 : 0.3);
+      for (let x = r[0]; x <= r[1]; x++) if (skins.includes(c.get(x, y))) c.blend(x, y, tint, k);
+    }
+  }
+  if (fx.includes('blush')) {
+    c.blend(CX - 9, 29, '#e46452', 0.6); c.blend(CX - 8, 29, '#e46452', 0.6);
+    c.blend(CX + 7, 29, '#e46452', 0.6); c.blend(CX + 8, 29, '#e46452', 0.6);
+  }
+  if (fx.includes('sweat')) {
+    const x = Math.round(CX + face.w / 2) - 2;
+    c.set(x, 16, '#dff4ff'); c.set(x, 17, '#9ad0f0'); c.set(x - 1, 17, '#9ad0f0'); c.set(x, 18, '#5a9ac8');
+  }
+  if (fx.includes('sweat2')) {
+    const x = Math.round(CX - face.w / 2) + 2;
+    c.set(x, 19, '#dff4ff'); c.set(x, 20, '#9ad0f0'); c.set(x, 21, '#5a9ac8');
+  }
+  if (fx.includes('tear')) {
+    c.set(CX - 8, 26, '#9ad0f0'); c.set(CX - 8, 27, '#9ad0f0'); c.set(CX - 8, 28, '#5a9ac8');
+  }
+  if (fx.includes('sparkle')) {
+    for (const [x, y] of [[CX - 15, 14], [CX + 14, 12]]) {
+      c.set(x, y, PAL.gold5); c.set(x - 1, y, PAL.gold3); c.set(x + 1, y, PAL.gold3); c.set(x, y - 1, PAL.gold3); c.set(x, y + 1, PAL.gold3);
+    }
+  }
+}
+
 
 function drawNose(c, L, face, style) {
   const y0 = 24;
@@ -287,6 +391,21 @@ function hairMass(c, L, face, style) {
   const [dk, md, lt] = L.hair;
   const top = face.top - 3;
   const fill = (x, y, col) => c.set(x, y, col);
+  if (style === 'combover') {
+    // A shining dome crossed by three determined strands; a short fringe of
+    // hair only above the ears.
+    c.set(CX - 7, 14, L.skin.S); c.set(CX - 6, 13, L.skin.S); c.set(CX - 5, 13, L.skin.S);
+    c.set(CX - 4, 14, '#ffffff');
+    for (let i = 0; i < 3; i++) {
+      const y = face.top + 1 + i * 2;
+      for (let x = CX - 8 + i; x < CX + 7 - i; x++) if ((x + i) % 5 !== 0) c.set(x, y + Math.round((x - CX) * 0.12), i === 1 ? lt : md);
+    }
+    for (let y = face.top + 5; y < face.top + 9; y++) {
+      fill(Math.round(CX - face.w / 2) - 1, y, md); fill(Math.round(CX - face.w / 2), y, lt);
+      fill(Math.round(CX + face.w / 2), y, dk); fill(Math.round(CX + face.w / 2) - 1, y, md);
+    }
+    return;
+  }
   if (style === 'bald') {
     c.set(CX - 7, 14, L.skin.S); c.set(CX - 6, 13, L.skin.S); c.set(CX - 5, 13, L.skin.S);
     // fringe of hair around the sides
@@ -405,6 +524,22 @@ function beardMass(c, L, face, style, expression) {
       }
     }
   }
+  if (style === 'muttonchops') {
+    // Leg-of-mutton chops: thin under the ear, bushy and flaring at the jaw,
+    // stopping short of the chin, which stays bare. No moustache.
+    for (let y = 26; y <= 37; y++) {
+      const r = row(Math.min(y, face.chin)) ?? [CX - 8, CX + 7];
+      const t = (y - 26) / 11;
+      const width = Math.max(2, Math.round(2 + 6 * Math.sin(Math.min(1, t * 1.15) * Math.PI * 0.62)));
+      const flare = Math.round(t < 0.85 ? t * 4 : (1 - t) * 20);
+      for (let i = 0; i < width; i++) {
+        const lx = r[0] - flare + i;
+        const rx = r[1] + flare - i;
+        c.set(lx, y, i === 0 ? lt : x3(y, i) ? dk : md);
+        c.set(rx, y, i === 0 ? dk : x3(y, i + 2) ? dk : md);
+      }
+    }
+  }
   if (style === 'sideburns') {
     for (let y = 20; y < 31; y++) {
       const r = row(y);
@@ -414,6 +549,10 @@ function beardMass(c, L, face, style, expression) {
     }
   }
   void expression;
+}
+
+function x3(y, i) {
+  return (y * 3 + i * 5) % 7 === 0;
 }
 
 function hatMass(c, L, face, style) {
@@ -492,6 +631,20 @@ function accessories(c, L, face, expression) {
     c.line(CX - 12, 16, CX + 12, 20, OUT);
   }
   if (L.extras.has('earring')) c.set(Math.round(CX + face.w / 2 + 1), 28, PAL.gold4);
+  if (L.extras.has('monocle')) {
+    // Brass appraiser's monocle over the right eye, chain down to the coat.
+    c.ellipseOutline(CX + 7, 23, 5, 5, PAL.gold3);
+    c.set(CX + 4, 20, '#ffffff90');
+    c.set(CX + 5, 20, '#ffffff60');
+    c.set(CX + 11, 26, PAL.gold2);
+    c.line(CX + 11, 27, CX + 13, 40, PAL.gold3);
+    c.line(CX + 13, 40, CX + 10, 46, PAL.gold2);
+  }
+  if (L.extras.has('facecloth')) {
+    for (let y = 27; y <= 36; y++) for (let x = CX - 11; x <= CX + 10; x++) c.set(x, y, y === 27 ? '#c8d6dc' : x > CX + 5 ? '#6a7c86' : '#9aaab2');
+    c.hline(CX - 12, CX + 11, 27, '#c8d6dc');
+    for (let x = CX - 9; x < CX + 8; x += 4) c.set(x, 31, '#dfeef4');
+  }
   if (L.extras.has('pipe')) {
     c.line(CX + 3, 32, CX + 9, 35, PAL.lea2);
     c.rect(CX + 9, 32, 3, 4, PAL.lea3);
@@ -529,10 +682,11 @@ export function paintPortrait(appearance, portrait, expression = 'neutral') {
   if (!bushy) drawMouth(c, L, mouthY, feat.mouth);
   beardMass(c, L, face, L.beardStyle, expression);
   if (bushy) drawMouth(c, L, mouthY, feat.mouth, true);
-  if (L.hairStyle !== 'long' && L.hairStyle !== 'wild') hairMass(c, L, face, L.hatStyle !== 'none' && L.hairStyle !== 'bald' ? 'cropped' : L.hairStyle);
+  if (L.hairStyle !== 'long' && L.hairStyle !== 'wild') hairMass(c, L, face, L.hatStyle !== 'none' && L.hairStyle !== 'bald' && L.hairStyle !== 'combover' ? 'cropped' : L.hairStyle);
   else if (L.hatStyle === 'none') hairMass(c, L, face, L.hairStyle);
   hatMass(c, L, face, L.hatStyle);
   accessories(c, L, face, expression);
+  expressionFx(c, L, face, feat.fx);
   if (portrait.age === 'old') {
     c.set(CX - 12, 25, L.skin.d); c.set(CX + 11, 25, L.skin.d);
     c.hline(CX - 4, CX - 2, 18, L.skin.d);

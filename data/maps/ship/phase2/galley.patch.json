@@ -1,0 +1,517 @@
+{
+ "id": "galley_phase2",
+ "patch": "galley",
+ "objects": [
+  {
+   "id": "garrick_7_9",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 7,
+   "y": 9,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "new_recruit.find_galley"
+     },
+     {
+      "notFlag": "galley_lunch_seen"
+     }
+    ]
+   },
+   "pose": "eat",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "jim_9_8",
+   "type": "npc",
+   "npc": "jim",
+   "x": 9,
+   "y": 8,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "new_recruit.find_galley"
+     },
+     {
+      "notFlag": "galley_lunch_seen"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "jim_away_evac",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "galley_evacuated"
+     },
+     {
+      "notFlag": "fumes_thinned"
+     }
+    ]
+   }
+  },
+  {
+   "id": "mags_away_evac",
+   "type": "npc",
+   "npc": "mags",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "galley_evacuated"
+     },
+     {
+      "notFlag": "fumes_thinned"
+     }
+    ]
+   }
+  },
+  {
+   "id": "quill_away_evac",
+   "type": "npc",
+   "npc": "quill",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "galley_evacuated"
+     },
+     {
+      "notFlag": "fumes_thinned"
+     }
+    ]
+   }
+  },
+  {
+   "id": "jim_away_trial",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "phase2_complete"
+     }
+    ]
+   }
+  },
+  {
+   "id": "mags_away_trial",
+   "type": "npc",
+   "npc": "mags",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "phase2_complete"
+     }
+    ]
+   }
+  },
+  {
+   "id": "quill_away_trial",
+   "type": "npc",
+   "npc": "quill",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "phase2_complete"
+     }
+    ]
+   }
+  },
+  {
+   "id": "jim_11_5",
+   "type": "npc",
+   "npc": "jim",
+   "x": 11,
+   "y": 5,
+   "facing": "down",
+   "if": {
+    "flag": "ch1_morning_started"
+   },
+   "pose": "work"
+  },
+  {
+   "id": "eel_jar_look",
+   "type": "inspect",
+   "x": 6,
+   "y": 4,
+   "script": "inspect.eel_jar",
+   "if": {
+    "all": [
+     {
+      "flag": "ch1_morning_started"
+     },
+     {
+      "notFlag": "galley_lunch_seen"
+     }
+    ]
+   }
+  },
+  {
+   "id": "jar_gone",
+   "type": "inspect",
+   "x": 6,
+   "y": 4,
+   "script": "inspect.eel_jar_gone",
+   "if": {
+    "flag": "galley_lunch_seen"
+   }
+  },
+  {
+   "id": "mags_portrait",
+   "type": "inspect",
+   "x": 15,
+   "y": 3,
+   "script": "inspect.galley_portrait",
+   "if": {
+    "flag": "ch1_morning_started"
+   }
+  },
+  {
+   "id": "lunch_table",
+   "type": "inspect",
+   "x": 4,
+   "y": 9,
+   "w": 3,
+   "script": "inspect.lunch_table",
+   "if": {
+    "all": [
+     {
+      "flag": "galley_lunch_seen"
+     },
+     {
+      "notFlag": "fumes_thinned"
+     }
+    ]
+   }
+  },
+  {
+   "id": "knitting",
+   "type": "inspect",
+   "x": 2,
+   "y": 6,
+   "script": "inspect.knitting",
+   "if": {
+    "flag": "squawks_rescued"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "pickle_barrel",
+   "x": 11,
+   "y": 4,
+   "if": {
+    "flag": "ch1_morning_started"
+   }
+  },
+  {
+   "prop": "brine_crock",
+   "x": 12,
+   "y": 4,
+   "if": {
+    "flag": "ch1_morning_started"
+   }
+  },
+  {
+   "prop": "eel_jar",
+   "x": 6,
+   "y": 4,
+   "id": "eel_jar",
+   "if": {
+    "all": [
+     {
+      "flag": "ch1_morning_started"
+     },
+     {
+      "notFlag": "galley_lunch_seen"
+     }
+    ]
+   },
+   "depthOffset": 2
+  },
+  {
+   "prop": "note_no_eel",
+   "x": 7,
+   "y": 3,
+   "if": {
+    "flag": "ch1_morning_started"
+   }
+  },
+  {
+   "prop": "captain_portrait",
+   "x": 15,
+   "y": 2,
+   "if": {
+    "flag": "ch1_morning_started"
+   },
+   "id": "galley_portrait"
+  },
+  {
+   "prop": "sign_no_garrick",
+   "x": 10,
+   "y": 4,
+   "if": {
+    "flag": "galley_lunch_seen"
+   }
+  },
+  {
+   "prop": "knitting_basket",
+   "x": 2,
+   "y": 6,
+   "if": {
+    "flag": "squawks_rescued"
+   }
+  },
+  {
+   "prop": "stain_small",
+   "x": 5,
+   "y": 9,
+   "if": {
+    "flag": "galley_lunch_seen"
+   }
+  },
+  {
+   "prop": "stain_floor",
+   "x": 12,
+   "y": 9,
+   "if": {
+    "flag": "guzzlegut_gust"
+   }
+  },
+  {
+   "prop": "fume_wisp",
+   "x": 13,
+   "y": 9,
+   "if": {
+    "all": [
+     {
+      "flag": "guzzlegut_gust"
+     },
+     {
+      "notFlag": "fumes_thinned"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "fume_wisp",
+   "x": 9,
+   "y": 6,
+   "if": {
+    "all": [
+     {
+      "flag": "guzzlegut_gust"
+     },
+     {
+      "notFlag": "fumes_thinned"
+     }
+    ]
+   }
+  }
+ ],
+ "onEnter": [
+  {
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "new_recruit.find_galley"
+     },
+     {
+      "notFlag": "galley_lunch_seen"
+     }
+    ]
+   },
+   "script": "ch2.galley_lunch"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "squawks_fell"
+       },
+       {
+        "notFlag": "squawks_rescued"
+       }
+      ]
+     },
+     {
+      "flag": "rescue_gear_on"
+     }
+    ]
+   },
+   "script": "ch6.rope_galley"
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   },
+   "music": "rescue_tension",
+   "musicFilter": null,
+   "ambience": "below_fumes"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "guzzlegut_gust"
+       },
+       {
+        "notFlag": "squawks_fell"
+       }
+      ]
+     },
+     {
+      "notFlag": "fumes_thinned"
+     }
+    ]
+   },
+   "music": "yellow_alert",
+   "musicFilter": null,
+   "ambience": "below_fumes"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "new_recruit.find_galley"
+     },
+     {
+      "notFlag": "galley_lunch_seen"
+     }
+    ]
+   },
+   "music": "garrick_theme"
+  }
+ ],
+ "haze": [
+  {
+   "if": {
+    "flag": "fumes_thinned"
+   },
+   "level": "faint"
+  },
+  {
+   "if": {
+    "flag": "guzzlegut_gust"
+   },
+   "level": "light"
+  }
+ ],
+ "fumes": [
+  {
+   "id": "g_room",
+   "level": "light",
+   "x": 1,
+   "y": 4,
+   "w": 16,
+   "h": 8,
+   "if": {
+    "all": [
+     {
+      "flag": "guzzlegut_gust"
+     },
+     {
+      "notFlag": "fumes_thinned"
+     }
+    ]
+   }
+  },
+  {
+   "id": "g_stairs",
+   "level": "dense",
+   "x": 10,
+   "y": 9,
+   "w": 5,
+   "h": 3,
+   "if": {
+    "all": [
+     {
+      "flag": "guzzlegut_gust"
+     },
+     {
+      "notFlag": "fumes_thinned"
+     }
+    ]
+   }
+  },
+  {
+   "id": "g_drift",
+   "level": "dense",
+   "x": 4,
+   "y": 6,
+   "w": 3,
+   "h": 2,
+   "path": [
+    [
+     3,
+     6
+    ],
+    [
+     8,
+     9
+    ]
+   ],
+   "periodMs": 12000,
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  }
+ ],
+ "fumeSafeSpawn": "ladder"
+}

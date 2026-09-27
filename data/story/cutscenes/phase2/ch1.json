@@ -1,0 +1,280 @@
+{
+  "//": "Story Phase 2, chapter 1: The Man in the Bathtub. Main-deck positions: telescope (4,28), used from (5,28) facing left; starboard is the left rail.",
+
+  "ch1.hook": [
+    { "wait": 700 },
+    "captain: The sun's getting low. Rounds done, rats done, ledger balanced.",
+    "captain[smug]: Nell reckons we raise the wreck-waters by morning. Maybe some honest plunder for a change.",
+    { "startQuest": "tomorrows_heading" },
+    { "setFlag": "phase2_hook_seen" },
+    { "tutorial": "When you have finished exploring, turn in for the night in your bed in the Captain's Quarters. The next chapter begins in the morning.", "title": "A New Day" }
+  ],
+
+  "ch1.sleep": {
+    "start": [
+      "Your bed. A feather mattress, liberated from a governor's mansion. Real feathers, mostly.",
+      { "choice": [
+        { "text": "Turn in for the night", "goto": "sleep" },
+        { "text": "Not yet", "then": ["captain: Not yet. There's always one more thing to shout at."] }
+      ], "cancel": 1 }
+    ],
+    "sleep": [
+      { "fade": "out", "duration": 900 },
+      { "sfx": "rest" },
+      { "wait": 1100 },
+      { "setFlag": "ch1_morning_started" },
+      { "banner": "CHAPTER 1", "sub": "The Man in the Bathtub" },
+      { "narrate": "Morning on the Sapphire Sea. Sunlight on calm water, a warm wind in the sails..." },
+      { "narrate": "...and aboard the Queen Anne's Revenge, a crew enjoying the most peaceful morning they will have for quite some time." },
+      { "close": true },
+      { "fade": "in", "duration": 1200 },
+      { "wait": 400 },
+      { "emote": "player", "icon": "note" },
+      "captain: Calm sea. Fair wind. Nothing on the horizon.",
+      "captain[smug]: Nothing can possibly go wrong today.",
+      { "tutorial": "A new day aboard. Talk to the crew and see what the morning brings.", "title": "Chapter 1" },
+      { "save": "auto" }
+    ]
+  },
+
+  "ch1.foredeck": [
+    { "setFlag": "ch1_foredeck_reached" },
+    { "bark": "ned", "text": "Hm? What's that, then...", "duration": 1600 }
+  ],
+
+  "ch1.lookout": [
+    { "setFlag": "bathtub_spotted" },
+    { "sfx": "bell_alarm" },
+    { "bark": "ned", "text": "<y>SOMETHING OFF THE STARBOARD BOW!</>", "shout": true, "duration": 2200 },
+    { "emote": "player", "icon": "exclaim" },
+    { "camera": "pan", "actor": "ned", "duration": 900 },
+    "ned[surprised]: Captain! Something in the water! Off the starboard bow!",
+    "captain: What kind of something?",
+    "ned: A floating kind, Captain! A round-ish, white-ish, floating kind!",
+    "ned[concerned]: And it's... I think it's shouting.",
+    { "call": "ch1.tub_alongside" },
+    { "camera": "reset", "duration": 700 },
+    "captain: Shouting.",
+    "captain[annoyed]: Somebody fetch me the telescope. And nobody shout back at it until we know what it is.",
+    { "startQuest": "strange_cargo" },
+    { "tutorial": "The telescope stands at the starboard (left) rail, just forward of the main hatch. Face it and press {btn:confirm}.", "title": "Telescope" }
+  ],
+
+  "ch1.tub_alongside": [
+    { "sprite": "tub", "frame": "bathtub_top_0", "anim": "stage:bathtub_paddle", "x": 2.4, "y": 43.2, "below": true, "bob": 1 }
+  ],
+
+  "ch1.telescope": {
+    "start": [
+      { "face": "player", "dir": "left" },
+      "You put your eye to the telescope and sweep the water off the starboard bow...",
+      { "vista": "bathtub_view", "fade": 500 },
+      { "wait": 700 },
+      "Blue. Blue. More blue. A gull, looking pleased with itself.",
+      { "vistaMove": "tub", "x": 170, "y": 180, "scale": 1.15, "duration": 1500 },
+      "...And a bathtub.",
+      "captain[surprised]: There's a man in it.",
+      "captain: A large man. In a green coat. Paddling. With...",
+      "captain[disgusted]: ...are those sausages? He's paddling with two enormous sausages.",
+      { "sfx": "splash", "volume": 0.6 },
+      { "say": "garrick: AHOOOY! AHOY THERE, VESSEL! Permission to approach, pending a mutually beneficial arrangement!", "name": "Voice from the Sea" },
+      "ned: What is it, Captain? A stranded merchant?",
+      "captain: Could be. He's shouting like one.",
+      "bob[happy]: Or a really loud buoy!",
+      "sully[annoyed]: Buoys don't wave, Bob.",
+      "bob[happy]: This one's special.",
+      "brask: Is it one of them giant floating fruits? I heard they get them down south. Big as a barrel.",
+      "captain[annoyed]: It's a man. In a bathtub.",
+      "brask[surprised]: ...A fruit man?",
+      { "vistaEnd": true, "fade": 500 },
+      { "setFlag": "bathtub_seen" },
+      "captain: Whatever he is, he's going to sink before he reaches us. That tub's riding low.",
+      { "choice": [
+        { "text": "Bring him alongside.", "then": ["captain[determined]: Bring him alongside. Rook! A line!"] },
+        { "text": "Leave him. ...No. Bring him in.", "then": [
+          "captain: Leave him.",
+          "hale[concerned]: Captain.",
+          "captain[annoyed]: ...Fine. Bring him in. Rook! A line!",
+          { "addVar": "captain_mercy", "value": -1 }
+        ] },
+        { "text": "Is he carrying any cargo?", "then": [
+          "ned: Just the sausages, Captain.",
+          "captain[resigned]: ...Bring him in anyway. Rook! A line!",
+          { "addVar": "captain_mercy", "value": 1 }
+        ] }
+      ] },
+      { "goto": "haul" }
+    ],
+    "haul": [
+      { "move": "rook", "to": [4, 29], "speed": "run", "face": "left" },
+      { "face": "player", "dir": "down" },
+      "rook[happy]: Coming about, Cap'n! Hold your sausages, mister!",
+      { "sfx": "rope_throw" },
+      { "anim": "rook", "name": "work" },
+      { "moveSprite": "tub", "x": 1.4, "y": 29.4, "duration": 2600, "ease": "Sine.Out" },
+      { "sfx": "rope_haul" },
+      { "wait": 300 },
+      { "spawn": "garrick", "x": 4, "y": 27, "facing": "right" },
+      { "hideObject": "garrick" },
+      { "spriteFrame": "tub", "frame": "bathtub_top_empty" },
+      { "sfx": "whoosh" },
+      { "fly": "garrick", "to": [4, 27], "from": [1, 29], "arc": 22, "duration": 800 },
+      { "sfx": "thud_heavy" },
+      { "shake": 2, "duration": 200 },
+      { "burst": "coins", "actor": "garrick", "count": 6 },
+      { "sfx": "coin_clink" },
+      { "anim": "rook", "name": "idle" },
+      { "setFlag": "garrick_hauled_aboard" },
+      { "move": "garrick", "path": ["right", 1], "face": "down" },
+      { "anim": "garrick", "name": "hips" },
+      "garrick[delighted]: Ahhh. Timber underfoot. Now THIS is a ship.",
+      { "face": "rook", "dir": "left" },
+      "rook: And what's that, then?",
+      { "face": "garrick", "dir": "left" },
+      "garrick[smug]: Close enough.",
+      { "face": "garrick", "dir": "down" },
+      { "anim": "garrick", "name": "idle" },
+      "garrick[businesslike]: Garrick Guzzlegut, at your service. Appraiser of treasures. Salvager of opportunities. Maritime businessman.",
+      "garrick: My card.",
+      "He presses a soggy square of card into your hand. The ink has run. It now reads 'GARR  GUZ  MARITI  BUS'.",
+      "captain[annoyed]: It's wet.",
+      "garrick[pretend]: It's been a difficult quarter.",
+      { "goto": "squawks" }
+    ],
+    "squawks": [
+      { "sfx": "wing_flap" },
+      { "spawn": "squawks", "x": 6, "y": 28, "facing": "left" },
+      { "hideObject": "squawks" },
+      { "fly": "squawks", "to": [6, 28], "from": [16, 17], "fromAlt": 44, "arc": 14, "duration": 1300 },
+      { "sfx": "squawk" },
+      "squawks[squawk]: SQUAWK! Captain! Captain! I leave for ONE morning flight—",
+      { "face": "squawks", "dir": "garrick" },
+      { "emote": "squawks", "icon": "exclaim", "duration": 600 },
+      "squawks[horrified]: —and you've caught a WALRUS!",
+      "garrick[offended]: I beg your pardon.",
+      "squawks[insulting]: A walrus in a COAT! With SIDEBURNS! Throw it back, Captain, it's too big to eat!",
+      "garrick[annoyed]: Is the bird part of the ship's assets? Because I'd like to discuss depreciating it.",
+      { "anim": "squawks", "name": "furious", "duration": 900 },
+      { "sfx": "squawk_angry" },
+      { "burst": "feathers", "actor": "squawks", "count": 6 },
+      "squawks[furious]: DEPRECIATE THIS!",
+      "captain[annoyed]: Squawks. Enough.",
+      "squawks[smug]: Captain Squawks. First mate of the air. Remember the name, walrus.",
+      "garrick[smug]: Garrick. Remember MINE, pigeon.",
+      { "hop": "squawks", "height": 10 },
+      "squawks[outraged]: PIGEON?!",
+      { "setFlag": "met_squawks" },
+      { "goto": "origin" }
+    ],
+    "origin": [
+      "captain: How does a man end up in a bathtub in the middle of the Sapphire Sea?",
+      "garrick[businesslike]: An excellent question, Captain. I've asked the sea the same thing several times. It never answers.",
+      "garrick: Six days ago I purchased a boat. A fine little sloop. At a tremendous discount.",
+      "captain: Why the discount?",
+      "garrick: The bottom was missing.",
+      "captain: ...",
+      "garrick[pretend]: The seller described it as 'open-plan'. She went down before we cleared the harbour wall.",
+      "garrick: Fortunately the bathtub floated. It was the only part of the deal that performed.",
+      "captain[disgusted]: And the sausages?",
+      "garrick[greedy]: Oars, provisions and emergency capital. Diversification, Captain.",
+      { "goto": "questions" }
+    ],
+    "questions": [
+      { "choice": [
+        { "text": "Who are you, exactly?", "if": { "var": { "name": "garrick_q_who", "eq": 0 } }, "then": [
+          { "setVar": "garrick_q_who", "value": 1 },
+          { "addVar": "garrick_q_count", "value": 1 },
+          "garrick[businesslike]: Formerly Senior Treasure Appraiser to the docks of Port Farthing. Finest docks on the coast.",
+          "captain: Formerly?",
+          "garrick[pretend]: There was a misunderstanding about the difference between 'appraising' a crown and 'wearing it home'.",
+          { "goto": "questions" }
+        ] },
+        { "text": "What happened to your last job?", "if": { "var": { "name": "garrick_q_job", "eq": 0 } }, "then": [
+          { "setVar": "garrick_q_job", "value": 1 },
+          { "addVar": "garrick_q_count", "value": 1 },
+          "garrick: I was let go. The harbourmaster called it theft. I called it 'asset relocation'.",
+          "garrick: We agreed to disagree. Then he agreed to throw me off the end of the dock.",
+          { "goto": "questions" }
+        ] },
+        { "text": "What can you actually do?", "if": { "var": { "name": "garrick_q_skills", "eq": 0 } }, "then": [
+          { "setVar": "garrick_q_skills", "value": 1 },
+          { "addVar": "garrick_q_count", "value": 1 },
+          "garrick[delighted]: I can tell real gold from gilt by the smell. A ruby from a boiled sweet by the sound it makes on a tooth.",
+          "garrick: Put me in a room with any treasure in the world and I'll value it in under a minute.",
+          "captain: Can you swab a deck?",
+          "garrick[pretend]: ...I can supervise a deck being swabbed.",
+          { "goto": "questions" }
+        ] },
+        { "text": "Why shouldn't I throw you back?", "if": { "var": { "name": "garrick_q_why", "eq": 0 } }, "then": [
+          { "setVar": "garrick_q_why", "value": 1 },
+          { "addVar": "garrick_q_count", "value": 1 },
+          "garrick[businesslike]: Because, Captain, a ship with a treasure room needs a man who knows what's in it.",
+          "captain[surprised]: Who said I had a treasure room?",
+          "garrick[smug]: Every pirate ship has a treasure room. It's in the brochure.",
+          { "goto": "questions" }
+        ] },
+        { "text": "That's enough questions.", "if": { "var": { "name": "garrick_q_count", "gte": 1 } }, "goto": "decide" }
+      ] },
+      { "goto": "decide" }
+    ],
+    "decide": [
+      { "setFlag": "garrick_questioned" },
+      { "move": "hale", "to": [7, 28], "face": "left", "speed": "run" },
+      "hale: Well, Captain? What do we do with him?",
+      { "choice": [
+        { "text": "Throw him back.", "then": [
+          "captain[annoyed]: Throw him back.",
+          { "anim": "garrick", "name": "panic", "duration": 900 },
+          "garrick[terrified]: Wait wait wait! A counter-offer! I'll work for half pay!",
+          "captain: You're not getting any pay.",
+          "garrick: Then I'll work for half of that!",
+          "hale[concerned]: Captain... we're three hands short since the fever. And look at the tub.",
+          { "spriteFrame": "tub", "frame": "bathtub_top_sag" },
+          { "sfx": "splash" },
+          { "moveSprite": "tub", "alpha": 0, "duration": 1600 },
+          "The bathtub gives a small, sad gurgle and settles lower in the water.",
+          "captain[resigned]: ...Fine. He stays. Provisionally.",
+          { "addVar": "captain_mercy", "value": -1 }
+        ] },
+        { "text": "Put him to work.", "then": [
+          "captain: You'll work. Hard. For no pay.",
+          "garrick[businesslike]: I accept, provisionally, pending a review of the benefits package.",
+          "captain: There IS no benefits package.",
+          "garrick[smug]: Then I'll draft one.",
+          { "addVar": "captain_mercy", "value": 1 }
+        ] },
+        { "text": "Lock him in the brig.", "then": [
+          "captain: Lock him in the brig.",
+          "hale: The brig's full of Penhallow's luggage, Captain.",
+          "captain[surprised]: Penhallow brought LUGGAGE?",
+          "hale: Eleven trunks. He was very specific about them.",
+          "captain[resigned]: ...Then he works. Provisionally."
+        ] }
+      ] },
+      { "goto": "welcome" }
+    ],
+    "welcome": [
+      { "face": "player", "dir": "up" },
+      "captain[determined]: Hear me, Guzzlegut. You're crew. Provisionally. Put one boot wrong and you're back in that bathtub.",
+      "garrick[delighted]: Understood, Captain! Welcome aboard, me!",
+      "hale: And the bathtub, Captain?",
+      "garrick[offended]: My VESSEL comes with me. It has sentimental value. And a brass plate I haven't finished unscrewing.",
+      "captain[resigned]: ...Haul it up. Stow it by the bow.",
+      { "sfx": "rope_haul" },
+      { "removeSprite": "tub" },
+      { "setFlag": ["garrick_provisional"] },
+      "hale[happy]: Three cheers for the new... whatever he is!",
+      { "sfx": "crowd_cheer" },
+      { "bark": "rook", "text": "HUZZAH!", "shout": true, "duration": 1200 },
+      { "bark": "hale", "text": "Huzzah!", "duration": 1200 },
+      { "anim": "garrick", "name": "excited", "duration": 1200 },
+      "garrick[delighted]: Thank you, thank you! Drinks for everyone! On the house!",
+      "garrick: ...On this house. The captain's paying.",
+      "captain[angry]: I am NOT.",
+      { "anim": "squawks", "name": "squawk", "duration": 900 },
+      "squawks[insulting]: SQUAWK! THROW HIM BACK! THROW HIM BACK WITH THE SAUSAGES!",
+      { "fly": "squawks", "to": [8, 13], "alt": 20, "arc": 12, "duration": 1200, "land": true },
+      { "save": "auto" }
+    ]
+  }
+}

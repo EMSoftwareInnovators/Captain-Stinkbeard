@@ -1,0 +1,365 @@
+[
+ {
+  "id": "tomorrows_heading",
+  "title": "Tomorrow's Heading",
+  "category": "main",
+  "giver": "nell",
+  "summary": "Nell has a course for the rumoured wreck-waters of the Sapphire Sea.",
+  "description": "The prologue's chores are done and the day is winding down. Nell reckons the Revenge raises the rumoured wreck-waters by morning. Finish whatever you like aboard, then turn in for the night.",
+  "objectives": [
+   {
+    "id": "sleep",
+    "text": "Turn in for the night (your bed, Captain's Quarters)",
+    "type": "flag",
+    "target": "ch1_morning_started"
+   }
+  ]
+ },
+ {
+  "id": "strange_cargo",
+  "title": "Strange Cargo",
+  "category": "main",
+  "giver": "ned",
+  "summary": "Something is floating off the starboard bow, and it is shouting.",
+  "description": "One-Eyed Ned has sighted an object in the water off the starboard bow. It appears to be a bathtub. It appears to be complaining.",
+  "objectives": [
+   {
+    "id": "look",
+    "text": "Investigate the object off starboard (telescope, starboard rail)",
+    "type": "flag",
+    "target": "bathtub_seen"
+   },
+   {
+    "id": "haul",
+    "text": "Bring the stranger aboard",
+    "type": "flag",
+    "target": "garrick_hauled_aboard",
+    "after": [
+     "look"
+    ]
+   },
+   {
+    "id": "question",
+    "text": "Question the stranger",
+    "type": "flag",
+    "target": "garrick_questioned",
+    "after": [
+     "haul"
+    ]
+   },
+   {
+    "id": "decide",
+    "text": "Decide what to do with Garrick",
+    "type": "flag",
+    "target": "garrick_provisional",
+    "after": [
+     "question"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 20,
+   "flags": [
+    "garrick_aboard"
+   ]
+  }
+ },
+ {
+  "id": "new_recruit",
+  "title": "The New Recruit",
+  "category": "main",
+  "giver": "hale",
+  "summary": "Garrick Guzzlegut's first day as a pirate. Keep an eye on him.",
+  "description": "Mister Hale has put the new man to work swabbing the foredeck with Sully. Somebody ought to check that he is actually doing it.",
+  "objectives": [
+   {
+    "id": "check_work",
+    "text": "Check on Garrick's assigned work (the foredeck)",
+    "type": "flag",
+    "target": "garrick_toll_removed"
+   },
+   {
+    "id": "check_scrub",
+    "text": "See how the new recruit is scrubbing",
+    "type": "flag",
+    "target": "garrick_scrub_seen",
+    "after": [
+     "check_work"
+    ]
+   },
+   {
+    "id": "find_galley",
+    "text": "Find Garrick in the galley",
+    "type": "flag",
+    "target": "galley_lunch_seen",
+    "after": [
+     "check_scrub"
+    ]
+   },
+   {
+    "id": "talk_jim",
+    "text": "Speak with Salty Jim",
+    "type": "flag",
+    "target": "jim_warned",
+    "after": [
+     "find_galley"
+    ]
+   },
+   {
+    "id": "afternoon",
+    "text": "Continue the afternoon duties (the mainmast)",
+    "type": "flag",
+    "target": "rumble_sails_seen",
+    "after": [
+     "talk_jim"
+    ]
+   },
+   {
+    "id": "noises",
+    "text": "Respond to the strange stomach noises",
+    "type": "flag",
+    "target": "garrick_thunder_excuse",
+    "after": [
+     "afternoon"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 25
+  }
+ },
+ {
+  "id": "treasure_inspection",
+  "title": "Treasure Inspection",
+  "category": "main",
+  "giver": "hale",
+  "summary": "Last night's swell may have shifted the treasure. It needs checking, and a strong back.",
+  "description": "The treasure room took a knock in last night's swell. Everyone else is busy, so Garrick has been volunteered to help move chests. What could go wrong?",
+  "objectives": [
+   {
+    "id": "meet",
+    "text": "Meet Garrick at the treasure room door (Cargo Hold)",
+    "type": "flag",
+    "target": "treasure_inspection_started"
+   },
+   {
+    "id": "inspect",
+    "text": "Inspect the treasure",
+    "type": "flag",
+    "target": "treasure_hoard_checked",
+    "after": [
+     "meet"
+    ]
+   },
+   {
+    "id": "chest",
+    "text": "Move the fallen chest with Garrick",
+    "type": "flag",
+    "target": "treasure_chest_moved",
+    "after": [
+     "inspect"
+    ]
+   },
+   {
+    "id": "survive",
+    "text": "Survive the incident",
+    "type": "flag",
+    "target": "gust_aftermath_done",
+    "after": [
+     "chest"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 30
+  }
+ },
+ {
+  "id": "yellow_alert",
+  "title": "Yellow Alert",
+  "category": "main",
+  "giver": "hale",
+  "summary": "A yellow cloud is spreading through the ship.",
+  "description": "Something in the treasure room has gone off. Something called Garrick. Get the crew topside and find out how bad it is.",
+  "objectives": [
+   {
+    "id": "deck",
+    "text": "Get topside (Main Deck)",
+    "type": "flag",
+    "target": "deck_evacuated_seen"
+   },
+   {
+    "id": "dead_center",
+    "text": "Hear Garrick out about the cloud",
+    "type": "flag",
+    "target": "dead_center_explained",
+    "after": [
+     "deck"
+    ]
+   },
+   {
+    "id": "squawks",
+    "text": "Respond to Squawks' fall",
+    "type": "flag",
+    "target": "squawks_fell",
+    "after": [
+     "dead_center"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "save_squawks",
+  "title": "Save Squawks",
+  "category": "main",
+  "summary": "Captain Squawks has fallen into the Dead Center.",
+  "description": "A gust blew Squawks down the main hatch, straight into the thickest of the fumes. Rope up, mask up and go and get him. Don't linger in the thick of it.",
+  "objectives": [
+   {
+    "id": "rope",
+    "text": "Get a rescue line from Rook",
+    "type": "flag",
+    "target": "rescue_rope"
+   },
+   {
+    "id": "cloth",
+    "text": "Get a wet cloth from Doc Fennimore",
+    "type": "flag",
+    "target": "rescue_cloth"
+   },
+   {
+    "id": "enter",
+    "text": "Go below into the fumes (main hatch)",
+    "type": "flag",
+    "target": "rescue_prepared",
+    "after": [
+     "rope",
+     "cloth"
+    ]
+   },
+   {
+    "id": "locate",
+    "text": "Find Squawks (follow his cries)",
+    "type": "flag",
+    "target": "squawks_caught",
+    "after": [
+     "enter"
+    ]
+   },
+   {
+    "id": "return",
+    "text": "Get Squawks out to the stairs",
+    "type": "flag",
+    "target": "squawks_rescued",
+    "after": [
+     "locate"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 40,
+   "flags": [
+    "boots_stained"
+   ]
+  }
+ },
+ {
+  "id": "price_of_gold",
+  "title": "The Price of Gold",
+  "category": "main",
+  "summary": "What happened to the treasure?",
+  "description": "Squawks will live. The question now is what the Gust did to twelve years of plunder.",
+  "objectives": [
+   {
+    "id": "inspect",
+    "text": "Inspect the ruined treasure",
+    "type": "inspect",
+    "tag": "ruined_treasure",
+    "count": 4,
+    "distinct": true
+   },
+   {
+    "id": "merchant",
+    "text": "Find out what the treasure is worth (Penhallow, Crew Quarters)",
+    "type": "flag",
+    "target": "merchant_test_done",
+    "after": [
+     "inspect"
+    ]
+   },
+   {
+    "id": "permanent",
+    "text": "Ask Garrick whether the smell will fade",
+    "type": "flag",
+    "target": "ship_permanently_contaminated",
+    "after": [
+     "merchant"
+    ]
+   },
+   {
+    "id": "trial",
+    "text": "Deal with the crew (Main Deck)",
+    "type": "flag",
+    "target": "crew_turned_on_garrick",
+    "after": [
+     "permanent"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "yellow_defense",
+  "title": "The Yellow Defense",
+  "category": "main",
+  "summary": "Garrick's trial, interrupted by the Royal Navy.",
+  "description": "The crew assembled to try Garrick Guzzlegut. Then a navy frigate arrived, and Garrick had an idea.",
+  "objectives": [
+   {
+    "id": "respond",
+    "text": "Respond to the royal frigate",
+    "type": "flag",
+    "target": "frigate_plan_agreed"
+   },
+   {
+    "id": "helm",
+    "text": "Take the helm and bring her upwind",
+    "type": "flag",
+    "target": "ship_turned",
+    "after": [
+     "respond"
+    ]
+   },
+   {
+    "id": "sail",
+    "text": "Release the contaminated sail (foremast line)",
+    "type": "flag",
+    "target": "fume_sail_released",
+    "after": [
+     "helm"
+    ]
+   },
+   {
+    "id": "retreat",
+    "text": "Watch the frigate retreat",
+    "type": "flag",
+    "target": "frigate_fled",
+    "after": [
+     "sail"
+    ]
+   },
+   {
+    "id": "verdict",
+    "text": "Complete Garrick's trial",
+    "type": "flag",
+    "target": "garrick_on_probation",
+    "after": [
+     "retreat"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 60,
+   "gold": 0
+  }
+ }
+]

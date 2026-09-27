@@ -2,7 +2,7 @@ import { BaseScene } from './BaseScene.js';
 import { DialogueBox } from '../ui/DialogueBox.js';
 import { Toasts } from '../ui/Toasts.js';
 import { addPanel } from '../ui/Panel.js';
-import { addText, centerText, UI_COLORS } from '../ui/text.js';
+import { addText, centerText, setText, UI_COLORS } from '../ui/text.js';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
 
 /**
@@ -204,6 +204,53 @@ export class OverlayScene extends BaseScene {
     this.hint = [bg, t];
   }
 
+  /**
+   * The FUMES meter (top centre). `state` is { value: 0..1, level } or null
+   * to hide it. It appears only when exposure matters.
+   */
+  setExposure(state) {
+    if (!state) {
+      if (this.meter && !this.meter.hiding) {
+        this.meter.hiding = true;
+        const m = this.meter;
+        this.tweens.add({ targets: m.parts, alpha: 0, duration: 300, onComplete: () => {
+          m.parts.forEach((p) => p.destroy());
+          if (this.meter === m) this.meter = null;
+        } });
+      }
+      return;
+    }
+    if (!this.meter || this.meter.hiding) {
+      if (this.meter) this.meter.parts.forEach((p) => p.destroy());
+      const w = 96;
+      const x = Math.round((SCREEN_WIDTH - w) / 2);
+      const y = 5;
+      const panel = addPanel(this, x, y, w, 26, { depth: 420 });
+      const label = addText(this, x + 7, y + 4, 'FUMES', { font: 'bold', color: 0xf0d860, depth: 421 });
+      const barBack = this.add.rectangle(x + 8, y + 17, w - 16, 4, 0x1a1320).setOrigin(0).setDepth(421);
+      const bar = this.add.rectangle(x + 8, y + 17, 1, 4, 0x7cb45a).setOrigin(0).setDepth(422);
+      const tag = addText(this, x + 48, y + 5, '', { color: 0xdccca8, depth: 421 });
+      const parts = [panel, label, barBack, bar, tag];
+      parts.forEach((p) => p.setAlpha(0));
+      this.tweens.add({ targets: parts, alpha: 1, duration: 200 });
+      this.meter = { parts, bar, tag, barW: w - 16, level: undefined, t: 0 };
+    }
+    const m = this.meter;
+    const v = Math.max(0, Math.min(1, state.value));
+    m.bar.width = Math.max(1, Math.round(m.barW * v));
+    const col = v < 0.35 ? 0x7cb45a : v < 0.6 ? 0xe0ad38 : v < 0.8 ? 0xe07a28 : 0xe43c3a;
+    m.bar.setFillStyle(col);
+    if (m.level !== state.level) {
+      m.level = state.level;
+      const names = { light: '<k>light</>', dense: '<o>DENSE</>', center: '<r>DEAD CENTER</>' };
+      setText(m.tag, names[state.level] ?? '');
+    }
+    // Pulse when close to collapsing.
+    m.t += 16;
+    const pulse = v > 0.7 ? 0.55 + 0.45 * Math.abs(Math.sin(m.t / 140)) : 1;
+    m.bar.setAlpha(pulse);
+  }
+
   refreshHint() {
     const text = this.hintText;
     this.hintText = null;
@@ -234,6 +281,8 @@ export class OverlayScene extends BaseScene {
     this.dialogue.forceClose();
     this.toasts.clear();
     this.setHint(null);
+    this.setExposure(null);
+    this.app.cinema?.reset();
     if (this.tutorialOpen) {
       this.tutorialOpen.parts.forEach((p) => p.destroy());
       this.tutorialOpen = null;

@@ -34,6 +34,12 @@ export class BattleScene extends BaseScene {
     this.params = data || {};
   }
 
+  /** Camera shake scaled by the Screen shake option (skipped when off). */
+  shakeCam(duration, intensity) {
+    const k = this.app.settings.shakeScale();
+    if (k > 0) this.cameras.main.shake(duration, intensity * k);
+  }
+
   create() {
     const app = this.app;
     this.content = app.content;
@@ -457,7 +463,7 @@ export class BattleScene extends BaseScene {
     v.pose('order');
     this.app.audio.sfx('order');
     this.hud.shout(v, ab.shout ?? ab.name);
-    this.cameras.main.shake(120, 0.004);
+    this.shakeCam(120, 0.004);
     await this.wait(620);
     const { events } = this.engine.execute(actor, action);
     await this.present(events);
@@ -470,7 +476,7 @@ export class BattleScene extends BaseScene {
     this.hud.message(`${actor.name}: ${ab.name}`);
     v.pose('attack');
     if (ab.sfx) this.app.audio.sfx(ab.sfx);
-    this.cameras.main.shake(160, 0.005);
+    this.shakeCam(160, 0.005);
     await this.wait(420);
     const { events } = this.engine.execute(actor, action);
     await this.present(events);
@@ -548,7 +554,7 @@ export class BattleScene extends BaseScene {
         } else {
           audio.sfx(ev.guard !== 'none' ? 'thud' : 'hurt');
           this.hud.updateParty();
-          if (ev.guard === 'none') this.cameras.main.shake(140, 0.006);
+          if (ev.guard === 'none') this.shakeCam(140, 0.006);
         }
         if (ev.crit) {
           this.cameras.main.flash(90, 255, 250, 220);

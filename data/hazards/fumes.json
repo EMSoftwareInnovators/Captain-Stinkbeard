@@ -1,0 +1,26 @@
+{
+  "fumes": {
+    "//": "Fume hazard tuning (see src/systems/hazards/fumes.js). exposure = meter points per second (collapse at max).",
+    "levels": {
+      "light": {
+        "rank": 1,
+        "exposure": 0,
+        "visibility": 0.9
+      },
+      "dense": {
+        "rank": 2,
+        "exposure": 9,
+        "visibility": 0.6
+      },
+      "center": {
+        "rank": 3,
+        "exposure": 26,
+        "visibility": 0.36
+      }
+    },
+    "recoverPerSec": 20,
+    "lightRecoverPerSec": 8,
+    "max": 100,
+    "warnAt": 65
+  }
+}

@@ -1,0 +1,218 @@
+{
+ "id": "crew_quarters_phase2",
+ "patch": "crew_quarters",
+ "objects": [
+  {
+   "id": "penhallow_10_14",
+   "type": "npc",
+   "npc": "penhallow",
+   "x": 10,
+   "y": 14,
+   "facing": "left",
+   "if": {
+    "flag": "ch1_morning_started"
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "dunstan_11_11",
+   "type": "npc",
+   "npc": "dunstan",
+   "x": 11,
+   "y": 11,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "guzzlegut_gust"
+     },
+     {
+      "notFlag": "quarters_evacuated"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "dunstan_11_11",
+   "type": "npc",
+   "npc": "dunstan",
+   "x": 11,
+   "y": 11,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_thinned"
+     },
+     {
+      "not": {
+       "all": [
+        {
+         "flag": "trial_started"
+        },
+        {
+         "notFlag": "phase2_complete"
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "fennimore_away_evac",
+   "type": "npc",
+   "npc": "fennimore",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_evacuated"
+     },
+     {
+      "notFlag": "fumes_thinned"
+     }
+    ]
+   }
+  },
+  {
+   "id": "fennimore_away_trial",
+   "type": "npc",
+   "npc": "fennimore",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "phase2_complete"
+     }
+    ]
+   }
+  },
+  {
+   "id": "chain_look",
+   "type": "inspect",
+   "x": 8,
+   "y": 14,
+   "w": 2,
+   "script": "inspect.shackle",
+   "if": {
+    "flag": "ch1_morning_started"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "shackle_chain",
+   "x": 8,
+   "y": 14,
+   "if": {
+    "flag": "ch1_morning_started"
+   }
+  },
+  {
+   "prop": "rag_hooks",
+   "x": 11,
+   "y": 3,
+   "if": {
+    "flag": "guzzlegut_gust"
+   }
+  },
+  {
+   "prop": "stain_small",
+   "x": 12,
+   "y": 8,
+   "if": {
+    "flag": "guzzlegut_gust"
+   }
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   },
+   "music": "rescue_tension",
+   "ambience": "below_fumes"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "guzzlegut_gust"
+       },
+       {
+        "notFlag": "squawks_fell"
+       }
+      ]
+     },
+     {
+      "notFlag": "fumes_thinned"
+     }
+    ]
+   },
+   "music": "yellow_alert",
+   "ambience": "below_fumes"
+  }
+ ],
+ "haze": [
+  {
+   "if": {
+    "flag": "fumes_thinned"
+   },
+   "level": "faint"
+  },
+  {
+   "if": {
+    "flag": "guzzlegut_gust"
+   },
+   "level": "light"
+  }
+ ],
+ "fumes": [
+  {
+   "id": "q_room",
+   "level": "light",
+   "x": 1,
+   "y": 4,
+   "w": 16,
+   "h": 12,
+   "if": {
+    "all": [
+     {
+      "flag": "guzzlegut_gust"
+     },
+     {
+      "notFlag": "fumes_thinned"
+     }
+    ]
+   }
+  }
+ ],
+ "fumeSafeSpawn": "ladder"
+}

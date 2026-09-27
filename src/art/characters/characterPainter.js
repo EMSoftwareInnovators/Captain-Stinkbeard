@@ -30,6 +30,8 @@ export const BUILDS = {
   stout: { shoulder: 16, waist: 16, torsoH: 11, legH: 9, legW: 5, legGap: 2, armW: 4, bootH: 3, belly: 2 },
   large: { shoulder: 18, waist: 14, torsoH: 12, legH: 12, legW: 5, legGap: 2, armW: 4, bootH: 5 },
   huge: { shoulder: 20, waist: 16, torsoH: 13, legH: 12, legW: 6, legGap: 2, armW: 5, bootH: 4 },
+  // Broad through the middle, short in the leg: a man built around lunch.
+  portly: { shoulder: 17, waist: 19, torsoH: 13, legH: 9, legW: 5, legGap: 2, armW: 4, bootH: 5, belly: 4 },
 };
 
 /** Turns appearance data into concrete colours and parameters. */
@@ -52,6 +54,8 @@ export function resolveLook(app) {
     secondary: clothRamp(outfit.secondary || 'cloth'),
     pants: clothRamp(outfit.pants || 'brown'),
     boots: clothRamp(outfit.boots || 'black'),
+    pantsStripe: outfit.pantsStripe ? clothRamp(outfit.pantsStripe) : null,
+    bigBoots: !!outfit.bigBoots,
     belt: clothRamp(outfit.belt || 'leather'),
     trim: clothRamp(outfit.trim || 'gold'),
     apron: clothRamp(outfit.apron || 'white'),
@@ -111,8 +115,21 @@ function drawLegColumn(c, L, x, top, bottom, w, { far = false, toe = 0 } = {}) {
   const b = L.build;
   const bootH = Math.min(b.bootH, bottom - top + 1);
   const pants = far ? [L.pants[0], L.pants[0], L.pants[1]] : L.pants;
-  for (let y = top; y <= bottom - bootH; y++) rowSpan(c, x, x + w - 1, y, pants);
-  drawBoot(c, L, x, bottom - bootH + 1, w, bootH, toe);
+  for (let y = top; y <= bottom - bootH; y++) {
+    rowSpan(c, x, x + w - 1, y, pants);
+    // Vertical pinstripes (a merchant's trousers, much abused).
+    if (L.pantsStripe) for (let i = 1; i < w; i += 2) c.set(x + i, y, far ? L.pantsStripe[0] : L.pantsStripe[1]);
+  }
+  if (L.bigBoots) {
+    // Oversized boots: a wider shaft with a flared, turned-down top.
+    drawBoot(c, L, x - 1, bottom - bootH + 1, w + 1, bootH, toe);
+    c.set(x - 1, bottom - bootH + 1, L.boots[2]);
+    c.set(x + w - 1, bottom - bootH + 1, L.boots[2]);
+    if (!toe) {
+      c.set(x - 2, bottom, L.boots[0]);
+      c.set(x + w, bottom, L.boots[0]);
+    }
+  } else drawBoot(c, L, x, bottom - bootH + 1, w, bootH, toe);
   if (far) for (let y = bottom - bootH + 1; y <= bottom; y++) for (let i = 0; i < w; i++) if (c.get(x + i, y)) c.set(x + i, y, L.boots[0]);
 }
 
@@ -234,6 +251,48 @@ function torsoFront(c, L, top, bottom, { back = false } = {}) {
       c.set(x + 1, top + 1 + i, L.belt[0]);
     }
     c.set(CX - 1, top + Math.floor(H / 2), L.trim[2]);
+  }
+  if (L.extras.has('patches') && (L.style === 'coat' || L.style === 'longcoat')) {
+    // Sun-faded repairs on a battered coat.
+    const w = b.shoulder;
+    c.rect(CX - Math.floor(w / 2) + 1, top + 4, 2, 2, L.pants[1]);
+    c.set(CX - Math.floor(w / 2) + 1, top + 4, L.pants[2]);
+    c.rect(CX + Math.floor(w / 2) - 3, top + 7, 2, 2, L.secondary[0]);
+  }
+  if (!back && L.extras.has('rope')) {
+    // A rescue line tied round the waist.
+    const w = torsoWidthAt(b, 1);
+    const x0 = CX - Math.floor(w / 2);
+    for (let x = x0; x < x0 + w; x++) c.set(x, bottom - 2, (x % 2) ? '#cca660' : '#a67c3e');
+    c.rect(CX - 1, bottom - 3, 3, 2, '#e8cc8c');
+    c.set(CX, bottom - 1, '#7a5628');
+  }
+  if (!back && L.extras.has('monocle')) {
+    // The appraiser's monocle hangs from a chain pinned to the coat.
+    c.set(CX + 3, top + 1, PAL.gold4);
+    c.set(CX + 3, top + 2, PAL.gold3);
+    c.set(CX + 4, top + 3, PAL.gold3);
+    c.set(CX + 4, top + 4, PAL.gold2);
+  }
+  if (!back && L.extras.has('pouches')) {
+    // Coin pouches on the belt, one of them never quite closed.
+    const w = torsoWidthAt(b, 1);
+    const x0 = CX - Math.floor(w / 2);
+    for (const px of [x0 + 1, x0 + w - 5]) {
+      c.rect(px, bottom, 4, 3, L.belt[1]);
+      c.hline(px, px + 3, bottom + 2, L.belt[0]);
+      c.set(px, bottom, L.belt[2]);
+      c.set(px + 1, bottom - 1, PAL.gold4);
+      c.set(px + 2, bottom - 1, PAL.gold3);
+    }
+  }
+  if (!back && L.extras.has('toolbelt')) {
+    // A salvager's pry bar and mallet at the hip.
+    const w = torsoWidthAt(b, 1);
+    const x1 = CX + Math.floor(w / 2);
+    c.vline(x1, bottom - 1, bottom + 4, PAL.iron3);
+    c.set(x1, bottom + 5, PAL.iron2);
+    c.hline(x1 - 2, x1, bottom + 5, PAL.iron2);
   }
   if (!back && L.extras.has('neckerchief')) {
     c.set(CX - 2, top, L.extraColor[1]);
@@ -360,6 +419,10 @@ function armsFront(c, L, mode, torsoTop, { back = false } = {}) {
     c.rect(CX + 1, hy2, 3, 3, L.skin.d);
     return;
   }
+  if (EXTRA_ARMS_FRONT[mode]) {
+    EXTRA_ARMS_FRONT[mode](c, L, { lx, rx, w, shoulderY, hang, torsoTop, back });
+    return;
+  }
   if (mode === 'point') {
     armColumn(c, L, lx, shoulderY, hang, w, { inner: 'right', cuff });
     // Right arm raised and pointing outward.
@@ -387,6 +450,10 @@ function armsSide(c, L, mode, torsoTop, layer) {
     const x = baseX + 1 + farDx;
     armColumn(c, L, x, shoulderY + 1, hang, w, { inner: 'left', cuff });
     for (let j = shoulderY + 1; j < hang + 3; j++) for (let i = 0; i < w; i++) if (c.get(x + i, j)) c.set(x + i, j, c.get(x + i, j) === 0 ? 0 : darker(c.get(x + i, j)));
+    return;
+  }
+  if (EXTRA_ARMS_SIDE[mode]) {
+    EXTRA_ARMS_SIDE[mode](c, L, { baseX, w, shoulderY, hang, torsoTop });
     return;
   }
   if (mode === 'work0' || mode === 'work1') {
@@ -425,6 +492,143 @@ function armsSide(c, L, mode, torsoTop, layer) {
   c.rect(handX, hang, w, 3, L.skin.s);
   c.set(handX + w - 1, hang + 2, L.skin.d);
 }
+
+// ---------------------------------------------------------------------------
+// Extra arm poses (opt-in per appearance, see EXTRA_POSES)
+
+function hand(c, L, x, y, w = 2, h = 2) {
+  c.rect(x, y, w, h, L.skin.s);
+  c.set(x + w - 1, y + h - 1, L.skin.d);
+}
+
+function limb(c, L, x0, y0, x1, y1, w, shade = 1) {
+  c.thickLine(x0, y0, x1, y1, Math.max(2, w - 1), sleeveRamp(L)[shade]);
+}
+
+/** Front/back view arm poses: (c, L, geometry) → draws both arms. */
+const EXTRA_ARMS_FRONT = {
+  // Hands on hips, elbows out: pleased with himself.
+  hips(c, L, g) {
+    const elbowY = g.shoulderY + Math.floor(L.build.torsoH / 2) - 1;
+    const hipY = g.hang - 1;
+    limb(c, L, g.lx + 1, g.shoulderY, g.lx - 2, elbowY, g.w, 2);
+    limb(c, L, g.lx - 2, elbowY, g.lx + 2, hipY, g.w, 1);
+    limb(c, L, g.rx + 1, g.shoulderY, g.rx + 4, elbowY, g.w, 1);
+    limb(c, L, g.rx + 4, elbowY, g.rx, hipY, g.w, 0);
+    if (!g.back) {
+      hand(c, L, g.lx + 2, hipY - 1);
+      hand(c, L, g.rx - 1, hipY - 1);
+    }
+  },
+  // Rubbing hands together: greed.
+  rub0(c, L, g) { EXTRA_ARMS_FRONT.rubAt(c, L, g, 0); },
+  rub1(c, L, g) { EXTRA_ARMS_FRONT.rubAt(c, L, g, 1); },
+  rubAt(c, L, g, k) {
+    const elbowY = g.shoulderY + Math.floor(L.build.torsoH / 2);
+    armColumn(c, L, g.lx, g.shoulderY, elbowY, g.w, { inner: 'right' });
+    armColumn(c, L, g.rx, g.shoulderY, elbowY, g.w, { inner: 'left' });
+    const hy = g.shoulderY + 4;
+    limb(c, L, g.lx + 1, elbowY, CX - 2 - k, hy + 1, g.w, 1);
+    limb(c, L, g.rx + 1, elbowY, CX + 1 - k, hy + 1, g.w, 0);
+    hand(c, L, CX - 3 + k, hy, 3, 3);
+    hand(c, L, CX - k, hy + 1, 2, 2);
+  },
+  // Forearms out in front, carrying something heavy.
+  carry(c, L, g) {
+    const elbowY = g.shoulderY + Math.floor(L.build.torsoH / 2);
+    armColumn(c, L, g.lx - 1, g.shoulderY, elbowY, g.w, { inner: 'right' });
+    armColumn(c, L, g.rx + 1, g.shoulderY, elbowY, g.w, { inner: 'left' });
+    if (!g.back) {
+      hand(c, L, g.lx, elbowY + 1, 3, 2);
+      hand(c, L, g.rx, elbowY + 1, 3, 2);
+    }
+  },
+  // Eating: one hand at the mouth, the other holding the next mouthful.
+  eat0(c, L, g) { EXTRA_ARMS_FRONT.eatAt(c, L, g, 0); },
+  eat1(c, L, g) { EXTRA_ARMS_FRONT.eatAt(c, L, g, 2); },
+  eatAt(c, L, g, k) {
+    const elbowY = g.shoulderY + Math.floor(L.build.torsoH / 2);
+    armColumn(c, L, g.lx, g.shoulderY, elbowY, g.w, { inner: 'right' });
+    limb(c, L, g.lx + 1, elbowY, CX - 5, elbowY + 1, g.w, 1);
+    hand(c, L, CX - 7, elbowY, 3, 3);
+    c.set(CX - 7, elbowY - 1, '#c89060');
+    limb(c, L, g.rx + 1, g.shoulderY, g.rx + 2, g.shoulderY + 4, g.w, 0);
+    limb(c, L, g.rx + 2, g.shoulderY + 4, CX + 2, g.torsoTop - 1 + k, g.w, 0);
+    hand(c, L, CX + 1, g.torsoTop - 2 + k, 3, 3);
+  },
+  // Both hands on the belly: something is wrong in there.
+  clutch(c, L, g) {
+    const elbowY = g.shoulderY + Math.floor(L.build.torsoH / 2) - 1;
+    const bellyY = g.hang - 3;
+    limb(c, L, g.lx + 1, g.shoulderY, g.lx - 1, elbowY, g.w, 2);
+    limb(c, L, g.lx - 1, elbowY, CX - 4, bellyY, g.w, 1);
+    limb(c, L, g.rx + 1, g.shoulderY, g.rx + 3, elbowY, g.w, 1);
+    limb(c, L, g.rx + 3, elbowY, CX + 2, bellyY + 1, g.w, 0);
+    if (!g.back) {
+      hand(c, L, CX - 5, bellyY - 1, 3, 3);
+      hand(c, L, CX + 1, bellyY, 3, 3);
+    }
+  },
+  // Wringing hands at the chest: nervous.
+  clasp(c, L, g) {
+    const elbowY = g.shoulderY + Math.floor(L.build.torsoH / 2);
+    armColumn(c, L, g.lx, g.shoulderY, elbowY, g.w, { inner: 'right' });
+    armColumn(c, L, g.rx, g.shoulderY, elbowY, g.w, { inner: 'left' });
+    limb(c, L, g.lx + 1, elbowY, CX - 1, g.shoulderY + 3, g.w, 1);
+    limb(c, L, g.rx + 1, elbowY, CX, g.shoulderY + 3, g.w, 0);
+    if (!g.back) hand(c, L, CX - 2, g.shoulderY + 2, 4, 3);
+  },
+  // Palms up: "what can one do?"
+  shrug(c, L, g) {
+    const elbowY = g.shoulderY + Math.floor(L.build.torsoH / 2);
+    armColumn(c, L, g.lx, g.shoulderY, elbowY, g.w, { inner: 'right' });
+    armColumn(c, L, g.rx, g.shoulderY, elbowY, g.w, { inner: 'left' });
+    limb(c, L, g.lx, elbowY, g.lx - 4, elbowY - 3, g.w, 2);
+    limb(c, L, g.rx + g.w - 1, elbowY, g.rx + g.w + 3, elbowY - 3, g.w, 0);
+    hand(c, L, g.lx - 6, elbowY - 5, 3, 2);
+    hand(c, L, g.rx + g.w + 3, elbowY - 5, 3, 2);
+  },
+};
+
+/** Side view (facing left) arm poses: draws the near arm. */
+const EXTRA_ARMS_SIDE = {
+  hips(c, L, g) {
+    const elbowY = g.shoulderY + Math.floor(L.build.torsoH / 2) - 1;
+    limb(c, L, g.baseX + 1, g.shoulderY, g.baseX + 4, elbowY, g.w, 1);
+    limb(c, L, g.baseX + 4, elbowY, g.baseX + 1, g.hang - 1, g.w, 1);
+    hand(c, L, g.baseX, g.hang - 2);
+  },
+  rub0(c, L, g) { EXTRA_ARMS_SIDE.forward(c, L, g, 4, 0); },
+  rub1(c, L, g) { EXTRA_ARMS_SIDE.forward(c, L, g, 5, 1); },
+  carry(c, L, g) { EXTRA_ARMS_SIDE.forward(c, L, g, 6, 1); },
+  clasp(c, L, g) { EXTRA_ARMS_SIDE.forward(c, L, g, 4, -1); },
+  forward(c, L, g, reach, dy) {
+    const elbowY = g.shoulderY + Math.floor(L.build.torsoH / 2);
+    armColumn(c, L, g.baseX, g.shoulderY, elbowY, g.w, { inner: 'left' });
+    limb(c, L, g.baseX, elbowY, g.baseX - reach, elbowY - 1 + dy, g.w, 1);
+    hand(c, L, g.baseX - reach - 2, elbowY - 2 + dy, 3, 3);
+  },
+  eat0(c, L, g) { EXTRA_ARMS_SIDE.toMouth(c, L, g, 0); },
+  eat1(c, L, g) { EXTRA_ARMS_SIDE.toMouth(c, L, g, 2); },
+  toMouth(c, L, g, k) {
+    const elbowY = g.shoulderY + Math.floor(L.build.torsoH / 2);
+    armColumn(c, L, g.baseX, g.shoulderY, elbowY - 2, g.w, { inner: 'left' });
+    limb(c, L, g.baseX, elbowY - 2, g.baseX - 5, g.torsoTop - 1 + k, g.w, 1);
+    hand(c, L, g.baseX - 7, g.torsoTop - 3 + k, 3, 3);
+  },
+  clutch(c, L, g) {
+    const elbowY = g.shoulderY + Math.floor(L.build.torsoH / 2);
+    armColumn(c, L, g.baseX, g.shoulderY, elbowY - 1, g.w, { inner: 'left' });
+    limb(c, L, g.baseX, elbowY - 1, g.baseX - 4, g.hang - 3, g.w, 1);
+    hand(c, L, g.baseX - 6, g.hang - 4, 3, 3);
+  },
+  shrug(c, L, g) {
+    const elbowY = g.shoulderY + Math.floor(L.build.torsoH / 2);
+    armColumn(c, L, g.baseX, g.shoulderY, elbowY, g.w, { inner: 'left' });
+    limb(c, L, g.baseX, elbowY, g.baseX - 5, elbowY - 3, g.w, 1);
+    hand(c, L, g.baseX - 7, elbowY - 5, 3, 2);
+  },
+};
 
 function darker(px) {
   // Darken a packed colour by ~30% (used for far-side limbs).
@@ -470,12 +674,37 @@ function headCanvas(L, dir, face) {
     }
   }
   if (L.extras.has('earring') && dir !== 'up') c.set(dir === 'down' ? 13 : 9, 12, PAL.gold4);
+  if (L.extras.has('monocle') && dir !== 'up') {
+    const g = PAL.gold3;
+    if (dir === 'down') {
+      c.strokeRect(9, 8, 4, 4, g);
+      c.set(10, 9, '#e8f4ff');
+      c.set(12, 12, PAL.gold2);
+    } else {
+      c.strokeRect(0, 8, 3, 4, g);
+      c.set(1, 9, '#e8f4ff');
+      c.set(2, 12, PAL.gold2);
+    }
+  }
   const hair = HAIR_STYLES[L.hairStyle] || HAIR_STYLES.short;
   c.stamp(hair[dir] || [], 0, 0, { h: L.hair[1], H: L.hair[2], j: L.hair[0] });
   const beard = BEARD_STYLES[L.beardStyle] || BEARD_STYLES.none;
   c.stamp(beard[dir] || [], 0, 0, { b: L.beard[1], B: L.beard[2], v: L.beard[0], R: PAL.red3, m: skin.D });
   const hat = HAT_STYLES[L.hatStyle] || HAT_STYLES.none;
   c.stamp(hat[dir] || [], 0, 0, { a: L.hat[1], A: L.hat[2], q: L.hat[0], T: L.hatTrim[2], t: L.hatTrim[0], s: '#f0e8d8' });
+  if (L.extras.has('facecloth') && dir !== 'up') {
+    // A wet cloth tied over nose and mouth.
+    const cloth = ['#6a7c86', '#9aaab2', '#c8d6dc'];
+    if (dir === 'down') {
+      for (let y = 11; y <= 14; y++) for (let x = 3; x <= 12; x++) c.set(x, y, y === 11 ? cloth[2] : x > 9 ? cloth[0] : cloth[1]);
+      c.set(2, 11, cloth[0]);
+      c.set(13, 11, cloth[0]);
+      c.set(4, 13, '#dfeef4');
+    } else {
+      for (let y = 11; y <= 14; y++) for (let x = 0; x <= 7; x++) c.set(x, y, y === 11 ? cloth[2] : cloth[1]);
+      c.hline(8, 11, 11, cloth[0]);
+    }
+  }
   if (L.extras.has('pipe') && dir !== 'up') {
     if (dir === 'down') {
       c.set(10, 14, PAL.lea2);
@@ -551,7 +780,7 @@ export function paintCharacterFrame(L, dir, pose = {}, { outline = true } = {}) 
       const head = headCanvas(L, 'up', pose.face);
       torsoFront(c, L, torsoTop, torsoBottom, { back: true });
       armsFront(c, L, pose.arms || 'down', torsoTop, { back: true });
-      c.blit(head, CX - 8, torsoTop - 15);
+      c.blit(head, CX - 8, torsoTop - 15 + (pose.headDy || 0));
     } else {
       torsoFront(c, L, torsoTop, torsoBottom);
       if (L.extras.has('cutlass')) {
@@ -561,9 +790,11 @@ export function paintCharacterFrame(L, dir, pose = {}, { outline = true } = {}) 
         c.set(hx - 1, torsoBottom + 1, PAL.iron4);
         c.set(hx - 1, torsoBottom + 2, PAL.iron3);
       }
-      armsFront(c, L, pose.arms || 'down', torsoTop);
       const head = headCanvas(L, 'down', pose.face);
-      c.blit(head, CX - 8, torsoTop - 15);
+      const eatsOverHead = pose.arms === 'eat0' || pose.arms === 'eat1';
+      if (!eatsOverHead) armsFront(c, L, pose.arms || 'down', torsoTop);
+      c.blit(head, CX - 8, torsoTop - 15 + (pose.headDy || 0));
+      if (eatsOverHead) armsFront(c, L, pose.arms, torsoTop);
     }
   }
   if (outline) c.outline(OUTLINE);
@@ -605,6 +836,19 @@ function torsoSide(c, L, top, bottom) {
       c.set(CX - Math.floor(sw / 2), y, L.apron[1]);
     }
   }
+  if (L.extras.has('pouches')) {
+    const x = CX - Math.floor(sw / 2) + 1;
+    c.rect(x, bottom, 3, 3, L.belt[1]);
+    c.set(x + 1, bottom - 1, PAL.gold4);
+  }
+  if (L.extras.has('rope')) {
+    for (let x = CX - Math.floor(sw / 2); x < CX + Math.ceil(sw / 2); x++) c.set(x, bottom - 2, (x % 2) ? '#cca660' : '#a67c3e');
+    // The line trails away behind him.
+    c.line(CX + Math.ceil(sw / 2), bottom - 2, CX + Math.ceil(sw / 2) + 5, bottom + 6, '#a67c3e');
+  }
+  if (L.extras.has('toolbelt')) {
+    c.vline(CX + Math.ceil(sw / 2) - 2, bottom - 1, bottom + 3, PAL.iron3);
+  }
   if (L.extras.has('cutlass')) {
     const x = CX + 1;
     c.set(x, bottom + 1, PAL.gold3);
@@ -633,3 +877,34 @@ export const FIELD_POSES = {
 };
 
 export const FIELD_DIRS = ['down', 'left', 'right', 'up'];
+
+/**
+ * Extra field animations an appearance can opt into with "poses": [...]
+ * (they cost sheet space, so only characters who act them get them).
+ * "carrywalk" replaces the walk cycle while a character is carrying.
+ */
+export const EXTRA_POSES = {
+  excited: [{ legs: 'stand', arms: 'up', face: 'surprised' }, { legs: 'stand', arms: 'hips', bob: 1 }],
+  smug: [{ legs: 'stand', arms: 'hips' }, { legs: 'stand', arms: 'hips', bob: 1 }],
+  greedy: [{ legs: 'stand', arms: 'rub0', bob: 1 }, { legs: 'stand', arms: 'rub1' }],
+  carry: [{ legs: 'stand', arms: 'carry' }, { legs: 'stand', arms: 'carry', bob: 1 }],
+  carrywalk: [
+    { legs: 'stand', arms: 'carry' },
+    { legs: 'stepA', arms: 'carry' },
+    { legs: 'stand', arms: 'carry', bob: 1 },
+    { legs: 'stepB', arms: 'carry' },
+  ],
+  slouch: [{ legs: 'stand', arms: 'down', bob: 2, headDy: 1 }, { legs: 'stand', arms: 'down', bob: 2 }],
+  eat: [{ legs: 'stand', arms: 'eat0' }, { legs: 'stand', arms: 'eat1', bob: 1 }],
+  nervous: [{ legs: 'stand', arms: 'clasp' }, { legs: 'stand', arms: 'clasp', bob: 1 }],
+  clutch: [{ legs: 'stand', arms: 'clutch', bob: 1, headDy: 1 }, { legs: 'stand', arms: 'clutch', bob: 2, headDy: 1 }],
+  panic: [{ legs: 'stepA', arms: 'up', face: 'surprised' }, { legs: 'stepB', arms: 'up', face: 'surprised', bob: 1 }],
+  relief: [{ legs: 'stand', arms: 'shrug', bob: 1 }, { legs: 'stand', arms: 'down', bob: 2 }],
+  hips: [{ legs: 'stand', arms: 'hips' }],
+  shrug: [{ legs: 'stand', arms: 'shrug' }],
+};
+
+/** Frames per second of the extra animations (0 = hold one frame). */
+export const EXTRA_POSE_RATES = {
+  excited: 5, smug: 1.5, greedy: 6, carry: 1.5, carrywalk: 8, slouch: 0.8, eat: 4, nervous: 5, clutch: 3, panic: 7, relief: 1.2, hips: 0, shrug: 0,
+};

@@ -21,6 +21,8 @@ export class GameSession {
     this.quests = new QuestSystem({ quests: content.quests, session: this, bus });
     this.playTime = 0; // seconds
     this.createdAt = new Date().toISOString();
+    // Per-play state that is deliberately never saved (fume exposure...).
+    this.transient = {};
   }
 
   /** Creates a fresh playthrough from data/game.json → newGame. */

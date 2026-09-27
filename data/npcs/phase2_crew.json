@@ -1,0 +1,1954 @@
+[
+ {
+  "id": "garrick",
+  "name": "Garrick Guzzlegut",
+  "title": "Businessman",
+  "appearance": "garrick",
+  "portrait": "garrick",
+  "voice": {
+   "pitch": 0.78
+  },
+  "behavior": {
+   "type": "stand",
+   "lookAround": true
+  },
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "new_recruit.check_work"
+    },
+    "script": "ch2.toll_confront"
+   },
+   {
+    "if": {
+     "objectiveActive": "new_recruit.check_scrub"
+    },
+    "script": "ch2.scrub"
+   },
+   {
+    "if": {
+     "objectiveActive": "new_recruit.noises"
+    },
+    "script": "ch2.thunder"
+   },
+   {
+    "if": {
+     "objectiveActive": "treasure_inspection.meet"
+    },
+    "script": "ch3.meet_at_door"
+   },
+   {
+    "if": {
+     "objectiveActive": "yellow_alert.dead_center"
+    },
+    "script": "ch5.dead_center"
+   },
+   {
+    "if": {
+     "objectiveActive": "price_of_gold.permanent"
+    },
+    "script": "ch7.permanence"
+   },
+   {
+    "if": {
+     "objectiveActive": "yellow_defense.helm"
+    },
+    "script": "garrick.frigate_helm"
+   },
+   {
+    "if": {
+     "objectiveActive": "yellow_defense.sail"
+    },
+    "script": "garrick.frigate_sail"
+   },
+   {
+    "if": {
+     "flag": "phase2_complete"
+    },
+    "cycle": [
+     "garrick.s8_1",
+     "garrick.s8_2",
+     "garrick.s8_3",
+     "garrick.s8_4"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "trial_started"
+      },
+      {
+       "notFlag": "frigate_fled"
+      }
+     ]
+    },
+    "script": "garrick.tr"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ruined_reveal_seen"
+      },
+      {
+       "notFlag": "trial_started"
+      }
+     ]
+    },
+    "script": "garrick.s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "squawks_rescued"
+      },
+      {
+       "notFlag": "ruined_reveal_seen"
+      }
+     ]
+    },
+    "script": "garrick.s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "guzzlegut_gust"
+      },
+      {
+       "notFlag": "squawks_rescued"
+      }
+     ]
+    },
+    "script": "garrick.s4"
+   },
+   {
+    "if": {
+     "flag": "rumble_sails_seen"
+    },
+    "script": "garrick.s3"
+   },
+   {
+    "if": {
+     "flag": "galley_lunch_seen"
+    },
+    "script": "garrick.s3"
+   },
+   {
+    "script": "garrick.s2"
+   }
+  ]
+ },
+ {
+  "id": "squawks",
+  "name": "Captain Squawks",
+  "title": "Parrot",
+  "appearance": "squawks",
+  "portrait": "squawks",
+  "voice": {
+   "pitch": 1.9
+  },
+  "behavior": {
+   "type": "stand",
+   "lookAround": true
+  },
+  "shadow": "shadow_xs",
+  "variants": [
+   {
+    "if": {
+     "flag": "squawks_sweater"
+    },
+    "appearance": "squawks_sweater",
+    "portrait": "squawks_sweater",
+    "shadow": "shadow_xs"
+   },
+   {
+    "if": {
+     "flag": "squawks_bald"
+    },
+    "appearance": "squawks_bald",
+    "portrait": "squawks_bald",
+    "shadow": "shadow_xs"
+   },
+   {
+    "if": {
+     "flag": "squawks_exposed"
+    },
+    "appearance": "squawks_exposed",
+    "portrait": "squawks_exposed",
+    "shadow": "shadow_xs"
+   }
+  ],
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "save_squawks.locate"
+    },
+    "script": "ch6.catch"
+   },
+   {
+    "if": {
+     "flag": "phase2_complete"
+    },
+    "cycle": [
+     "squawks.s8_1",
+     "squawks.s8_2",
+     "squawks.s8_3"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "trial_started"
+      },
+      {
+       "notFlag": "frigate_fled"
+      }
+     ]
+    },
+    "script": "squawks.tr"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ruined_reveal_seen"
+      },
+      {
+       "notFlag": "trial_started"
+      }
+     ]
+    },
+    "script": "squawks.s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "squawks_rescued"
+      },
+      {
+       "notFlag": "ruined_reveal_seen"
+      }
+     ]
+    },
+    "script": "squawks.s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "galley_lunch_seen"
+      },
+      {
+       "notFlag": "guzzlegut_gust"
+      }
+     ]
+    },
+    "script": "squawks.s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_provisional"
+      },
+      {
+       "notFlag": "galley_lunch_seen"
+      }
+     ]
+    },
+    "script": "squawks.s2"
+   },
+   {
+    "script": "squawks.s2"
+   }
+  ]
+ },
+ {
+  "id": "bob",
+  "name": "Barnacle Bob",
+  "title": "Deckhand",
+  "appearance": "bob",
+  "portrait": "bob",
+  "voice": {
+   "pitch": 0.95
+  },
+  "behavior": {
+   "type": "stand",
+   "lookAround": true
+  },
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "all": [
+        {
+         "flag": "ch1_morning_started"
+        },
+        {
+         "notFlag": "garrick_provisional"
+        }
+       ]
+      },
+      {
+       "notFlag": "bob_lamp_oil_seen"
+      }
+     ]
+    },
+    "script": "bob.lamp_oil"
+   },
+   {
+    "if": {
+     "flag": "phase2_complete"
+    },
+    "cycle": [
+     "bob.s8_1",
+     "bob.s8_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "trial_started"
+      },
+      {
+       "notFlag": "frigate_fled"
+      }
+     ]
+    },
+    "script": "bob.tr"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ruined_reveal_seen"
+      },
+      {
+       "notFlag": "trial_started"
+      }
+     ]
+    },
+    "script": "bob.s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "squawks_rescued"
+      },
+      {
+       "notFlag": "ruined_reveal_seen"
+      }
+     ]
+    },
+    "script": "bob.s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "guzzlegut_gust"
+      },
+      {
+       "notFlag": "squawks_rescued"
+      }
+     ]
+    },
+    "script": "bob.s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "galley_lunch_seen"
+      },
+      {
+       "notFlag": "guzzlegut_gust"
+      }
+     ]
+    },
+    "script": "bob.s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_provisional"
+      },
+      {
+       "notFlag": "galley_lunch_seen"
+      }
+     ]
+    },
+    "script": "bob.s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ch1_morning_started"
+      },
+      {
+       "notFlag": "garrick_provisional"
+      }
+     ]
+    },
+    "script": "bob.s1"
+   },
+   {
+    "script": "bob.s1"
+   }
+  ]
+ },
+ {
+  "id": "ned",
+  "name": "One-Eyed Ned",
+  "title": "Lookout",
+  "appearance": "ned",
+  "portrait": "ned",
+  "voice": {
+   "pitch": 0.8
+  },
+  "behavior": {
+   "type": "stand",
+   "lookAround": true
+  },
+  "dialogue": [
+   {
+    "if": {
+     "flag": "phase2_complete"
+    },
+    "cycle": [
+     "ned.s8_1",
+     "ned.s8_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "trial_started"
+      },
+      {
+       "notFlag": "frigate_fled"
+      }
+     ]
+    },
+    "script": "ned.tr"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ruined_reveal_seen"
+      },
+      {
+       "notFlag": "trial_started"
+      }
+     ]
+    },
+    "script": "ned.s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "squawks_rescued"
+      },
+      {
+       "notFlag": "ruined_reveal_seen"
+      }
+     ]
+    },
+    "script": "ned.s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "guzzlegut_gust"
+      },
+      {
+       "notFlag": "squawks_rescued"
+      }
+     ]
+    },
+    "script": "ned.s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "galley_lunch_seen"
+      },
+      {
+       "notFlag": "guzzlegut_gust"
+      }
+     ]
+    },
+    "script": "ned.s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_provisional"
+      },
+      {
+       "notFlag": "galley_lunch_seen"
+      }
+     ]
+    },
+    "script": "ned.s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ch1_morning_started"
+      },
+      {
+       "notFlag": "garrick_provisional"
+      }
+     ]
+    },
+    "script": "ned.s1"
+   },
+   {
+    "script": "ned.s1"
+   }
+  ]
+ },
+ {
+  "id": "jim",
+  "name": "Salty Jim",
+  "title": "Ship's Cook",
+  "appearance": "jim",
+  "portrait": "jim",
+  "voice": {
+   "pitch": 0.7
+  },
+  "behavior": {
+   "type": "work"
+  },
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "new_recruit.talk_jim"
+    },
+    "script": "ch2.jim_warning"
+   },
+   {
+    "if": {
+     "flag": "phase2_complete"
+    },
+    "cycle": [
+     "jim.s8_1",
+     "jim.s8_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "trial_started"
+      },
+      {
+       "notFlag": "frigate_fled"
+      }
+     ]
+    },
+    "script": "jim.tr"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ruined_reveal_seen"
+      },
+      {
+       "notFlag": "trial_started"
+      }
+     ]
+    },
+    "script": "jim.s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "squawks_rescued"
+      },
+      {
+       "notFlag": "ruined_reveal_seen"
+      }
+     ]
+    },
+    "script": "jim.s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "guzzlegut_gust"
+      },
+      {
+       "notFlag": "squawks_rescued"
+      }
+     ]
+    },
+    "script": "jim.s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "galley_lunch_seen"
+      },
+      {
+       "notFlag": "guzzlegut_gust"
+      }
+     ]
+    },
+    "script": "jim.s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_provisional"
+      },
+      {
+       "notFlag": "galley_lunch_seen"
+      }
+     ]
+    },
+    "script": "jim.s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ch1_morning_started"
+      },
+      {
+       "notFlag": "garrick_provisional"
+      }
+     ]
+    },
+    "script": "jim.s1"
+   },
+   {
+    "script": "jim.s1"
+   }
+  ]
+ },
+ {
+  "id": "penhallow",
+  "name": "Mister Penhallow",
+  "title": "Merchant (Prisoner)",
+  "appearance": "penhallow",
+  "portrait": "penhallow",
+  "voice": {
+   "pitch": 1.25
+  },
+  "behavior": {
+   "type": "stand"
+  },
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "price_of_gold.merchant"
+    },
+    "script": "ch7.merchant_test"
+   },
+   {
+    "if": {
+     "flag": "phase2_complete"
+    },
+    "cycle": [
+     "penhallow.s8_1",
+     "penhallow.s8_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "trial_started"
+      },
+      {
+       "notFlag": "frigate_fled"
+      }
+     ]
+    },
+    "script": "penhallow.tr"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ruined_reveal_seen"
+      },
+      {
+       "notFlag": "trial_started"
+      }
+     ]
+    },
+    "script": "penhallow.s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "squawks_rescued"
+      },
+      {
+       "notFlag": "ruined_reveal_seen"
+      }
+     ]
+    },
+    "script": "penhallow.s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "guzzlegut_gust"
+      },
+      {
+       "notFlag": "squawks_rescued"
+      }
+     ]
+    },
+    "script": "penhallow.s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "galley_lunch_seen"
+      },
+      {
+       "notFlag": "guzzlegut_gust"
+      }
+     ]
+    },
+    "script": "penhallow.s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_provisional"
+      },
+      {
+       "notFlag": "galley_lunch_seen"
+      }
+     ]
+    },
+    "script": "penhallow.s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ch1_morning_started"
+      },
+      {
+       "notFlag": "garrick_provisional"
+      }
+     ]
+    },
+    "script": "penhallow.s1"
+   },
+   {
+    "script": "penhallow.s1"
+   }
+  ]
+ },
+ {
+  "id": "dunstan",
+  "name": "Dunstan",
+  "title": "Middle Watch",
+  "appearance": "dunstan",
+  "voice": {
+   "pitch": 0.8
+  },
+  "behavior": {
+   "type": "stand"
+  },
+  "dialogue": [
+   {
+    "script": "dunstan.default"
+   }
+  ]
+ },
+ {
+  "extend": "hale",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "tutorial_complete"
+      },
+      {
+       "questActive": "tomorrows_heading"
+      }
+     ]
+    },
+    "script": "hale.heading"
+   },
+   {
+    "if": {
+     "flag": "phase2_complete"
+    },
+    "script": "hale.s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "trial_started"
+      },
+      {
+       "notFlag": "frigate_fled"
+      }
+     ]
+    },
+    "script": "hale.tr"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ruined_reveal_seen"
+      },
+      {
+       "notFlag": "trial_started"
+      }
+     ]
+    },
+    "script": "hale.s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "squawks_rescued"
+      },
+      {
+       "notFlag": "ruined_reveal_seen"
+      }
+     ]
+    },
+    "script": "hale.s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "guzzlegut_gust"
+      },
+      {
+       "notFlag": "squawks_rescued"
+      }
+     ]
+    },
+    "script": "hale.s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "galley_lunch_seen"
+      },
+      {
+       "notFlag": "guzzlegut_gust"
+      }
+     ]
+    },
+    "script": "hale.s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_provisional"
+      },
+      {
+       "notFlag": "galley_lunch_seen"
+      }
+     ]
+    },
+    "script": "hale.s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ch1_morning_started"
+      },
+      {
+       "notFlag": "garrick_provisional"
+      }
+     ]
+    },
+    "script": "hale.s1"
+   }
+  ]
+ },
+ {
+  "extend": "quill",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "phase2_complete"
+    },
+    "script": "quill.s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "trial_started"
+      },
+      {
+       "notFlag": "frigate_fled"
+      }
+     ]
+    },
+    "script": "quill.tr"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ruined_reveal_seen"
+      },
+      {
+       "notFlag": "trial_started"
+      }
+     ]
+    },
+    "script": "quill.s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "squawks_rescued"
+      },
+      {
+       "notFlag": "ruined_reveal_seen"
+      }
+     ]
+    },
+    "script": "quill.s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "guzzlegut_gust"
+      },
+      {
+       "notFlag": "squawks_rescued"
+      }
+     ]
+    },
+    "script": "quill.s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "galley_lunch_seen"
+      },
+      {
+       "notFlag": "guzzlegut_gust"
+      }
+     ]
+    },
+    "script": "quill.s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_provisional"
+      },
+      {
+       "notFlag": "galley_lunch_seen"
+      }
+     ]
+    },
+    "script": "quill.s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ch1_morning_started"
+      },
+      {
+       "notFlag": "garrick_provisional"
+      }
+     ]
+    },
+    "script": "quill.s1"
+   }
+  ]
+ },
+ {
+  "extend": "mags",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "phase2_complete"
+    },
+    "script": "mags.s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "trial_started"
+      },
+      {
+       "notFlag": "frigate_fled"
+      }
+     ]
+    },
+    "script": "mags.tr"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ruined_reveal_seen"
+      },
+      {
+       "notFlag": "trial_started"
+      }
+     ]
+    },
+    "script": "mags.s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "squawks_rescued"
+      },
+      {
+       "notFlag": "ruined_reveal_seen"
+      }
+     ]
+    },
+    "script": "mags.s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "guzzlegut_gust"
+      },
+      {
+       "notFlag": "squawks_rescued"
+      }
+     ]
+    },
+    "script": "mags.s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "galley_lunch_seen"
+      },
+      {
+       "notFlag": "guzzlegut_gust"
+      }
+     ]
+    },
+    "script": "mags.s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_provisional"
+      },
+      {
+       "notFlag": "galley_lunch_seen"
+      }
+     ]
+    },
+    "script": "mags.s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ch1_morning_started"
+      },
+      {
+       "notFlag": "garrick_provisional"
+      }
+     ]
+    },
+    "script": "mags.s1"
+   }
+  ]
+ },
+ {
+  "extend": "fennimore",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "save_squawks.cloth"
+    },
+    "script": "ch6.doc_cloth"
+   },
+   {
+    "if": {
+     "flag": "phase2_complete"
+    },
+    "script": "fennimore.s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "trial_started"
+      },
+      {
+       "notFlag": "frigate_fled"
+      }
+     ]
+    },
+    "script": "fennimore.tr"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ruined_reveal_seen"
+      },
+      {
+       "notFlag": "trial_started"
+      }
+     ]
+    },
+    "script": "fennimore.s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "squawks_rescued"
+      },
+      {
+       "notFlag": "ruined_reveal_seen"
+      }
+     ]
+    },
+    "script": "fennimore.s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "guzzlegut_gust"
+      },
+      {
+       "notFlag": "squawks_rescued"
+      }
+     ]
+    },
+    "script": "fennimore.s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "galley_lunch_seen"
+      },
+      {
+       "notFlag": "guzzlegut_gust"
+      }
+     ]
+    },
+    "script": "fennimore.s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_provisional"
+      },
+      {
+       "notFlag": "galley_lunch_seen"
+      }
+     ]
+    },
+    "script": "fennimore.s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ch1_morning_started"
+      },
+      {
+       "notFlag": "garrick_provisional"
+      }
+     ]
+    },
+    "script": "fennimore.s1"
+   }
+  ]
+ },
+ {
+  "extend": "brask",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "phase2_complete"
+    },
+    "script": "brask.s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "trial_started"
+      },
+      {
+       "notFlag": "frigate_fled"
+      }
+     ]
+    },
+    "script": "brask.tr"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ruined_reveal_seen"
+      },
+      {
+       "notFlag": "trial_started"
+      }
+     ]
+    },
+    "script": "brask.s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "squawks_rescued"
+      },
+      {
+       "notFlag": "ruined_reveal_seen"
+      }
+     ]
+    },
+    "script": "brask.s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "guzzlegut_gust"
+      },
+      {
+       "notFlag": "squawks_rescued"
+      }
+     ]
+    },
+    "script": "brask.s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "galley_lunch_seen"
+      },
+      {
+       "notFlag": "guzzlegut_gust"
+      }
+     ]
+    },
+    "script": "brask.s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_provisional"
+      },
+      {
+       "notFlag": "galley_lunch_seen"
+      }
+     ]
+    },
+    "script": "brask.s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ch1_morning_started"
+      },
+      {
+       "notFlag": "garrick_provisional"
+      }
+     ]
+    },
+    "script": "brask.s1"
+   }
+  ]
+ },
+ {
+  "extend": "nell",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "tutorial_complete"
+      },
+      {
+       "questActive": "tomorrows_heading"
+      }
+     ]
+    },
+    "script": "nell.heading"
+   },
+   {
+    "if": {
+     "flag": "phase2_complete"
+    },
+    "script": "nell.s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "trial_started"
+      },
+      {
+       "notFlag": "frigate_fled"
+      }
+     ]
+    },
+    "script": "nell.tr"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ruined_reveal_seen"
+      },
+      {
+       "notFlag": "trial_started"
+      }
+     ]
+    },
+    "script": "nell.s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "squawks_rescued"
+      },
+      {
+       "notFlag": "ruined_reveal_seen"
+      }
+     ]
+    },
+    "script": "nell.s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "guzzlegut_gust"
+      },
+      {
+       "notFlag": "squawks_rescued"
+      }
+     ]
+    },
+    "script": "nell.s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "galley_lunch_seen"
+      },
+      {
+       "notFlag": "guzzlegut_gust"
+      }
+     ]
+    },
+    "script": "nell.s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_provisional"
+      },
+      {
+       "notFlag": "galley_lunch_seen"
+      }
+     ]
+    },
+    "script": "nell.s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ch1_morning_started"
+      },
+      {
+       "notFlag": "garrick_provisional"
+      }
+     ]
+    },
+    "script": "nell.s1"
+   }
+  ]
+ },
+ {
+  "extend": "wick",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "phase2_complete"
+    },
+    "script": "wick.s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "trial_started"
+      },
+      {
+       "notFlag": "frigate_fled"
+      }
+     ]
+    },
+    "script": "wick.tr"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ruined_reveal_seen"
+      },
+      {
+       "notFlag": "trial_started"
+      }
+     ]
+    },
+    "script": "wick.s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "squawks_rescued"
+      },
+      {
+       "notFlag": "ruined_reveal_seen"
+      }
+     ]
+    },
+    "script": "wick.s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "guzzlegut_gust"
+      },
+      {
+       "notFlag": "squawks_rescued"
+      }
+     ]
+    },
+    "script": "wick.s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "galley_lunch_seen"
+      },
+      {
+       "notFlag": "guzzlegut_gust"
+      }
+     ]
+    },
+    "script": "wick.s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_provisional"
+      },
+      {
+       "notFlag": "galley_lunch_seen"
+      }
+     ]
+    },
+    "script": "wick.s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ch1_morning_started"
+      },
+      {
+       "notFlag": "garrick_provisional"
+      }
+     ]
+    },
+    "script": "wick.s1"
+   }
+  ]
+ },
+ {
+  "extend": "rook",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "save_squawks.rope"
+    },
+    "script": "ch6.rook_rope"
+   },
+   {
+    "if": {
+     "flag": "phase2_complete"
+    },
+    "script": "rook.s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "trial_started"
+      },
+      {
+       "notFlag": "frigate_fled"
+      }
+     ]
+    },
+    "script": "rook.tr"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ruined_reveal_seen"
+      },
+      {
+       "notFlag": "trial_started"
+      }
+     ]
+    },
+    "script": "rook.s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "squawks_rescued"
+      },
+      {
+       "notFlag": "ruined_reveal_seen"
+      }
+     ]
+    },
+    "script": "rook.s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "guzzlegut_gust"
+      },
+      {
+       "notFlag": "squawks_rescued"
+      }
+     ]
+    },
+    "script": "rook.s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "galley_lunch_seen"
+      },
+      {
+       "notFlag": "guzzlegut_gust"
+      }
+     ]
+    },
+    "script": "rook.s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_provisional"
+      },
+      {
+       "notFlag": "galley_lunch_seen"
+      }
+     ]
+    },
+    "script": "rook.s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ch1_morning_started"
+      },
+      {
+       "notFlag": "garrick_provisional"
+      }
+     ]
+    },
+    "script": "rook.s1"
+   }
+  ]
+ },
+ {
+  "extend": "sully",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "phase2_complete"
+    },
+    "script": "sully.s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "trial_started"
+      },
+      {
+       "notFlag": "frigate_fled"
+      }
+     ]
+    },
+    "script": "sully.tr"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ruined_reveal_seen"
+      },
+      {
+       "notFlag": "trial_started"
+      }
+     ]
+    },
+    "script": "sully.s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "squawks_rescued"
+      },
+      {
+       "notFlag": "ruined_reveal_seen"
+      }
+     ]
+    },
+    "script": "sully.s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "guzzlegut_gust"
+      },
+      {
+       "notFlag": "squawks_rescued"
+      }
+     ]
+    },
+    "script": "sully.s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "galley_lunch_seen"
+      },
+      {
+       "notFlag": "guzzlegut_gust"
+      }
+     ]
+    },
+    "script": "sully.s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_provisional"
+      },
+      {
+       "notFlag": "galley_lunch_seen"
+      }
+     ]
+    },
+    "script": "sully.s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ch1_morning_started"
+      },
+      {
+       "notFlag": "garrick_provisional"
+      }
+     ]
+    },
+    "script": "sully.s1"
+   }
+  ]
+ },
+ {
+  "extend": "finch",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "phase2_complete"
+    },
+    "script": "finch.s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "trial_started"
+      },
+      {
+       "notFlag": "frigate_fled"
+      }
+     ]
+    },
+    "script": "finch.tr"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ruined_reveal_seen"
+      },
+      {
+       "notFlag": "trial_started"
+      }
+     ]
+    },
+    "script": "finch.s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "squawks_rescued"
+      },
+      {
+       "notFlag": "ruined_reveal_seen"
+      }
+     ]
+    },
+    "script": "finch.s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "guzzlegut_gust"
+      },
+      {
+       "notFlag": "squawks_rescued"
+      }
+     ]
+    },
+    "script": "finch.s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "galley_lunch_seen"
+      },
+      {
+       "notFlag": "guzzlegut_gust"
+      }
+     ]
+    },
+    "script": "finch.s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_provisional"
+      },
+      {
+       "notFlag": "galley_lunch_seen"
+      }
+     ]
+    },
+    "script": "finch.s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ch1_morning_started"
+      },
+      {
+       "notFlag": "garrick_provisional"
+      }
+     ]
+    },
+    "script": "finch.s1"
+   }
+  ]
+ },
+ {
+  "extend": "jory",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "phase2_complete"
+    },
+    "script": "jory.s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "trial_started"
+      },
+      {
+       "notFlag": "frigate_fled"
+      }
+     ]
+    },
+    "script": "jory.tr"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ruined_reveal_seen"
+      },
+      {
+       "notFlag": "trial_started"
+      }
+     ]
+    },
+    "script": "jory.s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "squawks_rescued"
+      },
+      {
+       "notFlag": "ruined_reveal_seen"
+      }
+     ]
+    },
+    "script": "jory.s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "guzzlegut_gust"
+      },
+      {
+       "notFlag": "squawks_rescued"
+      }
+     ]
+    },
+    "script": "jory.s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "galley_lunch_seen"
+      },
+      {
+       "notFlag": "guzzlegut_gust"
+      }
+     ]
+    },
+    "script": "jory.s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_provisional"
+      },
+      {
+       "notFlag": "galley_lunch_seen"
+      }
+     ]
+    },
+    "script": "jory.s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ch1_morning_started"
+      },
+      {
+       "notFlag": "garrick_provisional"
+      }
+     ]
+    },
+    "script": "jory.s1"
+   }
+  ]
+ }
+]

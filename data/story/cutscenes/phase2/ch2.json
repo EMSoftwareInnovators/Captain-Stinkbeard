@@ -1,0 +1,337 @@
+{
+  "//": "Story Phase 2, chapter 2: Garrick's First Day at Sea. Toll line on main-deck row 27 (Garrick at 9,27, sign at 10,27); the galley mess table is (4-6,9).",
+
+  "ch2.begin": [
+    { "startQuest": "new_recruit" },
+    { "wait": 400 },
+    "hale: Where do you want him, Captain?",
+    { "choice": [
+      { "text": "The galley. Keep him near the food.", "then": [
+        "hale[concerned]: Mags would kill him inside an hour, Captain. Or he'd eat the stores. One or the other.",
+        "captain[resigned]: Fine. Not the galley."
+      ] },
+      { "text": "Swabbing. The foredeck.", "then": [
+        "hale[smug]: Very good, Captain. Honest work. Wet work."
+      ] },
+      { "text": "Anywhere I can't see him.", "then": [
+        "hale: The foredeck, then. You can't see it from the helm."
+      ] }
+    ] },
+    "hale: I'll put him on the foredeck with Sully. Swabbing, coiling, the usual. Somebody ought to check he's actually doing it.",
+    "captain[annoyed]: Somebody meaning me.",
+    "hale[smug]: You are the captain, Captain.",
+    { "transition": "captains_quarters", "spawn": "start", "then": "ch2.later", "fade": 700 }
+  ],
+
+  "ch2.later": [
+    { "banner": "CHAPTER 2", "sub": "Garrick's First Day at Sea" },
+    "An hour later. Charts, coffee and blessed quiet.",
+    { "wait": 500 },
+    { "sfx": "knock" },
+    { "wait": 300 },
+    { "sfx": "door" },
+    { "spawn": "wick", "x": 8, "y": 10, "facing": "up" },
+    { "move": "wick", "path": ["up", 2], "speed": "run" },
+    "wick[concerned]: Captain! You'd better come to the foredeck. The new man's... he's put up a sign.",
+    "captain: A sign.",
+    "wick: And a rope. And he's charging people, Captain. Brask had to pay a copper to fetch his own hammer.",
+    "captain[angry]: He's WHAT.",
+    { "move": "wick", "path": ["down", 2], "speed": "run" },
+    { "sfx": "door" },
+    { "despawn": "wick" },
+    { "save": "auto" }
+  ],
+
+  "ch2.toll_warn": [
+    { "setFlag": "garrick_toll_warned" },
+    { "face": "garrick", "dir": "player" },
+    { "bark": "garrick", "text": "Toll deck ahead! Coins ready, please!", "shout": true, "duration": 1800 },
+    { "wait": 1100 },
+    { "bark": "garrick", "text": "Loitering is extra!", "shout": true, "duration": 1600 }
+  ],
+
+  "ch2.toll_sign": [
+    { "insert": "toll_sign_close", "caption": "Painted in a hurry on a cupboard door. The paint is still wet." },
+    "captain[annoyed]: That's my cupboard door."
+  ],
+
+  "ch2.toll_confront": [
+    { "anim": "garrick", "name": "smug" },
+    "garrick[businesslike]: Welcome, valued customer, to Garrick's Toll Deck! One copper to cross the foredeck. Return journeys, two.",
+    "captain: A return journey is two crossings.",
+    "garrick: Two coppers. Plus a convenience charge.",
+    "captain[angry]: This is MY deck.",
+    "garrick[smug]: And you're welcome on it, at the captain's rate! Half price. Premium rates apply for loitering, and I must warn you there is a burping surcharge.",
+    { "choice": [
+      { "text": "Take it down. Now.", "then": [
+        "captain[angry]: Take. It. Down.",
+        { "anim": "garrick", "name": "nervous", "duration": 700 },
+        "garrick[nervous]: Of course! Immediately! As a gesture of goodwill between management and... management."
+      ] },
+      { "text": "...What's the burping surcharge?", "then": [
+        "garrick[businesslike]: Three coppers a burp, Captain. Bob owes me eleven.",
+        "captain[laugh]: Bob has never paid for anything in his life.",
+        "garrick[offended]: Then he's in ARREARS.",
+        "captain: Take it down, Guzzlegut.",
+        { "addVar": "captain_mercy", "value": 1 }
+      ] },
+      { "text": "Pay the toll.", "then": [
+        "captain: Here. One copper.",
+        "garrick[delighted]: A pleasure doing business—",
+        "captain[smug]: And now it's my copper, on my deck, under my rope. Take it down.",
+        "garrick[pretend]: ...I appear to have been out-negotiated.",
+        "He hands the copper back. Slowly. As if returning a kidney."
+      ] }
+    ] },
+    "captain: You're aboard to work. Hale put you on the foredeck. Swabbing.",
+    "garrick[businesslike]: Swabbing! Of course. I'm a hands-on sort of executive.",
+    { "sfx": "rope_haul" },
+    { "burst": "dust", "x": 7, "y": 27, "count": 6 },
+    { "burst": "dust", "x": 12, "y": 27, "count": 6 },
+    { "setFlag": "garrick_toll_removed" },
+    { "move": "garrick", "to": [11, 26], "face": "down" },
+    { "anim": "garrick", "name": "slouch" },
+    "Garrick waddles off in the general direction of the bucket, whistling."
+  ],
+
+  "ch2.scrub": [
+    { "spawn": "sully", "x": 12, "y": 27, "facing": "left" },
+    { "anim": "sully", "name": "work" },
+    "Garrick is sitting on an upturned bucket with his boots up, watching Sully scrub around him.",
+    "captain: Guzzlegut. What are you doing?",
+    "garrick[businesslike]: Supervising the plank, Captain.",
+    "captain: Supervising.",
+    "garrick: Every great enterprise needs management. Sully provides the labour. I provide the vision. A little more elbow there, Sully.",
+    { "face": "sully", "dir": "player" },
+    "sully[annoyed]: Captain, he's been supervising for an hour. He's supervised me scrubbing this one plank four times.",
+    "garrick[smug]: Quality assurance.",
+    { "choice": [
+      { "text": "Pick up the brush, Garrick.", "then": [
+        "captain[angry]: Pick. Up. The brush."
+      ] },
+      { "text": "Sully, take a break. Garrick scrubs.", "then": [
+        "sully[happy]: Thank you, Captain!",
+        "garrick[offended]: This is a demotion."
+      ] },
+      { "text": "...It is a very clean plank.", "then": [
+        "garrick[delighted]: Thank you! Finally, a man who appreciates results.",
+        "captain[annoyed]: Pick up the brush anyway.",
+        { "addVar": "captain_mercy", "value": 1 }
+      ] }
+    ] },
+    { "anim": "garrick", "name": "work", "duration": 700 },
+    { "sfx": "splash", "volume": 0.4 },
+    "Garrick picks up the brush and gives the deck one long, magnificent stroke.",
+    "garrick[smug]: There. Leading by example.",
+    { "setFlag": "garrick_scrub_seen" },
+    { "wait": 400 },
+    { "sfx": "bell" },
+    { "bark": "none", "text": "LUNCH!", "x": 9, "y": 24, "shout": true, "duration": 1400 },
+    { "emote": "garrick", "icon": "exclaim", "duration": 500 },
+    "garrick[delighted]: Lunch! The most important meeting of the day!",
+    { "move": "garrick", "to": [9, 25], "speed": "run" },
+    { "move": "garrick", "path": ["up", 1], "speed": "run" },
+    { "sfx": "ladder" },
+    { "despawn": "garrick" },
+    { "face": "sully", "dir": "player" },
+    "sully: Fastest he's moved all morning, Captain.",
+    "captain[annoyed]: Somebody should keep an eye on him in the galley.",
+    "sully[happy]: Somebody meaning you, Captain."
+  ],
+
+  "ch2.galley_lunch": {
+    "start": [
+      { "wait": 200 },
+      { "sprite": "m_a", "frame": "meal_stew", "x": 4.5, "y": 9.55, "depth": 170 },
+      { "sprite": "m_b", "frame": "meal_eggs", "x": 5.5, "y": 9.55, "depth": 170 },
+      { "sprite": "m_c", "frame": "meal_onions", "x": 6.4, "y": 9.55, "depth": 170 },
+      { "face": "jim", "dir": "player" },
+      { "emote": "jim", "icon": "exclaim", "duration": 500 },
+      "jim[alarmed]: Captain! Thank the tides. You have to see this. He's been eating for twenty minutes.",
+      { "camera": "pan", "actor": "garrick", "duration": 700 },
+      "garrick[delighted]: Captain! Join me! Your cook is a genius. A tragically underappreciated asset.",
+      "jim[annoyed]: I'm not a cook, I'm a PICKLER. And he's eaten half my pickling.",
+      "jim: Here. Here's what he's had so far. I've been keeping count.",
+      { "goto": "menu" }
+    ],
+    "menu": [
+      "jim: Twelve pickled onions.",
+      { "sfx": "chomp" },
+      { "wait": 250 },
+      { "sfx": "chomp" },
+      { "removeSprite": "m_c" },
+      "garrick[delighted]: Crisp. Tangy. Undervalued.",
+      { "sprite": "m_c", "frame": "meal_garlic", "x": 6.4, "y": 9.55, "depth": 170 },
+      "jim: A whole roasted garlic. Not a clove, Captain. The whole bulb.",
+      { "sfx": "chomp" },
+      { "removeSprite": "m_c" },
+      "garrick[businesslike]: In some cultures garlic is a currency.",
+      "jim: Two bowls of cabbage stew.",
+      { "sfx": "chomp" },
+      { "wait": 200 },
+      { "sfx": "chomp" },
+      { "removeSprite": "m_a" },
+      "garrick: Bowls three and four are being held in escrow.",
+      { "sprite": "m_a", "frame": "meal_cheese", "x": 4.5, "y": 9.55, "depth": 170 },
+      "jim[disgusted]: The sour cheese. THE sour cheese. The one we keep in the hold to frighten off rats.",
+      { "sfx": "chomp" },
+      { "removeSprite": "m_a" },
+      "garrick: Robust. Assertive. A cheese with a business plan.",
+      "jim: Nine deviled eggs.",
+      { "sfx": "chomp" },
+      { "wait": 200 },
+      { "sfx": "chomp" },
+      { "removeSprite": "m_b" },
+      "garrick[smug]: The devil drives a hard bargain. So do I.",
+      { "sprite": "m_b", "frame": "meal_beans", "x": 5.5, "y": 9.55, "depth": 170 },
+      "jim: Beans. So many beans.",
+      { "sfx": "chomp" },
+      { "removeSprite": "m_b" },
+      { "sprite": "m_a", "frame": "meal_sausages", "x": 4.5, "y": 9.55, "depth": 170 },
+      "jim[disgusted]: And the sausages.",
+      "captain[disgusted]: The ones he paddled here with.",
+      "jim: The ones that were in the sea, Captain. For days.",
+      { "sfx": "chomp" },
+      { "wait": 300 },
+      { "sfx": "chomp" },
+      { "removeSprite": "m_a" },
+      "garrick[greedy]: Waste not, Captain. They've been marinating.",
+      { "goto": "jar" }
+    ],
+    "jar": [
+      { "anim": "garrick", "name": "idle" },
+      { "face": "garrick", "dir": "up" },
+      { "emote": "garrick", "icon": "question" },
+      "garrick: And what's in the jar?",
+      { "camera": "pan", "x": 6, "y": 5, "duration": 600 },
+      { "face": "jim", "dir": "up" },
+      { "emote": "jim", "icon": "exclaim", "duration": 500 },
+      "jim[alarmed]: Don't. Don't you touch that jar.",
+      { "insert": "eel_jar_label", "caption": "Salty Jim's fermented eel paste. Aged in the forepeak since before Wick was born." },
+      "jim: That paste is for rendering. For glue. For killing barnacles off the hull. It is NOT for eating.",
+      "jim[angry]: And it is NOT to be opened below deck. It says so ON THE JAR.",
+      "garrick[businesslike]: Warnings like that are a negotiating position.",
+      { "move": "garrick", "to": [6, 5], "face": "up", "speed": "run" },
+      { "hideObject": "prop:eel_jar" },
+      { "sfx": "jar_open" },
+      { "burst": "odor", "actor": "garrick", "count": 6 },
+      { "wait": 500 },
+      { "sfx": "cough1" },
+      { "bark": "mags", "text": "WHAT IS THAT SMELL?", "shout": true, "duration": 1600 },
+      { "sfx": "chomp" },
+      { "wait": 250 },
+      { "sfx": "chomp" },
+      { "wait": 250 },
+      { "sfx": "chomp" },
+      { "face": "garrick", "dir": "down" },
+      "garrick[delighted]: Mmm! Notes of low tide. A hint of regret. Lingering finish.",
+      "jim[disgusted]: He ate it. He ate the whole jar.",
+      "captain: Is that bad?",
+      "jim[alarmed]: Captain, a SPOONFUL of that clears a bilge.",
+      { "wait": 600 },
+      { "goto": "rumble" }
+    ],
+    "rumble": [
+      { "camera": "pan", "actor": "garrick", "duration": 400 },
+      { "sfx": "rumble_low" },
+      { "shake": 1, "duration": 1300, "to": 3, "async": true },
+      { "sfx": "dish_rattle" },
+      { "propFx": "jiggle", "prop": "hanging_pots", "duration": 1300, "intensity": 2, "async": true },
+      { "propFx": "jiggle", "prop": "galley_shelf", "duration": 1300, "intensity": 1, "async": true },
+      { "propFx": "jiggle", "prop": "galley_portrait", "duration": 1300, "intensity": 2, "async": true },
+      { "propFx": "swing", "prop": "lantern_hanging", "duration": 1300, "intensity": 1, "async": true },
+      { "burst": "dishes", "x": 5, "y": 9, "count": 5 },
+      { "wait": 1400 },
+      { "setFlag": "garrick_digestive_crisis" },
+      { "parallel": [
+        [{ "emote": "jim", "icon": "exclaim" }],
+        [{ "emote": "mags", "icon": "question" }],
+        [{ "emote": "player", "icon": "ellipsis" }]
+      ] },
+      "Every head in the galley turns, slowly, toward Garrick.",
+      { "anim": "garrick", "name": "clutch", "duration": 800 },
+      "garrick[nervous]: ...Hull settling. Old ships. They talk.",
+      "mags[annoyed]: That wasn't the hull.",
+      "garrick[pretend]: Well! Back to work. The sails won't supervise themselves.",
+      { "move": "garrick", "to": [14, 4], "speed": "run" },
+      { "sfx": "ladder" },
+      { "despawn": "garrick" },
+      { "camera": "reset", "duration": 500 },
+      { "setFlag": "galley_lunch_seen" },
+      { "face": "jim", "dir": "player" },
+      "jim[concerned]: Captain. A word. When you've got a moment."
+    ]
+  },
+
+  "ch2.jim_warning": [
+    "jim[concerned]: I've been pickling thirty years, Captain. I know what food does to a man.",
+    "jim: Twelve onions, a garlic, the cheese, the eggs, the beans, a pair of sea-soaked sausages... and a jar of fermented eel. All in one sitting.",
+    "captain: And?",
+    "jim[alarmed]: And it's all got to go SOMEWHERE, Captain.",
+    { "choice": [
+      { "text": "How bad could it be?", "then": [
+        "jim: When I was a boy, a man in Port Farthing ate half a jar of that paste.",
+        "jim[disgusted]: They had to burn the tavern. Then they had to burn the ashes."
+      ] },
+      { "text": "I'll keep an eye on him.", "then": [
+        "jim: Keep both eyes on him, Captain. And a nose."
+      ] },
+      { "text": "Why did you even MAKE that paste?", "then": [
+        "jim[annoyed]: For the hull! One dab and every barnacle within a fathom lets go and swims for it.",
+        "jim[concerned]: And now it's inside a man."
+      ] }
+    ] },
+    "jim: Keep him above deck, in the open air. And for pity's sake keep him away from anything you'd like to keep.",
+    { "setFlag": "jim_warned" }
+  ],
+
+  "ch2.sail_rumble": [
+    { "face": "player", "dir": "up" },
+    "Garrick is 'helping' Rook with the mainsail. Rook is doing the pulling. Garrick is doing the grunting.",
+    "rook: Heave, Guzzlegut!",
+    "garrick[businesslike]: Heaving! Heaving in an advisory capacity!",
+    { "sfx": "rumble_mid" },
+    { "shake": 1, "duration": 1500, "to": 4, "async": true },
+    { "roll": 2, "duration": 1300, "async": true },
+    { "propFx": "jiggle", "prop": "mast", "duration": 1400, "intensity": 2, "async": true },
+    { "propFx": "jiggle", "prop": "mast_top", "duration": 1400, "intensity": 2, "async": true },
+    { "wait": 500 },
+    { "sfx": "sail_snap" },
+    { "burst": "dust", "x": 9, "y": 18, "count": 8 },
+    { "wait": 1000 },
+    { "setFlag": "rumble_sails_seen" },
+    { "anim": "rook", "name": "idle" },
+    { "emote": "rook", "icon": "exclaim" },
+    "rook[alarmed]: Was that... the mast?",
+    { "anim": "garrick", "name": "nervous" },
+    { "face": "rook", "dir": "garrick" },
+    "rook: Captain, I don't think that came from the mast."
+  ],
+
+  "ch2.thunder": [
+    "captain: Guzzlegut. What was that noise?",
+    "garrick[pretend]: Thunder, Captain.",
+    "captain: There isn't a cloud in the sky.",
+    "garrick: Distant thunder. Very distant. Other side of the world. Dreadful weather over there, I hear.",
+    { "choice": [
+      { "text": "That was your stomach.", "then": [
+        "garrick[offended]: Captain! I'll have you know my stomach is a well-regulated institution.",
+        { "sfx": "gurgle" },
+        "garrick[nervous]: ...That was a seagull."
+      ] },
+      { "text": "...Thunder.", "then": [
+        "captain: Thunder.",
+        "garrick[relieved]: Thunder!",
+        "captain: Distant.",
+        "garrick: Tremendously distant.",
+        { "addVar": "captain_mercy", "value": 1 }
+      ] },
+      { "text": "Go and see Doc Fennimore.", "then": [
+        "garrick[businesslike]: Doctors, Captain, are an unnecessary overhead.",
+        "garrick: My body is a self-regulating market."
+      ] }
+    ] },
+    { "setFlag": "garrick_thunder_excuse" },
+    { "anim": "garrick", "name": "idle" }
+  ]
+}

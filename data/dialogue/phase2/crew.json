@@ -1,0 +1,387 @@
+{
+ "hale.heading": [
+  "hale: A fine day's work, Captain. Nell reckons we raise the wreck-waters by morning.",
+  "hale: If there's nothing else, you might turn in. The crew will want you fresh. And shouting."
+ ],
+ "hale.s1": [
+  "hale: Morning, Captain. Rough swell in the night, but she rode it well. Nell has us back on course.",
+  "hale: Squawks went out on his morning flight at dawn. He'll be back when he's hungry, or when he's thought of something rude to say.",
+  "hale[concerned]: And Barnacle Bob is off punishment duty. I apologise in advance.",
+  {
+   "addVar": "morning_beats",
+   "value": 1
+  }
+ ],
+ "hale.s2": [
+  "hale: I've put the new man on the foredeck with Sully. Swabbing.",
+  "hale[resigned]: He asked what the pay structure was for swabbing. I told him the structure was 'no'."
+ ],
+ "hale.s3": [
+  "hale[concerned]: Captain, did you hear that noise at lunch? Half the ship did. Mags thought the stove had gone up.",
+  "captain: It was Guzzlegut.",
+  "hale: ...That doesn't make me feel better, sir."
+ ],
+ "hale.s4": [
+  {
+   "if": {
+    "flag": "squawks_fell"
+   },
+   "then": [
+    "hale[coughing]: Rook has the line, Captain. We haul the moment you tug. Or the moment you stop moving.",
+    "hale: Bring him back, sir. The ship's not the ship without him shouting at it."
+   ],
+   "else": [
+    "hale[coughing]: Everyone's up and accounted for, Captain. Except my sense of smell. That's gone overboard."
+   ]
+  }
+ ],
+ "hale.s5": [
+  "hale: Squawks is resting with the Doc. He's... very pink, Captain.",
+  "hale[resigned]: The men want to know when we can open the hatches again. I said we'd open them when they stop opening themselves."
+ ],
+ "hale.s6": [
+  "hale[annoyed]: The treasure, sir. The men are saying all of it. Is it all of it?",
+  "captain[devastated]: All of it.",
+  "hale: Then I'll keep the men away from Guzzlegut. For his sake, not theirs."
+ ],
+ "hale.tr": [
+  "hale: I'll keep the jury from hanging the defendant until we've seen off the navy, Captain. After that I make no promises."
+ ],
+ "hale.s8": [
+  "hale: The rowboat protocol's posted on the mainmast, Captain. One rumble, one rowboat, half a mile.",
+  "hale[smug]: The men learned it faster than their knots. I've added 'Listening for Garrick' to the watch bill. It's the most popular post aboard."
+ ],
+ "quill.s1": [
+  "quill: Morning, Captain. Ledger's balanced, stores are counted, and the prisoner has asked for a lawyer again.",
+  "captain: Tell him we have an excellent lawyer. It's a plank.",
+  "quill: I'll phrase it more gently, sir.",
+  {
+   "addVar": "morning_beats",
+   "value": 1
+  }
+ ],
+ "quill.s2": [
+  "quill[concerned]: Captain, the new man asked to see the ledger. He called it 'the books'. He said it with such... affection.",
+  "quill: I've locked it in the strongbox. And locked the strongbox in the treasure room. And kept the key in my shoe."
+ ],
+ "quill.s3": [
+  "quill[disgusted]: He ate the stores, Captain. Not some of the stores. The idea of stores.",
+  "quill: I've entered it as 'Lunch (Guzzlegut)'. It takes up a page."
+ ],
+ "quill.s4": [
+  "quill[coughing]: I have my ledger over my face, Captain. It's the only thing aboard that still smells of ink.",
+  "quill: I'm recording this as weather."
+ ],
+ "quill.s5": [
+  "quill: Squawks will live, the Doc says. I've started a new column: 'Feathers, lost'. The number is upsetting."
+ ],
+ "quill.s6": [
+  "quill[devastated]: Four thousand two hundred and eleven coins, Captain. Twelve years of plunder. And I can't in good conscience write down what they're worth.",
+  "quill: I've written 'See Garrick' instead."
+ ],
+ "quill.tr": [
+  "quill: I'm clerk of the court, Captain. I've written the charges out neatly. It helps."
+ ],
+ "quill.s8": [
+  "quill: I've opened an account for Mister Guzzlegut. It's in the red. It will always be in the red. I find that soothing.",
+  "quill: And the treasure's still counted, sir. Still aboard. Still worthless. I count it anyway. Habit."
+ ],
+ "mags.s1": [
+  "mags: Morning, Captain! Salty Jim's back on the galley, so I've someone to argue with who isn't Quill.",
+  "mags[laugh]: He's pickled everything that stood still. I caught him eyeing Wick.",
+  {
+   "addVar": "morning_beats",
+   "value": 1
+  }
+ ],
+ "mags.s2": [
+  "mags[annoyed]: That fellow from the bathtub came in asking what the menu was. It's stew, I told him.",
+  "mags: He asked if there was a tasting menu. There is. It's stew."
+ ],
+ "mags.s3": [
+  "mags[disgusted]: Twenty years I've cooked for pirates, Captain. I've never watched a man eat like that.",
+  "mags: And then his belly spoke. My pans are still ringing."
+ ],
+ "mags.s4": [
+  "mags[coughing]: My galley! My clean galley! It smells like a cheese died in a boot!",
+  "mags[angry]: When this clears, that man is on bread and water. No. Just water. Bread's too risky."
+ ],
+ "mags.s5": [
+  "mags[concerned]: Poor Squawks. Not a feather on him, and shivering.",
+  "mags: I've some red wool put by. I'm going to knit him something. Don't tell him. He'll bite me."
+ ],
+ "mags.s6": [
+  "mags[angry]: The treasure too? Of course the treasure too.",
+  "mags: I'd have fed that man to the fish, Captain, but the fish have suffered enough."
+ ],
+ "mags.tr": [
+  "mags[happy]: The sweater's done! Little holes for his wings and a bobble on the hat.",
+  "mags[laugh]: He hates it. He's wearing it anyway. That's how you know it's warm."
+ ],
+ "mags.s8": [
+  "mags: New rule in my galley: Garrick eats on deck, downwind, facing the sea.",
+  "mags[laugh]: He says it's discrimination. I say it's ventilation."
+ ],
+ "fennimore.s1": [
+  "fennimore: Morning, Captain. Ned's back on his feet after the ague. Foot, rather.",
+  "fennimore: I recommended rest. He recommended I mind my own business. A healthy sign.",
+  {
+   "addVar": "morning_beats",
+   "value": 1
+  }
+ ],
+ "fennimore.s2": [
+  "fennimore: I examined our castaway. Sound heart, sound lungs, a terrifying appetite, and a firm belief that the sea owes him money."
+ ],
+ "fennimore.s3": [
+  "fennimore[concerned]: I heard his stomach from the sick bay, Captain. Through two decks.",
+  "fennimore: Medically speaking, that isn't a stomach. That's a weather system."
+ ],
+ "fennimore.s4": [
+  "fennimore[coughing]: Nothing in my cabinet for this, Captain. I checked twice.",
+  "fennimore: I have a salve for everything except whatever this is."
+ ],
+ "fennimore.s5": [
+  "fennimore: The bird will live. He lost ninety feathers in a hundred. They'll grow back in a month or so. Keep him warm until then.",
+  "fennimore[smug]: I've prescribed rest, broth, and not looking in mirrors."
+ ],
+ "fennimore.s6": [
+  "fennimore: I've inspected the crew. Lungs, fine. Morale, not. I have no tincture for gold that smells."
+ ],
+ "fennimore.tr": [
+  "fennimore: I'm here in a medical capacity, Captain. In case the jury gets excited. Or the defendant does."
+ ],
+ "fennimore.s8": [
+  "fennimore: I'm keeping a log of Mister Guzzlegut's... events. Purely scientific.",
+  "fennimore[smug]: There's a paper in it. Possibly a warning to the whole of medicine."
+ ],
+ "brask.s1": [
+  "brask: MORNING, CAPTAIN! Guns clean, sea calm, nobody to shoot! TERRIBLE!",
+  {
+   "addVar": "morning_beats",
+   "value": 1
+  }
+ ],
+ "brask.s2": [
+  "brask: THAT NEW FELLOW ASKED ME WHAT A CANNON COSTS! I told him! He asked if I'd take LESS!",
+  "brask[annoyed]: LESS!"
+ ],
+ "brask.s3": [
+  "brask[surprised]: WAS THAT A GUN? Sounded like a twelve-pounder! Below decks!",
+  "captain: Nobody's firing, Brask.",
+  "brask: THEN WHAT WAS IT?",
+  "captain: Lunch.",
+  "brask: ...WHAT?"
+ ],
+ "brask.s4": [
+  "brask[coughing]: I CAN'T HEAR A THING, CAPTAIN, BUT I CAN SMELL IT!",
+  "brask[laugh]: First time my ears got the better deal!"
+ ],
+ "brask.s5": [
+  "brask: THE BIRD'S BALD! Looks like a boiled chicken! Don't tell him I said that!",
+  "brask[alarmed]: HE HEARD ME. HE'S GLARING."
+ ],
+ "brask.s6": [
+  "brask[annoyed]: RUINED THE TREASURE? I'll load HIM into Margaret! She's never fired a man before! She'd enjoy it!"
+ ],
+ "brask.tr": [
+  "brask: GUNS READY, CAPTAIN! Just say the word! Is the word 'FIRE'? I LIKE that word!"
+ ],
+ "brask.s8": [
+  "brask: They're calling it the Yellow Broadside down in the gunroom! Best shot this ship ever fired and it wasn't even a GUN!",
+  "brask[laugh]: When his belly rumbles I ring the bell! TWO bells for ROWBOAT!"
+ ],
+ "nell.heading": [
+  "nell: We'll raise the wreck-waters by morning, Captain. The old charts say a galleon went down there with a full hold.",
+  "nell[smug]: The charts are forty years out of date. So is the galleon."
+ ],
+ "nell.s1": [
+  "nell: Bang on course, Captain. The swell pushed us a mile east in the night. I pushed us back.",
+  {
+   "addVar": "morning_beats",
+   "value": 1
+  }
+ ],
+ "nell.s2": [
+  "nell[smug]: A man in a bathtub, two leagues from any land. I checked the charts. There's no bathtub marked anywhere."
+ ],
+ "nell.s3": [
+  "nell: Clear skies all round, Captain. So whatever that thunder was, it didn't come from the sky."
+ ],
+ "nell.s4": [
+  "nell[coughing]: I'm staying at the helm, Captain. The wind's carrying it forward, so back here I'm the only one breathing.",
+  "nell: I'd like that noted when the shares are counted."
+ ],
+ "nell.s5": [
+  "nell: We're making way, slower than I'd like. The fumes got into the sails. They belly out wrong."
+ ],
+ "nell.s6": [
+  "nell[annoyed]: Twelve years of prize money gone yellow. I was going to buy a house with a garden.",
+  "nell: Now I'll settle for a house with a window I can open."
+ ],
+ "nell.tr": [
+  "nell: The helm's ready when you are, Captain. She's yours whenever you want her."
+ ],
+ "nell.s8": [
+  "nell: New standing order: we sail with the wind on the beam. That way the smell goes sideways.",
+  "nell[smug]: Someone else's problem."
+ ],
+ "wick.s1": [
+  "wick[happy]: Morning, Captain! Barnacle Bob says lamp oil tastes like spicy sunshine! Is that true?",
+  "captain: No.",
+  "wick[surprised]: He's drinking it anyway!",
+  {
+   "addVar": "morning_beats",
+   "value": 1
+  }
+ ],
+ "wick.s2": [
+  "wick[happy]: Captain, the bathtub man says he's a businessman! He gave me his card!",
+  "wick: It says 'Garrick'. On a biscuit."
+ ],
+ "wick.s3": [
+  "wick[surprised]: Captain, his stomach made a noise like a whale! I've never heard a whale. But it was like one!"
+ ],
+ "wick.s4": [
+  "wick[coughing]: My eyes are watering and I'm not even sad! Is this what the navy smells like?"
+ ],
+ "wick.s5": [
+  "wick[sad]: Squawks won't talk to anyone, Captain. I said he looked nice pink.",
+  "wick: He bit me."
+ ],
+ "wick.s6": [
+  "wick[concerned]: Is it true the gold's ruined? Even the crown? I was going to try it on one day. Just for a minute."
+ ],
+ "wick.tr": [
+  "wick[happy]: I'm on the jury, Captain! I've never been on a jury! Do I get a hat?"
+ ],
+ "wick.s8": [
+  "wick[laugh]: I'm listening for Mister Guzzlegut's stomach on the morning watch! If I hear it, I shout ROWBOAT!",
+  "wick[happy]: I've been practising!"
+ ],
+ "rook.s1": [
+  "rook: Morning, Cap'n. Capstan's greased. Bob tried to drink the grease. Separately from the lamp oil.",
+  {
+   "addVar": "morning_beats",
+   "value": 1
+  }
+ ],
+ "rook.s2": [
+  "rook[laugh]: The new man offered to 'consult' on the hauling. Stood at the back and said 'heave' like a banker."
+ ],
+ "rook.s3": [
+  "rook[concerned]: That noise, Cap'n. I heard one like it once, off a volcano.",
+  "rook: A small volcano. Smaller than him."
+ ],
+ "rook.s4": [
+  "rook[coughing]: I've carried barrels, cannons and Barnacle Bob up that ladder, Cap'n. Never carried a smell before. It follows you up."
+ ],
+ "rook.s5": [
+  "rook: Line held, Cap'n. You came out heavier than you went in. That'll be the bird. And the smell."
+ ],
+ "rook.s6": [
+  "rook[annoyed]: Say the word, Cap'n, and he walks the plank. I'll make him a new one. A short one."
+ ],
+ "rook.tr": [
+  "rook: On the jury, Cap'n. I've already decided. Just waiting for you to finish talking."
+ ],
+ "rook.s8": [
+  "rook[laugh]: Lowering the rowboat's my job now. Eleven seconds from 'ROWBOAT' to splash.",
+  "rook: The navy can't launch a boat in eleven seconds. I asked one."
+ ],
+ "sully.s1": [
+  "sully: Morning, Captain. Swabbing. Again. There's a lesson in it somewhere.",
+  {
+   "addVar": "morning_beats",
+   "value": 1
+  }
+ ],
+ "sully.s2": [
+  "sully[annoyed]: Hale gave me a helper, Captain. He's been supervising my plank for an hour.",
+  "sully: The plank's doing fine. I'm not."
+ ],
+ "sully.s3": [
+  "sully: I'm not a man who's easily impressed, Captain. But that lunch. That lunch was an achievement."
+ ],
+ "sully.s4": [
+  "sully[coughing]: I'm swabbing the air, Captain. It's not working. Still the most useful thing I've done all week."
+ ],
+ "sully.s5": [
+  "sully[sad]: Found a red feather by the hatch, Captain. I'm keeping it for him. In case he wants it back."
+ ],
+ "sully.s6": [
+  "sully[annoyed]: No treasure, no shares. So I've been swabbing for free all these years? Someone might have said. I'd have stopped."
+ ],
+ "sully.tr": [
+  "sully: Jury duty. It's like swabbing, except you sit down and get to be angry."
+ ],
+ "sully.s8": [
+  "sully: The rowboat protocol's the best rule we've got. Every time his stomach growls, we all stop work.",
+  "sully[happy]: I've never been so rested."
+ ],
+ "finch.s1": [
+  "finch: The sea's holding her breath again, Captain. Something's coming. Something... floating.",
+  {
+   "addVar": "morning_beats",
+   "value": 1
+  }
+ ],
+ "finch.s2": [
+  "finch[concerned]: A man in a bathtub, Captain. The sea didn't drown him. She spat him out.",
+  "finch: She had her reasons."
+ ],
+ "finch.s3": [
+  "finch: Did you hear it, Captain? Deep, like something waking up under the hull.",
+  "finch[concerned]: The sea's worried. I've never known her worried."
+ ],
+ "finch.s4": [
+  "finch[coughing]: Forty years at sea, Captain. I've been cursed by the sea plenty. Never by a person."
+ ],
+ "finch.s5": [
+  "finch: The bird went in feathered and came out naked. That's a sign, Captain.",
+  "finch: I don't know of what. But it's a sign."
+ ],
+ "finch.s6": [
+  "finch: Cursed treasure, Captain. I always said it would be.",
+  "finch: I never said it would be cursed like this."
+ ],
+ "finch.tr": [
+  "finch: I've seen the navy run from storms, from reefs, from you, Captain. Never from a sail."
+ ],
+ "finch.s8": [
+  "finch[happy]: The sea's let out her breath at last, Captain. And so, frequently, has Mister Guzzlegut.",
+  "finch: Gulls won't come near us now. Fish neither. First peaceful watch I've had in forty years."
+ ],
+ "jory.s1": [
+  "jory: Morning, Captain. The swell sprang two of my patches below. Sorted. The hull's grumbling, but she always grumbles.",
+  {
+   "addVar": "morning_beats",
+   "value": 1
+  }
+ ],
+ "jory.s2": [
+  "jory: Our castaway asked me to appraise his bathtub.",
+  "jory: I appraised it. It's a bathtub."
+ ],
+ "jory.s3": [
+  "jory[alarmed]: The hull flexed at lunch, Captain. I felt it through my boots.",
+  "jory: Hulls don't flex at lunch."
+ ],
+ "jory.s4": [
+  "jory[coughing]: The blast sprung the treasure door clean off its pins, Captain. I'll mend it. When I can breathe near it."
+ ],
+ "jory.s5": [
+  "jory: I'll rehang the treasure door once the air's thinner. Planks, nails and a great deal of vinegar."
+ ],
+ "jory.s6": [
+  "jory: Door's patched, Captain. I scrubbed the planks three times. They're clean.",
+  "jory: They're also still yellow. Wood remembers."
+ ],
+ "jory.tr": [
+  "jory: Built the defendant a little platform to stand on, Captain. Very sturdy. I checked twice. He's heavier than he looks."
+ ],
+ "jory.s8": [
+  "jory: Built him a rowboat rack. Quick release: pull the pin, down she goes.",
+  "jory: I'm proud of it. I'm ashamed of being proud of it."
+ ]
+}

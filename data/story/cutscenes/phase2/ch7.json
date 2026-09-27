@@ -1,0 +1,191 @@
+{
+  "//": "Story Phase 2, chapter 7: The Fate of the Treasure. Ruined inspectables live in data/maps/ship/treasure_hold.json (tag ruined_treasure); Penhallow is chained in the crew quarters (10,14).",
+
+  "ch7.begin": [
+    { "startQuest": "price_of_gold" },
+    { "fade": "out", "duration": 700 },
+    { "setFlag": ["fumes_thinned", "treasure_contaminated"] },
+    { "banner": "CHAPTER 7", "sub": "The Fate of the Treasure" },
+    { "narrate": "An hour later, the sea wind has carried the worst of the cloud away." },
+    { "narrate": "Below decks it has thinned to a sour yellow haze. The crew can breathe again. Mostly." },
+    { "close": true },
+    { "transition": "main_deck", "spawn": "main_hatch", "then": "ch7.nudge", "fade": 0 }
+  ],
+
+  "ch7.nudge": [
+    { "wait": 400 },
+    { "spawn": "hale", "x": 9, "y": 21, "facing": "down" },
+    "hale[concerned]: Captain. The hold's breathable again. More or less.",
+    "hale: Somebody ought to go and look at the treasure.",
+    "captain[resigned]: ...I know."
+  ],
+
+  "ch7.reveal": [
+    { "setFlag": "ruined_reveal_seen" },
+    { "wait": 400 },
+    { "camera": "pan", "x": 9, "y": 7, "duration": 1600 },
+    "The room is very still. The gold is all still here. Every coin and crown, exactly where it was.",
+    "It's just that all of it is... wrong.",
+    { "camera": "reset", "duration": 900 },
+    "captain[devastated]: ...It's all still here.",
+    "captain[devastated]: Somehow that makes it worse.",
+    { "wait": 500 },
+    "captain[devastated]: Twelve years. Every raid, every chase, every night I didn't sleep. It's all in this room.",
+    "captain[resigned]: Let's see how bad it is.",
+    { "tutorial": "Inspect the ruined treasure to see what the Gust has done to it.", "title": "The Price of Gold" }
+  ],
+
+  "ch7.ruined_coin": [
+    "You pick up a doubloon. It's warm. It shouldn't be warm.",
+    "Out of long habit, you bite it.",
+    "captain[disgusted]: Blegh! It tastes the way the room smells!",
+    { "setFlag": "insp_ruined_coin" }
+  ],
+
+  "ch7.ruined_ruby": [
+    "The great ruby of the Viceroy's Hand. Once the size of a hen's egg and the colour of a sunset.",
+    "It has gone cloudy. And it smells, unmistakably, of pickled onion.",
+    "captain[devastated]: I fought three marines and a governor's wife for that ruby. It's a PICKLED ONION now.",
+    { "setFlag": "insp_ruined_ruby" }
+  ],
+
+  "ch7.ruined_crown": [
+    "The crown of the Isle of Marrow, on its velvet cushion. It has a greasy film, like soup gone cold.",
+    "When you lift it, the cushion comes with it.",
+    "captain[disgusted]: ...Put it down. Put it DOWN.",
+    { "setFlag": "insp_ruined_crown" }
+  ],
+
+  "ch7.ruined_pearls": [
+    "A silver bowl of pearls, each the size of a thumbnail. They've turned the yellow of old teeth.",
+    "Several of them are sweating.",
+    { "setFlag": "insp_ruined_pearls" }
+  ],
+
+  "ch7.ruined_chest": [
+    "The chest Garrick landed on, split down the middle. A thin curl of yellow still breathes out of the crack.",
+    "Every coin inside is fused to the next in a yellow crust. It comes out in one piece, like a cake.",
+    { "setFlag": "insp_ruined_chest" }
+  ],
+
+  "ch7.ruined_wall": [
+    "The planks themselves have taken the stain. You scrape at it with a thumbnail.",
+    "It isn't on the wood. It's IN the wood.",
+    { "setFlag": "insp_ruined_wall" }
+  ],
+
+  "ch7.ruined_statue": [
+    "The little golden sea-captain with the enormous spyglass... appears to be holding his nose.",
+    "You're almost certain he wasn't doing that this morning."
+  ],
+
+  "ch7.ruined_mirror": [
+    "The gilded looking-glass has fogged over from the inside.",
+    "Your reflection looks exactly the way you feel."
+  ],
+
+  "ch7.worth": [
+    { "setFlag": "merchant_test_started" },
+    { "wait": 300 },
+    "captain[determined]: ...No. Gold's still gold. Somebody will take it. Somebody always takes gold.",
+    "captain: Penhallow. He's a merchant. He'll know what it's worth.",
+    "You scoop a handful of the least-sweaty coins into a small chest and tuck it under your arm."
+  ],
+
+  "ch7.merchant_test": [
+    { "face": "penhallow", "dir": "player" },
+    "captain: Penhallow. You're a merchant.",
+    "penhallow[annoyed]: Cloth and fine goods. Why? What's that under your arm?",
+    "captain: Gold. I'm selling. Name your price.",
+    { "sfx": "chest_open" },
+    { "burst": "odor", "actor": "penhallow", "count": 6 },
+    { "wait": 500 },
+    { "sfx": "cough2" },
+    "penhallow[coughing]: *hack* GOOD LORD. Close it! CLOSE IT!",
+    "captain: A thousand in gold. For a hundred.",
+    "penhallow[disgusted]: No.",
+    "captain: Fifty.",
+    "penhallow: No.",
+    "captain: Ten!",
+    "penhallow: No.",
+    "captain[alarmed]: One copper! For the lot!",
+    "penhallow: No.",
+    "captain[devastated]: I'll PAY you to take one coin!",
+    "penhallow[offended]: Captain, I am a ransom prisoner, chained to a pillar, who has not bathed in nine days.",
+    "penhallow[disgusted]: And I would not take one coin of that. Not one. I would rather be ransomed for the chain.",
+    "penhallow: Try spending that in any port on the Sapphire Sea, and they'll burn the shop you spent it in. Then they'll burn you.",
+    "captain[devastated]: So it's... worthless?",
+    "penhallow: It's worse than worthless, Captain. It's a liability.",
+    { "setFlag": "merchant_test_done" },
+    { "banner": "WORTHLESS", "sub": "Twelve years of plunder" },
+    { "wait": 400 },
+    "captain[devastated]: The Viceroy's ruby. The Marrow crown. I nearly drowned for that crown.",
+    "captain[resigned]: ...It's just gone.",
+    { "wait": 500 },
+    "penhallow: ...For what it's worth, Captain, I'm sorry. Truly. It's a terrible thing to lose a fortune.",
+    "penhallow: Your round friend waddled past a minute ago, by the way. Muttering about 'a second opinion'. He was heading for the hold."
+  ],
+
+  "ch7.permanence": [
+    { "face": "garrick", "dir": "player" },
+    { "anim": "garrick", "name": "idle" },
+    "garrick[businesslike]: Captain. I've been conducting a professional appraisal.",
+    "captain: Will it fade? The smell. Will it wash off?",
+    "garrick: That's the thing about a Gust of this calibre, Captain. It doesn't sit ON things.",
+    "garrick[worried]: It bonds with them.",
+    "captain: Bonds.",
+    "garrick: With the gold. With the wood. With the ship. It's bonded with the ship, Captain. It's in the grain now.",
+    "garrick: Like paint.",
+    "captain: ...Like paint.",
+    "garrick[pretend]: Very durable paint. The sort they use on lighthouses.",
+    "captain[devastated]: How long?",
+    "garrick[nervous]: ...How long does paint last, Captain?",
+    { "setFlag": "ship_permanently_contaminated" },
+    { "wait": 600 },
+    "captain[resigned]: Get out of my treasure room.",
+    "garrick[nervous]: Right away, Captain.",
+    { "move": "garrick", "to": [9, 12], "speed": "run" },
+    { "sfx": "heavy_door" },
+    { "despawn": "garrick" }
+  ],
+
+  "ch7.crew_turns": [
+    { "spawn": "garrick", "x": 9, "y": 20, "facing": "down" },
+    { "spawn": "brask", "x": 7, "y": 20, "facing": "right" },
+    { "spawn": "rook", "x": 11, "y": 20, "facing": "left" },
+    { "spawn": "mags", "x": 7, "y": 21, "facing": "right" },
+    { "spawn": "jim", "x": 11, "y": 21, "facing": "left" },
+    { "spawn": "sully", "x": 8, "y": 19, "facing": "down" },
+    { "spawn": "jory", "x": 10, "y": 19, "facing": "down" },
+    { "anim": "garrick", "name": "nervous" },
+    { "wait": 300 },
+    { "sfx": "swords_drawn" },
+    "The crew has Garrick backed against the mainmast. Several of them are holding things with edges.",
+    "brask[annoyed]: Word's got round, Captain. About the treasure.",
+    "mags[angry]: Twelve years of shares. Gone. Because HE wanted a snack.",
+    "jim[angry]: I TOLD you. I told ALL of you.",
+    "rook[annoyed]: Say the word, Cap'n.",
+    "garrick[terrified]: Captain! A counter-proposal! Mercy, at a very reasonable rate—",
+    { "bark": "brask", "text": "OVERBOARD!", "shout": true, "duration": 1200 },
+    { "bark": "mags", "text": "Keelhaul him!", "shout": true, "duration": 1200 },
+    { "wait": 500 },
+    { "bark": "jory", "text": "Feed him to the crab!", "shout": true, "duration": 1200 },
+    { "wait": 900 },
+    { "choice": [
+      { "text": "ENOUGH!", "then": ["captain[angry]: ENOUGH!"] },
+      { "text": "...Let me think about it.", "then": [
+        "captain[resigned]: ...Let me think about it.",
+        "garrick[terrified]: CAPTAIN!",
+        "captain[angry]: Fine. ENOUGH! All of you!",
+        { "addVar": "captain_mercy", "value": -1 }
+      ] }
+    ] },
+    { "shake": 1, "duration": 200 },
+    "captain[determined]: Nobody goes overboard without a trial. We're pirates, not animals.",
+    "quill: We're quite a lot like animals, Captain.",
+    "captain[angry]: A TRIAL. At sundown. On this deck. Quill, draw up the charges.",
+    "quill: With pleasure, Captain.",
+    "garrick[nervous]: ...Will there be refreshments?",
+    { "setFlag": "crew_turned_on_garrick" }
+  ]
+}

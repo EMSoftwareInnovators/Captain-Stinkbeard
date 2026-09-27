@@ -132,6 +132,11 @@ export const CONDITION_OPERATORS = {
     evaluate: (v, s) => asArray(v).every((m) => s.world.hasVisited(m)),
     validate: (v, c) => asArray(v).forEach((m) => c.map(m)),
   },
+  /** The captain is on this map (any of a list). */
+  onMap: {
+    evaluate: (v, s) => asArray(v).includes(s.location?.map),
+    validate: (v, c) => asArray(v).forEach((m) => c.map(m)),
+  },
   notVisited: {
     evaluate: (v, s) => asArray(v).every((m) => !s.world.hasVisited(m)),
     validate: (v, c) => asArray(v).forEach((m) => c.map(m)),

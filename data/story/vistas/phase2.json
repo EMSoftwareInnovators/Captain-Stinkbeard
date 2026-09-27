@@ -1,0 +1,83 @@
+{
+  "//": "Story Phase 2 vistas (see src/scenes/CinemaScene.js). Layer x/y are screen pixels; sprites are anchored bottom-centre. Horizon 132 fills the screen exactly.",
+
+  "bathtub_view": {
+    "sky": "morning", "sea": "morning", "horizon": 132, "mask": "telescope",
+    "layers": [
+      { "id": "gull_a", "frame": "gull_0", "frames": ["gull_0", "gull_1"], "frameMs": 260, "x": 92, "y": 70, "bob": 3 },
+      { "id": "gull_b", "frame": "gull_1", "frames": ["gull_1", "gull_0"], "frameMs": 300, "x": 228, "y": 84, "bob": 2 },
+      { "id": "tub", "frame": "tub_0", "frames": ["tub_0", "tub_1"], "frameMs": 340, "x": 222, "y": 150, "scale": 0.55, "bob": 2 }
+    ]
+  },
+
+  "cloud_from_afar": {
+    "sky": "afternoon", "sea": "afternoon", "horizon": 132,
+    "layers": [
+      { "id": "cloud", "frame": "cloud_rise_0", "x": 168, "y": 150, "hidden": true, "depth": 12 },
+      { "id": "ship", "frame": "revenge_side", "x": 160, "y": 196, "bob": 2, "depth": 14 },
+      { "id": "gull_a", "frame": "gull_0", "frames": ["gull_0", "gull_1"], "frameMs": 180, "x": 120, "y": 88, "bob": 2, "depth": 16 },
+      { "id": "gull_b", "frame": "gull_1", "frames": ["gull_1", "gull_0"], "frameMs": 200, "x": 206, "y": 76, "bob": 2, "depth": 16 },
+      { "id": "gull_c", "frame": "gull_0", "frames": ["gull_0", "gull_1"], "frameMs": 220, "x": 150, "y": 60, "bob": 2, "depth": 16 },
+      { "id": "fish_a", "frame": "fish_0", "frames": ["fish_0", "fish_1", "fish_2"], "frameMs": 160, "x": 60, "y": 214, "hidden": true, "depth": 18 },
+      { "id": "fish_b", "frame": "fish_1", "frames": ["fish_1", "fish_2", "fish_0"], "frameMs": 160, "x": 262, "y": 210, "hidden": true, "depth": 18 }
+    ]
+  },
+
+  "figurehead_view": {
+    "sky": "afternoon", "sea": "afternoon", "horizon": 132,
+    "layers": [
+      { "id": "cloud", "frame": "cloud_rise_0", "x": 214, "y": 160, "hidden": true, "depth": 10 },
+      { "id": "figurehead", "frame": "figurehead_ok", "x": 196, "y": 224, "depth": 12 },
+      { "id": "gull", "frame": "gull_0", "frames": ["gull_0", "gull_1"], "frameMs": 240, "x": 90, "y": 70, "bob": 3, "depth": 14 }
+    ]
+  },
+
+  "frigate_approach": {
+    "sky": "evening", "sea": "evening", "horizon": 132,
+    "layers": [
+      { "id": "frigate", "frame": "frigate_side", "x": 290, "y": 160, "scale": 0.5, "bob": 1 },
+      { "id": "revenge", "frame": "revenge_side", "x": 84, "y": 200, "bob": 2 },
+      { "id": "trail", "frame": "trail", "x": 150, "y": 150, "alpha": 0, "depth": 30 }
+    ]
+  },
+
+  "ep_trail": {
+    "sky": "sunset", "sea": "sunset", "horizon": 132,
+    "layers": [
+      { "id": "trail", "frame": "trail", "x": -150, "y": 158, "alpha": 0.9 },
+      { "id": "revenge", "frame": "revenge_side", "x": -30, "y": 196, "bob": 2 },
+      { "id": "gull_a", "frame": "gull_0", "frames": ["gull_0", "gull_1"], "frameMs": 220, "x": 210, "y": 70, "bob": 3 },
+      { "id": "gull_b", "frame": "gull_1", "frames": ["gull_1", "gull_0"], "frameMs": 240, "x": 250, "y": 92, "bob": 2 }
+    ]
+  },
+
+  "ep_ships": {
+    "sky": "sunset", "sea": "sunset", "horizon": 132,
+    "layers": [
+      { "id": "revenge", "frame": "revenge_side", "x": 60, "y": 176, "scale": 0.55, "bob": 1 },
+      { "id": "trail", "frame": "trail", "x": -10, "y": 150, "scale": 0.55, "alpha": 0.8 },
+      { "id": "sloop", "frame": "sloop_side", "x": 380, "y": 190, "flip": true, "bob": 2 },
+      { "id": "fish_a", "frame": "fish_0", "frames": ["fish_0", "fish_1", "fish_2"], "frameMs": 150, "x": 150, "y": 214, "hidden": true },
+      { "id": "fish_b", "frame": "fish_2", "frames": ["fish_2", "fish_0", "fish_1"], "frameMs": 150, "x": 176, "y": 218, "hidden": true },
+      { "id": "gull_a", "frame": "gull_0", "frames": ["gull_0", "gull_1"], "frameMs": 200, "x": 120, "y": 96, "bob": 2 }
+    ]
+  },
+
+  "ep_rowboat": {
+    "sky": "dusk", "sea": "dusk", "horizon": 132,
+    "layers": [
+      { "id": "revenge", "frame": "revenge_side", "x": 70, "y": 160, "scale": 0.4, "bob": 1 },
+      { "id": "trail", "frame": "trail", "x": 18, "y": 146, "scale": 0.4, "alpha": 0.7 },
+      { "id": "rowboat", "frame": "rowboat_0", "frames": ["rowboat_0", "rowboat_1"], "frameMs": 420, "x": 220, "y": 200, "bob": 2 }
+    ]
+  },
+
+  "ep_cloud": {
+    "sky": "dusk", "sea": "dusk", "horizon": 132,
+    "layers": [
+      { "id": "cloud", "frame": "cloud_rise_0", "x": 214, "y": 150, "scale": 0.6, "hidden": true },
+      { "id": "rowboat", "frame": "rowboat_happy", "x": 214, "y": 156, "scale": 0.45, "bob": 1 },
+      { "id": "revenge", "frame": "revenge_side", "x": 70, "y": 170, "scale": 0.45, "bob": 1 }
+    ]
+  }
+}

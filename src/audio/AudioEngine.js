@@ -296,7 +296,8 @@ export class AudioEngine {
     const timer = setTimeout(() => {
       if (!this.ambience) return;
       const name = shot.sounds[Math.floor(Math.random() * shot.sounds.length)];
-      const buf = this.buffers.oneshots.get(name);
+      // One-shots are ambience generators ("creak2") or any sound effect ("cough1").
+      const buf = this.buffers.oneshots.get(name) ?? this.buffers.sfx.get(name);
       if (buf && this.ctx.state === 'running') {
         const src = this.ctx.createBufferSource();
         src.buffer = buf;

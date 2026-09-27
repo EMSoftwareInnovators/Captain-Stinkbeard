@@ -84,7 +84,7 @@ test('doors, ladders and quest order hold up to unusual play', async ({ page }) 
   await g.eval(() => window.__GAME__.app.session.inventory.add('treasure_key', 1));
   await g.travel(4, 3, 'treasure_hold');
   await g.idle();
-  await g.travel(6, 9, 'cargo_hold');
+  await g.travel(9, 13, 'cargo_hold');
   await g.idle();
 
   // Quill hears it's already done, and the quest completes in one conversation.

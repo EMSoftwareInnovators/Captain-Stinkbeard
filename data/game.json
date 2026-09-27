@@ -4,20 +4,159 @@
   "titleMusic": "title",
   "constants": {
     "ship": "the Revenge",
-    "shipName": "Revenge"
+    "shipName": "Revenge",
+    "shipFull": "the Queen Anne's Revenge",
+    "sea": "the Sapphire Sea"
   },
   "newGame": {
-    "party": ["blackbeard"],
+    "party": [
+      "blackbeard"
+    ],
     "gold": 40,
     "items": [
-      { "id": "hardtack", "count": 3 },
-      { "id": "healing_tonic", "count": 2 },
-      { "id": "rum_ration", "count": 1 }
+      {
+        "id": "hardtack",
+        "count": 3
+      },
+      {
+        "id": "healing_tonic",
+        "count": 2
+      },
+      {
+        "id": "rum_ration",
+        "count": 1
+      }
     ],
     "flags": [],
     "map": "captains_quarters",
     "spawn": "start",
     "facing": "down",
     "startScript": "cutscene.opening"
-  }
+  },
+  "chapters": [
+    {
+      "id": "prologue",
+      "name": "Prologue"
+    },
+    {
+      "id": "ch1",
+      "name": "Chapter 1: The Man in the Bathtub",
+      "if": {
+        "flag": "ch1_morning_started"
+      }
+    },
+    {
+      "id": "ch2",
+      "name": "Chapter 2: Garrick's First Day at Sea",
+      "if": {
+        "flag": "garrick_provisional"
+      }
+    },
+    {
+      "id": "ch3",
+      "name": "Chapter 3: Blackbeard's Treasure Room",
+      "if": {
+        "flag": "garrick_thunder_excuse"
+      }
+    },
+    {
+      "id": "ch4",
+      "name": "Chapter 4: The Guzzlegut Gust",
+      "if": {
+        "flag": "treasure_chest_moved"
+      }
+    },
+    {
+      "id": "ch5",
+      "name": "Chapter 5: The Cloud Takes the Ship",
+      "if": {
+        "flag": "gust_aftermath_done"
+      }
+    },
+    {
+      "id": "ch6",
+      "name": "Chapter 6: Save Captain Squawks",
+      "if": {
+        "flag": "squawks_fell"
+      }
+    },
+    {
+      "id": "ch7",
+      "name": "Chapter 7: The Fate of the Treasure",
+      "if": {
+        "flag": "squawks_rescued"
+      }
+    },
+    {
+      "id": "ch8",
+      "name": "Chapter 8: The Trial of Garrick Guzzlegut",
+      "if": {
+        "flag": "trial_started"
+      }
+    },
+    {
+      "id": "phase2_end",
+      "name": "Garrick Guzzlegut and the Cursed Treasure (complete)",
+      "if": {
+        "flag": "phase2_complete"
+      }
+    }
+  ],
+  "timeOfDay": [
+    {
+      "id": "day",
+      "grade": null
+    },
+    {
+      "id": "morning",
+      "grade": "#fff2e4",
+      "if": {
+        "flag": "ch1_morning_started"
+      }
+    },
+    {
+      "id": "midday",
+      "grade": null,
+      "if": {
+        "flag": "garrick_provisional"
+      }
+    },
+    {
+      "id": "afternoon",
+      "grade": "#fff0d4",
+      "if": {
+        "flag": "galley_lunch_seen"
+      }
+    },
+    {
+      "id": "late_afternoon",
+      "grade": "#ffe2b4",
+      "if": {
+        "flag": "garrick_thunder_excuse"
+      }
+    },
+    {
+      "id": "evening",
+      "grade": "#f2b894",
+      "interior": 0.45,
+      "if": {
+        "flag": "trial_started"
+      }
+    },
+    {
+      "id": "sunset",
+      "grade": "#e8a08c",
+      "interior": 0.45,
+      "if": {
+        "flag": "rowboat_protocol"
+      }
+    },
+    {
+      "id": "next_morning",
+      "grade": null,
+      "if": {
+        "flag": "phase2_complete"
+      }
+    }
+  ]
 }

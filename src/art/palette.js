@@ -161,6 +161,7 @@ export const HAIR = {
   grey: ['#4a4a52', '#7c7c86', '#b0b0ba'],
   white: ['#8a8a94', '#c4c4cc', '#f0f0f4'],
   salt: ['#2c2a30', '#5e5c64', '#9e9ca6'], // salt-and-pepper
+  crimson: ['#5a1414', '#962a22', '#c85236'], // Garrick's famous sideburns
 };
 
 const cache = new Map();

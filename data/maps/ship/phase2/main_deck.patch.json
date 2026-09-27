@@ -1,0 +1,2296 @@
+{
+ "id": "main_deck.phase2",
+ "patch": "main_deck",
+ "objects": [
+  {
+   "id": "to_galley_p2",
+   "type": "warp",
+   "x": 9,
+   "y": 24,
+   "w": 2,
+   "to": {
+    "map": "galley",
+    "spawn": "ladder"
+   },
+   "sfx": "ladder",
+   "if": {
+    "any": [
+     {
+      "not": {
+       "all": [
+        {
+         "flag": "squawks_fell"
+        },
+        {
+         "notFlag": "squawks_rescued"
+        }
+       ]
+      }
+     },
+     {
+      "flag": "rescue_gear_on"
+     }
+    ]
+   },
+   "locked": "ch6.hatch_blocked"
+  },
+  {
+   "id": "bob_4_4",
+   "type": "npc",
+   "npc": "bob",
+   "x": 4,
+   "y": 4,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch1_morning_started"
+       },
+       {
+        "notFlag": "garrick_provisional"
+       }
+      ]
+     },
+     {
+      "notFlag": "bob_lamp_oil_seen"
+     }
+    ]
+   },
+   "pose": "work"
+  },
+  {
+   "id": "bob_6_8",
+   "type": "npc",
+   "npc": "bob",
+   "x": 6,
+   "y": 8,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "ch1_morning_started"
+     },
+     {
+      "notFlag": "garrick_provisional"
+     }
+    ]
+   }
+  },
+  {
+   "id": "ned_9_37",
+   "type": "npc",
+   "npc": "ned",
+   "x": 9,
+   "y": 37,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "ch1_morning_started"
+     },
+     {
+      "notFlag": "garrick_provisional"
+     }
+    ]
+   },
+   "pose": "point"
+  },
+  {
+   "id": "ch1_foredeck",
+   "type": "trigger",
+   "x": 4,
+   "y": 26,
+   "w": 12,
+   "h": 1,
+   "script": "ch1.foredeck",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "ch1_morning_started"
+       },
+       {
+        "notFlag": "garrick_provisional"
+       }
+      ]
+     },
+     {
+      "notFlag": "bathtub_spotted"
+     }
+    ]
+   }
+  },
+  {
+   "id": "telescope",
+   "type": "inspect",
+   "x": 4,
+   "y": 28,
+   "dialogue": [
+    {
+     "if": {
+      "objectiveActive": "strange_cargo.look"
+     },
+     "script": "ch1.telescope"
+    },
+    {
+     "if": {
+      "flag": "ch1_morning_started"
+     },
+     "script": "inspect.telescope"
+    }
+   ]
+  },
+  {
+   "id": "garrick_9_27",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 9,
+   "y": 27,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_provisional"
+     },
+     {
+      "notFlag": "garrick_toll_removed"
+     }
+    ]
+   },
+   "pose": "smug"
+  },
+  {
+   "id": "toll_warn",
+   "type": "trigger",
+   "x": 4,
+   "y": 24,
+   "w": 12,
+   "h": 2,
+   "script": "ch2.toll_warn",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "garrick_provisional"
+       },
+       {
+        "notFlag": "garrick_toll_removed"
+       }
+      ]
+     },
+     {
+      "notFlag": "garrick_toll_warned"
+     }
+    ]
+   }
+  },
+  {
+   "id": "toll_sign_look",
+   "type": "inspect",
+   "x": 10,
+   "y": 27,
+   "script": "ch2.toll_sign",
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_provisional"
+     },
+     {
+      "notFlag": "garrick_toll_removed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "toll_line",
+   "type": "block",
+   "x": 4,
+   "y": 27,
+   "w": 5,
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_provisional"
+     },
+     {
+      "notFlag": "garrick_toll_removed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "toll_line2",
+   "type": "block",
+   "x": 11,
+   "y": 27,
+   "w": 5,
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_provisional"
+     },
+     {
+      "notFlag": "garrick_toll_removed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "garrick_11_26",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 11,
+   "y": 26,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_toll_removed"
+     },
+     {
+      "notFlag": "garrick_scrub_seen"
+     }
+    ]
+   },
+   "pose": "slouch"
+  },
+  {
+   "id": "squawks_8_13",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 8,
+   "y": 13,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_provisional"
+     },
+     {
+      "notFlag": "guzzlegut_gust"
+     }
+    ]
+   }
+  },
+  {
+   "id": "bob_7_30",
+   "type": "npc",
+   "npc": "bob",
+   "x": 7,
+   "y": 30,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_provisional"
+     },
+     {
+      "notFlag": "guzzlegut_gust"
+     }
+    ]
+   },
+   "pose": "work"
+  },
+  {
+   "id": "ned_9_37",
+   "type": "npc",
+   "npc": "ned",
+   "x": 9,
+   "y": 37,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_provisional"
+     },
+     {
+      "notFlag": "guzzlegut_gust"
+     }
+    ]
+   },
+   "pose": "point"
+  },
+  {
+   "id": "garrick_8_20",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 8,
+   "y": 20,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "galley_lunch_seen"
+       },
+       {
+        "notFlag": "garrick_thunder_excuse"
+       }
+      ]
+     },
+     {
+      "notFlag": "rumble_sails_seen"
+     }
+    ]
+   },
+   "pose": "work"
+  },
+  {
+   "id": "garrick_8_21",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 8,
+   "y": 21,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "galley_lunch_seen"
+       },
+       {
+        "notFlag": "garrick_thunder_excuse"
+       }
+      ]
+     },
+     {
+      "flag": "rumble_sails_seen"
+     }
+    ]
+   },
+   "pose": "nervous"
+  },
+  {
+   "id": "rook_11_20",
+   "type": "npc",
+   "npc": "rook",
+   "x": 11,
+   "y": 20,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "galley_lunch_seen"
+     },
+     {
+      "notFlag": "garrick_thunder_excuse"
+     }
+    ]
+   },
+   "pose": "work"
+  },
+  {
+   "id": "sails_rumble",
+   "type": "trigger",
+   "x": 4,
+   "y": 17,
+   "w": 12,
+   "h": 6,
+   "script": "ch2.sail_rumble",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "galley_lunch_seen"
+       },
+       {
+        "notFlag": "garrick_thunder_excuse"
+       }
+      ]
+     },
+     {
+      "notFlag": "rumble_sails_seen"
+     }
+    ]
+   }
+  },
+  {
+   "id": "hale_7_13",
+   "type": "npc",
+   "npc": "hale",
+   "x": 7,
+   "y": 13,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_spread"
+     },
+     {
+      "notFlag": "squawks_fell"
+     }
+    ]
+   }
+  },
+  {
+   "id": "quill_12_15",
+   "type": "npc",
+   "npc": "quill",
+   "x": 12,
+   "y": 15,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_spread"
+     },
+     {
+      "notFlag": "squawks_fell"
+     }
+    ]
+   },
+   "pose": "clasp"
+  },
+  {
+   "id": "mags_5_12",
+   "type": "npc",
+   "npc": "mags",
+   "x": 5,
+   "y": 12,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_spread"
+     },
+     {
+      "notFlag": "squawks_fell"
+     }
+    ]
+   }
+  },
+  {
+   "id": "jim_14_12",
+   "type": "npc",
+   "npc": "jim",
+   "x": 14,
+   "y": 12,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_spread"
+     },
+     {
+      "notFlag": "squawks_fell"
+     }
+    ]
+   }
+  },
+  {
+   "id": "wick_13_13",
+   "type": "npc",
+   "npc": "wick",
+   "x": 13,
+   "y": 13,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_spread"
+     },
+     {
+      "notFlag": "squawks_fell"
+     }
+    ]
+   }
+  },
+  {
+   "id": "fennimore_11_13",
+   "type": "npc",
+   "npc": "fennimore",
+   "x": 11,
+   "y": 13,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_spread"
+     },
+     {
+      "notFlag": "squawks_fell"
+     }
+    ]
+   }
+  },
+  {
+   "id": "rook_6_18",
+   "type": "npc",
+   "npc": "rook",
+   "x": 6,
+   "y": 18,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_spread"
+     },
+     {
+      "notFlag": "squawks_fell"
+     }
+    ]
+   }
+  },
+  {
+   "id": "sully_13_19",
+   "type": "npc",
+   "npc": "sully",
+   "x": 13,
+   "y": 19,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_spread"
+     },
+     {
+      "notFlag": "squawks_fell"
+     }
+    ]
+   }
+  },
+  {
+   "id": "brask_6_14",
+   "type": "npc",
+   "npc": "brask",
+   "x": 6,
+   "y": 14,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_spread"
+     },
+     {
+      "notFlag": "squawks_fell"
+     }
+    ]
+   }
+  },
+  {
+   "id": "jory_12_34",
+   "type": "npc",
+   "npc": "jory",
+   "x": 12,
+   "y": 34,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_spread"
+     },
+     {
+      "notFlag": "squawks_fell"
+     }
+    ]
+   }
+  },
+  {
+   "id": "bob_7_35",
+   "type": "npc",
+   "npc": "bob",
+   "x": 7,
+   "y": 35,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_spread"
+     },
+     {
+      "notFlag": "squawks_fell"
+     }
+    ]
+   }
+  },
+  {
+   "id": "ned_9_37",
+   "type": "npc",
+   "npc": "ned",
+   "x": 9,
+   "y": 37,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_spread"
+     },
+     {
+      "notFlag": "squawks_fell"
+     }
+    ]
+   }
+  },
+  {
+   "id": "finch_6_34",
+   "type": "npc",
+   "npc": "finch",
+   "x": 6,
+   "y": 34,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_spread"
+     },
+     {
+      "notFlag": "squawks_fell"
+     }
+    ]
+   }
+  },
+  {
+   "id": "garrick_7_21",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 7,
+   "y": 21,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_spread"
+     },
+     {
+      "notFlag": "squawks_fell"
+     }
+    ]
+   }
+  },
+  {
+   "id": "squawks_9_18",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 9,
+   "y": 18,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_spread"
+     },
+     {
+      "notFlag": "squawks_fell"
+     }
+    ]
+   }
+  },
+  {
+   "id": "rook_7_23",
+   "type": "npc",
+   "npc": "rook",
+   "x": 7,
+   "y": 23,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "fennimore_12_23",
+   "type": "npc",
+   "npc": "fennimore",
+   "x": 12,
+   "y": 23,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "hale_7_21",
+   "type": "npc",
+   "npc": "hale",
+   "x": 7,
+   "y": 21,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "garrick_11_21",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 11,
+   "y": 21,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   },
+   "pose": "nervous"
+  },
+  {
+   "id": "wick_13_13",
+   "type": "npc",
+   "npc": "wick",
+   "x": 13,
+   "y": 13,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "mags_5_12",
+   "type": "npc",
+   "npc": "mags",
+   "x": 5,
+   "y": 12,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "jim_14_12",
+   "type": "npc",
+   "npc": "jim",
+   "x": 14,
+   "y": 12,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "quill_12_15",
+   "type": "npc",
+   "npc": "quill",
+   "x": 12,
+   "y": 15,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "sully_13_17",
+   "type": "npc",
+   "npc": "sully",
+   "x": 13,
+   "y": 17,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "brask_6_14",
+   "type": "npc",
+   "npc": "brask",
+   "x": 6,
+   "y": 14,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "jory_12_34",
+   "type": "npc",
+   "npc": "jory",
+   "x": 12,
+   "y": 34,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "bob_7_35",
+   "type": "npc",
+   "npc": "bob",
+   "x": 7,
+   "y": 35,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "ned_9_37",
+   "type": "npc",
+   "npc": "ned",
+   "x": 9,
+   "y": 37,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "squawks_away",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "squawks_13_13",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 13,
+   "y": 13,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_rescued"
+     },
+     {
+      "notFlag": "trial_started"
+     }
+    ]
+   },
+   "pose": "shiver"
+  },
+  {
+   "id": "fennimore_14_13",
+   "type": "npc",
+   "npc": "fennimore",
+   "x": 14,
+   "y": 13,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_rescued"
+     },
+     {
+      "notFlag": "trial_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "garrick_5_24",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 5,
+   "y": 24,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_rescued"
+     },
+     {
+      "notFlag": "merchant_test_done"
+     }
+    ]
+   },
+   "pose": "nervous"
+  },
+  {
+   "id": "garrick_away",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "merchant_test_done"
+     },
+     {
+      "notFlag": "trial_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "bob_7_30",
+   "type": "npc",
+   "npc": "bob",
+   "x": 7,
+   "y": 30,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_rescued"
+     },
+     {
+      "notFlag": "trial_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "ned_9_37",
+   "type": "npc",
+   "npc": "ned",
+   "x": 9,
+   "y": 37,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_rescued"
+     },
+     {
+      "notFlag": "trial_started"
+     }
+    ]
+   },
+   "pose": "point"
+  },
+  {
+   "id": "garrick_9_21",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 9,
+   "y": 21,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "frigate_sighted"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "squawks_11_21",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 11,
+   "y": 21,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "frigate_sighted"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "brask_5_21",
+   "type": "npc",
+   "npc": "brask",
+   "x": 5,
+   "y": 21,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "frigate_sighted"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "hale_7_21",
+   "type": "npc",
+   "npc": "hale",
+   "x": 7,
+   "y": 21,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "frigate_sighted"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "quill_13_21",
+   "type": "npc",
+   "npc": "quill",
+   "x": 13,
+   "y": 21,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "frigate_sighted"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "sully_14_21",
+   "type": "npc",
+   "npc": "sully",
+   "x": 14,
+   "y": 21,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "frigate_sighted"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "mags_5_23",
+   "type": "npc",
+   "npc": "mags",
+   "x": 5,
+   "y": 23,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "frigate_sighted"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "nell_6_23",
+   "type": "npc",
+   "npc": "nell",
+   "x": 6,
+   "y": 23,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "frigate_sighted"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "wick_7_23",
+   "type": "npc",
+   "npc": "wick",
+   "x": 7,
+   "y": 23,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "frigate_sighted"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "rook_13_23",
+   "type": "npc",
+   "npc": "rook",
+   "x": 13,
+   "y": 23,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "frigate_sighted"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "jim_14_23",
+   "type": "npc",
+   "npc": "jim",
+   "x": 14,
+   "y": 23,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "frigate_sighted"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "fennimore_12_25",
+   "type": "npc",
+   "npc": "fennimore",
+   "x": 12,
+   "y": 25,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "frigate_sighted"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "finch_6_25",
+   "type": "npc",
+   "npc": "finch",
+   "x": 6,
+   "y": 25,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "frigate_sighted"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "jory_13_25",
+   "type": "npc",
+   "npc": "jory",
+   "x": 13,
+   "y": 25,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "frigate_sighted"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "bob_7_25",
+   "type": "npc",
+   "npc": "bob",
+   "x": 7,
+   "y": 25,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "frigate_sighted"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "ned_9_37",
+   "type": "npc",
+   "npc": "ned",
+   "x": 9,
+   "y": 37,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "frigate_sighted"
+     }
+    ]
+   },
+   "pose": "point"
+  },
+  {
+   "id": "garrick_7_28",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 7,
+   "y": 28,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "frigate_sighted"
+     },
+     {
+      "notFlag": "phase2_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "squawks_11_7",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 11,
+   "y": 7,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "frigate_sighted"
+     },
+     {
+      "notFlag": "phase2_complete"
+     }
+    ]
+   }
+  },
+  {
+   "id": "nell_11_5",
+   "type": "npc",
+   "npc": "nell",
+   "x": 11,
+   "y": 5,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "frigate_sighted"
+     },
+     {
+      "notFlag": "phase2_complete"
+     }
+    ]
+   }
+  },
+  {
+   "id": "brask_5_13",
+   "type": "npc",
+   "npc": "brask",
+   "x": 5,
+   "y": 13,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "frigate_sighted"
+     },
+     {
+      "notFlag": "phase2_complete"
+     }
+    ]
+   },
+   "pose": "work"
+  },
+  {
+   "id": "rook_5_17",
+   "type": "npc",
+   "npc": "rook",
+   "x": 5,
+   "y": 17,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "frigate_sighted"
+     },
+     {
+      "notFlag": "phase2_complete"
+     }
+    ]
+   },
+   "pose": "work"
+  },
+  {
+   "id": "sully_14_17",
+   "type": "npc",
+   "npc": "sully",
+   "x": 14,
+   "y": 17,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "frigate_sighted"
+     },
+     {
+      "notFlag": "phase2_complete"
+     }
+    ]
+   },
+   "pose": "work"
+  },
+  {
+   "id": "hale_7_12",
+   "type": "npc",
+   "npc": "hale",
+   "x": 7,
+   "y": 12,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "frigate_sighted"
+     },
+     {
+      "notFlag": "phase2_complete"
+     }
+    ]
+   }
+  },
+  {
+   "id": "wick_12_13",
+   "type": "npc",
+   "npc": "wick",
+   "x": 12,
+   "y": 13,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "frigate_sighted"
+     },
+     {
+      "notFlag": "phase2_complete"
+     }
+    ]
+   }
+  },
+  {
+   "id": "quill_13_8",
+   "type": "npc",
+   "npc": "quill",
+   "x": 13,
+   "y": 8,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "frigate_sighted"
+     },
+     {
+      "notFlag": "phase2_complete"
+     }
+    ]
+   }
+  },
+  {
+   "id": "mags_5_25",
+   "type": "npc",
+   "npc": "mags",
+   "x": 5,
+   "y": 25,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "frigate_sighted"
+     },
+     {
+      "notFlag": "phase2_complete"
+     }
+    ]
+   }
+  },
+  {
+   "id": "jim_14_25",
+   "type": "npc",
+   "npc": "jim",
+   "x": 14,
+   "y": 25,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "frigate_sighted"
+     },
+     {
+      "notFlag": "phase2_complete"
+     }
+    ]
+   }
+  },
+  {
+   "id": "fennimore_12_15",
+   "type": "npc",
+   "npc": "fennimore",
+   "x": 12,
+   "y": 15,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "frigate_sighted"
+     },
+     {
+      "notFlag": "phase2_complete"
+     }
+    ]
+   }
+  },
+  {
+   "id": "bob_12_31",
+   "type": "npc",
+   "npc": "bob",
+   "x": 12,
+   "y": 31,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "frigate_sighted"
+     },
+     {
+      "notFlag": "phase2_complete"
+     }
+    ]
+   },
+   "pose": "work"
+  },
+  {
+   "id": "jory_5_33",
+   "type": "npc",
+   "npc": "jory",
+   "x": 5,
+   "y": 33,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "frigate_sighted"
+     },
+     {
+      "notFlag": "phase2_complete"
+     }
+    ]
+   }
+  },
+  {
+   "id": "finch_6_34",
+   "type": "npc",
+   "npc": "finch",
+   "x": 6,
+   "y": 34,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "frigate_sighted"
+     },
+     {
+      "notFlag": "phase2_complete"
+     }
+    ]
+   }
+  },
+  {
+   "id": "ned_9_37",
+   "type": "npc",
+   "npc": "ned",
+   "x": 9,
+   "y": 37,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "frigate_sighted"
+     },
+     {
+      "notFlag": "phase2_complete"
+     }
+    ]
+   },
+   "pose": "point"
+  },
+  {
+   "id": "helm_frigate",
+   "type": "inspect",
+   "x": 9,
+   "y": 6,
+   "w": 2,
+   "script": "ch8.take_helm",
+   "if": {
+    "objectiveActive": "yellow_defense.helm"
+   }
+  },
+  {
+   "id": "sail_line",
+   "type": "inspect",
+   "x": 8,
+   "y": 30,
+   "script": "ch8.release_sail",
+   "if": {
+    "objectiveActive": "yellow_defense.sail"
+   }
+  },
+  {
+   "id": "garrick_6_24",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 6,
+   "y": 24,
+   "facing": "left",
+   "if": {
+    "flag": "phase2_complete"
+   },
+   "pose": "slouch"
+  },
+  {
+   "id": "squawks_12_13",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 12,
+   "y": 13,
+   "facing": "down",
+   "if": {
+    "flag": "phase2_complete"
+   }
+  },
+  {
+   "id": "bob_7_30",
+   "type": "npc",
+   "npc": "bob",
+   "x": 7,
+   "y": 30,
+   "facing": "right",
+   "if": {
+    "flag": "phase2_complete"
+   },
+   "pose": "work"
+  },
+  {
+   "id": "ned_9_37",
+   "type": "npc",
+   "npc": "ned",
+   "x": 9,
+   "y": 37,
+   "facing": "down",
+   "if": {
+    "flag": "phase2_complete"
+   },
+   "pose": "point"
+  },
+  {
+   "id": "rowboat_look",
+   "type": "inspect",
+   "x": 4,
+   "y": 24,
+   "w": 2,
+   "script": "inspect.rowboat",
+   "if": {
+    "flag": "rowboat_protocol"
+   }
+  },
+  {
+   "id": "bathtub_look",
+   "type": "inspect",
+   "x": 13,
+   "y": 35,
+   "w": 2,
+   "script": "inspect.bathtub_deck",
+   "if": {
+    "flag": "garrick_provisional"
+   }
+  },
+  {
+   "id": "bowsprit_p2",
+   "type": "inspect",
+   "x": 9,
+   "y": 41,
+   "w": 2,
+   "script": "inspect.figurehead",
+   "if": {
+    "flag": "ship_permanently_contaminated"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "telescope",
+   "x": 4,
+   "y": 28,
+   "if": {
+    "flag": "ch1_morning_started"
+   }
+  },
+  {
+   "prop": "toll_rope",
+   "x": 4,
+   "y": 27,
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_provisional"
+     },
+     {
+      "notFlag": "garrick_toll_removed"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "toll_rope",
+   "x": 5,
+   "y": 27,
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_provisional"
+     },
+     {
+      "notFlag": "garrick_toll_removed"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "toll_rope",
+   "x": 6,
+   "y": 27,
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_provisional"
+     },
+     {
+      "notFlag": "garrick_toll_removed"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "toll_rope",
+   "x": 7,
+   "y": 27,
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_provisional"
+     },
+     {
+      "notFlag": "garrick_toll_removed"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "toll_rope",
+   "x": 8,
+   "y": 27,
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_provisional"
+     },
+     {
+      "notFlag": "garrick_toll_removed"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "toll_rope",
+   "x": 11,
+   "y": 27,
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_provisional"
+     },
+     {
+      "notFlag": "garrick_toll_removed"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "toll_rope",
+   "x": 12,
+   "y": 27,
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_provisional"
+     },
+     {
+      "notFlag": "garrick_toll_removed"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "toll_rope",
+   "x": 13,
+   "y": 27,
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_provisional"
+     },
+     {
+      "notFlag": "garrick_toll_removed"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "toll_rope",
+   "x": 14,
+   "y": 27,
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_provisional"
+     },
+     {
+      "notFlag": "garrick_toll_removed"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "toll_rope",
+   "x": 15,
+   "y": 27,
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_provisional"
+     },
+     {
+      "notFlag": "garrick_toll_removed"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "toll_sign",
+   "x": 10,
+   "y": 27,
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_provisional"
+     },
+     {
+      "notFlag": "garrick_toll_removed"
+     }
+    ]
+   },
+   "id": "toll_sign"
+  },
+  {
+   "prop": "bucket_mop",
+   "x": 10,
+   "y": 26,
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_toll_removed"
+     },
+     {
+      "notFlag": "garrick_scrub_seen"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "bathtub_deck",
+   "x": 13,
+   "y": 35,
+   "if": {
+    "flag": "garrick_provisional"
+   }
+  },
+  {
+   "prop": "fume_sail",
+   "x": 8,
+   "y": 27,
+   "if": {
+    "all": [
+     {
+      "flag": "guzzlegut_gust"
+     },
+     {
+      "notFlag": "fume_sail_released"
+     }
+    ]
+   },
+   "id": "fume_sail"
+  },
+  {
+   "prop": "sail_cleat",
+   "x": 8,
+   "y": 30,
+   "if": {
+    "objectiveActive": "yellow_defense.sail"
+   }
+  },
+  {
+   "prop": "tied_ropes",
+   "x": 9,
+   "y": 21,
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "frigate_sighted"
+     }
+    ]
+   },
+   "depthOffset": 4
+  },
+  {
+   "prop": "rowboat",
+   "x": 4,
+   "y": 24,
+   "if": {
+    "flag": "rowboat_protocol"
+   },
+   "id": "rowboat"
+  },
+  {
+   "prop": "stain_floor",
+   "x": 8,
+   "y": 25,
+   "if": {
+    "flag": "ship_permanently_contaminated"
+   }
+  },
+  {
+   "prop": "stain_small",
+   "x": 9,
+   "y": 34,
+   "if": {
+    "flag": "ship_permanently_contaminated"
+   }
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "flag": "phase2_complete"
+   },
+   "music": "ship_theme",
+   "ambience": "deck"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "frigate_sighted"
+     },
+     {
+      "notFlag": "phase2_complete"
+     }
+    ]
+   },
+   "music": "frigate",
+   "ambience": "deck_evening"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "frigate_sighted"
+     }
+    ]
+   },
+   "music": "trial",
+   "ambience": "deck_evening"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_rescued"
+     },
+     {
+      "notFlag": "trial_started"
+     }
+    ]
+   },
+   "music": "ruined_treasure",
+   "ambience": "deck_hazy"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   },
+   "music": "rescue_tension",
+   "ambience": "deck_hazy"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_spread"
+     },
+     {
+      "notFlag": "squawks_fell"
+     }
+    ]
+   },
+   "music": "yellow_alert",
+   "ambience": "deck_hazy"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_provisional"
+     },
+     {
+      "notFlag": "guzzlegut_gust"
+     }
+    ]
+   },
+   "music": "garrick_theme"
+  }
+ ],
+ "haze": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_spread"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   },
+   "level": "light"
+  },
+  {
+   "if": {
+    "flag": "guzzlegut_gust"
+   },
+   "level": "faint"
+  }
+ ],
+ "fumes": [
+  {
+   "id": "d_main_plume",
+   "level": "dense",
+   "x": 8,
+   "y": 23,
+   "w": 4,
+   "h": 3,
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_spread"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "d_fore_plume",
+   "level": "dense",
+   "x": 8,
+   "y": 32,
+   "w": 4,
+   "h": 3,
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_spread"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "d_midships",
+   "level": "light",
+   "x": 4,
+   "y": 17,
+   "w": 12,
+   "h": 15,
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_spread"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "d_drift",
+   "level": "light",
+   "x": 4,
+   "y": 26,
+   "w": 4,
+   "h": 3,
+   "path": [
+    [
+     4,
+     26
+    ],
+    [
+     12,
+     22
+    ]
+   ],
+   "periodMs": 14000,
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_spread"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "d_hatch_wisp",
+   "level": "light",
+   "x": 9,
+   "y": 24,
+   "w": 2,
+   "h": 1,
+   "if": {
+    "flag": "squawks_rescued"
+   }
+  }
+ ],
+ "onEnter": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "bathtub_spotted"
+     },
+     {
+      "notFlag": "garrick_hauled_aboard"
+     }
+    ]
+   },
+   "script": "ch1.tub_alongside"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "fumes_spread"
+     },
+     {
+      "notFlag": "deck_evacuated_seen"
+     }
+    ]
+   },
+   "script": "ch5.deck_arrival"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "ship_permanently_contaminated"
+     },
+     {
+      "notFlag": "crew_turned_on_garrick"
+     }
+    ]
+   },
+   "script": "ch7.crew_turns"
+  }
+ ],
+ "fumeSafeSpawn": "cabin_door"
+}

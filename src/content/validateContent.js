@@ -1,7 +1,8 @@
 import { EQUIPMENT_SLOTS, STAT_KEYS, ITEM_TYPES, DIRECTIONS } from '../config/constants.js';
 import { isPlainObject, asArray } from '../core/util.js';
 import { validateCondition, COMPARE_KEYS, splitObjectiveRef } from '../systems/conditions/conditions.js';
-import { COMMAND_SCHEMAS, STEP_MODIFIERS, EMOTES, isCommentKey, commandNameOf } from '../systems/script/commandSchemas.js';
+import { COMMAND_SCHEMAS, STEP_MODIFIERS, EMOTES, isCommentKey, commandNameOf, PARTICLE_BURSTS, PROP_FX } from '../systems/script/commandSchemas.js';
+import { FUME_LEVELS, HAZE_LEVELS } from '../systems/hazards/fumes.js';
 import { parseLine } from '../systems/script/parseLine.js';
 import { normalizeScript } from '../systems/script/ScriptRunner.js';
 import { OBJECTIVE_TYPES } from '../systems/quests/QuestSystem.js';
@@ -69,6 +70,7 @@ class Checker {
   appearance(id) { this.ref('appearance', id, this.ctx.db.appearances); }
   portrait(id) { this.ref('portrait', id, this.ctx.db.portraits); }
   timing(id) { this.ref('timing mechanic', id, this.ctx.db.timing); }
+  vista(id) { this.ref('vista', id, this.ctx.db.vistas); }
 
   objective(ref) {
     const [q, o] = splitObjectiveRef(ref);
@@ -143,6 +145,11 @@ function validateLine(str, check) {
       else if (!portrait.expressions?.includes(line.expression)) {
         check.error(`portrait "${sp.portrait}" has no expression "${line.expression}" (has: ${portrait.expressions?.join(', ')})`);
       }
+      // Every look the speaker can have must be able to make the face too.
+      for (const v of sp.variants ?? []) {
+        const vp = v.portrait ? check.ctx.db.portraits.get(v.portrait) : null;
+        if (vp && !vp.expressions?.includes(line.expression)) check.error(`portrait "${v.portrait}" (a variant of "${line.speaker}") has no expression "${line.expression}"`);
+      }
     }
   }
   validateText(line.text, check);
@@ -191,6 +198,7 @@ function validateParam(type, value, check, sctx) {
     case 'encounter': return check.encounter(value);
     case 'shop': return check.shop(value);
     case 'character': return check.character(value);
+    case 'vista': return check.vista(value);
     case 'speaker':
       if (value !== null) check.speaker(value);
       return;
@@ -274,6 +282,21 @@ function validateStep(step, check, sctx) {
     });
   }
   if (name === 'camera' && !['pan', 'follow', 'reset'].includes(step.camera)) check.error(`camera mode must be pan|follow|reset`);
+  if (name === 'burst' && !PARTICLE_BURSTS.includes(step.burst)) check.error(`unknown burst "${step.burst}" (use: ${PARTICLE_BURSTS.join(', ')})`);
+  if (name === 'propFx' && !PROP_FX.includes(step.propFx)) check.error(`unknown propFx "${step.propFx}" (use: ${PROP_FX.join(', ')})`);
+  if (name === 'propFx' && !step.prop && !step.area) check.error('propFx needs "prop" or "area"');
+  if (name === 'tether' && !['on', 'off'].includes(step.tether)) check.error('tether must be "on" or "off"');
+  if (name === 'tether' && step.tether === 'on' && (step.x === undefined || step.y === undefined)) check.error('tether "on" needs x and y');
+  if (name === 'fumeCloud' && step.level && !FUME_LEVELS.includes(step.level)) check.error(`fume level must be one of ${FUME_LEVELS.join(', ')}`);
+  if (name === 'bark' && step.bark !== 'none') validateParam('actor', step.bark, check.at('bark'), sctx);
+  if (name === 'bark' && step.bark === 'none' && (step.x === undefined || step.y === undefined)) check.error('a bark with no speaker needs x and y');
+  if (name === 'bark') validateText(step.text, check.at('bark.text'));
+  if (name === 'sprite' || name === 'spriteFrame') {
+    const frame = step.frame;
+    if (!check.ctx.art.stage.has(frame) && !check.ctx.art.props.has(frame) && !check.ctx.art.fx.has(frame)) check.error(`no stage/prop/fx art "${frame}"`);
+  }
+  if (name === 'insert' && !check.ctx.art.inserts.has(step.insert)) check.error(`no insert art "${step.insert}"`);
+  if ('async' in step && step.async && !['move', 'fly', 'hop', 'propFx', 'roll', 'moveSprite', 'fumeCloud', 'vistaMove', 'shake', 'emote'].includes(name)) check.error(`"${name}" cannot run async`);
   if (name === 'fade' && !['in', 'out'].includes(step.fade)) check.error('fade must be "in" or "out"');
 }
 
@@ -354,8 +377,48 @@ function validateDialogueSelectors(list, check) {
   });
 }
 
+function validateVariants(list, c) {
+  if (list === undefined || list === null) return;
+  if (!Array.isArray(list)) {
+    c.error('"variants" must be a list of { if, appearance?, portrait?, name? }');
+    return;
+  }
+  list.forEach((v, i) => {
+    const vc = c.at(`variants[${i}]`);
+    if (!isPlainObject(v)) return vc.error('variant must be an object');
+    if (!('if' in v)) vc.error('variant needs "if"');
+    else vc.condition(v.if);
+    if (v.appearance) vc.appearance(v.appearance);
+    if (v.portrait) vc.portrait(v.portrait);
+    for (const k of Object.keys(v)) if (!['if', 'appearance', 'portrait', 'name', 'voice', 'shadow'].includes(k) && !isCommentKey(k)) vc.error(`unknown variant field "${k}"`);
+  });
+}
+
+function validateFumeZones(model, c) {
+  const ids = new Set();
+  (model.meta.fumes || []).forEach((z, i) => {
+    const zc = c.at(`fumes[${i}]`);
+    if (!z.id) zc.error('fume zone needs an id');
+    else if (ids.has(z.id)) zc.error(`duplicate fume zone id "${z.id}"`);
+    ids.add(z.id);
+    if (!FUME_LEVELS.includes(z.level)) zc.error(`fume level must be one of ${FUME_LEVELS.join(', ')}`);
+    for (const k of ['x', 'y', 'w', 'h']) if (typeof z[k] !== 'number') zc.error(`fume zone needs numeric ${k}`);
+    if ('if' in z) zc.condition(z.if);
+    if (z.path !== undefined) {
+      if (!Array.isArray(z.path) || z.path.length < 2 || !z.path.every((pt) => Array.isArray(pt) && pt.length === 2)) zc.error('fume path must be a list of [x, y] points');
+    }
+  });
+  (model.meta.haze || []).forEach((h, i) => {
+    const hc = c.at(`haze[${i}]`);
+    if ('if' in h) hc.condition(h.if);
+    if (!HAZE_LEVELS.includes(h.level)) hc.error(`haze level must be one of ${HAZE_LEVELS.join(', ')}`);
+  });
+  if (model.meta.fumeCollapse) c.script(model.meta.fumeCollapse);
+  if (model.meta.fumeSafeSpawn && !model.spawns[model.meta.fumeSafeSpawn]) c.error(`fumeSafeSpawn "${model.meta.fumeSafeSpawn}" is not a spawn on this map`);
+}
+
 export function validateContent(db, { art = ART_REGISTRY } = {}) {
-  const ctx = { db, errors: [...db.loadErrors, ...(db.speakerErrors || [])], warnings: [], usedFlags: new Set(), usedScripts: new Set() };
+  const ctx = { db, art, errors: [...db.loadErrors, ...(db.speakerErrors || [])], warnings: [], usedFlags: new Set(), usedScripts: new Set() };
   const C = (path) => new Checker(ctx, path);
 
   // game.json
@@ -370,6 +433,17 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     c.map(ng.map);
     if (ng.startScript) c.script(ng.startScript);
     if (g.titleMusic) c.music(g.titleMusic);
+    (g.chapters || []).forEach((ch, i) => {
+      const cc = c.at(`chapters[${i}]`);
+      if (typeof ch.name !== 'string') cc.error('chapter needs a name');
+      if ('if' in ch) cc.condition(ch.if);
+    });
+    (g.timeOfDay || []).forEach((t, i) => {
+      const tc = c.at(`timeOfDay[${i}]`);
+      if (!t.id) tc.error('time of day needs an id');
+      if (t.grade !== undefined && t.grade !== null && !/^#[0-9a-fA-F]{6}$/.test(t.grade)) tc.error('grade must be "#rrggbb"');
+      if ('if' in t) tc.condition(t.if);
+    });
   }
 
   for (const item of db.items.list()) {
@@ -409,6 +483,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     }
     (ch.learnset || []).forEach((l) => c.ability(l.ability));
     if (ch.battle?.attack) c.ability(ch.battle.attack);
+    validateVariants(ch.variants, c);
   }
 
   for (const st of db.statuses.list()) {
@@ -469,6 +544,18 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
   for (const p of db.portraits.list()) {
     const c = C(`${db.portraits.sourceOf(p.id)} (${p.id})`);
     if (!Array.isArray(p.expressions) || !p.expressions.includes('neutral')) c.error('portrait needs an expressions list including "neutral"');
+    if (p.painter && !art.portraitPainters.has(p.painter)) c.error(`unknown portrait painter "${p.painter}"`);
+    if (!p.painter && p.appearance !== undefined) c.appearance(p.appearance);
+    const known = art.expressions;
+    (p.expressions || []).forEach((e) => {
+      if (!p.painter && !known.has(e)) c.error(`unknown expression "${e}"`);
+    });
+  }
+
+  for (const a of db.appearances.list()) {
+    const c = C(`${db.appearances.sourceOf(a.id)} (${a.id})`);
+    if (a.painter && !art.characterPainters.has(a.painter)) c.error(`unknown character painter "${a.painter}"`);
+    (a.poses || []).forEach((pose) => { if (!art.extraPoses.has(pose)) c.error(`unknown extra pose "${pose}"`); });
   }
 
   for (const pr of db.props.list()) {
@@ -485,6 +572,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     if (npc.portrait) c.portrait(npc.portrait);
     validateDialogueSelectors(npc.dialogue, c);
     validateBehavior(npc.behavior, c.at('behavior'), null);
+    validateVariants(npc.variants, c);
   }
 
   // Maps (compile each, then check objects/warps against compiled targets).
@@ -506,6 +594,21 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       if ('if' in e) c.at(`onEnter[${i}]`).condition(e.if);
       c.at(`onEnter[${i}]`).script(e.script);
     });
+    model.meta.musicVariants.forEach((v, i) => {
+      const vc = c.at(`musicVariants[${i}]`);
+      vc.condition(v.if);
+      if ('music' in v) vc.music(v.music);
+      if ('ambience' in v) vc.ambience(v.ambience);
+    });
+    model.meta.lightingVariants.forEach((v, i) => {
+      const vc = c.at(`lightingVariants[${i}]`);
+      vc.condition(v.if);
+      if (!model.meta.lighting) vc.error('lightingVariants need the map to have "lighting"');
+    });
+    model.props.forEach((p) => {
+      if ('if' in p) c.at(`prop "${p.uid}"`).condition(p.if);
+    });
+    validateFumeZones(model, c);
     model.meta.regions.forEach((r, i) => {
       const rc = c.at(`regions[${i}]`);
       if (!r.id) rc.error('region needs an id');
@@ -546,6 +649,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
         }
         case 'npc':
           oc.npc(obj.npc);
+          if (obj.absent) break;
           if (!walkable) oc.error('npc stands on a solid tile');
           if (obj.behavior) validateBehavior(obj.behavior, oc.at('behavior'), model);
           else validateBehavior(db.npcs.get(obj.npc)?.behavior, oc.at('behavior'), model);
@@ -657,6 +761,45 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     if (!song.channels || !song.patterns || !Array.isArray(song.sequence)) c.error('song needs channels, patterns and sequence');
     for (const pat of song.sequence || []) if (!song.patterns?.[pat]) c.error(`sequence references unknown pattern "${pat}"`);
     for (const ch of Object.values(song.channels || {})) if (!db.instruments.has(ch.instrument)) c.error(`unknown instrument "${ch.instrument}"`);
+  }
+
+  for (const t of db.storyTriggers.list()) {
+    const c = C(`${db.storyTriggers.sourceOf(t.id)} (${t.id})`);
+    if (!('if' in t)) c.error('story trigger needs "if"');
+    else c.condition(t.if);
+    c.script(t.script);
+  }
+
+  for (const [id, v] of db.vistas.map) {
+    const c = C(`${db.vistas.sourceOf(id)} (${id})`);
+    if (v.sky && !art.vistaSkies.has(v.sky)) c.error(`unknown vista sky "${v.sky}"`);
+    const ids = new Set();
+    (v.layers || []).forEach((l, i) => {
+      const lc = c.at(`layers[${i}]`);
+      if (!l.id) lc.error('vista layer needs an id');
+      else if (ids.has(l.id)) lc.error(`duplicate layer id "${l.id}"`);
+      ids.add(l.id);
+      if (!art.vista.has(l.frame)) lc.error(`no vista art "${l.frame}"`);
+      (l.frames || []).forEach((f) => { if (!art.vista.has(f)) lc.error(`no vista art "${f}"`); });
+    });
+  }
+
+  for (const pr of db.debugPresets.list()) {
+    const c = C(`${db.debugPresets.sourceOf(pr.id)} (${pr.id})`);
+    if (typeof pr.name !== 'string') c.error('preset needs a name');
+    (pr.flags || []).forEach((f) => c.flag(f));
+    for (const [q, st] of Object.entries(pr.quests || {})) {
+      c.quest(q);
+      const quest = db.quests.get(q);
+      if (typeof st === 'object' && quest) (st.done || []).forEach((o) => c.objective(`${q}.${o}`));
+      else if (!['active', 'completed'].includes(st)) c.error(`quest state for "${q}" must be "active", "completed" or { done: [...] }`);
+    }
+    (pr.items || []).forEach((it) => c.item(typeof it === 'string' ? it : it.id));
+    c.map(pr.map);
+    const m = compiled.get(pr.map);
+    if (m && pr.spawn && !m.spawns[pr.spawn]) c.error(`map "${pr.map}" has no spawn "${pr.spawn}"`);
+    if (pr.script) c.script(pr.script);
+    if (pr.after) c.ref('debug preset', pr.after, db.debugPresets);
   }
 
   const engine = C('src/config/engineFlags.js');

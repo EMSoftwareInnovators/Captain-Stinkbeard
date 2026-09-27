@@ -64,12 +64,12 @@ test('the prologue can be played from New Game to free exploration', async ({ pa
   // Treasure hold (the captain has the key).
   await g.travel(4, 3, 'treasure_hold');
   await g.idle();
-  await g.interact([5, 4]);
+  await g.interact([8, 7]);
   s = await g.state();
   expect(s.quests.captains_rounds.objectives.inspect_treasure.done).toBe(true);
 
   // Report to Quill, then to Hale.
-  await g.travel(6, 9, 'cargo_hold');
+  await g.travel(9, 13, 'cargo_hold');
   await g.idle();
   await g.travel(14, 3, 'galley');
   await g.idle();

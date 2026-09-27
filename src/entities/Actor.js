@@ -42,11 +42,13 @@ export class Actor {
   }
 
   get px() {
+    if (this.flight) return this.flight.x;
     const t = this.moving ? this.moveT : 1;
     return (this.from.x + (this.to.x - this.from.x) * (this.moving ? t : 1)) * TILE_SIZE + TILE_SIZE / 2;
   }
 
   get py() {
+    if (this.flight) return this.flight.y;
     const t = this.moving ? this.moveT : 1;
     return (this.from.y + (this.to.y - this.from.y) * (this.moving ? t : 1)) * TILE_SIZE + TILE_SIZE;
   }
@@ -54,11 +56,21 @@ export class Actor {
   syncPosition() {
     const x = Math.round(this.px);
     const y = Math.round(this.py);
-    this.sprite.setPosition(x, y - (this.hop || 0));
-    this.sprite.setDepth(y + (this.kind === 'player' ? 0.5 : 0));
+    const lift = (this.hop || 0) + (this.flight?.alt || 0);
+    this.sprite.setPosition(x, y - lift);
+    this.sprite.setDepth(this.flight?.depth ?? y + (this.kind === 'player' ? 0.5 : 0));
     this.shadow.setPosition(x, y - 2);
     this.shadow.setDepth(-400);
+    this.shadow.setAlpha(this.flight ? Math.max(0.25, 1 - (this.flight.alt || 0) / 60) : 1);
     if (this.moving && this.pose === 'walk') this.updateWalkFrame();
+  }
+
+  /** Swaps the sprite sheet (a character's look changed), keeping pose and facing. */
+  setTexture(key) {
+    if (key === this.textureKey || !this.scene.textures.exists(key)) return;
+    this.textureKey = key;
+    this.sprite.setTexture(key);
+    this.playPose(this.pose, true);
   }
 
   /** Walk frame from step progress: a stride per tile, legs alternating. */
@@ -68,7 +80,9 @@ export class Actor {
     if (this.animStyle === 'enemy') frame = `${this.facing}_${(this.stride + (secondHalf ? 1 : 0)) % 2}`;
     else {
       const leftFoot = this.stride % 2 === 0;
-      frame = `walk_${this.facing}_${leftFoot ? (secondHalf ? 0 : 1) : secondHalf ? 2 : 3}`;
+      // Carrying something: the carry walk cycle, if this sheet has one.
+      const walk = this.carrying && this.sprite.texture.has(`carrywalk_${this.facing}_0`) ? 'carrywalk' : 'walk';
+      frame = `${walk}_${this.facing}_${leftFoot ? (secondHalf ? 0 : 1) : secondHalf ? 2 : 3}`;
     }
     if (this.sprite.frame.name !== frame && this.sprite.texture.has(frame)) this.sprite.setFrame(frame);
   }
@@ -80,14 +94,27 @@ export class Actor {
 
   playPose(pose, force = false) {
     this.pose = pose;
+    // "fallen": flat on the deck (knocked over, collapsed in the fumes).
+    const fallen = pose === 'fallen';
+    this.sprite.setAngle(fallen ? (this.facing === 'left' ? -90 : 90) : 0);
+    if (fallen) {
+      const key = this.animKey('idle');
+      if (this.scene.anims.exists(key)) this.sprite.play(key, true);
+      this.sprite.anims.stop();
+      return;
+    }
     if (pose === 'walk' && this.moving) {
       // Walking is stepped by movement progress, not by a timed animation.
       this.sprite.anims.stop();
       this.updateWalkFrame();
       return;
     }
-    const key = this.animKey(pose);
-    if (!this.scene.anims.exists(key)) return;
+    let key = this.animKey(pose);
+    if (!this.scene.anims.exists(key)) {
+      // A pose this sheet doesn't have falls back to standing.
+      key = this.animKey('idle');
+      if (!this.scene.anims.exists(key)) return;
+    }
     const anims = this.sprite.anims;
     if (force || !anims.isPlaying || anims.currentAnim?.key !== key) this.sprite.play(key, true);
   }
@@ -158,7 +185,7 @@ export class Actor {
 
   stopWalking() {
     this.carryMs = 0;
-    this.playPose(this.pose === 'walk' ? 'idle' : this.pose);
+    this.playPose(this.pose === 'walk' ? (this.carrying ? 'carry' : 'idle') : this.pose);
   }
 
   setTile(x, y) {

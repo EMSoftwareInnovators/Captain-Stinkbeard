@@ -1,0 +1,53 @@
+{
+ "id": "garrick_theme",
+ "title": "The Businessman",
+ "bpm": 108,
+ "stepsPerBeat": 4,
+ "reverb": 0.15,
+ "channels": {
+  "lead": {
+   "instrument": "lead_pulse",
+   "volume": 0.3,
+   "pan": 0.1
+  },
+  "tuba": {
+   "instrument": "fm_bass",
+   "volume": 0.46
+  },
+  "chords": {
+   "instrument": "concertina",
+   "volume": 0.13,
+   "pan": -0.25
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.22
+  }
+ },
+ "patterns": {
+  "A": {
+   "lead": "C4:2 F4:2 A4:2 C5:2 Bb4:3 A4:1 G4:4 | A4:2 F4:2 D4:2 F4:2 E4:4 C4:4 | C4:2 F4:2 A4:2 C5:2 D5:3 C5:1 Bb4:2 A4:2 | G4:4 E4:2 G4:2 F4:6 r:2",
+   "tuba": "F2:4 r:4 C3:4 r:4 | C3:4 r:4 G2:4 r:4 | F2:4 r:4 C3:4 r:4 | C3:4 r:4 F2:4 r:4",
+   "chords": "r:4 [A3 C4 F4]:4 r:4 [A3 C4 F4]:4 | r:4 [G3 Bb3 E4]:4 r:4 [G3 Bb3 E4]:4 | r:4 [A3 C4 F4]:4 r:4 [A3 C4 F4]:4 | r:4 [G3 Bb3 E4]:4 r:4 [A3 C4 F4]:4",
+   "drums": "k...h...s...h... k...h...s...h... k...h...s...h... k...h...s.h.s.s."
+  },
+  "A2": {
+   "lead": "C4:2 F4:2 A4:2 C5:2 Bb4:3 A4:1 G4:4 | A4:2 F4:2 D4:2 F4:2 E4:2 G4:2 Bb4:4 | A4:2 C5:2 F5:4 E5:2 C5:2 D5:4 | C5:4 E4:2 G4:2 F4:8",
+   "tuba": "F2:4 r:4 C3:4 r:4 | C3:4 r:4 G2:4 r:4 | F2:4 r:4 A2:4 r:4 | C3:4 r:4 F2:8",
+   "chords": "r:4 [A3 C4 F4]:4 r:4 [A3 C4 F4]:4 | r:4 [G3 Bb3 E4]:4 r:4 [G3 Bb3 E4]:4 | r:4 [A3 C4 F4]:4 r:4 [A3 C4 F4]:4 | r:4 [G3 Bb3 E4]:4 [A3 C4 F4]:8",
+   "drums": "k...h...s...h... k...h...s...h... k...h...s...h... k...s...k.s.s..."
+  },
+  "B": {
+   "lead": "D5:3 C5:1 Bb4:4 G4:2 A4:2 Bb4:4 | C5:3 Bb4:1 A4:4 F4:2 G4:2 A4:4 | Bb4:2 D5:2 F5:4 Eb5:2 D5:2 C5:4 | C5:2 A4:2 F4:2 A4:2 G4:4 C4:4",
+   "tuba": "Bb2:4 r:4 F2:4 r:4 | F2:4 r:4 C3:4 r:4 | Bb2:4 r:4 F2:4 r:4 | C3:4 r:4 G2:4 r:4",
+   "chords": "r:4 [D4 F4 Bb4]:4 r:4 [D4 F4 Bb4]:4 | r:4 [C4 F4 A4]:4 r:4 [C4 F4 A4]:4 | r:4 [D4 F4 Bb4]:4 r:4 [Eb4 G4 Bb4]:4 | r:4 [E4 G4 Bb4]:4 r:4 [E4 G4 C5]:4",
+   "drums": "k.h.h.h.s.h.h.h. k.h.h.h.s.h.h.h. k.h.h.h.s.h.h.h. k.h.s.h.s.s.s.s."
+  }
+ },
+ "sequence": [
+  "A",
+  "A2",
+  "B",
+  "A2"
+ ]
+}

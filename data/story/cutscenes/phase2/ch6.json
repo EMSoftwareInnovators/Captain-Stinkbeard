@@ -1,0 +1,139 @@
+{
+  "//": "Story Phase 2, chapter 6: Save Captain Squawks. Route: main hatch -> galley -> cargo hold stairs (14,4) -> Squawks in the Dead Center by the treasure door (4,5). The rope (tether) is re-tied on each map entry.",
+
+  "ch6.begin": [
+    { "startQuest": "save_squawks" },
+    { "banner": "CHAPTER 6", "sub": "Save Captain Squawks" },
+    "hale[alarmed]: Captain, you can't go down there bare-faced! You'll drop before you reach the ladder!",
+    "rook: Take a line, Cap'n. I'll tie you on. If you go down, I'll haul you out.",
+    "fennimore[concerned]: And a wet cloth over your face. It won't stop the fumes, but it'll slow them. I'll soak one.",
+    { "tutorial": "Get a line from Rook and a wet cloth from Doc Fennimore, then go down the main hatch. Squawks is in the Dead Center: follow his cries. Don't stay in thick fumes too long; clean or light air lets you recover.", "title": "Rescue" }
+  ],
+
+  "ch6.rook_rope": [
+    "rook: Arms up, Cap'n.",
+    { "sfx": "rope_throw" },
+    { "anim": "rook", "name": "work", "duration": 600 },
+    "rook: Bowline round the middle, and I've the other end. Two tugs means haul you up.",
+    "rook: So does going limp. I'll feel it.",
+    { "setFlag": "rescue_rope" },
+    { "if": { "flag": "rescue_cloth" }, "then": [{ "call": "ch6.gear_on" }] }
+  ],
+
+  "ch6.doc_cloth": [
+    "fennimore[concerned]: Here. Seawater and vinegar. Tie it over your nose and mouth.",
+    { "sfx": "splash", "volume": 0.4 },
+    "fennimore: It'll slow the fumes, not stop them. Don't linger in the thick of it, Captain. I mean that.",
+    { "setFlag": "rescue_cloth" },
+    { "if": { "flag": "rescue_rope" }, "then": [{ "call": "ch6.gear_on" }] }
+  ],
+
+  "ch6.gear_on": [
+    { "setFlag": "rescue_gear_on" },
+    { "wait": 300 },
+    "captain[determined]: Right. Squawks, you moth-eaten feather duster. I'm coming.",
+    { "tutorial": "The wet cloth slows your Exposure. Head down the main hatch.", "title": "Ready" }
+  ],
+
+  "ch6.hatch_blocked": [
+    { "if": { "notFlag": "rescue_rope" }, "then": ["rook[alarmed]: Not without a line, Cap'n! Come here and I'll tie you on!"] },
+    { "if": { "notFlag": "rescue_cloth" }, "then": ["fennimore[alarmed]: Captain! Not without a cloth over your face! Come and get one!"] }
+  ],
+
+  "ch6.rope_galley": [
+    { "tether": "on", "x": 14, "y": 3 },
+    { "if": { "notFlag": "rescue_prepared" }, "then": [
+      { "setFlag": "rescue_prepared" },
+      { "wait": 300 },
+      "The galley is empty. Upturned bowls, a stew pot still bubbling on its own, and a yellow haze hanging at head height.",
+      { "bark": "none", "text": "...squawk...!", "x": 12, "y": 11, "duration": 1600 },
+      "captain: Down. He's further down."
+    ] }
+  ],
+
+  "ch6.rope_hold": [
+    { "tether": "on", "x": 14, "y": 3 },
+    { "if": { "notFlag": "rescue_boots_moment" }, "then": [
+      { "setFlag": "rescue_boots_moment" },
+      { "wait": 300 },
+      "The hold is a yellow fog. Crates lie where the Gust flung them. Somewhere in it, a parrot is complaining.",
+      { "bark": "none", "text": "Captain...? <y>CAPTAIN?</>", "x": 4, "y": 5, "shout": true, "duration": 1800 },
+      { "say": "garrick: CAPTAIN! A word of advice! Mind your BOOTS!", "name": "Garrick (from above)" },
+      "captain: My boots?",
+      { "say": "garrick: Leather soaks it up! PERMANENTLY!", "name": "Garrick (from above)" },
+      "captain[disgusted]: These are my best boots.",
+      { "say": "garrick: WERE, Captain! They WERE!", "name": "Garrick (from above)" }
+    ] }
+  ],
+
+  "ch6.catch": [
+    { "face": "squawks", "dir": "player" },
+    "Squawks is huddled against the treasure door: sooty, puffed up, and losing feathers with every shiver.",
+    "squawks[exhausted]: ...Captain? Is that you? You look like a bandit.",
+    "captain: It's a cloth. Come here.",
+    { "wait": 400 },
+    { "sfx": "squawk_distress" },
+    { "anim": "squawks", "name": "furious", "duration": 700 },
+    { "burst": "feathers", "actor": "squawks", "count": 22 },
+    { "sfx": "wing_flap" },
+    { "hop": "squawks", "height": 14, "duration": 320 },
+    "Squawks bursts out of the fog in a blizzard of loose feathers, straight into your face.",
+    { "despawn": "squawks" },
+    { "anim": "player", "name": "carry" },
+    { "setFlag": "squawks_caught" },
+    "squawks[exhausted]: Captain... my feathers... they're coming OUT...",
+    "captain[determined]: Hush. Hold on to me.",
+    { "tutorial": "Carry Squawks back to the stairs. Rook will haul you both out.", "title": "Got him!" }
+  ],
+
+  "ch6.escape": [
+    { "sfx": "rope_haul" },
+    "captain[coughing]: ROOK! HAUL!",
+    { "tether": "off" },
+    { "shake": 1, "duration": 300 },
+    { "fade": "out", "duration": 500 },
+    { "setFlag": ["squawks_rescued", "squawks_bald"] },
+    { "clearFlag": ["squawks_exposed", "squawks_caught"] },
+    { "anim": "player", "name": "idle" },
+    { "transition": "main_deck", "spawn": "main_hatch", "then": "ch6.hauled_out", "fade": 0 }
+  ],
+
+  "ch6.hauled_out": [
+    { "spawn": "rook", "x": 8, "y": 22, "facing": "down" },
+    { "spawn": "hale", "x": 11, "y": 22, "facing": "down" },
+    { "spawn": "squawks", "x": 10, "y": 23, "facing": "left" },
+    { "anim": "player", "name": "fallen" },
+    { "anim": "rook", "name": "work" },
+    { "sfx": "rope_haul" },
+    { "wait": 600 },
+    "You come up through the hatch like a sack of wet laundry, and land on the deck in a heap.",
+    { "anim": "rook", "name": "idle" },
+    "rook[laugh]: Got him! Got 'em BOTH!",
+    { "sfx": "crowd_cheer" },
+    { "anim": "player", "name": "idle" },
+    { "clearFlag": "rescue_gear_on" },
+    { "move": "fennimore", "to": [11, 23], "speed": "run", "face": "left" },
+    "fennimore: Give them air! Everybody back!",
+    "squawks[exhausted]: ...Am I alive?",
+    "fennimore: You're alive.",
+    "squawks[exhausted]: ...Am I handsome?",
+    { "wait": 800 },
+    "Nobody says anything. Hale takes off his hat.",
+    { "emote": "squawks", "icon": "question" },
+    "squawks[horrified]: MY FEATHERS! Where are my FEATHERS?!",
+    "fennimore[concerned]: The fumes took most of them, I'm afraid. They'll grow back. Probably. Eventually.",
+    "squawks[outraged]: I'm NAKED! In front of the CREW!",
+    "fennimore: Look at it this way. You came into the world with no feathers at all.",
+    { "anim": "squawks", "name": "furious", "duration": 900 },
+    "squawks[furious]: THEN PUT ME BACK IN THE EGG!",
+    { "wait": 500 },
+    "captain: ...Squawks.",
+    "squawks[exhausted]: ...What.",
+    "captain: I'm glad you're alive.",
+    "squawks[smug]: ...Obviously. I'm magnificent. Bald, but magnificent.",
+    { "face": "player", "dir": "down" },
+    "You look down. Your boots have gone the colour of an old bruise, and the smell has moved into them and signed a lease.",
+    "garrick[nervous]: Told you, Captain. Leather.",
+    { "save": "auto" }
+  ]
+}

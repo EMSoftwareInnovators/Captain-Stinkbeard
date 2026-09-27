@@ -98,15 +98,18 @@ export class WorldMap {
    * lays it over the scene with MULTIPLY blending. Returns glow positions so
    * the scene can add flickering additive glows on top.
    */
-  buildLighting(lights) {
+  buildLighting(lights, ambientOverride = null) {
     const lighting = this.model.meta.lighting;
     if (!lighting) return [];
     const s = this.scene;
+    // Rebuilt when the story changes a room's light (lanterns lit, a gloom set in).
+    this.lightImage?.destroy();
+    this.lightImage = null;
     const scale = 2; // light map at half resolution, scaled up
     const w = Math.ceil(this.widthPx / scale);
     const h = Math.ceil(this.heightPx / scale);
     const pc = new PixelCanvas(w, h);
-    const amb = unpack(rgba(lighting.ambient ?? '#808080'));
+    const amb = unpack(rgba(ambientOverride ?? lighting.ambient ?? '#808080'));
     const bands = [1, 0.72, 0.45, 0.2];
     for (let y = 0; y < h; y++) {
       for (let x = 0; x < w; x++) {

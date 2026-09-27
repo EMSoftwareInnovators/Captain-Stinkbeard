@@ -25,6 +25,10 @@ export const CLOTH = {
   leather: [PAL.lea1, PAL.lea3, PAL.lea4],
   gold: [PAL.gold1, PAL.gold3, PAL.gold4],
   iron: [PAL.iron1, PAL.iron3, PAL.iron4],
+  seagreen: ['#173a36', '#2a5f56', '#4a8a78'], // battered, sun-faded frock coat
+  burgundy: ['#2e0c18', '#521828', '#74283a'],
+  wool: ['#7a3a2a', '#b4583a', '#dc8456'], // hand-knitted
+  stained: ['#3a3014', '#6a5a22', '#8e7a34'], // good boots, forever changed
 };
 
 export function skinRamp(name) {

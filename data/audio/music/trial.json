@@ -1,0 +1,38 @@
+{
+ "id": "trial",
+ "title": "Order on Deck",
+ "bpm": 100,
+ "stepsPerBeat": 4,
+ "reverb": 0.16,
+ "channels": {
+  "lead": {
+   "instrument": "brass",
+   "volume": 0.3,
+   "pan": 0.1
+  },
+  "tuba": {
+   "instrument": "fm_bass",
+   "volume": 0.42
+  },
+  "chords": {
+   "instrument": "concertina",
+   "volume": 0.13,
+   "pan": -0.25
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.28
+  }
+ },
+ "patterns": {
+  "T": {
+   "lead": "Bb4:4 Bb4:2 Bb4:2 D5:4 F5:4 | Eb5:4 D5:2 C5:2 D5:8 | Bb4:4 Bb4:2 Bb4:2 C5:4 D5:4 | C5:4 A4:4 F4:8 | G4:4 G4:2 A4:2 Bb4:4 C5:4 | D5:4 C5:2 Bb4:2 C5:8 | Bb4:4 D5:4 F5:4 Eb5:4 | D5:4 C5:4 Bb4:8",
+   "tuba": "Bb1:4 F2:4 Bb1:4 F2:4 | Eb2:4 Bb1:4 Bb1:4 F2:4 | Bb1:4 F2:4 Bb1:4 F2:4 | F2:4 C2:4 F2:8 | G1:4 D2:4 G1:4 D2:4 | F2:4 C2:4 F2:8 | Bb1:4 F2:4 Eb2:4 Bb1:4 | F2:4 F2:4 Bb1:8",
+   "chords": "r:2 [D4 F4 Bb4]:2 r:2 [D4 F4 Bb4]:2 r:2 [D4 F4 Bb4]:2 r:2 [D4 F4 Bb4]:2 | r:2 [Eb4 G4 Bb4]:2 r:2 [Eb4 G4 Bb4]:2 r:2 [D4 F4 Bb4]:2 r:2 [D4 F4 Bb4]:2 | r:2 [D4 F4 Bb4]:2 r:2 [D4 F4 Bb4]:2 r:2 [D4 F4 Bb4]:2 r:2 [D4 F4 Bb4]:2 | r:2 [C4 F4 A4]:2 r:2 [C4 F4 A4]:2 r:2 [C4 F4 A4]:2 r:2 [C4 F4 A4]:2 | r:2 [D4 G4 Bb4]:2 r:2 [D4 G4 Bb4]:2 r:2 [D4 G4 Bb4]:2 r:2 [D4 G4 Bb4]:2 | r:2 [C4 F4 A4]:2 r:2 [C4 F4 A4]:2 r:2 [C4 F4 A4]:2 r:2 [C4 F4 A4]:2 | r:2 [D4 F4 Bb4]:2 r:2 [D4 F4 Bb4]:2 r:2 [Eb4 G4 Bb4]:2 r:2 [Eb4 G4 Bb4]:2 | r:2 [C4 F4 A4]:2 r:2 [C4 F4 A4]:2 r:2 [D4 F4 Bb4]:2 r:2 [D4 F4 Bb4]:2",
+   "drums": "k...s.s.k...s.ss k...s.s.k...s.ss k...s.s.k...s.ss k...s.s.k...s.ss k...s.s.k...s.ss k...s.s.k...s.ss k...s.s.k...s.ss k.s.s.s.k.ssssss"
+  }
+ },
+ "sequence": [
+  "T"
+ ]
+}

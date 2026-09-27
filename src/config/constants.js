@@ -8,7 +8,7 @@ export const SCREEN_HEIGHT = 224;
 export const TILE_SIZE = 16;
 
 /** Save-data schema version. Bump when the save format changes and add a migration. */
-export const SAVE_VERSION = 1;
+export const SAVE_VERSION = 2;
 
 /** Namespace for all browser-storage keys. */
 export const STORAGE_PREFIX = 'captain-stinkbeard';

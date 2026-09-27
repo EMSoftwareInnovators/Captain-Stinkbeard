@@ -14,6 +14,7 @@ import { parseLine } from './parseLine.js';
  *   ctx.services.world     move/face/anim/emote/spawn/despawn/place/camera/shake/flash/fade/transition/...
  *   ctx.services.battle    start(encounterId) -> 'win' | 'lose' | 'flee'
  *   ctx.services.saves     autosave()
+ *   ctx.services.cinema    show/end/move/frame/fx/insert (vistas: CinemaScene)
  *
  * This keeps scripts runnable in unit tests with mock services.
  */
@@ -144,7 +145,11 @@ export function createCommandImplementations() {
 
     // --- audio -----------------------------------------------------------
     sfx: (step, ctx) => {
-      ctx.services.audio?.sfx(step.sfx);
+      const opts = {};
+      if (step.volume !== undefined) opts.volume = step.volume;
+      if (step.rate !== undefined) opts.rate = step.rate;
+      if (step.pan !== undefined) opts.pan = step.pan;
+      ctx.services.audio?.sfx(step.sfx, opts);
     },
     music: (step, ctx) => {
       ctx.services.audio?.music(step.music, { fade: step.fade });
@@ -160,20 +165,90 @@ export function createCommandImplementations() {
     },
     face: (step, ctx) => service(ctx, 'world', 'face').face(step.face, step.dir),
     anim: (step, ctx) => service(ctx, 'world', 'anim').anim(step.anim, step.name, step.duration),
-    emote: (step, ctx) => service(ctx, 'world', 'emote').emote(step.emote, step.icon, step.duration),
+    emote: (step, ctx) => {
+      const p = service(ctx, 'world', 'emote').emote(step.emote, step.icon, step.duration);
+      return step.async ? null : p;
+    },
     spawn: (step, ctx) => service(ctx, 'world', 'spawn').spawn(step.spawn, { id: step.id, x: step.x, y: step.y, facing: step.facing }),
     despawn: (step, ctx) => service(ctx, 'world', 'despawn').despawn(step.despawn),
     place: (step, ctx) => service(ctx, 'world', 'place').place(step.place, step.x, step.y, step.facing),
     camera: (step, ctx) =>
       service(ctx, 'world', 'camera').camera(step.camera, { x: step.x, y: step.y, actor: step.actor, duration: step.duration }),
-    shake: (step, ctx) => service(ctx, 'world', 'shake').shake(step.shake, step.duration),
+    shake: (step, ctx) => {
+      const p = service(ctx, 'world', 'shake').shake(step.shake, step.duration, { to: step.to ?? null });
+      return step.async ? null : p;
+    },
     flash: (step, ctx) => service(ctx, 'world', 'flash').flash(step.flash, step.duration),
     fade: (step, ctx) => service(ctx, 'world', 'fade').fade(step.fade, { duration: step.duration, color: step.color }),
     transition: (step, ctx) =>
-      service(ctx, 'world', 'transition').transition(step.transition, { spawn: step.spawn, x: step.x, y: step.y, facing: step.facing }),
+      service(ctx, 'world', 'transition').transition(step.transition, {
+        spawn: step.spawn, x: step.x, y: step.y, facing: step.facing, then: step.then, hidePlayer: step.hidePlayer,
+        fade: step.fade, keepMusic: step.keepMusic, noAutosave: step.noAutosave,
+      }),
     showObject: (step, ctx) => service(ctx, 'world', 'showObject').setObjectVisible(step.showObject, true),
     hideObject: (step, ctx) => service(ctx, 'world', 'hideObject').setObjectVisible(step.hideObject, false),
     effect: (step, ctx) => service(ctx, 'world', 'effect').effect(step.effect, { actor: step.actor, x: step.x, y: step.y }),
+    fly: (step, ctx) => {
+      const p = service(ctx, 'world', 'fly').fly(step.fly, { to: step.to, duration: step.duration, arc: step.arc, land: step.land, alt: step.alt, from: step.from, fromAlt: step.fromAlt });
+      return step.async ? null : p;
+    },
+    hop: (step, ctx) => {
+      const p = service(ctx, 'world', 'hop').hop(step.hop, { height: step.height, duration: step.duration });
+      return step.async ? null : p;
+    },
+    bark: (step, ctx) => {
+      service(ctx, 'world', 'bark').bark(step.bark === 'none' ? null : step.bark, step.text, { duration: step.duration, shout: step.shout, x: step.x, y: step.y });
+    },
+    burst: (step, ctx) => {
+      service(ctx, 'world', 'burst').burst(step.burst, step);
+    },
+    propFx: (step, ctx) => {
+      const p = service(ctx, 'world', 'propFx').propFx(step.propFx, step);
+      return step.async ? null : p;
+    },
+    roll: (step, ctx) => {
+      const p = service(ctx, 'world', 'roll').roll(step.roll, step.duration);
+      return step.async ? null : p;
+    },
+    sprite: (step, ctx) => {
+      service(ctx, 'world', 'sprite').sprite(step.sprite, step);
+    },
+    moveSprite: (step, ctx) => {
+      const p = service(ctx, 'world', 'moveSprite').moveSprite(step.moveSprite, step);
+      return step.async ? null : p;
+    },
+    spriteFrame: (step, ctx) => {
+      service(ctx, 'world', 'spriteFrame').spriteFrame(step.spriteFrame, step.frame);
+    },
+    removeSprite: (step, ctx) => {
+      service(ctx, 'world', 'removeSprite').removeSprite(step.removeSprite);
+    },
+    tether: (step, ctx) => {
+      service(ctx, 'world', 'tether').tether(step.tether === 'on', { x: step.x, y: step.y });
+    },
+    respawn: (step, ctx) => {
+      service(ctx, 'world', 'respawn').respawn(step.respawn);
+    },
+    fumeCloud: (step, ctx) => {
+      const p = service(ctx, 'world', 'fumeCloud').fumeCloud(step.fumeCloud, step);
+      return step.async ? null : p;
+    },
+    vista: (step, ctx) => service(ctx, 'cinema', 'vista').show(step.vista, { mask: step.mask, fade: step.fade, caption: step.caption }),
+    vistaEnd: (step, ctx) => service(ctx, 'cinema', 'vistaEnd').end({ fade: step.fade }),
+    vistaMove: (step, ctx) => {
+      const p = service(ctx, 'cinema', 'vistaMove').move(step.vistaMove, step);
+      return step.async ? null : p;
+    },
+    vistaFrame: (step, ctx) => {
+      service(ctx, 'cinema', 'vistaFrame').frame(step.vistaFrame, step.frame);
+    },
+    vistaFx: (step, ctx) => {
+      service(ctx, 'cinema', 'vistaFx').fx(step.vistaFx, step);
+    },
+    vistaShow: (step, ctx) => {
+      service(ctx, 'cinema', 'vistaShow').setVisible(step.vistaShow, step.visible !== false);
+    },
+    insert: (step, ctx) => service(ctx, 'cinema', 'insert').insert(step.insert, { caption: step.caption, hold: step.hold }),
     battle: async (step, ctx, frame) => {
       const result = await service(ctx, 'battle', 'battle').start(step.battle);
       if (result === 'win' && step.win) return ctx.runner.execBranch(step.win, ctx, frame);

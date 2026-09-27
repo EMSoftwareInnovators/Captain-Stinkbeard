@@ -1,0 +1,614 @@
+{
+ "id": "cargo_hold_phase2",
+ "patch": "cargo_hold",
+ "objects": [
+  {
+   "id": "garrick_5_4",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 5,
+   "y": 4,
+   "facing": "right",
+   "if": {
+    "objectiveActive": "treasure_inspection.meet"
+   },
+   "pose": "greedy",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "squawks_4_5",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 4,
+   "y": 5,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "squawks_fell"
+       },
+       {
+        "notFlag": "squawks_rescued"
+       }
+      ]
+     },
+     {
+      "notFlag": "squawks_caught"
+     }
+    ]
+   },
+   "pose": "shiver",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "jory_away_fumes",
+   "type": "npc",
+   "npc": "jory",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "guzzlegut_gust"
+     },
+     {
+      "notFlag": "fumes_thinned"
+     }
+    ]
+   }
+  },
+  {
+   "id": "jory_away_trial",
+   "type": "npc",
+   "npc": "jory",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "trial_started"
+     },
+     {
+      "notFlag": "phase2_complete"
+     }
+    ]
+   }
+  },
+  {
+   "id": "to_treasure_p2",
+   "type": "warp",
+   "x": 4,
+   "y": 3,
+   "to": {
+    "map": "treasure_hold",
+    "spawn": "door"
+   },
+   "sfx": "heavy_door",
+   "if": {
+    "all": [
+     {
+      "hasItem": "treasure_key"
+     },
+     {
+      "not": {
+       "objectiveActive": "treasure_inspection.meet"
+      }
+     },
+     {
+      "any": [
+       {
+        "notFlag": "guzzlegut_gust"
+       },
+       {
+        "flag": "fumes_thinned"
+       }
+      ]
+     }
+    ]
+   },
+   "locked": "cargo.treasure_door"
+  },
+  {
+   "id": "rescue_exit",
+   "type": "trigger",
+   "x": 13,
+   "y": 4,
+   "w": 3,
+   "h": 2,
+   "once": false,
+   "script": "ch6.escape",
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_caught"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "door_marks",
+   "x": 4,
+   "y": 2,
+   "if": {
+    "flag": "guzzlegut_gust"
+   }
+  },
+  {
+   "prop": "stain_floor",
+   "x": 3,
+   "y": 5,
+   "if": {
+    "flag": "guzzlegut_gust"
+   }
+  },
+  {
+   "prop": "stain_small",
+   "x": 7,
+   "y": 8,
+   "if": {
+    "flag": "guzzlegut_gust"
+   }
+  },
+  {
+   "prop": "stain_small",
+   "x": 13,
+   "y": 7,
+   "if": {
+    "flag": "guzzlegut_gust"
+   }
+  },
+  {
+   "prop": "fume_wisp",
+   "x": 5,
+   "y": 5,
+   "if": {
+    "all": [
+     {
+      "flag": "guzzlegut_gust"
+     },
+     {
+      "notFlag": "fumes_thinned"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "fume_wisp",
+   "x": 9,
+   "y": 9,
+   "if": {
+    "all": [
+     {
+      "flag": "guzzlegut_gust"
+     },
+     {
+      "notFlag": "fumes_thinned"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "fume_wisp",
+   "x": 6,
+   "y": 11,
+   "if": {
+    "all": [
+     {
+      "flag": "guzzlegut_gust"
+     },
+     {
+      "notFlag": "fumes_thinned"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "debris_crate",
+   "x": 10,
+   "y": 4,
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "debris_barrel",
+   "x": 10,
+   "y": 5,
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "debris_crate",
+   "x": 10,
+   "y": 6,
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "debris_crate",
+   "x": 10,
+   "y": 7,
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "debris_barrel",
+   "x": 8,
+   "y": 7,
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "debris_crate",
+   "x": 9,
+   "y": 7,
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "debris_crate",
+   "x": 12,
+   "y": 11,
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "debris_barrel",
+   "x": 5,
+   "y": 10,
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  }
+ ],
+ "onEnter": [
+  {
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "squawks_fell"
+       },
+       {
+        "notFlag": "squawks_rescued"
+       }
+      ]
+     },
+     {
+      "flag": "rescue_gear_on"
+     }
+    ]
+   },
+   "script": "ch6.rope_hold"
+  }
+ ],
+ "ambient": [
+  {
+   "kind": "voice",
+   "x": 4,
+   "y": 5,
+   "every": [
+    3200,
+    5200
+   ],
+   "sfx": "squawk_distress",
+   "loopFrom": 1,
+   "lines": [
+    "<y>...squawk...</>",
+    "Captain...? <y>CAPTAIN?</>",
+    "SQUAAAWK!",
+    "...can't see my feet...",
+    "Somebody... fetch a biscuit...",
+    "Over here! Follow the <y>COMPLAINING!</>"
+   ],
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "squawks_fell"
+       },
+       {
+        "notFlag": "squawks_rescued"
+       }
+      ]
+     },
+     {
+      "notFlag": "squawks_caught"
+     }
+    ]
+   }
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   },
+   "music": "rescue_tension",
+   "musicFilter": null,
+   "ambience": "hold_fumes"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "guzzlegut_gust"
+       },
+       {
+        "notFlag": "squawks_fell"
+       }
+      ]
+     },
+     {
+      "notFlag": "fumes_thinned"
+     }
+    ]
+   },
+   "music": "yellow_alert",
+   "musicFilter": null,
+   "ambience": "hold_fumes"
+  },
+  {
+   "if": {
+    "flag": "fumes_thinned"
+   },
+   "ambience": "hold_haunted"
+  }
+ ],
+ "haze": [
+  {
+   "if": {
+    "flag": "fumes_thinned"
+   },
+   "level": "faint"
+  },
+  {
+   "if": {
+    "flag": "guzzlegut_gust"
+   },
+   "level": "dense"
+  }
+ ],
+ "fumes": [
+  {
+   "id": "h_room",
+   "level": "light",
+   "x": 1,
+   "y": 4,
+   "w": 18,
+   "h": 13,
+   "if": {
+    "all": [
+     {
+      "flag": "guzzlegut_gust"
+     },
+     {
+      "notFlag": "fumes_thinned"
+     }
+    ]
+   }
+  },
+  {
+   "id": "h_door",
+   "level": "dense",
+   "x": 1,
+   "y": 4,
+   "w": 8,
+   "h": 4,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "guzzlegut_gust"
+       },
+       {
+        "notFlag": "squawks_fell"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "h_center",
+   "level": "center",
+   "x": 3,
+   "y": 4,
+   "w": 4,
+   "h": 3,
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "h_bank_a",
+   "level": "dense",
+   "x": 1,
+   "y": 4,
+   "w": 8,
+   "h": 5,
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "h_bank_b",
+   "level": "dense",
+   "x": 10,
+   "y": 8,
+   "w": 4,
+   "h": 4,
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "h_bank_c",
+   "level": "dense",
+   "x": 2,
+   "y": 9,
+   "w": 6,
+   "h": 4,
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "h_drift",
+   "level": "dense",
+   "x": 13,
+   "y": 4,
+   "w": 3,
+   "h": 2,
+   "path": [
+    [
+     13,
+     4
+    ],
+    [
+     13,
+     7
+    ]
+   ],
+   "periodMs": 9000,
+   "if": {
+    "all": [
+     {
+      "flag": "squawks_fell"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "h_after",
+   "level": "light",
+   "x": 2,
+   "y": 4,
+   "w": 5,
+   "h": 2,
+   "if": {
+    "flag": "fumes_thinned"
+   }
+  }
+ ],
+ "fumeCollapse": "hazard.collapse_hold",
+ "fumeSafeSpawn": "stairs"
+}

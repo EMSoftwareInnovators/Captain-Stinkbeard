@@ -5,89 +5,1111 @@
   "music": "ship_theme",
   "musicFilter": "muffled",
   "ambience": "hold",
+  "musicVariants": [
+    {
+      "if": {
+        "flag": "treasure_contaminated"
+      },
+      "music": "ruined_treasure",
+      "musicFilter": null,
+      "ambience": "hold_haunted"
+    },
+    {
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "music": "yellow_alert",
+      "ambience": "hold_fumes"
+    },
+    {
+      "if": {
+        "flag": "treasure_inspection_started"
+      },
+      "music": "treasure_glitter",
+      "musicFilter": null
+    }
+  ],
   "lighting": {
-    "ambient": "#86746c",
+    "ambient": "#a08070",
     "gold": true
   },
+  "lightingVariants": [
+    {
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "ambient": "#86805a"
+    }
+  ],
   "legend": {
     " ": "void",
     ".": "hold",
-    "%": "hold_wet",
     "H": "hwall",
     "[": "side_l",
     "]": "side_r",
     "_": "cap",
     "{": "cap_l",
     "}": "cap_r",
-    "v": "exit_s",
-    "t": "tdoor_t",
-    "T": "tdoor",
-    "<": "wstair_l",
-    ">": "wstair_r",
-    "L": "hdiag_l",
-    "R": "hdiag_r"
+    "v": "exit_s"
   },
   "tiles": [
-    "              ",
-    "[HHHHHHHHHHHH]",
-    "[HHHHHHHHHHHH]",
-    "[HHHHHHHHHHHH]",
-    "[............]",
-    "[............]",
-    "[............]",
-    "[............]",
-    "[............]",
-    "{_____v______}"
+    "                    ",
+    "[HHHHHHHHHHHHHHHHHH]",
+    "[HHHHHHHHHHHHHHHHHH]",
+    "[HHHHHHHHHHHHHHHHHH]",
+    "[..................]",
+    "[..................]",
+    "[..................]",
+    "[..................]",
+    "[..................]",
+    "[..................]",
+    "[..................]",
+    "[..................]",
+    "[..................]",
+    "{________v_________}"
   ],
   "props": [
-    "shield_wall 5 2",
-    "gold_bars 1 4",
-    "treasure_chest_small 3 4",
-    "treasure_chest 5 4",
-    "crown_cushion 8 4",
-    "goblet_stand 10 4",
-    "idol 12 4",
-    "gold_pile 2 6",
-    "gold_pile 9 6",
-    "coin_pile 4 7",
-    "coin_pile 8 8",
-    "ledger_stand 1 7",
-    "strongbox 11 7",
-    "lantern_hanging 6 5"
+    {
+      "prop": "tapestry",
+      "x": 9,
+      "y": 1
+    },
+    {
+      "prop": "shield_wall",
+      "x": 3,
+      "y": 2
+    },
+    {
+      "prop": "sword_trophy",
+      "x": 14,
+      "y": 2
+    },
+    {
+      "prop": "shield_wall",
+      "x": 5,
+      "y": 2
+    },
+    {
+      "prop": "lantern_hanging",
+      "x": 5,
+      "y": 6
+    },
+    {
+      "prop": "lantern_hanging",
+      "x": 14,
+      "y": 6
+    },
+    {
+      "prop": "lantern_hanging",
+      "x": 9,
+      "y": 10
+    },
+    {
+      "prop": "candelabra",
+      "x": 6,
+      "y": 4,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      }
+    },
+    {
+      "prop": "candelabra",
+      "x": 13,
+      "y": 4,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      }
+    },
+    {
+      "prop": "candelabra_foul",
+      "x": 6,
+      "y": 4,
+      "if": {
+        "flag": "guzzlegut_gust"
+      }
+    },
+    {
+      "prop": "candelabra_foul",
+      "x": 13,
+      "y": 4,
+      "if": {
+        "flag": "guzzlegut_gust"
+      }
+    },
+    {
+      "prop": "ledger_stand",
+      "x": 1,
+      "y": 11
+    },
+    {
+      "prop": "gold_bars",
+      "x": 1,
+      "y": 4,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "gold_bars_1_4"
+    },
+    {
+      "prop": "gold_bars_foul",
+      "x": 1,
+      "y": 4,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "gold_bars_1_4_foul"
+    },
+    {
+      "prop": "idol",
+      "x": 2,
+      "y": 4,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "idol_2_4"
+    },
+    {
+      "prop": "idol_foul",
+      "x": 2,
+      "y": 4,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "idol_2_4_foul"
+    },
+    {
+      "prop": "treasure_chest_open",
+      "x": 3,
+      "y": 4,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "treasure_chest_open_3_4"
+    },
+    {
+      "prop": "treasure_chest_open_foul",
+      "x": 3,
+      "y": 4,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "treasure_chest_open_3_4_foul"
+    },
+    {
+      "prop": "crown_cushion",
+      "x": 5,
+      "y": 4,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "crown_cushion_5_4"
+    },
+    {
+      "prop": "crown_cushion_foul",
+      "x": 5,
+      "y": 4,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "crown_cushion_5_4_foul"
+    },
+    {
+      "prop": "gold_pile",
+      "x": 7,
+      "y": 4,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "gold_pile_7_4"
+    },
+    {
+      "prop": "gold_pile_foul",
+      "x": 7,
+      "y": 4,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "gold_pile_7_4_foul"
+    },
+    {
+      "prop": "treasure_chest",
+      "x": 9,
+      "y": 4,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "treasure_chest_9_4"
+    },
+    {
+      "prop": "treasure_chest_foul",
+      "x": 9,
+      "y": 4,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "treasure_chest_9_4_foul"
+    },
+    {
+      "prop": "goblet_stand",
+      "x": 11,
+      "y": 4,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "goblet_stand_11_4"
+    },
+    {
+      "prop": "goblet_stand_foul",
+      "x": 11,
+      "y": 4,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "goblet_stand_11_4_foul"
+    },
+    {
+      "prop": "necklace_stand",
+      "x": 12,
+      "y": 4,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "necklace_stand_12_4"
+    },
+    {
+      "prop": "necklace_stand_foul",
+      "x": 12,
+      "y": 4,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "necklace_stand_12_4_foul"
+    },
+    {
+      "prop": "gold_pile",
+      "x": 14,
+      "y": 4,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "gold_pile_14_4"
+    },
+    {
+      "prop": "gold_pile_foul",
+      "x": 14,
+      "y": 4,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "gold_pile_14_4_foul"
+    },
+    {
+      "prop": "gold_statue",
+      "x": 16,
+      "y": 4,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "gold_statue_16_4"
+    },
+    {
+      "prop": "gold_statue_foul",
+      "x": 16,
+      "y": 4,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "gold_statue_16_4_foul"
+    },
+    {
+      "prop": "artifact_mirror",
+      "x": 17,
+      "y": 4,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "artifact_mirror_17_4"
+    },
+    {
+      "prop": "artifact_mirror_foul",
+      "x": 17,
+      "y": 4,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "artifact_mirror_17_4_foul"
+    },
+    {
+      "prop": "strongbox",
+      "x": 18,
+      "y": 4,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "strongbox_18_4"
+    },
+    {
+      "prop": "strongbox_foul",
+      "x": 18,
+      "y": 4,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "strongbox_18_4_foul"
+    },
+    {
+      "prop": "jewel_pile",
+      "x": 2,
+      "y": 6,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "jewel_pile_2_6"
+    },
+    {
+      "prop": "jewel_pile_foul",
+      "x": 2,
+      "y": 6,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "jewel_pile_2_6_foul"
+    },
+    {
+      "prop": "pearl_bowl",
+      "x": 17,
+      "y": 6,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "pearl_bowl_17_6"
+    },
+    {
+      "prop": "pearl_bowl_foul",
+      "x": 17,
+      "y": 6,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "pearl_bowl_17_6_foul"
+    },
+    {
+      "prop": "gold_pile",
+      "x": 8,
+      "y": 7,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "gold_pile_8_7"
+    },
+    {
+      "prop": "gold_pile_foul",
+      "x": 8,
+      "y": 7,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "gold_pile_8_7_foul"
+    },
+    {
+      "prop": "gold_pile",
+      "x": 10,
+      "y": 7,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "gold_pile_10_7"
+    },
+    {
+      "prop": "gold_pile_foul",
+      "x": 10,
+      "y": 7,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "gold_pile_10_7_foul"
+    },
+    {
+      "prop": "jewel_pile",
+      "x": 9,
+      "y": 8,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "jewel_pile_9_8"
+    },
+    {
+      "prop": "jewel_pile_foul",
+      "x": 9,
+      "y": 8,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "jewel_pile_9_8_foul"
+    },
+    {
+      "prop": "silver_pile",
+      "x": 1,
+      "y": 8,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "silver_pile_1_8"
+    },
+    {
+      "prop": "silver_pile_foul",
+      "x": 1,
+      "y": 8,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "silver_pile_1_8_foul"
+    },
+    {
+      "prop": "treasure_chest",
+      "x": 2,
+      "y": 10,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "treasure_chest_2_10"
+    },
+    {
+      "prop": "treasure_chest_foul",
+      "x": 2,
+      "y": 10,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "treasure_chest_2_10_foul"
+    },
+    {
+      "prop": "gold_bars",
+      "x": 17,
+      "y": 11,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "gold_bars_17_11"
+    },
+    {
+      "prop": "gold_bars_foul",
+      "x": 17,
+      "y": 11,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "gold_bars_17_11_foul"
+    },
+    {
+      "prop": "silver_pile",
+      "x": 18,
+      "y": 9,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "silver_pile_18_9"
+    },
+    {
+      "prop": "silver_pile_foul",
+      "x": 18,
+      "y": 9,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "silver_pile_18_9_foul"
+    },
+    {
+      "prop": "treasure_chest_small",
+      "x": 17,
+      "y": 8,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "treasure_chest_small_17_8"
+    },
+    {
+      "prop": "treasure_chest_small_foul",
+      "x": 17,
+      "y": 8,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "treasure_chest_small_17_8_foul"
+    },
+    {
+      "prop": "crown_loose",
+      "x": 5,
+      "y": 9,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "id": "crown_loose_5_9"
+    },
+    {
+      "prop": "crown_loose_foul",
+      "x": 5,
+      "y": 9,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "crown_loose_5_9_foul"
+    },
+    {
+      "prop": "coin_scatter",
+      "x": 4,
+      "y": 5,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      }
+    },
+    {
+      "prop": "coin_scatter_foul",
+      "x": 4,
+      "y": 5,
+      "if": {
+        "flag": "guzzlegut_gust"
+      }
+    },
+    {
+      "prop": "coin_scatter",
+      "x": 11,
+      "y": 6,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      }
+    },
+    {
+      "prop": "coin_scatter_foul",
+      "x": 11,
+      "y": 6,
+      "if": {
+        "flag": "guzzlegut_gust"
+      }
+    },
+    {
+      "prop": "coin_scatter",
+      "x": 6,
+      "y": 8,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      }
+    },
+    {
+      "prop": "coin_scatter_foul",
+      "x": 6,
+      "y": 8,
+      "if": {
+        "flag": "guzzlegut_gust"
+      }
+    },
+    {
+      "prop": "coin_scatter",
+      "x": 13,
+      "y": 8,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      }
+    },
+    {
+      "prop": "coin_scatter_foul",
+      "x": 13,
+      "y": 8,
+      "if": {
+        "flag": "guzzlegut_gust"
+      }
+    },
+    {
+      "prop": "coin_scatter",
+      "x": 3,
+      "y": 12,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      }
+    },
+    {
+      "prop": "coin_scatter_foul",
+      "x": 3,
+      "y": 12,
+      "if": {
+        "flag": "guzzlegut_gust"
+      }
+    },
+    {
+      "prop": "coin_scatter",
+      "x": 15,
+      "y": 12,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      }
+    },
+    {
+      "prop": "coin_scatter_foul",
+      "x": 15,
+      "y": 12,
+      "if": {
+        "flag": "guzzlegut_gust"
+      }
+    },
+    {
+      "prop": "chest_fallen",
+      "x": 15,
+      "y": 10,
+      "if": {
+        "all": [
+          {
+            "notFlag": "treasure_chest_moved"
+          },
+          {
+            "notFlag": "guzzlegut_gust"
+          }
+        ]
+      },
+      "id": "chest_fallen"
+    },
+    {
+      "prop": "treasure_chest",
+      "x": 12,
+      "y": 11,
+      "if": {
+        "all": [
+          {
+            "flag": "treasure_chest_moved"
+          },
+          {
+            "notFlag": "guzzlegut_gust"
+          }
+        ]
+      },
+      "id": "chest_moved"
+    },
+    {
+      "prop": "chest_broken_foul",
+      "x": 12,
+      "y": 11,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "id": "chest_broken"
+    },
+    {
+      "prop": "stain_floor",
+      "x": 7,
+      "y": 9,
+      "if": {
+        "flag": "guzzlegut_gust"
+      }
+    },
+    {
+      "prop": "stain_floor",
+      "x": 12,
+      "y": 5,
+      "if": {
+        "flag": "guzzlegut_gust"
+      }
+    },
+    {
+      "prop": "stain_small",
+      "x": 4,
+      "y": 7,
+      "if": {
+        "flag": "guzzlegut_gust"
+      }
+    },
+    {
+      "prop": "fume_wisp",
+      "x": 3,
+      "y": 4,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "solid": false
+    },
+    {
+      "prop": "fume_wisp",
+      "x": 9,
+      "y": 4,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "solid": false
+    },
+    {
+      "prop": "fume_wisp",
+      "x": 12,
+      "y": 11,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "solid": false
+    },
+    {
+      "prop": "fume_wisp",
+      "x": 17,
+      "y": 8,
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "solid": false
+    },
+    {
+      "prop": "door_crab",
+      "x": 9,
+      "y": 12,
+      "id": "door_crab",
+      "if": {
+        "all": [
+          {
+            "flag": "treasure_chest_moved"
+          },
+          {
+            "notFlag": "guzzlegut_gust"
+          }
+        ]
+      },
+      "depthOffset": 40
+    }
   ],
   "objects": [
     {
       "id": "door",
       "type": "spawn",
-      "x": 6,
-      "y": 8,
+      "x": 9,
+      "y": 12,
       "facing": "up"
     },
     {
       "id": "to_hold",
       "type": "warp",
-      "x": 6,
-      "y": 9,
+      "x": 9,
+      "y": 13,
       "to": {
         "map": "cargo_hold",
         "spawn": "treasure_door"
       },
-      "sfx": "heavy_door"
+      "sfx": "heavy_door",
+      "if": {
+        "any": [
+          {
+            "notFlag": "treasure_inspection_started"
+          },
+          {
+            "flag": "gust_aftermath_done"
+          },
+          {
+            "not": {
+              "questActive": "treasure_inspection"
+            }
+          }
+        ]
+      },
+      "locked": "ch3.door_locked"
     },
     {
       "id": "hoard",
       "type": "inspect",
-      "x": 5,
-      "y": 4,
-      "w": 2,
-      "script": "inspect.hoard"
+      "x": 8,
+      "y": 7,
+      "w": 4,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      },
+      "dialogue": [
+        {
+          "if": {
+            "objectiveActive": "treasure_inspection.inspect"
+          },
+          "script": "ch3.inspect_hoard"
+        },
+        {
+          "script": "inspect.hoard"
+        }
+      ]
     },
     {
       "id": "ledger",
       "type": "inspect",
       "x": 1,
-      "y": 7,
+      "y": 11,
       "script": "inspect.treasure_ledger"
+    },
+    {
+      "id": "chest_to_move",
+      "type": "inspect",
+      "x": 15,
+      "y": 10,
+      "w": 2,
+      "script": "ch3.chest_move",
+      "if": {
+        "all": [
+          {
+            "notFlag": "treasure_chest_moved"
+          },
+          {
+            "notFlag": "guzzlegut_gust"
+          }
+        ]
+      }
+    },
+    {
+      "id": "escape_door",
+      "type": "trigger",
+      "x": 7,
+      "y": 11,
+      "w": 5,
+      "h": 2,
+      "script": "ch4.door_struggle",
+      "if": {
+        "all": [
+          {
+            "flag": "treasure_chest_moved"
+          },
+          {
+            "notFlag": "guzzlegut_gust"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ruined_coin",
+      "type": "inspect",
+      "x": 8,
+      "y": 7,
+      "w": 4,
+      "script": "ch7.ruined_coin",
+      "tags": [
+        "ruined_treasure"
+      ],
+      "if": {
+        "flag": "guzzlegut_gust"
+      }
+    },
+    {
+      "id": "ruined_ruby",
+      "type": "inspect",
+      "x": 9,
+      "y": 8,
+      "script": "ch7.ruined_ruby",
+      "tags": [
+        "ruined_treasure"
+      ],
+      "if": {
+        "flag": "guzzlegut_gust"
+      }
+    },
+    {
+      "id": "ruined_crown",
+      "type": "inspect",
+      "x": 5,
+      "y": 4,
+      "script": "ch7.ruined_crown",
+      "tags": [
+        "ruined_treasure"
+      ],
+      "if": {
+        "flag": "guzzlegut_gust"
+      }
+    },
+    {
+      "id": "ruined_pearls",
+      "type": "inspect",
+      "x": 17,
+      "y": 6,
+      "script": "ch7.ruined_pearls",
+      "tags": [
+        "ruined_treasure"
+      ],
+      "if": {
+        "flag": "guzzlegut_gust"
+      }
+    },
+    {
+      "id": "ruined_chest",
+      "type": "inspect",
+      "x": 12,
+      "y": 11,
+      "w": 2,
+      "script": "ch7.ruined_chest",
+      "tags": [
+        "ruined_treasure"
+      ],
+      "if": {
+        "flag": "guzzlegut_gust"
+      }
+    },
+    {
+      "id": "ruined_wall",
+      "type": "inspect",
+      "x": 1,
+      "y": 4,
+      "w": 18,
+      "script": "ch7.ruined_wall",
+      "tags": [
+        "ruined_treasure"
+      ],
+      "if": {
+        "flag": "guzzlegut_gust"
+      }
+    },
+    {
+      "id": "ruined_statue",
+      "type": "inspect",
+      "x": 16,
+      "y": 4,
+      "script": "ch7.ruined_statue",
+      "if": {
+        "flag": "guzzlegut_gust"
+      }
+    },
+    {
+      "id": "ruined_mirror",
+      "type": "inspect",
+      "x": 17,
+      "y": 4,
+      "script": "ch7.ruined_mirror",
+      "if": {
+        "flag": "guzzlegut_gust"
+      }
+    },
+    {
+      "id": "garrick",
+      "type": "npc",
+      "npc": "garrick",
+      "x": 10,
+      "y": 12,
+      "facing": "up",
+      "if": {
+        "all": [
+          {
+            "flag": "treasure_inspection_started"
+          },
+          {
+            "notFlag": "guzzlegut_gust"
+          }
+        ]
+      }
+    },
+    {
+      "id": "garrick_ch7",
+      "type": "npc",
+      "npc": "garrick",
+      "x": 12,
+      "y": 9,
+      "facing": "left",
+      "pose": "greedy",
+      "if": {
+        "all": [
+          {
+            "flag": "merchant_test_done"
+          },
+          {
+            "notFlag": "ship_permanently_contaminated"
+          }
+        ]
+      }
+    }
+  ],
+  "ambient": [
+    {
+      "kind": "glitter",
+      "x": 1,
+      "y": 3,
+      "w": 18,
+      "h": 3,
+      "every": 260,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      }
+    },
+    {
+      "kind": "glitter",
+      "x": 7,
+      "y": 6,
+      "w": 5,
+      "h": 3,
+      "every": 420,
+      "if": {
+        "notFlag": "guzzlegut_gust"
+      }
+    }
+  ],
+  "fumes": [
+    {
+      "id": "t_blast",
+      "level": "center",
+      "x": 1,
+      "y": 4,
+      "w": 18,
+      "h": 9,
+      "if": {
+        "all": [
+          {
+            "flag": "guzzlegut_gust"
+          },
+          {
+            "notFlag": "fumes_thinned"
+          }
+        ]
+      }
+    },
+    {
+      "id": "t_haze",
+      "level": "light",
+      "x": 1,
+      "y": 4,
+      "w": 18,
+      "h": 9,
+      "if": {
+        "flag": "fumes_thinned"
+      }
+    },
+    {
+      "id": "t_chest",
+      "level": "dense",
+      "x": 11,
+      "y": 10,
+      "w": 4,
+      "h": 2,
+      "if": {
+        "all": [
+          {
+            "flag": "fumes_thinned"
+          },
+          {
+            "notFlag": "ship_permanently_contaminated"
+          }
+        ]
+      }
+    }
+  ],
+  "haze": [
+    {
+      "if": {
+        "flag": "ship_permanently_contaminated"
+      },
+      "level": "light"
+    },
+    {
+      "if": {
+        "flag": "guzzlegut_gust"
+      },
+      "level": "dense"
+    }
+  ],
+  "fumeSafeSpawn": "door",
+  "onEnter": [
+    {
+      "if": {
+        "all": [
+          {
+            "flag": "treasure_contaminated"
+          },
+          {
+            "notFlag": "ruined_reveal_seen"
+          }
+        ]
+      },
+      "script": "ch7.reveal"
     }
   ]
 }

@@ -1,0 +1,39 @@
+{
+ "id": "fume_victory",
+ "title": "Yellow Tide",
+ "bpm": 132,
+ "stepsPerBeat": 4,
+ "reverb": 0.2,
+ "channels": {
+  "lead": {
+   "instrument": "brass",
+   "volume": 0.38
+  },
+  "harm": {
+   "instrument": "concertina",
+   "volume": 0.15,
+   "pan": -0.3
+  },
+  "bass": {
+   "instrument": "fm_bass",
+   "volume": 0.4
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.32
+  }
+ },
+ "patterns": {
+  "V": {
+   "lead": "A4:2 D5:2 F#5:2 A5:6 r:4 | G5:2 F#5:2 E5:2 F#5:2 D5:8 | B4:2 D5:2 G5:2 B5:6 r:4 | A5:4 F#5:2 E5:2 D5:8",
+   "harm": "[D4 F#4]:8 [D4 F#4]:8 | [E4 A4]:8 [D4 F#4]:8 | [D4 G4]:8 [D4 G4]:8 | [E4 A4]:8 [F#4 A4 D5]:8",
+   "bass": "D3:8 A2:8 | E3:8 A2:8 | G2:8 D3:8 | A2:8 D3:8",
+   "drums": "k...s...k...s.ss k...s...k.s.s.ss k...s...k...s.ss c...........k..."
+  }
+ },
+ "sequence": [
+  "V"
+ ],
+ "loop": false,
+ "tail": 2.2
+}

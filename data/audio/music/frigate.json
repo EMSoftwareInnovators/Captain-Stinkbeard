@@ -1,0 +1,45 @@
+{
+ "id": "frigate",
+ "title": "Colours of the Crown",
+ "bpm": 126,
+ "stepsPerBeat": 4,
+ "reverb": 0.14,
+ "channels": {
+  "lead": {
+   "instrument": "brass",
+   "volume": 0.34,
+   "pan": 0.05
+  },
+  "bass": {
+   "instrument": "fm_bass",
+   "volume": 0.42
+  },
+  "pad": {
+   "instrument": "pad",
+   "volume": 0.13
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.34
+  }
+ },
+ "patterns": {
+  "O": {
+   "lead": "r:16 | r:8 A4:2 Bb4:2 C5:2 C#5:2 | D5:4 A4:4 F4:4 D4:4 | E4:8 A4:8",
+   "bass": "D2:2 A1:2 D2:2 A1:2 D2:2 A1:2 D2:2 A1:2 | D2:2 A1:2 D2:2 A1:2 D2:2 A1:2 D2:2 A1:2 | D2:2 A1:2 D2:2 A1:2 Bb1:2 F2:2 Bb1:2 F2:2 | A1:2 E2:2 A1:2 E2:2 A1:2 E2:2 C#2:2 E2:2",
+   "pad": "[D4 F4 A4]:16 | [D4 F4 A4]:16 | [D4 F4 Bb4]:16 | [C#4 E4 A4]:16",
+   "drums": "k.......k...s... k.......k...s... k.......k...s... k.k.s.s.k.k.ssss"
+  },
+  "F": {
+   "lead": "D5:2 D5:1 D5:1 A4:4 D5:2 F5:2 A5:4 | G5:2 F5:1 E5:1 F5:4 D5:8 | D5:2 D5:1 D5:1 A4:4 F5:2 A5:2 C6:4 | Bb5:2 A5:2 G5:2 E5:2 D5:8",
+   "bass": "D2:2 D2:2 D2:2 D2:2 A1:2 A1:2 A1:2 A1:2 | Bb1:2 Bb1:2 Bb1:2 Bb1:2 A1:2 A1:2 A1:2 A1:2 | D2:2 D2:2 D2:2 D2:2 F2:2 F2:2 F2:2 F2:2 | G1:2 G1:2 A1:2 A1:2 D2:8",
+   "pad": "[D4 F4 A4]:16 | [D4 F4 Bb4]:8 [C#4 E4 A4]:8 | [D4 F4 A4]:16 | [D4 G4 Bb4]:8 [D4 F4 A4]:8",
+   "drums": "s.sss.s.s.sss.s. s.sss.s.s.sss.s. s.sss.s.s.sss.s. k.s.k.s.k.ssssss"
+  }
+ },
+ "sequence": [
+  "O",
+  "F",
+  "F"
+ ]
+}

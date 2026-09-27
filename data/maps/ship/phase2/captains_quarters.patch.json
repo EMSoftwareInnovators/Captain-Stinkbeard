@@ -1,0 +1,62 @@
+{
+ "id": "captains_quarters_phase2",
+ "patch": "captains_quarters",
+ "objects": [
+  {
+   "id": "bed_story",
+   "type": "inspect",
+   "x": 14,
+   "y": 4,
+   "w": 2,
+   "h": 3,
+   "dialogue": [
+    {
+     "if": {
+      "questActive": "tomorrows_heading"
+     },
+     "script": "ch1.sleep"
+    },
+    {
+     "script": "inspect.bed"
+    }
+   ]
+  },
+  {
+   "id": "perch_look",
+   "type": "inspect",
+   "x": 12,
+   "y": 5,
+   "script": "inspect.perch"
+  }
+ ],
+ "props": [
+  {
+   "prop": "perch",
+   "x": 12,
+   "y": 5
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "guzzlegut_gust"
+     },
+     {
+      "notFlag": "squawks_rescued"
+     }
+    ]
+   },
+   "music": "yellow_alert"
+  }
+ ],
+ "haze": [
+  {
+   "if": {
+    "flag": "guzzlegut_gust"
+   },
+   "level": "faint"
+  }
+ ]
+}

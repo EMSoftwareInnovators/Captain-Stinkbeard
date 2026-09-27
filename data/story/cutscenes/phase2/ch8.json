@@ -1,0 +1,326 @@
+{
+  "//": "Story Phase 2, chapter 8: The Trial of Garrick Guzzlegut. Trial layout (TRIAL placements): Garrick tied at (9,21), Squawks (11,21), the captain at (9,23). Frigate: helm (9,6), sail cleat (8,30), rowboat (4,24).",
+
+  "ch8.begin": [
+    { "fade": "out", "duration": 800 },
+    { "setFlag": ["trial_started", "squawks_sweater"] },
+    { "banner": "CHAPTER 8", "sub": "The Trial of Garrick Guzzlegut" },
+    { "narrate": "Sundown. The sea turns to copper, the crew assembles on the main deck, and Mags finishes knitting something small, red and urgent." },
+    { "close": true },
+    { "transition": "main_deck", "x": 9, "y": 23, "facing": "up", "fade": 0 }
+  ],
+
+  "ch8.trial": {
+    "start": [
+      { "wait": 500 },
+      "The whole crew stands in a half-circle round the mainmast. Garrick is tied to it. He is trying to look like a man who chose to be there.",
+      { "face": "squawks", "dir": "player" },
+      "Captain Squawks sits on a barrelhead in a knitted red sweater and a tiny matching cap. Nobody has mentioned it. Nobody is going to.",
+      "squawks[smug]: Mags made it. It's cashmere.",
+      "mags: It's sheep.",
+      "squawks[smug]: It's CASHMERE.",
+      { "face": "quill", "dir": "player" },
+      "quill: The Ship versus Garrick Guzzlegut. Captain Blackbeard presiding. I have the charges here.",
+      { "insert": "charge_sheet", "caption": "Written up by Quill in his best hand, with footnotes." },
+      { "goto": "charges" }
+    ],
+    "charges": [
+      "quill: Charge the first: ruining the treasure.",
+      "garrick[businesslike]: Objection. 'Ruining' is a strong word. I'd say 'accelerated depreciation'.",
+      "quill: Charge the second: poisoning the air.",
+      "garrick: 'Atmospheric restructuring.'",
+      "quill: Charge the third: damaging the ship.",
+      "garrick[pretend]: 'Infrastructure monetization.'",
+      "captain: How is that monetization?",
+      "garrick: I'm still working on that one.",
+      "quill: Charge the fourth: nearly fumigating Captain Squawks.",
+      "garrick[businesslike]: 'Involuntary maritime restructuring'. Of a parrot.",
+      { "anim": "squawks", "name": "furious", "duration": 900 },
+      { "sfx": "squawk_angry" },
+      "squawks[furious]: GUILTY! GUILTY! I VOTE GUILTY!",
+      "quill: We haven't got to the vote yet, Squawks.",
+      "squawks[furious]: I'm voting EARLY! GUILTY TWICE!",
+      "captain: The accused may speak in his defence. Briefly.",
+      { "goto": "defence" }
+    ],
+    "defence": [
+      "garrick[businesslike]: Thank you, Captain. Members of the jury. Esteemed captain. Bald parrot.",
+      "squawks[outraged]: SQUAWK!",
+      "garrick: Yes, the treasure is ruined. Yes, the ship smells like the inside of a boot.",
+      "garrick[delighted]: But consider the upside! Nobody will EVER steal from you again. Yours is the most secure gold on the seven seas. You can't give it away!",
+      "captain[annoyed]: We TRIED to give it away.",
+      "garrick[smug]: And nobody took it! That's security, Captain.",
+      "garrick: And look at Captain Squawks. He's never looked better.",
+      "squawks[surprised]: ...Go on.",
+      "garrick[smug]: Before, he looked like a feather duster. Now he looks like a plucked chicken in a jumper, which is a real step up for—",
+      { "wait": 400 },
+      { "emote": "squawks", "icon": "anger", "duration": 700 },
+      "squawks[furious]: PLUCKED CHICKEN?!",
+      { "sfx": "squawk_angry" },
+      { "sfx": "wing_flap" },
+      { "fly": "squawks", "to": [9, 21], "alt": 20, "arc": 8, "duration": 380, "land": false },
+      { "anim": "garrick", "name": "panic" },
+      { "burst": "dust", "actor": "garrick", "count": 8 },
+      { "hop": "squawks", "height": 6 },
+      { "sfx": "squawk_angry" },
+      "garrick[terrified]: GET IT OFF! GET IT OFF MY SIDEBURNS!",
+      { "fly": "squawks", "to": [9, 22], "alt": 12, "arc": 6, "duration": 380, "land": true },
+      { "face": "player", "dir": "up" },
+      "You snatch Squawks out of the air mid-lunge and tuck him under your arm, where he continues to kick.",
+      "squawks[furious]: Let me at him! Let me at his SIDEBURNS! I'll restructure HIM!",
+      "captain: Easy. Easy, Squawks. We'll do this properly.",
+      { "anim": "garrick", "name": "nervous" },
+      { "goto": "punish" }
+    ],
+    "punish": [
+      "captain: Punishments. Suggestions.",
+      { "bark": "brask", "text": "Keelhaul him!", "shout": true, "duration": 1400 },
+      { "wait": 500 },
+      "mags[angry]: Make him scrub every plank on this ship. With his own toothbrush.",
+      "jim: Make him eat my cooking. Plain. No pickle.",
+      "sully: Make him supervise HIMSELF.",
+      "wick: Make him wear the sweater!",
+      "squawks[outraged]: NOBODY TOUCHES THE SWEATER.",
+      { "choice": [
+        { "text": "Overboard.", "then": [
+          "captain[angry]: Overboard. Tonight.",
+          "garrick[terrified]: Captain, I can't swim! I can only float, and only in bathtubs!",
+          { "addVar": "captain_mercy", "value": -1 }
+        ] },
+        { "text": "Scrubbing duty. Forever.", "then": [
+          "captain: Scrubbing duty. Every plank. Every day. Until the smell comes out.",
+          "garrick[nervous]: Captain, respectfully... the smell is never coming out."
+        ] },
+        { "text": "Let me think.", "then": [
+          "captain: ...Let me think.",
+          "garrick[relieved]: Take all the time you need, Captain. Weeks. Years.",
+          { "addVar": "captain_mercy", "value": 1 }
+        ] }
+      ] },
+      { "wait": 400 },
+      { "goto": "ship" }
+    ],
+    "ship": [
+      { "sfx": "bell_alarm" },
+      { "bark": "ned", "text": "<r>SHIP APPROACHING!</>", "shout": true, "duration": 2000 },
+      { "emote": "player", "icon": "exclaim" },
+      "ned[alarmed]: SAIL HO! SHIP APPROACHING! OFF THE PORT QUARTER!",
+      { "setFlag": "frigate_sighted" },
+      { "startQuest": "yellow_defense" },
+      { "vista": "frigate_approach", "fade": 500 },
+      { "vistaMove": "frigate", "x": 250, "y": 166, "scale": 0.7, "duration": 2400, "async": true },
+      { "sfx": "bugle_far" },
+      "nell[alarmed]: A frigate, Captain! Royal Navy. Forty guns if she's got one.",
+      "hale[alarmed]: They're running out their guns!",
+      { "say": "crew: PIRATE VESSEL! HEAVE TO AND PREPARE TO BE BOARDED, IN THE NAME OF THE CROWN!", "name": "Navy Captain" },
+      { "vistaEnd": true, "fade": 500 },
+      "captain[alarmed]: We can't outrun a frigate. Not in this wind. Not with a hold full of— of whatever that is now.",
+      "garrick[businesslike]: Captain! Untie me! I have an idea. A business proposal!",
+      "captain[angry]: NOW?!",
+      "garrick: The sail! The spare foresail that was drying over the main hatch during the Gust! It's soaked right through!",
+      "garrick[greedy]: Put us upwind of them and let it go. The wind does the delivery. We just open the package.",
+      { "choice": [
+        { "text": "Do it.", "then": [
+          "captain[determined]: Do it."
+        ] },
+        { "text": "That's insane.", "then": [
+          "captain: That's insane.",
+          "hale: It's insane, Captain. It might also work.",
+          "captain[determined]: ...Do it."
+        ] }
+      ] },
+      { "setFlag": "frigate_plan_agreed" },
+      { "sfx": "sword_draw" },
+      "Rook cuts Garrick's ropes with one swipe.",
+      "captain[determined]: ALL HANDS! Nell, clear the helm, I'm taking her myself! Rook, Brask, the foresail! Guzzlegut, with me!",
+      { "transition": "main_deck", "x": 9, "y": 8, "facing": "up", "then": "ch8.stations", "fade": 500 }
+    ]
+  },
+
+  "ch8.stations": [
+    { "wait": 300 },
+    "nell[happy]: She's yours, Captain! Bring her round and put the wind at our backs!",
+    { "tutorial": "Take the helm (at the stern) to bring the ship upwind of the frigate.", "title": "The Yellow Defense" }
+  ],
+
+  "ch8.take_helm": [
+    { "face": "player", "dir": "up" },
+    "captain[determined]: Hard a-starboard! Bring her ROUND!",
+    { "sfx": "wood_strain" },
+    { "roll": 5, "duration": 1600, "async": true },
+    { "shake": 1, "duration": 1200, "async": true },
+    { "vista": "frigate_approach", "fade": 400 },
+    { "vistaMove": "frigate", "x": 250, "y": 166, "scale": 0.7, "duration": 0 },
+    { "vistaMove": "revenge", "x": 110, "y": 196, "duration": 1800, "async": true },
+    { "sfx": "sail_snap" },
+    "The Revenge heels hard over. Canvas cracks and fills. The wind swings round until it's blowing straight from you... to them.",
+    { "vistaEnd": true, "fade": 400 },
+    { "setFlag": "ship_turned" },
+    "nell[happy]: We're upwind of her, Captain! Wind's at our backs and straight down her throat!",
+    { "say": "garrick: THE SAIL, CAPTAIN! The foremast cleat! Pull the pin!", "name": "Garrick (from the foredeck)" },
+    { "tutorial": "Release the fouled sail at the foremast cleat, on the foredeck.", "title": "The Yellow Defense" }
+  ],
+
+  "ch8.release_sail": {
+    "start": [
+      "captain[smug]: Let's see how the Navy likes the smell of money.",
+      { "sfx": "sail_snap" },
+      { "sfx": "fume_release" },
+      { "hideObject": "prop:fume_sail" },
+      { "burst": "fume", "x": 9, "y": 27, "count": 30 },
+      { "shake": 2, "duration": 500 },
+      { "setFlag": "fume_sail_released" },
+      "The fouled sail tears loose, bellies out like a great yellow ghost, and goes sailing off downwind.",
+      { "vista": "frigate_approach", "fade": 400 },
+      { "vistaMove": "frigate", "x": 250, "y": 166, "scale": 0.7, "duration": 0 },
+      { "vistaMove": "revenge", "x": 110, "y": 196, "duration": 0 },
+      { "vistaMove": "trail", "x": 200, "alpha": 0.95, "duration": 2200 },
+      { "vistaFx": "fume", "x": 240, "y": 130, "count": 16 },
+      { "say": "crew: ...What's that? Is that a SAIL?", "name": "Navy Lookout" },
+      { "say": "crew: WHAT IS THAT SMELL?!", "name": "Navy Lookout" },
+      { "vistaFrame": "frigate", "frame": "frigate_broken" },
+      { "sfx": "retreat_call" },
+      { "vistaFx": "splash", "x": 214, "y": 172, "count": 8 },
+      { "vistaFx": "splash", "x": 280, "y": 176, "count": 8 },
+      { "say": "crew: ABANDON— no— TURN! TURN THE SHIP! TURN IT AWAY FROM THE SMELL!", "name": "Navy Captain" },
+      { "vistaFrame": "frigate", "frame": "frigate_stern" },
+      { "vistaMove": "frigate", "x": 300, "y": 150, "scale": 0.35, "duration": 2400, "async": true },
+      { "vistaMove": "trail", "x": 330, "alpha": 0.5, "duration": 2400 },
+      { "vistaMove": "frigate", "alpha": 0, "duration": 800 },
+      { "setFlag": "frigate_fled" },
+      { "vistaEnd": true, "fade": 500 },
+      { "music": "fume_victory" },
+      { "sfx": "crowd_cheer" },
+      { "bark": "rook", "text": "HUZZAH!", "shout": true, "duration": 1400 },
+      { "bark": "brask", "text": "LOOK AT 'EM RUN!", "shout": true, "duration": 1600 },
+      { "wait": 900 },
+      { "call": "ch8.verdict" }
+    ]
+  },
+
+  "ch8.verdict": {
+    "start": [
+      { "face": "garrick", "dir": "player" },
+      "garrick[smug]: Asset deployment, Captain. Textbook.",
+      "captain: Guzzlegut. Front and centre.",
+      "captain: You ruined my treasure. You gassed my ship. You nearly killed my parrot.",
+      { "bark": "squawks", "text": "NEARLY!", "shout": true, "duration": 1200 },
+      "captain: And you just saw off forty royal guns with a bedsheet.",
+      "garrick[relieved]: A sail, Captain. A premium sail.",
+      { "choice": [
+        { "text": "You stay. On probation.", "then": [
+          "captain: You stay. On probation."
+        ] },
+        { "text": "You're off my ship.", "then": [
+          "captain[angry]: You're off my ship.",
+          "hale: Captain... he did just save it.",
+          "captain[resigned]: ...Probation. Strict probation."
+        ] }
+      ] },
+      { "if": { "var": { "name": "captain_mercy", "gte": 3 } }, "then": [
+        "garrick[relieved]: Captain... thank you. Truly. No one's given me a second chance since the harbourmaster. And he gave it to me off the end of a dock."
+      ] },
+      "quill: I took the liberty of drafting the terms, Captain.",
+      { "insert": "probation_rules", "caption": "Drafted by Quill. Signed by both parties. Witnessed by one furious parrot." },
+      "captain: One. No more fermented eel paste. Ever.",
+      "jim: Hear, hear!",
+      "captain: Two. No entering the treasure room after meals.",
+      "garrick: Define 'meal'.",
+      "captain[angry]: ANYTHING you put in your MOUTH.",
+      "captain: Three. Any unusual stomach noise, and you get in the rowboat and you row half a mile off. Downwind. Until it passes.",
+      "garrick[businesslike]: Half a mile. Downwind. Understood. I accept these terms, and may I say this is the beginning of a long and fruitful partnership—",
+      { "setFlag": ["garrick_on_probation", "rowboat_protocol"] },
+      { "wait": 500 },
+      { "goto": "rowboat" }
+    ],
+    "rowboat": [
+      { "sfx": "rumble_low" },
+      { "shake": 1, "duration": 700 },
+      { "wait": 900 },
+      "Silence. The whole crew turns, very slowly, to look at Garrick.",
+      { "anim": "garrick", "name": "clutch" },
+      "garrick[nervous]: ...That one was the ship.",
+      { "sfx": "gurgle" },
+      { "wait": 400 },
+      { "sfx": "sting_rowboat" },
+      { "bark": "brask", "text": "ROWBOAT!", "shout": true, "duration": 1400 },
+      { "bark": "rook", "text": "ROWBOAT!", "shout": true, "duration": 1400 },
+      { "bark": "mags", "text": "ROWBOAT!!", "shout": true, "duration": 1400 },
+      { "say": "crew: ROWBOAT!", "name": "Everyone" },
+      { "anim": "garrick", "name": "panic" },
+      { "move": "garrick", "to": [6, 25], "speed": "run" },
+      { "hideObject": "prop:rowboat" },
+      { "sprite": "boat", "frame": "rowboat_top_0", "x": 5, "y": 25.2, "depth": 30000 },
+      { "fly": "garrick", "to": [5, 24], "arc": 8, "duration": 360, "land": false },
+      { "despawn": "garrick" },
+      { "spriteFrame": "boat", "frame": "rowboat_top_1" },
+      { "sfx": "rope_haul" },
+      { "moveSprite": "boat", "x": 1.2, "y": 26, "duration": 900, "ease": "Sine.In" },
+      { "sfx": "splash_big" },
+      { "sprite": "boat", "frame": "rowboat_top_0", "anim": "stage:rowboat_row", "x": 1.2, "y": 26, "below": true },
+      { "moveSprite": "boat", "x": 1.0, "y": 36, "duration": 3800, "async": true },
+      { "bark": "none", "text": "HALF A MILE! I KNOW! I KNOW!", "x": 1, "y": 27, "shout": true, "duration": 2400 },
+      { "wait": 1600 },
+      "squawks[smug]: ...I'm starting to like the rules on this ship.",
+      { "wait": 1400 },
+      { "removeSprite": "boat" }
+    ]
+  },
+
+  "ch8.epilogue": [
+    { "fade": "out", "duration": 800 },
+    { "music": "epilogue", "fade": 1200 },
+    { "vista": "ep_trail", "fade": 600 },
+    { "vistaMove": "revenge", "x": 360, "duration": 9000, "async": true },
+    { "vistaMove": "trail", "x": 220, "duration": 9000, "async": true },
+    { "vistaMove": "gull_a", "x": 330, "y": 20, "duration": 2600, "async": true },
+    { "vistaMove": "gull_b", "x": 350, "y": 150, "duration": 3000, "async": true },
+    { "narrate": "And so the Queen Anne's Revenge sailed on across the Sapphire Sea..." },
+    { "narrate": "...leaving a faint yellow trail on the evening air behind her." },
+    { "close": true },
+    { "wait": 800 },
+    { "vista": "ep_ships", "fade": 600 },
+    { "vistaMove": "sloop", "x": 240, "duration": 2600 },
+    { "vistaMove": "sloop", "flip": false, "duration": 0 },
+    { "vistaMove": "sloop", "x": 400, "duration": 1800, "async": true },
+    { "vistaShow": "fish_a" },
+    { "vistaShow": "fish_b" },
+    { "vistaMove": "fish_a", "x": 260, "y": 200, "duration": 1000, "async": true },
+    { "vistaMove": "fish_b", "x": 290, "y": 206, "duration": 1100, "async": true },
+    { "vistaMove": "gull_a", "x": 280, "y": 30, "duration": 1600, "async": true },
+    { "narrate": "Merchant ships gave her a wide berth. So did the gulls. So did the fish." },
+    { "close": true },
+    { "wait": 600 },
+    { "vista": "ep_rowboat", "fade": 600 },
+    { "wait": 1200 },
+    { "vistaFrame": "rowboat", "frame": "rowboat_happy" },
+    { "narrate": "And half a mile downwind, a small rowboat bobbed along behind her, its passenger in excellent spirits." },
+    { "close": true },
+    { "wait": 600 },
+    { "vista": "ep_cloud", "fade": 600 },
+    { "wait": 900 },
+    { "sfx": "fume_release", "volume": 0.5 },
+    { "vistaShow": "cloud" },
+    { "vistaMove": "cloud", "y": 130, "duration": 1600, "async": true },
+    { "wait": 500 },
+    { "vistaFrame": "cloud", "frame": "cloud_rise_1" },
+    { "wait": 600 },
+    { "vistaFrame": "cloud", "frame": "cloud_rise_2" },
+    { "narrate": "Every so often, far out on the water, a small yellow cloud rose gently into the sunset." },
+    { "sfx": "squawk" },
+    { "setFlag": "squawks_deadly_brew" },
+    "squawks[furious]: DEADLY BREW! DEADLY BREEEW! EVERYBODY UPWIND!",
+    { "vistaEnd": true, "fade": 900 },
+    { "setFlag": "phase2_complete" },
+    { "banner": "END OF STORY PHASE 2", "sub": "Garrick Guzzlegut and the Cursed Treasure" },
+    { "transition": "main_deck", "spawn": "cabin_door", "then": "ch8.coda", "fade": 0 }
+  ],
+
+  "ch8.coda": [
+    { "wait": 600 },
+    "The next morning. The treasure is still ruined. The ship still smells. Garrick is back aboard, and on his best behaviour.",
+    "Mostly.",
+    { "tutorial": "Story Phase 2 is complete. The ship is yours to explore; the crew have plenty to say about the last day. The story continues in the next chapter.", "title": "To Be Continued" },
+    { "save": "auto" }
+  ]
+}

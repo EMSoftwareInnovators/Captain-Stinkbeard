@@ -36,7 +36,23 @@ const FOLDER_RULES = [
   { prefix: 'audio/ambience', kind: 'ambience', shape: 'map' },
   { prefix: 'battle/timing', kind: 'timing', shape: 'map' },
   { prefix: 'battle/backdrops', kind: 'backdrops', shape: 'list' },
+  { prefix: 'story/vistas/', kind: 'vistas', shape: 'map' },
+  { prefix: 'story/triggers/', kind: 'storyTriggers', shape: 'list' },
+  { prefix: 'hazards/', kind: 'hazards', shape: 'map' },
+  { prefix: 'debug/', kind: 'debugPresets', shape: 'list' },
 ];
+
+/**
+ * Chapters extend earlier content without editing it:
+ *   - a map file with "patch": "<mapId>" adds objects (checked before the
+ *     base map's, so a conditional placement can override an older one),
+ *     props, onEnter scripts, regions, ambient life, fume zones, lights and
+ *     music/lighting variants to that map;
+ *   - an NPC or character record with "extend": "<id>" puts its dialogue
+ *     selectors ahead of the original ones and adds look variants.
+ */
+const MAP_PATCH_PREPEND = ['objects', 'musicVariants', 'lightingVariants', 'haze'];
+const MAP_PATCH_APPEND = ['props', 'onEnter', 'regions', 'ambient', 'fumes', 'collision'];
 
 const SINGLE_FILES = {
   'game.json': 'game',
@@ -46,7 +62,8 @@ const SINGLE_FILES = {
 export const REGISTRY_KINDS = [
   'characters', 'extraSpeakers', 'npcs', 'enemies', 'abilities', 'statuses', 'items', 'shops', 'quests',
   'encounters', 'props', 'appearances', 'portraits', 'scripts', 'flags', 'maps', 'tilesets', 'music',
-  'sfx', 'instruments', 'ambience', 'timing', 'backdrops',
+  'sfx', 'instruments', 'ambience', 'timing', 'backdrops', 'vistas', 'storyTriggers', 'hazards', 'debugPresets',
+  'mapPatches',
 ];
 
 function relativePath(path) {
@@ -60,11 +77,13 @@ export class ContentDB {
     this.game = null;
     this.leveling = null;
     this.loadErrors = [];
+    this.extensions = []; // { kind: 'npcs'|'characters', rec, source }
     this.files = Object.keys(files).map(relativePath).sort();
 
     for (const [path, json] of Object.entries(files).sort(([a], [b]) => a.localeCompare(b))) {
       this.ingest(relativePath(path), json);
     }
+    this.applyExtensions();
 
     for (const kind of REGISTRY_KINDS) this.loadErrors.push(...this[kind].duplicates);
     if (!this.game) this.loadErrors.push('data/game.json is missing');
@@ -85,7 +104,7 @@ export class ContentDB {
       this.loadErrors.push(`data/${rel}: file is not in a recognised content folder`);
       return;
     }
-    const registry = this[rule.kind];
+    let registry = this[rule.kind];
     const source = `data/${rel}`;
     switch (rule.shape) {
       case 'list': {
@@ -93,7 +112,11 @@ export class ContentDB {
           this.loadErrors.push(`${source}: expected a JSON array of records`);
           return;
         }
-        json.forEach((rec, i) => registry.add(rec?.id, rec, `${source}[${i}]`));
+        json.forEach((rec, i) => {
+          if (rec && typeof rec.extend === 'string' && (rule.kind === 'npcs' || rule.kind === 'characters')) {
+            this.extensions.push({ kind: rule.kind, rec, source: `${source}[${i}]` });
+          } else registry.add(rec?.id, rec, `${source}[${i}]`);
+        });
         break;
       }
       case 'map': {
@@ -108,6 +131,7 @@ export class ContentDB {
         break;
       }
       case 'single': {
+        if (rule.kind === 'maps' && json && typeof json.patch === 'string') registry = this.mapPatches;
         registry.add(json?.id, json, source);
         break;
       }
@@ -127,6 +151,46 @@ export class ContentDB {
     }
   }
 
+  /** Merges map patches and NPC/character extensions into their base records. */
+  applyExtensions() {
+    for (const ext of this.extensions) {
+      const registry = this[ext.kind];
+      const base = registry.get(ext.rec.extend);
+      if (!base) {
+        this.loadErrors.push(`${ext.source}: "extend" names unknown ${ext.kind === 'npcs' ? 'NPC' : 'character'} "${ext.rec.extend}"`);
+        continue;
+      }
+      const merged = { ...base };
+      if (ext.rec.dialogue) merged.dialogue = [...ext.rec.dialogue, ...(base.dialogue ?? [])];
+      if (ext.rec.variants) merged.variants = [...ext.rec.variants, ...(base.variants ?? [])];
+      for (const key of Object.keys(ext.rec)) {
+        if (!['extend', 'dialogue', 'variants'].includes(key) && !key.startsWith('//')) {
+          this.loadErrors.push(`${ext.source}: an extension may only add "dialogue" and "variants" (found "${key}")`);
+        }
+      }
+      registry.map.set(base.id, merged);
+      (this.extendedBy ??= new Map()).set(base.id, [...(this.extendedBy.get(base.id) ?? []), ext.source]);
+    }
+    for (const patch of this.mapPatches.list()) {
+      const source = this.mapPatches.sourceOf(patch.id);
+      const base = this.maps.get(patch.patch);
+      if (!base) {
+        this.loadErrors.push(`${source}: "patch" names unknown map "${patch.patch}"`);
+        continue;
+      }
+      const merged = { ...base };
+      for (const key of MAP_PATCH_PREPEND) if (patch[key]) merged[key] = [...patch[key], ...(base[key] ?? [])];
+      for (const key of MAP_PATCH_APPEND) if (patch[key]) merged[key] = [...(base[key] ?? []), ...patch[key]];
+      if (patch.lights) merged.lighting = { ...(base.lighting ?? {}), lights: [...(base.lighting?.lights ?? []), ...patch.lights] };
+      for (const key of ['fumeCollapse', 'fumeSafeSpawn']) if (patch[key]) merged[key] = patch[key];
+      const allowed = new Set(['id', 'patch', 'lights', 'fumeCollapse', 'fumeSafeSpawn', ...MAP_PATCH_PREPEND, ...MAP_PATCH_APPEND]);
+      for (const key of Object.keys(patch)) {
+        if (!allowed.has(key) && !key.startsWith('//')) this.loadErrors.push(`${source}: a map patch cannot change "${key}"`);
+      }
+      this.maps.map.set(base.id, merged);
+    }
+  }
+
   /**
    * Speakers = party characters + NPCs + extra speakers, plus aliases
    * (e.g. "captain" → "blackbeard"). Each has { id, name, portrait, voice }.
@@ -142,7 +206,7 @@ export class ContentDB {
       this.speakers.set(id, rec);
     };
     const addFrom = (def, source) => {
-      const rec = { id: def.id, name: def.name, portrait: def.portrait ?? null, voice: def.voice ?? null };
+      const rec = { id: def.id, name: def.name, portrait: def.portrait ?? null, voice: def.voice ?? null, variants: def.variants ?? null };
       add(def.id, rec, source);
       for (const alias of def.aliases ?? []) add(alias, rec, source);
     };

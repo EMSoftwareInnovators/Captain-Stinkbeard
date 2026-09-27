@@ -75,6 +75,10 @@ export function compileMap(def, tileset, props = null) {
   const solid = new Uint8Array(width * height);
   for (let i = 0; i < solid.length; i++) solid[i] = ground.solid[i] | overhead.solid[i];
 
+  // Things that are only solid while a condition holds (a prop, block or
+  // chest with "if"): the world scene re-evaluates these as the story moves.
+  const dynamicSolids = [];
+
   // Props: "id x y [flip]" shorthand or objects.
   const propList = (def.props || []).map((p, i) => {
     const rec = typeof p === 'string' ? parsePropString(p, where) : { ...p };
@@ -83,11 +87,14 @@ export function compileMap(def, tileset, props = null) {
       const pdef = props.get(rec.prop);
       if (!pdef) throw new ContentError(`${where}: unknown prop "${rec.prop}" (props[${i}])`);
       const [fw, fh] = pdef.footprint || [1, 1];
-      if (pdef.solid !== false && (pdef.layer ?? 'object') === 'object') {
-        for (let j = 0; j < fh; j++) for (let k = 0; k < fw; k++) {
-          const tx = rec.x + k;
-          const ty = rec.y + j;
-          if (tx >= 0 && ty >= 0 && tx < width && ty < height) solid[ty * width + tx] = 1;
+      if (pdef.solid !== false && rec.solid !== false && (pdef.layer ?? 'object') === 'object') {
+        if (rec.if) dynamicSolids.push({ x: rec.x, y: rec.y, w: fw, h: fh, if: rec.if, source: `prop ${rec.uid}` });
+        else {
+          for (let j = 0; j < fh; j++) for (let k = 0; k < fw; k++) {
+            const tx = rec.x + k;
+            const ty = rec.y + j;
+            if (tx >= 0 && ty >= 0 && tx < width && ty < height) solid[ty * width + tx] = 1;
+          }
         }
       }
     }
@@ -99,7 +106,8 @@ export function compileMap(def, tileset, props = null) {
   for (const o of objects) {
     if (o.type === 'spawn') spawns[o.id] = { x: o.x, y: o.y, facing: o.facing || 'down' };
     if ((o.type === 'chest' || o.type === 'block') && o.solid !== false) {
-      for (let j = 0; j < (o.h || 1); j++) for (let k = 0; k < (o.w || 1); k++) solid[(o.y + j) * width + o.x + k] = 1;
+      if (o.if) dynamicSolids.push({ x: o.x, y: o.y, w: o.w || 1, h: o.h || 1, if: o.if, source: `object ${o.id}` });
+      else for (let j = 0; j < (o.h || 1); j++) for (let k = 0; k < (o.w || 1); k++) solid[(o.y + j) * width + o.x + k] = 1;
     }
   }
   for (const c of def.collision || []) {
@@ -123,6 +131,7 @@ export function compileMap(def, tileset, props = null) {
     props: propList,
     objects,
     spawns,
+    dynamicSolids,
     meta: {
       music: def.music ?? null,
       musicFilter: def.musicFilter ?? null,
@@ -133,6 +142,17 @@ export function compileMap(def, tileset, props = null) {
       onEnter: def.onEnter ?? [],
       regions: def.regions ?? [],
       chapter: def.chapter ?? null,
+      // Story-dependent overrides, first matching entry wins:
+      //   musicVariants    [{ if, music?, ambience?, musicFilter? }]
+      //   lightingVariants [{ if, ambient }]  (replaces the ambient colour)
+      musicVariants: def.musicVariants ?? [],
+      lightingVariants: def.lightingVariants ?? [],
+      // Environmental hazards (see systems/hazards/fumes.js).
+      fumes: def.fumes ?? [],
+      haze: def.haze ?? [],
+      fumeCollapse: def.fumeCollapse ?? null,
+      fumeSafeSpawn: def.fumeSafeSpawn ?? null,
+      outdoor: (def.background ?? 'void') === 'ocean',
     },
   };
 }

@@ -2,6 +2,7 @@ import { addTexture, addGridTexture, addBitmapFont, addAnimations } from './text
 import {
   fontSheet, uiSheet, fxSheet, oceanSheet, tileSheet, propAtlas, characterSheet, battlerSheet,
   enemySheet, ENEMY_IDS, portraitAtlas, BACKDROP_IDS, backdropImage, titleImages, FX_ONESHOT,
+  fumeVignette, stageSheet, vistaSheet, insertSheet,
 } from '../art/sheets.js';
 
 /**
@@ -25,6 +26,7 @@ export function assetSteps(scene, app) {
       addAnimations(scene, 'fx', fx.anims, fx.rates);
       for (const k of FX_ONESHOT) scene.anims.get(`fx:${k}`).repeat = 0;
       addGridTexture(scene, 'ocean', oceanSheet());
+      addTexture(scene, 'fume_vignette', { canvas: fumeVignette() });
     }],
     ['tiles', () => {
       for (const ts of content.tilesets.list()) addGridTexture(scene, `tiles_${ts.id}`, tileSheet(ts));
@@ -65,6 +67,13 @@ export function assetSteps(scene, app) {
       addGridTexture(scene, 'title_sea', title.title_sea);
       addTexture(scene, 'title_ship', title.title_ship);
       addTexture(scene, 'logo', title.logo);
+    }],
+    ['story', () => {
+      const stage = stageSheet();
+      addTexture(scene, 'stage', stage);
+      addAnimations(scene, 'stage', stage.anims, stage.rates);
+      addTexture(scene, 'vista', vistaSheet());
+      addTexture(scene, 'inserts', insertSheet());
     }],
   ];
 }

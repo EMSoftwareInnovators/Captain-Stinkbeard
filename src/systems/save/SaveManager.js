@@ -1,6 +1,7 @@
 import { AUTOSAVE_SLOT, MANUAL_SAVE_SLOTS, SAVE_VERSION, STORAGE_PREFIX } from '../../config/constants.js';
 import { checksum } from '../../core/util.js';
 import { MIGRATIONS, migrateState } from './migrations.js';
+import { currentChapter } from '../story/progress.js';
 
 export const SAVE_FORMAT = 'captain-stinkbeard-save';
 
@@ -50,7 +51,7 @@ export class SaveManager {
         leader: leader?.name ?? '?',
         level: leader?.level ?? 1,
         gold: state.inventory.gold,
-        chapter: this.content?.game?.chapterName ?? '',
+        chapter: currentChapter(this.content?.game, session).name ?? '',
         ...extraSummary,
       },
       state,

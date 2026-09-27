@@ -1,6 +1,7 @@
 import { PixelCanvas } from '../PixelCanvas.js';
 import { PAL } from '../palette.js';
 import { ShelfAtlas } from '../atlas.js';
+import { addFumeEffects } from './fumeArt.js';
 
 /** Small animated effects: slashes, impacts, sparkles, smoke, shadows, gulls. */
 function slash(frame) {
@@ -155,6 +156,8 @@ export function buildEffectsAtlas() {
   atlas.add('shadow_s', shadow(14, 5));
   atlas.add('shadow_m', shadow(20, 6));
   atlas.add('shadow_l', shadow(28, 8));
+  atlas.add('shadow_xs', shadow(10, 4));
+  addFumeEffects(atlas);
   return atlas.build();
 }
 

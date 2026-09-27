@@ -8,6 +8,7 @@ import { asArray } from '../../core/util.js';
  *
  *   talk     'npc:talked'        { npc }            target = npc id
  *   inspect  'object:inspected'  { id, tags }       target = "map:object" or tag
+ *                                ("distinct": true counts each object once)
  *   visit    'map:entered'       { map }            target = map id
  *            'region:entered'    { region }         target = region id
  *   defeat   'battle:won'        { encounter, tags, enemies }
@@ -41,7 +42,7 @@ export class QuestSystem {
     const on = (event, fn) => this.unsubscribers.push(bus.on(event, fn, this));
     on('npc:talked', (e) => this.onEvent('talk', (o) => o.target === e.npc));
     on('object:inspected', (e) =>
-      this.onEvent('inspect', (o) => o.target === e.id || (o.tag && asArray(e.tags).includes(o.tag))),
+      this.onEvent('inspect', (o) => o.target === e.id || (o.tag && asArray(e.tags).includes(o.tag)), e.id),
     );
     on('map:entered', (e) => this.onEvent('visit', (o) => o.target === e.map));
     on('region:entered', (e) => this.onEvent('visit', (o) => o.target === e.region));
@@ -200,9 +201,21 @@ export class QuestSystem {
     return out;
   }
 
-  onEvent(type, matches) {
+  /**
+   * `key` identifies what the event was about (the inspected object): an
+   * objective with "distinct": true counts each key only once, so looking at
+   * the same ruined crown five times still counts as one.
+   */
+  onEvent(type, matches, key = null) {
     for (const [quest, obj] of this.availableObjectives((o) => o.type === type && matches(o))) {
-      if (this.isObjectiveAvailable(quest.id, obj.id)) this.advanceObjective(quest.id, obj.id, 1);
+      if (!this.isObjectiveAvailable(quest.id, obj.id)) continue;
+      if (obj.distinct && key) {
+        const st = this.state.get(quest.id).objectives[obj.id];
+        st.seen ??= [];
+        if (st.seen.includes(key)) continue;
+        st.seen.push(key);
+      }
+      this.advanceObjective(quest.id, obj.id, 1);
     }
   }
 
@@ -292,6 +305,7 @@ export class QuestSystem {
       for (const o of def.objectives) {
         const saved = entry.objectives?.[o.id];
         objectives[o.id] = { progress: saved?.progress ?? 0, done: saved?.done === true };
+        if (Array.isArray(saved?.seen)) objectives[o.id].seen = saved.seen.filter((k) => typeof k === 'string');
       }
       const status = entry.status === 'completed' ? 'completed' : 'active';
       this.state.set(id, { status, objectives });

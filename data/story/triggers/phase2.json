@@ -1,0 +1,76 @@
+[
+  {
+    "id": "p2_hook",
+    "//": "The prologue is done: point the captain at his bed.",
+    "if": { "all": [{ "flag": "tutorial_complete" }, { "questNotStarted": "tomorrows_heading" }] },
+    "script": "ch1.hook",
+    "once": false
+  },
+  {
+    "id": "ch1_lookout",
+    "//": "Ned spots the bathtub once the captain has been about the deck a while (or walked forward).",
+    "if": { "all": [
+      { "onMap": "main_deck" },
+      { "flag": "ch1_morning_started" },
+      { "notFlag": "bathtub_spotted" },
+      { "any": [{ "flag": "ch1_foredeck_reached" }, { "var": { "name": "morning_beats", "gte": 3 } }] }
+    ] },
+    "script": "ch1.lookout",
+    "once": false
+  },
+  {
+    "id": "ch2_begin",
+    "if": { "all": [{ "questCompleted": "strange_cargo" }, { "questNotStarted": "new_recruit" }] },
+    "script": "ch2.begin",
+    "once": false
+  },
+  {
+    "id": "ch3_begin",
+    "if": { "all": [{ "questCompleted": "new_recruit" }, { "questNotStarted": "treasure_inspection" }] },
+    "script": "ch3.begin",
+    "once": false
+  },
+  {
+    "id": "ch5_begin",
+    "if": { "all": [{ "questCompleted": "treasure_inspection" }, { "questNotStarted": "yellow_alert" }] },
+    "script": "ch5.begin",
+    "once": false
+  },
+  {
+    "id": "ch6_begin",
+    "if": { "all": [{ "questCompleted": "yellow_alert" }, { "questNotStarted": "save_squawks" }] },
+    "script": "ch6.begin",
+    "once": false
+  },
+  {
+    "id": "ch7_begin",
+    "if": { "all": [{ "questCompleted": "save_squawks" }, { "questNotStarted": "price_of_gold" }] },
+    "script": "ch7.begin",
+    "once": false
+  },
+  {
+    "id": "ch7_worth",
+    "if": { "all": [{ "onMap": "treasure_hold" }, { "objectiveDone": "price_of_gold.inspect" }, { "notFlag": "merchant_test_started" }] },
+    "script": "ch7.worth",
+    "once": false
+  },
+  {
+    "id": "ch8_begin",
+    "if": { "all": [{ "questCompleted": "price_of_gold" }, { "notFlag": "trial_started" }] },
+    "script": "ch8.begin",
+    "once": false
+  },
+  {
+    "id": "ch8_trial",
+    "//": "Runs on arrival for the trial, and again after a reload if the trial was interrupted.",
+    "if": { "all": [{ "onMap": "main_deck" }, { "flag": "trial_started" }, { "questNotStarted": "yellow_defense" }] },
+    "script": "ch8.trial",
+    "once": false
+  },
+  {
+    "id": "p2_epilogue",
+    "if": { "all": [{ "questCompleted": "yellow_defense" }, { "notFlag": "phase2_complete" }] },
+    "script": "ch8.epilogue",
+    "once": false
+  }
+]

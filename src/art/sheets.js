@@ -2,12 +2,17 @@ import { buildFonts } from './font/buildFont.js';
 import { buildUiAtlas } from './ui/uiSprites.js';
 import { buildItemIcons } from './ui/itemIcons.js';
 import { buildEffectsAtlas, paintOcean } from './effects/effects.js';
+import { paintFumeVignette } from './effects/fumeArt.js';
+import { buildStageAtlas } from './stage/stageArt.js';
+import { buildVistaAtlas } from './vista/vistaArt.js';
+import { buildInsertAtlas } from './inserts/insertArt.js';
 import { paintTile } from './tiles/shipTiles.js';
 import { GridSheet, ShelfAtlas } from './atlas.js';
 import { PROP_PAINTERS, paintProp } from './props/index.js';
 import { buildCharacterSheet, buildBattleSheet } from './characters/buildSheets.js';
 import { ENEMY_PAINTERS, ENEMY_BATTLE_FRAMES } from './enemies/enemyPainters.js';
 import { paintPortrait } from './portraits/portraitPainter.js';
+import { paintParrotPortrait } from './characters/parrotPainter.js';
 import { paintBackdrop, BACKDROP_PAINTERS } from './backdrops/backdrops.js';
 import { paintTitleSky, paintTitleSea, paintTitleShip, paintLogo } from './title/titleArt.js';
 import { FIELD_DIRS } from './characters/characterPainter.js';
@@ -43,6 +48,10 @@ export function fxSheet() {
   return { ...buildEffectsAtlas(), anims: FX_ANIMS, rates: FX_RATES };
 }
 
+export function fumeVignette() {
+  return paintFumeVignette();
+}
+
 export function oceanSheet() {
   return { canvas: paintOcean(4), frameWidth: 64, frameHeight: 64 };
 }
@@ -76,7 +85,8 @@ export function propAtlas() {
 export const CHAR_RATES = { idle: 1.6, walk: 8, work: 3.5, sit: 0, point: 0, surprised: 0 };
 
 export function characterSheet(appearance) {
-  return { ...buildCharacterSheet(appearance), rates: CHAR_RATES };
+  const sheet = buildCharacterSheet(appearance);
+  return { ...sheet, rates: { ...CHAR_RATES, ...(sheet.rates ?? {}) } };
 }
 
 export function battlerSheet(appearance) {
@@ -109,6 +119,10 @@ export function enemySheet(id) {
 export function portraitAtlas(content) {
   const atlas = new ShelfAtlas(1024, 1);
   for (const p of content.portraits.list()) {
+    if (p.painter === 'parrot') {
+      for (const expr of p.expressions) atlas.add(`${p.id}_${expr}`, paintParrotPortrait(p, expr));
+      continue;
+    }
     const appearance = content.appearances.get(p.appearance ?? p.id);
     for (const expr of p.expressions) atlas.add(`${p.id}_${expr}`, paintPortrait(appearance, p, expr));
   }
@@ -128,4 +142,19 @@ export function titleImages() {
     title_ship: { canvas: paintTitleShip() },
     logo: { canvas: paintLogo() },
   };
+}
+
+/** Free-moving stage sprites (bathtub, frigate, rowboat, meal, loot). */
+export function stageSheet() {
+  return buildStageAtlas();
+}
+
+/** Side-view vista art (skies, seas, ships, close-ups, masks). */
+export function vistaSheet() {
+  return buildVistaAtlas();
+}
+
+/** Framed close-ups with lettering. */
+export function insertSheet() {
+  return buildInsertAtlas();
 }

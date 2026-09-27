@@ -1,6 +1,6 @@
 import { addPanel } from '../Panel.js';
 import { addText, setText, centerText, UI_COLORS } from '../text.js';
-import { TEXT_SPEEDS } from '../../systems/settings/Settings.js';
+import { TEXT_SPEEDS, SHAKE_LEVELS, EFFECT_LEVELS } from '../../systems/settings/Settings.js';
 import { DisplayScaler } from '../../platform/display.js';
 
 const ROWS = [
@@ -11,7 +11,8 @@ const ROWS = [
   { key: 'textSpeed', label: 'Text speed', type: 'choice', values: TEXT_SPEEDS, names: { slow: 'Slow', normal: 'Normal', fast: 'Fast', instant: 'Instant' } },
   { key: 'textSound', label: 'Text sounds', type: 'toggle' },
   { key: 'alwaysRun', label: 'Always run', type: 'toggle' },
-  { key: 'screenShake', label: 'Screen shake', type: 'toggle' },
+  { key: 'screenShake', label: 'Screen shake', type: 'choice', values: SHAKE_LEVELS, names: { full: 'Full', reduced: 'Reduced', off: 'Off' } },
+  { key: 'effects', label: 'Visual effects', type: 'choice', values: EFFECT_LEVELS, names: { full: 'Full', reduced: 'Reduced' } },
   { key: 'scaleMode', label: 'Scaling', type: 'choice', values: ['integer', 'fit'], names: { integer: 'Pixel-perfect', fit: 'Fill screen' } },
   { key: 'fullscreen', label: 'Fullscreen', type: 'toggle' },
 ];
@@ -29,15 +30,16 @@ export class OptionsPanel {
     this.depth = depth;
     this.index = 0;
     const x = 40;
-    const y = 22;
     const w = 240;
-    const h = 24 + ROWS.length * 15 + 22;
+    const rowH = 14;
+    const h = 24 + ROWS.length * rowH + 20;
+    const y = Math.max(4, Math.round((224 - h) / 2));
     this.parts = [addPanel(scene, x, y, w, h, { depth })];
     const title = addText(scene, 0, y + 8, 'OPTIONS', { font: 'bold', color: UI_COLORS.heading, depth: depth + 1 });
     centerText(title, x + w / 2);
     this.parts.push(title);
     this.rows = ROWS.map((row, i) => {
-      const ry = y + 26 + i * 15;
+      const ry = y + 26 + i * rowH;
       const label = addText(scene, x + 22, ry, row.label, { depth: depth + 1 });
       const value = addText(scene, x + 130, ry, '', { depth: depth + 1 });
       this.parts.push(label, value);

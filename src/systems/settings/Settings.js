@@ -4,6 +4,11 @@ export const TEXT_SPEEDS = ['slow', 'normal', 'fast', 'instant'];
 /** Milliseconds per character for the typewriter at each speed. */
 export const TEXT_SPEED_MS = { slow: 45, normal: 26, fast: 12, instant: 0 };
 export const SCALE_MODES = ['integer', 'fit'];
+export const SHAKE_LEVELS = ['full', 'reduced', 'off'];
+export const EFFECT_LEVELS = ['full', 'reduced'];
+
+/** Multiplier applied to every screen shake for each setting. */
+export const SHAKE_SCALE = { full: 1, reduced: 0.35, off: 0 };
 
 export const DEFAULT_SETTINGS = Object.freeze({
   masterVolume: 0.8,
@@ -12,7 +17,8 @@ export const DEFAULT_SETTINGS = Object.freeze({
   sfxVolume: 0.8,
   textSpeed: 'normal',
   textSound: true,
-  screenShake: true,
+  screenShake: 'full',
+  effects: 'full',
   scaleMode: 'integer',
   fullscreen: false,
   alwaysRun: false,
@@ -25,7 +31,8 @@ const VALIDATORS = {
   sfxVolume: (v) => typeof v === 'number' && v >= 0 && v <= 1,
   textSpeed: (v) => TEXT_SPEEDS.includes(v),
   textSound: (v) => typeof v === 'boolean',
-  screenShake: (v) => typeof v === 'boolean',
+  screenShake: (v) => SHAKE_LEVELS.includes(v),
+  effects: (v) => EFFECT_LEVELS.includes(v),
   scaleMode: (v) => SCALE_MODES.includes(v),
   fullscreen: (v) => typeof v === 'boolean',
   alwaysRun: (v) => typeof v === 'boolean',
@@ -49,6 +56,8 @@ export class Settings {
       const raw = this.storage.getItem(this.key);
       if (!raw) return;
       const parsed = JSON.parse(raw);
+      // Older versions stored screen shake as on/off.
+      if (typeof parsed.screenShake === 'boolean') parsed.screenShake = parsed.screenShake ? 'full' : 'off';
       for (const [k, v] of Object.entries(parsed)) {
         if (VALIDATORS[k]?.(v)) this.values[k] = v;
       }
@@ -76,6 +85,16 @@ export class Settings {
     this.values[key] = value;
     this.persist();
     this.bus?.emit('settings:changed', { key, value });
+  }
+
+  /** Scale for screen shakes (0 when shaking is off). */
+  shakeScale() {
+    return SHAKE_SCALE[this.values.screenShake] ?? 1;
+  }
+
+  /** True when the player asked for calmer visuals (fewer particles, softer flashes). */
+  reducedEffects() {
+    return this.values.effects === 'reduced';
   }
 
   all() {

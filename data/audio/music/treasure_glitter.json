@@ -1,0 +1,45 @@
+{
+ "id": "treasure_glitter",
+ "title": "The Hoard",
+ "bpm": 80,
+ "stepsPerBeat": 4,
+ "reverb": 0.32,
+ "channels": {
+  "bell": {
+   "instrument": "bell",
+   "volume": 0.2,
+   "pan": 0.2
+  },
+  "harp": {
+   "instrument": "pluck",
+   "volume": 0.25,
+   "pan": -0.2
+  },
+  "pad": {
+   "instrument": "pad",
+   "volume": 0.13
+  },
+  "bass": {
+   "instrument": "tri_bass",
+   "volume": 0.28
+  }
+ },
+ "patterns": {
+  "G": {
+   "bell": "F#5:6 A5:2 D6:8 | E6:6 D6:2 B5:8 | D6:4 C#6:4 B5:4 F#5:4 | A5:12 r:4",
+   "harp": "D4:2 A4:2 D5:2 F#5:2 A5:2 F#5:2 D5:2 A4:2 | D4:2 B4:2 E5:2 G#5:2 B5:2 G#5:2 E5:2 B4:2 | B3:2 F#4:2 B4:2 D5:2 F#5:2 D5:2 B4:2 F#4:2 | A3:2 E4:2 A4:2 C#5:2 E5:2 D5:2 C#5:2 A4:2",
+   "pad": "[D4 F#4 A4]:16 | [D4 E4 G#4 B4]:16 | [B3 D4 F#4]:16 | [A3 C#4 E4]:16",
+   "bass": "D2:16 | D2:16 | B1:16 | A1:16"
+  },
+  "G2": {
+   "bell": "A5:6 F#5:2 D5:8 | G#5:6 B5:2 E6:8 | F#6:4 D6:4 B5:4 D6:4 | C#6:8 E6:8",
+   "harp": "D4:2 A4:2 D5:2 F#5:2 A5:2 F#5:2 D5:2 A4:2 | D4:2 B4:2 E5:2 G#5:2 B5:2 G#5:2 E5:2 B4:2 | B3:2 F#4:2 B4:2 D5:2 F#5:2 D5:2 B4:2 F#4:2 | A3:2 E4:2 A4:2 C#5:2 E5:2 A5:2 E5:2 C#5:2",
+   "pad": "[D4 F#4 A4]:16 | [D4 E4 G#4 B4]:16 | [B3 D4 F#4]:16 | [A3 C#4 E4]:16",
+   "bass": "D2:16 | D2:16 | B1:16 | A1:16"
+  }
+ },
+ "sequence": [
+  "G",
+  "G2"
+ ]
+}

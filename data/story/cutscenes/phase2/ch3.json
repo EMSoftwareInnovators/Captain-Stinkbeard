@@ -1,0 +1,210 @@
+{
+  "//": "Story Phase 2, chapter 3: Blackbeard's Treasure Room. Treasure hold: door spawn (9,12), Garrick (10,12), gold piles (8-11,7), fallen chest (15-16,10) goes to (12-13,11).",
+
+  "ch3.begin": [
+    { "startQuest": "treasure_inspection" },
+    { "banner": "CHAPTER 3", "sub": "Blackbeard's Treasure Room" },
+    "hale: Captain! A word. Last night's swell shifted things in the treasure room. Quill heard chests sliding about.",
+    "hale[concerned]: Somebody ought to check the hoard and set it straight. Everyone else is needed on the rigging before the wind turns.",
+    "garrick[delighted]: The treasure room? Captain, I'd be DELIGHTED to assist. A full inventory audit, free of charge!",
+    "captain: Absolutely not.",
+    "hale: He does have a strong back, Captain. Well. A wide one.",
+    { "choice": [
+      { "text": "Fine. But you touch nothing.", "then": [
+        "captain: Fine.",
+        { "addVar": "captain_mercy", "value": 1 }
+      ] },
+      { "text": "I'd rather ask the rats.", "then": [
+        "hale: We killed the rats yesterday, Captain. On your orders.",
+        "captain[resigned]: ...Fine."
+      ] },
+      { "text": "Hale, you come instead.", "then": [
+        "hale: I have the watch, Captain. And a bad back. And a finely tuned sense of self-preservation.",
+        "captain[annoyed]: ...Fine."
+      ] }
+    ] },
+    "captain[determined]: Guzzlegut. The treasure room door, in the cargo hold. You wait for me there.",
+    "captain[angry]: And you TOUCH. NOTHING.",
+    "garrick[greedy]: Captain. I'm a professional.",
+    { "anim": "garrick", "name": "greedy", "duration": 900 },
+    { "move": "garrick", "to": [9, 25], "speed": "run" },
+    { "move": "garrick", "path": ["up", 1], "speed": "run" },
+    { "sfx": "ladder" },
+    { "despawn": "garrick" },
+    "hale[concerned]: ...He was rubbing his hands, Captain."
+  ],
+
+  "ch3.meet_at_door": [
+    { "face": "garrick", "dir": "player" },
+    { "anim": "garrick", "name": "greedy" },
+    "garrick[greedy]: Captain! I've been standing here eleven minutes, imagining. It's been the best eleven minutes of my life.",
+    "captain: Rules. One: you touch nothing. Two: you touch nothing. Three—",
+    "garrick[businesslike]: Touch nothing. Understood, Captain.",
+    "captain[angry]: DO NOT. TOUCH. ANYTHING.",
+    "garrick: Not a single thing.",
+    { "setFlag": "treasure_inspection_started" },
+    { "sfx": "heavy_door" },
+    { "transition": "treasure_hold", "spawn": "door", "then": "ch3.reveal", "fade": 500 }
+  ],
+
+  "ch3.reveal": {
+    "start": [
+      { "wait": 300 },
+      { "sfx": "sparkle_chime" },
+      { "camera": "pan", "x": 9, "y": 7, "duration": 1600 },
+      "Twelve years of plunder. Gold in drifts. Jewels by the bowlful. A crown for every day of the week.",
+      { "wait": 300 },
+      { "camera": "reset", "duration": 800 },
+      { "face": "player", "dir": "right" },
+      "captain[smug]: Behold, Guzzlegut. The treasure of Captain Blackbeard.",
+      { "face": "garrick", "dir": "up" },
+      { "anim": "garrick", "name": "greedy" },
+      "garrick[greedy]: Oh. Oh my.",
+      "garrick[delighted]: Oh, Captain. It's beautiful. The craftsmanship. The weight. The resale value.",
+      "garrick[greedy]: I think I'm going to cry. I think I'm going to cry INTO it.",
+      "captain: Remember the rule.",
+      { "emote": "garrick", "icon": "sweat" },
+      "garrick[nervous]: The rule. Yes. The rule. The very... sensible... rule...",
+      { "wait": 500 },
+      { "sfx": "whoosh" },
+      { "fly": "garrick", "to": [9, 7], "arc": 26, "duration": 700 },
+      { "sfx": "coin_scatter" },
+      { "burst": "coins", "actor": "garrick", "count": 30 },
+      { "burst": "gems", "actor": "garrick", "count": 8 },
+      { "shake": 2, "duration": 250 },
+      "garrick[delighted]: INVENTORY AUDIT!",
+      "captain[angry]: GUZZLEGUT!",
+      { "hop": "garrick", "height": 6 },
+      { "sfx": "coin_scatter", "volume": 0.7 },
+      { "burst": "coins", "actor": "garrick", "count": 16 },
+      { "hop": "garrick", "height": 8 },
+      { "sfx": "coin_clink" },
+      { "burst": "coins", "actor": "garrick", "count": 12 },
+      "garrick: Just counting, Captain! One gold, two gold, three gold... it's all here! It's all LOVELY!",
+      "captain[angry]: OUT.",
+      { "fly": "garrick", "to": [10, 10], "arc": 8, "duration": 600 },
+      { "face": "garrick", "dir": "left" },
+      { "move": "player", "to": [9, 10], "face": "right" },
+      { "setFlag": "garrick_saw_treasure" },
+      { "goto": "search" }
+    ],
+    "search": [
+      "captain: Empty your pockets.",
+      "garrick[offended]: Captain, I resent the implication.",
+      "captain[angry]: Pockets.",
+      { "sprite": "loot", "frame": "loot_coins", "x": 10.5, "y": 10.1, "depth": 90000 },
+      { "sfx": "coin_clink" },
+      { "moveSprite": "loot", "y": 9.3, "duration": 250, "ease": "Back.Out" },
+      "garrick[pretend]: Those were already in my pocket. Coincidence.",
+      { "spriteFrame": "loot", "frame": "loot_ruby" },
+      { "sfx": "sparkle_chime", "volume": 0.6 },
+      "garrick: Ah. The ruby. I was keeping it warm. Rubies are very sensitive to temperature.",
+      { "spriteFrame": "loot", "frame": "loot_necklace" },
+      { "sfx": "coin_clink" },
+      "garrick[businesslike]: A necklace. For scale. You can't appraise properly without a reference piece.",
+      { "spriteFrame": "loot", "frame": "loot_fork" },
+      "captain[surprised]: A fork?",
+      "garrick[offended]: That one's MINE. I brought it from home.",
+      "captain: You came from a bathtub.",
+      "garrick: ...It's a very nice bathtub.",
+      { "spriteFrame": "loot", "frame": "loot_statue" },
+      { "sfx": "thud" },
+      "captain[angry]: And a STATUE. How did you fit a statue in your coat?",
+      "garrick[businesslike]: Proprietary methodology, Captain. I'm afraid I can't disclose it.",
+      { "removeSprite": "loot" },
+      { "setFlag": "garrick_searched" },
+      "captain[angry]: One more stunt like that and you're back in the bathtub. With ONE sausage.",
+      "garrick[nervous]: ...Understood, Captain.",
+      { "wait": 300 },
+      { "sfx": "gurgle", "volume": 0.6 },
+      { "anim": "garrick", "name": "clutch", "duration": 700 },
+      "garrick[pretend]: Ignore that. The room has... acoustics.",
+      "captain: Now. Let's see what the swell did to my hoard."
+    ]
+  },
+
+  "ch3.inspect_hoard": [
+    "The hoard has mostly ridden out the swell. A few piles have slumped and a crown has rolled under the strongbox...",
+    "...and one chest has slid clean off the stack by the starboard wall. It's lying on its side.",
+    "captain: Guzzlegut. That chest. You're lifting the other end.",
+    "garrick[pretend]: Heavy lifting. Right. I'd like it on record that I'm management.",
+    { "setFlag": "treasure_hoard_checked" },
+    { "move": "garrick", "to": [17, 10], "face": "left" }
+  ],
+
+  "ch3.chest_move": {
+    "start": [
+      { "if": { "not": { "objectiveActive": "treasure_inspection.chest" } }, "then": [
+        "A heavy chest, knocked off the stack by the swell. You'll want a second pair of hands for this.",
+        { "end": true }
+      ] },
+      { "move": "garrick", "to": [17, 10], "face": "left" },
+      { "move": "player", "to": [14, 10], "face": "right" },
+      "captain: On three. One... two...",
+      "garrick: Is it lift ON three, or three and THEN lift?",
+      "captain[angry]: THREE.",
+      { "hideObject": "prop:chest_fallen" },
+      { "sprite": "carried", "frame": "chest_carried", "x": 15.95, "y": 10.75, "depth": 90000 },
+      { "anim": "player", "name": "carry" },
+      { "anim": "garrick", "name": "carry" },
+      { "sfx": "chest_creak" },
+      "garrick[gastro]: Hhhnnnnggg.",
+      { "parallel": [
+        [{ "move": "player", "path": ["left", 3, "down", 1], "speed": "slow" }],
+        [{ "move": "garrick", "path": ["left", 3, "down", 1], "speed": "slow" }],
+        [{ "moveSprite": "carried", "x": 12.95, "y": 11.75, "duration": 1360 }]
+      ] },
+      { "sfx": "gurgle" },
+      { "shake": 1, "duration": 300 },
+      "captain: Keep lifting.",
+      "garrick[gastro]: I'm lifting, Captain. Everything's lifting. Things are lifting that shouldn't be lifting.",
+      { "removeSprite": "carried" },
+      { "sfx": "thud_heavy" },
+      { "setFlag": "treasure_chest_moved" },
+      { "anim": "player", "name": "idle" },
+      { "anim": "garrick", "name": "idle" },
+      { "face": "player", "dir": "right" },
+      { "face": "garrick", "dir": "left" },
+      "captain: There. Back where it...",
+      { "wait": 500 },
+      { "goto": "rumble" }
+    ],
+    "rumble": [
+      { "sfx": "rumble_big" },
+      { "shake": 2, "duration": 2200, "to": 6, "async": true },
+      { "propFx": "jiggle", "area": [1, 4, 18, 9], "duration": 2200, "intensity": 2, "async": true },
+      { "propFx": "swing", "prop": "lantern_hanging", "duration": 2000, "intensity": 1, "async": true },
+      { "wait": 600 },
+      { "sfx": "coin_scatter" },
+      { "burst": "coins", "x": 9, "y": 7, "count": 14 },
+      { "burst": "dust", "x": 5, "y": 4, "count": 8 },
+      { "wait": 1700 },
+      "The biggest rumble yet. Coins slide off the piles. A candelabra hums. Somewhere, a crown falls off its cushion.",
+      { "wait": 400 },
+      { "sfx": "thud" },
+      { "burst": "dust", "actor": "garrick", "count": 5 },
+      "Something small and leathery flies out from under Garrick and lands in the gold with a soft clink.",
+      { "face": "garrick", "dir": "down" },
+      "garrick[terrified]: ...My shoe.",
+      "captain: What about your shoe?",
+      "garrick[terrified]: It came off, Captain. On its own.",
+      "garrick[terrified]: From the INSIDE.",
+      { "wait": 600 },
+      { "emote": "player", "icon": "exclaim", "duration": 600 },
+      "captain[alarmed]: EVERYBODY OUT.",
+      "garrick[nervous]: It's only us, Captain.",
+      "captain[alarmed]: THEN BOTH OF US! OUT! NOW!",
+      { "anim": "garrick", "name": "clutch" },
+      { "banner": "CHAPTER 4", "sub": "The Guzzlegut Gust" }
+    ]
+  },
+
+  "ch3.door_locked": [
+    { "if": { "flag": "treasure_chest_moved" }, "then": [
+      "The door won't budge. Something is clamped onto the handle.",
+      { "end": true }
+    ] },
+    "garrick[businesslike]: We haven't finished the audit, Captain!",
+    "captain: Nobody leaves until that chest is back on the stack."
+  ]
+}

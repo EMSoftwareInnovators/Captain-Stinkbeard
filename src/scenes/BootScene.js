@@ -48,6 +48,7 @@ export class BootScene extends BaseScene {
     await this.app.audioReady;
     bar.width = 118;
     await this.wait(120);
+    this.scene.launch('Cinema');
     this.scene.launch('Overlay');
     this.scene.start('Title');
   }
