@@ -24,9 +24,11 @@ const LAYER_STYLE = {
   core: { frames: ['fcloud_m0', 'fcloud_m1', 'fcloud_s0'], tints: [0xa88418, 0x98a82c, 0x8a9c24, 0xb08a1a], density: 0.7 },
 };
 
-const LEVEL_ALPHA = { light: 0.28, dense: 0.5, center: 0.72 };
-const VIGNETTE_ALPHA = { none: 0, light: 0.22, dense: 0.62, center: 0.92 };
-const VIGNETTE_SCALE = { none: 1.25, light: 1.12, dense: 0.95, center: 0.74 };
+const LEVEL_ALPHA = { light: 0.22, dense: 0.4, center: 0.56 };
+const VIGNETTE_ALPHA = { none: 0, light: 0.2, dense: 0.5, center: 0.8 };
+const VIGNETTE_SCALE = { none: 1.25, light: 1.12, dense: 1.0, center: 0.84 };
+/** During cutscenes the clouds thin and the vignette opens so the scene reads. */
+const CINEMATIC_CLOUD = 0.42;
 const TINT_ALPHA = { none: 0, light: 0.05, dense: 0.12, center: 0.2 };
 const HAZE_ALPHA = { faint: 0.045, light: 0.09, dense: 0.16 };
 
@@ -54,6 +56,8 @@ export class FumeLayer {
     this.vLevel = 0;
     this.vScale = 1.25;
     this.tintA = 0;
+    this.cinematic = false;
+    this.cineK = 1;
     const cx = SCREEN_WIDTH / 2;
     const cy = SCREEN_HEIGHT / 2;
     this.vignette = scene.add.image(cx, cy, 'fume_vignette').setScrollFactor(0).setDepth(DEPTH + 8).setAlpha(0);
@@ -155,10 +159,11 @@ export class FumeLayer {
     this.time += dt;
     const t = this.time;
     const T = TILE_SIZE;
+    this.cineK += ((this.cinematic ? CINEMATIC_CLOUD : 1) - this.cineK) * Math.min(1, dt / 500);
     for (const c of this.clusters) {
       c.fade = Math.min(1, c.fade + dt / 700);
       const r = zoneRect(c.zone, c.zone.transient ? 0 : this.scene.fumeClock ?? t);
-      const base = (LEVEL_ALPHA[c.level] ?? 0.4) * (c.zone.alpha ?? 1) * c.fade;
+      const base = (LEVEL_ALPHA[c.level] ?? 0.4) * (c.zone.alpha ?? 1) * c.fade * this.cineK;
       for (const b of c.blobs) {
         const breathe = Math.sin(t / (1400 / b.speed) + b.phase);
         let x;
@@ -177,7 +182,8 @@ export class FumeLayer {
       }
     }
     // Screen effects follow the air around the captain, easing in and out.
-    const key = level ?? 'none';
+    let key = level ?? 'none';
+    if (this.cinematic && (key === 'dense' || key === 'center')) key = 'light';
     const ease = Math.min(1, dt / 350);
     const vTarget = VIGNETTE_ALPHA[key] * (this.reduced ? 0.7 : 1);
     this.vLevel += (vTarget - this.vLevel) * ease;

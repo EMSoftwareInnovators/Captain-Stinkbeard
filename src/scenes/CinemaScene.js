@@ -165,7 +165,8 @@ export class CinemaScene extends BaseScene {
     this.layer(id).img.setVisible(visible);
   }
 
-  fx(kind, { x, y, count }) {
+  /** Particle burst on the vista (vistaFx). Not named fx: that is the FxPool. */
+  vistaFx(kind, { x, y, count }) {
     const opts = count !== undefined ? { count } : {};
     this.fxBurst(kind, x, y, opts);
   }

@@ -4,7 +4,9 @@ import { ListMenu } from './ListMenu.js';
 import { TEXT_SPEED_MS } from '../systems/settings/Settings.js';
 import { resolveVariant } from '../systems/story/progress.js';
 
-const BOX = { x: 4, y: 158, w: 312, h: 62 };
+const BOX = { x: 4, w: 312, h: 62 };
+/** Where the window sits: along the bottom, or along the top when the action is low on screen. */
+const DOCK_Y = { bottom: 158, top: 18 };
 const LINES = 4;
 const DEPTH = 500;
 
@@ -15,6 +17,9 @@ const DEPTH = 500;
  *
  *   await box.say({ speaker: 'hale', expression: 'happy', text: '...' })
  *   const i = await box.choose({ prompt, options: [{ text }], cancelIndex })
+ *
+ * `dockResolver(line)` (set by the exploration scene) may move the window to
+ * the top of the screen so it never hides the people who are talking.
  */
 export class DialogueBox {
   constructor(scene) {
@@ -24,6 +29,20 @@ export class DialogueBox {
     this.objects = [];
     this.pending = null;
     this.choiceMenu = null;
+    this.dock = 'bottom';
+    this.dockResolver = null;
+  }
+
+  get boxY() {
+    return DOCK_Y[this.dock];
+  }
+
+  /** Re-docks before a line if the scene asks for the other edge. */
+  pickDock(line) {
+    const want = this.dockResolver?.(line, this.dock) ?? 'bottom';
+    if (want === this.dock || !DOCK_Y[want]) return;
+    if (this.open) this.destroyBox();
+    this.dock = want;
   }
 
   get busy() {
@@ -35,23 +54,24 @@ export class DialogueBox {
     this.destroyBox();
     const s = this.scene;
     this.hasPortrait = hasPortrait;
-    this.panel = addPanel(s, BOX.x, BOX.y, BOX.w, BOX.h, { depth: DEPTH });
+    const y = this.boxY;
+    this.panel = addPanel(s, BOX.x, y, BOX.w, BOX.h, { depth: DEPTH });
     this.objects.push(this.panel);
     if (hasPortrait) {
-      this.portraitFrame = addPanel(s, 9, 163, 52, 52, { style: 'inset', depth: DEPTH + 1 });
-      this.portrait = s.add.image(11, 165, 'portraits').setOrigin(0, 0).setDepth(DEPTH + 2);
+      this.portraitFrame = addPanel(s, 9, y + 5, 52, 52, { style: 'inset', depth: DEPTH + 1 });
+      this.portrait = s.add.image(11, y + 7, 'portraits').setOrigin(0, 0).setDepth(DEPTH + 2);
       this.objects.push(this.portraitFrame, this.portrait);
     }
     this.textX = hasPortrait ? 68 : 14;
     this.textWidth = BOX.w - (this.textX - BOX.x) - 10;
-    this.body = addText(s, this.textX, 166, '', { depth: DEPTH + 2 });
-    this.next = s.add.image(BOX.x + BOX.w - 14, BOX.y + BOX.h - 10, 'ui', 'next_0').setOrigin(0, 0).setDepth(DEPTH + 3).setVisible(false);
+    this.body = addText(s, this.textX, y + 8, '', { depth: DEPTH + 2 });
+    this.next = s.add.image(BOX.x + BOX.w - 14, y + BOX.h - 10, 'ui', 'next_0').setOrigin(0, 0).setDepth(DEPTH + 3).setVisible(false);
     this.nextTween = s.tweens.add({ targets: this.next, y: '+=2', duration: 300, yoyo: true, repeat: -1 });
     this.objects.push(this.body, this.next);
     // Pop-in: the window grows from its centre line.
     this.panel.setScale(1, 0.2);
-    this.panel.y = BOX.y + BOX.h * 0.4;
-    s.tweens.add({ targets: this.panel, scaleY: 1, y: BOX.y, duration: 90, ease: 'Quad.Out' });
+    this.panel.y = y + BOX.h * 0.4;
+    s.tweens.add({ targets: this.panel, scaleY: 1, y, duration: 90, ease: 'Quad.Out' });
     this.open = true;
   }
 
@@ -72,6 +92,7 @@ export class DialogueBox {
 
   setSpeaker(line) {
     // A speaker's portrait and name can follow the story (see "variants").
+    this.pickDock(line);
     const sp = line.speaker ? resolveVariant(this.app.content.speaker(line.speaker), this.app.session) : null;
     if (line.speaker && !sp) console.warn(`Unknown speaker ${line.speaker}`);
     const name = line.name ?? sp?.name ?? null;
@@ -85,8 +106,8 @@ export class DialogueBox {
     this.destroyName();
     if (name) {
       const w = measure(this.app.fontMetrics.main, name) + 16;
-      this.namePanel = addPanel(this.scene, 8, BOX.y - 13, w, 16, { depth: DEPTH + 4 });
-      this.nameText = addText(this.scene, 16, BOX.y - 9, name, { color: UI_COLORS.name, depth: DEPTH + 5 });
+      this.namePanel = addPanel(this.scene, 8, this.boxY - 13, w, 16, { depth: DEPTH + 4 });
+      this.nameText = addText(this.scene, 16, this.boxY - 9, name, { color: UI_COLORS.name, depth: DEPTH + 5 });
     }
     this.voice = sp?.voice?.pitch ?? 1;
   }
@@ -189,7 +210,8 @@ export class DialogueBox {
     const w = Math.min(220, Math.max(...texts.map((t) => measure(metrics, parseMarkup(t).text))) + 34);
     const h = options.length * 12 + 10;
     const x = 316 - w;
-    const y = (this.open ? BOX.y - 15 : 200) - h;
+    // Just above the window, or below it when it is docked at the top.
+    const y = this.open && this.dock === 'top' ? this.boxY + BOX.h + 4 : (this.open ? this.boxY - 15 : 200) - h;
     const panel = addPanel(s, x, y, w, h, { depth: DEPTH + 10 });
     return new Promise((resolve) => {
       const finish = (i) => {
@@ -234,7 +256,7 @@ export class DialogueBox {
       this.scene.tweens.add({
         targets: panel,
         scaleY: 0.1,
-        y: BOX.y + BOX.h * 0.45,
+        y: this.boxY + BOX.h * 0.45,
         duration: 70,
         onComplete: () => {
           this.destroyBox();

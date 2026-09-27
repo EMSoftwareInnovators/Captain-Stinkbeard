@@ -2,8 +2,10 @@ import { BaseScene } from '../scenes/BaseScene.js';
 import { addText, UI_COLORS } from '../ui/text.js';
 import { ListMenu } from '../ui/ListMenu.js';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
+import { currentChapter } from '../systems/story/progress.js';
+import { startPreset } from './startPreset.js';
 
-const TABS = ['Info', 'Warp', 'Flags', 'Quests', 'Items', 'Party', 'Battle', 'Tools'];
+const TABS = ['Info', 'Story', 'Warp', 'Flags', 'Quests', 'Items', 'Party', 'Battle', 'Tools'];
 const GAMEPLAY_SCENES = ['Title', 'World', 'Battle', 'Menu', 'GameOver', 'Overlay'];
 
 /**
@@ -146,12 +148,31 @@ export class DebugScene extends BaseScene {
       `FPS ${Math.round(this.fps)}   Scenes: ${this.game.scene.getScenes(false).filter((sc) => sc.sys.isActive() || sc.sys.isPaused()).map((sc) => sc.scene.key).join(', ')}`,
       w ? `Map ${w.model.id} (${w.model.width}x${w.model.height})   Player ${w.player.tx},${w.player.ty} facing ${w.player.facing}` : 'No map loaded',
       s ? `Gold ${s.inventory.gold}   Play time ${Math.floor(s.playTime)}s   Flags ${s.story.allFlags().length}` : 'No session',
+      s ? `Chapter: ${currentChapter(app.content.game, s).name}   Exposure ${Math.round(s.transient?.exposure?.value ?? 0)}` : '',
       `Content errors ${app.validation.errors.length}   warnings ${app.validation.warnings.length}`,
       `Maps ${app.content.maps.size}  NPCs ${app.content.npcs.size}  Quests ${app.content.quests.size}  Items ${app.content.items.size}`,
     ];
     lines.forEach((l, i) => this.text(12, 26 + i * 12, l));
     if (s) this.text(12, 26 + lines.length * 12 + 6, `<k>Flags:</> ${s.story.allFlags().join(', ') || '—'}`, { maxWidth: SCREEN_WIDTH - 30 });
     return null;
+  }
+
+  /** Story presets: start a fresh game at any point of the story. */
+  itemsStory() {
+    const presets = this.app.content.debugPresets.list();
+    if (!presets.length) return [{ label: '<k>No presets (data/debug/)</>' }];
+    return presets.map((p) => ({
+      label: p.name,
+      right: p.id,
+      action: () => {
+        this.close();
+        try {
+          startPreset(this.game, p.id);
+        } catch (err) {
+          console.error(err);
+        }
+      },
+    }));
   }
 
   itemsWarp() {
@@ -273,6 +294,8 @@ export class DebugScene extends BaseScene {
       { label: 'Collision view', right: onOff(f.collisionView), action: () => { f.collisionView = !f.collisionView; this.rerender(); } },
       { label: 'Show triggers & warps', right: onOff(f.showTriggers), action: () => { f.showTriggers = !f.showTriggers; this.rerender(); } },
       { label: 'Walk through walls (noclip)', right: onOff(f.noclip), action: () => { f.noclip = !f.noclip; this.rerender(); } },
+      { label: 'Fume immunity', right: onOff(f.fumeImmunity), action: () => { f.fumeImmunity = !f.fumeImmunity; this.rerender(); } },
+      { label: 'Clear fume exposure', action: () => { this.app.session?.transient?.exposure?.reset(); this.flash('Exposure cleared.'); } },
       { label: 'Auto timed hits (perfect)', right: onOff(f.autoTiming !== null), action: () => { f.autoTiming = f.autoTiming === null ? 0 : null; this.rerender(); } },
       { label: 'Info HUD (fps, coords)', right: onOff(f.infoHud), action: () => { f.infoHud = !f.infoHud; this.rerender(); } },
       { label: 'Reload current map', action: () => this.reloadMap() },

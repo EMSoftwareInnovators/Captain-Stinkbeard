@@ -75,6 +75,11 @@ export class Ambient {
       for (const v of this.voices) {
         v.t -= delta;
         if (v.t > 0) continue;
+        // Voices follow the story live (a rescued parrot stops calling out).
+        if (v.if && !evaluateCondition(v.if, s.game.app.session)) {
+          v.t = 1000;
+          continue;
+        }
         const [min, max] = v.every ?? [3500, 6000];
         v.t = min + Math.random() * (max - min);
         const line = v.lines[Math.min(v.i, v.lines.length - 1)];

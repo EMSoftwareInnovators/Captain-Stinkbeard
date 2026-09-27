@@ -1,6 +1,6 @@
 import { addPanel } from '../Panel.js';
 import { addText, setText, centerText, UI_COLORS } from '../text.js';
-import { TEXT_SPEEDS, SHAKE_LEVELS, EFFECT_LEVELS } from '../../systems/settings/Settings.js';
+import { TEXT_SPEEDS, SHAKE_LEVELS, EFFECT_LEVELS, FUME_HAZARD_LEVELS } from '../../systems/settings/Settings.js';
 import { DisplayScaler } from '../../platform/display.js';
 
 const ROWS = [
@@ -13,6 +13,7 @@ const ROWS = [
   { key: 'alwaysRun', label: 'Always run', type: 'toggle' },
   { key: 'screenShake', label: 'Screen shake', type: 'choice', values: SHAKE_LEVELS, names: { full: 'Full', reduced: 'Reduced', off: 'Off' } },
   { key: 'effects', label: 'Visual effects', type: 'choice', values: EFFECT_LEVELS, names: { full: 'Full', reduced: 'Reduced' } },
+  { key: 'fumeHazard', label: 'Fume hazard', type: 'choice', values: FUME_HAZARD_LEVELS, names: { normal: 'Normal', gentle: 'Gentle', off: 'Off' } },
   { key: 'scaleMode', label: 'Scaling', type: 'choice', values: ['integer', 'fit'], names: { integer: 'Pixel-perfect', fit: 'Fill screen' } },
   { key: 'fullscreen', label: 'Fullscreen', type: 'toggle' },
 ];

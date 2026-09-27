@@ -1,0 +1,252 @@
+[
+  {
+    "id": "prologue_done",
+    "name": "Prologue complete (evening)",
+    "description": "Both prologue quests done; Tomorrow's Heading points at the captain's bed.",
+    "flags": [
+      "opening_seen",
+      "met_first_mate",
+      "took_treasure_key",
+      "galley_argument_seen",
+      "rats_intro_seen",
+      "rat_problem_started",
+      "checked_treasure_hold",
+      "tutorial_complete",
+      "phase2_hook_seen"
+    ],
+    "quests": {
+      "captains_rounds": "completed",
+      "rats_in_the_hold": "completed",
+      "tomorrows_heading": "active"
+    },
+    "items": [
+      "treasure_key"
+    ],
+    "map": "captains_quarters",
+    "spawn": "start"
+  },
+  {
+    "id": "ch1_morning",
+    "name": "Chapter 1: Morning on the Sapphire Sea",
+    "after": "prologue_done",
+    "flags": [
+      "ch1_morning_started"
+    ],
+    "quests": {
+      "tomorrows_heading": "completed"
+    },
+    "map": "captains_quarters",
+    "spawn": "start"
+  },
+  {
+    "id": "garrick_arrival",
+    "name": "Garrick Arrival (telescope)",
+    "after": "ch1_morning",
+    "flags": [
+      "bob_lamp_oil_seen",
+      "ch1_foredeck_reached",
+      "bathtub_spotted"
+    ],
+    "vars": {
+      "morning_beats": 3
+    },
+    "quests": {
+      "strange_cargo": "active"
+    },
+    "map": "main_deck",
+    "x": 5,
+    "y": 28,
+    "facing": "left"
+  },
+  {
+    "id": "galley_lunch",
+    "name": "Galley Lunch",
+    "after": "garrick_arrival",
+    "flags": [
+      "bathtub_seen",
+      "garrick_hauled_aboard",
+      "met_squawks",
+      "garrick_questioned",
+      "garrick_provisional",
+      "garrick_toll_setup",
+      "garrick_toll_warned",
+      "garrick_toll_removed",
+      "garrick_scrub_seen"
+    ],
+    "quests": {
+      "strange_cargo": "completed",
+      "new_recruit": {
+        "done": [
+          "check_work",
+          "check_scrub"
+        ]
+      }
+    },
+    "map": "galley",
+    "spawn": "ladder"
+  },
+  {
+    "id": "ch3_treasure_door",
+    "name": "Chapter 3: Meet Garrick at the treasure door",
+    "after": "galley_lunch",
+    "flags": [
+      "galley_lunch_seen",
+      "garrick_digestive_crisis",
+      "jim_warned",
+      "rumble_sails_seen",
+      "garrick_thunder_excuse"
+    ],
+    "quests": {
+      "new_recruit": "completed",
+      "treasure_inspection": "active"
+    },
+    "map": "cargo_hold",
+    "spawn": "stairs"
+  },
+  {
+    "id": "pre_blast",
+    "name": "Pre-Treasure Blast (move the chest)",
+    "after": "ch3_treasure_door",
+    "flags": [
+      "treasure_inspection_started",
+      "garrick_saw_treasure",
+      "garrick_searched",
+      "treasure_hoard_checked"
+    ],
+    "quests": {
+      "treasure_inspection": {
+        "done": [
+          "meet",
+          "inspect"
+        ]
+      }
+    },
+    "map": "treasure_hold",
+    "spawn": "door"
+  },
+  {
+    "id": "post_blast",
+    "name": "Post-Blast (escape the cloud)",
+    "after": "pre_blast",
+    "flags": [
+      "treasure_chest_moved",
+      "guzzlegut_gust",
+      "quarters_evacuated",
+      "galley_evacuated",
+      "gust_aftermath_done",
+      "fumes_spread"
+    ],
+    "quests": {
+      "treasure_inspection": "completed",
+      "yellow_alert": "active"
+    },
+    "map": "cargo_hold",
+    "spawn": "stairs"
+  },
+  {
+    "id": "squawks_rescue",
+    "name": "Squawks Rescue",
+    "after": "post_blast",
+    "flags": [
+      "deck_evacuated_seen",
+      "dead_center_explained",
+      "squawks_fell",
+      "squawks_exposed"
+    ],
+    "quests": {
+      "yellow_alert": "completed",
+      "save_squawks": "active"
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 21,
+    "facing": "down"
+  },
+  {
+    "id": "contaminated_treasure",
+    "name": "Contaminated Treasure",
+    "after": "squawks_rescue",
+    "flags": [
+      "rescue_rope",
+      "rescue_cloth",
+      "rescue_prepared",
+      "rescue_boots_moment",
+      "squawks_rescued",
+      "squawks_bald",
+      "boots_stained",
+      "fumes_thinned",
+      "treasure_contaminated"
+    ],
+    "clearFlags": [
+      "squawks_exposed"
+    ],
+    "quests": {
+      "save_squawks": "completed",
+      "price_of_gold": "active"
+    },
+    "map": "treasure_hold",
+    "spawn": "door"
+  },
+  {
+    "id": "garrick_trial",
+    "name": "Garrick Trial",
+    "after": "contaminated_treasure",
+    "flags": [
+      "ruined_reveal_seen",
+      "insp_ruined_coin",
+      "insp_ruined_ruby",
+      "insp_ruined_crown",
+      "insp_ruined_pearls",
+      "merchant_test_started",
+      "merchant_test_done",
+      "ship_permanently_contaminated",
+      "crew_turned_on_garrick"
+    ],
+    "quests": {
+      "price_of_gold": "completed"
+    },
+    "map": "main_deck",
+    "spawn": "cabin_door"
+  },
+  {
+    "id": "frigate_encounter",
+    "name": "Frigate Encounter (take the helm)",
+    "after": "garrick_trial",
+    "flags": [
+      "trial_started",
+      "squawks_sweater",
+      "frigate_sighted",
+      "frigate_plan_agreed"
+    ],
+    "quests": {
+      "yellow_defense": {
+        "done": [
+          "respond"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 8,
+    "facing": "up"
+  },
+  {
+    "id": "phase2_complete",
+    "name": "Phase 2 Complete (next morning)",
+    "after": "frigate_encounter",
+    "flags": [
+      "ship_turned",
+      "fume_sail_released",
+      "frigate_fled",
+      "garrick_on_probation",
+      "rowboat_protocol",
+      "squawks_deadly_brew",
+      "phase2_complete"
+    ],
+    "quests": {
+      "yellow_defense": "completed"
+    },
+    "map": "main_deck",
+    "spawn": "cabin_door"
+  }
+]

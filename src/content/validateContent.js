@@ -788,6 +788,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     const c = C(`${db.debugPresets.sourceOf(pr.id)} (${pr.id})`);
     if (typeof pr.name !== 'string') c.error('preset needs a name');
     (pr.flags || []).forEach((f) => c.flag(f));
+    (pr.clearFlags || []).forEach((f) => c.flag(f));
     for (const [q, st] of Object.entries(pr.quests || {})) {
       c.quest(q);
       const quest = db.quests.get(q);

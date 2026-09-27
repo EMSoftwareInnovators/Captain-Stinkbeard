@@ -1036,7 +1036,7 @@
   "fumes": [
     {
       "id": "t_blast",
-      "level": "center",
+      "level": "dense",
       "x": 1,
       "y": 4,
       "w": 18,
@@ -1053,14 +1053,21 @@
       }
     },
     {
-      "id": "t_haze",
-      "level": "light",
-      "x": 1,
-      "y": 4,
-      "w": 18,
-      "h": 9,
+      "id": "t_core",
+      "level": "center",
+      "x": 9,
+      "y": 8,
+      "w": 7,
+      "h": 5,
       "if": {
-        "flag": "fumes_thinned"
+        "all": [
+          {
+            "flag": "guzzlegut_gust"
+          },
+          {
+            "notFlag": "fumes_thinned"
+          }
+        ]
       }
     },
     {
@@ -1080,14 +1087,25 @@
           }
         ]
       }
+    },
+    {
+      "id": "t_whiff",
+      "level": "light",
+      "x": 10,
+      "y": 9,
+      "w": 6,
+      "h": 3,
+      "if": {
+        "flag": "fumes_thinned"
+      }
     }
   ],
   "haze": [
     {
       "if": {
-        "flag": "ship_permanently_contaminated"
+        "flag": "fumes_thinned"
       },
-      "level": "light"
+      "level": "faint"
     },
     {
       "if": {

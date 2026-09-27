@@ -111,6 +111,7 @@ export class WorldScene extends BaseScene {
       getScript: (id) => this.content.scripts.get(id),
     });
     this.services = createWorldServices(this);
+    this.app.overlay.dialogue.dockResolver = (line, current) => this.dialogueDock(line, current);
     const markStory = () => {
       this.storyDirty = true;
       this.triggersDirty = true;
@@ -133,6 +134,7 @@ export class WorldScene extends BaseScene {
 
   cleanup() {
     this.subscriptions.forEach((off) => off());
+    if (this.app.overlay?.dialogue) this.app.overlay.dialogue.dockResolver = null;
     this.app.overlay?.setHint(null);
     this.app.overlay?.setExposure(null);
     this.fx?.destroy();
@@ -232,7 +234,10 @@ export class WorldScene extends BaseScene {
           // "absent": this placement says the NPC is elsewhere for now.
           if (obj.absent) break;
           const a = this.spawnNpc(obj.npc, { x: obj.x, y: obj.y, facing: obj.facing, behavior: obj.behavior, actorId: obj.npc });
-          if (obj.pose) a.playPose(obj.pose);
+          if (obj.pose) {
+            a.brain.pose = obj.pose;
+            a.playPose(obj.pose);
+          }
           break;
         }
         case 'enemy': {
@@ -385,6 +390,18 @@ export class WorldScene extends BaseScene {
   }
 
   async enterMap() {
+    // Busy until the arrival scripts have run: the fade-in is not a moment
+    // of free control (no fumes build, no input, no story triggers).
+    this.entering = true;
+    try {
+      await this.runArrival();
+    } finally {
+      this.entering = false;
+    }
+    this.triggersDirty = true;
+  }
+
+  async runArrival() {
     const session = this.session;
     const firstVisit = session.world.visit(this.model.id);
     this.app.bus.emit('map:entered', { map: this.model.id, first: firstVisit });
@@ -401,7 +418,6 @@ export class WorldScene extends BaseScene {
       if (evaluateCondition(e.if, session)) await this.runScript(e.script);
     }
     if (!this.entry.newGame && !this.entry.loaded && !this.entry.noAutosave && !this.leaving) this.autosave();
-    this.triggersDirty = true;
   }
 
   // ---------------------------------------------------------------------------
@@ -578,13 +594,16 @@ export class WorldScene extends BaseScene {
 
   updateFumes(dt, busy) {
     const level = this.playerFumeLevel();
+    this.fumeLayer.cinematic = busy;
     this.fumeLayer.update(dt, level, this.fx);
     const overlay = this.app.overlay;
     const exposure = this.exposure;
     // Exposure only builds while the player is in control: cutscenes never
     // choke the captain behind a dialogue box.
     if (!busy && !this.leaving && !this.collapsing && !this.app.flags.fumeImmunity) {
-      const r = exposure.update(dt, level);
+      // The wet cloth from the rescue slows the fumes; so does the Gentle option.
+      const scale = this.app.settings.fumeScale() * (this.session.story.has('rescue_gear_on') ? 0.7 : 1);
+      const r = exposure.update(dt, level, scale);
       if (r.warn) {
         this.app.audio.sfx('cough_heavy');
         this.barks.show(this.player, '<y>*cough* ...need air...</>', { duration: 1400 });
@@ -594,7 +613,9 @@ export class WorldScene extends BaseScene {
         return;
       }
     }
-    const show = exposure.value > 0.5 || level === 'dense' || level === 'center';
+    // The meter belongs to free play: cutscenes and dialogue hide it.
+    const hazardOn = this.app.settings.fumeScale() > 0 && !this.app.flags.fumeImmunity;
+    const show = !busy && (exposure.value > 0.5 || (hazardOn && (level === 'dense' || level === 'center')));
     overlay?.setExposure(show ? { value: exposure.fraction, level } : null);
     // Coughing in thick air.
     if (level === 'dense' || level === 'center' || exposure.value > 40) {
@@ -645,7 +666,7 @@ export class WorldScene extends BaseScene {
   }
 
   isBusy() {
-    return this.scriptDepth > 0 || this.app.overlay.busy || this.transitioning || !!this.app.cinema?.busy;
+    return this.scriptDepth > 0 || this.entering || this.app.overlay.busy || this.transitioning || !!this.app.cinema?.busy;
   }
 
   /**
@@ -867,10 +888,19 @@ export class WorldScene extends BaseScene {
     const prevFacing = actor.facing;
     if (npc.turnToTalk !== false && actor.brain?.behavior.type !== 'sit') actor.faceToward(this.player.tx, this.player.ty);
     if (actor.pose === 'work') actor.playPose('idle');
+    const fromTile = this.key(actor.tx, actor.ty);
     if (script) await this.runScript(script);
     this.app.bus.emit('npc:talked', { npc: npc.id });
-    if (actor.brain && actor.brain.behavior.type !== 'routine') actor.face(prevFacing);
-    actor.brain?.resume();
+    // The conversation may have sent them off (despawned or respawned), or
+    // walked them somewhere on purpose: then leave them as the script did.
+    if (!this.sys.isActive() || this.actors.get(actor.id) !== actor) return;
+    const brain = actor.brain;
+    if (brain) {
+      if (this.key(actor.tx, actor.ty) !== fromTile) brain.home = { x: actor.tx, y: actor.ty, facing: actor.facing };
+      else if (brain.behavior.type !== 'routine') actor.face(prevFacing);
+      if (!['idle', 'walk', 'work'].includes(actor.pose)) brain.pose = actor.pose;
+    }
+    brain?.resume();
   }
 
   async inspectObject(obj) {
@@ -974,6 +1004,34 @@ export class WorldScene extends BaseScene {
         this.triggersDirty = true;
       }
     }
+  }
+
+  /**
+   * Which edge the dialogue window should use for a line: the one that hides
+   * fewer of the people involved (the captain and the speaker). Ties keep
+   * the current edge so the window doesn't hop between lines.
+   */
+  dialogueDock(line, current = 'bottom') {
+    if (this.app.cinema?.active || !this.sys.isActive()) return 'bottom';
+    const view = this.cameras.main.worldView;
+    // While the camera is held on something (a pan), that is what the line
+    // is about; otherwise it's the captain.
+    const focus = this.cameraFocus;
+    const people = [focus ? { feet: focus.y + 18 } : this.player];
+    const id = line?.speaker === 'captain' ? 'player' : line?.speaker;
+    const speaker = id ? this.actors.get(id) : null;
+    if (speaker && speaker !== this.player) people.push(speaker);
+    let underBottom = 0;
+    let underTop = 0;
+    for (const a of people) {
+      if (a.feet === undefined && !a?.sprite?.visible) continue;
+      const feet = (a.feet ?? a.sprite.y) - view.y;
+      if (feet < 0 || feet - 30 > view.height) continue; // off screen
+      if (feet > 150) underBottom += 1;
+      if (feet - 28 < 82) underTop += 1;
+    }
+    if (underBottom === underTop) return current;
+    return underBottom > underTop ? 'top' : 'bottom';
   }
 
   onQuestCompleted({ quest }) {

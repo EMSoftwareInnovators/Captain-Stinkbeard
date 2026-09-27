@@ -6,6 +6,9 @@ export const TEXT_SPEED_MS = { slow: 45, normal: 26, fast: 12, instant: 0 };
 export const SCALE_MODES = ['integer', 'fit'];
 export const SHAKE_LEVELS = ['full', 'reduced', 'off'];
 export const EFFECT_LEVELS = ['full', 'reduced'];
+/** Fume hazard difficulty (accessibility): how fast thick fumes build exposure. */
+export const FUME_HAZARD_LEVELS = ['normal', 'gentle', 'off'];
+export const FUME_HAZARD_SCALE = { normal: 1, gentle: 0.5, off: 0 };
 
 /** Multiplier applied to every screen shake for each setting. */
 export const SHAKE_SCALE = { full: 1, reduced: 0.35, off: 0 };
@@ -19,6 +22,7 @@ export const DEFAULT_SETTINGS = Object.freeze({
   textSound: true,
   screenShake: 'full',
   effects: 'full',
+  fumeHazard: 'normal',
   scaleMode: 'integer',
   fullscreen: false,
   alwaysRun: false,
@@ -33,6 +37,7 @@ const VALIDATORS = {
   textSound: (v) => typeof v === 'boolean',
   screenShake: (v) => SHAKE_LEVELS.includes(v),
   effects: (v) => EFFECT_LEVELS.includes(v),
+  fumeHazard: (v) => FUME_HAZARD_LEVELS.includes(v),
   scaleMode: (v) => SCALE_MODES.includes(v),
   fullscreen: (v) => typeof v === 'boolean',
   alwaysRun: (v) => typeof v === 'boolean',
@@ -95,6 +100,11 @@ export class Settings {
   /** True when the player asked for calmer visuals (fewer particles, softer flashes). */
   reducedEffects() {
     return this.values.effects === 'reduced';
+  }
+
+  /** Multiplier on fume exposure (0 = fumes never make the captain collapse). */
+  fumeScale() {
+    return FUME_HAZARD_SCALE[this.values.fumeHazard] ?? 1;
   }
 
   all() {

@@ -3,12 +3,12 @@
  "patch": "galley",
  "objects": [
   {
-   "id": "garrick_7_9",
+   "id": "garrick_8_6",
    "type": "npc",
    "npc": "garrick",
-   "x": 7,
-   "y": 9,
-   "facing": "left",
+   "x": 8,
+   "y": 6,
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -25,11 +25,11 @@
    }
   },
   {
-   "id": "jim_9_8",
+   "id": "jim_10_7",
    "type": "npc",
    "npc": "jim",
-   "x": 9,
-   "y": 8,
+   "x": 10,
+   "y": 7,
    "facing": "left",
    "if": {
     "all": [
@@ -205,8 +205,8 @@
   {
    "id": "lunch_table",
    "type": "inspect",
-   "x": 4,
-   "y": 9,
+   "x": 7,
+   "y": 7,
    "w": 3,
    "script": "inspect.lunch_table",
    "if": {
@@ -221,6 +221,17 @@
    }
   },
   {
+   "id": "long_table",
+   "type": "inspect",
+   "x": 7,
+   "y": 7,
+   "w": 3,
+   "script": "inspect.galley_table",
+   "if": {
+    "flag": "ch1_morning_started"
+   }
+  },
+  {
    "id": "knitting",
    "type": "inspect",
    "x": 2,
@@ -232,6 +243,15 @@
   }
  ],
  "props": [
+  {
+   "prop": "mess_table",
+   "x": 7,
+   "y": 7,
+   "id": "long_table",
+   "if": {
+    "flag": "ch1_morning_started"
+   }
+  },
   {
    "prop": "pickle_barrel",
    "x": 11,
@@ -300,8 +320,8 @@
   },
   {
    "prop": "stain_small",
-   "x": 5,
-   "y": 9,
+   "x": 8,
+   "y": 8,
    "if": {
     "flag": "galley_lunch_seen"
    }
@@ -321,7 +341,7 @@
    "if": {
     "all": [
      {
-      "flag": "guzzlegut_gust"
+      "flag": "fumes_spread"
      },
      {
       "notFlag": "fumes_thinned"
@@ -336,7 +356,7 @@
    "if": {
     "all": [
      {
-      "flag": "guzzlegut_gust"
+      "flag": "fumes_spread"
      },
      {
       "notFlag": "fumes_thinned"
@@ -441,7 +461,7 @@
   },
   {
    "if": {
-    "flag": "guzzlegut_gust"
+    "flag": "fumes_spread"
    },
    "level": "light"
   }
@@ -457,7 +477,7 @@
    "if": {
     "all": [
      {
-      "flag": "guzzlegut_gust"
+      "flag": "fumes_spread"
      },
      {
       "notFlag": "fumes_thinned"
@@ -475,7 +495,7 @@
    "if": {
     "all": [
      {
-      "flag": "guzzlegut_gust"
+      "flag": "fumes_spread"
      },
      {
       "notFlag": "fumes_thinned"

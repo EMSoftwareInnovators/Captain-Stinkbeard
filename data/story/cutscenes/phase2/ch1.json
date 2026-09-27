@@ -47,12 +47,12 @@
     { "sfx": "bell_alarm" },
     { "bark": "ned", "text": "<y>SOMETHING OFF THE STARBOARD BOW!</>", "shout": true, "duration": 2200 },
     { "emote": "player", "icon": "exclaim" },
-    { "camera": "pan", "actor": "ned", "duration": 900 },
+    { "call": "ch1.tub_alongside" },
+    { "camera": "pan", "x": 6, "y": 39, "duration": 900 },
     "ned[surprised]: Captain! Something in the water! Off the starboard bow!",
     "captain: What kind of something?",
     "ned: A floating kind, Captain! A round-ish, white-ish, floating kind!",
     "ned[concerned]: And it's... I think it's shouting.",
-    { "call": "ch1.tub_alongside" },
     { "camera": "reset", "duration": 700 },
     "captain: Shouting.",
     "captain[annoyed]: Somebody fetch me the telescope. And nobody shout back at it until we know what it is.",
@@ -61,7 +61,7 @@
   ],
 
   "ch1.tub_alongside": [
-    { "sprite": "tub", "frame": "bathtub_top_0", "anim": "stage:bathtub_paddle", "x": 2.4, "y": 43.2, "below": true, "bob": 1 }
+    { "sprite": "tub", "frame": "bathtub_top_0", "anim": "stage:bathtub_paddle", "x": 2.6, "y": 38.4, "below": true, "bob": 1 }
   ],
 
   "ch1.telescope": {
@@ -71,7 +71,7 @@
       { "vista": "bathtub_view", "fade": 500 },
       { "wait": 700 },
       "Blue. Blue. More blue. A gull, looking pleased with itself.",
-      { "vistaMove": "tub", "x": 170, "y": 180, "scale": 1.15, "duration": 1500 },
+      { "vistaMove": "tub", "x": 164, "y": 146, "scale": 1.0, "duration": 1500 },
       "...And a bathtub.",
       "captain[surprised]: There's a man in it.",
       "captain: A large man. In a green coat. Paddling. With...",
@@ -125,14 +125,15 @@
       { "sfx": "coin_clink" },
       { "anim": "rook", "name": "idle" },
       { "setFlag": "garrick_hauled_aboard" },
-      { "move": "garrick", "path": ["right", 1], "face": "down" },
+      { "move": "garrick", "path": ["right", 2, "down", 1], "face": "left" },
+      { "face": "player", "dir": "right" },
       { "anim": "garrick", "name": "hips" },
       "garrick[delighted]: Ahhh. Timber underfoot. Now THIS is a ship.",
       { "face": "rook", "dir": "left" },
       "rook: And what's that, then?",
-      { "face": "garrick", "dir": "left" },
+      { "face": "garrick", "dir": "up" },
       "garrick[smug]: Close enough.",
-      { "face": "garrick", "dir": "down" },
+      { "face": "garrick", "dir": "left" },
       { "anim": "garrick", "name": "idle" },
       "garrick[businesslike]: Garrick Guzzlegut, at your service. Appraiser of treasures. Salvager of opportunities. Maritime businessman.",
       "garrick: My card.",
@@ -143,9 +144,9 @@
     ],
     "squawks": [
       { "sfx": "wing_flap" },
-      { "spawn": "squawks", "x": 6, "y": 28, "facing": "left" },
+      { "spawn": "squawks", "x": 5, "y": 27, "facing": "down" },
       { "hideObject": "squawks" },
-      { "fly": "squawks", "to": [6, 28], "from": [16, 17], "fromAlt": 44, "arc": 14, "duration": 1300 },
+      { "fly": "squawks", "to": [5, 27], "from": [16, 17], "fromAlt": 44, "arc": 14, "duration": 1300 },
       { "sfx": "squawk" },
       "squawks[squawk]: SQUAWK! Captain! Captain! I leave for ONE morning flight—",
       { "face": "squawks", "dir": "garrick" },
@@ -219,7 +220,7 @@
     ],
     "decide": [
       { "setFlag": "garrick_questioned" },
-      { "move": "hale", "to": [7, 28], "face": "left", "speed": "run" },
+      { "move": "hale", "to": [6, 30], "face": "up", "speed": "run" },
       "hale: Well, Captain? What do we do with him?",
       { "choice": [
         { "text": "Throw him back.", "then": [
@@ -254,7 +255,7 @@
       { "goto": "welcome" }
     ],
     "welcome": [
-      { "face": "player", "dir": "up" },
+      { "face": "player", "dir": "right" },
       "captain[determined]: Hear me, Guzzlegut. You're crew. Provisionally. Put one boot wrong and you're back in that bathtub.",
       "garrick[delighted]: Understood, Captain! Welcome aboard, me!",
       "hale: And the bathtub, Captain?",

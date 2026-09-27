@@ -31,7 +31,9 @@ export class NpcBrain {
     const t = this.behavior.type;
     if (t === 'work') this.actor.playPose('work');
     else if (t === 'sit') this.actor.playPose('sit');
-    else this.actor.playPose('idle');
+    // A standing pose from the map placement or the last conversation
+    // (eating, smug, nervous...) survives being talked to.
+    else this.actor.playPose(this.pose ?? 'idle');
   }
 
   pause() {

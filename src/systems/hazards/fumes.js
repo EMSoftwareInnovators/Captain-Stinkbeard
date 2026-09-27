@@ -27,8 +27,8 @@ export const HAZE_LEVELS = ['faint', 'light', 'dense'];
 export const DEFAULT_FUME_CONFIG = Object.freeze({
   levels: {
     light: { rank: 1, exposure: 0, visibility: 0.9 },
-    dense: { rank: 2, exposure: 9, visibility: 0.6 },
-    center: { rank: 3, exposure: 30, visibility: 0.36 },
+    dense: { rank: 2, exposure: 11, visibility: 0.6 },
+    center: { rank: 3, exposure: 32, visibility: 0.36 },
   },
   recoverPerSec: 20,
   lightRecoverPerSec: 8,
@@ -140,14 +140,15 @@ export class Exposure {
   }
 
   /**
-   * Advances by dtMs while standing in `level` (null = clean air).
+   * Advances by dtMs while standing in `level` (null = clean air). `scale`
+   * slows the build-up (a wet cloth, the Gentle hazard option; 0 = none).
    * Returns { value, collapsed, warn } — warn is true on the frame the
    * warning threshold is crossed upward.
    */
-  update(dtMs, level) {
+  update(dtMs, level, scale = 1) {
     const c = this.config;
     const sec = dtMs / 1000;
-    const rate = level ? c.levels[level]?.exposure ?? 0 : 0;
+    const rate = (level ? c.levels[level]?.exposure ?? 0 : 0) * scale;
     if (rate > 0) this.value += rate * sec;
     else this.value -= (level === 'light' ? c.lightRecoverPerSec : c.recoverPerSec) * sec;
     this.value = Math.max(0, Math.min(c.max, this.value));

@@ -11,7 +11,9 @@
 //   walk <dir> <tiles>        goto <x> <y>                travel <x> <y> <map>
 //   approach <npc>|<x> <y>    talk <npc>|<x> <y> [choice...]
 //   fight <enemyId>           fightuntil [win|lose]       battle (confirm until it ends)
-//   face <dir>
+//   face <dir>                preset <id> (data/debug/presets.json; fast text)
+//   skipshot <prefix> [choice...]   like skip, saving a screenshot of every line
+//   shots <prefix> <count> <ms>     screenshots at an interval (set-pieces)
 import { chromium } from '@playwright/test';
 import fs from 'node:fs';
 import { GameDriver } from '../e2e/driver.js';
@@ -70,6 +72,44 @@ for (const line of lines) {
       case 'fight': if (!(await g.fight(rest[0]))) console.log(`(${rest[0]} already gone)`); break;
       case 'fightuntil': await g.fightUntil(rest[0] || 'win'); break;
       case 'battle': await g.settleBattle(); break;
+      case 'preset': {
+        await g.waitFor(() => window.__GAME__?.game.scene.isActive('Title'), null, 30000);
+        await page.evaluate(() => window.__GAME__.app.settings.set('textSpeed', 'instant'));
+        await page.evaluate((id) => window.__GAME__.test.preset(id), rest[0]);
+        await g.waitFor(() => window.__GAME__.game.scene.isActive('World') && !window.__GAME__.game.scene.getScene('World').leaving, null, 15000);
+        await g.wait(900);
+        break;
+      }
+      case 'skipshot': {
+        const picks = rest.slice(1).map(Number);
+        let n = 0;
+        for (let guard = 0; guard < 600; guard++) {
+          const st = await g.uiState();
+          if (st === 'idle') break;
+          if (st === 'battle') { await g.settleBattle(); continue; }
+          if (st === 'line' || st === 'tutorial' || st === 'choice') {
+            await page.screenshot({ path: `${outDir}/${rest[0]}_${String(n++).padStart(3, '0')}.png` });
+            if (st === 'choice') {
+              const k = picks.length ? picks.shift() : 0;
+              for (let i = 0; i < k; i++) await g.tap('ArrowDown', 40, 90);
+            }
+            await g.tap('KeyZ', 45, 60);
+          } else if (await page.evaluate(() => !!window.__GAME__.app.cinema?.insertOpen)) {
+            await page.screenshot({ path: `${outDir}/${rest[0]}_${String(n++).padStart(3, '0')}.png` });
+            await g.tap('KeyZ', 45, 60);
+          }
+          await g.wait(110);
+        }
+        console.log(`skipshot ${rest[0]}: ${n} shots`);
+        break;
+      }
+      case 'shots': {
+        for (let i = 0; i < Number(rest[1]); i++) {
+          await page.screenshot({ path: `${outDir}/${rest[0]}_${String(i).padStart(3, '0')}.png` });
+          await g.wait(Number(rest[2]));
+        }
+        break;
+      }
       case 'face': await g.tap({ up: 'ArrowUp', down: 'ArrowDown', left: 'ArrowLeft', right: 'ArrowRight' }[rest[0]], 40, 150); break;
       default: throw new Error(`unknown command "${cmd}"`);
     }

@@ -1,5 +1,6 @@
 import { findPath } from '../maps/pathfinding.js';
 import { DIR_VECTORS } from '../config/constants.js';
+import { startPreset } from './startPreset.js';
 
 /**
  * Development-only helpers used by automated end-to-end tests
@@ -29,6 +30,10 @@ export function installTestHooks(app, game) {
   }
 
   return {
+    /** Starts a fresh game at a story preset (data/debug/presets.json). */
+    preset(id) {
+      return startPreset(game, id).id;
+    },
     pathTo(x, y) {
       const w = world();
       const p = w.player;
@@ -66,6 +71,9 @@ export function installTestHooks(app, game) {
         y: w?.player?.ty,
         facing: w?.player?.facing,
         flags: s?.story.allFlags(),
+        vars: s?.story.serialize?.().vars,
+        exposure: s?.transient?.exposure?.value ?? 0,
+        busy: w ? w.isBusy() : null,
         quests: s?.quests.serialize(),
         gold: s?.inventory.gold,
         items: s?.inventory.serialize().items,

@@ -63,7 +63,7 @@ export class GameDriver {
     await this.wait(1200);
   }
 
-  /** Current UI state: tutorial | choice | line | typing | idle | busy | battle. */
+  /** Current UI state: tutorial | choice | line | typing | insert | idle | busy | battle. */
   uiState() {
     return this.eval(() => {
       const g = window.__GAME__;
@@ -74,6 +74,7 @@ export class GameDriver {
       if (d.choiceMenu) return 'choice';
       if (d.resolveLine && !d.typing) return 'line';
       if (d.resolveLine && d.typing) return 'typing';
+      if (g.app.cinema?.insertOpen?.ready) return 'insert';
       const w = g.game.scene.getScene('World');
       return w && g.game.scene.isActive('World') && !w.isBusy() && !w.leaving ? 'idle' : 'busy';
     });
@@ -84,7 +85,9 @@ export class GameDriver {
    * indices used in order; without one, a choice is cancelled (last option).
    */
   async skip(...picks) {
-    for (let n = 0; n < 400; n++) {
+    // Time-based: long set-pieces spend most of their time busy, not talking.
+    const until = Date.now() + 150000;
+    while (Date.now() < until) {
       const st = await this.uiState();
       if (st === 'idle') return;
       if (st === 'battle') {
@@ -99,7 +102,7 @@ export class GameDriver {
         const k = picks.shift();
         for (let i = 0; i < k; i++) await this.tap('ArrowDown', 40, 90);
       }
-      if (st === 'line' || st === 'tutorial' || st === 'choice') await this.tap('KeyZ', 45, 60);
+      if (st === 'line' || st === 'tutorial' || st === 'choice' || st === 'insert') await this.tap('KeyZ', 45, 60);
       await this.wait(90);
     }
     throw new Error('dialogue never finished');

@@ -448,7 +448,7 @@ export function createWorldServices(scene) {
       },
       move: (id, opts) => app.cinema.move(id, opts),
       frame: (id, frame) => app.cinema.frame(id, frame),
-      fx: (kind, opts) => app.cinema.fx(kind, opts),
+      fx: (kind, opts) => app.cinema.vistaFx(kind, opts),
       setVisible: (id, v) => app.cinema.setVisible(id, v),
       insert: async (id, opts) => {
         await overlay.dialogue.close();
