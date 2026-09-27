@@ -244,13 +244,22 @@ export class GameDriver {
     await this.wait(700);
   }
 
-  /** Touches a field enemy, fights and dismisses the results. Returns false if it was already gone. */
+  /**
+   * Touches a field enemy, fights and dismisses the results, until that enemy
+   * is beaten. Enemies chase, so another one can catch the captain on the way:
+   * that fight is won too and the approach goes on. Returns false if the enemy
+   * was already gone.
+   */
   async fight(enemyId) {
-    const started = await this.approach(enemyId, { touch: true });
-    if (!started) return false;
-    await this.fightUntil('win');
-    await this.tap('KeyZ', 45, 1200);
-    await this.idle();
-    return true;
+    let fought = false;
+    for (let round = 0; round < 6; round++) {
+      const started = await this.approach(enemyId, { touch: true });
+      if (!started) return fought;
+      await this.fightUntil('win');
+      await this.tap('KeyZ', 45, 1200);
+      await this.idle();
+      fought = true;
+    }
+    throw new Error(`${enemyId} was still standing after 6 fights`);
   }
 }

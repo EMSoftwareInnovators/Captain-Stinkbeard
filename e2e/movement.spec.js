@@ -7,15 +7,28 @@ import { GameDriver } from './driver.js';
  * - a held direction advances a constant number of pixels every frame
  *   (2 walking, 3 running) with no hitch at tile edges,
  * - pressing the opposite way mid-step turns back at once.
+ *
+ * Everything is measured in game updates, from when the key reaches the page,
+ * so a busy test machine (late key delivery, long browser frames) can't pass
+ * itself off as game lag or make real lag look fine.
  */
+const WALK_PX_MS = 2 / (1000 / 60);
+const RUN_PX_MS = 3 / (1000 / 60);
+
 async function startSampling(page) {
   await page.evaluate(() => {
-    window.__samples = [];
+    window.__keyAt = null;
     const w = window.__GAME__.game.scene.getScene('World');
+    // Where he stands before any key, so a move on the very first update shows.
+    window.__samples = [[0, w.player.sprite.x, w.player.sprite.y, 0]];
     if (window.__sampler) w.events.off('postupdate', window.__sampler);
+    if (window.__keyWatch) window.removeEventListener('keydown', window.__keyWatch, true);
     const t0 = performance.now();
-    // Sample once per game update (what the player sees change each frame).
-    window.__sampler = () => window.__samples.push([performance.now() - t0, w.player.sprite.x, w.player.sprite.y]);
+    window.__keyWatch = (e) => { if (e.key.startsWith('Arrow') && window.__keyAt === null) window.__keyAt = performance.now() - t0; };
+    window.addEventListener('keydown', window.__keyWatch, true);
+    // Sample once per game update (what the player sees change each frame),
+    // with the frame time the game moved by.
+    window.__sampler = (time, delta) => window.__samples.push([performance.now() - t0, w.player.sprite.x, w.player.sprite.y, Math.min(delta, 50)]);
     w.events.on('postupdate', window.__sampler);
   });
 }
@@ -23,8 +36,10 @@ async function startSampling(page) {
 async function stopSampling(page) {
   return page.evaluate(() => {
     window.__GAME__.game.scene.getScene('World').events.off('postupdate', window.__sampler);
+    window.removeEventListener('keydown', window.__keyWatch, true);
     window.__sampler = null;
-    return window.__samples;
+    window.__keyWatch = null;
+    return { samples: window.__samples, keyAt: window.__keyAt };
   });
 }
 
@@ -36,14 +51,29 @@ async function hold(page, key, ms, { run = false } = {}) {
   if (run) await page.keyboard.up('ShiftLeft');
 }
 
-/** Per-update |dx| from the first movement to the last. */
-function movingDeltas(samples, axis = 1) {
+/**
+ * From the first movement to the last: per-update |dx|, how many updates after
+ * the key arrived the first movement came, and the worst gap between where the
+ * captain is and where `pxPerMs` times the frame time says he should be.
+ */
+function analyse({ samples, keyAt }, pxPerMs, axis = 1) {
   const d = [];
   for (let i = 1; i < samples.length; i++) d.push(Math.abs(samples[i][axis] - samples[i - 1][axis]));
   const first = d.findIndex((v) => v > 0);
   let last = d.length - 1;
   while (last > first && d[last] === 0) last--;
-  return { deltas: d.slice(first, last + 1), startMs: samples[first + 1]?.[0] ?? Infinity };
+  const deltas = d.slice(first, last + 1);
+  const updatesToMove = samples.slice(0, first + 2).filter((s) => s[0] > keyAt).length;
+  let moved = 0;
+  let expected = 0;
+  let drift = 0;
+  // The last update may finish the tile early (it stops on the tile), so skip it.
+  for (let i = first + 1; i < first + deltas.length; i++) {
+    moved += d[i - 1];
+    expected += pxPerMs * samples[i][3];
+    drift = Math.max(drift, Math.abs(moved - expected));
+  }
+  return { deltas, updatesToMove, drift };
 }
 
 test('walking is immediate, even, and reversible mid-step', async ({ page }) => {
@@ -58,17 +88,24 @@ test('walking is immediate, even, and reversible mid-step', async ({ page }) => 
   await startSampling(page);
   await hold(page, 'ArrowLeft', 700);
   await page.waitForTimeout(400);
-  const walk = movingDeltas(await stopSampling(page));
-  expect(walk.startMs).toBeLessThan(40);
-  expect(walk.deltas.filter((v) => v === 2).length / walk.deltas.length).toBeGreaterThan(0.85);
-  expect(Math.max(...walk.deltas)).toBeLessThanOrEqual(4);
+  const walk = analyse(await stopSampling(page), WALK_PX_MS);
+  // Moves on the very first update after the key arrives.
+  expect(walk.updatesToMove).toBe(1);
+  // Never stalls mid-walk (a hitch at a tile edge shows up as a 0)...
+  expect(walk.deltas).not.toContain(0);
+  // ...keeps pace with the clock to within a pixel of rounding...
+  expect(walk.drift).toBeLessThanOrEqual(1.5);
+  // ...and on a steady 60 Hz frame that's 2 px.
+  expect(walk.deltas.filter((v) => v === 2).length / walk.deltas.length).toBeGreaterThan(0.6);
 
-  // Running is an even 3 px per update.
+  // Running is 3 px per update, just as even.
   await startSampling(page);
   await hold(page, 'ArrowRight', 500, { run: true });
   await page.waitForTimeout(400);
-  const run = movingDeltas(await stopSampling(page));
-  expect(run.deltas.filter((v) => v === 3).length / run.deltas.length).toBeGreaterThan(0.8);
+  const run = analyse(await stopSampling(page), RUN_PX_MS);
+  expect(run.deltas).not.toContain(0);
+  expect(run.drift).toBeLessThanOrEqual(1.5);
+  expect(run.deltas.filter((v) => v === 3).length / run.deltas.length).toBeGreaterThan(0.6);
   await g.idle();
 
   // Reversal: start walking left, then press right mid-step.
@@ -81,7 +118,7 @@ test('walking is immediate, even, and reversible mid-step', async ({ page }) => 
   await page.keyboard.up('ArrowRight');
   await page.keyboard.up('ArrowLeft');
   await page.waitForTimeout(400);
-  const samples = await stopSampling(page);
+  const { samples } = await stopSampling(page);
   const after = samples.slice(t0);
   const firstBack = after.findIndex((s, i) => i > 0 && s[1] > after[i - 1][1]);
   expect(firstBack).toBeGreaterThan(-1);
