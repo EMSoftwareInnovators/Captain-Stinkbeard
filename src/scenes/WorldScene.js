@@ -122,6 +122,8 @@ export class WorldScene extends BaseScene {
       this.app.bus.on('story:flagCleared', markStory),
       this.app.bus.on('story:varChanged', markStory),
       this.app.bus.on('quest:started', markStory),
+      this.app.bus.on('quest:objectiveCompleted', markStory),
+      this.app.bus.on('quest:completed', markStory),
       this.app.bus.on('settings:changed', () => this.applyReducedEffects()),
     ];
     this.events.once('shutdown', () => this.cleanup());
@@ -398,7 +400,7 @@ export class WorldScene extends BaseScene {
     } finally {
       this.entering = false;
     }
-    this.triggersDirty = true;
+    this.continueStory();
   }
 
   async runArrival() {
@@ -1001,9 +1003,22 @@ export class WorldScene extends BaseScene {
       if (this.scriptDepth === 0 && this.sys.isActive()) await this.app.overlay.dialogue.close();
       if (this.scriptDepth === 0) {
         for (const a of this.actors.values()) a.scripted = false;
-        this.triggersDirty = true;
+        this.continueStory();
       }
     }
+  }
+
+  /**
+   * A scene just ended (or the map finished arriving): start the next due
+   * story trigger straight away, so the story never leaves a frame of free
+   * control between one scene and the next.
+   */
+  continueStory() {
+    // Stays dirty: the frame loop checks again, after any events the ending
+    // script's caller still has to send (an inspection counting for a quest).
+    this.triggersDirty = true;
+    if (this.isBusy() || this.leaving || this.collapsing || !this.sys.isActive()) return;
+    this.checkStoryTriggers();
   }
 
   /**
