@@ -9,7 +9,7 @@ import { evaluateCondition } from '../systems/conditions/conditions.js';
 import { CommandRegistry, ScriptRunner } from '../systems/script/ScriptRunner.js';
 import { createCommandImplementations } from '../systems/script/commands.js';
 import { WorldState } from '../systems/world/WorldState.js';
-import { TILE_SIZE, DIR_VECTORS, SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
+import { TILE_SIZE, DIR_VECTORS, OPPOSITE_DIR, SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
 import { hash32 } from '../core/Rng.js';
 import { asArray } from '../core/util.js';
 
@@ -18,8 +18,6 @@ import { asArray } from '../core/util.js';
 const FRAME_MS = 1000 / 60;
 const WALK_MS = FRAME_MS * 8;
 const RUN_MS = (FRAME_MS * 16) / 3;
-/** Tap a new direction for less than this to turn in place without stepping. */
-const TURN_MS = 50;
 
 /**
  * Exploration. Loads one map, spawns the player, NPCs, props and visible
@@ -51,9 +49,17 @@ export class WorldScene extends BaseScene {
     this.scriptDepth = 0;
     this.invulnerableMs = 0;
     this.bumpCooldown = 0;
-    this.turnHold = 0;
     this.wasMoving = false;
     this.leaving = false;
+    // The scene object is reused on every map change: clear leftovers from
+    // the previous map (a cutscene camera target, region tracking, debug
+    // drawing, a pending shop/battle resume).
+    this.cameraFocus = null;
+    this.regionsInside = null;
+    this.debugKey = null;
+    this.debugGfx = null;
+    this.pendingResume = null;
+    this.transitioning = false;
 
     this.cameras.main.setBackgroundColor(this.model.meta.background === 'ocean' ? '#16416f' : '#07060b');
     this.worldMap = new WorldMap(this, this.model, this.tileset);
@@ -331,10 +337,17 @@ export class WorldScene extends BaseScene {
     return this.scriptDepth > 0 || this.app.overlay.busy || this.transitioning;
   }
 
+  /**
+   * Player control. Responsiveness rules: a direction press moves on the same
+   * frame it is read (no turn-in-place delay), the first step starts one
+   * frame's distance in, and pressing the opposite way mid-step turns back
+   * immediately instead of finishing the tile first.
+   */
   updatePlayer(dt) {
     const p = this.player;
     const input = this.controls;
     if (p.moving) {
+      if (input.heldDirection() === OPPOSITE_DIR[p.facing]) this.reversePlayer();
       if (p.updateMovement(dt)) {
         this.releaseSource(p);
         this.onPlayerStep();
@@ -363,23 +376,23 @@ export class WorldScene extends BaseScene {
     if (!dir) {
       if (this.wasMoving || p.pose === 'walk') p.stopWalking();
       this.wasMoving = false;
-      this.turnHold = 0;
       return;
-    }
-    if (!this.wasMoving && dir !== p.facing) {
-      p.face(dir);
-      this.turnHold = TURN_MS;
-      return;
-    }
-    if (this.turnHold > 0) {
-      this.turnHold -= dt;
-      if (this.turnHold > 0) return;
     }
     const running = input.isDown('run') !== this.app.settings.get('alwaysRun');
-    this.stepPlayer(dir, running);
+    this.stepPlayer(dir, running, dt);
   }
 
-  stepPlayer(dir, running) {
+  /** Turns a step around mid-tile: head back to the tile we were leaving. */
+  reversePlayer() {
+    const p = this.player;
+    const leaving = this.key(p.tx, p.ty);
+    p.reverse();
+    // The tile we came from is still reserved by us; the one we were heading
+    // for becomes the tile we release when this step completes.
+    p.prevKey = leaving;
+  }
+
+  stepPlayer(dir, running, dt = 0) {
     const p = this.player;
     const v = DIR_VECTORS[dir];
     const nx = p.tx + v.x;
@@ -410,7 +423,9 @@ export class WorldScene extends BaseScene {
     }
     this.occupancy.set(this.key(nx, ny), p);
     p.prevKey = this.key(p.tx, p.ty);
-    p.beginStep(dir, running ? RUN_MS : WALK_MS, this.wasMoving ? p.carryMs : 0);
+    // Continuing: carry the time left over from the last tile. Starting from
+    // a standstill: begin one frame in, so the first pixel shows this frame.
+    p.beginStep(dir, running ? RUN_MS : WALK_MS, this.wasMoving ? p.carryMs : dt);
     this.wasMoving = true;
   }
 

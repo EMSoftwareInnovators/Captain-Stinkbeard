@@ -1,4 +1,4 @@
-import { TILE_SIZE, DIR_VECTORS } from '../config/constants.js';
+import { TILE_SIZE, DIR_VECTORS, OPPOSITE_DIR } from '../config/constants.js';
 import { FOOT_Y, FRAME_H } from '../art/characters/characterPainter.js';
 
 /**
@@ -123,6 +123,19 @@ export class Actor {
     this.carryMs = 0;
     this.stride += 1;
     this.playPose('walk');
+    this.syncPosition();
+  }
+
+  /** Turns an in-progress step around, heading back to the tile it left. */
+  reverse() {
+    if (!this.moving) return;
+    const back = this.from;
+    this.from = this.to;
+    this.to = back;
+    this.tx = back.x;
+    this.ty = back.y;
+    this.moveT = 1 - this.moveT;
+    this.facing = OPPOSITE_DIR[this.facing];
     this.syncPosition();
   }
 

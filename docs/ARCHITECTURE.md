@@ -163,8 +163,10 @@ once the battle has ended and the world has resumed, so a script can write
   Walking moves exactly 2 px per 60 Hz frame (8 frames per tile) and running
   3 px per frame; leftover time carries into the next step so a held direction
   never hitches at tile edges, and the walk cycle is driven by step progress
-  (one stride per tile). Tapping a new direction for under 50 ms turns in
-  place without stepping; holding it walks.
+  (one stride per tile). There is no turn-in-place delay: a press moves on
+  the frame it is read (walking into a wall or a person just turns you), the
+  first step starts one frame in, and pressing the opposite way mid-step turns
+  back at once instead of finishing the tile.
 - **Depth** is y-sorted by feet position; overhead layers (rigging, beams) draw
   above actors.
 - **NPC brains** (`world/NpcBrain.js`): `stand` (optionally looking around),

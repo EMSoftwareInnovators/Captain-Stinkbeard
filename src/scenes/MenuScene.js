@@ -43,10 +43,17 @@ export class MenuScene extends BaseScene {
   }
 
   create() {
+    // Phaser reuses this scene object every time the menu opens, so every
+    // per-visit field must be reset here (a stale shop view once kept
+    // receiving input and drew itself over the pause menu).
     this.closing = false;
     this.modal = null;
     this.page = null;
     this.pageFocused = false;
+    this.shopView = null;
+    this.nav = null;
+    this.hint = null;
+    this.playTime = null;
     this.side = new UiLayer(this);
     this.app.overlay.setHint(null);
     this.backdrop = this.add.rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0x07060b, 0.55).setOrigin(0).setDepth(0);
@@ -181,7 +188,9 @@ export class MenuScene extends BaseScene {
     this.closing = true;
     this.app.audio.ui('menu_close');
     this.page?.destroy();
+    this.page = null;
     this.shopView?.destroy();
+    this.shopView = null;
     this.scene.stop();
     this.scene.resume('World');
   }
