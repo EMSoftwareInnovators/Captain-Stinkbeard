@@ -2,7 +2,8 @@ import { BaseScene } from '../scenes/BaseScene.js';
 import { addText, UI_COLORS } from '../ui/text.js';
 import { ListMenu } from '../ui/ListMenu.js';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
-import { currentChapter } from '../systems/story/progress.js';
+import { currentChapter, resolveVariant } from '../systems/story/progress.js';
+import { logEntries } from '../systems/logs/logbook.js';
 import { startPreset } from './startPreset.js';
 
 const TABS = ['Info', 'Story', 'Warp', 'Flags', 'Quests', 'Items', 'Party', 'Battle', 'Tools'];
@@ -152,6 +153,19 @@ export class DebugScene extends BaseScene {
       `Content errors ${app.validation.errors.length}   warnings ${app.validation.warnings.length}`,
       `Maps ${app.content.maps.size}  NPCs ${app.content.npcs.size}  Quests ${app.content.quests.size}  Items ${app.content.items.size}`,
     ];
+    if (s) {
+      const garrick = app.content.npcs.get('garrick');
+      const logs = [...app.content.logs.map].map(([id, log]) => `${id} ${logEntries(log, s).length}/${log.entries.length}`).join(' ');
+      lines.push(`Captain: ${s.party.leader()?.fullName}   Garrick: ${garrick ? resolveVariant(garrick, s).title ?? '' : '—'}`);
+      lines.push(`Sharks: ${w?.sharks?.level ?? '—'}${w?.sharks?.below ? ' (below)' : ''}   Logs: ${logs || '—'}`);
+    }
+    // Controllers, exactly as the browser reports them (for "my pad doesn't work" reports).
+    const pads = app.input.padInfo();
+    if (!pads.length) lines.push('<k>Pads: none (press a button on the controller)</>');
+    for (const p of pads.slice(0, 2)) {
+      lines.push(`Pad ${p.index}: ${p.id.slice(0, 34)}`);
+      lines.push(`  map ${p.mapping}  layout ${p.layout}  down [${p.down.join(',')}]${p.hat !== null ? `  hat a${p.hat}` : ''}`);
+    }
     lines.forEach((l, i) => this.text(12, 26 + i * 12, l));
     if (s) this.text(12, 26 + lines.length * 12 + 6, `<k>Flags:</> ${s.story.allFlags().join(', ') || '—'}`, { maxWidth: SCREEN_WIDTH - 30 });
     return null;
