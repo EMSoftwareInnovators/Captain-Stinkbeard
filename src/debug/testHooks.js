@@ -3,6 +3,7 @@ import { DIR_VECTORS } from '../config/constants.js';
 import { startPreset } from './startPreset.js';
 import { resolveVariant } from '../systems/story/progress.js';
 import { logAvailable, logEntries } from '../systems/logs/logbook.js';
+import { placementChoices } from '../world/placements.js';
 
 /**
  * Development-only helpers used by automated end-to-end tests
@@ -49,6 +50,20 @@ export function installTestHooks(app, game) {
       if (!a) return { missing: true };
       if (a.moving) return { wait: true };
       return stepTowardTile(w, a.tx, a.ty);
+    },
+    /**
+     * Each character with a placement in this room: where the story wants
+     * them (null = elsewhere), where they are (null = not here) and whether
+     * they are still walking there (live restaging); `roams` for people who
+     * wander or walk a routine from their spot.
+     */
+    placements() {
+      const w = world();
+      return [...placementChoices(w.model.objects, app.session)].map(([npc, o]) => {
+        const a = w.actors.get(npc);
+        const roams = ['wander', 'routine'].includes(a?.brain?.behavior?.type);
+        return { npc, want: o ? [o.x, o.y] : null, at: a ? [a.tx, a.ty] : null, roams, relocating: !!a?.brain?.relocation || !!a?.moving };
+      });
     },
     /** Starts a battle from the current map; the result lands in `lastBattle`. */
     battle(id, advantage = 'normal') {

@@ -48,6 +48,7 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
     move: (id, opts) => staging.move(id, opts),
     fly: (id, opts) => staging.fly(id, { ...opts, land: opts?.land !== false }),
     setObjectVisible: (id, visible) => (visible ? staging.show(id) : staging.hide(id)),
+    restage: () => staging.restage(),
   };
   const world = new Proxy({}, {
     get: (_t, name) => {
@@ -156,6 +157,7 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
       for (let n = 0; n < 12; n++) {
         const due = dueStoryTriggers(content.storyTriggers.list(), session, (id) => session.world.get(triggerKey(id), 'fired', false));
         if (!due.length) {
+          staging.restage();
           staging.idle(staging.context);
           return;
         }
@@ -175,6 +177,7 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
     /** Talks to an NPC (its dialogue selectors, like WorldScene.talkTo). */
     async talk(npcId) {
       const npc = content.npcs.require(npcId);
+      staging.checkPresent(npcId);
       staging.approachActor(npcId);
       let script = null;
       for (const entry of npc.dialogue ?? []) {

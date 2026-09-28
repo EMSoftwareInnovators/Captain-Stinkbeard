@@ -45,7 +45,7 @@ const SETUPS = {
 };
 
 for (const [name, setup] of Object.entries(SETUPS)) {
-  test(`the game is fully playable with a gamepad (${name})`, async ({ page }) => {
+  test(`the game is fully playable with a gamepad (${name})`, { tag: name === 'standard' ? ['@input', '@smoke'] : ['@input'] }, async ({ page }) => {
     const errors = [];
     page.on('pageerror', (e) => errors.push(e.message));
     await page.addInitScript((pads) => {

@@ -33,6 +33,7 @@ export class Actor {
     this.stride = 0;
     this.carryMs = 0;
     this.locked = false;
+    this.fade = 1; // fading in or out of the room (WorldScene.fadeActor)
     this.shadow = scene.add.image(0, 0, 'fx', shadow).setOrigin(0.5, 0.5);
     this.sprite = scene.add.sprite(0, 0, texture);
     if (anims === 'char') this.sprite.setOrigin(0.5, FOOT_Y / FRAME_H);
@@ -61,7 +62,7 @@ export class Actor {
     this.sprite.setDepth(this.flight?.depth ?? y + (this.kind === 'player' ? 0.5 : 0));
     this.shadow.setPosition(x, y - 2);
     this.shadow.setDepth(-400);
-    this.shadow.setAlpha(this.flight ? Math.max(0.25, 1 - (this.flight.alt || 0) / 60) : 1);
+    this.shadow.setAlpha((this.flight ? Math.max(0.25, 1 - (this.flight.alt || 0) / 60) : 1) * this.fade);
     if (this.moving && this.pose === 'walk') this.updateWalkFrame();
   }
 

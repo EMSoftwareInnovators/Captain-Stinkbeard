@@ -23,7 +23,7 @@ async function openShopFromMags(page, g) {
   await g.wait(300);
 }
 
-test('shop and pause menu never bleed into each other', async ({ page }) => {
+test('shop and pause menu never bleed into each other', { tag: ['@smoke', '@ui'] }, async ({ page }) => {
   const errors = [];
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('/');

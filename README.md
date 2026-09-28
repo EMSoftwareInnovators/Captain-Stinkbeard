@@ -29,7 +29,10 @@ Other scripts:
 | --- | --- |
 | `npm test` | Unit tests (Vitest): systems, battle math, scripts, saves, content, balance |
 | `npm run validate` | Content validation only (cross-references every data file) |
-| `npm run e2e` | Plays the prologue and Story Phases 2 and 3 in headless Chromium (Playwright), keyboard and simulated controllers. Run `npx playwright install chromium` once, or set `CHROMIUM_PATH` |
+| `npm run e2e` | Plays the prologue and Story Phases 2 and 3 in headless Chromium (Playwright), keyboard and simulated controllers (about 40 minutes). Run `npx playwright install chromium` once, or set `CHROMIUM_PATH` |
+| `npm run e2e:smoke` | The quick browser checks (a few minutes) |
+| `npm run e2e:quick` | Every browser test except the long story playthroughs |
+| `npm run e2e:story` | Only the story playthroughs. Any tag works too: `npm run e2e -- --grep @phase3` (see [ARCHITECTURE.md](docs/ARCHITECTURE.md#testing)) |
 | `npm run export` | Writes all generated art to `exports/sprites/*.png` and the maps to Tiled `exports/tiled/*.tmj` |
 
 Node 20+ is recommended.
@@ -50,11 +53,25 @@ switch automatically between keyboard and controller glyphs.
 | Debug overlay (dev builds) | F2 | — |
 
 Controllers are read by button *position*, whether or not the browser maps
-them to the standard layout. That covers an Xbox pad over Bluetooth in
-Firefox on macOS, which Firefox passes through unmapped (its D-pad arrives as
-a hat switch, which works too). A toast says "Controller ready" the first
-time a pad is readable; press any button on it if the prompts haven't
-switched. In development builds the F2 *Info* tab shows what each pad reports.
+them to the standard layout, and a toast says "Controller ready" the first
+time a pad is readable.
+
+**Controller setup.** Some browsers hand a pad over with its buttons in
+places the game can't guess. The usual case is an Xbox pad over Bluetooth in
+Firefox on a Mac, where A, B, X and Y do nothing even though the prompts
+switch. Such a pad gets **Options > Controller**, which asks you to press
+each button in turn and remembers the layout for that controller:
+- it opens by itself the first time you press a button on a pad the browser
+  doesn't map;
+- a D-pad that reports as a hat switch works too;
+- skip a step with the pad's A (once learned), Enter, or by waiting;
+- in Options, Left on the Controller row forgets a learned layout.
+
+In development builds the F2 *Info* tab shows what each pad reports.
+
+**Never stuck behind people.** Walk into someone who's in your way for a
+moment and you squeeze past them. After a scene, the crew make their way to
+wherever the story has them next.
 
 In battle, choose commands with the direction buttons and confirm. When
 Blackbeard swings his cutlass, a white ring closes on the target: press

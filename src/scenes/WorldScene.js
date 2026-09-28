@@ -22,6 +22,7 @@ import { mix, unpack, rgba } from '../art/palette.js';
 import { TILE_SIZE, DIR_VECTORS, OPPOSITE_DIR, DIRECTIONS, SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
 import { hash32 } from '../core/Rng.js';
 import { asArray } from '../core/util.js';
+import { placementChoices, placementChanges } from '../world/placements.js';
 
 // Step durations chosen so a 60 Hz frame moves a whole number of pixels:
 // walking is 2 px per frame (8 frames per tile), running 3 px per frame.
@@ -227,7 +228,9 @@ export class WorldScene extends BaseScene {
   buildObjects() {
     const session = this.session;
     this.objects = [];
-    const npcPlaced = new Set();
+    // Who is here: the placement the story picks for each character (see restage).
+    this.placementPicks = placementChoices(this.model.objects, session);
+    this.staged = new Set();
     for (const obj of this.model.objects) {
       // A warp's `if` is a lock, checked live when the captain steps on it
       // (so a door opens as soon as he has the key and can say it's locked).
@@ -237,20 +240,9 @@ export class WorldScene extends BaseScene {
       if (obj.if && !live && !evaluateCondition(obj.if, session)) continue;
       const wkey = WorldState.key(this.model.id, obj.id);
       switch (obj.type) {
-        case 'npc': {
-          if (npcPlaced.has(obj.npc)) break;
-          npcPlaced.add(obj.npc);
-          // "absent": this placement says the NPC is elsewhere for now.
-          if (obj.absent) break;
-          const a = this.spawnNpc(obj.npc, { x: obj.x, y: obj.y, facing: obj.facing, behavior: obj.behavior, actorId: obj.npc });
-          if (obj.pose) {
-            a.brain.pose = obj.pose;
-            a.playPose(obj.pose);
-          }
-          // A deliberate gate (Garrick's toll): the captain can't squeeze past.
-          a.blocks = !!obj.blocks;
+        case 'npc':
+          if (this.placementPicks.get(obj.npc) === obj) this.placeNpc(obj);
           break;
-        }
         case 'enemy': {
           if (session.world.isDefeated(wkey)) break;
           const enc = this.content.encounters.require(obj.encounter);
@@ -277,6 +269,18 @@ export class WorldScene extends BaseScene {
     }
   }
 
+  /** Puts a character in the room as a placement has them (at `at`, if given). */
+  placeNpc(obj, at = obj) {
+    const a = this.spawnNpc(obj.npc, { x: at.x, y: at.y, facing: obj.facing, behavior: obj.behavior, actorId: obj.npc });
+    if (obj.pose) {
+      a.brain.pose = obj.pose;
+      a.playPose(obj.pose);
+    }
+    // A deliberate gate (Garrick's toll): the captain can't squeeze past.
+    a.blocks = !!obj.blocks;
+    return a;
+  }
+
   spawnNpc(npcId, { x, y, facing = 'down', behavior = null, actorId = npcId }) {
     const def = this.content.npcs.require(npcId);
     const look = resolveVariant(def, this.session);
@@ -295,11 +299,20 @@ export class WorldScene extends BaseScene {
   }
 
   removeActor(actor) {
+    actor.brain?.relocation?.resolve(); // nobody waits on someone who is gone
     for (const [k, a] of [...this.occupancy.entries()]) if (a === actor) this.occupancy.delete(k);
     this.actors.delete(actor.id);
     this.npcs = this.npcs.filter((b) => b.actor !== actor);
     this.enemies = this.enemies.filter((e) => e.actor !== actor);
     actor.destroy();
+  }
+
+  /** Stands an actor on a tile at once (no walking). */
+  putActor(actor, { x, y }) {
+    for (const [k, a] of [...this.occupancy.entries()]) if (a === actor) this.occupancy.delete(k);
+    actor.setTile(x, y);
+    actor.prevKey = undefined;
+    this.occupancy.set(this.key(x, y), actor);
   }
 
   placePlayer() {
@@ -496,7 +509,7 @@ export class WorldScene extends BaseScene {
     }
     const busy = this.isBusy();
     for (const brain of this.npcs) {
-      if (busy && !brain.actor.scripted) continue;
+      if (busy && !brain.actor.scripted && !brain.relocation?.inScene) continue;
       brain.update(dt);
     }
     if (!busy && !this.leaving) for (const e of this.enemies) e.update(dt, this.player);
@@ -520,6 +533,8 @@ export class WorldScene extends BaseScene {
       this.triggersDirty = false;
       this.checkStoryTriggers();
     }
+    // Once no scene is running or about to (a trigger just started one), people go where the story has them.
+    if (this.restageDirty && !this.isBusy() && !this.leaving && !this.collapsing) this.restage();
   }
 
   // ---------------------------------------------------------------------------
@@ -527,6 +542,8 @@ export class WorldScene extends BaseScene {
 
   refreshStory({ immediate = false } = {}) {
     const session = this.session;
+    // Someone's placement may have changed: restage once the scene is over.
+    if (!immediate) this.restageDirty = true;
     this.applyPropConditions();
     this.refreshDynamicSolids();
     this.refreshLighting();
@@ -551,6 +568,188 @@ export class WorldScene extends BaseScene {
         this.app.audio.setAmbience(a.ambience);
       }
     }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Live placements: when the story moves someone, they go
+
+  /**
+   * Brings the room's people in line with the story's placements
+   * (world/placements.js): everyone whose placement changed since the room
+   * was built or last restaged, and everyone a scene positioned by script
+   * (`staged`), goes where the placements now say. They walk over, walk in
+   * from the nearest arrival point or walk out through one; `instant` puts
+   * them there at once instead (a scene behind a fade). Extras a scene
+   * spawned under another id have no placement and leave. Runs by itself
+   * once a scene (and any scene it sets off) is over; scripts can run it
+   * mid-scene with { "restage": "walk" | "cut" }. Resolves when everyone
+   * has arrived.
+   */
+  restage({ instant = false, inScene = false } = {}) {
+    this.restageDirty = false;
+    const now = placementChoices(this.model.objects, this.session);
+    const picked = this.placementPicks ?? new Map();
+    const ids = new Set([...placementChanges(picked, now).map((c) => c.npc), ...this.staged]);
+    this.staged.clear();
+    const moves = [];
+    for (const id of ids) {
+      const a = this.actors.get(id);
+      if (a === this.player || (a && !a.npc)) continue; // not a character
+      // Still on a scripted walk: wait for it (its end marks us dirty again).
+      if (a?.scriptMoves) {
+        now.set(a.npc.id, picked.get(a.npc.id) ?? null);
+        this.staged.add(id);
+        continue;
+      }
+      const npc = a ? a.npc.id : id;
+      const to = npc === id ? now.get(npc) ?? null : null;
+      const opts = { instant, inScene };
+      if (to) moves.push(a ? this.moveToPlacement(a, to, opts) : this.enterRoom(to, opts));
+      else if (a) moves.push(this.leaveRoom(a, opts));
+    }
+    this.placementPicks = now;
+    return Promise.all(moves);
+  }
+
+  /** A script put this actor somewhere: once the scene is over, the placements decide again. */
+  markStaged(id) {
+    if (id !== 'player' && id !== 'captain') this.staged.add(id);
+  }
+
+  moveToPlacement(a, obj, { instant = false, inScene = false } = {}) {
+    this.handToBrain(a);
+    // Left in the air by a flight: come down where they belong.
+    if (a.flight) {
+      a.flight = null;
+      this.putActor(a, this.openSpotNear(obj.x, obj.y, a));
+      this.takeUpPlacement(a, obj);
+      a.setVisible(true);
+      return instant ? Promise.resolve() : this.fadeActor(a, 0, 1);
+    }
+    if (instant || (a.tx === obj.x && a.ty === obj.y && !a.moving)) {
+      a.brain.relocation?.resolve();
+      a.brain.relocation = null;
+      if (instant) this.putActor(a, this.openSpotNear(obj.x, obj.y, a));
+      this.takeUpPlacement(a, obj);
+      return Promise.resolve();
+    }
+    return a.brain.relocate({ x: obj.x, y: obj.y, placement: obj, inScene });
+  }
+
+  /** Someone the story brings into the room comes in from the nearest arrival point. */
+  enterRoom(obj, { instant = false, inScene = false } = {}) {
+    const spot = this.openSpotNear(obj.x, obj.y);
+    const door = instant ? null : this.nearestArrival(spot.x, spot.y);
+    if (!door) {
+      const a = this.placeNpc(obj, spot);
+      return instant ? Promise.resolve() : this.fadeActor(a, 0, 1);
+    }
+    const a = this.spawnNpc(obj.npc, { x: door.x, y: door.y, facing: door.facing ?? 'down', actorId: obj.npc, behavior: { type: 'stand' } });
+    this.fadeActor(a, 0, 1);
+    return a.brain.relocate({ x: spot.x, y: spot.y, placement: obj, inScene });
+  }
+
+  /** Someone the story takes out of the room walks out by the nearest arrival point. */
+  leaveRoom(a, { instant = false, inScene = false } = {}) {
+    if (instant) {
+      this.removeActor(a);
+      return Promise.resolve();
+    }
+    this.handToBrain(a);
+    const door = a.flight ? null : this.nearestArrival(a.tx, a.ty, a);
+    if (!door) return this.relocated(a, { leave: true });
+    return a.brain.relocate({ x: door.x, y: door.y, leave: true, inScene });
+  }
+
+  /** Scripts are done with this actor: its brain walks it from here. */
+  handToBrain(a) {
+    a.scripted = false;
+    if (a.brain) a.brain.paused = false;
+  }
+
+  /** A relocation arrived (NpcBrain.relocating); `jump` when people blocked the way. */
+  async relocated(a, goal, { jump = false } = {}) {
+    if (goal.leave) {
+      a.brain?.pause();
+      await this.fadeActor(a, 1, 0);
+      if (this.actors.get(a.id) === a) this.removeActor(a);
+      return;
+    }
+    if (jump) {
+      a.brain?.pause();
+      await this.fadeActor(a, 1, 0);
+      if (this.actors.get(a.id) !== a) return;
+      this.putActor(a, this.openSpotNear(goal.x, goal.y, a));
+      this.takeUpPlacement(a, goal.placement);
+      a.brain?.resume();
+      await this.fadeActor(a, 0, 1);
+      return;
+    }
+    this.takeUpPlacement(a, goal.placement);
+  }
+
+  takeUpPlacement(a, obj) {
+    a.brain?.takeUp({ behavior: obj.behavior ?? a.npc.behavior, facing: obj.facing ?? 'down', pose: obj.pose });
+    a.blocks = !!obj.blocks;
+  }
+
+  fadeActor(a, from, to, ms = 260) {
+    a.fade = from;
+    a.sprite.setAlpha(from);
+    a.syncPosition();
+    return new Promise((resolve) => {
+      this.tweens.add({
+        targets: a,
+        fade: to,
+        duration: ms,
+        onUpdate: () => {
+          a.sprite.setAlpha(a.fade);
+          a.syncPosition();
+        },
+        onComplete: resolve,
+        onStop: resolve,
+      });
+    });
+  }
+
+  /** The tile itself if free, else the closest free one around it (never a doorway). */
+  openSpotNear(x, y, self = null) {
+    if (!this.isBlocked(x, y, self)) return { x, y };
+    for (let r = 1; r < 8; r++) {
+      for (let dy = -r; dy <= r; dy++) {
+        for (let dx = -r; dx <= r; dx++) {
+          if (Math.max(Math.abs(dx), Math.abs(dy)) !== r) continue;
+          if (!this.isBlocked(x + dx, y + dy, self) && !this.warpAt(x + dx, y + dy)) return { x: x + dx, y: y + dy };
+        }
+      }
+    }
+    return { x, y };
+  }
+
+  /** The free arrival point (a door's landing spot) closest on foot to (x, y). */
+  nearestArrival(x, y, self = null) {
+    const w = this.model.width;
+    const dist = new Map([[this.key(x, y), 0]]);
+    const queue = [[x, y]];
+    while (queue.length) {
+      const [cx, cy] = queue.shift();
+      const d = dist.get(this.key(cx, cy));
+      for (const v of Object.values(DIR_VECTORS)) {
+        const nx = cx + v.x;
+        const ny = cy + v.y;
+        const k = this.key(nx, ny);
+        if (dist.has(k) || nx < 0 || ny < 0 || nx >= w || ny >= this.model.height || this.isSolid(nx, ny)) continue;
+        dist.set(k, d + 1);
+        queue.push([nx, ny]);
+      }
+    }
+    let best = null;
+    for (const sp of Object.values(this.model.spawns)) {
+      const d = dist.get(this.key(sp.x, sp.y));
+      if (d === undefined || this.isBlocked(sp.x, sp.y, self)) continue;
+      if (!best || d < best.d) best = { ...sp, d };
+    }
+    return best;
   }
 
   /** "Stench Log updated" when the story unlocks new entries in a logbook. */
@@ -1067,6 +1266,7 @@ export class WorldScene extends BaseScene {
       if (this.scriptDepth === 0) {
         // Actors still walking a scripted path (an async move) stay scripted until they arrive.
         for (const a of this.actors.values()) if (!a.scriptMoves) a.scripted = false;
+        if (this.staged.size) this.restageDirty = true;
         this.continueStory();
       }
     }
@@ -1083,6 +1283,8 @@ export class WorldScene extends BaseScene {
     this.triggersDirty = true;
     if (this.isBusy() || this.leaving || this.collapsing || !this.sys.isActive()) return;
     this.checkStoryTriggers();
+    // No scene follows on: people go where the story now has them.
+    if (this.restageDirty && !this.isBusy()) this.restage();
   }
 
   /**

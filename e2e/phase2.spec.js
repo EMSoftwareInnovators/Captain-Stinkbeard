@@ -21,7 +21,7 @@ async function open(page) {
   return { g, errors };
 }
 
-test('every Phase 2 chapter preset starts cleanly', async ({ page }) => {
+test('every Phase 2 chapter preset starts cleanly', { tag: ['@phase2', '@smoke'] }, async ({ page }) => {
   const { g, errors } = await open(page);
   const presets = await g.eval(() => window.__GAME__.app.content.debugPresets.list().map((p) => ({ id: p.id, map: p.map })));
   expect(presets.length).toBeGreaterThanOrEqual(9);
@@ -35,7 +35,7 @@ test('every Phase 2 chapter preset starts cleanly', async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
-test('the rescue: rope, cloth, Dead Center, collapse and the haul-out', async ({ page }) => {
+test('the rescue: rope, cloth, Dead Center, collapse and the haul-out', { tag: ['@phase2', '@scenes'] }, async ({ page }) => {
   test.setTimeout(6 * 60 * 1000);
   const { g, errors } = await open(page);
   await g.preset('squawks_rescue');
@@ -81,7 +81,7 @@ test('the rescue: rope, cloth, Dead Center, collapse and the haul-out', async ({
   expect(errors).toEqual([]);
 });
 
-test('saving and continuing mid-Phase 2 keeps the story', async ({ page }) => {
+test('saving and continuing mid-Phase 2 keeps the story', { tag: ['@phase2', '@saves'] }, async ({ page }) => {
   const { g, errors } = await open(page);
   await g.preset('contaminated_treasure');
   await g.skip();
@@ -110,7 +110,7 @@ test('saving and continuing mid-Phase 2 keeps the story', async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
-test('a Phase 2 scene with choices plays with a gamepad', async ({ page }) => {
+test('a Phase 2 scene with choices plays with a gamepad', { tag: ['@phase2', '@input'] }, async ({ page }) => {
   await page.addInitScript(() => {
     const buttons = Array.from({ length: 17 }, () => ({ pressed: false, value: 0, touched: false }));
     const pad = { id: 'Test Pad (STANDARD GAMEPAD)', index: 0, connected: true, mapping: 'standard', axes: [0, 0, 0, 0], buttons, timestamp: 0 };
@@ -138,7 +138,7 @@ test('a Phase 2 scene with choices plays with a gamepad', async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
-test('Story Phase 2 plays from the end of the prologue to Garrick\'s probation', async ({ page }) => {
+test('Story Phase 2 plays from the end of the prologue to Garrick\'s probation', { tag: ['@phase2', '@story'] }, async ({ page }) => {
   test.setTimeout(20 * 60 * 1000);
   const { g, errors } = await open(page);
   const has = async (flag) => flagsOf(await g.state()).has(flag);

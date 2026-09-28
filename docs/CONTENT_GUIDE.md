@@ -10,6 +10,26 @@ content is listed on screen before the title appears). Error messages name the
 file, the entry and the path, e.g.
 `data/dialogue/prologue/hale.json (hale.rats_hint) start #2: unknown speaker "ghost"`.
 
+**Staging** is checked too, in two halves:
+
+- Validation (static): no script spawns or places someone on a wall or on
+  fixed furniture, walks them along a `path` through one, or sends them `to`
+  a tile they can't reach. This covers every script whose room is known
+  (from map objects, `onEnter`, story triggers with `onMap`, a
+  `transition`'s `then`, `call`, or an NPC who is only ever in one room).
+- The story tests (`npm test`, `tests/storyStaging.js`) replay Story Phases 2
+  and 3 with the real flags, props and placements, and after every scene
+  check that:
+  - nobody is left standing on a solid tile;
+  - the captain isn't boxed in by walls and people;
+  - from every arrival point of every room, every doorway can still be
+    reached past the people standing there (a `"blocks": true` gate
+    excepted);
+  - everyone the story needs a word with is actually in the room.
+
+  These tests caught the galley crowd that trapped the captain in the cargo
+  hold after the Frog Grog.
+
 - [Conventions](#conventions)
 - [Game setup](#game-setup-datagamejson)
 - [Characters, appearances and portraits](#characters-appearances-and-portraits)
@@ -161,6 +181,42 @@ Place an NPC with a map object: `{ "id": "quill", "type": "npc", "npc": "quill",
 The same NPC may appear on several maps (or twice on one map under different
 conditions — the first matching placement is used).
 
+### Placements are live: where people are after a scene
+
+Placements are the one source of truth for where people stand. They are not
+only read when a room loads. Once a scene ends (and any scene it sets off
+straight away), the room is **restaged**: these people go where the
+placements now say:
+
+- everyone whose placement changed, because the story moved on;
+- everyone the scene positioned by script (`spawn`, `place`, `move`, `fly`,
+  `despawn`).
+
+They walk to their new spot, walk in from the nearest arrival point (a map
+`spawn`), or walk out through one, fading in or out at the door. Anyone who
+is stuck behind people for 3 seconds fades across instead. Extras a scene
+spawned under their own `id` have no placement, so they leave. The room you
+see after a scene is therefore the room a reload would build.
+
+What this means when writing:
+
+- **To leave someone somewhere after a scene, give them a placement there**
+  under the flags the scene sets. The scene can still walk them over itself.
+  If it doesn't, restaging does. Example: `garrick_by_chest` in
+  `treasure_hold.json` keeps Garrick by the chest between the chest move and
+  the blast.
+- **Don't spawn people just so they are in the room.** If their placement
+  has them there, they are there. Spawn and move people for the choreography
+  of a scene; the placements tidy up afterwards.
+- `{ "restage": "walk" }` restages mid-scene and waits until everyone has
+  arrived (the crew gathers). `{ "restage": "cut" }` puts everyone in place
+  at once, which is best behind a `fade`. Add `"async": true` to carry on
+  without waiting.
+- A placement with `"blocks": true` is a deliberate gate (Garrick's toll on
+  the Phase 2 deck). The captain can normally squeeze past someone standing
+  in his way by walking into them for a moment (they swap places), but not
+  past a gate unless he is boxed in on every side.
+
 ## Dialogue and cutscenes (scripts)
 
 Files under `data/dialogue/**` and `data/story/cutscenes/**` are maps of
@@ -235,6 +291,7 @@ the cancel button (default: the last option).
 | `spawn` | npc, `id`, `x`, `y`, `facing` | add an NPC for the scene |
 | `despawn` | actor | remove |
 | `place` | actor, `x`, `y`, `facing` | teleport on the map |
+| `restage` | `walk` or `cut`, `async` | put people where the placements now say, mid-scene (see "Placements are live") |
 | `camera` | `pan` (`x`,`y` or `actor`), `follow` (`actor`), `reset`; `duration` | camera |
 | `shake` | intensity, `duration`, `to` (escalate to this intensity), `async` | screen shake (scaled by the Screen shake option) |
 | `flash` | `"#rrggbb"`, `duration` | screen flash |
@@ -500,7 +557,7 @@ Defeated map enemies stay defeated (saved per `map:object`).
 | --- | --- |
 | `spawn` | `x`, `y`, `facing` — entry points for warps and `newGame` |
 | `warp` | `x`, `y`, `w`, `h`, `to: { map, spawn }` (or `x`/`y`/`facing`), `sfx`, `if` (a live lock, see below), `locked` (script run when the lock holds) |
-| `npc` | `npc`, `x`, `y`, `facing`, `behavior`, `pose`, `if`, `absent` (this placement means "not in this room") — the first placement per NPC whose `if` holds wins |
+| `npc` | `npc`, `x`, `y`, `facing`, `behavior`, `pose`, `if`, `absent` (this placement means "not in this room"), `blocks` (a deliberate gate: no squeezing past) — the first placement per NPC whose `if` holds wins, live |
 | `enemy` | `encounter`, `x`, `y`, `sprite`, `wander`, `chase`, `facing`, `if` |
 | `inspect` | `x`, `y`, `w`, `h`, and `text` (lines), `script`, or `dialogue` (selectors like NPCs); `tags` |
 | `chest` | `x`, `y`, `w`, `prop`, `items`, `gold`, `text` — opened once, remembered |

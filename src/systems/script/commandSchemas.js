@@ -60,6 +60,7 @@ export const COMMAND_SCHEMAS = {
   spawn: { spawn: 'npc', id: 'string?', x: 'number', y: 'number', facing: 'dir?' },
   despawn: { despawn: 'actor' },
   place: { place: 'actor', x: 'number', y: 'number', facing: 'dir?' },
+  restage: { restage: 'string', async: 'boolean?' },
   camera: { camera: 'string', x: 'number?', y: 'number?', actor: 'actor?', duration: 'number?' },
   shake: { shake: 'number', duration: 'number?', to: 'number?', async: 'boolean?' },
   flash: { flash: 'string', duration: 'number?' },

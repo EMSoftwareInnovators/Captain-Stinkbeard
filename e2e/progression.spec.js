@@ -18,7 +18,7 @@ async function holdKey(page, key, ms) {
   await page.waitForTimeout(250);
 }
 
-test('doors, ladders and quest order hold up to unusual play', async ({ page }) => {
+test('doors, ladders and quest order hold up to unusual play', { tag: ['@prologue', '@world'] }, async ({ page }) => {
   const errors = [];
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('/');

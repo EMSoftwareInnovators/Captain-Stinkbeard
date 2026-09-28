@@ -54,6 +54,15 @@ reference resolves, so a converter can assume integrity.
   collision layer, prop tile objects and game objects with their properties,
   a practical starting point for any toolchain.
 
+NPC placements are re-evaluated after every scene (live restaging). A port
+can do the same cheaply:
+- keep one "current placement index" byte per NPC in the room;
+- after a scene, recompute it;
+- walk anyone whose index changed, or whom a script moved, with the same BFS
+  the routines use.
+
+No extra save data is needed, since a reload rebuilds the same room.
+
 Y-sorting: props on the `object` layer and actors sort by their feet row;
 `overhead` tiles and props always draw above actors. On hardware this maps to
 BG priority bits (overhead) and sprite ordering by Y.

@@ -135,7 +135,7 @@ async function expectPhase3Complete(g, s, errors) {
   expect(errors).toEqual([]);
 }
 
-test('Story Phase 3 plays from the end of Phase 2 to the second distant release', async ({ page }) => {
+test('Story Phase 3 plays from the end of Phase 2 to the second distant release', { tag: ['@phase3', '@story'] }, async ({ page }) => {
   test.setTimeout(30 * 60 * 1000);
   const { g, errors } = await open(page);
   const s = () => g.state();
@@ -147,7 +147,7 @@ test('Story Phase 3 plays from the end of Phase 2 to the second distant release'
   await expectPhase3Complete(g, s, errors);
 });
 
-test('Phase 3 chapters 12 to 14 play from the Frog Grog Unlocked preset', async ({ page }) => {
+test('Phase 3 chapters 12 to 14 play from the Frog Grog Unlocked preset', { tag: ['@phase3', '@story'] }, async ({ page }) => {
   test.setTimeout(20 * 60 * 1000);
   const { g, errors } = await open(page);
   const s = () => g.state();
@@ -159,7 +159,7 @@ test('Phase 3 chapters 12 to 14 play from the Frog Grog Unlocked preset', async 
   await expectPhase3Complete(g, s, errors);
 });
 
-test('the captain is never walled in by people', async ({ page }) => {
+test('the captain is never walled in by people', { tag: ['@phase3', '@world', '@smoke'] }, async ({ page }) => {
   const { g, errors } = await open(page);
   await g.preset('phase3_start');
   await g.skip();
@@ -185,7 +185,7 @@ test('the captain is never walled in by people', async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
-test('saving and continuing either side of the rename', async ({ page }) => {
+test('saving and continuing either side of the rename', { tag: ['@phase3', '@saves'] }, async ({ page }) => {
   const { g, errors } = await open(page);
   await g.preset('pre_rename');
   await g.skip();
@@ -214,7 +214,7 @@ test('saving and continuing either side of the rename', async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
-test('the rename and the hull patch play on a controller Firefox leaves unmapped', async ({ page }) => {
+test('the rename and the hull patch play on a controller Firefox leaves unmapped', { tag: ['@phase3', '@input'] }, async ({ page }) => {
   test.setTimeout(6 * 60 * 1000);
   const { g, errors } = await open(page, {
     initScript: () => {

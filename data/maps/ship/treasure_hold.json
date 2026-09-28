@@ -972,6 +972,25 @@
       }
     },
     {
+      "id": "garrick_by_chest",
+      "type": "npc",
+      "npc": "garrick",
+      "x": 14,
+      "y": 11,
+      "facing": "down",
+      "pose": "clutch",
+      "if": {
+        "all": [
+          {
+            "flag": "treasure_chest_moved"
+          },
+          {
+            "notFlag": "guzzlegut_gust"
+          }
+        ]
+      }
+    },
+    {
       "id": "garrick",
       "type": "npc",
       "npc": "garrick",

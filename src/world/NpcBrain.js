@@ -1,6 +1,9 @@
 import { findPath } from '../maps/pathfinding.js';
 import { DIRECTIONS } from '../config/constants.js';
 
+/** How long someone walking to a new placement waits on people in the way before stepping round them (a fade). */
+const RELOCATE_PATIENCE_MS = 3000;
+
 /**
  * Idle behaviour for an NPC. Data-driven via the NPC definition or the map
  * placement:
@@ -36,13 +39,69 @@ export class NpcBrain {
     else this.actor.playPose(this.pose ?? 'idle');
   }
 
+  /**
+   * The story moved this character (a new placement): walk to `goal`
+   * ({ x, y, leave? }), then hand over to the world (WorldScene.relocated),
+   * which takes up the new placement there or sees them out of the room.
+   * Resolves when that is done.
+   */
+  relocate(goal) {
+    this.relocation?.resolve();
+    return new Promise((resolve) => {
+      this.relocation = { ...goal, resolve, stuck: 0 };
+      this.path = null;
+    });
+  }
+
+  /** Takes up a placement where the actor now stands: its behaviour, facing and pose. */
+  takeUp({ behavior, facing, pose }) {
+    const a = this.actor;
+    this.behavior = behavior || { type: 'stand' };
+    this.home = { x: a.tx, y: a.ty, facing: facing ?? a.facing };
+    this.pose = pose ?? undefined;
+    this.stepIndex = 0;
+    this.path = null;
+    this.state = 'idle';
+    this.currentAnim = null;
+    this.timer = 1000 + this.rand() * 2500;
+    a.stopWalking();
+    if (facing) a.face(facing);
+    this.applyPose();
+  }
+
+  relocating(delta) {
+    const r = this.relocation;
+    const a = this.actor;
+    if (a.tx === r.x && a.ty === r.y) {
+      this.relocation = null;
+      this.world.relocated(a, r).then(r.resolve);
+      return;
+    }
+    // The goal itself may be a doorway (someone leaving): only its occupant stops us there.
+    const blocked = (x, y) => (x === r.x && y === r.y ? this.world.isBlocked(x, y, a) : this.blocked(x, y));
+    if (!this.path?.length) this.path = findPath(this.world.model.width, this.world.model.height, { x: a.tx, y: a.ty }, { x: r.x, y: r.y }, blocked);
+    if (this.path?.length && this.world.tryMoveActor(a, this.path[0], r.speed ?? 240)) {
+      this.path.shift();
+      r.stuck = 0;
+      return;
+    }
+    // People in the way (the captain in a doorway): wait, then give up walking.
+    this.path = null;
+    if (a.pose === 'walk') a.stopWalking();
+    r.stuck += delta;
+    if (r.stuck >= RELOCATE_PATIENCE_MS) {
+      this.relocation = null;
+      this.world.relocated(a, r, { jump: true }).then(r.resolve);
+    }
+  }
+
   pause() {
     this.paused = true;
   }
 
   resume() {
     this.paused = false;
-    if (!this.actor.moving) {
+    if (!this.actor.moving && !this.relocation) {
       if (this.behavior.type === 'routine' && this.currentAnim) this.actor.playPose(this.currentAnim);
       else if (this.behavior.type !== 'routine') {
         this.actor.face(this.behavior.facing ?? this.home.facing);
@@ -56,6 +115,10 @@ export class NpcBrain {
     const a = this.actor;
     if (a.moving) {
       if (a.updateMovement(delta)) this.world.releaseSource(a);
+      return;
+    }
+    if (this.relocation) {
+      this.relocating(delta);
       return;
     }
     // Courtesy: hold still while the captain stands facing us, so walking

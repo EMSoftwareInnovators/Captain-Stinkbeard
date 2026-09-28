@@ -122,6 +122,7 @@ function checkSteps(steps, model, pos, report) {
     }
     const at = (x, y) => `${x},${y}`;
     if (name === 'transition') return; // the scene carries on in another room
+    if (name === 'restage') pos.clear(); // everyone goes where the placements say
     if (name === 'spawn' || name === 'place') {
       const who = name === 'spawn' ? step.id ?? step.spawn : step.place;
       if (solidAt(model, step.x, step.y)) report(`${name}s ${who} on a solid tile (${at(step.x, step.y)})`);

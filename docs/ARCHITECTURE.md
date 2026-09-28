@@ -187,6 +187,24 @@ once the battle has ended and the world has resumed, so a script can write
   `wander` within a radius, `work` (loop an animation), `sit`, and `routine`
   (a list of go/wait/face/anim/emote steps with BFS pathing). NPCs pause while
   talking, hold still while the captain faces them, and never stop on warps.
+- **Placements are live** (`world/placements.js`, `WorldScene.restage`). A
+  room is built from each NPC's first placement whose `if` holds. After
+  every scene, and after any scene it sets off, the room is restaged:
+  - everyone whose placement changed, and everyone a script positioned
+    (`spawn`, `place`, `move`, `fly`, `despawn` mark the actor as staged),
+    goes where the placements say;
+  - `NpcBrain.relocate` walks them there, or in from the nearest arrival
+    point, or out through one (fading at the door);
+  - after 3 s stuck behind people, they fade across instead;
+  - someone still on an async scripted walk or flight is left to finish it
+    first.
+
+  The room after a scene is therefore what a reload would build. Scripts can
+  restage mid-scene (`restage: walk | cut`).
+- **Never stuck behind people.** Walking into a standing NPC for 0.7 s
+  squeezes the captain past them (they trade places), and he does so at once
+  when he is boxed in on every side. A placement marked `blocks` is a
+  deliberate gate that only gives way when he is boxed in.
 - **Field enemies** (`world/FieldEnemy.js`) wander, chase within a range and
   start battles on contact. Approaching an enemy from behind gives a
   *preemptive* round; being caught from behind gives the enemies an *ambush*
@@ -366,6 +384,18 @@ axis) and can list another HID device ahead of the controller. Axes that rest
 off-centre (triggers, stray devices) are never read as a held direction. The
 F2 *Info* tab shows what each pad reports.
 
+Some pads arrive with buttons nowhere a table can guess. One example is a
+Bluetooth Xbox pad on an Apple Silicon Mac in Firefox, whose buttons shift up
+by one (Mozilla bug 1707400). For those, the **Controller setup**
+(`ui/panels/ControllerSetupPanel.js`) learns the layout by asking for each
+button in turn:
+- it covers the face buttons, Start, the bumpers and the D-pad, including a
+  D-pad that reports as a hat axis;
+- it opens by itself on the first press of a pad the browser doesn't map,
+  and can be reopened from Options > Controller;
+- the result is saved per controller id (`settings.padLayouts`), and
+  `InputManager.layoutFor` prefers it over every built-in layout.
+
 ## Audio
 
 `audio/synth` renders all music, SFX and ambience at boot into PCM buffers
@@ -407,10 +437,37 @@ upgrades on load and walks into the next chapter.
   `phase2.spec.js` starts every chapter preset, plays the rescue (including
   a collapse in the Dead Center), saves and continues mid-phase, plays a
   scene with choices on a gamepad, and plays all of Story Phase 2 from the
-  end of the prologue to Garrick's probation.
+  end of the prologue to Garrick's probation. `phase3.spec.js` plays all of
+  Story Phase 3, and chapters 12 to 14 from a preset. It also saves and
+  continues either side of the rename, plays key scenes on an unmapped
+  Firefox pad, and checks the captain can't be walled in.
+  `placements.spec.js` checks that people go where the story moved them.
   `e2e/driver.js` is the shared driver; `tools/play.mjs` runs quick scripted
   sessions for screenshots.
-- `tests/phase2_story.test.js` plays Story Phase 2 headlessly with the real
+- **End-to-end tests are tagged** so a run can match the change:
+
+  | Tag | What |
+  | --- | --- |
+  | `@smoke` | a few minutes: menus, movement, a pad, Phase 2 presets, being walled in |
+  | `@story` | the long playthroughs (prologue, Phase 2, Phase 3, chapters 12 to 14) |
+  | `@prologue` `@phase2` `@phase3` | by part of the story |
+  | `@input` `@saves` `@world` `@scenes` `@ui` | by system |
+
+  `npm run e2e:smoke`, `npm run e2e:quick` (all but `@story`),
+  `npm run e2e:story`, or `npm run e2e -- --grep @phase3`. For a faster
+  full run, use `--shard=1/3` across machines, or `E2E_WORKERS=2` on one big
+  enough to keep the timing tests honest.
+- **Staging** is checked in two halves:
+  - `content/staging.js`, run by validation, catches scripts that put
+    someone in a wall, walk them through one or send them somewhere
+    unreachable.
+  - `tests/storyStaging.js`, run by the headless story tests with real flags
+    and placements and modelling live restaging, catches:
+    - anyone left standing on furniture;
+    - a captain boxed in when a scene ends;
+    - a room whose doorways are cut off by people from some arrival point;
+    - talking to someone who isn't in the room.
+- `tests/phase2_story.test.js` and `tests/phase3_story.test.js` play the Story Phases headlessly with the real
   scripts, quests and triggers and mock services, twice (always the first
   choice, always the last), and fails on any dead end, loop or script error.
   `tests/phase2.test.js` covers the fume model, variants, chapters and time of

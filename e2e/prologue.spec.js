@@ -9,7 +9,7 @@ import { GameDriver } from './driver.js';
  * Timed hits use the debug "auto timing" aid so battles are deterministic
  * enough for CI; everything else is real key presses.
  */
-test('the prologue can be played from New Game to free exploration', async ({ page }) => {
+test('the prologue can be played from New Game to free exploration', { tag: ['@prologue', '@story'] }, async ({ page }) => {
   const errors = [];
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('/');

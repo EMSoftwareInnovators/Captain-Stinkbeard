@@ -82,6 +82,25 @@ describe('content validation fails loudly', () => {
     expect(errors).toMatch(/sea_boots/);
   });
 
+  it('catches scripts that stand people inside walls or walk them through one', () => {
+    const errors = validateWith((f) => {
+      const ch7 = f['/data/story/cutscenes/phase2/ch7.json'];
+      ch7['ch7.crew_turns'].unshift({ spawn: 'garrick', x: 9, y: 20, facing: 'down' }); // the mainmast
+      ch7['ch7.crew_turns'].splice(1, 0, { move: 'garrick', path: ['up', 2] });
+    });
+    expect(errors).toMatch(/staging on main_deck: spawns garrick on a solid tile \(9,20\)/);
+    expect(errors).toMatch(/staging on main_deck: walks garrick through a solid tile/);
+  });
+
+  it('checks restage modes and deliberate gates', () => {
+    const errors = validateWith((f) => {
+      f['/data/dialogue/prologue/hale.json']['hale.rats_hint'].push({ restage: 'teleport' });
+      find(f['/data/maps/ship/phase2/main_deck.patch.json'].objects, 'garrick_9_27').blocks = 'yes';
+    });
+    expect(errors).toMatch(/restage must be "walk" or "cut"/);
+    expect(errors).toMatch(/"blocks" must be true or false/);
+  });
+
   it('catches undeclared story flags used by scripts', () => {
     const errors = validateWith((f) => {
       f['/data/dialogue/prologue/hale.json']['hale.rats_hint'].push({ setFlag: 'totally_new_flag' });

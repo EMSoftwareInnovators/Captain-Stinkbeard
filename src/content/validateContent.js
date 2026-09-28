@@ -285,6 +285,7 @@ function validateStep(step, check, sctx) {
     });
   }
   if (name === 'camera' && !['pan', 'follow', 'reset'].includes(step.camera)) check.error(`camera mode must be pan|follow|reset`);
+  if (name === 'restage' && !['walk', 'cut'].includes(step.restage)) check.error('restage must be "walk" or "cut"');
   if (name === 'burst' && !PARTICLE_BURSTS.includes(step.burst)) check.error(`unknown burst "${step.burst}" (use: ${PARTICLE_BURSTS.join(', ')})`);
   if (name === 'propFx' && !PROP_FX.includes(step.propFx)) check.error(`unknown propFx "${step.propFx}" (use: ${PROP_FX.join(', ')})`);
   if (name === 'propFx' && !step.prop && !step.area) check.error('propFx needs "prop" or "area"');

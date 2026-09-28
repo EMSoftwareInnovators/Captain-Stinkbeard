@@ -11,7 +11,7 @@ import { parseLine } from './parseLine.js';
  *   ctx.services.dialogue  say(line) · choose({prompt, options, cancelIndex}) · close() · tutorial({title,text})
  *   ctx.services.ui        notify(event) · banner(text, sub) · openShop(id)
  *   ctx.services.audio     sfx(id) · music(id, opts) · ambience(id)
- *   ctx.services.world     move/face/anim/emote/spawn/despawn/place/camera/shake/flash/fade/transition/...
+ *   ctx.services.world     move/face/anim/emote/spawn/despawn/place/restage/camera/shake/flash/fade/transition/...
  *   ctx.services.battle    start(encounterId) -> 'win' | 'lose' | 'flee'
  *   ctx.services.saves     autosave()
  *   ctx.services.cinema    show/end/move/frame/fx/insert (vistas: CinemaScene)
@@ -172,6 +172,10 @@ export function createCommandImplementations() {
     spawn: (step, ctx) => service(ctx, 'world', 'spawn').spawn(step.spawn, { id: step.id, x: step.x, y: step.y, facing: step.facing }),
     despawn: (step, ctx) => service(ctx, 'world', 'despawn').despawn(step.despawn),
     place: (step, ctx) => service(ctx, 'world', 'place').place(step.place, step.x, step.y, step.facing),
+    restage: (step, ctx) => {
+      const p = service(ctx, 'world', 'restage').restage(step.restage);
+      return step.async ? null : p;
+    },
     camera: (step, ctx) =>
       service(ctx, 'world', 'camera').camera(step.camera, { x: step.x, y: step.y, actor: step.actor, duration: step.duration }),
     shake: (step, ctx) => {

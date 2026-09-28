@@ -59,9 +59,52 @@ export function createWorldServices(scene) {
     if (a === scene.player) scene.session.location = { map: scene.model.id, x: a.tx, y: a.ty, facing: a.facing };
   }
 
+  /** Flies an actor through the air (ignores walls), landing on a tile. */
+  async function flyActor(a, { to, duration = 900, arc = 18, land = true, alt = 0, from = null, fromAlt = null }) {
+    a.brain?.pause();
+    a.scripted = true;
+    // Optionally start somewhere else first (swooping in from off-screen).
+    if (from) a.flight = { x: from[0] * TILE_SIZE + TILE_SIZE / 2, y: from[1] * TILE_SIZE + TILE_SIZE, alt: fromAlt ?? 0, depth: 60000 };
+    else if (fromAlt !== null) a.flight = { x: a.px, y: a.py, alt: fromAlt, depth: 60000 };
+    if (a.flight) a.setVisible(true);
+    const fromX = a.px;
+    const fromY = a.py;
+    const toX = to[0] * TILE_SIZE + TILE_SIZE / 2;
+    const toY = to[1] * TILE_SIZE + TILE_SIZE;
+    for (const [k, v] of [...scene.occupancy.entries()]) if (v === a) scene.occupancy.delete(k);
+    a.flight = { x: fromX, y: fromY, alt: a.flight?.alt ?? 0, depth: 60000 };
+    if (Math.abs(toX - fromX) > Math.abs(toY - fromY)) a.face(toX > fromX ? 'right' : 'left');
+    else a.face(toY > fromY ? 'down' : 'up');
+    a.playPose('fly');
+    const startAlt = a.flight.alt;
+    const st = { t: 0 };
+    await new Promise((resolve) => {
+      scene.tweens.add({
+        targets: st,
+        t: 1,
+        duration,
+        ease: 'Sine.InOut',
+        onUpdate: () => {
+          a.flight.x = fromX + (toX - fromX) * st.t;
+          a.flight.y = fromY + (toY - fromY) * st.t;
+          a.flight.alt = startAlt + (alt - startAlt) * st.t + Math.sin(st.t * Math.PI) * arc;
+          a.syncPosition();
+        },
+        onComplete: resolve,
+      });
+    });
+    if (land) {
+      a.flight = null;
+      a.setTile(to[0], to[1]);
+      scene.occupancy.set(scene.key(to[0], to[1]), a);
+      a.playPose('idle');
+    }
+  }
+
   const world = {
     async move(id, opts) {
       const a = actor(id);
+      scene.markStaged(a.id);
       a.brain?.pause();
       a.scripted = true;
       // A walk can outlive its scene ("async": true at the end of a script):
@@ -75,6 +118,7 @@ export function createWorldServices(scene) {
           a.scripted = false;
           if (a.brain) a.brain.home = { x: a.tx, y: a.ty, facing: a.facing };
           a.brain?.resume();
+          scene.restageDirty = true; // a placement change held back while they walked
         }
       }
     },
@@ -105,16 +149,26 @@ export function createWorldServices(scene) {
       if (scene.actors.has(actorId)) scene.removeActor(scene.actors.get(actorId));
       const a = scene.spawnNpc(npcId, { x, y, facing, actorId, behavior: { type: 'stand' } });
       a.scripted = true;
+      scene.markStaged(actorId);
     },
     despawn(id) {
-      scene.removeActor(actor(id));
+      const a = actor(id);
+      scene.markStaged(a.id);
+      scene.removeActor(a);
     },
     place(id, x, y, facing) {
       const a = actor(id);
-      for (const [k, v] of [...scene.occupancy.entries()]) if (v === a) scene.occupancy.delete(k);
-      a.setTile(x, y);
-      scene.occupancy.set(scene.key(x, y), a);
+      scene.markStaged(a.id);
+      scene.putActor(a, { x, y });
       if (facing) a.face(facing);
+    },
+    /**
+     * Puts people where the story's placements now say (see
+     * WorldScene.restage): "walk" sends them there and waits until everyone
+     * has arrived; "cut" puts them there at once (behind a fade).
+     */
+    restage(mode) {
+      return scene.restage({ instant: mode === 'cut', inScene: true });
     },
     /**
      * pan: glide to a tile or actor and hold there; follow: glide to an actor
@@ -215,48 +269,21 @@ export function createWorldServices(scene) {
     },
 
     /** Flies an actor through the air (ignores walls), landing on a tile. */
-    async fly(id, { to, duration = 900, arc = 18, land = true, alt = 0, from = null, fromAlt = null }) {
+    async fly(id, opts) {
       const a = actor(id);
-      a.brain?.pause();
-      a.scripted = true;
-      // Optionally start somewhere else first (swooping in from off-screen).
-      if (from) a.flight = { x: from[0] * TILE_SIZE + TILE_SIZE / 2, y: from[1] * TILE_SIZE + TILE_SIZE, alt: fromAlt ?? 0, depth: 60000 };
-      else if (fromAlt !== null) a.flight = { x: a.px, y: a.py, alt: fromAlt, depth: 60000 };
-      if (a.flight) a.setVisible(true);
-      const fromX = a.px;
-      const fromY = a.py;
-      const toX = to[0] * TILE_SIZE + TILE_SIZE / 2;
-      const toY = to[1] * TILE_SIZE + TILE_SIZE;
-      for (const [k, v] of [...scene.occupancy.entries()]) if (v === a) scene.occupancy.delete(k);
-      a.flight = { x: fromX, y: fromY, alt: a.flight?.alt ?? 0, depth: 60000 };
-      if (Math.abs(toX - fromX) > Math.abs(toY - fromY)) a.face(toX > fromX ? 'right' : 'left');
-      else a.face(toY > fromY ? 'down' : 'up');
-      a.playPose('fly');
-      const startAlt = a.flight.alt;
-      const st = { t: 0 };
-      await new Promise((resolve) => {
-        scene.tweens.add({
-          targets: st,
-          t: 1,
-          duration,
-          ease: 'Sine.InOut',
-          onUpdate: () => {
-            a.flight.x = fromX + (toX - fromX) * st.t;
-            a.flight.y = fromY + (toY - fromY) * st.t;
-            a.flight.alt = startAlt + (alt - startAlt) * st.t + Math.sin(st.t * Math.PI) * arc;
-            a.syncPosition();
-          },
-          onComplete: resolve,
-        });
-      });
-      if (land) {
-        a.flight = null;
-        a.setTile(to[0], to[1]);
-        scene.occupancy.set(scene.key(to[0], to[1]), a);
-        a.playPose('idle');
+      scene.markStaged(a.id);
+      // Like a walk, a flight can outlive its scene: restaging waits for it.
+      a.scriptMoves = (a.scriptMoves ?? 0) + 1;
+      try {
+        await flyActor(a, opts);
+      } finally {
+        a.scriptMoves -= 1;
+        if (!a.scriptMoves && scene.scriptDepth === 0) {
+          if (a !== scene.player) a.scripted = false;
+          scene.restageDirty = true;
+        }
       }
     },
-
     /** A little jump (surprise, being knocked about). */
     hop(id, { height = 8, duration = 280 } = {}) {
       const a = actor(id);

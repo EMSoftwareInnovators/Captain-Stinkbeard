@@ -1,6 +1,7 @@
 import { compileMap } from '../src/maps/compileMap.js';
 import { findPath } from '../src/maps/pathfinding.js';
 import { evaluateCondition } from '../src/systems/conditions/conditions.js';
+import { placementChoices, placementChanges } from '../src/world/placements.js';
 
 /**
  * The story-aware half of the staging checks (the static half is
@@ -33,6 +34,10 @@ export class StagingTracker {
     this.player = null; // [x, y] when known
     this.hidden = new Set(); // props hidden by the current scene (hideObject "prop:<id>")
     this.gates = new Set(); // people placed as deliberate gates in the current room
+    this.chosen = new Map(); // the current room's placement picks (see restage)
+    this.touched = new Set(); // actors the current scene positioned by script
+    this.npcOf = new Map(); // actor id -> npc id, for extras spawned under another id
+    this.restageLog = []; // what live restaging did after each scene
     this.context = '';
   }
 
@@ -80,13 +85,10 @@ export class StagingTracker {
   /** Who a room shows right now: the first matching placement per NPC ("absent" = elsewhere). */
   placements(map, gates = null) {
     const out = new Map();
-    const done = new Set();
-    for (const o of this.model(map).objects) {
-      if (o.type !== 'npc' || done.has(o.npc)) continue;
-      if (o.if && !evaluateCondition(o.if, this.session)) continue;
-      done.add(o.npc);
-      if (!o.absent) out.set(o.npc, [o.x, o.y]);
-      if (!o.absent && o.blocks) gates?.add(o.npc);
+    for (const [npc, o] of placementChoices(this.model(map).objects, this.session)) {
+      if (!o) continue;
+      out.set(npc, [o.x, o.y]);
+      if (o.blocks) gates?.add(npc);
     }
     return out;
   }
@@ -107,6 +109,9 @@ export class StagingTracker {
     this.hidden.clear();
     this.gates = new Set();
     this.actors = this.placements(map, this.gates);
+    this.chosen = placementChoices(this.model(map).objects, this.session);
+    this.touched.clear();
+    this.npcOf.clear();
     const sp = spawn ? this.model(map).spawns[spawn] : null;
     this.player = sp ? [sp.x, sp.y] : Number.isInteger(x) && Number.isInteger(y) ? [x, y] : null;
   }
@@ -118,7 +123,10 @@ export class StagingTracker {
 
   setPos(id, p) {
     if (id === 'player' || id === 'captain') this.player = p;
-    else this.actors.set(id, p);
+    else {
+      this.actors.set(id, p);
+      this.touched.add(id);
+    }
   }
 
   posOf(id) {
@@ -127,6 +135,7 @@ export class StagingTracker {
 
   spawn(npc, { id, x, y } = {}) {
     this.checkTile(id ?? npc, x, y, 'spawns');
+    this.npcOf.set(id ?? npc, npc);
     this.setPos(id ?? npc, [x, y]);
   }
 
@@ -137,6 +146,7 @@ export class StagingTracker {
 
   despawn(id) {
     this.actors.delete(id);
+    this.touched.add(id);
   }
 
   fly(id, { to, land = true } = {}) {
@@ -144,7 +154,7 @@ export class StagingTracker {
     // Landing on furniture is fair staging (on a barrel, into the gold); being
     // left there when the scene ends is not (checkStanding).
     if (land) this.setPos(id, [...to]);
-    else if (id !== 'player' && id !== 'captain') this.actors.delete(id); // in the air: not in anyone's way
+    else if (id !== 'player' && id !== 'captain') this.despawn(id); // in the air: not in anyone's way
   }
 
   move(id, { path, to } = {}) {
@@ -206,6 +216,43 @@ export class StagingTracker {
   approachActor(id) {
     const p = this.actors.get(id);
     if (p) this.approach(p[0], p[1]);
+  }
+
+  /**
+   * After a scene (and any scene it sets off), the game restages the room
+   * (WorldScene.restage): everyone whose placement changed, and everyone the
+   * scenes put somewhere by script, goes where the placements say (walking
+   * over, in through a door or out of one). Extras spawned under another id
+   * have no placement and leave.
+   */
+  restage() {
+    if (!this.map) return;
+    const now = placementChoices(this.model(this.map).objects, this.session);
+    const ids = new Set([...placementChanges(this.chosen, now).map((c) => c.npc), ...this.touched]);
+    this.chosen = now;
+    this.touched.clear();
+    for (const id of ids) {
+      const npc = this.npcOf.get(id) ?? id;
+      const to = id === npc ? now.get(npc) ?? null : null;
+      const at = this.actors.get(id);
+      const where = `${this.context} on ${this.map}`;
+      if (to) {
+        if (!at) this.restageLog.push(`${where}: ${id} comes in to ${to.x},${to.y}`);
+        else if (at[0] !== to.x || at[1] !== to.y) this.restageLog.push(`${where}: ${id} walks from ${at} to ${to.x},${to.y}`);
+        this.actors.set(id, [to.x, to.y]);
+        if (to.blocks) this.gates.add(id);
+        else this.gates.delete(id);
+      } else if (at) {
+        this.restageLog.push(`${where}: ${id} leaves from ${at}`);
+        this.actors.delete(id);
+        this.gates.delete(id);
+      }
+    }
+  }
+
+  /** The captain can only talk to someone who is in the room. */
+  checkPresent(npc) {
+    if (this.map && !this.actors.has(npc)) this.issue(`the story needs a word with ${npc}, who isn't on ${this.map}`);
   }
 
   // --- checks when the player has control -----------------------------------

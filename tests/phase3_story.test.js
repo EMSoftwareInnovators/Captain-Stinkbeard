@@ -48,7 +48,8 @@ const STEPS = [
   ['ship_is_changing.bell', async (s) => { await go(s, 'main_deck'); await s.inspect('bell_p3'); }],
   ['ship_is_changing.wood', async (s) => { await go(s, 'cargo_hold'); await s.inspect('wood_yellow'); }],
   ['ship_is_changing.crew', async (s) => {
-    const who = [['heard_chart', 'nell'], ['heard_cannons', 'brask'], ['heard_fish', 'jim'], ['heard_hammocks', 'jory']].find(([f]) => !s.has(f));
+    const who = [['heard_chart', 'nell', 'main_deck'], ['heard_cannons', 'brask', 'main_deck'], ['heard_fish', 'jim', 'main_deck'], ['heard_hammocks', 'jory', 'crew_quarters']].find(([f]) => !s.has(f));
+    await go(s, who[2]);
     await s.talk(who[1]);
   }],
   ['ship_is_changing.sharks', async (s) => { await go(s, 'main_deck'); await s.talk('garrick'); }],

@@ -76,7 +76,7 @@ function analyse({ samples, keyAt }, pxPerMs, axis = 1) {
   return { deltas, updatesToMove, drift };
 }
 
-test('walking is immediate, even, and reversible mid-step', async ({ page }) => {
+test('walking is immediate, even, and reversible mid-step', { tag: ['@smoke', '@world'] }, async ({ page }) => {
   await page.goto('/');
   const g = new GameDriver(page);
   await g.newGame();
