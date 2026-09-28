@@ -35,7 +35,7 @@ export class TitleScene extends BaseScene {
     }
     this.logo = this.add.image(SCREEN_WIDTH / 2, 50, 'logo').setOrigin(0.5).setAlpha(0);
     this.tweens.add({ targets: this.logo, alpha: 1, y: 54, duration: 900, ease: 'Quad.Out' });
-    this.version = addText(this, 4, SCREEN_HEIGHT - 12, 'Story Phase 2 build 0.2', { color: 0x6c5a70 });
+    this.version = addText(this, 4, SCREEN_HEIGHT - 12, 'Story Phase 3 build 0.3', { color: 0x6c5a70 });
     this.state = 'press';
     this.press = addText(this, 0, 160, 'Press {btn:confirm}', { color: 0xfff4e0 });
     centerText(this.press, SCREEN_WIDTH / 2);

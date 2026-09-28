@@ -1,0 +1,11 @@
+{
+  "sharks": {
+    "//": "Shark threat tuning (see src/systems/hazards/sharks.js). Per level: fins in the water, speed (tiles per second round the hull), margin (tiles out from the hull), submerge (how often a fin dips under), bumpEvery (ms between hull bumps while the captain has control) and shake. Levels not listed keep the defaults.",
+    "levels": {
+      "curious": { "fins": 2, "speed": 0.9, "margin": 0.95, "submerge": 0.45 },
+      "following": { "fins": 4, "speed": 1.5, "margin": 0.8, "submerge": 0.2 },
+      "attacking": { "fins": 6, "speed": 2.1, "margin": 0.55, "submerge": 0.1, "bumpEvery": [5500, 9500], "shake": 1 },
+      "swarm": { "fins": 10, "speed": 2.8, "margin": 0.5, "submerge": 0.05, "bumpEvery": [2600, 5200], "shake": 2 }
+    }
+  }
+}

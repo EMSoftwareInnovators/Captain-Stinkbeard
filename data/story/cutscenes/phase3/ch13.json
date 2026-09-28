@@ -5,11 +5,11 @@
     { "fade": "out", "duration": 500 },
     { "banner": "CHAPTER 13", "sub": "The Sharks Smell the Gust" },
     { "startQuest": "sharks", "silent": true },
-    { "transition": "main_deck", "x": 11, "y": 18, "facing": "up", "then": "p3c5.science", "fade": 0 }
+    { "transition": "main_deck", "x": 12, "y": 17, "facing": "left", "then": "p3c5.science", "fade": 0 }
   ],
 
   "p3c5.science": [
-    { "spawn": "hale", "id": "hale", "x": 13, "y": 17, "facing": "left" },
+    { "spawn": "hale", "id": "hale", "x": 14, "y": 17, "facing": "left" },
     { "spawn": "brask", "id": "brask", "x": 9, "y": 17, "facing": "right" },
     { "spawn": "rook", "id": "rook", "x": 10, "y": 18, "facing": "up" },
     { "wait": 500 },
@@ -225,7 +225,7 @@
   ],
 
   "p3c5.solution": [
-    { "move": "player", "to": [11, 18], "speed": "run", "face": "up" },
+    { "move": "player", "to": [12, 17], "speed": "run", "face": "left" },
     { "face": "garrick", "dir": "player" },
     { "hop": "garrick", "height": 6, "duration": 220 },
     "You grab the Grand Stenchmaster by the front of his curtain.",

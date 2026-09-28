@@ -783,6 +783,12 @@ export class WorldScene extends BaseScene {
       return;
     }
     const blocked = this.app.flags.noclip ? nx < 0 || ny < 0 || nx >= this.model.width || ny >= this.model.height || !!occ : this.isBlocked(nx, ny, p);
+    if (blocked && occ && occ !== p && occ.npc && !occ.moving && !this.isSolid(nx, ny) && this.boxedIn(p)) {
+      // Never leave the captain walled in by people (a scene that ends with
+      // the crew standing all round him): the one he walks into trades places.
+      this.tradePlaces(occ, dir, running ? RUN_MS : WALK_MS, dt);
+      return;
+    }
     if (blocked) {
       this.bump();
       if (this.wasMoving || p.pose === 'walk') p.stopWalking();
@@ -794,6 +800,28 @@ export class WorldScene extends BaseScene {
     // Continuing: carry the time left over from the last tile. Starting from
     // a standstill: begin one frame in, so the first pixel shows this frame.
     p.beginStep(dir, running ? RUN_MS : WALK_MS, this.wasMoving ? p.carryMs : dt);
+    this.wasMoving = true;
+  }
+
+  /** True when every tile around the captain is a wall or a person (a doorway counts as a way out). */
+  boxedIn(p) {
+    return DIRECTIONS.every((d) => {
+      const v = DIR_VECTORS[d];
+      return this.isBlocked(p.tx + v.x, p.ty + v.y, p) && !this.warpAt(p.tx + v.x, p.ty + v.y);
+    });
+  }
+
+  /** The captain and a standing NPC swap tiles, both walking (the NPC's brain finishes its step). */
+  tradePlaces(npc, dir, ms, dt) {
+    const p = this.player;
+    const here = this.key(p.tx, p.ty);
+    const there = this.key(npc.tx, npc.ty);
+    npc.prevKey = there;
+    this.occupancy.set(here, npc);
+    npc.beginStep(OPPOSITE_DIR[dir], ms);
+    p.prevKey = here;
+    this.occupancy.set(there, p);
+    p.beginStep(dir, ms, this.wasMoving ? p.carryMs : dt);
     this.wasMoving = true;
   }
 

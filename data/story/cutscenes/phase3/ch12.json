@@ -13,7 +13,7 @@
   ],
 
   "p3c4.briefing": [
-    { "spawn": "squawks", "id": "squawks", "x": 13, "y": 8, "facing": "left" },
+    { "spawn": "squawks", "id": "squawks", "x": 13, "y": 7, "facing": "left" },
     { "wait": 500 },
     { "face": "garrick", "dir": "player" },
     "garrick[delighted]: Good morning, Captain Stinkbeard!",
@@ -22,7 +22,7 @@
     "captain: Settled in?",
     "garrick[businesslike]: Overnight, Captain, in the damp, the product has worked its way into every part of the vessel. We are now fully integrated.",
     { "spawn": "hale", "id": "hale", "x": 9, "y": 8, "facing": "right" },
-    { "move": "hale", "to": [11, 8], "face": "right" },
+    { "move": "hale", "to": [10, 8], "face": "right" },
     "hale[concerned]: He's not wrong, Captain. I've been round her twice this morning. She's... different.",
     "hale: I've made a list.",
     "garrick: I've made a list too. Mine's longer.",
@@ -41,7 +41,7 @@
     "hale: I'd go and see for yourself, Captain. Before it gets any... more.",
     "garrick[smug]: Report back to me when you're done, Captain. I'm keeping the log.",
     { "tutorial": "Check the sails, the ropes, the bell and the yellowed wood in the cargo hold, and ask the crew what they've noticed. Then report to Garrick.", "title": "The Ship Is Changing" },
-    { "move": "hale", "to": [7, 13], "face": "down", "async": true }
+    { "move": "hale", "to": [7, 13], "face": "down" }
   ],
 
   "p3c4.sails": [

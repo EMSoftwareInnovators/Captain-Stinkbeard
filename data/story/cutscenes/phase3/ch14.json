@@ -77,8 +77,10 @@
     { "wait": 400 },
     "captain: Jory. Tell me what's left of my ship.",
     "jory: Aye, Captain. Come and see the patch.",
-    { "move": "jory", "to": [14, 21], "face": "right", "async": true },
-    { "move": "brask", "to": [6, 22], "face": "left", "async": true },
+    { "parallel": [
+      [{ "move": "jory", "to": [14, 21], "face": "right" }],
+      [{ "move": "brask", "to": [6, 22], "face": "left" }]
+    ] },
     { "tutorial": "Hear Jory's damage report by the patched hull, midships to port.", "title": "Grand Stenchmaster, Temporarily" }
   ],
 
@@ -143,7 +145,8 @@
     { "wait": 600 },
     "captain[resigned]: ...From a safe distance.",
     "garrick[delighted]: From a very safe distance!",
-    { "move": "garrick", "path": ["left", "left"], "speed": "slow" },
+    { "move": "garrick", "to": [8, 27], "speed": "slow" },
+    { "face": "garrick", "dir": "player" },
     { "sfx": "sniff" },
     { "wait": 700 },
     "garrick[queasy]: Hhhk.",
@@ -164,7 +167,7 @@
     { "wait": 500 },
     "It's yellow.",
     "Not the green of the rest of him. Not the red of his old crest. Yellow. The exact yellow of everything else on this ship.",
-    { "spawn": "wick", "id": "wick", "x": 10, "y": 14, "facing": "up" },
+    { "spawn": "wick", "id": "wick", "x": 10, "y": 12, "facing": "down" },
     "wick[concerned]: Captain, is that—",
     { "emote": "player", "icon": "ellipsis" },
     "squawks[worried]: What colour, Captain? Can't see it. It's on my HEAD.",

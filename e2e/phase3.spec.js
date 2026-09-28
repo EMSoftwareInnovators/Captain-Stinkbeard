@@ -22,14 +22,8 @@ async function open(page, { initScript = null } = {}) {
   return { g, errors };
 }
 
-test('Story Phase 3 plays from the end of Phase 2 to the second distant release', async ({ page }) => {
-  test.setTimeout(25 * 60 * 1000);
-  const { g, errors } = await open(page);
-  const s = () => g.state();
-  const has = async (flag) => flagsOf(await s()).has(flag);
-  await g.preset('phase2_complete');
-  await g.skip();
-
+/** Chapters 9 to 11: from the end of Phase 2 to Frog Grog (the next chapter is already under way). */
+async function chapters9to11(g, s, has) {
   // Chapter 9: the Grand Stenchmaster takes command
   expect((await s()).quests.necessary_promotion.status).toBe('active');
   await g.interact('garrick');
@@ -70,7 +64,10 @@ test('Story Phase 3 plays from the end of Phase 2 to the second distant release'
   expect(await has('frog_grog_unlocked')).toBe(true);
   const items = (await s()).items;
   expect(JSON.stringify(items)).toContain('frog_grog');
+}
 
+/** Chapters 12 to 14: the changed ship, the sharks, the terms and the second release. */
+async function chapters12to14(g, s, has) {
   // Chapter 12: the ship's transformation
   await g.skip();
   expect((await s()).quests.ship_is_changing.status).toBe('active');
@@ -126,13 +123,65 @@ test('Story Phase 3 plays from the end of Phase 2 to the second distant release'
   expect((await s()).garrickTitle).toBe('Grand Stenchmaster');
   await g.interact([4, 24]); // off to another ocean
   await g.skip();
+}
 
+async function expectPhase3Complete(g, s, errors) {
   const end = await s();
   const flags = flagsOf(end);
   for (const f of ['garrick_evacuated_again', 'second_release_seen', 'p3_complete', 'stomach_alarm_protocol']) expect(flags.has(f), f).toBe(true);
   for (const q of ['necessary_promotion', 'what_did_you_call_me', 'frog_grog', 'ship_is_changing', 'sharks', 'stenchmaster_temporarily']) expect(end.quests[q].status, q).toBe('completed');
   expect(end.captain).toBe('Captain Stinkbeard');
   expect(end.busy).toBe(false);
+  expect(errors).toEqual([]);
+}
+
+test('Story Phase 3 plays from the end of Phase 2 to the second distant release', async ({ page }) => {
+  test.setTimeout(30 * 60 * 1000);
+  const { g, errors } = await open(page);
+  const s = () => g.state();
+  const has = async (flag) => flagsOf(await s()).has(flag);
+  await g.preset('phase2_complete');
+  await g.skip();
+  await chapters9to11(g, s, has);
+  await chapters12to14(g, s, has);
+  await expectPhase3Complete(g, s, errors);
+});
+
+test('Phase 3 chapters 12 to 14 play from the Frog Grog Unlocked preset', async ({ page }) => {
+  test.setTimeout(20 * 60 * 1000);
+  const { g, errors } = await open(page);
+  const s = () => g.state();
+  const has = async (flag) => flagsOf(await s()).has(flag);
+  await g.preset('frog_grog_unlocked');
+  // The preset starts in the galley the next morning (buy Frog Grog from Mags here if wanted).
+  await g.travel(14, 3, 'main_deck');
+  await chapters12to14(g, s, has);
+  await expectPhase3Complete(g, s, errors);
+});
+
+test('the captain is never walled in by people', async ({ page }) => {
+  const { g, errors } = await open(page);
+  await g.preset('phase3_start');
+  await g.skip();
+  await g.eval(() => {
+    const sv = window.__GAME__.game.scene.getScene('World').services.world;
+    sv.place('player', 7, 15, 'down');
+    sv.spawn('wick', { x: 6, y: 15, facing: 'right' });
+    sv.spawn('rook', { x: 8, y: 15, facing: 'left' });
+    sv.spawn('bob', { x: 7, y: 14, facing: 'down' });
+    sv.spawn('sully', { x: 7, y: 16, facing: 'up' });
+    for (const a of window.__GAME__.game.scene.getScene('World').actors.values()) a.scripted = false;
+  });
+  await g.wait(300);
+  await g.tap('ArrowRight', 60, 600);
+  const st = await g.state();
+  expect([st.x, st.y]).toEqual([8, 15]);
+  const rook = await g.eval(() => { const a = window.__GAME__.game.scene.getScene('World').actors.get('rook'); return [a.tx, a.ty]; });
+  expect(rook).toEqual([7, 15]);
+  // With a way out, people block as usual.
+  await g.tap('ArrowLeft', 60, 600);
+  const st2 = await g.state();
+  expect([st2.x, st2.y]).toEqual([8, 15]);
   expect(errors).toEqual([]);
 });
 
