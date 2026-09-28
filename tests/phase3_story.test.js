@@ -217,3 +217,12 @@ describe('Story Phase 3 stays inside its brief', () => {
     expect(s.content.storyTriggers.list().filter((t) => JSON.stringify(t.if).includes('p3_complete') && !JSON.stringify(t.if).includes('notFlag'))).toEqual([]);
   });
 });
+
+describe('Story Phase 3 staging (who stands where, scene by scene)', () => {
+  it('never puts anyone on a solid tile, walks them through one, boxes the captain in or cuts off a doorway', async () => {
+    const s = makeStory({ preset: 'phase2_complete' });
+    await s.enter('main_deck');
+    await playToEnd(s);
+    expect(s.stagingIssues).toEqual([]);
+  });
+});

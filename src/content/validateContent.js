@@ -9,6 +9,7 @@ import { normalizeScript } from '../systems/script/ScriptRunner.js';
 import { OBJECTIVE_TYPES } from '../systems/quests/QuestSystem.js';
 import { EFFECT_TYPES } from '../systems/effects/effects.js';
 import { compileMap, isSolid } from '../maps/compileMap.js';
+import { checkStaging } from './staging.js';
 import { ACTIONS } from '../platform/input/bindings.js';
 import { ART_REGISTRY } from '../art/registry.js';
 import { ENGINE_FLAGS } from '../config/engineFlags.js';
@@ -616,6 +617,8 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       c.error(err.message);
     }
   }
+  // Where scripts put people, against the walls and fixed furniture of their room.
+  checkStaging(db, compiled, (script, map, msg) => C(`${db.scripts.sourceOf?.(script) ?? 'scripts'} (${script})`).error(`staging on ${map}: ${msg}`));
   for (const [id, model] of compiled) {
     const def = db.maps.get(id);
     const c = C(`${db.maps.sourceOf(id)} (${id})`);
@@ -698,6 +701,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
           oc.npc(obj.npc);
           if (obj.absent) break;
           if (!walkable) oc.error('npc stands on a solid tile');
+          if (obj.blocks !== undefined && typeof obj.blocks !== 'boolean') oc.error('"blocks" must be true or false');
           if (obj.behavior) validateBehavior(obj.behavior, oc.at('behavior'), model);
           else validateBehavior(db.npcs.get(obj.npc)?.behavior, oc.at('behavior'), model);
           break;

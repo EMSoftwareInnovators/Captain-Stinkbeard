@@ -40,26 +40,43 @@ export function createWorldServices(scene) {
     });
   }
 
+  /** Walks an actor along a path or to a tile (the body of the move command). */
+  async function walk(a, { path, to, speed, face }) {
+    const ms = stepMs(speed);
+    let dirs = [];
+    if (Array.isArray(path)) {
+      for (let i = 0; i < path.length; i++) {
+        const d = path[i];
+        const n = typeof path[i + 1] === 'number' ? path[++i] : 1;
+        for (let k = 0; k < n; k++) dirs.push(d);
+      }
+    } else if (Array.isArray(to)) {
+      dirs = findPath(scene.model.width, scene.model.height, { x: a.tx, y: a.ty }, { x: to[0], y: to[1] }, (x, y) => scene.isSolid(x, y)) || [];
+    }
+    for (const d of dirs) await stepActor(a, d, ms);
+    a.stopWalking();
+    if (face) a.face(face);
+    if (a === scene.player) scene.session.location = { map: scene.model.id, x: a.tx, y: a.ty, facing: a.facing };
+  }
+
   const world = {
-    async move(id, { path, to, speed, face }) {
+    async move(id, opts) {
       const a = actor(id);
       a.brain?.pause();
       a.scripted = true;
-      const ms = stepMs(speed);
-      let dirs = [];
-      if (Array.isArray(path)) {
-        for (let i = 0; i < path.length; i++) {
-          const d = path[i];
-          const n = typeof path[i + 1] === 'number' ? path[++i] : 1;
-          for (let k = 0; k < n; k++) dirs.push(d);
+      // A walk can outlive its scene ("async": true at the end of a script):
+      // the actor stays scripted until it arrives, then goes back to its routine.
+      a.scriptMoves = (a.scriptMoves ?? 0) + 1;
+      try {
+        await walk(a, opts);
+      } finally {
+        a.scriptMoves -= 1;
+        if (!a.scriptMoves && scene.scriptDepth === 0 && a !== scene.player && scene.actors.get(a.id) === a) {
+          a.scripted = false;
+          if (a.brain) a.brain.home = { x: a.tx, y: a.ty, facing: a.facing };
+          a.brain?.resume();
         }
-      } else if (Array.isArray(to)) {
-        dirs = findPath(scene.model.width, scene.model.height, { x: a.tx, y: a.ty }, { x: to[0], y: to[1] }, (x, y) => scene.isSolid(x, y)) || [];
       }
-      for (const d of dirs) await stepActor(a, d, ms);
-      a.stopWalking();
-      if (face) a.face(face);
-      if (a === scene.player) scene.session.location = { map: scene.model.id, x: a.tx, y: a.ty, facing: a.facing };
     },
     face(id, dir) {
       const a = actor(id);

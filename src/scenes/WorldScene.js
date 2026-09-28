@@ -28,6 +28,8 @@ import { asArray } from '../core/util.js';
 const FRAME_MS = 1000 / 60;
 const WALK_MS = FRAME_MS * 8;
 const RUN_MS = (FRAME_MS * 16) / 3;
+/** How long the captain leans on someone standing in his way before squeezing past. */
+const SQUEEZE_PAST_MS = 700;
 
 /**
  * Exploration. Loads one map, spawns the player, NPCs, props and visible
@@ -245,6 +247,8 @@ export class WorldScene extends BaseScene {
             a.brain.pose = obj.pose;
             a.playPose(obj.pose);
           }
+          // A deliberate gate (Garrick's toll): the captain can't squeeze past.
+          a.blocks = !!obj.blocks;
           break;
         }
         case 'enemy': {
@@ -734,6 +738,7 @@ export class WorldScene extends BaseScene {
     if (this.lockedHold && !input.isDown(this.lockedHold)) this.lockedHold = null;
     const dir = input.heldDirection();
     if (!dir) {
+      this.pushing = null;
       if (this.wasMoving || p.pose === 'walk') p.stopWalking();
       this.wasMoving = false;
       return;
@@ -783,10 +788,16 @@ export class WorldScene extends BaseScene {
       return;
     }
     const blocked = this.app.flags.noclip ? nx < 0 || ny < 0 || nx >= this.model.width || ny >= this.model.height || !!occ : this.isBlocked(nx, ny, p);
-    if (blocked && occ && occ !== p && occ.npc && !occ.moving && !this.isSolid(nx, ny) && this.boxedIn(p)) {
-      // Never leave the captain walled in by people (a scene that ends with
-      // the crew standing all round him): the one he walks into trades places.
-      this.tradePlaces(occ, dir, running ? RUN_MS : WALK_MS, dt);
+    const person = blocked && occ && occ !== p && occ.npc && !occ.moving && !occ.scripted && !this.isSolid(nx, ny) ? occ : null;
+    if (person && person !== this.pushing?.npc) this.pushing = { npc: person, since: this.time.now };
+    if (!person) this.pushing = null;
+    // Never leave the captain stuck behind people: walled in on every side,
+    // or pushing on someone standing in a narrow way for a moment, and he
+    // squeezes past (they trade places). A placement marked "blocks" is a
+    // deliberate gate and only gives way when he is truly boxed in.
+    if (person && (this.boxedIn(p) || (!person.blocks && this.time.now - this.pushing.since >= SQUEEZE_PAST_MS))) {
+      this.pushing = null;
+      this.tradePlaces(person, dir, running ? RUN_MS : WALK_MS, dt);
       return;
     }
     if (blocked) {
@@ -1054,7 +1065,8 @@ export class WorldScene extends BaseScene {
       this.scriptDepth -= 1;
       if (this.scriptDepth === 0 && this.sys.isActive()) await this.app.overlay.dialogue.close();
       if (this.scriptDepth === 0) {
-        for (const a of this.actors.values()) a.scripted = false;
+        // Actors still walking a scripted path (an async move) stay scripted until they arrive.
+        for (const a of this.actors.values()) if (!a.scriptMoves) a.scripted = false;
         this.continueStory();
       }
     }

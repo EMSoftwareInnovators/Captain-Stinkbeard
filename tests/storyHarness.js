@@ -7,6 +7,7 @@ import { evaluateCondition } from '../src/systems/conditions/conditions.js';
 import { dueStoryTriggers, triggerKey } from '../src/systems/story/progress.js';
 import { resolvePreset, applyPresetPlan } from '../src/debug/presets.js';
 import { WorldState } from '../src/systems/world/WorldState.js';
+import { StagingTracker } from './storyStaging.js';
 
 /**
  * A headless story player shared by the story-phase tests: the real scripts,
@@ -38,9 +39,20 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
   let repairScore = null;
   // Where in the dialogue log each flag was first set (to split one phase's lines from the next).
   bus.on('story:flagSet', ({ flag }) => { flagAt[flag] ??= log.length; });
+  // Who stands where, scene by scene (see tests/storyStaging.js).
+  const staging = new StagingTracker(content, session);
+  const tracked = {
+    spawn: (npc, opts) => staging.spawn(npc, opts),
+    place: (id, x, y) => staging.place(id, x, y),
+    despawn: (id) => staging.despawn(id),
+    move: (id, opts) => staging.move(id, opts),
+    fly: (id, opts) => staging.fly(id, { ...opts, land: opts?.land !== false }),
+    setObjectVisible: (id, visible) => (visible ? staging.show(id) : staging.hide(id)),
+  };
   const world = new Proxy({}, {
     get: (_t, name) => {
       if (name === 'transition') return (map, opts) => { throw new Transition(map, opts); };
+      if (tracked[name]) return async (...args) => { tracked[name](...args); return null; };
       return async () => null;
     },
   });
@@ -92,10 +104,17 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
     has: (flag) => session.story.has(flag),
     quest: (id) => session.quests.status(id),
 
+    staging,
+    /** Staging problems found so far (see tests/storyStaging.js). */
+    get stagingIssues() {
+      return staging.issues;
+    },
+
     /** Runs a script; a transition ends it and enters the next room. */
     async run(script) {
       busy += 1;
       let next = null;
+      if (typeof script === 'string') staging.context = script;
       try {
         await runner.run(script, ctx);
       } catch (err) {
@@ -104,11 +123,18 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
       } finally {
         busy -= 1;
       }
-      if (next) await story.enter(next.map, next.opts.then);
+      if (next) await story.enter(next.map, next.opts.then, next.opts);
+      else if (!busy) {
+        staging.checkStanding();
+        staging.checkNotBoxedIn();
+      }
     },
 
     /** Arrives on a map: the transition's follow-up, then onEnter scripts, then triggers. */
-    async enter(map, then = null) {
+    async enter(map, then = null, at = {}) {
+      // Where the captain arrives: the transition's spot, else a preset's (same room).
+      const prev = session.location;
+      staging.enter(map, at.spawn || Number.isInteger(at.x) ? at : prev?.map === map ? prev : {});
       session.location = { map, x: 1, y: 1, facing: 'down' };
       session.world.visit(map);
       bus.emit('map:entered', { map });
@@ -129,7 +155,10 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
       if (busy) return;
       for (let n = 0; n < 12; n++) {
         const due = dueStoryTriggers(content.storyTriggers.list(), session, (id) => session.world.get(triggerKey(id), 'fired', false));
-        if (!due.length) return;
+        if (!due.length) {
+          staging.idle(staging.context);
+          return;
+        }
         const t = due[0];
         session.world.set(triggerKey(t.id), 'fired', true);
         await story.run(t.script);
@@ -146,6 +175,7 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
     /** Talks to an NPC (its dialogue selectors, like WorldScene.talkTo). */
     async talk(npcId) {
       const npc = content.npcs.require(npcId);
+      staging.approachActor(npcId);
       let script = null;
       for (const entry of npc.dialogue ?? []) {
         if (!evaluateCondition(entry.if, session)) continue;
@@ -165,6 +195,7 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
     /** Inspects a map object (its live `if` must hold). */
     async inspect(id) {
       const obj = story.object(id);
+      staging.approach(obj.x, obj.y, obj.w ?? 1, obj.h ?? 1);
       if (obj.if && !evaluateCondition(obj.if, session)) throw new Error(`"${id}" can't be inspected right now`);
       let script = obj.script;
       if (!script && obj.dialogue) script = obj.dialogue.find((d) => evaluateCondition(d.if, session))?.script;
@@ -176,6 +207,7 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
     /** Steps on a trigger. */
     async trigger(id) {
       const obj = story.object(id);
+      staging.stepOn(obj.x, obj.y, obj.w ?? 1, obj.h ?? 1);
       const key = WorldState.key(story.map, id);
       if (obj.once !== false && session.world.get(key, 'fired', false)) throw new Error(`trigger "${id}" already fired`);
       if (!evaluateCondition(obj.if, session)) throw new Error(`trigger "${id}" is not armed`);

@@ -154,3 +154,11 @@ describe('Story Phase 2 can be played start to finish (headless)', () => {
     }
   });
 });
+
+describe('Story Phase 2 staging (who stands where, scene by scene)', () => {
+  it('never puts anyone on a solid tile, walks them through one, boxes the captain in or cuts off a doorway', async () => {
+    const story = makeStory();
+    await playPhase2(story);
+    expect(story.stagingIssues).toEqual([]);
+  });
+});
