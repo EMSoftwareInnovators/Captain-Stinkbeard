@@ -286,6 +286,10 @@ new behaviour arrives as data plus small, reusable engine pieces.
   small modal: strike when the marker is in the green; two misses in a row
   widen the zone, and the auto-timing assist makes every strike land. The
   number of clean strikes goes into a story variable.
+- **The captain is never walled in.** If every tile around him is a wall or
+  a person (a scene that ended with the crew standing all round him), walking
+  into a standing NPC trades places with them (`WorldScene.tradePlaces`).
+  Scenes should still leave him a way out; this is the backstop.
 - **Item effects** gained `fumeWard` (fumes build slower for a while, per
   play, never saved) and `sideEffect` (one weighted pick: a short battle
   status and/or field effects, with a line of text).
