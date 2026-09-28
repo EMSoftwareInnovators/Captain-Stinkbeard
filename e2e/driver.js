@@ -181,16 +181,38 @@ export class GameDriver {
     }, null, 8000).then(() => true, () => false);
   }
 
-  /** Walks to (x, y) along the game's own BFS path, one real key press per tile. */
+  /**
+   * Walks to (x, y) along the game's own BFS path, one real key press per
+   * tile. After a scene the crew walk off to their places, and anyone can
+   * step into the way: wait for a way through and re-plan whenever a step
+   * doesn't land. Stops early if the walk starts a scene (a trigger).
+   */
   async goto(x, y) {
-    const path = await this.eval(([tx, ty]) => window.__GAME__.test.pathTo(tx, ty), [x, y]);
-    if (!path) throw new Error(`no path to ${x},${y}`);
-    for (const dir of path) {
-      await this.page.keyboard.down(DIR_KEYS[dir]);
-      await this.waitFor(() => { const w = window.__GAME__.game.scene.getScene('World'); return w.player.moving || w.isBusy() || w.leaving; }, null, 3000).catch(() => {});
-      await this.page.keyboard.up(DIR_KEYS[dir]);
-      await this.waitFor(() => !window.__GAME__.game.scene.getScene('World').player.moving, null, 3000).catch(() => {});
+    const where = () => this.eval(() => {
+      const w = window.__GAME__.game.scene.getScene('World');
+      return { x: w.player.tx, y: w.player.ty, busy: w.isBusy() || w.leaving };
+    });
+    for (let attempt = 0; attempt < 40; attempt++) {
+      let at = await where();
+      if (at.busy || (at.x === x && at.y === y)) break;
+      const path = await this.eval(([tx, ty]) => window.__GAME__.test.pathTo(tx, ty), [x, y]);
+      if (!path) {
+        await this.wait(250);
+        continue;
+      }
+      for (const dir of path) {
+        const [dx, dy] = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] }[dir];
+        await this.page.keyboard.down(DIR_KEYS[dir]);
+        await this.waitFor(() => { const w = window.__GAME__.game.scene.getScene('World'); return w.player.moving || w.isBusy() || w.leaving; }, null, 3000).catch(() => {});
+        await this.page.keyboard.up(DIR_KEYS[dir]);
+        await this.waitFor(() => !window.__GAME__.game.scene.getScene('World').player.moving, null, 3000).catch(() => {});
+        const next = await where();
+        if (next.busy || next.x !== at.x + dx || next.y !== at.y + dy) break; // re-plan
+        at = next;
+      }
     }
+    const end = await where();
+    if (!end.busy && (end.x !== x || end.y !== y)) throw new Error(`no path to ${x},${y}`);
     await this.wait(120);
   }
 
