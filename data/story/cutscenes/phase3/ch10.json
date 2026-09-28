@@ -69,11 +69,18 @@
       { "text": "Sniff the beard", "then": [
         "captain[resigned]: ...Fine. To settle it."
       ] },
-      { "text": "Refuse", "then": [
-        "captain[angry]: I am NOT smelling my own beard in front of the crew.",
-        { "wait": 500 },
-        "Nobody says anything. Nobody moves. Everyone is looking at the beard.",
-        "Squawks has no feathers left on his head, and he is still, somehow, raising an eyebrow.",
+      { "text": "Refuse", "if": { "var": { "name": "beard_refusals", "lt": 2 } }, "then": [
+        { "addVar": "beard_refusals", "value": 1 },
+        { "if": { "var": { "name": "beard_refusals", "eq": 1 } }, "then": [
+          "captain[angry]: I am NOT smelling my own beard in front of the crew.",
+          { "wait": 500 },
+          "Nobody says anything. Nobody moves. Everyone is looking at the beard.",
+          "Squawks has no feathers left on his head, and he is still, somehow, raising an eyebrow."
+        ], "else": [
+          "captain[angry]: I said NO.",
+          "squawks[smug]: Evidence.",
+          "The crew wait. They have all evening. You, it turns out, have rather less."
+        ] },
         { "goto": "ask" }
       ] }
     ] },
