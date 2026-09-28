@@ -140,16 +140,16 @@ frame is required. Button prompt glyphs are per device (`PROMPT_GLYPHS`).
 
 ## Save schema
 
-`src/systems/save/SaveManager.js`, current `SAVE_VERSION = 2` (Story Phase 2):
+`src/systems/save/SaveManager.js`, current `SAVE_VERSION = 3` (Story Phase 3):
 
 ```json
 {
-  "format": "captain-stinkbeard-save", "version": 2, "savedAt": "ISO date", "slot": 1,
+  "format": "captain-stinkbeard-save", "version": 3, "savedAt": "ISO date", "slot": 1,
   "checksum": "FNV-1a of the state JSON",
   "summary": { "location": "Main Deck", "playTime": 812.4, "leader": "Blackbeard", "level": 3, "gold": 160, "chapter": "Prologue" },
   "state": {
     "story": { "flags": ["opening_seen"], "vars": {} },
-    "world": { "objects": { "cargo_hold:rats_1": { "defeated": true } }, "visited": ["captains_quarters"], "counters": { "talk:wick": 2 } },
+    "world": { "objects": { "cargo_hold:rats_1": { "defeated": true }, "log:stench_log": { "announced": ["day_one"], "seen": ["day_one"] } }, "visited": ["captains_quarters"], "counters": { "talk:wick": 2 } },
     "inventory": { "gold": 160, "items": { "hardtack": 3 } },
     "party": [{ "id": "blackbeard", "level": 3, "xp": 64, "hp": 71, "equipment": { "weapon": "cutlass", "body": "captains_coat", "feet": "sea_boots", "accessory": null }, "abilities": ["order_brace", "order_focus_fire"] }],
     "quests": { "captains_rounds": { "status": "completed", "objectives": { "talk_first_mate": { "progress": 1, "done": true } } } },
@@ -174,6 +174,16 @@ time of day, characters' looks, fume zones and haze are all derived from
 flags). The 1 → 2 migration only moves a save made inside the rebuilt
 treasure hold to its door and guarantees `story.vars` exists. Fume exposure is
 deliberately not saved (loading always starts with clean lungs).
+
+Version 3 (Story Phase 3) also keeps the layout. The captain's new name,
+Garrick's title, the ship's changes and the shark level are all derived from
+flags; the Stench Log remembers only which entry ids have been announced and
+read (object state `log:<id>`); Frog Grog is an ordinary inventory item; the
+Frog Grog fume ward is per-play and never saved. The 2 → 3 migration fills
+missing `story`/`world` fields; the version bump itself is what stops a
+Phase 2 build from loading a Phase 3 save and silently dropping its quests.
+Port budget: two short id lists per logbook (18 entries → 2 × 3 bytes as
+bitfields).
 
 ## Asset naming
 

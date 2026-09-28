@@ -257,6 +257,12 @@ the cancel button (default: the last option).
 | `vistaMove` / `vistaFrame` / `vistaShow` / `vistaFx` | layer id; `x`, `y`, `scale`, `alpha`, `flip`, `duration` / `frame` / `visible` / burst kind at `x`, `y` | animate a vista layer |
 | `insert` | insert id, `caption`, `hold` | framed close-up (a label, a sign, a document) |
 | `shop` | shop id | open a shop and wait until it closes |
+| `logbook` | log id, `entry` | open a logbook (the Stench Log) in the world; waits until it is closed |
+| `swapItem` | item, `to` item, `bonus`, `silent` | turn every copy of one item into another (all the rum becomes Frog Grog) |
+| `tint` | actor, `color` `"#rrggbb"`, `duration`, `async` | tint an actor for a moment (turning green) |
+| `sharks` | level or `"auto"` | hold a shark level for the scene; `auto` hands it back to the map |
+| `sharkEvent` | `bite` (`x`, `y` hull tile), `ram`, `flop` (`x`, `y` deck tile), `return`, `lure` (`x`, `y`, `duration`), `follow`, `unfollow`; `async` | staged shark moments |
+| `repair` | kind, `strikes`, `title`, `var` | the hull-patch timing game; clean strikes go into `var` |
 
 Actors are `player` (or `captain`) or the id of an NPC/actor on the map.
 
@@ -617,6 +623,101 @@ above. Collapsing runs the map's `fumeCollapse` script (default
 
 `after` chains presets (flags accumulate, quests apply in order). They appear
 in the F2 *Story* tab and in `tools/play.mjs` (`preset <id>`).
+
+## Story Phase 3 formats
+
+### Names and titles that follow the story
+
+Variants may set `name` and `title` as well as the look. Each field comes
+from the **first matching variant that sets it**, so list later story first:
+
+```json
+{ "extend": "blackbeard", "variants": [
+  { "if": { "flag": "captain_named_stinkbeard" }, "name": "Stinkbeard" },
+  { "if": { "flag": "beard_sniffed" }, "appearance": "blackbeard_stinkbeard", "portrait": "blackbeard_stinkbeard" } ] }
+```
+
+The character keeps its id. Every display (name plates, status, save slots,
+toasts, battle results, the quest log) uses the resolved name, and
+`{captain}` in text is the leader's title and name ("Captain Stinkbeard").
+
+### Logbooks (`data/logs/`)
+
+```json
+"stench_log": { "title": "The Stench Log", "menuLabel": "Stench Log", "keeper": "garrick", "icon": "ledger",
+  "if": { "flag": "stench_log_seen" },
+  "fields": [{ "id": "location", "label": "Location" }, { "id": "severity", "label": "Severity" },
+             { "id": "source", "label": "Probable source" }, { "id": "notes", "label": "Notes", "quote": true }],
+  "severities": { "Mild": "g", "Moist": "c", "Concerning": "y", "Severe": "o", "Catastrophic": "r", "Premium": "p" },
+  "entries": [{ "id": "treasure_room", "title": "Treasure Room", "if": { "flag": "p3_started" },
+    "location": "Aft hold", "severity": "Catastrophic", "source": "Lunch", "notes": "Successful atmospheric rebranding.",
+    "variants": [{ "if": { "flag": "…" }, "notes": "a later note" }] }] }
+```
+
+Once `if` holds the log is a page in the pause menu (after Quests). Entries
+appear when their `if` holds, in file order, with variants applied field by
+field; new ones are announced with a toast and marked NEW until read. Open it
+from a script with `{ "logbook": "stench_log" }`. Future chapters add entries
+to the same file (or another log file).
+
+### Sharks
+
+A map (or patch) lists shark levels, latest story first:
+
+```json
+"sharks": [{ "if": { "flag": "grog_spilled" }, "level": "swarm" },
+           { "if": { "flag": "sharks_sighted" }, "level": "following" }]
+```
+
+Levels: `none`, `curious`, `following`, `attacking` (fins bump the hull now
+and then while the captain has control), `swarm`. Fins need an ocean map;
+below decks use `"below": true` and the hull just thumps. Tuning (fin count,
+speed, distance from the hull, how often they bump) can be overridden per
+level in `data/hazards/sharks.json`.
+
+### Patch prop conditions
+
+```json
+"propConditions": [{ "id": "rowboat", "if": { "notFlag": "garrick_lowered" } }]
+```
+
+Adds a condition to a prop the base map (or an earlier patch) placed with that
+`id`. It is a load error if no prop has the id.
+
+### Ambient life
+
+Beyond `wake`, `gulls`, `smoke`, `perchedGull`, `sailShadow`, `glitter` and
+`voice`: `rain` (`density`, drops and splash rings), `sailPuff` (`prop`, `every`:
+a sail swells and breathes out), `ratPeek` (`x`, `y`, `every`: the masked rat),
+`odorTrail` (`actor`, `every`: whiffs off someone). `smoke` takes `tint`,
+`rise`, `every`, `alpha`. Every entry may have an `if`, re-checked live.
+
+### Items with surprises
+
+```json
+"use": { "target": "ally", "effects": [
+  { "type": "heal", "amount": 30 },
+  { "type": "fumeWard", "seconds": 90, "scale": 0.5 },
+  { "type": "sideEffect", "table": [
+    { "id": "warmed_up", "weight": 3, "status": "warmed_up", "duration": 3, "text": "…" },
+    { "id": "stench_proof", "weight": 3, "status": "stench_proof", "duration": 3, "text": "…",
+      "field": [{ "type": "fumeWard", "seconds": 150, "scale": 0.35 }] } ] } ] },
+"useSfx": "grog_gulp"
+```
+
+`fumeWard` slows fume exposure in the field for a while. `sideEffect` picks
+one entry by weight: in battle it applies the short status, in the field its
+`field` effects; its `text` is shown either way. Keep side effects short and
+harmless. Shop stock entries may be `{ "id": "frog_grog", "if": { … } }`.
+
+### Poses, skies and inserts added in Phase 3
+
+Poses: `proclaim` (Garrick on his barrel) and `brace` (grabbing hold).
+Vista skies and seas: `night`, `noon`. Vista frames: `fin_side_0/1`,
+`shark_leap`, `rowboat_beans_0/1`, `rowboat_pan_0/1`, `revenge_puffed`,
+`shark_belly_0/1`, `ripple_0…2`. Stage frames: `fin_h/v_*`, `shark_bite_*`,
+`shark_deck_*`, `rowboat_beans_*`, `rowboat_pan_*`, `rowboat_hitch_*`,
+`shark_belly_*`, `rat_mask_0…2`. Inserts: `amendment_notice`, `ship_names`.
 
 ## Tilesets and props
 

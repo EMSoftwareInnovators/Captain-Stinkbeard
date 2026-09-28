@@ -253,6 +253,43 @@ Story Phase 2 added engine features, not special cases. Everything is data.
   a fresh session at any point of the story by chaining `after` presets; the
   F2 *Story* tab, `window.__GAME__.test.preset(id)` and unit tests share them.
 
+## Names, logbooks, sharks and repairs (Phase 3)
+
+Story Phase 3 (see [STORY_PHASE3.md](STORY_PHASE3.md)) kept the same rules:
+new behaviour arrives as data plus small, reusable engine pieces.
+
+- **Variants resolve field by field** (`resolveVariant`): each field comes
+  from the first matching variant that sets it, so "renamed" (a late variant
+  setting `name`) and "beard sniffed" (an earlier one setting `appearance`)
+  combine. Names and titles are variant fields too.
+- **Characters have a story-dependent face and name.** `Character.look`,
+  `name`, `title` and `fullName` resolve through a hook the session passes to
+  the party, so the captain's id stays `blackbeard` (saves, scripts, stats)
+  while every display (name plates, status page, toasts, battle results, save
+  slots, the quest log, `{captain}`) says Stinkbeard once the flag is set.
+  Nothing about the name is saved; it follows the flags.
+- **Logbooks** (`data/logs/`, `systems/logs/logbook.js`) are data-only
+  records whose entries unlock with conditions and change through variants.
+  An available logbook adds a pause-menu page (`ui/menu/LogPage.js`), the
+  `logbook` command opens it in the world, and newly unlocked entries are
+  announced. Only "read" and "announced" ids are remembered (world state,
+  `log:<id>`).
+- **The shark threat** is a hazard level per map (`"sharks"` variants in a
+  map or patch: none / curious / following / attacking / swarm).
+  `systems/hazards/sharks.js` holds the rules and geometry (a fin course that
+  hugs the hull, a point on the rail beside the captain); `world/SharkLayer.js`
+  draws fins, bumps the hull while the captain has control (never during a
+  scene), and plays scripted moments (`sharkEvent`: bite, ram, flop, return,
+  lure, follow, unfollow). Below decks the hull only thumps. A scene can hold a
+  level with `{ "sharks": "swarm" }` and hand it back with `"auto"`.
+- **The repair timing game** (`OverlayScene.repair`, `repair` command) is a
+  small modal: strike when the marker is in the green; two misses in a row
+  widen the zone, and the auto-timing assist makes every strike land. The
+  number of clean strikes goes into a story variable.
+- **Item effects** gained `fumeWard` (fumes build slower for a while, per
+  play, never saved) and `sideEffect` (one weighted pick: a short battle
+  status and/or field effects, with a line of text).
+
 ## Battle
 
 `BattleEngine` (`src/systems/battle/`) owns the rules and is fully
@@ -308,12 +345,22 @@ punctuation pauses and per-speaker voice blips; holding cancel fast-forwards.
 
 ## Input
 
-`platform/input/bindings.js` maps physical keys and standard gamepad buttons
-to abstract actions (`confirm`, `cancel`, `menu`, `run`, `pageLeft`, …).
-`InputManager` is polled once per frame (Phaser's `prestep`), tracks
+`platform/input/bindings.js` maps physical keys and gamepad buttons (by
+position: `south`, `east`, `west`, `north`, `lb`…) to abstract actions
+(`confirm`, `cancel`, `menu`, `run`, `pageLeft`, …). `InputManager` is polled
+once per frame (Phaser's `prestep`), tracks
 `isDown / pressed / released / repeat`, lets handlers `consume` a press, and
 reports the last used device so prompts show the right glyphs. Phaser's own
 input plugins are disabled.
+
+Every connected pad is read each frame, each through its own layout
+(`platform/input/padLayouts.js`): the standard mapping when the browser
+provides it, otherwise a layout chosen from the pad's vendor and product ids.
+This matters for Firefox on macOS, which passes Xbox pads it has no remapper
+for straight through (face buttons at raw 0, 1, 3, 4; the D-pad on a hat
+axis) and can list another HID device ahead of the controller. Axes that rest
+off-centre (triggers, stray devices) are never read as a held direction. The
+F2 *Info* tab shows what each pad reports.
 
 ## Audio
 
@@ -335,6 +382,8 @@ handles fullscreen, so pixels stay square and sharp.
 See the README and [RETRO_PORT_NOTES.md](RETRO_PORT_NOTES.md#save-schema).
 Autosave on map entry and after battles, three manual slots from the pause
 menu, checksum + version per record, migrations table for future formats.
+The schema is at version 3 (Story Phase 3); a Phase 1 or Phase 2 save
+upgrades on load and walks into the next chapter.
 
 ## Testing
 
@@ -381,4 +430,6 @@ Nothing in the engine is prologue-specific:
    can be jumped to.
 
 The prologue's files are never edited to add a chapter. (Phase 2 did rebuild
-the treasure hold, with a save migration for anyone saved inside it.)
+the treasure hold, with a save migration for anyone saved inside it. Phase 3
+touched Phase 2 only to hand its ending straight on to chapter 9 and to add
+a few portrait expressions.)

@@ -72,14 +72,17 @@ export class GameDriver {
     await this.wait(700);
   }
 
-  /** Current UI state: tutorial | choice | line | typing | insert | idle | busy | battle. */
+  /** Current UI state: tutorial | choice | line | typing | insert | repair | book | idle | busy | battle. */
   uiState() {
     return this.eval(() => {
       const g = window.__GAME__;
       if (g.game.scene.isActive('Battle')) return 'battle';
+      const menu = g.game.scene.getScene('Menu');
+      if (g.game.scene.isActive('Menu') && menu?.bookMode) return 'book';
       const o = g.app.overlay;
       const d = o.dialogue;
       if (o.tutorialOpen) return 'tutorial';
+      if (o.repairOpen) return 'repair';
       if (d.choiceMenu) return 'choice';
       if (d.resolveLine && !d.typing) return 'line';
       if (d.resolveLine && d.typing) return 'typing';
@@ -110,6 +113,22 @@ export class GameDriver {
         }
         const k = picks.shift();
         for (let i = 0; i < k; i++) await this.tap('ArrowDown', 40, 90);
+      }
+      if (st === 'book') {
+        // A logbook opened in the world (the Stench Log): read it, close it.
+        await this.wait(250);
+        await this.tap('KeyX', 45, 250);
+        continue;
+      }
+      if (st === 'repair') {
+        // The hull-patch timing game: strike when the marker is in the green.
+        const hit = await this.eval(() => {
+          const r = window.__GAME__.app.overlay.repairOpen;
+          return !!r && r.lock <= 0 && r.mark.x >= r.zone.x && r.mark.x <= r.zone.x + r.zone.width;
+        });
+        if (hit) await this.tap('KeyZ', 30, 40);
+        else await this.wait(16);
+        continue;
       }
       if (st === 'line' || st === 'tutorial' || st === 'choice' || st === 'insert') await this.tap('KeyZ', 45, 60);
       await this.wait(90);

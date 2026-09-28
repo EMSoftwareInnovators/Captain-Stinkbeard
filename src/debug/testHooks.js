@@ -1,6 +1,8 @@
 import { findPath } from '../maps/pathfinding.js';
 import { DIR_VECTORS } from '../config/constants.js';
 import { startPreset } from './startPreset.js';
+import { resolveVariant } from '../systems/story/progress.js';
+import { logAvailable, logEntries } from '../systems/logs/logbook.js';
 
 /**
  * Development-only helpers used by automated end-to-end tests
@@ -80,6 +82,11 @@ export function installTestHooks(app, game) {
         hp: s?.party.leader()?.hp,
         level: s?.party.leader()?.level,
         scenes: game.scene.getScenes(true).map((sc) => sc.scene.key),
+        // Story Phase 3
+        captain: s?.party.leader()?.fullName,
+        garrickTitle: s && app.content.npcs.get('garrick') ? resolveVariant(app.content.npcs.get('garrick'), s).title : null,
+        sharks: w?.sharks ? { level: w.sharks.level, below: w.sharks.below, fins: w.sharks.fins.length } : null,
+        logs: s ? Object.fromEntries([...app.content.logs.map].map(([id, log]) => [id, logAvailable(log, s) ? logEntries(log, s).length : 0])) : {},
       };
     },
   };
