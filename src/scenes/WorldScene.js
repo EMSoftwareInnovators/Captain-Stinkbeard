@@ -300,6 +300,7 @@ export class WorldScene extends BaseScene {
 
   removeActor(actor) {
     actor.brain?.relocation?.resolve(); // nobody waits on someone who is gone
+    this.tweens.killTweensOf(actor); // a fade in or out in progress
     for (const [k, a] of [...this.occupancy.entries()]) if (a === actor) this.occupancy.delete(k);
     this.actors.delete(actor.id);
     this.npcs = this.npcs.filter((b) => b.actor !== actor);
