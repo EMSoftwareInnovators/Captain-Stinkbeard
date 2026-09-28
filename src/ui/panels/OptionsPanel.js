@@ -2,6 +2,7 @@ import { addPanel } from '../Panel.js';
 import { addText, setText, centerText, UI_COLORS } from '../text.js';
 import { TEXT_SPEEDS, SHAKE_LEVELS, EFFECT_LEVELS, FUME_HAZARD_LEVELS } from '../../systems/settings/Settings.js';
 import { DisplayScaler } from '../../platform/display.js';
+import { ControllerSetupPanel } from './ControllerSetupPanel.js';
 
 const ROWS = [
   { key: 'masterVolume', label: 'Master volume', type: 'volume' },
@@ -16,6 +17,7 @@ const ROWS = [
   { key: 'fumeHazard', label: 'Fume hazard', type: 'choice', values: FUME_HAZARD_LEVELS, names: { normal: 'Normal', gentle: 'Gentle', off: 'Off' } },
   { key: 'scaleMode', label: 'Scaling', type: 'choice', values: ['integer', 'fit'], names: { integer: 'Pixel-perfect', fit: 'Fill screen' } },
   { key: 'fullscreen', label: 'Fullscreen', type: 'toggle' },
+  { key: 'controller', label: 'Controller', type: 'controller' },
 ];
 
 /**
@@ -32,7 +34,7 @@ export class OptionsPanel {
     this.index = 0;
     const x = 40;
     const w = 240;
-    const rowH = 14;
+    const rowH = 13;
     const h = 24 + ROWS.length * rowH + 20;
     const y = Math.max(4, Math.round((224 - h) / 2));
     this.parts = [addPanel(scene, x, y, w, h, { depth })];
@@ -52,7 +54,22 @@ export class OptionsPanel {
     this.refresh();
   }
 
+  /** The pad the Controller row is about: one the browser doesn't recognise first. */
+  controllerPad() {
+    const pads = this.app.input.pads ?? [];
+    return (pads.find((e) => !this.app.input.recognised(e.pad)) ?? pads[0])?.pad ?? null;
+  }
+
+  controllerText() {
+    const pad = this.controllerPad();
+    if (!pad) return 'None found';
+    const custom = this.app.settings.get('padLayouts')?.[pad.id];
+    if (custom?.buttons) return 'Set up by you';
+    return pad.mapping === 'standard' ? 'Standard' : 'Set up...';
+  }
+
   valueText(row) {
+    if (row.type === 'controller') return this.controllerText();
     const v = this.app.settings.get(row.key);
     if (row.type === 'volume') {
       const n = Math.round(v * 10);
@@ -64,16 +81,49 @@ export class OptionsPanel {
 
   refresh() {
     this.rows.forEach((row, i) => {
-      setText(row.value, `◀ ${this.valueText(row)} ▶`, { color: i === this.index ? UI_COLORS.gold : UI_COLORS.text });
+      const text = row.type === 'controller' ? this.valueText(row) : `◀ ${this.valueText(row)} ▶`;
+      setText(row.value, text, { color: i === this.index ? UI_COLORS.gold : UI_COLORS.text });
       row.label.setTint(i === this.index ? UI_COLORS.gold : UI_COLORS.text);
     });
     this.cursor.y = this.rows[this.index].y - 1;
-    setText(this.help, '{btn:left}{btn:right} Change   {btn:cancel} Back'.replace('{btn:left}{btn:right}', '◀▶'), { color: UI_COLORS.dim });
+    const help = this.rows[this.index].type === 'controller'
+      ? `{btn:confirm} Set up${this.app.settings.get('padLayouts')?.[this.controllerPad()?.id]?.buttons ? '   ◀ Reset' : ''}   {btn:cancel} Back`
+      : '◀▶ Change   {btn:cancel} Back';
+    setText(this.help, help, { color: UI_COLORS.dim });
+  }
+
+  openControllerSetup() {
+    this.setup = new ControllerSetupPanel(this.scene, {
+      depth: this.depth + 20,
+      padId: this.controllerPad()?.id ?? null,
+      onClose: () => {
+        this.setup = null;
+        this.refresh();
+      },
+    });
   }
 
   change(dir) {
     const row = this.rows[this.index];
     const s = this.app.settings;
+    if (row.type === 'controller') {
+      const pad = this.controllerPad();
+      const layouts = s.get('padLayouts') ?? {};
+      if (dir < 0 && pad && layouts[pad.id]) {
+        // Back to the automatic layout for this controller.
+        const next = { ...layouts };
+        delete next[pad.id];
+        s.set('padLayouts', next);
+        this.app.audio.ui('cancel');
+        this.refresh();
+        return;
+      }
+      if (dir > 0) {
+        this.app.audio.ui('confirm');
+        this.openControllerSetup();
+      }
+      return;
+    }
     const v = s.get(row.key);
     if (row.type === 'volume') s.set(row.key, Math.max(0, Math.min(1, Math.round((v + dir * 0.1) * 10) / 10)));
     else if (row.type === 'toggle') s.set(row.key, !v);
@@ -93,6 +143,10 @@ export class OptionsPanel {
   }
 
   update(input) {
+    if (this.setup) {
+      this.setup.update(input);
+      return;
+    }
     if (input.repeat('up')) {
       this.index = (this.index + this.rows.length - 1) % this.rows.length;
       this.app.audio.ui('cursor');

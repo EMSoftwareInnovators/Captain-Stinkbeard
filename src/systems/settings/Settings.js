@@ -26,7 +26,19 @@ export const DEFAULT_SETTINGS = Object.freeze({
   scaleMode: 'integer',
   fullscreen: false,
   alwaysRun: false,
+  // Controllers the player has set up by hand (Options → Controller), by the
+  // id the browser reports: { buttons: { south: 0, … }, dirs: { up: { button } | { axis, value } } },
+  // or { auto: true } for "leave it on the automatic layout, don't ask again".
+  padLayouts: {},
 });
+
+const isIndex = (v) => Number.isInteger(v) && v >= 0 && v < 64;
+function validPadLayout(l) {
+  if (!l || typeof l !== 'object') return false;
+  if (l.auto === true) return true;
+  if (!l.buttons || typeof l.buttons !== 'object' || !Object.values(l.buttons).every(isIndex)) return false;
+  return Object.values(l.dirs ?? {}).every((d) => d && (isIndex(d.button) || (isIndex(d.axis) && Number.isFinite(d.value))));
+}
 
 const VALIDATORS = {
   masterVolume: (v) => typeof v === 'number' && v >= 0 && v <= 1,
@@ -41,6 +53,7 @@ const VALIDATORS = {
   scaleMode: (v) => SCALE_MODES.includes(v),
   fullscreen: (v) => typeof v === 'boolean',
   alwaysRun: (v) => typeof v === 'boolean',
+  padLayouts: (v) => !!v && typeof v === 'object' && !Array.isArray(v) && Object.values(v).every(validPadLayout),
 };
 
 /**

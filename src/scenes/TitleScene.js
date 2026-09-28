@@ -5,6 +5,7 @@ import { addPanel } from '../ui/Panel.js';
 import { ListMenu } from '../ui/ListMenu.js';
 import { OptionsPanel } from '../ui/panels/OptionsPanel.js';
 import { SaveLoadPanel } from '../ui/panels/SaveLoadPanel.js';
+import { ControllerSetupPanel } from '../ui/panels/ControllerSetupPanel.js';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
 
 /**
@@ -128,8 +129,35 @@ export class TitleScene extends BaseScene {
     if (!ok) this.state = 'menu';
   }
 
+  /**
+   * A controller the browser doesn't map to the standard layout, and nobody
+   * has set up: its first button press opens the controller setup (once per
+   * controller per visit; declining keeps the automatic layout for good).
+   */
+  offerControllerSetup(input) {
+    const press = input.padPresses?.find((p) => !p.recognised);
+    if (!press || this.panel || this.state === 'leaving') return false;
+    this.offered ??= new Set();
+    if (this.offered.has(press.id)) return false;
+    this.offered.add(press.id);
+    input.consumeAll();
+    if (this.state === 'press') this.showMenu();
+    this.menu.setFocused(false);
+    this.panel = new ControllerSetupPanel(this, {
+      depth: 30,
+      padId: press.id,
+      offered: true,
+      onClose: () => {
+        this.panel = null;
+        this.menu.setFocused(true);
+      },
+    });
+    return true;
+  }
+
   update() {
     const input = this.controls;
+    if (this.offerControllerSetup(input)) return;
     if (this.state === 'press') {
       if (input.pressed('confirm') || input.pressed('menu')) {
         input.consumeAll();

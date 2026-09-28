@@ -1,4 +1,5 @@
 import { BaseScene } from './BaseScene.js';
+import { padDisplayName } from '../ui/panels/ControllerSetupPanel.js';
 import { DialogueBox } from '../ui/DialogueBox.js';
 import { Toasts } from '../ui/Toasts.js';
 import { addPanel } from '../ui/Panel.js';
@@ -37,9 +38,10 @@ export class OverlayScene extends BaseScene {
       if (rewards) this.rewardToasts(rewards);
     });
     // A controller the game can read (shown once per pad; its name without the browser's id decoration).
-    on('input:pad', ({ id }) => {
-      const name = String(id ?? '').replace(/^[0-9a-f]{1,4}-[0-9a-f]{1,4}-/i, '').replace(/\s*\(.*\)\s*$/, '').trim() || 'Gamepad';
-      this.toasts.push({ text: `Controller ready: <y>${name.slice(0, 28)}</>`, hold: 2400 });
+    on('input:pad', ({ id, recognised }) => {
+      const name = padDisplayName(id).slice(0, 28);
+      if (recognised) this.toasts.push({ text: `Controller ready: <y>${name}</>`, hold: 2400 });
+      else this.toasts.push({ text: `<y>${name}</>: set it up in Options > Controller`, hold: 4200 });
     });
     on('party:levelUp', ({ levelUps, source }) => {
       if (source === 'battle') return; // the battle results screen announces these itself

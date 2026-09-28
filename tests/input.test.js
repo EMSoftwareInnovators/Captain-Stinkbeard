@@ -2,6 +2,8 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { InputManager } from '../src/platform/input/InputManager.js';
 import { padIds, padLayout, hatDirections } from '../src/platform/input/padLayouts.js';
 import { EventBus } from '../src/core/EventBus.js';
+import { Settings } from '../src/systems/settings/Settings.js';
+import { MemoryStorage } from '../src/platform/storage.js';
 
 /**
  * Gamepads as different browsers really report them. The one that matters:
@@ -184,5 +186,77 @@ describe('InputManager with real-world pads', () => {
     pad.buttons[3].pressed = true;
     const [info] = input.padInfo();
     expect(info).toMatchObject({ index: 0, mapping: '(none)', layout: 'xbox (raw)', down: [3], hat: 9 });
+  });
+});
+
+/**
+ * The layout Firefox gives an Xbox pad over Bluetooth on an Apple Silicon Mac
+ * isn't documented anywhere (Mozilla bug 1707400), and it differs by
+ * firmware. Here, a pad whose buttons are all one place further along than
+ * the automatic guess: only the player can show the game where they are.
+ */
+const shiftedPad = () => makePad({ id: '045e-0b22-Xbox Wireless Controller', buttons: 17, axes: [0, 0, -1, 0, 0, -1, 0, 0, 0, HAT_CENTRED] });
+const LEARNED = { buttons: { south: 1, east: 2, west: 4, north: 5, start: 12, lb: 7, rb: 8 }, dirs: { up: { axis: 9, value: -1, hat: true }, right: { button: 16 } } };
+
+describe('controllers the player sets up', () => {
+  it('uses a learned layout instead of the automatic guess', () => {
+    let layouts = {};
+    const input = new InputManager({ target: {}, customLayouts: () => layouts });
+    const pad = shiftedPad();
+    pads = [pad];
+    frames(input);
+    expect(input.recognised(pad)).toBe(false);
+    // The guess is wrong for this pad: its A press reads as B.
+    expect(press(input, pad, 1)).toMatchObject({ confirm: false, cancel: true });
+    layouts = { [pad.id]: LEARNED };
+    expect(input.recognised(pad)).toBe(true);
+    expect(press(input, pad, 1).confirm).toBe(true);
+    expect(press(input, pad, 2).cancel).toBe(true);
+    expect(press(input, pad, 4).secondary).toBe(true);
+    expect(press(input, pad, 5).menu).toBe(true);
+    expect(press(input, pad, 12).menu).toBe(true);
+    expect(press(input, pad, 7).pageLeft).toBe(true);
+    pad.axes[9] = -1;
+    frames(input);
+    expect(input.isDown('up')).toBe(true);
+    pad.axes[9] = HAT_CENTRED;
+    pad.buttons[16].pressed = true;
+    frames(input);
+    expect(input.isDown('up')).toBe(false);
+    expect(input.isDown('right')).toBe(true);
+    expect(input.padInfo()[0]).toMatchObject({ layout: 'custom', recognised: true });
+  });
+
+  it('"leave it automatic" counts as dealt with', () => {
+    const input = new InputManager({ target: {}, customLayouts: () => ({ [firefoxMacXbox().id]: { auto: true } }) });
+    expect(input.recognised(firefoxMacXbox())).toBe(true);
+    expect(input.recognised(standardPad())).toBe(true);
+  });
+
+  it('reports raw presses once, and can stop pads driving actions while they are read raw', () => {
+    const input = new InputManager({ target: {} });
+    const pad = shiftedPad();
+    pads = [pad];
+    frames(input);
+    pad.buttons[3].pressed = true;
+    frames(input);
+    expect(input.padPresses).toEqual([{ id: pad.id, index: 0, button: 3, recognised: false }]);
+    frames(input);
+    expect(input.padPresses).toEqual([]);
+    pad.buttons[3].pressed = false;
+    input.suspendPads = true;
+    pad.buttons[0].pressed = true;
+    frames(input);
+    expect(input.padPresses.map((p) => p.button)).toEqual([0]);
+    expect(input.isDown('confirm')).toBe(false);
+  });
+
+  it('keeps learned layouts in settings, and refuses junk', () => {
+    const settings = new Settings({ storage: new MemoryStorage() });
+    settings.set('padLayouts', { a: LEARNED, b: { auto: true } });
+    expect(settings.get('padLayouts').a.buttons.south).toBe(1);
+    expect(() => settings.set('padLayouts', { a: { buttons: { south: 'x' } } })).toThrow();
+    expect(() => settings.set('padLayouts', { a: { buttons: {}, dirs: { up: { axis: 9 } } } })).toThrow();
+    expect(() => settings.set('padLayouts', [])).toThrow();
   });
 });

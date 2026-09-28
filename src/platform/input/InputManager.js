@@ -3,6 +3,8 @@ import { padLayout, hatAxis, hatDirections } from './padLayouts.js';
 import { BUTTON_GLYPHS } from '../../art/font/glyphs.js';
 
 const REPEAT_DELAY = 280; // ms before a held direction starts repeating in menus
+/** A direction the player set up on an axis: a hat position, or one way along a stick. */
+const axisAt = (v, dir) => (dir.hat ? Math.abs((v ?? 9) - dir.value) < 0.15 : (v ?? 0) * Math.sign(dir.value) > STICK_DEADZONE);
 const REPEAT_RATE = 85; // ms between repeats
 
 /**
@@ -20,11 +22,19 @@ const REPEAT_RATE = 85; // ms between repeats
  * (padLayouts.js): a pad the browser leaves unmapped (an Xbox pad over
  * Bluetooth in Firefox on macOS) or a second HID device listed before the
  * real controller can no longer hide the controller's buttons.
+ *
+ * A layout the player set up by hand (Options → Controller, saved per pad id
+ * in settings) wins over the automatic one. Pads the browser doesn't map to
+ * the standard layout and nobody has set up are "unrecognised": the game
+ * offers the controller setup for them.
  */
 export class InputManager {
-  constructor({ bus = null, target = globalThis.window } = {}) {
+  constructor({ bus = null, target = globalThis.window, customLayouts = null } = {}) {
     this.bus = bus;
     this.target = target;
+    this.customLayouts = customLayouts; // () => { [pad id]: { buttons, dirs } | { auto: true } }
+    this.suspendPads = false; // true while the controller setup reads raw buttons
+    this.padPresses = []; // buttons that went down this frame: { id, index, button, recognised }
     this.codesDown = new Set();
     this.codesTapped = new Set();
     this.state = Object.fromEntries(ACTIONS.map((a) => [a, { down: false, prev: false, since: 0, lastRepeat: 0, consumed: false }]));
@@ -32,7 +42,7 @@ export class InputManager {
     this.now = 0;
     this.enabled = true;
     this.pads = []; // connected pads this frame, each { pad, layout, rest, hat }
-    this.padMemo = new Map(); // "index|id" -> { layout, rest } (first-seen axis values)
+    this.padMemo = new Map(); // "index|id" -> { auto, rest, down } (automatic layout, first-seen axes, last buttons)
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
     this.onBlur = this.onBlur.bind(this);
@@ -89,21 +99,45 @@ export class InputManager {
       const key = `${pad.index}|${pad.id}`;
       let memo = this.padMemo.get(key);
       if (!memo) {
-        memo = { layout: padLayout(pad), rest: Array.from(pad.axes ?? [], (v) => v ?? 0) };
+        memo = { auto: padLayout(pad), rest: Array.from(pad.axes ?? [], (v) => v ?? 0), down: [] };
         this.padMemo.set(key, memo);
-        this.bus?.emit('input:pad', { id: pad.id, index: pad.index, mapping: pad.mapping, layout: memo.layout.name });
+        const layout = this.layoutFor(pad, memo);
+        this.bus?.emit('input:pad', { id: pad.id, index: pad.index, mapping: pad.mapping, layout: layout.name, recognised: this.recognised(pad) });
       }
-      out.push({ pad, layout: memo.layout, rest: memo.rest, hat: hatAxis(memo.layout, pad, memo.rest) });
+      const layout = this.layoutFor(pad, memo);
+      out.push({ pad, memo, layout, rest: memo.rest, hat: hatAxis(memo.auto, pad, memo.rest) });
     }
     return out;
+  }
+
+  /** The player's own layout for this pad if there is one, else the automatic one. */
+  layoutFor(pad, memo) {
+    const custom = this.customLayouts?.()?.[pad.id];
+    if (custom?.buttons) return { name: 'custom', buttons: custom.buttons, dirs: custom.dirs ?? null, hat: memo.auto.hat };
+    return memo.auto;
+  }
+
+  /** The browser maps it to the standard layout, or the player has dealt with it. */
+  recognised(pad) {
+    if (pad?.mapping === 'standard') return true;
+    const custom = this.customLayouts?.()?.[pad?.id];
+    return !!(custom?.buttons || custom?.auto);
+  }
+
+  /** Whether a pad button is held (pressed flag, or an analog value past half). */
+  static buttonDown(pad, i) {
+    const b = i === undefined ? null : pad.buttons[i];
+    return !!b && (b.pressed || b.value > 0.5);
   }
 
   padActionDown(entry, action) {
     if (!entry) return false;
     const { pad, layout, rest, hat } = entry;
-    const pressed = (i) => i !== undefined && !!pad.buttons[i] && (pad.buttons[i].pressed || pad.buttons[i].value > 0.5);
+    const pressed = (i) => InputManager.buttonDown(pad, i);
     if (PAD_BINDINGS[action].some((name) => pressed(layout.buttons[name]))) return true;
     if (action !== 'left' && action !== 'right' && action !== 'up' && action !== 'down') return false;
+    const dir = layout.dirs?.[action];
+    if (dir && (pressed(dir.button) || (dir.axis !== undefined && axisAt(pad.axes[dir.axis], dir)))) return true;
     if (hat !== null && hatDirections(pad.axes[hat])[action]) return true;
     // Left stick, unless that axis rests off-centre on this pad (then it isn't a stick).
     const stick = (i) => (Math.abs(rest[i] ?? 0) < STICK_DEADZONE ? pad.axes[i] || 0 : 0);
@@ -122,6 +156,7 @@ export class InputManager {
       id: pad.id,
       mapping: pad.mapping || '(none)',
       layout: layout.name,
+      recognised: this.recognised(pad),
       down: pad.buttons.map((b, i) => (b && (b.pressed || b.value > 0.5) ? i : -1)).filter((i) => i >= 0),
       axes: Array.from(pad.axes ?? [], (v) => Math.round((v ?? 0) * 100) / 100),
       hat,
@@ -133,13 +168,23 @@ export class InputManager {
     this.now = now;
     const pads = this.readPads();
     this.pads = pads;
+    // Raw button presses (for "press any button", and the controller setup).
+    this.padPresses = [];
+    for (const { pad, memo } of pads) {
+      pad.buttons.forEach((_, i) => {
+        const down = InputManager.buttonDown(pad, i);
+        if (down && !memo.down[i]) this.padPresses.push({ id: pad.id, index: pad.index, button: i, recognised: this.recognised(pad) });
+        memo.down[i] = down;
+      });
+    }
+    const readPadsForActions = this.suspendPads ? [] : pads;
     let padActive = false;
     for (const action of ACTIONS) {
       const st = this.state[action];
       st.prev = st.down;
       st.consumed = false;
       const key = KEY_BINDINGS[action].some((c) => this.codesDown.has(c) || this.codesTapped.has(c));
-      const padDown = pads.some((entry) => this.padActionDown(entry, action));
+      const padDown = readPadsForActions.some((entry) => this.padActionDown(entry, action));
       if (padDown && !st.prev) padActive = true;
       st.down = this.enabled && (key || padDown);
       if (st.down && !st.prev) {
@@ -148,7 +193,7 @@ export class InputManager {
       }
     }
     this.codesTapped.clear();
-    if (padActive) this.setDevice('gamepad');
+    if (padActive || this.padPresses.length) this.setDevice('gamepad');
   }
 
   isDown(action) {

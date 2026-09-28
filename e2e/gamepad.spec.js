@@ -9,8 +9,14 @@ import { test, expect } from '@playwright/test';
  * "firefox-mac" is an Xbox pad the way Firefox on macOS hands over one it
  * has no remapper for (mapping "", face buttons at 0/1/3/4, D-pad on hat axis
  * 9, triggers resting at -1), listed after another HID device at index 0.
+ * "firefox-shifted" is the same pad with its buttons somewhere the game can't
+ * guess (Mozilla bug 1707400: Bluetooth Xbox pads on Apple Silicon Macs).
+ * Pads the browser doesn't map are offered the controller setup on the title
+ * screen: both go through it, then play with what it learned.
  */
 const HAT_CENTRED = 8 / 3.5 - 1;
+const hat = (pos) => (pos * 2) / 7 - 1; // 0 up, 2 right, 4 down, 6 left
+const HAT_DIRS = { up: hat(0), down: hat(4), left: hat(6), right: hat(2) };
 const SETUPS = {
   standard: {
     pads: [{ id: 'Test Pad (STANDARD GAMEPAD)', mapping: 'standard', buttons: 17, axes: [0, 0, 0, 0] }],
@@ -23,7 +29,18 @@ const SETUPS = {
       { id: '045e-0b20-Xbox Wireless Controller', mapping: '', buttons: 16, axes: [0, 0, -1, 0, 0, -1, 0, 0, 0, HAT_CENTRED] },
     ],
     controller: 1,
-    A: 0, B: 1, Y: 4, dpadRight: { axis: 9, value: (2 * 2) / 7 - 1, rest: HAT_CENTRED },
+    A: 0, B: 1, Y: 4, dpadRight: { axis: 9, value: HAT_DIRS.right, rest: HAT_CENTRED },
+    // south, east, west, north, start, lb, rb; then the D-pad on the hat
+    setup: [0, 1, 3, 4, 11, 6, 7],
+  },
+  'firefox-shifted': {
+    pads: [
+      { id: '05ac-0000-Some HID Device', mapping: '', buttons: 2, axes: [0, -1] },
+      { id: '045e-0b22-Xbox Wireless Controller', mapping: '', buttons: 17, axes: [0, 0, -1, 0, 0, -1, 0, 0, 0, HAT_CENTRED] },
+    ],
+    controller: 1,
+    A: 1, B: 2, Y: 5, dpadRight: { axis: 9, value: HAT_DIRS.right, rest: HAT_CENTRED },
+    setup: [1, 2, 4, 5, 12, 7, 8],
   },
 };
 
@@ -66,12 +83,45 @@ for (const [name, setup] of Object.entries(SETUPS)) {
     };
     const state = () => page.evaluate(() => window.__GAME__.test.state());
 
+    const setupPanel = () => page.evaluate(() => {
+      const p = window.__GAME__.game.scene.getScene('Title').panel;
+      return p && p.phase !== undefined ? { phase: p.phase, step: p.step } : null;
+    });
+
     await page.goto('/');
     await page.waitForFunction(() => window.__GAME__?.game.scene.isActive('Title'), null, { timeout: 30000 });
     await page.evaluate(() => window.__GAME__.app.settings.set('textSpeed', 'instant'));
     await page.waitForTimeout(800);
     // Nothing is pressed yet: the extra device's resting axis must not count as input.
     expect(await page.evaluate(() => window.__GAME__.app.input.device)).toBe('keyboard');
+    if (setup.setup) {
+      // Before any setup, the pad's own A can't be relied on; its first press offers the setup.
+      await press(setup.A);
+      expect((await setupPanel())?.phase).toBeTruthy();
+      // Each step waits for "let go of everything" to pass, as a person would.
+      const ready = (k) => page.waitForFunction((n) => {
+        const p = window.__GAME__.game.scene.getScene('Title').panel;
+        return p && p.step === n && p.phase === 'step';
+      }, k, { timeout: 5000 });
+      let k = 0;
+      for (const button of setup.setup) {
+        await ready(k++);
+        await press(button, 90);
+      }
+      for (const dir of ['up', 'down', 'left', 'right']) {
+        await ready(k++);
+        await axis(9, HAT_DIRS[dir]);
+        await page.waitForTimeout(150);
+        await axis(9, HAT_CENTRED);
+      }
+      await page.waitForFunction(() => window.__GAME__.game.scene.getScene('Title').panel?.phase === 'done', null, { timeout: 5000 });
+      expect((await setupPanel())?.phase).toBe('done');
+      const saved = await page.evaluate((id) => window.__GAME__.app.settings.get('padLayouts')[id], setup.pads[setup.controller].id);
+      expect(saved.buttons).toMatchObject({ south: setup.setup[0], east: setup.setup[1], west: setup.setup[2], north: setup.setup[3] });
+      expect(saved.dirs.up).toMatchObject({ axis: 9, hat: true });
+      await press(setup.A); // the learned Confirm finishes
+      expect(await setupPanel()).toBe(null);
+    }
     for (let i = 0; i < 20 && (await page.evaluate(() => window.__GAME__.game.scene.getScene('Title').state)) !== 'menu'; i++) await press(setup.A);
     expect(await page.evaluate(() => window.__GAME__.game.scene.getScene('Title').state)).toBe('menu');
     await press(setup.A); // New Game (first entry when there is no save)
