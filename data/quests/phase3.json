@@ -1,0 +1,360 @@
+[
+ {
+  "id": "necessary_promotion",
+  "title": "A Necessary Promotion?",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "Garrick is standing on a barrel, dressed in a curtain, drafting 'reforms'.",
+  "description": "Later the same evening. The ship still reeks, Squawks is still bald, and Garrick has survived a tribunal and a royal frigate. He believes this qualifies him for something. He is on a barrel by the mainmast, in a curtain, with a mop.",
+  "objectives": [
+   {
+    "id": "speak",
+    "text": "Speak with Garrick (on a barrel, by the mainmast)",
+    "type": "flag",
+    "target": "garrick_reforms_started"
+   },
+   {
+    "id": "reforms",
+    "text": "Listen to his 'reforms'",
+    "type": "flag",
+    "target": "garrick_reforms_heard",
+    "after": [
+     "speak"
+    ]
+   },
+   {
+    "id": "log",
+    "text": "Inspect the Stench Log (on the crate beside him)",
+    "type": "flag",
+    "target": "stench_log_seen",
+    "after": [
+     "reforms"
+    ]
+   },
+   {
+    "id": "declare",
+    "text": "Witness the declaration",
+    "type": "flag",
+    "target": "stenchmaster_declared",
+    "after": [
+     "log"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 30
+  }
+ },
+ {
+  "id": "what_did_you_call_me",
+  "title": "What Did You Call Me?",
+  "category": "main",
+  "giver": "wick",
+  "summary": "Garrick has nailed an 'amendment' to the mainmast. It concerns the captain.",
+  "description": "The Grand Stenchmaster's first official act appears to be a correction to the ship's records. Wick says it's about you. Wick looked scared.",
+  "objectives": [
+   {
+    "id": "notice",
+    "text": "Read Garrick's amendment (the mainmast)",
+    "type": "flag",
+    "target": "amendment_read"
+   },
+   {
+    "id": "confront",
+    "text": "Confront Garrick",
+    "type": "flag",
+    "target": "stinkbeard_proposed",
+    "after": [
+     "notice"
+    ]
+   },
+   {
+    "id": "beard",
+    "text": "Investigate the beard contamination",
+    "type": "flag",
+    "target": "beard_sniffed",
+    "after": [
+     "confront"
+    ]
+   },
+   {
+    "id": "dispute",
+    "text": "Survive the naming dispute",
+    "type": "flag",
+    "target": "naming_dispute_survived",
+    "after": [
+     "beard"
+    ]
+   },
+   {
+    "id": "named",
+    "text": "Become Captain Stinkbeard",
+    "type": "flag",
+    "target": "captain_named_stinkbeard",
+    "after": [
+     "dispute"
+    ]
+   },
+   {
+    "id": "clean",
+    "text": "Ask whether the beard can be cleaned",
+    "type": "flag",
+    "target": "rain_started",
+    "after": [
+     "named"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 30
+  }
+ },
+ {
+  "id": "frog_grog",
+  "title": "Frog Grog",
+  "category": "main",
+  "giver": "mags",
+  "summary": "The crew want a drink. The grog barrel was sealed. Surely it was protected.",
+  "description": "Several hours of the smell, and now rain on top of it. The crew have gathered round the sealed grog barrel in the galley, hoping against hope that something aboard escaped the Gust.",
+  "objectives": [
+   {
+    "id": "gathering",
+    "text": "Investigate the crew gathering (Galley)",
+    "type": "flag",
+    "target": "grog_gathering_seen"
+   },
+   {
+    "id": "taste",
+    "text": "Taste the grog",
+    "type": "flag",
+    "target": "grog_tasted",
+    "after": [
+     "gathering"
+    ]
+   },
+   {
+    "id": "confirm",
+    "text": "Confirm the ship's alcohol is contaminated",
+    "type": "inspect",
+    "tag": "grog_check",
+    "count": 3,
+    "distinct": true,
+    "after": [
+     "taste"
+    ]
+   },
+   {
+    "id": "unlock",
+    "text": "Report back to the galley",
+    "type": "flag",
+    "target": "frog_grog_unlocked",
+    "after": [
+     "confirm"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 30,
+   "items": [
+    {
+     "id": "frog_grog",
+     "count": 2
+    }
+   ]
+  }
+ },
+ {
+  "id": "ship_is_changing",
+  "title": "The Ship Is Changing",
+  "category": "main",
+  "giver": "hale",
+  "summary": "Morning. The ship is doing things ships should not do.",
+  "description": "Nobody slept. The rain stopped at dawn, which somehow made it worse. Hale says the Revenge is 'behaving oddly'. The Grand Stenchmaster is conducting an inspection tour and predicting worse.",
+  "objectives": [
+   {
+    "id": "wood",
+    "text": "Inspect the stained wood (Cargo Hold, by the treasure door)",
+    "type": "flag",
+    "target": "wood_yellowing_seen"
+   },
+   {
+    "id": "sails",
+    "text": "Check the sails (mainmast)",
+    "type": "flag",
+    "target": "sails_swollen"
+   },
+   {
+    "id": "ropes",
+    "text": "Inspect the ropes",
+    "type": "flag",
+    "target": "ropes_sweating"
+   },
+   {
+    "id": "bell",
+    "text": "Ring the ship's bell (bow)",
+    "type": "flag",
+    "target": "bell_coughs"
+   },
+   {
+    "id": "crew",
+    "text": "Speak with the crew about the changes",
+    "type": "event",
+    "target": "transform_talk",
+    "count": 3
+   },
+   {
+    "id": "sharks",
+    "text": "Report to the Grand Stenchmaster (quarterdeck)",
+    "type": "flag",
+    "target": "sharks_mentioned",
+    "after": [
+     "wood",
+     "sails",
+     "ropes",
+     "bell",
+     "crew"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 35
+  }
+ },
+ {
+  "id": "sharks",
+  "title": "Sharks!",
+  "category": "main",
+  "giver": "ned",
+  "summary": "The sea is full of fins, and they want the ship.",
+  "description": "According to the Grand Stenchmaster, certain emissions attract sharks. Nobody believed him. Now the water is full of fins, and they are biting the parts of the ship that smell the most like lunch.",
+  "objectives": [
+   {
+    "id": "impact",
+    "text": "Investigate the port-side impact",
+    "type": "flag",
+    "target": "port_impact_seen"
+   },
+   {
+    "id": "patch",
+    "text": "Patch the hull (planks by the fore hatch)",
+    "type": "flag",
+    "target": "hull_patched",
+    "after": [
+     "impact"
+    ]
+   },
+   {
+    "id": "rudder",
+    "text": "Check the rudder (the stern rail)",
+    "type": "flag",
+    "target": "rudder_checked",
+    "after": [
+     "patch"
+    ]
+   },
+   {
+    "id": "supplies",
+    "text": "Protect the supplies (the Frog Grog barrel)",
+    "type": "flag",
+    "target": "grog_spilled",
+    "after": [
+     "rudder"
+    ]
+   },
+   {
+    "id": "solution",
+    "text": "Find a solution (Garrick)",
+    "type": "flag",
+    "target": "rowboat_plan",
+    "after": [
+     "supplies"
+    ]
+   },
+   {
+    "id": "rowboat",
+    "text": "Send Garrick away in the rowboat (starboard davit)",
+    "type": "flag",
+    "target": "garrick_lowered",
+    "after": [
+     "solution"
+    ]
+   },
+   {
+    "id": "follow",
+    "text": "Watch the sharks follow",
+    "type": "flag",
+    "target": "sharks_lured",
+    "after": [
+     "rowboat"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "stenchmaster_temporarily",
+  "title": "Grand Stenchmaster, Temporarily",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "Garrick is back. He would like to discuss his terms.",
+  "description": "An hour after the release, the rowboat came back with fewer oars and more sharks than it left with. The Grand Stenchmaster believes the crew has now witnessed the practical value of his office.",
+  "objectives": [
+   {
+    "id": "recover",
+    "text": "Recover Garrick (starboard davit)",
+    "type": "flag",
+    "target": "garrick_returned"
+   },
+   {
+    "id": "damage",
+    "text": "Assess the damage (Jory)",
+    "type": "flag",
+    "target": "damage_assessed",
+    "after": [
+     "recover"
+    ]
+   },
+   {
+    "id": "terms",
+    "text": "Hear the Grand Stenchmaster's terms",
+    "type": "flag",
+    "target": "stenchmaster_terms_set",
+    "after": [
+     "damage"
+    ]
+   },
+   {
+    "id": "squawks",
+    "text": "Check on Squawks",
+    "type": "flag",
+    "target": "squawks_first_new_feather_yellow",
+    "after": [
+     "terms"
+    ]
+   },
+   {
+    "id": "warning",
+    "text": "Respond to the stomach warning",
+    "type": "flag",
+    "target": "second_gust_warning",
+    "after": [
+     "squawks"
+    ]
+   },
+   {
+    "id": "evacuate",
+    "text": "Evacuate Garrick again",
+    "type": "flag",
+    "target": "garrick_evacuated_again",
+    "after": [
+     "warning"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ }
+]

@@ -3,6 +3,7 @@ import { addText, UI_COLORS } from '../text.js';
 import { ListMenu } from '../ListMenu.js';
 import { UiLayer } from './UiLayer.js';
 import { TabBar } from './TabBar.js';
+import { resolveVariant } from '../../systems/story/progress.js';
 
 const TABS = [
   { id: 'active', label: 'Active' },
@@ -89,7 +90,8 @@ export class QuestsPage {
     const x = rect.x + 12;
     let y = rect.y + 89;
     this.detail.add(addText(scene, x, y, quest.title, { font: 'bold', color: UI_COLORS.heading, depth: D }));
-    const giver = quest.giver ? this.app.content.npcs.get(quest.giver)?.name ?? this.app.content.characters.get(quest.giver)?.name : null;
+    const npc = quest.giver ? this.app.content.npcs.get(quest.giver) : null;
+    const giver = !quest.giver ? null : npc ? resolveVariant(npc, this.app.session).name : this.app.session?.party.nameOf(quest.giver);
     if (giver) {
       const g = this.detail.add(addText(scene, 0, y + 1, `<k>from</> ${giver}`, { depth: D }));
       g.x = rect.x + rect.w - 12 - g.textWidth;

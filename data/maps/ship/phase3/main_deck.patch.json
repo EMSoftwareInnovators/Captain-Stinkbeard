@@ -1,0 +1,1673 @@
+{
+ "id": "main_deck.phase3",
+ "patch": "main_deck",
+ "//": "Story Phase 3 on the main deck: Garrick's office by the mainmast (barrel, Stench Log), the naming, the night rain, the ship changing, the sharks, the rowboat. Placements are listed per stage, latest first.",
+ "objects": [
+  {
+   "id": "p3_garrick_eve",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 11,
+   "y": 17,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p3_started"
+     },
+     {
+      "notFlag": "grog_night_started"
+     }
+    ]
+   },
+   "pose": "smug",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "garrick_away_night",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p3_garrick_morn",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 12,
+   "y": 7,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "ship_morning_started"
+     },
+     {
+      "notFlag": "sharks_mentioned"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_garrick_sharks",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 11,
+   "y": 17,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "sharks_mentioned"
+     },
+     {
+      "notFlag": "rowboat_plan"
+     }
+    ]
+   },
+   "pose": "nervous",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_garrick_boat",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 5,
+   "y": 25,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "rowboat_plan"
+     },
+     {
+      "notFlag": "garrick_lowered"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "garrick_away_boat1",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_lowered"
+     },
+     {
+      "notFlag": "garrick_returned"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p3_garrick_back",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 6,
+   "y": 24,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_returned"
+     },
+     {
+      "notFlag": "second_gust_warning"
+     }
+    ]
+   },
+   "pose": "slouch",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_garrick_boat2",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 5,
+   "y": 25,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "second_gust_warning"
+     },
+     {
+      "notFlag": "garrick_evacuated_again"
+     }
+    ]
+   },
+   "pose": "nervous",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "garrick_away_gone",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "garrick_evacuated_again"
+   }
+  },
+  {
+   "id": "squawks_away_night",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p3_hale",
+   "type": "npc",
+   "npc": "hale",
+   "x": 7,
+   "y": 13,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p3_started"
+     },
+     {
+      "notFlag": "grog_night_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "hale_away_night",
+   "type": "npc",
+   "npc": "hale",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p3_hale_day",
+   "type": "npc",
+   "npc": "hale",
+   "x": 7,
+   "y": 13,
+   "facing": "down",
+   "if": {
+    "flag": "ship_morning_started"
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p3_rook_eve",
+   "type": "npc",
+   "npc": "rook",
+   "x": 5,
+   "y": 17,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p3_started"
+     },
+     {
+      "notFlag": "grog_night_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "rook_away_night",
+   "type": "npc",
+   "npc": "rook",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p3_rook_morn",
+   "type": "npc",
+   "npc": "rook",
+   "x": 8,
+   "y": 19,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "ship_morning_started"
+     },
+     {
+      "notFlag": "sharks_mentioned"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_rook_sharks",
+   "type": "npc",
+   "npc": "rook",
+   "x": 5,
+   "y": 17,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "sharks_mentioned"
+     },
+     {
+      "notFlag": "sharks_lured"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_rook_after",
+   "type": "npc",
+   "npc": "rook",
+   "x": 6,
+   "y": 26,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "sharks_lured"
+     },
+     {
+      "notFlag": "garrick_evacuated_again"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_rook_end",
+   "type": "npc",
+   "npc": "rook",
+   "x": 6,
+   "y": 16,
+   "facing": "right",
+   "if": {
+    "flag": "garrick_evacuated_again"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_brask_eve",
+   "type": "npc",
+   "npc": "brask",
+   "x": 6,
+   "y": 18,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p3_started"
+     },
+     {
+      "notFlag": "grog_night_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "brask_away_night",
+   "type": "npc",
+   "npc": "brask",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p3_brask_day",
+   "type": "npc",
+   "npc": "brask",
+   "x": 6,
+   "y": 22,
+   "facing": "left",
+   "if": {
+    "flag": "ship_morning_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_sully_eve",
+   "type": "npc",
+   "npc": "sully",
+   "x": 13,
+   "y": 21,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p3_started"
+     },
+     {
+      "notFlag": "grog_night_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "sully_away_night",
+   "type": "npc",
+   "npc": "sully",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "sully_away_hold",
+   "type": "npc",
+   "npc": "sully",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "ship_morning_started"
+     },
+     {
+      "notFlag": "sharks_mentioned"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p3_sully_day",
+   "type": "npc",
+   "npc": "sully",
+   "x": 13,
+   "y": 26,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "sharks_mentioned"
+     },
+     {
+      "notFlag": "garrick_evacuated_again"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_sully_end",
+   "type": "npc",
+   "npc": "sully",
+   "x": 13,
+   "y": 21,
+   "facing": "up",
+   "if": {
+    "flag": "garrick_evacuated_again"
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "work"
+   }
+  },
+  {
+   "id": "p3_gristle_eve",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 7,
+   "y": 20,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p3_started"
+     },
+     {
+      "notFlag": "grog_night_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_gristle_night",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 13,
+   "y": 12,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p3_gristle_day",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 12,
+   "y": 18,
+   "facing": "left",
+   "if": {
+    "flag": "ship_morning_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "bob_away_night",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p3_wick_eve",
+   "type": "npc",
+   "npc": "wick",
+   "x": 8,
+   "y": 13,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p3_started"
+     },
+     {
+      "notFlag": "grog_night_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "wick_away_night",
+   "type": "npc",
+   "npc": "wick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p3_wick_day",
+   "type": "npc",
+   "npc": "wick",
+   "x": 8,
+   "y": 13,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "ship_morning_started"
+     },
+     {
+      "notFlag": "sharks_lured"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p3_wick_after",
+   "type": "npc",
+   "npc": "wick",
+   "x": 5,
+   "y": 20,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "sharks_lured"
+     },
+     {
+      "notFlag": "garrick_evacuated_again"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_wick_end",
+   "type": "npc",
+   "npc": "wick",
+   "x": 8,
+   "y": 13,
+   "facing": "down",
+   "if": {
+    "flag": "garrick_evacuated_again"
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p3_nell_chart",
+   "type": "npc",
+   "npc": "nell",
+   "x": 12,
+   "y": 5,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "ship_morning_started"
+     },
+     {
+      "notFlag": "sharks_mentioned"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_ned_chart",
+   "type": "npc",
+   "npc": "ned",
+   "x": 14,
+   "y": 5,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "ship_morning_started"
+     },
+     {
+      "notFlag": "sharks_mentioned"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_jim_fish",
+   "type": "npc",
+   "npc": "jim",
+   "x": 15,
+   "y": 28,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "ship_morning_started"
+     },
+     {
+      "notFlag": "sharks_mentioned"
+     }
+    ]
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "work"
+   }
+  },
+  {
+   "id": "p3_jim_sharks",
+   "type": "npc",
+   "npc": "jim",
+   "x": 12,
+   "y": 24,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "sharks_mentioned"
+     },
+     {
+      "notFlag": "garrick_evacuated_again"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_jory_patch",
+   "type": "npc",
+   "npc": "jory",
+   "x": 15,
+   "y": 20,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "port_impact_seen"
+     },
+     {
+      "notFlag": "hull_patched"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_jory_after",
+   "type": "npc",
+   "npc": "jory",
+   "x": 14,
+   "y": 21,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "hull_patched"
+     },
+     {
+      "notFlag": "garrick_evacuated_again"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_jory_end",
+   "type": "npc",
+   "npc": "jory",
+   "x": 14,
+   "y": 21,
+   "facing": "right",
+   "if": {
+    "flag": "garrick_evacuated_again"
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "work"
+   }
+  },
+  {
+   "id": "p3_fennimore_after",
+   "type": "npc",
+   "npc": "fennimore",
+   "x": 13,
+   "y": 13,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_returned"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "finch_away_night",
+   "type": "npc",
+   "npc": "finch",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "stench_log",
+   "type": "inspect",
+   "x": 12,
+   "y": 16,
+   "script": "inspect.stench_log",
+   "if": {
+    "flag": "p3_started"
+   }
+  },
+  {
+   "id": "mast_sails",
+   "type": "inspect",
+   "x": 9,
+   "y": 19,
+   "w": 2,
+   "h": 2,
+   "script": "p3c4.sails",
+   "if": {
+    "objectiveActive": "ship_is_changing.sails"
+   }
+  },
+  {
+   "id": "amendment",
+   "type": "inspect",
+   "x": 9,
+   "y": 20,
+   "w": 2,
+   "script": "p3c2.notice",
+   "if": {
+    "all": [
+     {
+      "flag": "stenchmaster_declared"
+     },
+     {
+      "notFlag": "amendment_read"
+     }
+    ]
+   }
+  },
+  {
+   "id": "amendment_read",
+   "type": "inspect",
+   "x": 9,
+   "y": 20,
+   "w": 2,
+   "script": "inspect.p3_amendment",
+   "if": {
+    "flag": "amendment_read"
+   }
+  },
+  {
+   "id": "mast_puffing",
+   "type": "inspect",
+   "x": 9,
+   "y": 19,
+   "w": 2,
+   "h": 2,
+   "script": "inspect.p3_mast",
+   "if": {
+    "flag": "sails_swollen"
+   }
+  },
+  {
+   "id": "rope_damp",
+   "type": "inspect",
+   "x": 11,
+   "y": 18,
+   "script": "p3c4.ropes",
+   "if": {
+    "objectiveActive": "ship_is_changing.ropes"
+   }
+  },
+  {
+   "id": "rope_damp_after",
+   "type": "inspect",
+   "x": 11,
+   "y": 18,
+   "script": "inspect.p3_rope",
+   "if": {
+    "flag": "ropes_sweating"
+   }
+  },
+  {
+   "id": "bell_p3",
+   "type": "inspect",
+   "x": 12,
+   "y": 33,
+   "script": "p3c4.bell",
+   "if": {
+    "all": [
+     {
+      "flag": "ship_morning_started"
+     },
+     {
+      "notFlag": "bell_coughs"
+     }
+    ]
+   }
+  },
+  {
+   "id": "bell_cough",
+   "type": "inspect",
+   "x": 12,
+   "y": 33,
+   "if": {
+    "flag": "bell_coughs"
+   },
+   "dialogue": [
+    {
+     "cycle": [
+      "inspect.p3_bell_1",
+      "inspect.p3_bell_2",
+      "inspect.p3_bell_3",
+      "inspect.p3_bell_4"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "chart",
+   "type": "inspect",
+   "x": 13,
+   "y": 5,
+   "script": "inspect.p3_chart",
+   "if": {
+    "flag": "ship_morning_started"
+   }
+  },
+  {
+   "id": "grog_cask",
+   "type": "inspect",
+   "x": 13,
+   "y": 23,
+   "script": "inspect.p3_grog_cask",
+   "if": {
+    "all": [
+     {
+      "flag": "ship_morning_started"
+     },
+     {
+      "notFlag": "grog_spilled"
+     }
+    ]
+   }
+  },
+  {
+   "id": "grog_gone",
+   "type": "inspect",
+   "x": 13,
+   "y": 23,
+   "script": "inspect.p3_grog_gone",
+   "if": {
+    "flag": "grog_spilled"
+   }
+  },
+  {
+   "id": "p3_impact",
+   "type": "trigger",
+   "x": 12,
+   "y": 18,
+   "w": 4,
+   "h": 6,
+   "script": "p3c5.impact",
+   "if": {
+    "objectiveActive": "sharks.impact"
+   }
+  },
+  {
+   "id": "planks",
+   "type": "inspect",
+   "x": 7,
+   "y": 32,
+   "script": "p3c5.plank",
+   "if": {
+    "all": [
+     {
+      "flag": "sharks_mentioned"
+     },
+     {
+      "notFlag": "hull_patched"
+     }
+    ]
+   }
+  },
+  {
+   "id": "planks_after",
+   "type": "inspect",
+   "x": 7,
+   "y": 32,
+   "script": "inspect.p3_planks",
+   "if": {
+    "flag": "hull_patched"
+   }
+  },
+  {
+   "id": "breach",
+   "type": "inspect",
+   "x": 16,
+   "y": 21,
+   "script": "p3c5.patch",
+   "if": {
+    "all": [
+     {
+      "flag": "port_impact_seen"
+     },
+     {
+      "notFlag": "hull_patched"
+     }
+    ]
+   }
+  },
+  {
+   "id": "patch",
+   "type": "inspect",
+   "x": 16,
+   "y": 21,
+   "script": "inspect.p3_patch",
+   "if": {
+    "flag": "hull_patched"
+   }
+  },
+  {
+   "id": "rudder",
+   "type": "inspect",
+   "x": 5,
+   "y": 2,
+   "w": 10,
+   "script": "p3c5.rudder",
+   "if": {
+    "objectiveActive": "sharks.rudder"
+   }
+  },
+  {
+   "id": "p3_beard_bait",
+   "type": "trigger",
+   "x": 4,
+   "y": 12,
+   "w": 12,
+   "h": 2,
+   "script": "p3c5.beard_bait",
+   "if": {
+    "all": [
+     {
+      "flag": "rudder_checked"
+     },
+     {
+      "notFlag": "beard_bait_seen"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p3_spill",
+   "type": "trigger",
+   "x": 11,
+   "y": 21,
+   "w": 5,
+   "h": 4,
+   "script": "p3c5.spill",
+   "if": {
+    "all": [
+     {
+      "flag": "rudder_checked"
+     },
+     {
+      "notFlag": "grog_spilled"
+     }
+    ]
+   }
+  },
+  {
+   "id": "rowboat_lower",
+   "type": "inspect",
+   "x": 4,
+   "y": 24,
+   "w": 2,
+   "script": "p3c5.lower",
+   "if": {
+    "objectiveActive": "sharks.rowboat"
+   }
+  },
+  {
+   "id": "rowboat_again",
+   "type": "inspect",
+   "x": 4,
+   "y": 24,
+   "w": 2,
+   "script": "p3c6.evacuate",
+   "if": {
+    "objectiveActive": "stenchmaster_temporarily.evacuate"
+   }
+  },
+  {
+   "id": "rowboat_bitten_look",
+   "type": "inspect",
+   "x": 4,
+   "y": 24,
+   "w": 2,
+   "script": "inspect.p3_rowboat_bitten",
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_returned"
+     },
+     {
+      "notFlag": "garrick_evacuated_again"
+     }
+    ]
+   }
+  },
+  {
+   "id": "davits_empty",
+   "type": "inspect",
+   "x": 4,
+   "y": 24,
+   "w": 2,
+   "script": "inspect.p3_davits",
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "garrick_lowered"
+       },
+       {
+        "notFlag": "garrick_returned"
+       }
+      ]
+     },
+     {
+      "flag": "garrick_evacuated_again"
+     }
+    ]
+   }
+  },
+  {
+   "id": "water_barrel",
+   "type": "inspect",
+   "x": 4,
+   "y": 20,
+   "script": "inspect.p3_water",
+   "if": {
+    "flag": "frog_water_seen"
+   }
+  },
+  {
+   "id": "frog_mugs",
+   "type": "inspect",
+   "x": 7,
+   "y": 16,
+   "script": "inspect.p3_mugs",
+   "if": {
+    "flag": "garrick_evacuated_again"
+   }
+  },
+  {
+   "id": "nest",
+   "type": "inspect",
+   "x": 13,
+   "y": 12,
+   "script": "inspect.p3_nest",
+   "if": {
+    "flag": "p3_started"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "soapbox_barrel",
+   "x": 11,
+   "y": 16,
+   "id": "soapbox",
+   "if": {
+    "flag": "p3_started"
+   }
+  },
+  {
+   "prop": "stench_log_stand",
+   "x": 12,
+   "y": 16,
+   "id": "stench_log_stand",
+   "if": {
+    "flag": "p3_started"
+   }
+  },
+  {
+   "prop": "perch_blanket",
+   "x": 13,
+   "y": 12,
+   "id": "nest",
+   "if": {
+    "flag": "p3_started"
+   }
+  },
+  {
+   "prop": "notice_nailed",
+   "x": 9,
+   "y": 20,
+   "id": "amendment",
+   "if": {
+    "flag": "stenchmaster_declared"
+   },
+   "depthOffset": 6
+  },
+  {
+   "prop": "chart_table",
+   "x": 13,
+   "y": 5,
+   "if": {
+    "flag": "ship_morning_started"
+   }
+  },
+  {
+   "prop": "stain_yellow",
+   "x": 6,
+   "y": 12,
+   "if": {
+    "flag": "ship_morning_started"
+   }
+  },
+  {
+   "prop": "stain_yellow",
+   "x": 13,
+   "y": 15,
+   "if": {
+    "flag": "ship_morning_started"
+   }
+  },
+  {
+   "prop": "stain_yellow",
+   "x": 11,
+   "y": 28,
+   "if": {
+    "flag": "ship_morning_started"
+   }
+  },
+  {
+   "prop": "stain_yellow",
+   "x": 5,
+   "y": 32,
+   "if": {
+    "flag": "ship_morning_started"
+   }
+  },
+  {
+   "prop": "stain_yellow_big",
+   "x": 7,
+   "y": 22,
+   "if": {
+    "flag": "ship_morning_started"
+   }
+  },
+  {
+   "prop": "rope_coil_damp",
+   "x": 11,
+   "y": 18,
+   "if": {
+    "flag": "ropes_sweating"
+   }
+  },
+  {
+   "prop": "rope_coil_damp",
+   "x": 8,
+   "y": 21,
+   "if": {
+    "flag": "ropes_sweating"
+   }
+  },
+  {
+   "prop": "rope_coil_damp",
+   "x": 11,
+   "y": 31,
+   "if": {
+    "flag": "ropes_sweating"
+   }
+  },
+  {
+   "prop": "rope_coil_damp",
+   "x": 5,
+   "y": 7,
+   "if": {
+    "flag": "ropes_sweating"
+   }
+  },
+  {
+   "prop": "frog_grog_cask",
+   "x": 13,
+   "y": 23,
+   "id": "grog_cask",
+   "if": {
+    "all": [
+     {
+      "flag": "ship_morning_started"
+     },
+     {
+      "notFlag": "grog_spilled"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "grog_lashings",
+   "x": 13,
+   "y": 23,
+   "if": {
+    "flag": "grog_spilled"
+   }
+  },
+  {
+   "prop": "plank_pile",
+   "x": 7,
+   "y": 32,
+   "if": {
+    "flag": "sharks_mentioned"
+   }
+  },
+  {
+   "prop": "hull_breach",
+   "x": 16,
+   "y": 21,
+   "id": "breach",
+   "if": {
+    "all": [
+     {
+      "flag": "port_impact_seen"
+     },
+     {
+      "notFlag": "hull_patched"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "hull_patch_fresh",
+   "x": 16,
+   "y": 21,
+   "if": {
+    "flag": "hull_patched"
+   }
+  },
+  {
+   "prop": "rowboat_bitten",
+   "x": 4,
+   "y": 24,
+   "id": "rowboat_bitten",
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_returned"
+     },
+     {
+      "notFlag": "garrick_evacuated_again"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "davit_empty",
+   "x": 4,
+   "y": 24,
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "garrick_lowered"
+       },
+       {
+        "notFlag": "garrick_returned"
+       }
+      ]
+     },
+     {
+      "flag": "garrick_evacuated_again"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "frog_mugs",
+   "x": 7,
+   "y": 16,
+   "if": {
+    "flag": "garrick_evacuated_again"
+   }
+  }
+ ],
+ "ambient": [
+  {
+   "kind": "rain",
+   "density": 46,
+   "if": {
+    "all": [
+     {
+      "flag": "rain_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "sailPuff",
+   "prop": "mast_top",
+   "every": [
+    9000,
+    16000
+   ],
+   "if": {
+    "flag": "sails_swollen"
+   }
+  },
+  {
+   "kind": "sailPuff",
+   "prop": "foremast_top",
+   "every": [
+    12000,
+    20000
+   ],
+   "if": {
+    "flag": "sails_swollen"
+   }
+  },
+  {
+   "kind": "smoke",
+   "x": 3,
+   "y": 22,
+   "rise": 6,
+   "every": 1100,
+   "alpha": 0.6,
+   "tint": "#d8c850",
+   "if": {
+    "flag": "ship_morning_started"
+   }
+  },
+  {
+   "kind": "voice",
+   "x": 7,
+   "y": 20,
+   "every": [
+    3800,
+    6500
+   ],
+   "shout": false,
+   "loopFrom": 0,
+   "lines": [
+    "<k>*mmmph*</>",
+    "<k>*mmmmmmph...*</>",
+    "<y>*GASP*</>",
+    "...oh, that was worse.",
+    "<k>*mmph*</>"
+   ],
+   "if": {
+    "all": [
+     {
+      "flag": "p3_started"
+     },
+     {
+      "notFlag": "grog_night_started"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "voice",
+   "x": 12,
+   "y": 32,
+   "every": [
+    45000,
+    80000
+   ],
+   "sfx": "bell_cough",
+   "volume": 0.5,
+   "shout": false,
+   "delay": 20000,
+   "lines": [
+    "KLANG— <k>*hack*</> —KOFF!",
+    "Klang... <k>*wheeze*</>",
+    "KLA— <k>*hack hack*</>",
+    "k-klang. <k>*sniff*</>"
+   ],
+   "if": {
+    "flag": "bell_coughs"
+   }
+  },
+  {
+   "kind": "odorTrail",
+   "actor": "player",
+   "every": [
+    3200,
+    6400
+   ],
+   "if": {
+    "flag": "beard_sniffed"
+   }
+  }
+ ],
+ "sharks": [
+  {
+   "if": {
+    "flag": "garrick_evacuated_again"
+   },
+   "level": "curious"
+  },
+  {
+   "if": {
+    "flag": "garrick_title_retained"
+   },
+   "level": "following"
+  },
+  {
+   "if": {
+    "flag": "garrick_returned"
+   },
+   "level": "curious"
+  },
+  {
+   "if": {
+    "flag": "sharks_lured"
+   },
+   "level": "none"
+  },
+  {
+   "if": {
+    "flag": "grog_spilled"
+   },
+   "level": "swarm"
+  },
+  {
+   "if": {
+    "flag": "port_impact_seen"
+   },
+   "level": "attacking"
+  },
+  {
+   "if": {
+    "flag": "sharks_sighted"
+   },
+   "level": "following"
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "flag": "garrick_evacuated_again"
+   },
+   "music": "ship_theme",
+   "ambience": "deck_after"
+  },
+  {
+   "if": {
+    "flag": "garrick_returned"
+   },
+   "music": "garrick_theme",
+   "ambience": "deck_after"
+  },
+  {
+   "if": {
+    "flag": "sharks_lured"
+   },
+   "music": "garrick_theme",
+   "ambience": "deck"
+  },
+  {
+   "if": {
+    "flag": "sharks_mentioned"
+   },
+   "music": "shark_attack",
+   "ambience": "deck_sharks"
+  },
+  {
+   "if": {
+    "flag": "ship_morning_started"
+   },
+   "music": "ship_theme",
+   "ambience": "deck_after"
+  },
+  {
+   "if": {
+    "flag": "rain_started"
+   },
+   "music": "ship_theme",
+   "musicFilter": "muffled",
+   "ambience": "deck_rain"
+  },
+  {
+   "if": {
+    "flag": "p3_started"
+   },
+   "music": "garrick_theme",
+   "ambience": "deck_evening"
+  }
+ ],
+ "propConditions": [
+  {
+   "id": "rowboat",
+   "if": {
+    "notFlag": "garrick_lowered"
+   }
+  }
+ ]
+}

@@ -152,6 +152,9 @@ export function compileMap(def, tileset, props = null) {
       haze: def.haze ?? [],
       fumeCollapse: def.fumeCollapse ?? null,
       fumeSafeSpawn: def.fumeSafeSpawn ?? null,
+      // Sharks around the ship (see systems/hazards/sharks.js):
+      //   [{ if, level, below? }], first matching entry wins.
+      sharks: def.sharks ?? [],
       outdoor: (def.background ?? 'void') === 'ocean',
     },
   };

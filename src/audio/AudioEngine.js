@@ -1,6 +1,6 @@
 import { renderSong } from './synth/renderSong.js';
 import { renderSfx } from './synth/renderSfx.js';
-import { renderOcean, renderWind, ONESHOT_GENERATORS } from './synth/ambience.js';
+import { renderOcean, renderWind, renderRain, ONESHOT_GENERATORS } from './synth/ambience.js';
 
 const SAMPLE_RATE = 32000; // SNES-like output rate; plenty for chiptune.
 const yieldFrame = () => new Promise((r) => setTimeout(r, 0));
@@ -151,7 +151,10 @@ export class AudioEngine {
 
   renderAmbienceSource(src) {
     if (src.kind === 'loop') {
-      const r = src.loop.source === 'wind' ? renderWind(SAMPLE_RATE) : renderOcean(SAMPLE_RATE, { muffled: !!src.loop.muffled });
+      const muffled = !!src.loop.muffled;
+      const r = src.loop.source === 'wind' ? renderWind(SAMPLE_RATE)
+        : src.loop.source === 'rain' ? renderRain(SAMPLE_RATE, { muffled })
+          : renderOcean(SAMPLE_RATE, { muffled });
       this.buffers.loops.set(src.key, this.toBuffer(r));
     } else {
       const [gen, variant] = src.key.split(/(\d+)$/);

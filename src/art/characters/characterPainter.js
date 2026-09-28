@@ -63,6 +63,10 @@ export function resolveLook(app) {
     barefoot: !!outfit.barefoot,
     extras: new Set(app.extras || []),
     extraColor: clothRamp(app.extraColor || 'red'),
+    // Story Phase 3: an improvised ceremonial cloak (a torn curtain) and
+    // whether it has since been through an hour with sharks.
+    cloak: app.cloak ? clothRamp(app.cloak) : null,
+    battered: !!app.battered,
   };
 }
 
@@ -578,6 +582,12 @@ const EXTRA_ARMS_FRONT = {
     limb(c, L, g.rx + 1, elbowY, CX, g.shoulderY + 3, g.w, 0);
     if (!g.back) hand(c, L, CX - 2, g.shoulderY + 2, 4, 3);
   },
+  // One hand raised high (proclaiming), the other down at his side.
+  raise(c, L, g) {
+    limb(c, L, g.lx + 1, g.shoulderY, g.lx - 1, g.shoulderY - 8, g.w, 2);
+    hand(c, L, g.lx - 2, g.shoulderY - 11, 3, 3);
+    armColumn(c, L, g.rx, g.shoulderY, g.hang, g.w, { inner: 'left' });
+  },
   // Palms up: "what can one do?"
   shrug(c, L, g) {
     const elbowY = g.shoulderY + Math.floor(L.build.torsoH / 2);
@@ -627,6 +637,10 @@ const EXTRA_ARMS_SIDE = {
     armColumn(c, L, g.baseX, g.shoulderY, elbowY, g.w, { inner: 'left' });
     limb(c, L, g.baseX, elbowY, g.baseX - 5, elbowY - 3, g.w, 1);
     hand(c, L, g.baseX - 7, elbowY - 5, 3, 2);
+  },
+  raise(c, L, g) {
+    limb(c, L, g.baseX + 1, g.shoulderY, g.baseX - 1, g.shoulderY - 9, g.w, 1);
+    hand(c, L, g.baseX - 2, g.shoulderY - 12, 3, 3);
   },
 };
 
@@ -705,6 +719,38 @@ function headCanvas(L, dir, face) {
       c.hline(8, 11, 11, cloth[0]);
     }
   }
+  if (L.extras.has('sockmask') && dir !== 'up') {
+    // A wet sock tied over the nose, striped, toe flopping to one side.
+    if (dir === 'down') {
+      for (let y = 11; y <= 13; y++) for (let x = 3; x <= 12; x++) c.set(x, y, (x + y) % 3 === 0 ? '#c83a30' : '#e8e0d0');
+      c.rect(12, 13, 2, 3, '#e8e0d0');
+      c.set(13, 15, '#c83a30');
+    } else {
+      for (let y = 11; y <= 13; y++) for (let x = 0; x <= 7; x++) c.set(x, y, (x + y) % 3 === 0 ? '#c83a30' : '#e8e0d0');
+      c.rect(-1, 12, 1, 4, '#e8e0d0');
+    }
+  }
+  if (L.extras.has('bottlemask') && dir !== 'up') {
+    // An empty bottle strapped over nose and mouth, neck poking forward.
+    if (dir === 'down') {
+      c.rect(5, 10, 6, 5, '#4a7a3a');
+      c.rect(6, 11, 2, 3, '#8ab870');
+      c.rect(7, 15, 2, 2, '#4a7a3a');
+      c.hline(1, 4, 11, PAL.lea2);
+      c.hline(11, 14, 11, PAL.lea2);
+    } else {
+      c.rect(-2, 10, 6, 4, '#4a7a3a');
+      c.set(-1, 11, '#8ab870');
+      c.hline(4, 9, 11, PAL.lea2);
+    }
+  }
+  if (L.extras.has('waxnose') && dir !== 'up') {
+    // Two plugs of candle wax up the nostrils.
+    if (dir === 'down') {
+      c.set(7, 11, '#f4ecc8');
+      c.set(9, 11, '#f4ecc8');
+    } else c.set(1, 11, '#f4ecc8');
+  }
   if (L.extras.has('pipe') && dir !== 'up') {
     if (dir === 'down') {
       c.set(10, 14, PAL.lea2);
@@ -735,6 +781,8 @@ export function paintCharacterFrame(L, dir, pose = {}, { outline = true } = {}) 
   const torsoBottom = legTop + 1 + bob + sitDrop;
   const torsoTop = torsoBottom - b.torsoH + 1;
 
+  if (L.cloak && dir !== 'up') cloakBehind(c, L, dir, torsoTop, torsoBottom);
+  if (L.extras.has('mop') && dir === 'left') mopStaff(c, L, dir, torsoTop, pose);
   if (dir === 'left') {
     armsSide(c, L, pose.arms || 'down', torsoTop, 'far');
     if (pose.sit) {
@@ -797,9 +845,96 @@ export function paintCharacterFrame(L, dir, pose = {}, { outline = true } = {}) 
       if (eatsOverHead) armsFront(c, L, pose.arms, torsoTop);
     }
   }
+  if (L.cloak && dir === 'up') cloakBack(c, L, torsoTop, torsoBottom);
+  if (L.cloak && dir === 'down') cloakFront(c, L, torsoTop);
+  if (L.extras.has('mop') && dir !== 'left') mopStaff(c, L, dir, torsoTop, pose);
+  if (L.battered) soaked(c, L, torsoTop);
   if (outline) c.outline(OUTLINE);
   c.torsoTop = torsoTop;
   return c;
+}
+
+// ---------------------------------------------------------------------------
+// Story Phase 3: the Grand Stenchmaster's regalia (a curtain, a pot, a mop)
+
+function raggedHem(x, y, i, battered) {
+  // A torn curtain's hem: uneven, and much worse after the sharks.
+  const tear = ((x * 7 + i * 3) % 5) - 2;
+  return y + Math.max(0, tear) + (battered && (x % 3 === 0) ? -2 : 0);
+}
+
+/** The cloak hanging behind the body (front and side views). */
+function cloakBehind(c, L, dir, top, bottom) {
+  const b = L.build;
+  const w = dir === 'left' ? Math.round(b.shoulder * 0.7) + 4 : b.shoulder + 6;
+  const x0 = CX - Math.floor(w / 2) + (dir === 'left' ? 3 : 0);
+  const hem = GROUND - 3;
+  for (let x = x0; x < x0 + w; x++) {
+    const yEnd = raggedHem(x, hem, 1, L.battered);
+    for (let y = top + 1; y <= yEnd; y++) {
+      const u = (x - x0) / w;
+      let col = L.cloak[1];
+      if (u < 0.15) col = L.cloak[2];
+      if (u > 0.8 || y === yEnd) col = L.cloak[0];
+      if ((x - x0) % 4 === 2 && y > top + 4) col = L.cloak[0]; // curtain pleats
+      c.set(x, y, col);
+    }
+  }
+}
+
+/** The front of the cloak: shoulders, a gold curtain-cord tied across the chest. */
+function cloakFront(c, L, top) {
+  const b = L.build;
+  const half = Math.ceil(b.shoulder / 2) + 1;
+  for (let i = 0; i < 4; i++) {
+    c.hline(CX - half - 1 + i, CX - half + 2, top + i, L.cloak[i === 0 ? 2 : 1]);
+    c.hline(CX + half - 3, CX + half - i, top + i, L.cloak[1]);
+  }
+  // the curtain tie-back, pressed into service as a clasp, tassel dangling
+  c.hline(CX - 3, CX + 2, top + 3, PAL.gold3);
+  c.set(CX - 1, top + 4, PAL.gold4);
+  c.vline(CX + 2, top + 4, top + 7, PAL.gold2);
+  c.set(CX + 2, top + 8, PAL.gold4);
+}
+
+/** Back view: the whole curtain hangs down his back, curtain rings along the top. */
+function cloakBack(c, L, top) {
+  const b = L.build;
+  const w = b.shoulder + 6;
+  const x0 = CX - Math.floor(w / 2);
+  const hem = GROUND - 3;
+  for (let x = x0; x < x0 + w; x++) {
+    const yEnd = raggedHem(x, hem, 2, L.battered);
+    for (let y = top; y <= yEnd; y++) c.set(x, y, (x - x0) % 4 === 1 ? L.cloak[0] : y === yEnd ? L.cloak[0] : L.cloak[1]);
+  }
+  for (let x = x0 + 1; x < x0 + w - 1; x += 3) c.set(x, top, PAL.gold3);
+}
+
+/** A mop carried upright like a sceptre (in his right hand, at his side). */
+function mopStaff(c, L, dir, top, pose) {
+  const x = dir === 'left' ? CX - 7 : dir === 'up' ? CX - Math.ceil(L.build.shoulder / 2) - 3 : CX + Math.ceil(L.build.shoulder / 2) + 3;
+  const raised = pose.arms === 'raise' ? -6 : 0;
+  const y0 = top - 16 + raised;
+  c.vline(x, y0 + 5, GROUND - 1 + raised, PAL.wood3);
+  c.vline(x + 1, y0 + 5, GROUND - 1 + raised, PAL.wood2);
+  // the mop head worn proudly at the top: a grey clump, strands hanging
+  c.ellipse(x + 0.5, y0 + 2, 3.5, 2.5, '#d0ccb8');
+  for (let i = 0; i < 7; i++) c.vline(x - 3 + i, y0 + 3, y0 + 6 + (i % 3), i % 2 ? '#a8a490' : '#d0ccb8');
+  c.set(x - 1, y0 + 1, '#f0ecdc');
+  c.rect(x - 1, y0 + 5, 4, 1, PAL.rope2);
+}
+
+/** Dripping wet and much bitten about (after the first rowboat trip). */
+function soaked(c, L, top) {
+  for (const [x, y] of [[CX - 6, top + 6], [CX + 5, top + 10], [CX - 3, GROUND - 6], [CX + 7, GROUND - 9]]) {
+    if (!c.alphaAt(x, y)) continue;
+    c.set(x, y + 1, '#9bd3e6');
+    c.set(x, y + 2, '#5a9ac8');
+  }
+  // a bite taken out of the coat tail
+  c.set(CX + 5, GROUND - 7, 0);
+  c.set(CX + 6, GROUND - 7, 0);
+  c.set(CX + 6, GROUND - 8, 0);
 }
 
 function torsoSide(c, L, top, bottom) {
@@ -902,9 +1037,13 @@ export const EXTRA_POSES = {
   relief: [{ legs: 'stand', arms: 'shrug', bob: 1 }, { legs: 'stand', arms: 'down', bob: 2 }],
   hips: [{ legs: 'stand', arms: 'hips' }],
   shrug: [{ legs: 'stand', arms: 'shrug' }],
+  // Story Phase 3
+  proclaim: [{ legs: 'stand', arms: 'raise' }, { legs: 'stand', arms: 'raise', bob: 1 }],
+  brace: [{ legs: 'stepA', arms: 'work0', bob: 1 }, { legs: 'stepA', arms: 'work1', bob: 2 }],
 };
 
 /** Frames per second of the extra animations (0 = hold one frame). */
 export const EXTRA_POSE_RATES = {
   excited: 5, smug: 1.5, greedy: 6, carry: 1.5, carrywalk: 8, slouch: 0.8, eat: 4, nervous: 5, clutch: 3, panic: 7, relief: 1.2, hips: 0, shrug: 0,
+  proclaim: 1.4, brace: 6,
 };

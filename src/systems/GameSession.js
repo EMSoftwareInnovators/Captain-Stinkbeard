@@ -3,6 +3,7 @@ import { WorldState } from './world/WorldState.js';
 import { Inventory } from './inventory/Inventory.js';
 import { Party } from './party/Party.js';
 import { QuestSystem } from './quests/QuestSystem.js';
+import { resolveVariant } from './story/progress.js';
 import { deepClone } from '../core/util.js';
 
 /**
@@ -16,7 +17,8 @@ export class GameSession {
     this.story = new StoryState({ bus, knownFlags: content.flagIds, strict: strictFlags });
     this.world = new WorldState({ bus });
     this.inventory = new Inventory({ items: content.items, bus });
-    this.party = new Party({ characters: content.characters, progression: content.progression, items: content.items, bus });
+    // Names and titles follow the story (Blackbeard becomes Stinkbeard by flag).
+    this.party = new Party({ characters: content.characters, progression: content.progression, items: content.items, bus, resolve: (def) => resolveVariant(def, this) });
     this.location = { map: null, x: 0, y: 0, facing: 'down' };
     this.quests = new QuestSystem({ quests: content.quests, session: this, bus });
     this.playTime = 0; // seconds

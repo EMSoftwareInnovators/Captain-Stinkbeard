@@ -2,18 +2,26 @@ import { Character } from './Character.js';
 
 /** Ordered list of active party members. The first member is the leader. */
 export class Party {
-  constructor({ characters, progression, items, bus = null }) {
+  constructor({ characters, progression, items, bus = null, resolve = null }) {
     this.defs = characters; // registry of character definitions
     this.progression = progression;
     this.items = items;
     this.bus = bus;
+    this.resolve = resolve; // def → def with story variants (display name, title)
     this.members = [];
   }
 
   create(id) {
     const def = this.defs.get(id);
     if (!def) throw new Error(`Unknown character "${id}"`);
-    return new Character(def, { progression: this.progression, items: this.items });
+    return new Character(def, { progression: this.progression, items: this.items, resolve: this.resolve });
+  }
+
+  /** Display name of a character (member or not), after story variants. */
+  nameOf(id) {
+    const def = this.defs.get(id);
+    if (!def) return id;
+    return (this.resolve ? this.resolve(def) : def).name;
   }
 
   add(id) {

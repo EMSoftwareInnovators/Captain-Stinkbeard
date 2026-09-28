@@ -1,0 +1,1101 @@
+{
+ "//": "Story Phase 3 sound effects (layered synth programs; see src/audio/synth/renderSfx.js). All original.",
+ "log_update": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.12,
+    "hp": 0.5,
+    "lp": 0.6,
+    "volume": 0.25,
+    "attack": 0.02,
+    "decay": 18
+   },
+   {
+    "wave": "triangle",
+    "notes": [
+     [
+      "E6",
+      0.06
+     ],
+     [
+      "A6",
+      0.14
+     ]
+    ],
+    "volume": 0.16,
+    "delay": 0.08
+   }
+  ]
+ },
+ "fanfare_short": {
+  "layers": [
+   {
+    "wave": "saw",
+    "notes": [
+     [
+      "C4",
+      0.12
+     ],
+     [
+      "C4",
+      0.08
+     ],
+     [
+      "F4",
+      0.18
+     ],
+     [
+      "A4",
+      0.18
+     ],
+     [
+      "C5",
+      0.5
+     ]
+    ],
+    "lp": 0.22,
+    "volume": 0.22,
+    "vibrato": {
+     "rate": 5,
+     "depth": 0.01
+    }
+   },
+   {
+    "wave": "square",
+    "duty": 0.3,
+    "notes": [
+     [
+      "F3",
+      0.2
+     ],
+     [
+      "C4",
+      0.18
+     ],
+     [
+      "F4",
+      0.18
+     ],
+     [
+      "A4",
+      0.5
+     ]
+    ],
+    "volume": 0.1,
+    "lp": 0.3,
+    "delay": 0.2
+   },
+   {
+    "type": "noise",
+    "dur": 0.6,
+    "lp": 0.2,
+    "volume": 0.12,
+    "attack": 0.02,
+    "decay": 3,
+    "delay": 0.56
+   }
+  ]
+ },
+ "sniff": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.16,
+    "hp": 0.5,
+    "lp": 0.5,
+    "volume": 0.28,
+    "attack": 0.1,
+    "decay": 6
+   },
+   {
+    "type": "noise",
+    "dur": 0.22,
+    "hp": 0.5,
+    "lp": 0.45,
+    "volume": 0.34,
+    "attack": 0.16,
+    "decay": 4,
+    "delay": 0.2
+   }
+  ]
+ },
+ "sting_reek": {
+  "layers": [
+   {
+    "wave": "saw",
+    "notes": [
+     [
+      "C3",
+      0.12
+     ],
+     [
+      "Db3",
+      1.1
+     ]
+    ],
+    "lp": 0.14,
+    "volume": 0.24,
+    "vibrato": {
+     "rate": 9,
+     "depth": 0.04
+    }
+   },
+   {
+    "wave": "saw",
+    "notes": [
+     [
+      "F#3",
+      0.12
+     ],
+     [
+      "G3",
+      1.1
+     ]
+    ],
+    "lp": 0.14,
+    "volume": 0.2,
+    "vibrato": {
+     "rate": 7,
+     "depth": 0.05
+    }
+   },
+   {
+    "wave": "square",
+    "duty": 0.2,
+    "notes": [
+     [
+      "C2",
+      1.2
+     ]
+    ],
+    "lp": 0.1,
+    "volume": 0.16
+   },
+   {
+    "type": "noise",
+    "dur": 0.4,
+    "lp": 0.15,
+    "volume": 0.3,
+    "decay": 6
+   }
+  ]
+ },
+ "gag": {
+  "layers": [
+   {
+    "wave": "saw",
+    "sweep": [
+     180,
+     120
+    ],
+    "dur": 0.18,
+    "lp": 0.2,
+    "volume": 0.22,
+    "vibrato": {
+     "rate": 26,
+     "depth": 0.2
+    }
+   },
+   {
+    "type": "noise",
+    "dur": 0.2,
+    "lp": 0.3,
+    "volume": 0.25,
+    "decay": 10,
+    "crush": true,
+    "freq": 700
+   },
+   {
+    "wave": "saw",
+    "sweep": [
+     170,
+     100
+    ],
+    "dur": 0.26,
+    "lp": 0.2,
+    "volume": 0.22,
+    "vibrato": {
+     "rate": 30,
+     "depth": 0.25
+    },
+    "delay": 0.3
+   },
+   {
+    "type": "noise",
+    "dur": 0.24,
+    "lp": 0.3,
+    "volume": 0.25,
+    "decay": 8,
+    "crush": true,
+    "freq": 600,
+    "delay": 0.3
+   }
+  ]
+ },
+ "grog_gulp": {
+  "layers": [
+   {
+    "wave": "sine",
+    "sweep": [
+     220,
+     120
+    ],
+    "dur": 0.1,
+    "volume": 0.3
+   },
+   {
+    "wave": "sine",
+    "sweep": [
+     240,
+     130
+    ],
+    "dur": 0.1,
+    "volume": 0.3,
+    "delay": 0.18
+   },
+   {
+    "wave": "sine",
+    "sweep": [
+     260,
+     140
+    ],
+    "dur": 0.1,
+    "volume": 0.3,
+    "delay": 0.36
+   },
+   {
+    "type": "noise",
+    "dur": 0.5,
+    "lp": 0.1,
+    "volume": 0.12,
+    "attack": 0.05
+   }
+  ]
+ },
+ "burp": {
+  "layers": [
+   {
+    "wave": "saw",
+    "sweep": [
+     110,
+     80
+    ],
+    "dur": 0.32,
+    "lp": 0.18,
+    "volume": 0.3,
+    "attack": 0.02,
+    "vibrato": {
+     "rate": 34,
+     "depth": 0.3
+    }
+   },
+   {
+    "type": "noise",
+    "dur": 0.3,
+    "lp": 0.15,
+    "volume": 0.14,
+    "decay": 6
+   }
+  ]
+ },
+ "bloop": {
+  "layers": [
+   {
+    "wave": "sine",
+    "sweep": [
+     300,
+     900
+    ],
+    "dur": 0.09,
+    "volume": 0.3,
+    "decay": 8
+   }
+  ]
+ },
+ "bell_cough": {
+  "layers": [
+   {
+    "wave": "sine",
+    "freq": 880,
+    "dur": 0.5,
+    "volume": 0.3,
+    "decay": 6
+   },
+   {
+    "wave": "sine",
+    "freq": 2380,
+    "dur": 0.3,
+    "volume": 0.1,
+    "decay": 10
+   },
+   {
+    "wave": "square",
+    "duty": 0.15,
+    "sweep": [
+     620,
+     380
+    ],
+    "dur": 0.1,
+    "volume": 0.12,
+    "lp": 0.3,
+    "delay": 0.42
+   },
+   {
+    "type": "noise",
+    "dur": 0.14,
+    "lp": 0.35,
+    "volume": 0.45,
+    "decay": 12,
+    "crush": true,
+    "freq": 520,
+    "delay": 0.48
+   },
+   {
+    "wave": "sine",
+    "freq": 740,
+    "dur": 0.25,
+    "volume": 0.12,
+    "decay": 10,
+    "delay": 0.48
+   },
+   {
+    "type": "noise",
+    "dur": 0.12,
+    "lp": 0.35,
+    "volume": 0.4,
+    "decay": 14,
+    "crush": true,
+    "freq": 480,
+    "delay": 0.74
+   },
+   {
+    "wave": "sine",
+    "freq": 690,
+    "dur": 0.3,
+    "volume": 0.09,
+    "decay": 8,
+    "delay": 0.74
+   }
+  ]
+ },
+ "sail_puff": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.45,
+    "lp": 0.08,
+    "volume": 0.4,
+    "attack": 0.12,
+    "decay": 5
+   },
+   {
+    "wave": "sine",
+    "sweep": [
+     60,
+     90
+    ],
+    "dur": 0.35,
+    "volume": 0.25,
+    "attack": 0.1
+   }
+  ]
+ },
+ "shark_surface": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.4,
+    "hp": 0.3,
+    "lp": 0.5,
+    "volume": 0.28,
+    "attack": 0.08,
+    "decay": 6
+   }
+  ]
+ },
+ "shark_bite": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.06,
+    "volume": 0.6,
+    "decay": 40,
+    "crush": true,
+    "freq": 2600
+   },
+   {
+    "type": "noise",
+    "dur": 0.16,
+    "lp": 0.4,
+    "volume": 0.5,
+    "decay": 18,
+    "crush": true,
+    "freq": 1200,
+    "delay": 0.03
+   },
+   {
+    "wave": "triangle",
+    "sweep": [
+     240,
+     90
+    ],
+    "dur": 0.12,
+    "volume": 0.3,
+    "delay": 0.02
+   },
+   {
+    "type": "noise",
+    "dur": 0.1,
+    "hp": 0.4,
+    "volume": 0.3,
+    "decay": 25,
+    "delay": 0.14
+   }
+  ]
+ },
+ "shark_bump": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.2,
+    "lp": 0.1,
+    "volume": 0.6,
+    "decay": 14
+   },
+   {
+    "wave": "triangle",
+    "sweep": [
+     100,
+     48
+    ],
+    "dur": 0.22,
+    "volume": 0.5
+   },
+   {
+    "type": "noise",
+    "dur": 0.35,
+    "lp": 0.3,
+    "volume": 0.25,
+    "decay": 8,
+    "delay": 0.05
+   }
+  ]
+ },
+ "shark_thump": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.22,
+    "lp": 0.05,
+    "volume": 0.6,
+    "decay": 12
+   },
+   {
+    "wave": "sine",
+    "sweep": [
+     80,
+     40
+    ],
+    "dur": 0.3,
+    "volume": 0.55
+   },
+   {
+    "wave": "saw",
+    "sweep": [
+     120,
+     150
+    ],
+    "dur": 0.5,
+    "lp": 0.08,
+    "volume": 0.14,
+    "attack": 0.1,
+    "vibrato": {
+     "rate": 26,
+     "depth": 0.1
+    },
+    "delay": 0.15
+   }
+  ]
+ },
+ "shark_ram": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.3,
+    "lp": 0.08,
+    "volume": 0.544,
+    "decay": 9
+   },
+   {
+    "wave": "sine",
+    "sweep": [
+     90,
+     30
+    ],
+    "dur": 0.5,
+    "volume": 0.476
+   },
+   {
+    "wave": "triangle",
+    "sweep": [
+     160,
+     60
+    ],
+    "dur": 0.3,
+    "volume": 0.238
+   },
+   {
+    "type": "noise",
+    "dur": 0.8,
+    "lp": 0.3,
+    "volume": 0.238,
+    "decay": 4,
+    "delay": 0.1
+   }
+  ]
+ },
+ "wood_crack": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.05,
+    "volume": 0.6,
+    "decay": 50,
+    "crush": true,
+    "freq": 3000
+   },
+   {
+    "type": "noise",
+    "dur": 0.2,
+    "lp": 0.35,
+    "volume": 0.35,
+    "decay": 16,
+    "crush": true,
+    "freq": 900,
+    "delay": 0.04
+   },
+   {
+    "type": "noise",
+    "dur": 0.04,
+    "volume": 0.3,
+    "decay": 50,
+    "crush": true,
+    "freq": 2400,
+    "delay": 0.16
+   },
+   {
+    "wave": "saw",
+    "sweep": [
+     140,
+     100
+    ],
+    "dur": 0.3,
+    "lp": 0.1,
+    "volume": 0.16,
+    "delay": 0.05
+   }
+  ]
+ },
+ "shark_flop": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.16,
+    "lp": 0.3,
+    "volume": 0.55,
+    "decay": 18
+   },
+   {
+    "wave": "sine",
+    "sweep": [
+     160,
+     70
+    ],
+    "dur": 0.12,
+    "volume": 0.35
+   },
+   {
+    "type": "noise",
+    "dur": 0.12,
+    "lp": 0.3,
+    "volume": 0.4,
+    "decay": 20,
+    "delay": 0.26
+   },
+   {
+    "wave": "sine",
+    "sweep": [
+     150,
+     70
+    ],
+    "dur": 0.1,
+    "volume": 0.3,
+    "delay": 0.26
+   }
+  ]
+ },
+ "shark_swarm_depart": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 2.4,
+    "hp": 0.2,
+    "lp": 0.4,
+    "volume": 0.35,
+    "attack": 0.4,
+    "decay": 1.1
+   },
+   {
+    "type": "noise",
+    "dur": 2.0,
+    "lp": 0.12,
+    "volume": 0.25,
+    "attack": 0.6,
+    "delay": 0.3
+   }
+  ]
+ },
+ "hammer_hit": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.05,
+    "volume": 0.55,
+    "decay": 50,
+    "crush": true,
+    "freq": 3200
+   },
+   {
+    "wave": "square",
+    "duty": 0.3,
+    "sweep": [
+     900,
+     600
+    ],
+    "dur": 0.08,
+    "volume": 0.18,
+    "decay": 30
+   },
+   {
+    "wave": "triangle",
+    "sweep": [
+     180,
+     90
+    ],
+    "dur": 0.1,
+    "volume": 0.35
+   }
+  ]
+ },
+ "hammer_miss": {
+  "layers": [
+   {
+    "wave": "square",
+    "duty": 0.2,
+    "freq": 1320,
+    "dur": 0.3,
+    "volume": 0.12,
+    "decay": 12
+   },
+   {
+    "wave": "square",
+    "duty": 0.2,
+    "freq": 1790,
+    "dur": 0.25,
+    "volume": 0.08,
+    "decay": 14
+   },
+   {
+    "type": "noise",
+    "dur": 0.05,
+    "volume": 0.3,
+    "decay": 50,
+    "crush": true,
+    "freq": 3600
+   }
+  ]
+ },
+ "repair_done": {
+  "layers": [
+   {
+    "wave": "triangle",
+    "notes": [
+     [
+      "C5",
+      0.08
+     ],
+     [
+      "E5",
+      0.08
+     ],
+     [
+      "G5",
+      0.2
+     ]
+    ],
+    "volume": 0.2
+   },
+   {
+    "type": "noise",
+    "dur": 0.06,
+    "volume": 0.3,
+    "decay": 40,
+    "crush": true,
+    "freq": 3000
+   }
+  ]
+ },
+ "grog_spill": {
+  "layers": [
+   {
+    "wave": "sine",
+    "sweep": [
+     300,
+     140
+    ],
+    "dur": 0.12,
+    "volume": 0.25
+   },
+   {
+    "wave": "sine",
+    "sweep": [
+     280,
+     130
+    ],
+    "dur": 0.12,
+    "volume": 0.25,
+    "delay": 0.14
+   },
+   {
+    "wave": "sine",
+    "sweep": [
+     260,
+     120
+    ],
+    "dur": 0.12,
+    "volume": 0.25,
+    "delay": 0.28
+   },
+   {
+    "type": "noise",
+    "dur": 0.9,
+    "lp": 0.3,
+    "volume": 0.4,
+    "attack": 0.2,
+    "decay": 3,
+    "delay": 0.3
+   }
+  ]
+ },
+ "distant_boom": {
+  "layers": [
+   {
+    "wave": "sine",
+    "sweep": [
+     55,
+     30
+    ],
+    "dur": 2.4,
+    "volume": 0.6,
+    "attack": 0.15
+   },
+   {
+    "type": "noise",
+    "dur": 2.4,
+    "lp": 0.03,
+    "volume": 0.45,
+    "attack": 0.2,
+    "decay": 1.4
+   },
+   {
+    "wave": "saw",
+    "sweep": [
+     70,
+     40
+    ],
+    "dur": 1.4,
+    "lp": 0.05,
+    "volume": 0.18,
+    "vibrato": {
+     "rate": 16,
+     "depth": 0.3
+    },
+    "delay": 0.1
+   }
+  ]
+ },
+ "alarm_gurgle": {
+  "layers": [
+   {
+    "wave": "square",
+    "duty": 0.3,
+    "notes": [
+     [
+      "A5",
+      0.12
+     ],
+     [
+      "E5",
+      0.12
+     ],
+     [
+      "A5",
+      0.12
+     ],
+     [
+      "E5",
+      0.12
+     ]
+    ],
+    "volume": 0.13,
+    "lp": 0.5
+   },
+   {
+    "wave": "sine",
+    "sweep": [
+     140,
+     420
+    ],
+    "dur": 0.1,
+    "volume": 0.2,
+    "delay": 0.55
+   },
+   {
+    "wave": "sine",
+    "sweep": [
+     180,
+     480
+    ],
+    "dur": 0.12,
+    "volume": 0.2,
+    "delay": 0.68
+   },
+   {
+    "wave": "sine",
+    "sweep": [
+     120,
+     380
+    ],
+    "dur": 0.16,
+    "volume": 0.22,
+    "delay": 0.82
+   },
+   {
+    "wave": "saw",
+    "sweep": [
+     70,
+     55
+    ],
+    "dur": 0.6,
+    "lp": 0.08,
+    "volume": 0.2,
+    "vibrato": {
+     "rate": 12,
+     "depth": 0.2
+    },
+    "delay": 0.6
+   }
+  ]
+ },
+ "scream": {
+  "layers": [
+   {
+    "wave": "saw",
+    "sweep": [
+     420,
+     300
+    ],
+    "dur": 1.4,
+    "lp": 0.25,
+    "volume": 0.24,
+    "attack": 0.05,
+    "vibrato": {
+     "rate": 7,
+     "depth": 0.04
+    }
+   },
+   {
+    "wave": "square",
+    "duty": 0.25,
+    "sweep": [
+     630,
+     440
+    ],
+    "dur": 1.4,
+    "lp": 0.2,
+    "volume": 0.1,
+    "vibrato": {
+     "rate": 7,
+     "depth": 0.04
+    }
+   },
+   {
+    "type": "noise",
+    "dur": 1.2,
+    "hp": 0.4,
+    "lp": 0.4,
+    "volume": 0.12,
+    "attack": 0.1
+   }
+  ]
+ },
+ "title_fanfare": {
+  "layers": [
+   {
+    "wave": "saw",
+    "notes": [
+     [
+      "G4",
+      0.1
+     ],
+     [
+      "G4",
+      0.08
+     ],
+     [
+      "G4",
+      0.08
+     ],
+     [
+      "C5",
+      0.4
+     ],
+     [
+      "G4",
+      0.14
+     ],
+     [
+      "C5",
+      0.6
+     ]
+    ],
+    "lp": 0.22,
+    "volume": 0.22
+   },
+   {
+    "wave": "square",
+    "duty": 0.3,
+    "notes": [
+     [
+      "E4",
+      0.26
+     ],
+     [
+      "E4",
+      0.4
+     ],
+     [
+      "D4",
+      0.14
+     ],
+     [
+      "E4",
+      0.6
+     ]
+    ],
+    "volume": 0.1,
+    "lp": 0.3
+   },
+   {
+    "wave": "triangle",
+    "notes": [
+     [
+      "C3",
+      0.26
+     ],
+     [
+      "C3",
+      0.4
+     ],
+     [
+      "G2",
+      0.14
+     ],
+     [
+      "C3",
+      0.6
+     ]
+    ],
+    "volume": 0.3
+   },
+   {
+    "type": "noise",
+    "dur": 1.0,
+    "lp": 0.2,
+    "volume": 0.14,
+    "decay": 2.5,
+    "delay": 0.86
+   }
+  ]
+ },
+ "laugh_far": {
+  "layers": [
+   {
+    "wave": "saw",
+    "note": "A3",
+    "dur": 0.1,
+    "lp": 0.12,
+    "volume": 0.15,
+    "vibrato": {
+     "rate": 12,
+     "depth": 0.05
+    },
+    "delay": 0,
+    "decay": 4
+   },
+   {
+    "wave": "saw",
+    "note": "G3",
+    "dur": 0.1,
+    "lp": 0.12,
+    "volume": 0.15,
+    "vibrato": {
+     "rate": 12,
+     "depth": 0.05
+    },
+    "delay": 0.16,
+    "decay": 4
+   },
+   {
+    "wave": "saw",
+    "note": "A3",
+    "dur": 0.1,
+    "lp": 0.12,
+    "volume": 0.15,
+    "vibrato": {
+     "rate": 12,
+     "depth": 0.05
+    },
+    "delay": 0.32,
+    "decay": 4
+   },
+   {
+    "wave": "saw",
+    "note": "F3",
+    "dur": 0.12,
+    "lp": 0.12,
+    "volume": 0.15,
+    "vibrato": {
+     "rate": 12,
+     "depth": 0.05
+    },
+    "delay": 0.48,
+    "decay": 4
+   },
+   {
+    "wave": "saw",
+    "note": "E3",
+    "dur": 0.3,
+    "lp": 0.12,
+    "volume": 0.15,
+    "vibrato": {
+     "rate": 12,
+     "depth": 0.05
+    },
+    "delay": 0.66,
+    "decay": 4
+   }
+  ]
+ }
+}

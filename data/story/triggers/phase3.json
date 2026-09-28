@@ -1,0 +1,52 @@
+[
+  {
+    "id": "p3_begin",
+    "//": "Story Phase 2 is done (the same evening): Garrick decides this calls for a promotion.",
+    "if": { "all": [{ "flag": "phase2_complete" }, { "questNotStarted": "necessary_promotion" }] },
+    "script": "p3c1.begin",
+    "once": false
+  },
+  {
+    "id": "p3_declaration",
+    "//": "Runs once the captain has read the Stench Log (and again after a reload if interrupted).",
+    "if": { "all": [{ "onMap": "main_deck" }, { "flag": "stench_log_seen" }, { "notFlag": "stenchmaster_declared" }] },
+    "script": "p3c1.declaration",
+    "once": false
+  },
+  {
+    "id": "p3c2_begin",
+    "if": { "all": [{ "questCompleted": "necessary_promotion" }, { "questNotStarted": "what_did_you_call_me" }] },
+    "script": "p3c2.begin",
+    "once": false
+  },
+  {
+    "id": "p3c3_begin",
+    "if": { "all": [{ "questCompleted": "what_did_you_call_me" }, { "questNotStarted": "frog_grog" }] },
+    "script": "p3c3.begin",
+    "once": false
+  },
+  {
+    "id": "p3c4_begin",
+    "if": { "all": [{ "questCompleted": "frog_grog" }, { "questNotStarted": "ship_is_changing" }] },
+    "script": "p3c4.begin",
+    "once": false
+  },
+  {
+    "id": "p3c5_begin",
+    "if": { "all": [{ "questCompleted": "ship_is_changing" }, { "questNotStarted": "sharks" }] },
+    "script": "p3c5.begin",
+    "once": false
+  },
+  {
+    "id": "p3c6_begin",
+    "if": { "all": [{ "questCompleted": "sharks" }, { "questNotStarted": "stenchmaster_temporarily" }] },
+    "script": "p3c6.begin",
+    "once": false
+  },
+  {
+    "id": "p3_epilogue",
+    "if": { "all": [{ "questCompleted": "stenchmaster_temporarily" }, { "notFlag": "p3_complete" }] },
+    "script": "p3c6.finale",
+    "once": false
+  }
+]

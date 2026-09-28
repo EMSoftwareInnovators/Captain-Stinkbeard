@@ -165,8 +165,8 @@ describe('story state lookups', () => {
 });
 
 describe('save compatibility', () => {
-  it('saves are version 2 and a version 1 save migrates', () => {
-    expect(SAVE_VERSION).toBe(2);
+  it('a version 1 save migrates to version 2', () => {
+    expect(SAVE_VERSION).toBeGreaterThanOrEqual(2); // 3 since Story Phase 3 (tests/phase3.test.js)
     const v1 = { story: { flags: ['tutorial_complete'] }, location: { map: 'treasure_hold', x: 5, y: 3, facing: 'down' } };
     const v2 = migrateState(v1, 1, 2);
     expect(v2.story.vars).toEqual({});

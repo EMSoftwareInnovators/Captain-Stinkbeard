@@ -1,5 +1,6 @@
 import { TILE_SIZE, DIR_VECTORS } from '../config/constants.js';
 import { findPath } from '../maps/pathfinding.js';
+import { sharkLevelFor } from '../systems/hazards/sharks.js';
 
 /**
  * Script services provided by the exploration scene (see
@@ -374,6 +375,36 @@ export function createWorldServices(scene) {
         await scene.wait(grow / steps);
       }
     },
+    /** Washes an actor in a colour for a moment (turning green at a smell). */
+    tint(id, color, duration = 900) {
+      const a = actor(id);
+      const c = parseInt(String(color).replace('#', ''), 16);
+      a.sprite.setTint(c);
+      return scene.wait(duration).then(() => {
+        if (a.sprite.active) a.sprite.clearTint();
+      });
+    },
+
+    /** Holds a shark level for the scene (null: back to the map's own). */
+    sharks(level) {
+      scene.sharks.hold(level, sharkLevelFor(scene.model.meta, scene.session));
+    },
+
+    /** Staged shark moments (see world/SharkLayer.js). */
+    async sharkEvent(kind, { x, y, duration }) {
+      const sl = scene.sharks;
+      switch (kind) {
+        case 'bite': return sl.bite(x, y);
+        case 'ram': return sl.ram(y ?? null);
+        case 'flop': return sl.flop(x, y);
+        case 'return': return sl.unflop();
+        case 'lure': return sl.lure(x, y, duration);
+        case 'follow': return sl.setFollow(true);
+        case 'unfollow': return sl.setFollow(false);
+        default: throw new Error(`Unknown shark event "${kind}"`);
+      }
+    },
+
     effect(name, { actor: target, x, y }) {
       const a = target ? actor(target) : null;
       const px = a ? a.sprite.x : x * TILE_SIZE + TILE_SIZE / 2;
@@ -421,6 +452,11 @@ export function createWorldServices(scene) {
         await overlay.banner(text, sub);
       },
       openShop: (id) => scene.openShop(id),
+      openLog: (id, entry) => scene.openLog(id, entry),
+      repair: async (opts) => {
+        await overlay.dialogue.close();
+        return overlay.repair(opts);
+      },
     },
     audio: {
       sfx: (id, opts) => app.audio.sfx(id, opts),

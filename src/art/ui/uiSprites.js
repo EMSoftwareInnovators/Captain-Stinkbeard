@@ -145,6 +145,11 @@ const STATUS_ICONS = {
   sickened: ['.oooo.', 'oGGGGo', 'oGoGoo', 'oGGGGo', '.oGGo.', '.o..o.'],
   emboldened: ['..oo..', '.oRRo.', 'oRRRRo', '..RR..', '..RR..', '..oo..'],
   rattled: ['oo..oo', '.oYYo.', '..oo..', '.oYYo.', 'oYYYYo', 'oooooo'],
+  // Frog Grog's surprises
+  warmed_up: ['..R...', '.RR.R.', '.RRRR.', 'RRYYRR', 'RYYYYR', '.oooo.'],
+  stench_proof: ['oooooo', 'oGggGo', 'oGggGo', 'oGggGo', '.oGGo.', '..oo..'],
+  belching: ['.YY...', 'YYYY.Y', '.YYYYY', '..YYY.', '.YYYY.', '..YY..'],
+  dizzy: ['.BBBB.', 'B....B', 'B.BB.B', 'B.B..B', 'B.BBB.', 'B.....'],
 };
 
 function statusIcons() {
@@ -155,7 +160,8 @@ function statusIcons() {
   };
   for (const [id, rows] of Object.entries(STATUS_ICONS)) {
     const c = new PixelCanvas(6, 6).stamp(rows, 0, 0, colors);
-    if (id === 'sickened') c.replace(PAL.gold3, PAL.green3);
+    if (id === 'sickened' || id === 'stench_proof') c.replace(PAL.gold3, PAL.green3);
+    if (id === 'belching') c.replace(PAL.gold3, '#d8d060');
     out[`status_${id}`] = c;
   }
   return out;

@@ -1,0 +1,397 @@
+{
+ "id": "galley.phase3",
+ "patch": "galley",
+ "//": "Story Phase 3 in the galley: the crew round the grog barrel at night; Frog Grog on tap ever after.",
+ "objects": [
+  {
+   "id": "p3_g_garrick",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 10,
+   "y": 8,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_g_rook",
+   "type": "npc",
+   "npc": "rook",
+   "x": 13,
+   "y": 8,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_g_brask",
+   "type": "npc",
+   "npc": "brask",
+   "x": 15,
+   "y": 8,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_g_sully",
+   "type": "npc",
+   "npc": "sully",
+   "x": 14,
+   "y": 9,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_g_bob",
+   "type": "npc",
+   "npc": "bob",
+   "x": 13,
+   "y": 9,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_g_mags",
+   "type": "npc",
+   "npc": "mags",
+   "x": 15,
+   "y": 7,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_g_jim",
+   "type": "npc",
+   "npc": "jim",
+   "x": 15,
+   "y": 9,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_g_wick",
+   "type": "npc",
+   "npc": "wick",
+   "x": 12,
+   "y": 8,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_g_hale",
+   "type": "npc",
+   "npc": "hale",
+   "x": 11,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p3_g_quill",
+   "type": "npc",
+   "npc": "quill",
+   "x": 8,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "jim_away_deck",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "ship_morning_started"
+     },
+     {
+      "notFlag": "garrick_evacuated_again"
+     }
+    ]
+   }
+  },
+  {
+   "id": "grog_barrel",
+   "type": "inspect",
+   "x": 14,
+   "y": 8,
+   "script": "inspect.p3_grog_barrel",
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "grog_new_cask",
+   "type": "inspect",
+   "x": 16,
+   "y": 9,
+   "script": "inspect.p3_grog_cask_galley",
+   "if": {
+    "flag": "frog_grog_unlocked"
+   }
+  },
+  {
+   "id": "galley_portrait_p3",
+   "type": "inspect",
+   "x": 15,
+   "y": 3,
+   "script": "inspect.p3_galley_portrait",
+   "if": {
+    "flag": "captain_named_stinkbeard"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "grog_barrel_sealed",
+   "x": 14,
+   "y": 8,
+   "id": "grog_sealed",
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "grog_gathering_seen"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "grog_barrel_tapped",
+   "x": 14,
+   "y": 8,
+   "id": "grog_tapped",
+   "if": {
+    "all": [
+     {
+      "flag": "grog_gathering_seen"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "frog_grog_cask",
+   "x": 16,
+   "y": 9,
+   "if": {
+    "flag": "frog_grog_unlocked"
+   }
+  },
+  {
+   "prop": "stain_yellow",
+   "x": 10,
+   "y": 6,
+   "if": {
+    "flag": "ship_morning_started"
+   }
+  }
+ ],
+ "onEnter": [
+  {
+   "if": {
+    "objectiveActive": "frog_grog.gathering"
+   },
+   "script": "p3c3.gathering"
+  },
+  {
+   "if": {
+    "objectiveActive": "frog_grog.unlock"
+   },
+   "script": "p3c3.naming"
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "sharks_mentioned"
+     },
+     {
+      "notFlag": "sharks_lured"
+     }
+    ]
+   },
+   "music": "shark_attack",
+   "musicFilter": "muffled",
+   "ambience": "below_sharks"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   },
+   "music": "frog_grog_shanty",
+   "musicFilter": null,
+   "ambience": "below_rain"
+  }
+ ],
+ "sharks": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "port_impact_seen"
+     },
+     {
+      "notFlag": "sharks_lured"
+     }
+    ]
+   },
+   "level": "attacking",
+   "below": true
+  }
+ ],
+ "ambient": [
+  {
+   "kind": "odorTrail",
+   "actor": "player",
+   "every": [
+    3200,
+    6400
+   ],
+   "if": {
+    "flag": "beard_sniffed"
+   }
+  }
+ ]
+}

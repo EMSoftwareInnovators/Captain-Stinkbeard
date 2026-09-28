@@ -361,6 +361,11 @@ export class BattleEngine {
         return res.removed.length ? { type: 'cure', target: target.uid, statuses: res.removed } : null;
       case 'status':
         return { type: 'status', target: target.uid, status: res.status, applied: res.applied, resisted: !!res.resisted };
+      case 'sideEffect':
+        // Frog Grog's surprise: a short status (and its line, as a message).
+        return res.applied ? { type: 'status', target: target.uid, status: res.status, applied: true, resisted: false, text: res.text ?? null } : null;
+      case 'fumeWard':
+        return null;
       case 'restore':
         return { type: 'resource', target: target.uid, value: target.resource?.current ?? 0, gained: res.amount };
       default:

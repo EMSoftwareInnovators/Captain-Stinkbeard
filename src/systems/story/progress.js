@@ -8,22 +8,31 @@ import { evaluateCondition } from '../conditions/conditions.js';
  */
 
 /**
- * An NPC, character or speaker with "variants": the first variant whose `if`
- * holds overrides fields (appearance, portrait, name, voice...).
+ * An NPC, character, speaker or log entry with "variants": each field
+ * (appearance, portrait, name, title, voice...) comes from the first variant
+ * whose `if` holds and that sets it. So a look and a name can follow
+ * different flags without every combination being spelled out:
  *
  *   "variants": [
+ *     { "if": { "flag": "captain_named_stinkbeard" }, "name": "Stinkbeard" },
  *     { "if": { "flag": "squawks_sweater" }, "appearance": "squawks_sweater", "portrait": "squawks_sweater" },
  *     { "if": { "flag": "squawks_bald" }, "appearance": "squawks_bald", "portrait": "squawks_bald" }
  *   ]
  */
 export function resolveVariant(def, session) {
   if (!def?.variants || !session) return def;
+  let out = null;
+  const taken = new Set();
   for (const v of def.variants) {
     if (!evaluateCondition(v.if, session)) continue;
-    const { if: _cond, ...fields } = v;
-    return { ...def, ...fields };
+    out ??= { ...def };
+    for (const [key, value] of Object.entries(v)) {
+      if (key === 'if' || key.startsWith('//') || taken.has(key)) continue;
+      out[key] = value;
+      taken.add(key);
+    }
   }
-  return def;
+  return out ?? def;
 }
 
 /**

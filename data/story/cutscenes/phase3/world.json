@@ -1,0 +1,206 @@
+{
+  "//": "Story Phase 3: things to look at around the changed ship. Most of these stay for good, as the ship stays changed.",
+
+  "inspect.stench_log": [
+    { "if": { "notFlag": "stench_log_seen" }, "then": [
+      "A great leather ledger lies open on a crate. On the spine, in fresh gold paint: THE STENCH LOG.",
+      "A clothes peg is clipped to the corner of the cover. For the author's nose, presumably.",
+      { "setFlag": "stench_log_seen" },
+      { "logbook": "stench_log", "entry": "day_one" }
+    ], "else": [
+      "The Stench Log, open on its crate. The ink never quite seems to dry.",
+      { "logbook": "stench_log" }
+    ] }
+  ],
+
+  "inspect.p3_amendment": [
+    { "if": { "flag": "captain_named_stinkbeard" }, "then": [
+      "Garrick's amendment, still nailed to the mainmast. Somebody has added a tick next to STINK, and underneath, in Quill's hand: 'Registered. Under protest.'"
+    ], "else": [
+      "AMENDMENT No. 1. CAPTAIN: BLACK STINK BEARD. By order of the Grand Stenchmaster of the Seven Seas.",
+      "You could tear it down. He has more paper."
+    ] }
+  ],
+
+  "inspect.p3_mast": [
+    { "sfx": "sail_puff", "volume": 0.6 },
+    { "propFx": "jiggle", "prop": "mast_top", "duration": 700, "intensity": 1, "async": true },
+    "The mainsail breathes in, holds it, and lets it out: WHUFF. A thin yellow cloud drifts off to leeward.",
+    { "if": { "flag": "garrick_evacuated_again" }, "then": [
+      "Gristle has chalked a mark on the mast. You're fairly sure it's measuring how far the sail goes out."
+    ] }
+  ],
+
+  "inspect.p3_rope": [
+    "A coil of line, glistening. You wipe it dry with your sleeve. A new bead of yellow sweat forms while you watch.",
+    "Gristle has hung a sign on the pin rail: DO NOT ASK."
+  ],
+
+  "inspect.p3_bell_1": [
+    { "sfx": "bell_cough" },
+    { "bark": "none", "text": "KLANG— *HACK*— KOFF!", "x": 12, "y": 32, "duration": 1500 },
+    { "wait": 900 },
+    "The bell still has its cough."
+  ],
+  "inspect.p3_bell_2": [
+    { "sfx": "bell_cough", "rate": 1.05 },
+    { "bark": "none", "text": "KLANG— *wheeze*", "x": 12, "y": 32, "duration": 1500 },
+    { "wait": 900 },
+    "Somebody has tied a little woollen scarf round the bell's crown. Wick, probably."
+  ],
+  "inspect.p3_bell_3": [
+    { "sfx": "bell_cough", "rate": 0.9 },
+    { "bark": "none", "text": "KLA— *hkk hkk hkk*", "x": 12, "y": 32, "duration": 1500 },
+    { "wait": 900 },
+    "It rings the half-hour, coughs, and then, very quietly, clears its throat."
+  ],
+  "inspect.p3_bell_4": [
+    { "sfx": "bell_cough" },
+    { "bark": "none", "text": "k-klang. *sniff*", "x": 12, "y": 32, "duration": 1500 },
+    { "wait": 900 },
+    "Doc Fennimore has prescribed the bell a spoonful of honey. Nobody knows where he intends to put it."
+  ],
+
+  "inspect.p3_chart": [
+    "The chart of the Sapphire Sea, pinned flat. A yellow blot has soaked in round the wreck-waters, spreading outward like a tide line.",
+    { "if": { "flag": "heard_chart" }, "then": [
+      "You lean in. It does smell worse, the nearer your nose gets to where you're going. Ned is right. It's impossible."
+    ], "else": [
+      "It smells, faintly, of somewhere else."
+    ] }
+  ],
+
+  "inspect.p3_grog_cask": [
+    "A cask of Frog Grog, lashed down by the port rail for the watch on deck. The lashings are sweating.",
+    "Chalked on the lid: FROG GROG. Under it, in another hand: 'SORRY.'"
+  ],
+
+  "inspect.p3_grog_gone": [
+    "Where the deck cask stood, there's a yellow stain, a snapped lashing and an overwhelming smell of frog.",
+    { "if": { "flag": "drunk_sharks_seen" }, "then": [
+      "Somewhere over the side, a shark hiccups."
+    ] }
+  ],
+
+  "inspect.p3_planks": [
+    "The spare planks by the fore hatch. One fewer than there were. Jory counts them every hour now."
+  ],
+
+  "inspect.p3_patch": [
+    "The patch over the breach: good oak, a row of nails, a tar seal. Jory has carved a small, rude shark into the corner.",
+    { "if": { "var": { "name": "hull_patch_clean", "gte": 4 } }, "then": [
+      "Every nail sits flush. It's the best bit of carpentry on the ship, and you did it with a shark watching."
+    ], "else": [
+      "Some of the nails are bent. It holds anyway. Mostly out of stubbornness."
+    ] }
+  ],
+
+  "inspect.p3_rowboat_bitten": [
+    "The rowboat 'G.G.', hauled back up on its davits. Bite marks all along the gunwale, a shark-shaped dent in the stern, and one oar.",
+    "There's a smell coming off it that the rest of the ship treats with respect."
+  ],
+
+  "inspect.p3_davits": [
+    { "if": { "objectiveActive": "stenchmaster_temporarily.recover" }, "then": [
+      { "call": "p3c6.return" }
+    ], "else": [
+      { "if": { "flag": "garrick_evacuated_again" }, "then": [
+        "The davits hang empty. A frying pan is missing from the galley, and so is the Grand Stenchmaster.",
+        "Out past the horizon, in another ocean, the sharks presumably know exactly where he is."
+      ], "else": [
+        "The davits hang empty. Somewhere out there, the Grand Stenchmaster is rowing with one hand and eating with the other."
+      ] }
+    ] }
+  ],
+
+  "inspect.p3_water": [
+    "The drinking-water butt, lid firmly on. Somebody has chalked FROG WATER on the side and somebody else has scrubbed it off.",
+    "You hear a small bloop from inside, and decide you didn't."
+  ],
+
+  "inspect.p3_mugs": [
+    "A tray of pewter mugs, each with a finger of Frog Grog in the bottom. Nobody has finished theirs.",
+    "Brask has scratched a tally on the tray: days since last emergency. It says 0."
+  ],
+
+  "inspect.p3_nest": [
+    { "if": { "flag": "squawks_first_new_feather_yellow" }, "then": [
+      "Squawks's nest: a crate, a perch and a folded blanket. Tucked in the fold, where he can see it, is a scrap of yellow ribbon. He says it matches."
+    ], "else": [
+      "Squawks's nest: a crate, a perch and a folded blanket that used to be the captain's second-best coat lining."
+    ] }
+  ],
+
+  "inspect.p3_grog_barrel": [
+    { "if": { "flag": "frog_grog_named" }, "then": [
+      "The first barrel of Frog Grog. There's a new label on it in Garrick's handwriting: VINTAGE No. 1. Somebody has added a skull."
+    ], "else": [
+      { "if": { "flag": "grog_gathering_seen" }, "then": [
+        "The grog barrel, tapped. A slow yellow bead gathers at the bung and will not fall."
+      ], "else": [
+        "The last sealed barrel of grog on the ship. Somebody has tied a ribbon round it. Somebody else has drawn a skull on the ribbon."
+      ] }
+    ] }
+  ],
+
+  "inspect.p3_grog_cask_galley": [
+    { "if": { "flag": "grog_spilled" }, "then": [
+      "The galley's Frog Grog cask. The last of it, now the deck cask's gone over the side. Mags has put a padlock on the tap.",
+      "Chalked underneath the padlock: 'Least terrible barrel on the ship.'"
+    ], "else": [
+      { "if": { "flag": "ship_morning_started" }, "then": [
+        "A fresh cask, broached this morning. It's gone the same colour as the old one. It took until breakfast.",
+        "Mags has chalked it: 'LEAST TERRIBLE BARREL'."
+      ], "else": [
+        "The Frog Grog, on the shelf. It watches you, somehow."
+      ] }
+    ] }
+  ],
+
+  "inspect.p3_galley_portrait": [
+    "The painting of you on the galley wall. Someone has scratched out BLACK on the brass plate and scratched in STINK.",
+    "captain[annoyed]: ...Rook.",
+    "It wasn't Rook. It was Mags. You'll never know that."
+  ],
+
+  "inspect.p3_rum_cabinet": [
+    "Your private stock. Every bottle in it has the same faint yellow tide mark round the inside.",
+    { "if": { "flag": "frog_grog_named" }, "then": [
+      "Garrick has stuck a little label on each one: FROG GROG (RESERVE)."
+    ] }
+  ],
+
+  "inspect.p3_mirror": [
+    { "if": { "flag": "captain_named_stinkbeard" }, "then": [
+      "Your shaving mirror. Your reflection looks back at you. It looks, if anything, a little bit smug.",
+      "captain[annoyed]: Don't you start.",
+      { "if": { "flag": "squawks_first_new_feather_yellow" }, "then": [
+        "Behind you in the glass, a small golden feather bobs past at shoulder height. It is, you decide, golden."
+      ] }
+    ], "else": [
+      "Your shaving mirror. Your reflection looks tired, and damp, and like a man who hasn't smelled his own beard yet."
+    ] }
+  ],
+
+  "inspect.p3_portrait": [
+    "Your portrait over the desk. The painted beard has turned, very slightly, green around the edges.",
+    "You didn't know paint could do that. You didn't know a lot of things this morning."
+  ],
+
+  "inspect.p3_hammock": [
+    { "sfx": "sail_puff", "volume": 0.3 },
+    "The empty hammock. As you watch, it sags, very slowly, and lets out a faint yellow sigh.",
+    { "if": { "flag": "heard_hammocks" }, "then": [
+      "Jory's nailed a board across it. It's still sighing. Just quieter."
+    ], "else": [
+      "Nobody's slept in it since the Gust. Nobody's willing to say why."
+    ] }
+  ],
+
+  "inspect.p3_wood": [
+    "The yellowed planks by the treasure-room door. Still warm. They've crept an inch further along the bulkhead since yesterday.",
+    { "if": { "flag": "masked_rat_seen" }, "then": [
+      "From a knothole, a small masked face watches you go."
+    ] }
+  ]
+}

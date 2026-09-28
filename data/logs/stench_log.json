@@ -1,0 +1,291 @@
+{
+ "//": "The Grand Stenchmaster's Stench Log. Entries unlock with story flags; later notes replace earlier ones through variants. Future chapters add entries here (or in another file under data/logs/).",
+ "stench_log": {
+  "title": "The Stench Log",
+  "menuLabel": "Stench Log",
+  "keeper": "garrick",
+  "icon": "ledger",
+  "if": {
+   "flag": "stench_log_seen"
+  },
+  "fields": [
+   {
+    "id": "location",
+    "label": "Location"
+   },
+   {
+    "id": "severity",
+    "label": "Severity"
+   },
+   {
+    "id": "source",
+    "label": "Probable source"
+   },
+   {
+    "id": "notes",
+    "label": "Notes",
+    "quote": true
+   }
+  ],
+  "severities": {
+   "Mild": "g",
+   "Moist": "c",
+   "Concerning": "y",
+   "Severe": "o",
+   "Catastrophic": "r",
+   "Premium": "p"
+  },
+  "entries": [
+   {
+    "id": "day_one",
+    "title": "Day 1",
+    "if": {
+     "flag": "p3_started"
+    },
+    "location": "The entire ship",
+    "severity": "Catastrophic",
+    "source": "Me",
+    "notes": "Atmosphere predominantly Garrick. Excellent start."
+   },
+   {
+    "id": "day_two",
+    "title": "Day 2",
+    "if": {
+     "flag": "p3_started"
+    },
+    "location": "The entire ship (still)",
+    "severity": "Catastrophic",
+    "source": "Also me",
+    "notes": "Still Garrick. Written in advance, to save time.",
+    "variants": [
+     {
+      "if": {
+       "flag": "ship_morning_started"
+      },
+      "notes": "Still Garrick. Written in advance. Entirely accurate."
+     }
+    ]
+   },
+   {
+    "id": "treasure_room",
+    "title": "Treasure Room",
+    "if": {
+     "flag": "p3_started"
+    },
+    "location": "Aft hold, behind the heavy door",
+    "severity": "Catastrophic",
+    "source": "Lunch",
+    "notes": "Successful atmospheric rebranding. The gold now guards itself."
+   },
+   {
+    "id": "squawks",
+    "title": "Captain Squawks",
+    "if": {
+     "flag": "p3_started"
+    },
+    "location": "Wherever the blanket is",
+    "severity": "Severe",
+    "source": "Rescue exposure",
+    "notes": "Plumage pending. Attitude unchanged. Requests feathers back (outside warranty).",
+    "variants": [
+     {
+      "if": {
+       "flag": "squawks_first_new_feather_yellow"
+      },
+      "notes": "One new feather. Yellow. The Captain says it is golden. The Captain is being kind."
+     }
+    ]
+   },
+   {
+    "id": "captains_beard",
+    "title": "The Captain's Beard",
+    "if": {
+     "flag": "beard_sniffed"
+    },
+    "location": "Attached to the Captain",
+    "severity": "Severe",
+    "source": "Me, via rescue exposure",
+    "notes": "Root-deep. Has reached the beard beneath the beard. Estimated duration: centuries.",
+    "variants": [
+     {
+      "if": {
+       "flag": "beard_inspection_agreed"
+      },
+      "notes": "Inspected daily, from a safe distance. Finding: beard still terrible. Useful for shark forecasting."
+     },
+     {
+      "if": {
+       "flag": "beard_bait_seen"
+      },
+      "notes": "Useful for shark forecasting. Also, apparently, bait. The Captain objects to both."
+     },
+     {
+      "if": {
+       "flag": "rain_started"
+      },
+      "notes": "Root-deep. Estimated duration: centuries. Revised upward (it started raining)."
+     }
+    ]
+   },
+   {
+    "id": "grog_barrel",
+    "title": "The Grog Barrel",
+    "if": {
+     "flag": "frog_grog_unlocked"
+    },
+    "location": "Galley (and every bottle aboard)",
+    "severity": "Concerning",
+    "source": "The ship itself",
+    "notes": "Now Frog Grog. All of it, forever. Fresh stock converts within the day."
+   },
+   {
+    "id": "sails",
+    "title": "The Sails",
+    "if": {
+     "flag": "sails_swollen"
+    },
+    "location": "Main and fore",
+    "severity": "Concerning",
+    "source": "Stored stink",
+    "notes": "Puff up with no wind. Possible propulsion. Safety: unknown."
+   },
+   {
+    "id": "ropes",
+    "title": "Ropes & Rigging",
+    "if": {
+     "flag": "ropes_sweating"
+    },
+    "location": "Anywhere a hand might go",
+    "severity": "Moist",
+    "source": "Condensation",
+    "notes": "Crew advised not to ask. Crew asked. Crew regrets asking."
+   },
+   {
+    "id": "bell",
+    "title": "The Ship's Bell",
+    "if": {
+     "flag": "bell_coughs"
+    },
+    "location": "The bow",
+    "severity": "Concerning",
+    "source": "Inhalation",
+    "notes": "Coughs on the hour. Tone: bronchial."
+   },
+   {
+    "id": "hammocks",
+    "title": "Hammocks",
+    "if": {
+     "flag": "heard_hammocks"
+    },
+    "location": "Crew quarters",
+    "severity": "Mild",
+    "source": "Body heat (reactivation)",
+    "notes": "Is the smell alive? Debatable."
+   },
+   {
+    "id": "guns",
+    "title": "The Guns",
+    "if": {
+     "flag": "heard_cannons"
+    },
+    "location": "Both broadsides",
+    "severity": "Concerning",
+    "source": "Prolonged exposure",
+    "notes": "Yellow smoke anticipated. Enemy morale: will suffer. Gunner's morale: already has."
+   },
+   {
+    "id": "chart",
+    "title": "Navigation Chart",
+    "if": {
+     "flag": "heard_chart"
+    },
+    "location": "Chart table, quarterdeck",
+    "severity": "Mild",
+    "source": "Unknown",
+    "notes": "Smells worse nearer the destination. The navigator disputes this. The chart does not."
+   },
+   {
+    "id": "rat",
+    "title": "The Masked Rat",
+    "if": {
+     "flag": "masked_rat_seen"
+    },
+    "location": "Cargo hold, rat hole",
+    "severity": "Mild",
+    "source": "Adaptation",
+    "notes": "Has made itself a nose-cloth. Adapting faster than the crew.",
+    "variants": [
+     {
+      "if": {
+       "flag": "ship_names_rejected"
+      },
+      "notes": "Has made itself a nose-cloth. Nominated Assistant Stenchmaster. Motion defeated. The rat abstained."
+     }
+    ]
+   },
+   {
+    "id": "sharks",
+    "title": "Sharks",
+    "if": {
+     "flag": "sharks_sighted"
+    },
+    "location": "The sea (all of it)",
+    "severity": "Severe",
+    "source": "Me, at a distance",
+    "notes": "Cheese: small ones. Garlic: hammerheads. Beans: large. Eel: yes.",
+    "variants": [
+     {
+      "if": {
+       "flag": "controlled_release_rule"
+      },
+      "notes": "A controlled release, well away from the ship, draws them off. Tested. Works. You're welcome."
+     }
+    ]
+   },
+   {
+    "id": "port_side",
+    "title": "Port Side, Midships",
+    "if": {
+     "flag": "grog_spilled"
+    },
+    "location": "Over the rail",
+    "severity": "Catastrophic",
+    "source": "Frog Grog spill",
+    "notes": "Sharks. Many. Hull patched. Sharks unimpressed."
+   },
+   {
+    "id": "water",
+    "title": "Drinking Water",
+    "if": {
+     "flag": "frog_water_seen"
+    },
+    "location": "The water butts",
+    "severity": "Mild",
+    "source": "Ship saturation",
+    "notes": "One yellow bubble. Frog Water. Barrel closed. Do not reopen."
+   },
+   {
+    "id": "rowboat",
+    "title": "Rowboat 'G.G.'",
+    "if": {
+     "flag": "garrick_returned"
+    },
+    "location": "Starboard davits (when present)",
+    "severity": "Premium",
+    "source": "The Grand Stenchmaster",
+    "notes": "Field office. Slightly bitten. One oar, one frying pan."
+   },
+   {
+    "id": "protocol",
+    "title": "Stenchmaster Protocol",
+    "if": {
+     "flag": "stomach_alarm_protocol"
+    },
+    "location": "The whole ship",
+    "severity": "Severe",
+    "source": "My stomach",
+    "notes": "Any unusual stomach noise: rowboat, downwind, farther than last time. Current standard: another ocean."
+   }
+  ]
+ }
+}

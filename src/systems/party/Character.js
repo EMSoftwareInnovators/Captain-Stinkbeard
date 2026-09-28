@@ -9,10 +9,13 @@ import { clamp } from '../../core/util.js';
  * current HP, equipped items and learned abilities — exactly what is saved.
  */
 export class Character {
-  constructor(def, { progression, items }) {
+  constructor(def, { progression, items, resolve = null }) {
     this.def = def;
     this.progression = progression;
     this.items = items;
+    // Story-driven display fields (a name the crew gave him, a new title):
+    // def + variants for the current session, or the plain definition.
+    this.resolve = resolve;
     this.id = def.id;
     this.level = def.startLevel ?? 1;
     this.xp = progression.xpForLevel(this.level);
@@ -22,8 +25,23 @@ export class Character {
     this.hp = this.maxHp;
   }
 
+  /** Display definition: the character's data with story variants applied. */
+  get look() {
+    return this.resolve ? this.resolve(this.def) : this.def;
+  }
+
+  /** Display name ("Blackbeard", later "Stinkbeard"); the id never changes. */
   get name() {
-    return this.def.name;
+    return this.look.name;
+  }
+
+  get title() {
+    return this.look.title ?? '';
+  }
+
+  /** "Captain Stinkbeard". */
+  get fullName() {
+    return this.title ? `${this.title} ${this.name}` : this.name;
   }
 
   /** Base stat from definition + growth (floored so all stats stay integers). */

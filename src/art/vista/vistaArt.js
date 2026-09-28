@@ -1,6 +1,6 @@
 import { PixelCanvas } from '../PixelCanvas.js';
 import { ShelfAtlas } from '../atlas.js';
-import { PAL, mix } from '../palette.js';
+import { PAL, mix, rgba } from '../palette.js';
 
 /**
  * Side-view art for vistas (scenes/CinemaScene.js): skies and seas for each
@@ -22,6 +22,8 @@ export const SKIES = {
   evening: { top: '#2a3a78', bottom: '#f09860', sun: [220, 112, '#ffd070'], clouds: '#f8b088' },
   sunset: { top: '#3a1c48', bottom: '#fcc070', sun: [236, 126, '#fff0c8'], clouds: '#e87a48' },
   dusk: { top: '#141430', bottom: '#8a5a88', sun: null, clouds: '#6a4a78', stars: true },
+  night: { top: '#07081a', bottom: '#2c2e52', sun: null, clouds: '#3a3a5c', stars: true },
+  noon: { top: '#2e6cc0', bottom: '#b8e0f4', sun: [160, 22, '#fffef0'], clouds: '#ffffff' },
 };
 
 const SEAS = {
@@ -31,6 +33,8 @@ const SEAS = {
   evening: ['#1a2a58', '#2e3e70', '#c07a60', '#f8c890'],
   sunset: ['#1c1a40', '#3a2a58', '#e87a48', '#fff0c8'],
   dusk: ['#0c1028', '#1a2244', '#4a4a78', '#8a7aa8'],
+  night: ['#060818', '#101430', '#2c3058', '#6a6a98'],
+  noon: ['#10427a', '#1e5a90', '#58a8d4', '#f0fbff'],
 };
 
 function paintSky(name) {
@@ -342,6 +346,115 @@ function figurehead(disgusted) {
   return c;
 }
 
+// ---------------------------------------------------------------------------
+// Story Phase 3: sharks, the lure, a ship with swollen sails
+
+const FIN = ['#2e3a4c', '#4a5a70', '#8a9ab0'];
+
+/** A dorsal fin slicing the surface, side view (moving left). */
+function finSide(frame) {
+  const c = new PixelCanvas(20, 16);
+  c.poly([[4, 13], [11, 1], [16, 13]], FIN[1]);
+  c.line(5, 12, 11, 2, FIN[2]);
+  c.poly([[13, 13], [11, 3], [16, 13]], FIN[0]);
+  c.outline(INK);
+  // bow wave
+  const k = frame ? 1 : 0;
+  for (let x = 0; x < 20; x++) if (!c.alphaAt(x, 14)) c.set(x, 14, x < 6 ? '#f0fbff' : '#9bd3e6');
+  c.set(2 - k, 13, '#f0fbff');
+  c.set(1, 12 - k, '#f0fbff');
+  return c;
+}
+
+/** A shark breaking the surface in an arc. */
+function sharkLeap() {
+  const c = new PixelCanvas(40, 22);
+  c.ellipse(20, 11, 15, 5, FIN[1]);
+  c.ellipse(21, 13, 12, 2.5, '#d8dce4');
+  c.poly([[20, 6], [16, 0], [24, 6]], FIN[0]);
+  c.poly([[6, 11], [0, 5], [2, 11], [0, 17]], FIN[0]);
+  c.poly([[33, 9], [39, 11], [33, 14]], FIN[1]);
+  c.set(32, 10, INK);
+  c.outline(INK);
+  for (const [x, y] of [[4, 20], [8, 21], [30, 21], [35, 20]]) c.set(x, y, '#f0fbff');
+  return c;
+}
+
+/** The rowboat heading off: Garrick with a pot of beans, and an oar or a frying pan. */
+function rowboatBeans(frame, { pan = false } = {}) {
+  const c = new PixelCanvas(64, 40);
+  c.poly([[4, 26], [60, 26], [54, 36], [10, 36]], PAL.wood2);
+  c.hline(4, 60, 26, PAL.wood4);
+  if (pan) for (let a = 0; a < Math.PI; a += 0.5) c.set(Math.round(56 + Math.cos(a) * 3), Math.round(27 + Math.sin(a) * 3), INK);
+  const cx = 32;
+  c.ellipse(cx, 20, 7, 6, '#2a5f56');
+  c.ellipse(cx, 10, 5, 5, '#dc9c76');
+  c.ellipse(cx - 5, 12, 2, 4, '#962a22');
+  c.ellipse(cx + 5, 12, 2, 4, '#5a1414');
+  // the pot hat
+  c.rect(cx - 5, 3, 10, 4, '#5a5a68');
+  c.hline(cx - 6, cx + 5, 6, '#3a3a48');
+  c.line(cx + 5, 4, cx + 9, 3, '#3a3a48');
+  c.set(cx - 2, 9, INK);
+  c.ellipseOutline(cx + 2, 9, 1.8, 1.8, PAL.gold3);
+  // spoon to mouth / oar stroke, alternating (only two hands)
+  if (frame) {
+    c.line(cx - 6, 19, cx - 3, 14, '#2a5f56');
+    c.set(cx - 2, 13, '#b86a3a');
+    c.line(cx + 6, 20, cx + 22, 30, pan ? PAL.iron3 : PAL.wood4);
+  } else {
+    c.line(cx - 6, 20, cx - 22, 30, PAL.wood4);
+    c.line(cx + 6, 19, cx + 3, 14, '#2a5f56');
+  }
+  if (pan && !frame) c.line(cx + 6, 20, cx + 16, 24, PAL.iron3);
+  if (pan) c.ellipse(frame ? cx + 23 : cx + 18, frame ? 31 : 25, 3, 2, PAL.iron2);
+  // the bean pot on his knees
+  c.ellipse(cx, 25, 5, 3, PAL.iron2);
+  c.hline(cx - 3, cx + 2, 23, '#b86a3a');
+  c.outline(INK);
+  return c;
+}
+
+/** The Revenge with her sails swollen and faintly yellow. */
+function revengePuffed() {
+  const c = revengeSide();
+  for (let y = 0; y < c.height; y++) {
+    for (let x = 0; x < c.width; x++) {
+      const px = c.get(x, y);
+      if (px === rgba(PAL.cloth3)) c.set(x, y, '#e8dca0');
+      else if (px === rgba(PAL.cloth4)) c.set(x, y, '#f4eab8');
+    }
+  }
+  return c;
+}
+
+/** A drunk shark floating belly-up, side view, with a bubble or two. */
+function sharkBellySide(frame) {
+  const c = new PixelCanvas(36, 16);
+  c.ellipse(18, 10, 14, 4, '#d8dce4');
+  c.ellipse(18, 8, 12, 2, '#eef0f4');
+  c.poly([[4, 10], [0, 5], [0, 14]], FIN[1]);
+  c.poly([[18, 13], [15, 16], [22, 13]], FIN[1]);
+  c.set(29, 9, INK);
+  c.set(30, 10, INK);
+  c.outline(INK);
+  const b = frame ? [[26, 3], [29, 0]] : [[27, 2], [24, 0]];
+  for (const [x, y] of b) c.set(x, y, '#e8e070');
+  return c;
+}
+
+/** Rings spreading on the water where something big went off. */
+function ripple(frame) {
+  const c = new PixelCanvas(90, 16);
+  const r = 14 + frame * 14;
+  for (let a = 0; a < Math.PI * 2; a += 0.03) {
+    const x = Math.round(45 + Math.cos(a) * r);
+    const y = Math.round(8 + Math.sin(a) * r * 0.16);
+    c.set(x, y, frame > 1 ? '#c8e4f080' : '#e6f5f8');
+  }
+  return c;
+}
+
 /** Looking through a spyglass: black all round, a round view, a brass rim. */
 function telescopeMask() {
   const c = new PixelCanvas(W, 224);
@@ -389,6 +502,17 @@ export function buildVistaAtlas() {
   atlas.add('figurehead_ok', figurehead(false));
   atlas.add('figurehead_disgusted', figurehead(true));
   atlas.add('mask_telescope', telescopeMask());
+  atlas.add('fin_side_0', finSide(0));
+  atlas.add('fin_side_1', finSide(1));
+  atlas.add('shark_leap', sharkLeap());
+  atlas.add('rowboat_beans_0', rowboatBeans(0));
+  atlas.add('rowboat_beans_1', rowboatBeans(1));
+  atlas.add('rowboat_pan_0', rowboatBeans(0, { pan: true }));
+  atlas.add('rowboat_pan_1', rowboatBeans(1, { pan: true }));
+  atlas.add('revenge_puffed', revengePuffed());
+  atlas.add('shark_belly_0', sharkBellySide(0));
+  atlas.add('shark_belly_1', sharkBellySide(1));
+  for (let i = 0; i < 3; i++) atlas.add(`ripple_${i}`, ripple(i));
   return atlas.build();
 }
 
@@ -399,4 +523,6 @@ export const VISTA_FRAMES = [
   'tub_0', 'tub_1', 'tub_sag', 'rowboat_0', 'rowboat_1', 'rowboat_happy',
   'cloud_rise_0', 'cloud_rise_1', 'cloud_rise_2', 'gull_0', 'gull_1', 'fish_0', 'fish_1', 'fish_2',
   'figurehead_ok', 'figurehead_disgusted', 'mask_telescope',
+  'fin_side_0', 'fin_side_1', 'shark_leap', 'rowboat_beans_0', 'rowboat_beans_1', 'rowboat_pan_0', 'rowboat_pan_1',
+  'revenge_puffed', 'shark_belly_0', 'shark_belly_1', 'ripple_0', 'ripple_1', 'ripple_2',
 ];

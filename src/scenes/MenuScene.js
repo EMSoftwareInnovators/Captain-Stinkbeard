@@ -7,6 +7,8 @@ import { StatusPage } from '../ui/menu/StatusPage.js';
 import { ItemsPage } from '../ui/menu/ItemsPage.js';
 import { EquipPage } from '../ui/menu/EquipPage.js';
 import { QuestsPage } from '../ui/menu/QuestsPage.js';
+import { LogPage } from '../ui/menu/LogPage.js';
+import { logAvailable } from '../systems/logs/logbook.js';
 import { ShopView } from '../ui/menu/ShopView.js';
 import { ConfirmPrompt } from '../ui/menu/Prompts.js';
 import { OptionsPanel } from '../ui/panels/OptionsPanel.js';
@@ -26,6 +28,8 @@ const NAV = [
 ];
 
 const PANE = { x: 96, y: 4, w: SCREEN_WIDTH - 100, h: SCREEN_HEIGHT - 8 };
+/** A logbook opened in the world (the Stench Log on its barrel). */
+const BOOK = { x: 24, y: 8, w: SCREEN_WIDTH - 48, h: SCREEN_HEIGHT - 16 };
 
 /**
  * The pause menu (party status, items, equipment, quest log, options, save)
@@ -54,6 +58,8 @@ export class MenuScene extends BaseScene {
     this.nav = null;
     this.hint = null;
     this.playTime = null;
+    this.bookMode = false;
+    this.navList = NAV;
     this.side = new UiLayer(this);
     this.app.overlay.setHint(null);
     this.backdrop = this.add.rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0x07060b, 0.55).setOrigin(0).setDepth(0);
@@ -61,33 +67,58 @@ export class MenuScene extends BaseScene {
       this.shopView = new ShopView(this, this.params.shop, { onClose: () => this.close() });
       return;
     }
+    if (this.params.mode === 'log') {
+      this.buildBook();
+      return;
+    }
     this.buildPause();
   }
 
+  /** The pause menu's entries: the fixed ones plus any logbook the story has opened. */
+  navEntries() {
+    const logs = [];
+    for (const [id, log] of this.app.content.logs.map) {
+      if (logAvailable(log, this.session)) logs.push({ label: log.menuLabel ?? log.title, value: `log:${id}`, page: LogPage, args: { logId: id } });
+    }
+    const at = NAV.findIndex((n) => n.value === 'quests') + 1;
+    return [...NAV.slice(0, at), ...logs, ...NAV.slice(at)];
+  }
+
   buildPause() {
-    addPanel(this, 4, 4, 88, NAV.length * 12 + 12, { depth: 10 });
+    this.navList = this.navEntries();
+    addPanel(this, 4, 4, 88, this.navList.length * 12 + 12, { depth: 10 });
     this.nav = new ListMenu(this, {
       x: 22,
       y: 10,
       width: 66,
-      rows: NAV.length,
+      rows: this.navList.length,
       depth: 11,
-      items: NAV.map((n) => ({ label: n.label, value: n.value, color: n.value === 'quit' ? UI_COLORS.dim : undefined })),
-      index: this.app.menuIndex ?? 0,
+      items: this.navList.map((n) => ({ label: n.label, value: n.value, color: n.value === 'quit' ? UI_COLORS.dim : undefined })),
+      index: Math.min(this.app.menuIndex ?? 0, this.navList.length - 1),
       onChange: (item) => this.preview(item.value),
       onSelect: (item) => this.choose(item.value),
       onCancel: () => this.close(),
     });
     addPanel(this, PANE.x, PANE.y, PANE.w, PANE.h, { depth: 10 });
     this.refreshSide();
-    this.preview(NAV[this.nav.index].value);
+    this.preview(this.navList[this.nav.index].value);
+  }
+
+  /** A logbook on its own, opened from the world; cancel closes it. */
+  buildBook() {
+    addPanel(this, BOOK.x, BOOK.y, BOOK.w, BOOK.h, { depth: 10 });
+    this.page = new LogPage(this, BOOK, { logId: this.params.log, entry: this.params.entry ?? null });
+    this.page.render();
+    this.pageFocused = this.page.focus();
+    this.bookMode = true;
+    this.app.audio.ui('menu_open');
   }
 
   /** Gold, play time and location in the lower-left box. */
   refreshSide() {
     const s = this.session;
     this.side.clear();
-    const y = NAV.length * 12 + 20;
+    const y = this.navList.length * 12 + 20;
     const h = SCREEN_HEIGHT - y - 4;
     this.side.add(addPanel(this, 4, y, 88, h, { depth: 10 }));
     this.side.add(this.add.image(10, y + 7, 'ui', 'icon_gold').setOrigin(0).setDepth(11));
@@ -105,9 +136,9 @@ export class MenuScene extends BaseScene {
     this.page = null;
     this.hint?.destroy();
     this.hint = null;
-    const entry = NAV.find((n) => n.value === value);
+    const entry = this.navList.find((n) => n.value === value);
     if (entry?.page) {
-      this.page = new entry.page(this, PANE);
+      this.page = new entry.page(this, PANE, entry.args);
       this.page.render();
     } else {
       const text = {
@@ -121,7 +152,7 @@ export class MenuScene extends BaseScene {
   }
 
   choose(value) {
-    const entry = NAV.find((n) => n.value === value);
+    const entry = this.navList.find((n) => n.value === value);
     if (entry?.page && this.page) {
       if (this.page.focus()) {
         this.pageFocused = true;
@@ -205,6 +236,13 @@ export class MenuScene extends BaseScene {
     if (this.playTime) this.playTime.setText(formatPlayTime(this.session.playTime));
     if (this.modal) {
       this.modal.update(input);
+      return;
+    }
+    if (this.bookMode) {
+      if (this.page.update(input) === 'exit' || (input.pressed('menu') && !input.pressed('cancel'))) {
+        input.consume('menu');
+        this.close();
+      }
       return;
     }
     if (this.pageFocused) {

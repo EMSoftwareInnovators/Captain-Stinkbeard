@@ -1,0 +1,21 @@
+[
+ {
+  "extend": "blackbeard",
+  "//": "Story Phase 3: the captain's name follows the story (the id stays 'blackbeard' for saves), and so does his beard.",
+  "variants": [
+   {
+    "if": {
+     "flag": "captain_named_stinkbeard"
+    },
+    "name": "Stinkbeard"
+   },
+   {
+    "if": {
+     "flag": "beard_sniffed"
+    },
+    "appearance": "blackbeard_stinkbeard",
+    "portrait": "blackbeard_stinkbeard"
+   }
+  ]
+ }
+]

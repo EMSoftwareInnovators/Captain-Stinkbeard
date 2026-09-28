@@ -366,13 +366,13 @@ export class BattleHud {
   // Results
 
   /** Victory window. Resolves once the player confirms. */
-  showResults({ xp, gold, items, levelUps }, content) {
+  showResults({ xp, gold, items, levelUps }, content, nameOf = (id) => content.characters.get(id)?.name ?? id) {
     const lines = [];
     lines.push(`<k>EXP</>  <w>${xp}</>`);
     if (gold) lines.push(`<k>Gold</>  <y>${gold}</>`);
     for (const it of items) lines.push(`<k>Found</>  ${content.items.get(it.id)?.name ?? it.id}${it.count > 1 ? ` ×${it.count}` : ''}`);
     for (const lv of levelUps) {
-      const name = content.characters.get(lv.character)?.name ?? lv.character;
+      const name = nameOf(lv.character);
       lines.push(`<g>${name} reached level ${lv.level}!</>`);
       const gains = Object.entries(lv.gains || {}).filter(([, v]) => v > 0).map(([k, v]) => `${STAT_SHORT[k] ?? k} +${v}`);
       if (gains.length) lines.push(`  ${gains.join('  ')}`);

@@ -12,6 +12,9 @@ import { FRAME_W, FRAME_H } from './characterPainter.js';
  *            two-feather tail are all that is left
  *   sweater  bald, in a hand-knitted jumper and bobble cap
  *
+ * Story Phase 3 adds a blanket he stays bundled in ("blanket": true) and the
+ * first feather to grow back, which is yellow ("yellowFeather": true).
+ *
  * Appearance data: { "id": "squawks", "painter": "parrot", "plumage": "normal", "sweater": false }
  */
 const INK = PAL.ink;
@@ -31,6 +34,9 @@ export function parrotLook(app) {
     bald,
     exposed,
     sweater: !!app.sweater,
+    blanket: !!app.blanket,
+    yellowFeather: !!app.yellowFeather,
+    plaid: ['#4a3a6a', '#6a5a8a', '#c8b8e0', '#8a2a2a'],
     body: bald ? skin : red,
     wing: bald ? { d: skin.d, m: skin.m, l: skin.l } : blue,
     band: bald ? skin.l : sooty(PAL.gold3),
@@ -68,6 +74,29 @@ function sweaterOver(c, L, cx, cy, rx, ry) {
       if (nx * nx + ny * ny <= 1 && c.alphaAt(x, y)) wool(c, L, x, y);
     }
   }
+}
+
+/** A tartan blanket wrapped round him from the shoulders down. */
+function blanketOver(c, L, cx, cy, rx, ry, shift = 0) {
+  for (let y = Math.round(cy - ry * 0.35); y <= Math.round(cy + ry + 1); y++) {
+    for (let x = Math.round(cx - rx - 1); x <= Math.round(cx + rx + 1); x++) {
+      const nx = (x - cx) / (rx + 1);
+      const ny = (y - cy) / (ry + 1);
+      if (nx * nx + ny * ny > 1.05) continue;
+      let col = L.plaid[1];
+      if ((x + shift) % 4 === 0) col = L.plaid[0];
+      if (y % 4 === 0) col = L.plaid[3];
+      if ((x + shift) % 4 === 0 && y % 4 === 0) col = L.plaid[2];
+      c.set(x, y, col);
+    }
+  }
+}
+
+/** The first feather to grow back: small, proud and unmistakably yellow. */
+function newFeather(c, x, y, lean = 1) {
+  c.line(x, y, x + lean, y - 4, '#e8d040');
+  c.set(x + lean, y - 5, '#f8f080');
+  c.set(x, y - 1, '#c8a820');
 }
 
 function cap(c, L, cx, top, w) {
@@ -121,6 +150,7 @@ function front(c, L, { bob = 0, wings = 'folded', beakOpen = false, blink = fals
     c.set(CX + 5, by - 3, L.band);
   }
   if (L.sweater) sweaterOver(c, L, CX, by, 5.5, 6.5);
+  if (L.blanket) blanketOver(c, L, CX, by + 1, 6, 6);
   // head
   const hy = by - 9;
   c.ellipse(CX, hy, 4.5, 4.5, L.body.m);
@@ -146,6 +176,7 @@ function front(c, L, { bob = 0, wings = 'folded', beakOpen = false, blink = fals
     c.set(CX - 1, hy - 5, L.body.l);
     c.set(CX, hy - 5, L.body.m);
   }
+  if (L.yellowFeather) newFeather(c, CX + 3, hy - 5);
   feet(c, L, CX - 3, CX + 2, GROUND);
 }
 
@@ -171,6 +202,7 @@ function side(c, L, { bob = 0, wing = 'folded', beakOpen = false, hop = 0, blink
     c.set(CX + 7, by + 1, L.wing.d);
   }
   if (L.sweater) sweaterOver(c, L, CX + 1, by, 6, 6);
+  if (L.blanket) blanketOver(c, L, CX + 1, by + 1, 6.5, 6, 1);
   const hx = CX - 3;
   const hy = by - 8 + (preen ? 3 : 0);
   c.ellipse(hx, hy, 4.5, 4.5, L.body.m);
@@ -191,6 +223,7 @@ function side(c, L, { bob = 0, wing = 'folded', beakOpen = false, hop = 0, blink
   if (L.sweater) cap(c, L, hx, hy - 6, 4);
   else if (L.bald) crest(c, L, hx, hy - 4, 1);
   else c.line(hx + 1, hy - 5, hx + 4, hy - 7, L.body.m);
+  if (L.yellowFeather) newFeather(c, hx + 3, hy - 6, 2);
   if (hop < 3) feet(c, L, CX - 1, CX + 2, GROUND - hop);
 }
 
@@ -208,10 +241,12 @@ function back(c, L, { bob = 0, wings = 'folded' } = {}) {
     c.hline(CX - 4, CX + 4, by - 3, L.band);
   }
   if (L.sweater) sweaterOver(c, L, CX, by, 5.5, 6.5);
+  if (L.blanket) blanketOver(c, L, CX, by + 1, 6, 6, 2);
   const hy = by - 9;
   c.ellipse(CX, hy, 4.5, 4.5, L.body.m);
   if (L.sweater) cap(c, L, CX, hy - 5, 4);
   else if (L.bald) crest(c, L, CX - 1, hy - 4);
+  if (L.yellowFeather) newFeather(c, CX + 2, hy - 5);
   feet(c, L, CX - 3, CX + 2, GROUND);
 }
 
@@ -282,7 +317,7 @@ export const PARROT_EXPRESSIONS = ['neutral', 'smug', 'insulting', 'worried', 'h
  * @param {string} expression
  */
 export function paintParrotPortrait(portrait, expression = 'neutral') {
-  const L = parrotLook({ plumage: portrait.plumage, sweater: portrait.sweater });
+  const L = parrotLook({ plumage: portrait.plumage, sweater: portrait.sweater, blanket: portrait.blanket, yellowFeather: portrait.yellowFeather });
   const c = new PixelCanvas(48, 48);
   const e = expression;
   const puffed = e === 'horrified' || e === 'furious' || e === 'outraged' || L.exposed;
@@ -306,6 +341,19 @@ export function paintParrotPortrait(portrait, expression = 'neutral') {
     for (let y = 37; y < 48; y++) for (let x = 6; x < 43; x++) if (c.alphaAt(x, y)) wool(c, L, x, y);
     // ribbed collar
     for (let x = 14; x < 35; x++) c.set(x, 37, x % 2 ? L.wool[0] : L.woolStripe);
+  }
+  if (L.blanket) {
+    // bundled up to the chin in a tartan blanket
+    for (let y = 39; y < 48; y++) {
+      for (let x = 2; x < 46; x++) {
+        if (!c.alphaAt(x, y) && Math.abs(x - 24) > 18 - (y - 39)) continue;
+        let col = L.plaid[1];
+        if (x % 5 === 0) col = L.plaid[0];
+        if (y % 5 === 0) col = L.plaid[3];
+        if (x % 5 === 0 && y % 5 === 0) col = L.plaid[2];
+        c.set(x, y, col);
+      }
+    }
   }
   // head
   const r = puffed ? 14 : 13;
@@ -331,6 +379,13 @@ export function paintParrotPortrait(portrait, expression = 'neutral') {
     c.line(hx + 3, hy - 12, hx + 6, hy - 19 + tremble, L.crest.m);
   } else {
     for (let i = 0; i < 4; i++) c.line(hx - 4 + i * 3, hy - 12, hx - 6 + i * 4, hy - 18 - (i % 2) * 2 - (puffed ? 3 : 0), i % 2 ? L.body.l : L.body.m);
+  }
+  if (L.yellowFeather) {
+    // one new feather, poking up out of the cap: yellow
+    c.line(hx + 7, hy - 14, hx + 10, hy - 24, '#e8d040');
+    c.line(hx + 8, hy - 14, hx + 11, hy - 23, '#c8a820');
+    c.set(hx + 10, hy - 25, '#f8f080');
+    c.set(hx + 11, hy - 25, '#f8f080');
   }
   if (e === 'furious' || e === 'horrified') {
     // hackles up

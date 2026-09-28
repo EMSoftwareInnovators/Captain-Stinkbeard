@@ -1,0 +1,47 @@
+{
+  "//": "Story Phase 3 vistas (see src/scenes/CinemaScene.js). Layer x/y are screen pixels, anchored bottom-centre; horizon 132. Fins face left by default (flip: true to swim right).",
+
+  "lure_view": {
+    "sky": "noon", "sea": "noon", "horizon": 132,
+    "layers": [
+      { "id": "revenge", "frame": "revenge_side", "x": 84, "y": 150, "scale": 0.62, "bob": 1, "depth": 10 },
+      { "id": "rowboat", "frame": "rowboat_beans_0", "frames": ["rowboat_beans_0", "rowboat_beans_1"], "frameMs": 360, "x": 196, "y": 158, "scale": 0.8, "bob": 2, "depth": 14 },
+      { "id": "fin_a", "frame": "fin_side_0", "frames": ["fin_side_0", "fin_side_1"], "frameMs": 200, "x": 36, "y": 154, "depth": 16 },
+      { "id": "fin_b", "frame": "fin_side_1", "frames": ["fin_side_1", "fin_side_0"], "frameMs": 220, "x": 74, "y": 157, "depth": 16 },
+      { "id": "fin_c", "frame": "fin_side_0", "frames": ["fin_side_0", "fin_side_1"], "frameMs": 210, "x": 118, "y": 155, "depth": 16 },
+      { "id": "fin_d", "frame": "fin_side_1", "frames": ["fin_side_1", "fin_side_0"], "frameMs": 190, "x": 146, "y": 158, "depth": 16 },
+      { "id": "fin_e", "frame": "fin_side_0", "frames": ["fin_side_0", "fin_side_1"], "frameMs": 230, "x": 20, "y": 158, "depth": 16 },
+      { "id": "gull", "frame": "gull_0", "frames": ["gull_0", "gull_1"], "frameMs": 260, "x": 230, "y": 60, "bob": 3, "depth": 18 }
+    ]
+  },
+
+  "release_view": {
+    "sky": "afternoon", "sea": "afternoon", "horizon": 132,
+    "layers": [
+      { "id": "revenge", "frame": "revenge_side", "x": 52, "y": 146, "scale": 0.42, "bob": 1, "depth": 10 },
+      { "id": "cloud", "frame": "cloud_rise_0", "x": 250, "y": 142, "scale": 0.8, "hidden": true, "depth": 11 },
+      { "id": "rowboat", "frame": "rowboat_beans_0", "frames": ["rowboat_beans_0", "rowboat_beans_1"], "frameMs": 420, "x": 250, "y": 142, "scale": 0.36, "bob": 1, "depth": 12 },
+      { "id": "ripple", "frame": "ripple_0", "x": 250, "y": 146, "scale": 0.7, "hidden": true, "depth": 13 },
+      { "id": "fin_a", "frame": "fin_side_0", "frames": ["fin_side_0", "fin_side_1"], "frameMs": 200, "x": 150, "y": 148, "scale": 0.6, "flip": true, "depth": 14 },
+      { "id": "fin_b", "frame": "fin_side_1", "frames": ["fin_side_1", "fin_side_0"], "frameMs": 220, "x": 172, "y": 150, "scale": 0.6, "flip": true, "depth": 14 },
+      { "id": "fin_c", "frame": "fin_side_0", "frames": ["fin_side_0", "fin_side_1"], "frameMs": 210, "x": 128, "y": 151, "scale": 0.6, "flip": true, "depth": 14 },
+      { "id": "fin_d", "frame": "fin_side_1", "frames": ["fin_side_1", "fin_side_0"], "frameMs": 190, "x": 190, "y": 147, "scale": 0.6, "flip": true, "depth": 14 },
+      { "id": "fin_e", "frame": "fin_side_0", "frames": ["fin_side_0", "fin_side_1"], "frameMs": 230, "x": 110, "y": 149, "scale": 0.6, "flip": true, "depth": 14 }
+    ]
+  },
+
+  "finale_release": {
+    "sky": "afternoon", "sea": "afternoon", "horizon": 132,
+    "layers": [
+      { "id": "cloud", "frame": "cloud_rise_0", "x": 268, "y": 140, "scale": 1.0, "hidden": true, "depth": 8 },
+      { "id": "rowboat", "frame": "rowboat_pan_0", "frames": ["rowboat_pan_0", "rowboat_pan_1"], "frameMs": 420, "x": 268, "y": 139, "scale": 0.3, "bob": 1, "depth": 9 },
+      { "id": "ripple", "frame": "ripple_0", "x": 268, "y": 142, "scale": 1.0, "hidden": true, "depth": 9 },
+      { "id": "revenge", "frame": "revenge_puffed", "x": 86, "y": 154, "scale": 0.6, "bob": 1, "depth": 10 },
+      { "id": "fin_a", "frame": "fin_side_0", "frames": ["fin_side_0", "fin_side_1"], "frameMs": 220, "x": 150, "y": 152, "scale": 0.7, "depth": 12 },
+      { "id": "fin_b", "frame": "fin_side_1", "frames": ["fin_side_1", "fin_side_0"], "frameMs": 240, "x": 176, "y": 155, "scale": 0.7, "depth": 12 },
+      { "id": "fin_c", "frame": "fin_side_0", "frames": ["fin_side_0", "fin_side_1"], "frameMs": 200, "x": 198, "y": 151, "scale": 0.7, "depth": 12 },
+      { "id": "gull_a", "frame": "gull_0", "frames": ["gull_0", "gull_1"], "frameMs": 240, "x": 120, "y": 56, "bob": 3, "depth": 16 },
+      { "id": "gull_b", "frame": "gull_1", "frames": ["gull_1", "gull_0"], "frameMs": 260, "x": 60, "y": 74, "bob": 2, "depth": 16 }
+    ]
+  }
+}

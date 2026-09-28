@@ -1,8 +1,9 @@
 import { EQUIPMENT_SLOTS, STAT_KEYS, ITEM_TYPES, DIRECTIONS } from '../config/constants.js';
 import { isPlainObject, asArray } from '../core/util.js';
 import { validateCondition, COMPARE_KEYS, splitObjectiveRef } from '../systems/conditions/conditions.js';
-import { COMMAND_SCHEMAS, STEP_MODIFIERS, EMOTES, isCommentKey, commandNameOf, PARTICLE_BURSTS, PROP_FX } from '../systems/script/commandSchemas.js';
+import { COMMAND_SCHEMAS, STEP_MODIFIERS, EMOTES, isCommentKey, commandNameOf, PARTICLE_BURSTS, PROP_FX, ASYNC_COMMANDS } from '../systems/script/commandSchemas.js';
 import { FUME_LEVELS, HAZE_LEVELS } from '../systems/hazards/fumes.js';
+import { SHARK_LEVELS, SHARK_EVENTS } from '../systems/hazards/sharks.js';
 import { parseLine } from '../systems/script/parseLine.js';
 import { normalizeScript } from '../systems/script/ScriptRunner.js';
 import { OBJECTIVE_TYPES } from '../systems/quests/QuestSystem.js';
@@ -118,7 +119,7 @@ function validateText(text, check) {
     const token = m[1];
     const [kind, arg] = token.includes(':') ? [token.slice(0, token.indexOf(':')), token.slice(token.indexOf(':') + 1)] : [token, null];
     if (arg === null) {
-      if (['player', 'gold', 'leader'].includes(kind)) continue;
+      if (['player', 'gold', 'leader', 'captain'].includes(kind)) continue;
       if (check.ctx.db.game?.constants && kind in check.ctx.db.game.constants) continue;
       check.error(`unknown text token "{${token}}"`);
     } else if (kind === 'item') check.item(arg);
@@ -199,6 +200,7 @@ function validateParam(type, value, check, sctx) {
     case 'shop': return check.shop(value);
     case 'character': return check.character(value);
     case 'vista': return check.vista(value);
+    case 'log': return check.ref('logbook', value, check.ctx.db.logs);
     case 'speaker':
       if (value !== null) check.speaker(value);
       return;
@@ -296,8 +298,16 @@ function validateStep(step, check, sctx) {
     if (!check.ctx.art.stage.has(frame) && !check.ctx.art.props.has(frame) && !check.ctx.art.fx.has(frame)) check.error(`no stage/prop/fx art "${frame}"`);
   }
   if (name === 'insert' && !check.ctx.art.inserts.has(step.insert)) check.error(`no insert art "${step.insert}"`);
-  if ('async' in step && step.async && !['move', 'fly', 'hop', 'propFx', 'roll', 'moveSprite', 'fumeCloud', 'vistaMove', 'shake', 'emote'].includes(name)) check.error(`"${name}" cannot run async`);
+  if ('async' in step && step.async && !ASYNC_COMMANDS.has(name)) check.error(`"${name}" cannot run async`);
   if (name === 'fade' && !['in', 'out'].includes(step.fade)) check.error('fade must be "in" or "out"');
+  if (name === 'sharks' && step.sharks !== 'auto' && !SHARK_LEVELS.includes(step.sharks)) check.error(`shark level must be "auto" or one of ${SHARK_LEVELS.join(', ')}`);
+  if (name === 'sharkEvent') {
+    if (!SHARK_EVENTS.includes(step.sharkEvent)) check.error(`unknown shark event "${step.sharkEvent}" (use: ${SHARK_EVENTS.join(', ')})`);
+    if (['bite', 'flop', 'lure'].includes(step.sharkEvent) && (step.x === undefined || step.y === undefined)) check.error(`shark event "${step.sharkEvent}" needs x and y`);
+  }
+  if (name === 'tint' && !/^#[0-9a-fA-F]{6}$/.test(step.color ?? '')) check.error('tint color must be "#rrggbb"');
+  if (name === 'repair' && step.strikes !== undefined && (step.strikes < 1 || step.strikes > 8)) check.error('repair strikes must be 1..8');
+  if (name === 'swapItem' && step.swapItem === step.to) check.error('swapItem needs two different items');
 }
 
 function validateSteps(steps, check, sctx) {
@@ -339,10 +349,27 @@ function validateEffects(effects, check) {
     if (!EFFECT_TYPES.includes(e?.type)) return ec.error(`unknown effect type "${e?.type}"`);
     if (e.type === 'applyStatus') ec.status(e.status);
     if (e.type === 'cure') asArray(e.status).forEach((s) => s !== 'debuffs' && ec.status(s));
+    if (e.type === 'fumeWard') {
+      if (typeof e.seconds !== 'number' || e.seconds <= 0) ec.error('fumeWard needs positive "seconds"');
+      if (e.scale !== undefined && (typeof e.scale !== 'number' || e.scale < 0 || e.scale > 1)) ec.error('fumeWard "scale" must be 0..1');
+    }
+    if (e.type === 'sideEffect') {
+      if (!Array.isArray(e.table) || e.table.length === 0) return ec.error('sideEffect needs a non-empty "table"');
+      e.table.forEach((row, j) => {
+        const rc = ec.at(`table[${j}]`);
+        if (!row.id) rc.error('side effect needs an id');
+        if (row.weight !== undefined && (typeof row.weight !== 'number' || row.weight <= 0)) rc.error('weight must be a positive number');
+        if (row.status) rc.status(row.status);
+        if (row.duration !== undefined && (row.duration < 1 || row.duration > 5)) rc.error('side effect duration must be 1..5 turns (keep them short)');
+        if (row.text) validateText(row.text, rc);
+        if (row.field) validateEffects(row.field, rc.at('field'));
+      });
+    }
   });
 }
 
 const TARGET_TYPES = ['self', 'ally', 'allies', 'enemy', 'enemies', 'allyAny'];
+const AMBIENT_KINDS = ['wake', 'gulls', 'smoke', 'perchedGull', 'sailShadow', 'glitter', 'voice', 'rain', 'sailPuff', 'ratPeek', 'odorTrail'];
 const OBJECT_TYPES = ['spawn', 'warp', 'npc', 'enemy', 'inspect', 'chest', 'trigger', 'block'];
 
 function validateBehavior(b, check, model) {
@@ -390,7 +417,7 @@ function validateVariants(list, c) {
     else vc.condition(v.if);
     if (v.appearance) vc.appearance(v.appearance);
     if (v.portrait) vc.portrait(v.portrait);
-    for (const k of Object.keys(v)) if (!['if', 'appearance', 'portrait', 'name', 'voice', 'shadow'].includes(k) && !isCommentKey(k)) vc.error(`unknown variant field "${k}"`);
+    for (const k of Object.keys(v)) if (!['if', 'appearance', 'portrait', 'name', 'title', 'voice', 'shadow'].includes(k) && !isCommentKey(k)) vc.error(`unknown variant field "${k}"`);
   });
 }
 
@@ -460,6 +487,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
         asArray(item.use.context ?? []).forEach((ctxName) => ['field', 'battle'].includes(ctxName) || c.error(`bad use.context "${ctxName}"`));
         validateEffects(item.use.effects, c);
       }
+      if (item.useSfx) c.sfx(item.useSfx);
     }
     if (item.type === 'equipment') {
       if (!EQUIPMENT_SLOTS.includes(item.slot)) c.error(`equipment slot must be one of ${EQUIPMENT_SLOTS.join(', ')}`);
@@ -537,7 +565,10 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
 
   for (const shop of db.shops.list()) {
     const c = C(`${db.shops.sourceOf(shop.id)} (${shop.id})`);
-    (shop.items || []).forEach((it) => c.item(typeof it === 'string' ? it : it.id));
+    (shop.items || []).forEach((it, i) => {
+      c.item(typeof it === 'string' ? it : it.id);
+      if (typeof it === 'object' && 'if' in it) c.at(`items[${i}]`).condition(it.if);
+    });
     if (shop.keeper) c.speaker(shop.keeper);
   }
 
@@ -609,6 +640,22 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       if ('if' in p) c.at(`prop "${p.uid}"`).condition(p.if);
     });
     validateFumeZones(model, c);
+    (model.meta.sharks || []).forEach((v, i) => {
+      const vc = c.at(`sharks[${i}]`);
+      if ('if' in v) vc.condition(v.if);
+      if (!SHARK_LEVELS.includes(v.level)) vc.error(`shark level must be one of ${SHARK_LEVELS.join(', ')}`);
+      if (!v.below && v.level !== 'none' && model.meta.background !== 'ocean') vc.error('fins need open water: use "below": true on a map without an ocean background');
+    });
+    (def.ambient || []).forEach((a, i) => {
+      const ac = c.at(`ambient[${i}]`);
+      if (!AMBIENT_KINDS.includes(a.kind)) ac.error(`unknown ambient kind "${a.kind}" (use: ${AMBIENT_KINDS.join(', ')})`);
+      if ('if' in a) ac.condition(a.if);
+      if (a.sfx) ac.sfx(a.sfx);
+      if (a.kind === 'voice') (a.lines || []).forEach((l) => validateText(l, ac));
+      if (a.kind === 'sailPuff' && !model.props.some((p) => p.uid === a.prop || p.prop === a.prop)) ac.error(`sailPuff names prop "${a.prop}", which this map does not have`);
+      if (a.kind === 'odorTrail' && a.actor && a.actor !== 'player' && !db.npcs.has(a.actor)) ac.error(`odorTrail actor "${a.actor}" is not an NPC`);
+      if (a.tint && !/^#[0-9a-fA-F]{6}$/.test(a.tint)) ac.error('tint must be "#rrggbb"');
+    });
     model.meta.regions.forEach((r, i) => {
       const rc = c.at(`regions[${i}]`);
       if (!r.id) rc.error('region needs an id');
@@ -781,6 +828,39 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       ids.add(l.id);
       if (!art.vista.has(l.frame)) lc.error(`no vista art "${l.frame}"`);
       (l.frames || []).forEach((f) => { if (!art.vista.has(f)) lc.error(`no vista art "${f}"`); });
+    });
+  }
+
+  // Logbooks (the Stench Log)
+  for (const [id, log] of db.logs.map) {
+    const c = C(`${db.logs.sourceOf(id)} (${id})`);
+    if (typeof log.title !== 'string') c.error('log needs a title');
+    if ('if' in log) c.condition(log.if);
+    if (log.keeper) c.npc(log.keeper);
+    if (log.icon && !art.icons.has(log.icon)) c.error(`unknown icon "${log.icon}"`);
+    if (!Array.isArray(log.fields) || !log.fields.length) c.error('log needs "fields": [{ id, label }]');
+    const fieldIds = new Set((log.fields || []).map((f) => f.id));
+    const ids = new Set();
+    (log.entries || []).forEach((e, i) => {
+      const ec = c.at(`entries[${i}]`);
+      if (!e.id) ec.error('log entry needs an id');
+      else if (ids.has(e.id)) ec.error(`duplicate log entry "${e.id}"`);
+      ids.add(e.id);
+      if (typeof e.title !== 'string') ec.error('log entry needs a title');
+      if ('if' in e) ec.condition(e.if);
+      const texts = [e, ...(e.variants || [])];
+      for (const t of texts) {
+        for (const [k, v] of Object.entries(t)) {
+          if (['id', 'title', 'if', 'variants'].includes(k) || isCommentKey(k)) continue;
+          if (!fieldIds.has(k)) ec.error(`unknown log field "${k}" (fields: ${[...fieldIds].join(', ')})`);
+          else if (typeof v === 'string') validateText(v, ec);
+          if (k === 'severity' && log.severities && !(v in log.severities)) ec.error(`severity "${v}" is not one of ${Object.keys(log.severities).join(', ')}`);
+        }
+      }
+      (e.variants || []).forEach((v, j) => {
+        if (!('if' in v)) ec.at(`variants[${j}]`).error('variant needs "if"');
+        else ec.at(`variants[${j}]`).condition(v.if);
+      });
     });
   }
 

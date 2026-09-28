@@ -1,0 +1,42 @@
+[
+ {
+  "id": "warmed_up",
+  "name": "Warmed Up",
+  "kind": "buff",
+  "duration": 3,
+  "modifiers": {
+   "attack": 1.2
+  },
+  "description": "Frog Grog: attack up."
+ },
+ {
+  "id": "stench_proof",
+  "name": "Stench-Proof",
+  "kind": "buff",
+  "duration": 3,
+  "modifiers": {
+   "damageTaken": 0.85
+  },
+  "description": "Frog Grog: shrugs off a little damage."
+ },
+ {
+  "id": "belching",
+  "name": "Belching",
+  "kind": "debuff",
+  "duration": 2,
+  "modifiers": {
+   "luck": 0.7
+  },
+  "description": "Frog Grog: the aim wobbles between burps."
+ },
+ {
+  "id": "dizzy",
+  "name": "Dizzy",
+  "kind": "debuff",
+  "duration": 2,
+  "modifiers": {
+   "speed": 0.75
+  },
+  "description": "Frog Grog: slower to act."
+ }
+]

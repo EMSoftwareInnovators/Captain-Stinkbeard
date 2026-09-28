@@ -249,6 +249,37 @@ export function createCommandImplementations() {
       service(ctx, 'cinema', 'vistaShow').setVisible(step.vistaShow, step.visible !== false);
     },
     insert: (step, ctx) => service(ctx, 'cinema', 'insert').insert(step.insert, { caption: step.caption, hold: step.hold }),
+
+    // --- Story Phase 3 ---------------------------------------------------------
+    /** Opens a logbook (the Stench Log) and waits until it is closed. */
+    logbook: (step, ctx) => service(ctx, 'ui', 'logbook').openLog(step.logbook, step.entry ?? null),
+    /** Every one of an item becomes another ("all the rum is Frog Grog now"). */
+    swapItem: async (step, ctx) => {
+      const inv = ctx.session.inventory;
+      const n = inv.count(step.swapItem);
+      if (n > 0) inv.remove(step.swapItem, n);
+      const give = n + (step.bonus ?? 0);
+      if (give <= 0) return;
+      const added = inv.add(step.to, give);
+      if (!step.silent) await ctx.services.ui?.notify({ kind: 'itemGained', id: step.to, count: added, wanted: give });
+    },
+    tint: (step, ctx) => {
+      const p = service(ctx, 'world', 'tint').tint(step.tint, step.color, step.duration ?? 900);
+      return step.async ? null : p;
+    },
+    /** Holds a shark level for a scene ("auto" hands it back to the map). */
+    sharks: (step, ctx) => {
+      service(ctx, 'world', 'sharks').sharks(step.sharks === 'auto' ? null : step.sharks);
+    },
+    sharkEvent: (step, ctx) => {
+      const p = service(ctx, 'world', 'sharkEvent').sharkEvent(step.sharkEvent, { x: step.x, y: step.y, duration: step.duration });
+      return step.async ? null : p;
+    },
+    /** A quick hammering prompt; the number of clean strikes can go in a variable. */
+    repair: async (step, ctx) => {
+      const clean = await service(ctx, 'ui', 'repair').repair({ kind: step.repair, strikes: step.strikes ?? 3, title: step.title ?? null });
+      if (step.var) ctx.session.story.setVar(step.var, clean ?? 0);
+    },
     battle: async (step, ctx, frame) => {
       const result = await service(ctx, 'battle', 'battle').start(step.battle);
       if (result === 'win' && step.win) return ctx.runner.execBranch(step.win, ctx, frame);

@@ -22,6 +22,32 @@ export const MIGRATIONS = {
     }
     return next;
   },
+
+  /**
+   * 2 → 3 (Story Phase 3: The Grand Stenchmaster)
+   * The state's shape is unchanged; what's new lives in keys a Phase 2 build
+   * doesn't know (the Stench Log's read/announced entries in world state,
+   * Frog Grog in the inventory, the Phase 3 flags and quests). The bump is
+   * what stops an older build loading a Phase 3 save and quietly dropping
+   * them. The captain's name and Garrick's title are derived from flags, so
+   * nothing needs renaming here.
+   * Defaults are filled defensively: a Phase 2 save starts with no log
+   * bookkeeping and no Phase 3 flags, and walks into chapter 9 on load.
+   */
+  2: (state) => ({
+    ...state,
+    story: {
+      ...state.story,
+      flags: Array.isArray(state.story?.flags) ? state.story.flags : [],
+      vars: state.story?.vars ?? {},
+    },
+    world: {
+      ...state.world,
+      objects: state.world?.objects ?? {},
+      visited: state.world?.visited ?? [],
+      counters: state.world?.counters ?? {},
+    },
+  }),
 };
 
 export function migrateState(state, fromVersion, toVersion, migrations = MIGRATIONS) {

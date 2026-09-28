@@ -1,7 +1,7 @@
 [
   { "id": "galley_stores", "name": "Galley Stores", "keeper": "mags",
     "greeting": "It all goes in the ledger, Captain. Quill's rules, not mine.",
-    "items": ["hardtack", "rum_ration", "bandage"] },
+    "items": ["hardtack", { "id": "rum_ration", "if": { "notFlag": "frog_grog_unlocked" } }, { "id": "frog_grog", "if": { "flag": "frog_grog_unlocked" } }, "bandage"] },
   { "id": "doc_medicine", "name": "Medicine Chest", "keeper": "fennimore",
     "greeting": "Tonics, bandages, and my professional discretion.",
     "items": ["healing_tonic", "bandage", "hardtack"] },

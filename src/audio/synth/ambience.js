@@ -66,6 +66,42 @@ export function renderWind(sampleRate, { seconds = 10, seed = 9 } = {}) {
 }
 
 /**
+ * Steady rain: dense filtered noise with scattered drop ticks. Muffled for
+ * below decks (the rain on the deck overhead). Seamless loop.
+ */
+export function renderRain(sampleRate, { seconds = 8, muffled = false, seed = 21 } = {}) {
+  const n = Math.round(seconds * sampleRate);
+  const make = (sd) => {
+    const r = rng(sd);
+    const out = new Float32Array(n);
+    let lp = 0;
+    let hp = 0;
+    let prev = 0;
+    for (let i = 0; i < n; i++) {
+      const x = r() * 2 - 1;
+      lp += (x - lp) * (muffled ? 0.05 : 0.35);
+      hp = lp - prev + 0.97 * hp;
+      prev = lp;
+      let s = (muffled ? lp * 1.6 : hp) * 0.32;
+      // individual drops
+      if (r() < (muffled ? 0.0006 : 0.0025)) {
+        const len = Math.round((muffled ? 0.02 : 0.008) * sampleRate);
+        const amp = (muffled ? 0.25 : 0.4) * (0.4 + r() * 0.6);
+        for (let k = 0; k < len && i + k < n; k++) out[i + k] += Math.sin(k * (muffled ? 0.09 : 0.6)) * amp * (1 - k / len);
+      }
+      out[i] += s;
+    }
+    const fade = Math.round(0.3 * sampleRate);
+    for (let i = 0; i < fade; i++) {
+      const w = i / fade;
+      out[i] = out[i] * w + out[n - fade + i] * (1 - w);
+    }
+    return out.slice(0, n - fade);
+  };
+  return { left: make(seed), right: make(seed + 57), sampleRate, loop: true };
+}
+
+/**
  * Wooden creak: friction impulses (stick–slip) exciting two resonators.
  * Variant changes pitch, length and resonances.
  */

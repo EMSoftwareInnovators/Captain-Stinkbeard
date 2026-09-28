@@ -1,0 +1,69 @@
+[
+ {
+  "id": "frog_grog",
+  "name": "Frog Grog",
+  "type": "consumable",
+  "icon": "frog_grog",
+  "value": 10,
+  "useSfx": "grog_gulp",
+  "description": "Once honest grog. Now green-gold and faintly fizzing, with notes of onion, garlic, questionable eel and poor judgment. Restores 30 HP and dulls the fumes for a while. Side effects vary.",
+  "use": {
+   "target": "ally",
+   "context": [
+    "field",
+    "battle"
+   ],
+   "effects": [
+    {
+     "type": "heal",
+     "amount": 30
+    },
+    {
+     "type": "fumeWard",
+     "seconds": 90,
+     "scale": 0.5
+    },
+    {
+     "type": "sideEffect",
+     "table": [
+      {
+       "id": "warmed_up",
+       "weight": 3,
+       "status": "warmed_up",
+       "duration": 3,
+       "text": "<o>WARMED UP!</> It burns all the way down. Mostly in a good way."
+      },
+      {
+       "id": "stench_proof",
+       "weight": 3,
+       "status": "stench_proof",
+       "duration": 3,
+       "text": "<g>STENCH RESISTANCE.</> Nothing will ever smell worse than that.",
+       "field": [
+        {
+         "type": "fumeWard",
+         "seconds": 150,
+         "scale": 0.35
+        }
+       ]
+      },
+      {
+       "id": "belching",
+       "weight": 2,
+       "status": "belching",
+       "duration": 2,
+       "text": "<y>*BUUURP*</> A small yellow cloud escapes. Everyone steps back."
+      },
+      {
+       "id": "dizzy",
+       "weight": 2,
+       "status": "dizzy",
+       "duration": 2,
+       "text": "<p>DIZZY.</> The deck is doing a little dance. The deck denies it."
+      }
+     ]
+    }
+   ]
+  }
+ }
+]

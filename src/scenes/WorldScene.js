@@ -10,10 +10,13 @@ import { CommandRegistry, ScriptRunner } from '../systems/script/ScriptRunner.js
 import { createCommandImplementations } from '../systems/script/commands.js';
 import { WorldState } from '../systems/world/WorldState.js';
 import { FumeField, Exposure, fumeConfig, hazeFor } from '../systems/hazards/fumes.js';
+import { sharkConfig, sharkLevelFor } from '../systems/hazards/sharks.js';
 import { resolveVariant, currentTimeOfDay, dueStoryTriggers, triggerKey } from '../systems/story/progress.js';
+import { takeNewEntries } from '../systems/logs/logbook.js';
 import { FxPool } from '../world/FxPool.js';
 import { Barks } from '../world/Barks.js';
 import { FumeLayer } from '../world/FumeLayer.js';
+import { SharkLayer } from '../world/SharkLayer.js';
 import { Stage } from '../world/Stage.js';
 import { mix, unpack, rgba } from '../art/palette.js';
 import { TILE_SIZE, DIR_VECTORS, OPPOSITE_DIR, DIRECTIONS, SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
@@ -100,6 +103,7 @@ export class WorldScene extends BaseScene {
     this.fumeLayer = new FumeLayer(this, cfg);
     this.session.transient.exposure ??= new Exposure(cfg);
     this.exposure = this.session.transient.exposure;
+    this.sharks = new SharkLayer(this, sharkConfig(this.content));
     this.grade = this.add.rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0xffffff).setOrigin(0).setScrollFactor(0).setDepth(75000).setBlendMode('MULTIPLY');
     this.applyReducedEffects();
     this.refreshStory({ immediate: true });
@@ -143,6 +147,7 @@ export class WorldScene extends BaseScene {
     this.barks?.clear();
     this.stage?.clear();
     this.fumeLayer?.destroy();
+    this.sharks?.destroy();
     // The camera may already be torn down when the scene shuts down.
     this.cameras?.main?.setRotation(0);
   }
@@ -503,6 +508,7 @@ export class WorldScene extends BaseScene {
     this.markerTime += dt;
     this.updateMarker(busy);
     this.updateFumes(dt, busy);
+    this.sharks.update(dt, { busy, player: this.player });
     this.updateDebugDraw();
     this.ambient.update(dt, this.player);
     this.updateCamera(dt);
@@ -527,6 +533,9 @@ export class WorldScene extends BaseScene {
     this.player?.setTexture(`char_${this.playerAppearance()}`);
     this.fumeLayer.setZones(this.fumeField.refresh(session));
     this.fumeLayer.setHaze(hazeFor(this.model.meta.haze, session));
+    this.sharks.setLevel(sharkLevelFor(this.model.meta, session), { immediate });
+    this.ambient?.refresh();
+    this.announceLogEntries();
     this.applyTimeOfDay(immediate ? 0 : 1600);
     if (!immediate) {
       const a = this.mapAudio();
@@ -536,6 +545,15 @@ export class WorldScene extends BaseScene {
         if (a.music !== undefined) this.app.audio.playMusic(a.music, { fade: 1.2 });
         this.app.audio.setMusicFilter(a.musicFilter);
         this.app.audio.setAmbience(a.ambience);
+      }
+    }
+  }
+
+  /** "Stench Log updated" when the story unlocks new entries in a logbook. */
+  announceLogEntries() {
+    for (const [id, log] of this.content.logs.map) {
+      for (const e of takeNewEntries(log, id, this.session)) {
+        this.app.overlay?.toasts.push({ text: `${log.menuLabel ?? log.title} updated: <y>${e.title}</>`, icon: log.icon ?? 'ledger', sound: 'log_update', hold: 2600 });
       }
     }
   }
@@ -603,8 +621,14 @@ export class WorldScene extends BaseScene {
     // Exposure only builds while the player is in control: cutscenes never
     // choke the captain behind a dialogue box.
     if (!busy && !this.leaving && !this.collapsing && !this.app.flags.fumeImmunity) {
-      // The wet cloth from the rescue slows the fumes; so does the Gentle option.
-      const scale = this.app.settings.fumeScale() * (this.session.story.has('rescue_gear_on') ? 0.7 : 1);
+      // The wet cloth from the rescue slows the fumes; so does the Gentle
+      // option, and a swig of Frog Grog for a while (its "fume ward").
+      let scale = this.app.settings.fumeScale() * (this.session.story.has('rescue_gear_on') ? 0.7 : 1);
+      const ward = this.session.transient.fumeWard;
+      if (ward?.ms > 0) {
+        scale *= ward.scale;
+        ward.ms -= dt;
+      }
       const r = exposure.update(dt, level, scale);
       if (r.warn) {
         this.app.audio.sfx('cough_heavy');
@@ -1116,6 +1140,18 @@ export class WorldScene extends BaseScene {
       this.app.overlay.dialogue.forceClose();
       this.scene.pause();
       this.scene.launch('Menu', { mode: 'shop', shop: shopId });
+    });
+  }
+
+  /** Opens a logbook (the Stench Log) from a script; resolves when it closes. */
+  openLog(logId, entryId = null) {
+    return new Promise((resolve) => {
+      this.pendingResume = resolve;
+      this.app.overlay.dialogue.forceClose();
+      this.app.overlay.setHint(null);
+      this.marker.setVisible(false);
+      this.scene.pause();
+      this.scene.launch('Menu', { mode: 'log', log: logId, entry: entryId });
     });
   }
 

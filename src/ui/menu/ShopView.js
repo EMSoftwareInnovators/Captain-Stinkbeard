@@ -4,6 +4,7 @@ import { ListMenu } from '../ListMenu.js';
 import { UiLayer } from './UiLayer.js';
 import { QuantityPrompt } from './Prompts.js';
 import { previewEquip } from '../../systems/party/equipment.js';
+import { evaluateCondition } from '../../systems/conditions/conditions.js';
 import { STAT_KEYS, SCREEN_WIDTH } from '../../config/constants.js';
 
 const STAT_SHORT = { maxHp: 'HP', attack: 'ATK', defense: 'DEF', speed: 'SPD', luck: 'LCK' };
@@ -95,10 +96,14 @@ export class ShopView {
     const content = this.app.content;
     const inv = this.session.inventory;
     if (mode === 'buy') {
-      return this.shop.items.map((id) => {
-        const def = content.items.require(id);
-        return { def, price: buyPrice(this.shop, def), owned: inv.count(id) };
-      });
+      // Stock can follow the story: { "id": "frog_grog", "if": { … } }.
+      return this.shop.items
+        .filter((it) => typeof it === 'string' || !it.if || evaluateCondition(it.if, this.session))
+        .map((it) => {
+          const id = typeof it === 'string' ? it : it.id;
+          const def = content.items.require(id);
+          return { def, price: buyPrice(this.shop, def), owned: inv.count(id) };
+        });
     }
     return inv.entries().filter((e) => sellPrice(e.def) > 0).map((e) => ({ def: e.def, price: sellPrice(e.def), owned: e.count }));
   }

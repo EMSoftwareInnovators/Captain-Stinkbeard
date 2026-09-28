@@ -100,6 +100,55 @@
       "if": {
         "flag": "phase2_complete"
       }
+    },
+    {
+      "id": "p3c1",
+      "name": "Chapter 9: The Grand Stenchmaster Takes Command",
+      "if": {
+        "flag": "p3_started"
+      }
+    },
+    {
+      "id": "p3c2",
+      "name": "Chapter 10: Blackbeard Becomes Stinkbeard",
+      "if": {
+        "flag": "stenchmaster_declared"
+      }
+    },
+    {
+      "id": "p3c3",
+      "name": "Chapter 11: The Birth of Frog Grog",
+      "if": {
+        "flag": "grog_night_started"
+      }
+    },
+    {
+      "id": "p3c4",
+      "name": "Chapter 12: The Ship's Transformation",
+      "if": {
+        "flag": "ship_morning_started"
+      }
+    },
+    {
+      "id": "p3c5",
+      "name": "Chapter 13: The Sharks Smell the Gust",
+      "if": {
+        "flag": "sharks_mentioned"
+      }
+    },
+    {
+      "id": "p3c6",
+      "name": "Chapter 14: The Grand Stenchmaster's Terms",
+      "if": {
+        "flag": "sharks_lured"
+      }
+    },
+    {
+      "id": "phase3_end",
+      "name": "The Grand Stenchmaster (complete)",
+      "if": {
+        "flag": "p3_complete"
+      }
     }
   ],
   "timeOfDay": [
@@ -152,10 +201,48 @@
       }
     },
     {
-      "id": "next_morning",
-      "grade": null,
+      "id": "dusk",
+      "grade": "#c4a4c0",
       "if": {
         "flag": "phase2_complete"
+      },
+      "interior": 0.5
+    },
+    {
+      "id": "night",
+      "grade": "#8e90c8",
+      "interior": 0.55,
+      "if": {
+        "flag": "rain_started"
+      }
+    },
+    {
+      "id": "dawn",
+      "grade": "#fff0e2",
+      "if": {
+        "flag": "ship_morning_started"
+      }
+    },
+    {
+      "id": "noon",
+      "grade": null,
+      "if": {
+        "flag": "sharks_mentioned"
+      }
+    },
+    {
+      "id": "afternoon_after",
+      "grade": "#fff0d4",
+      "if": {
+        "flag": "garrick_returned"
+      }
+    },
+    {
+      "id": "late_afternoon_after",
+      "grade": "#ffe2b8",
+      "interior": 0.4,
+      "if": {
+        "flag": "garrick_evacuated_again"
       }
     }
   ]

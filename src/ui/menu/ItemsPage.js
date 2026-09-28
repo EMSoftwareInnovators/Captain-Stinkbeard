@@ -137,10 +137,13 @@ export class ItemsPage {
       return;
     }
     this.session.inventory.remove(itemId, 1);
-    const results = applyEffects(def.use.effects, target);
+    const results = applyEffects(def.use.effects, target, { session: this.session });
     const healed = results.filter((r) => r.type === 'heal').reduce((s, r) => s + r.amount, 0);
-    audio.sfx('heal');
+    audio.sfx(def.useSfx ?? 'heal');
     this.flash(healed ? `${target.name} recovers <g>${healed}</> HP.` : `${target.name} uses the ${def.name}.`);
+    // A side effect (Frog Grog) gets its own line a moment later.
+    const side = results.find((r) => r.type === 'sideEffect' && r.text);
+    if (side) this.scene.time.delayedCall(1300, () => this.flash(side.text));
     this.render();
     this.scene.refreshSide?.();
   }

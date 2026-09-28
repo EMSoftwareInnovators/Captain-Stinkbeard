@@ -1,0 +1,2230 @@
+[
+ {
+  "id": "gristle",
+  "name": "Gristle",
+  "title": "Rigger",
+  "appearance": "gristle",
+  "portrait": "gristle",
+  "voice": {
+   "pitch": 0.7
+  },
+  "behavior": {
+   "type": "stand",
+   "lookAround": true
+  },
+  "dialogue": [
+   {
+    "if": {
+     "flag": "garrick_evacuated_again"
+    },
+    "cycle": [
+     "gristle.p3_end_1",
+     "gristle.p3_end_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_lured"
+      },
+      {
+       "notFlag": "garrick_evacuated_again"
+      }
+     ]
+    },
+    "script": "gristle.p3_s14"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_mentioned"
+      },
+      {
+       "notFlag": "sharks_lured"
+      }
+     ]
+    },
+    "script": "gristle.p3_s13"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ship_morning_started"
+      },
+      {
+       "notFlag": "sharks_mentioned"
+      }
+     ]
+    },
+    "script": "gristle.p3_s12"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "grog_night_started"
+      },
+      {
+       "notFlag": "ship_morning_started"
+      }
+     ]
+    },
+    "script": "gristle.p3_s11"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "captain_named_stinkbeard"
+      },
+      {
+       "notFlag": "grog_night_started"
+      }
+     ]
+    },
+    "script": "gristle.p3_s10b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_declared"
+      },
+      {
+       "notFlag": "captain_named_stinkbeard"
+      }
+     ]
+    },
+    "script": "gristle.p3_s10a"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p3_started"
+      },
+      {
+       "notFlag": "stenchmaster_declared"
+      }
+     ]
+    },
+    "script": "gristle.p3_breath"
+   },
+   {
+    "script": "gristle.p3_breath"
+   }
+  ]
+ },
+ {
+  "extend": "garrick",
+  "variants": [
+   {
+    "if": {
+     "flag": "garrick_title_retained"
+    },
+    "name": "Grand Stenchmaster Garrick",
+    "title": "Grand Stenchmaster"
+   },
+   {
+    "if": {
+     "flag": "stenchmaster_declared"
+    },
+    "title": "Grand Stenchmaster (self-appointed)"
+   },
+   {
+    "if": {
+     "flag": "garrick_returned"
+    },
+    "appearance": "garrick_battered",
+    "portrait": "garrick_battered"
+   },
+   {
+    "if": {
+     "flag": "p3_started"
+    },
+    "appearance": "garrick_stenchmaster",
+    "portrait": "garrick_stenchmaster"
+   }
+  ],
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "necessary_promotion.speak"
+    },
+    "script": "p3c1.garrick_reforms"
+   },
+   {
+    "if": {
+     "objectiveActive": "necessary_promotion.reforms"
+    },
+    "script": "p3c1.garrick_reforms"
+   },
+   {
+    "if": {
+     "objectiveActive": "necessary_promotion.log"
+    },
+    "script": "garrick.p3_log_hint"
+   },
+   {
+    "if": {
+     "objectiveActive": "what_did_you_call_me.notice"
+    },
+    "script": "garrick.p3_notice_hint"
+   },
+   {
+    "if": {
+     "objectiveActive": "what_did_you_call_me.confront"
+    },
+    "script": "p3c2.confront"
+   },
+   {
+    "if": {
+     "objectiveActive": "frog_grog.taste"
+    },
+    "script": "garrick.p3_taste_hint"
+   },
+   {
+    "if": {
+     "objectiveActive": "frog_grog.confirm"
+    },
+    "script": "garrick.p3_confirm_hint"
+   },
+   {
+    "if": {
+     "objectiveActive": "ship_is_changing.sharks"
+    },
+    "script": "p3c4.report"
+   },
+   {
+    "if": {
+     "objectiveActive": "sharks.solution"
+    },
+    "script": "p3c5.solution"
+   },
+   {
+    "if": {
+     "objectiveActive": "sharks.rowboat"
+    },
+    "script": "garrick.p3_rowboat_hint"
+   },
+   {
+    "if": {
+     "objectiveActive": "stenchmaster_temporarily.terms"
+    },
+    "script": "p3c6.terms"
+   },
+   {
+    "if": {
+     "objectiveActive": "stenchmaster_temporarily.damage"
+    },
+    "script": "garrick.p3_damage_hint"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_lured"
+      },
+      {
+       "notFlag": "garrick_evacuated_again"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p3_s14_1",
+     "garrick.p3_s14_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_mentioned"
+      },
+      {
+       "notFlag": "sharks_lured"
+      }
+     ]
+    },
+    "script": "garrick.p3_s13"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ship_morning_started"
+      },
+      {
+       "notFlag": "sharks_mentioned"
+      }
+     ]
+    },
+    "script": "garrick.p3_s12"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "grog_night_started"
+      },
+      {
+       "notFlag": "ship_morning_started"
+      }
+     ]
+    },
+    "script": "garrick.p3_s11"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "captain_named_stinkbeard"
+      },
+      {
+       "notFlag": "grog_night_started"
+      }
+     ]
+    },
+    "script": "garrick.p3_s10b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p3_started"
+      },
+      {
+       "notFlag": "stenchmaster_declared"
+      }
+     ]
+    },
+    "script": "garrick.p3_s9"
+   }
+  ]
+ },
+ {
+  "extend": "squawks",
+  "variants": [
+   {
+    "if": {
+     "flag": "squawks_first_new_feather_yellow"
+    },
+    "appearance": "squawks_feather",
+    "portrait": "squawks_feather",
+    "shadow": "shadow_xs"
+   },
+   {
+    "if": {
+     "flag": "p3_started"
+    },
+    "appearance": "squawks_blanket",
+    "portrait": "squawks_blanket",
+    "shadow": "shadow_xs"
+   }
+  ],
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "stenchmaster_temporarily.squawks"
+    },
+    "script": "p3c6.squawks"
+   },
+   {
+    "if": {
+     "flag": "garrick_evacuated_again"
+    },
+    "cycle": [
+     "squawks.p3_end_1",
+     "squawks.p3_end_2",
+     "squawks.p3_end_3"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_lured"
+      },
+      {
+       "notFlag": "garrick_evacuated_again"
+      }
+     ]
+    },
+    "script": "squawks.p3_s14"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_mentioned"
+      },
+      {
+       "notFlag": "sharks_lured"
+      }
+     ]
+    },
+    "script": "squawks.p3_s13"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ship_morning_started"
+      },
+      {
+       "notFlag": "sharks_mentioned"
+      }
+     ]
+    },
+    "script": "squawks.p3_s12"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "grog_night_started"
+      },
+      {
+       "notFlag": "ship_morning_started"
+      }
+     ]
+    },
+    "script": "squawks.p3_s11"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "captain_named_stinkbeard"
+      },
+      {
+       "notFlag": "grog_night_started"
+      }
+     ]
+    },
+    "script": "squawks.p3_s10b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_declared"
+      },
+      {
+       "notFlag": "captain_named_stinkbeard"
+      }
+     ]
+    },
+    "script": "squawks.p3_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p3_started"
+      },
+      {
+       "notFlag": "stenchmaster_declared"
+      }
+     ]
+    },
+    "script": "squawks.p3_s9"
+   }
+  ]
+ },
+ {
+  "extend": "hale",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "garrick_evacuated_again"
+    },
+    "script": "hale.p3_end"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_lured"
+      },
+      {
+       "notFlag": "garrick_evacuated_again"
+      }
+     ]
+    },
+    "script": "hale.p3_s14"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_mentioned"
+      },
+      {
+       "notFlag": "sharks_lured"
+      }
+     ]
+    },
+    "script": "hale.p3_s13"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ship_morning_started"
+      },
+      {
+       "notFlag": "sharks_mentioned"
+      }
+     ]
+    },
+    "script": "hale.p3_s12"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "grog_night_started"
+      },
+      {
+       "notFlag": "ship_morning_started"
+      }
+     ]
+    },
+    "script": "hale.p3_s11"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "captain_named_stinkbeard"
+      },
+      {
+       "notFlag": "grog_night_started"
+      }
+     ]
+    },
+    "script": "hale.p3_s10b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_declared"
+      },
+      {
+       "notFlag": "captain_named_stinkbeard"
+      }
+     ]
+    },
+    "script": "hale.p3_s10a"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p3_started"
+      },
+      {
+       "notFlag": "stenchmaster_declared"
+      }
+     ]
+    },
+    "script": "hale.p3_s9"
+   }
+  ]
+ },
+ {
+  "extend": "quill",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "garrick_evacuated_again"
+    },
+    "script": "quill.p3_end"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_lured"
+      },
+      {
+       "notFlag": "garrick_evacuated_again"
+      }
+     ]
+    },
+    "script": "quill.p3_s14"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_mentioned"
+      },
+      {
+       "notFlag": "sharks_lured"
+      }
+     ]
+    },
+    "script": "quill.p3_s13"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ship_morning_started"
+      },
+      {
+       "notFlag": "sharks_mentioned"
+      }
+     ]
+    },
+    "script": "quill.p3_s12"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "grog_night_started"
+      },
+      {
+       "notFlag": "ship_morning_started"
+      }
+     ]
+    },
+    "script": "quill.p3_s11"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "captain_named_stinkbeard"
+      },
+      {
+       "notFlag": "grog_night_started"
+      }
+     ]
+    },
+    "script": "quill.p3_s10b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_declared"
+      },
+      {
+       "notFlag": "captain_named_stinkbeard"
+      }
+     ]
+    },
+    "script": "quill.p3_s10a"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p3_started"
+      },
+      {
+       "notFlag": "stenchmaster_declared"
+      }
+     ]
+    },
+    "script": "quill.p3_s9"
+   }
+  ]
+ },
+ {
+  "extend": "mags",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "frog_grog.taste"
+    },
+    "script": "p3c3.taste"
+   },
+   {
+    "if": {
+     "flag": "garrick_evacuated_again"
+    },
+    "script": "mags.p3_end"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_lured"
+      },
+      {
+       "notFlag": "garrick_evacuated_again"
+      }
+     ]
+    },
+    "script": "mags.p3_s14"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_mentioned"
+      },
+      {
+       "notFlag": "sharks_lured"
+      }
+     ]
+    },
+    "script": "mags.p3_s13"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ship_morning_started"
+      },
+      {
+       "notFlag": "sharks_mentioned"
+      }
+     ]
+    },
+    "script": "mags.p3_s12"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "grog_night_started"
+      },
+      {
+       "notFlag": "ship_morning_started"
+      }
+     ]
+    },
+    "script": "mags.p3_s11"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "captain_named_stinkbeard"
+      },
+      {
+       "notFlag": "grog_night_started"
+      }
+     ]
+    },
+    "script": "mags.p3_s10b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_declared"
+      },
+      {
+       "notFlag": "captain_named_stinkbeard"
+      }
+     ]
+    },
+    "script": "mags.p3_s10a"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p3_started"
+      },
+      {
+       "notFlag": "stenchmaster_declared"
+      }
+     ]
+    },
+    "script": "mags.p3_s9"
+   }
+  ]
+ },
+ {
+  "extend": "fennimore",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "garrick_evacuated_again"
+    },
+    "script": "fennimore.p3_end"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_lured"
+      },
+      {
+       "notFlag": "garrick_evacuated_again"
+      }
+     ]
+    },
+    "script": "fennimore.p3_s14"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_mentioned"
+      },
+      {
+       "notFlag": "sharks_lured"
+      }
+     ]
+    },
+    "script": "fennimore.p3_s13"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ship_morning_started"
+      },
+      {
+       "notFlag": "sharks_mentioned"
+      }
+     ]
+    },
+    "script": "fennimore.p3_s12"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "grog_night_started"
+      },
+      {
+       "notFlag": "ship_morning_started"
+      }
+     ]
+    },
+    "script": "fennimore.p3_s11"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "captain_named_stinkbeard"
+      },
+      {
+       "notFlag": "grog_night_started"
+      }
+     ]
+    },
+    "script": "fennimore.p3_s10b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_declared"
+      },
+      {
+       "notFlag": "captain_named_stinkbeard"
+      }
+     ]
+    },
+    "script": "fennimore.p3_s10a"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p3_started"
+      },
+      {
+       "notFlag": "stenchmaster_declared"
+      }
+     ]
+    },
+    "script": "fennimore.p3_s9"
+   }
+  ]
+ },
+ {
+  "extend": "brask",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "all": [
+        {
+         "flag": "ship_morning_started"
+        },
+        {
+         "notFlag": "sharks_mentioned"
+        }
+       ]
+      },
+      {
+       "notFlag": "heard_cannons"
+      }
+     ]
+    },
+    "script": "brask.p3_cannons"
+   },
+   {
+    "if": {
+     "flag": "garrick_evacuated_again"
+    },
+    "script": "brask.p3_end"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_lured"
+      },
+      {
+       "notFlag": "garrick_evacuated_again"
+      }
+     ]
+    },
+    "script": "brask.p3_s14"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_mentioned"
+      },
+      {
+       "notFlag": "sharks_lured"
+      }
+     ]
+    },
+    "script": "brask.p3_s13"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ship_morning_started"
+      },
+      {
+       "notFlag": "sharks_mentioned"
+      }
+     ]
+    },
+    "script": "brask.p3_s12"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "grog_night_started"
+      },
+      {
+       "notFlag": "ship_morning_started"
+      }
+     ]
+    },
+    "script": "brask.p3_s11"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "captain_named_stinkbeard"
+      },
+      {
+       "notFlag": "grog_night_started"
+      }
+     ]
+    },
+    "script": "brask.p3_s10b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_declared"
+      },
+      {
+       "notFlag": "captain_named_stinkbeard"
+      }
+     ]
+    },
+    "script": "brask.p3_s10a"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p3_started"
+      },
+      {
+       "notFlag": "stenchmaster_declared"
+      }
+     ]
+    },
+    "script": "brask.p3_s9"
+   }
+  ]
+ },
+ {
+  "extend": "nell",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "all": [
+        {
+         "flag": "ship_morning_started"
+        },
+        {
+         "notFlag": "sharks_mentioned"
+        }
+       ]
+      },
+      {
+       "notFlag": "heard_chart"
+      }
+     ]
+    },
+    "script": "nell.p3_chart"
+   },
+   {
+    "if": {
+     "flag": "garrick_evacuated_again"
+    },
+    "script": "nell.p3_end"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_lured"
+      },
+      {
+       "notFlag": "garrick_evacuated_again"
+      }
+     ]
+    },
+    "script": "nell.p3_s14"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_mentioned"
+      },
+      {
+       "notFlag": "sharks_lured"
+      }
+     ]
+    },
+    "script": "nell.p3_s13"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ship_morning_started"
+      },
+      {
+       "notFlag": "sharks_mentioned"
+      }
+     ]
+    },
+    "script": "nell.p3_s12"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "grog_night_started"
+      },
+      {
+       "notFlag": "ship_morning_started"
+      }
+     ]
+    },
+    "script": "nell.p3_s11"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "captain_named_stinkbeard"
+      },
+      {
+       "notFlag": "grog_night_started"
+      }
+     ]
+    },
+    "script": "nell.p3_s10b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_declared"
+      },
+      {
+       "notFlag": "captain_named_stinkbeard"
+      }
+     ]
+    },
+    "script": "nell.p3_s10a"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p3_started"
+      },
+      {
+       "notFlag": "stenchmaster_declared"
+      }
+     ]
+    },
+    "script": "nell.p3_s9"
+   }
+  ]
+ },
+ {
+  "extend": "wick",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "what_did_you_call_me.notice"
+    },
+    "script": "wick.p3_notice"
+   },
+   {
+    "if": {
+     "flag": "garrick_evacuated_again"
+    },
+    "script": "wick.p3_end"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_lured"
+      },
+      {
+       "notFlag": "garrick_evacuated_again"
+      }
+     ]
+    },
+    "script": "wick.p3_s14"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_mentioned"
+      },
+      {
+       "notFlag": "sharks_lured"
+      }
+     ]
+    },
+    "script": "wick.p3_s13"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ship_morning_started"
+      },
+      {
+       "notFlag": "sharks_mentioned"
+      }
+     ]
+    },
+    "script": "wick.p3_s12"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "grog_night_started"
+      },
+      {
+       "notFlag": "ship_morning_started"
+      }
+     ]
+    },
+    "script": "wick.p3_s11"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "captain_named_stinkbeard"
+      },
+      {
+       "notFlag": "grog_night_started"
+      }
+     ]
+    },
+    "script": "wick.p3_s10b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_declared"
+      },
+      {
+       "notFlag": "captain_named_stinkbeard"
+      }
+     ]
+    },
+    "script": "wick.p3_s10a"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p3_started"
+      },
+      {
+       "notFlag": "stenchmaster_declared"
+      }
+     ]
+    },
+    "script": "wick.p3_s9"
+   }
+  ],
+  "variants": [
+   {
+    "if": {
+     "flag": "p3_started"
+    },
+    "appearance": "wick_masked",
+    "portrait": "wick_masked"
+   }
+  ]
+ },
+ {
+  "extend": "rook",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "garrick_evacuated_again"
+    },
+    "script": "rook.p3_end"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_lured"
+      },
+      {
+       "notFlag": "garrick_evacuated_again"
+      }
+     ]
+    },
+    "script": "rook.p3_s14"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_mentioned"
+      },
+      {
+       "notFlag": "sharks_lured"
+      }
+     ]
+    },
+    "script": "rook.p3_s13"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ship_morning_started"
+      },
+      {
+       "notFlag": "sharks_mentioned"
+      }
+     ]
+    },
+    "script": "rook.p3_s12"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "grog_night_started"
+      },
+      {
+       "notFlag": "ship_morning_started"
+      }
+     ]
+    },
+    "script": "rook.p3_s11"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "captain_named_stinkbeard"
+      },
+      {
+       "notFlag": "grog_night_started"
+      }
+     ]
+    },
+    "script": "rook.p3_s10b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_declared"
+      },
+      {
+       "notFlag": "captain_named_stinkbeard"
+      }
+     ]
+    },
+    "script": "rook.p3_s10a"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p3_started"
+      },
+      {
+       "notFlag": "stenchmaster_declared"
+      }
+     ]
+    },
+    "script": "rook.p3_s9"
+   }
+  ],
+  "variants": [
+   {
+    "if": {
+     "flag": "p3_started"
+    },
+    "appearance": "rook_masked",
+    "portrait": "rook_masked"
+   }
+  ]
+ },
+ {
+  "extend": "sully",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "garrick_evacuated_again"
+    },
+    "script": "sully.p3_end"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_lured"
+      },
+      {
+       "notFlag": "garrick_evacuated_again"
+      }
+     ]
+    },
+    "script": "sully.p3_s14"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_mentioned"
+      },
+      {
+       "notFlag": "sharks_lured"
+      }
+     ]
+    },
+    "script": "sully.p3_s13"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ship_morning_started"
+      },
+      {
+       "notFlag": "sharks_mentioned"
+      }
+     ]
+    },
+    "script": "sully.p3_s12"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "grog_night_started"
+      },
+      {
+       "notFlag": "ship_morning_started"
+      }
+     ]
+    },
+    "script": "sully.p3_s11"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "captain_named_stinkbeard"
+      },
+      {
+       "notFlag": "grog_night_started"
+      }
+     ]
+    },
+    "script": "sully.p3_s10b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_declared"
+      },
+      {
+       "notFlag": "captain_named_stinkbeard"
+      }
+     ]
+    },
+    "script": "sully.p3_s10a"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p3_started"
+      },
+      {
+       "notFlag": "stenchmaster_declared"
+      }
+     ]
+    },
+    "script": "sully.p3_s9"
+   }
+  ],
+  "variants": [
+   {
+    "if": {
+     "flag": "p3_started"
+    },
+    "appearance": "sully_masked",
+    "portrait": "sully_masked"
+   }
+  ]
+ },
+ {
+  "extend": "finch",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "garrick_evacuated_again"
+    },
+    "script": "finch.p3_end"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_lured"
+      },
+      {
+       "notFlag": "garrick_evacuated_again"
+      }
+     ]
+    },
+    "script": "finch.p3_s14"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_mentioned"
+      },
+      {
+       "notFlag": "sharks_lured"
+      }
+     ]
+    },
+    "script": "finch.p3_s13"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ship_morning_started"
+      },
+      {
+       "notFlag": "sharks_mentioned"
+      }
+     ]
+    },
+    "script": "finch.p3_s12"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "grog_night_started"
+      },
+      {
+       "notFlag": "ship_morning_started"
+      }
+     ]
+    },
+    "script": "finch.p3_s11"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "captain_named_stinkbeard"
+      },
+      {
+       "notFlag": "grog_night_started"
+      }
+     ]
+    },
+    "script": "finch.p3_s10b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_declared"
+      },
+      {
+       "notFlag": "captain_named_stinkbeard"
+      }
+     ]
+    },
+    "script": "finch.p3_s10a"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p3_started"
+      },
+      {
+       "notFlag": "stenchmaster_declared"
+      }
+     ]
+    },
+    "script": "finch.p3_s9"
+   }
+  ]
+ },
+ {
+  "extend": "jory",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "stenchmaster_temporarily.damage"
+    },
+    "script": "p3c6.damage"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "all": [
+        {
+         "flag": "ship_morning_started"
+        },
+        {
+         "notFlag": "sharks_mentioned"
+        }
+       ]
+      },
+      {
+       "notFlag": "heard_hammocks"
+      }
+     ]
+    },
+    "script": "jory.p3_hammocks"
+   },
+   {
+    "if": {
+     "flag": "garrick_evacuated_again"
+    },
+    "script": "jory.p3_end"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_lured"
+      },
+      {
+       "notFlag": "garrick_evacuated_again"
+      }
+     ]
+    },
+    "script": "jory.p3_s14"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_mentioned"
+      },
+      {
+       "notFlag": "sharks_lured"
+      }
+     ]
+    },
+    "script": "jory.p3_s13"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ship_morning_started"
+      },
+      {
+       "notFlag": "sharks_mentioned"
+      }
+     ]
+    },
+    "script": "jory.p3_s12"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "grog_night_started"
+      },
+      {
+       "notFlag": "ship_morning_started"
+      }
+     ]
+    },
+    "script": "jory.p3_s11"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "captain_named_stinkbeard"
+      },
+      {
+       "notFlag": "grog_night_started"
+      }
+     ]
+    },
+    "script": "jory.p3_s10b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_declared"
+      },
+      {
+       "notFlag": "captain_named_stinkbeard"
+      }
+     ]
+    },
+    "script": "jory.p3_s10a"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p3_started"
+      },
+      {
+       "notFlag": "stenchmaster_declared"
+      }
+     ]
+    },
+    "script": "jory.p3_s9"
+   }
+  ]
+ },
+ {
+  "extend": "bob",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "garrick_evacuated_again"
+    },
+    "script": "bob.p3_end"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_lured"
+      },
+      {
+       "notFlag": "garrick_evacuated_again"
+      }
+     ]
+    },
+    "script": "bob.p3_s14"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_mentioned"
+      },
+      {
+       "notFlag": "sharks_lured"
+      }
+     ]
+    },
+    "script": "bob.p3_s13"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ship_morning_started"
+      },
+      {
+       "notFlag": "sharks_mentioned"
+      }
+     ]
+    },
+    "script": "bob.p3_s12"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "grog_night_started"
+      },
+      {
+       "notFlag": "ship_morning_started"
+      }
+     ]
+    },
+    "script": "bob.p3_s11"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "captain_named_stinkbeard"
+      },
+      {
+       "notFlag": "grog_night_started"
+      }
+     ]
+    },
+    "script": "bob.p3_s10b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_declared"
+      },
+      {
+       "notFlag": "captain_named_stinkbeard"
+      }
+     ]
+    },
+    "script": "bob.p3_s10a"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p3_started"
+      },
+      {
+       "notFlag": "stenchmaster_declared"
+      }
+     ]
+    },
+    "script": "bob.p3_s9"
+   }
+  ],
+  "variants": [
+   {
+    "if": {
+     "flag": "p3_started"
+    },
+    "appearance": "bob_masked",
+    "portrait": "bob_masked"
+   }
+  ]
+ },
+ {
+  "extend": "ned",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "all": [
+        {
+         "flag": "ship_morning_started"
+        },
+        {
+         "notFlag": "sharks_mentioned"
+        }
+       ]
+      },
+      {
+       "notFlag": "heard_chart"
+      }
+     ]
+    },
+    "script": "nell.p3_chart"
+   },
+   {
+    "if": {
+     "flag": "garrick_evacuated_again"
+    },
+    "script": "ned.p3_end"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_lured"
+      },
+      {
+       "notFlag": "garrick_evacuated_again"
+      }
+     ]
+    },
+    "script": "ned.p3_s14"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_mentioned"
+      },
+      {
+       "notFlag": "sharks_lured"
+      }
+     ]
+    },
+    "script": "ned.p3_s13"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ship_morning_started"
+      },
+      {
+       "notFlag": "sharks_mentioned"
+      }
+     ]
+    },
+    "script": "ned.p3_s12"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "grog_night_started"
+      },
+      {
+       "notFlag": "ship_morning_started"
+      }
+     ]
+    },
+    "script": "ned.p3_s11"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "captain_named_stinkbeard"
+      },
+      {
+       "notFlag": "grog_night_started"
+      }
+     ]
+    },
+    "script": "ned.p3_s10b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_declared"
+      },
+      {
+       "notFlag": "captain_named_stinkbeard"
+      }
+     ]
+    },
+    "script": "ned.p3_s10a"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p3_started"
+      },
+      {
+       "notFlag": "stenchmaster_declared"
+      }
+     ]
+    },
+    "script": "ned.p3_s9"
+   }
+  ]
+ },
+ {
+  "extend": "jim",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "frog_grog.taste"
+    },
+    "script": "p3c3.taste"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "all": [
+        {
+         "flag": "ship_morning_started"
+        },
+        {
+         "notFlag": "sharks_mentioned"
+        }
+       ]
+      },
+      {
+       "notFlag": "heard_fish"
+      }
+     ]
+    },
+    "script": "jim.p3_fish"
+   },
+   {
+    "if": {
+     "flag": "garrick_evacuated_again"
+    },
+    "script": "jim.p3_end"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_lured"
+      },
+      {
+       "notFlag": "garrick_evacuated_again"
+      }
+     ]
+    },
+    "script": "jim.p3_s14"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_mentioned"
+      },
+      {
+       "notFlag": "sharks_lured"
+      }
+     ]
+    },
+    "script": "jim.p3_s13"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ship_morning_started"
+      },
+      {
+       "notFlag": "sharks_mentioned"
+      }
+     ]
+    },
+    "script": "jim.p3_s12"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "grog_night_started"
+      },
+      {
+       "notFlag": "ship_morning_started"
+      }
+     ]
+    },
+    "script": "jim.p3_s11"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "captain_named_stinkbeard"
+      },
+      {
+       "notFlag": "grog_night_started"
+      }
+     ]
+    },
+    "script": "jim.p3_s10b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_declared"
+      },
+      {
+       "notFlag": "captain_named_stinkbeard"
+      }
+     ]
+    },
+    "script": "jim.p3_s10a"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p3_started"
+      },
+      {
+       "notFlag": "stenchmaster_declared"
+      }
+     ]
+    },
+    "script": "jim.p3_s9"
+   }
+  ]
+ },
+ {
+  "extend": "penhallow",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "garrick_evacuated_again"
+    },
+    "script": "penhallow.p3_end"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_lured"
+      },
+      {
+       "notFlag": "garrick_evacuated_again"
+      }
+     ]
+    },
+    "script": "penhallow.p3_s14"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_mentioned"
+      },
+      {
+       "notFlag": "sharks_lured"
+      }
+     ]
+    },
+    "script": "penhallow.p3_s13"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ship_morning_started"
+      },
+      {
+       "notFlag": "sharks_mentioned"
+      }
+     ]
+    },
+    "script": "penhallow.p3_s12"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "grog_night_started"
+      },
+      {
+       "notFlag": "ship_morning_started"
+      }
+     ]
+    },
+    "script": "penhallow.p3_s11"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "captain_named_stinkbeard"
+      },
+      {
+       "notFlag": "grog_night_started"
+      }
+     ]
+    },
+    "script": "penhallow.p3_s10b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_declared"
+      },
+      {
+       "notFlag": "captain_named_stinkbeard"
+      }
+     ]
+    },
+    "script": "penhallow.p3_s10a"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p3_started"
+      },
+      {
+       "notFlag": "stenchmaster_declared"
+      }
+     ]
+    },
+    "script": "penhallow.p3_s9"
+   }
+  ]
+ },
+ {
+  "extend": "dunstan",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "garrick_evacuated_again"
+    },
+    "script": "dunstan.p3_end"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_lured"
+      },
+      {
+       "notFlag": "garrick_evacuated_again"
+      }
+     ]
+    },
+    "script": "dunstan.p3_s14"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sharks_mentioned"
+      },
+      {
+       "notFlag": "sharks_lured"
+      }
+     ]
+    },
+    "script": "dunstan.p3_s13"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ship_morning_started"
+      },
+      {
+       "notFlag": "sharks_mentioned"
+      }
+     ]
+    },
+    "script": "dunstan.p3_s12"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "grog_night_started"
+      },
+      {
+       "notFlag": "ship_morning_started"
+      }
+     ]
+    },
+    "script": "dunstan.p3_s11"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "captain_named_stinkbeard"
+      },
+      {
+       "notFlag": "grog_night_started"
+      }
+     ]
+    },
+    "script": "dunstan.p3_s10b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_declared"
+      },
+      {
+       "notFlag": "captain_named_stinkbeard"
+      }
+     ]
+    },
+    "script": "dunstan.p3_s10a"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p3_started"
+      },
+      {
+       "notFlag": "stenchmaster_declared"
+      }
+     ]
+    },
+    "script": "dunstan.p3_s9"
+   }
+  ]
+ }
+]

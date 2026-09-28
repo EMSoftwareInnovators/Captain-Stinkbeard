@@ -43,12 +43,12 @@ export class StatusPage {
     const x = rect.x + 10;
     let y = rect.y + 10;
     layer.add(addPanel(scene, x - 2, y - 2, 56, 56, { style: 'inset', depth: D }));
-    const portraitId = ch.def.portrait ?? ch.id;
+    const portraitId = ch.look.portrait ?? ch.id;
     const frame = `${portraitId}_neutral`;
     if (scene.textures.getFrame('portraits', frame)) layer.add(scene.add.image(x + 2, y + 2, 'portraits', frame).setOrigin(0).setDepth(D + 1));
     const tx = x + 62;
     layer.add(addText(scene, tx, y, ch.name, { font: 'bold', depth: D + 1 }));
-    layer.add(addText(scene, tx, y + 14, `${ch.def.title ?? ''}  <k>Level</> ${ch.level}`, { depth: D + 1 }));
+    layer.add(addText(scene, tx, y + 14, `${ch.title}  <k>Level</> ${ch.level}`, { depth: D + 1 }));
     layer.add(addText(scene, tx, y + 27, `<k>HP</>  ${ch.hp}/${ch.maxHp}`, { depth: D + 1 }));
     gauge(scene, layer, tx + 70, y + 30, 70, ch.hp / ch.maxHp, ch.hp > ch.maxHp / 4 ? 0x6cc050 : 0xe05040, D + 1);
     const next = ch.xpToNext();

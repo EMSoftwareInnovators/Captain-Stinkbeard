@@ -162,6 +162,8 @@ export const HAIR = {
   white: ['#8a8a94', '#c4c4cc', '#f0f0f4'],
   salt: ['#2c2a30', '#5e5c64', '#9e9ca6'], // salt-and-pepper
   crimson: ['#5a1414', '#962a22', '#c85236'], // Garrick's famous sideburns
+  stinkblack: ['#12120a', '#262814', '#4a4c26'], // a black beard that went through the Dead Center
+  frazzled: ['#6a2410', '#a8442a', '#d8864a'], // sideburns after an hour with sharks
 };
 
 const cache = new Map();

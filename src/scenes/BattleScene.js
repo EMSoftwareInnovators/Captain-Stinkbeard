@@ -624,6 +624,11 @@ export class BattleScene extends BaseScene {
         }
         tv.refreshStatuses();
         await this.wait(420);
+        // Frog Grog's side effects come with a line ("*BURP* A little yellow cloud.").
+        if (ev.text) {
+          this.hud.message(ev.text);
+          await this.wait(900);
+        }
         break;
       }
       case 'statusEnd': {
@@ -726,7 +731,7 @@ export class BattleScene extends BaseScene {
       this.app.bus.emit('battle:won', { encounter: this.encounter.id, tags: this.encounter.tags ?? [], enemies: [...engine.defeatedEnemies] });
       this.hud.updateParty();
       await this.wait(500);
-      const results = this.hud.showResults(summary, this.content);
+      const results = this.hud.showResults(summary, this.content, (id) => this.session.party.nameOf(id));
       if (summary.levelUps.length) this.app.audio.sfx('level_up');
       await this.waitConfirm();
       this.app.audio.ui('confirm');

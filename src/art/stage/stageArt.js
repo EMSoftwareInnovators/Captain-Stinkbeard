@@ -273,6 +273,186 @@ function squawksBundle() {
   return c;
 }
 
+// ---------------------------------------------------------------------------
+// Story Phase 3: sharks, a rat in a nose-cloth, the rowboat's second trip
+
+const SHARK = { d: '#3a4658', m: '#5a6a80', l: '#8a9ab0', belly: '#d8dce4' };
+
+function ripples(c, pts) {
+  for (const [x, y, col] of pts) if (!c.alphaAt(x, y)) c.set(x, y, col ?? '#9bd3e6');
+}
+
+/** A dorsal fin seen from above, cutting the water: moving right (h) or up (v). */
+function finTop(dir, frame) {
+  if (dir === 'h') {
+    const c = new PixelCanvas(20, 12);
+    // the fin: a thin dark blade with a pale leading edge
+    c.poly([[14, 6], [6, 4], [4, 6], [6, 8]], SHARK.d);
+    c.line(6, 5, 13, 6, SHARK.l);
+    c.outline(INK);
+    // V wake trailing behind, spray at the tip
+    const k = frame ? 1 : 0;
+    ripples(c, [[15, 6, '#e6f5f8'], [16, 5 + k, '#e6f5f8'], [16, 7 - k]]);
+    for (let i = 0; i < 5; i++) ripples(c, [[3 - i, 4 - Math.floor(i / 2) - k], [3 - i, 8 + Math.floor(i / 2) + k]]);
+    return c;
+  }
+  const c = new PixelCanvas(12, 20);
+  c.poly([[6, 4], [4, 12], [6, 14], [8, 12]], SHARK.d);
+  c.line(5, 12, 6, 5, SHARK.l);
+  c.outline(INK);
+  const k = frame ? 1 : 0;
+  ripples(c, [[6, 3, '#e6f5f8'], [5 + k, 2, '#e6f5f8'], [7 - k, 2]]);
+  for (let i = 0; i < 5; i++) ripples(c, [[4 - Math.floor(i / 2) - k, 15 + i], [8 + Math.floor(i / 2) + k, 15 + i]]);
+  return c;
+}
+
+/** A shark rearing at the hull, facing right (toward the ship's starboard side). */
+function sharkBite(frame) {
+  const c = new PixelCanvas(28, 22);
+  // body sliding under the surface, head up, jaws by frame
+  c.ellipse(9, 13, 9, 5, SHARK.m);
+  c.ellipse(8, 11, 6, 2.5, SHARK.l);
+  c.poly([[2, 13], [0, 8], [4, 12]], SHARK.d); // tail fluke
+  c.poly([[10, 8], [7, 2], [13, 8]], SHARK.d); // dorsal fin
+  const open = frame === 1;
+  if (frame === 0) {
+    c.ellipse(19, 13, 6, 4, SHARK.m);
+  } else {
+    // upper jaw
+    c.poly([[14, 10], [25, open ? 6 : 10], [26, open ? 8 : 12], [15, 13]], SHARK.m);
+    // lower jaw, pale
+    c.poly([[14, 14], [25, open ? 19 : 14], [24, open ? 20 : 15], [15, 16]], SHARK.belly);
+    // teeth
+    for (let x = 17; x < 25; x += 2) {
+      c.set(x, open ? 9 + Math.floor((x - 17) / 3) : 12, '#ffffff');
+      c.set(x, open ? 17 - Math.floor((x - 17) / 4) : 14, '#ffffff');
+    }
+    if (open) c.poly([[16, 12], [24, 9], [24, 17], [16, 15]], '#5a1420');
+  }
+  c.set(16, 10, INK); // eye
+  c.set(15, 10, '#ffffff');
+  c.outline(INK);
+  ripples(c, [[1, 17], [4, 19, '#e6f5f8'], [9, 19], [14, 19, '#e6f5f8'], [20, 18], [3, 16]]);
+  return c;
+}
+
+/** A shark flopping on the deck (seen from above, lying on its side). */
+function sharkDeck(pose) {
+  const c = new PixelCanvas(40, 24);
+  for (let y = 18; y < 22; y++) for (let x = 6; x < 34; x++) if ((x + y) % 2) c.set(x, y, '#0c0a1050');
+  const lift = pose === 'flop1' ? -3 : 0;
+  // body
+  c.ellipse(20, 13, 13, 6, SHARK.m);
+  c.ellipse(20, 15, 11, 3, SHARK.belly);
+  c.ellipse(19, 11, 9, 2.5, SHARK.l);
+  // tail, flipping up on the second frame
+  c.poly([[8, 13], [1, 6 + lift], [4, 13], [1, 20 - lift]], SHARK.d);
+  // dorsal and pectoral fins
+  c.poly([[20, 8], [16, 2], [24, 8]], SHARK.d);
+  c.poly([[22, 17], [18, 22], [26, 18]], SHARK.m);
+  // head: nose up when sniffing, screwed-up face when disgusted
+  const nose = pose === 'sniff' ? -3 : 0;
+  c.poly([[30, 9 + nose], [39, 11 + nose], [37, 15], [30, 17]], SHARK.m);
+  c.set(33, 11 + nose, INK);
+  if (pose === 'disgust') {
+    // eye squeezed shut, tongue out, a whiff line above
+    c.hline(32, 34, 11, INK);
+    c.rect(36, 15, 2, 2, '#e46452');
+    c.line(33, 6, 35, 3, '#c8d450');
+    c.line(36, 6, 38, 2, '#c8d450');
+  } else {
+    c.set(32, 11 + nose, '#ffffff');
+    c.hline(33, 37, 15, INK);
+  }
+  if (pose === 'sniff') {
+    c.set(38, 6, '#c8d45090');
+    c.set(37, 4, '#c8d45070');
+  }
+  c.outline(INK);
+  return c;
+}
+
+/** Garrick in the rowboat from above: a bean pot on his lap, one oar and a frying pan. */
+function rowboatLure(frame, { pan = false, beans = true, bitten = false } = {}) {
+  const c = new PixelCanvas(34, 22);
+  c.poly([[3, 11], [9, 5], [27, 6], [31, 11], [27, 16], [9, 17]], WOOD.b);
+  c.poly([[6, 11], [10, 7], [26, 8], [28, 11], [26, 14], [10, 15]], WOOD.d);
+  if (bitten) for (let a = 0; a < Math.PI; a += 0.5) c.set(Math.round(29 + Math.cos(a + Math.PI / 2) * 2), Math.round(11 + Math.sin(a + Math.PI / 2) * 3), INK);
+  garrickFromAbove(c, 17, 11, frame ? 2 : -1);
+  if (beans) {
+    c.ellipse(17, 15, 2.5, 1.5, PAL.iron2);
+    c.set(17, 14, '#b86a3a');
+  }
+  // an oar on one side...
+  c.line(9, 11 + (frame ? 2 : -1), 1, 15 + (frame ? 3 : -3), WOOD.l);
+  // ...and on the other, an oar or a frying pan
+  if (pan) {
+    c.line(25, 11 - (frame ? 2 : -1), 30, 7 - (frame ? 3 : -3), PAL.iron3);
+    c.ellipse(32, 6 - (frame ? 3 : -3), 2.5, 2, PAL.iron2);
+  } else c.line(25, 11 - (frame ? 2 : -1), 33, 7 - (frame ? 3 : -3), WOOD.l);
+  c.outline(INK);
+  ripple(c, 17, 12, 16, 9);
+  return c;
+}
+
+/** A small shark hanging on by its teeth to the stern of the returning rowboat. */
+function rowboatHitchhiker(frame) {
+  const c = rowboatLure(frame, { pan: false, beans: false, bitten: true });
+  const k = frame ? 1 : 0;
+  const s = new PixelCanvas(40, 22);
+  s.blit(c, 0, 0);
+  s.ellipse(35, 11 + k, 4, 2, SHARK.m);
+  s.poly([[39, 11 + k], [40, 8], [40, 14]], SHARK.d);
+  s.set(32, 10 + k, INK);
+  s.set(31, 11 + k, '#ffffff');
+  return s;
+}
+
+/** A shark that got into the Frog Grog, floating belly-up, blowing yellow bubbles. */
+function sharkBelly(frame) {
+  const c = new PixelCanvas(26, 16);
+  c.ellipse(13, 9, 10, 4, SHARK.belly);
+  c.ellipse(13, 10, 9, 2, '#b8bcc8');
+  c.poly([[3, 9], [0, 5], [0, 13]], SHARK.m);
+  c.poly([[13, 5], [11, 1], [16, 5]], SHARK.m);
+  c.set(21, 8, INK);
+  c.set(22, 9, INK);
+  c.hline(20, 23, 11, '#5a1420');
+  c.outline(INK);
+  const b = frame ? [[20, 3], [23, 1]] : [[21, 2], [19, 0]];
+  for (const [x, y] of b) c.set(x, y, '#e8e070');
+  ripple(c, 13, 10, 12, 5);
+  return c;
+}
+
+/** The ship's rat, peeking out with a scrap of cloth tied over its nose. */
+function ratMask(frame) {
+  const c = new PixelCanvas(16, 12);
+  c.ellipse(8, 9, 5, 3, '#6a5a58');
+  c.ellipse(8, 6, 4, 3, '#7a6a66');
+  c.ellipse(5, 3, 1.5, 1.5, '#8a6a70');
+  c.ellipse(11, 3, 1.5, 1.5, '#8a6a70');
+  c.set(6, 5, INK);
+  c.set(10, 5, INK);
+  // the nose-cloth, knotted behind the ears
+  c.rect(5, 7, 7, 2, '#c8d6dc');
+  c.set(12, 6, '#9aaab2');
+  if (frame === 1) {
+    // sniffing: whiskers twitch
+    c.line(2, 7, 4, 8, '#d8d0c8');
+    c.line(12, 8, 14, 7, '#d8d0c8');
+  }
+  if (frame === 2) {
+    // regretting it: eyes shut
+    c.set(6, 5, '#7a6a66');
+    c.set(10, 5, '#7a6a66');
+    c.hline(5, 6, 5, INK);
+    c.hline(10, 11, 5, INK);
+  }
+  c.outline(INK);
+  return c;
+}
+
 export function buildStageAtlas() {
   const atlas = new ShelfAtlas(512, 1);
   atlas.add('bathtub_top_0', bathtubTop(0));
@@ -288,14 +468,35 @@ export function buildStageAtlas() {
   for (const k of ['coins', 'ruby', 'necklace', 'fork', 'statue']) atlas.add(`loot_${k}`, loot(k));
   atlas.add('chest_carried', chestCarried());
   atlas.add('squawks_bundle', squawksBundle());
+  for (const f of [0, 1]) {
+    atlas.add(`fin_h_${f}`, finTop('h', f));
+    atlas.add(`fin_v_${f}`, finTop('v', f));
+    atlas.add(`rowboat_beans_${f}`, rowboatLure(f));
+    atlas.add(`rowboat_pan_${f}`, rowboatLure(f, { pan: true, bitten: true }));
+    atlas.add(`rowboat_hitch_${f}`, rowboatHitchhiker(f));
+    atlas.add(`shark_belly_${f}`, sharkBelly(f));
+  }
+  for (const f of [0, 1, 2]) {
+    atlas.add(`shark_bite_${f}`, sharkBite(f));
+    atlas.add(`rat_mask_${f}`, ratMask(f));
+  }
+  atlas.add('shark_deck_0', sharkDeck('flop0'));
+  atlas.add('shark_deck_1', sharkDeck('flop1'));
+  atlas.add('shark_deck_sniff', sharkDeck('sniff'));
+  atlas.add('shark_deck_disgust', sharkDeck('disgust'));
   const built = atlas.build();
   return {
     ...built,
     anims: {
       bathtub_paddle: ['bathtub_top_0', 'bathtub_top_1'],
       rowboat_row: ['rowboat_top_0', 'rowboat_top_1'],
+      rowboat_beans: ['rowboat_beans_0', 'rowboat_beans_1'],
+      rowboat_pan: ['rowboat_pan_0', 'rowboat_pan_1'],
+      rowboat_hitch: ['rowboat_hitch_0', 'rowboat_hitch_1'],
+      shark_flop: ['shark_deck_0', 'shark_deck_1'],
+      shark_belly: ['shark_belly_0', 'shark_belly_1'],
     },
-    rates: { bathtub: 3, rowboat: 2.5 },
+    rates: { bathtub: 3, rowboat: 2.5, shark: 6, shark_belly: 2 },
   };
 }
 
@@ -304,4 +505,8 @@ export const STAGE_FRAMES = [
   'rowboat_top_0', 'rowboat_top_1', 'rowboat_top_cheer',
   'meal_onions', 'meal_garlic', 'meal_stew', 'meal_cheese', 'meal_eggs', 'meal_beans', 'meal_sausages', 'meal_jar_open',
   'loot_coins', 'loot_ruby', 'loot_necklace', 'loot_fork', 'loot_statue', 'chest_carried', 'squawks_bundle',
+  'fin_h_0', 'fin_h_1', 'fin_v_0', 'fin_v_1', 'shark_bite_0', 'shark_bite_1', 'shark_bite_2',
+  'shark_deck_0', 'shark_deck_1', 'shark_deck_sniff', 'shark_deck_disgust',
+  'rowboat_beans_0', 'rowboat_beans_1', 'rowboat_pan_0', 'rowboat_pan_1', 'rowboat_hitch_0', 'rowboat_hitch_1',
+  'shark_belly_0', 'shark_belly_1', 'rat_mask_0', 'rat_mask_1', 'rat_mask_2',
 ];

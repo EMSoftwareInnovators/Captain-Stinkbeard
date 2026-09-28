@@ -39,7 +39,7 @@ export class OverlayScene extends BaseScene {
     on('party:levelUp', ({ levelUps, source }) => {
       if (source === 'battle') return; // the battle results screen announces these itself
       for (const lv of levelUps) {
-        const name = this.app.content.characters.get(lv.character)?.name ?? lv.character;
+        const name = this.app.session?.party.nameOf(lv.character) ?? lv.character;
         this.toasts.push({ text: `<y>${name}</> reached level ${lv.level}!`, sound: 'level_up', hold: 2600 });
         for (const ab of lv.learned) {
           this.toasts.push({ text: `Learned <c>${this.app.content.abilities.get(ab)?.name ?? ab}</>`, hold: 2600 });
@@ -90,11 +90,15 @@ export class OverlayScene extends BaseScene {
   }
 
   get busy() {
-    return this.dialogue.busy || !!this.tutorialOpen;
+    return this.dialogue.busy || !!this.tutorialOpen || !!this.repairOpen;
   }
 
   update(time, delta) {
     const input = this.controls;
+    if (this.repairOpen) {
+      this.updateRepair(delta, input);
+      return;
+    }
     if (this.tutorialOpen) {
       if (input.pressed('confirm') || input.pressed('cancel')) {
         input.consume('confirm');
@@ -137,6 +141,93 @@ export class OverlayScene extends BaseScene {
       this.app.audio.ui('menu_open');
       this.tutorialOpen = { parts, resolve };
     });
+  }
+
+  /**
+   * A quick hammering prompt (patching the hull): a hammer swings along a
+   * bar; strike as it crosses the mark. Nothing can fail: two misses on a
+   * nail and the next strike is steadied for you. Resolves with the number
+   * of clean first-or-second-try strikes.
+   */
+  repair({ kind = 'hull', strikes = 3, title = null } = {}) {
+    return new Promise((resolve) => {
+      const w = 208;
+      const h = 64;
+      const x = Math.round((SCREEN_WIDTH - w) / 2);
+      const y = 132;
+      const D = 720;
+      const panel = addPanel(this, x, y, w, h, { depth: D });
+      const head = addText(this, 0, y + 7, title ?? (kind === 'hull' ? 'PATCH THE HULL' : 'REPAIR'), { font: 'bold', color: UI_COLORS.gold, depth: D + 2 });
+      centerText(head, SCREEN_WIDTH / 2);
+      const barX = x + 24;
+      const barW = w - 48;
+      const barY = y + 26;
+      const back = this.add.rectangle(barX, barY, barW, 8, 0x1a1320).setOrigin(0).setDepth(D + 1);
+      const zone = this.add.rectangle(barX, barY, 26, 8, 0x7cb45a).setOrigin(0).setDepth(D + 2);
+      const mark = this.add.rectangle(barX, barY - 3, 3, 14, 0xfff4e0).setOrigin(0.5, 0).setDepth(D + 3);
+      const hint = addText(this, 0, y + 43, '{btn:confirm} Strike on the green!', { depth: D + 2 });
+      centerText(hint, SCREEN_WIDTH / 2);
+      const nails = [];
+      for (let i = 0; i < strikes; i++) {
+        nails.push(this.add.rectangle(x + w / 2 - (strikes * 10) / 2 + i * 10 + 2, y + h - 9, 6, 4, 0x6a6a80).setOrigin(0).setDepth(D + 2));
+      }
+      const parts = [panel, head, back, zone, mark, hint, ...nails];
+      parts.forEach((p) => p.setAlpha(0));
+      this.tweens.add({ targets: parts, alpha: 1, duration: 150 });
+      this.app.audio.ui('menu_open');
+      this.repairOpen = {
+        parts, resolve, zone, mark, nails, hint, barX, barW, strikes,
+        done: 0, clean: 0, misses: 0, t: 0, dir: 1, pos: 0, speed: 150, lock: 250,
+      };
+      this.placeRepairZone();
+    });
+  }
+
+  placeRepairZone() {
+    const r = this.repairOpen;
+    const assisted = r.misses >= 2 || this.app.flags?.autoTiming;
+    const zw = assisted ? r.barW : 26;
+    r.zone.width = zw;
+    r.zone.x = assisted ? r.barX : r.barX + 12 + Math.floor(Math.random() * (r.barW - zw - 24));
+    r.zone.setFillStyle(assisted ? 0x9ad07a : 0x7cb45a);
+    if (assisted && r.misses >= 2) setText(r.hint, '<g>Steady... now!</>');
+  }
+
+  updateRepair(delta, input) {
+    const r = this.repairOpen;
+    r.lock -= delta;
+    r.pos += r.dir * r.speed * (delta / 1000);
+    if (r.pos >= r.barW) { r.pos = r.barW; r.dir = -1; }
+    if (r.pos <= 0) { r.pos = 0; r.dir = 1; }
+    r.mark.x = Math.round(r.barX + r.pos);
+    if (r.lock > 0 || !input.pressed('confirm')) return;
+    input.consume('confirm');
+    r.lock = 160;
+    const hit = r.mark.x >= r.zone.x - 2 && r.mark.x <= r.zone.x + r.zone.width + 2;
+    if (!hit) {
+      r.misses += 1;
+      this.app.audio.sfx('hammer_miss');
+      this.tweens.add({ targets: r.mark, alpha: 0.3, duration: 80, yoyo: true });
+      this.placeRepairZone();
+      return;
+    }
+    this.app.audio.sfx('hammer_hit', { rate: 0.95 + r.done * 0.06 });
+    if (r.misses < 2) r.clean += 1;
+    r.nails[r.done].setFillStyle(0xe0ad38);
+    r.done += 1;
+    r.misses = 0;
+    const k = this.app.settings.shakeScale?.() ?? 1;
+    if (k > 0) this.scene.get('World')?.cameras?.main?.shake(90, 0.004 * k);
+    if (r.done < r.strikes) {
+      r.speed += 22;
+      setText(r.hint, '{btn:confirm} Strike on the green!');
+      this.placeRepairZone();
+      return;
+    }
+    this.repairOpen = null;
+    this.app.audio.sfx('repair_done');
+    this.tweens.add({ targets: r.parts, alpha: 0, delay: 250, duration: 200, onComplete: () => r.parts.forEach((p) => p.destroy()) });
+    r.resolve(r.clean);
   }
 
   /** Chapter / notice banner across the middle of the screen. */
@@ -286,6 +377,10 @@ export class OverlayScene extends BaseScene {
     if (this.tutorialOpen) {
       this.tutorialOpen.parts.forEach((p) => p.destroy());
       this.tutorialOpen = null;
+    }
+    if (this.repairOpen) {
+      this.repairOpen.parts.forEach((p) => p.destroy());
+      this.repairOpen = null;
     }
   }
 }

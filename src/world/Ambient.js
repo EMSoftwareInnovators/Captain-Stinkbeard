@@ -1,125 +1,271 @@
 import * as Phaser from 'phaser';
-import { TILE_SIZE, SCREEN_WIDTH } from '../config/constants.js';
+import { TILE_SIZE, SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
 import { evaluateCondition } from '../systems/conditions/conditions.js';
 
 /**
  * Background life for a map (data: map.ambient): the ship's wake, passing
  * gulls with shadows, galley chimney smoke, a gull perched on the rail that
- * flies off when you get close, and slowly swaying sail shadows.
+ * flies off when you get close, and slowly swaying sail shadows. Later
+ * chapters add rain, sails that puff up on their own, a rat in a nose-cloth
+ * peeking out of its hole, odour drifting off the captain's beard.
+ *
+ * Every entry may carry "if": it comes and goes with the story, live.
  */
 export class Ambient {
   constructor(scene, list = []) {
     this.scene = scene;
-    this.perched = [];
-    this.smokers = [];
-    this.glitter = [];
-    this.voices = [];
+    this.session = scene.game.app.session;
+    this.entries = list.map((def) => ({ def, on: false, handles: [], t: def.kind === 'voice' ? 1200 : 0, i: 0 }));
     this.gullTimer = 3000;
-    this.hasGulls = false;
-    // Entries may carry "if": the story decides what life a map has.
-    const session = scene.game.app.session;
-    for (const a of list) if (!a.if || evaluateCondition(a.if, session)) this.add(a);
+    this.refresh();
   }
 
-  add(a) {
+  /** Switches entries on and off to match the story (called when flags change). */
+  refresh() {
+    for (const e of this.entries) {
+      const on = !e.def.if || evaluateCondition(e.def.if, this.session);
+      if (on === e.on) continue;
+      e.on = on;
+      if (on) this.enable(e);
+      else this.disable(e);
+    }
+  }
+
+  enable(e) {
     const s = this.scene;
+    const a = e.def;
     const px = (a.x ?? 0) * TILE_SIZE + TILE_SIZE / 2;
     const py = (a.y ?? 0) * TILE_SIZE + TILE_SIZE / 2;
     switch (a.kind) {
       case 'wake':
-        s.add.sprite(px, py, 'fx', 'wake_0').play('fx:wake').setDepth(-2500).setAlpha(0.85);
-        break;
-      case 'gulls':
-        this.hasGulls = true;
-        break;
-      case 'smoke':
-        this.smokers.push({ x: px, y: py - 26, t: 0 });
+        e.handles.push(s.add.sprite(px, py, 'fx', 'wake_0').play('fx:wake').setDepth(-2500).setAlpha(0.85));
         break;
       case 'perchedGull': {
         const g = s.add.image(px, py - 6, 'fx', 'gull_perched').setDepth(py + 1);
-        this.perched.push({ sprite: g, home: { x: px, y: py - 6 }, tx: a.x, ty: a.y, away: false });
+        e.handles.push(g);
+        e.perch = { sprite: g, tx: a.x, ty: a.y, away: false };
         break;
       }
+      case 'sailShadow': {
+        const sh = s.add.ellipse(px, py, 150, 34, 0x0a0810, 0.13).setDepth(40000);
+        s.tweens.add({ targets: sh, x: px + 5, scaleX: 1.04, duration: 3200 + Math.random() * 1200, yoyo: true, repeat: -1, ease: 'Sine.InOut' });
+        e.handles.push(sh);
+        break;
+      }
+      case 'smoke':
+        e.t = 0;
+        break;
       case 'glitter':
         // Treasure catching the light: sparkles at random spots in an area.
-        this.glitter.push({ x: a.x, y: a.y, w: a.w ?? 1, h: a.h ?? 1, t: 0, every: a.every ?? 380 });
+        e.t = 0;
         break;
       case 'voice':
         // Someone (or something) calling out from a spot, now and then:
         // { kind: 'voice', x, y, lines: [...], every: [min, max] ms, sfx }.
-        this.voices.push({ ...a, t: 1200, i: 0 });
+        e.t = a.delay ?? 1200;
         break;
-      case 'sailShadow': {
-        const sh = s.add.ellipse(px, py, 150, 34, 0x0a0810, 0.13).setDepth(40000);
-        s.tweens.add({ targets: sh, x: px + 5, scaleX: 1.04, duration: 3200 + Math.random() * 1200, yoyo: true, repeat: -1, ease: 'Sine.InOut' });
+      case 'rain':
+        e.drops = [];
+        e.t = 0;
         break;
-      }
       default:
-        break;
+        e.t = a.delay ?? this.nextDelay(a);
     }
   }
 
-  update(delta, player) {
-    const s = this.scene;
-    for (const g of this.glitter) {
-      g.t -= delta;
-      if (g.t > 0) continue;
-      g.t = g.every * (0.6 + Math.random() * 0.8);
-      const x = (g.x + Math.random() * g.w) * TILE_SIZE;
-      const y = (g.y + Math.random() * g.h) * TILE_SIZE;
-      const sp = s.add.sprite(x, y, 'fx', 'sparkle_0').setDepth(70005).setBlendMode('ADD').setTint(0xfff0a0);
-      sp.play('fx:sparkle');
-      sp.once('animationcomplete', () => sp.destroy());
+  disable(e) {
+    for (const h of e.handles) {
+      this.scene.tweens.killTweensOf(h);
+      h.destroy();
     }
-    if (!s.isBusy?.()) {
-      for (const v of this.voices) {
-        v.t -= delta;
-        if (v.t > 0) continue;
-        // Voices follow the story live (a rescued parrot stops calling out).
-        if (v.if && !evaluateCondition(v.if, s.game.app.session)) {
-          v.t = 1000;
-          continue;
-        }
-        const [min, max] = v.every ?? [3500, 6000];
-        v.t = min + Math.random() * (max - min);
-        const line = v.lines[Math.min(v.i, v.lines.length - 1)];
-        v.i = v.i + 1 >= v.lines.length && v.loop !== false ? (v.loopFrom ?? 0) : v.i + 1;
-        const at = { x: v.x * TILE_SIZE + TILE_SIZE / 2, y: v.y * TILE_SIZE };
-        s.barks?.show(at, line, { duration: v.duration ?? 2200, shout: v.shout ?? true });
-        if (v.sfx) {
-          const cam = s.cameras.main;
-          const pan = Math.max(-1, Math.min(1, (at.x - (cam.scrollX + 160)) / 200));
-          s.game.app.audio.sfx(v.sfx, { pan, volume: v.volume ?? 0.8 });
-        }
+    e.handles = [];
+    for (const d of e.drops ?? []) d.destroy();
+    e.drops = null;
+    e.perch = null;
+    if (e.rat) {
+      e.rat.destroy();
+      e.rat = null;
+    }
+  }
+
+  nextDelay(a, fallback = [4000, 9000]) {
+    const [min, max] = a.every ?? fallback;
+    return min + Math.random() * (max - min);
+  }
+
+  update(delta, player) {
+    const busy = this.scene.isBusy?.();
+    let gulls = false;
+    for (const e of this.entries) {
+      if (!e.on) continue;
+      switch (e.def.kind) {
+        case 'glitter': this.updateGlitter(e, delta); break;
+        case 'voice': if (!busy) this.updateVoice(e, delta); break;
+        case 'smoke': this.updateSmoke(e, delta); break;
+        case 'gulls': gulls = true; break;
+        case 'perchedGull': this.updatePerch(e, player); break;
+        case 'rain': this.updateRain(e, delta); break;
+        case 'sailPuff': this.updateSailPuff(e, delta); break;
+        case 'ratPeek': if (!busy) this.updateRat(e, delta); break;
+        case 'odorTrail': this.updateOdor(e, delta); break;
+        default: break;
       }
     }
-    for (const sm of this.smokers) {
-      sm.t -= delta;
-      if (sm.t > 0) continue;
-      sm.t = 420 + Math.random() * 200;
-      const puff = s.add.sprite(sm.x + (Math.random() * 4 - 2), sm.y, 'fx', 'smoke_0').setDepth(45000).setAlpha(0.8);
-      puff.play('fx:smoke');
-      s.tweens.add({
-        targets: puff,
-        y: sm.y - 40,
-        x: puff.x + 14 + Math.random() * 8,
-        alpha: 0,
-        duration: 2600,
-        onComplete: () => puff.destroy(),
-      });
-    }
-    if (this.hasGulls) {
+    if (gulls) {
       this.gullTimer -= delta;
       if (this.gullTimer <= 0) {
         this.gullTimer = 7000 + Math.random() * 9000;
         this.spawnGull();
       }
     }
-    for (const p of this.perched) {
-      if (p.away || !player) continue;
-      const d = Math.abs(player.tx - p.tx) + Math.abs(player.ty - p.ty);
-      if (d <= 3) this.scare(p);
+  }
+
+  updateGlitter(g, delta) {
+    const a = g.def;
+    g.t -= delta;
+    if (g.t > 0) return;
+    g.t = (a.every ?? 380) * (0.6 + Math.random() * 0.8);
+    const s = this.scene;
+    const x = (a.x + Math.random() * (a.w ?? 1)) * TILE_SIZE;
+    const y = (a.y + Math.random() * (a.h ?? 1)) * TILE_SIZE;
+    const sp = s.add.sprite(x, y, 'fx', 'sparkle_0').setDepth(70005).setBlendMode('ADD').setTint(0xfff0a0);
+    sp.play('fx:sparkle');
+    sp.once('animationcomplete', () => sp.destroy());
+  }
+
+  updateVoice(v, delta) {
+    const s = this.scene;
+    const a = v.def;
+    v.t -= delta;
+    if (v.t > 0) return;
+    const [min, max] = a.every ?? [3500, 6000];
+    v.t = min + Math.random() * (max - min);
+    const line = a.lines[Math.min(v.i, a.lines.length - 1)];
+    v.i = v.i + 1 >= a.lines.length && a.loop !== false ? (a.loopFrom ?? 0) : v.i + 1;
+    const at = { x: a.x * TILE_SIZE + TILE_SIZE / 2, y: a.y * TILE_SIZE };
+    s.barks?.show(at, line, { duration: a.duration ?? 2200, shout: a.shout ?? true });
+    if (a.sfx) {
+      const cam = s.cameras.main;
+      const pan = Math.max(-1, Math.min(1, (at.x - (cam.scrollX + 160)) / 200));
+      s.game.app.audio.sfx(a.sfx, { pan, volume: a.volume ?? 0.8 });
     }
+  }
+
+  updateSmoke(sm, delta) {
+    const s = this.scene;
+    const a = sm.def;
+    sm.t -= delta;
+    if (sm.t > 0) return;
+    sm.t = (a.every ?? 420) + Math.random() * 200;
+    const x = (a.x ?? 0) * TILE_SIZE + TILE_SIZE / 2;
+    const y = (a.y ?? 0) * TILE_SIZE + TILE_SIZE / 2 - (a.rise ?? 26);
+    const puff = s.add.sprite(x + (Math.random() * 4 - 2), y, 'fx', 'smoke_0').setDepth(45000).setAlpha(a.alpha ?? 0.8);
+    // "tint": a cannon mouth breathing out yellow instead of grey.
+    if (a.tint) puff.setTint(parseInt(a.tint.replace('#', ''), 16));
+    puff.play('fx:smoke');
+    s.tweens.add({
+      targets: puff,
+      y: y - 40,
+      x: puff.x + 14 + Math.random() * 8,
+      alpha: 0,
+      duration: 2600,
+      onComplete: () => puff.destroy(),
+    });
+  }
+
+  updatePerch(e, player) {
+    const p = e.perch;
+    if (!p || p.away || !player) return;
+    const d = Math.abs(player.tx - p.tx) + Math.abs(player.ty - p.ty);
+    if (d <= 3) this.scare(p);
+  }
+
+  /** Rain streaks across the screen (screen space), plus rings on the deck. */
+  updateRain(e, delta) {
+    const s = this.scene;
+    const a = e.def;
+    const cam = s.cameras.main;
+    const reduced = s.game.app.settings.reducedEffects();
+    const want = Math.round((a.density ?? 40) * (reduced ? 0.4 : 1));
+    while (e.drops.length < want) {
+      const d = s.add.rectangle(0, 0, 1, 5 + Math.floor(Math.random() * 3), 0xb8c8e8, 0.55).setOrigin(0.5, 0).setDepth(76000);
+      d.vy = 190 + Math.random() * 60;
+      d.x = cam.scrollX + Math.random() * SCREEN_WIDTH;
+      d.y = cam.scrollY + Math.random() * SCREEN_HEIGHT;
+      e.drops.push(d);
+    }
+    const sec = delta / 1000;
+    for (const d of e.drops) {
+      d.y += d.vy * sec;
+      d.x -= d.vy * 0.18 * sec;
+      if (d.y > cam.scrollY + SCREEN_HEIGHT || d.x < cam.scrollX - 4) {
+        if (Math.random() < 0.35 && !reduced) this.splashRing(d.x, d.y - Math.random() * 60);
+        d.x = cam.scrollX + Math.random() * (SCREEN_WIDTH + 30);
+        d.y = cam.scrollY - Math.random() * 30;
+      }
+    }
+  }
+
+  splashRing(x, y) {
+    const s = this.scene;
+    const r = s.add.ellipse(x, y, 2, 1, 0xd0e0f8, 0.5).setDepth(y + 1);
+    s.tweens.add({ targets: r, scaleX: 3, scaleY: 3, alpha: 0, duration: 380, onComplete: () => r.destroy() });
+  }
+
+  /** A sail swells on its own ("stored stink"): the rigging above puffs out. */
+  updateSailPuff(e, delta) {
+    const s = this.scene;
+    const a = e.def;
+    e.t -= delta;
+    if (e.t > 0) return;
+    e.t = this.nextDelay(a, [7000, 14000]);
+    const target = s.props.find((p) => p.visible && (p.uid === a.prop || p.prop === a.prop));
+    if (!target) return;
+    const img = target.sprite;
+    s.tweens.add({ targets: img, scaleX: 1.07, scaleY: 1.04, duration: 260, yoyo: true, hold: 420, ease: 'Sine.Out' });
+    s.game.app.audio.sfx('sail_puff', { volume: a.volume ?? 0.45 });
+    s.fx.burst('fume', img.x, img.y - img.height * 0.4, { count: 3, depth: 56000 });
+  }
+
+  /** The masked rat pokes its head out of its hole, sniffs, and ducks back. */
+  updateRat(e, delta) {
+    const s = this.scene;
+    const a = e.def;
+    e.t -= delta;
+    if (e.t > 0 || e.rat) return;
+    e.t = this.nextDelay(a, [9000, 16000]);
+    const x = a.x * TILE_SIZE + TILE_SIZE / 2;
+    const y = (a.y + 1) * TILE_SIZE;
+    const rat = s.add.sprite(x, y + 4, 'stage', 'rat_mask_0').setOrigin(0.5, 1).setDepth(y + 2).setAlpha(0);
+    e.rat = rat;
+    s.tweens.chain({
+      targets: rat,
+      tweens: [
+        { y, alpha: 1, duration: 260, ease: 'Sine.Out' },
+        { y, duration: 500, onStart: () => rat.setFrame('rat_mask_1') },
+        { y, duration: 500, onStart: () => rat.setFrame('rat_mask_2') },
+        { y: y + 6, alpha: 0, duration: 240, ease: 'Sine.In', onStart: () => rat.setFrame('rat_mask_0') },
+      ],
+      onComplete: () => {
+        rat.destroy();
+        if (e.rat === rat) e.rat = null;
+      },
+    });
+    const cam = s.cameras.main;
+    const pan = Math.max(-1, Math.min(1, (x - (cam.scrollX + 160)) / 200));
+    s.game.app.audio.sfx('squeak', { rate: 1.3, volume: 0.35, pan });
+  }
+
+  /** Odour lines drifting off someone (the captain's beard, since it happened). */
+  updateOdor(e, delta) {
+    const s = this.scene;
+    const a = e.def;
+    e.t -= delta;
+    if (e.t > 0) return;
+    e.t = this.nextDelay(a, [2600, 5200]);
+    const actor = a.actor === 'player' || !a.actor ? s.player : s.actors.get(a.actor);
+    if (!actor?.sprite?.visible) return;
+    s.fx.burst('odor', actor.sprite.x + (a.dx ?? 3), actor.sprite.y - (a.dy ?? 30), { count: 1, alpha: a.alpha ?? 0.55 });
   }
 
   spawnGull() {
@@ -144,6 +290,7 @@ export class Ambient {
     p.sprite.setVisible(false);
     s.tweens.add({ targets: fly, x: fly.x + 120, y: fly.y - 90, duration: 1800, onComplete: () => fly.destroy() });
     s.time.delayedCall(25000, () => {
+      if (!p.sprite.active) return;
       p.sprite.setVisible(true);
       p.away = false;
     });

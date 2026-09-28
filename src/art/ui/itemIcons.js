@@ -71,6 +71,29 @@ export const ICONS = {
     ],
     colors: { o: O, C: PAL.lea4, B: '#4a5626', b: '#2c3616', w: '#b8c890', L: PAL.cloth3, l: PAL.cloth2, X: PAL.red2 },
   },
+  // A stoneware tankard of Frog Grog: green-yellow, bubbling, and a frog
+  // painted on the side by someone who thought it was funny.
+  frog_grog: {
+    rows: [
+      '.....g....G.....',
+      '...G....g...g...',
+      '....oooooooooo..',
+      '...oYyYgYyYgYyo.',
+      '...oMMMMMMMMMMoo',
+      '...oMwwMMMMwwMoo',
+      '...oMwoMMMMwoMoo',
+      '...oMMMMMMMMMMoo',
+      '...oMMmmmmmmMMoo',
+      '...oMMMmmmmMMMoo',
+      '...oMMMMMMMMMMo.',
+      '...oMMMMMMMMMMo.',
+      '...oddddddddddo.',
+      '....oooooooooo..',
+      '................',
+      '................',
+    ],
+    colors: { o: O, Y: '#e8e070', y: '#c8c848', g: '#b8d060', G: '#e0f090', M: '#6a8a58', m: '#2c4a1c', w: '#f0f0d8', d: '#3a4a30' },
+  },
   bandage: {
     rows: [
       '................',

@@ -5,8 +5,8 @@ import * as Phaser from 'phaser';
  *
  * Markup:  <y>gold</>  <r>red</>  <g>green</>  <b>blue</>  <p>purple</>
  *          <c>cyan</>  <o>orange</>  <k>grey</>  <w>white</>
- * Tokens:  {ship} (game constants)  {player}  {gold}  {item:hardtack}
- *          {var:name}  {btn:confirm} (button glyph for the active device)
+ * Tokens:  {ship} (game constants)  {player}  {captain} ("Captain Stinkbeard")
+ *          {gold}  {item:hardtack}  {var:name}  {btn:confirm} (button glyph)
  *
  * Word wrap replaces spaces with newlines, so character indices never shift
  * and colour spans stay aligned for BitmapText.setCharacterTint.
@@ -77,6 +77,8 @@ export function formatTokens(str, { app = null, session = null } = {}) {
     if (kind === 'item') return app?.content?.items.get(arg)?.name ?? arg;
     if (kind === 'var') return String(session?.story.getVar(arg) ?? 0);
     if (kind === 'player' || kind === 'leader') return session?.party.leader()?.name ?? 'Captain';
+    // "Captain Stinkbeard" (title and name as the story has them now).
+    if (kind === 'captain') return session?.party.leader()?.fullName ?? 'Captain';
     if (kind === 'gold') return String(session?.inventory.gold ?? 0);
     const constant = app?.content?.constant(kind);
     return constant !== undefined ? String(constant) : whole;

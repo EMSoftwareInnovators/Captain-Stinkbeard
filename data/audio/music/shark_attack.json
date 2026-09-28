@@ -1,0 +1,47 @@
+{
+ "id": "shark_attack",
+ "title": "Fins",
+ "bpm": 152,
+ "stepsPerBeat": 4,
+ "reverb": 0.12,
+ "channels": {
+  "lead": {
+   "instrument": "lead_pulse",
+   "volume": 0.24,
+   "pan": 0.15
+  },
+  "stab": {
+   "instrument": "concertina",
+   "volume": 0.14,
+   "pan": -0.2
+  },
+  "bass": {
+   "instrument": "fm_bass",
+   "volume": 0.46
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.28
+  }
+ },
+ "patterns": {
+  "A": {
+   "lead": "A4:2 r:2 A4:1 A4:1 D5:2 C5:2 A4:2 G4:2 F4:2 | E4:2 r:2 E4:1 F4:1 G4:2 A4:4 C#5:4",
+   "stab": "[D4 F4]:2 r:6 [D4 F4]:2 r:6 | [C#4 E4]:2 r:6 [C#4 E4 A4]:2 r:6",
+   "bass": "D2:2 D3:1 D2:1 A2:2 D3:2 D2:2 D3:1 D2:1 C3:2 Bb2:2 | D2:2 D3:1 D2:1 A2:2 D3:2 F2:2 F3:1 F2:1 E2:2 C#2:2",
+   "drums": "k.h.s.h.k.k.s.hh k.h.s.h.k.k.s.ss"
+  },
+  "B": {
+   "lead": "D5:2 r:2 D5:1 D5:1 F5:2 E5:2 D5:2 C5:2 A4:2 | Bb4:2 r:2 Bb4:1 A4:1 G4:2 E4:4 A4:4",
+   "stab": "[Bb3 D4 F4]:2 r:6 [Bb3 D4 F4]:2 r:6 | [A3 C#4 E4]:2 r:6 [A3 C#4 E4]:2 r:6",
+   "bass": "Bb1:2 Bb2:1 Bb1:1 F2:2 Bb2:2 Bb1:2 Bb2:1 Bb1:1 A2:2 G2:2 | A1:2 A2:1 A1:1 E2:2 A2:2 A1:2 A2:1 A1:1 C#3:2 E3:2",
+   "drums": "k.h.s.h.k.k.s.hh c.h.s.h.k.T.t.tt"
+  }
+ },
+ "sequence": [
+  "A",
+  "A",
+  "B",
+  "A"
+ ]
+}

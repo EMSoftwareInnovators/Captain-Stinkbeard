@@ -143,6 +143,37 @@ export const HAT_STYLES = {
       '..tTtTtTtTtTtT..',
     ],
   },
+  // A galley cooking pot worn as a hat, handle sticking out: the Grand
+  // Stenchmaster's crown of office.
+  pot: {
+    down: [
+      '................',
+      '.....qqqqqq.....',
+      '....qaAAaaaqTTT.',
+      '....qaAaaaaq..T.',
+      '...qaaaaaaaaq...',
+      '..TTTTTTTTTTTT..',
+      '..tqqqqqqqqqqt..',
+    ],
+    left: [
+      '................',
+      '.....qqqqqq.....',
+      '....qaAAaaaqTTT.',
+      '....qaAaaaaq..T.',
+      '...qaaaaaaaaq...',
+      '..TTTTTTTTTTTT..',
+      '..tqqqqqqqqqqt..',
+    ],
+    up: [
+      '................',
+      '.....qqqqqq.....',
+      '.TTTqaaaaaaq....',
+      '.T..qaaaaaaq....',
+      '...qaaaaaaaaq...',
+      '..TTTTTTTTTTTT..',
+      '..tqqqqqqqqqqt..',
+    ],
+  },
   tophat: {
     down: [
       '.....qqqqqq.....',

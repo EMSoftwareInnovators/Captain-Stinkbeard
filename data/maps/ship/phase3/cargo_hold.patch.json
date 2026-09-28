@@ -1,0 +1,153 @@
+{
+ "id": "cargo_hold.phase3",
+ "patch": "cargo_hold",
+ "//": "Story Phase 3 in the hold: the planks by the treasure door gone mustard, and a rat that has made itself a mask.",
+ "objects": [
+  {
+   "id": "p3_h_sully",
+   "type": "npc",
+   "npc": "sully",
+   "x": 6,
+   "y": 5,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "ship_morning_started"
+     },
+     {
+      "notFlag": "sharks_mentioned"
+     }
+    ]
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "work"
+   }
+  },
+  {
+   "id": "jory_away_quarters",
+   "type": "npc",
+   "npc": "jory",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "ship_morning_started"
+     },
+     {
+      "notFlag": "sharks_mentioned"
+     }
+    ]
+   }
+  },
+  {
+   "id": "wood_yellow",
+   "type": "inspect",
+   "x": 5,
+   "y": 3,
+   "w": 3,
+   "script": "p3c4.wood",
+   "if": {
+    "objectiveActive": "ship_is_changing.wood"
+   }
+  },
+  {
+   "id": "wood_yellow_after",
+   "type": "inspect",
+   "x": 5,
+   "y": 3,
+   "w": 3,
+   "script": "inspect.p3_wood",
+   "if": {
+    "flag": "wood_yellowing_seen"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "wood_yellow_wall",
+   "x": 5,
+   "y": 2,
+   "if": {
+    "flag": "ship_morning_started"
+   }
+  },
+  {
+   "prop": "stain_yellow_big",
+   "x": 5,
+   "y": 4,
+   "if": {
+    "flag": "ship_morning_started"
+   }
+  },
+  {
+   "prop": "stain_yellow",
+   "x": 2,
+   "y": 5,
+   "if": {
+    "flag": "ship_morning_started"
+   }
+  }
+ ],
+ "ambient": [
+  {
+   "kind": "ratPeek",
+   "x": 18,
+   "y": 3,
+   "every": [
+    9000,
+    16000
+   ],
+   "if": {
+    "flag": "ship_morning_started"
+   }
+  },
+  {
+   "kind": "odorTrail",
+   "actor": "player",
+   "every": [
+    3200,
+    6400
+   ],
+   "if": {
+    "flag": "beard_sniffed"
+   }
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "sharks_mentioned"
+     },
+     {
+      "notFlag": "sharks_lured"
+     }
+    ]
+   },
+   "music": "shark_attack",
+   "musicFilter": "muffled",
+   "ambience": "below_sharks"
+  }
+ ],
+ "sharks": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "port_impact_seen"
+     },
+     {
+      "notFlag": "sharks_lured"
+     }
+    ]
+   },
+   "level": "attacking",
+   "below": true
+  }
+ ]
+}

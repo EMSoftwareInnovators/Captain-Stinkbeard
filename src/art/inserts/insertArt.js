@@ -106,13 +106,59 @@ function chargeSheet() {
   return c;
 }
 
+/** Garrick's amendment to the ship's records, nailed to the mainmast. */
+function amendmentNotice() {
+  const c = parchment(220, 126, 11);
+  drawText(c, "SHIP'S RECORDS", 110, 8, PAL.red2, { center: true });
+  drawText(c, 'AMENDMENT NO. 1', 110, 19, INK, { center: true });
+  c.hline(14, 206, 30, PAL.cloth1);
+  drawText(c, 'VESSEL:  QUEEN ANNE\'S REVENGE', 12, 36, INK);
+  const bx = drawText(c, 'CAPTAIN: ', 12, 60, INK);
+  const ex = drawText(c, 'BLACK', bx, 60, INK);
+  drawText(c, 'BEARD', ex + 1, 60, INK);
+  // "BLACK" struck through, "STINK" written above it in a large, happy hand
+  c.hline(bx - 1, ex, 63, PAL.red2);
+  c.hline(bx - 1, ex, 64, PAL.red2);
+  drawText(c, 'STINK', bx, 48, PAL.red2, { jitter: 1 });
+  c.line(ex + 1, 56, ex + 3, 59, PAL.red2);
+  drawText(c, 'BY ORDER OF THE', 110, 80, INK, { center: true });
+  drawText(c, 'GRAND STENCHMASTER', 110, 92, PAL.navy2, { center: true });
+  drawText(c, 'OF THE SEVEN SEAS', 110, 102, PAL.navy2, { center: true });
+  // the Stenchmaster's seal: a nose inside a crown, in green wax
+  c.ellipse(190, 110, 9, 8, '#5a7a2a');
+  c.ellipse(189, 109, 6, 5, '#7a9a38');
+  c.line(188, 106, 190, 112, '#2c3a14');
+  c.outline(INK);
+  return c;
+}
+
+/** Garrick's list of proposed new names for the ship, all struck out. */
+function shipNames() {
+  const c = parchment(206, 118, 13);
+  drawText(c, 'PROPOSED NAMES', 103, 8, PAL.red2, { center: true });
+  drawText(c, '(FOR THE REBRAND)', 103, 19, INK, { center: true });
+  c.hline(14, 192, 30, PAL.cloth1);
+  const names = ['THE STINKSHIP', 'THE GREAT GASSY GALLEON', 'THE FRAGRANT FORTUNE', 'THE FROG GROG FRIGATE', "THE QUEEN ANNE'S RELAPSE"];
+  names.forEach((n, i) => {
+    const y = 38 + i * 14;
+    const end = drawText(c, n, 14, y, INK);
+    // each one struck out, harder each time
+    c.line(10, y + 4, end + 3, y + 3 - (i % 2), PAL.red2);
+    if (i > 1) c.line(10, y + 5, end + 3, y + 4, PAL.red2);
+  });
+  c.outline(INK);
+  return c;
+}
+
 export function buildInsertAtlas() {
   const atlas = new ShelfAtlas(512, 2);
   atlas.add('eel_jar_label', eelJarLabel());
   atlas.add('toll_sign_close', tollSignClose());
   atlas.add('probation_rules', probationRules());
   atlas.add('charge_sheet', chargeSheet());
+  atlas.add('amendment_notice', amendmentNotice());
+  atlas.add('ship_names', shipNames());
   return atlas.build();
 }
 
-export const INSERT_NAMES = ['eel_jar_label', 'toll_sign_close', 'probation_rules', 'charge_sheet'];
+export const INSERT_NAMES = ['eel_jar_label', 'toll_sign_close', 'probation_rules', 'charge_sheet', 'amendment_notice', 'ship_names'];

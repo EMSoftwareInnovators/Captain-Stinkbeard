@@ -232,7 +232,7 @@
   },
   {
     "id": "phase2_complete",
-    "name": "Phase 2 Complete (next morning)",
+    "name": "Phase 2 Complete (later that evening)",
     "after": "frigate_encounter",
     "flags": [
       "ship_turned",
@@ -245,6 +245,277 @@
     ],
     "quests": {
       "yellow_defense": "completed"
+    },
+    "map": "main_deck",
+    "spawn": "cabin_door"
+  },
+  {
+    "id": "phase3_start",
+    "name": "Phase 3 Start (Garrick on his barrel)",
+    "after": "phase2_complete",
+    "flags": [
+      "p3_started"
+    ],
+    "quests": {
+      "necessary_promotion": "active"
+    },
+    "map": "main_deck",
+    "spawn": "cabin_door"
+  },
+  {
+    "id": "stenchmaster_declaration",
+    "name": "Grand Stenchmaster Declaration",
+    "after": "phase3_start",
+    "flags": [
+      "garrick_reforms_started",
+      "garrick_reforms_heard",
+      "stench_log_seen"
+    ],
+    "quests": {
+      "necessary_promotion": {
+        "done": [
+          "speak",
+          "reforms",
+          "log"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 12,
+    "y": 18,
+    "facing": "up"
+  },
+  {
+    "id": "pre_rename",
+    "name": "Pre-Stinkbeard Rename (confront Garrick)",
+    "after": "stenchmaster_declaration",
+    "flags": [
+      "stenchmaster_declared",
+      "amendment_read"
+    ],
+    "quests": {
+      "necessary_promotion": "completed",
+      "what_did_you_call_me": {
+        "done": [
+          "notice"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 11,
+    "y": 19,
+    "facing": "up"
+  },
+  {
+    "id": "stinkbeard_named",
+    "name": "Stinkbeard Named (that night: the grog)",
+    "after": "pre_rename",
+    "flags": [
+      "stinkbeard_proposed",
+      "beard_sniffed",
+      "naming_dispute_survived",
+      "captain_named_stinkbeard",
+      "beard_prognosis",
+      "rain_started",
+      "grog_night_started"
+    ],
+    "quests": {
+      "what_did_you_call_me": "completed",
+      "frog_grog": "active"
+    },
+    "map": "main_deck",
+    "spawn": "cabin_door"
+  },
+  {
+    "id": "frog_grog_unlocked",
+    "name": "Frog Grog Unlocked (next morning)",
+    "after": "stinkbeard_named",
+    "flags": [
+      "grog_gathering_seen",
+      "grog_tasted",
+      "grog_check_cabinet",
+      "grog_check_medicine",
+      "grog_check_hidden",
+      "frog_grog_named",
+      "frog_grog_unlocked",
+      "ship_morning_started"
+    ],
+    "quests": {
+      "frog_grog": "completed",
+      "ship_is_changing": "active"
+    },
+    "items": [
+      {
+        "id": "frog_grog",
+        "count": 2
+      }
+    ],
+    "map": "galley",
+    "spawn": "ladder"
+  },
+  {
+    "id": "ship_transformation",
+    "name": "Ship Transformation (report to Garrick)",
+    "after": "frog_grog_unlocked",
+    "flags": [
+      "wood_yellowing_seen",
+      "masked_rat_seen",
+      "sails_swollen",
+      "ropes_sweating",
+      "bell_coughs",
+      "heard_hammocks",
+      "heard_chart",
+      "heard_cannons"
+    ],
+    "quests": {
+      "ship_is_changing": {
+        "done": [
+          "wood",
+          "sails",
+          "ropes",
+          "bell",
+          "crew"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 12,
+    "y": 8,
+    "facing": "up"
+  },
+  {
+    "id": "pre_shark_attack",
+    "name": "Pre-Shark Attack (\"What sharks?\")",
+    "after": "ship_transformation",
+    "flags": [
+      "ship_names_rejected",
+      "sharks_mentioned"
+    ],
+    "quests": {
+      "ship_is_changing": "completed"
+    },
+    "map": "main_deck",
+    "x": 12,
+    "y": 8,
+    "facing": "up"
+  },
+  {
+    "id": "shark_attack",
+    "name": "Shark Attack (patch the hull)",
+    "after": "pre_shark_attack",
+    "flags": [
+      "sharks_sighted",
+      "port_impact_seen"
+    ],
+    "quests": {
+      "sharks": {
+        "done": [
+          "impact"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 8,
+    "y": 31,
+    "facing": "down"
+  },
+  {
+    "id": "rowboat_lure",
+    "name": "Garrick Rowboat Lure (lower the boat)",
+    "after": "shark_attack",
+    "flags": [
+      "plank_fetched",
+      "hull_patched",
+      "rudder_checked",
+      "beard_bait_seen",
+      "grog_spilled",
+      "deck_shark_seen",
+      "beans_provided",
+      "rowboat_plan"
+    ],
+    "vars": {
+      "hull_patch_clean": 3
+    },
+    "quests": {
+      "sharks": {
+        "done": [
+          "patch",
+          "rudder",
+          "supplies",
+          "solution"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 6,
+    "y": 24,
+    "facing": "left"
+  },
+  {
+    "id": "post_shark_damage",
+    "name": "Post-Shark Damage (Jory's report)",
+    "after": "rowboat_lure",
+    "flags": [
+      "garrick_lowered",
+      "controlled_release_rule",
+      "sharks_lured",
+      "garrick_returned",
+      "drunk_sharks_seen"
+    ],
+    "quests": {
+      "sharks": "completed",
+      "stenchmaster_temporarily": {
+        "done": [
+          "recover"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 13,
+    "y": 21,
+    "facing": "right"
+  },
+  {
+    "id": "squawks_yellow_feather",
+    "name": "Squawks Yellow Feather (evacuate Garrick again)",
+    "after": "post_shark_damage",
+    "flags": [
+      "damage_assessed",
+      "frog_water_seen",
+      "beard_inspection_agreed",
+      "stenchmaster_terms_set",
+      "squawks_feather_regrowth_started",
+      "squawks_first_new_feather_yellow",
+      "garrick_title_retained",
+      "second_gust_warning",
+      "stomach_alarm_protocol"
+    ],
+    "quests": {
+      "stenchmaster_temporarily": {
+        "done": [
+          "damage",
+          "terms",
+          "squawks",
+          "warning"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 6,
+    "y": 24,
+    "facing": "left"
+  },
+  {
+    "id": "phase3_complete",
+    "name": "Phase 3 Complete",
+    "after": "squawks_yellow_feather",
+    "flags": [
+      "garrick_evacuated_again",
+      "second_release_seen",
+      "p3_complete"
+    ],
+    "quests": {
+      "stenchmaster_temporarily": "completed"
     },
     "map": "main_deck",
     "spawn": "cabin_door"

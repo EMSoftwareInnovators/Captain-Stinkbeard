@@ -1,0 +1,46 @@
+{
+ "id": "stenchmaster_theme",
+ "title": "The Office of the Grand Stenchmaster",
+ "bpm": 100,
+ "stepsPerBeat": 4,
+ "reverb": 0.18,
+ "channels": {
+  "lead": {
+   "instrument": "brass",
+   "volume": 0.3,
+   "pan": 0.1
+  },
+  "tuba": {
+   "instrument": "fm_bass",
+   "volume": 0.46
+  },
+  "chords": {
+   "instrument": "concertina",
+   "volume": 0.12,
+   "pan": -0.25
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.24
+  }
+ },
+ "patterns": {
+  "A": {
+   "lead": "C4:2 F4:2 A4:2 C5:2 Bb4:3 A4:1 G4:4 | A4:2 F4:2 D4:2 F4:2 E4:4 C4:4 | C4:2 F4:2 A4:2 C5:2 D5:3 C5:1 Bb4:2 A4:2 | G4:4 E4:2 G4:2 F4:6 r:2",
+   "tuba": "F2:4 C3:4 F2:4 C3:4 | C3:4 G2:4 C3:4 G2:4 | F2:4 C3:4 Bb2:4 F2:4 | C3:4 G2:4 F2:8",
+   "chords": "r:4 [A3 C4 F4]:4 r:4 [A3 C4 F4]:4 | r:4 [G3 Bb3 E4]:4 r:4 [G3 Bb3 E4]:4 | r:4 [A3 C4 F4]:4 r:4 [Bb3 D4 F4]:4 | r:4 [G3 Bb3 E4]:4 [A3 C4 F4]:8",
+   "drums": "k...s.s.k...s.s. k...s.s.k...s.s. k...s.s.k...s.s. k...s.s.k.s.s.ss"
+  },
+  "B": {
+   "lead": "F5:4 E5:2 D5:2 C5:4 A4:4 | Bb4:4 A4:2 G4:2 F4:8 | D5:4 C5:2 Bb4:2 A4:4 F4:4 | G4:2 A4:2 Bb4:2 G4:2 C5:8",
+   "tuba": "F2:4 C3:4 F2:4 C3:4 | Bb2:4 F2:4 Bb2:4 F2:4 | Bb2:4 F2:4 F2:4 C3:4 | C3:4 G2:4 C3:8",
+   "chords": "r:4 [A3 C4 F4]:4 r:4 [A3 C4 F4]:4 | r:4 [Bb3 D4 F4]:4 r:4 [Bb3 D4 F4]:4 | r:4 [Bb3 D4 F4]:4 r:4 [A3 C4 F4]:4 | r:4 [Bb3 C4 E4]:4 [Bb3 C4 E4]:8",
+   "drums": "k...s.s.k...s.s. k...s.s.k...s.s. k...s.s.k...s.s. c...s.s.k.ssssss"
+  }
+ },
+ "sequence": [
+  "A",
+  "B",
+  "A"
+ ]
+}

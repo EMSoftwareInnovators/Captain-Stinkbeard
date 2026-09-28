@@ -1,0 +1,116 @@
+{
+ "id": "captains_quarters.phase3",
+ "patch": "captains_quarters",
+ "//": "Story Phase 3 in the captain's cabin: Squawks's night perch, the rum that turned, a shaving mirror the captain now avoids.",
+ "objects": [
+  {
+   "id": "p3_c_squawks",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 11,
+   "y": 5,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "rum_check",
+   "type": "inspect",
+   "x": 16,
+   "y": 8,
+   "script": "p3c3.check_rum",
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "frog_grog.confirm"
+     },
+     {
+      "notFlag": "grog_check_cabinet"
+     }
+    ]
+   },
+   "tags": [
+    "grog_check"
+   ]
+  },
+  {
+   "id": "rum_frog",
+   "type": "inspect",
+   "x": 16,
+   "y": 8,
+   "script": "inspect.p3_rum_cabinet",
+   "if": {
+    "flag": "grog_check_cabinet"
+   }
+  },
+  {
+   "id": "mirror",
+   "type": "inspect",
+   "x": 2,
+   "y": 3,
+   "script": "inspect.p3_mirror",
+   "if": {
+    "flag": "p3_started"
+   }
+  },
+  {
+   "id": "portrait_p3",
+   "type": "inspect",
+   "x": 13,
+   "y": 3,
+   "script": "inspect.p3_portrait",
+   "if": {
+    "flag": "captain_named_stinkbeard"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "shaving_mirror",
+   "x": 2,
+   "y": 2
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "grog_night_started"
+     },
+     {
+      "notFlag": "ship_morning_started"
+     }
+    ]
+   },
+   "music": "ship_theme",
+   "musicFilter": "muffled",
+   "ambience": "below_rain"
+  }
+ ],
+ "ambient": [
+  {
+   "kind": "odorTrail",
+   "actor": "player",
+   "every": [
+    3200,
+    6400
+   ],
+   "if": {
+    "flag": "beard_sniffed"
+   }
+  }
+ ]
+}

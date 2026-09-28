@@ -39,6 +39,11 @@ export const EXPRESSIONS = {
   devastated: { brow: 'up', eye: 'down', mouth: 'frown', fx: ['tear'] },
   resigned: { brow: 'low', eye: 'half', mouth: 'neutral' },
   coughing: { brow: 'up', eye: 'closed', mouth: 'open', fx: ['green'] },
+  // Story phase 3
+  queasy: { brow: 'up', eye: 'tiny', mouth: 'wobble', fx: ['green', 'sweat', 'reek'] },
+  puffed: { brow: 'up', eye: 'closed', mouth: 'puff', fx: ['flush'] },
+  tender: { brow: 'up', eye: 'half', mouth: 'smile' },
+  proud: { brow: 'raised', eye: 'closed', mouth: 'smirk', fx: ['sparkle'] },
 };
 
 export const EXPRESSION_NAMES = Object.keys(EXPRESSIONS);
@@ -313,6 +318,15 @@ function drawMouth(c, L, y, kind, hideLips = false) {
       set(-2, 0, dark); set(1, 0, dark); set(-1, 0, '#3a1418'); set(0, 0, '#3a1418');
       set(-1, 1, dark); set(0, 1, dark);
       break;
+    case 'puff':
+      // Cheeks blown out, lips pressed: holding a breath for dear life.
+      for (let i = -1; i <= 0; i++) set(i, 0, dark);
+      set(-2, 1, lip); set(1, 1, lip);
+      for (const dx of [-8, 7]) {
+        c.ellipse(CX + dx, y - 1, 3, 2.5, L.skin.S);
+        c.set(CX + dx, y - 2, '#ffffff60');
+      }
+      break;
     case 'pout':
       for (let i = -2; i <= 1; i++) set(i, 0, dark);
       for (let i = -2; i <= 1; i++) set(i, 1, lip);
@@ -338,6 +352,22 @@ function expressionFx(c, L, face, fx = []) {
       if (!r) continue;
       const k = (green ? 0.12 : 0.2) + ((y - face.top) / (face.chin - face.top)) * (green ? 0.32 : 0.3);
       for (let x = r[0]; x <= r[1]; x++) if (skins.includes(c.get(x, y))) c.blend(x, y, tint, k);
+    }
+  }
+  if (fx.includes('flush')) {
+    // Red to the ears (not breathing).
+    const r2 = faceShape(face);
+    for (let y = face.top + 4; y <= face.chin - 4; y++) {
+      const r = r2(y);
+      if (!r) continue;
+      for (let x = r[0]; x <= r[1]; x++) if ((x + y) % 2 === 0) c.blend(x, y, '#d84a3a', 0.25);
+    }
+  }
+  if (fx.includes('reek')) {
+    // Wavy smell lines rising off the beard.
+    for (let y = 30; y < 46; y++) {
+      c.set(CX - 16 + Math.round(Math.sin(y * 0.7) * 1.5), y, '#b8c84a');
+      c.set(CX + 16 + Math.round(Math.sin(y * 0.7 + 2) * 1.5), y - 6, '#c8d45a');
     }
   }
   if (fx.includes('blush')) {
@@ -607,6 +637,21 @@ function hatMass(c, L, face, style) {
     }
     return;
   }
+  if (style === 'pot') {
+    // An iron cooking pot, upside down on the head, handle out to one side.
+    const dent = L.battered;
+    c.ellipse(CX, top - 1, 12, 9, a);
+    c.ellipse(CX - 4, top - 4, 5, 3, A);
+    if (dent) c.ellipse(CX + 4, top - 6, 3, 2, q);
+    for (let x = -14; x <= 14; x++) {
+      c.set(CX + x, top + 6, T);
+      c.set(CX + x, top + 7, t);
+    }
+    c.rect(CX + 14, top, 7, 2, t);
+    c.rect(CX + 19, top - 2, 2, 4, t);
+    c.set(CX - 6, top - 5, '#ffffff50');
+    return;
+  }
   if (style === 'tophat') {
     c.rect(CX - 8, top - 10, 16, 14, a);
     c.vline(CX - 8, top - 10, top + 3, A);
@@ -644,6 +689,42 @@ function accessories(c, L, face, expression) {
     for (let y = 27; y <= 36; y++) for (let x = CX - 11; x <= CX + 10; x++) c.set(x, y, y === 27 ? '#c8d6dc' : x > CX + 5 ? '#6a7c86' : '#9aaab2');
     c.hline(CX - 12, CX + 11, 27, '#c8d6dc');
     for (let x = CX - 9; x < CX + 8; x += 4) c.set(x, 31, '#dfeef4');
+  }
+  if (L.extras.has('sockmask')) {
+    for (let y = 26; y <= 33; y++) for (let x = CX - 11; x <= CX + 10; x++) c.set(x, y, (x + y) % 4 === 0 ? '#c83a30' : y === 26 ? '#f4ece0' : '#e0d8c8');
+    // the toe, flopping
+    c.ellipse(CX + 12, 36, 3, 4, '#e0d8c8');
+    c.set(CX + 12, 38, '#c83a30');
+  }
+  if (L.extras.has('bottlemask')) {
+    c.rect(CX - 7, 26, 14, 9, '#4a7a3a');
+    c.rect(CX - 5, 27, 4, 6, '#8ab870');
+    c.rect(CX - 2, 35, 4, 5, '#3a6a2a');
+    c.rect(CX - 3, 39, 6, 2, '#6a4a2a');
+    c.hline(CX - 13, CX - 8, 29, PAL.lea2);
+    c.hline(CX + 7, CX + 12, 29, PAL.lea2);
+  }
+  if (L.extras.has('waxnose')) {
+    c.rect(CX - 2, 28, 2, 2, '#f4ecc8');
+    c.rect(CX + 1, 28, 2, 2, '#f4ecc8');
+  }
+  if (L.cloak) {
+    // The curtain over his shoulders, the tie-back cord across the chest.
+    for (let y = 38; y < 48; y++) {
+      for (let x = 0; x < 48; x++) {
+        const edge = Math.abs(x - CX);
+        if (edge > 13 - Math.max(0, 41 - y) && edge < 24) c.set(x, y, (x % 4 === 1) ? L.cloak[0] : L.cloak[1]);
+      }
+    }
+    c.hline(CX - 8, CX + 7, 41, PAL.gold3);
+    c.set(CX + 7, 42, PAL.gold4);
+    c.set(CX + 7, 43, PAL.gold2);
+  }
+  if (L.battered) {
+    for (const [x, y] of [[CX - 9, 18], [CX + 12, 24], [CX - 13, 30]]) {
+      c.set(x, y, '#9bd3e6');
+      c.set(x, y + 1, '#5a9ac8');
+    }
   }
   if (L.extras.has('pipe')) {
     c.line(CX + 3, 32, CX + 9, 35, PAL.lea2);

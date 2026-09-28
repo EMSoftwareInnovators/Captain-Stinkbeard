@@ -40,6 +40,7 @@ const FOLDER_RULES = [
   { prefix: 'story/triggers/', kind: 'storyTriggers', shape: 'list' },
   { prefix: 'hazards/', kind: 'hazards', shape: 'map' },
   { prefix: 'debug/', kind: 'debugPresets', shape: 'list' },
+  { prefix: 'logs/', kind: 'logs', shape: 'map' },
 ];
 
 /**
@@ -51,7 +52,7 @@ const FOLDER_RULES = [
  *   - an NPC or character record with "extend": "<id>" puts its dialogue
  *     selectors ahead of the original ones and adds look variants.
  */
-const MAP_PATCH_PREPEND = ['objects', 'musicVariants', 'lightingVariants', 'haze'];
+const MAP_PATCH_PREPEND = ['objects', 'musicVariants', 'lightingVariants', 'haze', 'sharks'];
 const MAP_PATCH_APPEND = ['props', 'onEnter', 'regions', 'ambient', 'fumes', 'collision'];
 
 const SINGLE_FILES = {
@@ -63,7 +64,7 @@ export const REGISTRY_KINDS = [
   'characters', 'extraSpeakers', 'npcs', 'enemies', 'abilities', 'statuses', 'items', 'shops', 'quests',
   'encounters', 'props', 'appearances', 'portraits', 'scripts', 'flags', 'maps', 'tilesets', 'music',
   'sfx', 'instruments', 'ambience', 'timing', 'backdrops', 'vistas', 'storyTriggers', 'hazards', 'debugPresets',
-  'mapPatches',
+  'mapPatches', 'logs',
 ];
 
 function relativePath(path) {
@@ -183,7 +184,19 @@ export class ContentDB {
       for (const key of MAP_PATCH_APPEND) if (patch[key]) merged[key] = [...(base[key] ?? []), ...patch[key]];
       if (patch.lights) merged.lighting = { ...(base.lighting ?? {}), lights: [...(base.lighting?.lights ?? []), ...patch.lights] };
       for (const key of ['fumeCollapse', 'fumeSafeSpawn']) if (patch[key]) merged[key] = patch[key];
-      const allowed = new Set(['id', 'patch', 'lights', 'fumeCollapse', 'fumeSafeSpawn', ...MAP_PATCH_PREPEND, ...MAP_PATCH_APPEND]);
+      // A later chapter can retire an earlier chapter's prop without editing
+      // it: its condition gains the extra "if" (both must hold).
+      for (const pc of patch.propConditions ?? []) {
+        const i = (merged.props ?? []).findIndex((p) => p && typeof p === 'object' && p.id === pc.id);
+        if (i < 0) {
+          this.loadErrors.push(`${source}: propConditions names prop id "${pc.id}", which ${patch.patch} does not have`);
+          continue;
+        }
+        const prop = merged.props[i];
+        merged.props = [...merged.props];
+        merged.props[i] = { ...prop, if: prop.if ? { all: [prop.if, pc.if] } : pc.if };
+      }
+      const allowed = new Set(['id', 'patch', 'lights', 'fumeCollapse', 'fumeSafeSpawn', 'propConditions', ...MAP_PATCH_PREPEND, ...MAP_PATCH_APPEND]);
       for (const key of Object.keys(patch)) {
         if (!allowed.has(key) && !key.startsWith('//')) this.loadErrors.push(`${source}: a map patch cannot change "${key}"`);
       }
