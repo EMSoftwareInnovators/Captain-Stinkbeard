@@ -1,4 +1,5 @@
 import { ACTIONS, KEY_BINDINGS, PAD_BINDINGS, PREVENT_DEFAULT, PROMPT_GLYPHS, STICK_DEADZONE } from './bindings.js';
+import { padLayout, hatAxis, hatDirections } from './padLayouts.js';
 import { BUTTON_GLYPHS } from '../../art/font/glyphs.js';
 
 const REPEAT_DELAY = 280; // ms before a held direction starts repeating in menus
@@ -14,6 +15,11 @@ const REPEAT_RATE = 85; // ms between repeats
  *
  * Taps shorter than a frame still register for one frame. The last-used
  * device drives on-screen button prompts.
+ *
+ * Every connected pad is read each frame, each through its own button layout
+ * (padLayouts.js): a pad the browser leaves unmapped (an Xbox pad over
+ * Bluetooth in Firefox on macOS) or a second HID device listed before the
+ * real controller can no longer hide the controller's buttons.
  */
 export class InputManager {
   constructor({ bus = null, target = globalThis.window } = {}) {
@@ -25,7 +31,8 @@ export class InputManager {
     this.device = 'keyboard';
     this.now = 0;
     this.enabled = true;
-    this.padIndex = null;
+    this.pads = []; // connected pads this frame, each { pad, layout, rest, hat }
+    this.padMemo = new Map(); // "index|id" -> { layout, rest } (first-seen axis values)
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
     this.onBlur = this.onBlur.bind(this);
@@ -64,40 +71,75 @@ export class InputManager {
     this.bus?.emit('input:device', { device });
   }
 
-  readPad() {
-    const pads = globalThis.navigator?.getGamepads?.() || [];
-    let pad = this.padIndex !== null ? pads[this.padIndex] : null;
-    if (!pad) {
-      pad = [...pads].find((p) => p && p.connected) || null;
-      this.padIndex = pad ? pad.index : null;
+  /**
+   * All connected pads, each with its layout and the axis values it rested at
+   * when first seen (so an axis that sits off-centre, like a trigger at -1,
+   * never reads as a held direction).
+   */
+  readPads() {
+    let list = [];
+    try {
+      list = globalThis.navigator?.getGamepads?.() ?? [];
+    } catch {
+      list = []; // blocked by a permissions policy
     }
-    return pad;
+    const out = [];
+    for (const pad of list) {
+      if (!pad || pad.connected === false || !pad.buttons) continue;
+      const key = `${pad.index}|${pad.id}`;
+      let memo = this.padMemo.get(key);
+      if (!memo) {
+        memo = { layout: padLayout(pad), rest: Array.from(pad.axes ?? [], (v) => v ?? 0) };
+        this.padMemo.set(key, memo);
+        this.bus?.emit('input:pad', { id: pad.id, index: pad.index, mapping: pad.mapping, layout: memo.layout.name });
+      }
+      out.push({ pad, layout: memo.layout, rest: memo.rest, hat: hatAxis(memo.layout, pad, memo.rest) });
+    }
+    return out;
   }
 
-  padActionDown(pad, action) {
-    if (!pad) return false;
-    const pressed = (i) => !!pad.buttons[i] && (pad.buttons[i].pressed || pad.buttons[i].value > 0.5);
-    if (PAD_BINDINGS[action].some(pressed)) return true;
-    const ax = pad.axes[0] || 0;
-    const ay = pad.axes[1] || 0;
+  padActionDown(entry, action) {
+    if (!entry) return false;
+    const { pad, layout, rest, hat } = entry;
+    const pressed = (i) => i !== undefined && !!pad.buttons[i] && (pad.buttons[i].pressed || pad.buttons[i].value > 0.5);
+    if (PAD_BINDINGS[action].some((name) => pressed(layout.buttons[name]))) return true;
+    if (action !== 'left' && action !== 'right' && action !== 'up' && action !== 'down') return false;
+    if (hat !== null && hatDirections(pad.axes[hat])[action]) return true;
+    // Left stick, unless that axis rests off-centre on this pad (then it isn't a stick).
+    const stick = (i) => (Math.abs(rest[i] ?? 0) < STICK_DEADZONE ? pad.axes[i] || 0 : 0);
+    const ax = stick(0);
+    const ay = stick(1);
     if (action === 'left') return ax < -STICK_DEADZONE && Math.abs(ax) >= Math.abs(ay);
     if (action === 'right') return ax > STICK_DEADZONE && Math.abs(ax) >= Math.abs(ay);
     if (action === 'up') return ay < -STICK_DEADZONE && Math.abs(ay) > Math.abs(ax);
-    if (action === 'down') return ay > STICK_DEADZONE && Math.abs(ay) > Math.abs(ax);
-    return false;
+    return ay > STICK_DEADZONE && Math.abs(ay) > Math.abs(ax);
+  }
+
+  /** What each connected pad is reporting right now (debug overlay, bug reports). */
+  padInfo() {
+    return this.readPads().map(({ pad, layout, hat }) => ({
+      index: pad.index,
+      id: pad.id,
+      mapping: pad.mapping || '(none)',
+      layout: layout.name,
+      down: pad.buttons.map((b, i) => (b && (b.pressed || b.value > 0.5) ? i : -1)).filter((i) => i >= 0),
+      axes: Array.from(pad.axes ?? [], (v) => Math.round((v ?? 0) * 100) / 100),
+      hat,
+    }));
   }
 
   /** Call once per frame before any scene reads input. */
   update(now) {
     this.now = now;
-    const pad = this.readPad();
+    const pads = this.readPads();
+    this.pads = pads;
     let padActive = false;
     for (const action of ACTIONS) {
       const st = this.state[action];
       st.prev = st.down;
       st.consumed = false;
       const key = KEY_BINDINGS[action].some((c) => this.codesDown.has(c) || this.codesTapped.has(c));
-      const padDown = this.padActionDown(pad, action);
+      const padDown = pads.some((entry) => this.padActionDown(entry, action));
       if (padDown && !st.prev) padActive = true;
       st.down = this.enabled && (key || padDown);
       if (st.down && !st.prev) {

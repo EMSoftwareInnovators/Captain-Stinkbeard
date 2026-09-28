@@ -24,24 +24,28 @@ export const KEY_BINDINGS = {
   debug: ['F2'],
 };
 
-/** Standard Gamepad API button indices. */
+/** Standard Gamepad API button indices (mapping === 'standard'). */
 export const PAD = {
   south: 0, east: 1, west: 2, north: 3, lb: 4, rb: 5, lt: 6, rt: 7,
   select: 8, start: 9, ls: 10, rs: 11, up: 12, down: 13, left: 14, right: 15,
 };
 
+/**
+ * Pad bindings by button *position* (see padLayouts.js), so they hold for
+ * pads the browser doesn't map to the standard layout too.
+ */
 export const PAD_BINDINGS = {
-  up: [PAD.up],
-  down: [PAD.down],
-  left: [PAD.left],
-  right: [PAD.right],
-  confirm: [PAD.south],
-  cancel: [PAD.east],
-  menu: [PAD.north, PAD.start],
-  run: [PAD.east, PAD.west],
-  secondary: [PAD.west],
-  pageLeft: [PAD.lb, PAD.lt],
-  pageRight: [PAD.rb, PAD.rt],
+  up: ['up'],
+  down: ['down'],
+  left: ['left'],
+  right: ['right'],
+  confirm: ['south'],
+  cancel: ['east'],
+  menu: ['north', 'start'],
+  run: ['east', 'west'],
+  secondary: ['west'],
+  pageLeft: ['lb', 'lt'],
+  pageRight: ['rb', 'rt'],
   debug: [],
 };
 
