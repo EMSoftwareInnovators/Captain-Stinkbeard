@@ -1,6 +1,7 @@
 import { PixelCanvas } from '../PixelCanvas.js';
 import { ShelfAtlas } from '../atlas.js';
 import { PAL, mix, rgba } from '../palette.js';
+import { addPhase4VistaFrames, PHASE4_VISTA_FRAMES } from './vistaPhase4.js';
 
 /**
  * Side-view art for vistas (scenes/CinemaScene.js): skies and seas for each
@@ -513,6 +514,7 @@ export function buildVistaAtlas() {
   atlas.add('shark_belly_0', sharkBellySide(0));
   atlas.add('shark_belly_1', sharkBellySide(1));
   for (let i = 0; i < 3; i++) atlas.add(`ripple_${i}`, ripple(i));
+  addPhase4VistaFrames(atlas);
   return atlas.build();
 }
 
@@ -525,4 +527,5 @@ export const VISTA_FRAMES = [
   'figurehead_ok', 'figurehead_disgusted', 'mask_telescope',
   'fin_side_0', 'fin_side_1', 'shark_leap', 'rowboat_beans_0', 'rowboat_beans_1', 'rowboat_pan_0', 'rowboat_pan_1',
   'revenge_puffed', 'shark_belly_0', 'shark_belly_1', 'ripple_0', 'ripple_1', 'ripple_2',
+  ...PHASE4_VISTA_FRAMES,
 ];

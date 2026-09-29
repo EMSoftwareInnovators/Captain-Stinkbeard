@@ -1,0 +1,11 @@
+{
+ "//": "The bell protocol (Story Phase 4; see src/systems/hazards/alarms.js). The ship's bell has coughed since the treasure room, so each level is a pattern of coughing strikes, shown as well as heard. Scripts ring them with { \"alarm\": 3, \"where\": \"the galley\" }; the world never rings them by itself.",
+ "alarms": {
+  "levels": {
+   "1": { "label": "ONE BELL", "text": "Outer cloud approaching. Walk away.", "sound": "KLANG-HACK", "sfx": "alarm_bell_1", "color": "#e8c848" },
+   "2": { "label": "TWO BELLS", "text": "Dense fumes. Hurry.", "sound": "KLANG-HACK-KOFF", "sfx": "alarm_bell_2", "color": "#e8943a" },
+   "3": { "label": "THREE BELLS", "text": "DEAD CENTER SIGHTED. EVACUATE.", "sound": "KLANG-HACK-KOFF-WHEEZE", "sfx": "alarm_bell_3", "color": "#e04030" },
+   "4": { "label": "FOUR BELLS", "text": "Garrick is drawing a forecast.", "sound": "KLANG-HACK, FOUR TIMES", "sfx": "alarm_bell_4", "color": "#b070d0" }
+  }
+ }
+}

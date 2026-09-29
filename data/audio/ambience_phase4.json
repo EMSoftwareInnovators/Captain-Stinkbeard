@@ -1,0 +1,35 @@
+{
+ "//": "Story Phase 4 ambience beds: the crew asleep on deck (snoring, creaking, the odd fin), the ship drifting off course, and the frenzy above and below the waterline.",
+ "deck_night_sleepers": {
+  "loops": [{ "source": "ocean", "volume": 0.42 }, { "source": "wind", "volume": 0.14 }],
+  "oneshots": [
+   { "sounds": ["creak0", "creak1", "creak2"], "every": [6, 12], "volume": 0.26 },
+   { "sounds": ["snore"], "every": [4, 9], "volume": 0.3 },
+   { "sounds": ["shark_surface"], "every": [14, 24], "volume": 0.14 }
+  ]
+ },
+ "deck_drifting": {
+  "loops": [{ "source": "ocean", "volume": 0.5 }, { "source": "wind", "volume": 0.26 }],
+  "oneshots": [
+   { "sounds": ["drift_creak"], "every": [5, 9], "volume": 0.3 },
+   { "sounds": ["creak1", "creak2"], "every": [6, 11], "volume": 0.24 },
+   { "sounds": ["cough0", "cough1", "cough2"], "every": [8, 15], "volume": 0.14 }
+  ]
+ },
+ "deck_frenzy": {
+  "loops": [{ "source": "ocean", "volume": 0.7 }, { "source": "wind", "volume": 0.24 }],
+  "oneshots": [
+   { "sounds": ["frenzy_churn"], "every": [2, 4], "volume": 0.34 },
+   { "sounds": ["shark_bite", "frenzy_hit"], "every": [3, 6], "volume": 0.3 },
+   { "sounds": ["wood_crack"], "every": [7, 12], "volume": 0.26 }
+  ]
+ },
+ "below_frenzy": {
+  "loops": [{ "source": "ocean", "muffled": true, "volume": 0.72 }],
+  "oneshots": [
+   { "sounds": ["shark_thump", "frenzy_hit"], "every": [2, 5], "volume": 0.42 },
+   { "sounds": ["creak1", "creak2", "creak3"], "every": [3, 6], "volume": 0.45 },
+   { "sounds": ["hull_crack_heavy"], "every": [9, 16], "volume": 0.3 }
+  ]
+ }
+}

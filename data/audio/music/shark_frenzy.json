@@ -1,0 +1,49 @@
+{
+ "id": "shark_frenzy",
+ "title": "Frenzy",
+ "//": "Story Phase 4: the Dead Center reaches the waterline. Heavier than Shark Duty: brass, pounding toms, D minor leaning on E flat.",
+ "bpm": 176,
+ "stepsPerBeat": 4,
+ "reverb": 0.14,
+ "channels": {
+  "lead": {
+   "instrument": "brass",
+   "volume": 0.28,
+   "pan": 0.1
+  },
+  "stab": {
+   "instrument": "concertina",
+   "volume": 0.14,
+   "pan": -0.25
+  },
+  "bass": {
+   "instrument": "fm_bass",
+   "volume": 0.46
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.3
+  }
+ },
+ "patterns": {
+  "A": {
+   "lead": "D5:4 Eb5:4 D5:2 C5:2 A4:4 | D5:4 Eb5:4 F5:2 Eb5:2 D5:4 | A5:4 G5:2 F5:2 Eb5:4 D5:4 | C5:2 D5:2 Eb5:2 C5:2 A4:8",
+   "stab": "[D4 F4 A4]:2 r:2 [D4 F4 A4]:2 r:2 [Eb4 G4 Bb4]:2 r:6 | [D4 F4 A4]:2 r:2 [D4 F4 A4]:2 r:2 [Eb4 G4 Bb4]:2 r:6 | [F4 A4 C5]:2 r:2 [F4 A4 C5]:2 r:2 [Eb4 G4 Bb4]:2 r:6 | [C#4 E4 G4]:2 r:2 [C#4 E4 G4]:2 r:2 [C#4 E4 A4]:8",
+   "bass": "D2:2 D2:2 D3:2 D2:2 Eb2:2 Eb2:2 Eb3:2 D2:2 | D2:2 D2:2 D3:2 D2:2 Eb2:2 Eb2:2 F2:2 Eb2:2 | F2:2 F2:2 F3:2 F2:2 Eb2:2 Eb2:2 Eb3:2 D2:2 | C#2:2 C#2:2 C#3:2 C#2:2 A1:2 A1:2 A2:2 A1:2",
+   "drums": "k.t.k.t.k.T.k.T. k.t.k.t.k.T.s.s. k.t.k.t.k.T.k.T. k.k.s.k.T.T.t.tt"
+  },
+  "B": {
+   "lead": "A5:4 Bb5:4 A5:4 G5:4 | F5:4 G5:4 A5:8 | D6:4 C6:4 Bb5:4 A5:4 | G5:2 F5:2 Eb5:2 C#5:2 D5:8",
+   "stab": "[Bb3 D4 F4]:4 r:4 [Bb3 D4 F4]:4 r:4 | [A3 C#4 E4]:4 r:4 [A3 C#4 E4]:4 r:4 | [Bb3 D4 G4]:4 r:4 [Bb3 D4 G4]:4 r:4 | [A3 C#4 E4]:4 r:4 [D4 F4 A4]:8",
+   "bass": "Bb1:2 Bb1:2 Bb2:2 Bb1:2 Bb1:2 Bb1:2 Bb2:2 Bb1:2 | A1:2 A1:2 A2:2 A1:2 A1:2 A1:2 A2:2 A1:2 | G1:2 G1:2 G2:2 G1:2 G1:2 G1:2 G2:2 G1:2 | A1:2 A1:2 A2:2 A1:2 D2:2 D2:2 D3:2 D2:2",
+   "drums": "c.t.k.t.k.T.k.T. k.t.k.t.k.T.k.T. c.t.k.t.k.T.k.T. k.k.s.s.T.T.t.tt"
+  }
+ },
+ "sequence": [
+  "A",
+  "A",
+  "B",
+  "A",
+  "B"
+ ]
+}

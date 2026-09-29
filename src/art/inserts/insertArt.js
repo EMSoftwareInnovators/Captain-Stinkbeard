@@ -2,6 +2,7 @@ import { PixelCanvas } from '../PixelCanvas.js';
 import { ShelfAtlas } from '../atlas.js';
 import { PAL } from '../palette.js';
 import { drawText } from '../font/drawText.js';
+import { addForecastInserts, FORECAST_INSERT_NAMES } from './forecastArt.js';
 
 /**
  * Close-up "inserts" shown full-size in a frame (CinemaScene.insert): a
@@ -158,7 +159,8 @@ export function buildInsertAtlas() {
   atlas.add('charge_sheet', chargeSheet());
   atlas.add('amendment_notice', amendmentNotice());
   atlas.add('ship_names', shipNames());
+  addForecastInserts(atlas);
   return atlas.build();
 }
 
-export const INSERT_NAMES = ['eel_jar_label', 'toll_sign_close', 'probation_rules', 'charge_sheet', 'amendment_notice', 'ship_names'];
+export const INSERT_NAMES = ['eel_jar_label', 'toll_sign_close', 'probation_rules', 'charge_sheet', 'amendment_notice', 'ship_names', ...FORECAST_INSERT_NAMES];

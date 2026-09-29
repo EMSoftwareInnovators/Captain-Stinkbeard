@@ -17,9 +17,9 @@
  */
 export const DEFAULT_ALARMS = Object.freeze({
   1: { label: 'ONE BELL', text: 'Outer cloud approaching', sound: 'KLANG-HACK', sfx: 'bell_cough', color: '#e8c848', bells: 1 },
-  2: { label: 'TWO BELLS', text: 'Dense fumes', sound: 'KLANG-HACK, KLANG-HACK', sfx: 'bell_cough', color: '#e8943a', bells: 2 },
-  3: { label: 'THREE BELLS', text: 'DEAD CENTER SIGHTED. EVACUATE.', sound: 'KLANG-HACK-KOFF', sfx: 'bell_cough', color: '#e04030', bells: 3 },
-  4: { label: 'FOUR BELLS', text: 'New forecast being drawn', sound: 'KLANG-HACK-KOFF-WHEEZE', sfx: 'bell_cough', color: '#b070d0', bells: 4 },
+  2: { label: 'TWO BELLS', text: 'Dense fumes', sound: 'KLANG-HACK-KOFF', sfx: 'bell_cough', color: '#e8943a', bells: 2 },
+  3: { label: 'THREE BELLS', text: 'DEAD CENTER SIGHTED. EVACUATE.', sound: 'KLANG-HACK-KOFF-WHEEZE', sfx: 'bell_cough', color: '#e04030', bells: 3 },
+  4: { label: 'FOUR BELLS', text: 'Garrick is drawing a forecast', sound: 'KLANG-HACK, FOUR TIMES', sfx: 'bell_cough', color: '#b070d0', bells: 4 },
 });
 
 export function alarmLevels(content) {

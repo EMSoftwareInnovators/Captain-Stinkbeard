@@ -1,0 +1,54 @@
+{
+ "id": "weary_morning",
+ "title": "Morning Watch (Weary)",
+ "//": "Story Phase 4: the ship theme a week into life around the Dead Center. Slower, a concertina wheezing the tune, the high note never reached, and every phrase ending a little lower than it should.",
+ "bpm": 56,
+ "stepsPerBeat": 6,
+ "reverb": 0.22,
+ "channels": {
+  "lead": {
+   "instrument": "concertina",
+   "volume": 0.2,
+   "pan": 0.1
+  },
+  "flute": {
+   "instrument": "flute",
+   "volume": 0.16,
+   "pan": -0.1
+  },
+  "harm": {
+   "instrument": "pluck",
+   "volume": 0.24,
+   "pan": -0.15
+  },
+  "bass": {
+   "instrument": "pluck_bass",
+   "volume": 0.42
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.12
+  }
+ },
+ "patterns": {
+  "A": {
+   "lead": "G4:6 B4:6 | C5:4 A4:2 F#4:6 | G4:4 B4:2 D5:6 | B4:6 A4:6 | G4:4 B4:2 D5:4 E5:2 | D5:4 C5:2 B4:4 A4:2 | B4:4 G4:2 A4:4 F#4:2 | G4:6 F#4:3 F4:3",
+   "flute": "r:12 | r:12 | r:12 | r:12 | r:12 | r:12 | r:12 | r:12",
+   "harm": "[G3 B3 D4]:12 | [F#3 A3 D4]:12 | [G3 B3 D4]:12 | [F#3 A3 D4]:12 | [E3 G3 B3]:12 | [F#3 A3 C4]:12 | [G3 B3 D4]:6 [F#3 A3 D4]:6 | [G3 B3 F4]:12",
+   "bass": "G2:12 | D2:12 | G2:12 | D2:12 | E2:12 | D2:12 | G2:6 D2:6 | G2:12",
+   "drums": "k........... ......s..... k........... ......s..... k........... ......s..... k........... ............"
+  },
+  "B": {
+   "lead": "r:12 | r:12 | r:12 | r:12 | r:12 | r:12 | r:12 | r:12",
+   "flute": "E5:6 D5:6 | C5:6 B4:6 | A4:6 G4:6 | F#4:12 | E4:6 G4:6 | A4:6 B4:6 | A4:6 F#4:6 | G4:9 F4:3",
+   "harm": "[C4 E4 G4]:12 | [B3 D4 G4]:12 | [A3 C4 E4]:12 | [F#3 A3 D4]:12 | [E3 G3 B3]:12 | [C3 E3 A3]:12 | [D3 F#3 A3]:12 | [G3 B3 D4]:12",
+   "bass": "C3:12 | G2:12 | A2:12 | D2:12 | E2:12 | C2:12 | D2:12 | G2:12",
+   "drums": "k........... ............ k........... ......s..... k........... ............ k........... ............"
+  }
+ },
+ "sequence": [
+  "A",
+  "B",
+  "A"
+ ]
+}

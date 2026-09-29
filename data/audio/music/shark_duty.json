@@ -1,0 +1,48 @@
+{
+ "id": "shark_duty",
+ "title": "Shark Duty",
+ "//": "Story Phase 4: the most hated job aboard, set to something brisk. E minor, a pulse lead, concertina stabs on the shoves.",
+ "bpm": 168,
+ "stepsPerBeat": 4,
+ "reverb": 0.1,
+ "channels": {
+  "lead": {
+   "instrument": "lead_pulse",
+   "volume": 0.22,
+   "pan": 0.15
+  },
+  "stab": {
+   "instrument": "concertina",
+   "volume": 0.15,
+   "pan": -0.2
+  },
+  "bass": {
+   "instrument": "fm_bass",
+   "volume": 0.42
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.26
+  }
+ },
+ "patterns": {
+  "A": {
+   "lead": "E5:2 r:1 E5:1 G5:2 E5:2 D5:2 B4:2 D5:4 | E5:2 r:1 E5:1 G5:2 A5:2 B5:4 A5:2 G5:2 | F#5:2 r:1 F#5:1 A5:2 F#5:2 E5:2 D5:2 E5:4 | B4:2 D5:2 E5:2 G5:2 F#5:4 E5:4",
+   "stab": "[E4 G4 B4]:2 r:2 [E4 G4 B4]:2 r:10 | [E4 G4 B4]:2 r:2 [E4 G4 B4]:2 r:10 | [D4 F#4 A4]:2 r:2 [D4 F#4 A4]:2 r:10 | [B3 D#4 F#4]:2 r:2 [B3 D#4 F#4]:2 r:10",
+   "bass": "E2:2 E3:2 E2:2 E3:2 E2:2 E3:2 D3:2 B2:2 | E2:2 E3:2 E2:2 E3:2 G2:2 G3:2 A2:2 B2:2 | D2:2 D3:2 D2:2 D3:2 D2:2 D3:2 C3:2 A2:2 | B1:2 B2:2 B1:2 B2:2 B1:2 B2:2 D#3:2 F#3:2",
+   "drums": "k.hsk.hsk.hsk.hs k.hsk.hsk.hsk.ss k.hsk.hsk.hsk.hs k.hsk.hsk.s.sss."
+  },
+  "B": {
+   "lead": "B5:2 r:2 B5:2 r:2 A5:2 G5:2 F#5:4 | G5:2 r:2 G5:2 r:2 F#5:2 E5:2 D5:4 | E5:2 r:2 E5:2 r:2 D5:2 C5:2 B4:4 | C5:4 D5:4 D#5:4 B4:4",
+   "stab": "[C4 E4 G4]:4 r:4 [C4 E4 G4]:4 r:4 | [A3 C4 E4]:4 r:4 [A3 C4 E4]:4 r:4 | [G3 B3 E4]:4 r:4 [G3 B3 E4]:4 r:4 | [A3 C4 F#4]:4 r:4 [B3 D#4 F#4]:8",
+   "bass": "C2:2 C3:2 C2:2 C3:2 C2:2 C3:2 C2:2 C3:2 | A1:2 A2:2 A1:2 A2:2 A1:2 A2:2 A1:2 A2:2 | E2:2 E3:2 E2:2 E3:2 E2:2 E3:2 E2:2 E3:2 | A1:2 A2:2 C3:2 A2:2 B1:2 B2:2 D#3:2 F#3:2",
+   "drums": "k...s...k.k.s... k...s...k.k.s... k...s...k.k.s... k.k.s.k.s.s.ssss"
+  }
+ },
+ "sequence": [
+  "A",
+  "A",
+  "B",
+  "A"
+ ]
+}
