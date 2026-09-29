@@ -98,13 +98,19 @@ export const COMMAND_SCHEMAS = {
   logbook: { logbook: 'log', entry: 'string?' },
   swapItem: { swapItem: 'item', to: 'item', bonus: 'number?', silent: 'boolean?' },
   tint: { tint: 'actor', color: 'string', duration: 'number?', async: 'boolean?' },
-  sharks: { sharks: 'string' },
+  sharks: { sharks: 'string', crowd: 'number?' },
   sharkEvent: { sharkEvent: 'string', x: 'number?', y: 'number?', duration: 'number?', async: 'boolean?' },
   repair: { repair: 'string', strikes: 'number?', title: 'string?', var: 'string?' },
+
+  // --- Story Phase 4 -----------------------------------------------------------
+  deadCenter: { deadCenter: 'string' },
+  alarm: { alarm: 'number', where: 'string?', wait: 'boolean?' },
+  course: { course: 'string', heading: 'number?', target: 'number?', to: 'number?', duration: 'number?', label: 'string?', async: 'boolean?' },
+  sharkDuty: { sharkDuty: 'string' },
 };
 
 /** Commands that may carry "async": true (start and continue without waiting). */
-export const ASYNC_COMMANDS = new Set(['move', 'fly', 'hop', 'propFx', 'roll', 'moveSprite', 'fumeCloud', 'vistaMove', 'shake', 'emote', 'tint', 'sharkEvent']);
+export const ASYNC_COMMANDS = new Set(['move', 'fly', 'hop', 'propFx', 'roll', 'moveSprite', 'fumeCloud', 'vistaMove', 'shake', 'emote', 'tint', 'sharkEvent', 'course']);
 
 export const PARTICLE_BURSTS = ['coins', 'gems', 'splinters', 'feathers', 'sparkle', 'fume', 'odor', 'splash', 'dust', 'dishes'];
 export const PROP_FX = ['jiggle', 'swing', 'fall', 'frame'];

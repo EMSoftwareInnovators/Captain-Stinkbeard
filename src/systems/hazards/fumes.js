@@ -40,8 +40,26 @@ export function fumeRank(level, config = DEFAULT_FUME_CONFIG) {
   return level ? config.levels[level]?.rank ?? 0 : 0;
 }
 
-/** Position of a zone at time t (ms): its rect, moved along its path if it has one. */
+/**
+ * Position of a zone at time t (ms): its rect, moved along its path if it has
+ * one, and still rolling in if it arrived moments ago ("enterFrom": the
+ * offset in tiles it starts at, "enterMs": how long it takes to settle).
+ */
 export function zoneRect(zone, t = 0) {
+  const r = baseRect(zone, t);
+  if (Array.isArray(zone.enterFrom) && Number.isFinite(zone.activeSince)) {
+    const k = (t - zone.activeSince) / (zone.enterMs ?? 4000);
+    if (k < 1) {
+      const u = Math.max(0, k);
+      const rest = 1 - u * u * (3 - 2 * u); // eased: slow start, slow settle
+      r.x += zone.enterFrom[0] * rest;
+      r.y += zone.enterFrom[1] * rest;
+    }
+  }
+  return r;
+}
+
+function baseRect(zone, t) {
   if (!Array.isArray(zone.path) || zone.path.length < 2) return { x: zone.x, y: zone.y, w: zone.w ?? 1, h: zone.h ?? 1 };
   const pts = zone.path;
   // Ping-pong along the waypoints over periodMs (there and back).
@@ -71,9 +89,20 @@ export class FumeField {
     this.activeZones = [];
   }
 
-  /** Re-evaluates which authored zones exist for the current story state. */
-  refresh(session) {
-    this.activeZones = this.zones.filter((z) => evaluateCondition(z.if, session));
+  /**
+   * Re-evaluates which authored zones exist for the current story state. A
+   * zone that has just appeared remembers when (`t`, the fume clock) so it
+   * can roll in; `immediate` (a map loading) puts everything straight in place.
+   */
+  refresh(session, t = 0, { immediate = false } = {}) {
+    const live = new Map();
+    for (const z of this.zones) {
+      if (!evaluateCondition(z.if, session)) continue;
+      const prev = this.live?.get(z);
+      live.set(z, prev ?? { ...z, activeSince: immediate ? -Infinity : t });
+    }
+    this.live = live;
+    this.activeZones = [...live.values()];
     return this.all();
   }
 

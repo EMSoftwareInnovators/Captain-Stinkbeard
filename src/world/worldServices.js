@@ -430,8 +430,14 @@ export function createWorldServices(scene) {
     },
 
     /** Holds a shark level for the scene (null: back to the map's own). */
-    sharks(level) {
-      scene.sharks.hold(level, sharkLevelFor(scene.model.meta, scene.session));
+    sharks(level, { crowd = null } = {}) {
+      scene.sharks.hold(level, sharkLevelFor(scene.model.meta, scene.session), { crowd });
+    },
+
+    /** "clear": every shark at the duty rail backs off (the story takes over). */
+    sharkDuty(mode) {
+      if (mode === 'clear') scene.sharkDuty.stop();
+      scene.sharkDuty.sync();
     },
 
     /** Staged shark moments (see world/SharkLayer.js). */
@@ -445,6 +451,11 @@ export function createWorldServices(scene) {
         case 'lure': return sl.lure(x, y, duration);
         case 'follow': return sl.setFollow(true);
         case 'unfollow': return sl.setFollow(false);
+        // Phase 4: the waterline frenzy, a thrash of the sea, a hammerhead ramming the hull.
+        case 'frenzy': return sl.setFocus(x, y);
+        case 'calm': return sl.setFocus(null);
+        case 'thrash': return sl.thrash(x, y, duration);
+        case 'hammerhead': return sl.hammerhead(x, y);
         default: throw new Error(`Unknown shark event "${kind}"`);
       }
     },
@@ -496,6 +507,8 @@ export function createWorldServices(scene) {
         await overlay.banner(text, sub);
       },
       openShop: (id) => scene.openShop(id),
+      alarm: (level, opts) => overlay.alarm(level, opts),
+      course: (mode, opts) => overlay.course(mode, opts),
       openLog: (id, entry) => scene.openLog(id, entry),
       repair: async (opts) => {
         await overlay.dialogue.close();

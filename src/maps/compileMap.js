@@ -155,6 +155,8 @@ export function compileMap(def, tileset, props = null) {
       // Sharks around the ship (see systems/hazards/sharks.js):
       //   [{ if, level, below? }], first matching entry wins.
       sharks: def.sharks ?? [],
+      // Shark Duty (Phase 4, see world/SharkDuty.js): [{ if, session }], first match runs.
+      sharkDuty: def.sharkDuty ?? [],
       outdoor: (def.background ?? 'void') === 'ocean',
     },
   };

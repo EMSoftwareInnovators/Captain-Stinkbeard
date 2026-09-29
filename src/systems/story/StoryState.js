@@ -1,9 +1,11 @@
 /**
- * Central story state: named boolean flags plus named integer variables.
+ * Central story state: named boolean flags, named integer variables, and
+ * named text values (Story Phase 4: where the Dead Center is today).
  *
  *   story.has('met_first_mate')
  *   story.set('met_first_mate')
  *   story.clear('met_first_mate')
+ *   story.setValue('dead_center', 'galley_table')   // null clears it
  *
  * Flags are declared in data/story/flags/*.json. When `knownFlags` is given and
  * `strict` is on (development), touching an undeclared flag throws so typos
@@ -16,6 +18,7 @@ export class StoryState {
     this.strict = strict;
     this.flags = new Set();
     this.vars = new Map();
+    this.values = new Map();
   }
 
   checkFlag(flag) {
@@ -69,6 +72,20 @@ export class StoryState {
     return this.getVar(name);
   }
 
+  getValue(name, fallback = null) {
+    return this.values.has(name) ? this.values.get(name) : fallback;
+  }
+
+  /** Sets a text value; null (or '') clears it. */
+  setValue(name, value) {
+    if (value !== null && value !== undefined && typeof value !== 'string') throw new Error(`Story value "${name}" must be a string or null`);
+    const prev = this.getValue(name);
+    const next = value || null;
+    if (next === null) this.values.delete(name);
+    else this.values.set(name, next);
+    if (prev !== next) this.bus?.emit('story:valueChanged', { name, value: next, prev });
+  }
+
   allFlags() {
     return [...this.flags].sort();
   }
@@ -77,6 +94,7 @@ export class StoryState {
     return {
       flags: this.allFlags(),
       vars: Object.fromEntries([...this.vars.entries()].sort(([a], [b]) => a.localeCompare(b))),
+      values: Object.fromEntries([...this.values.entries()].sort(([a], [b]) => a.localeCompare(b))),
     };
   }
 
@@ -84,6 +102,9 @@ export class StoryState {
     this.flags = new Set(Array.isArray(data.flags) ? data.flags.filter((f) => typeof f === 'string') : []);
     this.vars = new Map(
       Object.entries(data.vars || {}).filter(([, v]) => Number.isFinite(v)),
+    );
+    this.values = new Map(
+      Object.entries(data.values || {}).filter(([, v]) => typeof v === 'string' && v.length > 0),
     );
   }
 }

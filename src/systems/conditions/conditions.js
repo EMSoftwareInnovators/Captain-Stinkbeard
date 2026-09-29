@@ -152,6 +152,15 @@ export const CONDITION_OPERATORS = {
     },
   },
 
+  /** Where the Dead Center is today (a location id, a list of them, or "none"). */
+  deadCenter: {
+    evaluate: (v, s) => {
+      const at = s.story.getValue?.('dead_center') ?? null;
+      return asArray(v).some((id) => (id === 'none' ? at === null : at === id));
+    },
+    validate: (v, c) => asArray(v).forEach((id) => c.deadCenter?.(id)),
+  },
+
   all: {
     evaluate: (v, s) => asArray(v).every((cond) => evaluateCondition(cond, s)),
     validate: (v, c) => asArray(v).forEach((cond) => validateCondition(cond, c)),

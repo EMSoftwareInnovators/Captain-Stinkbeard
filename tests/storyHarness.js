@@ -57,6 +57,7 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
       return async () => null;
     },
   });
+  const alarms = [];
   const services = {
     dialogue: {
       say: async (line) => log.push(`${line.speaker ?? '-'}: ${line.text}`),
@@ -74,6 +75,9 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
       openLog: async (id) => { opened.push(id); },
       // The hull-patch timing game: a clean run unless a test says otherwise.
       repair: async ({ strikes }) => (repairScore ?? strikes),
+      // Phase 4: the bell protocol and the course dial (recorded for tests).
+      alarm: async (level, { where } = {}) => { alarms.push({ level, where, at: staging.context }); },
+      course: async () => {},
     },
     audio: { sfx: () => {}, music: () => {}, ambience: () => {} },
     world,
@@ -95,6 +99,7 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
     choices,
     opened,
     flagAt,
+    alarms,
     /** Sets how many clean strikes the next repair timing game scores. */
     setRepairScore(n) {
       repairScore = n;

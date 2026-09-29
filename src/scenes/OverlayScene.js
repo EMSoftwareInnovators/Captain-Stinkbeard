@@ -5,6 +5,15 @@ import { Toasts } from '../ui/Toasts.js';
 import { addPanel } from '../ui/Panel.js';
 import { addText, centerText, setText, UI_COLORS } from '../ui/text.js';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
+import { alarmLevel, alarmColor } from '../systems/hazards/alarms.js';
+
+/** The timing bar's variants: title, prompt and sounds. */
+const REPAIR_KINDS = {
+  hull: { title: 'PATCH THE HULL', hint: 'Strike on the green!', hit: 'hammer_hit', miss: 'hammer_miss', done: 'repair_done' },
+  shark: { title: 'REPEL THE SHARK', hint: 'Shove on the green!', hit: 'pole_strike', miss: 'pole_whiff', done: 'shark_repelled', speed: 170 },
+  rope: { title: 'SECURE THE ROPE', hint: 'Haul on the green!', hit: 'rope_haul', miss: 'hammer_miss', done: 'repair_done' },
+  helm: { title: 'BRING HER ABOUT', hint: 'Hold her on the mark!', hit: 'wheel_turn', miss: 'hammer_miss', done: 'repair_done', speed: 120 },
+};
 
 /**
  * Always-on-top scene for UI shared by every other scene: dialogue,
@@ -151,12 +160,14 @@ export class OverlayScene extends BaseScene {
   }
 
   /**
-   * A quick hammering prompt (patching the hull): a hammer swings along a
-   * bar; strike as it crosses the mark. Nothing can fail: two misses on a
-   * nail and the next strike is steadied for you. Resolves with the number
-   * of clean first-or-second-try strikes.
+   * A quick timing prompt: a marker swings along a bar; press Confirm as it
+   * crosses the green. Nothing can fail: two misses in a row and the next
+   * one is steadied for you. Resolves with the number of clean strikes.
+   * Kinds (Phase 3 and 4): hull (hammering a patch), shark (a pole shove),
+   * rope (hauling a line tight), helm (bringing the wheel back on course).
    */
   repair({ kind = 'hull', strikes = 3, title = null } = {}) {
+    const K = REPAIR_KINDS[kind] ?? REPAIR_KINDS.hull;
     return new Promise((resolve) => {
       const w = 208;
       const h = 64;
@@ -164,7 +175,7 @@ export class OverlayScene extends BaseScene {
       const y = 132;
       const D = 720;
       const panel = addPanel(this, x, y, w, h, { depth: D });
-      const head = addText(this, 0, y + 7, title ?? (kind === 'hull' ? 'PATCH THE HULL' : 'REPAIR'), { font: 'bold', color: UI_COLORS.gold, depth: D + 2 });
+      const head = addText(this, 0, y + 7, title ?? K.title, { font: 'bold', color: UI_COLORS.gold, depth: D + 2 });
       centerText(head, SCREEN_WIDTH / 2);
       const barX = x + 24;
       const barW = w - 48;
@@ -172,7 +183,7 @@ export class OverlayScene extends BaseScene {
       const back = this.add.rectangle(barX, barY, barW, 8, 0x1a1320).setOrigin(0).setDepth(D + 1);
       const zone = this.add.rectangle(barX, barY, 26, 8, 0x7cb45a).setOrigin(0).setDepth(D + 2);
       const mark = this.add.rectangle(barX, barY - 3, 3, 14, 0xfff4e0).setOrigin(0.5, 0).setDepth(D + 3);
-      const hint = addText(this, 0, y + 43, '{btn:confirm} Strike on the green!', { depth: D + 2 });
+      const hint = addText(this, 0, y + 43, `{btn:confirm} ${K.hint}`, { depth: D + 2 });
       centerText(hint, SCREEN_WIDTH / 2);
       const nails = [];
       for (let i = 0; i < strikes; i++) {
@@ -183,8 +194,8 @@ export class OverlayScene extends BaseScene {
       this.tweens.add({ targets: parts, alpha: 1, duration: 150 });
       this.app.audio.ui('menu_open');
       this.repairOpen = {
-        parts, resolve, zone, mark, nails, hint, barX, barW, strikes,
-        done: 0, clean: 0, misses: 0, t: 0, dir: 1, pos: 0, speed: 150, lock: 250,
+        parts, resolve, zone, mark, nails, hint, barX, barW, strikes, K,
+        done: 0, clean: 0, misses: 0, t: 0, dir: 1, pos: 0, speed: K.speed ?? 150, lock: 250,
       };
       this.placeRepairZone();
     });
@@ -213,12 +224,12 @@ export class OverlayScene extends BaseScene {
     const hit = r.mark.x >= r.zone.x - 2 && r.mark.x <= r.zone.x + r.zone.width + 2;
     if (!hit) {
       r.misses += 1;
-      this.app.audio.sfx('hammer_miss');
+      this.app.audio.sfx(r.K.miss);
       this.tweens.add({ targets: r.mark, alpha: 0.3, duration: 80, yoyo: true });
       this.placeRepairZone();
       return;
     }
-    this.app.audio.sfx('hammer_hit', { rate: 0.95 + r.done * 0.06 });
+    this.app.audio.sfx(r.K.hit, { rate: 0.95 + r.done * 0.06 });
     if (r.misses < 2) r.clean += 1;
     r.nails[r.done].setFillStyle(0xe0ad38);
     r.done += 1;
@@ -227,14 +238,119 @@ export class OverlayScene extends BaseScene {
     if (k > 0) this.scene.get('World')?.cameras?.main?.shake(90, 0.004 * k);
     if (r.done < r.strikes) {
       r.speed += 22;
-      setText(r.hint, '{btn:confirm} Strike on the green!');
+      setText(r.hint, `{btn:confirm} ${r.K.hint}`);
       this.placeRepairZone();
       return;
     }
     this.repairOpen = null;
-    this.app.audio.sfx('repair_done');
+    this.app.audio.sfx(r.K.done);
     this.tweens.add({ targets: r.parts, alpha: 0, delay: 250, duration: 200, onComplete: () => r.parts.forEach((p) => p.destroy()) });
     r.resolve(r.clean);
+  }
+
+  /**
+   * The course dial (Phase 4: the helm is blocked and the ship drifts): a
+   * small compass at the top left with the ordered course in gold and the
+   * ship's heading as a red needle, and how far off course she is, in words
+   * and degrees.
+   *   course('show', { heading, target }) · course('drift', { to, duration }) · course('hide')
+   */
+  course(mode, { heading, target, to, duration = 4000, label = null } = {}) {
+    if (mode === 'hide') {
+      const c = this.courseDial;
+      this.courseDial = null;
+      if (c) this.tweens.add({ targets: c.parts, alpha: 0, duration: 250, onComplete: () => c.parts.forEach((p) => p.destroy()) });
+      return Promise.resolve();
+    }
+    if (!this.courseDial) {
+      const D = 440;
+      const x = 6;
+      const y = 30;
+      const panel = addPanel(this, x, y, 96, 58, { depth: D });
+      const g = this.add.graphics().setDepth(D + 1);
+      const title = addText(this, x + 46, y + 6, 'COURSE', { font: 'bold', color: UI_COLORS.gold, depth: D + 1 });
+      const text = addText(this, x + 46, y + 20, '', { depth: D + 1, maxWidth: 46 });
+      this.courseDial = { parts: [panel, g, title, text], g, text, x, y, heading: heading ?? 0, target: target ?? 0, label };
+      this.courseDial.parts.forEach((p) => p.setAlpha(0));
+      this.tweens.add({ targets: this.courseDial.parts, alpha: 1, duration: 200 });
+    }
+    const c = this.courseDial;
+    if (heading !== undefined) c.heading = heading;
+    if (target !== undefined) c.target = target;
+    if (label !== null) c.label = label;
+    this.drawCourse();
+    if (mode !== 'drift' || to === undefined) return Promise.resolve();
+    return new Promise((resolve) => {
+      this.tweens.add({
+        targets: c, heading: to, duration, ease: 'Sine.InOut',
+        onUpdate: () => this.drawCourse(),
+        onComplete: () => {
+          this.drawCourse();
+          resolve();
+        },
+      });
+    });
+  }
+
+  drawCourse() {
+    const c = this.courseDial;
+    if (!c) return;
+    const cx = c.x + 24;
+    const cy = c.y + 30;
+    const r = 18;
+    const g = c.g;
+    g.clear();
+    g.fillStyle(0x0e1622, 1).fillCircle(cx, cy, r);
+    g.lineStyle(1, 0x8a7a5a, 1).strokeCircle(cx, cy, r);
+    for (let i = 0; i < 8; i++) {
+      const a = (i / 8) * Math.PI * 2;
+      const k = i % 2 ? 0.8 : 0.66;
+      g.lineStyle(1, 0x6a5a48, 1).lineBetween(cx + Math.sin(a) * r * k, cy - Math.cos(a) * r * k, cx + Math.sin(a) * r, cy - Math.cos(a) * r);
+    }
+    const at = (deg, len) => [cx + Math.sin((deg * Math.PI) / 180) * len, cy - Math.cos((deg * Math.PI) / 180) * len];
+    const [tx, ty] = at(c.target, r - 2);
+    g.lineStyle(2, 0xe0ad38, 1).lineBetween(cx, cy, tx, ty);
+    const [hx, hy] = at(c.heading, r - 3);
+    g.lineStyle(2, 0xe44c3a, 1).lineBetween(cx, cy, hx, hy);
+    g.fillStyle(0xfff4e0, 1).fillCircle(cx, cy, 1.5);
+    const off = Math.round(Math.abs(((c.heading - c.target + 540) % 360) - 180));
+    const words = c.label ?? (off < 4 ? '<g>On course</>' : off < 20 ? '<y>Drifting</>' : '<r>Off course</>');
+    setText(c.text, `${words}\n<k>${off}°</>`);
+  }
+
+  /**
+   * The Shark Duty board (top right, under the location title): the duty's
+   * name, how many sharks have been seen off, and how many are at the rail
+   * now. Null hides it.
+   */
+  setDutyBoard(state) {
+    if (!state) {
+      this.dutyBoard?.parts.forEach((p) => p.destroy());
+      this.dutyBoard = null;
+      return;
+    }
+    const D = 430;
+    if (!this.dutyBoard) {
+      const panel = addPanel(this, 0, 0, 10, 10, { depth: D });
+      const head = addText(this, 0, 0, '', { font: 'bold', color: 0xe86050, depth: D + 1 });
+      const body = addText(this, 0, 0, '', { depth: D + 1 });
+      const at = addText(this, 0, 0, '', { depth: D + 1 });
+      this.dutyBoard = { parts: [panel, head, body, at], panel, head, body, at };
+    }
+    const b = this.dutyBoard;
+    setText(b.head, state.title);
+    setText(b.body, state.text ?? '');
+    setText(b.at, state.sharks ? `<r>At the rail: ${state.sharks}</>` : '<k>Rail clear</>');
+    const w = Math.max(b.head.textWidth, b.body.textWidth, b.at.textWidth) + 16;
+    const h = 44;
+    const x = SCREEN_WIDTH - w - 6;
+    const y = 30;
+    b.panel.destroy();
+    b.panel = addPanel(this, x, y, w, h, { depth: D });
+    b.parts[0] = b.panel;
+    b.head.setPosition(x + 8, y + 5);
+    b.body.setPosition(x + 8, y + 18);
+    b.at.setPosition(x + 8, y + 29);
   }
 
   /** Chapter / notice banner across the middle of the screen. */
@@ -275,6 +391,71 @@ export class OverlayScene extends BaseScene {
           parts.forEach((p) => p.destroy());
           resolve();
         },
+      });
+    });
+  }
+
+  /**
+   * The bell protocol (Phase 4): plays the level's bell pattern and shows,
+   * below the FUMES meter, the bells, what they mean, where, and the sound
+   * written out, with the screen's edges pulsing once per bell. Never relies
+   * on sound alone. Resolves when the warning has had its moment.
+   */
+  alarm(level, { where = null, hold = 2600 } = {}) {
+    const def = alarmLevel(this.app.content, level);
+    if (!def) return Promise.resolve();
+    this.alarmParts?.forEach((p) => p.destroy());
+    this.alarmParts = null;
+    const D = 860;
+    const col = alarmColor(def);
+    const bells = Math.max(1, Math.min(6, def.bells ?? Number(level)));
+    const head = addText(this, 0, 0, def.label, { font: 'bold', color: col, depth: D + 2 });
+    const detail = addText(this, 0, 0, where ? `${def.text} <k>(${where})</>` : def.text, { maxWidth: SCREEN_WIDTH - 48, depth: D + 2 });
+    const sound = def.sound ? addText(this, 0, 0, `<k>${def.sound}</>`, { depth: D + 2 }) : null;
+    const iconsW = bells * 13;
+    const w = Math.min(SCREEN_WIDTH - 16, Math.max(iconsW + head.textWidth + 26, detail.textWidth + 20, (sound?.textWidth ?? 0) + 20));
+    const lines = detail.text.split('\n').length;
+    const h = 36 + lines * 11 + (sound ? 11 : 0);
+    const x = Math.round((SCREEN_WIDTH - w) / 2);
+    const y = 34;
+    const panel = addPanel(this, x, y, w, h, { depth: D });
+    const rule = this.add.rectangle(x + 3, y + 3, w - 6, 2, col).setOrigin(0).setDepth(D + 1);
+    const icons = [];
+    const startX = Math.round(SCREEN_WIDTH / 2 - (iconsW + 6 + head.textWidth) / 2);
+    for (let i = 0; i < bells; i++) icons.push(this.add.image(startX + i * 13, y + 8, 'ui', 'icon_bell').setOrigin(0).setDepth(D + 2));
+    head.setPosition(startX + iconsW + 6, y + 11);
+    detail.setPosition(x + 10, y + 27);
+    centerText(detail, SCREEN_WIDTH / 2);
+    if (sound) {
+      sound.y = y + 27 + lines * 11;
+      centerText(sound, SCREEN_WIDTH / 2);
+    }
+    // The edges of the screen pulse once per bell (softer with Reduced effects).
+    const reduced = this.app.settings.reducedEffects?.();
+    const t = 3;
+    const edges = [
+      this.add.rectangle(0, 0, SCREEN_WIDTH, t, col),
+      this.add.rectangle(0, SCREEN_HEIGHT - t, SCREEN_WIDTH, t, col),
+      this.add.rectangle(0, 0, t, SCREEN_HEIGHT, col),
+      this.add.rectangle(SCREEN_WIDTH - t, 0, t, SCREEN_HEIGHT, col),
+    ].map((r) => r.setOrigin(0).setDepth(D - 1).setAlpha(0));
+    const parts = [panel, rule, head, detail, ...(sound ? [sound] : []), ...icons];
+    this.alarmParts = [...parts, ...edges];
+    parts.forEach((p) => p.setAlpha(0));
+    this.tweens.add({ targets: parts, alpha: 1, duration: 160 });
+    this.tweens.add({ targets: edges, alpha: { from: 0, to: reduced ? 0.35 : 0.8 }, duration: 180, yoyo: true, hold: 60, repeat: bells - 1, repeatDelay: 180 });
+    // Each bell swings as it rings.
+    icons.forEach((ic, i) => this.tweens.add({ targets: ic, angle: { from: -18, to: 18 }, duration: 150, yoyo: true, repeat: 2, delay: i * 240 }));
+    if (def.sfx) this.app.audio.sfx(def.sfx);
+    const mine = this.alarmParts;
+    return new Promise((resolve) => {
+      this.time.delayedCall(hold, () => {
+        if (this.alarmParts !== mine) return resolve();
+        this.tweens.add({ targets: mine, alpha: 0, duration: 320, onComplete: () => {
+          mine.forEach((p) => p.destroy());
+          if (this.alarmParts === mine) this.alarmParts = null;
+          resolve();
+        } });
       });
     });
   }

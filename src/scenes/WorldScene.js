@@ -23,6 +23,8 @@ import { TILE_SIZE, DIR_VECTORS, OPPOSITE_DIR, DIRECTIONS, SCREEN_WIDTH, SCREEN_
 import { hash32 } from '../core/Rng.js';
 import { asArray } from '../core/util.js';
 import { placementChoices, placementChanges } from '../world/placements.js';
+import { deadCenterZonesFor, deadCenterSeals } from '../systems/hazards/deadCenter.js';
+import { SharkDuty } from '../world/SharkDuty.js';
 
 // Step durations chosen so a 60 Hz frame moves a whole number of pixels:
 // walking is 2 px per frame (8 frames per tile), running 3 px per frame.
@@ -102,11 +104,13 @@ export class WorldScene extends BaseScene {
     this.barks = new Barks(this);
     this.stage = new Stage(this);
     const cfg = fumeConfig(this.content);
-    this.fumeField = new FumeField(this.model.meta.fumes, cfg);
+    // The room's own fumes, plus the Dead Center wherever the story has put it (Phase 4).
+    this.fumeField = new FumeField([...(this.model.meta.fumes ?? []), ...deadCenterZonesFor(this.content, this.model.id)], cfg);
     this.fumeLayer = new FumeLayer(this, cfg);
     this.session.transient.exposure ??= new Exposure(cfg);
     this.exposure = this.session.transient.exposure;
     this.sharks = new SharkLayer(this, sharkConfig(this.content));
+    this.sharkDuty = new SharkDuty(this);
     this.grade = this.add.rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0xffffff).setOrigin(0).setScrollFactor(0).setDepth(75000).setBlendMode('MULTIPLY');
     this.applyReducedEffects();
     this.refreshStory({ immediate: true });
@@ -128,6 +132,7 @@ export class WorldScene extends BaseScene {
       this.app.bus.on('story:flagSet', markStory),
       this.app.bus.on('story:flagCleared', markStory),
       this.app.bus.on('story:varChanged', markStory),
+      this.app.bus.on('story:valueChanged', markStory),
       this.app.bus.on('quest:started', markStory),
       this.app.bus.on('quest:objectiveCompleted', markStory),
       this.app.bus.on('quest:completed', markStory),
@@ -151,6 +156,7 @@ export class WorldScene extends BaseScene {
     this.stage?.clear();
     this.fumeLayer?.destroy();
     this.sharks?.destroy();
+    this.sharkDuty?.destroy();
     // The camera may already be torn down when the scene shuts down.
     this.cameras?.main?.setRotation(0);
   }
@@ -527,6 +533,7 @@ export class WorldScene extends BaseScene {
     this.updateMarker(busy);
     this.updateFumes(dt, busy);
     this.sharks.update(dt, { busy, player: this.player });
+    this.sharkDuty.update(dt, busy || this.leaving);
     this.updateDebugDraw();
     this.ambient.update(dt, this.player);
     this.updateCamera(dt);
@@ -578,9 +585,10 @@ export class WorldScene extends BaseScene {
       if (a.npc) a.setTexture(`char_${resolveVariant(a.npc, session).appearance ?? a.npc.id}`);
     }
     this.player?.setTexture(`char_${this.playerAppearance()}`);
-    this.fumeLayer.setZones(this.fumeField.refresh(session));
+    this.fumeLayer.setZones(this.fumeField.refresh(session, this.fumeClock, { immediate }));
     this.fumeLayer.setHaze(hazeFor(this.model.meta.haze, session));
     this.sharks.setLevel(sharkLevelFor(this.model.meta, session), { immediate });
+    this.sharkDuty?.sync();
     this.ambient?.refresh();
     this.announceLogEntries();
     this.applyTimeOfDay(immediate ? 0 : 1600);
@@ -1009,7 +1017,8 @@ export class WorldScene extends BaseScene {
       p.stopWalking();
       this.wasMoving = false;
       this.lockedHold = dir;
-      if (warp.locked) this.runScript(warp.locked);
+      const lockScript = this.warpLockScript(warp);
+      if (lockScript) this.runScript(lockScript);
       return;
     }
     const blocked = this.app.flags.noclip ? nx < 0 || ny < 0 || nx >= this.model.width || ny >= this.model.height || !!occ : this.isBlocked(nx, ny, p);
@@ -1106,7 +1115,19 @@ export class WorldScene extends BaseScene {
   }
 
   warpUnlocked(warp) {
-    return !warp.if || evaluateCondition(warp.if, this.session);
+    if (warp.if && !evaluateCondition(warp.if, this.session)) return false;
+    // Nobody walks into a room the Dead Center is sitting in (Phase 4).
+    return !this.deadCenterSealsWarp(warp);
+  }
+
+  deadCenterSealsWarp(warp) {
+    return !!warp.to?.map && warp.to.map !== this.model.id && deadCenterSeals(this.content, this.session, warp.to.map);
+  }
+
+  /** What runs when a locked warp is bumped: the Dead Center's warning, or the warp's own. */
+  warpLockScript(warp) {
+    if (this.deadCenterSealsWarp(warp) && (!warp.if || evaluateCondition(warp.if, this.session))) return 'hazard.dead_center_door';
+    return warp.locked ?? null;
   }
 
   warpAt(x, y) {
@@ -1124,6 +1145,9 @@ export class WorldScene extends BaseScene {
   /** What the player would interact with right now (for the marker and confirm). */
   interactionTarget() {
     const { x, y } = this.facingTile();
+    // Shark Duty first: a shark at the rail can't wait for small talk.
+    const duty = this.sharkDuty?.targetAt(x, y);
+    if (duty) return { kind: 'duty', incident: duty, x, y };
     const occ = this.occupantAt(x, y);
     if (occ && occ.kind === 'npc' && occ.npc) return { kind: 'npc', actor: occ, x, y };
     for (const obj of this.objects) {
@@ -1135,7 +1159,7 @@ export class WorldScene extends BaseScene {
     const prop = this.propAt.get(this.key(x, y));
     if (prop?.def?.inspect) return { kind: 'prop', prop, x, y };
     const warp = this.warpAt(x, y);
-    if (warp?.locked && !this.warpUnlocked(warp)) return { kind: 'locked', warp, x, y };
+    if (warp && this.warpLockScript(warp) && !this.warpUnlocked(warp)) return { kind: 'locked', warp, x, y };
     return null;
   }
 
@@ -1143,11 +1167,12 @@ export class WorldScene extends BaseScene {
     const t = this.interactionTarget();
     if (!t) return false;
     if (t.kind !== 'npc') this.reach();
-    if (t.kind === 'npc') this.talkTo(t.actor);
+    if (t.kind === 'duty') this.sharkDuty.respond(t.incident);
+    else if (t.kind === 'npc') this.talkTo(t.actor);
     else if (t.kind === 'inspect') this.inspectObject(t.obj);
     else if (t.kind === 'chest') this.openChest(t.obj);
     else if (t.kind === 'prop') this.inspectProp(t.prop, t.x, t.y);
-    else if (t.kind === 'locked') this.runScript(t.warp.locked);
+    else if (t.kind === 'locked') this.runScript(this.warpLockScript(t.warp));
     return true;
   }
 
@@ -1255,6 +1280,8 @@ export class WorldScene extends BaseScene {
       my = t.actor.sprite.y - 45;
     } else if (t.kind === 'chest') {
       hint = this.session.world.isOpened(WorldState.key(this.model.id, t.obj.id)) ? 'Inspect' : 'Open';
+    } else if (t.kind === 'duty') {
+      hint = this.sharkDuty.hintFor(t.incident);
     }
     // Gentle 2px bob, stepped to whole pixels.
     const bob = Math.round((Math.sin((this.markerTime / 760) * Math.PI * 2) - 1) * 1);

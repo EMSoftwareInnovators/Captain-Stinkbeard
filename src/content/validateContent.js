@@ -4,6 +4,8 @@ import { validateCondition, COMPARE_KEYS, splitObjectiveRef } from '../systems/c
 import { COMMAND_SCHEMAS, STEP_MODIFIERS, EMOTES, isCommentKey, commandNameOf, PARTICLE_BURSTS, PROP_FX, ASYNC_COMMANDS } from '../systems/script/commandSchemas.js';
 import { FUME_LEVELS, HAZE_LEVELS } from '../systems/hazards/fumes.js';
 import { SHARK_LEVELS, SHARK_EVENTS } from '../systems/hazards/sharks.js';
+import { DEAD_CENTER_NONE, deadCenterLocations } from '../systems/hazards/deadCenter.js';
+import { alarmLevel, alarmLevels } from '../systems/hazards/alarms.js';
 import { parseLine } from '../systems/script/parseLine.js';
 import { normalizeScript } from '../systems/script/ScriptRunner.js';
 import { OBJECTIVE_TYPES } from '../systems/quests/QuestSystem.js';
@@ -73,6 +75,12 @@ class Checker {
   portrait(id) { this.ref('portrait', id, this.ctx.db.portraits); }
   timing(id) { this.ref('timing mechanic', id, this.ctx.db.timing); }
   vista(id) { this.ref('vista', id, this.ctx.db.vistas); }
+  /** A Dead Center location (data/hazards/dead_center.json), or "none". */
+  deadCenter(id) {
+    if (id === DEAD_CENTER_NONE) return;
+    const locations = deadCenterLocations(this.ctx.db);
+    if (typeof id !== 'string' || !(id in locations)) this.error(`unknown Dead Center location "${id}" (see data/hazards/dead_center.json)`);
+  }
 
   objective(ref) {
     const [q, o] = splitObjectiveRef(ref);
@@ -285,6 +293,11 @@ function validateStep(step, check, sctx) {
     });
   }
   if (name === 'camera' && !['pan', 'follow', 'reset'].includes(step.camera)) check.error(`camera mode must be pan|follow|reset`);
+  if (name === 'deadCenter') check.deadCenter(step.deadCenter);
+  if (name === 'course' && !['show', 'drift', 'hide'].includes(step.course)) check.error('course must be show, drift or hide');
+  if (name === 'sharkDuty' && step.sharkDuty !== 'clear') check.error('sharkDuty must be "clear"');
+  if (name === 'alarm' && !alarmLevel(check.ctx.db, step.alarm)) check.error(`alarm level must be one of ${Object.keys(alarmLevels(check.ctx.db)).join(', ')}`);
+  if (name === 'alarm' && step.where) validateText(step.where, check.at('alarm.where'));
   if (name === 'restage' && !['walk', 'cut'].includes(step.restage)) check.error('restage must be "walk" or "cut"');
   if (name === 'burst' && !PARTICLE_BURSTS.includes(step.burst)) check.error(`unknown burst "${step.burst}" (use: ${PARTICLE_BURSTS.join(', ')})`);
   if (name === 'propFx' && !PROP_FX.includes(step.propFx)) check.error(`unknown propFx "${step.propFx}" (use: ${PROP_FX.join(', ')})`);
@@ -831,6 +844,15 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       if (!l.id) lc.error('vista layer needs an id');
       else if (ids.has(l.id)) lc.error(`duplicate layer id "${l.id}"`);
       ids.add(l.id);
+      if (l.school) {
+        // A crowd layer: frames, a count and an area to scatter them over.
+        const sc = l.school;
+        if (!Array.isArray(sc.frames) || !sc.frames.length) lc.error('school needs "frames"');
+        else sc.frames.forEach((f) => { if (!art.vista.has(f)) lc.error(`no vista art "${f}"`); });
+        if (!Number.isInteger(sc.count) || sc.count < 1 || sc.count > 400) lc.error('school "count" must be 1-400');
+        if (sc.area && !(Array.isArray(sc.area) && sc.area.length === 4)) lc.error('school "area" is [x, y, w, h]');
+        return;
+      }
       if (!art.vista.has(l.frame)) lc.error(`no vista art "${l.frame}"`);
       (l.frames || []).forEach((f) => { if (!art.vista.has(f)) lc.error(`no vista art "${f}"`); });
     });
@@ -845,6 +867,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     if (log.icon && !art.icons.has(log.icon)) c.error(`unknown icon "${log.icon}"`);
     if (!Array.isArray(log.fields) || !log.fields.length) c.error('log needs "fields": [{ id, label }]');
     const fieldIds = new Set((log.fields || []).map((f) => f.id));
+    const scaled = new Set((log.fields || []).filter((f) => f.id === 'severity' || f.scale).map((f) => f.id));
     const ids = new Set();
     (log.entries || []).forEach((e, i) => {
       const ec = c.at(`entries[${i}]`);
@@ -857,9 +880,18 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       for (const t of texts) {
         for (const [k, v] of Object.entries(t)) {
           if (['id', 'title', 'if', 'variants'].includes(k) || isCommentKey(k)) continue;
+          // An entry can carry a picture to look at (a crayon forecast map).
+          if (k === 'insert') {
+            if (!art.inserts.has(v)) ec.error(`no insert art "${v}"`);
+            continue;
+          }
+          if (k === 'caption') {
+            validateText(v, ec);
+            continue;
+          }
           if (!fieldIds.has(k)) ec.error(`unknown log field "${k}" (fields: ${[...fieldIds].join(', ')})`);
           else if (typeof v === 'string') validateText(v, ec);
-          if (k === 'severity' && log.severities && !(v in log.severities)) ec.error(`severity "${v}" is not one of ${Object.keys(log.severities).join(', ')}`);
+          if (scaled.has(k) && log.severities && !(v in log.severities)) ec.error(`${k} "${v}" is not one of ${Object.keys(log.severities).join(', ')}`);
         }
       }
       (e.variants || []).forEach((v, j) => {

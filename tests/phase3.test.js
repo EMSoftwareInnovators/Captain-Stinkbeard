@@ -235,8 +235,8 @@ describe('the shark threat', () => {
 });
 
 describe('Phase 3 saves', () => {
-  it('is version 3, and a Phase 2 save migrates and walks straight into chapter 9', () => {
-    expect(SAVE_VERSION).toBe(3);
+  it('is version 3 or later, and a Phase 2 save migrates and walks straight into chapter 9', () => {
+    expect(SAVE_VERSION).toBeGreaterThanOrEqual(3);
     const phase2 = atPreset('phase2_complete');
     const v2 = JSON.parse(JSON.stringify(phase2.serialize()));
     delete v2.world.counters;

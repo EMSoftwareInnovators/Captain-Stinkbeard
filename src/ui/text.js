@@ -1,3 +1,4 @@
+import { deadCenterName } from '../systems/hazards/deadCenter.js';
 import * as Phaser from 'phaser';
 
 /**
@@ -80,6 +81,8 @@ export function formatTokens(str, { app = null, session = null } = {}) {
     // "Captain Stinkbeard" (title and name as the story has them now).
     if (kind === 'captain') return session?.party.leader()?.fullName ?? 'Captain';
     if (kind === 'gold') return String(session?.inventory.gold ?? 0);
+    // Where the Dead Center is today ("the galley").
+    if (kind === 'deadCenter') return deadCenterName(app?.content, session);
     const constant = app?.content?.constant(kind);
     return constant !== undefined ? String(constant) : whole;
   });

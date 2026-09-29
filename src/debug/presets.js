@@ -6,6 +6,7 @@ import { asArray } from '../core/util.js';
  *
  *   { "id", "name", "after": "<preset>",          // builds on another preset
  *     "flags": [...], "clearFlags": [...], "vars": { name: value },
+ *     "values": { name: "text" | null },           // e.g. where the Dead Center is
  *     "quests": { "<quest>": "active" | "completed" | { "done": [objective, ...] } },
  *     "items": ["id" | { "id", "count" }],
  *     "map", "spawn" | "x"/"y"/"facing", "script" }
@@ -25,7 +26,7 @@ export function resolvePreset(content, id) {
     chain.unshift(cur);
     cur = cur.after ? content.debugPresets.get(cur.after) : null;
   }
-  const plan = { id, name: chain[chain.length - 1].name, flags: [], clearFlags: [], vars: {}, quests: [], items: [], location: null, script: null };
+  const plan = { id, name: chain[chain.length - 1].name, flags: [], clearFlags: [], vars: {}, values: {}, quests: [], items: [], location: null, script: null };
   for (const p of chain) {
     for (const f of p.flags ?? []) if (!plan.flags.includes(f)) plan.flags.push(f);
     for (const f of p.clearFlags ?? []) {
@@ -33,6 +34,7 @@ export function resolvePreset(content, id) {
       if (!plan.clearFlags.includes(f)) plan.clearFlags.push(f);
     }
     Object.assign(plan.vars, p.vars ?? {});
+    Object.assign(plan.values, p.values ?? {});
     // Quest steps are applied in order: a later preset completes what an earlier one started.
     for (const [quest, state] of Object.entries(p.quests ?? {})) plan.quests.push([quest, state]);
     for (const it of p.items ?? []) plan.items.push(typeof it === 'string' ? { id: it, count: 1 } : { id: it.id, count: it.count ?? 1 });
@@ -46,6 +48,7 @@ export function resolvePreset(content, id) {
 export function applyPresetPlan(session, plan) {
   for (const it of plan.items) if (session.inventory.count(it.id) < it.count) session.inventory.add(it.id, it.count - session.inventory.count(it.id));
   for (const [name, value] of Object.entries(plan.vars)) session.story.setVar(name, value);
+  for (const [name, value] of Object.entries(plan.values ?? {})) session.story.setValue(name, value);
   for (const f of plan.flags) session.story.set(f);
   for (const [quest, state] of plan.quests) {
     const q = session.quests;

@@ -1,5 +1,6 @@
 import { addPanel } from '../Panel.js';
-import { addText, UI_COLORS } from '../text.js';
+import { addText, centerText, UI_COLORS } from '../text.js';
+import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../config/constants.js';
 import { ListMenu } from '../ListMenu.js';
 import { UiLayer } from './UiLayer.js';
 import { logEntries, unseenEntryIds, markEntrySeen, severityMarkup } from '../../systems/logs/logbook.js';
@@ -89,10 +90,43 @@ export class LogPage {
     for (const f of log.fields ?? []) {
       const raw = e[f.id];
       if (raw === undefined || raw === null || raw === '') continue;
-      const value = f.id === 'severity' ? severityMarkup(log, raw) : f.quote ? `"${raw}"` : raw;
+      const value = f.id === 'severity' || f.scale ? severityMarkup(log, raw) : f.quote ? `"${raw}"` : raw;
       const t = this.detail.add(addText(scene, x, y, `<k>${f.label}</>  ${value}`, { depth: D, maxWidth: w }));
       y += Math.max(1, t.text.split('\n').length) * 11 + 2;
     }
+    // An entry with a picture (a crayon forecast map) can be looked at full size.
+    if (e.insert) {
+      const hint = this.detail.add(addText(scene, 0, rect.y + rect.h - 20, `{btn:confirm} ${log.viewLabel ?? 'View the map'}`, { depth: D, color: UI_COLORS.gold }));
+      hint.x = rect.x + rect.w - 12 - hint.textWidth;
+    }
+  }
+
+  /** The selected entry's picture, full size over the menu; any button closes it. */
+  openPicture(e) {
+    const { scene } = this;
+    const D = 900;
+    const dim = scene.add.rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0x05040a, 0.86).setOrigin(0).setDepth(D);
+    const img = scene.add.image(SCREEN_WIDTH / 2, 10, 'inserts', e.insert).setOrigin(0.5, 0).setDepth(D + 1);
+    const parts = [dim, img];
+    const caption = e.caption ?? e.title;
+    if (caption) {
+      const t = addText(scene, 0, Math.min(SCREEN_HEIGHT - 30, img.y + img.height + 6), caption, { color: 0xfff4e0, depth: D + 2, maxWidth: SCREEN_WIDTH - 40 });
+      centerText(t, SCREEN_WIDTH / 2);
+      parts.push(t);
+    }
+    const close = addText(scene, 0, SCREEN_HEIGHT - 14, '{btn:confirm}', { depth: D + 2 });
+    close.x = SCREEN_WIDTH - close.textWidth - 8;
+    parts.push(close);
+    parts.forEach((p) => p.setAlpha(0));
+    scene.tweens.add({ targets: parts, alpha: (t) => (t === dim ? 0.86 : 1), duration: 160 });
+    this.app.audio.ui('confirm');
+    this.picture = { parts, lock: 220 };
+  }
+
+  closePicture() {
+    this.picture?.parts.forEach((p) => p.destroy());
+    this.picture = null;
+    this.app.audio.ui('cancel');
   }
 
   focus() {
@@ -110,6 +144,21 @@ export class LogPage {
   }
 
   update(input) {
+    if (this.picture) {
+      this.picture.lock -= 16;
+      if (this.picture.lock <= 0 && (input.pressed('confirm') || input.pressed('cancel'))) {
+        input.consume('confirm');
+        input.consume('cancel');
+        this.closePicture();
+      }
+      return null;
+    }
+    const e = this.entries?.[this.menu?.index ?? 0];
+    if (this.focused && e?.insert && input.pressed('confirm')) {
+      input.consume('confirm');
+      this.openPicture(e);
+      return null;
+    }
     this.menu?.update(input);
     if (this.exitRequested || (!this.menu?.visible && input.pressed('cancel'))) {
       input.consume('cancel');
@@ -120,6 +169,8 @@ export class LogPage {
   }
 
   destroy() {
+    if (this.picture) this.picture.parts.forEach((p) => p.destroy());
+    this.picture = null;
     this.layer.clear();
     this.detail.clear();
     this.menu?.destroy();

@@ -17,6 +17,15 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
  *                     "x": 160, "y": 150, "bob": 3 } ] }
  *
  *   Layer x/y are screen pixels (sprite origin: bottom centre).
+ *
+ *   A "school" layer (Phase 4) is a crowd drawn from one entry: `count`
+ *   copies of the frames scattered over `area` [x, y, w, h], smaller toward
+ *   the horizon, each drifting and animating on its own. Scripts move, fade
+ *   and show it like any other layer. It is how the sea fills with hundreds
+ *   of fins without hundreds of entries.
+ *
+ *     { "id": "fins", "school": { "frames": ["fin_side_0", "fin_side_1"], "count": 120,
+ *       "area": [0, 134, 320, 86], "scale": [0.25, 0.8], "speed": [3, 14], "flip": "random" } }
  * - **Inserts**: a framed close-up (a jar's label) with a caption, dismissed
  *   with Confirm.
  */
@@ -43,6 +52,10 @@ export class CinemaScene extends BaseScene {
     this.fx.update(delta);
     if (this.active) {
       for (const l of this.active.layers.values()) {
+        if (l.school) {
+          this.updateSchool(l, delta);
+          continue;
+        }
         if (l.frames && l.frames.length > 1 && !l.frozen) {
           const i = Math.floor(this.time0 / (l.frameMs ?? 300)) % l.frames.length;
           if (l.img.frame.name !== l.frames[i]) l.img.setFrame(l.frames[i]);
@@ -83,6 +96,12 @@ export class CinemaScene extends BaseScene {
     }
     const layers = new Map();
     (def.layers || []).forEach((l, i) => {
+      if (l.school) {
+        const school = this.buildSchool(l, i);
+        parts.push(school.img);
+        layers.set(l.id, school);
+        return;
+      }
       const img = this.add.image(l.x, l.y, 'vista', l.frame).setOrigin(0.5, 1).setDepth(l.depth ?? 10 + i);
       if (l.flip) img.setFlipX(true);
       if (l.alpha !== undefined) img.setAlpha(l.alpha);
@@ -103,6 +122,50 @@ export class CinemaScene extends BaseScene {
     }
     this.active = { def, parts, layers, sea };
     await this.fadeCover(0, fade / 2);
+  }
+
+  /** A crowd layer: many drifting copies in one container (see the class comment). */
+  buildSchool(l, i) {
+    const sc = l.school;
+    const [ax, ay, aw, ah] = sc.area ?? [0, 140, SCREEN_WIDTH, 80];
+    const [s0, s1] = sc.scale ?? [0.4, 0.9];
+    const [v0, v1] = sc.speed ?? [3, 10];
+    let seed = String(l.id).split('').reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) | 0, 17) || 1;
+    const rnd = () => {
+      seed ^= seed << 13;
+      seed ^= seed >>> 17;
+      seed ^= seed << 5;
+      return ((seed >>> 0) % 10000) / 10000;
+    };
+    const box = this.add.container(0, 0).setDepth(l.depth ?? 10 + i);
+    const members = [];
+    for (let k = 0; k < (sc.count ?? 20); k++) {
+      const near = rnd(); // 0 at the horizon, 1 in front
+      const y = ay + near * ah;
+      const img = this.add.image(ax + rnd() * aw, y, 'vista', sc.frames[0]).setOrigin(0.5, 1).setScale(s0 + (s1 - s0) * near);
+      const flip = sc.flip === 'random' ? rnd() < 0.5 : !!sc.flip;
+      img.setFlipX(flip);
+      if (sc.alpha) img.setAlpha(sc.alpha[0] + (sc.alpha[1] - sc.alpha[0]) * near);
+      members.push({ img, x: img.x, y, speed: (v0 + (v1 - v0) * rnd()) * (0.5 + near), dir: flip ? 1 : -1, phase: rnd() * 6.28, offset: rnd() * 1000 });
+    }
+    members.sort((a, b) => a.y - b.y).forEach((m) => box.add(m.img));
+    if (l.hidden) box.setVisible(false);
+    if (l.alpha !== undefined) box.setAlpha(l.alpha);
+    return { ...l, img: box, members, school: true, area: [ax, ay, aw, ah], frames: sc.frames, frameMs: sc.frameMs ?? 220, bob: sc.bob ?? 1, phase: i * 1.7, x: l.x ?? 0, y: l.y ?? 0 };
+  }
+
+  updateSchool(l, delta) {
+    const [ax, , aw] = l.area;
+    const sec = delta / 1000;
+    for (const m of l.members) {
+      m.x += m.dir * m.speed * sec;
+      if (m.x < ax - 12) m.x = ax + aw + 10;
+      if (m.x > ax + aw + 12) m.x = ax - 10;
+      const f = Math.floor((this.time0 + m.offset) / l.frameMs) % l.frames.length;
+      if (m.img.frame.name !== l.frames[f]) m.img.setFrame(l.frames[f]);
+      m.img.setPosition(Math.round(m.x), Math.round(m.y + Math.sin(this.time0 / 600 + m.phase) * l.bob));
+    }
+    l.img.setPosition(Math.round(l.x), Math.round(l.y));
   }
 
   async end({ fade = 400 } = {}) {
@@ -130,7 +193,7 @@ export class CinemaScene extends BaseScene {
 
   move(id, { x, y, duration = 1000, ease = 'Sine.InOut', alpha, scale, flip }) {
     const l = this.layer(id);
-    if (flip !== undefined) l.img.setFlipX(flip);
+    if (flip !== undefined && !l.school) l.img.setFlipX(flip);
     const props = {};
     if (x !== undefined) props.x = x;
     if (y !== undefined) props.y = y;
@@ -157,6 +220,10 @@ export class CinemaScene extends BaseScene {
 
   frame(id, frame) {
     const l = this.layer(id);
+    if (l.school) {
+      l.frames = [frame];
+      return;
+    }
     l.frozen = true;
     l.img.setFrame(frame);
   }

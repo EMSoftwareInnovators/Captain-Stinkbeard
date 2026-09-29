@@ -48,6 +48,25 @@ export const MIGRATIONS = {
       counters: state.world?.counters ?? {},
     },
   }),
+
+  /**
+   * 3 → 4 (Story Phase 4: The Stench Forecast)
+   * Story state gains named text values ("values"), used for where the Dead
+   * Center is today. A Phase 3 save has none: the Center is nowhere in
+   * particular until the story puts it somewhere. Everything else Phase 4
+   * adds (the sash, the forecast board, the bell protocol, Squawks's seven
+   * feathers, the hull's damage) follows flags and variables, which start
+   * unset, so a finished Phase 3 save walks into chapter 15 on load.
+   */
+  3: (state) => ({
+    ...state,
+    story: {
+      ...state.story,
+      flags: Array.isArray(state.story?.flags) ? state.story.flags : [],
+      vars: state.story?.vars ?? {},
+      values: state.story?.values && typeof state.story.values === 'object' ? state.story.values : {},
+    },
+  }),
 };
 
 export function migrateState(state, fromVersion, toVersion, migrations = MIGRATIONS) {

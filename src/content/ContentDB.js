@@ -52,7 +52,7 @@ const FOLDER_RULES = [
  *   - an NPC or character record with "extend": "<id>" puts its dialogue
  *     selectors ahead of the original ones and adds look variants.
  */
-const MAP_PATCH_PREPEND = ['objects', 'musicVariants', 'lightingVariants', 'haze', 'sharks'];
+const MAP_PATCH_PREPEND = ['objects', 'musicVariants', 'lightingVariants', 'haze', 'sharks', 'sharkDuty'];
 const MAP_PATCH_APPEND = ['props', 'onEnter', 'regions', 'ambient', 'fumes', 'collision'];
 
 const SINGLE_FILES = {

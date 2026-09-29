@@ -1,6 +1,7 @@
 import { asArray } from '../../core/util.js';
 import { evaluateCondition, splitObjectiveRef } from '../conditions/conditions.js';
 import { parseLine } from './parseLine.js';
+import { setDeadCenterLocation } from '../hazards/deadCenter.js';
 
 /**
  * Implementations of every script command.
@@ -84,6 +85,23 @@ export function createCommandImplementations() {
     clearFlag: (step, ctx) => {
       asArray(step.clearFlag).forEach((f) => ctx.session.story.clear(f));
     },
+    /** Where the Dead Center is now (a location id, or "none"). */
+    deadCenter: (step, ctx) => {
+      setDeadCenterLocation(ctx.session, step.deadCenter);
+      return null;
+    },
+    /** The bell protocol: rings (and shows) alarm level 1-4. Carries on unless "wait". */
+    alarm: (step, ctx) => {
+      const p = service(ctx, 'ui', 'alarm').alarm(step.alarm, { where: step.where ?? null });
+      return step.wait ? p : null;
+    },
+    /** The course dial: show, drift the heading (waits unless async), hide. */
+    course: (step, ctx) => {
+      const p = service(ctx, 'ui', 'course').course(step.course, { heading: step.heading, target: step.target, to: step.to, duration: step.duration, label: step.label ?? null });
+      return step.async ? null : p;
+    },
+    /** Clears the rail at once: "stop" ends the current Shark Duty wave of sharks (they retreat). */
+    sharkDuty: (step, ctx) => service(ctx, 'world', 'sharkDuty').sharkDuty(step.sharkDuty),
     setVar: (step, ctx) => {
       ctx.session.story.setVar(step.setVar, step.value);
     },
@@ -273,7 +291,7 @@ export function createCommandImplementations() {
     },
     /** Holds a shark level for a scene ("auto" hands it back to the map). */
     sharks: (step, ctx) => {
-      service(ctx, 'world', 'sharks').sharks(step.sharks === 'auto' ? null : step.sharks);
+      service(ctx, 'world', 'sharks').sharks(step.sharks === 'auto' ? null : step.sharks, { crowd: step.crowd ?? null });
     },
     sharkEvent: (step, ctx) => {
       const p = service(ctx, 'world', 'sharkEvent').sharkEvent(step.sharkEvent, { x: step.x, y: step.y, duration: step.duration });
