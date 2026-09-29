@@ -143,6 +143,40 @@ export const HAT_STYLES = {
       '..tTtTtTtTtTtT..',
     ],
   },
+  // Story Phase 4: Pete's nightcap (he works the night watch), a striped
+  // stocking cap with a bobble drooping over one ear.
+  nightcap: {
+    down: [
+      '................',
+      '.......qaaq.....',
+      '.....qaAAaaq.sT.',
+      '....qaAAAaaaqsT.',
+      '...qaAAaaaaaaq..',
+      '..qaaaaaaaaaaq..',
+      '..TtTtTtTtTtTt..',
+      '..tTtTtTtTtTtT..',
+    ],
+    left: [
+      '................',
+      '.......qaq......',
+      '.....qaAAaq.....',
+      '...qaAAAAaaq.sT.',
+      '..qaAAaaaaaaqsT.',
+      '..qaaaaaaaaaaq..',
+      '..TtTtTtTtTtTt..',
+      '..tTtTtTtTtTtT..',
+    ],
+    up: [
+      '................',
+      '......qaaq......',
+      '....qaaaaaaq..sT',
+      '...qaaAAaaaaq.sT',
+      '..qaaAAAaaaaaq..',
+      '..qaaaaaaaaaaq..',
+      '..TtTtTtTtTtTt..',
+      '..tTtTtTtTtTtT..',
+    ],
+  },
   // A galley cooking pot worn as a hat, handle sticking out: the Grand
   // Stenchmaster's crown of office.
   pot: {

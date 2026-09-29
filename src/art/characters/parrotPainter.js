@@ -36,6 +36,8 @@ export function parrotLook(app) {
     sweater: !!app.sweater,
     blanket: !!app.blanket,
     yellowFeather: !!app.yellowFeather,
+    // Story Phase 4: feathers growing back, the yellow one first (up to 7).
+    newFeathers: Math.max(app.yellowFeather ? 1 : 0, Math.min(7, app.newFeathers ?? 0)),
     plaid: ['#4a3a6a', '#6a5a8a', '#c8b8e0', '#8a2a2a'],
     body: bald ? skin : red,
     wing: bald ? { d: skin.d, m: skin.m, l: skin.l } : blue,
@@ -97,6 +99,25 @@ function newFeather(c, x, y, lean = 1) {
   c.line(x, y, x + lean, y - 4, '#e8d040');
   c.set(x + lean, y - 5, '#f8f080');
   c.set(x, y - 1, '#c8a820');
+}
+
+/** A soft new feather (Phase 4 regrowth): scarlet or blue, a pale tip. */
+function sprout(c, x, y, lean, col) {
+  const [d, m, l] = col === 'blue' ? ['#1c3060', '#2c58a8', '#8ab0e8'] : ['#8a1c1c', '#d8403a', '#f4a09a'];
+  c.line(x, y, x + lean, y - 3, m);
+  c.set(x, y, d);
+  c.set(x + lean, y - 4, l);
+}
+
+/**
+ * The feathers after the first yellow one, placed round the head, wings and
+ * tail for a view. `at` maps a slot (1-6) to [x, y, lean, colour].
+ */
+function sprouts(c, L, at) {
+  for (let i = 1; i < L.newFeathers; i++) {
+    const p = at(i);
+    if (p) sprout(c, ...p);
+  }
 }
 
 function cap(c, L, cx, top, w) {
@@ -177,6 +198,15 @@ function front(c, L, { bob = 0, wings = 'folded', beakOpen = false, blink = fals
     c.set(CX, hy - 5, L.body.m);
   }
   if (L.yellowFeather) newFeather(c, CX + 3, hy - 5);
+  sprouts(c, L, (i) => [
+    null,
+    [CX - 3, hy - 5, -1, 'red'],
+    [CX - 7, by - 2, -1, 'blue'],
+    [CX + 7, by - 2, 1, 'blue'],
+    [CX, hy - 7, 0, 'red'],
+    [CX - 2, GROUND - 2, -1, 'red'],
+    [CX + 2, GROUND - 2, 1, 'blue'],
+  ][i]);
   feet(c, L, CX - 3, CX + 2, GROUND);
 }
 
@@ -224,6 +254,15 @@ function side(c, L, { bob = 0, wing = 'folded', beakOpen = false, hop = 0, blink
   else if (L.bald) crest(c, L, hx, hy - 4, 1);
   else c.line(hx + 1, hy - 5, hx + 4, hy - 7, L.body.m);
   if (L.yellowFeather) newFeather(c, hx + 3, hy - 6, 2);
+  sprouts(c, L, (i) => [
+    null,
+    [hx, hy - 6, -1, 'red'],
+    [CX + 4, by - 4, 1, 'blue'],
+    [CX + 6, by - 1, 1, 'blue'],
+    [hx + 1, hy - 7, 0, 'red'],
+    [CX + 9, GROUND - 5, 1, 'red'],
+    [CX + 11, GROUND - 4, 1, 'blue'],
+  ][i]);
   if (hop < 3) feet(c, L, CX - 1, CX + 2, GROUND - hop);
 }
 
@@ -247,6 +286,15 @@ function back(c, L, { bob = 0, wings = 'folded' } = {}) {
   if (L.sweater) cap(c, L, CX, hy - 5, 4);
   else if (L.bald) crest(c, L, CX - 1, hy - 4);
   if (L.yellowFeather) newFeather(c, CX + 2, hy - 5);
+  sprouts(c, L, (i) => [
+    null,
+    [CX - 3, hy - 5, -1, 'red'],
+    [CX - 6, by - 3, -1, 'blue'],
+    [CX + 6, by - 3, 1, 'blue'],
+    [CX, hy - 7, 0, 'red'],
+    [CX - 2, GROUND - 1, -1, 'red'],
+    [CX + 2, GROUND - 1, 1, 'blue'],
+  ][i]);
   feet(c, L, CX - 3, CX + 2, GROUND);
 }
 
@@ -317,7 +365,7 @@ export const PARROT_EXPRESSIONS = ['neutral', 'smug', 'insulting', 'worried', 'h
  * @param {string} expression
  */
 export function paintParrotPortrait(portrait, expression = 'neutral') {
-  const L = parrotLook({ plumage: portrait.plumage, sweater: portrait.sweater, blanket: portrait.blanket, yellowFeather: portrait.yellowFeather });
+  const L = parrotLook({ plumage: portrait.plumage, sweater: portrait.sweater, blanket: portrait.blanket, yellowFeather: portrait.yellowFeather, newFeathers: portrait.newFeathers });
   const c = new PixelCanvas(48, 48);
   const e = expression;
   const puffed = e === 'horrified' || e === 'furious' || e === 'outraged' || L.exposed;
@@ -386,6 +434,27 @@ export function paintParrotPortrait(portrait, expression = 'neutral') {
     c.line(hx + 8, hy - 14, hx + 11, hy - 23, '#c8a820');
     c.set(hx + 10, hy - 25, '#f8f080');
     c.set(hx + 11, hy - 25, '#f8f080');
+  }
+  if (L.newFeathers > 1) {
+    // Phase 4: more feathers coming in, fluffy and bright, round the cap
+    // and over the blanket's edge.
+    const spots = [
+      null,
+      [hx - 8, hy - 13, -2, 'red'],
+      [hx - 2, hy - 15, -1, 'red'],
+      [hx + 12, hy - 10, 2, 'blue'],
+      [8, 38, -2, 'blue'],
+      [40, 38, 2, 'blue'],
+      [hx - 13, hy - 6, -2, 'red'],
+    ];
+    for (let i = 1; i < L.newFeathers; i++) {
+      const [x, y, lean, col] = spots[i];
+      const [d, m, l] = col === 'blue' ? ['#1c3060', '#2c58a8', '#8ab0e8'] : ['#8a1c1c', '#d8403a', '#f4a09a'];
+      c.line(x, y, x + lean, y - 7, m);
+      c.line(x + 1, y, x + 1 + lean, y - 6, d);
+      c.set(x + lean, y - 8, l);
+      c.set(x + lean + 1, y - 8, l);
+    }
   }
   if (e === 'furious' || e === 'horrified') {
     // hackles up

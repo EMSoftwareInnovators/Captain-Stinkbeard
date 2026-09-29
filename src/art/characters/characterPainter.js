@@ -23,6 +23,14 @@ const CX = 16;
 const GROUND = 45;
 const OUTLINE = PAL.ink;
 
+/**
+ * The Grand Stenchmaster's sash (Story Phase 4): made by Garrick, for
+ * Garrick, after he invented the office. Mustard silk edged in burgundy,
+ * fake-gold trim, a crude embroidered nose-under-a-crown on the chest and a
+ * fringe at the hip. He considers it extremely prestigious.
+ */
+export const SASH = { d: '#9a6e14', m: '#c8982a', l: '#ecc450', edge: '#5e1624', gold: '#f4dc6c', badge: '#6a9a2c', ink: '#2a1a0e' };
+
 export const BUILDS = {
   small: { shoulder: 12, waist: 10, torsoH: 9, legH: 9, legW: 4, legGap: 0, armW: 3, bootH: 3 },
   medium: { shoulder: 14, waist: 12, torsoH: 11, legH: 11, legW: 5, legGap: 0, armW: 3, bootH: 4 },
@@ -256,6 +264,7 @@ function torsoFront(c, L, top, bottom, { back = false } = {}) {
     }
     c.set(CX - 1, top + Math.floor(H / 2), L.trim[2]);
   }
+  if (L.extras.has('stenchsash')) stenchSashFront(c, L, top, H, back);
   if (L.extras.has('patches') && (L.style === 'coat' || L.style === 'longcoat')) {
     // Sun-faded repairs on a battered coat.
     const w = b.shoulder;
@@ -308,6 +317,51 @@ function torsoFront(c, L, top, bottom, { back = false } = {}) {
 }
 
 /** Coat tails (long coats) and skirts hang below the waist over/around the legs. */
+/** Over the left shoulder, down to the right hip (front); mirrored behind. */
+function stenchSashFront(c, L, top, H, back) {
+  const w = L.build.shoulder;
+  const at = (i) => (back ? CX - Math.floor(w / 2) + 1 + Math.round((i * (w - 4)) / H) : CX + Math.floor(w / 2) - 3 - Math.round((i * (w - 4)) / H));
+  for (let i = 0; i < H; i++) {
+    const x = at(i);
+    const y = top + 1 + i;
+    c.set(x - 1, y, SASH.edge);
+    c.set(x, y, i % 4 === 1 ? SASH.l : SASH.m);
+    c.set(x + 1, y, SASH.m);
+    c.set(x + 2, y, SASH.d);
+    c.set(x + 3, y, SASH.edge);
+    if (i % 3 === 0) c.set(x + 1, y, SASH.gold); // the fake-gold trim, stitched on
+  }
+  if (back) return;
+  // The badge: a green nose under a gold crown, embroidered with more
+  // enthusiasm than skill.
+  const bx = at(3);
+  const by = top + 3;
+  c.set(bx, by - 1, SASH.gold);
+  c.set(bx + 2, by - 1, SASH.gold);
+  c.set(bx + 1, by - 1, SASH.gold);
+  c.set(bx + 1, by, SASH.badge);
+  c.set(bx + 1, by + 1, SASH.badge);
+  c.set(bx + 2, by + 1, SASH.badge);
+  // A fringe where it ends at the hip.
+  const fx = at(H - 1);
+  for (let k = 0; k < 4; k++) c.set(fx - 1 + k, top + H + 1 + (k % 2), SASH.gold);
+}
+
+/** Side view: the sash crosses his chest as a bright band. */
+function stenchSashSide(c, L, top, bottom) {
+  const sw = Math.max(8, Math.round(L.build.shoulder * 0.62));
+  const x0 = CX - Math.floor(sw / 2);
+  for (let y = top + 1; y < bottom - 1; y++) {
+    const x = x0 + 1 + Math.floor(((y - top) * (sw - 3)) / (bottom - top));
+    c.set(x, y, SASH.edge);
+    c.set(x + 1, y, SASH.m);
+    c.set(x + 2, y, (y % 3) ? SASH.m : SASH.gold);
+    c.set(x + 3, y, SASH.edge);
+  }
+  c.set(x0 + 2, top + 3, SASH.badge);
+  c.set(x0 + 2, top + 2, SASH.gold);
+}
+
 function lowerGarmentFront(c, L, waistY, legTop, { back = false } = {}) {
   const b = L.build;
   if (L.style === 'longcoat') {
@@ -500,6 +554,15 @@ function armsSide(c, L, mode, torsoTop, layer) {
 // ---------------------------------------------------------------------------
 // Extra arm poses (opt-in per appearance, see EXTRA_POSES)
 
+/** A pewter mug of Frog Grog (4x5), tipped toward the mouth when drinking. */
+function mug(c, x, y, full) {
+  c.rect(x, y, 4, 5, '#8a8a9a');
+  c.vline(x, y, y + 4, '#b8b8c8');
+  c.hline(x, x + 3, y, full ? '#8ab030' : '#5a7a2a');
+  c.set(x + 4, y + 1, '#6a6a7a');
+  c.set(x + 4, y + 3, '#6a6a7a');
+}
+
 function hand(c, L, x, y, w = 2, h = 2) {
   c.rect(x, y, w, h, L.skin.s);
   c.set(x + w - 1, y + h - 1, L.skin.d);
@@ -588,6 +651,29 @@ const EXTRA_ARMS_FRONT = {
     hand(c, L, g.lx - 2, g.shoulderY - 11, 3, 3);
     armColumn(c, L, g.rx, g.shoulderY, g.hang, g.w, { inner: 'left' });
   },
+  // Story Phase 4: a mug raised to the mouth (the other hand on the hip).
+  drink0(c, L, g) { EXTRA_ARMS_FRONT.drinkAt(c, L, g, 0); },
+  drink1(c, L, g) { EXTRA_ARMS_FRONT.drinkAt(c, L, g, 2); },
+  drinkAt(c, L, g, k) {
+    const elbowY = g.shoulderY + Math.floor(L.build.torsoH / 2);
+    limb(c, L, g.lx + 1, g.shoulderY, g.lx - 2, elbowY, g.w, 2);
+    limb(c, L, g.lx - 2, elbowY, g.lx + 2, g.hang - 1, g.w, 1);
+    limb(c, L, g.rx + 1, g.shoulderY, g.rx + 2, g.shoulderY + 4, g.w, 0);
+    limb(c, L, g.rx + 2, g.shoulderY + 4, CX + 3, g.torsoTop - 1 + k, g.w, 0);
+    mug(c, CX + 1, g.torsoTop - 5 + k, k === 0);
+    hand(c, L, CX + 3, g.torsoTop - 2 + k, 2, 3);
+  },
+  // Shark Duty: both hands on a long pole, jabbing down over the rail.
+  poke0(c, L, g) { EXTRA_ARMS_FRONT.pokeAt(c, L, g, 0); },
+  poke1(c, L, g) { EXTRA_ARMS_FRONT.pokeAt(c, L, g, 3); },
+  pokeAt(c, L, g, k) {
+    const elbowY = g.shoulderY + Math.floor(L.build.torsoH / 2);
+    armColumn(c, L, g.lx, g.shoulderY, elbowY, g.w, { inner: 'right' });
+    armColumn(c, L, g.rx, g.shoulderY, elbowY, g.w, { inner: 'left' });
+    c.thickLine(CX - 9, g.shoulderY - 6 + k, CX + 6, g.hang + 6 + k, 1, '#8a6a3a');
+    hand(c, L, CX - 5, g.shoulderY + 1 + k, 3, 3);
+    hand(c, L, CX + 1, elbowY + 3 + k, 3, 3);
+  },
   // Palms up: "what can one do?"
   shrug(c, L, g) {
     const elbowY = g.shoulderY + Math.floor(L.build.torsoH / 2);
@@ -637,6 +723,26 @@ const EXTRA_ARMS_SIDE = {
     armColumn(c, L, g.baseX, g.shoulderY, elbowY, g.w, { inner: 'left' });
     limb(c, L, g.baseX, elbowY, g.baseX - 5, elbowY - 3, g.w, 1);
     hand(c, L, g.baseX - 7, elbowY - 5, 3, 2);
+  },
+  drink0(c, L, g) { EXTRA_ARMS_SIDE.drinkAt(c, L, g, 0); },
+  drink1(c, L, g) { EXTRA_ARMS_SIDE.drinkAt(c, L, g, 2); },
+  drinkAt(c, L, g, k) {
+    const elbowY = g.shoulderY + Math.floor(L.build.torsoH / 2);
+    armColumn(c, L, g.baseX, g.shoulderY, elbowY - 2, g.w, { inner: 'left' });
+    limb(c, L, g.baseX, elbowY - 2, g.baseX - 5, g.torsoTop - 2 + k, g.w, 1);
+    mug(c, g.baseX - 9, g.torsoTop - 6 + k, k === 0);
+    hand(c, L, g.baseX - 7, g.torsoTop - 3 + k, 3, 3);
+  },
+  poke0(c, L, g) { EXTRA_ARMS_SIDE.pokeAt(c, L, g, 0); },
+  poke1(c, L, g) { EXTRA_ARMS_SIDE.pokeAt(c, L, g, 3); },
+  pokeAt(c, L, g, k) {
+    const elbowY = g.shoulderY + Math.floor(L.build.torsoH / 2);
+    armColumn(c, L, g.baseX, g.shoulderY, elbowY, g.w, { inner: 'left' });
+    // The pole runs out in front of him and down toward the water.
+    c.thickLine(g.baseX + 4, g.shoulderY - 2, g.baseX - 13 - k, g.hang + 5 + k, 1, '#8a6a3a');
+    c.set(g.baseX - 13 - k, g.hang + 5 + k, PAL.iron3);
+    limb(c, L, g.baseX, elbowY, g.baseX - 5 - k, elbowY + 1 + k, g.w, 1);
+    hand(c, L, g.baseX - 7 - k, elbowY + k, 3, 3);
   },
   raise(c, L, g) {
     limb(c, L, g.baseX + 1, g.shoulderY, g.baseX - 1, g.shoulderY - 9, g.w, 1);
@@ -991,6 +1097,7 @@ function torsoSide(c, L, top, bottom) {
     c.set(x + 2, bottom + 3, PAL.iron4);
     c.set(x + 3, bottom + 4, PAL.iron3);
   }
+  if (L.extras.has('stenchsash')) stenchSashSide(c, L, top, bottom);
 }
 
 // ---------------------------------------------------------------------------
@@ -1040,10 +1147,13 @@ export const EXTRA_POSES = {
   // Story Phase 3
   proclaim: [{ legs: 'stand', arms: 'raise' }, { legs: 'stand', arms: 'raise', bob: 1 }],
   brace: [{ legs: 'stepA', arms: 'work0', bob: 1 }, { legs: 'stepA', arms: 'work1', bob: 2 }],
+  // Story Phase 4
+  drink: [{ legs: 'stand', arms: 'drink0' }, { legs: 'stand', arms: 'drink1', bob: 1 }],
+  poke: [{ legs: 'stepA', arms: 'poke0' }, { legs: 'stepA', arms: 'poke1', bob: 1 }],
 };
 
 /** Frames per second of the extra animations (0 = hold one frame). */
 export const EXTRA_POSE_RATES = {
   excited: 5, smug: 1.5, greedy: 6, carry: 1.5, carrywalk: 8, slouch: 0.8, eat: 4, nervous: 5, clutch: 3, panic: 7, relief: 1.2, hips: 0, shrug: 0,
-  proclaim: 1.4, brace: 6,
+  proclaim: 1.4, brace: 6, drink: 2.5, poke: 5,
 };

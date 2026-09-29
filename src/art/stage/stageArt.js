@@ -1,6 +1,7 @@
 import { PixelCanvas } from '../PixelCanvas.js';
 import { ShelfAtlas } from '../atlas.js';
 import { PAL } from '../palette.js';
+import { addPhase4StageFrames, PHASE4_STAGE_FRAMES } from './stagePhase4.js';
 
 /**
  * "Stage" sprites: free-moving pieces that scripts place in the world (see
@@ -484,6 +485,7 @@ export function buildStageAtlas() {
   atlas.add('shark_deck_1', sharkDeck('flop1'));
   atlas.add('shark_deck_sniff', sharkDeck('sniff'));
   atlas.add('shark_deck_disgust', sharkDeck('disgust'));
+  addPhase4StageFrames(atlas);
   const built = atlas.build();
   return {
     ...built,
@@ -509,4 +511,5 @@ export const STAGE_FRAMES = [
   'shark_deck_0', 'shark_deck_1', 'shark_deck_sniff', 'shark_deck_disgust',
   'rowboat_beans_0', 'rowboat_beans_1', 'rowboat_pan_0', 'rowboat_pan_1', 'rowboat_hitch_0', 'rowboat_hitch_1',
   'shark_belly_0', 'shark_belly_1', 'rat_mask_0', 'rat_mask_1', 'rat_mask_2',
+  ...PHASE4_STAGE_FRAMES,
 ];

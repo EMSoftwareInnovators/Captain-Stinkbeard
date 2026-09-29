@@ -1,6 +1,6 @@
 import { PixelCanvas } from '../PixelCanvas.js';
 import { PAL, rgba } from '../palette.js';
-import { resolveLook } from '../characters/characterPainter.js';
+import { resolveLook, SASH } from '../characters/characterPainter.js';
 
 /**
  * 48x48 dialogue portraits built from the same appearance data as the field
@@ -44,6 +44,8 @@ export const EXPRESSIONS = {
   puffed: { brow: 'up', eye: 'closed', mouth: 'puff', fx: ['flush'] },
   tender: { brow: 'up', eye: 'half', mouth: 'smile' },
   proud: { brow: 'raised', eye: 'closed', mouth: 'smirk', fx: ['sparkle'] },
+  // Story phase 4 (a week of the Dead Center: nobody has slept)
+  tired: { brow: 'low', eye: 'half', mouth: 'frown', fx: ['bags'] },
 };
 
 export const EXPRESSION_NAMES = Object.keys(EXPRESSIONS);
@@ -123,6 +125,28 @@ function drawBust(c, L) {
       c.set(CX + 11 - i, 38 + i, L.belt[0]);
     }
     c.rect(CX + 2, 43, 3, 3, L.trim[2]);
+  }
+  if (L.extras.has('stenchsash')) {
+    // The Grand Stenchmaster's sash (Phase 4): mustard, burgundy edges,
+    // fake-gold stitching, and the badge he embroidered himself.
+    for (let i = 0; i < 12; i++) {
+      const x = CX + 9 - i;
+      const y = 37 + i;
+      c.set(x - 1, y, SASH.edge);
+      c.set(x, y, i % 3 === 0 ? SASH.gold : SASH.m);
+      c.set(x + 1, y, SASH.l);
+      c.set(x + 2, y, SASH.m);
+      c.set(x + 3, y, SASH.d);
+      c.set(x + 4, y, SASH.edge);
+    }
+    // the badge: a crown over a green nose
+    c.hline(CX + 4, CX + 8, 39, SASH.gold);
+    c.set(CX + 4, 38, SASH.gold);
+    c.set(CX + 6, 38, SASH.gold);
+    c.set(CX + 8, 38, SASH.gold);
+    c.rect(CX + 5, 40, 3, 3, SASH.badge);
+    c.set(CX + 7, 42, '#8aba40');
+    c.set(CX + 5, 42, SASH.ink);
   }
 }
 
@@ -385,6 +409,15 @@ function expressionFx(c, L, face, fx = []) {
   if (fx.includes('tear')) {
     c.set(CX - 8, 26, '#9ad0f0'); c.set(CX - 8, 27, '#9ad0f0'); c.set(CX - 8, 28, '#5a9ac8');
   }
+  if (fx.includes('bags')) {
+    // dark rings under both eyes
+    for (let i = 0; i < 4; i++) {
+      c.blend(CX - 8 + i, 27, '#4a2a4a', 0.45);
+      c.blend(CX + 4 + i, 27, '#4a2a4a', 0.45);
+    }
+    c.blend(CX - 7, 28, '#4a2a4a', 0.3);
+    c.blend(CX + 5, 28, '#4a2a4a', 0.3);
+  }
   if (fx.includes('sparkle')) {
     for (const [x, y] of [[CX - 15, 14], [CX + 14, 12]]) {
       c.set(x, y, PAL.gold5); c.set(x - 1, y, PAL.gold3); c.set(x + 1, y, PAL.gold3); c.set(x, y - 1, PAL.gold3); c.set(x, y + 1, PAL.gold3);
@@ -631,6 +664,23 @@ function hatMass(c, L, face, style) {
       const half = Math.round((face.w / 2 + 1) * Math.sqrt(Math.max(0.05, 1 - (1 - tt) ** 2)));
       for (let x = CX - half; x < CX + half; x++) c.set(x, y, x < CX - 3 && y < face.top ? A : x > CX + 5 ? q : a);
     }
+    for (let x = CX - face.w / 2 - 1; x < CX + face.w / 2 + 1; x++) {
+      c.set(Math.round(x), face.top + 3, (Math.round(x) % 2) ? T : t);
+      c.set(Math.round(x), face.top + 4, (Math.round(x) % 2) ? t : T);
+    }
+    return;
+  }
+  if (style === 'nightcap') {
+    // A striped stocking cap flopped over to one side, with a bobble.
+    for (let y = top - 3; y < face.top + 5; y++) {
+      const tt = (y - (top - 3)) / (face.top + 5 - (top - 3));
+      const half = Math.round((face.w / 2 + 1) * Math.sqrt(Math.max(0.05, 1 - (1 - tt) ** 2)));
+      for (let x = CX - half; x < CX + half; x++) c.set(x, y, (y % 4 < 2) ? (x < CX - 3 ? A : a) : T);
+    }
+    // the tail flopping over the right ear, and the bobble on the end
+    for (let i = 0; i < 12; i++) c.rect(CX + 6 + Math.round(i * 0.8), top - 2 + i, 4 - Math.floor(i / 5), 2, i % 4 < 2 ? a : T);
+    c.ellipse(CX + 16, top + 12, 3, 3, T);
+    c.ellipse(CX + 15, top + 11, 1.5, 1.5, '#ffffff');
     for (let x = CX - face.w / 2 - 1; x < CX + face.w / 2 + 1; x++) {
       c.set(Math.round(x), face.top + 3, (Math.round(x) % 2) ? T : t);
       c.set(Math.round(x), face.top + 4, (Math.round(x) % 2) ? t : T);
