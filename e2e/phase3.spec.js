@@ -185,6 +185,25 @@ test('the captain is never walled in by people', { tag: ['@phase3', '@world', '@
   expect(errors).toEqual([]);
 });
 
+test('the camera comes back to the captain when a scene leaves it panned away', { tag: ['@phase3', '@world', '@smoke'] }, async ({ page }) => {
+  const { g, errors } = await open(page);
+  await g.preset('rowboat_lure');
+  await g.skip();
+  // Like the rowboat's return: a pan to the davits and no reset at the end.
+  await g.eval(() => window.__GAME__.game.scene.getScene('World').runScript([{ camera: 'pan', x: 3, y: 28, duration: 200 }, { wait: 100 }]));
+  await g.waitFor(() => window.__GAME__.game.scene.getScene('World').cameraFocus === null, null, 5000);
+  const view = await g.eval(() => {
+    const w = window.__GAME__.game.scene.getScene('World');
+    const cam = w.cameras.main;
+    return { px: w.player.px, left: cam.scrollX, right: cam.scrollX + cam.width };
+  });
+  expect(view.px).toBeGreaterThan(view.left);
+  expect(view.px).toBeLessThan(view.right);
+  await g.walk('down', 2); // and it keeps following him
+  expect(await g.eval(() => window.__GAME__.game.scene.getScene('World').cameraFocus)).toBe(null);
+  expect(errors).toEqual([]);
+});
+
 test('saving and continuing either side of the rename', { tag: ['@phase3', '@saves'] }, async ({ page }) => {
   const { g, errors } = await open(page);
   await g.preset('pre_rename');

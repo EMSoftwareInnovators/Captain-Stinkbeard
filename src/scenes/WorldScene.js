@@ -536,6 +536,31 @@ export class WorldScene extends BaseScene {
     }
     // Once no scene is running or about to (a trigger just started one), people go where the story has them.
     if (this.restageDirty && !this.isBusy() && !this.leaving && !this.collapsing) this.restage();
+    // The captain has control, so the camera follows him: a pan or follow a
+    // scene left behind (no camera reset at its end) glides back.
+    if (this.cameraFocus && !this.cameraReturning && !this.isBusy() && !this.leaving) this.releaseCamera();
+  }
+
+  /** Glides a held camera back to the captain, who can already move. */
+  releaseCamera(duration = 600) {
+    const from = { x: this.cameraFocus.x, y: this.cameraFocus.y };
+    const state = { t: 0 };
+    const to = () => ({ x: this.player.px, y: this.player.py - 18 });
+    this.cameraReturning = {
+      get x() { return from.x + (to().x - from.x) * state.t; },
+      get y() { return from.y + (to().y - from.y) * state.t; },
+    };
+    this.cameraFocus = this.cameraReturning;
+    this.tweens.add({
+      targets: state,
+      t: 1,
+      duration,
+      ease: 'Sine.InOut',
+      onComplete: () => {
+        if (this.cameraFocus === this.cameraReturning) this.cameraFocus = null;
+        this.cameraReturning = null;
+      },
+    });
   }
 
   // ---------------------------------------------------------------------------

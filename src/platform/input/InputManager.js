@@ -26,11 +26,16 @@ const REPEAT_RATE = 85; // ms between repeats
  * A layout the player set up by hand (Options → Controller, saved per pad id
  * in settings) wins over the automatic one. Pads the browser doesn't map to
  * the standard layout and nobody has set up are "unrecognised": the game
- * offers the controller setup for them.
+ * offers the controller setup for them. In Firefox that includes pads it
+ * calls standard, until the player has checked A and B (see trustStandard).
  */
 export class InputManager {
-  constructor({ bus = null, target = globalThis.window, customLayouts = null } = {}) {
+  constructor({ bus = null, target = globalThis.window, customLayouts = null, trustStandard = true } = {}) {
     this.bus = bus;
+    // Firefox can report a pad as "standard" with its buttons shifted (Mozilla
+    // bug 1707400: Bluetooth Xbox pads on Apple Silicon Macs). There, a
+    // standard pad counts as recognised only once the player has checked it.
+    this.trustStandard = trustStandard;
     this.target = target;
     this.customLayouts = customLayouts; // () => { [pad id]: { buttons, dirs } | { auto: true } }
     this.suspendPads = false; // true while the controller setup reads raw buttons
@@ -119,7 +124,7 @@ export class InputManager {
 
   /** The browser maps it to the standard layout, or the player has dealt with it. */
   recognised(pad) {
-    if (pad?.mapping === 'standard') return true;
+    if (pad?.mapping === 'standard' && this.trustStandard) return true;
     const custom = this.customLayouts?.()?.[pad?.id];
     return !!(custom?.buttons || custom?.auto);
   }

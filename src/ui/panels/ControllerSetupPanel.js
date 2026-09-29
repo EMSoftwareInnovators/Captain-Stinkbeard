@@ -129,6 +129,11 @@ export class ControllerSetupPanel {
       } else if (e) {
         this.capture(step, e, input);
       }
+    } else if (this.phase === 'done' && this.holdPads) {
+      if (this.settled(e)) {
+        this.holdPads = false;
+        this.input.suspendPads = false;
+      }
     } else if (this.phase === 'done') {
       // The new layout is live: its confirm (or the keyboard's) finishes.
       if (input.pressed('confirm')) {
@@ -177,8 +182,34 @@ export class ControllerSetupPanel {
 
   next() {
     this.step += 1;
+    if (this.step === 2 && this.alreadyWorks()) {
+      this.keepAutomatic();
+      return;
+    }
     if (this.step >= STEPS.length) this.finish();
     else this.phase = 'release';
+  }
+
+  /**
+   * A pad the browser calls standard, checked with A and B: if they are where
+   * the standard layout says, the rest is too, so there's nothing more to ask.
+   */
+  alreadyWorks() {
+    const e = this.entry();
+    if (e?.pad.mapping !== 'standard') return false;
+    const auto = e.memo.auto.buttons;
+    return this.buttons.south === auto.south && this.buttons.east === auto.east;
+  }
+
+  keepAutomatic() {
+    const layouts = { ...(this.app.settings.get('padLayouts') ?? {}) };
+    layouts[this.padId] = { auto: true };
+    this.app.settings.set('padLayouts', layouts);
+    // B is still held: pads drive the game again once everything is let go.
+    this.holdPads = true;
+    this.message = '<g>This controller already works as it is.</>';
+    this.phase = 'done';
+    this.app.audio.ui('confirm');
   }
 
   finish() {

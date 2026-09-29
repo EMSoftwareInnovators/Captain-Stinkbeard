@@ -5,6 +5,8 @@ import { UiLayer } from './UiLayer.js';
 import { TabBar } from './TabBar.js';
 import { resolveVariant } from '../../systems/story/progress.js';
 
+const lineCount = (t) => t.text.split('\n').length;
+
 const TABS = [
   { id: 'active', label: 'Active' },
   { id: 'completed', label: 'Completed' },
@@ -97,29 +99,41 @@ export class QuestsPage {
       g.x = rect.x + rect.w - 12 - g.textWidth;
     }
     y += 14;
-    const objectives = qs.visibleObjectives(quest.id);
-    const room = rect.y + rect.h - 22 - y - objectives.length * 11 - 5;
-    let desc = this.detail.add(addText(scene, x, y, quest.description ?? quest.summary ?? '', { maxWidth: rect.w - 24, depth: D, color: 0xdcd4c4 }));
-    if (desc.text.split('\n').length * 11 > room && quest.summary) {
-      // Not enough room for the full description and every objective: use the summary.
-      desc.destroy();
-      desc = this.detail.add(addText(scene, x, y, quest.summary, { maxWidth: rect.w - 24, depth: D, color: 0xdcd4c4 }));
-    }
-    y += desc.text.split('\n').length * 11 + 5;
-    for (const o of objectives) {
-      const count = o.count > 1 ? ` (${Math.min(o.progress, o.count)}/${o.count})` : '';
-      const mark = o.done ? '<g>✓</>' : '<y>▶</>';
-      const text = o.done ? `<k>${o.def.text}${count}</>` : `${o.def.text}${count}`;
-      this.detail.add(addText(scene, x, y, `${mark} ${text}`, { depth: D }));
-      y += 11;
-      if (y > rect.y + rect.h - 26) break;
-    }
+    const width = rect.w - 24;
+    const bottom = rect.y + rect.h - 6;
+    // Long objectives and rewards wrap (under their mark), so size them first
+    // and give the description whatever room is left.
     const r = quest.rewards ?? {};
     const parts = [];
     if (r.xp) parts.push(`${r.xp} XP`);
     if (r.gold) parts.push(`${r.gold} gold`);
     for (const it of r.items ?? []) parts.push(this.app.content.items.get(it.id)?.name ?? it.id);
-    if (parts.length) this.detail.add(addText(scene, x, rect.y + rect.h - 16, `<k>Reward:</> ${parts.join(', ')}`, { depth: D }));
+    const reward = parts.length ? this.detail.add(addText(scene, x, 0, `<k>Reward:</> ${parts.join(', ')}`, { maxWidth: width, depth: D })) : null;
+    const rewardH = reward ? lineCount(reward) * 11 + 2 : 0;
+    const lines = qs.visibleObjectives(quest.id).map((o) => {
+      const count = o.count > 1 ? ` (${Math.min(o.progress, o.count)}/${o.count})` : '';
+      const mark = this.detail.add(addText(scene, x, 0, o.done ? '<g>✓</>' : '<y>▶</>', { depth: D }));
+      const t = this.detail.add(addText(scene, x + 10, 0, o.done ? `<k>${o.def.text}${count}</>` : `${o.def.text}${count}`, { maxWidth: width - 10, depth: D }));
+      return { mark, t, h: lineCount(t) * 11 };
+    });
+    const objectivesH = lines.reduce((n, l) => n + l.h, 0);
+    const room = bottom - rewardH - y - objectivesH - 5;
+    let desc = this.detail.add(addText(scene, x, y, quest.description ?? quest.summary ?? '', { maxWidth: width, depth: D, color: 0xdcd4c4 }));
+    if (lineCount(desc) * 11 > room && quest.summary) {
+      // Not enough room for the full description and every objective: use the summary.
+      desc.destroy();
+      desc = this.detail.add(addText(scene, x, y, quest.summary, { maxWidth: width, depth: D, color: 0xdcd4c4 }));
+    }
+    y += lineCount(desc) * 11 + 5;
+    let full = false;
+    for (const l of lines) {
+      const fits = !full && y + l.h <= bottom - rewardH;
+      full = !fits;
+      l.mark.setVisible(fits).y = y;
+      l.t.setVisible(fits).y = y;
+      if (fits) y += l.h;
+    }
+    if (reward) reward.y = bottom - rewardH + 2;
   }
 
   focus() {

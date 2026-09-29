@@ -42,12 +42,37 @@ const SETUPS = {
     A: 1, B: 2, Y: 5, dpadRight: { axis: 9, value: HAT_DIRS.right, rest: HAT_CENTRED },
     setup: [1, 2, 4, 5, 12, 7, 8],
   },
+  // Firefox calling a pad "standard": it checks A and B, and when they are
+  // where they should be the setup ends there.
+  'firefox-standard': {
+    firefox: true,
+    pads: [{ id: '045e-0b13-Xbox Wireless Controller', mapping: 'standard', buttons: 17, axes: [0, 0, 0, 0] }],
+    controller: 0,
+    A: 0, B: 1, Y: 3, dpadRight: { button: 15 },
+    setup: [0, 1],
+    keepsAutomatic: true,
+  },
+  // ...and when the buttons are shifted up by one (Mozilla bug 1707400), the
+  // full setup learns them, D-pad buttons included.
+  'firefox-standard-shifted': {
+    firefox: true,
+    pads: [{ id: '045e-0b13-Xbox Wireless Controller', mapping: 'standard', buttons: 18, axes: [0, 0, 0, 0] }],
+    controller: 0,
+    A: 1, B: 2, Y: 4, dpadRight: { button: 16 },
+    setup: [1, 2, 3, 4, 10, 5, 6],
+    dpadButtons: { up: 13, down: 14, left: 15, right: 16 },
+  },
 };
 
 for (const [name, setup] of Object.entries(SETUPS)) {
   test(`the game is fully playable with a gamepad (${name})`, { tag: name === 'standard' ? ['@input', '@smoke'] : ['@input'] }, async ({ page }) => {
     const errors = [];
     page.on('pageerror', (e) => errors.push(e.message));
+    if (setup.firefox) {
+      await page.addInitScript(() => {
+        Object.defineProperty(Navigator.prototype, 'userAgent', { get: () => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:131.0) Gecko/20100101 Firefox/131.0' });
+      });
+    }
     await page.addInitScript((pads) => {
       const list = pads.map((p, index) => ({
         id: p.id, index, connected: true, mapping: p.mapping, timestamp: 0, axes: [...p.axes],
@@ -108,8 +133,12 @@ for (const [name, setup] of Object.entries(SETUPS)) {
         await ready(k++);
         await press(button, 90);
       }
-      for (const dir of ['up', 'down', 'left', 'right']) {
+      for (const dir of setup.keepsAutomatic ? [] : ['up', 'down', 'left', 'right']) {
         await ready(k++);
+        if (setup.dpadButtons) {
+          await press(setup.dpadButtons[dir], 90);
+          continue;
+        }
         await axis(9, HAT_DIRS[dir]);
         await page.waitForTimeout(150);
         await axis(9, HAT_CENTRED);
@@ -117,8 +146,12 @@ for (const [name, setup] of Object.entries(SETUPS)) {
       await page.waitForFunction(() => window.__GAME__.game.scene.getScene('Title').panel?.phase === 'done', null, { timeout: 5000 });
       expect((await setupPanel())?.phase).toBe('done');
       const saved = await page.evaluate((id) => window.__GAME__.app.settings.get('padLayouts')[id], setup.pads[setup.controller].id);
-      expect(saved.buttons).toMatchObject({ south: setup.setup[0], east: setup.setup[1], west: setup.setup[2], north: setup.setup[3] });
-      expect(saved.dirs.up).toMatchObject({ axis: 9, hat: true });
+      if (setup.keepsAutomatic) expect(saved).toEqual({ auto: true });
+      else {
+        expect(saved.buttons).toMatchObject({ south: setup.setup[0], east: setup.setup[1], west: setup.setup[2], north: setup.setup[3] });
+        if (setup.dpadButtons) expect(saved.dirs.right).toEqual({ button: setup.dpadButtons.right });
+        else expect(saved.dirs.up).toMatchObject({ axis: 9, hat: true });
+      }
       await press(setup.A); // the learned Confirm finishes
       expect(await setupPanel()).toBe(null);
     }

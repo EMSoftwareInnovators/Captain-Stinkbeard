@@ -393,6 +393,10 @@ button in turn:
   D-pad that reports as a hat axis;
 - it opens by itself on the first press of a pad the browser doesn't map,
   and can be reopened from Options > Controller;
+- in Firefox a pad reported as "standard" isn't trusted until checked
+  (`InputManager.trustStandard`): the setup asks for A and B, and when
+  they sit where the standard layout says it saves `{ auto: true }` and
+  stops;
 - the result is saved per controller id (`settings.padLayouts`), and
   `InputManager.layoutFor` prefers it over every built-in layout.
 

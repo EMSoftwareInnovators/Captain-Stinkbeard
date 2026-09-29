@@ -62,7 +62,9 @@ Firefox on a Mac, where A, B, X and Y do nothing even though the prompts
 switch. Such a pad gets **Options > Controller**, which asks you to press
 each button in turn and remembers the layout for that controller:
 - it opens by itself the first time you press a button on a pad the browser
-  doesn't map;
+  doesn't map. In Firefox it also opens for a pad Firefox calls standard
+  (Firefox can report a shifted pad that way): press A, then B, and if
+  they're right the check ends there;
 - a D-pad that reports as a hat switch works too;
 - skip a step with the pad's A (once learned), Enter, or by waiting;
 - in Options, Left on the Controller row forgets a learned layout.

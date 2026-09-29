@@ -292,7 +292,7 @@ the cancel button (default: the last option).
 | `despawn` | actor | remove |
 | `place` | actor, `x`, `y`, `facing` | teleport on the map |
 | `restage` | `walk` or `cut`, `async` | put people where the placements now say, mid-scene (see "Placements are live") |
-| `camera` | `pan` (`x`,`y` or `actor`), `follow` (`actor`), `reset`; `duration` | camera |
+| `camera` | `pan` (`x`,`y` or `actor`), `follow` (`actor`), `reset`; `duration` | camera (end a scene with `reset`; if you forget, the camera glides back to the captain once he has control) |
 | `shake` | intensity, `duration`, `to` (escalate to this intensity), `async` | screen shake (scaled by the Screen shake option) |
 | `flash` | `"#rrggbb"`, `duration` | screen flash |
 | `fade` | `in`/`out`, `duration`, `color` | full-screen fade |

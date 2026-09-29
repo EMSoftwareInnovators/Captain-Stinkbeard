@@ -227,6 +227,13 @@ describe('controllers the player sets up', () => {
     expect(input.padInfo()[0]).toMatchObject({ layout: 'custom', recognised: true });
   });
 
+  it('in Firefox, a pad called "standard" is only trusted once the player has checked it', () => {
+    const input = new InputManager({ target: {}, trustStandard: false });
+    expect(input.recognised(standardPad())).toBe(false); // offered the setup (A, then B)
+    const checked = new InputManager({ target: {}, trustStandard: false, customLayouts: () => ({ [standardPad().id]: { auto: true } }) });
+    expect(checked.recognised(standardPad())).toBe(true);
+  });
+
   it('"leave it automatic" counts as dealt with', () => {
     const input = new InputManager({ target: {}, customLayouts: () => ({ [firefoxMacXbox().id]: { auto: true } }) });
     expect(input.recognised(firefoxMacXbox())).toBe(true);

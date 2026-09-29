@@ -240,15 +240,27 @@ export class OverlayScene extends BaseScene {
   /** Chapter / notice banner across the middle of the screen. */
   banner(text, sub = null, { hold = 1900 } = {}) {
     return new Promise((resolve) => {
-      const y = 78;
-      const band = this.add.rectangle(0, y, SCREEN_WIDTH, sub ? 48 : 34, 0x07060c, 0.82).setOrigin(0).setDepth(900);
+      // A long title wraps onto a second line, centred; one that still
+      // doesn't fit drops to the smaller heading font.
+      const maxW = SCREEN_WIDTH - 24;
+      let big = addText(this, 0, 0, text, { font: 'big', color: UI_COLORS.gold, maxWidth: maxW, depth: 902 });
+      if (big.textWidth > maxW || big.text.split('\n').length > 2) {
+        big.destroy();
+        big = addText(this, 0, 0, text, { font: 'bold', color: UI_COLORS.gold, maxWidth: maxW, depth: 902 });
+      }
+      big.setCenterAlign?.();
+      const lineH = this.app.fontMetrics[big.fontName].lineHeight;
+      const extra = (big.text.split('\n').length - 1) * lineH;
+      const h = (sub ? 48 : 34) + extra;
+      const y = Math.round(78 - extra / 2);
+      big.y = y + 7;
+      const band = this.add.rectangle(0, y, SCREEN_WIDTH, h, 0x07060c, 0.82).setOrigin(0).setDepth(900);
       const line1 = this.add.rectangle(0, y, SCREEN_WIDTH, 1, 0xb57f22).setOrigin(0).setDepth(901);
-      const line2 = this.add.rectangle(0, y + (sub ? 47 : 33), SCREEN_WIDTH, 1, 0xb57f22).setOrigin(0).setDepth(901);
-      const big = addText(this, 0, y + 7, text, { font: 'big', color: UI_COLORS.gold, depth: 902 });
+      const line2 = this.add.rectangle(0, y + h - 1, SCREEN_WIDTH, 1, 0xb57f22).setOrigin(0).setDepth(901);
       centerText(big, SCREEN_WIDTH / 2);
       const parts = [band, line1, line2, big];
       if (sub) {
-        const small = addText(this, 0, y + 33, sub, { color: 0xdccca8, depth: 902 });
+        const small = addText(this, 0, y + 33 + extra, sub, { color: 0xdccca8, maxWidth: maxW, depth: 902 });
         centerText(small, SCREEN_WIDTH / 2);
         parts.push(small);
       }

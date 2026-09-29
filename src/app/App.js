@@ -26,7 +26,11 @@ export class App {
     this.storage = createStorage();
     this.settings = new Settings({ storage: this.storage, bus: this.bus });
     this.saves = new SaveManager({ storage: this.storage, content: this.content });
-    this.input = new InputManager({ bus: this.bus, customLayouts: () => this.settings.get('padLayouts') });
+    this.input = new InputManager({
+      bus: this.bus,
+      customLayouts: () => this.settings.get('padLayouts'),
+      trustStandard: !/firefox/i.test(globalThis.navigator?.userAgent ?? ''),
+    });
     this.audio = new AudioEngine({ content: this.content, settings: this.settings, bus: this.bus });
     this.session = null;
     this.mapCache = new Map();
