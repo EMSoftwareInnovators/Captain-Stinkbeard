@@ -130,7 +130,7 @@ chapter name and time of day follow flags and `p4_tod` (`data/game.json`).
 | --- | --- |
 | Chapter scripts | `data/story/cutscenes/phase4/ch15.json` … `ch19.json`, `world.json` (inspects, the sealed door, Jory's optional shift) |
 | Crew and character dialogue per stage | `data/dialogue/phase4/crew.json`, `characters.json` (crew states s1 to s9) |
-| Room changes | `data/maps/ship/phase4/*.patch.json` (generated from a placement table), `data/maps/ship/washroom.json` (new room) |
+| Room changes | `data/maps/ship/phase4/*.patch.json` (placements listed per story state, latest first), `data/maps/ship/washroom.json` (new room) |
 | NPCs, extensions, variants | `data/npcs/phase4_crew.json` (Pete is new; Garrick's sash, Squawks's feathers) |
 | Quests, flags, triggers | `data/quests/phase4.json`, `data/story/flags/phase4.json`, `data/story/triggers/phase4.json` |
 | Hazards | `data/hazards/dead_center.json`, `alarms.json`, `shark_duty.json` |
