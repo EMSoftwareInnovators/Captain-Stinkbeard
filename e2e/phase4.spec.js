@@ -280,7 +280,8 @@ test('Shark Duty and the choices play on a controller', { tag: ['@phase4', '@inp
   await g.preset('p4_shark_duty');
   await g.approach([13, 24]);
   await mashUntil(async () => flagsOf(await g.state()).has('shark_duty_reported') && (await idle()));
-  for (let n = 0; n < 40 && (await progress()) < 2; n++) {
+  const until = Date.now() + 150000;
+  while ((await progress()) < 2 && Date.now() < until) {
     const inc = await g.eval(() => {
       const w = window.__GAME__.game.scene.getScene('World');
       const d = w.sharkDuty;
@@ -294,7 +295,10 @@ test('Shark Duty and the choices play on a controller', { tag: ['@phase4', '@inp
     }
     await g.approach(inc).catch(() => {});
     const before = await progress();
-    await mashUntil(async () => (await progress()) > before || !(await g.eval(([x, y]) => !!window.__GAME__.game.scene.getScene('World').sharkDuty.targetAt(x, y), inc)));
+    // Until it's counted, or gone (and the shove bar closed).
+    const stillThere = () => g.eval(([x, y]) => !!window.__GAME__.app.overlay.repairOpen
+      || window.__GAME__.game.scene.getScene('World').sharkDuty.incidents.some((i) => i.x === x && i.y === y), inc);
+    await mashUntil(async () => (await progress()) > before || !(await stillThere()));
   }
   expect(await progress()).toBeGreaterThanOrEqual(2);
   expect(await g.eval(() => window.__GAME__.app.input.device)).toBe('gamepad');
