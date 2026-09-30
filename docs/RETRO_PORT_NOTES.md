@@ -149,15 +149,15 @@ frame is required. Button prompt glyphs are per device (`PROMPT_GLYPHS`).
 
 ## Save schema
 
-`src/systems/save/SaveManager.js`, current `SAVE_VERSION = 3` (Story Phase 3):
+`src/systems/save/SaveManager.js`, current `SAVE_VERSION = 4` (Story Phase 4):
 
 ```json
 {
-  "format": "captain-stinkbeard-save", "version": 3, "savedAt": "ISO date", "slot": 1,
+  "format": "captain-stinkbeard-save", "version": 4, "savedAt": "ISO date", "slot": 1,
   "checksum": "FNV-1a of the state JSON",
   "summary": { "location": "Main Deck", "playTime": 812.4, "leader": "Blackbeard", "level": 3, "gold": 160, "chapter": "Prologue" },
   "state": {
-    "story": { "flags": ["opening_seen"], "vars": {} },
+    "story": { "flags": ["opening_seen"], "vars": {}, "values": { "dead_center": "treasure_hold" } },
     "world": { "objects": { "cargo_hold:rats_1": { "defeated": true }, "log:stench_log": { "announced": ["day_one"], "seen": ["day_one"] } }, "visited": ["captains_quarters"], "counters": { "talk:wick": 2 } },
     "inventory": { "gold": 160, "items": { "hardtack": 3 } },
     "party": [{ "id": "blackbeard", "level": 3, "xp": 64, "hp": 71, "equipment": { "weapon": "cutlass", "body": "captains_coat", "feet": "sea_boots", "accessory": null }, "abilities": ["order_brace", "order_focus_fire"] }],
@@ -193,6 +193,14 @@ missing `story`/`world` fields; the version bump itself is what stops a
 Phase 2 build from loading a Phase 3 save and silently dropping its quests.
 Port budget: two short id lists per logbook (18 entries → 2 × 3 bytes as
 bitfields).
+
+Version 4 (Story Phase 4) adds `story.values`: named text, of which only one
+is used, `dead_center` (where the Dead Center is: one of eleven location ids,
+or absent). The 3 → 4 migration adds an empty `values`. Everything else Phase
+4 adds follows flags and variables (`p4_tod` for the hour, `p4_hull_damage`
+for the hull); the Shark Duty in progress, its incidents and the duty board
+are per-play and never saved (a load mid-duty starts a fresh watch; quest
+progress is kept). Port budget: one byte for the Center's location index.
 
 ## Asset naming
 

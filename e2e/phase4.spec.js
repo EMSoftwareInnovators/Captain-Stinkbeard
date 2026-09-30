@@ -14,10 +14,11 @@ import { GameDriver } from './driver.js';
 
 const flagsOf = (s) => new Set(s.flags);
 
-async function open(page) {
+async function open(page, { initScript = null } = {}) {
   const errors = [];
   page.on('pageerror', (e) => errors.push(e.message));
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
+  if (initScript) await page.addInitScript(initScript);
   await page.goto('/');
   const g = new GameDriver(page);
   await g.waitFor(() => !!window.__GAME__?.app);
@@ -233,5 +234,74 @@ test('after Phase 4, Jory lets the captain take an optional Shark Duty shift', {
   expect(await g.sharkDuty('(window.__dutyT0 ??= Date.now(), Date.now() - window.__dutyT0 > 25000)')).toBeGreaterThanOrEqual(1);
   await g.interact('jory', 0); // "Stand down"
   expect(await g.eval(() => window.__GAME__.game.scene.getScene('World').sharkDuty.sessionId)).toBe(null);
+  expect(errors).toEqual([]);
+});
+
+test('Shark Duty and the choices play on a controller', { tag: ['@phase4', '@input'] }, async ({ page }) => {
+  test.setTimeout(6 * 60 * 1000);
+  const { g, errors } = await open(page, {
+    initScript: () => {
+      const mk = (id, buttons, axes, index) => ({
+        id, index, connected: true, mapping: 'standard', timestamp: 0, axes,
+        buttons: Array.from({ length: buttons }, () => ({ pressed: false, value: 0, touched: false })),
+      });
+      const list = [mk('045e-0b20-Xbox Wireless Controller', 17, [0, 0, 0, 0], 0)];
+      window.__pad = list[0];
+      navigator.getGamepads = () => list;
+    },
+  });
+  const A = 0;
+  const press = async (button, ms = 60) => {
+    await page.evaluate((b) => { window.__pad.buttons[b].pressed = true; window.__pad.buttons[b].value = 1; }, button);
+    await page.waitForTimeout(ms);
+    await page.evaluate((b) => { window.__pad.buttons[b].pressed = false; window.__pad.buttons[b].value = 0; }, button);
+    await page.waitForTimeout(110);
+  };
+  /** Presses A until `done`, striking the timing bar on the green. */
+  const mashUntil = async (done) => {
+    for (let i = 0; i < 900; i++) {
+      if (await done()) return;
+      const repair = await g.eval(() => {
+        const r = window.__GAME__.app.overlay.repairOpen;
+        return r ? { hit: r.lock <= 0 && r.mark.x >= r.zone.x && r.mark.x <= r.zone.x + r.zone.width } : null;
+      });
+      if (repair && !repair.hit) {
+        await page.waitForTimeout(16);
+        continue;
+      }
+      await press(A, repair ? 30 : 40);
+    }
+    throw new Error('never finished');
+  };
+  const idle = async () => !(await g.state()).busy;
+  const progress = async () => (await g.state()).quests.shark_duty.objectives.repel.progress;
+
+  // Report to the rail and see off two sharks, shoving with A.
+  await g.preset('p4_shark_duty');
+  await g.approach([13, 24]);
+  await mashUntil(async () => flagsOf(await g.state()).has('shark_duty_reported') && (await idle()));
+  for (let n = 0; n < 40 && (await progress()) < 2; n++) {
+    const inc = await g.eval(() => {
+      const w = window.__GAME__.game.scene.getScene('World');
+      const d = w.sharkDuty;
+      if (!d?.active || d.responding || w.isBusy()) return null;
+      const p = w.player;
+      return d.incidents.map((i) => [i.x, i.y]).sort((a, b) => Math.abs(a[0] - p.tx) + Math.abs(a[1] - p.ty) - Math.abs(b[0] - p.tx) - Math.abs(b[1] - p.ty))[0] ?? null;
+    });
+    if (!inc) {
+      await page.waitForTimeout(250);
+      continue;
+    }
+    await g.approach(inc).catch(() => {});
+    const before = await progress();
+    await mashUntil(async () => (await progress()) > before || !(await g.eval(([x, y]) => !!window.__GAME__.game.scene.getScene('World').sharkDuty.targetAt(x, y), inc)));
+  }
+  expect(await progress()).toBeGreaterThanOrEqual(2);
+  expect(await g.eval(() => window.__GAME__.app.input.device)).toBe('gamepad');
+
+  // A choice on the pad: Jory's optional shift after the phase ("Take a shift" is first).
+  await g.preset('p4_complete');
+  await g.approach('jory');
+  await mashUntil(async () => flagsOf(await g.state()).has('optional_duty_on') && (await idle()));
   expect(errors).toEqual([]);
 });

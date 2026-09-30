@@ -243,6 +243,22 @@ describe('Phase 4 saves', () => {
     expect(res.state.story.flags).toContain('p3_complete');
   });
 
+  it('saves and loads at every Phase 4 checkpoint without losing anything', () => {
+    const ids = content.debugPresets.list().map((p) => p.id).filter((id) => id.startsWith('p4_'));
+    expect(ids.length).toBe(18);
+    for (const id of ids) {
+      const s = atPreset(id);
+      const state = JSON.parse(JSON.stringify(s.serialize()));
+      const loaded = GameSession.fromState({ content, bus: new EventBus(), state });
+      const again = JSON.parse(JSON.stringify(loaded.serialize()));
+      // (A preset names a spawn point; the world turns it into x, y on arrival, before any real save.)
+      for (const key of ['story', 'quests', 'inventory', 'party', 'world']) expect(again[key], `${id}: ${key}`).toEqual(state[key]);
+      expect(again.location.map, id).toBe(state.location.map);
+      expect(currentChapter(content.game, loaded).id, id).toBe(currentChapter(content.game, s).id);
+      expect(deadCenterLocation(loaded), id).toBe(deadCenterLocation(s));
+    }
+  });
+
   it('keeps everything Phase 4 changed across a save', () => {
     const s = atPreset('p4_complete');
     const loaded = GameSession.fromState({ content, bus: new EventBus(), state: JSON.parse(JSON.stringify(s.serialize())) });

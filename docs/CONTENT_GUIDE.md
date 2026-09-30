@@ -291,7 +291,7 @@ the cancel button (default: the last option).
 | `spawn` | npc, `id`, `x`, `y`, `facing` | add an NPC for the scene |
 | `despawn` | actor | remove |
 | `place` | actor, `x`, `y`, `facing` | teleport on the map |
-| `restage` | `walk` or `cut`, `async` | put people where the placements now say, mid-scene (see "Placements are live") |
+| `restage` | `walk` or `cut`, `async` | put people where the placements now say, mid-scene (see "Placements are live"); `async` lets them walk while the scene goes on (the crew scattering at the bells) |
 | `camera` | `pan` (`x`,`y` or `actor`), `follow` (`actor`), `reset`; `duration` | camera (end a scene with `reset`; if you forget, the camera glides back to the captain once he has control) |
 | `shake` | intensity, `duration`, `to` (escalate to this intensity), `async` | screen shake (scaled by the Screen shake option) |
 | `flash` | `"#rrggbb"`, `duration` | screen flash |
@@ -317,9 +317,13 @@ the cancel button (default: the last option).
 | `logbook` | log id, `entry` | open a logbook (the Stench Log) in the world; waits until it is closed |
 | `swapItem` | item, `to` item, `bonus`, `silent` | turn every copy of one item into another (all the rum becomes Frog Grog) |
 | `tint` | actor, `color` `"#rrggbb"`, `duration`, `async` | tint an actor for a moment (turning green) |
-| `sharks` | level or `"auto"` | hold a shark level for the scene; `auto` hands it back to the map |
-| `sharkEvent` | `bite` (`x`, `y` hull tile), `ram`, `flop` (`x`, `y` deck tile), `return`, `lure` (`x`, `y`, `duration`), `follow`, `unfollow`; `async` | staged shark moments |
-| `repair` | kind, `strikes`, `title`, `var` | the hull-patch timing game; clean strikes go into `var` |
+| `sharks` | level or `"auto"`, `crowd` | hold a shark level for the scene (`crowd`: how many distant fins to draw); `auto` hands it back to the map |
+| `sharkEvent` | `bite` (`x`, `y` hull tile), `ram`, `flop` (`x`, `y` deck tile), `return`, `lure` (`x`, `y`, `duration`), `follow`, `unfollow`, `frenzy` (`x`, `y`: the scent on the hull), `calm`, `thrash` (`x`, `y`), `hammerhead` (`x`, `y`); `async` | staged shark moments |
+| `repair` | kind (`hull`, `rope`, `helm`, `shark`), `strikes`, `title`, `var` | the timing game (patch, haul, hold the wheel, shove a shark); clean strikes go into `var` |
+| `deadCenter` | location id or `"none"` | where the Dead Center is now (Phase 4; see below) |
+| `alarm` | level 1-4, `where`, `wait` | ring the bell protocol: shown in words and heard; carries on unless `wait` |
+| `course` | `show` (`heading`, `target`, `label`), `drift` (`to`, `duration`), `hide`; `async` | the course dial (the ship falling off her heading) |
+| `sharkDuty` | `"clear"` | send every shark at the rail away at once (standing down) |
 
 Actors are `player` (or `captain`) or the id of an NPC/actor on the map.
 
@@ -352,6 +356,7 @@ Used by `if` everywhere (dialogue selectors, steps, choices, map objects, warps,
 | `objectState` | `{ "objectState": { "key": "cargo_hold:gunnery_crate", "opened": true } }` |
 | `all` / `any` / `not` | `{ "all": [ … ] }`, `{ "not": { … } }` |
 | `always` / `never` | `{ "always": true }` |
+| `deadCenter` | `{ "deadCenter": "galley_breakfast" }` or a list (any of): where the Dead Center is (Phase 4) |
 
 ## Story flags and variables
 
@@ -363,7 +368,9 @@ Every flag must be declared (`data/story/flags/*.json`), which catches typos:
 
 Undeclared flags are validation errors, and declared-but-unused flags produce
 warnings. Variables (`setVar`, `addVar`, `var` conditions, `{var:name}`) are
-free-form integers.
+free-form integers. Story **values** are named text (saved since save version
+4); the one in use is where the Dead Center is (`deadCenter` command and
+condition, `{deadCenter}` in text).
 
 ## Quests (`data/quests/`)
 
@@ -775,6 +782,114 @@ Vista skies and seas: `night`, `noon`. Vista frames: `fin_side_0/1`,
 `shark_belly_0/1`, `ripple_0…2`. Stage frames: `fin_h/v_*`, `shark_bite_*`,
 `shark_deck_*`, `rowboat_beans_*`, `rowboat_pan_*`, `rowboat_hitch_*`,
 `shark_belly_*`, `rat_mask_0…2`. Inserts: `amendment_notice`, `ship_names`.
+
+## Story Phase 4 formats
+
+### The Dead Center (`data/hazards/dead_center.json`)
+
+The Center is a named location, stored as a story value. Each location is a
+room and fume zones (the ordinary fume system draws it and meters exposure):
+
+```json
+"locations": {
+  "galley_breakfast": { "name": "the galley", "map": "galley",
+    "zones": [{ "level": "center", "x": 3, "y": 5, "w": 8, "h": 6 },
+              { "level": "dense", "x": 1, "y": 4, "w": 11, "h": 8 }],
+    "enterFrom": [-7, 0], "enterMs": 6000,
+    "seals": true }
+}
+```
+
+`enterFrom` is the offset (in tiles) it rolls in from over `enterMs`, so
+there is always time to get out. `seals: true` locks every warp into that map
+while the Center is there (a list names the maps to seal); the door plays
+`hazard.dead_center_door` instead ("The door won't budge..."). Scripts put it
+somewhere with `{ "deadCenter": "washroom" }` and take it away with
+`"none"`; `{ "if": { "deadCenter": "washroom" } }` asks where it is, and
+`{deadCenter}` in text names the place. Adding a place is data only.
+
+### The bell protocol (`data/hazards/alarms.json`)
+
+```json
+"levels": { "3": { "label": "THREE BELLS", "text": "DEAD CENTER SIGHTED. EVACUATE.",
+                   "sound": "KLANG-HACK-KOFF-WHEEZE", "sfx": "alarm_bell_3", "color": "#e04030" } }
+```
+
+`{ "alarm": 3, "where": "the galley" }` rings it: a panel with the bells,
+what they mean, where, and the bell's sound written out, with the screen edge
+pulsing once per bell (softer with Reduced effects). Nobody has to hear it.
+The world never rings alarms by itself; scripts do. Add `"wait": true` when
+the next thing shown must not sit under the panel.
+
+### Shark Duty (`data/hazards/shark_duty.json`, map `"sharkDuty"`)
+
+Rail sections are tiles on the main deck; sessions are wave lists:
+
+```json
+"sections": { "port_mid": { "x": 16, "y": 20 } },
+"sessions": { "first_watch": { "title": "SHARK DUTY", "label": "Sharks seen off",
+  "event": "shark_repelled", "counter": "shark_duty.repel",
+  "window": 9500, "maxActive": 2,
+  "waves": [{ "gap": 1400, "section": "port_mid" }, { "gap": 3800, "section": "port_patch", "big": true },
+            { "gap": 4000, "boarder": [10, 22] }],
+  "barks": [{ "who": "jory", "text": "Mind the patch, Captain!" }] } }
+```
+
+A map turns a session on from the story (first match wins):
+
+```json
+"sharkDuty": [{ "if": { "objectiveActive": "shark_duty.repel" }, "session": "first_watch" },
+              { "if": { "flag": "optional_duty_on" }, "session": "open_watch" }]
+```
+
+While it runs, sharks come to the rail one wave at a time (never two at one
+section, never more than `maxActive`); the captain faces the rail and presses
+Confirm to shove each one off (the `shark` repair kind; `big` sharks need two).
+Each one seen off fires `event` (count it with an `event` objective) and the
+duty board shows `counter`'s progress. A shark left too long bites and leaves
+damage to patch; nothing is ever lost. `{ "sharkDuty": "clear" }` stands the
+rail down at once.
+
+### Sharks: the frenzy and the crowd
+
+Map shark entries take `crowd` (how many small distant fins to draw, capped
+by `maxCrowd`): `{ "if": { "flag": "hundreds_seen" }, "level": "swarm", "crowd": 100 }`.
+There is a sixth level, `frenzy` (churning water, fins everywhere); stage it
+with `{ "sharkEvent": "frenzy", "x": 17, "y": 21 }`, end it with `calm`.
+`thrash` disturbs the water at a spot; `hammerhead` rams the hull there.
+
+### The Forecast Board and logbook pictures
+
+Log entries may carry a picture (`insert`, `caption`) shown full-screen from
+the entry, and a field can be drawn as a scale (`"scale": true`, coloured
+through `severities`). The Forecast Board (`data/logs/forecasts.json`) uses
+both: `predicted`, `risk` (a scale), `confidence`, `result` and `notes`, with
+each day's crayon map. New forecasts are new entries with an `if`.
+
+### Vistas: crowds and the dialogue at the top
+
+A vista layer can be a **school**: many drifting copies from one entry
+(`frames`, `count` up to 400, `area` `[x, y, w, h]`, `scale` and `speed`
+ranges, `flip: "random"`, `frameMs`), shown and hidden like any layer. A
+vista with `"dock": "top"` puts the dialogue window along the top, over the
+sky, so the whole sea stays in view.
+
+### Time of day by variable
+
+Phase 4 keeps the hour in a variable: `data/game.json` `timeOfDay` entries
+match `{ "var": { "name": "p4_tod", "eq": 3 } }` (1 morning, 2 noon, 3
+afternoon, 4 evening, 5 night), so a script sets the hour with `setVar`.
+
+### Poses, frames and inserts added in Phase 4
+
+Vista frames: `revenge_bitten_1…3`, `shark_shadow_0/1`, `hammer_ram_0/1`,
+`churn_0…2`, `yellow_wake`. Inserts: `forecast_day1…3`, `forecast_sharks`,
+`forecast_worst`, `forecast_worst_flipped`, `forecast_tomorrow_70`,
+`forecast_tomorrow_700`, `grog_close`, `grog_forecast`, `beard_remedies`,
+`bell_protocol`, `patch_labels`. Garrick's appearance and portrait
+`garrick_grand_stenchmaster` (the sash), `squawks_feathers_3`,
+`squawks_feathers_7`, `squawks_bald_again` and `pete` are in
+`data/appearances/phase4.json` and `data/portraits/phase4.json`.
 
 ## Tilesets and props
 

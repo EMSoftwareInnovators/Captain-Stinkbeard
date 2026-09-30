@@ -312,6 +312,45 @@ new behaviour arrives as data plus small, reusable engine pieces.
   play, never saved) and `sideEffect` (one weighted pick: a short battle
   status and/or field effects, with a line of text).
 
+## The Dead Center, bells and Shark Duty (Phase 4)
+
+Story Phase 4 (see [STORY_PHASE4.md](STORY_PHASE4.md)) turns the Dead Center
+into a recurring, data-driven hazard and builds daily life around it. Again:
+data plus small reusable pieces, nothing rebuilt.
+
+- **Story values.** `StoryState` gained named text values beside flags and
+  variables (`getValue` / `setValue`, saved; save version 4). Where the Dead
+  Center is today is one: `dead_center`, holding a location id.
+- **The Dead Center is routed through the existing fume system.**
+  `systems/hazards/deadCenter.js` turns `data/hazards/dead_center.json`
+  locations into ordinary fume zones, each conditional on
+  `{ "deadCenter": id }`, so the map's usual story refresh brings it and
+  takes it away. It rolls in from `enterFrom` over `enterMs` (the fume field
+  remembers when a zone appeared), and exposure, collapse and rescue are the
+  Phase 2 rules. `deadCenterSeals` makes the world refuse warps into a room
+  the Center fills and play `hazard.dead_center_door` instead.
+- **The bell protocol** (`systems/hazards/alarms.js`, `OverlayScene.alarm`):
+  data levels 1-4, always shown in words (and the bell's sound written out)
+  as well as played; the panel sits below a top-docked dialogue window and
+  moves back up when it closes; a tutorial opens below it.
+- **Shark Duty** is two halves: `systems/hazards/sharkDuty.js` (pure: data,
+  which session a map runs, and `DutyPlan`, the deterministic wave schedule)
+  and `world/SharkDuty.js` (the rail marks, the shove, bites that leave
+  damage, the duty board, crew barks). Time only passes while the captain has
+  control; nothing can be failed.
+- **Sharks** gained a `frenzy` level, crowds of distant fins (`crowd`, capped
+  and pooled), and staged `frenzy` / `calm` / `thrash` / `hammerhead` events
+  in `world/SharkLayer.js`.
+- **The course dial** (`OverlayScene.course`, `course` command) shows the
+  ship falling off her heading while the helm is unreachable.
+- **Vistas** gained school layers (many drifting copies from one entry, for
+  hundreds of fins) and `"dock": "top"` (the dialogue window over the sky).
+  Toasts and the map title also move below a top-docked window.
+- **Logbooks** gained pictures (an entry's `insert`) and scale fields, for
+  the Forecast Board (`data/logs/forecasts.json`).
+- **Time of day** entries can match variables, so Phase 4 sets the hour with
+  `p4_tod`.
+
 ## Battle
 
 `BattleEngine` (`src/systems/battle/`) owns the rules and is fully
@@ -420,8 +459,9 @@ handles fullscreen, so pixels stay square and sharp.
 See the README and [RETRO_PORT_NOTES.md](RETRO_PORT_NOTES.md#save-schema).
 Autosave on map entry and after battles, three manual slots from the pause
 menu, checksum + version per record, migrations table for future formats.
-The schema is at version 3 (Story Phase 3); a Phase 1 or Phase 2 save
-upgrades on load and walks into the next chapter.
+The schema is at version 4 (Story Phase 4 added story values: where the
+Dead Center is); a Phase 1, 2 or 3 save upgrades on load and walks into the
+next chapter.
 
 ## Testing
 
@@ -445,6 +485,10 @@ upgrades on load and walks into the next chapter.
   Story Phase 3, and chapters 12 to 14 from a preset. It also saves and
   continues either side of the rename, plays key scenes on an unmapped
   Firefox pad, and checks the captain can't be walled in.
+  `phase4.spec.js` plays all of Story Phase 4 from the end of Phase 3
+  (Shark Duty played properly: walk to each shark, face the rail, shove on
+  the green), chapters 18 and 19 from a preset, the sealed washroom, the
+  Forecast Board and the optional shift after the phase.
   `placements.spec.js` checks that people go where the story moved them.
   `e2e/driver.js` is the shared driver; `tools/play.mjs` runs quick scripted
   sessions for screenshots.
@@ -452,9 +496,9 @@ upgrades on load and walks into the next chapter.
 
   | Tag | What |
   | --- | --- |
-  | `@smoke` | a few minutes: menus, movement, a pad, Phase 2 presets, being walled in |
-  | `@story` | the long playthroughs (prologue, Phase 2, Phase 3, chapters 12 to 14) |
-  | `@prologue` `@phase2` `@phase3` | by part of the story |
+  | `@smoke` | a few minutes: menus, movement, a pad, Phase 2 presets, being walled in, the Dead Center's sealed door, the Forecast Board |
+  | `@story` | the long playthroughs (prologue, Phase 2, Phase 3, chapters 12 to 14, Phase 4, chapters 18 and 19) |
+  | `@prologue` `@phase2` `@phase3` `@phase4` | by part of the story |
   | `@input` `@saves` `@world` `@scenes` `@ui` | by system |
 
   `npm run e2e:smoke`, `npm run e2e:quick` (all but `@story`),
@@ -471,11 +515,14 @@ upgrades on load and walks into the next chapter.
     - a captain boxed in when a scene ends;
     - a room whose doorways are cut off by people from some arrival point;
     - talking to someone who isn't in the room.
-- `tests/phase2_story.test.js` and `tests/phase3_story.test.js` play the Story Phases headlessly with the real
+- `tests/phase2_story.test.js`, `tests/phase3_story.test.js` and `tests/phase4_story.test.js` play the Story Phases headlessly with the real
   scripts, quests and triggers and mock services, twice (always the first
   choice, always the last), and fails on any dead end, loop or script error.
   `tests/phase2.test.js` covers the fume model, variants, chapters and time of
   day, save migration 1 → 2, presets, trigger hygiene and the new options.
+  `tests/phase4.test.js` covers the Dead Center (zones, rolling in, sealed
+  rooms, the saved value), the bells, the Shark Duty plan, the frenzy, the
+  Forecast Board and save migration 3 → 4.
 
 ## Adding Chapter 8 (or anything else)
 
