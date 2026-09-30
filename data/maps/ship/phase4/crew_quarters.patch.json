@@ -177,6 +177,20 @@
    "id": "washroom_door"
   }
  ],
+ "ambient": [
+  {
+   "kind": "smoke",
+   "x": 3,
+   "y": 3,
+   "rise": 4,
+   "every": 900,
+   "alpha": 0.5,
+   "tint": "#d8c850",
+   "if": {
+    "deadCenter": "washroom"
+   }
+  }
+ ],
  "collision": [
   {
    "x": 3,

@@ -838,6 +838,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
   for (const [id, v] of db.vistas.map) {
     const c = C(`${db.vistas.sourceOf(id)} (${id})`);
     if (v.sky && !art.vistaSkies.has(v.sky)) c.error(`unknown vista sky "${v.sky}"`);
+    if (v.dock !== undefined && v.dock !== 'top' && v.dock !== 'bottom') c.error('vista "dock" is "top" or "bottom"');
     const ids = new Set();
     (v.layers || []).forEach((l, i) => {
       const lc = c.at(`layers[${i}]`);

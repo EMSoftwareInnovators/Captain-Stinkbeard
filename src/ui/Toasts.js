@@ -4,13 +4,27 @@ import { addText, measure, parseMarkup, formatTokens } from './text.js';
 /**
  * Small notifications that slide in at the top-left: items received, gold,
  * quest updates, level ups. Queued so they never overlap.
+ *
+ * `top()` gives the y of the first slot; the overlay moves it below the
+ * dialogue window while that is docked along the top, and `relayout()`
+ * (called every frame) shifts toasts already showing when it changes.
  */
 export class Toasts {
-  constructor(scene) {
+  constructor(scene, { top = () => 6 } = {}) {
     this.scene = scene;
     this.app = scene.game.app;
     this.queue = [];
     this.active = [];
+    this.top = top;
+    this.base = top();
+  }
+
+  relayout() {
+    const base = this.top();
+    if (base === this.base) return;
+    const dy = base - this.base;
+    this.base = base;
+    for (const e of this.active) for (const p of e.parts) p.y += dy;
   }
 
   push({ text, icon = null, sound = null, hold = 2200 }) {
@@ -28,7 +42,7 @@ export class Toasts {
     const w = measure(this.app.fontMetrics.main, parseMarkup(formatted).text) + (t.icon ? 30 : 14);
     const h = 20;
     const slot = this.active.length;
-    const y = 6 + slot * 23;
+    const y = this.base + slot * 23;
     const x = 6;
     const panel = addPanel(s, x, y, w, h, { depth: 600 });
     const parts = [panel];

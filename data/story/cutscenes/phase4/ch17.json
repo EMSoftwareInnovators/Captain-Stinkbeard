@@ -1,5 +1,5 @@
 {
-  "//": "Story Phase 4, chapter 17: The Center Picks the Worst Places. Days 4 to 6. A montage (powder store in the hold, medicine cabinet in the crew quarters, the galley oven), the captain's serious beard wash in the washroom (the tub at (7,5)), then Squawks's seven feathers in the captain's cabin: Squawks at his perch (11,5), the Center rolling in from the stern windows, the only way out the door (8,11).",
+  "//": "Story Phase 4, chapter 17: The Center Picks the Worst Places. Days 4 to 6. A montage (powder store in the hold, medicine cabinet in the crew quarters, the galley oven), the captain's serious beard wash in the washroom (the tub at (7,5)), then Squawks's seven feathers in the captain's cabin: Squawks beside his perch (11,6), the Center rolling in from the stern windows, the only way out the door (8,11).",
 
   "p4c3.begin": [
     { "fade": "out", "duration": 900 },
@@ -137,7 +137,7 @@
     { "bark": "none", "text": "CAPTAIN! CAPTAIN! COME AND COUNT!", "x": 9, "y": 10, "shout": true, "duration": 2200 },
     { "wait": 600 },
     "wick[happy]: That's Squawks, Captain. He's been counting them all morning. He keeps losing count after three.",
-    { "tutorial": "Squawks is in your cabin. He wants you to count his feathers.", "title": "Seven Feathers" }
+    { "tutorial": "Squawks is in your cabin, by his perch. He wants you to count his feathers.", "title": "Seven Feathers" }
   ],
 
   "p4c3.feathers_count": [
@@ -194,9 +194,9 @@
 
   "p4c3.feathers_back": [
     { "setFlag": "feathers_returned" },
-    { "move": "player", "to": [11, 6], "face": "up" },
-    "You unbutton your coat. Squawks climbs out and up onto his perch, very carefully.",
-    { "spawn": "squawks", "id": "squawks", "x": 11, "y": 5, "facing": "down" },
+    { "move": "player", "to": [10, 6], "face": "right" },
+    "You unbutton your coat. Squawks climbs out and settles on the floor beside his perch, very carefully.",
+    { "spawn": "squawks", "id": "squawks", "x": 11, "y": 6, "facing": "left" },
     "squawks[worried]: Check. Check feathers.",
     "He twists round and counts them with his beak. One. Two. Three. Four. Five. Six. Seven.",
     "squawks[smug]: ...SEVEN! All seven! Feathers SAFE!",
@@ -224,7 +224,7 @@
     "squawks[exhausted]: Bald.",
     "squawks[exhausted]: Bald AGAIN.",
     "captain[tender]: Oh, Squawks.",
-    "You sit down on the cabin floor beside his perch, which you haven't done since you were a boy with your first ship's parrot, and you let him climb down onto your knee.",
+    "You sit down on the cabin floor beside him, which you haven't done since you were a boy with your first ship's parrot, and you let him climb down onto your knee.",
     "captain[tender]: They came back once. They'll come back again. You're a tough old bird.",
     "squawks[exhausted]: ...Fart hates feathers.",
     "captain[tender]: Aye. Aye, it does.",

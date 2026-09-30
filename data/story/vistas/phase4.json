@@ -1,20 +1,20 @@
 {
- "//": "Story Phase 4 vistas (see src/scenes/CinemaScene.js). Layer x/y are screen pixels, anchored bottom-centre; horizon 132. Fins face left by default (flip: true to swim right). The crowds are school layers: one entry, many drifting copies, hidden until the script shows them.",
+ "//": "Story Phase 4 vistas (see src/scenes/CinemaScene.js). Layer x/y are screen pixels, anchored bottom-centre; horizon 132. Fins face left by default (flip: true to swim right). The crowds are school layers: one entry, many drifting copies, hidden until the script shows them. dock: top puts the dialogue window along the top (over the sky) so the whole sea stays in view.",
 
  "fins_gather": {
-  "sky": "noon", "sea": "noon", "horizon": 132,
+  "sky": "noon", "sea": "noon", "horizon": 132, "dock": "top",
   "layers": [
    { "id": "shadows", "school": { "frames": ["shark_shadow_0", "shark_shadow_1"], "count": 60, "area": [0, 150, 320, 70], "scale": [0.5, 1.0], "speed": [3, 9], "flip": "random", "frameMs": 420 }, "hidden": true, "depth": 8 },
    { "id": "revenge", "frame": "revenge_bitten_1", "x": 160, "y": 158, "scale": 0.62, "bob": 1, "depth": 10 },
    { "id": "port", "school": { "frames": ["fin_side_0", "fin_side_1"], "count": 20, "area": [212, 142, 104, 40], "scale": [0.45, 0.8], "speed": [4, 10], "flip": "random" }, "hidden": true, "depth": 12 },
    { "id": "starboard", "school": { "frames": ["fin_side_1", "fin_side_0"], "count": 30, "area": [4, 142, 104, 40], "scale": [0.45, 0.8], "speed": [4, 10], "flip": "random" }, "hidden": true, "depth": 12 },
    { "id": "hundreds", "school": { "frames": ["fin_side_0", "fin_side_1"], "count": 220, "area": [0, 134, 320, 88], "scale": [0.18, 0.78], "speed": [3, 12], "flip": "random" }, "hidden": true, "depth": 14 },
-   { "id": "gull", "frame": "gull_0", "frames": ["gull_0", "gull_1"], "frameMs": 260, "x": 60, "y": 50, "bob": 3, "depth": 18 }
+   { "id": "gull", "frame": "gull_0", "frames": ["gull_0", "gull_1"], "frameMs": 260, "x": 60, "y": 104, "bob": 3, "depth": 18 }
   ]
  },
 
  "waterline_frenzy": {
-  "sky": "afternoon", "sea": "afternoon", "horizon": 132,
+  "sky": "afternoon", "sea": "afternoon", "horizon": 132, "dock": "top",
   "layers": [
    { "id": "shadows", "school": { "frames": ["shark_shadow_0", "shark_shadow_1"], "count": 70, "area": [0, 146, 320, 76], "scale": [0.5, 1.1], "speed": [10, 26], "flip": "random", "frameMs": 200 }, "hidden": true, "depth": 8 },
    { "id": "revenge", "frame": "revenge_bitten_1", "x": 120, "y": 160, "scale": 0.72, "bob": 1, "depth": 10 },
@@ -23,13 +23,13 @@
    { "id": "churn_a", "frame": "churn_0", "frames": ["churn_0", "churn_1", "churn_2"], "frameMs": 110, "x": 150, "y": 170, "hidden": true, "depth": 13 },
    { "id": "churn_b", "frame": "churn_1", "frames": ["churn_1", "churn_2", "churn_0"], "frameMs": 130, "x": 196, "y": 176, "hidden": true, "depth": 13 },
    { "id": "churn_c", "frame": "churn_2", "frames": ["churn_2", "churn_0", "churn_1"], "frameMs": 120, "x": 104, "y": 178, "hidden": true, "depth": 13 },
-   { "id": "ram", "frame": "hammer_ram_0", "x": 214, "y": 184, "hidden": true, "depth": 14 },
+   { "id": "ram", "frame": "hammer_ram_0", "x": 198, "y": 184, "hidden": true, "depth": 14 },
    { "id": "leaper", "frame": "shark_leap", "x": 250, "y": 150, "hidden": true, "depth": 14 }
   ]
  },
 
  "ship_smaller": {
-  "sky": "evening", "sea": "evening", "horizon": 132,
+  "sky": "evening", "sea": "evening", "horizon": 132, "dock": "top",
   "layers": [
    { "id": "revenge", "frame": "revenge_bitten_1", "x": 160, "y": 160, "scale": 0.72, "bob": 1, "depth": 10 },
    { "id": "fins", "school": { "frames": ["fin_side_0", "fin_side_1"], "count": 70, "area": [0, 138, 320, 80], "scale": [0.2, 0.75], "speed": [4, 12], "flip": "random" }, "depth": 12 },
@@ -38,12 +38,12 @@
  },
 
  "yellow_wake": {
-  "sky": "sunset", "sea": "sunset", "horizon": 132,
+  "sky": "sunset", "sea": "sunset", "horizon": 132, "dock": "top",
   "layers": [
    { "id": "wake", "frame": "yellow_wake", "x": 150, "y": 206, "depth": 8 },
    { "id": "fins", "school": { "frames": ["fin_side_0", "fin_side_1"], "count": 160, "area": [20, 134, 230, 70], "scale": [0.15, 0.62], "speed": [5, 12], "flip": true }, "depth": 9 },
    { "id": "revenge", "frame": "revenge_bitten_3", "x": 264, "y": 212, "scale": 0.62, "bob": 1, "depth": 10 },
-   { "id": "gull", "frame": "gull_0", "frames": ["gull_0", "gull_1"], "frameMs": 240, "x": 90, "y": 64, "bob": 3, "depth": 18 }
+   { "id": "gull", "frame": "gull_0", "frames": ["gull_0", "gull_1"], "frameMs": 240, "x": 90, "y": 102, "bob": 3, "depth": 18 }
   ]
  }
 }

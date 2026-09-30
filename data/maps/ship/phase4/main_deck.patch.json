@@ -2748,6 +2748,44 @@
    }
   }
  ],
+ "ambient": [
+  {
+   "kind": "smoke",
+   "x": 9,
+   "y": 24,
+   "rise": 4,
+   "every": 900,
+   "alpha": 0.5,
+   "tint": "#d8c850",
+   "if": {
+    "deadCenter": "galley_breakfast"
+   }
+  },
+  {
+   "kind": "smoke",
+   "x": 9,
+   "y": 33,
+   "rise": 4,
+   "every": 900,
+   "alpha": 0.5,
+   "tint": "#d8c850",
+   "if": {
+    "deadCenter": "sleeping_quarters"
+   }
+  },
+  {
+   "kind": "smoke",
+   "x": 9,
+   "y": 11,
+   "rise": 4,
+   "every": 900,
+   "alpha": 0.5,
+   "tint": "#d8c850",
+   "if": {
+    "deadCenter": "captains_cabin"
+   }
+  }
+ ],
  "onEnter": [
   {
    "if": {

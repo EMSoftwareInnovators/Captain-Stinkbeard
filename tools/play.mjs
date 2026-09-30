@@ -12,6 +12,7 @@
 //   approach <npc>|<x> <y>    talk <npc>|<x> <y> [choice...]
 //   fight <enemyId>           fightuntil [win|lose]       battle (confirm until it ends)
 //   face <dir>                preset <id> (data/debug/presets.json; fast text)
+//   duty <js>                 play Shark Duty until the expression holds
 //   skipshot <prefix> [choice...]   like skip, saving a screenshot of every line
 //   shots <prefix> <count> <ms>     screenshots at an interval (set-pieces)
 import { chromium } from '@playwright/test';
@@ -72,6 +73,7 @@ for (const line of lines) {
       case 'fight': if (!(await g.fight(rest[0]))) console.log(`(${rest[0]} already gone)`); break;
       case 'fightuntil': await g.fightUntil(rest[0] || 'win'); break;
       case 'battle': await g.settleBattle(); break;
+      case 'duty': console.log(`duty: ${await g.sharkDuty(arg)} answered`); break;
       case 'preset': {
         await g.waitFor(() => window.__GAME__?.game.scene.isActive('Title'), null, 30000);
         await page.evaluate(() => window.__GAME__.app.settings.set('textSpeed', 'instant'));
@@ -87,6 +89,13 @@ for (const line of lines) {
           const st = await g.uiState();
           if (st === 'idle') break;
           if (st === 'battle') { await g.settleBattle(); continue; }
+          if (st === 'repair') { await g.repairTick(); continue; }
+          if (st === 'book') {
+            await g.wait(250);
+            await page.screenshot({ path: `${outDir}/${rest[0]}_${String(n++).padStart(3, '0')}.png` });
+            await g.tap('KeyX', 45, 250);
+            continue;
+          }
           if (st === 'line' || st === 'tutorial' || st === 'choice') {
             await page.screenshot({ path: `${outDir}/${rest[0]}_${String(n++).padStart(3, '0')}.png` });
             if (st === 'choice') {

@@ -121,19 +121,23 @@ export class GameDriver {
         continue;
       }
       if (st === 'repair') {
-        // The hull-patch timing game: strike when the marker is in the green.
-        const hit = await this.eval(() => {
-          const r = window.__GAME__.app.overlay.repairOpen;
-          return !!r && r.lock <= 0 && r.mark.x >= r.zone.x && r.mark.x <= r.zone.x + r.zone.width;
-        });
-        if (hit) await this.tap('KeyZ', 30, 40);
-        else await this.wait(16);
+        await this.repairTick();
         continue;
       }
       if (st === 'line' || st === 'tutorial' || st === 'choice' || st === 'insert') await this.tap('KeyZ', 45, 60);
       await this.wait(90);
     }
     throw new Error('dialogue never finished');
+  }
+
+  /** One tick of the repair timing game: strike when the marker is in the green. */
+  async repairTick() {
+    const hit = await this.eval(() => {
+      const r = window.__GAME__.app.overlay.repairOpen;
+      return !!r && r.lock <= 0 && r.mark.x >= r.zone.x && r.mark.x <= r.zone.x + r.zone.width;
+    });
+    if (hit) await this.tap('KeyZ', 30, 40);
+    else await this.wait(16);
   }
 
   /** Waits until the player can move (fighting any battle that interrupts). */
@@ -214,6 +218,45 @@ export class GameDriver {
     const end = await where();
     if (!end.busy && (end.x !== x || end.y !== y)) throw new Error(`no path to ${x},${y}`);
     await this.wait(120);
+  }
+
+  /**
+   * Plays Shark Duty (Story Phase 4) until `done` (an expression or function
+   * evaluated in the page) holds: walks to the shark or bite nearest the
+   * captain, faces the rail, presses Confirm and strikes on the green.
+   * Returns how many incidents were answered.
+   */
+  async sharkDuty(done, { timeout = 240000 } = {}) {
+    const until = Date.now() + timeout;
+    let answered = 0;
+    while (Date.now() < until) {
+      if (await this.page.evaluate(done)) return answered;
+      const inc = await this.eval(() => {
+        const w = window.__GAME__.game.scene.getScene('World');
+        const d = w.sharkDuty;
+        if (!d?.active || d.responding || w.isBusy()) return null;
+        const p = w.player;
+        const near = (i) => Math.abs(i.x - p.tx) + Math.abs(i.y - p.ty);
+        const list = d.incidents.map((i) => ({ x: i.x, y: i.y, kind: i.kind })).sort((a, b) => near(a) - near(b));
+        return list[0] ?? null;
+      });
+      if (!inc) {
+        await this.wait(200);
+        continue;
+      }
+      try {
+        await this.approach([inc.x, inc.y]);
+      } catch {
+        await this.wait(200);
+        continue;
+      }
+      const facing = await this.eval(([x, y]) => !!window.__GAME__.game.scene.getScene('World').sharkDuty.targetAt(x, y), [inc.x, inc.y]);
+      if (!facing) continue;
+      await this.tap('KeyZ', 50, 200);
+      await this.skip();
+      answered += 1;
+    }
+    throw new Error('Shark Duty never finished');
   }
 
   /** Holds a direction long enough to cross `tiles` tiles. */

@@ -105,7 +105,7 @@ export class LogPage {
   openPicture(e) {
     const { scene } = this;
     const D = 900;
-    const dim = scene.add.rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0x05040a, 0.86).setOrigin(0).setDepth(D);
+    const dim = scene.add.rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0x05040a, 0.94).setOrigin(0).setDepth(D);
     const img = scene.add.image(SCREEN_WIDTH / 2, 10, 'inserts', e.insert).setOrigin(0.5, 0).setDepth(D + 1);
     const parts = [dim, img];
     const caption = e.caption ?? e.title;
@@ -118,7 +118,7 @@ export class LogPage {
     close.x = SCREEN_WIDTH - close.textWidth - 8;
     parts.push(close);
     parts.forEach((p) => p.setAlpha(0));
-    scene.tweens.add({ targets: parts, alpha: (t) => (t === dim ? 0.86 : 1), duration: 160 });
+    scene.tweens.add({ targets: parts, alpha: (t) => (t === dim ? 0.94 : 1), duration: 160 });
     this.app.audio.ui('confirm');
     this.picture = { parts, lock: 220 };
   }

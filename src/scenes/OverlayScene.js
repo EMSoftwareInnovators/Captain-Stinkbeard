@@ -28,7 +28,7 @@ export class OverlayScene extends BaseScene {
   create() {
     this.app.overlay = this;
     this.dialogue = new DialogueBox(this);
-    this.toasts = new Toasts(this);
+    this.toasts = new Toasts(this, { top: () => this.topClear(6) });
     this.fader = this.add.rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0x000000).setOrigin(0).setDepth(50).setAlpha(0);
     this.tutorialOpen = null;
     this.hint = null;
@@ -111,6 +111,7 @@ export class OverlayScene extends BaseScene {
 
   update(time, delta) {
     const input = this.controls;
+    this.toasts.relayout();
     if (this.repairOpen) {
       this.updateRepair(delta, input);
       return;
@@ -142,7 +143,9 @@ export class OverlayScene extends BaseScene {
       body.setLineSpacing?.(lineH - 11);
       const h = 36 + lines * lineH + 12;
       const x = Math.round((SCREEN_WIDTH - w) / 2);
-      const y = Math.round((SCREEN_HEIGHT - h) / 2) - 16;
+      // Below a bell alarm that is still up, so the instruction and the alarm both read.
+      const below = this.alarmParts ? Math.min(this.alarmBottom + 4, SCREEN_HEIGHT - h - 4) : 0;
+      const y = Math.max(Math.round((SCREEN_HEIGHT - h) / 2) - 16, below);
       const panel = addPanel(this, x, y, w, h, { style: 'parchment', depth: 700 });
       const head = addText(this, 0, y + 10, title.toUpperCase(), { font: 'ink', color: 0x8a1c10, depth: 702 });
       centerText(head, SCREEN_WIDTH / 2);
@@ -319,7 +322,7 @@ export class OverlayScene extends BaseScene {
   }
 
   /**
-   * The Shark Duty board (top right, under the location title): the duty's
+   * The Shark Duty board (top centre, between the rails): the duty's
    * name, how many sharks have been seen off, and how many are at the rail
    * now. Null hides it.
    */
@@ -343,7 +346,8 @@ export class OverlayScene extends BaseScene {
     setText(b.at, state.sharks ? `<r>At the rail: ${state.sharks}</>` : '<k>Rail clear</>');
     const w = Math.max(b.head.textWidth, b.body.textWidth, b.at.textWidth) + 16;
     const h = 44;
-    const x = SCREEN_WIDTH - w - 6;
+    // Top centre: clear of both rails, which run down the screen's edges.
+    const x = Math.round((SCREEN_WIDTH - w) / 2);
     const y = 30;
     b.panel.destroy();
     b.panel = addPanel(this, x, y, w, h, { depth: D });
@@ -417,8 +421,10 @@ export class OverlayScene extends BaseScene {
     const lines = detail.text.split('\n').length;
     const h = 36 + lines * 11 + (sound ? 11 : 0);
     const x = Math.round((SCREEN_WIDTH - w) / 2);
-    const y = 34;
+    // Under the dialogue window when it is docked along the top, so neither hides the other.
+    const y = this.dialogue.open && this.dialogue.dock === 'top' ? this.dialogue.boxY + 68 : 34;
     const panel = addPanel(this, x, y, w, h, { depth: D });
+    this.alarmBottom = y + h;
     const rule = this.add.rectangle(x + 3, y + 3, w - 6, 2, col).setOrigin(0).setDepth(D + 1);
     const icons = [];
     const startX = Math.round(SCREEN_WIDTH / 2 - (iconsW + 6 + head.textWidth) / 2);
@@ -460,15 +466,21 @@ export class OverlayScene extends BaseScene {
     });
   }
 
+  /** Top edge for corner notices: below the dialogue window while it is docked along the top. */
+  topClear(pad) {
+    return this.dialogue.open && this.dialogue.dock === 'top' ? this.dialogue.boxY + 66 : pad;
+  }
+
   /** Small location title shown when entering a map (top-right, clear of toasts). */
   locationTitle(name) {
     this.locationParts?.forEach((p) => p.destroy());
-    const t = addText(this, 0, 10, name, { font: 'bold', color: 0xfff4e0, depth: 850 });
+    const top = this.topClear(5);
+    const t = addText(this, 0, top + 5, name, { font: 'bold', color: 0xfff4e0, depth: 850 });
     const w = t.textWidth + 24;
     const x = SCREEN_WIDTH - w - 6;
-    const panel = addPanel(this, x, 5, w, 20, { depth: 849 });
+    const panel = addPanel(this, x, top, w, 20, { depth: 849 });
     t.x = x + 12;
-    t.y = 10;
+    t.y = top + 5;
     const parts = [panel, t];
     this.locationParts = parts;
     parts.forEach((p) => (p.alpha = 0));

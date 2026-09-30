@@ -1346,7 +1346,9 @@ export class WorldScene extends BaseScene {
    * the current edge so the window doesn't hop between lines.
    */
   dialogueDock(line, current = 'bottom') {
-    if (this.app.cinema?.active || !this.sys.isActive()) return 'bottom';
+    // A vista can ask for the window along the top so the sea stays in view.
+    if (this.app.cinema?.active) return this.app.cinema.active.def.dock ?? 'bottom';
+    if (!this.sys.isActive()) return 'bottom';
     const view = this.cameras.main.worldView;
     // While the camera is held on something (a pan), that is what the line
     // is about; otherwise it's the captain.

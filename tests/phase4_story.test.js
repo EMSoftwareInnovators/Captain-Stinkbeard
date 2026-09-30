@@ -196,10 +196,10 @@ describe('Story Phase 4 can be played start to finish (headless)', () => {
   it('offers Shark Duty afterwards as an optional shift, and lets you stand down', async () => {
     const s = makeStory({ preset: 'p4_complete' });
     await s.enter('main_deck');
+    const before = s.log.length;
     s.choices.push(0);
-    await s.talk('jory'); // the end-state lines
-    s.choices.push(0);
-    await s.talk('jory'); // the offer: take a shift
+    await s.talk('jory'); // his end-state line, then the offer: take a shift
+    expect(s.log.slice(before).join('\n')).toMatch(/PATCH FOR PATCH[\s\S]*Want a shift/);
     expect(s.has('optional_duty_on')).toBe(true);
     s.choices.push(0);
     await s.talk('jory'); // stand down
