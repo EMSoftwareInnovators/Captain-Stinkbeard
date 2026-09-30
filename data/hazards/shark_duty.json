@@ -1,0 +1,88 @@
+{
+ "//": "Shark Duty (Story Phase 4; see src/systems/hazards/sharkDuty.js and src/world/SharkDuty.js). Sections are rail tiles on the main deck, faced from the deck (port rail x=16, stood at from x=15; starboard rail x=3, from x=4). Boarders flop onto an open deck tile. Waves repeat until the story moves on.",
+ "shark_duty": {
+  "sections": {
+   "port_aft": { "x": 16, "y": 15 },
+   "port_mid": { "x": 16, "y": 20 },
+   "port_patch": { "x": 16, "y": 23 },
+   "port_fore": { "x": 16, "y": 27 },
+   "stbd_aft": { "x": 3, "y": 15 },
+   "stbd_mid": { "x": 3, "y": 19 },
+   "stbd_fore": { "x": 3, "y": 25 },
+   "stbd_bow": { "x": 3, "y": 29 }
+  },
+  "sessions": {
+   "first_watch": {
+    "title": "SHARK DUTY",
+    "label": "Sharks seen off",
+    "event": "shark_repelled",
+    "counter": "shark_duty.repel",
+    "window": 9500,
+    "maxActive": 2,
+    "waves": [
+     { "gap": 1400, "section": "port_mid" },
+     { "gap": 4200, "section": "port_aft" },
+     { "gap": 4600, "section": "port_fore" },
+     { "gap": 3800, "section": "port_patch", "big": true },
+     { "gap": 4400, "section": "port_mid" },
+     { "gap": 3600, "section": "port_fore" },
+     { "gap": 4000, "section": "port_aft" }
+    ],
+    "barks": [
+     { "who": "jory", "text": "Mind the patch, Captain!" },
+     { "who": "jory", "text": "That one's chewed here before!" },
+     { "who": "rook", "text": "Get OFF it!" },
+     { "who": "pete", "text": "Worst job on the ship." },
+     { "who": "pete", "text": "Shoo. SHOO." }
+    ]
+   },
+   "second_watch": {
+    "title": "SHARK DUTY",
+    "label": "Both rails",
+    "event": "shark_repelled_more",
+    "counter": "shark_duty.numbers",
+    "window": 8000,
+    "maxActive": 3,
+    "waves": [
+     { "gap": 1200, "section": "stbd_mid" },
+     { "gap": 2600, "section": "port_mid" },
+     { "gap": 3600, "section": "stbd_fore", "big": true },
+     { "gap": 3200, "boarder": [8, 17] },
+     { "gap": 3000, "section": "port_patch" },
+     { "gap": 3000, "section": "stbd_aft" },
+     { "gap": 3400, "section": "port_fore" },
+     { "gap": 3200, "boarder": [11, 25] },
+     { "gap": 2800, "section": "stbd_bow" },
+     { "gap": 3000, "section": "port_aft", "big": true }
+    ],
+    "barks": [
+     { "who": "rook", "text": "Starboard! STARBOARD!" },
+     { "who": "sully", "text": "There's one on the DECK!" },
+     { "who": "jory", "text": "Keep them off the patch!" },
+     { "who": "pete", "text": "I was promised treasure." },
+     { "who": "brask", "text": "Can I shoot one? Just one?" },
+     { "who": "ned", "text": "More coming!" }
+    ]
+   },
+   "open_watch": {
+    "title": "SHARK DUTY",
+    "label": "Optional shift",
+    "event": "shark_repelled_optional",
+    "window": 9500,
+    "maxActive": 2,
+    "waves": [
+     { "gap": 2400, "section": "port_mid" },
+     { "gap": 5200, "section": "stbd_mid" },
+     { "gap": 5600, "section": "port_fore" },
+     { "gap": 5000, "section": "stbd_aft" },
+     { "gap": 6000, "boarder": [11, 25] },
+     { "gap": 5200, "section": "port_patch", "big": true }
+    ],
+    "barks": [
+     { "who": "jory", "text": "Volunteering? On purpose?" },
+     { "who": "pete", "text": "The captain's doing a shift. Nobody believes me." }
+    ]
+   }
+  }
+ }
+}

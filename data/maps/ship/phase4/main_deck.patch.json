@@ -1,0 +1,2921 @@
+{
+ "id": "main_deck_phase4",
+ "patch": "main_deck",
+ "//": "Story Phase 4 on deck: Garrick's Forecast Board and crayons at his station (10,16)/(13,16), the bell protocol on the foremast (10,30), the air scuttle over the washroom (6,33), the stovepipe damper (12,27), the deck camp (rows 26-31), Shark Duty (data/hazards/shark_duty.json) and the port rail's damage and repairs (x=16, rows 18-25), which follow p4_hull_damage and the repair flags. Placements are generated per story state (latest first).",
+ "objects": [
+  {
+   "id": "p4_board_first",
+   "type": "inspect",
+   "x": 10,
+   "y": 16,
+   "if": {
+    "objectiveActive": "todays_forecast.board"
+   },
+   "script": "p4c1.board_first"
+  },
+  {
+   "id": "p4_board",
+   "type": "inspect",
+   "x": 10,
+   "y": 16,
+   "if": {
+    "flag": "forecast_board_up"
+   },
+   "script": "p4.forecast_board"
+  },
+  {
+   "id": "p4_log_beard",
+   "type": "inspect",
+   "x": 12,
+   "y": 16,
+   "if": {
+    "objectiveActive": "worst_places.log"
+   },
+   "script": "p4c3.beard_log"
+  },
+  {
+   "id": "p4_crayons",
+   "type": "inspect",
+   "x": 13,
+   "y": 16,
+   "if": {
+    "flag": "forecast_board_up"
+   },
+   "text": [
+    "A tin of fat wax crayons in five colours, every one worn blunt. On the lid, in the same yellow: PROFESSIONAL CRAYONS.",
+    "The lid also has a picture of a smiling duck. The duck is holding a crayon. It is not a professional duck."
+   ]
+  },
+  {
+   "id": "p4_protocol",
+   "type": "inspect",
+   "x": 10,
+   "y": 30,
+   "if": {
+    "objectiveActive": "life_around_center.protocol"
+   },
+   "script": "p4c2.protocol"
+  },
+  {
+   "id": "p4_protocol_look",
+   "type": "inspect",
+   "x": 10,
+   "y": 30,
+   "if": {
+    "flag": "bell_protocol_established"
+   },
+   "script": "p4.inspect.bell_notice"
+  },
+  {
+   "id": "p4_bell",
+   "type": "inspect",
+   "x": 12,
+   "y": 33,
+   "if": {
+    "flag": "p4_started"
+   },
+   "dialogue": [
+    {
+     "cycle": [
+      "p4.inspect.bell_1",
+      "p4.inspect.bell_2",
+      "p4.inspect.bell_3"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_scuttle_rescue",
+   "type": "inspect",
+   "x": 6,
+   "y": 33,
+   "if": {
+    "objectiveActive": "life_around_center.washroom"
+   },
+   "script": "p4c2.scuttle"
+  },
+  {
+   "id": "p4_scuttle",
+   "type": "inspect",
+   "x": 6,
+   "y": 33,
+   "if": {
+    "flag": "p4_started"
+   },
+   "script": "p4.inspect.scuttle"
+  },
+  {
+   "id": "p4_damper",
+   "type": "inspect",
+   "x": 12,
+   "y": 27,
+   "if": {
+    "objectiveActive": "life_around_center.damper"
+   },
+   "script": "p4c2.damper"
+  },
+  {
+   "id": "p4_stovepipe",
+   "type": "inspect",
+   "x": 12,
+   "y": 27,
+   "if": {
+    "flag": "p4_started"
+   },
+   "script": "p4.inspect.stovepipe"
+  },
+  {
+   "id": "p4_duty_pole",
+   "type": "inspect",
+   "x": 13,
+   "y": 24,
+   "if": {
+    "objectiveActive": "shark_duty.report"
+   },
+   "script": "p4c4.pole"
+  },
+  {
+   "id": "p4_duty_barrel",
+   "type": "inspect",
+   "x": 13,
+   "y": 24,
+   "if": {
+    "flag": "p4_ch18_started"
+   },
+   "script": "p4.inspect.duty_barrel"
+  },
+  {
+   "id": "p4_helm_fix",
+   "type": "inspect",
+   "x": 9,
+   "y": 6,
+   "w": 2,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "life_around_center.quarterdeck"
+     },
+     {
+      "flag": "sausage_forecast_seen"
+     }
+    ]
+   },
+   "script": "p4c2.helm"
+  },
+  {
+   "id": "p4_helm",
+   "type": "inspect",
+   "x": 9,
+   "y": 6,
+   "w": 2,
+   "if": {
+    "flag": "course_restored"
+   },
+   "script": "p4.inspect.helm"
+  },
+  {
+   "id": "p4_fix_board",
+   "type": "inspect",
+   "x": 16,
+   "y": 19,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "repair_it_again.repairs"
+     },
+     {
+      "notFlag": "repair_board_done"
+     }
+    ]
+   },
+   "script": "p4c5.fix_board"
+  },
+  {
+   "id": "p4_fix_rope",
+   "type": "inspect",
+   "x": 16,
+   "y": 21,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "repair_it_again.repairs"
+     },
+     {
+      "notFlag": "repair_rope_done"
+     }
+    ]
+   },
+   "script": "p4c5.fix_rope"
+  },
+  {
+   "id": "p4_fix_patch",
+   "type": "inspect",
+   "x": 16,
+   "y": 23,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "repair_it_again.repairs"
+     },
+     {
+      "notFlag": "repair_patch_done"
+     }
+    ]
+   },
+   "script": "p4c5.fix_patch"
+  },
+  {
+   "id": "p4_patches",
+   "type": "inspect",
+   "x": 16,
+   "y": 19,
+   "h": 5,
+   "if": {
+    "flag": "p4_complete"
+   },
+   "script": "p4.inspect.patches"
+  },
+  {
+   "id": "p4_nest",
+   "type": "inspect",
+   "x": 13,
+   "y": 12,
+   "if": {
+    "flag": "p4_started"
+   },
+   "script": "p4.inspect.nest"
+  },
+  {
+   "id": "p4_evac_aft",
+   "type": "trigger",
+   "x": 4,
+   "y": 12,
+   "w": 12,
+   "h": 2,
+   "script": "p4c5.fresh_repair",
+   "if": {
+    "objectiveActive": "repair_it_again.evacuate"
+   }
+  },
+  {
+   "id": "p4_evac_fore",
+   "type": "trigger",
+   "x": 4,
+   "y": 31,
+   "w": 12,
+   "h": 2,
+   "script": "p4c5.fresh_repair",
+   "if": {
+    "objectiveActive": "repair_it_again.evacuate"
+   }
+  },
+  {
+   "id": "p4d_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p4_started"
+     },
+     {
+      "notFlag": "breakfast_center_arrived"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4d_garrick_1",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "breakfast_center_arrived"
+     },
+     {
+      "notFlag": "breakfast_evacuated"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4d_garrick_2",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 7,
+   "y": 33,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "washroom_incident_started"
+     },
+     {
+      "notFlag": "gristle_rescued"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_garrick_3",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "night_alarm_started"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4d_garrick_4",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 11,
+   "y": 17,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_ch18_started"
+     },
+     {
+      "notFlag": "waterline_alarm"
+     }
+    ]
+   },
+   "pose": "eat",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_garrick_5",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 10,
+   "y": 17,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "waterline_alarm"
+     },
+     {
+      "notFlag": "p4_ch19_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_garrick_6",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 10,
+   "y": 18,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_ch19_started"
+     },
+     {
+      "notFlag": "repair_evacuated"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "routine",
+    "steps": [
+     {
+      "go": [
+       10,
+       18
+      ]
+     },
+     {
+      "wait": 2400
+     },
+     {
+      "go": [
+       12,
+       17
+      ]
+     },
+     {
+      "wait": 2400
+     },
+     {
+      "go": [
+       11,
+       20
+      ]
+     },
+     {
+      "wait": 2400
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4d_garrick_7",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 11,
+   "y": 14,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "repair_evacuated"
+     },
+     {
+      "notFlag": "p4_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_garrick_8",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 11,
+   "y": 17,
+   "facing": "down",
+   "if": {
+    "flag": "p4_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_squawks_0",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p4_started"
+     },
+     {
+      "notFlag": "breakfast_center_arrived"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4d_squawks_1",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "breakfast_center_arrived"
+     },
+     {
+      "notFlag": "breakfast_evacuated"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4d_squawks_2",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "deck_camp_set"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4d_squawks_3",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p4_ch17_started"
+     },
+     {
+      "notFlag": "p4_ch18_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4d_squawks_4",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "waterline_evacuated"
+     },
+     {
+      "notFlag": "p4_ch19_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4d_squawks_5",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 12,
+   "y": 13,
+   "facing": "down",
+   "if": {
+    "flag": "p4_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_hale_0",
+   "type": "npc",
+   "npc": "hale",
+   "x": 12,
+   "y": 31,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_ch16_started"
+     },
+     {
+      "notFlag": "washroom_incident_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_hale_1",
+   "type": "npc",
+   "npc": "hale",
+   "x": 8,
+   "y": 8,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "night_scramble"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_hale_2",
+   "type": "npc",
+   "npc": "hale",
+   "x": 6,
+   "y": 13,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "night_evacuation_done"
+     },
+     {
+      "notFlag": "course_restored"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_hale_3",
+   "type": "npc",
+   "npc": "hale",
+   "x": 7,
+   "y": 13,
+   "facing": "down",
+   "if": {
+    "flag": "p4_started"
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p4d_wick_0",
+   "type": "npc",
+   "npc": "wick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p4_started"
+     },
+     {
+      "notFlag": "breakfast_center_arrived"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4d_wick_1",
+   "type": "npc",
+   "npc": "wick",
+   "x": 13,
+   "y": 29,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_scramble"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_wick_2",
+   "type": "npc",
+   "npc": "wick",
+   "x": 12,
+   "y": 4,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "night_scramble"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_wick_3",
+   "type": "npc",
+   "npc": "wick",
+   "x": 11,
+   "y": 13,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "night_evacuation_done"
+     },
+     {
+      "notFlag": "course_restored"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_wick_4",
+   "type": "npc",
+   "npc": "wick",
+   "x": 8,
+   "y": 13,
+   "facing": "down",
+   "if": {
+    "flag": "p4_started"
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p4d_fennimore_0",
+   "type": "npc",
+   "npc": "fennimore",
+   "x": 13,
+   "y": 4,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "night_scramble"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_fennimore_1",
+   "type": "npc",
+   "npc": "fennimore",
+   "x": 13,
+   "y": 13,
+   "facing": "left",
+   "if": {
+    "flag": "p4_started"
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p4d_rook_0",
+   "type": "npc",
+   "npc": "rook",
+   "x": 6,
+   "y": 30,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_scramble"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_rook_1",
+   "type": "npc",
+   "npc": "rook",
+   "x": 7,
+   "y": 7,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "night_scramble"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_rook_2",
+   "type": "npc",
+   "npc": "rook",
+   "x": 7,
+   "y": 19,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_ch18_started"
+     },
+     {
+      "notFlag": "waterline_alarm"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_rook_3",
+   "type": "npc",
+   "npc": "rook",
+   "x": 4,
+   "y": 13,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "waterline_alarm"
+     },
+     {
+      "notFlag": "p4_ch19_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_rook_4",
+   "type": "npc",
+   "npc": "rook",
+   "x": 11,
+   "y": 24,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_ch19_started"
+     },
+     {
+      "notFlag": "repair_evacuated"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_rook_5",
+   "type": "npc",
+   "npc": "rook",
+   "x": 4,
+   "y": 13,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "repair_evacuated"
+     },
+     {
+      "notFlag": "p4_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_rook_6",
+   "type": "npc",
+   "npc": "rook",
+   "x": 6,
+   "y": 16,
+   "facing": "right",
+   "if": {
+    "flag": "p4_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_sully_0",
+   "type": "npc",
+   "npc": "sully",
+   "x": 14,
+   "y": 28,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_scramble"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_sully_1",
+   "type": "npc",
+   "npc": "sully",
+   "x": 12,
+   "y": 7,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "night_scramble"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_sully_2",
+   "type": "npc",
+   "npc": "sully",
+   "x": 6,
+   "y": 26,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_ch18_started"
+     },
+     {
+      "notFlag": "waterline_alarm"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_sully_3",
+   "type": "npc",
+   "npc": "sully",
+   "x": 11,
+   "y": 12,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "waterline_alarm"
+     },
+     {
+      "notFlag": "p4_ch19_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_sully_4",
+   "type": "npc",
+   "npc": "sully",
+   "x": 11,
+   "y": 22,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_ch19_started"
+     },
+     {
+      "notFlag": "repair_evacuated"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_sully_5",
+   "type": "npc",
+   "npc": "sully",
+   "x": 11,
+   "y": 12,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "repair_evacuated"
+     },
+     {
+      "notFlag": "p4_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_sully_6",
+   "type": "npc",
+   "npc": "sully",
+   "x": 13,
+   "y": 21,
+   "facing": "up",
+   "if": {
+    "flag": "p4_started"
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "work"
+   }
+  },
+  {
+   "id": "p4d_brask_0",
+   "type": "npc",
+   "npc": "brask",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p4_started"
+     },
+     {
+      "notFlag": "breakfast_center_arrived"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4d_brask_1",
+   "type": "npc",
+   "npc": "brask",
+   "x": 12,
+   "y": 22,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "breakfast_center_arrived"
+     },
+     {
+      "notFlag": "breakfast_evacuated"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_brask_2",
+   "type": "npc",
+   "npc": "brask",
+   "x": 8,
+   "y": 31,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_scramble"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_brask_3",
+   "type": "npc",
+   "npc": "brask",
+   "x": 6,
+   "y": 8,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "night_scramble"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_brask_4",
+   "type": "npc",
+   "npc": "brask",
+   "x": 14,
+   "y": 13,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "waterline_alarm"
+     },
+     {
+      "notFlag": "p4_ch19_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_brask_5",
+   "type": "npc",
+   "npc": "brask",
+   "x": 14,
+   "y": 13,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "repair_evacuated"
+     },
+     {
+      "notFlag": "p4_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_brask_6",
+   "type": "npc",
+   "npc": "brask",
+   "x": 6,
+   "y": 22,
+   "facing": "left",
+   "if": {
+    "flag": "p4_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_gristle_0",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p4_started"
+     },
+     {
+      "notFlag": "breakfast_center_arrived"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4d_gristle_1",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 12,
+   "y": 24,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "breakfast_center_arrived"
+     },
+     {
+      "notFlag": "breakfast_evacuated"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_gristle_2",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "washroom_incident_started"
+     },
+     {
+      "notFlag": "gristle_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4d_gristle_3",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 13,
+   "y": 27,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_scramble"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_gristle_4",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 14,
+   "y": 6,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "night_scramble"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_gristle_5",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 8,
+   "y": 15,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_ch18_started"
+     },
+     {
+      "notFlag": "waterline_alarm"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_gristle_6",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 15,
+   "y": 12,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "waterline_alarm"
+     },
+     {
+      "notFlag": "p4_ch19_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_gristle_7",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 8,
+   "y": 20,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_ch19_started"
+     },
+     {
+      "notFlag": "repair_evacuated"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_gristle_8",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 15,
+   "y": 12,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "repair_evacuated"
+     },
+     {
+      "notFlag": "p4_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_gristle_9",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 12,
+   "y": 18,
+   "facing": "left",
+   "if": {
+    "flag": "p4_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_jory_0",
+   "type": "npc",
+   "npc": "jory",
+   "x": 14,
+   "y": 29,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_scramble"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_jory_1",
+   "type": "npc",
+   "npc": "jory",
+   "x": 11,
+   "y": 8,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "night_scramble"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_jory_2",
+   "type": "npc",
+   "npc": "jory",
+   "x": 12,
+   "y": 24,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_ch18_started"
+     },
+     {
+      "notFlag": "waterline_alarm"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_jory_3",
+   "type": "npc",
+   "npc": "jory",
+   "x": 5,
+   "y": 13,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "waterline_alarm"
+     },
+     {
+      "notFlag": "p4_ch19_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_jory_4",
+   "type": "npc",
+   "npc": "jory",
+   "x": 13,
+   "y": 22,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_ch19_started"
+     },
+     {
+      "notFlag": "repair_evacuated"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_jory_5",
+   "type": "npc",
+   "npc": "jory",
+   "x": 5,
+   "y": 13,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "repair_evacuated"
+     },
+     {
+      "notFlag": "p4_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_jory_6",
+   "type": "npc",
+   "npc": "jory",
+   "x": 14,
+   "y": 21,
+   "facing": "right",
+   "if": {
+    "flag": "p4_started"
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "work"
+   }
+  },
+  {
+   "id": "p4d_bob_0",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p4_started"
+     },
+     {
+      "notFlag": "breakfast_center_arrived"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4d_bob_1",
+   "type": "npc",
+   "npc": "bob",
+   "x": 8,
+   "y": 22,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "breakfast_center_arrived"
+     },
+     {
+      "notFlag": "breakfast_evacuated"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_bob_2",
+   "type": "npc",
+   "npc": "bob",
+   "x": 6,
+   "y": 28,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_scramble"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_bob_3",
+   "type": "npc",
+   "npc": "bob",
+   "x": 6,
+   "y": 5,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "night_scramble"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_bob_4",
+   "type": "npc",
+   "npc": "bob",
+   "x": 7,
+   "y": 14,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "repair_evacuated"
+     },
+     {
+      "notFlag": "p4_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_bob_5",
+   "type": "npc",
+   "npc": "bob",
+   "x": 7,
+   "y": 30,
+   "facing": "right",
+   "if": {
+    "flag": "p4_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_ned_0",
+   "type": "npc",
+   "npc": "ned",
+   "x": 9,
+   "y": 37,
+   "facing": "down",
+   "if": {
+    "flag": "p4_started"
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p4d_nell_0",
+   "type": "npc",
+   "npc": "nell",
+   "x": 7,
+   "y": 14,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "night_evacuation_done"
+     },
+     {
+      "notFlag": "course_restored"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_nell_1",
+   "type": "npc",
+   "npc": "nell",
+   "x": 9,
+   "y": 5,
+   "facing": "down",
+   "if": {
+    "flag": "p4_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_finch_0",
+   "type": "npc",
+   "npc": "finch",
+   "x": 12,
+   "y": 30,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_scramble"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_finch_1",
+   "type": "npc",
+   "npc": "finch",
+   "x": 13,
+   "y": 7,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "night_scramble"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_finch_2",
+   "type": "npc",
+   "npc": "finch",
+   "x": 11,
+   "y": 34,
+   "facing": "left",
+   "if": {
+    "flag": "p4_started"
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p4d_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p4_started"
+     },
+     {
+      "notFlag": "breakfast_center_arrived"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4d_pete_1",
+   "type": "npc",
+   "npc": "pete",
+   "x": 7,
+   "y": 24,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "breakfast_center_arrived"
+     },
+     {
+      "notFlag": "breakfast_evacuated"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_pete_2",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "washroom_incident_started"
+     },
+     {
+      "notFlag": "gristle_rescued"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4d_pete_3",
+   "type": "npc",
+   "npc": "pete",
+   "x": 8,
+   "y": 28,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_scramble"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_pete_4",
+   "type": "npc",
+   "npc": "pete",
+   "x": 7,
+   "y": 4,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "night_scramble"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_pete_5",
+   "type": "npc",
+   "npc": "pete",
+   "x": 11,
+   "y": 21,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_ch18_started"
+     },
+     {
+      "notFlag": "waterline_alarm"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_pete_6",
+   "type": "npc",
+   "npc": "pete",
+   "x": 6,
+   "y": 12,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "waterline_alarm"
+     },
+     {
+      "notFlag": "p4_ch19_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_pete_7",
+   "type": "npc",
+   "npc": "pete",
+   "x": 12,
+   "y": 20,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_ch19_started"
+     },
+     {
+      "notFlag": "repair_evacuated"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_pete_8",
+   "type": "npc",
+   "npc": "pete",
+   "x": 6,
+   "y": 12,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "repair_evacuated"
+     },
+     {
+      "notFlag": "p4_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_pete_9",
+   "type": "npc",
+   "npc": "pete",
+   "x": 12,
+   "y": 30,
+   "facing": "left",
+   "if": {
+    "flag": "p4_started"
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p4d_mags_0",
+   "type": "npc",
+   "npc": "mags",
+   "x": 7,
+   "y": 21,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "breakfast_center_arrived"
+     },
+     {
+      "notFlag": "breakfast_evacuated"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_mags_1",
+   "type": "npc",
+   "npc": "mags",
+   "x": 7,
+   "y": 26,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "galley_incident_started"
+     },
+     {
+      "notFlag": "galley_incident_done"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_mags_2",
+   "type": "npc",
+   "npc": "mags",
+   "x": 7,
+   "y": 21,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_ch19_started"
+     },
+     {
+      "notFlag": "repair_evacuated"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_mags_3",
+   "type": "npc",
+   "npc": "mags",
+   "x": 4,
+   "y": 12,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "repair_evacuated"
+     },
+     {
+      "notFlag": "p4_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_mags_4",
+   "type": "npc",
+   "npc": "mags",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  },
+  {
+   "id": "p4d_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 13,
+   "y": 22,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "breakfast_center_arrived"
+     },
+     {
+      "notFlag": "breakfast_evacuated"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_jim_1",
+   "type": "npc",
+   "npc": "jim",
+   "x": 10,
+   "y": 26,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "galley_incident_started"
+     },
+     {
+      "notFlag": "galley_incident_done"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_jim_2",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  },
+  {
+   "id": "p4d_quill_0",
+   "type": "npc",
+   "npc": "quill",
+   "x": 6,
+   "y": 23,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "breakfast_center_arrived"
+     },
+     {
+      "notFlag": "breakfast_evacuated"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_quill_1",
+   "type": "npc",
+   "npc": "quill",
+   "x": 6,
+   "y": 23,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "galley_incident_started"
+     },
+     {
+      "notFlag": "galley_incident_done"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_quill_2",
+   "type": "npc",
+   "npc": "quill",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  },
+  {
+   "id": "p4d_dunstan_0",
+   "type": "npc",
+   "npc": "dunstan",
+   "x": 11,
+   "y": 29,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_scramble"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_dunstan_1",
+   "type": "npc",
+   "npc": "dunstan",
+   "x": 8,
+   "y": 4,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "night_scramble"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_dunstan_2",
+   "type": "npc",
+   "npc": "dunstan",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  },
+  {
+   "id": "p4d_penhallow_0",
+   "type": "npc",
+   "npc": "penhallow",
+   "x": 5,
+   "y": 27,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_scramble"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_penhallow_1",
+   "type": "npc",
+   "npc": "penhallow",
+   "x": 10,
+   "y": 4,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "night_scramble"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4d_penhallow_2",
+   "type": "npc",
+   "npc": "penhallow",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "forecast_board",
+   "x": 10,
+   "y": 16,
+   "if": {
+    "flag": "forecast_board_up"
+   },
+   "id": "forecast_board"
+  },
+  {
+   "prop": "crayon_box",
+   "x": 13,
+   "y": 16,
+   "if": {
+    "flag": "forecast_board_up"
+   },
+   "id": "crayons"
+  },
+  {
+   "prop": "notice_nailed",
+   "x": 10,
+   "y": 30,
+   "if": {
+    "flag": "bell_protocol_established"
+   },
+   "id": "bell_protocol",
+   "depthOffset": 6
+  },
+  {
+   "prop": "air_scuttle",
+   "x": 6,
+   "y": 33,
+   "if": {
+    "all": [
+     {
+      "flag": "p4_started"
+     },
+     {
+      "not": {
+       "all": [
+        {
+         "flag": "scuttle_found"
+        },
+        {
+         "notFlag": "course_restored"
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "id": "scuttle"
+  },
+  {
+   "prop": "air_scuttle_open",
+   "x": 6,
+   "y": 33,
+   "if": {
+    "all": [
+     {
+      "flag": "scuttle_found"
+     },
+     {
+      "notFlag": "course_restored"
+     }
+    ]
+   },
+   "id": "scuttle_open"
+  },
+  {
+   "prop": "duty_tools",
+   "x": 13,
+   "y": 24,
+   "if": {
+    "flag": "p4_ch18_started"
+   },
+   "id": "duty_tools"
+  },
+  {
+   "prop": "bedroll",
+   "x": 6,
+   "y": 28,
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "bedroll",
+   "x": 8,
+   "y": 28,
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "bedroll",
+   "x": 13,
+   "y": 29,
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "bedroll",
+   "x": 12,
+   "y": 30,
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "bedroll",
+   "x": 6,
+   "y": 30,
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "bedroll",
+   "x": 14,
+   "y": 28,
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "bedroll",
+   "x": 13,
+   "y": 27,
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "bedroll",
+   "x": 11,
+   "y": 29,
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "bedroll",
+   "x": 5,
+   "y": 27,
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "bedroll",
+   "x": 14,
+   "y": 29,
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "bedroll",
+   "x": 8,
+   "y": 31,
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "bedroll_sleeper",
+   "x": 6,
+   "y": 26,
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   },
+   "id": "camp_sleeper"
+  },
+  {
+   "prop": "pillow_yellow",
+   "x": 8,
+   "y": 29,
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   },
+   "id": "yellow_pillow"
+  },
+  {
+   "prop": "rail_gap",
+   "x": 16,
+   "y": 19,
+   "if": {
+    "all": [
+     {
+      "var": {
+       "name": "p4_hull_damage",
+       "gte": 1
+      }
+     },
+     {
+      "not": {
+       "all": [
+        {
+         "flag": "repair_board_done"
+        },
+        {
+         "notFlag": "fresh_repair_destroyed"
+        }
+       ]
+      }
+     },
+     {
+      "notFlag": "p4_complete"
+     }
+    ]
+   },
+   "depthOffset": 3
+  },
+  {
+   "prop": "repair_board",
+   "x": 16,
+   "y": 19,
+   "if": {
+    "all": [
+     {
+      "flag": "repair_board_done"
+     },
+     {
+      "notFlag": "fresh_repair_destroyed"
+     }
+    ]
+   },
+   "depthOffset": 4
+  },
+  {
+   "prop": "patch_3",
+   "x": 16,
+   "y": 19,
+   "if": {
+    "flag": "p4_complete"
+   },
+   "depthOffset": 4
+  },
+  {
+   "prop": "patch_torn",
+   "x": 16,
+   "y": 21,
+   "if": {
+    "all": [
+     {
+      "var": {
+       "name": "p4_hull_damage",
+       "gte": 1
+      }
+     },
+     {
+      "notFlag": "p4_complete"
+     }
+    ]
+   },
+   "depthOffset": 3
+  },
+  {
+   "prop": "brace_ropes",
+   "x": 16,
+   "y": 21,
+   "if": {
+    "all": [
+     {
+      "flag": "repair_rope_done"
+     },
+     {
+      "notFlag": "fresh_repair_destroyed"
+     }
+    ]
+   },
+   "depthOffset": 5
+  },
+  {
+   "prop": "patch_2",
+   "x": 16,
+   "y": 21,
+   "if": {
+    "flag": "p4_complete"
+   },
+   "depthOffset": 4
+  },
+  {
+   "prop": "rail_bitten",
+   "x": 16,
+   "y": 23,
+   "if": {
+    "all": [
+     {
+      "var": {
+       "name": "p4_hull_damage",
+       "gte": 1
+      }
+     },
+     {
+      "notFlag": "repair_patch_done"
+     }
+    ]
+   },
+   "depthOffset": 3
+  },
+  {
+   "prop": "patch_1",
+   "x": 16,
+   "y": 23,
+   "if": {
+    "flag": "repair_patch_done"
+   },
+   "depthOffset": 4
+  },
+  {
+   "prop": "rail_bitten",
+   "x": 16,
+   "y": 18,
+   "if": {
+    "var": {
+     "name": "p4_hull_damage",
+     "gte": 2
+    }
+   },
+   "depthOffset": 3
+  },
+  {
+   "prop": "rail_bitten",
+   "x": 16,
+   "y": 24,
+   "if": {
+    "var": {
+     "name": "p4_hull_damage",
+     "gte": 2
+    }
+   },
+   "depthOffset": 3
+  },
+  {
+   "prop": "rail_bitten",
+   "x": 16,
+   "y": 25,
+   "if": {
+    "var": {
+     "name": "p4_hull_damage",
+     "gte": 3
+    }
+   },
+   "depthOffset": 3
+  },
+  {
+   "prop": "rail_gap",
+   "x": 16,
+   "y": 20,
+   "if": {
+    "all": [
+     {
+      "var": {
+       "name": "p4_hull_damage",
+       "gte": 3
+      }
+     },
+     {
+      "notFlag": "p4_complete"
+     }
+    ]
+   },
+   "depthOffset": 3
+  },
+  {
+   "prop": "brace_ropes",
+   "x": 16,
+   "y": 20,
+   "if": {
+    "flag": "p4_complete"
+   },
+   "depthOffset": 5
+  },
+  {
+   "prop": "bucket_over",
+   "x": 13,
+   "y": 19,
+   "if": {
+    "flag": "p4_complete"
+   }
+  }
+ ],
+ "onEnter": [
+  {
+   "if": {
+    "objectiveActive": "todays_forecast.evacuate"
+   },
+   "script": "p4c1.regroup"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "night_squawks_saved"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   },
+   "script": "p4c2.night_deck"
+  },
+  {
+   "if": {
+    "objectiveActive": "seven_feathers.protect"
+   },
+   "script": "p4c3.feathers_out"
+  }
+ ],
+ "sharkDuty": [
+  {
+   "if": {
+    "objectiveActive": "shark_duty.repel"
+   },
+   "session": "first_watch"
+  },
+  {
+   "if": {
+    "objectiveActive": "shark_duty.numbers"
+   },
+   "session": "second_watch"
+  },
+  {
+   "if": {
+    "flag": "optional_duty_on"
+   },
+   "session": "open_watch"
+  }
+ ],
+ "sharks": [
+  {
+   "if": {
+    "flag": "p4_complete"
+   },
+   "level": "swarm",
+   "crowd": 100
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "frenzy_started"
+     },
+     {
+      "notFlag": "p4_ch19_started"
+     }
+    ]
+   },
+   "level": "frenzy"
+  },
+  {
+   "if": {
+    "flag": "three_hundred_more"
+   },
+   "level": "swarm",
+   "crowd": 110
+  },
+  {
+   "if": {
+    "flag": "hundreds_seen"
+   },
+   "level": "swarm",
+   "crowd": 100
+  },
+  {
+   "if": {
+    "flag": "p4_ch18_started"
+   },
+   "level": "attacking",
+   "crowd": 40
+  },
+  {
+   "if": {
+    "flag": "grog_thrown_overboard"
+   },
+   "level": "following",
+   "crowd": 20
+  },
+  {
+   "if": {
+    "flag": "p4_started"
+   },
+   "level": "following",
+   "crowd": 12
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "flag": "p4_complete"
+   },
+   "music": "weary_morning",
+   "ambience": "deck_after"
+  },
+  {
+   "if": {
+    "flag": "p4_ch19_started"
+   },
+   "music": "shark_duty",
+   "ambience": "deck_sharks"
+  },
+  {
+   "if": {
+    "flag": "frenzy_started"
+   },
+   "music": "shark_frenzy",
+   "ambience": "deck_frenzy"
+  },
+  {
+   "if": {
+    "flag": "p4_ch18_started"
+   },
+   "music": "shark_duty",
+   "ambience": "deck_sharks"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "night_evacuation_done"
+     },
+     {
+      "notFlag": "course_restored"
+     }
+    ]
+   },
+   "music": "weary_morning",
+   "ambience": "deck_drifting"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "deck_camp_set"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   },
+   "music": "weary_morning",
+   "musicFilter": "muffled",
+   "ambience": "deck_night_sleepers"
+  },
+  {
+   "if": {
+    "flag": "p4_started"
+   },
+   "music": "weary_morning",
+   "ambience": "deck_after"
+  }
+ ]
+}

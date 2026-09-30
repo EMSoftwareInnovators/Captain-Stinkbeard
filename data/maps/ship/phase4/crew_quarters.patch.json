@@ -1,0 +1,258 @@
+{
+ "id": "crew_quarters_phase4",
+ "patch": "crew_quarters",
+ "//": "Story Phase 4: the washroom door at (3,3) (a new map, data/maps/ship/washroom.json), Pete at the door while Gristle is stuck, the hammocks, and the sleeping quarters sealed when the Center takes them over.",
+ "objects": [
+  {
+   "id": "washroom_door",
+   "type": "spawn",
+   "x": 3,
+   "y": 4,
+   "facing": "down"
+  },
+  {
+   "id": "to_washroom",
+   "type": "warp",
+   "x": 3,
+   "y": 3,
+   "to": {
+    "map": "washroom",
+    "spawn": "door"
+   },
+   "sfx": "door",
+   "if": {
+    "flag": "p4_started"
+   }
+  },
+  {
+   "id": "p4_hammock",
+   "type": "inspect",
+   "x": 5,
+   "y": 6,
+   "w": 3,
+   "if": {
+    "flag": "p4_started"
+   },
+   "script": "p4.inspect.hammock"
+  },
+  {
+   "id": "p4q_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 2,
+   "y": 4,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "washroom_incident_started"
+     },
+     {
+      "notFlag": "gristle_rescued"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4q_pete_1",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  },
+  {
+   "id": "p4q_penhallow_0",
+   "type": "npc",
+   "npc": "penhallow",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4q_penhallow_1",
+   "type": "npc",
+   "npc": "penhallow",
+   "x": 10,
+   "y": 14,
+   "facing": "down",
+   "if": {
+    "flag": "p4_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4q_dunstan_0",
+   "type": "npc",
+   "npc": "dunstan",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "quarters_incident_started"
+     },
+     {
+      "notFlag": "night_evacuation_done"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4q_dunstan_1",
+   "type": "npc",
+   "npc": "dunstan",
+   "x": 11,
+   "y": 11,
+   "facing": "down",
+   "if": {
+    "flag": "p4_started"
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p4q_fennimore_0",
+   "type": "npc",
+   "npc": "fennimore",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  },
+  {
+   "id": "p4q_finch_0",
+   "type": "npc",
+   "npc": "finch",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  },
+  {
+   "id": "p4q_jory_0",
+   "type": "npc",
+   "npc": "jory",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "door_washroom",
+   "x": 3,
+   "y": 2,
+   "if": {
+    "flag": "p4_started"
+   },
+   "id": "washroom_door"
+  }
+ ],
+ "collision": [
+  {
+   "x": 3,
+   "y": 3,
+   "solid": false
+  }
+ ],
+ "onEnter": [
+  {
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "life_around_center.washroom"
+     },
+     {
+      "notFlag": "washroom_door_seen"
+     }
+    ]
+   },
+   "script": "p4c2.washroom_door"
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "frenzy_started"
+     },
+     {
+      "notFlag": "p4_ch19_started"
+     }
+    ]
+   },
+   "music": "shark_frenzy",
+   "musicFilter": "muffled",
+   "ambience": "below_frenzy"
+  },
+  {
+   "if": {
+    "flag": "p4_ch18_started"
+   },
+   "music": "shark_duty",
+   "musicFilter": "muffled",
+   "ambience": "below_sharks"
+  },
+  {
+   "if": {
+    "flag": "p4_started"
+   },
+   "music": "weary_morning",
+   "musicFilter": "muffled",
+   "ambience": "below"
+  }
+ ],
+ "sharks": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "frenzy_started"
+     },
+     {
+      "notFlag": "p4_ch19_started"
+     }
+    ]
+   },
+   "level": "swarm",
+   "below": true
+  },
+  {
+   "if": {
+    "flag": "p4_ch18_started"
+   },
+   "level": "attacking",
+   "below": true
+  }
+ ]
+}

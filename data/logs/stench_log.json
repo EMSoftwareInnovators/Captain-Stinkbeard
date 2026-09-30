@@ -14,12 +14,20 @@
     "label": "Location"
    },
    {
+    "id": "status",
+    "label": "Status"
+   },
+   {
     "id": "severity",
     "label": "Severity"
    },
    {
     "id": "source",
     "label": "Probable source"
+   },
+   {
+    "id": "sharks",
+    "label": "Shark attraction"
    },
    {
     "id": "notes",
@@ -90,6 +98,27 @@
     "variants": [
      {
       "if": {
+       "flag": "squawks_bald_again"
+      },
+      "status": "Bald again",
+      "notes": "Seven feathers grown, seven returned to the environment. Recurring molt. (The Captain has asked me not to call it that.)"
+     },
+     {
+      "if": {
+       "flag": "squawks_reached_seven_feathers"
+      },
+      "status": "Seven feathers",
+      "notes": "Seven new feathers, one of them golden. Morale: excellent. Stability: we shall see."
+     },
+     {
+      "if": {
+       "flag": "squawks_three_feathers"
+      },
+      "status": "Three feathers",
+      "notes": "Three new feathers. The golden one, and two more coming in green."
+     },
+     {
+      "if": {
        "flag": "squawks_first_new_feather_yellow"
       },
       "notes": "One new feather. Yellow. The Captain says it is golden. The Captain is being kind."
@@ -107,6 +136,20 @@
     "source": "Me, via rescue exposure",
     "notes": "Root-deep. Has reached the beard beneath the beard. Estimated duration: centuries.",
     "variants": [
+     {
+      "if": {
+       "flag": "beard_refresh_protested"
+      },
+      "status": "Refreshed",
+      "notes": "Excellent scent retention. (CAPTAIN DOES NOT APPROVE.)"
+     },
+     {
+      "if": {
+       "flag": "beard_refreshed"
+      },
+      "status": "Refreshed",
+      "notes": "Excellent scent retention."
+     },
      {
       "if": {
        "flag": "beard_inspection_agreed"
@@ -285,6 +328,115 @@
     "severity": "Severe",
     "source": "My stomach",
     "notes": "Any unusual stomach noise: rowboat, downwind, farther than last time. Current standard: another ocean."
+   },
+   {
+    "id": "dead_center",
+    "title": "The Dead Center",
+    "if": {
+     "flag": "where_is_center_asked"
+    },
+    "location": "Wherever it likes (see the Forecast Board)",
+    "status": "Wandering",
+    "severity": "Catastrophic",
+    "source": "Me, originally",
+    "notes": "The part that still remembers coming out. Hotter, thicker and yellower than the rest. Moves about. Do not stand in it.",
+    "variants": [
+     {
+      "if": {
+       "flag": "p4_complete"
+      },
+      "location": "The treasure room (lying down)",
+      "status": "Resting (for now)"
+     }
+    ]
+   },
+   {
+    "id": "forecasts",
+    "title": "Stench Forecasts",
+    "if": {
+     "flag": "forecast_board_up"
+    },
+    "location": "The Forecast Board, my station",
+    "severity": "Premium",
+    "source": "The Office of the Grand Stenchmaster",
+    "notes": "Posted every morning. Accuracy: developing. See board."
+   },
+   {
+    "id": "breakfast",
+    "title": "The Breakfast Table",
+    "if": {
+     "flag": "breakfast_evacuated"
+    },
+    "location": "Galley",
+    "severity": "Catastrophic",
+    "source": "The Center (visiting)",
+    "notes": "Forecast correct to within four seconds. Mister Bob's biscuit has been reclassified as part of the Center."
+   },
+   {
+    "id": "washroom",
+    "title": "The Washroom",
+    "if": {
+     "flag": "gristle_rescued"
+    },
+    "location": "Off the crew quarters",
+    "severity": "Severe",
+    "source": "The Center, via the vent",
+    "notes": "Mister Gristle: twelve minutes, three ahead of forecast. Positive thinking works."
+   },
+   {
+    "id": "pillow",
+    "title": "Mister Pete's Pillow",
+    "if": {
+     "flag": "yellow_pillow_seen"
+    },
+    "location": "Mister Pete",
+    "severity": "Concerning",
+    "source": "The sleeping quarters",
+    "notes": "Do not smell the pillow."
+   },
+   {
+    "id": "shark_duty",
+    "title": "Shark Duty",
+    "if": {
+     "flag": "shark_duty_introduced"
+    },
+    "location": "Both rails",
+    "severity": "Severe",
+    "sharks": "High",
+    "source": "The hull (it leaks)",
+    "notes": "Not my department. See: Shark Management."
+   },
+   {
+    "id": "waterline",
+    "title": "Dead Center / Waterline",
+    "if": {
+     "flag": "waterline_logged"
+    },
+    "location": "Port rail, midships, and the sea underneath",
+    "severity": "Catastrophic",
+    "sharks": "Extremely high",
+    "source": "The Center, at the waterline",
+    "notes": "Excellent response.",
+    "variants": [
+     {
+      "if": {
+       "flag": "p4_complete"
+      },
+      "notes": "Excellent response. (The Captain has asked, in writing, which part was excellent. The sharks' part.)"
+     }
+    ]
+   },
+   {
+    "id": "wake",
+    "title": "The Wake",
+    "if": {
+     "flag": "yellow_wake_seen"
+    },
+    "location": "Behind us, to the horizon",
+    "severity": "Premium",
+    "sharks": "Several hundred (and rising)",
+    "source": "The whole ship",
+    "notes": "Advertising. Very effective."
    }
   ]
  }

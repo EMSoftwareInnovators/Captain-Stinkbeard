@@ -519,5 +519,462 @@
     },
     "map": "main_deck",
     "spawn": "cabin_door"
+  },
+  {
+    "id": "p4_start",
+    "name": "Phase 4 Start",
+    "description": "The captain has just slept after Phase 3. Morning; the ration is in the galley.",
+    "after": "phase3_complete",
+    "flags": [
+      "p4_started",
+      "garrick_grand_stenchmaster_sash"
+    ],
+    "vars": {
+      "p4_day": 1,
+      "p4_tod": 1
+    },
+    "quests": {
+      "todays_forecast": "active"
+    },
+    "map": "captains_quarters",
+    "x": 13,
+    "y": 5,
+    "facing": "right"
+  },
+  {
+    "id": "p4_morning_grog",
+    "name": "Morning Frog Grog",
+    "description": "Arriving in the galley for the morning ration (the scene plays on arrival).",
+    "after": "p4_start",
+    "map": "galley",
+    "spawn": "ladder"
+  },
+  {
+    "id": "p4_first_forecast",
+    "name": "First Forecast",
+    "description": "Garrick has unrolled the first crayon forecast on the breakfast table.",
+    "after": "p4_morning_grog",
+    "flags": [
+      "p4_ration_attended",
+      "beard_remedies_heard",
+      "squawks_refused_grog",
+      "where_is_center_asked",
+      "forecast_day1_shown"
+    ],
+    "quests": {
+      "todays_forecast": {
+        "done": [
+          "ration",
+          "ask"
+        ]
+      }
+    },
+    "map": "galley",
+    "x": 8,
+    "y": 8,
+    "facing": "up"
+  },
+  {
+    "id": "p4_breakfast_evacuation",
+    "name": "Breakfast Evacuation",
+    "description": "'That might be now.' The Center is in the galley; get up the ladder.",
+    "after": "p4_first_forecast",
+    "flags": [
+      "forecast_day1_inspected",
+      "breakfast_center_arrived"
+    ],
+    "values": {
+      "dead_center": "galley_breakfast"
+    },
+    "quests": {
+      "todays_forecast": {
+        "done": [
+          "inspect"
+        ]
+      }
+    },
+    "map": "galley",
+    "x": 13,
+    "y": 6,
+    "facing": "up"
+  },
+  {
+    "id": "p4_life_around_center",
+    "name": "Life Around Center",
+    "description": "Day 2 begins: the bell protocol is on the foremast.",
+    "after": "p4_breakfast_evacuation",
+    "flags": [
+      "breakfast_evacuated",
+      "forecast_in_grog",
+      "forecast_board_up",
+      "forecast_board_seen",
+      "p4_ch16_started",
+      "squawks_three_feathers",
+      "bell_protocol_established"
+    ],
+    "values": {
+      "dead_center": null
+    },
+    "vars": {
+      "p4_day": 2,
+      "p4_tod": 1
+    },
+    "quests": {
+      "todays_forecast": "completed",
+      "life_around_center": "active"
+    },
+    "map": "main_deck",
+    "x": 10,
+    "y": 32,
+    "facing": "up"
+  },
+  {
+    "id": "p4_washroom_incident",
+    "name": "Washroom Incident",
+    "description": "Three bells: the Center is in the washroom with Gristle. Arriving in the crew quarters.",
+    "after": "p4_life_around_center",
+    "flags": [
+      "bell_protocol_read",
+      "washroom_incident_started"
+    ],
+    "values": {
+      "dead_center": "washroom"
+    },
+    "quests": {
+      "life_around_center": {
+        "done": [
+          "protocol"
+        ]
+      }
+    },
+    "map": "crew_quarters",
+    "spawn": "ladder"
+  },
+  {
+    "id": "p4_galley_incident",
+    "name": "Galley Incident",
+    "description": "Noon: the Center is sitting on Jim's stove. Close the stovepipe damper.",
+    "after": "p4_washroom_incident",
+    "flags": [
+      "washroom_door_seen",
+      "scuttle_found",
+      "gristle_rescued",
+      "galley_incident_started"
+    ],
+    "values": {
+      "dead_center": "galley_stove"
+    },
+    "vars": {
+      "p4_tod": 2
+    },
+    "quests": {
+      "life_around_center": {
+        "done": [
+          "washroom"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 11,
+    "y": 22,
+    "facing": "left"
+  },
+  {
+    "id": "p4_night_evacuation",
+    "name": "Night Evacuation",
+    "description": "Three in the morning, three bells. Squawks is at the foot of the bed.",
+    "after": "p4_galley_incident",
+    "flags": [
+      "stove_damper_closed",
+      "lunch_salvaged",
+      "galley_incident_done",
+      "quarters_incident_started",
+      "yellow_pillow_seen",
+      "deck_camp_set",
+      "night_alarm_started"
+    ],
+    "values": {
+      "dead_center": "deck_camp"
+    },
+    "vars": {
+      "p4_tod": 5
+    },
+    "quests": {
+      "life_around_center": {
+        "done": [
+          "damper",
+          "lunch",
+          "quarters"
+        ]
+      }
+    },
+    "map": "captains_quarters",
+    "x": 13,
+    "y": 5,
+    "facing": "up"
+  },
+  {
+    "id": "p4_quarterdeck_blocked",
+    "name": "Quarterdeck Blocked",
+    "description": "After the night: arriving on deck, the Center settles on the quarterdeck (the scene plays on arrival).",
+    "after": "p4_night_evacuation",
+    "flags": [
+      "night_squawks_saved",
+      "night_scramble",
+      "grog_thrown_overboard",
+      "garrick_priorities_seen",
+      "night_evacuation_done"
+    ],
+    "values": {
+      "dead_center": null
+    },
+    "quests": {
+      "life_around_center": {
+        "done": [
+          "night"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 13,
+    "facing": "up"
+  },
+  {
+    "id": "p4_seven_feathers",
+    "name": "Seven Feathers",
+    "description": "Day 6: Squawks wants his feathers counted, in the cabin.",
+    "after": "p4_quarterdeck_blocked",
+    "flags": [
+      "quarterdeck_incident_started",
+      "sausage_forecast_seen",
+      "course_restored",
+      "p4_ch17_started",
+      "worst_places_seen",
+      "beard_wash_attempted",
+      "beard_refreshed",
+      "beard_refresh_protested"
+    ],
+    "vars": {
+      "p4_day": 6,
+      "p4_tod": 3
+    },
+    "quests": {
+      "life_around_center": "completed",
+      "worst_places": "completed",
+      "seven_feathers": "active"
+    },
+    "map": "captains_quarters",
+    "spawn": "door"
+  },
+  {
+    "id": "p4_bald_again",
+    "name": "Bald Again",
+    "description": "The cloud has left the cabin. Take Squawks back in (the feathers fall on arrival).",
+    "after": "p4_seven_feathers",
+    "flags": [
+      "squawks_reached_seven_feathers",
+      "feathers_alarm",
+      "squawks_protected"
+    ],
+    "values": {
+      "dead_center": null
+    },
+    "vars": {
+      "p4_tod": 4
+    },
+    "quests": {
+      "seven_feathers": {
+        "done": [
+          "check",
+          "protect"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 8,
+    "y": 14,
+    "facing": "up"
+  },
+  {
+    "id": "p4_shark_duty",
+    "name": "Shark Duty",
+    "description": "Day 7: the captain is on the roster. Take a pole from Jory's barrel.",
+    "after": "p4_bald_again",
+    "flags": [
+      "feathers_returned",
+      "squawks_bald_again",
+      "recurring_molt_heard",
+      "p4_ch18_started",
+      "shark_duty_introduced"
+    ],
+    "vars": {
+      "p4_day": 7,
+      "p4_tod": 2
+    },
+    "quests": {
+      "seven_feathers": "completed",
+      "shark_duty": "active"
+    },
+    "map": "main_deck",
+    "x": 12,
+    "y": 22,
+    "facing": "down"
+  },
+  {
+    "id": "p4_hundreds_of_sharks",
+    "name": "Hundreds of Sharks",
+    "description": "'HOW MANY?' 'HUNDREDS.' Hold both rails.",
+    "after": "p4_shark_duty",
+    "flags": [
+      "shark_duty_reported",
+      "piracy_rant_done",
+      "port_damage_checked",
+      "starboard_checked",
+      "hundreds_seen"
+    ],
+    "quests": {
+      "shark_duty": {
+        "done": [
+          "report",
+          "repel",
+          "port",
+          "starboard"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 30,
+    "facing": "up"
+  },
+  {
+    "id": "p4_frenzy",
+    "name": "Dead Center Shark Frenzy",
+    "description": "Garrick has refused; three bells, the Center is heading for the port rail. Get Squawks.",
+    "after": "p4_hundreds_of_sharks",
+    "flags": [
+      "garrick_toast_seen",
+      "garrick_refused_duty",
+      "waterline_alarm"
+    ],
+    "values": {
+      "dead_center": "port_waterline"
+    },
+    "quests": {
+      "shark_duty": {
+        "done": [
+          "numbers",
+          "garrick"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 12,
+    "y": 15,
+    "facing": "up"
+  },
+  {
+    "id": "p4_post_frenzy_repairs",
+    "name": "Post-Frenzy Repairs",
+    "description": "Late afternoon: the Center has moved off. Three repairs on the port rail.",
+    "after": "p4_frenzy",
+    "flags": [
+      "waterline_evacuated",
+      "frenzy_started",
+      "ship_smaller_seen",
+      "actively_ending",
+      "waterline_logged",
+      "p4_ch19_started",
+      "repairs_started"
+    ],
+    "values": {
+      "dead_center": null
+    },
+    "vars": {
+      "p4_hull_damage": 3,
+      "p4_tod": 3
+    },
+    "quests": {
+      "shark_duty": "completed",
+      "repair_it_again": "active"
+    },
+    "map": "main_deck",
+    "x": 13,
+    "y": 20,
+    "facing": "right"
+  },
+  {
+    "id": "p4_center_returns",
+    "name": "Center Returns",
+    "description": "Repairs done. Garrick has the afternoon forecast.",
+    "after": "p4_post_frenzy_repairs",
+    "flags": [
+      "repair_board_done",
+      "repair_rope_done",
+      "repair_patch_done",
+      "supervisor_debate"
+    ],
+    "quests": {
+      "repair_it_again": {
+        "done": [
+          "repairs"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 12,
+    "y": 18,
+    "facing": "up"
+  },
+  {
+    "id": "p4_final_forecast",
+    "name": "Final 700% Forecast",
+    "description": "THE CENTER IS COMING BACK. Evacuate aft (or forward) for the last scenes and tomorrow's forecast.",
+    "after": "p4_center_returns",
+    "flags": [
+      "worst_forecast_seen",
+      "center_returning"
+    ],
+    "values": {
+      "dead_center": "port_waterline"
+    },
+    "quests": {
+      "repair_it_again": {
+        "done": [
+          "forecast"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 10,
+    "y": 15,
+    "facing": "up"
+  },
+  {
+    "id": "p4_complete",
+    "name": "Phase 4 Complete",
+    "description": "Tomorrow: VERY BAD, 700%. The ship is free to explore.",
+    "after": "p4_final_forecast",
+    "flags": [
+      "repair_evacuated",
+      "fresh_repair_destroyed",
+      "forecast_drunk",
+      "three_hundred_more",
+      "yellow_wake_seen",
+      "tomorrow_forecast_seen",
+      "p4_complete"
+    ],
+    "values": {
+      "dead_center": "treasure_hold"
+    },
+    "vars": {
+      "p4_tod": 4
+    },
+    "quests": {
+      "repair_it_again": "completed"
+    },
+    "map": "main_deck",
+    "spawn": "cabin_door"
   }
 ]

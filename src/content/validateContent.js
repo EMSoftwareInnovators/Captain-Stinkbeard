@@ -128,7 +128,7 @@ function validateText(text, check) {
     const token = m[1];
     const [kind, arg] = token.includes(':') ? [token.slice(0, token.indexOf(':')), token.slice(token.indexOf(':') + 1)] : [token, null];
     if (arg === null) {
-      if (['player', 'gold', 'leader', 'captain'].includes(kind)) continue;
+      if (['player', 'gold', 'leader', 'captain', 'deadCenter'].includes(kind)) continue;
       if (check.ctx.db.game?.constants && kind in check.ctx.db.game.constants) continue;
       check.error(`unknown text token "{${token}}"`);
     } else if (kind === 'item') check.item(arg);

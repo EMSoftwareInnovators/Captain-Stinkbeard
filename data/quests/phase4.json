@@ -1,0 +1,99 @@
+[
+ {
+  "id": "todays_forecast",
+  "title": "Today's Forecast",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "Morning ration. Everyone wants to know where the Dead Center is today.",
+  "description": "The first proper morning of the new normal. The bell coughs, the crew gag, and the Frog Grog ration is poured in the galley. The ordinary stink is survivable. The Dead Center, the thick yellow heart of Garrick's treasure-room disaster, is not, and it moves.",
+  "objectives": [
+   { "id": "ration", "text": "Attend the morning ration (Galley)", "type": "flag", "target": "p4_ration_attended" },
+   { "id": "ask", "text": "Ask Garrick where the Dead Center is today", "type": "flag", "target": "where_is_center_asked", "after": ["ration"] },
+   { "id": "inspect", "text": "Inspect the forecast (on the breakfast table)", "type": "flag", "target": "forecast_day1_inspected", "after": ["ask"] },
+   { "id": "evacuate", "text": "Clear the breakfast area! (up the ladder to the deck)", "type": "flag", "target": "breakfast_evacuated", "after": ["inspect"] },
+   { "id": "board", "text": "Look at the new Forecast Board (Garrick's station, midships)", "type": "flag", "target": "forecast_board_seen", "after": ["evacuate"] }
+  ],
+  "rewards": { "xp": 35 }
+ },
+ {
+  "id": "life_around_center",
+  "title": "Life Around the Center",
+  "category": "main",
+  "giver": "hale",
+  "summary": "The Dead Center goes wherever it likes. The crew have to live around it.",
+  "description": "A week of it. Nobody can wash, cook, sleep or steer without first asking where the Center is. The crew have invented a bell protocol, Garrick posts a forecast every morning, and the captain keeps the ship running anyway.",
+  "objectives": [
+   { "id": "protocol", "text": "Read the bell protocol (by the ship's bell, near the bow)", "type": "flag", "target": "bell_protocol_read" },
+   { "id": "washroom", "text": "Washroom problem: get Gristle out", "type": "flag", "target": "gristle_rescued", "after": ["protocol"] },
+   { "id": "damper", "text": "Galley problem: smother the stove from the deck (the stovepipe)", "type": "flag", "target": "stove_damper_closed", "after": ["washroom"] },
+   { "id": "lunch", "text": "Galley problem: salvage lunch (biscuits, Cargo Hold)", "type": "flag", "target": "galley_incident_done", "after": ["damper"] },
+   { "id": "quarters", "text": "Sleeping-quarter evacuation: see the crew bedded down on deck", "type": "flag", "target": "deck_camp_set", "after": ["lunch"] },
+   { "id": "night", "text": "Night deck evacuation: get Squawks", "type": "flag", "target": "night_evacuation_done", "after": ["quarters"] },
+   { "id": "quarterdeck", "text": "Quarterdeck blockade: get the ship back on course", "type": "flag", "target": "course_restored", "after": ["night"] }
+  ],
+  "rewards": { "xp": 50 }
+ },
+ {
+  "id": "worst_places",
+  "title": "The Worst Places",
+  "category": "main",
+  "giver": "fennimore",
+  "summary": "The Center always seems to be in exactly the room you need.",
+  "description": "The powder room at gunnery drill. The medicine chest when someone needs a splinter out. The oven when there is bread. The captain decides that the beard, at least, is his to fix.",
+  "objectives": [
+   { "id": "wash", "text": "Attempt a serious beard wash (Washroom, off the Crew Quarters)", "type": "flag", "target": "beard_refreshed" },
+   { "id": "log", "text": "Read what the Grand Stenchmaster wrote about it (Stench Log)", "type": "flag", "target": "beard_refresh_protested", "after": ["wash"] }
+  ],
+  "rewards": { "xp": 30 }
+ },
+ {
+  "id": "seven_feathers",
+  "title": "Seven Feathers",
+  "category": "main",
+  "giver": "squawks",
+  "summary": "Squawks's feathers are coming back. He wants you to count them.",
+  "description": "Day by day, new feathers have been coming in on Captain Squawks: the golden one first, then more. He has asked you to come to the cabin and count them. Twice.",
+  "objectives": [
+   { "id": "check", "text": "Check on Squawks (Captain's Quarters)", "type": "flag", "target": "squawks_reached_seven_feathers" },
+   { "id": "protect", "text": "Protect Squawks: get him out of the cabin!", "type": "flag", "target": "squawks_protected", "after": ["check"] },
+   { "id": "return", "text": "Return to the cabin once the cloud clears", "type": "flag", "target": "feathers_returned", "after": ["protect"] },
+   { "id": "loss", "text": "See how Squawks is", "type": "flag", "target": "squawks_bald_again", "after": ["return"] }
+  ],
+  "rewards": { "xp": 35 }
+ },
+ {
+  "id": "shark_duty",
+  "title": "Shark Duty",
+  "category": "main",
+  "giver": "jory",
+  "summary": "The hull leaks smell into the sea, and the sharks keep coming to chew it.",
+  "description": "The rowboat lure worked once. The ship itself still leaves a foul trail through the water, and the sharks keep finding it. The crew have invented the most hated job aboard: walking the rail with a pole and discouraging them. Today it is the captain's shift.",
+  "objectives": [
+   { "id": "report", "text": "Report to the rail (take a pole from the duty barrel by Jory)", "type": "flag", "target": "shark_duty_reported" },
+   { "id": "repel", "text": "Repel the sharks at the port rail", "type": "event", "target": "shark_repelled", "count": 6, "after": ["report"] },
+   { "id": "port", "text": "Check the port damage with Jory", "type": "flag", "target": "port_damage_checked", "after": ["repel"] },
+   { "id": "starboard", "text": "Check starboard activity (Ned, at the bow)", "type": "flag", "target": "starboard_checked", "after": ["port"] },
+   { "id": "numbers", "text": "Hold both rails against the growing numbers", "type": "event", "target": "shark_repelled_more", "count": 8, "after": ["starboard"] },
+   { "id": "garrick", "text": "Get the Grand Stenchmaster to help (his station)", "type": "flag", "target": "garrick_refused_duty", "after": ["numbers"] },
+   { "id": "evacuate", "text": "Abandon Shark Duty! Get clear of the port rail", "type": "flag", "target": "waterline_evacuated", "after": ["garrick"] },
+   { "id": "frenzy", "text": "Witness the Shark Frenzy", "type": "flag", "target": "waterline_logged", "after": ["evacuate"] }
+  ],
+  "rewards": { "xp": 60 }
+ },
+ {
+  "id": "repair_it_again",
+  "title": "Repair It Again",
+  "category": "main",
+  "giver": "jory",
+  "summary": "The Center has moved off. Repair everything, fast.",
+  "description": "Late afternoon. The Dead Center has finally drifted away from the port rail and the sharks have calmed, somewhat. There is a hole where the rail used to be and a patch where the patch used to be. REPAIR EVERYTHING.",
+  "objectives": [
+   { "id": "repairs", "text": "Assist the repairs along the port rail", "type": "event", "target": "p4_repair_done", "count": 3 },
+   { "id": "forecast", "text": "Check Garrick's latest forecast", "type": "flag", "target": "worst_forecast_seen", "after": ["repairs"] },
+   { "id": "evacuate", "text": "Evacuate the repair!", "type": "flag", "target": "repair_evacuated", "after": ["forecast"] },
+   { "id": "watch", "text": "Watch what happens to the fresh repair", "type": "flag", "target": "fresh_repair_destroyed", "after": ["evacuate"] },
+   { "id": "tomorrow", "text": "Receive tomorrow's forecast", "type": "flag", "target": "tomorrow_forecast_seen", "after": ["watch"] }
+  ],
+  "rewards": { "xp": 50 }
+ }
+]

@@ -1,0 +1,700 @@
+{
+ "id": "galley_phase4",
+ "patch": "galley",
+ "//": "Story Phase 4 in the galley: breakfast round the long table (7..9,7), Squawks's padded basket (10,7), the Dead Center at breakfast (galley_breakfast) and on the stove (galley_stove). During the evacuation the only way out is the ladder; the door and the hold stairs say why.",
+ "objects": [
+  {
+   "id": "p4_forecast_table",
+   "type": "inspect",
+   "x": 7,
+   "y": 7,
+   "w": 3,
+   "if": {
+    "objectiveActive": "todays_forecast.inspect"
+   },
+   "script": "p4c1.forecast"
+  },
+  {
+   "id": "p4_table",
+   "type": "inspect",
+   "x": 7,
+   "y": 7,
+   "w": 3,
+   "if": {
+    "flag": "forecast_day1_inspected"
+   },
+   "script": "p4.forecast_table"
+  },
+  {
+   "id": "p4_basket",
+   "type": "inspect",
+   "x": 10,
+   "y": 7,
+   "if": {
+    "flag": "p4_started"
+   },
+   "script": "p4.inspect.basket"
+  },
+  {
+   "id": "p4_grog_cask",
+   "type": "inspect",
+   "x": 16,
+   "y": 9,
+   "if": {
+    "flag": "p4_started"
+   },
+   "dialogue": [
+    {
+     "cycle": [
+      "p4.inspect.grog_cask_1",
+      "p4.inspect.grog_cask_2",
+      "p4.inspect.grog_cask_3"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_to_crew",
+   "type": "warp",
+   "x": 8,
+   "y": 12,
+   "to": {
+    "map": "crew_quarters",
+    "spawn": "north_door"
+   },
+   "sfx": "door",
+   "if": {
+    "not": {
+     "objectiveActive": "todays_forecast.evacuate"
+    }
+   },
+   "locked": "p4c1.no_door"
+  },
+  {
+   "id": "p4_to_hold",
+   "type": "warp",
+   "x": 12,
+   "y": 10,
+   "w": 2,
+   "to": {
+    "map": "cargo_hold",
+    "spawn": "stairs"
+   },
+   "if": {
+    "not": {
+     "objectiveActive": "todays_forecast.evacuate"
+    }
+   },
+   "locked": "p4c1.no_hatch"
+  },
+  {
+   "id": "p4g_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 7,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_started"
+     },
+     {
+      "notFlag": "breakfast_center_arrived"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p4g_garrick_1",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 7,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "breakfast_center_arrived"
+     },
+     {
+      "notFlag": "breakfast_evacuated"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p4g_garrick_2",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  },
+  {
+   "id": "p4g_bob_0",
+   "type": "npc",
+   "npc": "bob",
+   "x": 8,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_started"
+     },
+     {
+      "notFlag": "breakfast_center_arrived"
+     }
+    ]
+   },
+   "pose": "drink",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4g_bob_1",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  },
+  {
+   "id": "p4g_brask_0",
+   "type": "npc",
+   "npc": "brask",
+   "x": 9,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_started"
+     },
+     {
+      "notFlag": "breakfast_center_arrived"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4g_brask_1",
+   "type": "npc",
+   "npc": "brask",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  },
+  {
+   "id": "p4g_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 6,
+   "y": 7,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_started"
+     },
+     {
+      "notFlag": "breakfast_center_arrived"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4g_pete_1",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  },
+  {
+   "id": "p4g_squawks_0",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 10,
+   "y": 7,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_started"
+     },
+     {
+      "notFlag": "breakfast_center_arrived"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4g_squawks_1",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  },
+  {
+   "id": "p4g_wick_0",
+   "type": "npc",
+   "npc": "wick",
+   "x": 7,
+   "y": 8,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_started"
+     },
+     {
+      "notFlag": "breakfast_center_arrived"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4g_wick_1",
+   "type": "npc",
+   "npc": "wick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  },
+  {
+   "id": "p4g_gristle_0",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 9,
+   "y": 8,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_started"
+     },
+     {
+      "notFlag": "breakfast_center_arrived"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4g_gristle_1",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  },
+  {
+   "id": "p4g_mags_0",
+   "type": "npc",
+   "npc": "mags",
+   "x": 15,
+   "y": 9,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_started"
+     },
+     {
+      "notFlag": "breakfast_center_arrived"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4g_mags_1",
+   "type": "npc",
+   "npc": "mags",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "breakfast_center_arrived"
+     },
+     {
+      "notFlag": "breakfast_evacuated"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4g_mags_2",
+   "type": "npc",
+   "npc": "mags",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "galley_incident_started"
+     },
+     {
+      "notFlag": "galley_incident_done"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4g_mags_3",
+   "type": "npc",
+   "npc": "mags",
+   "x": 7,
+   "y": 5,
+   "facing": "up",
+   "if": {
+    "flag": "p4_started"
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "work"
+   }
+  },
+  {
+   "id": "p4g_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 3,
+   "y": 5,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_started"
+     },
+     {
+      "notFlag": "breakfast_center_arrived"
+     }
+    ]
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "work"
+   }
+  },
+  {
+   "id": "p4g_jim_1",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "breakfast_center_arrived"
+     },
+     {
+      "notFlag": "breakfast_evacuated"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4g_jim_2",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "galley_incident_started"
+     },
+     {
+      "notFlag": "galley_incident_done"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4g_jim_3",
+   "type": "npc",
+   "npc": "jim",
+   "x": 11,
+   "y": 5,
+   "facing": "up",
+   "if": {
+    "flag": "p4_started"
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "work"
+   }
+  },
+  {
+   "id": "p4g_quill_0",
+   "type": "npc",
+   "npc": "quill",
+   "x": 13,
+   "y": 5,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_started"
+     },
+     {
+      "notFlag": "breakfast_center_arrived"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4g_quill_1",
+   "type": "npc",
+   "npc": "quill",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "breakfast_center_arrived"
+     },
+     {
+      "notFlag": "breakfast_evacuated"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4g_quill_2",
+   "type": "npc",
+   "npc": "quill",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "galley_incident_started"
+     },
+     {
+      "notFlag": "galley_incident_done"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4g_quill_3",
+   "type": "npc",
+   "npc": "quill",
+   "x": 13,
+   "y": 5,
+   "facing": "down",
+   "if": {
+    "flag": "p4_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4g_hale_0",
+   "type": "npc",
+   "npc": "hale",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  },
+  {
+   "id": "p4g_rook_0",
+   "type": "npc",
+   "npc": "rook",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  },
+  {
+   "id": "p4g_sully_0",
+   "type": "npc",
+   "npc": "sully",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "squawks_basket",
+   "x": 10,
+   "y": 7,
+   "if": {
+    "flag": "p4_started"
+   },
+   "id": "squawks_basket",
+   "depthOffset": 2
+  },
+  {
+   "prop": "breakfast_spread",
+   "x": 7,
+   "y": 7,
+   "if": {
+    "all": [
+     {
+      "flag": "p4_started"
+     },
+     {
+      "notFlag": "p4_ch16_started"
+     }
+    ]
+   },
+   "id": "breakfast",
+   "depthOffset": 2
+  }
+ ],
+ "onEnter": [
+  {
+   "if": {
+    "objectiveActive": "todays_forecast.ration"
+   },
+   "script": "p4c1.ration"
+  }
+ ],
+ "ambient": [
+  {
+   "kind": "smoke",
+   "x": 2,
+   "y": 4,
+   "rise": 8,
+   "every": 700,
+   "alpha": 0.7,
+   "tint": "#4a4440",
+   "if": {
+    "all": [
+     {
+      "flag": "galley_incident_started"
+     },
+     {
+      "notFlag": "stove_damper_closed"
+     }
+    ]
+   }
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "frenzy_started"
+     },
+     {
+      "notFlag": "p4_ch19_started"
+     }
+    ]
+   },
+   "music": "shark_frenzy",
+   "musicFilter": "muffled",
+   "ambience": "below_frenzy"
+  },
+  {
+   "if": {
+    "flag": "p4_ch18_started"
+   },
+   "music": "shark_duty",
+   "musicFilter": "muffled",
+   "ambience": "below_sharks"
+  },
+  {
+   "if": {
+    "flag": "p4_started"
+   },
+   "music": "weary_morning",
+   "musicFilter": "muffled",
+   "ambience": "below"
+  }
+ ],
+ "sharks": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "frenzy_started"
+     },
+     {
+      "notFlag": "p4_ch19_started"
+     }
+    ]
+   },
+   "level": "swarm",
+   "below": true
+  },
+  {
+   "if": {
+    "flag": "p4_ch18_started"
+   },
+   "level": "attacking",
+   "below": true
+  }
+ ]
+}

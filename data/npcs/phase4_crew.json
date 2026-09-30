@@ -1,0 +1,2806 @@
+[
+ {
+  "id": "pete",
+  "name": "Pete",
+  "title": "Deckhand (formerly Night Watch)",
+  "//": "Story Phase 4: a lanky deckhand who slept through the Gust and everything after it, until the Dead Center started waking everyone up. Never without his pillow.",
+  "appearance": "pete",
+  "portrait": "pete",
+  "voice": {
+   "pitch": 1.05
+  },
+  "behavior": {
+   "type": "stand",
+   "lookAround": true
+  },
+  "turnToTalk": true,
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "life_around_center.washroom"
+    },
+    "script": "pete.p4_washroom_hint"
+   },
+   {
+    "if": {
+     "flag": "p4_complete"
+    },
+    "script": "pete.p4_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fresh_repair_destroyed"
+      },
+      {
+       "notFlag": "p4_complete"
+      }
+     ]
+    },
+    "script": "pete.p4_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch19_started"
+      },
+      {
+       "notFlag": "fresh_repair_destroyed"
+      }
+     ]
+    },
+    "script": "pete.p4_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "frenzy_started"
+      },
+      {
+       "notFlag": "p4_ch19_started"
+      }
+     ]
+    },
+    "script": "pete.p4_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch18_started"
+      },
+      {
+       "notFlag": "frenzy_started"
+      }
+     ]
+    },
+    "script": "pete.p4_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch17_started"
+      },
+      {
+       "notFlag": "p4_ch18_started"
+      }
+     ]
+    },
+    "script": "pete.p4_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "quarters_incident_started"
+      },
+      {
+       "notFlag": "p4_ch17_started"
+      }
+     ]
+    },
+    "script": "pete.p4_s3b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch16_started"
+      },
+      {
+       "notFlag": "quarters_incident_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p4_s3_1",
+     "pete.p4_s3_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "breakfast_center_arrived"
+      },
+      {
+       "notFlag": "p4_ch16_started"
+      }
+     ]
+    },
+    "script": "pete.p4_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_started"
+      },
+      {
+       "notFlag": "breakfast_center_arrived"
+      }
+     ]
+    },
+    "script": "pete.p4_s1"
+   },
+   {
+    "script": "pete.p4_s9"
+   }
+  ]
+ },
+ {
+  "extend": "garrick",
+  "variants": [
+   {
+    "if": {
+     "flag": "garrick_grand_stenchmaster_sash"
+    },
+    "appearance": "garrick_grand_stenchmaster",
+    "portrait": "garrick_grand_stenchmaster"
+   }
+  ],
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "todays_forecast.ask"
+    },
+    "script": "p4c1.question"
+   },
+   {
+    "if": {
+     "objectiveActive": "todays_forecast.inspect"
+    },
+    "script": "garrick.p4_inspect_hint"
+   },
+   {
+    "if": {
+     "objectiveActive": "todays_forecast.board"
+    },
+    "script": "garrick.p4_board_hint"
+   },
+   {
+    "if": {
+     "objectiveActive": "worst_places.log"
+    },
+    "script": "garrick.p4_log_hint"
+   },
+   {
+    "if": {
+     "objectiveActive": "shark_duty.garrick"
+    },
+    "script": "p4c4.refusal"
+   },
+   {
+    "if": {
+     "objectiveActive": "repair_it_again.forecast"
+    },
+    "script": "p4c5.worst"
+   },
+   {
+    "if": {
+     "flag": "p4_complete"
+    },
+    "cycle": [
+     "garrick.p4_s9_1",
+     "garrick.p4_s9_2",
+     "garrick.p4_s9_3"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fresh_repair_destroyed"
+      },
+      {
+       "notFlag": "p4_complete"
+      }
+     ]
+    },
+    "script": "garrick.p4_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch19_started"
+      },
+      {
+       "notFlag": "fresh_repair_destroyed"
+      }
+     ]
+    },
+    "script": "garrick.p4_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "frenzy_started"
+      },
+      {
+       "notFlag": "p4_ch19_started"
+      }
+     ]
+    },
+    "script": "garrick.p4_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch18_started"
+      },
+      {
+       "notFlag": "frenzy_started"
+      }
+     ]
+    },
+    "script": "garrick.p4_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch17_started"
+      },
+      {
+       "notFlag": "p4_ch18_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p4_s4_1",
+     "garrick.p4_s4_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "quarters_incident_started"
+      },
+      {
+       "notFlag": "p4_ch17_started"
+      }
+     ]
+    },
+    "script": "garrick.p4_s3b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch16_started"
+      },
+      {
+       "notFlag": "quarters_incident_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p4_s3_1",
+     "garrick.p4_s3_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "breakfast_center_arrived"
+      },
+      {
+       "notFlag": "p4_ch16_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p4_s2_1",
+     "garrick.p4_s2_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_started"
+      },
+      {
+       "notFlag": "breakfast_center_arrived"
+      }
+     ]
+    },
+    "script": "garrick.p4_s1"
+   }
+  ]
+ },
+ {
+  "extend": "squawks",
+  "variants": [
+   {
+    "if": {
+     "flag": "squawks_bald_again"
+    },
+    "appearance": "squawks_bald_again",
+    "portrait": "squawks_bald_again",
+    "shadow": "shadow_xs"
+   },
+   {
+    "if": {
+     "flag": "p4_ch17_started"
+    },
+    "appearance": "squawks_feathers_7",
+    "portrait": "squawks_feathers_7",
+    "shadow": "shadow_xs"
+   },
+   {
+    "if": {
+     "flag": "squawks_three_feathers"
+    },
+    "appearance": "squawks_feathers_3",
+    "portrait": "squawks_feathers_3",
+    "shadow": "shadow_xs"
+   }
+  ],
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "life_around_center.night"
+      },
+      {
+       "flag": "night_alarm_started"
+      },
+      {
+       "notFlag": "night_squawks_saved"
+      }
+     ]
+    },
+    "script": "p4c2.night_squawks"
+   },
+   {
+    "if": {
+     "objectiveActive": "seven_feathers.check"
+    },
+    "script": "p4c3.feathers_count"
+   },
+   {
+    "if": {
+     "objectiveActive": "shark_duty.evacuate"
+    },
+    "script": "p4c4.frenzy"
+   },
+   {
+    "if": {
+     "flag": "p4_complete"
+    },
+    "cycle": [
+     "squawks.p4_s9_1",
+     "squawks.p4_s9_2",
+     "squawks.p4_s9_3"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch19_started"
+      },
+      {
+       "notFlag": "p4_complete"
+      }
+     ]
+    },
+    "script": "squawks.p4_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch18_started"
+      },
+      {
+       "notFlag": "p4_ch19_started"
+      }
+     ]
+    },
+    "script": "squawks.p4_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "squawks_bald_again"
+      },
+      {
+       "notFlag": "p4_ch18_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p4_bald_1",
+     "squawks.p4_bald_2",
+     "squawks.p4_bald_3"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch17_started"
+      },
+      {
+       "notFlag": "p4_ch18_started"
+      }
+     ]
+    },
+    "script": "squawks.p4_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "quarters_incident_started"
+      },
+      {
+       "notFlag": "p4_ch17_started"
+      }
+     ]
+    },
+    "script": "squawks.p4_s3b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch16_started"
+      },
+      {
+       "notFlag": "quarters_incident_started"
+      }
+     ]
+    },
+    "script": "squawks.p4_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "breakfast_center_arrived"
+      },
+      {
+       "notFlag": "p4_ch16_started"
+      }
+     ]
+    },
+    "script": "squawks.p4_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_started"
+      },
+      {
+       "notFlag": "breakfast_center_arrived"
+      }
+     ]
+    },
+    "script": "squawks.p4_s1"
+   }
+  ]
+ },
+ {
+  "extend": "hale",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p3_complete"
+      },
+      {
+       "notFlag": "p4_started"
+      }
+     ]
+    },
+    "script": "hale.p4_sleep_hint"
+   },
+   {
+    "if": {
+     "objectiveActive": "life_around_center.protocol"
+    },
+    "script": "hale.p4_protocol_hint"
+   },
+   {
+    "if": {
+     "flag": "p4_complete"
+    },
+    "cycle": [
+     "hale.p4_s9_1",
+     "hale.p4_s9_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fresh_repair_destroyed"
+      },
+      {
+       "notFlag": "p4_complete"
+      }
+     ]
+    },
+    "script": "hale.p4_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch19_started"
+      },
+      {
+       "notFlag": "fresh_repair_destroyed"
+      }
+     ]
+    },
+    "script": "hale.p4_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "frenzy_started"
+      },
+      {
+       "notFlag": "p4_ch19_started"
+      }
+     ]
+    },
+    "script": "hale.p4_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch18_started"
+      },
+      {
+       "notFlag": "frenzy_started"
+      }
+     ]
+    },
+    "script": "hale.p4_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch17_started"
+      },
+      {
+       "notFlag": "p4_ch18_started"
+      }
+     ]
+    },
+    "script": "hale.p4_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "quarters_incident_started"
+      },
+      {
+       "notFlag": "p4_ch17_started"
+      }
+     ]
+    },
+    "script": "hale.p4_s3b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch16_started"
+      },
+      {
+       "notFlag": "quarters_incident_started"
+      }
+     ]
+    },
+    "cycle": [
+     "hale.p4_s3_1",
+     "hale.p4_s3_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "breakfast_center_arrived"
+      },
+      {
+       "notFlag": "p4_ch16_started"
+      }
+     ]
+    },
+    "script": "hale.p4_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_started"
+      },
+      {
+       "notFlag": "breakfast_center_arrived"
+      }
+     ]
+    },
+    "script": "hale.p4_s1"
+   }
+  ]
+ },
+ {
+  "extend": "quill",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p4_complete"
+    },
+    "script": "quill.p4_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fresh_repair_destroyed"
+      },
+      {
+       "notFlag": "p4_complete"
+      }
+     ]
+    },
+    "script": "quill.p4_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch19_started"
+      },
+      {
+       "notFlag": "fresh_repair_destroyed"
+      }
+     ]
+    },
+    "script": "quill.p4_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "frenzy_started"
+      },
+      {
+       "notFlag": "p4_ch19_started"
+      }
+     ]
+    },
+    "script": "quill.p4_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch18_started"
+      },
+      {
+       "notFlag": "frenzy_started"
+      }
+     ]
+    },
+    "script": "quill.p4_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch17_started"
+      },
+      {
+       "notFlag": "p4_ch18_started"
+      }
+     ]
+    },
+    "script": "quill.p4_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "quarters_incident_started"
+      },
+      {
+       "notFlag": "p4_ch17_started"
+      }
+     ]
+    },
+    "script": "quill.p4_s3b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch16_started"
+      },
+      {
+       "notFlag": "quarters_incident_started"
+      }
+     ]
+    },
+    "script": "quill.p4_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "breakfast_center_arrived"
+      },
+      {
+       "notFlag": "p4_ch16_started"
+      }
+     ]
+    },
+    "script": "quill.p4_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_started"
+      },
+      {
+       "notFlag": "breakfast_center_arrived"
+      }
+     ]
+    },
+    "script": "quill.p4_s1"
+   }
+  ]
+ },
+ {
+  "extend": "mags",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p4_complete"
+    },
+    "script": "mags.p4_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fresh_repair_destroyed"
+      },
+      {
+       "notFlag": "p4_complete"
+      }
+     ]
+    },
+    "script": "mags.p4_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch19_started"
+      },
+      {
+       "notFlag": "fresh_repair_destroyed"
+      }
+     ]
+    },
+    "script": "mags.p4_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "frenzy_started"
+      },
+      {
+       "notFlag": "p4_ch19_started"
+      }
+     ]
+    },
+    "script": "mags.p4_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch18_started"
+      },
+      {
+       "notFlag": "frenzy_started"
+      }
+     ]
+    },
+    "script": "mags.p4_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch17_started"
+      },
+      {
+       "notFlag": "p4_ch18_started"
+      }
+     ]
+    },
+    "script": "mags.p4_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "quarters_incident_started"
+      },
+      {
+       "notFlag": "p4_ch17_started"
+      }
+     ]
+    },
+    "script": "mags.p4_s3b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch16_started"
+      },
+      {
+       "notFlag": "quarters_incident_started"
+      }
+     ]
+    },
+    "script": "mags.p4_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "breakfast_center_arrived"
+      },
+      {
+       "notFlag": "p4_ch16_started"
+      }
+     ]
+    },
+    "script": "mags.p4_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_started"
+      },
+      {
+       "notFlag": "breakfast_center_arrived"
+      }
+     ]
+    },
+    "script": "mags.p4_s1"
+   }
+  ]
+ },
+ {
+  "extend": "fennimore",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p4_complete"
+    },
+    "script": "fennimore.p4_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fresh_repair_destroyed"
+      },
+      {
+       "notFlag": "p4_complete"
+      }
+     ]
+    },
+    "script": "fennimore.p4_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch19_started"
+      },
+      {
+       "notFlag": "fresh_repair_destroyed"
+      }
+     ]
+    },
+    "script": "fennimore.p4_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "frenzy_started"
+      },
+      {
+       "notFlag": "p4_ch19_started"
+      }
+     ]
+    },
+    "script": "fennimore.p4_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch18_started"
+      },
+      {
+       "notFlag": "frenzy_started"
+      }
+     ]
+    },
+    "script": "fennimore.p4_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch17_started"
+      },
+      {
+       "notFlag": "p4_ch18_started"
+      }
+     ]
+    },
+    "script": "fennimore.p4_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "quarters_incident_started"
+      },
+      {
+       "notFlag": "p4_ch17_started"
+      }
+     ]
+    },
+    "script": "fennimore.p4_s3b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch16_started"
+      },
+      {
+       "notFlag": "quarters_incident_started"
+      }
+     ]
+    },
+    "script": "fennimore.p4_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "breakfast_center_arrived"
+      },
+      {
+       "notFlag": "p4_ch16_started"
+      }
+     ]
+    },
+    "script": "fennimore.p4_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_started"
+      },
+      {
+       "notFlag": "breakfast_center_arrived"
+      }
+     ]
+    },
+    "script": "fennimore.p4_s1"
+   }
+  ]
+ },
+ {
+  "extend": "brask",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p4_complete"
+    },
+    "script": "brask.p4_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fresh_repair_destroyed"
+      },
+      {
+       "notFlag": "p4_complete"
+      }
+     ]
+    },
+    "script": "brask.p4_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch19_started"
+      },
+      {
+       "notFlag": "fresh_repair_destroyed"
+      }
+     ]
+    },
+    "script": "brask.p4_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "frenzy_started"
+      },
+      {
+       "notFlag": "p4_ch19_started"
+      }
+     ]
+    },
+    "script": "brask.p4_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch18_started"
+      },
+      {
+       "notFlag": "frenzy_started"
+      }
+     ]
+    },
+    "cycle": [
+     "brask.p4_s5_1",
+     "brask.p4_s5_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch17_started"
+      },
+      {
+       "notFlag": "p4_ch18_started"
+      }
+     ]
+    },
+    "script": "brask.p4_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "quarters_incident_started"
+      },
+      {
+       "notFlag": "p4_ch17_started"
+      }
+     ]
+    },
+    "script": "brask.p4_s3b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch16_started"
+      },
+      {
+       "notFlag": "quarters_incident_started"
+      }
+     ]
+    },
+    "script": "brask.p4_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "breakfast_center_arrived"
+      },
+      {
+       "notFlag": "p4_ch16_started"
+      }
+     ]
+    },
+    "script": "brask.p4_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_started"
+      },
+      {
+       "notFlag": "breakfast_center_arrived"
+      }
+     ]
+    },
+    "script": "brask.p4_s1"
+   }
+  ]
+ },
+ {
+  "extend": "nell",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "life_around_center.quarterdeck"
+      },
+      {
+       "flag": "sausage_forecast_seen"
+      }
+     ]
+    },
+    "script": "nell.p4_helm_hint"
+   },
+   {
+    "if": {
+     "flag": "p4_complete"
+    },
+    "script": "nell.p4_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fresh_repair_destroyed"
+      },
+      {
+       "notFlag": "p4_complete"
+      }
+     ]
+    },
+    "script": "nell.p4_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch19_started"
+      },
+      {
+       "notFlag": "fresh_repair_destroyed"
+      }
+     ]
+    },
+    "script": "nell.p4_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "frenzy_started"
+      },
+      {
+       "notFlag": "p4_ch19_started"
+      }
+     ]
+    },
+    "script": "nell.p4_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch18_started"
+      },
+      {
+       "notFlag": "frenzy_started"
+      }
+     ]
+    },
+    "script": "nell.p4_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch17_started"
+      },
+      {
+       "notFlag": "p4_ch18_started"
+      }
+     ]
+    },
+    "script": "nell.p4_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "quarters_incident_started"
+      },
+      {
+       "notFlag": "p4_ch17_started"
+      }
+     ]
+    },
+    "script": "nell.p4_s3b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch16_started"
+      },
+      {
+       "notFlag": "quarters_incident_started"
+      }
+     ]
+    },
+    "script": "nell.p4_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "breakfast_center_arrived"
+      },
+      {
+       "notFlag": "p4_ch16_started"
+      }
+     ]
+    },
+    "script": "nell.p4_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_started"
+      },
+      {
+       "notFlag": "breakfast_center_arrived"
+      }
+     ]
+    },
+    "script": "nell.p4_s1"
+   }
+  ]
+ },
+ {
+  "extend": "wick",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p4_complete"
+    },
+    "script": "wick.p4_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fresh_repair_destroyed"
+      },
+      {
+       "notFlag": "p4_complete"
+      }
+     ]
+    },
+    "script": "wick.p4_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch19_started"
+      },
+      {
+       "notFlag": "fresh_repair_destroyed"
+      }
+     ]
+    },
+    "script": "wick.p4_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "frenzy_started"
+      },
+      {
+       "notFlag": "p4_ch19_started"
+      }
+     ]
+    },
+    "script": "wick.p4_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch18_started"
+      },
+      {
+       "notFlag": "frenzy_started"
+      }
+     ]
+    },
+    "script": "wick.p4_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch17_started"
+      },
+      {
+       "notFlag": "p4_ch18_started"
+      }
+     ]
+    },
+    "script": "wick.p4_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "quarters_incident_started"
+      },
+      {
+       "notFlag": "p4_ch17_started"
+      }
+     ]
+    },
+    "script": "wick.p4_s3b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch16_started"
+      },
+      {
+       "notFlag": "quarters_incident_started"
+      }
+     ]
+    },
+    "script": "wick.p4_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "breakfast_center_arrived"
+      },
+      {
+       "notFlag": "p4_ch16_started"
+      }
+     ]
+    },
+    "script": "wick.p4_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_started"
+      },
+      {
+       "notFlag": "breakfast_center_arrived"
+      }
+     ]
+    },
+    "script": "wick.p4_s1"
+   }
+  ]
+ },
+ {
+  "extend": "rook",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p4_complete"
+    },
+    "script": "rook.p4_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fresh_repair_destroyed"
+      },
+      {
+       "notFlag": "p4_complete"
+      }
+     ]
+    },
+    "script": "rook.p4_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch19_started"
+      },
+      {
+       "notFlag": "fresh_repair_destroyed"
+      }
+     ]
+    },
+    "script": "rook.p4_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "frenzy_started"
+      },
+      {
+       "notFlag": "p4_ch19_started"
+      }
+     ]
+    },
+    "script": "rook.p4_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch18_started"
+      },
+      {
+       "notFlag": "frenzy_started"
+      }
+     ]
+    },
+    "script": "rook.p4_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch17_started"
+      },
+      {
+       "notFlag": "p4_ch18_started"
+      }
+     ]
+    },
+    "script": "rook.p4_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "quarters_incident_started"
+      },
+      {
+       "notFlag": "p4_ch17_started"
+      }
+     ]
+    },
+    "script": "rook.p4_s3b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch16_started"
+      },
+      {
+       "notFlag": "quarters_incident_started"
+      }
+     ]
+    },
+    "script": "rook.p4_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "breakfast_center_arrived"
+      },
+      {
+       "notFlag": "p4_ch16_started"
+      }
+     ]
+    },
+    "script": "rook.p4_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_started"
+      },
+      {
+       "notFlag": "breakfast_center_arrived"
+      }
+     ]
+    },
+    "script": "rook.p4_s1"
+   }
+  ]
+ },
+ {
+  "extend": "sully",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p4_complete"
+    },
+    "script": "sully.p4_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fresh_repair_destroyed"
+      },
+      {
+       "notFlag": "p4_complete"
+      }
+     ]
+    },
+    "script": "sully.p4_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch19_started"
+      },
+      {
+       "notFlag": "fresh_repair_destroyed"
+      }
+     ]
+    },
+    "script": "sully.p4_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "frenzy_started"
+      },
+      {
+       "notFlag": "p4_ch19_started"
+      }
+     ]
+    },
+    "script": "sully.p4_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch18_started"
+      },
+      {
+       "notFlag": "frenzy_started"
+      }
+     ]
+    },
+    "script": "sully.p4_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch17_started"
+      },
+      {
+       "notFlag": "p4_ch18_started"
+      }
+     ]
+    },
+    "script": "sully.p4_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "quarters_incident_started"
+      },
+      {
+       "notFlag": "p4_ch17_started"
+      }
+     ]
+    },
+    "script": "sully.p4_s3b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch16_started"
+      },
+      {
+       "notFlag": "quarters_incident_started"
+      }
+     ]
+    },
+    "script": "sully.p4_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "breakfast_center_arrived"
+      },
+      {
+       "notFlag": "p4_ch16_started"
+      }
+     ]
+    },
+    "script": "sully.p4_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_started"
+      },
+      {
+       "notFlag": "breakfast_center_arrived"
+      }
+     ]
+    },
+    "script": "sully.p4_s1"
+   }
+  ]
+ },
+ {
+  "extend": "finch",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p4_complete"
+    },
+    "script": "finch.p4_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fresh_repair_destroyed"
+      },
+      {
+       "notFlag": "p4_complete"
+      }
+     ]
+    },
+    "script": "finch.p4_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch19_started"
+      },
+      {
+       "notFlag": "fresh_repair_destroyed"
+      }
+     ]
+    },
+    "script": "finch.p4_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "frenzy_started"
+      },
+      {
+       "notFlag": "p4_ch19_started"
+      }
+     ]
+    },
+    "script": "finch.p4_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch18_started"
+      },
+      {
+       "notFlag": "frenzy_started"
+      }
+     ]
+    },
+    "script": "finch.p4_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch17_started"
+      },
+      {
+       "notFlag": "p4_ch18_started"
+      }
+     ]
+    },
+    "script": "finch.p4_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "quarters_incident_started"
+      },
+      {
+       "notFlag": "p4_ch17_started"
+      }
+     ]
+    },
+    "script": "finch.p4_s3b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch16_started"
+      },
+      {
+       "notFlag": "quarters_incident_started"
+      }
+     ]
+    },
+    "script": "finch.p4_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "breakfast_center_arrived"
+      },
+      {
+       "notFlag": "p4_ch16_started"
+      }
+     ]
+    },
+    "script": "finch.p4_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_started"
+      },
+      {
+       "notFlag": "breakfast_center_arrived"
+      }
+     ]
+    },
+    "script": "finch.p4_s1"
+   }
+  ]
+ },
+ {
+  "extend": "jory",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "shark_duty.port"
+    },
+    "script": "p4c4.port_damage"
+   },
+   {
+    "if": {
+     "objectiveActive": "shark_duty.report"
+    },
+    "script": "jory.p4_report_hint"
+   },
+   {
+    "if": {
+     "objectiveActive": "repair_it_again.repairs"
+    },
+    "script": "jory.p4_repairs_hint"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_complete"
+      },
+      {
+       "flag": "optional_duty_on"
+      }
+     ]
+    },
+    "script": "p4.jory_duty_end"
+   },
+   {
+    "if": {
+     "flag": "p4_complete"
+    },
+    "cycle": [
+     "jory.p4_s9",
+     "p4.jory_duty_offer"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fresh_repair_destroyed"
+      },
+      {
+       "notFlag": "p4_complete"
+      }
+     ]
+    },
+    "script": "jory.p4_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch19_started"
+      },
+      {
+       "notFlag": "fresh_repair_destroyed"
+      }
+     ]
+    },
+    "script": "jory.p4_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "frenzy_started"
+      },
+      {
+       "notFlag": "p4_ch19_started"
+      }
+     ]
+    },
+    "script": "jory.p4_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch18_started"
+      },
+      {
+       "notFlag": "frenzy_started"
+      }
+     ]
+    },
+    "script": "jory.p4_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch17_started"
+      },
+      {
+       "notFlag": "p4_ch18_started"
+      }
+     ]
+    },
+    "script": "jory.p4_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "quarters_incident_started"
+      },
+      {
+       "notFlag": "p4_ch17_started"
+      }
+     ]
+    },
+    "script": "jory.p4_s3b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch16_started"
+      },
+      {
+       "notFlag": "quarters_incident_started"
+      }
+     ]
+    },
+    "script": "jory.p4_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "breakfast_center_arrived"
+      },
+      {
+       "notFlag": "p4_ch16_started"
+      }
+     ]
+    },
+    "script": "jory.p4_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_started"
+      },
+      {
+       "notFlag": "breakfast_center_arrived"
+      }
+     ]
+    },
+    "script": "jory.p4_s1"
+   }
+  ]
+ },
+ {
+  "extend": "bob",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "life_around_center.quarters"
+    },
+    "script": "p4c2.camp"
+   },
+   {
+    "if": {
+     "flag": "p4_complete"
+    },
+    "script": "bob.p4_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fresh_repair_destroyed"
+      },
+      {
+       "notFlag": "p4_complete"
+      }
+     ]
+    },
+    "script": "bob.p4_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch19_started"
+      },
+      {
+       "notFlag": "fresh_repair_destroyed"
+      }
+     ]
+    },
+    "script": "bob.p4_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "frenzy_started"
+      },
+      {
+       "notFlag": "p4_ch19_started"
+      }
+     ]
+    },
+    "script": "bob.p4_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch18_started"
+      },
+      {
+       "notFlag": "frenzy_started"
+      }
+     ]
+    },
+    "script": "bob.p4_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch17_started"
+      },
+      {
+       "notFlag": "p4_ch18_started"
+      }
+     ]
+    },
+    "script": "bob.p4_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "quarters_incident_started"
+      },
+      {
+       "notFlag": "p4_ch17_started"
+      }
+     ]
+    },
+    "script": "bob.p4_s3b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch16_started"
+      },
+      {
+       "notFlag": "quarters_incident_started"
+      }
+     ]
+    },
+    "script": "bob.p4_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "breakfast_center_arrived"
+      },
+      {
+       "notFlag": "p4_ch16_started"
+      }
+     ]
+    },
+    "script": "bob.p4_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_started"
+      },
+      {
+       "notFlag": "breakfast_center_arrived"
+      }
+     ]
+    },
+    "script": "bob.p4_s1"
+   }
+  ]
+ },
+ {
+  "extend": "ned",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "shark_duty.starboard"
+    },
+    "script": "p4c4.count"
+   },
+   {
+    "if": {
+     "flag": "p4_complete"
+    },
+    "script": "ned.p4_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fresh_repair_destroyed"
+      },
+      {
+       "notFlag": "p4_complete"
+      }
+     ]
+    },
+    "script": "ned.p4_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch19_started"
+      },
+      {
+       "notFlag": "fresh_repair_destroyed"
+      }
+     ]
+    },
+    "script": "ned.p4_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "frenzy_started"
+      },
+      {
+       "notFlag": "p4_ch19_started"
+      }
+     ]
+    },
+    "script": "ned.p4_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch18_started"
+      },
+      {
+       "notFlag": "frenzy_started"
+      }
+     ]
+    },
+    "script": "ned.p4_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch17_started"
+      },
+      {
+       "notFlag": "p4_ch18_started"
+      }
+     ]
+    },
+    "script": "ned.p4_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "quarters_incident_started"
+      },
+      {
+       "notFlag": "p4_ch17_started"
+      }
+     ]
+    },
+    "script": "ned.p4_s3b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch16_started"
+      },
+      {
+       "notFlag": "quarters_incident_started"
+      }
+     ]
+    },
+    "script": "ned.p4_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "breakfast_center_arrived"
+      },
+      {
+       "notFlag": "p4_ch16_started"
+      }
+     ]
+    },
+    "script": "ned.p4_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_started"
+      },
+      {
+       "notFlag": "breakfast_center_arrived"
+      }
+     ]
+    },
+    "script": "ned.p4_s1"
+   }
+  ]
+ },
+ {
+  "extend": "jim",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "life_around_center.lunch"
+      },
+      {
+       "flag": "lunch_salvaged"
+      }
+     ]
+    },
+    "script": "p4c2.lunch_served"
+   },
+   {
+    "if": {
+     "objectiveActive": "life_around_center.lunch"
+    },
+    "script": "jim.p4_lunch_hint"
+   },
+   {
+    "if": {
+     "objectiveActive": "life_around_center.damper"
+    },
+    "script": "jim.p4_damper_hint"
+   },
+   {
+    "if": {
+     "flag": "p4_complete"
+    },
+    "script": "jim.p4_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fresh_repair_destroyed"
+      },
+      {
+       "notFlag": "p4_complete"
+      }
+     ]
+    },
+    "script": "jim.p4_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch19_started"
+      },
+      {
+       "notFlag": "fresh_repair_destroyed"
+      }
+     ]
+    },
+    "script": "jim.p4_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "frenzy_started"
+      },
+      {
+       "notFlag": "p4_ch19_started"
+      }
+     ]
+    },
+    "script": "jim.p4_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch18_started"
+      },
+      {
+       "notFlag": "frenzy_started"
+      }
+     ]
+    },
+    "script": "jim.p4_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch17_started"
+      },
+      {
+       "notFlag": "p4_ch18_started"
+      }
+     ]
+    },
+    "script": "jim.p4_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "quarters_incident_started"
+      },
+      {
+       "notFlag": "p4_ch17_started"
+      }
+     ]
+    },
+    "script": "jim.p4_s3b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch16_started"
+      },
+      {
+       "notFlag": "quarters_incident_started"
+      }
+     ]
+    },
+    "script": "jim.p4_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "breakfast_center_arrived"
+      },
+      {
+       "notFlag": "p4_ch16_started"
+      }
+     ]
+    },
+    "script": "jim.p4_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_started"
+      },
+      {
+       "notFlag": "breakfast_center_arrived"
+      }
+     ]
+    },
+    "script": "jim.p4_s1"
+   }
+  ]
+ },
+ {
+  "extend": "gristle",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p4_complete"
+    },
+    "script": "gristle.p4_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fresh_repair_destroyed"
+      },
+      {
+       "notFlag": "p4_complete"
+      }
+     ]
+    },
+    "script": "gristle.p4_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch19_started"
+      },
+      {
+       "notFlag": "fresh_repair_destroyed"
+      }
+     ]
+    },
+    "script": "gristle.p4_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "frenzy_started"
+      },
+      {
+       "notFlag": "p4_ch19_started"
+      }
+     ]
+    },
+    "script": "gristle.p4_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch18_started"
+      },
+      {
+       "notFlag": "frenzy_started"
+      }
+     ]
+    },
+    "script": "gristle.p4_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch17_started"
+      },
+      {
+       "notFlag": "p4_ch18_started"
+      }
+     ]
+    },
+    "script": "gristle.p4_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "quarters_incident_started"
+      },
+      {
+       "notFlag": "p4_ch17_started"
+      }
+     ]
+    },
+    "script": "gristle.p4_s3b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch16_started"
+      },
+      {
+       "notFlag": "quarters_incident_started"
+      }
+     ]
+    },
+    "script": "gristle.p4_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "breakfast_center_arrived"
+      },
+      {
+       "notFlag": "p4_ch16_started"
+      }
+     ]
+    },
+    "script": "gristle.p4_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_started"
+      },
+      {
+       "notFlag": "breakfast_center_arrived"
+      }
+     ]
+    },
+    "script": "gristle.p4_s1"
+   }
+  ]
+ },
+ {
+  "extend": "penhallow",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p4_complete"
+    },
+    "script": "penhallow.p4_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fresh_repair_destroyed"
+      },
+      {
+       "notFlag": "p4_complete"
+      }
+     ]
+    },
+    "script": "penhallow.p4_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch19_started"
+      },
+      {
+       "notFlag": "fresh_repair_destroyed"
+      }
+     ]
+    },
+    "script": "penhallow.p4_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "frenzy_started"
+      },
+      {
+       "notFlag": "p4_ch19_started"
+      }
+     ]
+    },
+    "script": "penhallow.p4_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch18_started"
+      },
+      {
+       "notFlag": "frenzy_started"
+      }
+     ]
+    },
+    "script": "penhallow.p4_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch17_started"
+      },
+      {
+       "notFlag": "p4_ch18_started"
+      }
+     ]
+    },
+    "script": "penhallow.p4_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "quarters_incident_started"
+      },
+      {
+       "notFlag": "p4_ch17_started"
+      }
+     ]
+    },
+    "script": "penhallow.p4_s3b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch16_started"
+      },
+      {
+       "notFlag": "quarters_incident_started"
+      }
+     ]
+    },
+    "script": "penhallow.p4_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "breakfast_center_arrived"
+      },
+      {
+       "notFlag": "p4_ch16_started"
+      }
+     ]
+    },
+    "script": "penhallow.p4_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_started"
+      },
+      {
+       "notFlag": "breakfast_center_arrived"
+      }
+     ]
+    },
+    "script": "penhallow.p4_s1"
+   }
+  ]
+ },
+ {
+  "extend": "dunstan",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p4_complete"
+    },
+    "script": "dunstan.p4_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fresh_repair_destroyed"
+      },
+      {
+       "notFlag": "p4_complete"
+      }
+     ]
+    },
+    "script": "dunstan.p4_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch19_started"
+      },
+      {
+       "notFlag": "fresh_repair_destroyed"
+      }
+     ]
+    },
+    "script": "dunstan.p4_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "frenzy_started"
+      },
+      {
+       "notFlag": "p4_ch19_started"
+      }
+     ]
+    },
+    "script": "dunstan.p4_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch18_started"
+      },
+      {
+       "notFlag": "frenzy_started"
+      }
+     ]
+    },
+    "script": "dunstan.p4_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch17_started"
+      },
+      {
+       "notFlag": "p4_ch18_started"
+      }
+     ]
+    },
+    "script": "dunstan.p4_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "quarters_incident_started"
+      },
+      {
+       "notFlag": "p4_ch17_started"
+      }
+     ]
+    },
+    "script": "dunstan.p4_s3b"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_ch16_started"
+      },
+      {
+       "notFlag": "quarters_incident_started"
+      }
+     ]
+    },
+    "script": "dunstan.p4_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "breakfast_center_arrived"
+      },
+      {
+       "notFlag": "p4_ch16_started"
+      }
+     ]
+    },
+    "script": "dunstan.p4_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p4_started"
+      },
+      {
+       "notFlag": "breakfast_center_arrived"
+      }
+     ]
+    },
+    "script": "dunstan.p4_s1"
+   }
+  ]
+ }
+]

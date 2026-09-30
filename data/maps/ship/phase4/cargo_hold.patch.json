@@ -1,0 +1,145 @@
+{
+ "id": "cargo_hold_phase4",
+ "patch": "cargo_hold",
+ "//": "Story Phase 4 in the hold: the biscuit crate (16,4) that becomes lunch, and the powder store the Center sits on at gunnery drill.",
+ "objects": [
+  {
+   "id": "p4_biscuits_take",
+   "type": "inspect",
+   "x": 16,
+   "y": 4,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "life_around_center.lunch"
+     },
+     {
+      "notFlag": "lunch_salvaged"
+     }
+    ]
+   },
+   "script": "p4c2.biscuits"
+  },
+  {
+   "id": "p4_biscuits",
+   "type": "inspect",
+   "x": 16,
+   "y": 4,
+   "if": {
+    "flag": "p4_started"
+   },
+   "script": "p4.inspect.biscuits"
+  },
+  {
+   "id": "p4h_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  },
+  {
+   "id": "p4h_jory_0",
+   "type": "npc",
+   "npc": "jory",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  },
+  {
+   "id": "p4h_squawks_0",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  },
+  {
+   "id": "p4h_sully_0",
+   "type": "npc",
+   "npc": "sully",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "biscuit_crate",
+   "x": 16,
+   "y": 4,
+   "if": {
+    "flag": "p4_started"
+   },
+   "id": "biscuits"
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "frenzy_started"
+     },
+     {
+      "notFlag": "p4_ch19_started"
+     }
+    ]
+   },
+   "music": "shark_frenzy",
+   "musicFilter": "muffled",
+   "ambience": "below_frenzy"
+  },
+  {
+   "if": {
+    "flag": "p4_ch18_started"
+   },
+   "music": "shark_duty",
+   "musicFilter": "muffled",
+   "ambience": "below_sharks"
+  },
+  {
+   "if": {
+    "flag": "p4_started"
+   },
+   "music": "weary_morning",
+   "musicFilter": "muffled",
+   "ambience": "hold"
+  }
+ ],
+ "sharks": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "frenzy_started"
+     },
+     {
+      "notFlag": "p4_ch19_started"
+     }
+    ]
+   },
+   "level": "swarm",
+   "below": true
+  },
+  {
+   "if": {
+    "flag": "p4_ch18_started"
+   },
+   "level": "attacking",
+   "below": true
+  }
+ ]
+}

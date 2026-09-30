@@ -1,0 +1,189 @@
+{
+ "//": "The Forecast Board (Story Phase 4): every Grand Stenchmaster Stench Forecast, unlocked by the story, with Garrick's crayon map for each (the 'insert'). Read from the board at his station, the breakfast table, or the pause menu. Future chapters add entries here.",
+ "forecasts": {
+  "title": "The Forecast Board",
+  "menuLabel": "Forecasts",
+  "keeper": "garrick",
+  "icon": "forecast",
+  "if": {
+   "flag": "forecast_board_up"
+  },
+  "viewLabel": "Look at the map",
+  "fields": [
+   {
+    "id": "predicted",
+    "label": "Predicted"
+   },
+   {
+    "id": "risk",
+    "label": "Risk",
+    "scale": true
+   },
+   {
+    "id": "confidence",
+    "label": "Confidence"
+   },
+   {
+    "id": "result",
+    "label": "Result"
+   },
+   {
+    "id": "notes",
+    "label": "Notes",
+    "quote": true
+   }
+  ],
+  "severities": {
+   "Mild": "g",
+   "Concerning": "y",
+   "Severe": "o",
+   "Catastrophic": "r",
+   "Very Bad": "r"
+  },
+  "entries": [
+   {
+    "id": "day1",
+    "title": "Day 1",
+    "if": {
+     "flag": "forecast_day1_shown"
+    },
+    "insert": "forecast_day1",
+    "caption": "Day 1: the first Grand Stenchmaster Stench Forecast.",
+    "predicted": "Galley 40%. Cannon deck 60% by noon. Sleeping quarters, later.",
+    "risk": "Severe",
+    "confidence": "Professional",
+    "result": "Pending.",
+    "notes": "Bad here. Probably.",
+    "variants": [
+     {
+      "if": {
+       "flag": "breakfast_center_arrived"
+      },
+      "result": "Wrong almost immediately. It was at breakfast.",
+      "notes": "Forecasts change."
+     }
+    ]
+   },
+   {
+    "id": "day2",
+    "title": "Day 2",
+    "if": {
+     "flag": "p4_ch16_started"
+    },
+    "insert": "forecast_day2",
+    "caption": "Day 2.",
+    "predicted": "Galley 50%. Beds 50%. (Or both.) Washroom: fifteen minutes.",
+    "risk": "Severe",
+    "confidence": "Very professional",
+    "result": "Pending.",
+    "notes": "Lunch: ?",
+    "variants": [
+     {
+      "if": {
+       "flag": "night_evacuation_done"
+      },
+      "result": "Washroom (twelve minutes, Mister Gristle inside). Galley (all afternoon). Beds (all night). Then the deck, at three in the morning.",
+      "notes": "Broadly correct. Broadly."
+     },
+     {
+      "if": {
+       "flag": "gristle_rescued"
+      },
+      "result": "Washroom: twelve minutes, three ahead of forecast. The rest: pending."
+     }
+    ]
+   },
+   {
+    "id": "day3",
+    "title": "Day 3",
+    "if": {
+     "flag": "quarterdeck_incident_started"
+    },
+    "insert": "forecast_day3",
+    "caption": "Day 3: variable atmospheric sausage.",
+    "predicted": "Variable atmospheric sausage. The wheel: no.",
+    "risk": "Concerning",
+    "confidence": "Scientific",
+    "result": "Sat on the helm half the morning. Moved shortly, as forecast (hours ago).",
+    "notes": "Advanced science."
+   },
+   {
+    "id": "days4_6",
+    "title": "Days 4 to 6",
+    "if": {
+     "flag": "worst_places_seen"
+    },
+    "predicted": "Wherever it is needed most.",
+    "risk": "Severe",
+    "confidence": "Total",
+    "result": "Correct. The powder store at gunnery drill. The medicine cabinet at a splinter. The oven at bread. The washroom at the Captain's beard.",
+    "notes": "My most accurate forecast. I did not draw it. I did not need to."
+   },
+   {
+    "id": "day7",
+    "title": "Day 7",
+    "if": {
+     "flag": "p4_ch18_started"
+    },
+    "insert": "forecast_sharks",
+    "caption": "Day 7: sharks (updated during the event).",
+    "predicted": "Sharks.",
+    "risk": "Catastrophic",
+    "confidence": "High",
+    "result": "Sharks.",
+    "notes": "Documentation matters.",
+    "variants": [
+     {
+      "if": {
+       "flag": "waterline_logged"
+      },
+      "result": "Sharks. Hundreds. Then the Center reached the waterline.",
+      "notes": "Updated during the event. Excellent response."
+     },
+     {
+      "if": {
+       "flag": "hundreds_seen"
+      },
+      "result": "Sharks. Hundreds of them."
+     }
+    ]
+   },
+   {
+    "id": "day7_revised",
+    "title": "Day 7 (revised)",
+    "if": {
+     "flag": "worst_forecast_seen"
+    },
+    "insert": "forecast_worst",
+    "caption": "Day 7, revised. Read it upside down, for best results.",
+    "predicted": "The Center returns. (To the repair.)",
+    "risk": "Catastrophic",
+    "confidence": "Upside down",
+    "result": "It returned. The fresh repair lasted four seconds.",
+    "notes": "Six skulls. Stinkbeard House.",
+    "variants": [
+     {
+      "if": {
+       "flag": "forecast_drunk"
+      },
+      "notes": "Six skulls. Stinkbeard House. Original since drunk (waste not)."
+     }
+    ]
+   },
+   {
+    "id": "tomorrow",
+    "title": "Tomorrow",
+    "if": {
+     "flag": "tomorrow_forecast_seen"
+    },
+    "insert": "forecast_tomorrow_700",
+    "caption": "Tomorrow: VERY BAD.",
+    "predicted": "The whole ship.",
+    "risk": "Very Bad",
+    "confidence": "700%",
+    "result": "Pending. Nobody doubts it.",
+    "notes": "70% chance of stink. Revised to 700% on review. (Captain's note: that seems more accurate.)"
+   }
+  ]
+ }
+}

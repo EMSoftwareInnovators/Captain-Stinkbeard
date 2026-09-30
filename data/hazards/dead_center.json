@@ -1,0 +1,121 @@
+{
+ "//": "Where the Dead Center can be (Story Phase 4; see src/systems/hazards/deadCenter.js). The story puts it somewhere with { \"deadCenter\": \"<id>\" } and takes it away with { \"deadCenter\": \"none\" }. Zones are ordinary fume zones on that map; the outer (dense) ring always leaves a way out, the core rolls in over several seconds from 'enterFrom', and 'seals' keeps people from walking into the room while it sits there.",
+ "dead_center": {
+  "locations": {
+   "galley_breakfast": {
+    "name": "the breakfast table",
+    "map": "galley",
+    "zones": [
+     { "level": "center", "x": 3, "y": 5, "w": 8, "h": 6 },
+     { "level": "dense", "x": 1, "y": 4, "w": 11, "h": 8 }
+    ],
+    "enterFrom": [-7, 0],
+    "enterMs": 6500,
+    "seals": true
+   },
+   "washroom": {
+    "name": "the washroom",
+    "map": "washroom",
+    "zones": [
+     { "level": "center", "x": 1, "y": 4, "w": 10, "h": 4 }
+    ],
+    "enterFrom": [0, -3],
+    "enterMs": 4000,
+    "seals": true
+   },
+   "galley_stove": {
+    "name": "the galley stove",
+    "map": "galley",
+    "zones": [
+     { "level": "center", "x": 1, "y": 4, "w": 4, "h": 3 },
+     { "level": "dense", "x": 1, "y": 4, "w": 6, "h": 4 }
+    ],
+    "enterFrom": [0, -2],
+    "enterMs": 5000
+   },
+   "sleeping_quarters": {
+    "name": "the sleeping quarters",
+    "map": "crew_quarters",
+    "zones": [
+     { "level": "center", "x": 1, "y": 4, "w": 16, "h": 9 },
+     { "level": "dense", "x": 1, "y": 4, "w": 16, "h": 11 }
+    ],
+    "enterFrom": [-8, 0],
+    "enterMs": 8000,
+    "seals": ["crew_quarters", "washroom"]
+   },
+   "deck_camp": {
+    "name": "the deck camp",
+    "map": "main_deck",
+    "zones": [
+     { "level": "center", "x": 5, "y": 25, "w": 10, "h": 7 },
+     { "level": "dense", "x": 4, "y": 23, "w": 12, "h": 11 }
+    ],
+    "enterFrom": [0, 6],
+    "enterMs": 9000
+   },
+   "quarterdeck": {
+    "name": "the quarterdeck",
+    "map": "main_deck",
+    "zones": [
+     { "level": "center", "x": 4, "y": 3, "w": 12, "h": 5 },
+     { "level": "dense", "x": 4, "y": 3, "w": 12, "h": 7 }
+    ],
+    "enterFrom": [0, -4],
+    "enterMs": 6000
+   },
+   "powder_room": {
+    "name": "the powder store",
+    "map": "cargo_hold",
+    "zones": [
+     { "level": "center", "x": 1, "y": 9, "w": 4, "h": 4 },
+     { "level": "dense", "x": 1, "y": 8, "w": 6, "h": 6 }
+    ],
+    "enterFrom": [-3, 0],
+    "enterMs": 3000
+   },
+   "sick_bay": {
+    "name": "the medicine cabinet",
+    "map": "crew_quarters",
+    "zones": [
+     { "level": "center", "x": 13, "y": 4, "w": 4, "h": 3 },
+     { "level": "dense", "x": 12, "y": 4, "w": 5, "h": 5 }
+    ],
+    "enterFrom": [3, 0],
+    "enterMs": 3000
+   },
+   "captains_cabin": {
+    "name": "the captain's cabin",
+    "map": "captains_quarters",
+    "zones": [
+     { "level": "center", "x": 1, "y": 4, "w": 16, "h": 4 },
+     { "level": "dense", "x": 1, "y": 4, "w": 16, "h": 6 }
+    ],
+    "enterFrom": [0, -5],
+    "enterMs": 6000,
+    "seals": true
+   },
+   "port_waterline": {
+    "name": "the port rail, midships",
+    "map": "main_deck",
+    "zones": [
+     { "level": "center", "x": 13, "y": 19, "w": 3, "h": 6 },
+     { "level": "dense", "x": 11, "y": 17, "w": 5, "h": 10 }
+    ],
+    "enterFrom": [-6, 0],
+    "enterMs": 7000
+   },
+   "treasure_hold": {
+    "name": "the treasure room (resting)",
+    "map": "treasure_hold",
+    "zones": [
+     { "level": "center", "x": 1, "y": 5, "w": 18, "h": 7 },
+     { "level": "dense", "x": 1, "y": 5, "w": 18, "h": 8 }
+    ],
+    "enterFrom": [0, -3],
+    "enterMs": 4000,
+    "seals": true
+   }
+  }
+ }
+}

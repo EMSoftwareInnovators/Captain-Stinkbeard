@@ -1,0 +1,150 @@
+{
+  "id": "washroom",
+  "name": "Washroom",
+  "//": "Story Phase 4: the crew's washroom, off the crew quarters. One door, one basin, one tub, and the captain's failed beard remedies. Its only other opening is the vent up to the air scuttle on deck.",
+  "tileset": "ship",
+  "music": "ship_theme",
+  "musicFilter": "muffled",
+  "ambience": "below",
+  "lighting": {
+    "ambient": "#8a8494"
+  },
+  "legend": {
+    " ": "void",
+    ".": "floor",
+    "W": "wall",
+    "O": "porthole",
+    "[": "side_l",
+    "]": "side_r",
+    "_": "cap",
+    "{": "cap_l",
+    "}": "cap_r",
+    "v": "exit_s"
+  },
+  "tiles": [
+    "            ",
+    "[WWWWWWWWWW]",
+    "[WWWWWWWWOW]",
+    "[WWWWWWWWWW]",
+    "[..........]",
+    "[..........]",
+    "[..........]",
+    "[..........]",
+    "{____v_____}"
+  ],
+  "props": [
+    "vent_grate 2 2",
+    "towel_rail 4 2",
+    "remedy_shelf 5 2",
+    "remedies_list 7 2",
+    "wash_basin 2 4",
+    "wash_tub 7 5",
+    "lemon_crate 10 4",
+    "lantern_hanging 5 5"
+  ],
+  "objects": [
+    {
+      "id": "door",
+      "type": "spawn",
+      "x": 5,
+      "y": 7,
+      "facing": "up"
+    },
+    {
+      "id": "start",
+      "type": "spawn",
+      "x": 5,
+      "y": 6,
+      "facing": "down"
+    },
+    {
+      "id": "to_crew",
+      "type": "warp",
+      "x": 5,
+      "y": 8,
+      "to": {
+        "map": "crew_quarters",
+        "spawn": "washroom_door"
+      },
+      "sfx": "door"
+    },
+    {
+      "id": "basin",
+      "type": "inspect",
+      "x": 2,
+      "y": 4,
+      "script": "p4.inspect.wash_basin"
+    },
+    {
+      "id": "tub_wash",
+      "type": "inspect",
+      "x": 7,
+      "y": 5,
+      "w": 2,
+      "if": {
+        "objectiveActive": "worst_places.wash"
+      },
+      "script": "p4c3.beard_wash"
+    },
+    {
+      "id": "tub",
+      "type": "inspect",
+      "x": 7,
+      "y": 5,
+      "w": 2,
+      "script": "p4.inspect.wash_tub"
+    },
+    {
+      "id": "remedies",
+      "type": "inspect",
+      "x": 7,
+      "y": 3,
+      "script": "p4.inspect.remedies_list"
+    },
+    {
+      "id": "shelf",
+      "type": "inspect",
+      "x": 5,
+      "y": 3,
+      "w": 2,
+      "script": "p4.inspect.remedy_shelf"
+    },
+    {
+      "id": "vent",
+      "type": "inspect",
+      "x": 2,
+      "y": 3,
+      "script": "p4.inspect.washroom_vent"
+    },
+    {
+      "id": "towels",
+      "type": "inspect",
+      "x": 4,
+      "y": 3,
+      "text": [
+        "Three towels. One is for the crew, one is for the captain's beard, and one has been set aside, with a note, for the captain's beard's towel."
+      ]
+    },
+    {
+      "id": "p4w_gristle_0",
+      "type": "npc",
+      "npc": "gristle",
+      "x": 3,
+      "y": 5,
+      "facing": "up",
+      "if": {
+        "all": [
+          {
+            "flag": "washroom_incident_started"
+          },
+          {
+            "notFlag": "gristle_rescued"
+          }
+        ]
+      },
+      "behavior": {
+        "type": "stand"
+      }
+    }
+  ]
+}

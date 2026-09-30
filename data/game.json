@@ -149,6 +149,48 @@
       "if": {
         "flag": "p3_complete"
       }
+    },
+    {
+      "id": "p4c1",
+      "name": "Chapter 15: Morning with the Frog Grog",
+      "if": {
+        "flag": "p4_started"
+      }
+    },
+    {
+      "id": "p4c2",
+      "name": "Chapter 16: Life Around the Center",
+      "if": {
+        "flag": "p4_ch16_started"
+      }
+    },
+    {
+      "id": "p4c3",
+      "name": "Chapter 17: The Center Picks the Worst Places",
+      "if": {
+        "flag": "p4_ch17_started"
+      }
+    },
+    {
+      "id": "p4c4",
+      "name": "Chapter 18: Shark Duty",
+      "if": {
+        "flag": "p4_ch18_started"
+      }
+    },
+    {
+      "id": "p4c5",
+      "name": "Chapter 19: The Worst Forecast Yet",
+      "if": {
+        "flag": "p4_ch19_started"
+      }
+    },
+    {
+      "id": "phase4_end",
+      "name": "Life Around the Dead Center (complete)",
+      "if": {
+        "flag": "p4_complete"
+      }
     }
   ],
   "timeOfDay": [
@@ -243,6 +285,58 @@
       "interior": 0.4,
       "if": {
         "flag": "garrick_evacuated_again"
+      }
+    },
+    {
+      "id": "p4_morning",
+      "grade": "#fff0e2",
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 1
+        }
+      }
+    },
+    {
+      "id": "p4_noon",
+      "grade": null,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 2
+        }
+      }
+    },
+    {
+      "id": "p4_afternoon",
+      "grade": "#fff0d4",
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 3
+        }
+      }
+    },
+    {
+      "id": "p4_evening",
+      "grade": "#f2b894",
+      "interior": 0.45,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 4
+        }
+      }
+    },
+    {
+      "id": "p4_night",
+      "grade": "#7e82c0",
+      "interior": 0.6,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 5
+        }
       }
     }
   ]

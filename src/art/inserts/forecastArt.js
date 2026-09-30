@@ -488,12 +488,12 @@ function forecastDay3() {
   return outlined(c);
 }
 
-/** Day 4: sharks. Updated in a different crayon during the sharks. */
+/** Day 7: sharks. Updated in a different crayon during the sharks. */
 function forecastDay4() {
   const c = orderPage(FW, FH, 57);
   const k = new Crayon(c, 404);
   heading(k, "TODAY'S STENCH FORECAST", 116, 12);
-  k.text('DAY 4', 24, 26, C.purple, { bold: true });
+  k.text('DAY 7', 24, 26, C.purple, { bold: true });
   seaBands(k, [34, 116, 128, 140]);
   shipFromAbove(k, 44, 44, 150, 60);
   // the morning's prediction
@@ -737,7 +737,7 @@ export function addForecastInserts(atlas) {
   atlas.add('forecast_day1', forecastDay1());
   atlas.add('forecast_day2', forecastDay2());
   atlas.add('forecast_day3', forecastDay3());
-  atlas.add('forecast_day4', forecastDay4());
+  atlas.add('forecast_sharks', forecastDay4());
   const worst = forecastWorst();
   atlas.add('forecast_worst', worst);
   atlas.add('forecast_worst_flipped', upsideDown(worst));
@@ -757,6 +757,6 @@ function upsideDown(src) {
 }
 
 export const FORECAST_INSERT_NAMES = [
-  'forecast_day1', 'forecast_day2', 'forecast_day3', 'forecast_day4', 'forecast_worst', 'forecast_worst_flipped',
+  'forecast_day1', 'forecast_day2', 'forecast_day3', 'forecast_sharks', 'forecast_worst', 'forecast_worst_flipped',
   'forecast_tomorrow_70', 'forecast_tomorrow_700', 'grog_close', 'grog_forecast', 'beard_remedies', 'bell_protocol', 'patch_labels',
 ];

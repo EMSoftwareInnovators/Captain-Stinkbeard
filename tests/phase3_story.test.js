@@ -149,7 +149,9 @@ describe('Story Phase 3 can be played start to finish (headless)', () => {
     // Every Stench Log entry is unlocked by the end, bar the optional crew chats not had.
     const log = s.content.logs.get('stench_log');
     const have = new Set(logEntries(log, s.session).map((e) => e.id));
-    const missing = log.entries.map((e) => e.id).filter((id) => !have.has(id));
+    // (Entries a later phase unlocks are not Phase 3's to unlock.)
+    const later = new Set(JSON.parse(fs.readFileSync(path.resolve('data/story/flags/phase4.json'), 'utf8')).map((f) => f.id));
+    const missing = log.entries.filter((e) => !later.has(e.if?.flag)).map((e) => e.id).filter((id) => !have.has(id));
     expect(missing.every((id) => ['hammocks', 'guns', 'chart'].includes(id)), missing.join()).toBe(true);
     expect(have.has('captains_beard') && have.has('sharks') && have.has('protocol')).toBe(true);
     expect(s.opened).toContain('stench_log');

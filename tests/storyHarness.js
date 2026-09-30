@@ -8,6 +8,7 @@ import { dueStoryTriggers, triggerKey } from '../src/systems/story/progress.js';
 import { resolvePreset, applyPresetPlan } from '../src/debug/presets.js';
 import { WorldState } from '../src/systems/world/WorldState.js';
 import { StagingTracker } from './storyStaging.js';
+import { deadCenterSeals } from '../src/systems/hazards/deadCenter.js';
 
 /**
  * A headless story player shared by the story-phase tests: the real scripts,
@@ -229,6 +230,11 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
       const obj = story.object(id);
       if (obj.if && !evaluateCondition(obj.if, session)) {
         if (obj.locked) await story.run(obj.locked);
+        return false;
+      }
+      // Like WorldScene.warpUnlocked: nobody walks into a room the Dead Center is sitting in.
+      if (obj.to?.map && obj.to.map !== story.map && deadCenterSeals(content, session, obj.to.map)) {
+        await story.run('hazard.dead_center_door');
         return false;
       }
       await story.enter(obj.to.map);

@@ -1,0 +1,77 @@
+[
+  {
+    "id": "p4c2_begin",
+    "//": "Chapter 16 (day 2) once the first forecast is on the board.",
+    "if": { "all": [{ "questCompleted": "todays_forecast" }, { "questNotStarted": "life_around_center" }] },
+    "script": "p4c2.begin",
+    "once": false
+  },
+  {
+    "id": "p4c2_galley",
+    "//": "Noon on day 2: the Center sits on the stove (the captain is on deck after the washroom rescue).",
+    "if": { "all": [{ "objectiveActive": "life_around_center.damper" }, { "notFlag": "galley_incident_started" }, { "onMap": "main_deck" }] },
+    "script": "p4c2.galley_begin",
+    "once": false
+  },
+  {
+    "id": "p4c2_quarters",
+    "if": { "all": [{ "objectiveActive": "life_around_center.quarters" }, { "notFlag": "quarters_incident_started" }, { "onMap": "main_deck" }] },
+    "script": "p4c2.quarters_begin",
+    "once": false
+  },
+  {
+    "id": "p4c2_night",
+    "if": { "all": [{ "objectiveActive": "life_around_center.night" }, { "notFlag": "night_alarm_started" }, { "onMap": "main_deck" }] },
+    "script": "p4c2.night_begin",
+    "once": false
+  },
+  {
+    "id": "p4c2_quarterdeck",
+    "if": { "all": [{ "objectiveActive": "life_around_center.quarterdeck" }, { "notFlag": "quarterdeck_incident_started" }, { "onMap": "main_deck" }] },
+    "script": "p4c2.quarterdeck_begin",
+    "once": false
+  },
+  {
+    "id": "p4c3_begin",
+    "if": { "all": [{ "questCompleted": "life_around_center" }, { "notFlag": "p4_ch17_started" }] },
+    "script": "p4c3.begin",
+    "once": false
+  },
+  {
+    "id": "p4c3_feathers",
+    "if": { "all": [{ "questCompleted": "worst_places" }, { "questNotStarted": "seven_feathers" }] },
+    "script": "p4c3.feathers_begin",
+    "once": false
+  },
+  {
+    "id": "p4c4_begin",
+    "if": { "all": [{ "questCompleted": "seven_feathers" }, { "notFlag": "p4_ch18_started" }] },
+    "script": "p4c4.begin",
+    "once": false
+  },
+  {
+    "id": "p4c4_rant",
+    "//": "The first watch is over: Stinkbeard on what piracy was supposed to be.",
+    "if": { "all": [{ "objectiveActive": "shark_duty.port" }, { "notFlag": "piracy_rant_done" }, { "onMap": "main_deck" }] },
+    "script": "p4c4.rant",
+    "once": false
+  },
+  {
+    "id": "p4c4_toast",
+    "if": { "all": [{ "objectiveActive": "shark_duty.garrick" }, { "notFlag": "garrick_toast_seen" }, { "onMap": "main_deck" }] },
+    "script": "p4c4.toast",
+    "once": false
+  },
+  {
+    "id": "p4c5_begin",
+    "if": { "all": [{ "questCompleted": "shark_duty" }, { "notFlag": "p4_ch19_started" }] },
+    "script": "p4c5.begin",
+    "once": false
+  },
+  {
+    "id": "p4c5_supervisor",
+    "if": { "all": [{ "anyFlag": ["repair_board_done", "repair_rope_done", "repair_patch_done"] }, { "notFlag": "supervisor_debate" }, { "onMap": "main_deck" }] },
+    "script": "p4c5.supervisor",
+    "once": false
+  }
+]

@@ -1,0 +1,143 @@
+{
+ "id": "captains_quarters_phase4",
+ "patch": "captains_quarters",
+ "//": "Story Phase 4 in the captain's cabin: the bed that starts Phase 4 (after Phase 3), Squawks at the foot of the bed at night and on his perch for the seven feathers, and the door that won't let the captain leave without him at 3 AM.",
+ "objects": [
+  {
+   "id": "p4_bed",
+   "type": "inspect",
+   "x": 14,
+   "y": 4,
+   "w": 2,
+   "h": 3,
+   "script": "p4.bed_sleep",
+   "if": {
+    "all": [
+     {
+      "flag": "p3_complete"
+     },
+     {
+      "notFlag": "p4_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p4_to_deck",
+   "type": "warp",
+   "x": 8,
+   "y": 11,
+   "w": 2,
+   "to": {
+    "map": "main_deck",
+    "spawn": "cabin_door"
+   },
+   "sfx": "door",
+   "if": {
+    "not": {
+     "all": [
+      {
+       "flag": "night_alarm_started"
+      },
+      {
+       "notFlag": "night_squawks_saved"
+      }
+     ]
+    }
+   },
+   "locked": "p4c2.not_without_squawks"
+  },
+  {
+   "id": "p4c_squawks_0",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 13,
+   "y": 4,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "deck_camp_set"
+     },
+     {
+      "notFlag": "night_squawks_saved"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4c_squawks_1",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 11,
+   "y": 5,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_ch17_started"
+     },
+     {
+      "notFlag": "feathers_alarm"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4c_squawks_2",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 11,
+   "y": 5,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "feathers_returned"
+     },
+     {
+      "notFlag": "p4_ch18_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p4c_squawks_3",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  }
+ ],
+ "onEnter": [
+  {
+   "if": {
+    "objectiveActive": "seven_feathers.return"
+   },
+   "script": "p4c3.feathers_back"
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "flag": "p4_started"
+   },
+   "music": "weary_morning",
+   "musicFilter": "muffled",
+   "ambience": "cabin"
+  }
+ ]
+}

@@ -1,0 +1,18 @@
+{
+ "id": "treasure_hold_phase4",
+ "patch": "treasure_hold",
+ "//": "Story Phase 4: after the phase, the Dead Center goes back to lie down in the treasure room (sealed while it rests).",
+ "objects": [
+  {
+   "id": "p4t_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p4_started"
+   }
+  }
+ ]
+}

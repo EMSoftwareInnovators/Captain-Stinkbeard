@@ -1,0 +1,200 @@
+{
+  "//": "Story Phase 4: things to look at and poke, and the Dead Center's door warning. Map objects in data/maps/ship/phase4 and data/maps/ship/washroom.json point here.",
+
+  "hazard.dead_center_door": [
+    "The door won't budge. Something warm and heavy is leaning on the other side of it.",
+    "A thin yellow light shows round the edges. The Dead Center is in {deadCenter}.",
+    "captain[resigned]: Not in there. Not until it moves on."
+  ],
+
+  "p4.forecast_board": [
+    "The Forecast Board. A crayon cloud painted at the top, and underneath it every forecast the Grand Stenchmaster has ever made, pinned up in order.",
+    { "logbook": "forecasts" }
+  ],
+
+  "p4.forecast_table": [
+    { "if": { "deadCenter": "galley_breakfast" }, "then": [
+      "The breakfast table is somewhere inside the Center. So is the forecast, and your breakfast, and Bob's good biscuit.",
+      "captain[resigned]: It can keep them."
+    ], "else": [
+      "The long table where the crew take their ration. Somebody has carved WHERE IS IT TODAY into the end of it.",
+      { "if": { "flag": "forecast_board_up" }, "then": [
+        "Garrick pins a copy of every forecast to the table leg, too, for people who can't face the walk to the board.",
+        { "logbook": "forecasts" }
+      ] }
+    ] }
+  ],
+
+  "p4.inspect.bell_1": [
+    "The ship's bell. It has a greenish crust round the rim now, and when the wind catches it, it wheezes.",
+    "captain[tired]: Once, this bell rang the watches. Now it clears its throat.",
+    "You consider ringing it. Twenty men would throw themselves overboard. You don't."
+  ],
+  "p4.inspect.bell_2": [
+    "You tap the bell with one finger, very gently.",
+    { "sfx": "bell_cough", "volume": 0.4 },
+    "It goes 'klang', very quietly, and then 'hk'.",
+    "Across the deck, three heads turn round with their eyes very wide.",
+    "captain: ...Nothing! Nothing. That wasn't a bell. Carry on."
+  ],
+  "p4.inspect.bell_3": [
+    "Quill's protocol is nailed up beside it. Somebody has added a fifth line underneath, in charcoal: FIVE: GARRICK HAS HAD BEANS. ABANDON SHIP.",
+    "captain[resigned]: ...Fair."
+  ],
+
+  "p4.inspect.bell_notice": [
+    { "insert": "bell_protocol", "caption": "The bell protocol, in Quill's neat hand." }
+  ],
+
+  "p4.inspect.grog_cask_1": [
+    "The Frog Grog cask. It has started to creak on its own, like a ship does in a swell.",
+    { "sfx": "grog_bubble" },
+    "Something inside goes 'blorp'.",
+    "captain[disgusted]: It's aging. Garrick says that's a good thing. Garrick says a lot of things."
+  ],
+  "p4.inspect.grog_cask_2": [
+    "Mags has chalked a notice on the lid: RATION ONE PER HEAD. DO NOT STIR. IT DOESN'T LIKE IT.",
+    "captain: ...Doesn't like it?"
+  ],
+  "p4.inspect.grog_cask_3": [
+    "You lift the lid an inch. The surface of the Frog Grog has a skin on it, and the skin has a shine on it, and the shine has a sort of rainbow that isn't a rainbow.",
+    "A single bubble comes up, looks at you, and goes back down.",
+    { "sfx": "grog_bubble" },
+    "You put the lid back."
+  ],
+
+  "p4.inspect.hammock": [
+    "A hammock. It sways gently, though the ship is steady, and every so often it sighs.",
+    { "if": { "flag": "quarters_incident_started" }, "then": [
+      "It's been sitting in the Center all night. It smells the way the Center smells, only more personal."
+    ] },
+    "captain[disgusted]: Jory said they were 'reactivating'. I'm not lying down in anything that reactivates."
+  ],
+
+  "p4.inspect.wash_basin": [
+    "A tin basin, and a jug of seawater, and a cracked mirror on a nail.",
+    { "if": { "flag": "gristle_rescued" }, "then": [
+      "Gristle's toothbrush is gone. He took it with him, through the scuttle. He hasn't let go of it since."
+    ] },
+    "You look in the mirror. The beard looks back. It has never once, in all this time, looked sorry."
+  ],
+
+  "p4.inspect.wash_tub": [
+    "The washroom tub, big enough for a man, or one very determined beard.",
+    { "if": { "flag": "beard_refreshed" }, "then": [
+      "The water has gone faintly yellow. So has the soap. So has the lemon.",
+      "captain[tired]: Refreshed. It's REFRESHED. I scrubbed it with everything we own and it came out refreshed."
+    ], "else": [
+      "captain[tired]: Seawater. Soap. Lemons. Vinegar. Sand. Smoke. Herbs. One at a time, every one of them. Nothing."
+    ] }
+  ],
+
+  "p4.inspect.remedies_list": [
+    { "insert": "beard_remedies", "caption": "The captain's list. Garrick has been at it with a crayon." },
+    "captain[resigned]: 'Molecular beard level.' He signed it."
+  ],
+
+  "p4.inspect.remedy_shelf": [
+    "A shelf of everything you've ever tried on the beard. Seawater in a bottle. A cake of soap worn to a sliver. Lemon rinds. Vinegar. A jar of sand. A bundle of Doc Fennimore's herbs, half burned.",
+    "All of it smells, very faintly, of beard."
+  ],
+
+  "p4.inspect.washroom_vent": [
+    "A little grated vent near the ceiling. Somewhere up there is the air scuttle on deck.",
+    { "if": { "flag": "gristle_rescued" }, "then": [
+      "There's a small tuft of Gristle's shirt still caught on it."
+    ], "else": [
+      "The Center likes this vent. Everybody else is scared of it."
+    ] }
+  ],
+
+  "p4.inspect.scuttle": [
+    { "if": { "flag": "gristle_rescued" }, "then": [
+      "The air scuttle over the washroom. Somebody has put the grating back on, and nailed a sign beside it: GRISTLE WAS HERE. (TWELVE MINUTES.)"
+    ], "else": [
+      "A small grated scuttle in the deck, letting a little air down into the washroom below. It is the least popular breathing hole on the ship."
+    ] }
+  ],
+
+  "p4.inspect.stovepipe": [
+    "The galley stovepipe, with its damper handle halfway up.",
+    { "if": { "flag": "stove_damper_closed" }, "then": [
+      "Jim has tied a label to the handle: CAPTAIN'S DAMPER. FOR EMERGENCIES. (ALL OF THEM.)"
+    ] }
+  ],
+
+  "p4.inspect.biscuits": [
+    "Ship's biscuit. It has gone faintly yellow round the edges, down here near the treasure room.",
+    "captain: Still lunch."
+  ],
+
+  "p4.inspect.nest": [
+    { "if": { "flag": "squawks_bald_again" }, "then": [
+      "Squawks's nest: a coil of rope and a folded blanket. Seven feathers have been laid out along the edge of it, very neatly, in a row.",
+      "Nobody has moved them. Nobody is going to."
+    ], "else": [
+      { "if": { "flag": "squawks_three_feathers" }, "then": [
+        "Squawks's nest: a coil of rope and a folded blanket. There's a tally scratched into the plank beside it: three lines. Somebody has been counting feathers."
+      ], "else": [
+        "Squawks's nest: a coil of rope and a folded blanket, and one very small golden feather's worth of pride."
+      ] }
+    ] }
+  ],
+
+  "p4.inspect.basket": [
+    "Squawks's padded basket: an old hat box, a cushion and his blanket.",
+    { "if": { "flag": "squawks_bald_again" }, "then": [
+      "It's empty but for a knitted cap. He's out, being bald somewhere with dignity."
+    ], "else": [
+      "He's been sleeping in it with his head under his wing, protecting the new feathers."
+    ] }
+  ],
+
+  "p4.inspect.patches": [
+    "The port rail, and the hull below it. Every plank has been patched at least once. Most have been patched for the patches.",
+    { "insert": "patch_labels", "caption": "Jory's chalk labels." },
+    "There are bite marks on the chalk."
+  ],
+
+  "p4.inspect.duty_barrel": [
+    "The Shark Duty barrel: two poles, a boathook, a paddle, a mop and a broom. Every handle has a bite mark near the far end.",
+    { "if": { "flag": "p4_complete" }, "then": [
+      "Jory keeps the roster. If you ever feel like a shift, it's him you'd ask. Nobody ever feels like a shift."
+    ] }
+  ],
+
+  "p4.inspect.helm": [
+    "The wheel. It answers the helm again, mostly, though it pulls a little to port where the sharks have been at the rudder.",
+    "Nell has tied a piece of yellow ribbon to one spoke, so she can tell by feel if the Center has been sitting on it."
+  ],
+
+  "p4.jory_duty_offer": [
+    { "face": "jory", "dir": "player" },
+    "jory: Want a shift on the rail, Captain? There's always someone out there chewing.",
+    { "choice": [
+      { "text": "Take a shift", "then": [
+        "jory[happy]: Right you are. Pole's in the barrel. Just talk to me when you've had enough.",
+        { "setFlag": "optional_duty_on" }
+      ] },
+      { "text": "Not today" }
+    ] }
+  ],
+
+  "p4.jory_duty_end": [
+    { "face": "jory", "dir": "player" },
+    "jory: Had enough, Captain?",
+    { "choice": [
+      { "text": "Stand down", "then": [
+        { "clearFlag": "optional_duty_on" },
+        { "sharkDuty": "clear" },
+        "jory: Stood down. Good work. They'll be back, mind. They always are."
+      ] },
+      { "text": "Keep going" }
+    ] }
+  ],
+
+  "p4.stench_log_stand": [
+    "The Stench Log, open on its stand. Someone has drawn a small crayon shark in the margin.",
+    { "logbook": "stench_log" }
+  ]
+}
