@@ -4,6 +4,7 @@ import { ListMenu } from '../ui/ListMenu.js';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
 import { currentChapter, resolveVariant } from '../systems/story/progress.js';
 import { logEntries } from '../systems/logs/logbook.js';
+import { deadCenterLocation } from '../systems/hazards/deadCenter.js';
 import { startPreset } from './startPreset.js';
 
 const TABS = ['Info', 'Story', 'Warp', 'Flags', 'Quests', 'Items', 'Party', 'Battle', 'Tools'];
@@ -158,6 +159,8 @@ export class DebugScene extends BaseScene {
       const logs = [...app.content.logs.map].map(([id, log]) => `${id} ${logEntries(log, s).length}/${log.entries.length}`).join(' ');
       lines.push(`Captain: ${s.party.leader()?.fullName}   Garrick: ${garrick ? resolveVariant(garrick, s).title ?? '' : '—'}`);
       lines.push(`Sharks: ${w?.sharks?.level ?? '—'}${w?.sharks?.below ? ' (below)' : ''}   Logs: ${logs || '—'}`);
+      const duty = w?.sharkDuty?.active ? `${w.sharkDuty.sessionId} (${w.sharkDuty.incidents.length})` : 'off';
+      lines.push(`Center: ${deadCenterLocation(s) ?? 'nowhere'}   Duty: ${duty}   Hull ${s.story.getVar('p4_hull_damage') ?? 0}`);
     }
     // Controllers, exactly as the browser reports them (for "my pad doesn't work" reports).
     const pads = app.input.padInfo();
