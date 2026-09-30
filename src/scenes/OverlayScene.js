@@ -112,6 +112,7 @@ export class OverlayScene extends BaseScene {
   update(time, delta) {
     const input = this.controls;
     this.toasts.relayout();
+    this.relayoutAlarm();
     if (this.repairOpen) {
       this.updateRepair(delta, input);
       return;
@@ -421,9 +422,9 @@ export class OverlayScene extends BaseScene {
     const lines = detail.text.split('\n').length;
     const h = 36 + lines * 11 + (sound ? 11 : 0);
     const x = Math.round((SCREEN_WIDTH - w) / 2);
-    // Under the dialogue window when it is docked along the top, so neither hides the other.
-    const y = this.dialogue.open && this.dialogue.dock === 'top' ? this.dialogue.boxY + 68 : 34;
+    const y = this.alarmTop();
     const panel = addPanel(this, x, y, w, h, { depth: D });
+    this.alarmY = y;
     this.alarmBottom = y + h;
     const rule = this.add.rectangle(x + 3, y + 3, w - 6, 2, col).setOrigin(0).setDepth(D + 1);
     const icons = [];
@@ -446,6 +447,7 @@ export class OverlayScene extends BaseScene {
       this.add.rectangle(SCREEN_WIDTH - t, 0, t, SCREEN_HEIGHT, col),
     ].map((r) => r.setOrigin(0).setDepth(D - 1).setAlpha(0));
     const parts = [panel, rule, head, detail, ...(sound ? [sound] : []), ...icons];
+    this.alarmPanel = parts;
     this.alarmParts = [...parts, ...edges];
     parts.forEach((p) => p.setAlpha(0));
     this.tweens.add({ targets: parts, alpha: 1, duration: 160 });
@@ -464,6 +466,22 @@ export class OverlayScene extends BaseScene {
         } });
       });
     });
+  }
+
+  /** Under the dialogue window when it is docked along the top, so neither hides the other. */
+  alarmTop() {
+    return this.dialogue.open && this.dialogue.dock === 'top' ? this.dialogue.boxY + 68 : 34;
+  }
+
+  /** Follows the dialogue window: back up to the top once a top-docked window closes. */
+  relayoutAlarm() {
+    if (!this.alarmParts) return;
+    const y = this.alarmTop();
+    if (y === this.alarmY) return;
+    const dy = y - this.alarmY;
+    this.alarmY = y;
+    this.alarmBottom += dy;
+    for (const p of this.alarmPanel) p.y += dy;
   }
 
   /** Top edge for corner notices: below the dialogue window while it is docked along the top. */
