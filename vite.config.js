@@ -34,7 +34,9 @@ export default defineConfig(({ mode }) => {
       target: 'es2022',
       outDir: 'dist',
       assetsInlineLimit: 0,
-      chunkSizeWarningLimit: 2500,
+      // One bundle: the engine plus every story phase's content JSON (the art
+      // and music are generated from code at startup). About 0.8 MB gzipped.
+      chunkSizeWarningLimit: 3500,
     },
     test: {
       include: ['tests/**/*.test.js'],
