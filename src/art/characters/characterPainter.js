@@ -123,8 +123,22 @@ function drawBoot(c, L, x, y, w, h, toe) {
   }
 }
 
-function drawLegColumn(c, L, x, top, bottom, w, { far = false, toe = 0 } = {}) {
+function drawLegColumn(c, L, x, top, bottom, w, { far = false, toe = 0, peg = false } = {}) {
   const b = L.build;
+  if (peg) {
+    // A wooden peg from the knee down (Peg-Leg Pete), the trouser leg rolled to it.
+    const knee = top + Math.round((bottom - top) * 0.5);
+    for (let y = top; y <= knee; y++) rowSpan(c, x, x + w - 1, y, far ? [L.pants[0], L.pants[0], L.pants[1]] : L.pants);
+    c.hline(x, x + w - 1, knee + 1, far ? L.pants[0] : L.pants[2]);
+    const px = x + Math.floor(w / 2) - 1;
+    for (let y = knee + 2; y <= bottom; y++) {
+      c.set(px, y, far ? '#6a4424' : '#b88048');
+      c.set(px + 1, y, far ? '#4a2c14' : '#8e6034');
+    }
+    c.set(px, bottom, '#3a2414');
+    c.set(px + 1, bottom, '#3a2414');
+    return;
+  }
   const bootH = Math.min(b.bootH, bottom - top + 1);
   const pants = far ? [L.pants[0], L.pants[0], L.pants[1]] : L.pants;
   for (let y = top; y <= bottom - bootH; y++) {
@@ -154,7 +168,7 @@ function legsFront(c, L, mode, legTop) {
   if (mode === 'stepA') rb = GROUND - 2;
   if (mode === 'stepB') lb = GROUND - 2;
   drawLegColumn(c, L, lx, legTop, lb, b.legW);
-  drawLegColumn(c, L, rx, legTop, rb, b.legW);
+  drawLegColumn(c, L, rx, legTop, rb, b.legW, { peg: L.extras.has('pegleg') });
   // crotch shadow line between legs
   if (b.legGap === 0) for (let y = legTop + 1; y < Math.min(lb, rb) - b.bootH + 1; y++) c.set(CX, y, L.pants[0]);
 }
@@ -176,7 +190,7 @@ function legsSide(c, L, mode, legTop) {
     far = base - 3;
     nearB = GROUND - 1;
   }
-  drawLegColumn(c, L, far, legTop, farB, w, { far: true, toe: -1 });
+  drawLegColumn(c, L, far, legTop, farB, w, { far: true, toe: -1, peg: L.extras.has('pegleg') });
   drawLegColumn(c, L, near, legTop, nearB, w, { toe: -1 });
 }
 
