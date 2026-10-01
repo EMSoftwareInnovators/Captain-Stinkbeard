@@ -1,0 +1,178 @@
+{
+ "id": "crew_quarters_phase5",
+ "patch": "crew_quarters",
+ "//": "Story Phase 5 in the crew quarters: Barnacle Bob asleep sitting up (4,7) and Dunstan in the washroom when the bell goes three (chapter 20), and Brask at the washroom door, waiting (chapter 22).",
+ "objects": [
+  {
+   "id": "p5q_bob_0",
+   "type": "npc",
+   "npc": "bob",
+   "x": 4,
+   "y": 7,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p5_started"
+       },
+       {
+        "notFlag": "p5_close_call_started"
+       }
+      ]
+     },
+     {
+      "notFlag": "p5_round_bob"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p5q_bob_1",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p5_started"
+   }
+  },
+  {
+   "id": "p5q_brask_0",
+   "type": "npc",
+   "npc": "brask",
+   "x": 5,
+   "y": 5,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p5_office_duty_done"
+     },
+     {
+      "notFlag": "p5_ch23_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p5q_brask_1",
+   "type": "npc",
+   "npc": "brask",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p5_started"
+   }
+  },
+  {
+   "id": "p5q_dunstan_0",
+   "type": "npc",
+   "npc": "dunstan",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p5_started"
+     },
+     {
+      "notFlag": "p5_ch21_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p5q_dunstan_1",
+   "type": "npc",
+   "npc": "dunstan",
+   "x": 11,
+   "y": 11,
+   "facing": "down",
+   "if": {
+    "flag": "p5_started"
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p5q_penhallow_0",
+   "type": "npc",
+   "npc": "penhallow",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p5_started"
+   }
+  }
+ ],
+ "onEnter": [
+  {
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "another_terrible_day.bob"
+     },
+     {
+      "notFlag": "p5_round_bob"
+     }
+    ]
+   },
+   "script": "p5c1.bob"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "stenchmaster_office.complaints"
+     },
+     {
+      "notFlag": "p5_washroom_wait_seen"
+     }
+    ]
+   },
+   "script": "p5c3.washroom"
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "flag": "p5_ch21_started"
+   },
+   "music": "shark_duty",
+   "musicFilter": "muffled",
+   "ambience": "below_sharks"
+  },
+  {
+   "if": {
+    "flag": "p5_started"
+   },
+   "music": "weary_morning",
+   "musicFilter": "muffled",
+   "ambience": "below_sharks"
+  }
+ ],
+ "sharks": [
+  {
+   "if": {
+    "flag": "p5_started"
+   },
+   "level": "attacking",
+   "below": true
+  }
+ ]
+}

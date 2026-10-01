@@ -1,5 +1,5 @@
 {
- "//": "Shark Duty (Story Phase 4; see src/systems/hazards/sharkDuty.js and src/world/SharkDuty.js). Sections are rail tiles on the main deck, faced from the deck (port rail x=16, stood at from x=15; starboard rail x=3, from x=4). Boarders flop onto an open deck tile. Waves repeat until the story moves on.",
+ "//": "Shark Duty (Story Phase 4; see src/systems/hazards/sharkDuty.js and src/world/SharkDuty.js). Sections are rail tiles on the main deck, faced from the deck (port rail x=16, stood at from x=15; starboard rail x=3, from x=4). Boarders flop onto an open deck tile. Waves repeat until the story moves on. Story Phase 5 adds shifts with the Grand Stenchmaster heckling from his chair (a bark can carry a \"reply\": { \"who\", \"text\" }, and an \"if\"), and \"assist\" on the open shift: under the emergency labour rule he does one useful thing per shift.",
  "shark_duty": {
   "sections": {
    "port_aft": { "x": 16, "y": 15 },
@@ -80,7 +80,129 @@
     ],
     "barks": [
      { "who": "jory", "text": "Volunteering? On purpose?" },
-     { "who": "pete", "text": "The captain's doing a shift. Nobody believes me." }
+     { "who": "pete", "text": "The captain's doing a shift. Nobody believes me." },
+     {
+      "who": "garrick",
+      "text": "Wonderful volunteering, Captain!",
+      "if": { "flag": "stenchmaster_suit_created" },
+      "reply": { "who": "jory", "text": "HE KNOWS!" }
+     }
+    ],
+    "assist": {
+     "if": { "flag": "garrick_emergency_labor_rule" },
+     "who": "garrick",
+     "after": 2,
+     "lines": ["That's my one.", "There. My one. Don't get used to it.", "One useful thing. Logged."],
+     "sfx": "pole_strike",
+     "event": "garrick_one_useful_thing"
+    }
+   },
+   "p5_first_watch": {
+    "title": "SHARK DUTY",
+    "label": "Sharks seen off",
+    "event": "p5_shark_repelled",
+    "counter": "what_do_you_do.repel",
+    "window": 9000,
+    "maxActive": 2,
+    "waves": [
+     { "gap": 1400, "section": "port_mid" },
+     { "gap": 4200, "section": "port_patch" },
+     { "gap": 4000, "section": "port_fore" },
+     { "gap": 3600, "section": "port_aft", "big": true },
+     { "gap": 4000, "section": "port_mid" }
+    ],
+    "barks": [
+     {
+      "who": "pete",
+      "text": "Garrick! A HAND!",
+      "reply": { "who": "garrick", "text": "I'm on duty!", "shout": false }
+     },
+     {
+      "who": "gristle",
+      "text": "Is he still SITTING?",
+      "reply": { "who": "rook", "text": "He's still sitting." }
+     },
+     { "who": "jory", "text": "Mind the patch!" },
+     { "who": "bob", "text": "Four hours of this. FOUR." }
+    ]
+   },
+   "office_watch": {
+    "title": "SHARK DUTY",
+    "label": "Both rails",
+    "event": "p5_office_repelled",
+    "counter": "stenchmaster_office.duty",
+    "window": 8500,
+    "maxActive": 3,
+    "waves": [
+     { "gap": 1300, "section": "port_mid" },
+     { "gap": 3000, "section": "stbd_mid" },
+     { "gap": 3400, "section": "port_patch" },
+     { "gap": 3200, "boarder": [8, 23] },
+     { "gap": 3000, "section": "stbd_fore" },
+     { "gap": 3200, "section": "port_aft", "big": true },
+     { "gap": 3000, "section": "stbd_aft" },
+     { "gap": 2800, "section": "port_fore" }
+    ],
+    "barks": [
+     {
+      "who": "garrick",
+      "text": "Excellent shark repulsion!",
+      "reply": { "who": "pete", "text": "WE KNOW!" }
+     },
+     {
+      "who": "garrick",
+      "text": "Keep up the productivity!",
+      "reply": { "who": "gristle", "text": "WE KNOW!" }
+     },
+     {
+      "who": "garrick",
+      "text": "Mind the one by the stern!",
+      "reply": { "who": "rook", "text": "WE KNOW!" }
+     },
+     {
+      "who": "garrick",
+      "text": "Lovely technique, Mister Bob!",
+      "reply": { "who": "bob", "text": "GET UP!" }
+     },
+     {
+      "who": "garrick",
+      "text": "Shh! It's the good bit!",
+      "reply": { "who": "jory", "text": "THE SHIP IS THE GOOD BIT!" }
+     },
+     { "who": "sully", "text": "He's changing the CHANNEL!" },
+     { "who": "brask", "text": "Can I shoot the television? Just once?" }
+    ]
+   },
+   "emergency_watch": {
+    "title": "SHARK DUTY",
+    "label": "Emergency",
+    "event": "p5_emergency_repelled",
+    "counter": "one_useful_thing.duty",
+    "window": 8000,
+    "maxActive": 3,
+    "waves": [
+     { "gap": 1200, "section": "stbd_mid" },
+     { "gap": 2600, "section": "port_mid", "big": true },
+     { "gap": 2800, "section": "stbd_bow" },
+     { "gap": 2600, "boarder": [11, 25] },
+     { "gap": 2600, "section": "port_patch" },
+     { "gap": 2600, "section": "stbd_aft" },
+     { "gap": 2600, "section": "port_fore", "big": true }
+    ],
+    "barks": [
+     { "who": "rook", "text": "MORE OF THEM!" },
+     {
+      "who": "garrick",
+      "text": "Splendid teamwork, everyone!",
+      "reply": { "who": "pete", "text": "WE KNOW!" }
+     },
+     { "who": "jory", "text": "Both rails! BOTH!" },
+     {
+      "who": "garrick",
+      "text": "I'm documenting all of this!",
+      "reply": { "who": "gristle", "text": "DOCUMENT A HAMMER!" }
+     },
+     { "who": "ned", "text": "There's no END to them!" }
     ]
    }
   }

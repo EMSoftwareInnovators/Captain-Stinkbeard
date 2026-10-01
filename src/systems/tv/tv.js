@@ -43,14 +43,15 @@ export function availableChannels(def, session) {
 /** { power, channel } — the channel object currently tuned (falls back to the first). */
 export function tvState(def, session) {
   const list = availableChannels(def, session);
-  const id = session.story.getVar(channelVar(def)) ?? list[0]?.id ?? 1;
+  const id = session.story.getVar(channelVar(def)) || list[0]?.id || 1;
   const channel = list.find((c) => c.id === id) ?? list[0] ?? null;
   return { power: !!session.story.getVar(powerVar(def)), channel };
 }
 
 export function setPower(def, session, on) {
   session.story.setVar(powerVar(def), on ? 1 : 0);
-  if (session.story.getVar(channelVar(def)) == null) session.story.setVar(channelVar(def), availableChannels(def, session)[0]?.id ?? 1);
+  // Variables read 0 until set: no channel tuned yet means the first one.
+  if (!session.story.getVar(channelVar(def))) session.story.setVar(channelVar(def), availableChannels(def, session)[0]?.id ?? 1);
 }
 
 export function setChannel(def, session, id) {

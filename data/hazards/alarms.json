@@ -1,11 +1,43 @@
 {
- "//": "The bell protocol (Story Phase 4; see src/systems/hazards/alarms.js). The ship's bell has coughed since the treasure room, so each level is a pattern of coughing strikes, shown as well as heard. Scripts ring them with { \"alarm\": 3, \"where\": \"the galley\" }; the world never rings them by itself.",
+ "//": "The bell protocol (Story Phase 4; see src/systems/hazards/alarms.js). The ship's bell has coughed since the treasure room, so each level is a pattern of coughing strikes, shown as well as heard. Scripts ring them with { \"alarm\": 3, \"where\": \"the galley\" }; the world never rings them by itself. Story Phase 5 adds \"panic\": what the crew shout when the bell goes (on-screen people only; the Grand Stenchmaster does not panic), and what Squawks says back.",
  "alarms": {
   "levels": {
    "1": { "label": "ONE BELL", "text": "Outer cloud approaching. Walk away.", "sound": "KLANG-HACK", "sfx": "alarm_bell_1", "color": "#e8c848" },
    "2": { "label": "TWO BELLS", "text": "Dense fumes. Hurry.", "sound": "KLANG-HACK-KOFF", "sfx": "alarm_bell_2", "color": "#e8943a" },
    "3": { "label": "THREE BELLS", "text": "DEAD CENTER SIGHTED. EVACUATE.", "sound": "KLANG-HACK-KOFF-WHEEZE", "sfx": "alarm_bell_3", "color": "#e04030" },
    "4": { "label": "FOUR BELLS", "text": "Garrick is drawing a forecast.", "sound": "KLANG-HACK, FOUR TIMES", "sfx": "alarm_bell_4", "color": "#b070d0" }
-  }
+  },
+  "panic": [
+   {
+    "if": { "flag": "p5_started" },
+    "levels": [3],
+    "count": 3,
+    "exclude": ["garrick"],
+    "lines": [
+     "CENTER!",
+     "MOVE!",
+     "Leave it! LEAVE IT!",
+     "Forget the hammer!",
+     "Grab Squawks!",
+     "I am NOT losing me nose!",
+     "Remember the bird!",
+     "I remember the bird! That's WHY I'm running!",
+     "Not the feathers! Anybody's feathers!",
+     "Three! It's THREE!",
+     "Aft! AFT!",
+     "I'm not ending up bald!",
+     "The bird lost EVERY feather!",
+     "Run now, cry later!"
+    ],
+    "reply": { "who": "squawks", "chance": 0.4, "lines": ["Still hear you.", "Very bald.", "Rude.", "Run faster."] }
+   },
+   {
+    "if": { "flag": "p5_started" },
+    "levels": [1, 2],
+    "count": 2,
+    "exclude": ["garrick"],
+    "lines": ["Was that one?", "Walk. Walk FAST.", "Is it coming this way?", "Where's it going?", "Not again."]
+   }
+  ]
  }
 }

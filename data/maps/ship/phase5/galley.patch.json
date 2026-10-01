@@ -1,0 +1,359 @@
+{
+ "id": "galley_phase5",
+ "patch": "galley",
+ "//": "Story Phase 5 in the galley: Salty Jim's Frog Grog porridge (the Center down the stovepipe again, chapter 20), the Grand Stenchmaster's noon 'quality assurance' at the grog cask (15,9), and the first proper bread in a week (8,7), which the Center sits on.",
+ "objects": [
+  {
+   "id": "p5_grog_cask",
+   "type": "inspect",
+   "x": 16,
+   "y": 9,
+   "if": {
+    "flag": "p5_started"
+   },
+   "dialogue": [
+    {
+     "cycle": [
+      "p5.inspect.grog_cask_1",
+      "p5.inspect.grog_cask_2",
+      "p5.inspect.grog_cask_3"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p5_bread",
+   "type": "inspect",
+   "x": 8,
+   "y": 7,
+   "if": {
+    "flag": "p5_ch22_started"
+   },
+   "script": "p5.inspect.bread"
+  },
+  {
+   "id": "p5g_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 15,
+   "y": 9,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p5_garrick_qa"
+     },
+     {
+      "notFlag": "p5_station_scene"
+     }
+    ]
+   },
+   "pose": "drink",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p5g_garrick_1",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p5_started"
+   }
+  },
+  {
+   "id": "p5g_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p5_bread_seen"
+     },
+     {
+      "notFlag": "p5_ch23_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p5g_jim_1",
+   "type": "npc",
+   "npc": "jim",
+   "x": 4,
+   "y": 5,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p5_office_duty_done"
+     },
+     {
+      "notFlag": "p5_station_scene"
+     }
+    ]
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "work"
+   }
+  },
+  {
+   "id": "p5g_jim_2",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p5_round_jim"
+     },
+     {
+      "notFlag": "p5_ch21_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p5g_jim_3",
+   "type": "npc",
+   "npc": "jim",
+   "x": 3,
+   "y": 5,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p5_started"
+     },
+     {
+      "notFlag": "p5_close_call_started"
+     }
+    ]
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "work"
+   }
+  },
+  {
+   "id": "p5g_jim_4",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "p5_confront_started"
+       },
+       {
+        "notFlag": "p5_back_to_work"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p5_ch23_started"
+       },
+       {
+        "notFlag": "p5_complete"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "p5g_jim_5",
+   "type": "npc",
+   "npc": "jim",
+   "x": 11,
+   "y": 5,
+   "facing": "up",
+   "if": {
+    "flag": "p5_started"
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "work"
+   }
+  },
+  {
+   "id": "p5g_mags_0",
+   "type": "npc",
+   "npc": "mags",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p5_round_jim"
+     },
+     {
+      "notFlag": "p5_ch21_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p5g_mags_1",
+   "type": "npc",
+   "npc": "mags",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p5_crew_assembled"
+     },
+     {
+      "notFlag": "p5_suit_refusal"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p5g_mags_2",
+   "type": "npc",
+   "npc": "mags",
+   "x": 6,
+   "y": 6,
+   "facing": "up",
+   "if": {
+    "flag": "p5_started"
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "work"
+   }
+  },
+  {
+   "id": "p5g_quill_0",
+   "type": "npc",
+   "npc": "quill",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "p5_confront_started"
+       },
+       {
+        "notFlag": "p5_back_to_work"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p5_crew_assembled"
+       },
+       {
+        "notFlag": "p5_suit_refusal"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "p5g_quill_1",
+   "type": "npc",
+   "npc": "quill",
+   "x": 13,
+   "y": 5,
+   "facing": "down",
+   "if": {
+    "flag": "p5_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "bread_loaves",
+   "x": 8,
+   "y": 7,
+   "if": {
+    "flag": "p5_ch22_started"
+   },
+   "id": "bread",
+   "depthOffset": 3
+  }
+ ],
+ "onEnter": [
+  {
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "another_terrible_day.jim"
+     },
+     {
+      "notFlag": "p5_round_jim"
+     }
+    ]
+   },
+   "script": "p5c1.jim"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "stenchmaster_office.complaints"
+     },
+     {
+      "notFlag": "p5_bread_seen"
+     }
+    ]
+   },
+   "script": "p5c3.bread"
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "flag": "p5_ch21_started"
+   },
+   "music": "shark_duty",
+   "musicFilter": "muffled",
+   "ambience": "below_sharks"
+  },
+  {
+   "if": {
+    "flag": "p5_started"
+   },
+   "music": "weary_morning",
+   "musicFilter": "muffled",
+   "ambience": "below_sharks"
+  }
+ ],
+ "sharks": [
+  {
+   "if": {
+    "flag": "p5_started"
+   },
+   "level": "attacking",
+   "below": true
+  }
+ ]
+}

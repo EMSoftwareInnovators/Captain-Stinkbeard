@@ -51,11 +51,13 @@ export function alarmColor(def) {
  *
  *   "panic": [{ "if": { "flag": "p5_started" }, "levels": [3], "count": 3,
  *               "lines": ["CENTER!", "Remember the bird!"],
- *               "reply": { "who": "squawks", "chance": 0.35, "lines": ["Still hear you."] } }]
+ *               "reply": { "who": "squawks", "chance": 0.35, "lines": ["Still hear you."] },
+ *               "exclude": ["garrick"] }]
  *
  * The first matching entry is used. Returns [{ who, text, delay }] for up to
- * `count` of the people given (those on screen), in a random order, never the
- * same line twice, plus maybe a reply from `reply.who` if they're among them.
+ * `count` of the people given (those on screen, less anyone in `exclude`), in
+ * a random order, never the same line twice, plus maybe a reply from
+ * `reply.who` if they're among them.
  */
 export function panicShouts(content, session, level, people, rnd = Math.random) {
   const list = content?.hazards?.get?.('alarms')?.panic ?? [];
@@ -63,7 +65,8 @@ export function panicShouts(content, session, level, people, rnd = Math.random) 
   if (!entry) return [];
   const shuffle = (a) => a.map((x) => [rnd(), x]).sort((p, q) => p[0] - q[0]).map((p) => p[1]);
   const replier = entry.reply?.who;
-  const shouters = shuffle(people.filter((id) => id !== replier)).slice(0, entry.count ?? 3);
+  const quiet = new Set(entry.exclude ?? []);
+  const shouters = shuffle(people.filter((id) => id !== replier && !quiet.has(id))).slice(0, entry.count ?? 3);
   const lines = shuffle(entry.lines ?? []);
   const out = shouters.map((who, i) => ({ who, text: lines[i % lines.length], delay: 250 + i * 520 }));
   if (replier && people.includes(replier) && entry.reply.lines?.length && rnd() < (entry.reply.chance ?? 0.3)) {

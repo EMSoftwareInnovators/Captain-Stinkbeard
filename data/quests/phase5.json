@@ -1,0 +1,96 @@
+[
+ {
+  "id": "another_terrible_day",
+  "title": "Another Terrible Day",
+  "category": "main",
+  "giver": "hale",
+  "summary": "The morning rounds. Everyone is trying to do their job, and the Center keeps turning up.",
+  "description": "The morning after the seven-hundred-percent forecast. Pete is patching the rail, Gristle is counting the stores, Salty Jim is making breakfast, and Barnacle Bob is resting his eyes. Look in on them all. The Grand Stenchmaster has been in a chair since before dawn, staring at a humming lump under a sheet.",
+  "objectives": [
+   { "id": "pete", "text": "See Pete at the port rail", "type": "flag", "target": "p5_round_pete" },
+   { "id": "gristle", "text": "Check the stores with Gristle (Cargo Hold)", "type": "flag", "target": "p5_round_gristle" },
+   { "id": "jim", "text": "Look in on breakfast (Salty Jim, Galley)", "type": "flag", "target": "p5_round_jim" },
+   { "id": "bob", "text": "Wake Barnacle Bob (Crew Quarters)", "type": "flag", "target": "p5_round_bob" }
+  ],
+  "rewards": { "xp": 35 }
+ },
+ {
+  "id": "remember_squawks",
+  "title": "Remember Squawks",
+  "category": "main",
+  "giver": "fennimore",
+  "summary": "Three bells at the mainmast, and Squawks's basket is in the way.",
+  "description": "Everyone aboard knows what the Dead Center did to Captain Squawks. That's why three bells means run. This time he was right in its path.",
+  "objectives": [
+   { "id": "grab", "text": "Grab Squawks! (his basket, at the foot of the mainmast)", "type": "flag", "target": "p5_carrying_squawks" },
+   { "id": "safe", "text": "Get aft, clear of the Center (by the cabin door)", "type": "flag", "target": "p5_squawks_safe", "after": ["grab"] },
+   { "id": "check", "text": "Check on Squawks", "type": "flag", "target": "p5_squawks_checked", "after": ["safe"] },
+   { "id": "crew", "text": "Talk to the crew about how Squawks is doing", "type": "event", "target": "p5_squawks_talk", "count": 2, "after": ["check"] }
+  ],
+  "rewards": { "xp": 35 }
+ },
+ {
+  "id": "what_do_you_do",
+  "title": "What Do You Actually Do?",
+  "category": "main",
+  "giver": "gristle",
+  "summary": "The ship is being eaten. The Grand Stenchmaster is sitting down. The crew want to know why.",
+  "description": "Every hand aboard is on Shark Duty except one. The crew have decided it is time somebody asked the Grand Stenchmaster, to his face, what exactly a Grand Stenchmaster does.",
+  "objectives": [
+   { "id": "repel", "text": "Shark Duty: see off the sharks at the port rail", "type": "event", "target": "p5_shark_repelled", "count": 4 },
+   { "id": "ask", "text": "Ask the Grand Stenchmaster what he's been doing (his chair, midships)", "type": "flag", "target": "p5_duties_heard", "after": ["repel"] },
+   { "id": "ses", "text": "Inspect the Stenchmaster Entertainment System", "type": "flag", "target": "ses_examined", "after": ["ask"] },
+   { "id": "definition", "text": "Get a useful definition of the job", "type": "flag", "target": "p5_back_to_work", "after": ["ses"] }
+  ],
+  "rewards": { "xp": 45 }
+ },
+ {
+  "id": "stenchmaster_office",
+  "title": "The Grand Stenchmaster's Office",
+  "category": "main",
+  "giver": "jory",
+  "summary": "Another shift on the rails, while the Grand Stenchmaster supervises from his chair.",
+  "description": "His station midships is official now: the S.E.S., the chair, the grog table, the Stench Log, the crayons and the Forecast Board. The crew hate it. Hold the rails, see to the rudder, and have a proper look at what he calls his office.",
+  "objectives": [
+   { "id": "duty", "text": "Shark Duty: hold both rails", "type": "event", "target": "p5_office_repelled", "count": 6 },
+   { "id": "rudder", "text": "Check the rudder (the wheel, on the quarterdeck)", "type": "flag", "target": "p5_rudder_checked", "after": ["duty"] },
+   { "id": "log", "text": "Inspect the Stench Log (his station)", "type": "flag", "target": "p5_log_drool_seen", "after": ["rudder"] },
+   { "id": "chair", "text": "Inspect the Grand Stenchmaster's chair (while he's out)", "type": "flag", "target": "p5_chair_inspected", "after": ["log"] },
+   { "id": "complaints", "text": "Hear the crew's complaints", "type": "event", "target": "p5_complaint", "count": 3, "after": ["chair"] },
+   { "id": "center", "text": "Three bells at the station: get clear!", "type": "flag", "target": "p5_station_reclaimed", "after": ["complaints"] }
+  ],
+  "rewards": { "xp": 55 }
+ },
+ {
+  "id": "dressed_for_disaster",
+  "title": "Dressed for Disaster",
+  "category": "main",
+  "giver": "jory",
+  "summary": "The starboard rail is going, and the Grand Stenchmaster has vanished with a tablecloth.",
+  "description": "A shark impact to starboard, and Garrick's chair is empty. The crew dare to hope he has gone to help. Salty Jim saw him go below with a tablecloth and a pair of scissors.",
+  "objectives": [
+   { "id": "find", "text": "Find the Grand Stenchmaster (he went below with a tablecloth)", "type": "flag", "target": "p5_garrick_found" },
+   { "id": "assemble", "text": "Go back up on deck and assemble the crew", "type": "flag", "target": "p5_every_stenchmaster", "after": ["find"] },
+   { "id": "order", "text": "Order the Grand Stenchmaster to help", "type": "flag", "target": "p5_suit_refusal", "after": ["assemble"] },
+   { "id": "starboard", "text": "Patch the starboard rail (three bites)", "type": "event", "target": "p5_stbd_patch", "count": 3, "after": ["order"] }
+  ],
+  "rewards": { "xp": 55 }
+ },
+ {
+  "id": "one_useful_thing",
+  "title": "One Useful Thing",
+  "category": "main",
+  "giver": "hale",
+  "summary": "Everything goes wrong at once, and the captain makes a rule.",
+  "description": "Evening, and every disaster aboard arrives at the same time: more sharks than ever, the Center on the quarterdeck, the wheel lost in it, and Squawks up by the helm. When it's over, there is going to be a conversation with the Grand Stenchmaster.",
+  "objectives": [
+   { "id": "squawks", "text": "Get Squawks off the quarterdeck!", "type": "flag", "target": "p5_emergency_squawks" },
+   { "id": "duty", "text": "Emergency Shark Duty: hold both rails", "type": "event", "target": "p5_emergency_repelled", "count": 5, "after": ["squawks"] },
+   { "id": "confront", "text": "Confront the Grand Stenchmaster (his station)", "type": "flag", "target": "garrick_emergency_labor_rule", "after": ["duty"] },
+   { "id": "repair", "text": "Finish the repair at the port rail", "type": "flag", "target": "p5_one_useful_thing", "after": ["confront"] },
+   { "id": "night", "text": "Check on Squawks before bed", "type": "flag", "target": "p5_night_squawks", "after": ["repair"] },
+   { "id": "ses", "text": "Look in on the S.E.S.", "type": "flag", "target": "p5_night_ses_seen", "after": ["night"] }
+  ],
+  "rewards": { "xp": 70 }
+ }
+]

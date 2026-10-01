@@ -1,0 +1,106 @@
+{
+  "//": "Story Phase 5: things to look at and poke. The Grand Stenchmaster's station midships (S.E.S. at (14,17), grog table (13,17), chair (14,18)), the labour rule and the anonymous notes on the mainmast, the laundry line, the fresh bread, the starboard patches, the Frog Grog cask, and Jory's optional duty, now with the Grand Stenchmaster's one useful thing. Map objects in data/maps/ship/phase5 point here.",
+
+  "p5.ses_covered": [
+    "A lump under an old sailcloth, about the size of a sea chest. Wires poke out from under the hem. A fork sticks out of the top. It is humming, and it is warm.",
+    { "if": { "flag": "p5_started" }, "then": [
+      { "bark": "garrick", "text": "Don't touch that, Captain. It's warming up.", "duration": 2000 },
+      "captain: Warming up for WHAT?",
+      { "bark": "garrick", "text": "You'll see.", "duration": 1500 }
+    ] }
+  ],
+
+  "p5.ses": [
+    { "tv": "ses" }
+  ],
+
+  "p5.grog_table": [
+    "The Grand Stenchmaster's side table: a barrel, a mug of Frog Grog filled to the brim, a stub of green crayon, a stub of blue, and a little brass bell for ringing for more.",
+    { "if": { "flag": "garrick_emergency_labor_rule" }, "then": [
+      "Someone has scratched a single line into the barrel top. It looks like a tally. It has one mark in it."
+    ], "else": [
+      "There is a ring on the table where the mug sits. It has burned slightly into the wood."
+    ] }
+  ],
+
+  "p5.chair": [
+    "The Grand Stenchmaster's chair. A barrel, a cushion, your old cabin curtain, a mustard throw.",
+    "You don't need to touch it to know it's warm.",
+    { "if": { "flag": "p5_sat_in_chair" }, "then": [
+      "Nobody has mentioned the time you sat in it. Everybody remembers it."
+    ] }
+  ],
+
+  "p5.inspect.rule": [
+    { "insert": "emergency_rule", "caption": "Nailed to the mainmast, at the Grand Stenchmaster's eye level." },
+    { "if": { "flag": "p5_complete" }, "then": [
+      "Under the captain's signature, in green crayon, very small: 'ONE (1).' And underneath that, in somebody else's hand: 'WE ARE COUNTING.'"
+    ] }
+  ],
+
+  "p5.inspect.laundry": [
+    { "if": { "flag": "p5_laundry_yellow" }, "then": [
+      "The washing line. Every shirt on it is the colour of old custard, and stiff as a board, and gives off a faint warmth.",
+      "Wick has hung a sign on the end: STILL CLEAN. (ON THE INSIDE.)"
+    ], "else": [
+      "A washing line, strung across the deck between two posts. Shirts, socks, and a pair of Bob's drawers the size of a topsail.",
+      "It's the only thing on the ship that smells of soap, and it's losing."
+    ] }
+  ],
+
+  "p5.inspect.bread": [
+    { "if": { "flag": "p5_bread_seen" }, "then": [
+      "The bread. It's still golden on top. Underneath, where the Center sat on it, it's gone faintly yellow and has a sort of shine.",
+      "Somebody has stuck a little flag in it. The flag says RIP."
+    ], "else": [
+      "A tray of proper bread, cooling. You can smell it from here. It smells like a better ship."
+    ] }
+  ],
+
+  "p5.inspect.stbd_patches": [
+    "The starboard rail: three new patches, still pale, and a brace lashed across a chewed stanchion.",
+    "Somebody has chalked on the middle patch: PATCHED BY THE CREW. SUPERVISED BY A COSTUME."
+  ],
+
+  "p5.inspect.grog_cask_1": [
+    "The Frog Grog cask.",
+    { "sfx": "grog_bubble" },
+    "captain[disgusted]: Somehow worse than yesterday.",
+    "You'd have said that wasn't possible. You were wrong yesterday, too."
+  ],
+  "p5.inspect.grog_cask_2": [
+    "Mags has chalked a new notice on the lid: STILL ONE PER HEAD. THE GRAND STENCHMASTER'S 'QUALITY ASSURANCE' COUNTS AS A HEAD. HE HAS HAD NINE."
+  ],
+  "p5.inspect.grog_cask_3": [
+    "Beside the cask, a list in three different hands:",
+    "WHY DO I KEEP DRINKING IT? / BECAUSE IT'S THAT OR FROG WATER. / I'D SOONER LICK THE MAST. / DON'T, GARRICK SAYS THE MAST IS CONCENTRATED.",
+    "captain[resigned]: ...He's not wrong about the mast."
+  ],
+
+  "p5.inspect.helm": [
+    "The wheel. It steers, mostly. There's a fresh dent in the rudder, Nell says, the shape of a shark's opinion.",
+    { "if": { "flag": "p5_complete" }, "then": [
+      "The ribbon on the spoke is yellow all the way through now. Nell has tied a second one beside it, so she can tell when the first one's been in the Center."
+    ] }
+  ],
+
+  "p5.jory_duty_offer": [
+    { "face": "jory", "dir": "player" },
+    "jory: A shift on the rail, Captain? Under the new rule, the Grand Stenchmaster has to help.",
+    "jory[annoyed]: Once.",
+    { "choice": [
+      { "text": "Take a shift", "then": [
+        "jory[happy]: Right you are. Pole's in the barrel. Talk to me when you've had enough.",
+        { "setFlag": "optional_duty_on" }
+      ] },
+      { "text": "Not today" }
+    ] }
+  ],
+
+  "p5.squawks_basket": [
+    "Squawks's basket: a hat box, a cushion, the blanket, and a parrot-sized dent.",
+    { "if": { "flag": "p5_complete" }, "then": [
+      "There's a little row of grey wisps tucked into the lining. Three of them. Somebody went over the rail on a rope and got them back. Nobody will say who."
+    ] }
+  ]
+}

@@ -1,0 +1,754 @@
+{
+ "//": "Story Phase 5 crew dialogue, one script per crew member per story state (see data/npcs/phase5_crew.json for the selectors), plus what they say about Squawks and their complaints about the Grand Stenchmaster's office.",
+ "hale.p5_squawks": [
+  "hale[concerned]: I've put it in the log, Captain. 'Ship's parrot. Status: bald. Spirits: hostile.' Seemed fairest.",
+  {
+   "setFlag": "p5_sqt_hale"
+  },
+  {
+   "call": "p5c1.squawks_talk"
+  }
+ ],
+ "hale.p5_complaint": [
+  "hale[annoyed]: He's asked for a 'deputy', Captain. To do the parts of the job that involve standing up. Nobody's applied. I've told him the post is permanently vacant.",
+  {
+   "setFlag": "p5_cmp_hale"
+  },
+  {
+   "call": "p5c3.complaint"
+  }
+ ],
+ "hale.p5_s9_1": [
+  "hale: The rule's nailed up, the watch is set, and the Grand Stenchmaster's watching a fish. As days go, Captain, I'd call that a draw."
+ ],
+ "hale.p5_s9_2": [
+  "hale[resigned]: Every time that television hums, half the watch looks round. Nobody says anything. Everybody looks."
+ ],
+ "hale.p5_s8": [
+  "hale[happy]: One useful thing. I've written it in the log, Captain. Underlined. Twice. The first entry I've underlined since we left port."
+ ],
+ "hale.p5_s7": [
+  "hale[alarmed]: Every bell, every rail, every fin in the sea, Captain. All at once!"
+ ],
+ "hale.p5_s6": [
+  "hale[resigned]: I've seen admirals in full dress, Captain. Kings at their coronations. I've never seen anything like that coat. I hope I never do again. I'll see it tomorrow."
+ ],
+ "hale.p5_s5": [
+  "hale[concerned]: Nobody's seen Garrick for an hour, Captain. That's either very good news or the worst news of the year."
+ ],
+ "hale.p5_s4_1": [
+  "hale[resigned]: The station's in the log now, Captain. 'Grand Stenchmaster's Office, midships.' I had to. It's there. It's got a chair."
+ ],
+ "hale.p5_s4_2": [
+  "hale: The crew have started walking the long way round the station so they don't have to see it. It's added ten minutes to every watch."
+ ],
+ "hale.p5_s3": [
+  "hale[annoyed]: I've had admirals with fewer duties than that man, Captain. Mind you, I've had admirals who did less."
+ ],
+ "hale.p5_s2": [
+  "hale[concerned]: I've been at sea thirty years, Captain. I've seen men run from cannon fire slower than they ran from that bell."
+ ],
+ "hale.p5_s1_1": [
+  "hale[resigned]: Rounds, Captain. Pete at the rail, Gristle in the hold, Jim in the galley, Bob in the crew quarters. Garrick in his chair. That last one's not a round. That's a fixture."
+ ],
+ "hale.p5_s1_2": [
+  "hale: The bell's coughed twice since dawn. Neither of them were the Center. Both of them were Garrick sitting down too hard."
+ ],
+ "quill.p5_complaint": [
+  "quill[annoyed]: He wants an expense account. For crayons. I've told him we have no money. He said 'then put it on the ACCOUNT'. There's no account! That's what 'no money' means!",
+  {
+   "setFlag": "p5_cmp_quill"
+  },
+  {
+   "call": "p5c3.complaint"
+  }
+ ],
+ "quill.p5_s9": [
+  "quill: For the record, Captain, the Grand Stenchmaster has used his one useful thing for today. I've a tally. It's the shortest tally I keep."
+ ],
+ "quill.p5_s8": [
+  "quill[happy]: I wrote it out in my best hand, Captain. I've kept a copy. I've kept three copies. In different places."
+ ],
+ "quill.p5_s7": [
+  "quill[alarmed]: I can't write fast enough, Captain! Sharks, Center, wheel, parrot! I've run out of columns!"
+ ],
+ "quill.p5_s6": [
+  "quill[devastated]: Five medals. I've checked the naval lists, the merchant lists and the honours rolls. He isn't on any of them. He's only on HIS."
+ ],
+ "quill.p5_s5": [
+  "quill: The tablecloth inventory is down by one, Captain. The good one. With the anchor."
+ ],
+ "quill.p5_s4": [
+  "quill[annoyed]: He's asked me to start a ledger for the S.E.S. 'Viewing hours.' I've refused. On principle. And because the numbers frighten me."
+ ],
+ "quill.p5_s3": [
+  "quill[annoyed]: I've itemised it, Captain. Every part in that television. A lantern, a compass, eleven forks, a cannon lock, three bottles, a potato. None of it adds up to a television. I've checked the sum four times."
+ ],
+ "quill.p5_s2": [
+  "quill[sad]: I've kept a feather count for Squawks every day since the treasure room. I've just written zero. I didn't like writing zero."
+ ],
+ "quill.p5_s1": [
+  "quill[concerned]: I've added a new column to the ledger, Captain. 'Things under sheets.' There's only one entry. It hums."
+ ],
+ "wick.p5_squawks": [
+  "wick[sad]: I'll knit him something. I can't knit. I'll learn. Mags can show me.",
+  {
+   "setFlag": "p5_sqt_wick"
+  },
+  {
+   "call": "p5c1.squawks_talk"
+  }
+ ],
+ "wick.p5_complaint": [
+  "wick[disgusted]: He sent his socks to the wash with a note. 'Ceremonial. Do not wring.' I wrung them. I wrung them for a long time.",
+  {
+   "setFlag": "p5_cmp_wick"
+  },
+  {
+   "call": "p5c3.complaint"
+  }
+ ],
+ "wick.p5_s9": [
+  "wick: I've put the shirts through again. Still yellow. But softer. I've decided softer counts."
+ ],
+ "wick.p5_s8": [
+  "wick[happy]: He booted a shark, Captain! With the brass boot! I saw it! Nobody believes me and I SAW it!"
+ ],
+ "wick.p5_s7": [
+  "wick[alarmed]: The quarterdeck! THE QUARTERDECK! The wheel's gone right into it!"
+ ],
+ "wick.p5_s6": [
+  "wick[surprised]: The stitching's actually very good. I hate that. I'd hoped it'd be terrible."
+ ],
+ "wick.p5_s5": [
+  "wick: Somebody's been at the sewing kit. Every needle, gone. Every pin. Jim's tablecloth. I'm not saying who. I don't need to."
+ ],
+ "wick.p5_s4_1": [
+  "wick[sad]: My washing. My WASHING. Every shirt on the ship is the colour of mustard now. They crunch."
+ ],
+ "wick.p5_s4_2": [
+  "wick: The Frog Grog's gone a bit fizzy today. Mags says it's 'developing'. I don't want it to develop. I want it to stop."
+ ],
+ "wick.p5_s3": [
+  "wick[surprised]: A TELEVISION. What's a television? ...And why's it got a potato?"
+ ],
+ "wick.p5_s2": [
+  "wick[sad]: Poor little beggar. He used to bite me every morning. Never thought I'd miss it."
+ ],
+ "wick.p5_s1": [
+  "wick: Washing day, Captain. I've got every shirt on the line. Fresh water's gone, so it's sea water and hope."
+ ],
+ "fennimore.p5_squawks": [
+  "fennimore[concerned]: Physically? He's a bald parrot in a sweater. Otherwise? Furious, Captain. I'm prescribing rest, warmth and as many people as possible to be furious at.",
+  {
+   "setFlag": "p5_sqt_fennimore"
+  },
+  {
+   "call": "p5c1.squawks_talk"
+  }
+ ],
+ "fennimore.p5_s9": [
+  "fennimore: He's asleep. Properly asleep, for the first time in days. Keep your voice down, Captain, or he'll wake up and tell you about it."
+ ],
+ "fennimore.p5_s8": [
+  "fennimore[happy]: Squawks asked me to tell you the coat smells. He said it twice, so I think he's feeling better."
+ ],
+ "fennimore.p5_s7": [
+  "fennimore[alarmed]: I took him up there for the SUNSET, Captain! It was meant to be the one nice thing today!"
+ ],
+ "fennimore.p5_s6": [
+  "fennimore[smug]: I've taken his pulse, Captain. He asked me to. In the suit. He wanted a doctor to 'confirm the effect'. His pulse was fine. Mine wasn't."
+ ],
+ "fennimore.p5_s5": [
+  "fennimore: If he's hurt himself somewhere, Captain, I'd like to know before the crew find out. They'd want to have a look."
+ ],
+ "fennimore.p5_s4": [
+  "fennimore[concerned]: Three men with grog stomach this morning, two with Center cough, one with a splinter the size of a belaying pin. And one man in a chair with a mild case of comfort."
+ ],
+ "fennimore.p5_s3": [
+  "fennimore[annoyed]: I've been asked if the television is safe to stand near. I'm a ship's surgeon, not a sorcerer. My professional advice is: no."
+ ],
+ "fennimore.p5_s2": [
+  "fennimore[concerned]: He's taken it hard, Captain, but he's eating. If anything, losing the last of it seems to have made him angrier, and angry is good. Angry is alive."
+ ],
+ "fennimore.p5_s1": [
+  "fennimore: I've put Squawks out by the mainmast in his basket, Captain. A bit of sun does them good. Doctor's orders. Mine."
+ ],
+ "rook.p5_squawks": [
+  "rook[concerned]: I ran right past him. I didn't stop. I'd have stopped. You got there first. I'd have stopped. I keep saying that.",
+  {
+   "setFlag": "p5_sqt_rook"
+  },
+  {
+   "call": "p5c1.squawks_talk"
+  }
+ ],
+ "rook.p5_complaint": [
+  "rook[annoyed]: The noise, Captain. That television. Day and night. Hiss, hiss, turnip, hiss. I dream in static now.",
+  {
+   "setFlag": "p5_cmp_rook"
+  },
+  {
+   "call": "p5c3.complaint"
+  }
+ ],
+ "rook.p5_s9": [
+  "rook: Fair's fair, Captain. He booted one. Right on the nose. I'll give him that. I won't give him anything else, but I'll give him that."
+ ],
+ "rook.p5_s8": [
+  "rook[laugh]: 'Providing leadership.' I said NO so loud I heard it come back off the sails."
+ ],
+ "rook.p5_s7": [
+  "rook[alarmed]: Captain! Starboard bow, port quarter, everywhere in between! They've brought FRIENDS!"
+ ],
+ "rook.p5_s6": [
+  "rook[disgusted]: He's started saluting people. Nobody salutes back. He salutes them again, harder."
+ ],
+ "rook.p5_s5": [
+  "rook: If he's gone to help, Captain, I'll eat my hat. Well. I'll eat my other hat. I lost the first one running."
+ ],
+ "rook.p5_s4": [
+  "rook[annoyed]: He delegated me. To the RUDDER. In the middle of the good bit, apparently. I hope the turnip wins."
+ ],
+ "rook.p5_s3": [
+  "rook[annoyed]: Contractual disagreement. CONTRACTUAL. There's no contract! Nobody signed anything! He's never signed anything in his life except his own medals!"
+ ],
+ "rook.p5_s2": [
+  "rook[alarmed]: I ran so fast I lost a boot. I don't care. I'll grow another one before I grow a bald head."
+ ],
+ "rook.p5_s1": [
+  "rook[annoyed]: He's been staring at that sheet since four bells. I asked what's under it. He said 'the future'. I said the future doesn't hum. He said 'it does now'."
+ ],
+ "sully.p5_squawks": [
+  "sully[sad]: He looked at me and said 'Drafty.' Just that. I had to go and stand by the rail for a bit.",
+  {
+   "setFlag": "p5_sqt_sully"
+  },
+  {
+   "call": "p5c1.squawks_talk"
+  }
+ ],
+ "sully.p5_complaint": [
+  "sully[annoyed]: He changed the channel in the middle of Shark Duty and shouted 'THE FISH IS BACK!' I nearly went over the rail. I thought he meant a BIG fish.",
+  {
+   "setFlag": "p5_cmp_sully"
+  },
+  {
+   "call": "p5c3.complaint"
+  }
+ ],
+ "sully.p5_s9": [
+  "sully: I'll take a shift tomorrow, Captain. Somebody's got to. And now somebody ELSE has got to, once. I want to be there when he does."
+ ],
+ "sully.p5_s8": [
+  "sully[happy]: One useful thing a day! That's one more than he managed yesterday! That's infinite percent, Captain!"
+ ],
+ "sully.p5_s7": [
+  "sully[alarmed]: Both rails, Captain! They're coming over the BOTH of them!"
+ ],
+ "sully.p5_s6": [
+  "sully[disgusted]: A suit. A SUIT. While we're up to our knees in shark. I'd laugh if I had the breath."
+ ],
+ "sully.p5_s5": [
+  "sully: The starboard side never used to get bitten. They've worked out it's got wood on it too."
+ ],
+ "sully.p5_s4_1": [
+  "sully: Mags put a ration of grog out for the rail crew. I drank it. Why do I keep doing that?",
+  "sully[queasy]: ...Because it's either that or Frog Water, that's why."
+ ],
+ "sully.p5_s4_2": [
+  "sully[annoyed]: 'Excellent shark repulsion!' If he says that one more time I'm going to repulse HIM."
+ ],
+ "sully.p5_s3": [
+  "sully[annoyed]: I've been hitting sharks with a mop since breakfast. He's been watching a man and a TURNIP. There's no justice on this ship. There's no justice on this OCEAN."
+ ],
+ "sully.p5_s2": [
+  "sully[sad]: The bird. The poor little bird. I've got a nephew that age. Well. Not a parrot. But the same age."
+ ],
+ "sully.p5_s1": [
+  "sully[annoyed]: Same patch as yesterday, Captain. Same shark too, I think. He's got a scar shaped like Pete's hammer."
+ ],
+ "brask.p5_complaint": [
+  "brask: He told me I wasn't allowed to stand in front of the S.E.S. Then he told me I wasn't allowed to stand BEHIND it. I asked where I'm allowed to stand. He said 'elsewhere'.",
+  {
+   "setFlag": "p5_cmp_brask"
+  },
+  {
+   "call": "p5c3.complaint"
+  }
+ ],
+ "brask.p5_s9": [
+  "brask: Washroom's free, Captain. Finally. I'd still wait a minute. It's still warm."
+ ],
+ "brask.p5_s8": [
+  "brask[laugh]: One. He gets to do one. I've seen men in the stocks with better contracts."
+ ],
+ "brask.p5_s7": [
+  "brask[alarmed]: I've run out of things to throw at them! I threw a CHAIR! Not his chair. Unfortunately."
+ ],
+ "brask.p5_s6": [
+  "brask[surprised]: He's got a door hinge glued to his boot. A DOOR HINGE. I know which door it's off and I want it back."
+ ],
+ "brask.p5_s5": [
+  "brask: If he's not helping, Captain, can I shoot HIM? Just a little bit? In the hat?"
+ ],
+ "brask.p5_s4": [
+  "brask: Still waiting for the washroom. It's been in there an hour. I don't know what it's doing in there and I don't want to."
+ ],
+ "brask.p5_s3": [
+  "brask[laugh]: Can I shoot it, Captain? The television? Just once? It looks like it'd make a lovely noise."
+ ],
+ "brask.p5_s2": [
+  "brask[alarmed]: Three bells. THREE. I was halfway through shaving. Look at me. Half a man."
+ ],
+ "brask.p5_s1": [
+  "brask[laugh]: I've a wager on with Rook, Captain. He says it's a cannon under that sheet. I say it's a still. Either way, I'm getting near it."
+ ],
+ "gristle.p5_squawks": [
+  "gristle[concerned]: He'll pull through, Captain. He's too stubborn not to. He told me to stop looking at him. That's a good sign. He's never asked politely in his life.",
+  {
+   "setFlag": "p5_sqt_gristle"
+  },
+  {
+   "call": "p5c1.squawks_talk"
+  }
+ ],
+ "gristle.p5_complaint": [
+  "gristle[annoyed]: He's put the station right in the middle of the deck, Captain. Every route anywhere goes past him. You can't get to the rail without being told you're doing excellent work.",
+  {
+   "setFlag": "p5_cmp_gristle"
+  },
+  {
+   "call": "p5c3.complaint"
+  }
+ ],
+ "gristle.p5_s9": [
+  "gristle: Night, Captain. Count's done. We're down a tablecloth, a cheese, eleven forks and a compass. And up one television. I've no column for that."
+ ],
+ "gristle.p5_s8": [
+  "gristle[smug]: I nailed it up. Twelve nails. Eye level. He'll see it every time he gets up from that chair. So, once a day."
+ ],
+ "gristle.p5_s7": [
+  "gristle[alarmed]: All of 'em, Captain! All at once! It's like they planned it!"
+ ],
+ "gristle.p5_s6": [
+  "gristle[disgusted]: 'Somebody has to establish the standards.' He said it like it was nothing. It's NOT nothing, is it? Who else would there be?",
+  "gristle: ...Never mind. I don't want to know. Pass me a hammer."
+ ],
+ "gristle.p5_s5": [
+  "gristle[concerned]: He's not helping, Captain. I'll bet the ship he's not helping. Mind you, I've not got much ship left to bet."
+ ],
+ "gristle.p5_s4": [
+  "gristle[annoyed]: I've counted his duties, Captain. Nine. I've counted how many of them involve a shark. None. I've counted how many involve sitting. All nine. Even the farting."
+ ],
+ "gristle.p5_s3": [
+  "gristle[annoyed]: 'Seat readiness'. I've been ready for that man to sit somewhere else for MONTHS."
+ ],
+ "gristle.p5_s2_1": [
+  "gristle[concerned]: He went bald in one go, Captain. ONE go. That's all it took. I'm not ashamed to say I ran faster today than I've run since the Navy."
+ ],
+ "gristle.p5_s2_2": [
+  "gristle: Frog Grog, Captain? ...No. Me neither. I've had three. I'd lick the mast first.",
+  "gristle[queasy]: Don't, mind. Garrick says the mast's concentrated."
+ ],
+ "gristle.p5_s1": [
+  "gristle[annoyed]: Can't finish the count, Captain. Every time I start it, the Center comes and I lose me place."
+ ],
+ "jory.p5_squawks": [
+  "jory[determined]: That's what the three bells are for, Captain. That. Him. Nobody else is going like that. Not on my rota.",
+  {
+   "setFlag": "p5_sqt_jory"
+  },
+  {
+   "call": "p5c1.squawks_talk"
+  }
+ ],
+ "jory.p5_complaint": [
+  "jory[annoyed]: He's started calling the duty barrel 'the staff room'. I don't know what a staff room is but I know it's an insult.",
+  {
+   "setFlag": "p5_cmp_jory"
+  },
+  {
+   "call": "p5c3.complaint"
+  }
+ ],
+ "jory.p5_s9": [
+  "jory: Say the word and I'll put you on a shift, Captain. He has to help now. Once."
+ ],
+ "jory.p5_s8": [
+  "jory[happy]: I've put him on the rota. 'Emergency: one useful thing. Grand Stenchmaster.' It's the smallest entry on it, but it's ON it."
+ ],
+ "jory.p5_s7": [
+  "jory[determined]: Every pole on the ship's in somebody's hand, Captain! Every pole but one!"
+ ],
+ "jory.p5_s6": [
+  "jory[disgusted]: He made a shark uniform that can't go near sharks. I want that on his headstone."
+ ],
+ "jory.p5_s5": [
+  "jory: Starboard's going, Captain. If he IS helping, he's helping somewhere I can't see."
+ ],
+ "jory.p5_s4": [
+  "jory[annoyed]: He's started calling Shark Duty 'the front line'. As in, 'how's the front line, Mister Jory?' From his chair. Through a mouthful of biscuit."
+ ],
+ "jory.p5_s3": [
+  "jory[annoyed]: Back to work, he says! It's my rota! I MADE the rota! There's no space on it for 'monitoring broadcasts'!"
+ ],
+ "jory.p5_s2": [
+  "jory[determined]: Good catch with the bird, Captain. If you hadn't got there, I would have. I'd have been slower. I'd have been bald."
+ ],
+ "jory.p5_s1": [
+  "jory: Rails are holding, Captain. Holding's the word. Not 'fine'. Not 'safe'. Holding."
+ ],
+ "bob.p5_squawks": [
+  "bob[sad]: I said sorry about the grog. He said 'want new crew'. Then he said 'not you'. Then he said 'mostly'. I'll take mostly.",
+  {
+   "setFlag": "p5_sqt_bob"
+  },
+  {
+   "call": "p5c1.squawks_talk"
+  }
+ ],
+ "bob.p5_complaint": [
+  "bob[disgusted]: He's got a bell. A little bell, on his table. He rings it for grog. Nobody brings it. He keeps ringing. It's driving the sharks mad. It's driving ME mad.",
+  {
+   "setFlag": "p5_cmp_bob"
+  },
+  {
+   "call": "p5c3.complaint"
+  }
+ ],
+ "bob.p5_s9": [
+  "bob: Night, Captain. I'm sleeping right here. On the deck. Nobody's moving me. Not the Center, not the sharks, not the television."
+ ],
+ "bob.p5_s8": [
+  "bob[laugh]: Odour-retentive! I asked him why you'd WANT that! He's still thinking about it! Look at him! He's still thinking!"
+ ],
+ "bob.p5_s7": [
+  "bob[alarmed]: I carried four boards and a bucket, Captain! At once! I didn't know I could do that! I can't feel my arms!"
+ ],
+ "bob.p5_s6": [
+  "bob[sad]: It was not the day, Captain."
+ ],
+ "bob.p5_s5": [
+  "bob[happy]: He's gone to help! I can feel it! This is the day, Captain! This is the day it turns round!"
+ ],
+ "bob.p5_s4": [
+  "bob: I tried his chair while he was out. Don't tell anyone. It's the best chair on the ship. It's the ONLY chair on the ship. Where did he GET a chair?"
+ ],
+ "bob.p5_s3": [
+  "bob[disgusted]: Why is there a potato. WHY is there a POTATO. Nobody's told me. I can't sleep for thinking about it. Well. I can. But not WELL."
+ ],
+ "bob.p5_s2": [
+  "bob[sad]: I offered him Frog Grog. Thought it'd cheer him up. He wants new crew. Can't blame him, really. I'd want new crew if I were him. I'd want new ME."
+ ],
+ "bob.p5_s1": [
+  "bob: Zzz... five more minutes, Captain..."
+ ],
+ "ned.p5_complaint": [
+  "ned[disgusted]: I tried to bring him a shark count. He said reports go through the Stench Log. The Stench Log's covered in DROOL, Captain.",
+  {
+   "setFlag": "p5_cmp_ned"
+  },
+  {
+   "call": "p5c3.complaint"
+  }
+ ],
+ "ned.p5_s9": [
+  "ned: Quiet night. Well. Quiet for the sea. The fins don't sleep. Neither does the television."
+ ],
+ "ned.p5_s8": [
+  "ned[smug]: 'Providing leadership.' I said no from the masthead. Loudest I've ever shouted. Felt marvellous."
+ ],
+ "ned.p5_s7": [
+  "ned[alarmed]: The wheel's in the poison, Captain! I can't steer by CRAYON!"
+ ],
+ "ned.p5_s6": [
+  "ned[surprised]: I saw him from the masthead. In the suit. I thought it was a sunset. It was not a sunset."
+ ],
+ "ned.p5_s5": [
+  "ned: Can't see him from up top, Captain. And I can see everything from up top. Except, apparently, Garrick."
+ ],
+ "ned.p5_s4": [
+  "ned[disgusted]: The long way round. Through the HOLD. With the charts. You should see what the bilge did to the Azores."
+ ],
+ "ned.p5_s3": [
+  "ned[disgusted]: Five hundred sharks, Captain. I counted. I'm the lookout. He's the 'Stenchmaster'. Which one of us needed to count, I ask you."
+ ],
+ "ned.p5_s2": [
+  "ned[concerned]: Saw it all from up top, Captain. You and the basket and the cloud. Closest thing I've seen since the treasure room."
+ ],
+ "ned.p5_s1": [
+  "ned: Fins to port, fins to starboard, fins astern. Fins ahead, too. I think they've worked out where we're going."
+ ],
+ "nell.p5_complaint": [
+  "nell[annoyed]: The light off that television shines straight into the binnacle at night. I steered by it for an hour before I realised it wasn't the compass.",
+  {
+   "setFlag": "p5_cmp_nell"
+  },
+  {
+   "call": "p5c3.complaint"
+  }
+ ],
+ "nell.p5_s9": [
+  "nell: Two ribbons on the spoke now, Captain. One for the Center. One for when the first one's been in the Center. It's a system."
+ ],
+ "nell.p5_s8": [
+  "nell[happy]: Back on course, Captain. And there's a rule now. I feel better about the rule than the course, if I'm honest."
+ ],
+ "nell.p5_s7": [
+  "nell[alarmed]: I've lost the wheel! It's in the poison! We're going round in a circle!"
+ ],
+ "nell.p5_s6": [
+  "nell[surprised]: I could see the suit from the HELM, Captain. In the dark. It's got a sort of glow."
+ ],
+ "nell.p5_s5": [
+  "nell: Steering's fine. Nothing's fine. But steering's fine."
+ ],
+ "nell.p5_s4": [
+  "nell[smug]: Admiral's sulking off the port quarter, Captain. He'll be back. They always come back. But he's sulking."
+ ],
+ "nell.p5_s3": [
+  "nell[annoyed]: I could hear the whole thing from the helm. 'Executive readiness.' I've been on this wheel nine hours. That's readiness."
+ ],
+ "nell.p5_s2": [
+  "nell[concerned]: Is he all right, Captain? Squawks? I couldn't leave the wheel. I wanted to."
+ ],
+ "nell.p5_s1": [
+  "nell: Wheel's pulling to port again. Something down there's chewing on the rudder. I've named him already. Don't ask me what."
+ ],
+ "finch.p5_complaint": [
+  "finch[sad]: He asked me to climb up and hold the fork aerial 'a bit to the left'. For an hour. I missed my dinner. The picture was a fish.",
+  {
+   "setFlag": "p5_cmp_finch"
+  },
+  {
+   "call": "p5c3.complaint"
+  }
+ ],
+ "finch.p5_s9": [
+  "finch: I'm keeping watch tonight, Captain. If the television shows anything... odd... I'll ring the bell. Once. A small one."
+ ],
+ "finch.p5_s8": [
+  "finch[happy]: He did one useful thing! I saw it! I'm going to tell my mum!"
+ ],
+ "finch.p5_s7": [
+  "finch[alarmed]: They're coming up the anchor chain, Captain! I didn't know sharks could DO that!"
+ ],
+ "finch.p5_s6": [
+  "finch[happy]: I liked the fanfare. Is that bad? Where did it COME from?"
+ ],
+ "finch.p5_s5": [
+  "finch: Nobody's seen Garrick, Captain. I looked from the crow's nest. There's no Garrick in the whole sea."
+ ],
+ "finch.p5_s4": [
+  "finch: Frog Grog tastes different up the mast. Worse. It's the altitude, Gristle says."
+ ],
+ "finch.p5_s3": [
+  "finch[surprised]: I saw the picture from the rigging, Captain! A fish! Going round! How did it get IN there?"
+ ],
+ "finch.p5_s2": [
+  "finch[sad]: I saw the feathers go, Captain. All three. They went right out over the water. I wanted to catch them."
+ ],
+ "finch.p5_s1": [
+  "finch: Ratlines are sticky this morning, Captain. Everything's sticky. I think the air's sticky."
+ ],
+ "pete.p5_squawks": [
+  "pete[concerned]: I made him a little hat out of a sock. He said 'no'. Then, when he thought I wasn't looking, he said 'warm'. I'm counting that.",
+  {
+   "setFlag": "p5_sqt_pete"
+  },
+  {
+   "call": "p5c1.squawks_talk"
+  }
+ ],
+ "pete.p5_complaint": [
+  "pete[annoyed]: He asked me to warm his chair while he went for grog. To WARM it. I said I'm on Shark Duty. He said 'that's a no, then', like I was being difficult.",
+  {
+   "setFlag": "p5_cmp_pete"
+  },
+  {
+   "call": "p5c3.complaint"
+  }
+ ],
+ "pete.p5_s9": [
+  "pete[tired]: Night, Captain. I'm going to sleep with me eyes open. In case of bells."
+ ],
+ "pete.p5_s8": [
+  "pete[surprised]: He booted it. With the hinge boot. I think I've got to name the patch after him now. I don't WANT to."
+ ],
+ "pete.p5_s7": [
+  "pete[alarmed]: REMEMBER THE BIRD! ...I remember the bird. I'm just reminding everyone."
+ ],
+ "pete.p5_s6": [
+  "pete[annoyed]: A shark-emergency uniform that can't go near sharks. I've said it out loud four times now and it doesn't get any less stupid."
+ ],
+ "pete.p5_s5": [
+  "pete[happy]: I really think he's helping, Captain. I've decided to believe it. It's nicer, believing it."
+ ],
+ "pete.p5_s4_1": [
+  "pete[tired]: Not again. That's all I said. Not again. And it was, again. It's always again."
+ ],
+ "pete.p5_s4_2": [
+  "pete: Had me grog ration. Then I had Bob's. I don't know why. Something in me wants to suffer."
+ ],
+ "pete.p5_s3": [
+  "pete[annoyed]: Grand FIREmaster. I'd be good at it, an' all. I'd set fire to things with RESPONSIBILITY."
+ ],
+ "pete.p5_s2": [
+  "pete[concerned]: 'Everything feels drafty.' That's what he said. I've been cold all day thinking about it."
+ ],
+ "pete.p5_s1_1": [
+  "pete[tired]: Gerald's holding, Captain. Mostly. I'll do Gerald the Second after lunch."
+ ],
+ "pete.p5_s1_2": [
+  "pete: You've got to name the patches. Otherwise it's just wood, and you go mad."
+ ],
+ "mags.p5_squawks": [
+  "mags[concerned]: Second sweater's nearly done. It's got a hood, for his head. It's a very small hood. I cried a bit, knitting it.",
+  {
+   "setFlag": "p5_sqt_mags"
+  },
+  {
+   "call": "p5c1.squawks_talk"
+  }
+ ],
+ "mags.p5_complaint": [
+  "mags[angry]: Nine rations, Captain. NINE. He calls it 'tasting'. I call it drinking with a straight face.",
+  {
+   "setFlag": "p5_cmp_mags"
+  },
+  {
+   "call": "p5c3.complaint"
+  }
+ ],
+ "mags.p5_s9": [
+  "mags: Grog's on for the morning, Captain. Somehow worse than today's. It's a gift, really."
+ ],
+ "mags.p5_s8": [
+  "mags[happy]: One useful thing. I'm going to hold him to it. I'm going to hold him to it with a ladle."
+ ],
+ "mags.p5_s7": [
+  "mags[alarmed]: Everybody grab a pole! Or a ladle! Or anything!"
+ ],
+ "mags.p5_s6": [
+  "mags[laugh]: I've never seen Jim run that fast. Not even from the Center."
+ ],
+ "mags.p5_s5": [
+  "mags: The good tablecloth's gone. The one with the anchor. If he's used it for what I think he's used it for, Jim's going to need holding back."
+ ],
+ "mags.p5_s4_1": [
+  "mags: Grog's poured, Captain. One per head. Garrick counts as a head. Garrick counts as nine heads, apparently."
+ ],
+ "mags.p5_s4_2": [
+  "mags[annoyed]: The bread, Captain. Jim NAMED the dough. Don't bring it up."
+ ],
+ "mags.p5_s3": [
+  "mags[angry]: Grog QUALITY ASSURANCE. He's had nine rations today. NINE. I've a mind to assure HIS quality."
+ ],
+ "mags.p5_s2": [
+  "mags[concerned]: I've knitted him a second sweater, Captain. For when the first one's in the wash. It's got a little hood."
+ ],
+ "mags.p5_s1": [
+  "mags[annoyed]: The porridge theory was mine, Captain, and I stand by it. In principle. Not in porridge."
+ ],
+ "jim.p5_squawks": [
+  "jim[sad]: Soft biscuit soaked in warm milk. No grog. That's what he's having. Doctor's orders. Well. MY orders.",
+  {
+   "setFlag": "p5_sqt_jim"
+  },
+  {
+   "call": "p5c1.squawks_talk"
+  }
+ ],
+ "jim.p5_complaint": [
+  "jim[angry]: He asked for 'a little something' to eat with the television. He wanted it on a TRAY. In his CHAIR. I gave him a biscuit. He sent it back. It was 'too crunchy for the programme'.",
+  {
+   "setFlag": "p5_cmp_jim"
+  },
+  {
+   "call": "p5c3.complaint"
+  }
+ ],
+ "jim.p5_s9": [
+  "jim: Tomorrow's breakfast: porridge. Somewhere safe. I've drawn up a list of somewheres. It's a short list."
+ ],
+ "jim.p5_s8": [
+  "jim[happy]: He did a thing, Captain. One thing. I'm going to make him a cake. I'm going to put a bad thing in it, but I'm going to make him a cake."
+ ],
+ "jim.p5_s7": [
+  "jim[alarmed]: I've got a ladle and I'm not afraid to use it! On the sharks! Or him! Whoever's nearest!"
+ ],
+ "jim.p5_s6": [
+  "jim[angry]: Underutilised. UNDERUTILISED. It was for CHRISTMAS."
+ ],
+ "jim.p5_s5": [
+  "jim[annoyed]: He went below with me good scissors and a tablecloth. Me GOOD tablecloth. The one I was saving."
+ ],
+ "jim.p5_s4": [
+  "jim[sad]: ...",
+  "jim[sad]: I'd named it, Captain. The dough. I'd named it."
+ ],
+ "jim.p5_s3": [
+  "jim[angry]: Different DEPARTMENT. I'll give him a different department. I'll give him the BILGE department."
+ ],
+ "jim.p5_s2": [
+  "jim[sad]: I'll do him something soft for his supper, Captain. Squawks, I mean. No grog in it. Not a drop."
+ ],
+ "jim.p5_s1": [
+  "jim[angry]: Ask HIM where the Center is, Captain. It's his. It's HIS. It goes where it likes and it likes me KITCHEN."
+ ],
+ "dunstan.p5_s9": [
+  "dunstan: Washroom's free. I'm finishing that wash tonight if it kills me. The Center will have to WAIT."
+ ],
+ "dunstan.p5_s8": [
+  "dunstan: A rule's a rule, Captain. Even for him. ESPECIALLY for him."
+ ],
+ "dunstan.p5_s7": [
+  "dunstan: All hands, Captain! I'm all hands! Both of 'em!"
+ ],
+ "dunstan.p5_s6": [
+  "dunstan: I'd love a coat like that. Not THAT coat. But a coat."
+ ],
+ "dunstan.p5_s5": [
+  "dunstan: Somebody's had all the pins out of the sewing box. I needed a pin. For me towel."
+ ],
+ "dunstan.p5_s4": [
+  "dunstan: Don't go in the washroom, Captain. Brask's waiting. The Center's in there. Brask says it was there first."
+ ],
+ "dunstan.p5_s3": [
+  "dunstan: I still smell of soap on one side. People keep sniffing me. It's nice, being sniffed for the right reasons."
+ ],
+ "dunstan.p5_s2": [
+  "dunstan: Half-washed. That's what I am now. A half-washed man. In a towel. In front of everybody."
+ ],
+ "dunstan.p5_s1": [
+  "dunstan: Morning, Captain. Off for me wash. First one in a week. Nothing's going to spoil it."
+ ],
+ "penhallow.p5_s9": [
+  "penhallow: Goodnight, Captain. If the television says anything to you, I'd advise not answering. On principle."
+ ],
+ "penhallow.p5_s8": [
+  "penhallow[smug]: A labour rule. How modern. In my day we simply threw them overboard."
+ ],
+ "penhallow.p5_s7": [
+  "penhallow[terrified]: Is this how it ends? In a COSTUME DRAMA?"
+ ],
+ "penhallow.p5_s6": [
+  "penhallow[offended]: I have worn a dress coat to a duke's funeral, Captain. That is NOT a dress coat. That is a declaration of war on dress coats."
+ ],
+ "penhallow.p5_s5": [
+  "penhallow: He has gone below with linen and shears. I recognise the signs. I was a young man once. With a tailor."
+ ],
+ "penhallow.p5_s4": [
+  "penhallow[annoyed]: He asked me to rate the Frog Grog. As a 'man of taste'. I rated it. He didn't like the rating. I've been asked not to rate things any more."
+ ],
+ "penhallow.p5_s3": [
+  "penhallow[smug]: A television. Of course it's a television. Why wouldn't a man who invented his own office also invent his own entertainment?"
+ ],
+ "penhallow.p5_s2": [
+  "penhallow[offended]: That poor creature. In my day we had the decency to lose our feathers to old age."
+ ],
+ "penhallow.p5_s1": [
+  "penhallow[disgusted]: I have spent this morning in the presence of a man who believes a bedsheet is a career. I am, as ever, unsurprised."
+ ]
+}

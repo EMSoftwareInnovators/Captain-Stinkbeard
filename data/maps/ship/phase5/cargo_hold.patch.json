@@ -1,0 +1,94 @@
+{
+ "id": "cargo_hold_phase5",
+ "patch": "cargo_hold",
+ "//": "Story Phase 5 in the hold: Gristle's stock count (the Center comes out of the treasure-room door, chapter 20), and the Grand Stenchmaster behind the crates with a needle and a tablecloth (chapter 23; heard, not seen).",
+ "objects": [
+  {
+   "id": "p5h_gristle_0",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 8,
+   "y": 8,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p5_started"
+       },
+       {
+        "notFlag": "p5_close_call_started"
+       }
+      ]
+     },
+     {
+      "notFlag": "p5_round_gristle"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p5h_gristle_1",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p5_started"
+   }
+  }
+ ],
+ "onEnter": [
+  {
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "another_terrible_day.gristle"
+     },
+     {
+      "notFlag": "p5_round_gristle"
+     }
+    ]
+   },
+   "script": "p5c1.gristle"
+  },
+  {
+   "if": {
+    "objectiveActive": "dressed_for_disaster.find"
+   },
+   "script": "p5c4.hold"
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "flag": "p5_ch21_started"
+   },
+   "music": "shark_duty",
+   "musicFilter": "muffled",
+   "ambience": "below_sharks"
+  },
+  {
+   "if": {
+    "flag": "p5_started"
+   },
+   "music": "weary_morning",
+   "musicFilter": "muffled",
+   "ambience": "below_sharks"
+  }
+ ],
+ "sharks": [
+  {
+   "if": {
+    "flag": "p5_started"
+   },
+   "level": "attacking",
+   "below": true
+  }
+ ]
+}

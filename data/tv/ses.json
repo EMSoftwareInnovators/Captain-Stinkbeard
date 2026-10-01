@@ -1,0 +1,116 @@
+{
+  "//": "The Stenchmaster Entertainment System (Story Phase 5; see src/systems/tv/tv.js and src/ui/TvView.js). A CRT Garrick built out of a lantern, a compass, cutlery, a cannon lock, bottles, a bit of the old bell and the barometer. None of those things can become a television. It is one anyway, and nobody knows why. Comments are lists of looks, taken in turn; a line from someone who isn't on deck is skipped. Programming is mysterious on purpose: no named shows, no characters, nothing explained.",
+
+  "ses": {
+    "name": "The Stenchmaster Entertainment System",
+    "channelVar": "ses_channel",
+    "powerVar": "ses_power",
+    "flags": { "open": "ses_examined", "wiring": "ses_wiring_seen", "power": "ses_power_source_seen", "slap": "ses_slapped" },
+
+    "offComments": [
+      ["captain: It's off. The glass is still warm. It's always warm.", "garrick: It's resting, Captain. Like me."],
+      ["captain: Dark. Somewhere inside it, something ticks.", "garrick: That's normal."],
+      ["captain: My own reflection, in green. Beard and all. It's not a good angle."]
+    ],
+
+    "channels": [
+      {
+        "id": 1, "title": "Static",
+        "frames": ["tv_static_0", "tv_static_1", "tv_static_2", "tv_static_3"], "frameMs": 70,
+        "glow": "#c8d0d8", "hum": "tv_static",
+        "comments": [
+          ["captain: Static.", "garrick: Live static."],
+          ["captain: Still static.", "garrick: It's building up to something."],
+          ["captain: How long have ye watched this one?", "garrick: Since Tuesday.", "captain: It's Thursday."],
+          ["captain: I've been staring at the snow and I think it's staring back."]
+        ]
+      },
+      {
+        "id": 2, "title": "Weather",
+        "frames": ["tv_weather_0", "tv_weather_1"], "frameMs": 520,
+        "glow": "#9ab8e0", "hum": "tv_hum",
+        "comments": [
+          ["captain: A weather map. Of... somewhere. That coastline isn't on any chart I own.", "garrick: Very reliable forecasts, that place."],
+          ["captain: It's snowing there. Upwards.", "garrick: Seasonal."],
+          ["captain: There's a little sun with a face on it, and it looks worried.", "garrick: It's a sensitive broadcast."],
+          ["captain: Those are our coordinates in the corner. It says 'BAD'.", "garrick: Second opinion. Always welcome."]
+        ]
+      },
+      {
+        "id": 3, "title": "Potatoes",
+        "frames": ["tv_potato_0", "tv_potato_1", "tv_potato_2"], "frameMs": 440,
+        "glow": "#d8c890", "hum": "tv_hum",
+        "comments": [
+          ["captain: A man peeling potatoes. He hasn't looked up once.", "garrick: He's very good."],
+          ["captain: He's still peeling potatoes.", "garrick: It's a long programme."],
+          ["captain: Same man. Same potatoes. Is it the SAME potato?", "garrick: Don't spoil it."],
+          ["captain: ...It is quite calming.", "garrick: I know."]
+        ]
+      },
+      {
+        "id": 4, "title": "A Fish",
+        "frames": ["tv_fish_0", "tv_fish_1"], "frameMs": 620,
+        "glow": "#90c8b8", "hum": "tv_hum",
+        "comments": [
+          ["captain: A fish.", "garrick: Mm."],
+          ["captain: The same fish. Going round.", "garrick: It's a recurring feature."],
+          ["captain: Is it the same fish every time, or a lot of fish who look alike?", "garrick: That's the question, isn't it, Captain."],
+          ["captain: At least it isn't a shark.", "garrick: Not yet."]
+        ]
+      },
+      {
+        "id": 5, "title": "The Theatre",
+        "frames": ["tv_theatre_0", "tv_theatre_1", "tv_theatre_2"], "frameMs": 500,
+        "glow": "#d8b8a0", "hum": "tv_hum",
+        "comments": [
+          ["captain: The man arguing with the turnip.", "garrick: Act Two. It gets very tense."],
+          ["captain: The turnip still hasn't said anything.", "garrick: It doesn't need to. The silence says it all."],
+          ["captain: I think he's losing.", "garrick: He always loses. That's the tragedy."],
+          ["captain: Who is he? Where IS this?", "garrick: Important cultural programming, Captain. Don't ask questions during the performance."]
+        ]
+      },
+      {
+        "id": 6, "title": "Whispers",
+        "frames": ["tv_whisper_0", "tv_whisper_1", "tv_whisper_2", "tv_whisper_3"], "frameMs": 110,
+        "glow": "#a8b0c8", "hum": "tv_static",
+        "comments": [
+          ["captain: Static. With... whispering. Very faint.", "garrick: Ah. That one."],
+          ["captain: It sounds like somebody saying a list. Too quiet to make out.", "garrick: I've never caught the end of it either."],
+          ["captain: I don't like this channel.", "garrick: Nobody likes this channel. I watch it anyway. Professionally."],
+          ["captain: ...It stopped when I leaned in.", "garrick: It does that."]
+        ]
+      }
+    ],
+
+    "wiring": [
+      ["captain: I recognise none of this.", "garrick: It's all very standard."],
+      ["captain: One of these is tied to a spoon.", "garrick: That's the important one."],
+      ["captain: There's a bit of the old bell wired in at the back. It's warm.", "garrick: Resonance."],
+      ["captain: The compass from the jolly boat. It's spinning. It's pointing at the screen.", "garrick: Even the compass watches it, Captain."]
+    ],
+
+    "powerSource": [
+      ["captain: A cask, a coil of copper, a cannon lock and three bottles of something green, all wired together.", "captain: There is no sensible reason this should work.", "garrick: And yet."],
+      ["captain: Where does the power COME from?", "garrick: Commitment."],
+      ["captain: The bottles are Frog Grog.", "garrick: Very high-energy beverage, Captain. I've always said so."]
+    ],
+
+    "slap": [
+      ["garrick: Firmly. On the side. There.", "captain: That shouldn't have worked either."],
+      ["captain: I hit it, and it got better. I don't know how I feel about that."],
+      ["garrick: You have to show it who's in charge.", "captain: Who IS in charge?", "garrick: It varies."]
+    ],
+
+    "failures": {
+      "every": [9000, 16000],
+      "kinds": ["roll", "spark", "buzz", "smoke"],
+      "lines": [
+        ["pete: It's going to BLOW!", "garrick: It's perfectly normal."],
+        ["captain: It's smoking.", "garrick: That's the picture warming up."],
+        ["gristle: Everybody get DOWN!", "garrick: Overreaction, Mister Gristle. Give it a slap."],
+        ["captain: That noise is not a television noise.", "garrick: It's a very normal noise. For this television."],
+        ["captain: The picture's rolling.", "garrick: Vertical hold. Slap it."]
+      ]
+    }
+  }
+}

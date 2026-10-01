@@ -111,6 +111,15 @@ async function playPhase3(pick) {
   return { s, chapters, names };
 }
 
+/** Flags that belong to later story phases (their log entries are not Phase 3's). */
+function laterPhaseFlags() {
+  const ids = [];
+  for (const phase of ['phase4', 'phase5']) {
+    ids.push(...JSON.parse(fs.readFileSync(path.resolve(`data/story/flags/${phase}.json`), 'utf8')).map((f) => f.id));
+  }
+  return new Set(ids);
+}
+
 describe('Story Phase 3 can be played start to finish (headless)', () => {
   it('taking the first option at every choice', async () => {
     const { s, chapters, names } = await playPhase3('first');
@@ -150,7 +159,7 @@ describe('Story Phase 3 can be played start to finish (headless)', () => {
     const log = s.content.logs.get('stench_log');
     const have = new Set(logEntries(log, s.session).map((e) => e.id));
     // (Entries a later phase unlocks are not Phase 3's to unlock.)
-    const later = new Set(JSON.parse(fs.readFileSync(path.resolve('data/story/flags/phase4.json'), 'utf8')).map((f) => f.id));
+    const later = laterPhaseFlags();
     const missing = log.entries.filter((e) => !later.has(e.if?.flag)).map((e) => e.id).filter((id) => !have.has(id));
     expect(missing.every((id) => ['hammocks', 'guns', 'chart'].includes(id)), missing.join()).toBe(true);
     expect(have.has('captains_beard') && have.has('sharks') && have.has('protocol')).toBe(true);
@@ -200,10 +209,17 @@ describe('Story Phase 3 stays inside its brief', () => {
     'data/story/cutscenes/phase3', 'data/dialogue/phase3', 'data/logs', 'data/npcs/phase3_crew.json', 'data/items/phase3.json',
     'data/quests/phase3.json', 'data/story/flags/phase3.json', 'data/maps/ship/phase3', 'data/statuses/phase3.json', 'data/story/vistas/phase3.json',
   ];
+  const later = laterPhaseFlags();
   const text = files.flatMap((f) => {
     const p = path.resolve(f);
     const list = fs.statSync(p).isDirectory() ? fs.readdirSync(p).map((n) => path.join(p, n)) : [p];
-    return list.map((x) => fs.readFileSync(x, 'utf8'));
+    return list.map((x) => {
+      if (!x.includes(`${path.sep}logs${path.sep}`)) return fs.readFileSync(x, 'utf8');
+      // The logbooks are shared: leave out the entries a later phase unlocks.
+      const logs = JSON.parse(fs.readFileSync(x, 'utf8'));
+      for (const log of Object.values(logs)) if (log?.entries) log.entries = log.entries.filter((e) => !later.has(e.if?.flag));
+      return JSON.stringify(logs);
+    });
   }).join('\n');
 
   it('never uses borrowed characters or later-phase mythology', () => {

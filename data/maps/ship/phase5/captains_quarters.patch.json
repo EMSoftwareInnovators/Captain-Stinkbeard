@@ -1,0 +1,36 @@
+{
+ "id": "captains_quarters_phase5",
+ "patch": "captains_quarters",
+ "//": "Story Phase 5: the bed that starts it (after Phase 4).",
+ "objects": [
+  {
+   "id": "p5_bed",
+   "type": "inspect",
+   "x": 14,
+   "y": 4,
+   "w": 2,
+   "h": 3,
+   "script": "p5.bed_sleep",
+   "if": {
+    "all": [
+     {
+      "flag": "p4_complete"
+     },
+     {
+      "notFlag": "p5_started"
+     }
+    ]
+   }
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "flag": "p5_started"
+   },
+   "music": "weary_morning",
+   "musicFilter": "muffled",
+   "ambience": "cabin"
+  }
+ ]
+}

@@ -175,8 +175,18 @@ export class SharkDuty {
     if (this.barkTimer > 0) return;
     this.barkTimer = rand(6500, 11000);
     const b = list[Math.floor(Math.random() * list.length)];
+    if (b.if && !evaluateCondition(b.if, this.scene.session)) return;
     const who = this.scene.actors.get(b.who);
-    if (who) this.scene.barks?.show?.(who, b.text, { duration: 1800 });
+    if (!who) return;
+    this.scene.barks?.show?.(who, b.text, { duration: 1800 });
+    // Somebody answers back: { "reply": { "who": "pete", "text": "WE KNOW!" } }
+    const r = b.reply;
+    const answer = r && this.scene.actors.get(r.who);
+    if (answer) {
+      this.scene.time.delayedCall(r.delay ?? 1300, () => {
+        if (this.sessionId && this.scene.actors.get(r.who) === answer) this.scene.barks?.show?.(answer, r.text, { duration: 1600, shout: r.shout ?? true });
+      });
+    }
   }
 
   // --- sharks at the rail ---------------------------------------------------------

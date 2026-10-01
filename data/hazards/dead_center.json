@@ -115,6 +115,36 @@
     "enterFrom": [0, -3],
     "enterMs": 4000,
     "seals": true
+   },
+   "storeroom": {
+    "name": "the stores (by the treasure-room door)",
+    "map": "cargo_hold",
+    "zones": [
+     { "level": "center", "x": 1, "y": 4, "w": 6, "h": 4 },
+     { "level": "dense", "x": 1, "y": 4, "w": 9, "h": 6 }
+    ],
+    "enterFrom": [0, -3],
+    "enterMs": 5000
+   },
+   "midships": {
+    "name": "midships, round the mainmast",
+    "map": "main_deck",
+    "zones": [
+     { "level": "center", "x": 6, "y": 17, "w": 7, "h": 5 },
+     { "level": "dense", "x": 5, "y": 15, "w": 10, "h": 8 }
+    ],
+    "enterFrom": [0, 5],
+    "enterMs": 9000
+   },
+   "station": {
+    "name": "the Grand Stenchmaster's station",
+    "map": "main_deck",
+    "zones": [
+     { "level": "center", "x": 10, "y": 15, "w": 6, "h": 5 },
+     { "level": "dense", "x": 5, "y": 14, "w": 11, "h": 8 }
+    ],
+    "enterFrom": [-6, 0],
+    "enterMs": 7000
    }
   }
  }

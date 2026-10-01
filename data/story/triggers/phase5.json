@@ -1,0 +1,58 @@
+[
+  {
+    "id": "p5c1_close_call",
+    "//": "The rounds are done: three bells at the mainmast as soon as the captain is back on deck.",
+    "if": { "all": [{ "questCompleted": "another_terrible_day" }, { "notFlag": "p5_close_call_started" }, { "onMap": "main_deck" }] },
+    "script": "p5c1.close_call",
+    "once": false
+  },
+  {
+    "id": "p5c2_begin",
+    "if": { "all": [{ "questCompleted": "remember_squawks" }, { "notFlag": "p5_ch21_started" }, { "onMap": "main_deck" }] },
+    "script": "p5c2.begin",
+    "once": false
+  },
+  {
+    "id": "p5c2_watch_done",
+    "if": { "all": [{ "objectiveActive": "what_do_you_do.ask" }, { "notFlag": "p5_first_watch_done" }, { "onMap": "main_deck" }] },
+    "script": "p5c2.watch_done",
+    "once": false
+  },
+  {
+    "id": "p5c3_begin",
+    "if": { "all": [{ "questCompleted": "what_do_you_do" }, { "notFlag": "p5_ch22_started" }, { "onMap": "main_deck" }] },
+    "script": "p5c3.begin",
+    "once": false
+  },
+  {
+    "id": "p5c3_duty_done",
+    "if": { "all": [{ "objectiveActive": "stenchmaster_office.rudder" }, { "notFlag": "p5_office_duty_done" }, { "onMap": "main_deck" }] },
+    "script": "p5c3.duty_done",
+    "once": false
+  },
+  {
+    "id": "p5c3_station",
+    "//": "Three complaints heard: the Center comes for the Grand Stenchmaster's station the next time the captain is on deck.",
+    "if": { "all": [{ "objectiveActive": "stenchmaster_office.center" }, { "notFlag": "p5_station_scene" }, { "onMap": "main_deck" }] },
+    "script": "p5c3.station",
+    "once": false
+  },
+  {
+    "id": "p5c4_begin",
+    "if": { "all": [{ "questCompleted": "stenchmaster_office" }, { "notFlag": "p5_ch23_started" }, { "onMap": "main_deck" }] },
+    "script": "p5c4.begin",
+    "once": false
+  },
+  {
+    "id": "p5c5_begin",
+    "if": { "all": [{ "questCompleted": "dressed_for_disaster" }, { "notFlag": "p5_ch24_started" }, { "onMap": "main_deck" }] },
+    "script": "p5c5.begin",
+    "once": false
+  },
+  {
+    "id": "p5c5_duty_done",
+    "if": { "all": [{ "objectiveActive": "one_useful_thing.confront" }, { "notFlag": "p5_emergency_duty_done" }, { "onMap": "main_deck" }] },
+    "script": "p5c5.duty_done",
+    "once": false
+  }
+]

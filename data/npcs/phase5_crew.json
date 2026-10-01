@@ -1,0 +1,2782 @@
+[
+ {
+  "extend": "garrick",
+  "variants": [
+   {
+    "if": {
+     "flag": "stenchmaster_suit_created"
+    },
+    "appearance": "garrick_stenchmaster_suit",
+    "portrait": "garrick_stenchmaster_suit"
+   }
+  ],
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "what_do_you_do.repel"
+    },
+    "script": "p5c2.ask_hint"
+   },
+   {
+    "if": {
+     "objectiveActive": "what_do_you_do.ask"
+    },
+    "script": "p5c2.confront"
+   },
+   {
+    "if": {
+     "objectiveActive": "what_do_you_do.ses"
+    },
+    "script": "garrick.p5_ses_hint"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_garrick_qa"
+      },
+      {
+       "notFlag": "p5_station_scene"
+      }
+     ]
+    },
+    "cycle": [
+     "p5c3.qa",
+     "garrick.p5_qa_2"
+    ]
+   },
+   {
+    "if": {
+     "objectiveActive": "dressed_for_disaster.order"
+    },
+    "script": "p5c4.order"
+   },
+   {
+    "if": {
+     "objectiveActive": "one_useful_thing.confront"
+    },
+    "script": "p5c5.argument"
+   },
+   {
+    "if": {
+     "flag": "p5_complete"
+    },
+    "cycle": [
+     "garrick.p5_s9_1",
+     "garrick.p5_s9_2",
+     "garrick.p5_s9_3",
+     "garrick.p5_s9_4"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_emergency_labor_rule"
+      },
+      {
+       "notFlag": "p5_complete"
+      }
+     ]
+    },
+    "script": "garrick.p5_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch24_started"
+      },
+      {
+       "notFlag": "garrick_emergency_labor_rule"
+      }
+     ]
+    },
+    "script": "garrick.p5_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_suit_created"
+      },
+      {
+       "notFlag": "p5_ch24_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p5_s6_1",
+     "garrick.p5_s6_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch22_started"
+      },
+      {
+       "notFlag": "p5_ch23_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p5_s4_1",
+     "garrick.p5_s4_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_back_to_work"
+      },
+      {
+       "notFlag": "p5_ch22_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p5_s4_1",
+     "garrick.p5_s4_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_close_call_started"
+      },
+      {
+       "notFlag": "p5_ch21_started"
+      }
+     ]
+    },
+    "script": "garrick.p5_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_started"
+      },
+      {
+       "notFlag": "p5_close_call_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p5_s1_1",
+     "garrick.p5_s1_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "squawks",
+  "variants": [
+   {
+    "if": {
+     "flag": "squawks_fully_bald"
+    },
+    "appearance": "squawks_fully_bald",
+    "portrait": "squawks_fully_bald",
+    "shadow": "shadow_xs"
+   }
+  ],
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "remember_squawks.grab"
+    },
+    "script": "p5c1.grab"
+   },
+   {
+    "if": {
+     "objectiveActive": "remember_squawks.check"
+    },
+    "script": "p5c1.checkin"
+   },
+   {
+    "if": {
+     "objectiveActive": "one_useful_thing.squawks"
+    },
+    "script": "p5c5.squawks"
+   },
+   {
+    "if": {
+     "objectiveActive": "one_useful_thing.night"
+    },
+    "script": "p5c5.night_squawks"
+   },
+   {
+    "if": {
+     "flag": "p5_complete"
+    },
+    "cycle": [
+     "squawks.p5_s9_1",
+     "squawks.p5_s9_2",
+     "squawks.p5_s9_3"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_emergency_labor_rule"
+      },
+      {
+       "notFlag": "p5_complete"
+      }
+     ]
+    },
+    "script": "squawks.p5_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_suit_created"
+      },
+      {
+       "notFlag": "p5_ch24_started"
+      }
+     ]
+    },
+    "script": "squawks.p5_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch23_started"
+      },
+      {
+       "notFlag": "stenchmaster_suit_created"
+      }
+     ]
+    },
+    "script": "squawks.p5_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch22_started"
+      },
+      {
+       "notFlag": "p5_ch23_started"
+      }
+     ]
+    },
+    "script": "squawks.p5_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch21_started"
+      },
+      {
+       "notFlag": "p5_ch22_started"
+      }
+     ]
+    },
+    "script": "squawks.p5_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_close_call_started"
+      },
+      {
+       "notFlag": "p5_ch21_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p5_s2_1",
+     "squawks.p5_s2_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_started"
+      },
+      {
+       "notFlag": "p5_close_call_started"
+      }
+     ]
+    },
+    "script": "squawks.p5_s1"
+   }
+  ]
+ },
+ {
+  "extend": "hale",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "remember_squawks.crew"
+      },
+      {
+       "notFlag": "p5_sqt_hale"
+      }
+     ]
+    },
+    "script": "hale.p5_squawks"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "stenchmaster_office.complaints"
+      },
+      {
+       "notFlag": "p5_cmp_hale"
+      }
+     ]
+    },
+    "script": "hale.p5_complaint"
+   },
+   {
+    "if": {
+     "flag": "p5_complete"
+    },
+    "cycle": [
+     "hale.p5_s9_1",
+     "hale.p5_s9_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_emergency_labor_rule"
+      },
+      {
+       "notFlag": "p5_complete"
+      }
+     ]
+    },
+    "script": "hale.p5_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch24_started"
+      },
+      {
+       "notFlag": "garrick_emergency_labor_rule"
+      }
+     ]
+    },
+    "script": "hale.p5_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_suit_created"
+      },
+      {
+       "notFlag": "p5_ch24_started"
+      }
+     ]
+    },
+    "script": "hale.p5_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch23_started"
+      },
+      {
+       "notFlag": "stenchmaster_suit_created"
+      }
+     ]
+    },
+    "script": "hale.p5_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch22_started"
+      },
+      {
+       "notFlag": "p5_ch23_started"
+      }
+     ]
+    },
+    "cycle": [
+     "hale.p5_s4_1",
+     "hale.p5_s4_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch21_started"
+      },
+      {
+       "notFlag": "p5_ch22_started"
+      }
+     ]
+    },
+    "script": "hale.p5_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_close_call_started"
+      },
+      {
+       "notFlag": "p5_ch21_started"
+      }
+     ]
+    },
+    "script": "hale.p5_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_started"
+      },
+      {
+       "notFlag": "p5_close_call_started"
+      }
+     ]
+    },
+    "cycle": [
+     "hale.p5_s1_1",
+     "hale.p5_s1_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "quill",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "stenchmaster_office.complaints"
+      },
+      {
+       "notFlag": "p5_cmp_quill"
+      }
+     ]
+    },
+    "script": "quill.p5_complaint"
+   },
+   {
+    "if": {
+     "flag": "p5_complete"
+    },
+    "script": "quill.p5_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_emergency_labor_rule"
+      },
+      {
+       "notFlag": "p5_complete"
+      }
+     ]
+    },
+    "script": "quill.p5_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch24_started"
+      },
+      {
+       "notFlag": "garrick_emergency_labor_rule"
+      }
+     ]
+    },
+    "script": "quill.p5_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_suit_created"
+      },
+      {
+       "notFlag": "p5_ch24_started"
+      }
+     ]
+    },
+    "script": "quill.p5_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch23_started"
+      },
+      {
+       "notFlag": "stenchmaster_suit_created"
+      }
+     ]
+    },
+    "script": "quill.p5_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch22_started"
+      },
+      {
+       "notFlag": "p5_ch23_started"
+      }
+     ]
+    },
+    "script": "quill.p5_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch21_started"
+      },
+      {
+       "notFlag": "p5_ch22_started"
+      }
+     ]
+    },
+    "script": "quill.p5_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_close_call_started"
+      },
+      {
+       "notFlag": "p5_ch21_started"
+      }
+     ]
+    },
+    "script": "quill.p5_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_started"
+      },
+      {
+       "notFlag": "p5_close_call_started"
+      }
+     ]
+    },
+    "script": "quill.p5_s1"
+   }
+  ]
+ },
+ {
+  "extend": "wick",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "remember_squawks.crew"
+      },
+      {
+       "notFlag": "p5_sqt_wick"
+      }
+     ]
+    },
+    "script": "wick.p5_squawks"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "stenchmaster_office.complaints"
+      },
+      {
+       "notFlag": "p5_cmp_wick"
+      }
+     ]
+    },
+    "script": "wick.p5_complaint"
+   },
+   {
+    "if": {
+     "flag": "p5_complete"
+    },
+    "script": "wick.p5_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_emergency_labor_rule"
+      },
+      {
+       "notFlag": "p5_complete"
+      }
+     ]
+    },
+    "script": "wick.p5_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch24_started"
+      },
+      {
+       "notFlag": "garrick_emergency_labor_rule"
+      }
+     ]
+    },
+    "script": "wick.p5_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_suit_created"
+      },
+      {
+       "notFlag": "p5_ch24_started"
+      }
+     ]
+    },
+    "script": "wick.p5_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch23_started"
+      },
+      {
+       "notFlag": "stenchmaster_suit_created"
+      }
+     ]
+    },
+    "script": "wick.p5_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch22_started"
+      },
+      {
+       "notFlag": "p5_ch23_started"
+      }
+     ]
+    },
+    "cycle": [
+     "wick.p5_s4_1",
+     "wick.p5_s4_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch21_started"
+      },
+      {
+       "notFlag": "p5_ch22_started"
+      }
+     ]
+    },
+    "script": "wick.p5_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_close_call_started"
+      },
+      {
+       "notFlag": "p5_ch21_started"
+      }
+     ]
+    },
+    "script": "wick.p5_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_started"
+      },
+      {
+       "notFlag": "p5_close_call_started"
+      }
+     ]
+    },
+    "script": "wick.p5_s1"
+   }
+  ]
+ },
+ {
+  "extend": "fennimore",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "remember_squawks.crew"
+      },
+      {
+       "notFlag": "p5_sqt_fennimore"
+      }
+     ]
+    },
+    "script": "fennimore.p5_squawks"
+   },
+   {
+    "if": {
+     "flag": "p5_complete"
+    },
+    "script": "fennimore.p5_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_emergency_labor_rule"
+      },
+      {
+       "notFlag": "p5_complete"
+      }
+     ]
+    },
+    "script": "fennimore.p5_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch24_started"
+      },
+      {
+       "notFlag": "garrick_emergency_labor_rule"
+      }
+     ]
+    },
+    "script": "fennimore.p5_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_suit_created"
+      },
+      {
+       "notFlag": "p5_ch24_started"
+      }
+     ]
+    },
+    "script": "fennimore.p5_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch23_started"
+      },
+      {
+       "notFlag": "stenchmaster_suit_created"
+      }
+     ]
+    },
+    "script": "fennimore.p5_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch22_started"
+      },
+      {
+       "notFlag": "p5_ch23_started"
+      }
+     ]
+    },
+    "script": "fennimore.p5_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch21_started"
+      },
+      {
+       "notFlag": "p5_ch22_started"
+      }
+     ]
+    },
+    "script": "fennimore.p5_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_close_call_started"
+      },
+      {
+       "notFlag": "p5_ch21_started"
+      }
+     ]
+    },
+    "script": "fennimore.p5_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_started"
+      },
+      {
+       "notFlag": "p5_close_call_started"
+      }
+     ]
+    },
+    "script": "fennimore.p5_s1"
+   }
+  ]
+ },
+ {
+  "extend": "rook",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "remember_squawks.crew"
+      },
+      {
+       "notFlag": "p5_sqt_rook"
+      }
+     ]
+    },
+    "script": "rook.p5_squawks"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "stenchmaster_office.complaints"
+      },
+      {
+       "notFlag": "p5_cmp_rook"
+      }
+     ]
+    },
+    "script": "rook.p5_complaint"
+   },
+   {
+    "if": {
+     "flag": "p5_complete"
+    },
+    "script": "rook.p5_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_emergency_labor_rule"
+      },
+      {
+       "notFlag": "p5_complete"
+      }
+     ]
+    },
+    "script": "rook.p5_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch24_started"
+      },
+      {
+       "notFlag": "garrick_emergency_labor_rule"
+      }
+     ]
+    },
+    "script": "rook.p5_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_suit_created"
+      },
+      {
+       "notFlag": "p5_ch24_started"
+      }
+     ]
+    },
+    "script": "rook.p5_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch23_started"
+      },
+      {
+       "notFlag": "stenchmaster_suit_created"
+      }
+     ]
+    },
+    "script": "rook.p5_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch22_started"
+      },
+      {
+       "notFlag": "p5_ch23_started"
+      }
+     ]
+    },
+    "script": "rook.p5_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch21_started"
+      },
+      {
+       "notFlag": "p5_ch22_started"
+      }
+     ]
+    },
+    "script": "rook.p5_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_close_call_started"
+      },
+      {
+       "notFlag": "p5_ch21_started"
+      }
+     ]
+    },
+    "script": "rook.p5_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_started"
+      },
+      {
+       "notFlag": "p5_close_call_started"
+      }
+     ]
+    },
+    "script": "rook.p5_s1"
+   }
+  ]
+ },
+ {
+  "extend": "sully",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "remember_squawks.crew"
+      },
+      {
+       "notFlag": "p5_sqt_sully"
+      }
+     ]
+    },
+    "script": "sully.p5_squawks"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "stenchmaster_office.complaints"
+      },
+      {
+       "notFlag": "p5_cmp_sully"
+      }
+     ]
+    },
+    "script": "sully.p5_complaint"
+   },
+   {
+    "if": {
+     "flag": "p5_complete"
+    },
+    "script": "sully.p5_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_emergency_labor_rule"
+      },
+      {
+       "notFlag": "p5_complete"
+      }
+     ]
+    },
+    "script": "sully.p5_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch24_started"
+      },
+      {
+       "notFlag": "garrick_emergency_labor_rule"
+      }
+     ]
+    },
+    "script": "sully.p5_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_suit_created"
+      },
+      {
+       "notFlag": "p5_ch24_started"
+      }
+     ]
+    },
+    "script": "sully.p5_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch23_started"
+      },
+      {
+       "notFlag": "stenchmaster_suit_created"
+      }
+     ]
+    },
+    "script": "sully.p5_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch22_started"
+      },
+      {
+       "notFlag": "p5_ch23_started"
+      }
+     ]
+    },
+    "cycle": [
+     "sully.p5_s4_1",
+     "sully.p5_s4_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch21_started"
+      },
+      {
+       "notFlag": "p5_ch22_started"
+      }
+     ]
+    },
+    "script": "sully.p5_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_close_call_started"
+      },
+      {
+       "notFlag": "p5_ch21_started"
+      }
+     ]
+    },
+    "script": "sully.p5_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_started"
+      },
+      {
+       "notFlag": "p5_close_call_started"
+      }
+     ]
+    },
+    "script": "sully.p5_s1"
+   }
+  ]
+ },
+ {
+  "extend": "brask",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "stenchmaster_office.complaints"
+      },
+      {
+       "notFlag": "p5_cmp_brask"
+      }
+     ]
+    },
+    "script": "brask.p5_complaint"
+   },
+   {
+    "if": {
+     "flag": "p5_complete"
+    },
+    "script": "brask.p5_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_emergency_labor_rule"
+      },
+      {
+       "notFlag": "p5_complete"
+      }
+     ]
+    },
+    "script": "brask.p5_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch24_started"
+      },
+      {
+       "notFlag": "garrick_emergency_labor_rule"
+      }
+     ]
+    },
+    "script": "brask.p5_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_suit_created"
+      },
+      {
+       "notFlag": "p5_ch24_started"
+      }
+     ]
+    },
+    "script": "brask.p5_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch23_started"
+      },
+      {
+       "notFlag": "stenchmaster_suit_created"
+      }
+     ]
+    },
+    "script": "brask.p5_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch22_started"
+      },
+      {
+       "notFlag": "p5_ch23_started"
+      }
+     ]
+    },
+    "script": "brask.p5_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch21_started"
+      },
+      {
+       "notFlag": "p5_ch22_started"
+      }
+     ]
+    },
+    "script": "brask.p5_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_close_call_started"
+      },
+      {
+       "notFlag": "p5_ch21_started"
+      }
+     ]
+    },
+    "script": "brask.p5_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_started"
+      },
+      {
+       "notFlag": "p5_close_call_started"
+      }
+     ]
+    },
+    "script": "brask.p5_s1"
+   }
+  ]
+ },
+ {
+  "extend": "gristle",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "remember_squawks.crew"
+      },
+      {
+       "notFlag": "p5_sqt_gristle"
+      }
+     ]
+    },
+    "script": "gristle.p5_squawks"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "stenchmaster_office.complaints"
+      },
+      {
+       "notFlag": "p5_cmp_gristle"
+      }
+     ]
+    },
+    "script": "gristle.p5_complaint"
+   },
+   {
+    "if": {
+     "flag": "p5_complete"
+    },
+    "script": "gristle.p5_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_emergency_labor_rule"
+      },
+      {
+       "notFlag": "p5_complete"
+      }
+     ]
+    },
+    "script": "gristle.p5_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch24_started"
+      },
+      {
+       "notFlag": "garrick_emergency_labor_rule"
+      }
+     ]
+    },
+    "script": "gristle.p5_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_suit_created"
+      },
+      {
+       "notFlag": "p5_ch24_started"
+      }
+     ]
+    },
+    "script": "gristle.p5_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch23_started"
+      },
+      {
+       "notFlag": "stenchmaster_suit_created"
+      }
+     ]
+    },
+    "script": "gristle.p5_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch22_started"
+      },
+      {
+       "notFlag": "p5_ch23_started"
+      }
+     ]
+    },
+    "script": "gristle.p5_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch21_started"
+      },
+      {
+       "notFlag": "p5_ch22_started"
+      }
+     ]
+    },
+    "script": "gristle.p5_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_close_call_started"
+      },
+      {
+       "notFlag": "p5_ch21_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p5_s2_1",
+     "gristle.p5_s2_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_started"
+      },
+      {
+       "notFlag": "p5_close_call_started"
+      }
+     ]
+    },
+    "script": "gristle.p5_s1"
+   }
+  ]
+ },
+ {
+  "extend": "jory",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "remember_squawks.crew"
+      },
+      {
+       "notFlag": "p5_sqt_jory"
+      }
+     ]
+    },
+    "script": "jory.p5_squawks"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "stenchmaster_office.complaints"
+      },
+      {
+       "notFlag": "p5_cmp_jory"
+      }
+     ]
+    },
+    "script": "jory.p5_complaint"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_complete"
+      },
+      {
+       "flag": "optional_duty_on"
+      }
+     ]
+    },
+    "script": "p4.jory_duty_end"
+   },
+   {
+    "if": {
+     "flag": "p5_complete"
+    },
+    "cycle": [
+     "p5.jory_duty_offer",
+     "jory.p5_s9"
+    ]
+   },
+   {
+    "if": {
+     "flag": "p5_complete"
+    },
+    "script": "jory.p5_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_emergency_labor_rule"
+      },
+      {
+       "notFlag": "p5_complete"
+      }
+     ]
+    },
+    "script": "jory.p5_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch24_started"
+      },
+      {
+       "notFlag": "garrick_emergency_labor_rule"
+      }
+     ]
+    },
+    "script": "jory.p5_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_suit_created"
+      },
+      {
+       "notFlag": "p5_ch24_started"
+      }
+     ]
+    },
+    "script": "jory.p5_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch23_started"
+      },
+      {
+       "notFlag": "stenchmaster_suit_created"
+      }
+     ]
+    },
+    "script": "jory.p5_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch22_started"
+      },
+      {
+       "notFlag": "p5_ch23_started"
+      }
+     ]
+    },
+    "script": "jory.p5_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch21_started"
+      },
+      {
+       "notFlag": "p5_ch22_started"
+      }
+     ]
+    },
+    "script": "jory.p5_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_close_call_started"
+      },
+      {
+       "notFlag": "p5_ch21_started"
+      }
+     ]
+    },
+    "script": "jory.p5_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_started"
+      },
+      {
+       "notFlag": "p5_close_call_started"
+      }
+     ]
+    },
+    "script": "jory.p5_s1"
+   }
+  ]
+ },
+ {
+  "extend": "bob",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "remember_squawks.crew"
+      },
+      {
+       "notFlag": "p5_sqt_bob"
+      }
+     ]
+    },
+    "script": "bob.p5_squawks"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "stenchmaster_office.complaints"
+      },
+      {
+       "notFlag": "p5_cmp_bob"
+      }
+     ]
+    },
+    "script": "bob.p5_complaint"
+   },
+   {
+    "if": {
+     "flag": "p5_complete"
+    },
+    "script": "bob.p5_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_emergency_labor_rule"
+      },
+      {
+       "notFlag": "p5_complete"
+      }
+     ]
+    },
+    "script": "bob.p5_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch24_started"
+      },
+      {
+       "notFlag": "garrick_emergency_labor_rule"
+      }
+     ]
+    },
+    "script": "bob.p5_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_suit_created"
+      },
+      {
+       "notFlag": "p5_ch24_started"
+      }
+     ]
+    },
+    "script": "bob.p5_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch23_started"
+      },
+      {
+       "notFlag": "stenchmaster_suit_created"
+      }
+     ]
+    },
+    "script": "bob.p5_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch22_started"
+      },
+      {
+       "notFlag": "p5_ch23_started"
+      }
+     ]
+    },
+    "script": "bob.p5_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch21_started"
+      },
+      {
+       "notFlag": "p5_ch22_started"
+      }
+     ]
+    },
+    "script": "bob.p5_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_close_call_started"
+      },
+      {
+       "notFlag": "p5_ch21_started"
+      }
+     ]
+    },
+    "script": "bob.p5_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_started"
+      },
+      {
+       "notFlag": "p5_close_call_started"
+      }
+     ]
+    },
+    "script": "bob.p5_s1"
+   }
+  ]
+ },
+ {
+  "extend": "ned",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "stenchmaster_office.complaints"
+      },
+      {
+       "notFlag": "p5_cmp_ned"
+      }
+     ]
+    },
+    "script": "ned.p5_complaint"
+   },
+   {
+    "if": {
+     "flag": "p5_complete"
+    },
+    "script": "ned.p5_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_emergency_labor_rule"
+      },
+      {
+       "notFlag": "p5_complete"
+      }
+     ]
+    },
+    "script": "ned.p5_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch24_started"
+      },
+      {
+       "notFlag": "garrick_emergency_labor_rule"
+      }
+     ]
+    },
+    "script": "ned.p5_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_suit_created"
+      },
+      {
+       "notFlag": "p5_ch24_started"
+      }
+     ]
+    },
+    "script": "ned.p5_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch23_started"
+      },
+      {
+       "notFlag": "stenchmaster_suit_created"
+      }
+     ]
+    },
+    "script": "ned.p5_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch22_started"
+      },
+      {
+       "notFlag": "p5_ch23_started"
+      }
+     ]
+    },
+    "script": "ned.p5_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch21_started"
+      },
+      {
+       "notFlag": "p5_ch22_started"
+      }
+     ]
+    },
+    "script": "ned.p5_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_close_call_started"
+      },
+      {
+       "notFlag": "p5_ch21_started"
+      }
+     ]
+    },
+    "script": "ned.p5_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_started"
+      },
+      {
+       "notFlag": "p5_close_call_started"
+      }
+     ]
+    },
+    "script": "ned.p5_s1"
+   }
+  ]
+ },
+ {
+  "extend": "nell",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "stenchmaster_office.complaints"
+      },
+      {
+       "notFlag": "p5_cmp_nell"
+      }
+     ]
+    },
+    "script": "nell.p5_complaint"
+   },
+   {
+    "if": {
+     "flag": "p5_complete"
+    },
+    "script": "nell.p5_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_emergency_labor_rule"
+      },
+      {
+       "notFlag": "p5_complete"
+      }
+     ]
+    },
+    "script": "nell.p5_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch24_started"
+      },
+      {
+       "notFlag": "garrick_emergency_labor_rule"
+      }
+     ]
+    },
+    "script": "nell.p5_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_suit_created"
+      },
+      {
+       "notFlag": "p5_ch24_started"
+      }
+     ]
+    },
+    "script": "nell.p5_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch23_started"
+      },
+      {
+       "notFlag": "stenchmaster_suit_created"
+      }
+     ]
+    },
+    "script": "nell.p5_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch22_started"
+      },
+      {
+       "notFlag": "p5_ch23_started"
+      }
+     ]
+    },
+    "script": "nell.p5_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch21_started"
+      },
+      {
+       "notFlag": "p5_ch22_started"
+      }
+     ]
+    },
+    "script": "nell.p5_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_close_call_started"
+      },
+      {
+       "notFlag": "p5_ch21_started"
+      }
+     ]
+    },
+    "script": "nell.p5_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_started"
+      },
+      {
+       "notFlag": "p5_close_call_started"
+      }
+     ]
+    },
+    "script": "nell.p5_s1"
+   }
+  ]
+ },
+ {
+  "extend": "finch",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "stenchmaster_office.complaints"
+      },
+      {
+       "notFlag": "p5_cmp_finch"
+      }
+     ]
+    },
+    "script": "finch.p5_complaint"
+   },
+   {
+    "if": {
+     "flag": "p5_complete"
+    },
+    "script": "finch.p5_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_emergency_labor_rule"
+      },
+      {
+       "notFlag": "p5_complete"
+      }
+     ]
+    },
+    "script": "finch.p5_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch24_started"
+      },
+      {
+       "notFlag": "garrick_emergency_labor_rule"
+      }
+     ]
+    },
+    "script": "finch.p5_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_suit_created"
+      },
+      {
+       "notFlag": "p5_ch24_started"
+      }
+     ]
+    },
+    "script": "finch.p5_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch23_started"
+      },
+      {
+       "notFlag": "stenchmaster_suit_created"
+      }
+     ]
+    },
+    "script": "finch.p5_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch22_started"
+      },
+      {
+       "notFlag": "p5_ch23_started"
+      }
+     ]
+    },
+    "script": "finch.p5_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch21_started"
+      },
+      {
+       "notFlag": "p5_ch22_started"
+      }
+     ]
+    },
+    "script": "finch.p5_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_close_call_started"
+      },
+      {
+       "notFlag": "p5_ch21_started"
+      }
+     ]
+    },
+    "script": "finch.p5_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_started"
+      },
+      {
+       "notFlag": "p5_close_call_started"
+      }
+     ]
+    },
+    "script": "finch.p5_s1"
+   }
+  ]
+ },
+ {
+  "extend": "pete",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "another_terrible_day.pete"
+    },
+    "script": "p5c1.pete"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "remember_squawks.crew"
+      },
+      {
+       "notFlag": "p5_sqt_pete"
+      }
+     ]
+    },
+    "script": "pete.p5_squawks"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "stenchmaster_office.complaints"
+      },
+      {
+       "notFlag": "p5_cmp_pete"
+      }
+     ]
+    },
+    "script": "pete.p5_complaint"
+   },
+   {
+    "if": {
+     "flag": "p5_complete"
+    },
+    "script": "pete.p5_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_emergency_labor_rule"
+      },
+      {
+       "notFlag": "p5_complete"
+      }
+     ]
+    },
+    "script": "pete.p5_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch24_started"
+      },
+      {
+       "notFlag": "garrick_emergency_labor_rule"
+      }
+     ]
+    },
+    "script": "pete.p5_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_suit_created"
+      },
+      {
+       "notFlag": "p5_ch24_started"
+      }
+     ]
+    },
+    "script": "pete.p5_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch23_started"
+      },
+      {
+       "notFlag": "stenchmaster_suit_created"
+      }
+     ]
+    },
+    "script": "pete.p5_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch22_started"
+      },
+      {
+       "notFlag": "p5_ch23_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p5_s4_1",
+     "pete.p5_s4_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch21_started"
+      },
+      {
+       "notFlag": "p5_ch22_started"
+      }
+     ]
+    },
+    "script": "pete.p5_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_close_call_started"
+      },
+      {
+       "notFlag": "p5_ch21_started"
+      }
+     ]
+    },
+    "script": "pete.p5_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_started"
+      },
+      {
+       "notFlag": "p5_close_call_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p5_s1_1",
+     "pete.p5_s1_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "mags",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "remember_squawks.crew"
+      },
+      {
+       "notFlag": "p5_sqt_mags"
+      }
+     ]
+    },
+    "script": "mags.p5_squawks"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "stenchmaster_office.complaints"
+      },
+      {
+       "notFlag": "p5_cmp_mags"
+      }
+     ]
+    },
+    "script": "mags.p5_complaint"
+   },
+   {
+    "if": {
+     "flag": "p5_complete"
+    },
+    "script": "mags.p5_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_emergency_labor_rule"
+      },
+      {
+       "notFlag": "p5_complete"
+      }
+     ]
+    },
+    "script": "mags.p5_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch24_started"
+      },
+      {
+       "notFlag": "garrick_emergency_labor_rule"
+      }
+     ]
+    },
+    "script": "mags.p5_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_suit_created"
+      },
+      {
+       "notFlag": "p5_ch24_started"
+      }
+     ]
+    },
+    "script": "mags.p5_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch23_started"
+      },
+      {
+       "notFlag": "stenchmaster_suit_created"
+      }
+     ]
+    },
+    "script": "mags.p5_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch22_started"
+      },
+      {
+       "notFlag": "p5_ch23_started"
+      }
+     ]
+    },
+    "cycle": [
+     "mags.p5_s4_1",
+     "mags.p5_s4_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch21_started"
+      },
+      {
+       "notFlag": "p5_ch22_started"
+      }
+     ]
+    },
+    "script": "mags.p5_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_close_call_started"
+      },
+      {
+       "notFlag": "p5_ch21_started"
+      }
+     ]
+    },
+    "script": "mags.p5_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_started"
+      },
+      {
+       "notFlag": "p5_close_call_started"
+      }
+     ]
+    },
+    "script": "mags.p5_s1"
+   }
+  ]
+ },
+ {
+  "extend": "jim",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "remember_squawks.crew"
+      },
+      {
+       "notFlag": "p5_sqt_jim"
+      }
+     ]
+    },
+    "script": "jim.p5_squawks"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "stenchmaster_office.complaints"
+      },
+      {
+       "notFlag": "p5_cmp_jim"
+      }
+     ]
+    },
+    "script": "jim.p5_complaint"
+   },
+   {
+    "if": {
+     "flag": "p5_complete"
+    },
+    "script": "jim.p5_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_emergency_labor_rule"
+      },
+      {
+       "notFlag": "p5_complete"
+      }
+     ]
+    },
+    "script": "jim.p5_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch24_started"
+      },
+      {
+       "notFlag": "garrick_emergency_labor_rule"
+      }
+     ]
+    },
+    "script": "jim.p5_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_suit_created"
+      },
+      {
+       "notFlag": "p5_ch24_started"
+      }
+     ]
+    },
+    "script": "jim.p5_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch23_started"
+      },
+      {
+       "notFlag": "stenchmaster_suit_created"
+      }
+     ]
+    },
+    "script": "jim.p5_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch22_started"
+      },
+      {
+       "notFlag": "p5_ch23_started"
+      }
+     ]
+    },
+    "script": "jim.p5_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch21_started"
+      },
+      {
+       "notFlag": "p5_ch22_started"
+      }
+     ]
+    },
+    "script": "jim.p5_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_close_call_started"
+      },
+      {
+       "notFlag": "p5_ch21_started"
+      }
+     ]
+    },
+    "script": "jim.p5_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_started"
+      },
+      {
+       "notFlag": "p5_close_call_started"
+      }
+     ]
+    },
+    "script": "jim.p5_s1"
+   }
+  ]
+ },
+ {
+  "extend": "dunstan",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p5_complete"
+    },
+    "script": "dunstan.p5_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_emergency_labor_rule"
+      },
+      {
+       "notFlag": "p5_complete"
+      }
+     ]
+    },
+    "script": "dunstan.p5_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch24_started"
+      },
+      {
+       "notFlag": "garrick_emergency_labor_rule"
+      }
+     ]
+    },
+    "script": "dunstan.p5_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_suit_created"
+      },
+      {
+       "notFlag": "p5_ch24_started"
+      }
+     ]
+    },
+    "script": "dunstan.p5_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch23_started"
+      },
+      {
+       "notFlag": "stenchmaster_suit_created"
+      }
+     ]
+    },
+    "script": "dunstan.p5_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch22_started"
+      },
+      {
+       "notFlag": "p5_ch23_started"
+      }
+     ]
+    },
+    "script": "dunstan.p5_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch21_started"
+      },
+      {
+       "notFlag": "p5_ch22_started"
+      }
+     ]
+    },
+    "script": "dunstan.p5_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_close_call_started"
+      },
+      {
+       "notFlag": "p5_ch21_started"
+      }
+     ]
+    },
+    "script": "dunstan.p5_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_started"
+      },
+      {
+       "notFlag": "p5_close_call_started"
+      }
+     ]
+    },
+    "script": "dunstan.p5_s1"
+   }
+  ]
+ },
+ {
+  "extend": "penhallow",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p5_complete"
+    },
+    "script": "penhallow.p5_s9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_emergency_labor_rule"
+      },
+      {
+       "notFlag": "p5_complete"
+      }
+     ]
+    },
+    "script": "penhallow.p5_s8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch24_started"
+      },
+      {
+       "notFlag": "garrick_emergency_labor_rule"
+      }
+     ]
+    },
+    "script": "penhallow.p5_s7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "stenchmaster_suit_created"
+      },
+      {
+       "notFlag": "p5_ch24_started"
+      }
+     ]
+    },
+    "script": "penhallow.p5_s6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch23_started"
+      },
+      {
+       "notFlag": "stenchmaster_suit_created"
+      }
+     ]
+    },
+    "script": "penhallow.p5_s5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch22_started"
+      },
+      {
+       "notFlag": "p5_ch23_started"
+      }
+     ]
+    },
+    "script": "penhallow.p5_s4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_ch21_started"
+      },
+      {
+       "notFlag": "p5_ch22_started"
+      }
+     ]
+    },
+    "script": "penhallow.p5_s3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_close_call_started"
+      },
+      {
+       "notFlag": "p5_ch21_started"
+      }
+     ]
+    },
+    "script": "penhallow.p5_s2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p5_started"
+      },
+      {
+       "notFlag": "p5_close_call_started"
+      }
+     ]
+    },
+    "script": "penhallow.p5_s1"
+   }
+  ]
+ }
+]

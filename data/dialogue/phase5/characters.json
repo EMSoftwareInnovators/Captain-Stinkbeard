@@ -1,0 +1,138 @@
+{
+ "//": "Story Phase 5: the Grand Stenchmaster and Squawks between scenes (selectors in data/npcs/phase5_crew.json).",
+
+ "garrick.p5_s1_1": [
+  "garrick[smug]: Good morning, Captain. Don't mind me. I'm at my post.",
+  "captain: You're in a chair.",
+  "garrick[businesslike]: The post is a chair."
+ ],
+ "garrick.p5_s1_2": [
+  "garrick[businesslike]: Shh. It's nearly warmed up.",
+  "captain: What is?",
+  "garrick[smug]: All in good time, Captain. All in good time."
+ ],
+ "garrick.p5_s2": [
+  "garrick[businesslike]: The Center passed right through my station, Captain. I didn't feel a thing. I think it likes me.",
+  "captain: It IS you.",
+  "garrick[proud]: Then it has excellent taste."
+ ],
+ "garrick.p5_ses_hint": [
+  "garrick[proud]: Go on, Captain. Have a look. Big knob for the channels. Little knob for... well. Don't touch the little knob."
+ ],
+ "garrick.p5_s4_1": [
+  "garrick[proud]: Welcome to the office, Captain. Mind the cable. Mind the other cable. Mind that one especially, it bites."
+ ],
+ "garrick.p5_s4_2": [
+  "garrick[businesslike]: I've had complaints, I hear. Leave them in the box.",
+  "captain: What box?",
+  "garrick[smug]: Exactly."
+ ],
+ "garrick.p5_qa_2": [
+  "garrick[businesslike]: Second sip. Notes of... bilge. Tar. A hint of Tuesday.",
+  "garrick[proud]: Still a seven."
+ ],
+ "garrick.p5_s6_1": [
+  "garrick[proud]: Do you like the suit, Captain? Be honest.",
+  "captain: No.",
+  "garrick[happy]: That's honesty. I respect that. I'm keeping the suit."
+ ],
+ "garrick.p5_s6_2": [
+  "garrick[smug]: I find people look at me differently in the suit, Captain.",
+  "captain: They look at you the same way. Just for longer."
+ ],
+ "garrick.p5_s7": [
+  "garrick[businesslike]: Everything at once, Captain! What a day for the office!",
+  "captain: GET UP.",
+  "garrick[smug]: And let the seat go cold? In THIS emergency?"
+ ],
+ "garrick.p5_s8": [
+  "garrick[businesslike]: I've done my one, Captain. You saw. Everybody saw. I'd like it in the log.",
+  "captain: It's in the log.",
+  "garrick[proud]: Underlined?",
+  "captain: Twice. By Hale.",
+  "garrick[delighted]: Splendid."
+ ],
+ "garrick.p5_s9_1": [
+  "garrick[businesslike]: Evening programming, Captain. It's mostly static. Some of the best static I've seen.",
+  { "if": { "var": { "name": "ses_power", "eq": 1 } }, "then": [
+   "On the S.E.S., something grey goes round and round. It might be the fish."
+  ] }
+ ],
+ "garrick.p5_s9_2": [
+  "garrick[proud]: One useful thing per emergency, Captain. I've been thinking about it. I'm going to save mine for the really big ones.",
+  "captain: They're ALL big ones.",
+  "garrick[businesslike]: Then I'll have to be selective."
+ ],
+ "garrick.p5_s9_3": [
+  "garrick[proud]: Would you like to hear about the medals again, Captain?",
+  { "choice": [
+   { "text": "Go on, then", "then": [
+    { "insert": "stenchmaster_medals", "caption": "Each one presented by the Grand Stenchmaster to the Grand Stenchmaster." },
+    "garrick[delighted]: I'm thinking of a sixth. For services to the rule.",
+    "captain: You did ONE thing.",
+    "garrick[proud]: And it was very well done."
+   ] },
+   { "text": "No", "then": [
+    "garrick[offended]: Your loss, Captain. They're very shiny."
+   ] }
+  ] }
+ ],
+ "garrick.p5_s9_4": [
+  "garrick[businesslike]: Every Grand Stenchmaster must wear the suit with pride, Captain.",
+  "captain: You're the only one.",
+  "garrick[smug]: Then I'm setting a very high standard.",
+  "He turns back to the screen."
+ ],
+
+ "squawks.p5_s1": [
+  "squawks[exhausted]: Sun's nice.",
+  "squawks[insulting]: Captain's in the way of it."
+ ],
+ "squawks.p5_s2_1": [
+  "squawks[exhausted]: Bald.",
+  "captain: I know.",
+  "squawks[insulting]: Just saying it. In case anyone forgot."
+ ],
+ "squawks.p5_s2_2": [
+  "squawks: Crew keep looking.",
+  "captain: They're worried about ye.",
+  "squawks[insulting]: Worried is looking. Looking is rude."
+ ],
+ "squawks.p5_s3": [
+  "squawks[insulting]: Television.",
+  "squawks[exhausted]: ...Turnip was winning."
+ ],
+ "squawks.p5_s4": [
+  "squawks[exhausted]: Still hear the bell. Even when it isn't ringing.",
+  "captain[tender]: Aye. Me too."
+ ],
+ "squawks.p5_s5": [
+  "squawks[smug]: Fat one's sewing. Squawks can hear it.",
+  "squawks[insulting]: Nothing good gets sewn quiet."
+ ],
+ "squawks.p5_s6": [
+  "squawks[insulting]: Bottle cap.",
+  "captain: I know.",
+  "squawks[furious]: Squawks never got a bottle cap."
+ ],
+ "squawks.p5_s8": [
+  "squawks[smug]: Confirmed.",
+  "captain: What's confirmed?",
+  "squawks[exhausted]: Everything. Squawks is confirming everything today. Saves time."
+ ],
+ "squawks.p5_s9_1": [
+  "squawks[exhausted]: Still bald.",
+  "captain[tender]: Still here.",
+  "squawks: ...Both."
+ ],
+ "squawks.p5_s9_2": [
+  "squawks: Coat still smells.",
+  "captain: I know.",
+  "squawks[exhausted]: Squawks will sleep in it anyway."
+ ],
+ "squawks.p5_s9_3": [
+  "squawks[worried]: Television whispers at night.",
+  "captain: I know. Go to sleep.",
+  "squawks[insulting]: Captain tell television to go to sleep."
+ ]
+}

@@ -976,5 +976,298 @@
     },
     "map": "main_deck",
     "spawn": "cabin_door"
+  },
+  {
+    "id": "p5_start",
+    "name": "Phase 5 Start",
+    "description": "The morning after the 700% forecast. Make the rounds; Garrick is in a chair, facing a sheet.",
+    "after": "p4_complete",
+    "flags": [
+      "p5_started"
+    ],
+    "vars": {
+      "p4_tod": 1
+    },
+    "values": {
+      "dead_center": null
+    },
+    "quests": {
+      "another_terrible_day": "active"
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 13,
+    "facing": "down"
+  },
+  {
+    "id": "p5_dead_center_panic",
+    "name": "Dead Center Panic",
+    "description": "Rounds done. Three bells at the mainmast, and Squawks's basket is in the way. Grab him and get aft.",
+    "after": "p5_start",
+    "flags": [
+      "p5_round_pete",
+      "p5_round_gristle",
+      "p5_round_jim",
+      "p5_round_bob",
+      "p5_close_call_started"
+    ],
+    "values": {
+      "dead_center": "midships"
+    },
+    "quests": {
+      "another_terrible_day": "completed",
+      "remember_squawks": "active"
+    },
+    "map": "main_deck",
+    "x": 13,
+    "y": 24,
+    "facing": "up"
+  },
+  {
+    "id": "p5_squawks_check",
+    "name": "Squawks Check",
+    "description": "Squawks is safe, aft, and fully bald. Check on him.",
+    "after": "p5_dead_center_panic",
+    "flags": [
+      "p5_carrying_squawks",
+      "p5_squawks_safe",
+      "squawks_fully_bald"
+    ],
+    "quests": {
+      "remember_squawks": {
+        "done": [
+          "grab",
+          "safe"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 11,
+    "y": 13,
+    "facing": "right"
+  },
+  {
+    "id": "p5_duties",
+    "name": "Grand Stenchmaster Duties",
+    "description": "The first watch is over. Ask the Grand Stenchmaster what he actually does.",
+    "after": "p5_squawks_check",
+    "flags": [
+      "p5_checkin_gather",
+      "p5_squawks_checked",
+      "p5_sqt_gristle",
+      "p5_sqt_pete",
+      "p5_ch21_started",
+      "p5_first_watch_done"
+    ],
+    "values": {
+      "dead_center": null
+    },
+    "quests": {
+      "remember_squawks": "completed",
+      "what_do_you_do": {
+        "done": [
+          "repel"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 13,
+    "y": 18,
+    "facing": "right"
+  },
+  {
+    "id": "p5_ses_reveal",
+    "name": "S.E.S. Reveal",
+    "description": "The Stenchmaster Entertainment System has been unveiled. Have a look at it.",
+    "after": "p5_duties",
+    "flags": [
+      "p5_confront_started",
+      "p5_duties_heard",
+      "stenchmaster_entertainment_system_built"
+    ],
+    "vars": {
+      "ses_power": 1,
+      "ses_channel": 5
+    },
+    "quests": {
+      "what_do_you_do": {
+        "done": [
+          "ask"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 15,
+    "y": 17,
+    "facing": "left"
+  },
+  {
+    "id": "p5_shark_duty",
+    "name": "Shark Duty",
+    "description": "Noon: hold both rails while the Grand Stenchmaster supervises from his chair.",
+    "after": "p5_ses_reveal",
+    "flags": [
+      "ses_examined",
+      "crew_confronted_garrick_duties",
+      "p5_back_to_work",
+      "p5_ch22_started",
+      "stenchmaster_station_unlocked"
+    ],
+    "vars": {
+      "p4_tod": 2
+    },
+    "quests": {
+      "what_do_you_do": "completed",
+      "stenchmaster_office": "active"
+    },
+    "map": "main_deck",
+    "x": 15,
+    "y": 19,
+    "facing": "right"
+  },
+  {
+    "id": "p5_suit_reveal",
+    "name": "Stenchmaster Suit Reveal",
+    "description": "Garrick was found sewing in the hold. The crew are assembled on deck. Here it comes.",
+    "after": "p5_shark_duty",
+    "flags": [
+      "p5_office_duty_done",
+      "p5_rudder_checked",
+      "p5_log_drool_seen",
+      "p5_garrick_qa",
+      "p5_chair_inspected",
+      "p5_cmp_gristle",
+      "p5_cmp_pete",
+      "p5_cmp_bob",
+      "p5_station_scene",
+      "p5_station_alarm",
+      "p5_laundry_yellow",
+      "p5_station_clear",
+      "p5_station_reclaimed",
+      "p5_ch23_started",
+      "p5_garrick_found"
+    ],
+    "vars": {
+      "p4_tod": 3
+    },
+    "quests": {
+      "stenchmaster_office": "completed",
+      "dressed_for_disaster": {
+        "done": [
+          "find"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 26,
+    "facing": "up"
+  },
+  {
+    "id": "p5_crew_furious",
+    "name": "Crew Furious",
+    "description": "The suit can't go near sharks (it's formalwear). Patch the starboard rail while he boasts.",
+    "after": "p5_suit_reveal",
+    "flags": [
+      "p5_crew_assembled",
+      "stenchmaster_suit_created",
+      "p5_suit_revealed",
+      "p5_medals_seen",
+      "p5_suit_tour_done",
+      "p5_every_stenchmaster",
+      "p5_suit_refusal"
+    ],
+    "quests": {
+      "dressed_for_disaster": {
+        "done": [
+          "assemble",
+          "order"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 4,
+    "y": 21,
+    "facing": "left"
+  },
+  {
+    "id": "p5_combined_emergency",
+    "name": "Combined Emergency",
+    "description": "Evening: more sharks than ever, the Center on the quarterdeck, Squawks by the wheel.",
+    "after": "p5_crew_furious",
+    "flags": [
+      "p5_stbd_a",
+      "p5_stbd_b",
+      "p5_stbd_c",
+      "p5_stbd_repaired",
+      "p5_ch24_started"
+    ],
+    "vars": {
+      "p4_tod": 4
+    },
+    "values": {
+      "dead_center": "quarterdeck"
+    },
+    "quests": {
+      "dressed_for_disaster": "completed",
+      "one_useful_thing": "active"
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 16,
+    "facing": "up"
+  },
+  {
+    "id": "p5_night_ses",
+    "name": "Night S.E.S. Scene",
+    "description": "The labour rule is nailed up, Squawks is asleep. Look in on the S.E.S.",
+    "after": "p5_combined_emergency",
+    "flags": [
+      "p5_emergency_squawks",
+      "p5_emergency_duty_done",
+      "p5_argument_started",
+      "garrick_emergency_labor_rule",
+      "p5_one_useful_thing",
+      "p5_night",
+      "p5_night_squawks"
+    ],
+    "vars": {
+      "p4_tod": 5
+    },
+    "values": {
+      "dead_center": "treasure_hold"
+    },
+    "quests": {
+      "one_useful_thing": {
+        "done": [
+          "squawks",
+          "duty",
+          "confront",
+          "repair",
+          "night"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 15,
+    "y": 17,
+    "facing": "left"
+  },
+  {
+    "id": "p5_complete",
+    "name": "Phase 5 Complete",
+    "description": "'Programming.' 'Executive readiness.' The ship is free to explore.",
+    "after": "p5_night_ses",
+    "flags": [
+      "p5_night_ses_seen",
+      "p5_complete"
+    ],
+    "quests": {
+      "one_useful_thing": "completed"
+    },
+    "map": "main_deck",
+    "x": 10,
+    "y": 13,
+    "facing": "down"
   }
 ]

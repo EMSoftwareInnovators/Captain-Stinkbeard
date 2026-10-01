@@ -437,6 +437,93 @@
     "sharks": "Several hundred (and rising)",
     "source": "The whole ship",
     "notes": "Advertising. Very effective."
+   },
+   {
+    "id": "p5_bald",
+    "title": "Ship's Parrot",
+    "if": {
+     "flag": "squawks_fully_bald"
+    },
+    "location": "His basket, by the cabin door",
+    "status": "Bald (fully)",
+    "severity": "Concerning",
+    "source": "The Center (passing)",
+    "notes": "Recurring molt: concluded.",
+    "variants": [
+     {
+      "if": {
+       "flag": "p5_complete"
+      },
+      "notes": "Recurring molt: concluded. (The parrot has asked me to add that he is 'confirmed'.)"
+     }
+    ]
+   },
+   {
+    "id": "p5_office",
+    "title": "The Grand Stenchmaster's Office",
+    "if": {
+     "flag": "stenchmaster_station_unlocked"
+    },
+    "location": "Midships",
+    "status": "Operational",
+    "severity": "Premium",
+    "source": "Me",
+    "notes": "Seat: ready. Grog: assured. Readiness: executive.",
+    "variants": [
+     {
+      "if": {
+       "flag": "p5_station_reclaimed"
+      },
+      "status": "Pre-warmed",
+      "notes": "The Center visited the office. The office was improved."
+     }
+    ]
+   },
+   {
+    "id": "p5_ses",
+    "title": "Stenchmaster Entertainment System",
+    "if": {
+     "flag": "stenchmaster_entertainment_system_built"
+    },
+    "location": "The office",
+    "status": "Broadcasting",
+    "severity": "Premium",
+    "source": "Unclear (and yet)",
+    "sharks": "Not currently",
+    "notes": "Channel integrity monitored. Thoroughly. The turnip is winning."
+   },
+   {
+    "id": "p5_suit",
+    "title": "The Grand Stenchmaster Suit",
+    "if": {
+     "flag": "stenchmaster_suit_created"
+    },
+    "location": "On the Grand Stenchmaster",
+    "status": "Worn with pride",
+    "severity": "Premium",
+    "source": "Odour-retentive ceremonial fabric",
+    "sharks": "Must not go near",
+    "notes": "Holds a scent for weeks. I have been asked why that is a good thing. I have not dignified it."
+   },
+   {
+    "id": "p5_rule",
+    "title": "The Emergency Rule",
+    "if": {
+     "flag": "garrick_emergency_labor_rule"
+    },
+    "location": "Nailed to the mainmast",
+    "status": "In force",
+    "severity": "Concerning",
+    "source": "The Captain",
+    "notes": "One (1) useful thing per genuine emergency. 'Leadership' under appeal.",
+    "variants": [
+     {
+      "if": {
+       "flag": "p5_one_useful_thing"
+      },
+      "notes": "One (1) useful thing per genuine emergency. Today's: one shark, booted. Excellent technique. 'Leadership' under appeal."
+     }
+    ]
    }
   ]
  }
