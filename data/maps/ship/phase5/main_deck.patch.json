@@ -1374,7 +1374,7 @@
    "id": "p5d_sully_4",
    "type": "npc",
    "npc": "sully",
-   "x": 8,
+   "x": 11,
    "y": 24,
    "facing": "left",
    "if": {
@@ -1537,6 +1537,27 @@
    "id": "p5d_brask_1",
    "type": "npc",
    "npc": "brask",
+   "x": 12,
+   "y": 22,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p5_suit_refusal"
+     },
+     {
+      "notFlag": "p5_ch24_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p5d_brask_2",
+   "type": "npc",
+   "npc": "brask",
    "x": 13,
    "y": 26,
    "facing": "up",
@@ -1555,7 +1576,7 @@
    }
   },
   {
-   "id": "p5d_brask_2",
+   "id": "p5d_brask_3",
    "type": "npc",
    "npc": "brask",
    "x": 1,
@@ -1573,7 +1594,7 @@
    }
   },
   {
-   "id": "p5d_brask_3",
+   "id": "p5d_brask_4",
    "type": "npc",
    "npc": "brask",
    "x": 1,
@@ -1591,7 +1612,7 @@
    }
   },
   {
-   "id": "p5d_brask_4",
+   "id": "p5d_brask_5",
    "type": "npc",
    "npc": "brask",
    "x": 7,
@@ -1612,7 +1633,7 @@
    }
   },
   {
-   "id": "p5d_brask_5",
+   "id": "p5d_brask_6",
    "type": "npc",
    "npc": "brask",
    "x": 7,
@@ -1633,7 +1654,7 @@
    }
   },
   {
-   "id": "p5d_brask_6",
+   "id": "p5d_brask_7",
    "type": "npc",
    "npc": "brask",
    "x": 7,
@@ -1654,7 +1675,7 @@
    }
   },
   {
-   "id": "p5d_brask_7",
+   "id": "p5d_brask_8",
    "type": "npc",
    "npc": "brask",
    "x": 6,
@@ -1777,8 +1798,8 @@
    "id": "p5d_gristle_5",
    "type": "npc",
    "npc": "gristle",
-   "x": 6,
-   "y": 23,
+   "x": 8,
+   "y": 22,
    "facing": "left",
    "if": {
     "all": [
@@ -2114,7 +2135,7 @@
    "type": "npc",
    "npc": "jory",
    "x": 6,
-   "y": 25,
+   "y": 26,
    "facing": "left",
    "if": {
     "all": [
@@ -3374,8 +3395,8 @@
    "id": "p5d_jim_5",
    "type": "npc",
    "npc": "jim",
-   "x": 7,
-   "y": 25,
+   "x": 8,
+   "y": 26,
    "facing": "left",
    "if": {
     "all": [

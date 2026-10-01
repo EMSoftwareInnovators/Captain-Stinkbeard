@@ -19,6 +19,8 @@ import { placementChoices, placementChanges } from '../src/world/placements.js';
  *     player gets control back, so a crowd in a room the player isn't in yet
  *     is caught too). A placement marked "blocks": true is a deliberate gate
  *     (Garrick's toll road) and doesn't count.
+ *   - something an open objective needs in the captain's room (an inspect or
+ *     a trigger) that he can't reach past the people standing in it
  */
 const DIRS = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
 
@@ -323,10 +325,48 @@ export class StagingTracker {
     }
   }
 
+  /**
+   * Whatever an open objective asks the captain to inspect or walk onto in
+   * this room must be reachable from where he stands, past the people in it
+   * (a crowd sealing off a corner of the deck would leave a quest stuck).
+   */
+  checkObjectiveTargets() {
+    if (!this.map || !this.player) return;
+    const m = this.model(this.map);
+    const targets = m.objects.filter((o) => (o.type === 'inspect' || o.type === 'trigger')
+      && JSON.stringify(o.if ?? null).includes('objectiveActive') && evaluateCondition(o.if, this.session));
+    if (!targets.length) return;
+    const warps = this.warps(this.map);
+    const onWarp = (x, y) => warps.some((w) => x >= w.x && x < w.x + (w.w || 1) && y >= w.y && y < w.y + (w.h || 1));
+    const [px, py] = this.player;
+    const reached = new Set([`${px},${py}`]);
+    const queue = [[px, py]];
+    while (queue.length) {
+      const [x, y] = queue.shift();
+      for (const [dx, dy] of Object.values(DIRS)) {
+        const nx = x + dx;
+        const ny = y + dy;
+        const k = `${nx},${ny}`;
+        if (reached.has(k) || onWarp(nx, ny) || this.solid(this.map, nx, ny) || this.occupied(nx, ny)) continue;
+        reached.add(k);
+        queue.push([nx, ny]);
+      }
+    }
+    for (const o of targets) {
+      const tiles = [];
+      for (let j = 0; j < (o.h || 1); j++) for (let i = 0; i < (o.w || 1); i++) tiles.push([o.x + i, o.y + j]);
+      const ok = o.type === 'trigger'
+        ? tiles.some(([x, y]) => reached.has(`${x},${y}`))
+        : tiles.some(([x, y]) => Object.values(DIRS).some(([dx, dy]) => reached.has(`${x + dx},${y + dy}`)));
+      if (!ok) this.issue(`the captain can't reach "${o.id}" (${o.x},${o.y}) on ${this.map}, which an open objective needs`);
+    }
+  }
+
   /** Called whenever the player gets control back. */
   idle(context) {
     this.context = context;
     this.checkNotBoxedIn();
+    this.checkObjectiveTargets();
     for (const map of this.content.maps.ids()) this.checkRoom(map);
   }
 }

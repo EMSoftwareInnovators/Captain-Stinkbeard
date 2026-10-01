@@ -149,11 +149,11 @@ frame is required. Button prompt glyphs are per device (`PROMPT_GLYPHS`).
 
 ## Save schema
 
-`src/systems/save/SaveManager.js`, current `SAVE_VERSION = 4` (Story Phase 4):
+`src/systems/save/SaveManager.js`, current `SAVE_VERSION = 5` (Story Phase 5):
 
 ```json
 {
-  "format": "captain-stinkbeard-save", "version": 4, "savedAt": "ISO date", "slot": 1,
+  "format": "captain-stinkbeard-save", "version": 5, "savedAt": "ISO date", "slot": 1,
   "checksum": "FNV-1a of the state JSON",
   "summary": { "location": "Main Deck", "playTime": 812.4, "leader": "Blackbeard", "level": 3, "gold": 160, "chapter": "Prologue" },
   "state": {
@@ -201,6 +201,15 @@ or absent). The 3 → 4 migration adds an empty `values`. Everything else Phase
 for the hull); the Shark Duty in progress, its incidents and the duty board
 are per-play and never saved (a load mid-duty starts a fresh watch; quest
 progress is kept). Port budget: one byte for the Center's location index.
+
+Version 5 (Story Phase 5) keeps the layout. The Stenchmaster Entertainment
+System, the suit, the station, Squawks fully bald and the emergency labour
+rule are flags; the set's state is two variables (`ses_power` 0/1,
+`ses_channel` 1-6). The 4 → 5 migration only fills missing fields; the bump
+stops a Phase 4 build from loading a Phase 5 save. Port budget: one byte for
+the set (power bit plus a 3-bit channel). The CRT effects are a frame loop, a
+scanline overlay, a glare sprite, a glow and small offsets (roll, jitter),
+all of which map onto sprites and a scroll register on 16-bit hardware.
 
 ## Asset naming
 

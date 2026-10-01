@@ -351,6 +351,31 @@ data plus small reusable pieces, nothing rebuilt.
 - **Time of day** entries can match variables, so Phase 4 sets the hour with
   `p4_tod`.
 
+## The S.E.S., panic and the labour rule (Phase 5)
+
+Story Phase 5 (see [STORY_PHASE5.md](STORY_PHASE5.md)) adds the Grand
+Stenchmaster's office. Data plus small reusable pieces again:
+
+- **Televisions.** `systems/tv/tv.js` is engine-agnostic (which channels
+  exist, power and channel as two saved story variables, comment cycles that
+  skip anyone not in the room); `ui/TvView.js` is the close-up, opened by the
+  `tv` command through `OverlayScene.tv` and counted as busy like a repair. A
+  channel is a loop of vista frames under a scanline overlay, a glare and a
+  glow; failures (roll, spark, buzz, smoke) are timers and tweens on the same
+  sprites, so the CRT costs a few images, no shaders. The set on deck is
+  ordinary animated props whose `if` reads the same variables (props refresh on
+  variable changes as well as flags).
+- **Panic shouts.** `alarms.js` `panicShouts` picks on-screen people (less an
+  `exclude` list) to shout when a bell rings, plus a possible reply;
+  `WorldScene.panicShouts` shows them as barks. Never during a vista.
+- **Shark Duty** gained bark replies and conditions, and a per-shift helper
+  (`assist`): the emergency labour rule as data. The ramp and the put-aside
+  watch (leaving the deck) came with the Phase 5 fixes.
+- **Looks** gained `pegleg`, `regalia`, `brassboots`, `gloves`, the
+  `stenchhat`, and parrot `naked` / `weary` / `basket` options; the suit and
+  fully bald Squawks are appearance variants on flags, as before.
+- **Save version 5** keeps the layout (Phase 5 is flags and variables).
+
 ## Battle
 
 `BattleEngine` (`src/systems/battle/`) owns the rules and is fully
@@ -459,9 +484,9 @@ handles fullscreen, so pixels stay square and sharp.
 See the README and [RETRO_PORT_NOTES.md](RETRO_PORT_NOTES.md#save-schema).
 Autosave on map entry and after battles, three manual slots from the pause
 menu, checksum + version per record, migrations table for future formats.
-The schema is at version 4 (Story Phase 4 added story values: where the
-Dead Center is); a Phase 1, 2 or 3 save upgrades on load and walks into the
-next chapter.
+The schema is at version 5 (Story Phase 4 added story values: where the
+Dead Center is; Phase 5 keeps the layout); a save from any earlier phase
+upgrades on load and walks into the next chapter.
 
 ## Testing
 
@@ -496,9 +521,9 @@ next chapter.
 
   | Tag | What |
   | --- | --- |
-  | `@smoke` | a few minutes: menus, movement, a pad, Phase 2 presets, being walled in, the Dead Center's sealed door, the Forecast Board |
-  | `@story` | the long playthroughs (prologue, Phase 2, Phase 3, chapters 12 to 14, Phase 4, chapters 18 and 19) |
-  | `@prologue` `@phase2` `@phase3` `@phase4` | by part of the story |
+  | `@smoke` | a few minutes: menus, movement, a pad, Phase 2 presets, being walled in, the Dead Center's sealed door, the Forecast Board, the S.E.S. |
+  | `@story` | the long playthroughs (prologue, Phase 2, Phase 3, chapters 12 to 14, Phase 4, chapters 18 and 19, Phase 5, chapters 23 and 24) |
+  | `@prologue` `@phase2` `@phase3` `@phase4` `@phase5` | by part of the story |
   | `@input` `@saves` `@world` `@scenes` `@ui` | by system |
 
   `npm run e2e:smoke`, `npm run e2e:quick` (all but `@story`),
@@ -515,14 +540,16 @@ next chapter.
     - a captain boxed in when a scene ends;
     - a room whose doorways are cut off by people from some arrival point;
     - talking to someone who isn't in the room.
-- `tests/phase2_story.test.js`, `tests/phase3_story.test.js` and `tests/phase4_story.test.js` play the Story Phases headlessly with the real
+- `tests/phase2_story.test.js` to `tests/phase5_story.test.js` play the Story Phases headlessly with the real
   scripts, quests and triggers and mock services, twice (always the first
   choice, always the last), and fails on any dead end, loop or script error.
   `tests/phase2.test.js` covers the fume model, variants, chapters and time of
   day, save migration 1 → 2, presets, trigger hygiene and the new options.
   `tests/phase4.test.js` covers the Dead Center (zones, rolling in, sealed
   rooms, the saved value), the bells, the Shark Duty plan, the frenzy, the
-  Forecast Board and save migration 3 → 4.
+  Forecast Board and save migration 3 → 4. `tests/phase5.test.js` covers
+  the television (channels, power, looks, the set on deck), panic shouts, the
+  Phase 5 Shark Duty shifts and helper, and save migration 4 → 5.
 
 ## Adding Chapter 8 (or anything else)
 

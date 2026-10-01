@@ -900,6 +900,85 @@ Vista frames: `revenge_bitten_1…3`, `shark_shadow_0/1`, `hammer_ram_0/1`,
 `squawks_feathers_7`, `squawks_bald_again` and `pete` are in
 `data/appearances/phase4.json` and `data/portraits/phase4.json`.
 
+
+## Story Phase 5 formats
+
+### Televisions (`data/tv/`)
+
+A television is a close-up the captain operates (`src/ui/TvView.js`): power,
+next/previous channel, the wiring, the power source, a slap while it's
+misbehaving, step away. Its state is two story variables, so it saves:
+
+```json
+"ses": {
+  "name": "The Stenchmaster Entertainment System",
+  "channelVar": "ses_channel", "powerVar": "ses_power",
+  "flags": { "open": "ses_examined", "wiring": "ses_wiring_seen", "power": "ses_power_source_seen", "slap": "ses_slapped" },
+  "offComments": [["captain: It's off. The glass is still warm."]],
+  "channels": [
+    { "id": 5, "title": "The Theatre", "frames": ["tv_theatre_0", "tv_theatre_1", "tv_theatre_2"], "frameMs": 500,
+      "glow": "#d8b8a0", "hum": "tv_hum", "if": { "flag": "..." },
+      "comments": [["captain: The man arguing with the turnip.", "garrick: Act Two. It gets very tense."]] }
+  ],
+  "wiring": [["captain: I recognise none of this."]],
+  "powerSource": [["captain: There is no sensible reason this should work.", "garrick: And yet."]],
+  "slap": [["garrick: Firmly. On the side. There."]],
+  "failures": { "every": [9000, 16000], "kinds": ["roll", "spark", "buzz", "smoke"], "lines": [["pete: It's going to BLOW!"]] }
+}
+```
+
+Each comment list is one look; looks are taken in turn (a world counter per
+set and channel). A line spoken by someone who isn't on the map is left out,
+so Garrick only answers when he's there. Channel frames are vista frames
+(`src/art/vista/sesArt.js`); a channel with an `if` only exists once it holds.
+`{ "tv": "ses" }` opens the close-up and waits until the captain steps away;
+`{ "tvSet": "ses", "power": true, "channel": 5 }` sets it from a script. The
+set on deck is ordinary props chosen with `{ "var": { "name": "ses_channel", "eq": 5 } }`.
+
+### Panic when the bell goes (`data/hazards/alarms.json` `"panic"`)
+
+```json
+"panic": [{ "if": { "flag": "p5_started" }, "levels": [3], "count": 3, "exclude": ["garrick"],
+            "lines": ["CENTER!", "Remember the bird!"],
+            "reply": { "who": "squawks", "chance": 0.4, "lines": ["Still hear you."] } }]
+```
+
+When an alarm rings outside a vista, up to `count` people on screen (not the
+ones in `exclude`) shout a line each, never the same one twice; `reply.who`
+may answer. The first entry whose `if` and `levels` match is used.
+
+### Shark Duty: replies, conditions and a helper
+
+A bark may answer back and may have a condition:
+`{ "who": "garrick", "text": "Excellent shark repulsion!", "reply": { "who": "pete", "text": "WE KNOW!" } }`
+(`reply.delay`, `reply.shout` optional; `"if"` on the bark). A session's
+`assist` lets someone else see off one shark per shift once `after` sharks
+have come:
+
+```json
+"assist": { "if": { "flag": "garrick_emergency_labor_rule" }, "who": "garrick", "after": 2,
+            "lines": ["That's my one."], "sfx": "pole_strike", "event": "garrick_one_useful_thing" }
+```
+
+### Looks added in Phase 5
+
+Character extras: `pegleg` (a wooden leg from the knee), `regalia`
+(epaulettes, high collar wings, medals with a bottle cap, the cloud crest on
+the back), `brassboots`, `gloves`, and the `stenchhat` hat style (also on
+portraits). Parrot options: `naked` (no tail or crest), `weary` (heavy lids),
+`basket` (sitting in his padded basket). Appearances and portraits
+`garrick_stenchmaster_suit` and `squawks_fully_bald` are in
+`data/appearances/phase5.json` and `data/portraits/phase5.json`. Vista frames:
+`ses_bezel`, `ses_back`, `ses_power_source`, `tv_off`, `tv_scan`, `tv_glare`,
+every channel's `tv_*` frames, `tv_almost`, `tv_spark_0…2`, `tv_smoke`,
+`ses_wall_day`, `ses_wall_night`, `garrick_back_suit`. Inserts:
+`stenchmaster_medals`, `noble_duties`, `insult_notes`, `log_drool`,
+`emergency_rule`. Props: `ses_tv_covered`, `ses_tv_off`, `ses_tv_ch1…6`,
+`stench_chair`, `grog_side_table`, `notes_insults`, `laundry_line`,
+`laundry_line_yellow`, `bread_loaves`, and starboard mirrors of the rail
+damage (`rail_bitten_s`, `rail_gap_s`, `patch_1_s`, `patch_2_s`,
+`brace_ropes_s`).
+
 ## Tilesets and props
 
 **Tilesets** (`data/tilesets/`) list `frames` (painted by name in

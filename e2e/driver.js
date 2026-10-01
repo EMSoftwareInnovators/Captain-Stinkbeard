@@ -72,7 +72,7 @@ export class GameDriver {
     await this.wait(700);
   }
 
-  /** Current UI state: tutorial | choice | line | typing | insert | repair | book | idle | busy | battle. */
+  /** Current UI state: tutorial | choice | line | typing | insert | repair | book | tv | idle | busy | battle. */
   uiState() {
     return this.eval(() => {
       const g = window.__GAME__;
@@ -83,6 +83,7 @@ export class GameDriver {
       const d = o.dialogue;
       if (o.tutorialOpen) return 'tutorial';
       if (o.repairOpen) return 'repair';
+      if (o.tvOpen) return 'tv';
       if (d.choiceMenu) return 'choice';
       if (d.resolveLine && !d.typing) return 'line';
       if (d.resolveLine && d.typing) return 'typing';
@@ -124,10 +125,41 @@ export class GameDriver {
         await this.repairTick();
         continue;
       }
+      if (st === 'tv') {
+        // A television close-up (the S.E.S.): step away from it.
+        await this.tap('KeyX', 45, 250);
+        continue;
+      }
       if (st === 'line' || st === 'tutorial' || st === 'choice' || st === 'insert') await this.tap('KeyZ', 45, 60);
       await this.wait(90);
     }
     throw new Error('dialogue never finished');
+  }
+
+  /**
+   * Works the television close-up: each action is a menu value ('power',
+   * 'next', 'prev', 'wiring', 'source', 'slap', 'leave'), picked by moving
+   * the cursor to it and pressing Confirm. Returns what the set shows.
+   */
+  async tv(...actions) {
+    await this.waitFor(() => !!window.__GAME__.app.overlay.tvOpen, null, 10000);
+    for (const value of actions) {
+      const ok = await this.waitFor((v) => {
+        const tv = window.__GAME__.app.overlay.tvOpen;
+        return !!tv && tv.menu.items.some((i) => i.value === v && !i.disabled);
+      }, value, 10000).then(() => true, () => false);
+      if (!ok) throw new Error(`the television has no "${value}" right now`);
+      for (let guard = 0; guard < 12; guard++) {
+        const at = await this.eval(() => window.__GAME__.app.overlay.tvOpen?.menu.selected?.value);
+        if (at === value) break;
+        await this.tap('ArrowDown', 40, 90);
+      }
+      await this.tap('KeyZ', 45, 450);
+    }
+    return this.eval(() => {
+      const tv = window.__GAME__.app.overlay.tvOpen;
+      return tv ? { view: tv.view, frame: tv.screen.frame.name, text: tv.bodyText.text ?? '' } : null;
+    });
   }
 
   /** One tick of the repair timing game: strike when the marker is in the green. */
