@@ -6,6 +6,7 @@ import { addPanel } from '../ui/Panel.js';
 import { addText, centerText, setText, UI_COLORS } from '../ui/text.js';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
 import { alarmLevel, alarmColor } from '../systems/hazards/alarms.js';
+import { TvView } from '../ui/TvView.js';
 
 /** The timing bar's variants: title, prompt and sounds. */
 const REPAIR_KINDS = {
@@ -106,7 +107,7 @@ export class OverlayScene extends BaseScene {
   }
 
   get busy() {
-    return this.dialogue.busy || !!this.tutorialOpen || !!this.repairOpen;
+    return this.dialogue.busy || !!this.tutorialOpen || !!this.repairOpen || !!this.tvOpen;
   }
 
   update(time, delta) {
@@ -115,6 +116,10 @@ export class OverlayScene extends BaseScene {
     this.relayoutAlarm();
     if (this.repairOpen) {
       this.updateRepair(delta, input);
+      return;
+    }
+    if (this.tvOpen) {
+      this.tvOpen.update(delta, input);
       return;
     }
     if (this.tutorialOpen) {
@@ -130,6 +135,20 @@ export class OverlayScene extends BaseScene {
       return;
     }
     this.dialogue.update(delta, input);
+  }
+
+  /** A television close-up you operate (ui/TvView.js); resolves when you step away. */
+  tv(def, { present } = {}) {
+    return new Promise((resolve) => {
+      this.app.audio.ui('menu_open');
+      this.tvOpen = new TvView(this, def, {
+        present,
+        onClose: () => {
+          this.tvOpen = null;
+          resolve();
+        },
+      });
+    });
   }
 
   /** Parchment tip box; resolves when dismissed. */

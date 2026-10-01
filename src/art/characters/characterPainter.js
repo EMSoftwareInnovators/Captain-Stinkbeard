@@ -1,5 +1,5 @@
 import { PixelCanvas } from '../PixelCanvas.js';
-import { PAL } from '../palette.js';
+import { PAL, rgba } from '../palette.js';
 import { HEAD, FACE_VARIANTS } from './heads.js';
 import { HAIR_STYLES } from './hair.js';
 import { BEARD_STYLES } from './beards.js';
@@ -564,8 +564,10 @@ function mug(c, x, y, full) {
 }
 
 function hand(c, L, x, y, w = 2, h = 2) {
-  c.rect(x, y, w, h, L.skin.s);
-  c.set(x + w - 1, y + h - 1, L.skin.d);
+  // Story Phase 5: the Grand Stenchmaster's ornate cuffed gloves.
+  const g = L.extras.has('gloves');
+  c.rect(x, y, w, h, g ? REGALIA.glove : L.skin.s);
+  c.set(x + w - 1, y + h - 1, g ? REGALIA.gloveD : L.skin.d);
 }
 
 function limb(c, L, x0, y0, x1, y1, w, shade = 1) {
@@ -955,6 +957,8 @@ export function paintCharacterFrame(L, dir, pose = {}, { outline = true } = {}) 
   if (L.cloak && dir === 'down') cloakFront(c, L, torsoTop);
   if (L.extras.has('mop') && dir !== 'left') mopStaff(c, L, dir, torsoTop, pose);
   if (L.battered) soaked(c, L, torsoTop);
+  if (L.extras.has('regalia')) regalia(c, L, dir, torsoTop, torsoBottom);
+  if (L.extras.has('brassboots')) brassBoots(c, L, dir);
   if (outline) c.outline(OUTLINE);
   c.torsoTop = torsoTop;
   return c;
@@ -1157,3 +1161,86 @@ export const EXTRA_POSE_RATES = {
   excited: 5, smug: 1.5, greedy: 6, carry: 1.5, carrywalk: 8, slouch: 0.8, eat: 4, nervous: 5, clutch: 3, panic: 7, relief: 1.2, hips: 0, shrug: 0,
   proclaim: 1.4, brace: 6, drink: 2.5, poke: 5,
 };
+
+// ---------------------------------------------------------------------------
+// Story Phase 5: the Grand Stenchmaster Suit. Garrick made it himself:
+// burgundy, mustard and a green that should not be on clothes, too many
+// epaulettes, medals he awarded himself (one is a bottle cap), a collar that
+// stands up past his ears, a stink-cloud crest on the back, gloves, and
+// ordinary boots with brass glued on. The sash is part of the suit now.
+
+export const REGALIA = {
+  gold: '#f0cc48', goldD: '#a8801c', goldL: '#fff0a0', fringe: '#d8b038',
+  collar: '#c8a030', collarD: '#7a5a14', collarEdge: '#5a8a2a',
+  cloud: '#8ab83a', cloudD: '#4e7a1e', cloudL: '#c8e070',
+  glove: '#e8dcb0', gloveD: '#b8a878',
+  medals: [['#3a6ad0', '#f0cc48'], ['#d03a2a', '#d8d8e0'], ['#5a8a2a', '#c87a2a'], ['#8a4ac8', '#e8e0d0']],
+};
+
+function regalia(c, L, dir, top, bottom) {
+  const b = L.build;
+  const R = REGALIA;
+  const w = b.shoulder;
+  const x0 = CX - Math.floor(w / 2);
+  const x1 = x0 + w - 1;
+  const epaulette = (ex, ey, flip) => {
+    // A gold pad with a fringe hanging off the shoulder (atmospheric command).
+    for (let i = 0; i < 4; i++) {
+      c.set(ex + (flip ? -i : i), ey, i === 0 ? R.goldL : R.gold);
+      c.set(ex + (flip ? -i : i), ey + 1, R.goldD);
+    }
+    for (let i = 0; i < 4; i += 1) c.set(ex + (flip ? -i : i), ey + 2 + (i % 2), R.fringe);
+  };
+  if (dir === 'left') {
+    const sw = Math.max(8, Math.round(b.shoulder * 0.62));
+    epaulette(CX - Math.floor(sw / 2) + 1, top, false);
+    // the collar stands up behind the jaw
+    for (let y = top - 4; y <= top; y++) {
+      c.set(CX + 2, y, y === top - 4 ? R.collarEdge : R.collar);
+      c.set(CX + 3, y, R.collarD);
+    }
+    return;
+  }
+  epaulette(x0 - 1, top + 1, false);
+  epaulette(x1 + 1, top + 1, true);
+  // The collar: stiff wings either side of the jaw, an edge of that green.
+  for (let y = top - 4; y <= top; y++) {
+    const k = top - y;
+    c.set(CX - 5 - (k > 2 ? 1 : 0), y, k === 4 ? R.collarEdge : R.collar);
+    c.set(CX - 4 - (k > 2 ? 1 : 0), y, R.collarD);
+    c.set(CX + 3 + (k > 2 ? 1 : 0), y, R.collarD);
+    c.set(CX + 4 + (k > 2 ? 1 : 0), y, k === 4 ? R.collarEdge : R.collar);
+  }
+  if (dir === 'up') {
+    // The stink-cloud crest embroidered across the back.
+    const cy = top + 4;
+    const blob = [[0, 1], [1, 0], [2, 0], [3, 1], [4, 1], [5, 0], [1, 1], [2, 1], [3, 0], [0, 2], [1, 2], [2, 2], [3, 2], [4, 2], [5, 2], [2, 3], [3, 3]];
+    for (const [dx, dy] of blob) c.set(CX - 3 + dx, cy + dy, dy === 0 ? R.cloudL : dy === 3 ? R.cloudD : R.cloud);
+    return;
+  }
+  // Medals on the left breast (his left): ribbon over disc, four of them.
+  R.medals.forEach(([ribbon, disc], i) => {
+    const mx = CX - 6 + (i % 2) * 2;
+    const my = top + 4 + Math.floor(i / 2) * 3;
+    c.set(mx, my, ribbon);
+    c.set(mx, my + 1, disc);
+  });
+  // The bottle cap, crimped, pinned lowest.
+  c.set(CX - 5, top + 10, '#c83a30');
+  c.set(CX - 6, top + 10, '#e8e0d0');
+}
+
+/** Ordinary boots with brass glued on: toe caps and a band. */
+function brassBoots(c, L, dir) {
+  const R = REGALIA;
+  const hi = rgba(L.boots[2]);
+  const lo = rgba(L.boots[0]);
+  for (let y = GROUND - 6; y <= GROUND; y++) {
+    for (let x = 0; x < FRAME_W; x++) {
+      const px = c.get(x, y);
+      if (!px) continue;
+      if (px === hi && (x + y) % 2 === 0) c.set(x, y, R.gold);
+      else if (px === lo && y === GROUND) c.set(x, y, R.goldD);
+    }
+  }
+}

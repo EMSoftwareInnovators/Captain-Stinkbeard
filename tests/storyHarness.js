@@ -1,3 +1,4 @@
+import { tvDef } from '../src/systems/tv/tv.js';
 import { loadContent } from '../src/content/loadContent.js';
 import { EventBus } from '../src/core/EventBus.js';
 import { GameSession } from '../src/systems/GameSession.js';
@@ -59,6 +60,7 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
     },
   });
   const alarms = [];
+  const tvs = [];
   const services = {
     dialogue: {
       say: async (line) => log.push(`${line.speaker ?? '-'}: ${line.text}`),
@@ -79,6 +81,12 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
       // Phase 4: the bell protocol and the course dial (recorded for tests).
       alarm: async (level, { where } = {}) => { alarms.push({ level, where, at: staging.context }); },
       course: async () => {},
+      // Phase 5: the television close-up (records each look; sets the "opened" flag).
+      tv: async (id) => {
+        tvs.push(id);
+        const def = tvDef(content, id);
+        if (def?.flags?.open && !session.story.has(def.flags.open)) session.story.set(def.flags.open);
+      },
     },
     audio: { sfx: () => {}, music: () => {}, ambience: () => {} },
     world,
@@ -101,6 +109,7 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
     opened,
     flagAt,
     alarms,
+    tvs,
     /** Sets how many clean strikes the next repair timing game scores. */
     setRepairScore(n) {
       repairScore = n;

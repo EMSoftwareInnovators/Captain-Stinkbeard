@@ -210,6 +210,7 @@ function validateParam(type, value, check, sctx) {
     case 'character': return check.character(value);
     case 'vista': return check.vista(value);
     case 'log': return check.ref('logbook', value, check.ctx.db.logs);
+    case 'tv': return check.ref('television', value, check.ctx.db.tv);
     case 'speaker':
       if (value !== null) check.speaker(value);
       return;
@@ -857,6 +858,38 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       if (!art.vista.has(l.frame)) lc.error(`no vista art "${l.frame}"`);
       (l.frames || []).forEach((f) => { if (!art.vista.has(f)) lc.error(`no vista art "${f}"`); });
     });
+  }
+
+  // Televisions (the Stenchmaster Entertainment System)
+  for (const [id, tv] of db.tv?.map ?? []) {
+    const c = C(`${db.tv.sourceOf(id)} (${id})`);
+    if (typeof tv.name !== 'string') c.error('television needs a name');
+    for (const key of ['open', 'wiring', 'power', 'slap']) if (tv.flags?.[key]) c.flag(tv.flags[key]);
+    const looks = (v, where) => {
+      if (v === undefined) return;
+      const lists = Array.isArray(v) && Array.isArray(v[0]) ? v : [v];
+      lists.forEach((list, i) => (Array.isArray(list) ? list : []).forEach((l) => validateLine(l, c.at(`${where}[${i}]`))));
+    };
+    const ids = new Set();
+    if (!Array.isArray(tv.channels) || !tv.channels.length) c.error('television needs "channels"');
+    (tv.channels || []).forEach((ch, i) => {
+      const cc = c.at(`channels[${i}]`);
+      if (!Number.isInteger(ch.id)) cc.error('channel needs an integer "id"');
+      else if (ids.has(ch.id)) cc.error(`duplicate channel ${ch.id}`);
+      ids.add(ch.id);
+      if (!Array.isArray(ch.frames) || !ch.frames.length) cc.error('channel needs "frames"');
+      (ch.frames || []).forEach((f) => { if (!art.vista.has(f)) cc.error(`no vista art "${f}"`); });
+      if (ch.hum && !db.sfx.has(ch.hum)) cc.error(`unknown sfx "${ch.hum}"`);
+      if ('if' in ch) cc.condition(ch.if);
+      looks(ch.comments, `channels[${i}].comments`);
+    });
+    looks(tv.offComments, 'offComments');
+    looks(tv.wiring, 'wiring');
+    looks(tv.powerSource, 'powerSource');
+    looks(tv.slap, 'slap');
+    looks(tv.failures?.lines, 'failures.lines');
+    for (const k of tv.failures?.kinds ?? []) if (!['roll', 'spark', 'buzz', 'smoke'].includes(k)) c.error(`unknown failure "${k}"`);
+    for (const f of ['ses_bezel', 'ses_back', 'ses_power_source', 'tv_off', 'tv_scan', 'tv_glare', 'tv_smoke', 'tv_spark_0']) if (!art.vista.has(f)) c.error(`no vista art "${f}"`);
   }
 
   // Logbooks (the Stench Log)

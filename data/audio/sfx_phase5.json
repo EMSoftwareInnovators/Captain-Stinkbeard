@@ -1,0 +1,68 @@
+{
+  "//": "Story Phase 5: the Stenchmaster Entertainment System (a CRT that should not work: power-on whine, the off-snap, static, the channel knob, the hum, a buzz, sparks, and the slap that fixes it), the suit's self-important fanfare, and punctuation for the crew losing their tempers (no voices: stings).",
+  "tv_power_on": { "layers": [
+    { "type": "noise", "dur": 0.08, "lp": 0.3, "volume": 0.4, "decay": 30, "crush": true, "freq": 180 },
+    { "wave": "sine", "sweep": [6000, 11800], "dur": 0.9, "volume": 0.06, "attack": 0.05, "decay": 1.5, "delay": 0.05 },
+    { "wave": "triangle", "freq": 60, "dur": 0.5, "volume": 0.22, "attack": 0.1, "decay": 3, "delay": 0.05 },
+    { "type": "noise", "dur": 0.35, "hp": 0.5, "volume": 0.16, "attack": 0.1, "decay": 4, "delay": 0.25 }
+  ] },
+  "tv_power_off": { "layers": [
+    { "wave": "sine", "sweep": [4200, 260], "dur": 0.22, "volume": 0.16, "decay": 6 },
+    { "type": "noise", "dur": 0.06, "lp": 0.4, "volume": 0.3, "decay": 30, "crush": true, "freq": 300, "delay": 0.2 }
+  ] },
+  "tv_static": { "layers": [
+    { "type": "noise", "dur": 0.55, "hp": 0.35, "volume": 0.2, "attack": 0.02, "decay": 2, "crush": true, "freq": 4000 }
+  ] },
+  "tv_click": { "layers": [
+    { "type": "noise", "dur": 0.03, "volume": 0.4, "decay": 60, "crush": true, "freq": 2600 },
+    { "wave": "triangle", "sweep": [900, 500], "dur": 0.04, "volume": 0.3 },
+    { "type": "noise", "dur": 0.12, "hp": 0.4, "volume": 0.12, "decay": 12, "delay": 0.04 }
+  ] },
+  "tv_hum": { "layers": [
+    { "wave": "triangle", "freq": 60, "dur": 0.7, "volume": 0.2, "attack": 0.1, "decay": 2 },
+    { "wave": "square", "duty": 0.2, "lp": 0.08, "freq": 120, "dur": 0.7, "volume": 0.05, "attack": 0.1, "decay": 2 }
+  ] },
+  "tv_buzz": { "layers": [
+    { "wave": "saw", "freq": 118, "dur": 0.9, "volume": 0.16, "attack": 0.03, "decay": 1.5, "vibrato": { "rate": 31, "depth": 0.4 } },
+    { "type": "noise", "dur": 0.9, "lp": 0.2, "volume": 0.1, "crush": true, "freq": 240, "decay": 1.5 }
+  ] },
+  "tv_spark": { "layers": [
+    { "type": "noise", "dur": 0.05, "volume": 0.42, "decay": 40, "crush": true, "freq": 5200 },
+    { "type": "noise", "dur": 0.04, "volume": 0.34, "decay": 40, "crush": true, "freq": 4200, "delay": 0.09 },
+    { "type": "noise", "dur": 0.06, "volume": 0.3, "decay": 30, "crush": true, "freq": 6000, "delay": 0.2 },
+    { "wave": "sine", "sweep": [2400, 900], "dur": 0.12, "volume": 0.08, "delay": 0.02 }
+  ] },
+  "tv_slap": { "layers": [
+    { "type": "noise", "dur": 0.07, "lp": 0.35, "volume": 0.5, "decay": 25 },
+    { "wave": "triangle", "sweep": [180, 90], "dur": 0.12, "volume": 0.4 },
+    { "wave": "sine", "freq": 1320, "dur": 0.3, "volume": 0.05, "decay": 6, "delay": 0.04 }
+  ] },
+  "suit_fanfare": { "layers": [
+    { "wave": "square", "duty": 0.3, "lp": 0.26, "note": "C4", "dur": 0.16, "volume": 0.22 },
+    { "wave": "square", "duty": 0.3, "lp": 0.26, "note": "C4", "dur": 0.08, "volume": 0.22, "delay": 0.2 },
+    { "wave": "square", "duty": 0.3, "lp": 0.26, "note": "F4", "dur": 0.3, "volume": 0.24, "delay": 0.3 },
+    { "wave": "square", "duty": 0.3, "lp": 0.26, "note": "A4", "dur": 0.3, "volume": 0.24, "delay": 0.62 },
+    { "wave": "square", "duty": 0.3, "lp": 0.26, "note": "C5", "dur": 1.1, "volume": 0.26, "decay": 1.2, "delay": 0.94 },
+    { "wave": "triangle", "note": "F2", "dur": 1.6, "volume": 0.34, "decay": 1.4, "delay": 0.3 },
+    { "type": "noise", "dur": 0.3, "lp": 0.2, "volume": 0.24, "decay": 6, "delay": 0.94 },
+    { "wave": "square", "duty": 0.5, "lp": 0.1, "note": "F3", "dur": 0.4, "volume": 0.1, "decay": 4, "delay": 2.0 }
+  ] },
+  "sting_erupt": { "layers": [
+    { "wave": "square", "duty": 0.4, "lp": 0.3, "note": "C4", "dur": 0.32, "volume": 0.14, "decay": 4 },
+    { "wave": "square", "duty": 0.4, "lp": 0.3, "note": "F#4", "dur": 0.32, "volume": 0.14, "decay": 4 },
+    { "wave": "square", "duty": 0.4, "lp": 0.3, "note": "B4", "dur": 0.32, "volume": 0.12, "decay": 4 },
+    { "type": "noise", "dur": 0.4, "lp": 0.25, "volume": 0.22, "decay": 4, "crush": true, "freq": 700 }
+  ] },
+  "sting_silence": { "layers": [
+    { "wave": "triangle", "note": "G2", "dur": 0.9, "volume": 0.22, "attack": 0.05, "decay": 2 },
+    { "wave": "sine", "freq": 3600, "dur": 0.05, "volume": 0.05, "delay": 0.7 },
+    { "wave": "sine", "freq": 3600, "dur": 0.05, "volume": 0.05, "delay": 1.1 }
+  ] },
+  "chair_creak": { "layers": [
+    { "wave": "triangle", "sweep": [210, 140], "dur": 0.35, "volume": 0.24, "vibrato": { "rate": 18, "depth": 0.6 }, "decay": 3 },
+    { "type": "noise", "dur": 0.2, "lp": 0.2, "volume": 0.12, "decay": 6 }
+  ] },
+  "cloth_rip": { "layers": [
+    { "type": "noise", "dur": 0.4, "hp": 0.3, "volume": 0.3, "crush": true, "freq": 1800, "vibrato": { "rate": 40, "depth": 0.6 }, "decay": 3 }
+  ] }
+}

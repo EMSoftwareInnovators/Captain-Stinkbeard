@@ -208,6 +208,38 @@ export const HAT_STYLES = {
       '..tqqqqqqqqqqt..',
     ],
   },
+  // Story Phase 5: the Grand Stenchmaster's ceremonial hat. A tall, crooked
+  // burgundy crown with a band of that green, a cream badge, and a limp
+  // green puff on top that is meant to be a stink-cloud.
+  stenchhat: {
+    down: [
+      '......TTqqqq....',
+      '.....TttaAAaq...',
+      '......qaAsAaq...',
+      '.....qaaaaaaq...',
+      '.....qTTTTTTq...',
+      '...qqaaaaaaaaqq.',
+      '...qqqqqqqqqqqq.',
+    ],
+    left: [
+      '.......TTqqq....',
+      '......TttAAaq...',
+      '.....qaAsAaaq...',
+      '.....qaaaaaaq...',
+      '.....qTTTTTTq...',
+      '..qqaaaaaaaaaaq.',
+      '..qqqqqqqqqqqqq.',
+    ],
+    up: [
+      '......TTqqqq....',
+      '.....TttaaaAq...',
+      '......qaaaaaq...',
+      '.....qaaaaaaq...',
+      '.....qTTTTTTq...',
+      '...qqaaaaaaaaqq.',
+      '...qqqqqqqqqqqq.',
+    ],
+  },
   tophat: {
     down: [
       '.....qqqqqq.....',

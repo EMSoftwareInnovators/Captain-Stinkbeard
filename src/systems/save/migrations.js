@@ -67,6 +67,32 @@ export const MIGRATIONS = {
       values: state.story?.values && typeof state.story.values === 'object' ? state.story.values : {},
     },
   }),
+
+  /**
+   * 4 -> 5 (Story Phase 5: What Does the Grand Stenchmaster Actually Do?)
+   * The layout is unchanged. Phase 5 keeps its state in flags (the
+   * Stenchmaster Entertainment System, the suit, the station, Squawks fully
+   * bald, the emergency labour rule) and variables (the set's channel and
+   * power: ses_channel, ses_power), which start unset, so a finished Phase 4
+   * save walks into chapter 20 on load. Shark Duty in progress is per-play
+   * and never saved. The bump stops a Phase 4 build from loading a Phase 5
+   * save and silently dropping its quests; missing fields are filled.
+   */
+  4: (state) => ({
+    ...state,
+    story: {
+      ...state.story,
+      flags: Array.isArray(state.story?.flags) ? state.story.flags : [],
+      vars: state.story?.vars && typeof state.story.vars === 'object' ? state.story.vars : {},
+      values: state.story?.values && typeof state.story.values === 'object' ? state.story.values : {},
+    },
+    world: {
+      ...state.world,
+      objects: state.world?.objects ?? {},
+      visited: state.world?.visited ?? [],
+      counters: state.world?.counters ?? {},
+    },
+  }),
 };
 
 export function migrateState(state, fromVersion, toVersion, migrations = MIGRATIONS) {

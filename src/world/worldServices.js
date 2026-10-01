@@ -1,6 +1,7 @@
 import { TILE_SIZE, DIR_VECTORS } from '../config/constants.js';
 import { findPath } from '../maps/pathfinding.js';
 import { sharkLevelFor } from '../systems/hazards/sharks.js';
+import { tvDef } from '../systems/tv/tv.js';
 
 /**
  * Script services provided by the exploration scene (see
@@ -507,12 +508,26 @@ export function createWorldServices(scene) {
         await overlay.banner(text, sub);
       },
       openShop: (id) => scene.openShop(id),
-      alarm: (level, opts) => overlay.alarm(level, opts),
+      alarm: (level, opts) => {
+        const p = overlay.alarm(level, opts);
+        scene.panicShouts?.(level);
+        return p;
+      },
       course: (mode, opts) => overlay.course(mode, opts),
       openLog: (id, entry) => scene.openLog(id, entry),
       repair: async (opts) => {
         await overlay.dialogue.close();
         return overlay.repair(opts);
+      },
+      tv: async (id) => {
+        await overlay.dialogue.close();
+        const def = tvDef(scene.content, id);
+        if (!def) throw new Error(`No television "${id}"`);
+        const present = (who) => {
+          const a = scene.actors.get(who);
+          return !!a && a.sprite?.visible !== false;
+        };
+        return overlay.tv(def, { present });
       },
     },
     audio: {

@@ -41,6 +41,7 @@ const FOLDER_RULES = [
   { prefix: 'hazards/', kind: 'hazards', shape: 'map' },
   { prefix: 'debug/', kind: 'debugPresets', shape: 'list' },
   { prefix: 'logs/', kind: 'logs', shape: 'map' },
+  { prefix: 'tv/', kind: 'tv', shape: 'map' },
 ];
 
 /**
@@ -64,7 +65,7 @@ export const REGISTRY_KINDS = [
   'characters', 'extraSpeakers', 'npcs', 'enemies', 'abilities', 'statuses', 'items', 'shops', 'quests',
   'encounters', 'props', 'appearances', 'portraits', 'scripts', 'flags', 'maps', 'tilesets', 'music',
   'sfx', 'instruments', 'ambience', 'timing', 'backdrops', 'vistas', 'storyTriggers', 'hazards', 'debugPresets',
-  'mapPatches', 'logs',
+  'mapPatches', 'logs', 'tv',
 ];
 
 function relativePath(path) {

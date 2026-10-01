@@ -29,6 +29,7 @@ export const CLOTH = {
   burgundy: ['#2e0c18', '#521828', '#74283a'],
   wool: ['#7a3a2a', '#b4583a', '#dc8456'], // hand-knitted
   stained: ['#3a3014', '#6a5a22', '#8e7a34'], // good boots, forever changed
+  bilious: ['#3a5a14', '#6a9a24', '#a8cc48'], // the Grand Stenchmaster Suit's green, which should not be on clothes
 };
 
 export function skinRamp(name) {

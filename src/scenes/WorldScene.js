@@ -24,6 +24,7 @@ import { hash32 } from '../core/Rng.js';
 import { asArray } from '../core/util.js';
 import { placementChoices, placementChanges } from '../world/placements.js';
 import { deadCenterZonesFor, deadCenterSeals } from '../systems/hazards/deadCenter.js';
+import { panicShouts } from '../systems/hazards/alarms.js';
 import { SharkDuty } from '../world/SharkDuty.js';
 
 // Step durations chosen so a 60 Hz frame moves a whole number of pixels:
@@ -1345,6 +1346,20 @@ export class WorldScene extends BaseScene {
    * fewer of the people involved (the captain and the speaker). Ties keep
    * the current edge so the window doesn't hop between lines.
    */
+  /** The bells ring: people on screen shout (data: alarms.json "panic"); never during a vista. */
+  panicShouts(level) {
+    if (this.app.cinema?.active) return;
+    const view = this.cameras.main.worldView;
+    const onScreen = [...this.actors.values()].filter((a) => a !== this.player && a.npc && a.sprite?.visible !== false
+      && view.contains(a.sprite.x, a.sprite.y - 8)).map((a) => a.id);
+    for (const s of panicShouts(this.content, this.session, level, onScreen)) {
+      this.time.delayedCall(s.delay, () => {
+        const a = this.actors.get(s.who);
+        if (a && !this.leaving) this.barks.show(a, s.text, { duration: 1700, shout: true });
+      });
+    }
+  }
+
   dialogueDock(line, current = 'bottom') {
     // A vista can ask for the window along the top so the sea stays in view.
     if (this.app.cinema?.active) return this.app.cinema.active.def.dock ?? 'bottom';

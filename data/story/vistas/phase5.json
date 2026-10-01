@@ -1,0 +1,26 @@
+{
+ "//": "Story Phase 5 vistas (see src/scenes/CinemaScene.js): the Stenchmaster Entertainment System close up, by day (the reveal) and by night (the end of the phase, Garrick in his chair in front of it). The screen layer sits exactly in the set's glass: bezel bottom-centre at (160, 150), screen bottom-centre at (160, 106). dock: top keeps the dialogue off the set.",
+
+ "ses_reveal": {
+  "sky": "noon", "sea": false, "dock": "top",
+  "layers": [
+   { "id": "wall", "frame": "ses_wall_day", "x": 160, "y": 224, "depth": 2 },
+   { "id": "screen", "frame": "tv_static_0", "frames": ["tv_static_0", "tv_static_1", "tv_static_2", "tv_static_3"], "frameMs": 70, "x": 160, "y": 106, "depth": 10 },
+   { "id": "scan", "frame": "tv_scan", "x": 160, "y": 106, "alpha": 0.55, "depth": 11 },
+   { "id": "glare", "frame": "tv_glare", "x": 160, "y": 106, "depth": 12 },
+   { "id": "set", "frame": "ses_bezel", "x": 160, "y": 150, "depth": 13 }
+  ]
+ },
+
+ "ses_night": {
+  "sky": "night", "sea": false, "dock": "top",
+  "layers": [
+   { "id": "wall", "frame": "ses_wall_night", "x": 160, "y": 224, "depth": 2 },
+   { "id": "screen", "frame": "tv_static_0", "frames": ["tv_static_0", "tv_static_1", "tv_static_2", "tv_static_3"], "frameMs": 70, "x": 160, "y": 106, "depth": 10 },
+   { "id": "scan", "frame": "tv_scan", "x": 160, "y": 106, "alpha": 0.6, "depth": 11 },
+   { "id": "glare", "frame": "tv_glare", "x": 160, "y": 106, "depth": 12 },
+   { "id": "set", "frame": "ses_bezel", "x": 160, "y": 150, "depth": 13 },
+   { "id": "garrick", "frame": "garrick_back_suit", "x": 160, "y": 240, "scale": 1.8, "depth": 20 }
+  ]
+ }
+}

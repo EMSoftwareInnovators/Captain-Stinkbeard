@@ -1,6 +1,6 @@
 import { PixelCanvas } from '../PixelCanvas.js';
 import { PAL, rgba } from '../palette.js';
-import { resolveLook, SASH } from '../characters/characterPainter.js';
+import { resolveLook, SASH, REGALIA } from '../characters/characterPainter.js';
 
 /**
  * 48x48 dialogue portraits built from the same appearance data as the field
@@ -126,6 +126,7 @@ function drawBust(c, L) {
     }
     c.rect(CX + 2, 43, 3, 3, L.trim[2]);
   }
+  if (L.extras.has('regalia')) drawRegaliaBust(c, L, wide);
   if (L.extras.has('stenchsash')) {
     // The Grand Stenchmaster's sash (Phase 4): mustard, burgundy edges,
     // fake-gold stitching, and the badge he embroidered himself.
@@ -147,6 +148,38 @@ function drawBust(c, L) {
     c.rect(CX + 5, 40, 3, 3, SASH.badge);
     c.set(CX + 7, 42, '#8aba40');
     c.set(CX + 5, 42, SASH.ink);
+  }
+}
+
+/** Story Phase 5: the Grand Stenchmaster Suit at portrait scale. */
+function drawRegaliaBust(c, L, wide) {
+  const x0 = Math.round(CX - wide / 2);
+  const x1 = x0 + wide - 1;
+  // epaulettes, fringed
+  for (const [ex, dir] of [[x0 + 1, 1], [x1 - 1, -1]]) {
+    for (let i = 0; i < 7; i++) {
+      c.set(ex + dir * i, 39, i < 2 ? REGALIA.goldL : REGALIA.gold);
+      c.set(ex + dir * i, 40, REGALIA.gold);
+      c.set(ex + dir * i, 41, REGALIA.goldD);
+      if (i % 2 === 0) c.set(ex + dir * i, 42, REGALIA.fringe);
+    }
+  }
+  // medals on his left breast; the last one is a bottle cap
+  REGALIA.medals.forEach(([ribbon, disc], i) => {
+    const mx = CX - 13 + i * 3;
+    c.rect(mx, 43, 2, 2, ribbon);
+    c.rect(mx, 45, 2, 2, disc);
+  });
+  c.rect(CX - 13, 47, 2, 1, '#c83a30');
+}
+
+/** The collar that stands up past his jowls, green-edged. */
+function drawRegaliaCollar(c) {
+  for (let y = 30; y <= 38; y++) {
+    const k = 38 - y;
+    for (const x of [CX - 11 + Math.floor(k / 3), CX - 10 + Math.floor(k / 3), CX + 9 - Math.floor(k / 3), CX + 8 - Math.floor(k / 3)]) {
+      c.set(x, y, y === 30 ? REGALIA.collarEdge : (x === CX - 10 + Math.floor(k / 3) || x === CX + 8 - Math.floor(k / 3)) ? REGALIA.collarD : REGALIA.collar);
+    }
   }
 }
 
@@ -702,6 +735,25 @@ function hatMass(c, L, face, style) {
     c.set(CX - 6, top - 5, '#ffffff50');
     return;
   }
+  if (style === 'stenchhat') {
+    // The Grand Stenchmaster's ceremonial hat (Phase 5): a tall crooked
+    // burgundy crown, a band of that green, a cream badge, a limp green puff.
+    for (let y = top - 7; y <= top + 3; y++) {
+      const lean = Math.round((top + 3 - y) * 0.3);
+      const x0 = CX - 7 + lean;
+      for (let x = x0; x < x0 + 14; x++) c.set(x, y, x === x0 ? A : x >= x0 + 12 ? q : a);
+    }
+    c.rect(CX - 7, top - 1, 14, 3, T);
+    c.hline(CX - 7, CX + 6, top + 1, t);
+    c.ellipse(CX + 2, top - 4, 3, 2, '#f0e8d8');
+    c.set(CX + 2, top - 4, '#c8a030');
+    c.ellipse(CX + 1, top - 8, 4, 2, T);
+    c.ellipse(CX - 2, top - 8, 3, 2, T);
+    c.set(CX, top - 10, t);
+    c.rect(CX - 14, top + 3, 28, 3, a);
+    c.hline(CX - 14, CX + 13, top + 5, q);
+    return;
+  }
   if (style === 'tophat') {
     c.rect(CX - 8, top - 10, 16, 14, a);
     c.vline(CX - 8, top - 10, top + 3, A);
@@ -798,6 +850,7 @@ export function paintPortrait(appearance, portrait, expression = 'neutral') {
 
   drawBust(c, L);
   drawNeck(c, L);
+  if (L.extras.has('regalia')) drawRegaliaCollar(c);
   drawFace(c, L, face);
   if (L.hairStyle === 'long' || L.hairStyle === 'wild') hairMass(c, L, face, L.hairStyle);
   drawNose(c, L, face, portrait.nose);

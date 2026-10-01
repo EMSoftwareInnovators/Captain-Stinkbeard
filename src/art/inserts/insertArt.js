@@ -3,6 +3,7 @@ import { ShelfAtlas } from '../atlas.js';
 import { PAL } from '../palette.js';
 import { drawText } from '../font/drawText.js';
 import { addForecastInserts, FORECAST_INSERT_NAMES } from './forecastArt.js';
+import { addPhase5Inserts, PHASE5_INSERT_NAMES } from './phase5Inserts.js';
 
 /**
  * Close-up "inserts" shown full-size in a frame (CinemaScene.insert): a
@@ -160,7 +161,8 @@ export function buildInsertAtlas() {
   atlas.add('amendment_notice', amendmentNotice());
   atlas.add('ship_names', shipNames());
   addForecastInserts(atlas);
+  addPhase5Inserts(atlas);
   return atlas.build();
 }
 
-export const INSERT_NAMES = ['eel_jar_label', 'toll_sign_close', 'probation_rules', 'charge_sheet', 'amendment_notice', 'ship_names', ...FORECAST_INSERT_NAMES];
+export const INSERT_NAMES = ['eel_jar_label', 'toll_sign_close', 'probation_rules', 'charge_sheet', 'amendment_notice', 'ship_names', ...FORECAST_INSERT_NAMES, ...PHASE5_INSERT_NAMES];

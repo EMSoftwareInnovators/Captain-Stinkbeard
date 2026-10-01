@@ -1,6 +1,7 @@
 import { asArray } from '../../core/util.js';
 import { evaluateCondition, splitObjectiveRef } from '../conditions/conditions.js';
 import { parseLine } from './parseLine.js';
+import { tvDef, setPower, setChannel } from '../tv/tv.js';
 import { setDeadCenterLocation } from '../hazards/deadCenter.js';
 
 /**
@@ -99,6 +100,15 @@ export function createCommandImplementations() {
     course: (step, ctx) => {
       const p = service(ctx, 'ui', 'course').course(step.course, { heading: step.heading, target: step.target, to: step.to, duration: step.duration, label: step.label ?? null });
       return step.async ? null : p;
+    },
+    /** Operate a television (data/tv): opens the close-up and waits until the captain steps away. */
+    tv: (step, ctx) => service(ctx, 'ui', 'tv').tv(step.tv),
+    /** Sets a television's channel and/or power from a scene (the deck set follows). */
+    tvSet: (step, ctx) => {
+      const def = tvDef(ctx.session.content ?? ctx.content, step.tvSet);
+      if (!def) throw new Error(`No television "${step.tvSet}"`);
+      if (step.power !== undefined) setPower(def, ctx.session, step.power);
+      if (step.channel !== undefined) setChannel(def, ctx.session, step.channel);
     },
     /** Clears the rail at once: "stop" ends the current Shark Duty wave of sharks (they retreat). */
     sharkDuty: (step, ctx) => service(ctx, 'world', 'sharkDuty').sharkDuty(step.sharkDuty),

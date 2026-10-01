@@ -35,6 +35,11 @@ export function parrotLook(app) {
     exposed,
     sweater: !!app.sweater,
     blanket: !!app.blanket,
+    // Story Phase 5: not a feather left (no crest, no tail), tired eyes, and
+    // carried about in his padded basket.
+    naked: !!app.naked,
+    weary: !!app.weary,
+    basket: !!app.basket,
     yellowFeather: !!app.yellowFeather,
     // Story Phase 4: feathers growing back, the yellow one first (up to 7).
     newFeathers: Math.max(app.yellowFeather ? 1 : 0, Math.min(7, app.newFeathers ?? 0)),
@@ -43,7 +48,7 @@ export function parrotLook(app) {
     wing: bald ? { d: skin.d, m: skin.m, l: skin.l } : blue,
     band: bald ? skin.l : sooty(PAL.gold3),
     crest: red,
-    tail: bald ? [red.m, blue.m] : [red.m, blue.m, red.l, blue.l],
+    tail: app.naked ? [] : bald ? [red.m, blue.m] : [red.m, blue.m, red.l, blue.l],
     beak: { l: '#efe6d4', m: '#c8bca8', d: '#4a4450' },
     patch: exposed ? '#e8dcc0' : '#f6f0e4',
     wool: ['#7a2a24', '#b4483a', '#dc7456'],
@@ -147,6 +152,23 @@ function ruffle(c, L, n, seed) {
   }
 }
 
+/** Story Phase 5: the padded basket he's carried about in (wicker, a cushion rim). */
+function basketAround(c, cx, top, half) {
+  const W = { d: '#6a4a1c', m: '#a07a3a', l: '#c8a060' };
+  for (let y = top; y <= GROUND; y++) {
+    const w = half - Math.floor((y - top) / 4);
+    for (let x = cx - w; x <= cx + w; x++) {
+      let col = (x + y) % 3 === 0 ? W.d : (x + y) % 3 === 1 ? W.m : W.l;
+      if (x === cx - w) col = W.l;
+      if (x === cx + w || y === GROUND) col = W.d;
+      c.set(x, y, col);
+    }
+  }
+  // the cushion rim, plaid, puffing over the edge
+  for (let x = cx - half - 1; x <= cx + half + 1; x++) c.set(x, top - 1, (x % 3) ? '#6a5a8a' : '#c8b8e0');
+  for (let x = cx - half; x <= cx + half; x++) c.set(x, top, (x % 3) ? '#4a3a6a' : '#8a2a2a');
+}
+
 /** Front view (facing down). */
 function front(c, L, { bob = 0, wings = 'folded', beakOpen = false, blink = false } = {}) {
   const by = 38 + bob;
@@ -172,6 +194,7 @@ function front(c, L, { bob = 0, wings = 'folded', beakOpen = false, blink = fals
   }
   if (L.sweater) sweaterOver(c, L, CX, by, 5.5, 6.5);
   if (L.blanket) blanketOver(c, L, CX, by + 1, 6, 6);
+  if (L.basket) basketAround(c, CX, by + 3, 8);
   // head
   const hy = by - 9;
   c.ellipse(CX, hy, 4.5, 4.5, L.body.m);
@@ -181,6 +204,7 @@ function front(c, L, { bob = 0, wings = 'folded', beakOpen = false, blink = fals
     c.rect(ex, hy - 1, 2, 3, L.patch);
     if (blink) c.hline(ex, ex + 1, hy + 1, INK);
     else c.set(ex + (ex < CX ? 1 : 0), hy, INK);
+    if (L.weary && !blink) c.hline(ex, ex + 1, hy - 1, L.body.d); // heavy lids
     if (L.exposed) c.set(ex, hy + 2, '#8ac8f0');
   }
   // beak
@@ -192,7 +216,7 @@ function front(c, L, { bob = 0, wings = 'folded', beakOpen = false, blink = fals
     c.hline(CX - 1, CX + 1, hy + 4, L.beak.d);
   } else c.set(CX, hy + 4, L.beak.d);
   if (L.sweater) cap(c, L, CX, hy - 5, 4);
-  else if (L.bald) crest(c, L, CX - 1, hy - 4);
+  else if (L.bald && !L.naked) crest(c, L, CX - 1, hy - 4);
   else {
     c.set(CX - 1, hy - 5, L.body.l);
     c.set(CX, hy - 5, L.body.m);
@@ -207,7 +231,7 @@ function front(c, L, { bob = 0, wings = 'folded', beakOpen = false, blink = fals
     [CX - 2, GROUND - 2, -1, 'red'],
     [CX + 2, GROUND - 2, 1, 'blue'],
   ][i]);
-  feet(c, L, CX - 3, CX + 2, GROUND);
+  if (!L.basket) feet(c, L, CX - 3, CX + 2, GROUND);
 }
 
 /** Side view facing left. */
@@ -233,6 +257,7 @@ function side(c, L, { bob = 0, wing = 'folded', beakOpen = false, hop = 0, blink
   }
   if (L.sweater) sweaterOver(c, L, CX + 1, by, 6, 6);
   if (L.blanket) blanketOver(c, L, CX + 1, by + 1, 6.5, 6, 1);
+  if (L.basket) basketAround(c, CX + 1, by + 3, 8);
   const hx = CX - 3;
   const hy = by - 8 + (preen ? 3 : 0);
   c.ellipse(hx, hy, 4.5, 4.5, L.body.m);
@@ -240,6 +265,7 @@ function side(c, L, { bob = 0, wing = 'folded', beakOpen = false, hop = 0, blink
   c.rect(hx - 3, hy - 1, 3, 3, L.patch);
   if (blink) c.hline(hx - 3, hx - 1, hy + 1, INK);
   else c.set(hx - 2, hy, INK);
+  if (L.weary && !blink) c.hline(hx - 3, hx - 1, hy - 1, L.body.d);
   if (L.exposed) c.set(hx - 3, hy + 2, '#8ac8f0');
   // hooked beak
   const bx = hx - 5;
@@ -251,7 +277,7 @@ function side(c, L, { bob = 0, wing = 'folded', beakOpen = false, hop = 0, blink
     c.hline(bx, bx + 2, hy + 4, L.beak.d);
   } else c.hline(bx, bx + 1, hy + 3, L.beak.d);
   if (L.sweater) cap(c, L, hx, hy - 6, 4);
-  else if (L.bald) crest(c, L, hx, hy - 4, 1);
+  else if (L.bald && !L.naked) crest(c, L, hx, hy - 4, 1);
   else c.line(hx + 1, hy - 5, hx + 4, hy - 7, L.body.m);
   if (L.yellowFeather) newFeather(c, hx + 3, hy - 6, 2);
   sprouts(c, L, (i) => [
@@ -263,7 +289,7 @@ function side(c, L, { bob = 0, wing = 'folded', beakOpen = false, hop = 0, blink
     [CX + 9, GROUND - 5, 1, 'red'],
     [CX + 11, GROUND - 4, 1, 'blue'],
   ][i]);
-  if (hop < 3) feet(c, L, CX - 1, CX + 2, GROUND - hop);
+  if (hop < 3 && !L.basket) feet(c, L, CX - 1, CX + 2, GROUND - hop);
 }
 
 /** Back view (facing up). */
@@ -281,10 +307,11 @@ function back(c, L, { bob = 0, wings = 'folded' } = {}) {
   }
   if (L.sweater) sweaterOver(c, L, CX, by, 5.5, 6.5);
   if (L.blanket) blanketOver(c, L, CX, by + 1, 6, 6, 2);
+  if (L.basket) basketAround(c, CX, by + 3, 8);
   const hy = by - 9;
   c.ellipse(CX, hy, 4.5, 4.5, L.body.m);
   if (L.sweater) cap(c, L, CX, hy - 5, 4);
-  else if (L.bald) crest(c, L, CX - 1, hy - 4);
+  else if (L.bald && !L.naked) crest(c, L, CX - 1, hy - 4);
   if (L.yellowFeather) newFeather(c, CX + 2, hy - 5);
   sprouts(c, L, (i) => [
     null,
@@ -295,7 +322,7 @@ function back(c, L, { bob = 0, wings = 'folded' } = {}) {
     [CX - 2, GROUND - 1, -1, 'red'],
     [CX + 2, GROUND - 1, 1, 'blue'],
   ][i]);
-  feet(c, L, CX - 3, CX + 2, GROUND);
+  if (!L.basket) feet(c, L, CX - 3, CX + 2, GROUND);
 }
 
 function frame(L, dir, pose) {
@@ -365,7 +392,7 @@ export const PARROT_EXPRESSIONS = ['neutral', 'smug', 'insulting', 'worried', 'h
  * @param {string} expression
  */
 export function paintParrotPortrait(portrait, expression = 'neutral') {
-  const L = parrotLook({ plumage: portrait.plumage, sweater: portrait.sweater, blanket: portrait.blanket, yellowFeather: portrait.yellowFeather, newFeathers: portrait.newFeathers });
+  const L = parrotLook({ plumage: portrait.plumage, sweater: portrait.sweater, blanket: portrait.blanket, yellowFeather: portrait.yellowFeather, newFeathers: portrait.newFeathers, naked: portrait.naked, weary: portrait.weary });
   const c = new PixelCanvas(48, 48);
   const e = expression;
   const puffed = e === 'horrified' || e === 'furious' || e === 'outraged' || L.exposed;
@@ -382,8 +409,13 @@ export function paintParrotPortrait(portrait, expression = 'neutral') {
   } else {
     c.ellipse(8, 45, 5, 7, L.wing.d);
     c.ellipse(40, 45, 5, 7, L.wing.d);
-    c.set(6, 40, '#2c58a8');
-    c.set(7, 41, '#2c58a8');
+    if (!L.naked) {
+      c.set(6, 40, '#2c58a8');
+      c.set(7, 41, '#2c58a8');
+    } else {
+      // goosebumps
+      for (const [x, y] of [[6, 42], [9, 45], [39, 42], [42, 46], [7, 47]]) c.set(x, y, L.body.l);
+    }
   }
   if (L.sweater) {
     for (let y = 37; y < 48; y++) for (let x = 6; x < 43; x++) if (c.alphaAt(x, y)) wool(c, L, x, y);
@@ -420,7 +452,7 @@ export function paintParrotPortrait(portrait, expression = 'neutral') {
     }
     for (let x = hx - 12; x <= hx + 12; x++) c.set(x, hy - 7, x % 2 ? L.woolStripe : L.wool[0]);
     c.ellipse(hx, hy - 18, 3, 3, L.woolStripe);
-  } else if (L.bald) {
+  } else if (L.bald && !L.naked) {
     const tremble = e === 'outraged' || e === 'furious' ? 1 : 0;
     c.line(hx - 3, hy - 12, hx - 6 - tremble, hy - 20, L.crest.m);
     c.line(hx, hy - 13, hx + tremble, hy - 22, L.crest.l);
@@ -501,6 +533,14 @@ export function paintParrotPortrait(portrait, expression = 'neutral') {
     default:
       pupil(ex, ey, 1.8);
       c.set(ex + 1, ey - 1, '#ffffff');
+  }
+  if (L.weary && !['horrified', 'surprised', 'exhausted', 'smug', 'insulting'].includes(e)) {
+    // heavy, tired lids over whatever he's feeling
+    c.hline(ex - 4, ex + 4, ey - 3, L.body.d);
+    c.hline(ex - 3, ex + 3, ey - 2, L.body.m);
+    c.hline(ex - 3, ex + 3, ey - 1, L.body.d);
+    c.set(ex - 3, ey + 4, L.body.d);
+    c.set(ex + 3, ey + 4, L.body.d);
   }
   if (L.exposed || e === 'exhausted') {
     c.set(ex - 2, ey + 4, '#8ac8f0');

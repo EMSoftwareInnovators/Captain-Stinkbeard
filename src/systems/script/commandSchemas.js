@@ -107,6 +107,8 @@ export const COMMAND_SCHEMAS = {
   alarm: { alarm: 'number', where: 'string?', wait: 'boolean?' },
   course: { course: 'string', heading: 'number?', target: 'number?', to: 'number?', duration: 'number?', label: 'string?', async: 'boolean?' },
   sharkDuty: { sharkDuty: 'string' },
+  tv: { tv: 'tv' },
+  tvSet: { tvSet: 'tv', channel: 'number?', power: 'boolean?' },
 };
 
 /** Commands that may carry "async": true (start and continue without waiting). */

@@ -1,6 +1,6 @@
 import { TILE_SIZE, SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
 import { dutyData, dutySessionFor, DutyPlan, waveSpot } from '../systems/hazards/sharkDuty.js';
-import { splitObjectiveRef } from '../systems/conditions/conditions.js';
+import { splitObjectiveRef, evaluateCondition } from '../systems/conditions/conditions.js';
 
 /**
  * Runs Shark Duty on the deck while the captain has control (rules in
@@ -53,8 +53,10 @@ export class SharkDuty {
     const resume = saved && saved.sessionId === id && saved.map === this.scene.model.id;
     this.plan = new DutyPlan(this.def, resume ? saved.plan : null);
     this.barkTimer = 5000;
+    this.assisted = false;
     if (resume) {
       this.nextId = saved.nextId;
+      this.assisted = !!saved.assisted;
       for (const inc of saved.incidents) this.restore(inc);
     }
     this.updateBoard(true);
@@ -83,6 +85,7 @@ export class SharkDuty {
         map: this.scene.model.id,
         plan: this.plan.state(),
         nextId: this.nextId,
+        assisted: this.assisted,
         incidents: this.incidents.map((inc) => Object.fromEntries(keep.filter((k) => inc[k] !== undefined).map((k) => [k, inc[k]]))),
       };
     }
@@ -137,6 +140,32 @@ export class SharkDuty {
       }
     }
     this.barks(dt);
+    this.assist();
+  }
+
+  /**
+   * A helper who does exactly one useful thing per shift (Story Phase 5: the
+   * Grand Stenchmaster's emergency labour rule). Session data:
+   *   "assist": { "if": {...}, "who": "garrick", "after": 2, "lines": ["That's my one."] }
+   * Once `after` sharks have come, the next one at the rail is seen off by
+   * them (it counts), with a line; then they go back to what they were doing.
+   */
+  assist() {
+    const a = this.def?.assist;
+    if (!a || this.assisted || this.plan.served < (a.after ?? 2)) return;
+    if (a.if && !evaluateCondition(a.if, this.scene.session)) return;
+    const helper = this.scene.actors.get(a.who);
+    const inc = this.incidents.find((i) => i.kind === 'rail');
+    if (!helper || !inc) return;
+    this.assisted = true;
+    const s = this.scene;
+    const line = a.lines?.[Math.floor(Math.random() * a.lines.length)];
+    if (line) s.barks?.show?.(helper, line, { duration: 2200 });
+    s.app.audio.sfx(a.sfx ?? 'pole_strike');
+    this.clear(inc, { repelled: true });
+    this.incidents = this.incidents.filter((i) => i !== inc);
+    if (this.def?.event) s.app.bus.emit('script:event', { name: this.def.event });
+    if (a.event) s.app.bus.emit('script:event', { name: a.event });
   }
 
   barks(dt) {

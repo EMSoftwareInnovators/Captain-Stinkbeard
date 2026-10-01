@@ -1,3 +1,5 @@
+import { evaluateCondition } from '../conditions/conditions.js';
+
 /**
  * The bell protocol (Story Phase 4): the crew's warnings about the Dead
  * Center, rung on a bell that coughs. Engine-agnostic data lookups; the
@@ -41,4 +43,31 @@ export function alarmLevel(content, level) {
 export function alarmColor(def) {
   const n = parseInt(String(def?.color ?? '#e8c848').replace('#', ''), 16);
   return Number.isFinite(n) ? n : 0xe8c848;
+}
+
+/**
+ * Who shouts what when the bells ring (Story Phase 5: the crew remember what
+ * the Center did to Squawks). Data in alarms.json:
+ *
+ *   "panic": [{ "if": { "flag": "p5_started" }, "levels": [3], "count": 3,
+ *               "lines": ["CENTER!", "Remember the bird!"],
+ *               "reply": { "who": "squawks", "chance": 0.35, "lines": ["Still hear you."] } }]
+ *
+ * The first matching entry is used. Returns [{ who, text, delay }] for up to
+ * `count` of the people given (those on screen), in a random order, never the
+ * same line twice, plus maybe a reply from `reply.who` if they're among them.
+ */
+export function panicShouts(content, session, level, people, rnd = Math.random) {
+  const list = content?.hazards?.get?.('alarms')?.panic ?? [];
+  const entry = list.find((e) => (!e.levels || e.levels.includes(Number(level))) && (!e.if || evaluateCondition(e.if, session)));
+  if (!entry) return [];
+  const shuffle = (a) => a.map((x) => [rnd(), x]).sort((p, q) => p[0] - q[0]).map((p) => p[1]);
+  const replier = entry.reply?.who;
+  const shouters = shuffle(people.filter((id) => id !== replier)).slice(0, entry.count ?? 3);
+  const lines = shuffle(entry.lines ?? []);
+  const out = shouters.map((who, i) => ({ who, text: lines[i % lines.length], delay: 250 + i * 520 }));
+  if (replier && people.includes(replier) && entry.reply.lines?.length && rnd() < (entry.reply.chance ?? 0.3)) {
+    out.push({ who: replier, text: entry.reply.lines[Math.floor(rnd() * entry.reply.lines.length)], delay: 250 + out.length * 520 + 400 });
+  }
+  return out;
 }
