@@ -5,7 +5,7 @@ import { defineConfig } from '@playwright/test';
  * stubbed gamepads. They need the dev server (debug hooks), which
  * Playwright starts itself. Every test is tagged (see docs/ARCHITECTURE.md,
  * "End-to-end tests"):
- *   npm run e2e           everything (about 40 minutes)
+ *   npm run e2e           everything (about 80 minutes)
  *   npm run e2e:smoke     @smoke: a few minutes, run after any change
  *   npm run e2e:quick     everything but the long @story playthroughs
  *   npm run e2e:story     the @story playthroughs (prologue, Phases 2 to 5)
