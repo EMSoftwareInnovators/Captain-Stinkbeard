@@ -1,5 +1,5 @@
 {
-  "//": "Story Phase 5, chapter 24: One Useful Thing. Evening. Everything at once: more sharks than ever, three bells on the quarterdeck (the wheel disappears into the Center and the course drifts), and Squawks's basket up by the helm where he'd gone to watch the sunset. Get him, hold the rails (emergency_watch), then the crew finally unload on the Grand Stenchmaster at his station, the captain makes his speech, Garrick defends his productive day, and the labour rule is nailed to the mainmast. The last repair, with Garrick's one useful thing. Night: Squawks asleep by the cabin door, and the S.E.S., where something almost appears. Story Phase 5 ends there.",
+  "//": "Story Phase 5, chapter 24: One Useful Thing. Evening. Everything at once: more sharks than ever, three bells on the quarterdeck (the wheel disappears into the Center and the course drifts), and Squawks's basket at the top of the quarterdeck steps, where he'd gone to watch the sunset. Get him, hold the rails (emergency_watch), then the crew finally unload on the Grand Stenchmaster at his station, the captain makes his speech, Garrick defends his productive day, and the labour rule is nailed to the mainmast. The last repair, with Garrick's one useful thing. Night: Squawks asleep by the cabin door, and the S.E.S., where something almost appears. Story Phase 5 ends there.",
 
   "p5c5.begin": [
     { "setFlag": "p5_ch24_started" },
@@ -8,7 +8,7 @@
     { "setVar": "p4_tod", "value": 4 },
     { "banner": "CHAPTER 24", "sub": "One Useful Thing" },
     { "narrate": "Evening." },
-    { "narrate": "Doc Fennimore had carried Squawks up to the quarterdeck, to sit by the wheel with Nell and watch the sun go down. He said the sunset was the only thing left on the ship that didn't smell." },
+    { "narrate": "Doc Fennimore had carried Squawks up to the quarterdeck steps, to watch the sun go down over the stern rail with Nell. He said the sunset was the only thing left on the ship that didn't smell." },
     { "narrate": "It lasted nearly four minutes." },
     { "close": true },
     { "place": "player", "x": 9, "y": 16, "facing": "down" },
@@ -31,11 +31,11 @@
     { "say": "nell[alarmed]: The wheel's going into the poison! I've lost the wheel!", "name": "Nell (aft)" },
     { "course": "show", "heading": 0, "target": 0, "label": "COURSE (drifting)", "async": true },
     { "course": "drift", "to": -35, "duration": 6000, "async": true },
-    { "say": "fennimore[alarmed]: SQUAWKS! He's still by the helm!", "name": "Doc Fennimore" },
+    { "say": "fennimore[alarmed]: SQUAWKS! He's still on the quarterdeck steps!", "name": "Doc Fennimore" },
     { "bark": "pete", "text": "REMEMBER THE BIRD!", "shout": true, "duration": 1500 },
     { "wait": 400 },
     { "bark": "rook", "text": "I remember the bird! That's WHY I'm running!", "shout": true, "duration": 2000 },
-    { "tutorial": "Everything at once. Get Squawks off the quarterdeck (by the wheel, aft, past the cabin)!", "title": "One Useful Thing" }
+    { "tutorial": "Everything at once. Get Squawks off the quarterdeck (his basket is at the top of the steps on the right-hand side, aft, past the cabin). Don't linger in the yellow.", "title": "One Useful Thing" }
   ],
 
   "p5c5.squawks": [
@@ -48,6 +48,9 @@
     { "anim": "player", "name": "carry" },
     { "setFlag": "p5_emergency_squawks" },
     "You scoop him up, basket and all, and tuck him back under your coat.",
+    { "move": "player", "to": [14, 10], "speed": "run" },
+    { "face": "player", "dir": "down" },
+    "You're down the steps and out of the yellow before it can get a proper grip on either of you.",
     "squawks: Same coat.",
     "captain: Same coat.",
     { "course": "hide" },
