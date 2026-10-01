@@ -100,7 +100,7 @@ export const COMMAND_SCHEMAS = {
   tint: { tint: 'actor', color: 'string', duration: 'number?', async: 'boolean?' },
   sharks: { sharks: 'string', crowd: 'number?' },
   sharkEvent: { sharkEvent: 'string', x: 'number?', y: 'number?', duration: 'number?', async: 'boolean?' },
-  repair: { repair: 'string', strikes: 'number?', title: 'string?', var: 'string?' },
+  repair: { repair: 'string', strikes: 'number?', title: 'string?', var: 'string?', speed: 'number?', zone: 'number?' },
 
   // --- Story Phase 4 -----------------------------------------------------------
   deadCenter: { deadCenter: 'string' },

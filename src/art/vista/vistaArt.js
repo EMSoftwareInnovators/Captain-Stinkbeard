@@ -254,28 +254,58 @@ function rowboatSide(frame, { happy = false } = {}) {
   return c;
 }
 
+/**
+ * The yellow cloud, in three stages of the same eruption. Every stage keeps
+ * its base at the bottom centre of the frame (a low, wide skirt that hugs
+ * whatever it came out of), so a vista grows it by swapping frames and
+ * scaling from that anchor; the column runs unbroken from the base to the
+ * head or cap, so it never reads as a stack of separate puffs.
+ */
 function cloudRise(stage) {
-  const c = new PixelCanvas(150, 130);
-  const lumps = [
-    [[75, 118, 20], [58, 122, 12], [92, 122, 12]],
-    [[75, 118, 22], [75, 92, 16], [60, 108, 14], [90, 108, 14], [75, 70, 12]],
-    [[75, 118, 24], [75, 96, 14], [75, 74, 12], [75, 50, 24], [52, 48, 18], [98, 48, 18], [62, 30, 16], [88, 30, 16], [75, 22, 18]],
+  const W = 150;
+  const H = 130;
+  const c = new PixelCanvas(W, H);
+  const cx = 75;
+  const baseY = 121;
+  const S = [
+    { skirt: [30, 9], top: 98, wTop: 9, wBase: 15, head: [[75, 94, 15, 12]] },
+    { skirt: [35, 10], top: 72, wTop: 9, wBase: 17, head: [[75, 66, 21, 16], [62, 72, 11, 9], [88, 72, 11, 9]] },
+    {
+      skirt: [41, 11], top: 50, wTop: 9, wBase: 19,
+      head: [[75, 40, 47, 21], [52, 28, 17, 14], [75, 20, 19, 15], [98, 28, 17, 14], [34, 42, 12, 10], [116, 42, 12, 10]],
+      cap: [75, 40, 47, 21],
+    },
   ][stage];
-  const field = (x, y) => {
-    let v = -Infinity;
-    for (const [lx, ly, r] of lumps) v = Math.max(v, 1 - Math.hypot(x - lx, y - ly) / r);
-    return v;
+  const ell = (x, y, [ex, ey, rx, ry]) => 1 - Math.hypot((x - ex) / rx, (y - ey) / ry);
+  const parts = (x, y) => {
+    const out = { skirt: ell(x, y, [cx, baseY, ...S.skirt]), column: -Infinity, head: -Infinity };
+    if (y >= S.top - 4 && y <= baseY + 2) {
+      const t = Math.max(0, Math.min(1, (y - S.top) / (baseY - S.top)));
+      // narrowest a little below the head, flaring into the skirt
+      const w = S.wTop + (S.wBase - S.wTop) * t ** 2.2 + Math.sin(y * 0.33) * 1.4;
+      out.column = 1 - Math.abs(x - cx - Math.sin(y * 0.11) * 1.5) / w;
+    }
+    for (const h of S.head) out.head = Math.max(out.head, ell(x, y, h));
+    return out;
   };
-  for (let y = 0; y < 130; y++) {
-    for (let x = 0; x < 150; x++) {
+  const field = (x, y) => {
+    const p = parts(x, y);
+    // billowy edges: a little noise only where the cloud is thin
+    const n = 0.09 * Math.sin(x * 0.53 + y * 0.31) * Math.cos(y * 0.47 - x * 0.21);
+    return Math.max(p.skirt, p.column, p.head) + n;
+  };
+  for (let y = 0; y < H; y++) {
+    for (let x = 0; x < W; x++) {
       const v = field(x, y);
       if (v <= 0) continue;
       if (v < 0.1 && BAYER[y & 3][x & 3] / 16 > v * 8) continue;
-      // Light from the upper left across the whole cloud, not per lump, so it
-      // reads as one billowing mass; darker creases where lumps meet.
       const lit = field(x - 3, y - 3) > v + 0.02;
       let col = v < 0.12 ? '#a89830' : lit ? '#f4e67a' : '#d8c048';
       if (!lit && field(x + 2, y + 2) < v - 0.05) col = '#b8a838';
+      // the cap rolls over: its underside sits in shadow above the column
+      if (S.cap && y > S.cap[1] + 4 && y < S.cap[1] + S.cap[3] + 2 && ell(x, y, S.cap) > 0 && Math.abs(x - cx) > 8) col = v < 0.25 ? '#a89830' : '#b8a838';
+      // where the column meets the skirt, a darker collar ties them together
+      if (y > baseY - 6 && y < baseY - 1 && Math.abs(x - cx) < S.wBase + 3 && !lit) col = '#b8a838';
       if ((x * 7 + y * 3) % 29 === 0 && v > 0.2) col = '#98b03a';
       c.set(x, y, col);
     }

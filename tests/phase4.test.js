@@ -173,6 +173,35 @@ describe('Shark Duty', () => {
   });
 });
 
+describe('Shark Duty gets harder shark by shark', () => {
+  const def = dutyData(content).sessions.first_watch;
+
+  it('each shark bites sooner, swings the bar faster and narrows the green', () => {
+    const plan = new DutyPlan(def);
+    const tunes = [];
+    for (let t = 0; t < 120000 && tunes.length < 10; t += 100) {
+      for (const w of plan.tick(100, new Set())) tunes.push(w.tuning);
+    }
+    expect(tunes.length).toBe(10);
+    for (let i = 1; i < tunes.length; i++) {
+      expect(tunes[i].window).toBeLessThanOrEqual(tunes[i - 1].window);
+      expect(tunes[i].speed).toBeGreaterThanOrEqual(tunes[i - 1].speed);
+      expect(tunes[i].zone).toBeLessThanOrEqual(tunes[i - 1].zone);
+    }
+    expect(tunes.at(-1).window).toBeLessThan(tunes[0].window * 0.7);
+    expect(tunes.at(-1).zone).toBeGreaterThanOrEqual(8); // always hittable (and two misses widen it)
+    expect(tunes.some((t) => t.big)).toBe(true);
+  });
+
+  it('can be put aside off the deck and picked up exactly where it was', () => {
+    const plan = new DutyPlan(def);
+    for (let t = 0; t < 20000; t += 100) plan.tick(100, new Set());
+    const resumed = new DutyPlan(def, JSON.parse(JSON.stringify(plan.state())));
+    expect(resumed.state()).toEqual(plan.state());
+    expect(resumed.tuning()).toEqual(plan.tuning());
+  });
+});
+
 describe('the sharks in Phase 4', () => {
   const deck = compiled('main_deck');
 

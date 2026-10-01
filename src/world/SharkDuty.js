@@ -11,7 +11,14 @@ import { splitObjectiveRef } from '../systems/conditions/conditions.js';
  * one flops aboard and has to be heaved back over. Arrows at the edge of the
  * screen point at sharks the camera can't see, and a small board shows the
  * count. Pooled stage sprites, a handful at a time.
+ *
+ * Each shark is a little harder than the last (DutyPlan's ramp: sooner,
+ * quicker to bite, a faster bar with a narrower green). Leaving the deck
+ * mid-watch doesn't send them away: the watch is put aside in the session's
+ * per-play state (never saved) with its clock stopped, and the same sharks
+ * are waiting, mid-bite, when the captain comes back.
  */
+const PACE = [[0.25, 'Testing'], [0.5, 'Bolder'], [0.8, 'Hungry'], [2, 'Frantic']];
 const T = TILE_SIZE;
 const rand = (a, b) => a + Math.random() * (b - a);
 
@@ -42,13 +49,21 @@ export class SharkDuty {
   start(id) {
     this.sessionId = id;
     this.def = this.data.sessions[id];
-    this.plan = new DutyPlan(this.def);
+    const saved = this.scene.session.transient?.sharkDuty;
+    const resume = saved && saved.sessionId === id && saved.map === this.scene.model.id;
+    this.plan = new DutyPlan(this.def, resume ? saved.plan : null);
     this.barkTimer = 5000;
+    if (resume) {
+      this.nextId = saved.nextId;
+      for (const inc of saved.incidents) this.restore(inc);
+    }
     this.updateBoard(true);
   }
 
+  /** The watch ends for good (the story moved on): forget anything put aside. */
   stop() {
     if (!this.sessionId) return;
+    if (this.scene.session.transient) delete this.scene.session.transient.sharkDuty;
     for (const inc of this.incidents) this.clear(inc, { retreat: true });
     this.incidents = [];
     for (const a of this.arrows) a.destroy();
@@ -58,8 +73,48 @@ export class SharkDuty {
     this.scene.app.overlay?.setDutyBoard?.(null);
   }
 
+  /** Leaving the room: put the watch aside, sharks and all, for when he's back. */
   destroy() {
-    this.stop();
+    if (!this.sessionId) return;
+    const keep = ['id', 'kind', 'section', 'x', 'y', 'port', 'big', 'spot', 't', 'window', 'speed', 'zone', 'warned'];
+    if (this.scene.session.transient) {
+      this.scene.session.transient.sharkDuty = {
+        sessionId: this.sessionId,
+        map: this.scene.model.id,
+        plan: this.plan.state(),
+        nextId: this.nextId,
+        incidents: this.incidents.map((inc) => Object.fromEntries(keep.filter((k) => inc[k] !== undefined).map((k) => [k, inc[k]]))),
+      };
+    }
+    for (const a of this.arrows) a.destroy();
+    this.arrows = [];
+    this.incidents = [];
+    this.sessionId = null;
+    this.scene.app.overlay?.setDutyBoard?.(null);
+  }
+
+  /** A shark (or a bite to patch, or a boarder) put aside earlier, back where it was. */
+  restore(saved) {
+    const s = this.scene;
+    const inc = { ...saved };
+    if (inc.kind === 'boarder') {
+      if (s.isSolid(inc.x, inc.y) || s.occupantAt(inc.x, inc.y)) return;
+      inc.blocker = { id: `duty_boarder_${inc.id}`, kind: 'prop', tx: inc.x, ty: inc.y };
+      s.occupancy.set(s.key(inc.x, inc.y), inc.blocker);
+      s.sharks.flop(inc.x, inc.y);
+      this.incidents.push(inc);
+      this.mark(inc, inc.x, inc.y - 1.3);
+      return;
+    }
+    this.incidents.push(inc);
+    if (inc.kind === 'patch') {
+      this.mark(inc, inc.x + 0.5, inc.y - 0.2, 'duty_patch_0');
+      return;
+    }
+    inc.sprite = `duty_shark_${inc.id}`;
+    const rec = s.stage.add(inc.sprite, { frame: 'shark_bite_0', x: inc.port ? inc.x + 1.4 : inc.x - 0.4, y: inc.y + 1, below: true, flip: inc.port });
+    if (inc.big) rec.img.setScale(1.25);
+    this.mark(inc, inc.x + 0.5, inc.y - 0.2);
   }
 
   // --- the clock ----------------------------------------------------------------
@@ -103,7 +158,7 @@ export class SharkDuty {
     if (wave.boarder) {
       const [x, y] = wave.boarder;
       if (s.isSolid(x, y) || s.occupantAt(x, y)) return;
-      const inc = { id, kind: 'boarder', x, y, spot: 'deck', t: 0 };
+      const inc = { id, kind: 'boarder', x, y, spot: 'deck', t: 0, speed: wave.tuning?.speed, zone: wave.tuning?.zone };
       this.incidents.push(inc);
       // Something on the deck blocks the way until it's dealt with.
       inc.blocker = { id: `duty_boarder_${id}`, kind: 'prop', tx: x, ty: y };
@@ -115,7 +170,8 @@ export class SharkDuty {
     const sec = this.data.sections?.[wave.section];
     if (!sec) return;
     const port = sec.x >= s.model.width / 2;
-    const inc = { id, kind: 'rail', section: wave.section, x: sec.x, y: sec.y, port, big: !!wave.big, spot: wave.section, t: 0, window: wave.window };
+    const tune = wave.tuning ?? {};
+    const inc = { id, kind: 'rail', section: wave.section, x: sec.x, y: sec.y, port, big: tune.big ?? !!wave.big, spot: wave.section, t: 0, window: tune.window ?? wave.window, speed: tune.speed, zone: tune.zone };
     this.incidents.push(inc);
     inc.sprite = `duty_shark_${id}`;
     const rec = s.stage.add(inc.sprite, { frame: 'shark_bite_0', x: port ? sec.x + 1.4 : sec.x - 0.4, y: sec.y + 1, below: true, flip: port });
@@ -184,7 +240,8 @@ export class SharkDuty {
     const strikes = inc.kind === 'patch' ? 2 : inc.kind === 'boarder' || inc.big ? 2 : 1;
     const title = inc.kind === 'patch' ? 'PATCH THE BITE' : inc.kind === 'boarder' ? 'HEAVE IT OVERBOARD' : inc.big ? 'REPEL THE BIG ONE' : 'REPEL THE SHARK';
     s.player.face(this.facingFor(inc));
-    await s.runScript([{ repair: kind, strikes, title }]);
+    const hard = inc.kind === 'patch' ? {} : { speed: inc.speed ?? 1, zone: inc.zone ?? 26 };
+    await s.runScript([{ repair: kind, strikes, title, ...hard }]);
     this.responding = false;
     if (!this.incidents.includes(inc)) return;
     const counted = inc.kind !== 'patch';
@@ -264,9 +321,11 @@ export class SharkDuty {
       const st = qs.objState(q, o);
       if (def) text = `${this.def.label ?? 'Sharks repelled'}  <y>${Math.min(st?.progress ?? 0, def.count ?? 1)}/${def.count ?? 1}</>`;
     }
-    const key = `${this.sessionId}|${text}|${this.incidents.length}`;
+    const level = this.plan?.level() ?? 0;
+    const pace = PACE.find(([max]) => level < max)?.[1] ?? '';
+    const key = `${this.sessionId}|${text}|${this.incidents.length}|${pace}`;
     if (!force && key === this.boardKey) return;
     this.boardKey = key;
-    this.scene.app.overlay?.setDutyBoard?.({ title: this.def?.title ?? 'SHARK DUTY', text, sharks: this.incidents.length });
+    this.scene.app.overlay?.setDutyBoard?.({ title: this.def?.title ?? 'SHARK DUTY', text, sharks: this.incidents.length, pace });
   }
 }

@@ -299,7 +299,7 @@ export function createCommandImplementations() {
     },
     /** A quick hammering prompt; the number of clean strikes can go in a variable. */
     repair: async (step, ctx) => {
-      const clean = await service(ctx, 'ui', 'repair').repair({ kind: step.repair, strikes: step.strikes ?? 3, title: step.title ?? null });
+      const clean = await service(ctx, 'ui', 'repair').repair({ kind: step.repair, strikes: step.strikes ?? 3, title: step.title ?? null, speed: step.speed ?? 1, zone: step.zone ?? 26 });
       if (step.var) ctx.session.story.setVar(step.var, clean ?? 0);
     },
     battle: async (step, ctx, frame) => {

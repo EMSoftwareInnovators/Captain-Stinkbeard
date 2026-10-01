@@ -319,7 +319,7 @@ the cancel button (default: the last option).
 | `tint` | actor, `color` `"#rrggbb"`, `duration`, `async` | tint an actor for a moment (turning green) |
 | `sharks` | level or `"auto"`, `crowd` | hold a shark level for the scene (`crowd`: how many distant fins to draw); `auto` hands it back to the map |
 | `sharkEvent` | `bite` (`x`, `y` hull tile), `ram`, `flop` (`x`, `y` deck tile), `return`, `lure` (`x`, `y`, `duration`), `follow`, `unfollow`, `frenzy` (`x`, `y`: the scent on the hull), `calm`, `thrash` (`x`, `y`), `hammerhead` (`x`, `y`); `async` | staged shark moments |
-| `repair` | kind (`hull`, `rope`, `helm`, `shark`), `strikes`, `title`, `var` | the timing game (patch, haul, hold the wheel, shove a shark); clean strikes go into `var` |
+| `repair` | kind (`hull`, `rope`, `helm`, `shark`), `strikes`, `title`, `var`, `speed` (marker speed scale), `zone` (green width, px) | the timing game (patch, haul, hold the wheel, shove a shark); clean strikes go into `var` |
 | `deadCenter` | location id or `"none"` | where the Dead Center is now (Phase 4; see below) |
 | `alarm` | level 1-4, `where`, `wait` | ring the bell protocol: shown in words and heard; carries on unless `wait` |
 | `course` | `show` (`heading`, `target`, `label`), `drift` (`to`, `duration`), `hide`; `async` | the course dial (the ship falling off her heading) |
@@ -849,6 +849,15 @@ Each one seen off fires `event` (count it with an `event` objective) and the
 duty board shows `counter`'s progress. A shark left too long bites and leaves
 damage to patch; nothing is ever lost. `{ "sharkDuty": "clear" }` stands the
 rail down at once.
+
+Each shark is harder than the last. A session's optional `ramp` (defaults in
+`DEFAULT_RAMP`, `src/systems/hazards/sharkDuty.js`) blends from the first
+shark to the `over`-th: `window` and `gap` scale how long a shark waits and
+how soon the next comes, `speed` scales the timing bar's marker, `zone` is the
+green zone's width in px, and from `bigFrom` every `bigEvery`th shark is a big
+one. Two misses in a row still widen the zone. Leaving the deck mid-watch puts
+the watch aside (per play, never saved) with its clock stopped; the same
+sharks are waiting when the captain comes back.
 
 ### Sharks: the frenzy and the crowd
 

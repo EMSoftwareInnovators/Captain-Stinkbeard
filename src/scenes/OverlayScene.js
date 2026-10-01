@@ -169,8 +169,10 @@ export class OverlayScene extends BaseScene {
    * one is steadied for you. Resolves with the number of clean strikes.
    * Kinds (Phase 3 and 4): hull (hammering a patch), shark (a pole shove),
    * rope (hauling a line tight), helm (bringing the wheel back on course).
+   * `speed` scales the marker and `zone` is the green zone's width in px
+   * (Shark Duty makes each shark harder); two misses still widen it.
    */
-  repair({ kind = 'hull', strikes = 3, title = null } = {}) {
+  repair({ kind = 'hull', strikes = 3, title = null, speed = 1, zone: zoneWidth = 26 } = {}) {
     const K = REPAIR_KINDS[kind] ?? REPAIR_KINDS.hull;
     return new Promise((resolve) => {
       const w = 208;
@@ -199,7 +201,7 @@ export class OverlayScene extends BaseScene {
       this.app.audio.ui('menu_open');
       this.repairOpen = {
         parts, resolve, zone, mark, nails, hint, barX, barW, strikes, K,
-        done: 0, clean: 0, misses: 0, t: 0, dir: 1, pos: 0, speed: K.speed ?? 150, lock: 250,
+        done: 0, clean: 0, misses: 0, t: 0, dir: 1, pos: 0, speed: (K.speed ?? 150) * speed, zoneW: Math.max(8, Math.round(zoneWidth)), lock: 250,
       };
       this.placeRepairZone();
     });
@@ -208,7 +210,7 @@ export class OverlayScene extends BaseScene {
   placeRepairZone() {
     const r = this.repairOpen;
     const assisted = r.misses >= 2 || this.app.flags?.autoTiming;
-    const zw = assisted ? r.barW : 26;
+    const zw = assisted ? r.barW : r.zoneW;
     r.zone.width = zw;
     r.zone.x = assisted ? r.barX : r.barX + 12 + Math.floor(Math.random() * (r.barW - zw - 24));
     r.zone.setFillStyle(assisted ? 0x9ad07a : 0x7cb45a);
@@ -344,7 +346,8 @@ export class OverlayScene extends BaseScene {
     const b = this.dutyBoard;
     setText(b.head, state.title);
     setText(b.body, state.text ?? '');
-    setText(b.at, state.sharks ? `<r>At the rail: ${state.sharks}</>` : '<k>Rail clear</>');
+    const pace = state.pace ? `  <k>Sharks: ${state.pace}</>` : '';
+    setText(b.at, (state.sharks ? `<r>At the rail: ${state.sharks}</>` : '<k>Rail clear</>') + pace);
     const w = Math.max(b.head.textWidth, b.body.textWidth, b.at.textWidth) + 16;
     const h = 44;
     // Top centre: clear of both rails, which run down the screen's edges.
