@@ -119,7 +119,7 @@ async function partTwo(g, has) {
   // 31: the Great Sharkstorm
   await g.interact([3, 16]);
   await g.interact([16, 16]);
-  await g.interact([4, 7]);
+  await g.interact([3, 7]);
   await g.interact('squawks');
   await g.interact([9, 22]); // HEAVE; the S.E.S. is hit
   expect(await value(g, 'ses_state')).toBe('shark_damaged');
@@ -158,7 +158,7 @@ test('Phase 6 from the Great Sharkstorm attack to the end plays from its preset'
   await g.skip();
   await g.interact([3, 16]);
   await g.interact([16, 16]);
-  await g.interact([4, 7]);
+  await g.interact([3, 7]);
   await g.interact('squawks');
   await g.interact([9, 22]);
   await g.interact([9, 6]);

@@ -160,6 +160,11 @@ export class StagingTracker {
   }
 
   move(id, { path, to } = {}) {
+    // The game throws on a move for someone who isn't in the room (placements
+    // are live, so someone the story has just put here counts).
+    if (this.map && id !== 'player' && id !== 'captain' && !this.actors.has(id) && !this.placements(this.map, new Set()).has(id)) {
+      this.issue(`moves ${id}, who isn't on ${this.map}`);
+    }
     const from = this.posOf(id);
     if (Array.isArray(to)) {
       const [tx, ty] = to;

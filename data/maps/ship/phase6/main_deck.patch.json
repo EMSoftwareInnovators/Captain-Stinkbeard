@@ -219,7 +219,7 @@
   {
    "id": "p6_rope_c",
    "type": "inspect",
-   "x": 4,
+   "x": 3,
    "y": 7,
    "if": {
     "all": [
@@ -244,6 +244,15 @@
    "script": "p6c7.heave"
   },
   {
+   "id": "p6_heave_block",
+   "type": "block",
+   "x": 9,
+   "y": 22,
+   "if": {
+    "objectiveActive": "the_great_sharkstorm.shark"
+   }
+  },
+  {
    "id": "p6_helm",
    "type": "inspect",
    "x": 9,
@@ -257,8 +266,8 @@
   {
    "id": "p6_wall_hole",
    "type": "inspect",
-   "x": 15,
-   "y": 16,
+   "x": 16,
+   "y": 17,
    "if": {
     "flag": "p6_ses_shark_hit"
    },
@@ -2581,6 +2590,27 @@
    "id": "p6d_bob_10",
    "type": "npc",
    "npc": "bob",
+   "x": 8,
+   "y": 13,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p6_bob_woke_captain"
+     },
+     {
+      "notFlag": "p6_ch27_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p6d_bob_11",
+   "type": "npc",
+   "npc": "bob",
    "x": 1,
    "y": 1,
    "absent": true,
@@ -2596,7 +2626,7 @@
    }
   },
   {
-   "id": "p6d_bob_11",
+   "id": "p6d_bob_12",
    "type": "npc",
    "npc": "bob",
    "x": 7,
@@ -4601,8 +4631,8 @@
   },
   {
    "prop": "wall_hole",
-   "x": 15,
-   "y": 16,
+   "x": 16,
+   "y": 17,
    "if": {
     "flag": "p6_ses_shark_hit"
    },
