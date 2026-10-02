@@ -979,6 +979,87 @@ every channel's `tv_*` frames, `tv_almost`, `tv_spark_0…2`, `tv_smoke`,
 damage (`rail_bitten_s`, `rail_gap_s`, `patch_1_s`, `patch_2_s`,
 `brace_ropes_s`).
 
+## Story Phase 6 formats
+
+### Television programmes (`data/tv/programs/`)
+
+```json
+"frog_tax_man": {
+  "title": "The Frog Tax Man", "laugh": "ftm_laugh", "closeup": ["ftm_close_0", "ftm_close_1"],
+  "episodes": [
+    { "id": "forty_seven_hundred_flies", "beats": [
+      { "frames": ["ftm_title_0", "ftm_title_1"], "frameMs": 420, "line": "announcer: THE FROG TAX MAN!", "sfx": "ftm_horn", "ms": 2400 },
+      { "frames": ["ftm_close_0", "ftm_close_1"], "line": "franklin: I ate them during work hours!", "laugh": true } ] },
+    { "id": "quarterly_estimates", "if": { "flag": "p6_complete" }, "beats": [ ... ] } ]
+}
+```
+
+A channel carries a programme with `"program": "frog_tax_man"`; the close-up
+plays the last episode whose `if` holds, beat by beat (the cast are extra
+speakers in `data/characters/speakers_phase6.json`). In a cutscene,
+`{ "tvProgram": "frog_tax_man", "episode": "...", "layer": "screen", "from": 6, "to": 7 }`
+plays beats 6 and 7 (inclusive) on a vista's screen layer.
+
+### Television conditions and the knob panel (`data/tv/ses.json`)
+
+```json
+"stateValue": "ses_state",
+"states": {
+  "apparently_dead": { "dead": true, "bezel": "ses_bezel_dead", "back": "ses_back_singed",
+                       "flicker": { "every": [9000, 16000], "frames": ["tv_dot"], "sfx": "ses_clicking", "lines": [["..."]] },
+                       "lookComments": [["captain: Dead. Black glass."]] },
+  "shark_damaged": { "dead": true, "bezel": "ses_bezel_wrecked", "glass": "tv_cracked", ... } },
+"knobs": { "doneFlag": "ses_off_maybe", "openLines": [["..."]],
+           "list": [{ "id": "off_maybe", "label": "OFF MAYBE", "effect": "off", "tries": 3, "lines": [["..."]], "doneLines": [["..."]] }] }
+```
+
+`{ "tvSet": "ses", "state": "shark_damaged" }` sets the condition (a dead set
+is switched off and can't be switched on). Knob effects: `louder` (with
+`amount`), `flip`, `tint`, `slow`, `shrink`, `frog`, `noop`, `off` (with
+`tries`); validation insists on an `off` knob. `{ "tv": "ses", "mode": "knobs" }`
+opens the panel.
+
+### The Great Sharkstorm (`data/hazards/sharkstorm.json`)
+
+```json
+"great_sharkstorm": { "value": "great_sharkstorm", "distanceValue": "great_sharkstorm_distance",
+  "states": {
+    "attacking_ship": { "intensity": 3, "distance": "near",
+      "flying": { "passEvery": [1800, 3600], "impactEvery": [6500, 10000], "warnMs": 1600, "area": [4, 12, 15, 31] } },
+    "active_distant": { "intensity": 2, "distance": "distant", "rumble": { "every": [26000, 52000], "sfx": "storm_distant" } } } }
+```
+
+`{ "sharkstorm": "attacking_ship" }` moves it (and records the distance);
+`{ "if": { "sharkstorm": ["forming", "attacking_ship"] } }` tests it.
+
+### Vista orbit layers
+
+```json
+{ "id": "sharks_high", "x": 222, "y": 186, "depth": 12,
+  "orbit": { "frames": ["storm_shark_0", "storm_shark_1"], "count": 120, "height": 180,
+             "radius": [18, 66], "speed": 1.4, "scale": [0.3, 0.75], "frameMs": 140, "wobble": 4 } }
+```
+
+`{ "vistaSpin": "sharks_high", "speed": 0.5 }` slows it (a storm losing its grip).
+
+### Dead Center profiles, values, timing bars
+
+A Dead Center location may have `"profile": "second"` (the garlic-pale
+cloud). Conditions can test story text values:
+`{ "value": { "name": "ses_state", "in": ["apparently_dead", "shark_damaged"] } }`
+(`eq`, `ne`, `in`, `set`); scripts set them with `{ "setValue": "name", "value": "text" }`.
+The timing bar (`repair`) has Phase 6 variants `smother`, `brace`, `heave`
+and `barrel`.
+
+### Looks added in Phase 6
+
+Character extras `gaudy` (saucepan-lid medal, bottle caps, mismatched
+buttons, grog-soaked tassels) and `singed` (scorched hem, grog stains); the
+painted cape is the existing `cloak` in burgundy. Parrot option `nightcap`.
+Appearances and portraits `garrick_stenchmaster_gaudy`,
+`garrick_stenchmaster_singed`, `squawks_nightcap` are in
+`data/appearances/phase6.json` and `data/portraits/phase6.json`.
+
 ## Tilesets and props
 
 **Tilesets** (`data/tilesets/`) list `frames` (painted by name in

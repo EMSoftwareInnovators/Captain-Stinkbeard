@@ -52,7 +52,8 @@
      { "frames": ["ftm_court_0", "ftm_court_1"], "line": "judge: Is this true, Franklin?", "ms": 2400, "sfx": "ftm_gavel" },
      { "frames": ["ftm_close_1"], "line": "franklin: ...Ribbit.", "ms": 2000, "sfx": "ftm_ribbit", "laugh": true },
      { "frames": ["ftm_title_0", "ftm_title_1"], "line": "announcer: Remember to file! The Frog Tax Man!", "ms": 2800, "sfx": "ftm_announcer", "frameMs": 420 }
-    ]
+    ],
+    "if": { "flag": "p6_complete" }
    }
   ]
  }

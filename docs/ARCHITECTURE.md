@@ -376,6 +376,33 @@ Stenchmaster's office. Data plus small reusable pieces again:
   fully bald Squawks are appearance variants on flags, as before.
 - **Save version 5** keeps the layout (Phase 5 is flags and variables).
 
+## Programmes, the Great Sharkstorm and the second cloud (Phase 6)
+
+Story Phase 6 (see [STORY_PHASE6.md](STORY_PHASE6.md)) extends the same
+pieces rather than adding new architecture:
+
+- **Television programmes and conditions.** A programme
+  (`data/tv/programs/`, ContentDB kind `tvPrograms`) is episodes of beats;
+  `TvView` plays the channel's programme beat by beat and the `tvProgram`
+  command plays beats on a vista's screen layer. A set's condition is a saved
+  story value (`stateValue`); a state swaps bezel/back/glass art and can make
+  the set dead (no power) with a flicker. The knob panel is a mode of the
+  same close-up (`{ "tv": "ses", "mode": "knobs" }`).
+- **The Great Sharkstorm** is one saved story value plus data per state
+  (`systems/hazards/sharkstorm.js`); the `sharkstorm` condition and command
+  read and move it. `world/SharkstormLayer.js` reads the current state each
+  frame on the main deck: pooled flying-shark passes, telegraphed impacts
+  (a duty-mark ring and a growing shadow before anything lands; a hit only
+  knocks the captain down), and a distant rumble once it's far off. The big
+  pictures are vistas with **orbit layers** (`CinemaScene.buildOrbit`): many
+  copies of a few frames circling a column in one container.
+- **Dead Center profiles.** A location may carry `"profile"`; the fume layer
+  tints that cloud from `PALETTES[profile]`. The second generation is new
+  locations, still one value, so there is still only one Center.
+- **Story text values in conditions** (`value`) and scripts (`setValue`).
+- **Save version 6** keeps the layout (Phase 6 is flags, variables and
+  values); the migration fills missing maps and never touches the inventory.
+
 ## Battle
 
 `BattleEngine` (`src/systems/battle/`) owns the rules and is fully
@@ -484,8 +511,8 @@ handles fullscreen, so pixels stay square and sharp.
 See the README and [RETRO_PORT_NOTES.md](RETRO_PORT_NOTES.md#save-schema).
 Autosave on map entry and after battles, three manual slots from the pause
 menu, checksum + version per record, migrations table for future formats.
-The schema is at version 5 (Story Phase 4 added story values: where the
-Dead Center is; Phase 5 keeps the layout); a save from any earlier phase
+The schema is at version 6 (Story Phase 4 added story values: where the
+Dead Center is; Phases 5 and 6 keep the layout); a save from any earlier phase
 upgrades on load and walks into the next chapter.
 
 ## Testing
@@ -522,8 +549,8 @@ upgrades on load and walks into the next chapter.
   | Tag | What |
   | --- | --- |
   | `@smoke` | a few minutes: menus, movement, a pad, Phase 2 presets, being walled in, the Dead Center's sealed door, the Forecast Board, the S.E.S. |
-  | `@story` | the long playthroughs (prologue, Phase 2, Phase 3, chapters 12 to 14, Phase 4, chapters 18 and 19, Phase 5, chapters 23 and 24) |
-  | `@prologue` `@phase2` `@phase3` `@phase4` `@phase5` | by part of the story |
+  | `@story` | the long playthroughs (prologue, Phase 2, Phase 3, chapters 12 to 14, Phase 4, chapters 18 and 19, Phase 5, chapters 23 and 24, Phase 6) |
+  | `@prologue` `@phase2` `@phase3` `@phase4` `@phase5` `@phase6` | by part of the story |
   | `@input` `@saves` `@world` `@scenes` `@ui` | by system |
 
   `npm run e2e:smoke`, `npm run e2e:quick` (all but `@story`),
@@ -540,7 +567,7 @@ upgrades on load and walks into the next chapter.
     - a captain boxed in when a scene ends;
     - a room whose doorways are cut off by people from some arrival point;
     - talking to someone who isn't in the room.
-- `tests/phase2_story.test.js` to `tests/phase5_story.test.js` play the Story Phases headlessly with the real
+- `tests/phase2_story.test.js` to `tests/phase6_story.test.js` play the Story Phases headlessly with the real
   scripts, quests and triggers and mock services, twice (always the first
   choice, always the last), and fails on any dead end, loop or script error.
   `tests/phase2.test.js` covers the fume model, variants, chapters and time of
@@ -550,6 +577,9 @@ upgrades on load and walks into the next chapter.
   Forecast Board and save migration 3 → 4. `tests/phase5.test.js` covers
   the television (channels, power, looks, the set on deck), panic shouts, the
   Phase 5 Shark Duty shifts and helper, and save migration 4 → 5.
+  `tests/phase6.test.js` covers the Great Sharkstorm states, the S.E.S.
+  conditions, programme and knob panel, the second Dead Center, the bulk
+  Frog Grog (and the captain's own, untouched), and save migration 5 → 6.
 
 ## Adding Chapter 8 (or anything else)
 

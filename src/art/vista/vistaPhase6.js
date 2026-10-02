@@ -398,7 +398,7 @@ function revengeNight({ puffed = false } = {}) {
   // the sails went yellow in the first catastrophe and never came back
   let c = revengeBitten(3).remap({ [PAL.cloth1]: '#8a7a30', [PAL.cloth3]: '#c8b048', [PAL.cloth4]: '#e8d470' });
   if (puffed) c = inflate(c);
-  for (let y = 0; y < c.height; y++) for (let x = 0; x < c.width; x++) if (c.alphaAt(x, y) > 0) c.blend(x, y, '#0a0c24', 0.5);
+  for (let y = 0; y < c.height; y++) for (let x = 0; x < c.width; x++) if (c.alphaAt(x, y) > 0) c.blend(x, y, '#0a0c24', 0.32);
   // lamplight in the ports
   for (let x = 38; x < 126; x += 11) c.rect(x + 1, puffed ? 93 : 92, 2, 2, '#f0b84a');
   return c;

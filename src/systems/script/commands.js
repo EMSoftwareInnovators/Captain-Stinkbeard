@@ -121,7 +121,8 @@ export function createCommandImplementations() {
       const ep = programEpisode(prog, ctx.session, step.episode ?? null);
       if (!ep) throw new Error(`Programme "${step.tvProgram}" has no episode "${step.episode}"`);
       const layer = step.layer ?? 'screen';
-      for (const b of (ep.beats ?? []).slice(step.from ?? 0, step.to ?? undefined)) {
+      // from/to are beat indexes, both inclusive ({ from: 6, to: 7 } plays beats 6 and 7).
+      for (const b of (ep.beats ?? []).slice(step.from ?? 0, step.to === undefined ? undefined : step.to + 1)) {
         if (b.frames?.length) service(ctx, 'cinema', 'tvProgram').frames(layer, b.frames, b.frameMs ?? 300);
         if (b.sfx) service(ctx, 'audio', 'tvProgram').sfx(b.sfx);
         if (b.laugh) service(ctx, 'audio', 'tvProgram').sfx(prog.laugh ?? 'ftm_laugh', { volume: 0.8 });
