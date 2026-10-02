@@ -213,6 +213,18 @@ describe('Story Phase 6 can be played start to finish (headless)', () => {
     expect(knobs).toEqual(['LOUD', 'MORE LOUD', 'PICTURE MAYBE', 'DO NOT TOUCH', 'FROG', '???', 'OFF MAYBE']);
   });
 
+  it('the evacuation carries on if the captain leaves the sleeping quarters by the galley door', async () => {
+    const s = makeStory({ preset: 'p6_quarters_evacuation' });
+    await s.enter('crew_quarters');
+    for (const id of ['bob', 'wick', 'brask']) await s.talk(id);
+    await s.enter('galley');
+    await s.enter('main_deck');
+    expect(s.has('p6_pressure_shift')).toBe(true);
+    expect(s.has('p6_evacuated')).toBe(true);
+    await playToEndP6(s);
+    for (const q of PHASE6_QUESTS) expect(s.quest(q), q).toBe('completed');
+  });
+
   it('keeps talking after the end without restarting anything', async () => {
     const { s } = await playPhase6('first');
     const before = s.log.length;

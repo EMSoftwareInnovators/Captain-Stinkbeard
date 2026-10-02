@@ -325,6 +325,29 @@
    "fade": 300
   }
  ],
+ "p6c5.shift_late": [
+  "Behind you, the crew come up out of the hatch in a heap, the Grand Stenchmaster last of all. Halfway out, he stops dead, and everyone behind him stops too, mostly on each other.",
+  {
+   "sfx": "liquid_churn"
+  },
+  "garrick[alarmed]: Pressure shift.",
+  "captain: What?",
+  "garrick[terrified]: It moved.",
+  "captain[alarmed]: WHERE?",
+  {
+   "wait": 900
+  },
+  "garrick[terrified]: ...Down.",
+  {
+   "sfx": "crowd_gasp"
+  },
+  {
+   "setFlag": "p6_pressure_shift"
+  },
+  {
+   "call": "p6c5.deck"
+  }
+ ],
  "p6c5.deck": [
   {
    "setFlag": "p6_evacuated"

@@ -4746,6 +4746,19 @@
     ]
    },
    "script": "p6c2.deck_night"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "about_to_blow.out"
+     },
+     {
+      "notFlag": "p6_evacuated"
+     }
+    ]
+   },
+   "script": "p6c5.shift_late"
   }
  ],
  "sharkDuty": [

@@ -103,8 +103,9 @@ async function partTwo(g, has) {
   await g.interact('bob');
   await g.interact('wick');
   await g.interact('brask');
-  await g.travel(13, 3, 'main_deck'); // "Pressure shift."
+  await g.goto(13, 4).catch(() => {}); // the way to the ladder: "Pressure shift."
   await g.skip();
+  expect(await onMap(g)).toBe('main_deck');
   await g.interact('hale');
   await g.interact('rook');
   await g.interact('sully'); // nowhere; the countdown; BRACE; the blast; the smell
