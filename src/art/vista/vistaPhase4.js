@@ -63,7 +63,7 @@ function patch(c, x, y, w, h, shade = '#9a6a44') {
 }
 
 /** The Revenge after one, two or three rounds with the sharks. */
-function revengeBitten(stage) {
+export function revengeBitten(stage) {
   const c = revengeBase();
   // patches from before (and from before that)
   patch(c, 60, 90, 9, 6);

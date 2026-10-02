@@ -17,7 +17,7 @@ const SASHY = { m: '#c8982a', edge: '#5e1624', plush: '#74283a', plushD: '#52182
 const GROG = { d: '#3a4a1c', m: '#5a7a2a', l: '#a8c050', h: '#d0e070' };
 
 /** A small copy of a channel picture (every few pixels of the close-up). */
-function miniScreen(src, w, h) {
+export function miniScreen(src, w, h) {
   const c = new PixelCanvas(w, h);
   for (let y = 0; y < h; y++) {
     for (let x = 0; x < w; x++) c.set(x, y, src.get(Math.floor(((x + 0.5) * src.width) / w), Math.floor(((y + 0.5) * src.height) / h)));
@@ -25,8 +25,11 @@ function miniScreen(src, w, h) {
   return c;
 }
 
-/** The set on deck: a junk-built crate TV on a barrel, tubes, a pan, a fork aerial. */
-function sesTv(screen) {
+/**
+ * The set on deck: a junk-built crate TV on a barrel, tubes, a pan, a fork
+ * aerial. Story Phase 6: tubes 'lit' / 'red' (dying) / 'dark'.
+ */
+export function sesTv(screen, { tubes = 'lit' } = {}) {
   const c = canvas(24, 34);
   groundShadow(c, 12, 32, 10, 2);
   // the barrel it stands on
@@ -53,7 +56,7 @@ function sesTv(screen) {
   // tubes on top, the pan, the fork aerial, a potato
   for (const [tx, lit] of [[7, true], [11, true], [15, false]]) {
     c.rect(tx, 2, 2, 4, '#c8e8e8a0');
-    if (lit) c.vline(tx, 3, 5, '#ffb040');
+    if (lit && tubes !== 'dark') c.vline(tx, 3, 5, tubes === 'red' ? '#c82a20' : '#ffb040');
   }
   c.ellipse(19, 4, 4, 1.5, IRON.m);
   c.line(22, 3, 23, 1, WOOD.m);

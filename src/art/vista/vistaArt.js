@@ -3,6 +3,7 @@ import { ShelfAtlas } from '../atlas.js';
 import { PAL, mix, rgba } from '../palette.js';
 import { addPhase4VistaFrames, PHASE4_VISTA_FRAMES } from './vistaPhase4.js';
 import { addSesVistaFrames, SES_VISTA_FRAMES } from './sesArt.js';
+import { addPhase6VistaFrames, PHASE6_VISTA_FRAMES, garlicCloud } from './vistaPhase6.js';
 
 /**
  * Side-view art for vistas (scenes/CinemaScene.js): skies and seas for each
@@ -26,6 +27,8 @@ export const SKIES = {
   dusk: { top: '#141430', bottom: '#8a5a88', sun: null, clouds: '#6a4a78', stars: true },
   night: { top: '#07081a', bottom: '#2c2e52', sun: null, clouds: '#3a3a5c', stars: true },
   noon: { top: '#2e6cc0', bottom: '#b8e0f4', sun: [160, 22, '#fffef0'], clouds: '#ffffff' },
+  // Story Phase 6: the night of the Great Sharkstorm (bruised, mustard-lit from below)
+  storm: { top: '#0c0e10', bottom: '#5a5430', sun: null, clouds: '#2a2c24' },
 };
 
 const SEAS = {
@@ -37,6 +40,7 @@ const SEAS = {
   dusk: ['#0c1028', '#1a2244', '#4a4a78', '#8a7aa8'],
   night: ['#060818', '#101430', '#2c3058', '#6a6a98'],
   noon: ['#10427a', '#1e5a90', '#58a8d4', '#f0fbff'],
+  storm: ['#06100e', '#12201c', '#3a4a3a', '#c8c070'],
 };
 
 function paintSky(name) {
@@ -547,6 +551,8 @@ export function buildVistaAtlas() {
   for (let i = 0; i < 3; i++) atlas.add(`ripple_${i}`, ripple(i));
   addPhase4VistaFrames(atlas);
   addSesVistaFrames(atlas);
+  addPhase6VistaFrames(atlas);
+  for (let i = 0; i < 3; i++) atlas.add(`cloud_garlic_${i}`, garlicCloud(cloudRise(i)));
   return atlas.build();
 }
 
@@ -561,4 +567,5 @@ export const VISTA_FRAMES = [
   'revenge_puffed', 'shark_belly_0', 'shark_belly_1', 'ripple_0', 'ripple_1', 'ripple_2',
   ...PHASE4_VISTA_FRAMES,
   ...SES_VISTA_FRAMES,
+  ...PHASE6_VISTA_FRAMES,
 ];

@@ -973,6 +973,8 @@ export function paintCharacterFrame(L, dir, pose = {}, { outline = true } = {}) 
   if (L.battered) soaked(c, L, torsoTop);
   if (L.extras.has('regalia')) regalia(c, L, dir, torsoTop, torsoBottom);
   if (L.extras.has('brassboots')) brassBoots(c, L, dir);
+  if (L.extras.has('gaudy')) gaudy(c, L, dir, torsoTop, torsoBottom);
+  if (L.extras.has('singed')) singed(c, L, dir, torsoTop);
   if (outline) c.outline(OUTLINE);
   c.torsoTop = torsoTop;
   return c;
@@ -1242,6 +1244,54 @@ function regalia(c, L, dir, top, bottom) {
   // The bottle cap, crimped, pinned lowest.
   c.set(CX - 5, top + 10, '#c83a30');
   c.set(CX - 6, top + 10, '#e8e0d0');
+}
+
+/**
+ * Story Phase 6: the suit gets worse every time. A saucepan lid (Salty Jim's)
+ * worn as a great medal, bottle caps sewn round the hem, mismatched brass
+ * buttons, and a tassel off each epaulette, drooping, soaked in Frog Grog.
+ * Same burgundy, mustard and green; just more of it.
+ */
+function gaudy(c, L, dir, top, bottom) {
+  const R = REGALIA;
+  const half = Math.ceil(L.build.shoulder / 2);
+  const tassel = (x) => {
+    c.vline(x, top + 3, top + 6, R.fringe);
+    c.set(x, top + 7, '#7aa02c');
+    c.set(x, top + 8, '#4a6a1c');
+  };
+  if (dir === 'left') {
+    tassel(CX - 2);
+    c.set(CX - 4, top + 6, '#c8c8d0');
+    return;
+  }
+  tassel(CX - half - 1);
+  tassel(CX + half);
+  // bottle caps round the hem, red and white, alternating
+  for (let x = CX - half + 1; x < CX + half; x += 2) c.setIfOpaque(x, bottom, x % 4 === 1 ? '#c83a30' : '#e8e0d0');
+  if (dir === 'up') return;
+  // the saucepan lid: a big tin disc with a knob, on the right breast
+  const mx = CX + 3;
+  const my = top + 6;
+  for (let y = -2; y <= 2; y++) for (let x = -2; x <= 2; x++) if (x * x + y * y <= 5) c.set(mx + x, my + y, x + y < 0 ? '#e8e8f0' : '#a8a8b4');
+  c.set(mx, my, '#5a5a68');
+  c.set(mx, my - 3, '#c83a30');
+  // mismatched buttons down the front
+  for (const [k, col] of [[0, R.gold], [1, '#c8c8d0'], [2, R.goldD], [3, '#c87a2a']]) c.setIfOpaque(CX - 1, top + 3 + k * 3, col);
+}
+
+/** After the night: a singed cape hem, soot, grog stains. He thinks it looks magnificent. */
+function singed(c, L, dir, top) {
+  for (let y = GROUND - 7; y <= GROUND; y++) {
+    for (let x = 0; x < FRAME_W; x++) {
+      if (!c.alphaAt(x, y)) continue;
+      if ((x * 5 + y * 3) % 7 === 0) c.set(x, y, '#2a1a12');
+    }
+  }
+  if (dir === 'down') {
+    c.setIfOpaque(CX - 4, top + 9, '#5a7a2a');
+    c.setIfOpaque(CX + 2, top + 12, '#5a7a2a');
+  }
 }
 
 /** Ordinary boots with brass glued on: toe caps and a band. */

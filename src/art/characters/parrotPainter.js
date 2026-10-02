@@ -51,8 +51,9 @@ export function parrotLook(app) {
     tail: app.naked ? [] : bald ? [red.m, blue.m] : [red.m, blue.m, red.l, blue.l],
     beak: { l: '#efe6d4', m: '#c8bca8', d: '#4a4450' },
     patch: exposed ? '#e8dcc0' : '#f6f0e4',
-    wool: ['#7a2a24', '#b4483a', '#dc7456'],
-    woolStripe: '#f0e4c8',
+    // Story Phase 6: a tiny sleeping cap (pale blue, white stripe) for the night.
+    wool: app.nightcap ? ['#4a5a8a', '#7a8ac0', '#a8b8e0'] : ['#7a2a24', '#b4483a', '#dc7456'],
+    woolStripe: app.nightcap ? '#f8f8ff' : '#f0e4c8',
     feet: '#6a6a80',
   };
 }
@@ -392,7 +393,7 @@ export const PARROT_EXPRESSIONS = ['neutral', 'smug', 'insulting', 'worried', 'h
  * @param {string} expression
  */
 export function paintParrotPortrait(portrait, expression = 'neutral') {
-  const L = parrotLook({ plumage: portrait.plumage, sweater: portrait.sweater, blanket: portrait.blanket, yellowFeather: portrait.yellowFeather, newFeathers: portrait.newFeathers, naked: portrait.naked, weary: portrait.weary });
+  const L = parrotLook({ plumage: portrait.plumage, sweater: portrait.sweater, blanket: portrait.blanket, yellowFeather: portrait.yellowFeather, newFeathers: portrait.newFeathers, naked: portrait.naked, weary: portrait.weary, nightcap: portrait.nightcap });
   const c = new PixelCanvas(48, 48);
   const e = expression;
   const puffed = e === 'horrified' || e === 'furious' || e === 'outraged' || L.exposed;

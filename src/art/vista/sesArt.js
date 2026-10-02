@@ -34,7 +34,7 @@ const GLASS = ['#0e1614', '#1a2826', '#2a3a36'];
 const ROPE = ['#7a5628', '#a67c3e', '#cca660'];
 const GROG = ['#2a3a10', '#4a6a1c', '#7aa02c', '#b8e050', '#e8ff90'];
 
-function rng(seed) {
+export function rng(seed) {
   let s = seed >>> 0 || 1;
   return () => {
     s ^= s << 13;
@@ -45,7 +45,7 @@ function rng(seed) {
 }
 
 /** A plank-built box, nails at the ends. */
-function planks(c, x, y, w, h, { vertical = false } = {}) {
+export function planks(c, x, y, w, h, { vertical = false } = {}) {
   const r = rng(x * 31 + y * 7 + w);
   if (vertical) {
     for (let px = x; px < x + w; px += 6) {
@@ -67,7 +67,7 @@ function planks(c, x, y, w, h, { vertical = false } = {}) {
   }
 }
 
-function knob(c, cx, cy, r) {
+export function knob(c, cx, cy, r) {
   c.ellipse(cx + 1, cy + 2, r, r, BRASS[0]);
   c.ellipse(cx, cy, r, r, BRASS[2]);
   c.ellipse(cx - 1, cy - 1, r - 2, r - 2, BRASS[3]);
@@ -80,16 +80,23 @@ function knob(c, cx, cy, r) {
   c.line(cx, cy, cx + Math.round(r * 0.6), cy - Math.round(r * 0.6), BRASS[0]);
 }
 
-function tube(c, x, y, h, lit = true) {
+export function tube(c, x, y, h, lit = true) {
   // a vacuum tube: glass envelope, a socket, a glowing filament
+  // (lit: true / 'red' (dying: a sullen red glow) / false (dead, grey))
   c.rect(x - 3, y + h - 3, 7, 4, IRON[2]);
   c.hline(x - 3, x + 3, y + h - 3, IRON[3]);
-  c.ellipse(x, y + h / 2 - 1, 3.5, h / 2, '#c8e8e870');
+  c.ellipse(x, y + h / 2 - 1, 3.5, h / 2, lit ? '#c8e8e870' : '#8a989870');
   c.vline(x - 3, y + 2, y + h - 4, '#e8f8f8a0');
-  if (lit) {
+  if (lit === 'red') {
+    c.vline(x, y + 3, y + h - 4, '#c82a20');
+    c.vline(x + 1, y + 4, y + h - 5, '#8a1a14');
+    c.set(x, y + 3, '#ff6040');
+  } else if (lit) {
     c.vline(x, y + 3, y + h - 4, '#ffb040');
     c.vline(x + 1, y + 4, y + h - 5, '#ff7a20');
     c.set(x, y + 3, '#fff0a0');
+  } else {
+    c.vline(x, y + 3, y + h - 4, '#4a4a4a');
   }
   c.set(x, y - 1, '#c8e8e8a0');
 }
@@ -121,7 +128,9 @@ function screenSurround(c) {
   c.vline(x - 1, y + R, y + h - R, '#5a6a68');
 }
 
-function bezel() {
+/** The front of the set. Story Phase 6: tubes 'lit' (default), 'red' (dying) or 'dark'. */
+export function bezel({ tubes = 'lit' } = {}) {
+  const lit = tubes === 'lit' ? true : tubes === 'red' ? 'red' : false;
   const c = new PixelCanvas(SES_BEZEL.w, SES_BEZEL.h);
   // the brass tubing loop behind it all
   for (let t = 0; t < 1; t += 0.004) {
@@ -161,9 +170,9 @@ function bezel() {
   c.ellipse(104, 121, 12, 4, BRASS[2]);
   for (let gx = 94; gx < 115; gx += 3) c.vline(gx, 119, 124, BRASS[0]);
   // vacuum tubes on top, glowing
-  tube(c, 74, 0, 14);
-  tube(c, 92, 2, 12);
-  tube(c, 110, 0, 14, true);
+  tube(c, 74, 0, 14, lit);
+  tube(c, 92, 2, 12, lit);
+  tube(c, 110, 0, 14, lit);
   // copper coil
   for (let k = 0; k < 6; k++) c.ellipseOutline(132, 4 + k * 2, 4, 1.5, COPPER[k % 2 ? 2 : 3]);
   c.vline(132, 13, 14, COPPER[1]);
@@ -217,7 +226,7 @@ function bezel() {
 }
 
 /** The back of the set: far too many wires. */
-function back() {
+export function back() {
   const c = new PixelCanvas(SES_BEZEL.w, SES_BEZEL.h);
   planks(c, 36, 12, 140, 118, { vertical: true });
   c.strokeRect(36, 12, 140, 118, WOOD[0]);
@@ -313,7 +322,7 @@ function powerSource() {
 // ---------------------------------------------------------------------------
 // The glass
 
-function off() {
+export function off() {
   const c = new PixelCanvas(W, H);
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
     const d = Math.hypot((x - W / 2) / W, (y - H / 2) / H);
@@ -347,7 +356,7 @@ function glare() {
   return c;
 }
 
-function staticFrame(seed, { dim = 1, ghost = null } = {}) {
+export function staticFrame(seed, { dim = 1, ghost = null } = {}) {
   const c = new PixelCanvas(W, H);
   const r = rng(seed);
   let band = Math.floor(r() * H);
@@ -497,7 +506,7 @@ function smoke() {
 }
 
 /** A wall of deck planking behind the set, by day or by night. */
-function deckWall(night) {
+export function deckWall(night) {
   const c = new PixelCanvas(320, 224);
   const tones = night ? ['#141428', '#1a1c34', '#20223c', '#262a46'] : ['#5a3a1c', '#7a5428', '#8a6430', '#9a7038'];
   for (let y = 0; y < 224; y += 9) {
@@ -519,8 +528,12 @@ function deckWall(night) {
   return c;
 }
 
-/** Garrick from behind, in his chair, in the suit: hat, epaulettes, collar, lit by the screen. */
-function garrickBack() {
+/**
+ * Garrick from behind, in his chair, in the suit: hat, epaulettes, collar, lit
+ * by the screen. Story Phase 6: `asleep` lolls his head to one side, knocks
+ * the hat sideways and lets the cape slide off the chair onto the floor.
+ */
+export function garrickBack({ asleep = false } = {}) {
   const c = new PixelCanvas(96, 84);
   // chair back (the upholstered hatch cover)
   c.rect(14, 30, 68, 54, '#2e0c18');
@@ -536,11 +549,29 @@ function garrickBack() {
   // the collar standing up, the back of the head, the crooked hat
   c.rect(36, 16, 24, 14, '#c8a030');
   c.hline(36, 59, 16, '#5a8a2a');
-  c.ellipse(48, 14, 10, 9, '#a8283a');
-  c.ellipse(48, 10, 8, 4, '#7a1826');
-  for (let y = -12; y < 6; y++) c.hline(40 + Math.round((6 - y) * 0.25), 55 + Math.round((6 - y) * 0.25), y + 12, '#521828');
-  c.rect(40, 14, 16, 3, '#6a9a24');
-  c.ellipse(46, 0, 5, 3, '#6a9a24');
+  if (asleep) {
+    // head lolled over to the left, hat knocked sideways off it
+    c.ellipse(40, 17, 10, 9, '#a8283a');
+    c.ellipse(40, 13, 8, 4, '#7a1826');
+    for (let k = 0; k < 18; k++) c.line(14 + k, 10 - Math.round(k * 0.35), 18 + k, 20 - Math.round(k * 0.35), '#521828');
+    c.thickLine(12, 20, 32, 13, 2, '#6a9a24');
+    c.ellipse(10, 21, 4, 3, '#6a9a24');
+    // the cape slid off the back of the chair, pooled at the bottom
+    c.poly([[60, 60], [82, 56], [92, 84], [56, 84]], '#7a1826');
+    c.line(62, 62, 66, 84, '#a8283a');
+    // Z
+    for (const [zx, zy, s] of [[62, 6, 3], [70, 0, 4]]) {
+      c.hline(zx, zx + s, zy, '#e8f0ff');
+      c.line(zx + s, zy, zx, zy + s, '#e8f0ff');
+      c.hline(zx, zx + s, zy + s, '#e8f0ff');
+    }
+  } else {
+    c.ellipse(48, 14, 10, 9, '#a8283a');
+    c.ellipse(48, 10, 8, 4, '#7a1826');
+    for (let y = -12; y < 6; y++) c.hline(40 + Math.round((6 - y) * 0.25), 55 + Math.round((6 - y) * 0.25), y + 12, '#521828');
+    c.rect(40, 14, 16, 3, '#6a9a24');
+    c.ellipse(46, 0, 5, 3, '#6a9a24');
+  }
   // the screen's light along every edge facing it
   for (let x = 16; x < 80; x++) if (c.alphaAt(x, 31)) c.set(x, 30, '#c8e0d880');
   c.outline(PAL.ink);
