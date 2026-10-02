@@ -524,6 +524,91 @@
       "notes": "One (1) useful thing per genuine emergency. Today's: one shark, booted. Excellent technique. 'Leadership' under appeal."
      }
     ]
+   },
+   {
+    "id": "p6_supper",
+    "title": "The Grand Stenchmaster's Supper",
+    "if": {
+     "flag": "rotten_garlic_supper_eaten"
+    },
+    "location": "The galley, then outdoors",
+    "status": "Digesting",
+    "severity": "Severe",
+    "source": "Aged garlic (vintage), onions (fresh)",
+    "sharks": "Interested",
+    "notes": "Warning issued per regulations. Captain disputes timing. Chair relocated for seat-warming purposes. Workplace confirmed (trousers)."
+   },
+   {
+    "id": "p6_ses",
+    "title": "S.E.S. (Status)",
+    "if": {
+     "flag": "p6_ses_pop"
+    },
+    "location": "The office",
+    "status": "Resting",
+    "severity": "Concerning",
+    "source": "Unauthorised shutdown",
+    "sharks": "Not applicable",
+    "notes": "Turned off WITHOUT authorisation during overnight seat-warming operations. Had a difficult shutdown. Threw one (1) fork (defensive). Do not throw overboard.",
+    "variants": [
+     {
+      "if": {
+       "flag": "p6_ses_shark_hit"
+      },
+      "status": "Bitten",
+      "severity": "Catastrophic",
+      "source": "The gray one",
+      "notes": "Attacked by a shark. A GRAY one. I will know it. Franklin's last words: 'tax deduction'. Convalescing. Do not throw overboard."
+     }
+    ]
+   },
+   {
+    "id": "p6_release",
+    "title": "The Mightiest Gust Yet",
+    "if": {
+     "flag": "second_major_release"
+    },
+    "location": "Everywhere (through the wood)",
+    "status": "Historic",
+    "severity": "Premium",
+    "source": "The Grand Stenchmaster (official)",
+    "sharks": "Very enthusiastic",
+    "notes": "Notes of aged garlic, bright onion top, Frog Grog for body, cheese finish (Tuesday). Ship inflated. Broadside fired (we are pirates). A proper Grand Stenchmaster event. Tradition starts somewhere."
+   },
+   {
+    "id": "p6_storm",
+    "title": "The Grand Stenchmaster's Great Sharkstorm",
+    "if": {
+     "flag": "great_sharkstorm_created"
+    },
+    "location": "Alongside",
+    "status": "Turning",
+    "severity": "Catastrophic",
+    "source": "Strong brand response",
+    "sharks": "All of them (in the air)",
+    "notes": "Named by me. Branding objected to by the Captain. Powered by concentrated odour (they know).",
+    "variants": [
+     {
+      "if": {
+       "flag": "great_sharkstorm_active"
+      },
+      "location": "The horizon (starboard)",
+      "status": "Driven off (by me)",
+      "notes": "Repelled with the official beverage. Sixteen barrels. Still turning, a long way off. Remember who saved ye from it."
+     }
+    ]
+   },
+   {
+    "id": "p6_ban",
+    "title": "Dietary Restrictions",
+    "if": {
+     "flag": "garrick_food_ban"
+    },
+    "location": "Nailed to the mainmast",
+    "status": "Imposed",
+    "severity": "Concerning",
+    "source": "The Captain",
+    "notes": "No rotten garlic. EVER. Also onions, beans, cabbage, cheese. Soup: query pending. Bulk Frog Grog reserve: gone. A difficult time to hold this office."
    }
   ]
  }

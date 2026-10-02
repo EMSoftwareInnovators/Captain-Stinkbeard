@@ -5,6 +5,8 @@ import { currentChapter, resolveVariant } from '../src/systems/story/progress.js
 import { deadCenterLocation, deadCenterProfile } from '../src/systems/hazards/deadCenter.js';
 import { sharkstormNow } from '../src/systems/hazards/sharkstorm.js';
 import { tvDef, tvCondition } from '../src/systems/tv/tv.js';
+import { logEntries } from '../src/systems/logs/logbook.js';
+import { resolvePreset } from '../src/debug/presets.js';
 import { makeStory } from './storyHarness.js';
 
 /**
@@ -173,6 +175,11 @@ describe('Story Phase 6 can be played start to finish (headless)', () => {
     expect(look.extras).toEqual(expect.arrayContaining(['gaudy', 'singed', 'regalia', 'stenchsash']));
     const squawks = resolveVariant(s.content.npcs.require('squawks'), s.session);
     expect(squawks.appearance).toBe('squawks_fully_bald');
+    // The Stench Log, in the Grand Stenchmaster's own words.
+    const stench = logEntries(s.content.logs.get('stench_log'), s.session);
+    for (const id of ['p6_supper', 'p6_ses', 'p6_release', 'p6_storm', 'p6_ban']) expect(stench.find((e) => e.id === id), id).toBeTruthy();
+    expect(stench.find((e) => e.id === 'p6_storm').location).toMatch(/horizon/);
+    expect(stench.find((e) => e.id === 'p6_ses').source).toBe('The gray one');
     // Each big moment happens exactly once.
     const all = s.log.join('\n');
     const once = (re) => expect(s.log.filter((l) => re.test(l)).length, String(re)).toBe(1);
@@ -222,6 +229,28 @@ describe('Story Phase 6 can be played start to finish (headless)', () => {
     expect(s.has('p6_complete')).toBe(true);
     expect(s.log.slice(before).join('\n')).not.toMatch(/CHAPTER|BWOOO|ABOUT TO BLOW|^garrick: DETAILS!$/m);
   });
+});
+
+describe('Story Phase 6 debug presets are real, finishable points in the story', () => {
+  const presets = ['p6_start', 'p6_rotten_garlic_supper', 'p6_frog_tax_man', 'p6_ses_shutdown', 'p6_ses_death_rattle', 'p6_almost_fires',
+    'p6_garrick_wakes', 'p6_ses_apparently_dead', 'p6_midnight_warning', 'p6_quarters_evacuation', 'p6_main_deck_refuge', 'p6_final_warning',
+    'p6_major_release', 'p6_second_apocalypse', 'p6_shark_frenzy', 'p6_sharkstorm_formation', 'p6_sharkstorm_attack', 'p6_ses_shark_strike',
+    'p6_breaking_point', 'p6_grog_discovery', 'p6_grog_offensive', 'p6_storm_driven_away', 'p6_complete'];
+  it('there are twenty-three of them', () => {
+    const s = makeStory({ preset: 'p6_start' });
+    for (const id of presets) expect(s.content.debugPresets.get(id), id).toBeTruthy();
+    expect(s.content.debugPresets.list().filter((p) => p.id.startsWith('p6_')).length).toBe(23);
+  });
+  for (const id of presets) {
+    it(`${id} plays through to the end of Phase 6`, async () => {
+      const s = makeStory({ preset: id });
+      // In the game a preset's script runs on arrival (src/debug/presets.js presetEntry).
+      await s.enter(s.map, resolvePreset(s.content, id).script);
+      await playToEndP6(s);
+      for (const q of PHASE6_QUESTS) expect(s.quest(q), `${id}: ${q}`).toBe('completed');
+      expect(sharkstormNow(s.content, s.session).id, id).toBe('active_distant');
+    });
+  }
 });
 
 describe('Story Phase 6 staging (who stands where, scene by scene)', () => {

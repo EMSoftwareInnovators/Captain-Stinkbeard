@@ -1269,5 +1269,538 @@
     "x": 10,
     "y": 13,
     "facing": "down"
+  },
+  {
+    "id": "p6_start",
+    "name": "Phase 6 Start",
+    "description": "Sunset, a few days on. The suit has a saucepan lid on it now. Check on Squawks.",
+    "after": "p5_complete",
+    "flags": [
+      "p6_started"
+    ],
+    "vars": {
+      "p4_tod": 6,
+      "bulk_frog_grog": 16,
+      "dead_center_generation": 1
+    },
+    "values": {
+      "dead_center": null
+    },
+    "quests": {
+      "grand_supper": "active"
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 13,
+    "facing": "down"
+  },
+  {
+    "id": "p6_rotten_garlic_supper",
+    "name": "Rotten Garlic Supper",
+    "description": "Garrick has the jar. Get down to the galley (with Squawks).",
+    "after": "p6_start",
+    "flags": [
+      "p6_squawks_checked",
+      "p6_carrying_squawks"
+    ],
+    "quests": {
+      "grand_supper": {
+        "done": [
+          "squawks"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 11,
+    "y": 15,
+    "facing": "down"
+  },
+  {
+    "id": "p6_frog_tax_man",
+    "name": "Frog Tax Man",
+    "description": "Night. BWAAAAAH. Watch the S.E.S. with the Grand Stenchmaster.",
+    "after": "p6_rotten_garlic_supper",
+    "flags": [
+      "rotten_garlic_supper_eaten",
+      "p6_supper_outside",
+      "p6_ch26_started",
+      "frog_tax_man_unlocked"
+    ],
+    "vars": {
+      "p4_tod": 5,
+      "ses_power": 1,
+      "ses_channel": 7
+    },
+    "quests": {
+      "grand_supper": "completed",
+      "the_frog_tax_man": "active"
+    },
+    "map": "main_deck",
+    "x": 13,
+    "y": 15,
+    "facing": "down"
+  },
+  {
+    "id": "p6_ses_shutdown",
+    "name": "S.E.S. Shutdown",
+    "description": "Garrick won't wake; the set is sparking at full volume. Turn it off yourself: the knobs.",
+    "after": "p6_frog_tax_man",
+    "flags": [
+      "p6_ftm_watched",
+      "p6_garrick_asleep",
+      "p6_bob_woke_captain",
+      "p6_deck_night_seen",
+      "p6_garrick_wont_wake"
+    ],
+    "quests": {
+      "the_frog_tax_man": {
+        "done": [
+          "watch",
+          "go",
+          "wake"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 15,
+    "y": 17,
+    "facing": "left"
+  },
+  {
+    "id": "p6_ses_death_rattle",
+    "name": "S.E.S. Death Rattle",
+    "description": "OFF MAYBE worked. The set is dying anyway: crew to keep back, smoulders to smother, a barrel to move.",
+    "after": "p6_ses_shutdown",
+    "flags": [
+      "ses_off_maybe",
+      "p6_ch27_started",
+      "p6_crew_woke_noise"
+    ],
+    "vars": {
+      "ses_power": 0
+    },
+    "quests": {
+      "the_frog_tax_man": "completed",
+      "machine_refuses_to_die": "active"
+    },
+    "map": "main_deck",
+    "x": 12,
+    "y": 15,
+    "facing": "down"
+  },
+  {
+    "id": "p6_almost_fires",
+    "name": "Almost Fires",
+    "description": "After the POP: an ember on the Grand Stenchmaster's cape. The captain thinks about it.",
+    "after": "p6_ses_death_rattle",
+    "flags": [
+      "p6_rook_back",
+      "p6_sully_back",
+      "p6_smother_a",
+      "p6_smother_b",
+      "p6_smother_c",
+      "p6_grog_barrel_moved",
+      "p6_fork_thrown",
+      "p6_ses_pop"
+    ],
+    "values": {
+      "ses_state": "apparently_dead"
+    },
+    "quests": {
+      "machine_refuses_to_die": {
+        "done": [
+          "crew",
+          "smother",
+          "barrel",
+          "wait"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 14,
+    "y": 19,
+    "facing": "up"
+  },
+  {
+    "id": "p6_garrick_wakes",
+    "name": "Garrick Wakes",
+    "description": "Dawn. 'WHO TURNED IT OFF?' Tell him what happened.",
+    "after": "p6_almost_fires",
+    "flags": [
+      "garrick_cape_singed",
+      "p6_ch28_started"
+    ],
+    "vars": {
+      "p4_tod": 8
+    },
+    "quests": {
+      "machine_refuses_to_die": "completed",
+      "worst_morning": "active"
+    },
+    "map": "main_deck",
+    "x": 12,
+    "y": 15,
+    "facing": "right"
+  },
+  {
+    "id": "p6_ses_apparently_dead",
+    "name": "S.E.S. Apparently Dead",
+    "description": "After Shark Duty: remind him of the labour rule. ('Throw it overboard.')",
+    "after": "p6_garrick_wakes",
+    "flags": [
+      "p6_garrick_told",
+      "p6_duty_cleared"
+    ],
+    "quests": {
+      "worst_morning": {
+        "done": [
+          "talk",
+          "duty"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 13,
+    "y": 18,
+    "facing": "right"
+  },
+  {
+    "id": "p6_midnight_warning",
+    "name": "Midnight Warning",
+    "description": "That night, in the sleeping quarters: Garrick wakes, and knows.",
+    "after": "p6_ses_apparently_dead",
+    "flags": [
+      "p6_overboard_ordered",
+      "garrick_rowboat_morning",
+      "p6_ch29_started",
+      "p6_squawks_nightcap"
+    ],
+    "vars": {
+      "p4_tod": 5
+    },
+    "quests": {
+      "worst_morning": "completed",
+      "about_to_blow": "active"
+    },
+    "map": "crew_quarters",
+    "x": 10,
+    "y": 9,
+    "facing": "up",
+    "script": "p6c5.night"
+  },
+  {
+    "id": "p6_quarters_evacuation",
+    "name": "Sleeping Quarters Evacuation",
+    "description": "Squawks is in your coat. Get the sleepers moving, then up the ladder.",
+    "after": "p6_midnight_warning",
+    "flags": [
+      "p6_night_squawks_grabbed"
+    ],
+    "quests": {
+      "about_to_blow": {
+        "done": [
+          "squawks"
+        ]
+      }
+    },
+    "map": "crew_quarters",
+    "x": 10,
+    "y": 9,
+    "facing": "up"
+  },
+  {
+    "id": "p6_main_deck_refuge",
+    "name": "Main Deck Refuge",
+    "description": "On deck in the dark. Find somewhere safe. There isn't anywhere.",
+    "after": "p6_quarters_evacuation",
+    "flags": [
+      "p6_woke_bob",
+      "p6_woke_wick",
+      "p6_woke_brask",
+      "p6_pressure_shift",
+      "p6_evacuated"
+    ],
+    "quests": {
+      "about_to_blow": {
+        "done": [
+          "squawks",
+          "wake",
+          "out"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 31,
+    "facing": "up"
+  },
+  {
+    "id": "p6_final_warning",
+    "name": "Final Warning",
+    "description": "The countdown: 'Tradition starts somewhere.' Then BRACE.",
+    "after": "p6_main_deck_refuge",
+    "flags": [
+      "p6_refuge_hatch",
+      "p6_refuge_barrel",
+      "p6_refuge_sail",
+      "p6_no_refuge"
+    ],
+    "vars": {
+      "p6_refuges": 3
+    },
+    "quests": {
+      "about_to_blow": {
+        "done": [
+          "squawks",
+          "wake",
+          "out",
+          "refuge"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 20,
+    "facing": "down",
+    "script": "p6c5.countdown"
+  },
+  {
+    "id": "p6_major_release",
+    "name": "Major Release",
+    "description": "The mightiest gust yet: the ship inflates, the broadside goes off.",
+    "after": "p6_final_warning",
+    "flags": [
+      "p6_squawks_wrapped"
+    ],
+    "quests": {
+      "about_to_blow": "completed"
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 20,
+    "facing": "down",
+    "script": "p6c6.begin"
+  },
+  {
+    "id": "p6_second_apocalypse",
+    "name": "Second Yellow Apocalypse",
+    "description": "A new cloud on the forward deck, garlic-pale. Get aft.",
+    "after": "p6_major_release",
+    "flags": [
+      "p6_ch30_started",
+      "second_major_release",
+      "p6_second_cloud_seen"
+    ],
+    "vars": {
+      "dead_center_generation": 2
+    },
+    "values": {
+      "dead_center": "second_forward_deck"
+    },
+    "quests": {
+      "second_yellow_apocalypse": "active"
+    },
+    "map": "main_deck",
+    "x": 11,
+    "y": 18,
+    "facing": "up"
+  },
+  {
+    "id": "p6_shark_frenzy",
+    "name": "Shark Frenzy",
+    "description": "Look over the port rail: the sharks have gone mad.",
+    "after": "p6_second_apocalypse",
+    "flags": [
+      "p6_clear_aft",
+      "p6_squawks_ok"
+    ],
+    "quests": {
+      "second_yellow_apocalypse": {
+        "done": [
+          "clear",
+          "check"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 15,
+    "y": 20,
+    "facing": "right"
+  },
+  {
+    "id": "p6_sharkstorm_formation",
+    "name": "Great Sharkstorm Formation",
+    "description": "The frenzy turns into a ring, a whirlpool, a column. Then a name.",
+    "after": "p6_shark_frenzy",
+    "map": "main_deck",
+    "x": 15,
+    "y": 20,
+    "facing": "right",
+    "script": "p6c6.frenzy"
+  },
+  {
+    "id": "p6_sharkstorm_attack",
+    "name": "Great Sharkstorm Attack",
+    "description": "Sharks in the sky. Brace the shrouds, shelter Squawks, watch the shadows.",
+    "after": "p6_sharkstorm_formation",
+    "flags": [
+      "great_sharkstorm_created",
+      "p6_ch31_started"
+    ],
+    "vars": {
+      "p4_tod": 7
+    },
+    "values": {
+      "great_sharkstorm": "attacking_ship",
+      "great_sharkstorm_distance": "near"
+    },
+    "quests": {
+      "second_yellow_apocalypse": "completed",
+      "the_great_sharkstorm": "active"
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 16,
+    "facing": "down"
+  },
+  {
+    "id": "p6_ses_shark_strike",
+    "name": "S.E.S. Shark Strike",
+    "description": "The storm drinks the cloud; then a shark comes through the rail into the S.E.S.",
+    "after": "p6_sharkstorm_attack",
+    "flags": [
+      "p6_rope_a",
+      "p6_rope_b",
+      "p6_rope_c",
+      "p6_squawks_sheltered",
+      "p6_deck_shark_heaved"
+    ],
+    "quests": {
+      "the_great_sharkstorm": {
+        "done": [
+          "brace",
+          "squawks",
+          "shark"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 10,
+    "y": 20,
+    "facing": "right",
+    "script": "p6c7.absorb"
+  },
+  {
+    "id": "p6_breaking_point",
+    "name": "Stinkbeard Breaking Point",
+    "description": "Take the helm. Then the monologue. Then 'No.'",
+    "after": "p6_ses_shark_strike",
+    "flags": [
+      "p6_ses_shark_hit"
+    ],
+    "values": {
+      "ses_state": "shark_damaged",
+      "dead_center": null
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 8,
+    "facing": "up"
+  },
+  {
+    "id": "p6_grog_discovery",
+    "name": "Frog Grog Discovery",
+    "description": "A shark lands in the bulk reserve, swallows, and throws itself overboard.",
+    "after": "p6_breaking_point",
+    "flags": [
+      "p6_squawks_pouch",
+      "p6_garrick_said_no"
+    ],
+    "quests": {
+      "the_great_sharkstorm": "completed"
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 8,
+    "facing": "down",
+    "script": "p6c8.begin"
+  },
+  {
+    "id": "p6_grog_offensive",
+    "name": "Frog Grog Offensive",
+    "description": "Roll barrels to the port rail and launch them into the storm.",
+    "after": "p6_grog_discovery",
+    "flags": [
+      "p6_ch32_started"
+    ],
+    "vars": {
+      "p6_barrels": 0
+    },
+    "quests": {
+      "frog_grog_offensive": "active"
+    },
+    "map": "main_deck",
+    "x": 7,
+    "y": 25,
+    "facing": "left"
+  },
+  {
+    "id": "p6_storm_driven_away",
+    "name": "Storm Driven Away",
+    "description": "The column has collapsed. Everyone thinks it's dead. Look at the horizon.",
+    "after": "p6_grog_offensive",
+    "flags": [
+      "p6_storm_driven_off",
+      "bulk_frog_grog_depleted"
+    ],
+    "vars": {
+      "p6_barrels": 5,
+      "bulk_frog_grog": 0
+    },
+    "values": {
+      "great_sharkstorm": "dispersed_near_ship"
+    },
+    "quests": {
+      "frog_grog_offensive": {
+        "done": [
+          "barrels"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 5,
+    "y": 28,
+    "facing": "left"
+  },
+  {
+    "id": "p6_complete",
+    "name": "Phase 6 Complete",
+    "description": "The storm is on the horizon; the second cloud has the sleeping quarters; Garrick is banned from garlic for ever.",
+    "after": "p6_storm_driven_away",
+    "flags": [
+      "great_sharkstorm_active",
+      "garrick_food_ban",
+      "p6_epilogue_seen",
+      "p6_complete"
+    ],
+    "clearFlags": [
+      "p6_squawks_nightcap",
+      "p6_squawks_pouch"
+    ],
+    "vars": {
+      "p4_tod": 8
+    },
+    "values": {
+      "great_sharkstorm": "active_distant",
+      "great_sharkstorm_distance": "distant",
+      "dead_center": "second_sleeping_quarters"
+    },
+    "quests": {
+      "frog_grog_offensive": "completed"
+    },
+    "map": "main_deck",
+    "x": 10,
+    "y": 13,
+    "facing": "down"
   }
 ]

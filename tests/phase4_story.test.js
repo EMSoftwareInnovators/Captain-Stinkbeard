@@ -225,16 +225,29 @@ describe('Story Phase 4 debug presets are real, finishable points in the story',
   }
 });
 
+/** Flags that belong to later story phases (their log entries are not this phase's). */
+function laterPhaseFlags(phases) {
+  return new Set(phases.flatMap((phase) => JSON.parse(fs.readFileSync(path.resolve(`data/story/flags/${phase}.json`), 'utf8')).map((f) => f.id)));
+}
+
+/** A shared logbook file without the entries a later phase unlocks. */
+function withoutLaterEntries(file, later) {
+  const logs = JSON.parse(fs.readFileSync(file, 'utf8'));
+  for (const log of Object.values(logs)) if (log?.entries) log.entries = log.entries.filter((e) => !later.has(e.if?.flag));
+  return JSON.stringify(logs);
+}
+
 describe('Story Phase 4 stays inside its brief', () => {
   const files = [
     'data/story/cutscenes/phase4', 'data/dialogue/phase4', 'data/logs', 'data/npcs/phase4_crew.json', 'data/quests/phase4.json',
     'data/story/flags/phase4.json', 'data/maps/ship/phase4', 'data/maps/ship/washroom.json', 'data/story/vistas/phase4.json',
     'data/hazards/dead_center.json', 'data/hazards/shark_duty.json', 'data/hazards/alarms.json',
   ];
+  const later = laterPhaseFlags(['phase5', 'phase6']);
   const text = files.flatMap((f) => {
     const p = path.resolve(f);
     const list = fs.statSync(p).isDirectory() ? fs.readdirSync(p).map((n) => path.join(p, n)) : [p];
-    return list.map((x) => fs.readFileSync(x, 'utf8'));
+    return list.map((x) => (x.includes(`${path.sep}logs${path.sep}`) ? withoutLaterEntries(x, later) : fs.readFileSync(x, 'utf8')));
   }).join('\n');
 
   it('never uses borrowed characters or later-phase mythology', () => {

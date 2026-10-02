@@ -114,7 +114,7 @@ async function playPhase3(pick) {
 /** Flags that belong to later story phases (their log entries are not Phase 3's). */
 function laterPhaseFlags() {
   const ids = [];
-  for (const phase of ['phase4', 'phase5']) {
+  for (const phase of ['phase4', 'phase5', 'phase6']) {
     ids.push(...JSON.parse(fs.readFileSync(path.resolve(`data/story/flags/${phase}.json`), 'utf8')).map((f) => f.id));
   }
   return new Set(ids);
