@@ -14,6 +14,7 @@ import { sharkstormStates, sharkstormNow, setSharkstormState, sharkstormIs } fro
 import { deadCenterLocations, deadCenterProfile, setDeadCenterLocation } from '../src/systems/hazards/deadCenter.js';
 import { dutyData } from '../src/systems/hazards/sharkDuty.js';
 import { compileMap } from '../src/maps/compileMap.js';
+import { placementChoices } from '../src/world/placements.js';
 
 const content = loadContent();
 const freshSession = () => GameSession.newGame({ content, bus: new EventBus() });
@@ -116,8 +117,17 @@ describe('the second Dead Center', () => {
 });
 
 describe('Phase 6 state', () => {
-  it('a Shark Duty session for the worst morning', () => {
-    expect(dutyData(content).sessions.morning_after_watch).toMatchObject({ event: 'p6_morning_repelled', counter: 'worst_morning.duty' });
+  it('a Shark Duty session for the worst morning, with every post at the rail clear of crew', () => {
+    const duty = dutyData(content);
+    expect(duty.sessions.morning_after_watch).toMatchObject({ event: 'p6_morning_repelled', counter: 'worst_morning.duty' });
+    const s = atPreset('p6_garrick_wakes');
+    s.story.set('p6_garrick_told');
+    s.quests.completeObjective('worst_morning', 'talk', { force: true });
+    expect(s.quests.isObjectiveAvailable('worst_morning', 'duty')).toBe(true);
+    // Where the captain has to stand to see each shark off (port rail x=16 from x=15; starboard x=3 from x=4).
+    const posts = Object.values(duty.sections).map((sec) => `${sec.x === 16 ? 15 : 4},${sec.y}`);
+    const standing = [...placementChoices(content.maps.require('main_deck').objects, s)].filter(([, o]) => o && !o.absent).map(([npc, o]) => [npc, `${o.x},${o.y}`]);
+    for (const [npc, at] of standing) expect(posts, `${npc} stands at a Shark Duty post`).not.toContain(at);
   });
 
   it('the bulk Frog Grog is a story variable; the captain\'s own Frog Grog is untouched', () => {
