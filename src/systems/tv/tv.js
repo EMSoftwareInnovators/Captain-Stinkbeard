@@ -32,6 +32,60 @@ export function tvDef(content, id) {
   return def ? { id, ...def } : null;
 }
 
+// --- Story Phase 6: what condition the set is in -----------------------------------
+//
+//   "stateValue": "ses_state",                 // a saved story text value (unset = working)
+//   "states": {
+//     "apparently_dead": { "dead": true, "bezel": "ses_bezel_dead", "lookComments": [[lines]] },
+//     "shark_damaged":   { "dead": true, "bezel": "ses_bezel_wrecked", "glass": "tv_cracked",
+//                          "flicker": { "every": [7000, 14000], "frames": ["..."], "sfx": "...", "lines": [[...]] } }
+//   }
+//
+// A dead set can't be switched on; the close-up still opens (to look at it).
+
+export const TV_WORKING = 'working';
+
+const stateValue = (def) => def.stateValue ?? `${def.id}_state`;
+
+/** The set's condition id ("working" unless the story has said otherwise). */
+export function tvStateId(def, session) {
+  return session.story.getValue?.(stateValue(def)) ?? TV_WORKING;
+}
+
+/** The condition with its data: { id, dead, bezel, glass, flicker, lookComments }. */
+export function tvCondition(def, session) {
+  const id = tvStateId(def, session);
+  return { id, ...(def.states?.[id] ?? {}) };
+}
+
+/** Puts the set into a condition; a dead set is also switched off. */
+export function setTvCondition(def, session, id) {
+  session.story.setValue(stateValue(def), !id || id === TV_WORKING ? null : id);
+  if (tvCondition(def, session).dead) session.story.setVar(def.powerVar ?? `${def.id}_power`, 0);
+}
+
+// --- Story Phase 6: programmes ------------------------------------------------------
+//
+// A programme (data/tv/programs/*.json) is a show a channel can carry, made of
+// episodes, each a list of beats: frames to cycle on the screen, a line for
+// the cast (ordinary script lines; the cast are extra speakers), a sound cue,
+// how long it stays up, and whether the laugh track goes. A channel carries
+// one with "program": "<id>"; a cutscene plays an episode on a vista's screen
+// with { "tvProgram": "<id>", "episode": "<id>" }. New episodes are data.
+
+export function programDef(content, id) {
+  const def = content?.tvPrograms?.get?.(id);
+  return def ? { id, ...def } : null;
+}
+
+/** The episode to show: by id, or the last one whose "if" holds (the newest). */
+export function programEpisode(program, session, id = null) {
+  const list = program?.episodes ?? [];
+  if (id) return list.find((e) => e.id === id) ?? null;
+  const open = list.filter((e) => !e.if || evaluateCondition(e.if, session));
+  return open[open.length - 1] ?? list[0] ?? null;
+}
+
 const channelVar = (def) => def.channelVar ?? `${def.id}_channel`;
 const powerVar = (def) => def.powerVar ?? `${def.id}_power`;
 
@@ -45,10 +99,12 @@ export function tvState(def, session) {
   const list = availableChannels(def, session);
   const id = session.story.getVar(channelVar(def)) || list[0]?.id || 1;
   const channel = list.find((c) => c.id === id) ?? list[0] ?? null;
-  return { power: !!session.story.getVar(powerVar(def)), channel };
+  const dead = !!def.states?.[tvStateId(def, session)]?.dead;
+  return { power: !dead && !!session.story.getVar(powerVar(def)), channel, dead };
 }
 
 export function setPower(def, session, on) {
+  if (on && tvState(def, session).dead) return;
   session.story.setVar(powerVar(def), on ? 1 : 0);
   // Variables read 0 until set: no channel tuned yet means the first one.
   if (!session.story.getVar(channelVar(def))) session.story.setVar(channelVar(def), availableChannels(def, session)[0]?.id ?? 1);

@@ -56,6 +56,10 @@ export class CinemaScene extends BaseScene {
           this.updateSchool(l, delta);
           continue;
         }
+        if (l.orbit) {
+          this.updateOrbit(l, delta);
+          continue;
+        }
         if (l.frames && l.frames.length > 1 && !l.frozen) {
           const i = Math.floor(this.time0 / (l.frameMs ?? 300)) % l.frames.length;
           if (l.img.frame.name !== l.frames[i]) l.img.setFrame(l.frames[i]);
@@ -100,6 +104,12 @@ export class CinemaScene extends BaseScene {
         const school = this.buildSchool(l, i);
         parts.push(school.img);
         layers.set(l.id, school);
+        return;
+      }
+      if (l.orbit) {
+        const orbit = this.buildOrbit(l, i);
+        parts.push(orbit.img);
+        layers.set(l.id, orbit);
         return;
       }
       const img = this.add.image(l.x, l.y, 'vista', l.frame).setOrigin(0.5, 1).setDepth(l.depth ?? 10 + i);
@@ -168,6 +178,72 @@ export class CinemaScene extends BaseScene {
     l.img.setPosition(Math.round(l.x), Math.round(l.y));
   }
 
+  /**
+   * Story Phase 6: an orbit layer, for the Great Sharkstorm. Many copies of a
+   * few frames spread up a column and circling it, as one container that
+   * moves, scales and fades like any layer:
+   *
+   *   { "id": "sharks", "x": 220, "y": 196, "orbit": { "frames": ["storm_shark_0", "storm_shark_1"],
+   *     "count": 140, "height": 170, "radius": [12, 52], "speed": 1.4, "scale": [0.35, 0.8],
+   *     "frameMs": 140, "wobble": 4 } }
+   *
+   * Radius grows from the foot of the column to the top; a member behind the
+   * column is smaller and dimmer. Reduced effects turns it slower. A few
+   * hundred images at most, no physics.
+   */
+  buildOrbit(l, i) {
+    const o = l.orbit;
+    const [s0, s1] = o.scale ?? [0.4, 0.9];
+    let seed = String(l.id).split('').reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) | 0, 29) || 1;
+    const rnd = () => {
+      seed ^= seed << 13;
+      seed ^= seed >>> 17;
+      seed ^= seed << 5;
+      return ((seed >>> 0) % 10000) / 10000;
+    };
+    const box = this.add.container(l.x ?? 0, l.y ?? 0).setDepth(l.depth ?? 10 + i);
+    const members = [];
+    for (let k = 0; k < (o.count ?? 60); k++) {
+      const h = Math.pow(rnd(), 0.8); // more of them low down, where the water is
+      const img = this.add.image(0, 0, 'vista', o.frames[0]).setOrigin(0.5, 0.5);
+      box.add(img);
+      members.push({ img, h, a: rnd() * Math.PI * 2, size: s0 + (s1 - s0) * rnd(), spin: 0.8 + rnd() * 0.5, offset: rnd() * 1000, wob: rnd() * 6.28 });
+    }
+    if (l.hidden) box.setVisible(false);
+    if (l.alpha !== undefined) box.setAlpha(l.alpha);
+    if (l.scale) box.setScale(l.scale);
+    return { ...l, img: box, members, orbit: o, frames: o.frames, frameMs: o.frameMs ?? 160, phase: i * 1.7, x: l.x ?? 0, y: l.y ?? 0, speedK: 1 };
+  }
+
+  updateOrbit(l, delta) {
+    const o = l.orbit;
+    const reduced = this.app.settings.reducedEffects();
+    const speed = (o.speed ?? 1.2) * (reduced ? 0.45 : 1) * (l.speedK ?? 1);
+    const [r0, r1] = o.radius ?? [10, 50];
+    const height = o.height ?? 160;
+    const sec = delta / 1000;
+    for (const m of l.members) {
+      m.a += speed * m.spin * sec;
+      const r = r0 + (r1 - r0) * m.h;
+      const front = Math.sin(m.a);
+      const x = Math.cos(m.a) * r;
+      const y = -m.h * height + front * r * 0.18 + Math.sin(this.time0 / 500 + m.wob) * (o.wobble ?? 3);
+      m.img.setPosition(Math.round(x), Math.round(y));
+      m.img.setScale(m.size * (front > 0 ? 1 : 0.75));
+      m.img.setAlpha(front > 0 ? 1 : 0.55);
+      m.img.setFlipX(Math.cos(m.a + Math.PI / 2) > 0);
+      const f = Math.floor((this.time0 + m.offset) / l.frameMs) % l.frames.length;
+      if (m.img.frame.name !== l.frames[f]) m.img.setFrame(l.frames[f]);
+    }
+    l.img.setPosition(Math.round(l.x), Math.round(l.y));
+  }
+
+  /** Story Phase 6: spins an orbit layer faster or slower (a storm losing its grip). */
+  orbitSpeed(id, k) {
+    const l = this.layer(id);
+    if (l.orbit) l.speedK = k;
+  }
+
   async end({ fade = 400 } = {}) {
     if (!this.active) return;
     await this.fadeCover(1, fade / 2);
@@ -193,7 +269,7 @@ export class CinemaScene extends BaseScene {
 
   move(id, { x, y, duration = 1000, ease = 'Sine.InOut', alpha, scale, flip }) {
     const l = this.layer(id);
-    if (flip !== undefined && !l.school) l.img.setFlipX(flip);
+    if (flip !== undefined && !l.school && !l.orbit) l.img.setFlipX(flip);
     const props = {};
     if (x !== undefined) props.x = x;
     if (y !== undefined) props.y = y;
@@ -226,6 +302,15 @@ export class CinemaScene extends BaseScene {
     }
     l.frozen = true;
     l.img.setFrame(frame);
+  }
+
+  /** Story Phase 6: sets a layer cycling through frames (a programme on a vista's screen). */
+  frames(id, list, frameMs = 300) {
+    const l = this.layer(id);
+    l.frames = list;
+    l.frameMs = frameMs;
+    l.frozen = list.length < 2;
+    l.img.setFrame(list[0]);
   }
 
   setVisible(id, visible) {

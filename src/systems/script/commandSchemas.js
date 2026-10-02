@@ -30,6 +30,7 @@ export const COMMAND_SCHEMAS = {
   setFlag: { setFlag: 'flags' },
   clearFlag: { clearFlag: 'flags' },
   setVar: { setVar: 'string', value: 'number' },
+  setValue: { setValue: 'string', value: 'any' },
   addVar: { addVar: 'string', value: 'number' },
   giveItem: { giveItem: 'item', count: 'number?', silent: 'boolean?' },
   takeItem: { takeItem: 'item', count: 'number?', silent: 'boolean?' },
@@ -92,6 +93,7 @@ export const COMMAND_SCHEMAS = {
   vistaFrame: { vistaFrame: 'string', frame: 'string' },
   vistaFx: { vistaFx: 'string', x: 'number', y: 'number', count: 'number?' },
   vistaShow: { vistaShow: 'string', visible: 'boolean?' },
+  vistaSpin: { vistaSpin: 'string', speed: 'number?' },
   insert: { insert: 'string', caption: 'string?', hold: 'number?' },
 
   // --- Story Phase 3 -----------------------------------------------------------
@@ -104,11 +106,13 @@ export const COMMAND_SCHEMAS = {
 
   // --- Story Phase 4 -----------------------------------------------------------
   deadCenter: { deadCenter: 'string' },
+  sharkstorm: { sharkstorm: 'string' },
   alarm: { alarm: 'number', where: 'string?', wait: 'boolean?' },
   course: { course: 'string', heading: 'number?', target: 'number?', to: 'number?', duration: 'number?', label: 'string?', async: 'boolean?' },
   sharkDuty: { sharkDuty: 'string' },
-  tv: { tv: 'tv' },
-  tvSet: { tvSet: 'tv', channel: 'number?', power: 'boolean?' },
+  tv: { tv: 'tv', mode: 'string?' },
+  tvSet: { tvSet: 'tv', channel: 'number?', power: 'boolean?', state: 'string?' },
+  tvProgram: { tvProgram: 'string', episode: 'string?', layer: 'string?', from: 'number?', to: 'number?' },
 };
 
 /** Commands that may carry "async": true (start and continue without waiting). */

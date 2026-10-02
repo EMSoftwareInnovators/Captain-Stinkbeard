@@ -93,6 +93,25 @@ export const MIGRATIONS = {
       counters: state.world?.counters ?? {},
     },
   }),
+  /**
+   * 5 -> 6 (Story Phase 6: the Death Rattle of the S.E.S. and the Midnight
+   * Stenchmaster Catastrophe). The layout is unchanged again. The S.E.S.'s
+   * condition, the Great Sharkstorm's state and distance are story values;
+   * the bulk Frog Grog stores are a variable (barrels, separate from the
+   * captain's own bottles, which are never touched); the food ban, the
+   * suit's wear and the ship's new damage are flags. A finished Phase 5 save
+   * walks into chapter 25 on load. Missing fields are filled.
+   */
+  5: (state) => ({
+    ...state,
+    story: {
+      ...state.story,
+      flags: Array.isArray(state.story?.flags) ? state.story.flags : [],
+      vars: state.story?.vars && typeof state.story.vars === 'object' ? state.story.vars : {},
+      values: state.story?.values && typeof state.story.values === 'object' ? state.story.values : {},
+    },
+    inventory: state.inventory && typeof state.inventory === 'object' ? state.inventory : { gold: 0, items: {} },
+  }),
 };
 
 export function migrateState(state, fromVersion, toVersion, migrations = MIGRATIONS) {

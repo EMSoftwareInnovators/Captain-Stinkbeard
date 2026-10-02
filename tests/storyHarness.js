@@ -1,4 +1,4 @@
-import { tvDef } from '../src/systems/tv/tv.js';
+import { tvDef, setPower } from '../src/systems/tv/tv.js';
 import { loadContent } from '../src/content/loadContent.js';
 import { EventBus } from '../src/core/EventBus.js';
 import { GameSession } from '../src/systems/GameSession.js';
@@ -82,10 +82,15 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
       alarm: async (level, { where } = {}) => { alarms.push({ level, where, at: staging.context }); },
       course: async () => {},
       // Phase 5: the television close-up (records each look; sets the "opened" flag).
-      tv: async (id) => {
-        tvs.push(id);
+      // Phase 6: the knob panel is worked to the end (OFF MAYBE, enough times).
+      tv: async (id, { mode = 'normal' } = {}) => {
+        tvs.push(mode === 'normal' ? id : `${id}:${mode}`);
         const def = tvDef(content, id);
         if (def?.flags?.open && !session.story.has(def.flags.open)) session.story.set(def.flags.open);
+        if (mode === 'knobs') {
+          setPower(def, session, false);
+          if (def.knobs?.doneFlag) session.story.set(def.knobs.doneFlag);
+        }
       },
     },
     audio: { sfx: () => {}, music: () => {}, ambience: () => {} },

@@ -5,6 +5,7 @@ import { COMMAND_SCHEMAS, STEP_MODIFIERS, EMOTES, isCommentKey, commandNameOf, P
 import { FUME_LEVELS, HAZE_LEVELS } from '../systems/hazards/fumes.js';
 import { SHARK_LEVELS, SHARK_EVENTS } from '../systems/hazards/sharks.js';
 import { DEAD_CENTER_NONE, deadCenterLocations } from '../systems/hazards/deadCenter.js';
+import { sharkstormStates } from '../systems/hazards/sharkstorm.js';
 import { alarmLevel, alarmLevels } from '../systems/hazards/alarms.js';
 import { parseLine } from '../systems/script/parseLine.js';
 import { normalizeScript } from '../systems/script/ScriptRunner.js';
@@ -80,6 +81,11 @@ class Checker {
     if (id === DEAD_CENTER_NONE) return;
     const locations = deadCenterLocations(this.ctx.db);
     if (typeof id !== 'string' || !(id in locations)) this.error(`unknown Dead Center location "${id}" (see data/hazards/dead_center.json)`);
+  }
+
+  sharkstorm(id) {
+    const states = sharkstormStates(this.ctx.db);
+    if (typeof id !== 'string' || !(id in states)) this.error(`unknown Great Sharkstorm state "${id}" (see data/hazards/sharkstorm.json)`);
   }
 
   objective(ref) {
@@ -295,6 +301,18 @@ function validateStep(step, check, sctx) {
   }
   if (name === 'camera' && !['pan', 'follow', 'reset'].includes(step.camera)) check.error(`camera mode must be pan|follow|reset`);
   if (name === 'deadCenter') check.deadCenter(step.deadCenter);
+  if (name === 'sharkstorm') check.sharkstorm(step.sharkstorm);
+  if (name === 'tv' && step.mode !== undefined && !['normal', 'knobs'].includes(step.mode)) check.error('tv mode must be normal or knobs');
+  if (name === 'tv' && step.mode === 'knobs' && !check.ctx.db.tv?.get?.(step.tv)?.knobs) check.error(`television "${step.tv}" has no knobs`);
+  if (name === 'tvSet' && step.state !== undefined) {
+    const st = check.ctx.db.tv?.get?.(step.tvSet)?.states ?? {};
+    if (step.state !== 'working' && !st[step.state]) check.error(`television "${step.tvSet}" has no state "${step.state}"`);
+  }
+  if (name === 'tvProgram') {
+    const prog = check.ctx.db.tvPrograms?.get?.(step.tvProgram);
+    if (!prog) check.error(`unknown programme "${step.tvProgram}"`);
+    else if (step.episode && !(prog.episodes ?? []).some((e) => e.id === step.episode)) check.error(`programme "${step.tvProgram}" has no episode "${step.episode}"`);
+  }
   if (name === 'course' && !['show', 'drift', 'hide'].includes(step.course)) check.error('course must be show, drift or hide');
   if (name === 'sharkDuty' && step.sharkDuty !== 'clear') check.error('sharkDuty must be "clear"');
   if (name === 'alarm' && !alarmLevel(check.ctx.db, step.alarm)) check.error(`alarm level must be one of ${Object.keys(alarmLevels(check.ctx.db)).join(', ')}`);
@@ -855,6 +873,14 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
         if (sc.area && !(Array.isArray(sc.area) && sc.area.length === 4)) lc.error('school "area" is [x, y, w, h]');
         return;
       }
+      if (l.orbit) {
+        // Story Phase 6: a column of copies circling (the Great Sharkstorm).
+        const o = l.orbit;
+        if (!Array.isArray(o.frames) || !o.frames.length) lc.error('orbit needs "frames"');
+        else o.frames.forEach((f) => { if (!art.vista.has(f)) lc.error(`no vista art "${f}"`); });
+        if (!Number.isInteger(o.count) || o.count < 1 || o.count > 400) lc.error('orbit "count" must be 1-400');
+        return;
+      }
       if (!art.vista.has(l.frame)) lc.error(`no vista art "${l.frame}"`);
       (l.frames || []).forEach((f) => { if (!art.vista.has(f)) lc.error(`no vista art "${f}"`); });
     });
@@ -890,6 +916,55 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     looks(tv.failures?.lines, 'failures.lines');
     for (const k of tv.failures?.kinds ?? []) if (!['roll', 'spark', 'buzz', 'smoke'].includes(k)) c.error(`unknown failure "${k}"`);
     for (const f of ['ses_bezel', 'ses_back', 'ses_power_source', 'tv_off', 'tv_scan', 'tv_glare', 'tv_smoke', 'tv_spark_0']) if (!art.vista.has(f)) c.error(`no vista art "${f}"`);
+    (tv.channels || []).forEach((ch, i) => {
+      if (ch.program && !db.tvPrograms?.has?.(ch.program)) c.at(`channels[${i}]`).error(`unknown programme "${ch.program}"`);
+    });
+    // Story Phase 6: conditions, the knob panel
+    for (const [sid, st] of Object.entries(tv.states ?? {})) {
+      const sc = c.at(`states.${sid}`);
+      for (const f of [st.bezel, st.back, st.glass, ...(st.flicker?.frames ?? [])]) if (f && !art.vista.has(f)) sc.error(`no vista art "${f}"`);
+      if (st.flicker?.sfx && !db.sfx.has(st.flicker.sfx)) sc.error(`unknown sfx "${st.flicker.sfx}"`);
+      looks(st.lookComments, `states.${sid}.lookComments`);
+      looks(st.flicker?.lines, `states.${sid}.flicker.lines`);
+    }
+    if (tv.knobs) {
+      const EFFECTS = ['louder', 'flip', 'tint', 'slow', 'shrink', 'frog', 'noop', 'off'];
+      const list = tv.knobs.list ?? [];
+      if (!list.some((k) => k.effect === 'off')) c.error('the knob panel needs a knob with "effect": "off" (or it could never be switched off)');
+      if (tv.knobs.doneFlag) c.flag(tv.knobs.doneFlag);
+      looks(tv.knobs.openLines, 'knobs.openLines');
+      list.forEach((k, i) => {
+        const kc = c.at(`knobs.list[${i}]`);
+        if (!k.id || !k.label) kc.error('a knob needs an id and a label');
+        if (!EFFECTS.includes(k.effect)) kc.error(`unknown knob effect "${k.effect}" (${EFFECTS.join(', ')})`);
+        if (k.sfx && !db.sfx.has(k.sfx)) kc.error(`unknown sfx "${k.sfx}"`);
+        looks(k.lines, `knobs.list[${i}].lines`);
+        looks(k.doneLines, `knobs.list[${i}].doneLines`);
+      });
+    }
+  }
+
+  // Television programmes (Story Phase 6: The Frog Tax Man)
+  for (const [id, prog] of db.tvPrograms?.map ?? []) {
+    const c = C(`${db.tvPrograms.sourceOf(id)} (${id})`);
+    if (typeof prog.title !== 'string') c.error('programme needs a title');
+    if (prog.laugh && !db.sfx.has(prog.laugh)) c.error(`unknown sfx "${prog.laugh}"`);
+    for (const f of prog.closeup ?? []) if (!art.vista.has(f)) c.error(`no vista art "${f}"`);
+    if (!Array.isArray(prog.episodes) || !prog.episodes.length) c.error('programme needs episodes');
+    const seen = new Set();
+    (prog.episodes ?? []).forEach((ep, i) => {
+      const ec = c.at(`episodes[${i}]`);
+      if (!ep.id || seen.has(ep.id)) ec.error('episode needs a unique id');
+      seen.add(ep.id);
+      if ('if' in ep) ec.condition(ep.if);
+      if (!Array.isArray(ep.beats) || !ep.beats.length) ec.error('episode needs beats');
+      (ep.beats ?? []).forEach((b, j) => {
+        const bc = ec.at(`beats[${j}]`);
+        for (const f of b.frames ?? []) if (!art.vista.has(f)) bc.error(`no vista art "${f}"`);
+        if (b.sfx && !db.sfx.has(b.sfx)) bc.error(`unknown sfx "${b.sfx}"`);
+        if (b.line) validateLine(b.line, bc);
+      });
+    });
   }
 
   // Logbooks (the Stench Log)

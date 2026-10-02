@@ -26,6 +26,7 @@ import { placementChoices, placementChanges } from '../world/placements.js';
 import { deadCenterZonesFor, deadCenterSeals } from '../systems/hazards/deadCenter.js';
 import { panicShouts } from '../systems/hazards/alarms.js';
 import { SharkDuty } from '../world/SharkDuty.js';
+import { SharkstormLayer } from '../world/SharkstormLayer.js';
 
 // Step durations chosen so a 60 Hz frame moves a whole number of pixels:
 // walking is 2 px per frame (8 frames per tile), running 3 px per frame.
@@ -112,6 +113,7 @@ export class WorldScene extends BaseScene {
     this.exposure = this.session.transient.exposure;
     this.sharks = new SharkLayer(this, sharkConfig(this.content));
     this.sharkDuty = new SharkDuty(this);
+    this.sharkstorm = new SharkstormLayer(this);
     this.grade = this.add.rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0xffffff).setOrigin(0).setScrollFactor(0).setDepth(75000).setBlendMode('MULTIPLY');
     this.applyReducedEffects();
     this.refreshStory({ immediate: true });
@@ -158,6 +160,7 @@ export class WorldScene extends BaseScene {
     this.fumeLayer?.destroy();
     this.sharks?.destroy();
     this.sharkDuty?.destroy();
+    this.sharkstorm?.destroy();
     // The camera may already be torn down when the scene shuts down.
     this.cameras?.main?.setRotation(0);
   }
@@ -535,6 +538,7 @@ export class WorldScene extends BaseScene {
     this.updateFumes(dt, busy);
     this.sharks.update(dt, { busy, player: this.player });
     this.sharkDuty.update(dt, busy || this.leaving);
+    this.sharkstorm.update(dt, busy || this.leaving);
     this.updateDebugDraw();
     this.ambient.update(dt, this.player);
     this.updateCamera(dt);

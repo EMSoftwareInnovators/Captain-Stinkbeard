@@ -152,6 +152,31 @@ export const CONDITION_OPERATORS = {
     },
   },
 
+  /**
+   * A story text value (Story Phase 6): { "value": { "name": "ses_state", "eq": "shark_damaged" } },
+   * also "in": [list], "ne", and "set": true|false. Unset reads as null.
+   */
+  value: {
+    evaluate: (v, s) => {
+      const at = s.story.getValue?.(v.name) ?? null;
+      if ('eq' in v && at !== v.eq) return false;
+      if ('ne' in v && at === v.ne) return false;
+      if ('in' in v && !asArray(v.in).includes(at)) return false;
+      if ('set' in v && (at !== null) !== !!v.set) return false;
+      return true;
+    },
+    validate: (v, c) => {
+      if (!isPlainObject(v) || typeof v.name !== 'string') c.error('value condition needs { name, eq|ne|in|set }');
+      else if (!['eq', 'ne', 'in', 'set'].some((k) => k in v)) c.error('value condition needs eq, ne, in or set');
+    },
+  },
+
+  /** Story Phase 6: which state the Great Sharkstorm is in (a list = any of; unset = "not_created"). */
+  sharkstorm: {
+    evaluate: (v, s) => asArray(v).includes(s.story.getValue?.('great_sharkstorm') ?? 'not_created'),
+    validate: (v, c) => asArray(v).forEach((id) => c.sharkstorm?.(id)),
+  },
+
   /** Where the Dead Center is today (a location id, a list of them, or "none"). */
   deadCenter: {
     evaluate: (v, s) => {

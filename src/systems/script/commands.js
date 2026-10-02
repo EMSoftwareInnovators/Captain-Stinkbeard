@@ -1,8 +1,9 @@
 import { asArray } from '../../core/util.js';
 import { evaluateCondition, splitObjectiveRef } from '../conditions/conditions.js';
 import { parseLine } from './parseLine.js';
-import { tvDef, setPower, setChannel } from '../tv/tv.js';
+import { tvDef, setPower, setChannel, setTvCondition, programDef, programEpisode } from '../tv/tv.js';
 import { setDeadCenterLocation } from '../hazards/deadCenter.js';
+import { setSharkstormState } from '../hazards/sharkstorm.js';
 
 /**
  * Implementations of every script command.
@@ -87,6 +88,11 @@ export function createCommandImplementations() {
       asArray(step.clearFlag).forEach((f) => ctx.session.story.clear(f));
     },
     /** Where the Dead Center is now (a location id, or "none"). */
+    /** Story Phase 6: moves the Great Sharkstorm to a state (and its distance with it). */
+    sharkstorm: (step, ctx) => {
+      setSharkstormState(ctx.session.content ?? ctx.content, ctx.session, step.sharkstorm);
+      return null;
+    },
     deadCenter: (step, ctx) => {
       setDeadCenterLocation(ctx.session, step.deadCenter);
       return null;
@@ -102,16 +108,41 @@ export function createCommandImplementations() {
       return step.async ? null : p;
     },
     /** Operate a television (data/tv): opens the close-up and waits until the captain steps away. */
-    tv: (step, ctx) => service(ctx, 'ui', 'tv').tv(step.tv),
+    tv: (step, ctx) => service(ctx, 'ui', 'tv').tv(step.tv, { mode: step.mode ?? 'normal' }),
+    /**
+     * Story Phase 6: plays a programme's episode on a vista's screen layer,
+     * beat by beat (frames, sound, the laugh track, and each line said like
+     * any other line). "from" / "to" pick a run of beats.
+     */
+    tvProgram: async (step, ctx) => {
+      const content = ctx.session.content ?? ctx.content;
+      const prog = programDef(content, step.tvProgram);
+      if (!prog) throw new Error(`No programme "${step.tvProgram}"`);
+      const ep = programEpisode(prog, ctx.session, step.episode ?? null);
+      if (!ep) throw new Error(`Programme "${step.tvProgram}" has no episode "${step.episode}"`);
+      const layer = step.layer ?? 'screen';
+      for (const b of (ep.beats ?? []).slice(step.from ?? 0, step.to ?? undefined)) {
+        if (b.frames?.length) service(ctx, 'cinema', 'tvProgram').frames(layer, b.frames, b.frameMs ?? 300);
+        if (b.sfx) service(ctx, 'audio', 'tvProgram').sfx(b.sfx);
+        if (b.laugh) service(ctx, 'audio', 'tvProgram').sfx(prog.laugh ?? 'ftm_laugh', { volume: 0.8 });
+        if (b.line) await service(ctx, 'dialogue', 'say').say(parseLine(b.line));
+        else await ctx.wait(b.ms ?? 1200);
+      }
+      return null;
+    },
     /** Sets a television's channel and/or power from a scene (the deck set follows). */
     tvSet: (step, ctx) => {
       const def = tvDef(ctx.session.content ?? ctx.content, step.tvSet);
       if (!def) throw new Error(`No television "${step.tvSet}"`);
       if (step.power !== undefined) setPower(def, ctx.session, step.power);
       if (step.channel !== undefined) setChannel(def, ctx.session, step.channel);
+      if (step.state !== undefined) setTvCondition(def, ctx.session, step.state);
     },
     /** Clears the rail at once: "stop" ends the current Shark Duty wave of sharks (they retreat). */
     sharkDuty: (step, ctx) => service(ctx, 'world', 'sharkDuty').sharkDuty(step.sharkDuty),
+    setValue: (step, ctx) => {
+      ctx.session.story.setValue(step.setValue, step.value ?? null);
+    },
     setVar: (step, ctx) => {
       ctx.session.story.setVar(step.setVar, step.value);
     },
@@ -276,6 +307,10 @@ export function createCommandImplementations() {
     },
     vistaFx: (step, ctx) => {
       service(ctx, 'cinema', 'vistaFx').fx(step.vistaFx, step);
+    },
+    /** Story Phase 6: spins an orbit layer (the Great Sharkstorm) faster or slower. */
+    vistaSpin: (step, ctx) => {
+      service(ctx, 'cinema', 'vistaSpin').spin(step.vistaSpin, step.speed ?? 1);
     },
     vistaShow: (step, ctx) => {
       service(ctx, 'cinema', 'vistaShow').setVisible(step.vistaShow, step.visible !== false);

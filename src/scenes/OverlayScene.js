@@ -138,11 +138,12 @@ export class OverlayScene extends BaseScene {
   }
 
   /** A television close-up you operate (ui/TvView.js); resolves when you step away. */
-  tv(def, { present } = {}) {
+  tv(def, { present, mode = 'normal' } = {}) {
     return new Promise((resolve) => {
       this.app.audio.ui('menu_open');
       this.tvOpen = new TvView(this, def, {
         present,
+        mode,
         onClose: () => {
           this.tvOpen = null;
           resolve();

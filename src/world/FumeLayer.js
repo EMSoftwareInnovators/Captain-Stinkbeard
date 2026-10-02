@@ -24,6 +24,19 @@ const LAYER_STYLE = {
   core: { frames: ['fcloud_m0', 'fcloud_m1', 'fcloud_s0'], tints: [0xa88418, 0x98a82c, 0x8a9c24, 0xb08a1a], density: 0.7 },
 };
 
+/**
+ * Story Phase 6: the second release's core is a different smell, so a
+ * different colour: hotter, sharper, greener at the heart (garlic, onion,
+ * Frog Grog, some cheese). Same sprites, other tints.
+ */
+const PALETTES = {
+  second: {
+    outer: [0xf0e070, 0xd8e060, 0xe8d858],
+    current: [0xa8b828, 0xc0a020],
+    core: [0x88a820, 0x9cbc2c, 0x6e9418, 0xb8b424],
+  },
+};
+
 const LEVEL_ALPHA = { light: 0.22, dense: 0.4, center: 0.56 };
 const VIGNETTE_ALPHA = { none: 0, light: 0.2, dense: 0.5, center: 0.8 };
 const VIGNETTE_SCALE = { none: 1.25, light: 1.12, dense: 1.0, center: 0.84 };
@@ -88,7 +101,7 @@ export class FumeLayer {
     const total = weights.reduce((a, b) => a + b, 0) || 1;
     zones.forEach((z, i) => {
       const existing = keep.get(z.id ?? z);
-      if (existing && existing.level === z.level && existing.w === z.w && existing.h === z.h) {
+      if (existing && existing.level === z.level && existing.w === z.w && existing.h === z.h && existing.zone.palette === z.palette) {
         existing.zone = z;
         next.push(existing);
         return;
@@ -111,7 +124,8 @@ export class FumeLayer {
       for (let i = 0; i < n; i++) {
         const img = this.blob();
         img.setFrame(style.frames[Math.floor(rnd() * style.frames.length)]);
-        img.setTint(style.tints[Math.floor(rnd() * style.tints.length)]);
+        const tints = PALETTES[zone.palette]?.[layer] ?? style.tints;
+        img.setTint(tints[Math.floor(rnd() * tints.length)]);
         img.setDepth(DEPTH + (layer === 'outer' ? 0 : layer === 'current' ? 1 : 2));
         if (layer !== 'current') img.setFlipX(rnd() < 0.5);
         blobs.push({

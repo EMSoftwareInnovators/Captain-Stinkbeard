@@ -3,7 +3,8 @@ import { addText, setText, UI_COLORS } from './text.js';
 import { ListMenu } from './ListMenu.js';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
 import { SES_BEZEL, SES_SCREEN } from '../art/vista/sesArt.js';
-import { tvState, setPower, stepChannel, nextLines } from '../systems/tv/tv.js';
+import { tvState, setPower, stepChannel, nextLines, tvCondition, programDef, programEpisode } from '../systems/tv/tv.js';
+import { parseLine } from '../systems/script/parseLine.js';
 import { resolveVariant } from '../systems/story/progress.js';
 
 /**
@@ -16,6 +17,17 @@ import { resolveVariant } from '../systems/story/progress.js';
  * Menu: power, next / previous channel, look at the wiring, look at the power
  * source, slap the side (only while it's misbehaving), step away. The
  * captain's comments (and Garrick's, if he's in the room) appear underneath.
+ *
+ * Story Phase 6 adds:
+ *   - the set's condition (tv.js tvCondition): a dead set won't come on, a
+ *     damaged one wears a different bezel and cracked glass, and now and
+ *     then flickers back to half-life on its own;
+ *   - programmes: a channel with "program" plays that show's episode, beat by
+ *     beat, its lines underneath (data/tv/programs);
+ *   - the knob panel ({ "tv": "ses", "mode": "knobs" }): the set's own knobs
+ *     from data ("knobs"), each with an effect on the picture or the sound,
+ *     until the one that switches it off has been tried enough times. No
+ *     wrong answer is ever a dead end.
  */
 const D = 740;
 const rand = (a, b) => a + Math.random() * (b - a);
@@ -26,13 +38,17 @@ export class TvView {
    * @param {object} def from systems/tv/tv.js tvDef
    * @param {{ present?: (id: string) => boolean, onClose: () => void }} opts
    */
-  constructor(scene, def, { present = () => true, onClose }) {
+  constructor(scene, def, { present = () => true, onClose, mode = 'normal' }) {
     this.scene = scene;
     this.app = scene.game.app;
     this.session = this.app.session;
     this.def = def;
     this.present = present;
     this.onClose = onClose;
+    this.mode = mode;
+    this.knobState = { vol: 0, flip: false, tint: 0, slow: false, shrink: false, tries: {} };
+    this.flickerT = 2500;
+    this.flickering = 0;
     this.view = 'front';
     this.failure = null;
     this.failTimer = this.nextFailure();
@@ -67,6 +83,7 @@ export class TvView {
     this.screen2 = add(s.add.image(sx, sy, 'vista', 'tv_off').setOrigin(0).setDepth(D + 2).setVisible(false));
     this.line = add(s.add.rectangle(sx + SES_SCREEN.w / 2, sy + SES_SCREEN.h / 2, SES_SCREEN.w, 2, 0xf4fff8, 1).setDepth(D + 3).setVisible(false));
     this.scan = add(s.add.image(sx, sy, 'vista', 'tv_scan').setOrigin(0).setDepth(D + 4).setAlpha(0.55));
+    this.glass = add(s.add.image(sx, sy, 'vista', 'tv_scan').setOrigin(0).setDepth(D + 5).setVisible(false));
     this.glare = add(s.add.image(sx, sy, 'vista', 'tv_glare').setOrigin(0).setDepth(D + 5));
     this.bezel = add(s.add.image(bx, by, 'vista', 'ses_bezel').setOrigin(0).setDepth(D + 6));
     this.osd = add(addText(s, sx + SES_SCREEN.w - 30, sy + 4, '', { color: 0x8af0a0, depth: D + 7 }));
@@ -84,10 +101,29 @@ export class TvView {
     });
     this.refreshMenu();
     this.applyState(false);
+    if (this.mode === 'knobs') this.showLines(nextLines(this.def, this.session, 'knobs_open', this.def.knobs?.openLines ?? [], this.present));
   }
 
   refreshMenu() {
     const st = tvState(this.def, this.session);
+    if (this.mode === 'knobs') {
+      const knobs = (this.def.knobs?.list ?? []).map((k) => ({ label: k.label, value: `knob:${k.id}`, color: k.effect === 'off' ? UI_COLORS.gold : undefined }));
+      knobs.push({ label: 'Step away', value: 'leave' });
+      const keepK = this.menu.selected?.value;
+      this.menu.setItems(knobs, Math.max(0, knobs.findIndex((i) => i.value === keepK)));
+      return;
+    }
+    if (st.dead) {
+      const dead = [
+        { label: 'Try the power', value: 'deadpower' },
+        { label: 'The wiring', value: 'wiring' },
+        { label: 'The power source', value: 'source' },
+        { label: 'Step away', value: 'leave' },
+      ];
+      const keepD = this.menu.selected?.value;
+      this.menu.setItems(dead, Math.max(0, dead.findIndex((i) => i.value === keepD)));
+      return;
+    }
     const items = [
       { label: st.power ? 'Turn it off' : 'Turn it on', value: 'power' },
       { label: 'Next channel', value: 'next', disabled: !st.power },
@@ -106,9 +142,13 @@ export class TvView {
 
   applyState(animate = true) {
     const st = tvState(this.def, this.session);
+    const cond = tvCondition(this.def, this.session);
     const front = this.view === 'front';
-    this.bezel.setFrame(front ? 'ses_bezel' : this.view === 'wiring' ? 'ses_back' : 'ses_power_source');
+    this.bezel.setFrame(front ? cond.bezel ?? 'ses_bezel' : this.view === 'wiring' ? cond.back ?? 'ses_back' : 'ses_power_source');
     for (const p of [this.screen, this.scan, this.glare, this.glow, this.osd]) p.setVisible(front);
+    this.glass.setVisible(front && !!cond.glass);
+    if (cond.glass) this.glass.setFrame(cond.glass);
+    this.program = null;
     if (!front) {
       this.screen2.setVisible(false);
       return;
@@ -122,7 +162,8 @@ export class TvView {
     this.channel = st.channel;
     this.frameT = 0;
     this.frameI = 0;
-    this.screen.setFrame(this.channel?.frames?.[0] ?? 'tv_static_0');
+    this.startProgram();
+    this.screen.setFrame(this.currentFrames()[0] ?? 'tv_static_0');
     this.glow.setFillStyle(Phaser_hex(this.channel?.glow ?? '#c8d0d8'), 0.22);
     if (animate) {
       setText(this.osd, `CH ${this.channel?.label ?? this.channel?.id ?? ''}`);
@@ -130,12 +171,126 @@ export class TvView {
     }
   }
 
+  // --- programmes (Story Phase 6) -----------------------------------------------------
+
+  /** If the channel carries a programme, start its current episode from the top. */
+  startProgram() {
+    const prog = this.channel?.program ? programDef(this.app.content, this.channel.program) : null;
+    this.program = prog;
+    this.episode = prog ? programEpisode(prog, this.session) : null;
+    this.beatI = -1;
+    this.beatT = 0;
+    if (this.episode) this.nextBeat();
+  }
+
+  get beat() {
+    return this.episode?.beats?.[this.beatI] ?? null;
+  }
+
+  currentFrames() {
+    if (this.knobState.frog && this.program?.closeup) return this.program.closeup;
+    return this.beat?.frames ?? this.channel?.frames ?? [];
+  }
+
+  nextBeat() {
+    const beats = this.episode?.beats ?? [];
+    if (!beats.length) return;
+    this.beatI = (this.beatI + 1) % beats.length;
+    this.beatT = 0;
+    this.frameI = 0;
+    this.frameT = 0;
+    const b = this.beat;
+    const k = this.knobState;
+    const volume = Math.min(1, 0.5 + k.vol * 0.25);
+    const rate = k.slow ? 0.5 : 1;
+    if (b.sfx) this.app.audio.sfx(b.sfx, { volume, rate });
+    if (b.laugh) this.app.audio.sfx(this.program.laugh ?? 'ftm_laugh', { volume: volume * 0.8, rate });
+    if (b.line) {
+      const l = parseLine(b.line);
+      if (k.slow) l.text = l.text.toUpperCase().split(' ').join('... ');
+      this.showLines([l]);
+    }
+    const f = this.currentFrames()[0];
+    if (f) this.screen.setFrame(f);
+  }
+
+  // --- the knob panel (Story Phase 6) ----------------------------------------------
+
+  turnKnob(id) {
+    const knob = (this.def.knobs?.list ?? []).find((k) => k.id === id);
+    if (!knob) return;
+    const k = this.knobState;
+    const audio = this.app.audio;
+    audio.sfx(knob.sfx ?? 'tv_click', { rate: 0.8 + Math.random() * 0.4 });
+    k.tries[id] = (k.tries[id] ?? 0) + 1;
+    switch (knob.effect) {
+      case 'louder':
+        k.vol = Math.min(4, k.vol + (knob.amount ?? 1));
+        setText(this.osd, `VOL ${'|'.repeat(4 + k.vol * 2)}`);
+        this.osdT = 1600;
+        this.scene.cameras.main.shake(160, 0.002 * k.vol * this.app.settings.shakeScale());
+        break;
+      case 'flip':
+        k.flip = !k.flip;
+        this.screen.setFlipY(k.flip);
+        break;
+      case 'tint':
+        k.tint = (k.tint + 1) % 3;
+        if (k.tint === 0) this.screen.clearTint();
+        else this.screen.setTint(k.tint === 1 ? 0xb070e0 : 0x60f070);
+        break;
+      case 'slow':
+        k.slow = !k.slow;
+        break;
+      case 'shrink':
+        k.shrink = !k.shrink;
+        this.screen.setScale(k.shrink ? 0.55 : 1);
+        this.screen.setPosition(this.sx + (k.shrink ? SES_SCREEN.w * 0.225 : 0), this.sy + (k.shrink ? SES_SCREEN.h * 0.225 : 0));
+        break;
+      case 'frog':
+        k.frog = !k.frog;
+        this.frameI = 0;
+        break;
+      case 'off':
+        if (k.tries[id] >= (knob.tries ?? 1)) {
+          this.showLines(nextLines(this.def, this.session, `knob_${id}_done`, knob.doneLines ?? [], this.present));
+          this.shutDown();
+          return;
+        }
+        // Not yet: it shrinks to a dot, thinks about it, and comes back.
+        this.line.setVisible(true).setScale(0.05, 1).setAlpha(1);
+        this.scene.time.delayedCall(500, () => this.line.setVisible(false));
+        break;
+      default:
+        break;
+    }
+    this.showLines(nextLines(this.def, this.session, `knob_${id}`, knob.lines ?? [], this.present));
+  }
+
+  /** OFF MAYBE, at last: the picture folds to a dot, the flag is set, the close-up shuts. */
+  shutDown() {
+    setPower(this.def, this.session, false);
+    this.app.audio.sfx('tv_power_off');
+    this.powerFx(false);
+    this.flag(this.def.knobs?.doneFlag);
+    this.knobsDone = true;
+    this.scene.time.delayedCall(this.def.knobs?.closeAfter ?? 2600, () => this.close());
+  }
+
   // --- the controls ---------------------------------------------------------------
 
   choose(value) {
     const audio = this.app.audio;
     const st = tvState(this.def, this.session);
+    if (value.startsWith('knob:')) {
+      if (!this.knobsDone) this.turnKnob(value.slice(5));
+      return;
+    }
     switch (value) {
+      case 'deadpower':
+        audio.sfx('tv_click', { rate: 0.6 });
+        this.showLines(nextLines(this.def, this.session, `dead_${tvCondition(this.def, this.session).id}`, tvCondition(this.def, this.session).lookComments ?? [], this.present));
+        break;
       case 'power':
         if (this.view !== 'front') this.view = 'front';
         setPower(this.def, this.session, !st.power);
@@ -211,6 +366,8 @@ export class TvView {
 
   channelLines(onOpen) {
     const st = tvState(this.def, this.session);
+    if (st.dead) return nextLines(this.def, this.session, `dead_${tvCondition(this.def, this.session).id}`, tvCondition(this.def, this.session).lookComments ?? [], this.present);
+    if (this.program && this.mode !== 'knobs') return [];
     if (!st.power) return nextLines(this.def, this.session, 'off', this.def.offComments ?? [], this.present);
     const ch = st.channel;
     if (!ch) return [];
@@ -262,14 +419,21 @@ export class TvView {
       }
     }
     const st = tvState(this.def, this.session);
+    if (st.dead && this.view === 'front') this.updateFlicker(delta);
     if (this.view !== 'front' || !st.power || !this.channel) {
       this.updatePuffs(delta);
       return;
     }
+    // A programme moves on beat by beat.
+    if (this.beat) {
+      this.beatT += delta;
+      if (this.beatT >= (this.beat.ms ?? 2600) * (this.knobState.slow ? 1.6 : 1)) this.nextBeat();
+    }
     // Frames, flicker, the hum.
-    const frames = this.channel.frames ?? [];
+    const frames = this.currentFrames();
+    const frameMs = this.beat?.frameMs ?? this.channel.frameMs ?? 300;
     this.frameT += delta;
-    if (frames.length > 1 && this.frameT >= (this.channel.frameMs ?? 300)) {
+    if (frames.length > 1 && this.frameT >= frameMs) {
       this.frameT = 0;
       this.frameI = (this.frameI + 1) % frames.length;
       this.screen.setFrame(frames[this.frameI]);
@@ -288,6 +452,31 @@ export class TvView {
     }
     this.updateFailure(delta);
     this.updatePuffs(delta);
+  }
+
+  /**
+   * A dead set that isn't quite dead (shark-damaged): now and then a frame of
+   * something comes up through the cracks with a crackle, and goes again.
+   */
+  updateFlicker(delta) {
+    const f = tvCondition(this.def, this.session).flicker;
+    if (!f?.frames?.length) return;
+    if (this.flickering) {
+      this.flickering -= delta;
+      if (this.flickering <= 0) {
+        this.flickering = 0;
+        this.screen.setFrame('tv_off');
+      }
+      return;
+    }
+    this.flickerT -= delta;
+    if (this.flickerT > 0) return;
+    const [a, b] = f.every ?? [7000, 14000];
+    this.flickerT = rand(a, b);
+    this.flickering = f.ms ?? 450;
+    this.screen.setVisible(true).setFrame(f.frames[Math.floor(Math.random() * f.frames.length)]);
+    if (f.sfx) this.app.audio.sfx(f.sfx, { volume: 0.5 });
+    if (f.lines?.length) this.showLines(nextLines(this.def, this.session, 'flicker', f.lines, this.present));
   }
 
   // --- misbehaving ----------------------------------------------------------------

@@ -519,7 +519,7 @@ export function createWorldServices(scene) {
         await overlay.dialogue.close();
         return overlay.repair(opts);
       },
-      tv: async (id) => {
+      tv: async (id, { mode = 'normal' } = {}) => {
         await overlay.dialogue.close();
         const def = tvDef(scene.content, id);
         if (!def) throw new Error(`No television "${id}"`);
@@ -527,7 +527,7 @@ export function createWorldServices(scene) {
           const a = scene.actors.get(who);
           return !!a && a.sprite?.visible !== false;
         };
-        return overlay.tv(def, { present });
+        return overlay.tv(def, { present, mode });
       },
     },
     audio: {
@@ -556,6 +556,8 @@ export function createWorldServices(scene) {
       },
       move: (id, opts) => app.cinema.move(id, opts),
       frame: (id, frame) => app.cinema.frame(id, frame),
+      frames: (id, list, ms) => app.cinema.frames(id, list, ms),
+      spin: (id, k) => app.cinema.orbitSpeed(id, k),
       fx: (kind, opts) => app.cinema.vistaFx(kind, opts),
       setVisible: (id, v) => app.cinema.setVisible(id, v),
       insert: async (id, opts) => {

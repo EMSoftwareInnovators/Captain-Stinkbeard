@@ -25,6 +25,12 @@
  *     }
  *   }
  *
+ * Story Phase 6 (the Midnight Stenchmaster Catastrophe) makes a second,
+ * stronger core: "generation 2". It is still one Dead Center (one value, one
+ * place at a time); its locations carry "profile": "second", which the fume
+ * layer draws in the garlic-and-onion palette, and "dead_center_profile" in
+ * the data names each profile for the log and the crew.
+ *
  * It is never a trap: rolling in takes seconds (the outer ring arrives
  * first), a sealed room's doors say why they won't open, and staying in it
  * only ever ends in a collapse the crew carry the captain out of.
@@ -77,6 +83,8 @@ export function deadCenterZonesFor(content, mapId) {
         enterFrom: z.enterFrom ?? loc.enterFrom ?? null,
         enterMs: z.enterMs ?? loc.enterMs ?? 4000,
         deadCenter: id,
+        // Story Phase 6: the second release's core ("profile": "second") draws in its own colours.
+        palette: z.palette ?? loc.profile ?? null,
       });
     });
   }
@@ -90,4 +98,11 @@ export function deadCenterSeals(content, session, mapId) {
   const loc = deadCenterLocations(content)[id];
   if (!loc?.seals) return false;
   return loc.seals === true ? loc.map === mapId : [].concat(loc.seals).includes(mapId);
+}
+
+/** Story Phase 6: the profile of the core where it is now ("first", "second"), or null. */
+export function deadCenterProfile(content, session) {
+  const id = deadCenterLocation(session);
+  if (!id) return null;
+  return deadCenterLocations(content)[id]?.profile ?? 'first';
 }
