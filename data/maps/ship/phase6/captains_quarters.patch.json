@@ -1,0 +1,102 @@
+{
+ "id": "captains_quarters_phase6",
+ "patch": "captains_quarters",
+ "//": "Story Phase 6: the bed that starts it (after Phase 5), and Squawks's basket by the bed on the night of the Frog Tax Man.",
+ "objects": [
+  {
+   "id": "p6_bed",
+   "type": "inspect",
+   "x": 14,
+   "y": 4,
+   "w": 2,
+   "h": 3,
+   "script": "p6.bed_sleep",
+   "if": {
+    "all": [
+     {
+      "flag": "p5_complete"
+     },
+     {
+      "notFlag": "p6_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p6c_squawks_0",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 12,
+   "y": 8,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p6_ch26_started"
+     },
+     {
+      "notFlag": "p6_bob_woke_captain"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p6c_squawks_1",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p6_started"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "squawks_basket",
+   "x": 12,
+   "y": 8,
+   "if": {
+    "all": [
+     {
+      "flag": "p6_ch26_started"
+     },
+     {
+      "notFlag": "p6_bob_woke_captain"
+     }
+    ]
+   },
+   "id": "p6_basket",
+   "depthOffset": -2
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p6_ch26_started"
+     },
+     {
+      "notFlag": "p6_ch28_started"
+     }
+    ]
+   },
+   "music": "frog_tax_man_theme",
+   "musicFilter": "muffled",
+   "ambience": "cabin"
+  },
+  {
+   "if": {
+    "flag": "p6_started"
+   },
+   "music": "weary_morning",
+   "musicFilter": "muffled",
+   "ambience": "cabin"
+  }
+ ]
+}

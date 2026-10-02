@@ -1,0 +1,392 @@
+{
+ "//": "Story Phase 6, chapter 26: The Frog Tax Man. Night. BWAAAAAH: the S.E.S. finds its first proper programme (data/tv/programs/frog_tax_man.json) and Garrick is lost to it. He falls asleep in the suit, hat sideways, onion in hand; the set stays on at full volume. Barnacle Bob wakes the captain ('I enjoy being alive'); Garrick wants five more minutes; the captain turns it off himself on the back panel's knobs (LOUD, MORE LOUD, PICTURE MAYBE, DO NOT TOUCH, FROG, ???, OFF MAYBE).",
+ "p6c2.begin": [
+  {
+   "fade": "out",
+   "duration": 1200
+  },
+  {
+   "setFlag": "p6_ch26_started"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 5
+  },
+  {
+   "setFlag": "frog_tax_man_unlocked"
+  },
+  {
+   "tvSet": "ses",
+   "power": true,
+   "channel": 7
+  },
+  {
+   "banner": "CHAPTER 26",
+   "sub": "The Frog Tax Man"
+  },
+  {
+   "narrate": "Night."
+  },
+  {
+   "narrate": "The supper went down. Nothing came back up. Not yet."
+  },
+  {
+   "close": true
+  },
+  {
+   "startQuest": "the_frog_tax_man"
+  },
+  {
+   "transition": "main_deck",
+   "x": 13,
+   "y": 15,
+   "facing": "down",
+   "then": "p6c2.deck",
+   "fade": 0
+  }
+ ],
+ "p6c2.deck": [
+  {
+   "fade": "in",
+   "duration": 900
+  },
+  {
+   "wait": 400
+  },
+  {
+   "sfx": "ftm_horn"
+  },
+  {
+   "shake": 1,
+   "duration": 300
+  },
+  "BWAAAAAAAAAH.",
+  "A noise like a cow falling down a staircase comes out of the Stenchmaster Entertainment System.",
+  {
+   "sfx": "ftm_jingle"
+  },
+  "Then a jingle. A cheerful, tinny little jingle, the kind that's been written by somebody who has never been happy in their life.",
+  {
+   "bark": "garrick",
+   "text": "It's ON! Captain! A PROPER programme!",
+   "duration": 2200,
+   "shout": true
+  },
+  "The glass has gone a deep, bright green. Every face on deck is lit by it.",
+  {
+   "tutorial": "Watch the S.E.S. with the Grand Stenchmaster (his station, midships).",
+   "title": "The Frog Tax Man"
+  }
+ ],
+ "p6c2.watch": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "You stand behind the chair. Garrick doesn't look round. He pats the barrel beside him: sit.",
+  "You don't sit. You do stay.",
+  {
+   "vista": "ftm_night",
+   "fade": 700
+  },
+  "garrick[delighted]: It's a FROG, Captain. With a TIE.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "forty_seven_hundred_flies",
+   "layer": "screen",
+   "from": 0,
+   "to": 5
+  },
+  "garrick[laugh]: HAHAHA! The lily pad! NINE TIMES!",
+  "captain: What's depreciation?",
+  "garrick[businesslike]: Nobody knows, Captain. That's what makes it so tense.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "forty_seven_hundred_flies",
+   "layer": "screen",
+   "from": 6,
+   "to": 7
+  },
+  "garrick[laugh]: Work hours! WORK HOURS!",
+  "captain[tired]: ...That's quite good.",
+  "garrick[delighted]: IT'S VERY GOOD.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "forty_seven_hundred_flies",
+   "layer": "screen",
+   "from": 8,
+   "to": 14
+  },
+  "The laugh track is doing a great deal more laughing than the jokes strictly support. Garrick is doing more than the laugh track.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "forty_seven_hundred_flies",
+   "layer": "screen",
+   "from": 15,
+   "to": 17
+  },
+  "garrick[alarmed]: He took the STANDARD deduction!",
+  "captain: Is that bad?",
+  "garrick[terrified]: It's the BRAVEST THING I'VE EVER SEEN.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "forty_seven_hundred_flies",
+   "layer": "screen",
+   "from": 18,
+   "to": 18
+  },
+  "garrick[proud]: Quarterly estimates. Next week. I'll be here.",
+  "captain: Ye're always here.",
+  "garrick[smug]: And next week I'll be here with a REASON.",
+  {
+   "wait": 600
+  },
+  "The programme ends. There is a crackle. Then the programme begins again, from the top. The S.E.S., it turns out, has exactly one episode, and it intends to play it until something stops it.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "forty_seven_hundred_flies",
+   "layer": "screen",
+   "from": 0,
+   "to": 4
+  },
+  "Halfway through the lily pad, the Grand Stenchmaster's chin drops onto his chest.",
+  {
+   "vistaFrame": "garrick",
+   "frame": "garrick_back_asleep"
+  },
+  {
+   "sfx": "snore"
+  },
+  "His hat slides sideways. The saucepan-lid medal rises and falls on his chest like a little tin tide. The cape slithers off the back of the chair onto the deck. In one hand, gripped tight, is half an onion.",
+  "captain: ...Garrick.",
+  {
+   "sfx": "snore"
+  },
+  "garrick[smug]: ...mmnf. Standard deduction...",
+  "You leave him to it. The laugh track follows you all the way to your cabin.",
+  {
+   "vistaEnd": true,
+   "fade": 800
+  },
+  {
+   "setFlag": "p6_ftm_watched"
+  },
+  {
+   "setFlag": "p6_garrick_asleep"
+  },
+  {
+   "call": "p6c2.bedtime"
+  }
+ ],
+ "p6c2.bedtime": [
+  {
+   "fade": "out",
+   "duration": 800
+  },
+  {
+   "transition": "captains_quarters",
+   "x": 13,
+   "y": 7,
+   "facing": "left",
+   "then": "p6c2.woken",
+   "fade": 0,
+   "noAutosave": true
+  }
+ ],
+ "p6c2.woken": [
+  {
+   "anim": "player",
+   "name": "fallen"
+  },
+  {
+   "fade": "in",
+   "duration": 1200
+  },
+  {
+   "narrate": "Some time later."
+  },
+  {
+   "close": true
+  },
+  "You've fallen asleep on the floor beside Squawks's basket. Neither of you meant to.",
+  {
+   "sfx": "knock"
+  },
+  {
+   "wait": 600
+  },
+  {
+   "sfx": "knock"
+  },
+  {
+   "spawn": "bob",
+   "x": 8,
+   "y": 10,
+   "facing": "up"
+  },
+  {
+   "move": "bob",
+   "to": [
+    11,
+    8
+   ]
+  },
+  {
+   "face": "bob",
+   "dir": "right"
+  },
+  "bob[concerned]: Captain? ...Captain?",
+  "squawks[furious]: Go. AWAY.",
+  "bob[sad]: Sorry, Squawks. Sorry. Sorry. It's the television, Captain.",
+  {
+   "anim": "player",
+   "name": "idle"
+  },
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "captain[tired]: ...Turn it off.",
+  "bob[alarmed]: I enjoy being alive, Captain.",
+  {
+   "wait": 400
+  },
+  {
+   "sfx": "tv_spark",
+   "volume": 0.5
+  },
+  "From up on deck: a sharp, dry CRACK, like somebody snapping a whip made of lightning.",
+  "captain: Then wake Garrick. It's HIS.",
+  "bob: I tried. He asked for five more minutes.",
+  "captain: When?",
+  "bob: Forty minutes ago. I've asked him four times since. He's very good at it, Captain. He doesn't even open his eyes. He just holds up five fingers.",
+  "squawks[smug]: Captain brave.",
+  {
+   "wait": 700
+  },
+  "squawks[insulting]: Captain foolish.",
+  "captain[tired]: ...Both.",
+  "squawks: Coming too.",
+  "captain: Ye're staying HERE.",
+  "squawks[furious]: Coming. Want to see it DIE.",
+  {
+   "despawn": "squawks"
+  },
+  {
+   "anim": "player",
+   "name": "carry"
+  },
+  {
+   "setFlag": "p6_carrying_squawks"
+  },
+  {
+   "setFlag": "p6_bob_woke_captain"
+  },
+  {
+   "tutorial": "Go up on deck and do something about the S.E.S.",
+   "title": "The Frog Tax Man"
+  }
+ ],
+ "p6c2.deck_night": [
+  {
+   "wait": 300
+  },
+  {
+   "anim": "player",
+   "name": "idle"
+  },
+  {
+   "spawn": "squawks",
+   "x": 10,
+   "y": 13,
+   "facing": "down"
+  },
+  "You set Squawks down by the cabin door. Far enough. You hope.",
+  {
+   "sfx": "ftm_laugh",
+   "volume": 1
+  },
+  "The S.E.S. is on full volume. The laugh track rolls across the deck like surf. Out in the dark, a fin turns toward it, interested.",
+  {
+   "sfx": "tv_spark",
+   "volume": 0.8
+  },
+  "A spark jumps off the frying-pan aerial, cracks against the grog table, and fizzles out.",
+  "The Grand Stenchmaster sleeps on, in his chair, in his suit, three feet from it.",
+  {
+   "move": "bob",
+   "to": [
+    11,
+    14
+   ]
+  },
+  "bob[alarmed]: See? SEE?",
+  {
+   "setFlag": "p6_deck_night_seen"
+  },
+  {
+   "tutorial": "Try to wake the Grand Stenchmaster (his chair).",
+   "title": "The Frog Tax Man"
+  }
+ ],
+ "p6c2.wake": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "captain: Garrick. GARRICK.",
+  {
+   "sfx": "snore"
+  },
+  "One gloved hand rises from the arm of the chair. Five fingers.",
+  "captain[angry]: It's SPARKING.",
+  "garrick[smug]: ...mm. It does that. Five minutes.",
+  "You shake him by the epaulette. The tassel squelches.",
+  "garrick: ...Ceremonial... five... minutes...",
+  "He turns over in the chair, which is not a thing a chair allows, and is asleep again before he's finished doing it.",
+  {
+   "setFlag": "p6_garrick_wont_wake"
+  },
+  "bob[concerned]: That's what he did to me, Captain.",
+  "captain[tired]: Fine. I'll do it myself.",
+  "bob[alarmed]: Captain, there's a card taped on it says WAIT BEFORE POKING—",
+  "captain: I'm not poking it. I'm turning a KNOB.",
+  {
+   "tutorial": "Turn off the S.E.S.: the knobs, on the outside of the set. (There are seven. One of them is OFF MAYBE.)",
+   "title": "The Frog Tax Man"
+  }
+ ],
+ "p6c2.knobs": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "Round the side of the set, at knee height, is a panel of knobs. Each one has a label, in Garrick's crayon.",
+  {
+   "tv": "ses",
+   "mode": "knobs"
+  },
+  {
+   "if": {
+    "flag": "ses_off_maybe"
+   },
+   "then": [
+    {
+     "call": "p6c3.begin"
+    }
+   ],
+   "else": [
+    "You step back. Franklin carries on with his taxes. The laugh track carries on laughing at him.",
+    {
+     "bark": "bob",
+     "text": "It's still ON, Captain!",
+     "duration": 1600
+    },
+    {
+     "tutorial": "The S.E.S. is still on. Try the knobs again (OFF MAYBE, on the set's side panel).",
+     "title": "The Frog Tax Man"
+    }
+   ]
+  }
+ ]
+}

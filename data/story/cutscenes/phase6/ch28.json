@@ -1,0 +1,317 @@
+{
+ "//": "Story Phase 6, chapter 28: The Worst Morning. Dawn: the captain and Bob haven't slept; Garrick slept magnificently. 'WHO TURNED IT OFF?', overnight seat-warming operations, ceremonial snoring, 'IT THREW A FORK', the cape (worse than everything else), and comforting a television through a difficult shutdown. Shark Duty again; then the labour rule, and Garrick's first weasel: routine shark chewing is normal operations, not an emergency. Another onion; ROWBOAT; the dead set flickers ('Remember... quarterly... estimates...'); 'Throw it overboard.' It isn't: a shark, the rowboat and the chaos see to that. The S.E.S. stays, apparently dead.",
+ "p6c4.begin": [
+  {
+   "fade": "out",
+   "duration": 1500
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 8
+  },
+  {
+   "setFlag": "p6_ch28_started"
+  },
+  {
+   "banner": "CHAPTER 28",
+   "sub": "The Worst Morning"
+  },
+  {
+   "narrate": "Dawn."
+  },
+  {
+   "narrate": "The captain and Barnacle Bob had not slept. Squawks had slept in short, furious instalments. The Grand Stenchmaster had slept magnificently."
+  },
+  {
+   "close": true
+  },
+  {
+   "startQuest": "worst_morning"
+  },
+  {
+   "transition": "main_deck",
+   "x": 12,
+   "y": 15,
+   "facing": "right",
+   "then": "p6c4.deck",
+   "fade": 0
+  }
+ ],
+ "p6c4.deck": [
+  {
+   "fade": "in",
+   "duration": 1000
+  },
+  {
+   "music": "weary_morning",
+   "fade": 1500
+  },
+  "Grey light. The sea's the colour of dishwater. The fork is still in the mast.",
+  {
+   "sfx": "snore"
+  },
+  "In his chair, the Grand Stenchmaster stirs, stretches, and yawns so wide his hat falls off.",
+  {
+   "bark": "garrick",
+   "text": "Morning, all! What a NIGHT. Slept like a—",
+   "duration": 2200
+  },
+  {
+   "tutorial": "Tell the Grand Stenchmaster what happened (his chair).",
+   "title": "The Worst Morning"
+  }
+ ],
+ "p6c4.talk": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "garrick[delighted]: Captain! Is it time for the frog? I think it must be nearly time for the—",
+  "He sees the black glass.",
+  "garrick[alarmed]: ...WHO TURNED IT OFF?",
+  "captain[tired]: I did.",
+  "garrick[terrified]: WITHOUT GRAND STENCHMASTER AUTHORISATION?",
+  "captain: Ye were asleep.",
+  "garrick[offended]: I was conducting OVERNIGHT SEAT-WARMING OPERATIONS.",
+  "captain: Ye were snoring.",
+  "garrick[businesslike]: Ceremonial snoring.",
+  {
+   "anim": "garrick",
+   "name": "nervous"
+  },
+  "He leans over and turns a knob. Click. Another. Click. Nothing. He turns OFF MAYBE in the other direction, hard. Nothing at all.",
+  "garrick[annoyed]: ...You've broken it.",
+  "rook[annoyed]: HE'S broken it?",
+  "bob[alarmed]: IT THREW A FORK!",
+  "garrick[businesslike]: A defensive feature.",
+  "gristle[annoyed]: Defending against WHAT?",
+  "garrick[smug]: Exactly the sort of person who'd turn it off.",
+  "captain[angry]: Sparks, Garrick. All night. Smoke along the wire. Little fires by your chair and your table and the MAST. The grog barrel was wired in. It honked. It threw cutlery. It shouted about taxes and then it went POP.",
+  "captain[tired]: And your cape caught.",
+  {
+   "anim": "garrick",
+   "name": "idle"
+  },
+  {
+   "wait": 600
+  },
+  "garrick[alarmed]: ...My cape?",
+  "He gathers it up off the deck and turns it over. The long brown singe along the hem. The blackened ghost of THE FIRST ONE.",
+  "garrick[terrified]: THE CAPE.",
+  "garrick[terrified]: The HISTORIC RELEASES! The first one's GONE! It was the most historic one!",
+  "pete[surprised]: ...That's the bit he's upset about?",
+  "squawks[smug]: Bomb.",
+  {
+   "wait": 500
+  },
+  "The Grand Stenchmaster kneels down beside the S.E.S. and pats it gently on its scorched side.",
+  "garrick[worried]: There, there. Shh. You had a difficult shutdown. Nobody blames you.",
+  "captain[surprised]: Are ye comforting a TELEVISION?",
+  "garrick[offended]: It had a difficult shutdown, Captain.",
+  {
+   "setFlag": "p6_garrick_told"
+  },
+  {
+   "wait": 400
+  },
+  {
+   "sfx": "shark_thump"
+  },
+  {
+   "shake": 2,
+   "duration": 350
+  },
+  "THUNK. Something large hits the hull, and the morning starts properly.",
+  {
+   "bark": "jory",
+   "text": "SHARK DUTY! Port side first!",
+   "duration": 1800,
+   "shout": true
+  },
+  "garrick[smug]: Off you go, then. I'll be here. Seat warming.",
+  {
+   "tutorial": "Shark Duty: see the sharks off the rails.",
+   "title": "The Worst Morning"
+  }
+ ],
+ "p6c4.duty_done": [
+  {
+   "sharkDuty": "clear"
+  },
+  {
+   "setFlag": "p6_duty_cleared"
+  },
+  "The last fin of the wave slides off into the murk. Everyone on the rails leans on their poles and looks, as one, at the chair.",
+  {
+   "tutorial": "Remind the Grand Stenchmaster about the labour rule (his chair).",
+   "title": "The Worst Morning"
+  }
+ ],
+ "p6c4.order": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "garrick[smug]: Seat warming, Captain. Do you mind?",
+  "captain: The rule, Garrick. Nailed to the mainmast. Under the FORK. In a genuine emergency, the Grand Stenchmaster does one useful thing.",
+  "garrick[businesslike]: Ah. But is this a GENUINE emergency, Captain?",
+  "captain: The sharks are eating the SHIP.",
+  "garrick[businesslike]: Every day. Routine shark chewing is normal operations. The rule covers EMERGENCIES. This is a SCHEDULE.",
+  "sully[annoyed]: It's a shark emergency EVERY DAY!",
+  "garrick[smug]: Then it's not an emergency, is it? It's a timetable.",
+  "rook[annoyed]: I'll timetable YOU.",
+  "captain[angry]: That's not how the rule works. Ye don't get to decide what's an emergency.",
+  "garrick[proud]: Then who does?",
+  "crew: US!",
+  {
+   "wait": 500
+  },
+  "Without breaking eye contact, the Grand Stenchmaster takes an onion out of his coat, and bites it.",
+  {
+   "sfx": "chomp"
+  },
+  {
+   "wait": 700
+  },
+  {
+   "sfx": "rumble_mid"
+  },
+  {
+   "shake": 1,
+   "duration": 500
+  },
+  "A rumble. Squawks vanishes into his blankets like a tortoise.",
+  {
+   "choice": [
+    {
+     "text": "ROWBOAT. (furious)",
+     "then": [
+      "captain[angry]: ROWBOAT."
+     ]
+    },
+    {
+     "text": "Rowboat. Now. (exhausted)",
+     "then": [
+      "captain[tired]: Rowboat. Now. Please."
+     ]
+    },
+    {
+     "text": "Ye'd like a little sea air, I think. (threatening)",
+     "then": [
+      "captain[determined]: Ye'd like a little sea air, I think. ROWBOAT."
+     ]
+    },
+    {
+     "text": "Did ye just bite an ONION at me? (incredulous)",
+     "then": [
+      "captain[surprised]: Did ye just bite an ONION at me? ...ROWBOAT."
+     ]
+    }
+   ]
+  },
+  "garrick[nervous]: Can I take the S.E.S.?",
+  "crew: NO!",
+  {
+   "wait": 600
+  },
+  {
+   "vista": "ses_dark_morning",
+   "fade": 500
+  },
+  {
+   "sfx": "ses_clicking",
+   "volume": 0.5
+  },
+  "The dead set ticks. On the black glass, very small, a white dot appears.",
+  {
+   "vistaFrame": "screen",
+   "frame": "tv_dot"
+  },
+  {
+   "wait": 1200
+  },
+  {
+   "sfx": "tv_static",
+   "volume": 0.3
+  },
+  "franklin: Remember... quarterly... estimates...",
+  {
+   "vistaFrame": "screen",
+   "frame": "tv_off"
+  },
+  {
+   "wait": 900
+  },
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  "Everyone stares at it.",
+  "captain[angry]: Throw it overboard.",
+  "garrick[terrified]: NOOOOOOOOOOO!",
+  {
+   "move": "brask",
+   "to": [
+    13,
+    15
+   ]
+  },
+  "Brask and Rook get either side of it. They look at each other. They look at the warning card. WAIT BEFORE POKING.",
+  {
+   "sfx": "hull_impact"
+  },
+  {
+   "shake": 3,
+   "duration": 500
+  },
+  "THUNK. The biggest shark of the morning hits the starboard bow so hard the bell rings by itself.",
+  {
+   "bark": "jory",
+   "text": "STARBOARD! BIG ONE!",
+   "duration": 1800,
+   "shout": true
+  },
+  "Brask and Rook drop the set where it is and run for the rail. Somebody lowers the rowboat. Somebody else puts the Grand Stenchmaster in it, with his chair, which he is holding and will not let go of.",
+  {
+   "sfx": "rope_throw"
+  },
+  "By the time the sharks have been seen off, the Grand Stenchmaster is bobbing off the stern on twenty fathoms of line, and the S.E.S. is still sitting exactly where it was.",
+  "hale[resigned]: ...The television, Captain?",
+  {
+   "wait": 900
+  },
+  "captain[tired]: ...Later.",
+  {
+   "tvSet": "ses",
+   "state": "apparently_dead"
+  },
+  {
+   "setFlag": "p6_overboard_ordered"
+  },
+  {
+   "setFlag": "garrick_rowboat_morning"
+  },
+  {
+   "wait": 600
+  },
+  {
+   "fade": "out",
+   "duration": 1500
+  },
+  {
+   "narrate": "The rest of the day went by in sharks."
+  },
+  {
+   "narrate": "By nightfall, the Grand Stenchmaster was back aboard. Nobody remembered pulling the rowboat in. Nobody wanted to."
+  },
+  {
+   "narrate": "The Stenchmaster Entertainment System stayed where it was, dark, ticking now and then, faintly warm. Nobody went near it. Nobody threw it overboard. Nobody quite knew why not."
+  },
+  {
+   "close": true
+  },
+  {
+   "call": "p6c5.begin"
+  }
+ ]
+}

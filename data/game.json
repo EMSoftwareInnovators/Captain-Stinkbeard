@@ -233,6 +233,69 @@
       "if": {
         "flag": "p5_complete"
       }
+    },
+    {
+      "id": "p6c1",
+      "name": "Chapter 25: The Grand Stenchmaster's Supper",
+      "if": {
+        "flag": "p6_started"
+      }
+    },
+    {
+      "id": "p6c2",
+      "name": "Chapter 26: The Frog Tax Man",
+      "if": {
+        "flag": "p6_ch26_started"
+      }
+    },
+    {
+      "id": "p6c3",
+      "name": "Chapter 27: The Machine Refuses to Die",
+      "if": {
+        "flag": "p6_ch27_started"
+      }
+    },
+    {
+      "id": "p6c4",
+      "name": "Chapter 28: The Worst Morning",
+      "if": {
+        "flag": "p6_ch28_started"
+      }
+    },
+    {
+      "id": "p6c5",
+      "name": "Chapter 29: The Burning Warning",
+      "if": {
+        "flag": "p6_ch29_started"
+      }
+    },
+    {
+      "id": "p6c6",
+      "name": "Chapter 30: The Mightiest Gust Yet",
+      "if": {
+        "flag": "p6_ch30_started"
+      }
+    },
+    {
+      "id": "p6c7",
+      "name": "Chapter 31: The Great Sharkstorm",
+      "if": {
+        "flag": "p6_ch31_started"
+      }
+    },
+    {
+      "id": "p6c8",
+      "name": "Chapter 32: Another Ocean",
+      "if": {
+        "flag": "p6_ch32_started"
+      }
+    },
+    {
+      "id": "phase6_end",
+      "name": "The Midnight Stenchmaster Catastrophe (complete)",
+      "if": {
+        "flag": "p6_complete"
+      }
     }
   ],
   "timeOfDay": [
@@ -378,6 +441,39 @@
         "var": {
           "name": "p4_tod",
           "eq": 5
+        }
+      }
+    },
+    {
+      "id": "p6_sunset",
+      "grade": "#e8a08c",
+      "interior": 0.45,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 6
+        }
+      }
+    },
+    {
+      "id": "p6_storm",
+      "grade": "#6e7e74",
+      "interior": 0.62,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 7
+        }
+      }
+    },
+    {
+      "id": "p6_dawn",
+      "grade": "#e4e0ec",
+      "interior": 0.3,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 8
         }
       }
     }

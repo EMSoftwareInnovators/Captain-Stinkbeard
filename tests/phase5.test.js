@@ -32,9 +32,12 @@ describe('the Stenchmaster Entertainment System', () => {
 
   it('has the six channels the brief asks for, and nothing named', () => {
     expect(ses.name).toBe('The Stenchmaster Entertainment System');
-    expect(ses.channels.map((c) => c.id)).toEqual([1, 2, 3, 4, 5, 6]);
-    expect(ses.channels.map((c) => c.title)).toEqual(['Static', 'Weather', 'Potatoes', 'A Fish', 'The Theatre', 'Whispers']);
-    for (const c of ses.channels) expect(c.comments.length, c.title).toBeGreaterThanOrEqual(3);
+    // Phase 5's own channels; later phases add programme channels behind a flag (Phase 6: The Frog Tax Man).
+    const own = ses.channels.filter((c) => !c.program);
+    expect(own.map((c) => c.id)).toEqual([1, 2, 3, 4, 5, 6]);
+    expect(own.map((c) => c.title)).toEqual(['Static', 'Weather', 'Potatoes', 'A Fish', 'The Theatre', 'Whispers']);
+    for (const c of own) expect(c.comments.length, c.title).toBeGreaterThanOrEqual(3);
+    for (const c of ses.channels.filter((x) => x.program)) expect(c.if, `${c.title} waits for its phase`).toBeTruthy();
   });
 
   it('starts off, tunes to the first channel when switched on, and wraps the knob both ways', () => {

@@ -145,6 +145,29 @@
     ],
     "enterFrom": [-6, 0],
     "enterMs": 7000
+   },
+   "second_forward_deck": {
+    "name": "the forward deck (the second cloud)",
+    "profile": "second",
+    "map": "main_deck",
+    "zones": [
+     { "level": "center", "x": 5, "y": 27, "w": 10, "h": 5 },
+     { "level": "dense", "x": 4, "y": 25, "w": 12, "h": 9 }
+    ],
+    "enterFrom": [0, 4],
+    "enterMs": 5000
+   },
+   "second_sleeping_quarters": {
+    "name": "the sleeping quarters (the second cloud)",
+    "profile": "second",
+    "map": "crew_quarters",
+    "zones": [
+     { "level": "center", "x": 1, "y": 4, "w": 16, "h": 9 },
+     { "level": "dense", "x": 1, "y": 4, "w": 16, "h": 11 }
+    ],
+    "enterFrom": [0, -8],
+    "enterMs": 9000,
+    "seals": ["crew_quarters", "washroom"]
    }
   }
  }

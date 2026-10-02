@@ -1,0 +1,509 @@
+{
+ "//": "Story Phase 6, chapter 25: The Grand Stenchmaster's Supper. Sunset, a few days on. The suit has got worse (Salty Jim's saucepan lid as a medal, bottle caps, tassels, a cape painted with 'historic releases'). Garrick goes below for nourishment; the captain checks on Squawks; a cut to the galley (Jim's NO, ceremonial metabolism, the onions, the jar of BADLY SPOILED garlic); Pete runs for the captain; the rule about warning the crew; YOUR WORKPLACE IS YOUR TROUSERS; the first rumble; OUTSIDE; the chair goes too ('Seat warming').",
+ "p6.bed_sleep": {
+  "start": [
+   "Your bed. Feather mattress, red wool blanket, and a yellow outline on the pillow that the laundry has given up on.",
+   {
+    "choice": [
+     {
+      "text": "Sleep (the story continues)",
+      "goto": "sleep"
+     },
+     {
+      "text": "Not yet"
+     }
+    ]
+   }
+  ],
+  "sleep": [
+   {
+    "call": "p6c1.begin"
+   }
+  ]
+ },
+ "p6c1.begin": [
+  {
+   "fade": "out",
+   "duration": 900
+  },
+  {
+   "music": null,
+   "fade": 600
+  },
+  {
+   "clearFlag": "optional_duty_on"
+  },
+  {
+   "sharkDuty": "clear"
+  },
+  {
+   "setFlag": "p6_started"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 6
+  },
+  {
+   "setVar": "bulk_frog_grog",
+   "value": 16
+  },
+  {
+   "setVar": "dead_center_generation",
+   "value": 1
+  },
+  {
+   "deadCenter": "none"
+  },
+  {
+   "banner": "CHAPTER 25",
+   "sub": "The Grand Stenchmaster's Supper"
+  },
+  {
+   "narrate": "A few days later. Sunset."
+  },
+  {
+   "narrate": "The sharks had settled into a routine. So had the crew. So had the Grand Stenchmaster, whose routine was sitting, and who had spent the afternoon improving his suit."
+  },
+  {
+   "close": true
+  },
+  {
+   "startQuest": "grand_supper"
+  },
+  {
+   "transition": "main_deck",
+   "x": 9,
+   "y": 13,
+   "facing": "down",
+   "then": "p6c1.deck",
+   "fade": 0
+  }
+ ],
+ "p6c1.deck": [
+  {
+   "fade": "in",
+   "duration": 1000
+  },
+  {
+   "music": "weary_morning",
+   "fade": 1200
+  },
+  "The Revenge at sunset: patched rails, patches on the patches, yellow sails gone stiff as biscuits, a low haze hanging round the mainmast like it pays rent.",
+  {
+   "sfx": "bell_cough",
+   "volume": 0.4
+  },
+  "Somewhere forward, the bell coughs. Below, something with teeth knocks politely on the hull.",
+  "Midships, lashed down under a tarpaulin, sit the bulk Frog Grog reserves: sixteen barrels, Mags's pride, labelled BULK in green paint.",
+  "By the cabin door, Squawks is asleep in his basket, wrapped to the beak in blankets and his little sweater.",
+  {
+   "spawn": "garrick",
+   "x": 9,
+   "y": 23,
+   "facing": "up"
+  },
+  {
+   "move": "garrick",
+   "to": [
+    10,
+    17
+   ]
+  },
+  {
+   "face": "garrick",
+   "dir": "up"
+  },
+  {
+   "camera": "pan",
+   "x": 10,
+   "y": 18,
+   "duration": 700
+  },
+  "The Grand Stenchmaster comes up the main hatch and strolls aft, slowly, so that everybody has time to see.",
+  "pete[surprised]: Is it me, or is the suit worse?",
+  "gristle[disgusted]: It's worse. It's worse every time I look at it. I've stopped looking at it and it's STILL worse.",
+  "The sash is bigger. Someone has painted GRAND STENCHMASTER across it in letters that start large and get smaller as the painter ran out of sash. There are bottle caps sewn round the hem. The brass buttons don't match. A tassel droops from each epaulette, soaked green with Frog Grog, dripping.",
+  "Something tall sticks up out of his hat. It is the head of a feather duster.",
+  "And pinned over his heart, the size of a dinner plate, is a new medal.",
+  "rook[surprised]: There's a SAUCEPAN LID on him.",
+  "garrick[proud]: The Grand Medal of the Grand Stenchmaster.",
+  "mags[annoyed]: That's Jim's good saucepan lid. He's been looking for that for a week.",
+  "garrick[businesslike]: Royal inscription. On the back.",
+  "mags[angry]: It says COOKWARE. It's STAMPED in. COOKWARE.",
+  "garrick[smug]: Ancient dialect.",
+  {
+   "wait": 500
+  },
+  {
+   "anim": "garrick",
+   "name": "proclaim"
+  },
+  "He turns round, slowly, and lets the cape fall open behind him.",
+  {
+   "insert": "painted_cape",
+   "caption": "The back of the Grand Stenchmaster's new cape."
+  },
+  "captain: Ye've painted your... releases. On a cape.",
+  "garrick[proud]: HISTORIC releases, Captain. Every great office keeps a record.",
+  "captain: The last one says MAYBE.",
+  "garrick: It's in progress.",
+  {
+   "anim": "garrick",
+   "name": "idle"
+  },
+  "garrick[businesslike]: And now, if you'll excuse me, the Grand Stenchmaster requires nourishment.",
+  {
+   "camera": "reset",
+   "duration": 700
+  },
+  {
+   "move": "garrick",
+   "to": [
+    9,
+    23
+   ]
+  },
+  {
+   "despawn": "garrick"
+  },
+  "He disappears down the main hatch. Toward the galley.",
+  "hale[concerned]: Captain... Jim keeps the bad jar down there. The one he won't throw out because it's 'a lesson'.",
+  {
+   "bark": "squawks",
+   "text": "...Food smell.",
+   "duration": 1600
+  },
+  {
+   "tutorial": "Check on Squawks (his basket, by the cabin door).",
+   "title": "The Grand Stenchmaster's Supper"
+  }
+ ],
+ "p6c1.squawks": [
+  {
+   "face": "squawks",
+   "dir": "player"
+  },
+  "squawks[exhausted]: ...Food smell. Garrick food.",
+  "captain[tender]: I know. Go back to sleep.",
+  "squawks[worried]: Bad.",
+  "You tuck the blanket back round him. He watches the main hatch over the top of it, the way he used to watch weather coming.",
+  {
+   "wait": 400
+  },
+  {
+   "transition": "galley",
+   "x": 14,
+   "y": 6,
+   "facing": "left",
+   "hidePlayer": true,
+   "then": "p6c1.galley_cut",
+   "noAutosave": true
+  }
+ ],
+ "p6c1.galley_cut": [
+  {
+   "wait": 300
+  },
+  "Meanwhile, in the galley.",
+  {
+   "spawn": "garrick",
+   "x": 14,
+   "y": 4,
+   "facing": "down"
+  },
+  {
+   "move": "garrick",
+   "to": [
+    9,
+    6
+   ]
+  },
+  {
+   "face": "jim",
+   "dir": "garrick"
+  },
+  "jim[angry]: No.",
+  "garrick: I haven't asked anything.",
+  "jim[angry]: No.",
+  {
+   "anim": "garrick",
+   "name": "proclaim"
+  },
+  "garrick[proud]: THE GRAND STENCHMASTER REQUIRES NOURISHMENT.",
+  {
+   "anim": "garrick",
+   "name": "idle"
+  },
+  "jim[annoyed]: Ye ate. Three hours ago. I watched ye. Four bowls.",
+  "garrick[businesslike]: Ceremonial metabolism, Mister Jim. The office burns through it.",
+  {
+   "move": "garrick",
+   "to": [
+    9,
+    5
+   ]
+  },
+  {
+   "face": "garrick",
+   "dir": "up"
+  },
+  "He is already in the pantry. He comes out with a string of onions round his neck like a lord mayor's chain.",
+  "mags[concerned]: ...Is he wearing onions?",
+  "quill[concerned]: That's a lot of onions. I've got that many onions down for a MONTH.",
+  "He goes back in. Reaches up. Right to the top shelf, behind the flour, where Jim keeps the things he keeps on purpose.",
+  "He brings down a jar.",
+  {
+   "insert": "garlic_label",
+   "caption": "The label, in three increasingly upset hands."
+  },
+  "garrick[delighted]: Oh, now THIS is excellent.",
+  "jim[alarmed]: That's not excellent. That's DEAD. That's been dead since the Azores. I keep it to remind myself what happens when you don't throw things out.",
+  "mags[alarmed]: It SAYS do not eat!",
+  "garrick[smug]: It says 'do not eat' to AMATEURS.",
+  {
+   "sfx": "jar_open"
+  },
+  "Pop. The lid comes off.",
+  {
+   "sfx": "sting_reek"
+  },
+  "The smell comes out of the jar like it has been waiting for this all its life.",
+  "quill[coughing]: Oh. Oh, that's... oh, it's got a TEXTURE.",
+  "jim[alarmed]: GET THE CAPTAIN!",
+  "pete[alarmed]: I'LL GET HIM!",
+  {
+   "transition": "main_deck",
+   "x": 11,
+   "y": 14,
+   "facing": "down",
+   "then": "p6c1.pete_runs",
+   "noAutosave": true
+  }
+ ],
+ "p6c1.pete_runs": [
+  {
+   "spawn": "pete",
+   "x": 9,
+   "y": 23,
+   "facing": "up"
+  },
+  {
+   "sfx": "stomp_run"
+  },
+  {
+   "move": "pete",
+   "to": [
+    11,
+    15
+   ],
+   "speed": "run"
+  },
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "pete[alarmed]: CAPTAIN! Galley! He's got the GARLIC! The BAD garlic! The jar with the LABEL!",
+  "captain: ...The one that says do not eat?",
+  "pete[alarmed]: He says that's only for AMATEURS!",
+  "squawks[horrified]: No.",
+  "You look at the hatch. You look at Squawks.",
+  "You are not leaving him on deck by himself with that jar open below.",
+  {
+   "despawn": "squawks"
+  },
+  {
+   "anim": "player",
+   "name": "carry"
+  },
+  {
+   "setFlag": "p6_squawks_checked"
+  },
+  {
+   "setFlag": "p6_carrying_squawks"
+  },
+  "You pick him up, basket, blankets and all.",
+  "squawks[furious]: Not THERE. Not the FOOD place.",
+  "captain[determined]: In and out. I promise.",
+  {
+   "despawn": "pete"
+  },
+  {
+   "tutorial": "Get down to the galley (the main hatch, midships). Bring Squawks.",
+   "title": "The Grand Stenchmaster's Supper"
+  }
+ ],
+ "p6c1.galley": [
+  {
+   "wait": 300
+  },
+  "The Grand Stenchmaster is sitting at the mess table with a napkin tucked into his collar, a plate of raw onion slices, and the jar, open. The crew are pressed flat against the far walls.",
+  "captain[angry]: GARRICK.",
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "garrick[smug]: Captain! Just in time. Consider yourself warned.",
+  "captain: Warned?",
+  "garrick[businesslike]: The rule. 'The Grand Stenchmaster must warn the crew before eating gas-producing food.' I am warning you. Now. Formally.",
+  "captain[angry]: Ye're HALFWAY THROUGH THE JAR.",
+  "garrick: The warning was implied by the jar.",
+  "squawks[horrified]: No more.",
+  "squawks[worried]: Bad food.",
+  "squawks[furious]: No. New. CLOUD.",
+  "garrick[businesslike]: My digestive system has professional experience, Squawks.",
+  "captain[angry]: Your 'professional experience' nearly KILLED him.",
+  "garrick[nervous]: ...An unfortunate workplace incident.",
+  {
+   "choice": [
+    {
+     "text": "A WORKPLACE incident?! (furious)",
+     "then": [
+      "captain[angry]: A WORKPLACE INCIDENT?"
+     ]
+    },
+    {
+     "text": "Oh, a workplace. Where's that, then? (sarcastic)",
+     "then": [
+      "captain[smug]: Oh, a workplace. Lovely. Where is it, this workplace?"
+     ]
+    },
+    {
+     "text": "...What workplace, Garrick. (exhausted)",
+     "then": [
+      "captain[tired]: ...What workplace, Garrick."
+     ]
+    },
+    {
+     "text": "Say 'workplace' once more. (threatening)",
+     "then": [
+      "captain[determined]: Say 'workplace' one more time. Go on."
+     ]
+    },
+    {
+     "text": "Ye have a WORKPLACE? (incredulous)",
+     "then": [
+      "captain[surprised]: Ye have a WORKPLACE?"
+     ]
+    }
+   ]
+  },
+  "garrick[proud]: The Grand Stenchmaster's workplace is wherever the Grand Stenchmaster sits.",
+  "captain[angry]: YOUR WORKPLACE IS YOUR TROUSERS!",
+  {
+   "wait": 900
+  },
+  "Silence. Somewhere a pot lid settles.",
+  "mags: ...He's not wrong.",
+  "garrick[offended]: I'll have you know these are ceremonial trousers.",
+  "He eats one more clove, to finish the thought.",
+  {
+   "sfx": "chomp"
+  },
+  {
+   "wait": 600
+  },
+  {
+   "sfx": "rumble_low"
+  },
+  {
+   "shake": 1,
+   "duration": 500
+  },
+  {
+   "sfx": "dish_rattle",
+   "volume": 0.6
+  },
+  "From somewhere deep inside the suit comes a long, low rumble. Every plate on the shelf shivers.",
+  "Everyone freezes. Squawks disappears entirely inside your coat.",
+  "captain[angry]: OUTSIDE.",
+  "garrick[offended]: Grand Stenchmasters dine INDOORS.",
+  "captain[angry]: Ye can dine in the OCEAN.",
+  {
+   "wait": 400
+  },
+  {
+   "anim": "garrick",
+   "name": "carry"
+  },
+  "With tremendous dignity, the Grand Stenchmaster gathers up his plate, his onions, his jar, his mug of Frog Grog, his napkin...",
+  "...and the chair.",
+  {
+   "move": "garrick",
+   "to": [
+    13,
+    6
+   ]
+  },
+  "pete[annoyed]: Why are ye taking the CHAIR?",
+  {
+   "face": "garrick",
+   "dir": "left"
+  },
+  "garrick[businesslike]: Seat warming.",
+  "pete[alarmed]: SEAT WARMING? It's a CHAIR! It's not COLD! Nobody's going to SIT in it! What are ye WARMING it FOR?",
+  "mags: Pete. Pete. Breathe.",
+  "pete[alarmed]: I AM breathing, Mags! That's the PROBLEM!",
+  {
+   "move": "garrick",
+   "to": [
+    13,
+    4
+   ]
+  },
+  {
+   "despawn": "garrick"
+  },
+  {
+   "setFlag": "rotten_garlic_supper_eaten"
+  },
+  "He climbs the ladder with the chair on his back. The rumble goes with him, a little behind, like a dog.",
+  {
+   "tutorial": "Follow him up on deck. Keep Squawks well back.",
+   "title": "The Grand Stenchmaster's Supper"
+  }
+ ],
+ "p6c1.outside": [
+  {
+   "wait": 300
+  },
+  {
+   "anim": "player",
+   "name": "idle"
+  },
+  {
+   "spawn": "squawks",
+   "x": 12,
+   "y": 13,
+   "facing": "down"
+  },
+  "You set Squawks's basket down by the cabin door, upwind, as far from midships as the deck allows.",
+  {
+   "camera": "pan",
+   "x": 13,
+   "y": 18,
+   "duration": 800
+  },
+  "Midships, the Grand Stenchmaster has set his chair back down by the S.E.S. and laid out supper on the grog table: onions, the jar, the mug, the napkin.",
+  "garrick[smug]: Supper is served. Outdoors. As requested.",
+  {
+   "sfx": "rumble_low",
+   "volume": 0.5
+  },
+  "The rumble agrees with him, quietly.",
+  {
+   "camera": "reset",
+   "duration": 700
+  },
+  "squawks[worried]: ...Still hear it.",
+  "captain[tired]: So do I.",
+  {
+   "setFlag": "p6_supper_outside"
+  },
+  {
+   "wait": 600
+  },
+  {
+   "call": "p6c2.begin"
+  }
+ ]
+}

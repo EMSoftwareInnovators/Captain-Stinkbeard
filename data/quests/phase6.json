@@ -1,0 +1,351 @@
+[
+ {
+  "id": "grand_supper",
+  "title": "The Grand Stenchmaster's Supper",
+  "category": "main",
+  "giver": "hale",
+  "summary": "The suit is worse, and the Grand Stenchmaster requires nourishment.",
+  "description": "Sunset, a few days on. Garrick has improved his suit again (a saucepan lid is involved) and gone below in search of supper. Salty Jim keeps a jar of very bad garlic in the galley, as a lesson.",
+  "objectives": [
+   {
+    "id": "squawks",
+    "text": "Check on Squawks (his basket, by the cabin door)",
+    "type": "flag",
+    "target": "p6_squawks_checked"
+   },
+   {
+    "id": "galley",
+    "text": "Get to the galley (the main hatch)",
+    "type": "flag",
+    "target": "rotten_garlic_supper_eaten",
+    "after": [
+     "squawks"
+    ]
+   },
+   {
+    "id": "outside",
+    "text": "Follow the Grand Stenchmaster back up on deck",
+    "type": "flag",
+    "target": "p6_supper_outside",
+    "after": [
+     "galley"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 40
+  }
+ },
+ {
+  "id": "the_frog_tax_man",
+  "title": "The Frog Tax Man",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "The S.E.S. finds a programme. Then it won't stop.",
+  "description": "BWAAAAAH: a frog in a tie, in trouble with his taxes, and the Grand Stenchmaster has never been happier. Then he falls asleep in front of it, and it's still on, and it's sparking.",
+  "objectives": [
+   {
+    "id": "watch",
+    "text": "Watch the S.E.S. with the Grand Stenchmaster (his station)",
+    "type": "flag",
+    "target": "p6_ftm_watched"
+   },
+   {
+    "id": "go",
+    "text": "Go up on deck and see about the S.E.S.",
+    "type": "flag",
+    "target": "p6_deck_night_seen",
+    "after": [
+     "watch"
+    ]
+   },
+   {
+    "id": "wake",
+    "text": "Try to wake the Grand Stenchmaster (his chair)",
+    "type": "flag",
+    "target": "p6_garrick_wont_wake",
+    "after": [
+     "go"
+    ]
+   },
+   {
+    "id": "knobs",
+    "text": "Turn off the S.E.S. (the knobs, on the side of the set)",
+    "type": "flag",
+    "target": "ses_off_maybe",
+    "after": [
+     "wake"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 45
+  }
+ },
+ {
+  "id": "machine_refuses_to_die",
+  "title": "The Machine Refuses to Die",
+  "category": "main",
+  "giver": "bob",
+  "summary": "It's off. It is also, somehow, dying, loudly, and setting small fires.",
+  "description": "Red tubes, a honk, smoke along a wire that runs into the Frog Grog. Keep everyone back, smother the smoulders, move the barrel, and wait for it to die. Do not touch it. There's a card about that.",
+  "objectives": [
+   {
+    "id": "crew",
+    "text": "Keep Rook and Sully back from the S.E.S.",
+    "type": "event",
+    "target": "p6_crew_back",
+    "count": 2
+   },
+   {
+    "id": "smother",
+    "text": "Smother the smouldering spots",
+    "type": "event",
+    "target": "p6_smothered",
+    "count": 3
+   },
+   {
+    "id": "barrel",
+    "text": "Get the Frog Grog barrel away from the wire",
+    "type": "flag",
+    "target": "p6_grog_barrel_moved"
+   },
+   {
+    "id": "wait",
+    "text": "Wait for the S.E.S. to die (watch from the mainmast)",
+    "type": "flag",
+    "target": "p6_ses_pop",
+    "after": [
+     "crew",
+     "smother",
+     "barrel"
+    ]
+   },
+   {
+    "id": "cape",
+    "text": "Deal with the Grand Stenchmaster's cape",
+    "type": "flag",
+    "target": "garrick_cape_singed",
+    "after": [
+     "wait"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 50
+  }
+ },
+ {
+  "id": "worst_morning",
+  "title": "The Worst Morning",
+  "category": "main",
+  "giver": "hale",
+  "summary": "Nobody slept, except the one man who caused it.",
+  "description": "Dawn, a dead television, a fork in the mainmast and a singed cape. The Grand Stenchmaster is about to find out about all of it.",
+  "objectives": [
+   {
+    "id": "talk",
+    "text": "Tell the Grand Stenchmaster what happened (his chair)",
+    "type": "flag",
+    "target": "p6_garrick_told"
+   },
+   {
+    "id": "duty",
+    "text": "Shark Duty: see the sharks off",
+    "type": "event",
+    "target": "p6_morning_repelled",
+    "count": 4,
+    "after": [
+     "talk"
+    ]
+   },
+   {
+    "id": "order",
+    "text": "Remind the Grand Stenchmaster of the labour rule (his chair)",
+    "type": "flag",
+    "target": "p6_overboard_ordered",
+    "after": [
+     "duty"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 45
+  }
+ },
+ {
+  "id": "about_to_blow",
+  "title": "The Stenchmaster's About to Blow",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "Midnight. Something inside the suit has started to burn.",
+  "description": "The Grand Stenchmaster woke up in the night, felt something, and was frightened. Then everyone else felt it too. Get Squawks, get the sleepers out, and find somewhere on deck to wait it out. There isn't anywhere.",
+  "objectives": [
+   {
+    "id": "squawks",
+    "text": "Grab Squawks (his basket)",
+    "type": "flag",
+    "target": "p6_night_squawks_grabbed"
+   },
+   {
+    "id": "wake",
+    "text": "Get the sleepers moving (Bob, Wick, Brask)",
+    "type": "event",
+    "target": "p6_sleeper_woken",
+    "count": 3
+   },
+   {
+    "id": "out",
+    "text": "Get everyone up the ladder (top right)",
+    "type": "flag",
+    "target": "p6_evacuated",
+    "after": [
+     "squawks",
+     "wake"
+    ]
+   },
+   {
+    "id": "refuge",
+    "text": "Find somewhere safe on deck",
+    "type": "event",
+    "target": "p6_refuge_tried",
+    "count": 3,
+    "after": [
+     "out"
+    ]
+   },
+   {
+    "id": "brace",
+    "text": "Brace for it",
+    "type": "flag",
+    "target": "p6_squawks_wrapped",
+    "after": [
+     "refuge"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 55
+  }
+ },
+ {
+  "id": "second_yellow_apocalypse",
+  "title": "The Second Yellow Apocalypse",
+  "category": "main",
+  "giver": "hale",
+  "summary": "A new cloud, sharper, worse. And something's happening in the water.",
+  "description": "The mightiest gust yet went through the whole ship and out the other side. There's a new Dead Center on the forward deck, and the sea round the hull has gone a colour.",
+  "objectives": [
+   {
+    "id": "clear",
+    "text": "Get aft, clear of the new cloud (by the cabin door)",
+    "type": "flag",
+    "target": "p6_clear_aft"
+   },
+   {
+    "id": "check",
+    "text": "Check on Squawks",
+    "type": "flag",
+    "target": "p6_squawks_ok",
+    "after": [
+     "clear"
+    ]
+   },
+   {
+    "id": "rail",
+    "text": "Look over the port rail",
+    "type": "flag",
+    "target": "great_sharkstorm_created",
+    "after": [
+     "check"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 55
+  }
+ },
+ {
+  "id": "the_great_sharkstorm",
+  "title": "The Great Sharkstorm",
+  "category": "main",
+  "giver": "jory",
+  "summary": "Sharks in the sky. Hold the ship together.",
+  "description": "A column of sea, timber, yellow fume and sharks, turning, right beside the Revenge, and it's throwing sharks at her. Brace the rigging, keep Squawks under cover, get anything that lands back over the side, and get her steered. And then, perhaps, a word with the Grand Stenchmaster.",
+  "objectives": [
+   {
+    "id": "brace",
+    "text": "Secure the shrouds (starboard, port, and the quarterdeck braces)",
+    "type": "event",
+    "target": "p6_rope_secured",
+    "count": 3
+   },
+   {
+    "id": "squawks",
+    "text": "Get Squawks under cover (his basket, by the cabin door)",
+    "type": "flag",
+    "target": "p6_squawks_sheltered"
+   },
+   {
+    "id": "shark",
+    "text": "Shark on deck! Heave it overboard (midships)",
+    "type": "flag",
+    "target": "p6_deck_shark_heaved",
+    "after": [
+     "brace",
+     "squawks"
+    ]
+   },
+   {
+    "id": "helm",
+    "text": "Take the helm (the quarterdeck)",
+    "type": "flag",
+    "target": "p6_garrick_said_no",
+    "after": [
+     "shark"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "frog_grog_offensive",
+  "title": "The Frog Grog Offensive",
+  "category": "main",
+  "giver": "mags",
+  "summary": "Concentrated Frog Grog: the one thing a shark can't stand.",
+  "description": "A shark took one gulp from the bulk reserve and threw itself overboard. Diluted, the smell draws them in; straight from the barrel, they can't bear it. Sixteen barrels. One storm.",
+  "objectives": [
+   {
+    "id": "barrels",
+    "text": "Roll barrels to the port rail and launch them into the storm",
+    "type": "event",
+    "target": "p6_barrel_launched",
+    "count": 5
+   },
+   {
+    "id": "horizon",
+    "text": "Look at the horizon (the telescope, starboard)",
+    "type": "flag",
+    "target": "great_sharkstorm_active",
+    "after": [
+     "barrels"
+    ]
+   },
+   {
+    "id": "sniff",
+    "text": "See what the Grand Stenchmaster's sniffing at (midships)",
+    "type": "flag",
+    "target": "p6_epilogue_seen",
+    "after": [
+     "horizon"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 80
+  }
+ }
+]

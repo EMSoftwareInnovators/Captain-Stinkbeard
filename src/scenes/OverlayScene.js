@@ -14,6 +14,11 @@ const REPAIR_KINDS = {
   shark: { title: 'REPEL THE SHARK', hint: 'Shove on the green!', hit: 'pole_strike', miss: 'pole_whiff', done: 'shark_repelled', speed: 170 },
   rope: { title: 'SECURE THE ROPE', hint: 'Haul on the green!', hit: 'rope_haul', miss: 'hammer_miss', done: 'repair_done' },
   helm: { title: 'BRING HER ABOUT', hint: 'Hold her on the mark!', hit: 'wheel_turn', miss: 'hammer_miss', done: 'repair_done', speed: 120 },
+  // Story Phase 6
+  smother: { title: 'SMOTHER IT', hint: 'Pat it out on the green!', hit: 'smother', miss: 'ember_hiss', done: 'repair_done', speed: 110 },
+  brace: { title: 'BRACE!', hint: 'Haul on the green!', hit: 'rope_haul', miss: 'hammer_miss', done: 'repair_done', speed: 140 },
+  heave: { title: 'HEAVE!', hint: 'Push together on the green!', hit: 'heave', miss: 'shark_flop', done: 'splash_big', speed: 150 },
+  barrel: { title: 'LAUNCH THE BARREL', hint: 'Let go on the green!', hit: 'barrel_launch', miss: 'barrel_roll', done: 'grog_burst', speed: 130 },
 };
 
 /**

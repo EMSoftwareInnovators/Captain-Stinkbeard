@@ -1,0 +1,910 @@
+{
+ "//": "Story Phase 6 vistas (see src/scenes/CinemaScene.js): the S.E.S. close up at night showing The Frog Tax Man (the 'screen' layer plays programme beats), dying (red tubes, a red light, a fork) and dead by morning, and wrecked by a shark; the Revenge at night inflating, venting and firing a broadside; the frenzy; the Great Sharkstorm forming, attacking and collapsing (orbit layers: sharks, spray and timber going round the column); the storm far off through the telescope; and the rowboat epilogue with the storm on the horizon. Set geometry as in Phase 5: bezel bottom-centre (160,224), screen bottom-centre (160,180).",
+ "ftm_night": {
+  "sky": "night",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "wall",
+    "frame": "ses_wall_night",
+    "x": 160,
+    "y": 224,
+    "depth": 2
+   },
+   {
+    "id": "screen",
+    "frame": "ftm_title_0",
+    "x": 160,
+    "y": 180,
+    "depth": 10,
+    "frames": [
+     "ftm_title_0",
+     "ftm_title_1"
+    ],
+    "frameMs": 420
+   },
+   {
+    "id": "scan",
+    "frame": "tv_scan",
+    "x": 160,
+    "y": 180,
+    "depth": 11,
+    "alpha": 0.6
+   },
+   {
+    "id": "glare",
+    "frame": "tv_glare",
+    "x": 160,
+    "y": 180,
+    "depth": 12
+   },
+   {
+    "id": "set",
+    "frame": "ses_bezel",
+    "x": 160,
+    "y": 224,
+    "depth": 13
+   },
+   {
+    "id": "garrick",
+    "frame": "garrick_back_suit",
+    "x": 160,
+    "y": 318,
+    "depth": 20,
+    "scale": 1.8
+   }
+  ]
+ },
+ "ses_dying": {
+  "sky": "night",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "wall",
+    "frame": "ses_wall_night",
+    "x": 160,
+    "y": 224,
+    "depth": 2
+   },
+   {
+    "id": "screen",
+    "frame": "tv_off",
+    "x": 160,
+    "y": 180,
+    "depth": 10
+   },
+   {
+    "id": "scan",
+    "frame": "tv_scan",
+    "x": 160,
+    "y": 180,
+    "depth": 11,
+    "alpha": 0.6
+   },
+   {
+    "id": "glare",
+    "frame": "tv_glare",
+    "x": 160,
+    "y": 180,
+    "depth": 12
+   },
+   {
+    "id": "set",
+    "frame": "ses_bezel_dying",
+    "x": 160,
+    "y": 224,
+    "depth": 13
+   },
+   {
+    "id": "redlight",
+    "frame": "tv_redlight_on",
+    "x": 208,
+    "y": 195,
+    "depth": 14,
+    "hidden": true
+   },
+   {
+    "id": "fork",
+    "frame": "fork_fly",
+    "x": 108,
+    "y": 86,
+    "depth": 15,
+    "hidden": true
+   },
+   {
+    "id": "garrick",
+    "frame": "garrick_back_asleep",
+    "x": 160,
+    "y": 318,
+    "depth": 20,
+    "scale": 1.8
+   }
+  ]
+ },
+ "ses_dark_morning": {
+  "sky": "morning",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "wall",
+    "frame": "ses_wall_day",
+    "x": 160,
+    "y": 224,
+    "depth": 2
+   },
+   {
+    "id": "screen",
+    "frame": "tv_off",
+    "x": 160,
+    "y": 180,
+    "depth": 10
+   },
+   {
+    "id": "scan",
+    "frame": "tv_scan",
+    "x": 160,
+    "y": 180,
+    "depth": 11,
+    "alpha": 0.6
+   },
+   {
+    "id": "glare",
+    "frame": "tv_glare",
+    "x": 160,
+    "y": 180,
+    "depth": 12
+   },
+   {
+    "id": "set",
+    "frame": "ses_bezel_dead",
+    "x": 160,
+    "y": 224,
+    "depth": 13
+   }
+  ]
+ },
+ "ses_wrecked": {
+  "sky": "night",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "wall",
+    "frame": "ses_wall_night",
+    "x": 160,
+    "y": 224,
+    "depth": 2
+   },
+   {
+    "id": "screen",
+    "frame": "tv_snow_dim",
+    "x": 160,
+    "y": 180,
+    "depth": 10
+   },
+   {
+    "id": "scan",
+    "frame": "tv_scan",
+    "x": 160,
+    "y": 180,
+    "depth": 11,
+    "alpha": 0.6
+   },
+   {
+    "id": "glare",
+    "frame": "tv_glare",
+    "x": 160,
+    "y": 180,
+    "depth": 12
+   },
+   {
+    "id": "glass",
+    "frame": "tv_cracked",
+    "x": 160,
+    "y": 180,
+    "depth": 12
+   },
+   {
+    "id": "set",
+    "frame": "ses_bezel_wrecked",
+    "x": 160,
+    "y": 224,
+    "depth": 13
+   },
+   {
+    "id": "smoke",
+    "frame": "tv_smoke",
+    "x": 196,
+    "y": 70,
+    "depth": 14,
+    "alpha": 0.7
+   }
+  ]
+ },
+ "release_night": {
+  "sky": "night",
+  "sea": "night",
+  "horizon": 132,
+  "layers": [
+   {
+    "id": "revenge",
+    "frame": "revenge_night",
+    "x": 160,
+    "y": 186,
+    "depth": 10,
+    "bob": 1
+   },
+   {
+    "id": "jet_stern",
+    "frame": "gas_jet_0",
+    "x": 72,
+    "y": 162,
+    "depth": 12,
+    "frames": [
+     "gas_jet_0",
+     "gas_jet_1"
+    ],
+    "frameMs": 120,
+    "flip": true,
+    "hidden": true
+   },
+   {
+    "id": "jet_bow",
+    "frame": "gas_jet_0",
+    "x": 250,
+    "y": 156,
+    "depth": 12,
+    "frames": [
+     "gas_jet_0",
+     "gas_jet_1"
+    ],
+    "frameMs": 120,
+    "hidden": true
+   },
+   {
+    "id": "jet_mid",
+    "frame": "gas_jet_1",
+    "x": 160,
+    "y": 120,
+    "depth": 12,
+    "frames": [
+     "gas_jet_1",
+     "gas_jet_0"
+    ],
+    "frameMs": 140,
+    "hidden": true,
+    "scale": 0.7
+   },
+   {
+    "id": "flash_1",
+    "frame": "muzzle_flash_0",
+    "x": 137,
+    "y": 178,
+    "depth": 13,
+    "frames": [
+     "muzzle_flash_0",
+     "muzzle_flash_1"
+    ],
+    "frameMs": 80,
+    "hidden": true
+   },
+   {
+    "id": "flash_2",
+    "frame": "muzzle_flash_0",
+    "x": 148,
+    "y": 178,
+    "depth": 13,
+    "frames": [
+     "muzzle_flash_0",
+     "muzzle_flash_1"
+    ],
+    "frameMs": 80,
+    "hidden": true
+   },
+   {
+    "id": "flash_3",
+    "frame": "muzzle_flash_0",
+    "x": 159,
+    "y": 178,
+    "depth": 13,
+    "frames": [
+     "muzzle_flash_0",
+     "muzzle_flash_1"
+    ],
+    "frameMs": 80,
+    "hidden": true
+   },
+   {
+    "id": "flash_4",
+    "frame": "muzzle_flash_0",
+    "x": 170,
+    "y": 178,
+    "depth": 13,
+    "frames": [
+     "muzzle_flash_0",
+     "muzzle_flash_1"
+    ],
+    "frameMs": 80,
+    "hidden": true
+   },
+   {
+    "id": "flash_5",
+    "frame": "muzzle_flash_0",
+    "x": 181,
+    "y": 178,
+    "depth": 13,
+    "frames": [
+     "muzzle_flash_0",
+     "muzzle_flash_1"
+    ],
+    "frameMs": 80,
+    "hidden": true
+   },
+   {
+    "id": "flash_6",
+    "frame": "muzzle_flash_0",
+    "x": 192,
+    "y": 178,
+    "depth": 13,
+    "frames": [
+     "muzzle_flash_0",
+     "muzzle_flash_1"
+    ],
+    "frameMs": 80,
+    "hidden": true
+   },
+   {
+    "id": "smoke_1",
+    "frame": "cannon_smoke",
+    "x": 136,
+    "y": 182,
+    "depth": 13,
+    "alpha": 0.8,
+    "hidden": true
+   },
+   {
+    "id": "smoke_2",
+    "frame": "cannon_smoke",
+    "x": 152,
+    "y": 182,
+    "depth": 13,
+    "alpha": 0.8,
+    "hidden": true
+   },
+   {
+    "id": "smoke_3",
+    "frame": "cannon_smoke",
+    "x": 168,
+    "y": 182,
+    "depth": 13,
+    "alpha": 0.8,
+    "hidden": true
+   },
+   {
+    "id": "smoke_4",
+    "frame": "cannon_smoke",
+    "x": 184,
+    "y": 182,
+    "depth": 13,
+    "alpha": 0.8,
+    "hidden": true
+   }
+  ]
+ },
+ "frenzy_night": {
+  "sky": "night",
+  "sea": "night",
+  "horizon": 132,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "shadows",
+    "school": {
+     "frames": [
+      "shark_shadow_0",
+      "shark_shadow_1"
+     ],
+     "count": 70,
+     "area": [
+      0,
+      146,
+      320,
+      76
+     ],
+     "scale": [
+      0.5,
+      1.1
+     ],
+     "speed": [
+      10,
+      26
+     ],
+     "flip": "random",
+     "frameMs": 200
+    },
+    "depth": 8
+   },
+   {
+    "id": "revenge",
+    "frame": "revenge_night",
+    "x": 110,
+    "y": 170,
+    "depth": 10,
+    "scale": 0.72,
+    "bob": 1
+   },
+   {
+    "id": "cloud",
+    "frame": "cloud_garlic_1",
+    "x": 120,
+    "y": 150,
+    "depth": 11,
+    "scale": 0.6,
+    "alpha": 0.75
+   },
+   {
+    "id": "fins",
+    "school": {
+     "frames": [
+      "fin_side_0",
+      "fin_side_1"
+     ],
+     "count": 160,
+     "area": [
+      0,
+      136,
+      320,
+      84
+     ],
+     "scale": [
+      0.2,
+      0.8
+     ],
+     "speed": [
+      16,
+      38
+     ],
+     "flip": "random",
+     "frameMs": 140
+    },
+    "hidden": true,
+    "depth": 12
+   },
+   {
+    "id": "churn_a",
+    "frame": "churn_0",
+    "x": 210,
+    "y": 176,
+    "depth": 13,
+    "frames": [
+     "churn_0",
+     "churn_1",
+     "churn_2"
+    ],
+    "frameMs": 120,
+    "hidden": true
+   },
+   {
+    "id": "churn_b",
+    "frame": "churn_1",
+    "x": 60,
+    "y": 186,
+    "depth": 13,
+    "frames": [
+     "churn_1",
+     "churn_2",
+     "churn_0"
+    ],
+    "frameMs": 130,
+    "hidden": true
+   }
+  ]
+ },
+ "sharkstorm_forms": {
+  "sky": "storm",
+  "sea": "storm",
+  "horizon": 132,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "revenge",
+    "frame": "revenge_night",
+    "x": 80,
+    "y": 186,
+    "depth": 14,
+    "scale": 0.55,
+    "bob": 1
+   },
+   {
+    "id": "base",
+    "frame": "storm_base_0",
+    "x": 222,
+    "y": 192,
+    "depth": 9,
+    "frames": [
+     "storm_base_0",
+     "storm_base_1"
+    ],
+    "frameMs": 260,
+    "hidden": true
+   },
+   {
+    "id": "spray",
+    "x": 222,
+    "y": 186,
+    "depth": 10,
+    "orbit": {
+     "frames": [
+      "storm_debris_0",
+      "storm_debris_1"
+     ],
+     "count": 40,
+     "height": 30,
+     "radius": [
+      30,
+      70
+     ],
+     "speed": 1.6,
+     "scale": [
+      0.4,
+      0.8
+     ],
+     "frameMs": 200,
+     "wobble": 2
+    },
+    "hidden": true
+   },
+   {
+    "id": "column",
+    "frame": "storm_column_0",
+    "x": 222,
+    "y": 190,
+    "depth": 11,
+    "frames": [
+     "storm_column_0",
+     "storm_column_1",
+     "storm_column_2"
+    ],
+    "frameMs": 150,
+    "scale": 0.3,
+    "hidden": true
+   },
+   {
+    "id": "sharks_low",
+    "x": 222,
+    "y": 186,
+    "depth": 12,
+    "orbit": {
+     "frames": [
+      "storm_shark_0",
+      "storm_shark_1"
+     ],
+     "count": 40,
+     "height": 70,
+     "radius": [
+      16,
+      36
+     ],
+     "speed": 1.8,
+     "scale": [
+      0.4,
+      0.8
+     ],
+     "frameMs": 140,
+     "wobble": 3
+    },
+    "hidden": true
+   },
+   {
+    "id": "sharks_high",
+    "x": 222,
+    "y": 186,
+    "depth": 12,
+    "orbit": {
+     "frames": [
+      "storm_shark_0",
+      "storm_shark_1"
+     ],
+     "count": 120,
+     "height": 180,
+     "radius": [
+      18,
+      66
+     ],
+     "speed": 1.4,
+     "scale": [
+      0.3,
+      0.75
+     ],
+     "frameMs": 140,
+     "wobble": 4
+    },
+    "hidden": true
+   },
+   {
+    "id": "debris",
+    "x": 222,
+    "y": 186,
+    "depth": 13,
+    "orbit": {
+     "frames": [
+      "storm_debris_0",
+      "storm_debris_1"
+     ],
+     "count": 60,
+     "height": 180,
+     "radius": [
+      14,
+      70
+     ],
+     "speed": 1.2,
+     "scale": [
+      0.5,
+      1.0
+     ],
+     "frameMs": 300,
+     "wobble": 5
+    },
+    "hidden": true
+   },
+   {
+    "id": "lightning",
+    "frame": "storm_lightning_0",
+    "x": 214,
+    "y": 120,
+    "depth": 15,
+    "frames": [
+     "storm_lightning_0",
+     "storm_lightning_1"
+    ],
+    "frameMs": 90,
+    "hidden": true
+   }
+  ]
+ },
+ "grog_offensive": {
+  "sky": "storm",
+  "sea": "storm",
+  "horizon": 132,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "revenge",
+    "frame": "revenge_night",
+    "x": 70,
+    "y": 186,
+    "depth": 14,
+    "scale": 0.6,
+    "bob": 1
+   },
+   {
+    "id": "base",
+    "frame": "storm_base_0",
+    "x": 222,
+    "y": 192,
+    "depth": 9,
+    "frames": [
+     "storm_base_0",
+     "storm_base_1"
+    ],
+    "frameMs": 260
+   },
+   {
+    "id": "spray",
+    "x": 222,
+    "y": 186,
+    "depth": 10,
+    "orbit": {
+     "frames": [
+      "storm_debris_0",
+      "storm_debris_1"
+     ],
+     "count": 40,
+     "height": 30,
+     "radius": [
+      30,
+      70
+     ],
+     "speed": 1.6,
+     "scale": [
+      0.4,
+      0.8
+     ],
+     "frameMs": 200,
+     "wobble": 2
+    }
+   },
+   {
+    "id": "column",
+    "frame": "storm_column_0",
+    "x": 222,
+    "y": 190,
+    "depth": 11,
+    "frames": [
+     "storm_column_0",
+     "storm_column_1",
+     "storm_column_2"
+    ],
+    "frameMs": 150,
+    "scale": 1.0
+   },
+   {
+    "id": "sharks_low",
+    "x": 222,
+    "y": 186,
+    "depth": 12,
+    "orbit": {
+     "frames": [
+      "storm_shark_0",
+      "storm_shark_1"
+     ],
+     "count": 40,
+     "height": 70,
+     "radius": [
+      16,
+      36
+     ],
+     "speed": 1.8,
+     "scale": [
+      0.4,
+      0.8
+     ],
+     "frameMs": 140,
+     "wobble": 3
+    }
+   },
+   {
+    "id": "sharks_high",
+    "x": 222,
+    "y": 186,
+    "depth": 12,
+    "orbit": {
+     "frames": [
+      "storm_shark_0",
+      "storm_shark_1"
+     ],
+     "count": 120,
+     "height": 180,
+     "radius": [
+      18,
+      66
+     ],
+     "speed": 1.4,
+     "scale": [
+      0.3,
+      0.75
+     ],
+     "frameMs": 140,
+     "wobble": 4
+    }
+   },
+   {
+    "id": "debris",
+    "x": 222,
+    "y": 186,
+    "depth": 13,
+    "orbit": {
+     "frames": [
+      "storm_debris_0",
+      "storm_debris_1"
+     ],
+     "count": 60,
+     "height": 180,
+     "radius": [
+      14,
+      70
+     ],
+     "speed": 1.2,
+     "scale": [
+      0.5,
+      1.0
+     ],
+     "frameMs": 300,
+     "wobble": 5
+    }
+   },
+   {
+    "id": "barrel",
+    "frame": "barrel_fly",
+    "x": 96,
+    "y": 160,
+    "depth": 16,
+    "hidden": true
+   },
+   {
+    "id": "burst",
+    "frame": "grog_burst_0",
+    "x": 222,
+    "y": 126,
+    "depth": 17,
+    "frames": [
+     "grog_burst_0",
+     "grog_burst_1"
+    ],
+    "frameMs": 160,
+    "hidden": true
+   }
+  ]
+ },
+ "telescope_storm": {
+  "sky": "dusk",
+  "sea": "dusk",
+  "horizon": 132,
+  "mask": "telescope",
+  "layers": [
+   {
+    "id": "storm",
+    "frame": "storm_distant_0",
+    "x": 160,
+    "y": 136,
+    "depth": 10,
+    "frames": [
+     "storm_distant_0",
+     "storm_distant_1"
+    ],
+    "frameMs": 500,
+    "scale": 1.6
+   }
+  ]
+ },
+ "epilogue_rowboat": {
+  "sky": "night",
+  "sea": "night",
+  "horizon": 132,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "storm",
+    "frame": "storm_distant_0",
+    "x": 40,
+    "y": 135,
+    "depth": 6,
+    "frames": [
+     "storm_distant_0",
+     "storm_distant_1"
+    ],
+    "frameMs": 600,
+    "scale": 0.7,
+    "hidden": true
+   },
+   {
+    "id": "revenge",
+    "frame": "revenge_night",
+    "x": 250,
+    "y": 168,
+    "depth": 10,
+    "scale": 0.75,
+    "bob": 1
+   },
+   {
+    "id": "rowboat",
+    "frame": "rowboat_0",
+    "x": 180,
+    "y": 176,
+    "depth": 12,
+    "frames": [
+     "rowboat_0",
+     "rowboat_1"
+    ],
+    "frameMs": 420,
+    "bob": 2
+   },
+   {
+    "id": "fin",
+    "frame": "fin_side_0",
+    "x": 156,
+    "y": 184,
+    "depth": 13,
+    "frames": [
+     "fin_side_0",
+     "fin_side_1"
+    ],
+    "frameMs": 300,
+    "hidden": true
+   }
+  ]
+ }
+}

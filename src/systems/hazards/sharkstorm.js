@@ -35,7 +35,7 @@ export const SHARKSTORM_ID = 'great_sharkstorm';
 export const SHARKSTORM_NONE = 'not_created';
 
 export function sharkstormData(content) {
-  return content?.hazards?.get?.('sharkstorm')?.[SHARKSTORM_ID] ?? { states: {} };
+  return content?.hazards?.get?.(SHARKSTORM_ID) ?? { states: {} };
 }
 
 export function sharkstormStates(content) {

@@ -1,0 +1,532 @@
+{
+ "//": "Story Phase 6, chapter 31: The Great Sharkstorm. Survival on deck: flying sharks overhead (their shadows sweep the planks), now and then one coming down on a tile near the captain, always marked first (world/SharkstormLayer.js); brace the shrouds, get Squawks into shelter, heave a shark off the deck together. The storm leans over and drinks the second cloud off the forward deck (cheers); the smell drives the sharks wilder and the storm grows. Then a flying shark comes through the wall by the station and into the S.E.S. ('Ribbit... tax deduction...' POP; THEY'RE ALL GRAY!). At the helm, the breaking point: the labour rule again ('meteorological catastrophe management'), the captain's monologue, and Garrick's answer: 'No.'",
+ "p6c7.begin": [
+  {
+   "setFlag": "p6_ch31_started"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 7
+  },
+  {
+   "music": "great_sharkstorm",
+   "fade": 0
+  },
+  {
+   "ambience": "sharkstorm_attack"
+  },
+  {
+   "banner": "CHAPTER 31",
+   "sub": "The Great Sharkstorm"
+  },
+  {
+   "startQuest": "the_great_sharkstorm"
+  },
+  {
+   "sfx": "shark_whoosh"
+  },
+  "Something goes over the mast. Then something else. Then a whole shark, upside down, mouth open, very surprised, sailing across the sky from port to starboard.",
+  {
+   "bark": "jory",
+   "text": "HEADS!",
+   "duration": 1400,
+   "shout": true
+  },
+  "Its shadow sweeps across the deck. Then the next one's.",
+  {
+   "tutorial": "Brace the ship: secure the shrouds (three of them). Watch the deck: a red ring and a growing shadow means a shark is coming down there. Step off it.",
+   "title": "The Great Sharkstorm"
+  }
+ ],
+ "p6c7.after_task": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p6_rope_a"
+     },
+     {
+      "flag": "p6_rope_b"
+     },
+     {
+      "flag": "p6_rope_c"
+     },
+     {
+      "flag": "p6_squawks_sheltered"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p6c7.deck_shark"
+    }
+   ],
+   "else": [
+    {
+     "if": {
+      "all": [
+       {
+        "flag": "p6_rope_a"
+       },
+       {
+        "flag": "p6_rope_b"
+       },
+       {
+        "flag": "p6_rope_c"
+       }
+      ]
+     },
+     "then": [
+      {
+       "tutorial": "Get Squawks somewhere sheltered (his basket, by the cabin door).",
+       "title": "The Great Sharkstorm"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "p6c7.rope_a": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "The starboard shrouds are thrumming like a bass fiddle, one lanyard already loose and whipping.",
+  {
+   "repair": "brace",
+   "strikes": 3,
+   "title": "SECURE THE SHROUDS"
+  },
+  {
+   "setFlag": "p6_rope_a"
+  },
+  {
+   "event": "p6_rope_secured"
+  },
+  {
+   "bark": "pete",
+   "text": "HAUL!",
+   "duration": 1200,
+   "shout": true
+  },
+  {
+   "call": "p6c7.after_task"
+  }
+ ],
+ "p6c7.rope_b": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "The port shrouds. A shark has gone through them once already; two are hanging slack.",
+  {
+   "repair": "brace",
+   "strikes": 3,
+   "title": "SECURE THE SHROUDS"
+  },
+  {
+   "setFlag": "p6_rope_b"
+  },
+  {
+   "event": "p6_rope_secured"
+  },
+  {
+   "bark": "gristle",
+   "text": "Make it FAST!",
+   "duration": 1400,
+   "shout": true
+  },
+  {
+   "call": "p6c7.after_task"
+  }
+ ],
+ "p6c7.rope_c": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The mizzen braces on the quarterdeck, the yard swinging wild every time the storm breathes in.",
+  {
+   "repair": "brace",
+   "strikes": 3,
+   "title": "SECURE THE SHROUDS"
+  },
+  {
+   "setFlag": "p6_rope_c"
+  },
+  {
+   "event": "p6_rope_secured"
+  },
+  {
+   "bark": "nell",
+   "text": "Hold her! HOLD HER!",
+   "duration": 1400,
+   "shout": true
+  },
+  {
+   "call": "p6c7.after_task"
+  }
+ ],
+ "p6c7.squawks": [
+  {
+   "face": "squawks",
+   "dir": "player"
+  },
+  "squawks[horrified]: SHARKS IN THE SKY.",
+  "captain[determined]: I know. In ye go.",
+  "You wedge his basket into the cabin doorway, behind the open door, with Doc Fennimore crouched in front of it.",
+  "fennimore[annoyed]: Nothing gets past me, Captain. Not a fin.",
+  {
+   "setFlag": "p6_squawks_sheltered"
+  },
+  {
+   "call": "p6c7.after_task"
+  }
+ ],
+ "p6c7.deck_shark": [
+  {
+   "sfx": "shark_whistle"
+  },
+  {
+   "sprite": "deck_shark_shadow",
+   "frame": "flying_shark_shadow",
+   "x": 9.5,
+   "y": 22.7,
+   "alpha": 0.5
+  },
+  "A whistle, falling. A shadow on the planks midships, growing.",
+  {
+   "removeSprite": "deck_shark_shadow"
+  },
+  {
+   "sfx": "shark_land"
+  },
+  {
+   "shake": 3,
+   "duration": 400
+  },
+  {
+   "sprite": "deck_shark",
+   "frame": "shark_deck_0",
+   "x": 9.5,
+   "y": 23,
+   "anim": "stage:shark_flop"
+  },
+  {
+   "burst": "splinters",
+   "x": 9,
+   "y": 22,
+   "count": 12
+  },
+  "THUMP. A whole shark lands on the deck, midships, right in front of the main hatch, and starts thrashing.",
+  {
+   "bark": "rook",
+   "text": "SHARK ON DECK!",
+   "duration": 1400,
+   "shout": true
+  },
+  {
+   "tutorial": "Shark on deck! Get the crew together and heave it overboard (midships, by the main hatch).",
+   "title": "The Great Sharkstorm"
+  }
+ ],
+ "p6c7.heave": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "Rook, Pete, Brask and Gristle pile in beside you. Eight hands, one shark, a lot of opinions.",
+  "pete[alarmed]: On three! One, two—",
+  {
+   "repair": "heave",
+   "strikes": 4,
+   "title": "HEAVE!"
+  },
+  {
+   "moveSprite": "deck_shark",
+   "x": 16.5,
+   "y": 22,
+   "duration": 700,
+   "ease": "Quad.In"
+  },
+  {
+   "removeSprite": "deck_shark"
+  },
+  {
+   "sfx": "splash_big"
+  },
+  "crew: HEAVE!",
+  "The shark goes over the port rail with an expression of deep betrayal.",
+  {
+   "setFlag": "p6_deck_shark_heaved"
+  },
+  "In the cabin doorway, a small bald head comes up out of the blankets, looks round at the flying sharks, the column, the lightning, and the crew in a heap.",
+  "squawks[exhausted]: ...Put me back.",
+  "fennimore: Back you go.",
+  {
+   "call": "p6c7.absorb"
+  }
+ ],
+ "p6c7.absorb": [
+  {
+   "wait": 500
+  },
+  {
+   "sfx": "vortex_roar"
+  },
+  "The column of the Great Sharkstorm leans over the ship.",
+  "Over the forward deck, the new cloud lifts, stretches, and goes up into it like soup up a straw.",
+  {
+   "deadCenter": "none"
+  },
+  "In a few seconds, the forward deck is clear. Clear air. The first clear air on the Revenge in weeks.",
+  "crew: IT TOOK THE CLOUD!",
+  "pete[happy]: It ATE it! It ATE the CENTER!",
+  "gristle[happy]: Best thing a storm's ever done for me!",
+  {
+   "wait": 900
+  },
+  {
+   "sfx": "frenzy_churn"
+  },
+  "Then the smell gets into the storm. And the storm gets into the sharks.",
+  {
+   "sfx": "thunder"
+  },
+  "The column swells. Turns faster. The sharks in it thrash and snap at each other and the whole thing roars.",
+  "gristle[alarmed]: ...Worst thing a storm's ever done for me.",
+  {
+   "wait": 700
+  },
+  {
+   "sfx": "shark_whistle"
+  },
+  {
+   "sprite": "ses_shark",
+   "frame": "flying_shark_0",
+   "x": 19,
+   "y": 12,
+   "flip": true
+  },
+  "A whistle. Close. Off the port quarter, one shark comes out of the column lower and faster than all the others.",
+  {
+   "moveSprite": "ses_shark",
+   "x": 14.5,
+   "y": 17,
+   "duration": 450,
+   "ease": "Quad.In"
+  },
+  {
+   "removeSprite": "ses_shark"
+  },
+  {
+   "sfx": "ses_shark_crash"
+  },
+  {
+   "flash": "white",
+   "duration": 200
+  },
+  {
+   "shake": 3,
+   "duration": 500
+  },
+  {
+   "burst": "splinters",
+   "x": 14,
+   "y": 17,
+   "count": 18
+  },
+  {
+   "tvSet": "ses",
+   "state": "shark_damaged"
+  },
+  {
+   "setFlag": "p6_ses_shark_hit"
+  },
+  "CRASH.",
+  "It comes through the rail by the station, straight through the side of the cabinet, and stops, wedged, half in and half out of the Stenchmaster Entertainment System.",
+  {
+   "vista": "ses_wrecked",
+   "fade": 300
+  },
+  {
+   "sfx": "tv_spark"
+  },
+  {
+   "vistaFx": "sparkle",
+   "x": 190,
+   "y": 100,
+   "count": 10
+  },
+  "Sparks. Smoke. A crackle. The cracked glass flickers green, once.",
+  {
+   "vistaFrame": "screen",
+   "frame": "ftm_close_1"
+  },
+  "franklin: Ribbit... tax... deduction...",
+  {
+   "sfx": "ses_pop"
+  },
+  {
+   "vistaFrame": "screen",
+   "frame": "tv_off"
+  },
+  "POP.",
+  {
+   "wait": 1000
+  },
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  "The shark works itself loose, flops twice, and slides out through the hole it came in by, into the sea.",
+  {
+   "anim": "garrick",
+   "name": "panic"
+  },
+  "garrick[terrified]: NO! NOOOOO! NOT THE S.E.S.!",
+  "It is the most upset anyone has seen him. More upset than about the hull. More upset than about the cape.",
+  "captain[angry]: A SHARK JUST ATTACKED YOUR TELEVISION.",
+  {
+   "anim": "garrick",
+   "name": "proclaim"
+  },
+  "garrick[annoyed]: I'll have that shark. THAT one. I'll remember its face. I'll find it if it takes me the rest of my life.",
+  "captain: Which one?",
+  "garrick[offended]: The GRAY one.",
+  "crew: THEY'RE ALL GRAY!",
+  {
+   "anim": "garrick",
+   "name": "idle"
+  },
+  {
+   "wait": 600
+  },
+  {
+   "sfx": "timber_creak"
+  },
+  "The ship heels hard to starboard. Up on the quarterdeck, Nell is losing the wheel.",
+  {
+   "bark": "nell",
+   "text": "CAPTAIN! I CAN'T HOLD HER!",
+   "duration": 1800,
+   "shout": true
+  },
+  {
+   "tutorial": "Take the helm (the quarterdeck).",
+   "title": "The Great Sharkstorm"
+  }
+ ],
+ "p6c7.breaking": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You take the wheel from Nell. It fights you like a living thing.",
+  {
+   "place": "garrick",
+   "x": 11,
+   "y": 8,
+   "facing": "left"
+  },
+  "Somebody has rigged a blanket into a pouch across your chest. Squawks is in it, with just his head out, like a joey.",
+  {
+   "setFlag": "p6_squawks_pouch"
+  },
+  "squawks[exhausted]: Bad storm.",
+  "captain: Aye.",
+  "squawks[furious]: Bad sharks.",
+  "captain: Aye.",
+  "squawks[furious]: Bad fart.",
+  "captain: Aye.",
+  "squawks[insulting]: Bad Garrick.",
+  "captain[tired]: ...Aye.",
+  {
+   "wait": 600
+  },
+  {
+   "anim": "garrick",
+   "name": "proclaim"
+  },
+  "The Grand Stenchmaster climbs up onto the quarterdeck, takes a stance at the rail, and raises one gloved hand to the storm.",
+  "garrick[proud]: Crew of the Revenge! I have studied this phenomenon, and I can tell you: this storm is POWERED BY CONCENTRATED ODOUR!",
+  "crew: WE KNOW!",
+  "jory[annoyed]: The labour rule! Emergency! ONE USEFUL THING!",
+  {
+   "anim": "garrick",
+   "name": "idle"
+  },
+  "garrick[businesslike]: Ah. Now. The rule covers emergency LABOUR. This is meteorological and atmospheric catastrophe management. A completely different department.",
+  "crew: NO IT ISN'T!",
+  "captain[angry]: That rule was nailed to the MAST, Garrick. It was the one thing. The ONE thing.",
+  "garrick[proud]: And I respect it, Captain. I simply have other duties. Releases. Seat warming. The S.E.S. Frog Grog quality assurance. Ceremony. Rest.",
+  "rook[annoyed]: The S.E.S. JUST GOT HIT BY A SHARK!",
+  "garrick[worried]: ...That's a sensitive subject.",
+  {
+   "wait": 800
+  },
+  {
+   "choice": [
+    {
+     "text": "Let him have it. All of it. (furious)",
+     "then": [
+      "captain[angry]: Right."
+     ]
+    },
+    {
+     "text": "Very calmly. (threatening)",
+     "then": [
+      "captain[determined]: Garrick. Listen to me. Very carefully."
+     ]
+    },
+    {
+     "text": "Count it off on your fingers. (exhausted)",
+     "then": [
+      "captain[tired]: Let me just... go through it. All of it."
+     ]
+    },
+    {
+     "text": "Laugh, a little bit, the wrong way. (incredulous)",
+     "then": [
+      "captain[surprised]: Hah. Hah hah. Oh, ye want the LIST?"
+     ]
+    }
+   ]
+  },
+  "captain[angry]: You RUINED my treasure.",
+  "captain[angry]: You ruined the RUM.",
+  "captain[angry]: You ruined my BEARD.",
+  "captain[angry]: You nearly KILLED SQUAWKS.",
+  "captain[angry]: You attracted every SHARK in the SEA.",
+  "captain[angry]: The sharks ATE THE HULL. You ate ROTTEN GARLIC. You fired off every CANNON on the SHIP. The ship is leaking gas through the WOOD.",
+  "captain[angry]: And now the sharks are in a STORM. The STORM is made of SHARKS. Because of YOU.",
+  "captain[angry]: FIX IT.",
+  {
+   "wait": 1400
+  },
+  "The Grand Stenchmaster considers this.",
+  "He looks down at his stomach.",
+  "He looks up at the Great Sharkstorm.",
+  {
+   "wait": 1200
+  },
+  "garrick[businesslike]: No.",
+  {
+   "wait": 500
+  },
+  {
+   "sfx": "scream"
+  },
+  {
+   "shake": 1,
+   "duration": 400
+  },
+  "You scream. It's a good, long, full-chested scream. Somewhere in the column, a shark hears it and swims a little faster.",
+  {
+   "setFlag": "p6_garrick_said_no"
+  },
+  {
+   "call": "p6c8.begin"
+  }
+ ]
+}

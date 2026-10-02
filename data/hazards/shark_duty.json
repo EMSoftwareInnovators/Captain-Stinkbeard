@@ -204,6 +204,32 @@
      },
      { "who": "ned", "text": "There's no END to them!" }
     ]
+   },
+   "morning_after_watch": {
+    "title": "SHARK DUTY",
+    "label": "No sleep",
+    "event": "p6_morning_repelled",
+    "counter": "worst_morning.duty",
+    "window": 9000,
+    "maxActive": 2,
+    "waves": [
+     { "gap": 1200, "section": "port_mid" },
+     { "gap": 3200, "section": "stbd_mid" },
+     { "gap": 3600, "section": "port_fore", "big": true },
+     { "gap": 3400, "section": "stbd_aft" },
+     { "gap": 3400, "boarder": [11, 25] },
+     { "gap": 3200, "section": "port_patch" }
+    ],
+    "barks": [
+     { "who": "bob", "text": "I haven't SLEPT, Captain!" },
+     {
+      "who": "garrick",
+      "text": "Seat warming in progress!",
+      "reply": { "who": "rook", "text": "WARM A POLE!" }
+     },
+     { "who": "jory", "text": "Port side! Port!" },
+     { "who": "pete", "text": "Morning, sharks. Every morning, sharks." }
+    ]
    }
   }
  }

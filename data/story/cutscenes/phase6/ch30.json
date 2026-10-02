@@ -1,0 +1,524 @@
+{
+ "//": "Story Phase 6, chapter 30: The Mightiest Gust Yet. The biggest set-piece so far (screen shake and flashes follow the accessibility settings). The ship inflates; gas jets from every seam ('The wood is breathing!'); a new, sharper profile (rotten garlic, onion, Frog Grog, a cheese finish); the pressure sets off every loaded cannon, one by one, into empty sea ('WE'RE PIRATES!'; nobody hurt, nothing hit). Then the smell. The Second Yellow Apocalypse: a new Dead Center (generation 2: still ONE lethal zone, garlic-pale). The release goes through the hull into the water and the sharks go mad; then they start going round. The Great Sharkstorm forms, and Garrick names it.",
+ "p6c6.begin": [
+  {
+   "setFlag": "p6_ch30_started"
+  },
+  {
+   "wait": 700
+  },
+  {
+   "sfx": "dish_rattle",
+   "volume": 0.3
+  },
+  "A tiny vibration. Somewhere, a teacup rattles in its saucer.",
+  {
+   "wait": 1600
+  },
+  {
+   "music": "stenchmaster_catastrophe",
+   "fade": 0
+  },
+  {
+   "sfx": "pressure_burst"
+  },
+  {
+   "flash": "white",
+   "duration": 300
+  },
+  {
+   "shake": 4,
+   "duration": 1600
+  },
+  {
+   "propFx": "jiggle",
+   "area": [
+    3,
+    3,
+    14,
+    32
+   ],
+   "duration": 1400,
+   "intensity": 2,
+   "async": true
+  },
+  {
+   "burst": "fume",
+   "x": 10,
+   "y": 21,
+   "count": 40
+  },
+  "BWOOOOOOOOOOOOOOOMMMMMMMMMMMM.",
+  {
+   "banner": "CHAPTER 30",
+   "sub": "The Mightiest Gust Yet"
+  },
+  {
+   "anim": "player",
+   "name": "brace"
+  },
+  "The deck jumps. The lanterns leap on their hooks. Barrels roll. Hammocks below swing up and hit the beams. Every dish aboard breaks at once.",
+  {
+   "sfx": "timber_creak"
+  },
+  "The mast bends like a fishing rod. The rigging goes as tight as harp strings. Half the crew are knocked flat; the other half were already lying down on purpose.",
+  "The Grand Stenchmaster's cape flies straight out behind him, horizontal, flapping. His medals stand out on their ribbons.",
+  {
+   "vista": "release_night",
+   "fade": 300
+  },
+  {
+   "sfx": "release_long"
+  },
+  "And the ship...",
+  {
+   "vistaMove": "revenge",
+   "scale": 1.06,
+   "duration": 1200,
+   "ease": "Sine.Out"
+  },
+  {
+   "vistaFrame": "revenge",
+   "frame": "revenge_night_puffed"
+  },
+  {
+   "sfx": "timber_creak",
+   "volume": 0.8,
+   "rate": 0.8
+  },
+  "...the ship INFLATES.",
+  "The deck lifts. The hull bulges outward between the ribs. Planks creak out of true. Nails sing as they pull.",
+  "captain[alarmed]: She's going to BURST!",
+  {
+   "vistaShow": "jet_stern",
+   "visible": true
+  },
+  {
+   "vistaShow": "jet_bow",
+   "visible": true
+  },
+  {
+   "vistaShow": "jet_mid",
+   "visible": true
+  },
+  {
+   "sfx": "porthole_jet"
+  },
+  "Then the gas finds the way out: every seam, every porthole, every crack in the timber. Yellow jets spray from both sides of the hull at once.",
+  "The ship itself appears to be farting.",
+  "pete[alarmed]: The WOOD is BREATHING!",
+  "gristle[alarmed]: It should NOT be doing that!",
+  {
+   "sfx": "cannon_fire"
+  },
+  {
+   "vistaShow": "flash_1",
+   "visible": true
+  },
+  {
+   "wait": 250
+  },
+  {
+   "vistaShow": "flash_1",
+   "visible": false
+  },
+  {
+   "vistaShow": "smoke_1",
+   "visible": true
+  },
+  "BOOM. The pressure kicks a cannon off its wedge, and it fires.",
+  {
+   "sfx": "cannon_fire",
+   "volume": 0.9,
+   "rate": 1.05
+  },
+  {
+   "vistaShow": "flash_2",
+   "visible": true
+  },
+  {
+   "wait": 200
+  },
+  {
+   "vistaShow": "flash_2",
+   "visible": false
+  },
+  {
+   "vistaShow": "smoke_2",
+   "visible": true
+  },
+  "BOOM.",
+  {
+   "sfx": "cannon_fire",
+   "volume": 0.9,
+   "rate": 0.95
+  },
+  {
+   "vistaShow": "flash_3",
+   "visible": true
+  },
+  {
+   "wait": 150
+  },
+  {
+   "vistaShow": "flash_4",
+   "visible": true
+  },
+  {
+   "wait": 150
+  },
+  {
+   "vistaShow": "flash_5",
+   "visible": true
+  },
+  {
+   "wait": 150
+  },
+  {
+   "vistaShow": "flash_6",
+   "visible": true
+  },
+  {
+   "sfx": "cannon_fire",
+   "volume": 1,
+   "rate": 0.9
+  },
+  {
+   "wait": 250
+  },
+  {
+   "vistaShow": "flash_3",
+   "visible": false
+  },
+  {
+   "vistaShow": "flash_4",
+   "visible": false
+  },
+  {
+   "vistaShow": "flash_5",
+   "visible": false
+  },
+  {
+   "vistaShow": "flash_6",
+   "visible": false
+  },
+  {
+   "vistaShow": "smoke_3",
+   "visible": true
+  },
+  {
+   "vistaShow": "smoke_4",
+   "visible": true
+  },
+  "BOOM BOOM BOOM BOOM. The whole broadside goes off down the starboard side, one gun after another, each trailing a little ribbon of yellow fume into the dark.",
+  "captain[alarmed]: WHY ARE THE CANNONS LOADED?",
+  "crew: WE'RE PIRATES!",
+  {
+   "sfx": "cannon_far",
+   "volume": 0.6
+  },
+  "Far out in the dark, eight splashes. There is nothing out there to hit. There is, thankfully, nobody out there to see.",
+  {
+   "wait": 900
+  },
+  {
+   "vistaMove": "revenge",
+   "scale": 1.0,
+   "duration": 1600,
+   "ease": "Sine.InOut"
+  },
+  {
+   "vistaFrame": "revenge",
+   "frame": "revenge_night"
+  },
+  {
+   "vistaShow": "jet_stern",
+   "visible": false
+  },
+  {
+   "vistaShow": "jet_bow",
+   "visible": false
+  },
+  {
+   "vistaShow": "jet_mid",
+   "visible": false
+  },
+  "Slowly, groaning, the Revenge lets out the last of the breath she never meant to take, and settles back into her own shape. Mostly.",
+  {
+   "vistaEnd": true,
+   "fade": 800
+  },
+  {
+   "anim": "player",
+   "name": "idle"
+  },
+  {
+   "setFlag": "second_major_release"
+  },
+  {
+   "setVar": "dead_center_generation",
+   "value": 2
+  },
+  {
+   "wait": 600
+  },
+  "Silence. A plank somewhere drops on the deck.",
+  {
+   "anim": "garrick",
+   "name": "relief"
+  },
+  "garrick[relieved]: ...Now THAT was a proper Grand Stenchmaster event.",
+  "Nobody answers him.",
+  {
+   "wait": 1200
+  },
+  "Then the smell hits.",
+  {
+   "call": "p6c6.apocalypse"
+  }
+ ],
+ "p6c6.apocalypse": [
+  {
+   "music": "yellow_alert",
+   "fade": 400
+  },
+  {
+   "sfx": "sting_reek"
+  },
+  {
+   "deadCenter": "second_forward_deck"
+  },
+  {
+   "burst": "odor",
+   "x": 10,
+   "y": 27,
+   "count": 30
+  },
+  "It is not the old smell.",
+  "It is rotten garlic, sharp as a knife. It is raw onion. It is Frog Grog, for body. And underneath it all, slowly arriving, like a guest nobody invited, something like a cheese that has been kept in a boot.",
+  "Eyes water all over the deck. Pete's eyebrows try to leave.",
+  "garrick[proud]: Notes of aged garlic. A bright onion top. The Frog Grog gives it body. And a cheese finish. That's from Tuesday.",
+  "quill[coughing]: We don't want the TASTING PROFILE!",
+  "Squawks puts his head out of your coat, takes one sniff, and goes rigid.",
+  "squawks[horrified]: NEW STINK.",
+  "squawks[furious]: WORSE STINK.",
+  "You pull the coat over him and turn your back to it.",
+  "Forward, the cloud is settling. It's paler than the old one, a sick, glowing, garlic yellow, and it seems to shimmer at the edges like heat over a road. Where the old Center was, there is nothing: the new one has eaten it, and taken its place.",
+  "One cloud. Worse.",
+  "garrick[businesslike]: It'll drift to the stern.",
+  "It drifts to port.",
+  "garrick[businesslike]: Port, then. As I said.",
+  "It rises, slowly, up the foremast.",
+  "garrick[smug]: Upward. Which I also said.",
+  {
+   "setFlag": "p6_second_cloud_seen"
+  },
+  {
+   "startQuest": "second_yellow_apocalypse"
+  },
+  {
+   "tutorial": "Get aft, clear of the new cloud (by the cabin door).",
+   "title": "The Second Yellow Apocalypse"
+  }
+ ],
+ "p6c6.clear": [
+  {
+   "setFlag": "p6_clear_aft"
+  },
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "You make the cabin door with half the crew. The new cloud hangs over the forward deck and glows, faintly, like something radioactive in a story.",
+  {
+   "spawn": "squawks",
+   "x": 12,
+   "y": 13,
+   "facing": "down"
+  },
+  {
+   "anim": "player",
+   "name": "idle"
+  },
+  "You set the basket down in the lee of the cabin door.",
+  {
+   "tutorial": "Check on Squawks.",
+   "title": "The Second Yellow Apocalypse"
+  }
+ ],
+ "p6c6.check": [
+  {
+   "face": "squawks",
+   "dir": "player"
+  },
+  "squawks[worried]: ...Feathers?",
+  "captain[tender]: Ye haven't got any. Nothing to take.",
+  "squawks[exhausted]: ...Good. Still here?",
+  "captain: Still here.",
+  "squawks[furious]: Still ANGRY.",
+  "captain: Good.",
+  {
+   "setFlag": "p6_squawks_ok"
+  },
+  {
+   "sfx": "frenzy_churn"
+  },
+  "Over the rail, the water has started to make a noise you've never heard water make.",
+  {
+   "tutorial": "Look over the port rail.",
+   "title": "The Second Yellow Apocalypse"
+  }
+ ],
+ "p6c6.frenzy": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "You go to the rail and look over.",
+  {
+   "vista": "frenzy_night",
+   "fade": 500
+  },
+  {
+   "music": "shark_frenzy",
+   "fade": 300
+  },
+  {
+   "vistaShow": "fins",
+   "visible": true
+  },
+  {
+   "vistaShow": "churn_a",
+   "visible": true
+  },
+  {
+   "vistaShow": "churn_b",
+   "visible": true
+  },
+  "The release went through the hull. Through the planks, through the seams, out into the sea all round the ship in a great glowing yellow bloom.",
+  "The sharks have gone mad.",
+  "Fins everywhere, packed so close they clatter together. Water boiling white. Jaws snapping at bubbles. One shark is trying to eat a plank. Another shark is trying to eat the first shark.",
+  {
+   "sfx": "frenzy_hit"
+  },
+  "captain[alarmed]: They're WORSE.",
+  "garrick[proud]: A very enthusiastic response.",
+  "captain[angry]: This is not market research.",
+  "garrick[businesslike]: Strong brand response, then.",
+  "captain[angry]: STOP CALLING IT BRANDING.",
+  {
+   "wait": 900
+  },
+  "Then, all at once, the snapping stops.",
+  {
+   "vistaEnd": true,
+   "fade": 300
+  },
+  {
+   "vista": "sharkstorm_forms",
+   "fade": 400
+  },
+  {
+   "vistaShow": "base",
+   "visible": true
+  },
+  {
+   "vistaSpin": "spray",
+   "speed": 0.4
+  },
+  "The fins begin to move together. Round the ship. All in the same direction.",
+  "rook[alarmed]: ...They're circling.",
+  "Faster. Tighter. The water follows them, turning, turning, until the whole sea round the Revenge is going round like soup being stirred.",
+  {
+   "vistaShow": "spray",
+   "visible": true
+  },
+  {
+   "sharkstorm": "forming"
+  },
+  {
+   "sfx": "storm_wind"
+  },
+  "A whirlpool. Spray flies off it, yellow with fume. The first shark lifts out of the water, spinning, surprised.",
+  {
+   "vistaShow": "sharks_low",
+   "visible": true
+  },
+  "Then two. Then a dozen.",
+  {
+   "vistaShow": "column",
+   "visible": true
+  },
+  {
+   "vistaMove": "column",
+   "scale": 0.6,
+   "duration": 1600,
+   "ease": "Sine.Out"
+  },
+  {
+   "sfx": "vortex_roar"
+  },
+  {
+   "vistaShow": "sharks_high",
+   "visible": true
+  },
+  {
+   "vistaMove": "column",
+   "scale": 1.0,
+   "duration": 2200,
+   "ease": "Sine.InOut"
+  },
+  "Then HUNDREDS.",
+  {
+   "vistaShow": "debris",
+   "visible": true
+  },
+  "A column rises out of the sea, turning: water and spray and timber and yellow fume and sharks, sharks, sharks, all going round, all the way up into the cloud.",
+  {
+   "vistaShow": "lightning",
+   "visible": true
+  },
+  {
+   "sfx": "thunder"
+  },
+  {
+   "flash": "white",
+   "duration": 150
+  },
+  {
+   "vistaShow": "lightning",
+   "visible": false
+  },
+  "Lightning cracks down the middle of it.",
+  {
+   "wait": 900
+  },
+  "pete[alarmed]: It's a SHARK STORM!",
+  "brask[alarmed]: A shark VORTEX!",
+  "wick[alarmed]: A shark CYCLONE!",
+  "bob[alarmed]: A flying-shark NIGHTMARE!",
+  "garrick[businesslike]: Sharkstorm.",
+  "captain[angry]: Do not name it.",
+  "garrick[proud]: The Great Sharkstorm.",
+  "captain[angry]: NO.",
+  {
+   "anim": "garrick",
+   "name": "proclaim"
+  },
+  "garrick[proud]: THE GRAND STENCHMASTER'S GREAT SHARKSTORM!",
+  "crew: NO!",
+  {
+   "setFlag": "great_sharkstorm_created"
+  },
+  {
+   "sharkstorm": "attacking_ship"
+  },
+  {
+   "vistaEnd": true,
+   "fade": 500
+  },
+  {
+   "call": "p6c7.begin"
+  }
+ ]
+}

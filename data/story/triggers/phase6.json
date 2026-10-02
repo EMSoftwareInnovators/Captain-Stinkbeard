@@ -1,0 +1,20 @@
+[
+ {
+  "id": "p6c4_duty_done",
+  "if": {
+   "all": [
+    {
+     "objectiveActive": "worst_morning.order"
+    },
+    {
+     "notFlag": "p6_duty_cleared"
+    },
+    {
+     "onMap": "main_deck"
+    }
+   ]
+  },
+  "script": "p6c4.duty_done",
+  "once": false
+ }
+]

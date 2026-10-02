@@ -1,0 +1,592 @@
+{
+ "//": "Story Phase 6, chapter 29: The Burning Warning. Night again, everyone below in the sleeping quarters; the captain asleep beside Squawks's basket (Squawks in a tiny sleeping cap: 'Ribbit... taxes...'), Garrick in his enormous hammock in the suit. His stomach turns over and he knows: another major release, bigger than the first. 'Bad noise.' Sharks? Boarders? Fire? 'WORSE.' The evacuation (grab Squawks, get the sleepers moving, up the ladder; 'Pressure shift.' 'It moved.' 'Down.'), the search for somewhere safe on deck (there isn't one), the countdown, and 'Tradition starts somewhere.' Nobody is ever in danger of failing here: it's readable, and it waits.",
+ "p6c5.begin": [
+  {
+   "fade": "out",
+   "duration": 1500
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 5
+  },
+  {
+   "setFlag": "p6_ch29_started"
+  },
+  {
+   "setFlag": "p6_squawks_nightcap"
+  },
+  {
+   "deadCenter": "none"
+  },
+  {
+   "banner": "CHAPTER 29",
+   "sub": "The Burning Warning"
+  },
+  {
+   "narrate": "That night."
+  },
+  {
+   "close": true
+  },
+  {
+   "startQuest": "about_to_blow"
+  },
+  {
+   "transition": "crew_quarters",
+   "x": 10,
+   "y": 9,
+   "facing": "up",
+   "then": "p6c5.night",
+   "fade": 0,
+   "noAutosave": true
+  }
+ ],
+ "p6c5.night": [
+  {
+   "anim": "player",
+   "name": "fallen"
+  },
+  {
+   "fade": "in",
+   "duration": 1500
+  },
+  {
+   "music": "midnight_warning",
+   "fade": 2000
+  },
+  {
+   "ambience": "midnight_warning"
+  },
+  {
+   "sfx": "shark_thump",
+   "volume": 0.4
+  },
+  "The sleeping quarters, after midnight. Gentle chewing at the hull. A groan from the timbers. The coughing bell, now and then, two decks up. Somewhere above, the dead S.E.S. ticks.",
+  "Nobody wakes for any of it any more.",
+  "You're asleep on the floor by Squawks's basket, one arm round it.",
+  "squawks[exhausted]: ...Ribbit... taxes...",
+  "captain[tired]: ...Not the frog show... not the frog...",
+  {
+   "camera": "pan",
+   "x": 13,
+   "y": 11,
+   "duration": 900
+  },
+  "Across the corner, slung from three hooks and a prayer, hangs the biggest hammock aboard. In it, in full suit, sash twisted round to the back, cape draped over the side, medals crooked, snoring like a bilge pump, sleeps the Grand Stenchmaster.",
+  {
+   "wait": 900
+  },
+  {
+   "sfx": "stomach_growl"
+  },
+  "Then, from inside the suit, something shifts.",
+  {
+   "wait": 700
+  },
+  "The snoring stops.",
+  "garrick[queasy]: ...Hm.",
+  "A warmth. Low down. Spreading. Not the ordinary kind.",
+  "garrick[worried]: ...Oh.",
+  "A deep, burning pressure, like a kettle somebody has forgotten on the stove for a week.",
+  "He knows this feeling. He has felt it exactly once before: on the afternoon the treasure went yellow.",
+  "This one is lower. And hotter. And bigger.",
+  "garrick[terrified]: Oh, no. No, no, no, no.",
+  {
+   "camera": "reset",
+   "duration": 700
+  },
+  {
+   "wait": 500
+  },
+  "squawks[worried]: ...Bad noise.",
+  {
+   "sfx": "rumble_big"
+  },
+  {
+   "shake": 2,
+   "duration": 900
+  },
+  {
+   "sfx": "dish_rattle",
+   "volume": 0.7
+  },
+  "The hammock swings. Every hook in the room rattles. A tin cup walks off a shelf.",
+  "squawks[horrified]: CAPTAIN.",
+  {
+   "anim": "player",
+   "name": "idle"
+  },
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "You're awake. So is everyone.",
+  "bob[alarmed]: SHARKS?",
+  "wick[alarmed]: BOARDERS?",
+  "brask[alarmed]: FIRE?",
+  "garrick[terrified]: WORSE.",
+  {
+   "wait": 1200
+  },
+  "Nobody needs it explained.",
+  {
+   "tutorial": "Grab Squawks, get the sleepers moving, and get everyone out of the sleeping quarters (the ladder, top right).",
+   "title": "The Stenchmaster's About to Blow"
+  }
+ ],
+ "p6c5.grab": [
+  {
+   "face": "squawks",
+   "dir": "player"
+  },
+  "squawks[horrified]: Not again. Not the cloud. Not the... the feathers... hurt...",
+  "He's shaking so hard the little sleeping cap has slipped over one eye.",
+  "captain[tender]: Listen to me. Nothing is going to happen to ye this time. Not this time. I promise.",
+  {
+   "despawn": "squawks"
+  },
+  {
+   "anim": "player",
+   "name": "carry"
+  },
+  {
+   "setFlag": "p6_night_squawks_grabbed"
+  },
+  "You scoop him up, basket and all, and wrap your coat round the lot.",
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "garrick[worried]: Captain.",
+  "For once, he isn't performing. His face is grey under the hat.",
+  "garrick[worried]: Get him as far from me as you can. The first one nearly killed him.",
+  "garrick[terrified]: This one feels HOTTER.",
+  {
+   "sfx": "squawk_distress"
+  },
+  "Squawks screams.",
+  "captain[angry]: DON'T TELL ME THAT!",
+  {
+   "call": "p6c5.after_wake"
+  }
+ ],
+ "p6c5.after_wake": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p6_night_squawks_grabbed"
+     },
+     {
+      "flag": "p6_woke_bob"
+     },
+     {
+      "flag": "p6_woke_wick"
+     },
+     {
+      "flag": "p6_woke_brask"
+     }
+    ]
+   },
+   "then": [
+    {
+     "tutorial": "Everyone's moving. Up the ladder (top right)!",
+     "title": "The Stenchmaster's About to Blow"
+    }
+   ]
+  }
+ ],
+ "p6c5.wake_bob": [
+  {
+   "face": "bob",
+   "dir": "player"
+  },
+  "Barnacle Bob is sitting bolt upright in his hammock, gripping both sides, not moving.",
+  "bob[alarmed]: I can't feel my legs, Captain.",
+  "captain[determined]: Move them anyway.",
+  "bob: ...Right. Yes. Moving them anyway.",
+  {
+   "move": "bob",
+   "to": [
+    13,
+    4
+   ],
+   "speed": "run"
+  },
+  {
+   "despawn": "bob"
+  },
+  {
+   "setFlag": "p6_woke_bob"
+  },
+  {
+   "event": "p6_sleeper_woken"
+  },
+  {
+   "call": "p6c5.after_wake"
+  }
+ ],
+ "p6c5.wake_wick": [
+  {
+   "face": "wick",
+   "dir": "player"
+  },
+  "Wick has pulled the blanket over his head and is reciting the washing schedule.",
+  "wick[alarmed]: Tuesday's shirts, Wednesday's socks, Thursday's—",
+  "captain[angry]: WICK. UP. NOW.",
+  "wick: Thursday's RUNNING!",
+  {
+   "move": "wick",
+   "to": [
+    13,
+    4
+   ],
+   "speed": "run"
+  },
+  {
+   "despawn": "wick"
+  },
+  {
+   "setFlag": "p6_woke_wick"
+  },
+  {
+   "event": "p6_sleeper_woken"
+  },
+  {
+   "call": "p6c5.after_wake"
+  }
+ ],
+ "p6c5.wake_brask": [
+  {
+   "face": "brask",
+   "dir": "player"
+  },
+  "Brask is trying to load a pistol in the dark.",
+  "brask[alarmed]: I'll shoot it!",
+  "captain: Ye'll WHAT? It's a STOMACH!",
+  "brask: ...Right. No. Running.",
+  {
+   "move": "brask",
+   "to": [
+    13,
+    4
+   ],
+   "speed": "run"
+  },
+  {
+   "despawn": "brask"
+  },
+  {
+   "setFlag": "p6_woke_brask"
+  },
+  {
+   "event": "p6_sleeper_woken"
+  },
+  {
+   "call": "p6c5.after_wake"
+  }
+ ],
+ "p6c5.shift": [
+  {
+   "place": "garrick",
+   "x": 13,
+   "y": 5,
+   "facing": "up"
+  },
+  "Halfway to the ladder, the Grand Stenchmaster stops dead.",
+  {
+   "sfx": "liquid_churn"
+  },
+  "Everyone behind him walks straight into his back.",
+  "garrick[alarmed]: Pressure shift.",
+  "captain: What?",
+  "garrick[terrified]: It moved.",
+  "captain[alarmed]: WHERE?",
+  {
+   "wait": 900
+  },
+  "garrick[terrified]: ...Down.",
+  {
+   "sfx": "crowd_gasp"
+  },
+  "Panic. Proper panic, the kind with elbows.",
+  {
+   "setFlag": "p6_pressure_shift"
+  },
+  {
+   "despawn": "garrick"
+  },
+  {
+   "transition": "main_deck",
+   "x": 9,
+   "y": 31,
+   "facing": "up",
+   "then": "p6c5.deck",
+   "fade": 300
+  }
+ ],
+ "p6c5.deck": [
+  {
+   "wait": 300
+  },
+  {
+   "music": "midnight_warning",
+   "fade": 600
+  },
+  "Up on deck, in the dark, the crew pour out of the fore hatch and scatter in every direction, looking for somewhere, anywhere, to be.",
+  "There is nowhere on a ship to get away from the thing inside Garrick.",
+  "Midships, the Grand Stenchmaster stands very still with his hands on his stomach, as if he's holding a door shut.",
+  {
+   "setFlag": "p6_evacuated"
+  },
+  {
+   "tutorial": "Find somewhere safe to wait it out. (Look around the deck: the main hatch, the rum barrel, the washing line, the rowboat, the rigging, your cabin.)",
+   "title": "The Stenchmaster's About to Blow"
+  }
+ ],
+ "p6c5.refuge_after": [
+  {
+   "if": {
+    "var": {
+     "name": "p6_refuges",
+     "gte": 3
+    }
+   },
+   "then": [
+    {
+     "call": "p6c5.nowhere"
+    }
+   ]
+  }
+ ],
+ "p6.refuge.hatch": [
+  {
+   "addVar": "p6_refuges",
+   "value": 1
+  },
+  "The main hatch, down to the galley.",
+  "hale[alarmed]: Not below, Captain! Below traps it! It'd be the treasure room all over again!",
+  "You remember the treasure room. You step back from the hatch.",
+  {
+   "setFlag": "p6_refuge_hatch"
+  },
+  {
+   "event": "p6_refuge_tried"
+  },
+  {
+   "call": "p6c5.refuge_after"
+  }
+ ],
+ "p6.refuge.barrel": [
+  {
+   "addVar": "p6_refuges",
+   "value": 1
+  },
+  "Rook has climbed into the rum barrel and pulled the lid down.",
+  "rook: Nobody look at me. I'm a barrel.",
+  "captain: Rook. What happens to a smell in a barrel?",
+  {
+   "wait": 900
+  },
+  "rook[alarmed]: ...It STAYS.",
+  "The lid comes off rather quickly.",
+  {
+   "setFlag": "p6_refuge_barrel"
+  },
+  {
+   "event": "p6_refuge_tried"
+  },
+  {
+   "call": "p6c5.refuge_after"
+  }
+ ],
+ "p6.refuge.sail": [
+  {
+   "addVar": "p6_refuges",
+   "value": 1
+  },
+  "Sully has wrapped himself in the washing, head first, in about nine shirts.",
+  "sully: Mmmf. Mmf mmmf.",
+  "captain: Ye'll need to BREATHE, Sully.",
+  "sully: Mmf... mf... mmf. ...MMMF.",
+  "The shirts come off. He's gone the colour of a plum. He breathes. He wishes he hadn't.",
+  {
+   "setFlag": "p6_refuge_sail"
+  },
+  {
+   "event": "p6_refuge_tried"
+  },
+  {
+   "call": "p6c5.refuge_after"
+  }
+ ],
+ "p6.refuge.rowboat": [
+  {
+   "addVar": "p6_refuges",
+   "value": 1
+  },
+  "The rowboat, on its davits.",
+  "Below it, the sea is solid fins. One of them is looking up at you with real interest.",
+  "squawks[worried]: ...Boat next to sharks.",
+  "captain: Aye. No.",
+  {
+   "setFlag": "p6_refuge_rowboat"
+  },
+  {
+   "event": "p6_refuge_tried"
+  },
+  {
+   "call": "p6c5.refuge_after"
+  }
+ ],
+ "p6.refuge.rigging": [
+  {
+   "addVar": "p6_refuges",
+   "value": 1
+  },
+  "Finch is halfway up the mainmast rigging, going hand over hand toward the crow's nest.",
+  "finch[alarmed]: Up's safe, Captain! It can't get UP!",
+  "captain: It's a CLOUD, Finch. Clouds go up. That's what they're FOR.",
+  "finch[alarmed]: ...Coming down.",
+  {
+   "setFlag": "p6_refuge_rigging"
+  },
+  {
+   "event": "p6_refuge_tried"
+  },
+  {
+   "call": "p6c5.refuge_after"
+  }
+ ],
+ "p6.refuge.cabin": [
+  {
+   "addVar": "p6_refuges",
+   "value": 1
+  },
+  "Your cabin. Four walls, one door, one little window.",
+  "An enclosed room. Like the treasure room was.",
+  "You don't go in.",
+  {
+   "setFlag": "p6_refuge_cabin"
+  },
+  {
+   "event": "p6_refuge_tried"
+  },
+  {
+   "call": "p6c5.refuge_after"
+  }
+ ],
+ "p6c5.nowhere": [
+  {
+   "wait": 400
+  },
+  "There is nowhere.",
+  "squawks[worried]: ...Jump?",
+  "You look over the rail. The sea is fins, fins and more fins, all pointing at the ship.",
+  "squawks[exhausted]: ...Never mind.",
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "captain[angry]: GARRICK! Where's it going to GO?",
+  {
+   "anim": "garrick",
+   "name": "proclaim"
+  },
+  "The Grand Stenchmaster points, decisively, at the bow.",
+  {
+   "wait": 600
+  },
+  "Then, equally decisively, at the stern.",
+  {
+   "anim": "garrick",
+   "name": "nervous"
+  },
+  "garrick[nervous]: ...This office doesn't come with trajectory calculations.",
+  "captain[angry]: YOU ARE THE GRAND STENCHMASTER.",
+  "garrick[nervous]: The title is MOSTLY ceremonial.",
+  "crew: THEN WHY DO WE NEED YOU?",
+  "garrick[annoyed]: Not the time!",
+  "captain: What does 'big one' even MEAN, after the first one?",
+  "garrick[terrified]: BIGGER.",
+  "squawks[horrified]: No.",
+  {
+   "setFlag": "p6_no_refuge"
+  },
+  {
+   "call": "p6c5.countdown"
+  }
+ ],
+ "p6c5.countdown": [
+  {
+   "music": null,
+   "fade": 1500
+  },
+  {
+   "sfx": "stomach_growl"
+  },
+  "A deep growl.",
+  {
+   "sfx": "liquid_churn"
+  },
+  "A long liquid churn, like a bilge pump swallowing a bilge pump.",
+  {
+   "sfx": "rumble_big"
+  },
+  {
+   "shake": 1,
+   "duration": 700
+  },
+  "Thunder, low down, under everyone's boots.",
+  {
+   "sfx": "medal_rattle"
+  },
+  "Every medal on the suit rattles at once. The saucepan lid hums.",
+  {
+   "sfx": "suit_strain"
+  },
+  "The seams of the suit creak. The buttons, all mismatched, strain on their threads.",
+  {
+   "sfx": "frenzy_churn"
+  },
+  "Over the rail, the water begins to froth. Every fin in the sea turns toward the Revenge at the same moment.",
+  "squawks[worried]: Sharks know.",
+  "rook[alarmed]: TAKE THE SUIT OFF!",
+  "garrick[proud]: A Grand Stenchmaster must wear ceremonial attire during a major Stench Event.",
+  "rook[annoyed]: HE JUST INVENTED THAT!",
+  "garrick[proud]: Tradition starts somewhere.",
+  {
+   "wait": 1200
+  },
+  {
+   "anim": "garrick",
+   "name": "idle"
+  },
+  "The Grand Stenchmaster straightens up, very slowly, like a man listening to something nobody else can hear.",
+  "garrick[alarmed]: ...Oh.",
+  {
+   "wait": 900
+  },
+  "garrick[terrified]: FINAL WARNING.",
+  "You get down. You wrap Squawks in your coat, and the blankets, and your arms.",
+  {
+   "repair": "brace",
+   "strikes": 3,
+   "title": "WRAP HIM UP",
+   "speed": 0.8
+  },
+  {
+   "setFlag": "p6_squawks_wrapped"
+  },
+  "squawks[worried]: ...Captain.",
+  "captain[tender]: I've got ye.",
+  {
+   "anim": "garrick",
+   "name": "clutch"
+  },
+  "garrick[terrified]: THE STENCHMASTER IS ABOUT TO BLOW.",
+  {
+   "call": "p6c6.begin"
+  }
+ ]
+}

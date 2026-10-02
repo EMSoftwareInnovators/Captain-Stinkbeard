@@ -1,0 +1,689 @@
+{
+ "//": "Story Phase 6, chapter 32: Another Ocean. The crew find the answer: a shark lands head first in an open barrel of concentrated Frog Grog, swallows, and throws itself overboard. Diluted, the scent draws them; straight from the barrel, in the gills, they can't stand it. The barrel offensive: roll a barrel from the bulk reserve to the port rail and launch it as the storm swings close; five by hand (wobble, scatter, weaken, deform, nearly), the crew roll the other eleven. The near vortex collapses. Everyone thinks it's dead; through the telescope, a mustard storm front still turns on the horizon (the Great Sharkstorm is NOT destroyed). The bulk reserve is gone (the Frog Grog in anyone's pockets is not). Garrick sniffs; the second cloud drifts below to the sleeping quarters; the food ban; an aftershock; ROWBOAT; the epilogue (smart shark; DETAILS!; Unfortunately), and far away, the storm, waiting.",
+ "p6c8.begin": [
+  {
+   "setFlag": "p6_ch32_started"
+  },
+  {
+   "banner": "CHAPTER 32",
+   "sub": "Another Ocean"
+  },
+  {
+   "sfx": "shark_whistle"
+  },
+  "A whistle, falling, forward.",
+  {
+   "camera": "pan",
+   "x": 6,
+   "y": 25,
+   "duration": 600
+  },
+  {
+   "sfx": "shark_land"
+  },
+  {
+   "shake": 2,
+   "duration": 300
+  },
+  {
+   "sprite": "grog_shark",
+   "frame": "shark_deck_0",
+   "x": 5.5,
+   "y": 26,
+   "anim": "stage:shark_flop"
+  },
+  "A shark comes down head first into the bulk Frog Grog reserve, punches straight through the lid of a barrel, and ends up standing on its nose in it, tail in the air.",
+  {
+   "sfx": "grog_gulp"
+  },
+  {
+   "wait": 700
+  },
+  "It swallows.",
+  {
+   "wait": 900
+  },
+  "Its eyes cross.",
+  {
+   "wait": 700
+  },
+  "With an enormous effort, it hauls itself out, flops twice across the deck to the rail, and throws itself overboard. On purpose.",
+  {
+   "moveSprite": "grog_shark",
+   "x": 3,
+   "y": 26,
+   "duration": 600,
+   "ease": "Quad.In"
+  },
+  {
+   "removeSprite": "grog_shark"
+  },
+  {
+   "sfx": "splash_big"
+  },
+  {
+   "camera": "reset",
+   "duration": 700
+  },
+  "pete[surprised]: ...Did it just choose the SEA over the GROG?",
+  "gristle[surprised]: It went in the barrel. The CONCENTRATED stuff. From the reserve.",
+  "mags[surprised]: That's the bulk. Before it's watered down. A splash in the sea brings them for miles. But straight from the barrel? In the gills?",
+  "mags: They can't stand it. Nobody could stand it. I can't stand it, and I MADE it.",
+  {
+   "wait": 600
+  },
+  "pete[annoyed]: ...Throw the barrels at it.",
+  "gristle[annoyed]: Throw the BARRELS at it!",
+  {
+   "anim": "garrick",
+   "name": "panic"
+  },
+  "garrick[terrified]: That's the OFFICIAL BEVERAGE!",
+  "crew: YES!",
+  {
+   "anim": "garrick",
+   "name": "idle"
+  },
+  {
+   "startQuest": "frog_grog_offensive"
+  },
+  {
+   "music": "great_sharkstorm",
+   "fade": 600
+  },
+  {
+   "tutorial": "Roll a barrel of concentrated Frog Grog from the bulk reserve (forward, starboard) to the port rail, then launch it into the Great Sharkstorm as it swings close.",
+   "title": "The Frog Grog Offensive"
+  }
+ ],
+ "p6c8.take": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  {
+   "if": {
+    "flag": "p6_barrel_ready"
+   },
+   "then": [
+    "You've already got a barrel at the rail. Launch that one first."
+   ],
+   "else": [
+    "The bulk reserve: barrels of the stuff before anybody's watered it, lashed down under a tarp. Each one is labelled BULK in Mags's best green paint.",
+    {
+     "sfx": "barrel_roll"
+    },
+    "You get your shoulder to one and roll it across the deck to the port rail.",
+    {
+     "bark": "garrick",
+     "text": "Not that one! That's a GOOD year!",
+     "duration": 1800
+    },
+    {
+     "setFlag": "p6_barrel_ready"
+    },
+    {
+     "tutorial": "Launch the barrel (the port rail, beside you).",
+     "title": "The Frog Grog Offensive"
+    }
+   ]
+  }
+ ],
+ "p6c8.launch": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "The barrel sits on the rail, sloshing. Out past it, the column comes round, and round, and closer.",
+  {
+   "repair": "barrel",
+   "strikes": 3,
+   "title": "LAUNCH THE BARREL",
+   "speed": 0.9
+  },
+  {
+   "clearFlag": "p6_barrel_ready"
+  },
+  {
+   "addVar": "p6_barrels",
+   "value": 1
+  },
+  {
+   "addVar": "bulk_frog_grog",
+   "value": -1
+  },
+  {
+   "event": "p6_barrel_launched"
+  },
+  {
+   "vista": "grog_offensive",
+   "fade": 300
+  },
+  {
+   "vistaShow": "barrel",
+   "visible": true
+  },
+  {
+   "sfx": "barrel_launch"
+  },
+  {
+   "vistaMove": "barrel",
+   "x": 222,
+   "y": 112,
+   "duration": 900,
+   "ease": "Sine.Out"
+  },
+  {
+   "vistaShow": "barrel",
+   "visible": false
+  },
+  {
+   "vistaShow": "burst",
+   "visible": true
+  },
+  {
+   "sfx": "grog_burst"
+  },
+  {
+   "vistaFx": "splash",
+   "x": 222,
+   "y": 112,
+   "count": 14
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p6_barrels",
+     "eq": 1
+    }
+   },
+   "then": [
+    "The barrel bursts against the column in a great green flower.",
+    {
+     "vistaSpin": "sharks_high",
+     "speed": 0.8
+    },
+    "The whole Great Sharkstorm... wobbles.",
+    {
+     "bark": "garrick",
+     "text": "That's eleven years of brewing!",
+     "duration": 1800
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p6_barrels",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "vistaShow": "sharks_high",
+     "visible": false
+    },
+    "Green spray all through the column. Sharks fling themselves OUT of it in every direction, gagging, spitting, diving for the sea.",
+    {
+     "bark": "garrick",
+     "text": "Not the reserve! NOT THE RESERVE!",
+     "duration": 1800
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p6_barrels",
+     "eq": 3
+    }
+   },
+   "then": [
+    {
+     "vistaMove": "column",
+     "scale": 0.82,
+     "duration": 900
+    },
+    "The column weakens. It thins at the waist, like a man breathing in for a photograph.",
+    {
+     "bark": "garrick",
+     "text": "I'll never forgive any of you!",
+     "duration": 1800
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p6_barrels",
+     "eq": 4
+    }
+   },
+   "then": [
+    {
+     "vistaMove": "column",
+     "x": 236,
+     "scale": 0.72,
+     "duration": 900
+    },
+    {
+     "vistaSpin": "sharks_low",
+     "speed": 0.5
+    },
+    "The funnel bends. Deforms. Leans away from the ship, gagging, like it's trying to get away from its own smell.",
+    {
+     "bark": "garrick",
+     "text": "Somebody save ONE!",
+     "duration": 1600
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p6_barrels",
+     "eq": 5
+    }
+   },
+   "then": [
+    {
+     "vistaMove": "column",
+     "scale": 0.6,
+     "alpha": 0.8,
+     "duration": 900
+    },
+    "The last of the five bursts square in the middle. The whole thing staggers.",
+    {
+     "bark": "jory",
+     "text": "MORE BARRELS!",
+     "duration": 1400,
+     "shout": true
+    }
+   ]
+  },
+  {
+   "wait": 600
+  },
+  {
+   "vistaShow": "burst",
+   "visible": false
+  },
+  {
+   "vistaEnd": true,
+   "fade": 300
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p6_barrels",
+     "gte": 5
+    }
+   },
+   "then": [
+    {
+     "call": "p6c8.collapse"
+    }
+   ],
+   "else": [
+    {
+     "tutorial": "Another barrel: from the bulk reserve to the port rail.",
+     "title": "The Frog Grog Offensive"
+    }
+   ]
+  }
+ ],
+ "p6c8.collapse": [
+  "captain[determined]: ALL OF THEM! Roll out the rest!",
+  "The crew roll out the rest of the reserve, two at a time, down a plank off the port rail. Eleven more barrels. Sixteen in all. The Grand Stenchmaster watches every one of them go, with his hat over his heart.",
+  {
+   "setVar": "bulk_frog_grog",
+   "value": 0
+  },
+  {
+   "setFlag": "bulk_frog_grog_depleted"
+  },
+  {
+   "vista": "grog_offensive",
+   "fade": 400
+  },
+  {
+   "vistaShow": "burst",
+   "visible": true
+  },
+  {
+   "sfx": "grog_burst"
+  },
+  {
+   "vistaMove": "column",
+   "scale": 0.5,
+   "alpha": 0.6,
+   "duration": 1200
+  },
+  "Green bursts all along the column, one after another.",
+  {
+   "sfx": "storm_collapse"
+  },
+  {
+   "vistaMove": "column",
+   "y": 260,
+   "scale": 0.3,
+   "alpha": 0,
+   "duration": 2400,
+   "ease": "Quad.In"
+  },
+  {
+   "vistaMove": "sharks_high",
+   "y": 240,
+   "alpha": 0,
+   "duration": 1800,
+   "ease": "Quad.In"
+  },
+  {
+   "vistaMove": "sharks_low",
+   "y": 240,
+   "alpha": 0,
+   "duration": 2000,
+   "ease": "Quad.In"
+  },
+  "The column drops. Straight down, like a dropped curtain. Sharks rain out of the sky into the sea all round the ship: hundreds of splashes, then dozens, then none.",
+  {
+   "vistaMove": "base",
+   "alpha": 0,
+   "duration": 1800
+  },
+  {
+   "vistaShow": "burst",
+   "visible": false
+  },
+  "The whirlpool slows. Stops. The water lies down flat, green and yellow and very, very tired.",
+  {
+   "vistaEnd": true,
+   "fade": 800
+  },
+  {
+   "sharkstorm": "dispersed_near_ship"
+  },
+  {
+   "music": null,
+   "fade": 1500
+  },
+  {
+   "ambience": "sharkstorm_distant"
+  },
+  {
+   "wait": 900
+  },
+  "Nothing flies over the mast.",
+  "squawks[worried]: ...Safe?",
+  "captain[tired]: ...For now.",
+  "crew: WE KILLED IT!",
+  "pete[happy]: The Great Sharkstorm is DEAD!",
+  "garrick[proud]: ...You're welcome.",
+  "crew: WHAT?",
+  {
+   "setFlag": "p6_storm_driven_off"
+  },
+  {
+   "tutorial": "Take a look at the horizon (the telescope, starboard, by the forward rail).",
+   "title": "The Frog Grog Offensive"
+  }
+ ],
+ "p6c8.horizon": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "You put the telescope to your eye and sweep the horizon. Clear sea. Clear sea. Clear—",
+  {
+   "vista": "telescope_storm",
+   "mask": "telescope",
+   "fade": 500
+  },
+  {
+   "sfx": "storm_distant"
+  },
+  "Far off. Right on the edge of the world.",
+  "A smudge of mustard-yellow cloud, low on the water. Turning. Slowly. A thin dark thread runs down from it to the sea, and round the thread, tiny specks going round, and round, and round.",
+  {
+   "wait": 1800
+  },
+  "It hasn't gone. It's just gone somewhere else.",
+  {
+   "vistaEnd": true,
+   "fade": 500
+  },
+  {
+   "sharkstorm": "active_distant"
+  },
+  {
+   "setFlag": "great_sharkstorm_active"
+  },
+  "Behind you, the crew are still cheering. You fold up the telescope and decide that it can wait until morning.",
+  {
+   "tutorial": "Talk to the Grand Stenchmaster (midships). He's sniffing the air.",
+   "title": "The Frog Grog Offensive"
+  }
+ ],
+ "p6c8.sniff": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "The Grand Stenchmaster is standing midships with his head tilted back, sniffing the air like a hound.",
+  "captain[angry]: What.",
+  "garrick[businesslike]: Nothing.",
+  "captain[angry]: WHAT, Garrick.",
+  "garrick[nervous]: ...It's only that the second cloud didn't ALL go up the storm, Captain. Some of it was below decks. Some of it's... settling.",
+  {
+   "sfx": "dc_approach"
+  },
+  {
+   "deadCenter": "second_sleeping_quarters"
+  },
+  "Somewhere below, a hatch breathes out yellow.",
+  "hale[alarmed]: It's going into the sleeping quarters.",
+  "hale[resigned]: ...Nobody sleeps below tonight.",
+  "Nobody argues.",
+  {
+   "wait": 700
+  },
+  "You go to the mainmast, take a nail, take a sheet of paper, and write, in large letters, with the hammer still in your other hand.",
+  {
+   "sfx": "hammer_hit"
+  },
+  {
+   "insert": "food_ban_close",
+   "caption": "Nailed to the mainmast, beside the labour rule."
+  },
+  {
+   "setFlag": "garrick_food_ban"
+  },
+  "garrick[alarmed]: ...Ever?",
+  "captain[angry]: EVER.",
+  "garrick[nervous]: Onions?",
+  "captain: Banned.",
+  "garrick[nervous]: Beans?",
+  "captain: Banned.",
+  "garrick[worried]: Cabbage?",
+  "captain: BANNED.",
+  "garrick[terrified]: ...Cheese?",
+  "captain[angry]: ALL. OF IT.",
+  {
+   "wait": 700
+  },
+  "garrick[worried]: ...And the Frog Grog's all gone. All sixteen. The whole reserve.",
+  "mags[annoyed]: I'll brew more. It's only grog that's been near you, Garrick. There's no shortage of either.",
+  "garrick[worried]: It won't be the same. It'll be a different VINTAGE.",
+  {
+   "wait": 900
+  },
+  {
+   "sfx": "rumble_low",
+   "volume": 0.4
+  },
+  {
+   "shake": 1,
+   "duration": 300
+  },
+  "A tiny rumble, from somewhere in the suit.",
+  "crew: ROWBOAT!",
+  "garrick[alarmed]: It was only an AFTERSHOCK!",
+  "Nobody cares.",
+  {
+   "call": "p6c8.epilogue"
+  }
+ ],
+ "p6c8.epilogue": [
+  {
+   "vista": "epilogue_rowboat",
+   "fade": 800
+  },
+  {
+   "music": "garrick_theme",
+   "fade": 1200
+  },
+  "Ten minutes later, the Grand Stenchmaster is sitting in the rowboat at the end of its line, astern, in full suit, in the dark.",
+  "From inside his coat, he takes out half an onion.",
+  "captain[angry]: Drop it.",
+  "garrick[businesslike]: Emergency ration.",
+  {
+   "sfx": "sword_draw"
+  },
+  "You draw your sword.",
+  {
+   "wait": 800
+  },
+  "He drops it.",
+  {
+   "sfx": "splash",
+   "volume": 0.5
+  },
+  {
+   "vistaShow": "fin",
+   "visible": true
+  },
+  "A fin rises beside the rowboat. A shark puts its nose out of the water, sniffs the onion, looks at Garrick for a long moment...",
+  {
+   "wait": 1200
+  },
+  {
+   "vistaShow": "fin",
+   "visible": false
+  },
+  "...and swims away.",
+  "pete: Even the SHARK'S learned.",
+  "squawks[smug]: Smart shark.",
+  "garrick[proud]: REMEMBER WHO SAVED YE FROM THE GREAT SHARKSTORM!",
+  "captain[angry]: YE CREATED THE GREAT SHARKSTORM!",
+  {
+   "wait": 1200
+  },
+  "garrick[proud]: DETAILS!",
+  "You put your head in your hands.",
+  "A small, bald, sleeping-capped head leans against your arm, and a featherless wing pats it, twice.",
+  "squawks[worried]: Bad night?",
+  "captain[tired]: Aye.",
+  "squawks: Garrick sleep in boat?",
+  "captain: Aye.",
+  "squawks[smug]: Good.",
+  {
+   "wait": 1000
+  },
+  "garrick[proud]: GRAND STENCHMASTER FOREVER!",
+  "captain[tired]: ...Unfortunately.",
+  {
+   "vistaMove": "rowboat",
+   "x": 110,
+   "scale": 0.8,
+   "duration": 3000,
+   "ease": "Sine.InOut"
+  },
+  "The line pays out. The rowboat drifts back into the dark, a little lantern bobbing in the bow.",
+  {
+   "vistaShow": "storm",
+   "visible": true
+  },
+  {
+   "wait": 1600
+  },
+  "And far beyond it, on the very edge of the sea, small and quiet and turning, the Great Sharkstorm waits.",
+  {
+   "wait": 2200
+  },
+  {
+   "setFlag": "p6_epilogue_seen"
+  },
+  {
+   "fade": "out",
+   "duration": 2200
+  },
+  {
+   "vistaEnd": true,
+   "fade": 0
+  },
+  {
+   "music": null,
+   "fade": 1500
+  },
+  {
+   "call": "p6c8.finale"
+  }
+ ],
+ "p6c8.finale": [
+  {
+   "narrate": "So ended the night of the Midnight Stenchmaster Catastrophe."
+  },
+  {
+   "narrate": "The Stenchmaster Entertainment System sits midships with a shark-shaped hole in it, dark, and nobody has thrown it overboard. The sleeping quarters belong to the second cloud. The bulk Frog Grog is at the bottom of the sea. Garrick is banned from garlic, onions, beans, cabbage and cheese, for ever."
+  },
+  {
+   "narrate": "And out on the horizon, turning, there is a storm with a name."
+  },
+  {
+   "close": true
+  },
+  {
+   "clearFlag": "p6_squawks_nightcap"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 8
+  },
+  {
+   "setFlag": "p6_complete"
+  },
+  {
+   "banner": "END OF STORY PHASE 6",
+   "sub": "The Midnight Stenchmaster Catastrophe"
+  },
+  {
+   "transition": "main_deck",
+   "x": 10,
+   "y": 13,
+   "facing": "down",
+   "then": "p6c8.coda",
+   "fade": 0
+  }
+ ],
+ "p6c8.coda": [
+  {
+   "fade": "in",
+   "duration": 1200
+  },
+  {
+   "music": "weary_morning",
+   "fade": 1500
+  },
+  {
+   "wait": 600
+  },
+  "Dawn. Grey and quiet. The Grand Stenchmaster is back in his chair (nobody saw him come aboard), facing a broken television.",
+  {
+   "tutorial": "Story Phase 6 is complete. The Great Sharkstorm is still out there (the telescope, starboard). The S.E.S. is wrecked; the sleeping quarters are the second cloud's now; the bulk Frog Grog is gone, though the Frog Grog in your pack is still yours. The crew have plenty to say. The story continues in the next chapter.",
+   "title": "To Be Continued"
+  },
+  {
+   "save": "auto"
+  }
+ ]
+}

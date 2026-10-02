@@ -1,0 +1,547 @@
+{
+ "//": "Story Phase 6, chapter 27: The Machine Refuses to Die (and the almost-fires). OFF MAYBE works; then the set begins dying on its own terms: whine, click, wheeze, kettle, groan, a HONK (why? Garrick). The warning card. Small smoulders along the wire Garrick ran across the deck (into a Frog Grog barrel: do not seek logic), the crew to keep back, a barrel to move; then the death rattle from a safe distance: the BONK, the fork it throws into the mainmast, the last red light, BEEEE-OOOOP, REMEMBER TO FILE BY APRIL FIFTEENTH, POP. Last, an ember on Garrick's cape, and the captain's long, thoughtful pause. Nobody touches the inside of the set; nothing here is a real repair procedure.",
+ "p6c3.begin": [
+  {
+   "setFlag": "p6_ch27_started"
+  },
+  {
+   "wait": 900
+  },
+  "bob[happy]: ...Is it off?",
+  "captain[tired]: It's off.",
+  {
+   "wait": 1200
+  },
+  {
+   "sfx": "tv_click"
+  },
+  {
+   "wait": 500
+  },
+  {
+   "sfx": "ses_whine"
+  },
+  "From inside the set, a thin, rising whine, like a mosquito being told bad news.",
+  "bob[concerned]: ...Is it meant to do that?",
+  {
+   "banner": "CHAPTER 27",
+   "sub": "The Machine Refuses to Die"
+  },
+  {
+   "startQuest": "machine_refuses_to_die"
+  },
+  {
+   "vista": "ses_dying",
+   "fade": 700
+  },
+  {
+   "sfx": "ses_clicking"
+  },
+  "Click. Click-click. Click. The tubes along the top flicker, dim, and come back a deep, sullen red.",
+  {
+   "sfx": "ses_wheeze"
+  },
+  "A wheeze. A long one. Like an old dog lying down.",
+  {
+   "sfx": "ses_kettle"
+  },
+  "Then a kettle, somewhere in its chest, coming slowly to the boil.",
+  {
+   "sfx": "ses_groan"
+  },
+  "Then a groan, low enough to feel in your boots.",
+  {
+   "wait": 600
+  },
+  {
+   "sfx": "ses_honk"
+  },
+  {
+   "vistaFx": "sparkle",
+   "x": 160,
+   "y": 84,
+   "count": 4
+  },
+  "HONK.",
+  {
+   "wait": 900
+  },
+  "bob: ...Why did it honk?",
+  "captain[tired]: Garrick.",
+  {
+   "wait": 700
+  },
+  "bob: ...Fair enough.",
+  "Taped to the side of the set, at eye level, there's a card in crayon. You'd walked past it a hundred times.",
+  {
+   "insert": "warning_card_close",
+   "caption": "Taped to the S.E.S., at eye level."
+  },
+  "captain: ...That might be the most responsible piece of engineering he's ever done.",
+  "bob: It's a drawing of a man getting hit by lightning.",
+  "captain: Aye. Accurately.",
+  {
+   "vistaEnd": true,
+   "fade": 600
+  },
+  {
+   "sfx": "ember_hiss"
+  },
+  "Something smells of hot dust. A thread of smoke rises from the deck beside the chair. Another by the grog table. Another by the mast.",
+  "You follow the wire with your eye: out of the back of the set, across the deck, under the chair, twice round the mainmast, and into the bung of a barrel of Frog Grog.",
+  "bob[alarmed]: Why would a TELEVISION be wired into the FROG GROG?",
+  "captain[tired]: Do not seek logic, Bob.",
+  {
+   "setFlag": "p6_crew_woke_noise"
+  },
+  {
+   "wait": 300
+  },
+  "rook[alarmed]: What's that NOISE? Is it on fire? Why is it always on FIRE?",
+  "sully[surprised]: It honked at me.",
+  {
+   "tutorial": "Keep Rook and Sully back from the S.E.S., smother the three smouldering spots, and get the grog barrel away from the wire. Don't touch the set itself.",
+   "title": "The Machine Refuses to Die"
+  }
+ ],
+ "p6c3.after_task": [
+  {
+   "if": {
+    "all": [
+     {
+      "objectiveDone": "machine_refuses_to_die.crew"
+     },
+     {
+      "objectiveDone": "machine_refuses_to_die.smother"
+     },
+     {
+      "flag": "p6_grog_barrel_moved"
+     }
+    ]
+   },
+   "then": [
+    {
+     "tutorial": "That's everything you can safely do. Now wait for it to die: watch the S.E.S. from a safe distance (by the mainmast, facing it).",
+     "title": "The Machine Refuses to Die"
+    }
+   ]
+  }
+ ],
+ "p6c3.rook_back": [
+  {
+   "face": "rook",
+   "dir": "player"
+  },
+  "captain[determined]: Back. Right back. By the cabin door.",
+  "rook[alarmed]: I only wanted to SEE it.",
+  "captain: Ye can see it from the cabin door. Everyone can see it from the cabin door. That's how close everyone's getting.",
+  {
+   "move": "rook",
+   "to": [
+    6,
+    13
+   ]
+  },
+  {
+   "setFlag": "p6_rook_back"
+  },
+  {
+   "event": "p6_crew_back"
+  },
+  {
+   "call": "p6c3.after_task"
+  }
+ ],
+ "p6c3.sully_back": [
+  {
+   "face": "sully",
+   "dir": "player"
+  },
+  "captain[determined]: Sully. Away from it.",
+  "sully[annoyed]: It HONKED at me, Captain. I want to know what I did.",
+  "captain: Ye stood next to it. Don't.",
+  {
+   "move": "sully",
+   "to": [
+    7,
+    13
+   ]
+  },
+  {
+   "setFlag": "p6_sully_back"
+  },
+  {
+   "event": "p6_crew_back"
+  },
+  {
+   "call": "p6c3.after_task"
+  }
+ ],
+ "p6c3.smother_a": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "A curl of smoke from a scorched board beside the chair, where the wire runs underneath. You pull off your coat and get ready to pat it out.",
+  {
+   "repair": "smother",
+   "strikes": 3,
+   "title": "SMOTHER IT"
+  },
+  {
+   "setFlag": "p6_smother_a"
+  },
+  {
+   "event": "p6_smothered"
+  },
+  "Out. A black ring on the planks and a smell of hot dust.",
+  {
+   "bark": "bob",
+   "text": "Mind your COAT, Captain!",
+   "duration": 1500
+  },
+  {
+   "call": "p6c3.after_task"
+  }
+ ],
+ "p6c3.smother_b": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "Smoke from under the grog table, where a spark landed in a puddle of something that shouldn't burn and is doing its best.",
+  {
+   "repair": "smother",
+   "strikes": 3,
+   "title": "SMOTHER IT"
+  },
+  {
+   "setFlag": "p6_smother_b"
+  },
+  {
+   "event": "p6_smothered"
+  },
+  "Out. A black ring on the planks and a smell of hot dust.",
+  {
+   "bark": "squawks",
+   "text": "Fire bad.",
+   "duration": 1400
+  },
+  {
+   "call": "p6c3.after_task"
+  }
+ ],
+ "p6c3.smother_c": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The wire's gone hot where it wraps round the mainmast, and the tar in the seam is smoking.",
+  {
+   "repair": "smother",
+   "strikes": 3,
+   "title": "SMOTHER IT"
+  },
+  {
+   "setFlag": "p6_smother_c"
+  },
+  {
+   "event": "p6_smothered"
+  },
+  "Out. A black ring on the planks and a smell of hot dust.",
+  {
+   "bark": "rook",
+   "text": "Do NOT let the mast go!",
+   "duration": 1600
+  },
+  {
+   "call": "p6c3.after_task"
+  }
+ ],
+ "p6c3.barrel": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "The barrel of Frog Grog with the wire going into its bung. It's warm. It's gently fizzing. It's very slightly glowing.",
+  "You do not pull the wire out. You do not touch the wire at all. You get your shoulder to the barrel and roll it, slowly, away from the end of it, until the wire slips out on its own and lies twitching on the deck.",
+  {
+   "sfx": "barrel_roll"
+  },
+  {
+   "setFlag": "p6_grog_barrel_moved"
+  },
+  "bob[happy]: ...Is that better?",
+  "captain: It's further away. That's what better means tonight.",
+  {
+   "call": "p6c3.after_task"
+  }
+ ],
+ "p6c3.not_yet": [
+  "The S.E.S. ticks and wheezes. Red tubes. Smoke.",
+  "captain: Not yet. Everyone back, and those smoulders out, first."
+ ],
+ "p6c3.rattle": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "You stand well back by the mainmast, and watch it die.",
+  {
+   "vista": "ses_dying",
+   "fade": 600
+  },
+  {
+   "sfx": "ses_clicking"
+  },
+  {
+   "wait": 900
+  },
+  "squawks[worried]: Bomb TV.",
+  "captain: It's not a bomb.",
+  {
+   "wait": 900
+  },
+  {
+   "sfx": "ses_bonk"
+  },
+  {
+   "shake": 2,
+   "duration": 400
+  },
+  "BONK.",
+  "Something inside the cabinet hits something else inside the cabinet very hard.",
+  {
+   "wait": 800
+  },
+  "squawks[smug]: Bomb.",
+  "captain[tired]: ...Perhaps.",
+  {
+   "wait": 600
+  },
+  {
+   "sfx": "tv_spark"
+  },
+  {
+   "vistaFx": "sparkle",
+   "x": 200,
+   "y": 84,
+   "count": 8
+  },
+  "A spark arcs up off the top of the set and hits the frying-pan aerial with a sound like a bell being kicked.",
+  {
+   "sfx": "antenna_clang"
+  },
+  "The pan spins on its handle. Once. Twice. Faster.",
+  {
+   "vistaShow": "fork",
+   "visible": true
+  },
+  {
+   "sfx": "fork_twang"
+  },
+  {
+   "vistaMove": "fork",
+   "x": -30,
+   "y": 60,
+   "duration": 500,
+   "ease": "Quad.In"
+  },
+  "Something silver leaves the top of the set at tremendous speed, goes over your shoulder, and THUNKS into the mainmast behind you.",
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "setFlag": "p6_fork_thrown"
+  },
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "wait": 600
+  },
+  "A fork. One of the aerial forks. Buried an inch deep in the mast, at about the height of your ear, still humming.",
+  "bob[surprised]: ...The television just threw cutlery.",
+  "captain: Aye.",
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "vista": "ses_dying",
+   "fade": 500
+  },
+  {
+   "vistaShow": "redlight",
+   "visible": true
+  },
+  "On the front of the set, a single small red light comes on.",
+  {
+   "wait": 700
+  },
+  {
+   "vistaFrame": "redlight",
+   "frame": "tv_redlight_off"
+  },
+  {
+   "sfx": "redlight_blip",
+   "volume": 0.6
+  },
+  {
+   "wait": 500
+  },
+  {
+   "vistaFrame": "redlight",
+   "frame": "tv_redlight_on"
+  },
+  {
+   "sfx": "redlight_blip",
+   "volume": 0.6
+  },
+  {
+   "wait": 700
+  },
+  {
+   "vistaFrame": "redlight",
+   "frame": "tv_redlight_off"
+  },
+  {
+   "wait": 900
+  },
+  {
+   "vistaFrame": "redlight",
+   "frame": "tv_redlight_on"
+  },
+  {
+   "sfx": "redlight_blip",
+   "volume": 0.4
+  },
+  {
+   "wait": 1100
+  },
+  {
+   "vistaFrame": "redlight",
+   "frame": "tv_redlight_off"
+  },
+  {
+   "sfx": "ses_death_hum"
+  },
+  {
+   "vistaFrame": "set",
+   "frame": "ses_bezel_dead"
+  },
+  "The tubes go grey. The hum winds down, and down, and stops.",
+  {
+   "wait": 1600
+  },
+  "captain[tired]: ...It's dead.",
+  {
+   "wait": 1400
+  },
+  {
+   "sfx": "ses_beep"
+  },
+  {
+   "shake": 2,
+   "duration": 300
+  },
+  {
+   "vistaFrame": "screen",
+   "frame": "ftm_april"
+  },
+  "BEEEEEEE-OOOOOOP!",
+  "Everyone on deck jumps a foot in the air.",
+  "franklin: REMEMBER TO FILE BY APRIL FIFTEENTH!",
+  {
+   "sfx": "ses_pop"
+  },
+  {
+   "flash": "white",
+   "duration": 200
+  },
+  {
+   "vistaFrame": "screen",
+   "frame": "tv_off"
+  },
+  "POP.",
+  {
+   "wait": 1200
+  },
+  "squawks[furious]: Kill it more.",
+  "captain[tired]: ...Aye. If I knew how.",
+  {
+   "vistaEnd": true,
+   "fade": 600
+  },
+  {
+   "tvSet": "ses",
+   "state": "apparently_dead"
+  },
+  {
+   "setFlag": "p6_ses_pop"
+  },
+  {
+   "wait": 600
+  },
+  {
+   "sfx": "ember_hiss"
+  },
+  "One last ember drifts out of the vents at the back of the set, floats down like a tiny orange moth, and settles on the Grand Stenchmaster's cape, where it lies on the deck.",
+  "It begins, very gently, to smoulder.",
+  {
+   "tutorial": "The Grand Stenchmaster's cape is smouldering (his chair).",
+   "title": "The Machine Refuses to Die"
+  }
+ ],
+ "p6c3.cape": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "A little glowing ring is eating its way into the hem of the cape, right through THE FIRST ONE. Garrick is still asleep.",
+  "You look at the ember.",
+  "You look at Garrick.",
+  {
+   "choice": [
+    {
+     "text": "Do nothing (for a moment)",
+     "then": [
+      "You fold your arms. You think about it. You think about it for a good long while.",
+      "The ring of glow creeps on through THE BATHTUB.",
+      "bob[concerned]: ...Captain?",
+      "captain[tired]: I'm THINKING, Bob."
+     ]
+    },
+    {
+     "text": "Put it out",
+     "then": [
+      "You'll put it out. Obviously. You just take a moment first. A short one. A rich, full, deeply satisfying moment.",
+      "bob[concerned]: ...Captain?"
+     ]
+    }
+   ]
+  },
+  "You sigh, all the way down to your boots.",
+  {
+   "repair": "smother",
+   "strikes": 2,
+   "title": "SMOTHER THE CAPE"
+  },
+  "Out. The hem of the cape is singed brown in a long ragged curve. THE FIRST ONE is mostly gone.",
+  "squawks[smug]: Should burn.",
+  "captain: Aye.",
+  {
+   "setFlag": "garrick_cape_singed"
+  },
+  "Garrick snores, and smiles in his sleep.",
+  {
+   "wait": 600
+  },
+  "You and Bob sit up with the set until dawn, in case it changes its mind.",
+  {
+   "call": "p6c4.begin"
+  }
+ ]
+}

@@ -1,0 +1,300 @@
+{
+ "id": "crew_quarters_phase6",
+ "patch": "crew_quarters",
+ "//": "Story Phase 6 in the sleeping quarters: the Grand Stenchmaster's enormous hammock across the corner (12..14,12), the night of the burning warning (chapter 29: Squawks's basket (10,8), Bob, Wick and Brask asleep, the 'pressure shift' on the way to the ladder), and afterwards the second cloud, which keeps everyone out.",
+ "objects": [
+  {
+   "id": "p6_shift",
+   "type": "trigger",
+   "x": 11,
+   "y": 5,
+   "w": 5,
+   "h": 2,
+   "script": "p6c5.shift",
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "about_to_blow.out"
+     },
+     {
+      "notFlag": "p6_pressure_shift"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p6q_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 13,
+   "y": 12,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p6_ch29_started"
+     },
+     {
+      "notFlag": "p6_evacuated"
+     }
+    ]
+   },
+   "pose": "fallen",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p6q_garrick_1",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p6_started"
+   }
+  },
+  {
+   "id": "p6q_squawks_0",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 10,
+   "y": 8,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p6_ch29_started"
+       },
+       {
+        "notFlag": "p6_evacuated"
+       }
+      ]
+     },
+     {
+      "notFlag": "p6_night_squawks_grabbed"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p6q_squawks_1",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p6_started"
+   }
+  },
+  {
+   "id": "p6q_bob_0",
+   "type": "npc",
+   "npc": "bob",
+   "x": 6,
+   "y": 9,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p6_ch29_started"
+       },
+       {
+        "notFlag": "p6_evacuated"
+       }
+      ]
+     },
+     {
+      "notFlag": "p6_woke_bob"
+     }
+    ]
+   },
+   "pose": "fallen",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p6q_bob_1",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p6_started"
+   }
+  },
+  {
+   "id": "p6q_wick_0",
+   "type": "npc",
+   "npc": "wick",
+   "x": 3,
+   "y": 12,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p6_ch29_started"
+       },
+       {
+        "notFlag": "p6_evacuated"
+       }
+      ]
+     },
+     {
+      "notFlag": "p6_woke_wick"
+     }
+    ]
+   },
+   "pose": "fallen",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p6q_wick_1",
+   "type": "npc",
+   "npc": "wick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p6_started"
+   }
+  },
+  {
+   "id": "p6q_brask_0",
+   "type": "npc",
+   "npc": "brask",
+   "x": 7,
+   "y": 7,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p6_ch29_started"
+       },
+       {
+        "notFlag": "p6_evacuated"
+       }
+      ]
+     },
+     {
+      "notFlag": "p6_woke_brask"
+     }
+    ]
+   },
+   "pose": "fallen",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p6q_brask_1",
+   "type": "npc",
+   "npc": "brask",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p6_started"
+   }
+  },
+  {
+   "id": "p6q_dunstan_0",
+   "type": "npc",
+   "npc": "dunstan",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p6_started"
+   }
+  },
+  {
+   "id": "p6q_penhallow_0",
+   "type": "npc",
+   "npc": "penhallow",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p6_started"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "grand_hammock",
+   "x": 12,
+   "y": 12,
+   "if": {
+    "flag": "p6_started"
+   },
+   "id": "grand_hammock",
+   "depthOffset": -4
+  },
+  {
+   "prop": "squawks_basket",
+   "x": 10,
+   "y": 8,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p6_ch29_started"
+       },
+       {
+        "notFlag": "p6_evacuated"
+       }
+      ]
+     },
+     {
+      "notFlag": "p6_night_squawks_grabbed"
+     }
+    ]
+   },
+   "id": "p6_basket_q",
+   "depthOffset": -2
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p6_ch29_started"
+     },
+     {
+      "notFlag": "p6_evacuated"
+     }
+    ]
+   },
+   "music": "midnight_warning",
+   "ambience": "midnight_warning"
+  },
+  {
+   "if": {
+    "flag": "p6_started"
+   },
+   "music": "weary_morning",
+   "musicFilter": "muffled",
+   "ambience": "below_sharks"
+  }
+ ]
+}

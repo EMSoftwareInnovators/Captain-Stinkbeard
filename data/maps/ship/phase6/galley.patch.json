@@ -1,0 +1,359 @@
+{
+ "id": "galley_phase6",
+ "patch": "galley",
+ "//": "Story Phase 6 in the galley: the rotten-garlic supper (chapter 25): the jar on the top shelf (9,4), then open on the mess table (5,8) with the onions (4,8), the Grand Stenchmaster eating at (7,9).",
+ "objects": [
+  {
+   "id": "p6_garlic_jar",
+   "type": "inspect",
+   "x": 5,
+   "y": 8,
+   "if": {
+    "flag": "rotten_garlic_supper_eaten"
+   },
+   "script": "p6.inspect.garlic_jar"
+  },
+  {
+   "id": "p6g_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 7,
+   "y": 9,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p6_squawks_checked"
+     },
+     {
+      "notFlag": "p6_supper_outside"
+     }
+    ]
+   },
+   "pose": "eat",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p6g_garrick_1",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p6_started"
+   }
+  },
+  {
+   "id": "p6g_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 3,
+   "y": 5,
+   "facing": "left",
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "p6_started"
+       },
+       {
+        "notFlag": "p6_squawks_checked"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p6_squawks_checked"
+       },
+       {
+        "notFlag": "p6_supper_outside"
+       }
+      ]
+     }
+    ]
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "work"
+   }
+  },
+  {
+   "id": "p6g_jim_1",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p6_ch29_started"
+     },
+     {
+      "notFlag": "p6_ch32_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p6g_mags_0",
+   "type": "npc",
+   "npc": "mags",
+   "x": 13,
+   "y": 7,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p6_squawks_checked"
+     },
+     {
+      "notFlag": "p6_supper_outside"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p6g_mags_1",
+   "type": "npc",
+   "npc": "mags",
+   "x": 11,
+   "y": 6,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p6_started"
+     },
+     {
+      "notFlag": "p6_squawks_checked"
+     }
+    ]
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "work"
+   }
+  },
+  {
+   "id": "p6g_mags_2",
+   "type": "npc",
+   "npc": "mags",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p6_ch29_started"
+     },
+     {
+      "notFlag": "p6_ch32_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p6g_quill_0",
+   "type": "npc",
+   "npc": "quill",
+   "x": 15,
+   "y": 8,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p6_squawks_checked"
+     },
+     {
+      "notFlag": "p6_supper_outside"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p6g_quill_1",
+   "type": "npc",
+   "npc": "quill",
+   "x": 12,
+   "y": 8,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p6_started"
+     },
+     {
+      "notFlag": "p6_squawks_checked"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p6g_quill_2",
+   "type": "npc",
+   "npc": "quill",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p6_ch29_started"
+     },
+     {
+      "notFlag": "p6_ch32_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p6g_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 10,
+   "y": 5,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p6_squawks_checked"
+     },
+     {
+      "notFlag": "p6_supper_outside"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p6g_pete_1",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p6_started"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "garlic_jar",
+   "x": 9,
+   "y": 4,
+   "if": {
+    "all": [
+     {
+      "flag": "p6_started"
+     },
+     {
+      "notFlag": "p6_squawks_checked"
+     }
+    ]
+   },
+   "id": "garlic_shelf",
+   "depthOffset": 4
+  },
+  {
+   "prop": "garlic_jar_open",
+   "x": 5,
+   "y": 8,
+   "if": {
+    "all": [
+     {
+      "flag": "p6_squawks_checked"
+     },
+     {
+      "notFlag": "garrick_food_ban"
+     }
+    ]
+   },
+   "id": "garlic_open",
+   "depthOffset": 4
+  },
+  {
+   "prop": "garlic_jar",
+   "x": 5,
+   "y": 8,
+   "if": {
+    "flag": "garrick_food_ban"
+   },
+   "id": "garlic_nailed",
+   "depthOffset": 4
+  },
+  {
+   "prop": "onion_basket",
+   "x": 4,
+   "y": 8,
+   "if": {
+    "all": [
+     {
+      "flag": "p6_squawks_checked"
+     },
+     {
+      "notFlag": "p6_supper_outside"
+     }
+    ]
+   },
+   "id": "onions",
+   "depthOffset": 4
+  }
+ ],
+ "onEnter": [
+  {
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "grand_supper.galley"
+     },
+     {
+      "notFlag": "rotten_garlic_supper_eaten"
+     }
+    ]
+   },
+   "script": "p6c1.galley"
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p6_squawks_checked"
+     },
+     {
+      "notFlag": "p6_supper_outside"
+     }
+    ]
+   },
+   "music": "garrick_theme",
+   "ambience": "below_sharks"
+  },
+  {
+   "if": {
+    "flag": "p6_started"
+   },
+   "music": "weary_morning",
+   "musicFilter": "muffled",
+   "ambience": "below_sharks"
+  }
+ ]
+}

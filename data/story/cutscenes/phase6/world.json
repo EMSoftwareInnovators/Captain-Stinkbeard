@@ -1,0 +1,110 @@
+{
+ "//": "Story Phase 6: things to look at after (and during) the catastrophe. The fork in the mainmast, the warning card, the bulk Frog Grog (and where it went), the telescope (the Great Sharkstorm, still out there), the food ban, the hole the shark made by the station, the garlic jar in the galley, and the sleeping quarters door. Map objects in data/maps/ship/phase6 point here.",
+ "p6.ses": [
+  {
+   "tv": "ses"
+  }
+ ],
+ "p6.inspect.fork": [
+  "A fork from the S.E.S. aerial, buried an inch deep in the mainmast at the height of your ear.",
+  {
+   "if": {
+    "flag": "p6_complete"
+   },
+   "then": [
+    "Nobody has pulled it out. Somebody has hung a little label on it: EXHIBIT A."
+   ],
+   "else": [
+    "It's still faintly humming."
+   ]
+  }
+ ],
+ "p6.inspect.warning_card": [
+  {
+   "insert": "warning_card_close",
+   "caption": "Taped to the side of the S.E.S."
+  },
+  {
+   "if": {
+    "flag": "p6_ses_shark_hit"
+   },
+   "then": [
+    "The card is the only part of the set the shark missed. It seems smug about it."
+   ]
+  }
+ ],
+ "p6.inspect.bulk_grog": [
+  {
+   "if": {
+    "flag": "bulk_frog_grog_depleted"
+   },
+   "then": [
+    "Where the bulk Frog Grog reserve stood: empty lashings, a tarpaulin, and a ring of green stains on the planks.",
+    "Sixteen barrels went into the Great Sharkstorm. Mags has chalked a tally on the deck, and under it: BREWING AGAIN TUESDAY. (WATERED. THIS TIME I MEAN IT.)"
+   ],
+   "else": [
+    "The bulk Frog Grog reserve: sixteen barrels of the stuff before anyone waters it, lashed down under a tarp. BULK, in green paint.",
+    "Mags waters it down a ladleful at a time for the cask. Straight from the barrel, she says, it'd strip paint. Or a shark."
+   ]
+  }
+ ],
+ "p6.inspect.telescope": [
+  "You put the telescope to your eye and sweep the horizon.",
+  {
+   "vista": "telescope_storm",
+   "mask": "telescope",
+   "fade": 400
+  },
+  {
+   "sfx": "storm_distant",
+   "volume": 0.6
+  },
+  "There. Far off, low on the water: a smudge of mustard cloud, a dark thread down to the sea, specks going round it.",
+  "The Great Sharkstorm. Still turning. Still there.",
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "if": {
+    "flag": "p6_complete"
+   },
+   "then": [
+    "Hale has marked it on the chart in red: HERE BE SHARKS (UP). He moves the mark every morning. It doesn't go away."
+   ]
+  }
+ ],
+ "p6.inspect.food_ban": [
+  {
+   "insert": "food_ban_close",
+   "caption": "Nailed to the mainmast, beside the labour rule."
+  },
+  "Underneath, in green crayon, very small: 'WHAT ABOUT SOUP.' Underneath that, in your own hand: 'NO.'"
+ ],
+ "p6.inspect.wall_hole": [
+  "The hole the shark made coming through the rail by the station: splintered planks, a tooth stuck in the edge, two boards nailed across it in a hurry.",
+  "Someone has written THE GRAY ONE on one of the boards, and drawn an arrow pointing out to sea."
+ ],
+ "p6.inspect.garlic_jar": [
+  {
+   "if": {
+    "flag": "garrick_food_ban"
+   },
+   "then": [
+    "The garlic jar. Empty, washed, and nailed to the shelf upside down, so that nobody can ever put anything in it again.",
+    "Jim has added a fourth line to the label: NEVER AGAIN."
+   ],
+   "else": [
+    "The jar. GARLIC / DO NOT EAT / BADLY SPOILED. Empty now, apart from a smell that seems to be using it as a house.",
+    "jim[angry]: A LESSON, I kept that for. A LESSON. Not a SNACK."
+   ]
+  }
+ ],
+ "p6.inspect.quarters_door": [
+  "The ladder down to the sleeping quarters. A sick, garlic-yellow glow comes up out of the hatch. It smells of Tuesday's cheese.",
+  "Hale has hung a sign on the coaming: NOBODY SLEEPS BELOW. (BY ORDER.)"
+ ],
+ "p6.inspect.cape": [
+  "The Grand Stenchmaster's cape, singed along the hem. THE FIRST ONE is a brown ghost now. Garrick has painted it back in, slightly larger, and added a small flame."
+ ]
+}

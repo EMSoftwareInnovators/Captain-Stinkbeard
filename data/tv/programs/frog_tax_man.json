@@ -1,0 +1,59 @@
+{
+ "frog_tax_man": {
+  "//": "Story Phase 6: the first recurring programme on the S.E.S. An original show: Franklin, a frog in a tie and glasses, is in trouble with his taxes. His accountant wears a green visor; the judge is a large frog in a wig. Crude green picture, rolling bar, an excessive laugh track, a dramatic sting for every tax term. Garrick is obsessed with it. Episodes are data: a channel carries the programme, a cutscene can play any episode on a vista's screen.",
+  "title": "The Frog Tax Man",
+  "laugh": "ftm_laugh",
+  "closeup": ["ftm_close_0", "ftm_close_1"],
+  "episodes": [
+   {
+    "id": "forty_seven_hundred_flies",
+    "title": "Forty-Seven Hundred Flies",
+    "beats": [
+     { "frames": ["ftm_title_0", "ftm_title_1"], "line": "announcer: THE FROG TAX MAN!", "ms": 2400, "sfx": "ftm_horn", "frameMs": 420 },
+     { "frames": ["ftm_title_0", "ftm_title_1"], "ms": 1600, "sfx": "ftm_jingle", "frameMs": 300 },
+     { "frames": ["ftm_office_0", "ftm_office_1"], "line": "accountant: Franklin. Sit down. We need to talk about your return.", "ms": 2800 },
+     { "frames": ["ftm_office_0", "ftm_office_1"], "line": "franklin: Is this about the lily pad?", "ms": 2200, "sfx": "ftm_ribbit" },
+     { "frames": ["ftm_lilypad"], "line": "accountant: You have depreciated this lily pad NINE TIMES.", "ms": 2800, "laugh": true },
+     { "frames": ["ftm_close_0", "ftm_close_1"], "line": "franklin: It's a very old lily pad.", "ms": 2400, "laugh": true },
+     {
+      "frames": ["ftm_flies_0", "ftm_flies_1"],
+      "line": "accountant: Franklin, you cannot claim forty-seven hundred flies as business expenses!",
+      "ms": 3400,
+      "frameMs": 500
+     },
+     { "frames": ["ftm_close_0", "ftm_close_1"], "line": "franklin: I ate them during work hours!", "ms": 2600, "laugh": true },
+     { "frames": ["ftm_office_0", "ftm_office_1"], "line": "accountant: 'Pond maintenance.' Franklin, you live IN the pond.", "ms": 2800 },
+     { "frames": ["ftm_close_0", "ftm_close_1"], "line": "franklin: Home office deduction.", "ms": 2200, "laugh": true },
+     { "frames": ["ftm_canoe_0", "ftm_canoe_1"], "line": "accountant: And this canoe is not a 'mobile office'.", "ms": 2600 },
+     { "frames": ["ftm_canoe_0", "ftm_canoe_1"], "line": "franklin: It has a DESK LAMP!", "ms": 2200, "laugh": true },
+     { "frames": ["ftm_office_0", "ftm_office_1"], "line": "accountant: Two hundred and twelve dependants?", "ms": 2400 },
+     { "frames": ["ftm_close_0", "ftm_close_1"], "line": "franklin: Tadpoles. They are all VERY dependent.", "ms": 2600, "laugh": true },
+     { "frames": ["ftm_office_0", "ftm_office_1"], "line": "accountant: And the mosquito consultancy. Undeclared.", "ms": 2600, "sfx": "ftm_sting" },
+     { "frames": ["ftm_court_0", "ftm_court_1"], "line": "judge: Franklin. Did you itemize?", "ms": 2800, "sfx": "ftm_gavel" },
+     { "frames": ["ftm_close_1"], "line": "franklin: I TOOK THE STANDARD DEDUCTION!", "ms": 3000, "sfx": "ftm_sting" },
+     { "frames": ["ftm_court_0", "ftm_court_1"], "line": "judge: ...Case dismissed.", "ms": 2400, "sfx": "ftm_gavel", "laugh": true },
+     {
+      "frames": ["ftm_title_0", "ftm_title_1"],
+      "line": "announcer: Next week on THE FROG TAX MAN: quarterly estimates!",
+      "ms": 3000,
+      "sfx": "ftm_announcer",
+      "frameMs": 420
+     }
+    ]
+   },
+   {
+    "id": "quarterly_estimates",
+    "title": "Quarterly Estimates",
+    "beats": [
+     { "frames": ["ftm_title_0", "ftm_title_1"], "line": "announcer: THE FROG TAX MAN!", "ms": 2400, "sfx": "ftm_horn", "frameMs": 420 },
+     { "frames": ["ftm_office_0", "ftm_office_1"], "line": "accountant: Franklin, it's the fifteenth. Where are your quarterly estimates?", "ms": 3000 },
+     { "frames": ["ftm_close_0", "ftm_close_1"], "line": "franklin: I estimated them. Quarterly.", "ms": 2400, "laugh": true },
+     { "frames": ["ftm_office_0", "ftm_office_1"], "line": "accountant: You estimated them at 'a lot of flies'.", "ms": 2600, "laugh": true },
+     { "frames": ["ftm_court_0", "ftm_court_1"], "line": "judge: Is this true, Franklin?", "ms": 2400, "sfx": "ftm_gavel" },
+     { "frames": ["ftm_close_1"], "line": "franklin: ...Ribbit.", "ms": 2000, "sfx": "ftm_ribbit", "laugh": true },
+     { "frames": ["ftm_title_0", "ftm_title_1"], "line": "announcer: Remember to file! The Frog Tax Man!", "ms": 2800, "sfx": "ftm_announcer", "frameMs": 420 }
+    ]
+   }
+  ]
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "//": "Story Phase 6: the Great Sharkstorm (see src/systems/hazards/sharkstorm.js and src/world/SharkstormLayer.js). One saved story value names its state; the story moves it along. It forms out of the second release and the frenzy, attacks the ship, is driven off by concentrated Frog Grog, and does NOT end: it ends the phase 'active_distant', a rotating storm front on the horizon. No weather simulation; flying sharks on deck are a few pooled sprites, always telegraphed, never harmful (a direct hit knocks the captain flat for a moment).",
+ "great_sharkstorm": {
+  "name": "The Great Sharkstorm",
+  "value": "great_sharkstorm",
+  "distanceValue": "great_sharkstorm_distance",
+  "states": {
+   "not_created": { "intensity": 0 },
+   "forming": {
+    "intensity": 1,
+    "distance": "near",
+    "flying": { "passEvery": [4200, 7000] }
+   },
+   "attacking_ship": {
+    "intensity": 3,
+    "distance": "near",
+    "flying": { "passEvery": [1800, 3600], "impactEvery": [6500, 10000], "warnMs": 1600, "area": [4, 12, 15, 31] }
+   },
+   "dispersed_near_ship": { "intensity": 0.5, "distance": "near" },
+   "active_distant": {
+    "intensity": 2,
+    "distance": "distant",
+    "rumble": { "every": [26000, 52000], "sfx": "storm_distant" }
+   }
+  }
+ }
+}
