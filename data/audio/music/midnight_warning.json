@@ -1,0 +1,53 @@
+{
+ "id": "midnight_warning",
+ "title": "Midnight Warning",
+ "//": "Story Phase 6: the night of the catastrophe, before it happens. Slow and quiet: a low pad in D minor, a heartbeat on the kick, a faint flute that keeps stepping up a semitone and thinking better of it, a ticking hi-hat in the second half. Tension, not terror (yet).",
+ "bpm": 60,
+ "stepsPerBeat": 4,
+ "reverb": 0.34,
+ "channels": {
+  "lead": {
+   "instrument": "flute",
+   "volume": 0.18,
+   "pan": 0.15
+  },
+  "pad": {
+   "instrument": "pad",
+   "volume": 0.26
+  },
+  "bell": {
+   "instrument": "bell",
+   "volume": 0.08,
+   "pan": -0.3
+  },
+  "bass": {
+   "instrument": "fm_bass",
+   "volume": 0.36
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.22
+  }
+ },
+ "patterns": {
+  "A": {
+   "lead": "r:8 A4:4 Bb4:4 | A4:12 r:4 | r:8 F4:4 E4:4 | D4:8 C#4:8",
+   "pad": "[D3 F3 A3]:16 | [D3 F3 Bb3]:16 | [D3 E3 A3]:16 | [C#3 E3 A3]:16",
+   "bell": "D5:4 r:12 | r:16 | A4:4 r:12 | r:16",
+   "bass": "D2:16 | Bb1:16 | A1:16 | A1:16",
+   "drums": "k.......k....... k.......k....... k.......k....... k.......k...k.k."
+  },
+  "B": {
+   "lead": "D5:8 Eb5:8 | D5:4 C5:4 Bb4:4 A4:4 | r:4 F4:4 G4:4 A4:4 | Bb4:4 A4:4 G4:4 E4:4",
+   "pad": "[D3 F3 A3]:16 | [Eb3 G3 Bb3]:16 | [D3 F3 A3]:16 | [C#3 E3 G3 Bb3]:16",
+   "bell": "D5:4 r:12 | Eb5:4 r:12 | D5:4 r:12 | C#5:4 r:12",
+   "bass": "D2:16 | Eb2:16 | D2:16 | A1:16",
+   "drums": "k...h...k...h... k...h...k...h... k...h...k.h.h.h. k.h.k.h.k.k.k.k."
+  }
+ },
+ "sequence": [
+  "A",
+  "B"
+ ],
+ "loop": true
+}

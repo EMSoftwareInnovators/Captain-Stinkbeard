@@ -1,0 +1,66 @@
+{
+ "id": "great_sharkstorm",
+ "title": "The Great Sharkstorm",
+ "//": "Story Phase 6: the boss track. An intro of nothing but the bass ostinato (E, G, a flat-five lurch up to B) and a pounding kick while the column rises; then the hook, a brass line in E minor you should be able to hum on the way home, over stabs, a bell on the downbeats and toms; then a bridge that climbs and drops back into it. Loops from the hook.",
+ "bpm": 168,
+ "stepsPerBeat": 4,
+ "reverb": 0.16,
+ "channels": {
+  "lead": {
+   "instrument": "brass",
+   "volume": 0.32,
+   "pan": 0.1
+  },
+  "harm": {
+   "instrument": "concertina",
+   "volume": 0.14,
+   "pan": -0.25
+  },
+  "pad": {
+   "instrument": "pad",
+   "volume": 0.14
+  },
+  "bell": {
+   "instrument": "bell",
+   "volume": 0.13,
+   "pan": 0.3
+  },
+  "bass": {
+   "instrument": "fm_bass",
+   "volume": 0.46
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.32
+  }
+ },
+ "patterns": {
+  "I": {
+   "pad": "[E3 B3]:16 | [E3 B3]:16 | [E3 C4]:16 | [E3 B3 D#4]:16",
+   "bass": "E2:2 E2:2 E3:2 E2:2 G2:2 E2:2 Bb2:2 B2:2 | E2:2 E2:2 E3:2 E2:2 G2:2 E2:2 Bb2:2 B2:2 | E2:2 E2:2 E3:2 E2:2 G2:2 E2:2 Bb2:2 B2:2 | E2:2 E2:2 E3:2 E2:2 G2:2 E2:2 Bb2:2 B2:2",
+   "drums": "k...k...k...k... k...k...k...k... k...k...k...k... k.k.k.k.T.T.t.t."
+  },
+  "A": {
+   "lead": "E5:3 E5:1 G5:2 E5:2 D5:2 B4:2 D5:4 | E5:3 E5:1 G5:2 A5:2 B5:4 A5:4 | C6:2 B5:2 A5:2 G5:2 F#5:2 G5:2 A5:4 | B5:4 D#5:4 E5:8",
+   "harm": "[E4 G4 B4]:2 r:2 [E4 G4 B4]:2 r:2 [D4 G4 B4]:2 r:6 | [E4 G4 B4]:2 r:2 [E4 G4 B4]:2 r:2 [D4 F#4 A4]:2 r:6 | [C4 E4 A4]:2 r:2 [C4 E4 A4]:2 r:2 [D4 F#4 A4]:2 r:6 | [B3 D#4 F#4]:8 [E4 G4 B4]:8",
+   "bell": "E6:4 r:12 | E6:4 r:12 | A5:4 r:12 | B5:4 r:4 E6:8",
+   "bass": "E2:2 E2:2 E3:2 E2:2 G2:2 E2:2 Bb2:2 B2:2 | E2:2 E2:2 E3:2 E2:2 G2:2 E2:2 Bb2:2 B2:2 | C2:2 C2:2 C3:2 C2:2 D2:2 D2:2 D3:2 D2:2 | B1:2 B1:2 B2:2 B1:2 E2:2 E2:2 E3:2 E2:2",
+   "drums": "k.s.k.s.k.s.kTs. k.s.k.s.k.s.kTs. k.s.k.s.k.s.kTs. c.T.T.s.s.t.t.ss"
+  },
+  "B": {
+   "lead": "G5:4 F#5:4 E5:4 D5:4 | C5:4 D5:4 E5:8 | B5:2 A5:2 G5:2 F#5:2 E5:2 F#5:2 G5:2 A5:2 | B5:8 B4:8",
+   "harm": "[C4 E4 G4]:8 [D4 F#4 A4]:8 | [A3 C4 E4]:8 [B3 D#4 F#4]:8 | [C4 E4 G4]:8 [D4 F#4 A4]:8 | [B3 D#4 F#4 A4]:16",
+   "bell": "G5:4 r:12 | E5:4 r:12 | B5:4 r:12 | B5:16",
+   "bass": "C2:2 C2:2 C3:2 C2:2 D2:2 D2:2 D3:2 D2:2 | A1:2 A1:2 A2:2 A1:2 B1:2 B1:2 B2:2 B1:2 | C2:2 C2:2 C3:2 C2:2 D2:2 D2:2 D3:2 D2:2 | B1:2 B1:2 B2:2 B1:2 B1:2 B2:2 B1:2 B2:2",
+   "drums": "c.s.k.s.k.s.k.s. k.s.k.s.k.s.k.s. c.s.k.s.k.s.k.s. T.T.T.T.t.t.t.ss"
+  }
+ },
+ "sequence": [
+  "I",
+  "A",
+  "A",
+  "B"
+ ],
+ "loop": true,
+ "loopFrom": 1
+}

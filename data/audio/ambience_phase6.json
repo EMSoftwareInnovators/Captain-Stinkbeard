@@ -1,0 +1,201 @@
+{
+ "//": "Story Phase 6 ambience beds: the S.E.S. dying in the dark (ticks, hum, the odd spark), the midnight warning (the ship asleep, a stomach that isn't), the Great Sharkstorm on top of the ship, and the storm afterwards, far off but still there.",
+ "ses_death_night": {
+  "loops": [
+   {
+    "source": "ocean",
+    "volume": 0.34
+   },
+   {
+    "source": "wind",
+    "volume": 0.1
+   }
+  ],
+  "oneshots": [
+   {
+    "sounds": [
+     "ses_clicking"
+    ],
+    "every": [
+     5,
+     10
+    ],
+    "volume": 0.22
+   },
+   {
+    "sounds": [
+     "tv_spark"
+    ],
+    "every": [
+     9,
+     18
+    ],
+    "volume": 0.16
+   },
+   {
+    "sounds": [
+     "ses_wheeze",
+     "ses_kettle"
+    ],
+    "every": [
+     12,
+     22
+    ],
+    "volume": 0.14
+   },
+   {
+    "sounds": [
+     "snore"
+    ],
+    "every": [
+     6,
+     11
+    ],
+    "volume": 0.2
+   }
+  ]
+ },
+ "midnight_warning": {
+  "loops": [
+   {
+    "source": "ocean",
+    "muffled": true,
+    "volume": 0.46
+   }
+  ],
+  "oneshots": [
+   {
+    "sounds": [
+     "stomach_growl"
+    ],
+    "every": [
+     5,
+     9
+    ],
+    "volume": 0.34
+   },
+   {
+    "sounds": [
+     "liquid_churn"
+    ],
+    "every": [
+     6,
+     11
+    ],
+    "volume": 0.24
+   },
+   {
+    "sounds": [
+     "medal_rattle",
+     "dish_rattle"
+    ],
+    "every": [
+     7,
+     12
+    ],
+    "volume": 0.2
+   },
+   {
+    "sounds": [
+     "ship_groan"
+    ],
+    "every": [
+     9,
+     15
+    ],
+    "volume": 0.26
+   }
+  ]
+ },
+ "sharkstorm_attack": {
+  "loops": [
+   {
+    "source": "ocean",
+    "volume": 0.78
+   },
+   {
+    "source": "wind",
+    "volume": 0.5
+   }
+  ],
+  "oneshots": [
+   {
+    "sounds": [
+     "vortex_roar"
+    ],
+    "every": [
+     4,
+     7
+    ],
+    "volume": 0.34
+   },
+   {
+    "sounds": [
+     "thunder"
+    ],
+    "every": [
+     8,
+     15
+    ],
+    "volume": 0.34
+   },
+   {
+    "sounds": [
+     "shark_whoosh"
+    ],
+    "every": [
+     2,
+     5
+    ],
+    "volume": 0.24
+   },
+   {
+    "sounds": [
+     "hull_impact",
+     "wood_crack"
+    ],
+    "every": [
+     6,
+     11
+    ],
+    "volume": 0.28
+   }
+  ]
+ },
+ "sharkstorm_distant": {
+  "loops": [
+   {
+    "source": "ocean",
+    "volume": 0.5
+   },
+   {
+    "source": "wind",
+    "volume": 0.2
+   }
+  ],
+  "oneshots": [
+   {
+    "sounds": [
+     "storm_distant"
+    ],
+    "every": [
+     18,
+     34
+    ],
+    "volume": 0.26
+   },
+   {
+    "sounds": [
+     "creak0",
+     "creak1",
+     "creak2"
+    ],
+    "every": [
+     6,
+     12
+    ],
+    "volume": 0.22
+   }
+  ]
+ }
+}
