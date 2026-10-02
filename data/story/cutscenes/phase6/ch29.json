@@ -327,6 +327,13 @@
  ],
  "p6c5.deck": [
   {
+   "setFlag": "p6_evacuated"
+  },
+  {
+   "restage": "walk",
+   "async": true
+  },
+  {
    "wait": 300
   },
   {
@@ -336,9 +343,6 @@
   "Up on deck, in the dark, the crew pour out of the fore hatch and scatter in every direction, looking for somewhere, anywhere, to be.",
   "There is nowhere on a ship to get away from the thing inside Garrick.",
   "Midships, the Grand Stenchmaster stands very still with his hands on his stomach, as if he's holding a door shut.",
-  {
-   "setFlag": "p6_evacuated"
-  },
   {
    "tutorial": "Find somewhere safe to wait it out. (Look around the deck: the main hatch, the rum barrel, the washing line, the rowboat, the rigging, your cabin.)",
    "title": "The Stenchmaster's About to Blow"
