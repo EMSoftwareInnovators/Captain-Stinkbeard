@@ -1,0 +1,231 @@
+{
+ "//": "Story Phase 7, chapter 39: Everyone Below. The storm worsens: the deck is being hit faster than it can be cleared. The captain makes the competent call (not cowardice: arithmetic): lash the wheel, furl what's left, bar the hatch, and shelter in the hold, the strongest part of the ship. What everyone brings: the captain, Squawks; Pete, emergency supplies; Bob, rope; Salty Jim, food; Gristle, the charts; Garrick, the half-built television and his ceremonial chair ('A television without a chair is barbaric'). Gristle points out the useful things left upstairs. 'Poor planning.' The hold: cramped, hot, dark, strong, still faintly contaminated, sharks landing overhead and dust coming down. 'Bad ceiling.'",
+ "p7c7.begin": [
+  {
+   "setFlag": "p7_ch39_started"
+  },
+  {
+   "banner": "CHAPTER 39",
+   "sub": "Everyone Below"
+  },
+  {
+   "sfx": "hull_crack_heavy"
+  },
+  {
+   "shake": 4,
+   "duration": 700
+  },
+  "And then the Great Sharkstorm leans right over the Revenge, and it rains.",
+  {
+   "sfx": "shark_land"
+  },
+  {
+   "sprite": "rain_1",
+   "frame": "shark_deck_0",
+   "x": 6.5,
+   "y": 19,
+   "anim": "stage:shark_flop"
+  },
+  {
+   "burst": "splinters",
+   "x": 6,
+   "y": 18,
+   "count": 10
+  },
+  {
+   "sfx": "shark_land"
+  },
+  {
+   "sprite": "rain_2",
+   "frame": "shark_deck_1",
+   "x": 13.5,
+   "y": 23,
+   "anim": "stage:shark_flop"
+  },
+  {
+   "burst": "splinters",
+   "x": 13,
+   "y": 22,
+   "count": 10
+  },
+  {
+   "shake": 3,
+   "duration": 400
+  },
+  "Two sharks land at once, then a third, then a yard comes down off the foremast in a tangle of line and sailcloth and hits the deck like a felled tree.",
+  "gristle[alarmed]: Clear that one! Somebody CLEAR—",
+  {
+   "sfx": "shark_land"
+  },
+  {
+   "shake": 2,
+   "duration": 300
+  },
+  "gristle[alarmed]: —never mind! NEVER MIND!",
+  {
+   "moveSprite": "rain_1",
+   "x": 2,
+   "y": 19,
+   "duration": 600,
+   "ease": "Quad.In"
+  },
+  {
+   "removeSprite": "rain_1"
+  },
+  {
+   "moveSprite": "rain_2",
+   "x": 17,
+   "y": 23,
+   "duration": 600,
+   "ease": "Quad.In"
+  },
+  {
+   "removeSprite": "rain_2"
+  },
+  "You look along the deck. For every shark that goes back over the side, two more come down. Nobody can work up there any more without being flattened.",
+  "It isn't brave to stand in that. It's just sums.",
+  "captain[determined]: EVERYONE BELOW!",
+  "crew: ...Below?",
+  "captain[determined]: The hold. All of ye. It's the strongest part of her, two decks of oak overhead. We can't clear the deck as fast as it fills, so we stop trying. Batten down, get below, and sit it out.",
+  "hale[annoyed]: It's not running if there's nowhere to run, Captain.",
+  "captain: It's not running. It's arithmetic. Finch, Sully: furl what's left forward. Nell, the wheel: we'll lash it together. Everybody else, take what you need and GO.",
+  "pete[alarmed]: Take WHAT?",
+  "captain[determined]: Whatever ye'd want, if ye were stuck in a hold all night with everyone else!",
+  "There is a sudden, frantic scramble. Pete grabs the emergency supplies. Bob grabs a coil of rope. Salty Jim grabs his food crate. Gristle grabs the charts.",
+  "And the Grand Stenchmaster grabs the half-built television in one arm and his ceremonial chair in the other.",
+  "captain[angry]: Ye are NOT bringing the CHAIR.",
+  "garrick[offended]: A television without a chair is barbaric, Captain.",
+  {
+   "restage": "walk"
+  },
+  {
+   "startQuest": "everyone_below"
+  },
+  {
+   "tutorial": "Lash the wheel (the helm), then get below: the main hatch, and down to the hold.",
+   "title": "Everyone Below"
+  }
+ ],
+ "p7c7.lash": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "Nell has a length of line ready. You hold the wheel amidships while she takes turns round the spokes.",
+  {
+   "repair": "lash",
+   "strikes": 3,
+   "title": "LASH THE WHEEL"
+  },
+  {
+   "setFlag": "p7_wheel_lashed"
+  },
+  "nell: That'll hold her. Not well. But it'll hold her.",
+  "captain: Below, Nell. Now.",
+  {
+   "fade": "out",
+   "duration": 500
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "fade": "in",
+   "duration": 500
+  },
+  "By the time you've checked the lashing twice, the deck is empty. Just you, the lashed wheel, the reefed sails, and the sharks coming down.",
+  "squawks[worried]: ...Captain go too?",
+  "captain[tender]: Aye. Captain goes last. That's the rule.",
+  {
+   "tutorial": "Get below: the main hatch (midships), then down to the hold.",
+   "title": "Everyone Below"
+  }
+ ],
+ "p7c7.hatch": [
+  "You come down the ladder last, pull the main hatch shut over your head, and drop the bar across it.",
+  {
+   "sfx": "hull_thud"
+  },
+  {
+   "shake": 2,
+   "duration": 300
+  },
+  "Almost at once, something heavy lands on the other side of it, scrapes about, and slides away.",
+  {
+   "setFlag": "p7_hatch_secured"
+  },
+  "Down here the storm isn't a sky any more. It's a noise. A long roar through the planks, and the odd thump.",
+  {
+   "tutorial": "Down to the hold: the stairs at the bottom right of the galley.",
+   "title": "Everyone Below"
+  }
+ ],
+ "p7c7.shelter": [
+  {
+   "setFlag": "p7_hatch_secured"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 11
+  },
+  {
+   "sharkstorm": "active_near_ship"
+  },
+  {
+   "place": "player",
+   "x": 13,
+   "y": 11,
+   "facing": "left"
+  },
+  {
+   "music": "hunker_down",
+   "fade": 800
+  },
+  {
+   "ambience": "below_shelter"
+  },
+  "The hold. Cramped, hot, dark, and still faintly yellow round the edges. The whole crew is in here, on crates and barrels and sacks, with the things they brought.",
+  "It smells of tar, wet wool, ham, and, very faintly, the Grand Stenchmaster. It's the safest place on the ship.",
+  {
+   "wait": 600
+  },
+  "Pete's emergency supplies. Bob's rope. Jim's food crate, with Jim sitting on it. Gristle's charts, rolled under his arm.",
+  "And in the middle of everything, on a crate, the half-built television, and, set out in front of it at exactly the right distance, the Grand Stenchmaster's ceremonial chair.",
+  "gristle[annoyed]: We left the spare sailcloth up there. And the medicine chest. And the good lanterns. USEFUL things.",
+  "garrick[businesslike]: That's poor planning, Mister Gristle.",
+  "Gristle stands up. Bob puts a hand the size of a shovel on his shoulder and sits him back down.",
+  "bob: Not now, Gristle. Not in the hold. There's nowhere to put him after.",
+  {
+   "wait": 700
+  },
+  {
+   "sfx": "hull_thud_big"
+  },
+  {
+   "shake": 2,
+   "duration": 400
+  },
+  {
+   "burst": "falldust",
+   "x": 12,
+   "y": 9,
+   "count": 8
+  },
+  "Something enormous lands on the deck overhead. The whole hold jumps. Dust sifts down out of the deckhead in the lantern light.",
+  "Inside your coat, Squawks looks up.",
+  "squawks[worried]: Bad ceiling.",
+  "captain[tender]: It's a good ceiling. Two foot of oak. It's held the sky up for twenty years.",
+  "squawks[worried]: ...Bad sky, then.",
+  "captain[tender]: Aye. Bad sky. Good ceiling.",
+  "You unbutton your coat, and set him down in his basket by the empty crate, blankets and all. He stays close.",
+  {
+   "setFlag": "p7_sheltered"
+  },
+  {
+   "completeQuest": "everyone_below"
+  },
+  {
+   "call": "p7c8.begin"
+  }
+ ]
+}

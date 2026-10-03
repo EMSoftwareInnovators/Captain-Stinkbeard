@@ -1,0 +1,305 @@
+[
+ {
+  "id": "sharkstorm_returns",
+  "title": "It's Coming Back",
+  "category": "main",
+  "giver": "hale",
+  "summary": "Two days of repairs. Then the horizon starts getting bigger.",
+  "description": "Two days after the Frog Grog Offensive. The deck is a mess of storm debris, the rigging's half spliced, the sleeping quarters still belong to the second cloud, and everybody's complaining about the Frog Grog. And far off on the starboard horizon, the Great Sharkstorm is still turning. It's further away than it was. Isn't it?",
+  "objectives": [
+   {
+    "id": "repairs",
+    "text": "Help with the repairs (the storm debris midships; the foremast rigging, forward)",
+    "type": "event",
+    "target": "p7_repair_done",
+    "count": 2
+   },
+   {
+    "id": "ned",
+    "text": "See what Ned's shouting about (the bow)",
+    "type": "flag",
+    "target": "p7_ned_called",
+    "after": [
+     "repairs"
+    ]
+   },
+   {
+    "id": "telescope",
+    "text": "Look at the horizon (the telescope, starboard, by the forward rail)",
+    "type": "flag",
+    "target": "great_sharkstorm_returned",
+    "after": [
+     "ned"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 50
+  }
+ },
+ {
+  "id": "which_away",
+  "title": "Which Away?",
+  "category": "main",
+  "giver": "jory",
+  "summary": "Sharks in the sky again. No barrels left. Hold her together.",
+  "description": "The Great Sharkstorm is back in range and throwing sharks at the Revenge, and the bulk Frog Grog that drove it off last time is at the bottom of the sea. Make the rigging fast, get the mainsail in, keep Squawks close, clear anything that lands, and get her steered. Somewhere. Away.",
+  "objectives": [
+   {
+    "id": "lines",
+    "text": "Make the loose rigging fast (the port main shrouds; the starboard fore shrouds)",
+    "type": "event",
+    "target": "p7_line_secured",
+    "count": 2
+   },
+   {
+    "id": "sail",
+    "text": "Reef the mainsail (the foot of the mainmast)",
+    "type": "flag",
+    "target": "p7_sail_reefed"
+   },
+   {
+    "id": "squawks",
+    "text": "Keep Squawks close (his basket, by the cabin door)",
+    "type": "flag",
+    "target": "p7_squawks_coat"
+   },
+   {
+    "id": "shark",
+    "text": "Shark on deck! Heave it overboard (midships, forward of the main hatch)",
+    "type": "flag",
+    "target": "p7_deck_shark_heaved",
+    "after": [
+     "lines",
+     "sail",
+     "squawks"
+    ]
+   },
+   {
+    "id": "helm",
+    "text": "Take the helm (the quarterdeck)",
+    "type": "flag",
+    "target": "p7_helm_away",
+    "after": [
+     "shark"
+    ]
+   },
+   {
+    "id": "garrick",
+    "text": "Find out what the Grand Stenchmaster is shouting about (his chair)",
+    "type": "flag",
+    "target": "p7_tv_complaint",
+    "after": [
+     "helm"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "not_a_duty",
+  "title": "Not a Stenchmaster Duty",
+  "category": "main",
+  "giver": "jory",
+  "summary": "There is a rule. It is nailed to the mast. He has a loophole.",
+  "description": "Under the emergency labour rule the Grand Stenchmaster has to help in a life-threatening emergency. Sharks are falling out of the sky. The Grand Stenchmaster says it isn't his department.",
+  "objectives": [
+   {
+    "id": "rule",
+    "text": "Fetch the emergency labour rule (nailed to the mainmast)",
+    "type": "flag",
+    "target": "p7_rule_fetched"
+   },
+   {
+    "id": "read",
+    "text": "Read it to the Grand Stenchmaster (his chair)",
+    "type": "flag",
+    "target": "grand_sharkmaster_invented",
+    "after": [
+     "rule"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 50
+  }
+ },
+ {
+  "id": "job_description",
+  "title": "The Job Description",
+  "category": "main",
+  "giver": "gristle",
+  "summary": "The crew have made a list. It's a long list.",
+  "description": "A Grand Sharkmaster. He has invented a second imaginary office so as not to do anything in the first one. The crew are gathering midships with a list of everything that has happened since he came aboard, and they want the captain to hear it before they do something about it themselves.",
+  "objectives": [
+   {
+    "id": "crew",
+    "text": "Hear the crew out (they're gathering midships)",
+    "type": "event",
+    "target": "p7_grievance",
+    "count": 4
+   },
+   {
+    "id": "confront",
+    "text": "Take the list to the Grand Stenchmaster (his chair)",
+    "type": "flag",
+    "target": "p7_cape_chase",
+    "after": [
+     "crew"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "stenchmaster_parade",
+  "title": "The Grand Stenchmaster's Parade",
+  "category": "main",
+  "giver": "pete",
+  "summary": "He has had an idea for morale. Nobody else is having morale.",
+  "description": "The Grand Stenchmaster is marching round the deck in his ceremonial uniform, saluting, to inspire everyone. He was ordered not to. He can't hear over the storm. Meanwhile the work still needs doing.",
+  "objectives": [
+   {
+    "id": "pete",
+    "text": "Help Pete with the shark (forward of the main hatch)",
+    "type": "flag",
+    "target": "p7_helped_pete"
+   },
+   {
+    "id": "bob",
+    "text": "Help Bob tie off the line (the port rail)",
+    "type": "flag",
+    "target": "p7_helped_bob"
+   },
+   {
+    "id": "jim",
+    "text": "Help Salty Jim with his crate (by the empty grog lashings)",
+    "type": "flag",
+    "target": "p7_helped_jim"
+   }
+  ],
+  "rewards": {
+   "xp": 55
+  }
+ },
+ {
+  "id": "back_to_work",
+  "title": "Back to Work",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "The song is over. The Grand Stenchmaster has gone back to work. On the ship.",
+  "description": "'Now I must get back to work.' He means the television. The original S.E.S. is beyond saving, so he is building another, and he is building it out of the Queen Anne's Revenge, one piece at a time.",
+  "objectives": [
+   {
+    "id": "salvage",
+    "text": "Keep an eye on the Grand Stenchmaster (he's taking the ship apart)",
+    "type": "event",
+    "target": "p7_salvage",
+    "count": 3
+   }
+  ],
+  "rewards": {
+   "xp": 45
+  }
+ },
+ {
+  "id": "everyone_below",
+  "title": "Everyone Below",
+  "category": "main",
+  "giver": "hale",
+  "summary": "The deck is being hit too often. Batten down and get below.",
+  "description": "Sharks and wreckage are coming down on the deck faster than anyone can clear them. It isn't cowardice; it's arithmetic. Lash the wheel, get everyone below, bar the hatch, and sit it out in the hold, the strongest place in the ship.",
+  "objectives": [
+   {
+    "id": "wheel",
+    "text": "Lash the wheel (the helm)",
+    "type": "flag",
+    "target": "p7_wheel_lashed"
+   },
+   {
+    "id": "below",
+    "text": "Get below (the main hatch, then down to the hold)",
+    "type": "flag",
+    "target": "p7_sheltered",
+    "after": [
+     "wheel"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 50
+  }
+ },
+ {
+  "id": "mark_two",
+  "title": "The Stenchmaster Entertainment System Mark II",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "A turnip crate. A tube. A horseshoe. A great deal of string.",
+  "description": "In the hold, by lantern light, with the Great Sharkstorm landing on the deck overhead, the Grand Stenchmaster is building a television. The crew have opinions about every part of it. Keep him from switching it on. For as long as you can.",
+  "objectives": [
+   {
+    "id": "build",
+    "text": "Watch the Grand Stenchmaster build it (his bench)",
+    "type": "event",
+    "target": "p7_mk2_step",
+    "count": 4
+   },
+   {
+    "id": "switch",
+    "text": "Keep his hands off the switch (his bench)",
+    "type": "event",
+    "target": "p7_switch_stopped",
+    "count": 2,
+    "after": [
+     "build"
+    ]
+   },
+   {
+    "id": "knobs",
+    "text": "Mark II's knobs (the set)",
+    "type": "flag",
+    "target": "p7_franklin_found",
+    "after": [
+     "switch"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 65
+  }
+ },
+ {
+  "id": "pleasant_evening",
+  "title": "A Pleasant Evening",
+  "category": "main",
+  "giver": "bob",
+  "summary": "Trapped in the hold. A storm of sharks outside. A frog doing his taxes inside.",
+  "description": "The Frog Tax Man is back, on a television made from a fruit crate, in the bottom of a contaminated pirate ship, under a storm made of sharks. Nobody is watching it. Everybody is watching it.",
+  "objectives": [
+   {
+    "id": "elsewhere",
+    "text": "Find something else to do (anything but the television)",
+    "type": "event",
+    "target": "p7_not_watching",
+    "count": 2
+   },
+   {
+    "id": "sit",
+    "text": "Sit down (the empty crate, next to Squawks)",
+    "type": "flag",
+    "target": "p7_captain_sits",
+    "after": [
+     "elsewhere"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ }
+]

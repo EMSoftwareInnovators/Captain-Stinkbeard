@@ -54,6 +54,52 @@
      { "frames": ["ftm_title_0", "ftm_title_1"], "line": "announcer: Remember to file! The Frog Tax Man!", "ms": 2800, "sfx": "ftm_announcer", "frameMs": 420 }
     ],
     "if": { "flag": "p6_complete" }
+   },
+   {
+    "id": "season_seventeen_flies",
+    "//": "Story Phase 7: season seventeen, the one Garrick has been waiting for. Franklin listed 27,000 flies as business inventory and ate them (business snacks or personal snacks?); his pond is down as investment property (Schedule POND); the dragonfly is a business expense (morale); no receipts, so the lily pad is forfeit; another letter: a refund (three flies); and then depreciation. All the forms are invented frog forms (RIB-40, Schedule POND, 10-FROG-X).",
+    "if": { "flag": "p7_franklin_found" },
+    "beats": [
+     { "frames": ["ftm_season_0", "ftm_season_1"], "line": "announcer: THE FROG TAX MAN! Season seventeen!", "ms": 2400, "sfx": "ftm_horn", "frameMs": 420 },
+     { "frames": ["ftm_office_0", "ftm_office_1"], "line": "accountant: Franklin. Sit down. It's about the flies.", "ms": 2600 },
+     { "frames": ["ftm_snacks_0"], "line": "accountant: Twenty-seven thousand flies. Listed as business inventory.", "ms": 3000 },
+     { "frames": ["ftm_close_0"], "line": "franklin: They're for the business.", "ms": 2200 },
+     { "frames": ["ftm_snacks_1"], "line": "accountant: You ATE them, Franklin.", "ms": 2400, "laugh": true },
+     { "frames": ["ftm_close_1"], "line": "franklin: ...During business hours.", "ms": 2400, "laugh": true },
+     { "frames": ["ftm_snacks_0", "ftm_snacks_1"], "line": "accountant: So which is it? Business snacks, or personal snacks?", "ms": 2800 },
+     { "frames": ["ftm_close_0"], "line": "franklin: Can they be both?", "ms": 2200, "laugh": true },
+     { "frames": ["ftm_form_0"], "line": "accountant: Not on a Form RIB-40, they can't.", "ms": 2600, "sfx": "ftm_sting" },
+     { "frames": ["ftm_pond_0", "ftm_pond_1"], "line": "accountant: And the pond. You've listed your own pond as investment property.", "ms": 3000, "frameMs": 500 },
+     { "frames": ["ftm_close_1"], "line": "franklin: I invest a lot of time in it.", "ms": 2400, "laugh": true },
+     {
+      "frames": ["ftm_form_1"],
+      "line": "accountant: That's Schedule POND, line nine. You'll have to file an amended return. A 10-FROG-X.",
+      "ms": 3200,
+      "sfx": "ftm_sting"
+     },
+     { "frames": ["ftm_dragonfly_0", "ftm_dragonfly_1"], "line": "franklin: I also claimed the dragonfly. As a business expense.", "ms": 2800, "frameMs": 300 },
+     { "frames": ["ftm_dragonfly_1"], "line": "accountant: What does the dragonfly DO, Franklin?", "ms": 2400 },
+     { "frames": ["ftm_close_0"], "line": "franklin: ...Morale.", "ms": 2200, "laugh": true },
+     { "frames": ["ftm_letter_0", "ftm_letter_1"], "line": "announcer: Later that week...", "ms": 2600, "sfx": "ftm_drama", "frameMs": 500 },
+     { "frames": ["ftm_letter_1"], "line": "franklin: A letter. From the Pond Revenue Service.", "ms": 2600 },
+     { "frames": ["ftm_office_0", "ftm_office_1"], "line": "accountant: The flies, Franklin. Do you have the receipts?", "ms": 2600 },
+     { "frames": ["ftm_close_1"], "line": "franklin: ...Ribbit.", "ms": 2000, "sfx": "ftm_ribbit", "laugh": true },
+     { "frames": ["ftm_court_1"], "line": "judge: No receipts? Then the lily pad is FORFEIT.", "ms": 2800, "sfx": "ftm_gavel" },
+     { "frames": ["ftm_lilypad"], "line": "franklin: Not the LILY PAD!", "ms": 2400 },
+     { "frames": ["ftm_letter_0", "ftm_letter_1"], "line": "announcer: And then... ANOTHER letter!", "ms": 2600, "sfx": "ftm_drama", "frameMs": 500 },
+     { "frames": ["ftm_letter_1"], "line": "franklin: It's from the Pond Revenue Service. Again.", "ms": 2600 },
+     { "frames": ["ftm_close_0"], "line": "accountant: Open it, Franklin.", "ms": 2200 },
+     { "frames": ["ftm_letter_1"], "line": "franklin: 'Dear Mister Franklin. Following review, you have overpaid. By three flies.'", "ms": 3200 },
+     { "frames": ["ftm_title_1"], "line": "accountant: A REFUND!", "ms": 2200, "sfx": "ftm_jingle", "laugh": true },
+     { "frames": ["ftm_break_0", "ftm_break_1"], "line": "announcer: The Frog Tax Man will be right back, after a word from Pond Soap!", "ms": 3000, "frameMs": 400 },
+     { "frames": ["ftm_close_1"], "line": "franklin: Can I have my lily pad back?", "ms": 2200 },
+     { "frames": ["ftm_court_0"], "line": "judge: No.", "ms": 1800, "sfx": "ftm_gavel", "laugh": true },
+     { "frames": ["ftm_lilypad"], "line": "accountant: But you can DEPRECIATE it, Franklin. It's worth a little less every year.", "ms": 3200 },
+     { "frames": ["ftm_close_0"], "line": "franklin: So everything I own is slowly worth nothing?", "ms": 2600 },
+     { "frames": ["ftm_lilypad"], "line": "accountant: That's depreciation, Franklin.", "ms": 2400 },
+     { "frames": ["ftm_close_1"], "line": "franklin: That's the saddest thing I've ever heard.", "ms": 2600, "laugh": true },
+     { "frames": ["ftm_season_0", "ftm_season_1"], "line": "announcer: Keep your receipts! The Frog Tax Man!", "ms": 2600, "sfx": "ftm_announcer", "frameMs": 420 }
+    ]
    }
   ]
  }

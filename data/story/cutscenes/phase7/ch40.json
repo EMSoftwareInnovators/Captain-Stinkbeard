@@ -1,0 +1,650 @@
+{
+ "//": "Story Phase 7, chapter 40: The Stenchmaster Entertainment System Mark II. Built below decks, during the storm, from the original's surviving tube and parts and whatever came off the ship, in a turnip crate. Abstract steps only (the old aerial; insulation; routing; a knob): no real wiring, no real procedure, and nothing that would work anywhere but here. The old aerial gives a cartoon zap (hair and whiskers straight up; 'Is he dead?' 'No.' 'Unfortunate.'); a Frog Grog-soaked sock is SPECIAL INSULATION ('THAT MAKES IT WORSE'); a horseshoe and a fork are signal routing ('There is no routing.' 'There is now.'); the spoon is fine tuning, again; a knob on a string, not connected ('Looks professional.'). The captain keeps his hands off the switch, twice; then someone says 'Maybe some noise would help.' The startup: nothing, nothing, FLASH, an orange tube, a suspicious blue one, clicking, hum, sparks, a line, snow; 'WARM-UP.' The knob panel, inherited. Then, through the static: 'Ribbit...' FRANKLIN RETURNS.",
+ "p7c8.begin": [
+  {
+   "setFlag": "p7_ch40_started"
+  },
+  {
+   "banner": "CHAPTER 40",
+   "sub": "The Stenchmaster Entertainment System Mark II"
+  },
+  {
+   "tvSet": "ses_mk2",
+   "state": "under_construction"
+  },
+  "The Grand Stenchmaster sets his sack down, rolls up his ceremonially soaked cuffs, and lays out the parts on the crate in front of him, in rows: the old picture tube, the knobs, the compass, the wire, the horseshoe, a fork, a spoon, a bell, a garter.",
+  "garrick[proud]: Gentlemen. Mark Two.",
+  "The whole hold groans, all at once, like the ship.",
+  {
+   "startQuest": "mark_two"
+  },
+  {
+   "tutorial": "Watch the Grand Stenchmaster build it (his bench). The crew have opinions.",
+   "title": "The S.E.S. Mark II"
+  }
+ ],
+ "p7c8.step": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  {
+   "if": {
+    "notFlag": "p7_mk2_aerial"
+   },
+   "then": [
+    {
+     "call": "p7c8.aerial"
+    }
+   ],
+   "else": [
+    {
+     "if": {
+      "notFlag": "p7_mk2_insulation"
+     },
+     "then": [
+      {
+       "call": "p7c8.insulation"
+      }
+     ],
+     "else": [
+      {
+       "if": {
+        "notFlag": "p7_mk2_routing"
+       },
+       "then": [
+        {
+         "call": "p7c8.routing"
+        }
+       ],
+       "else": [
+        {
+         "if": {
+          "notFlag": "p7_mk2_knob"
+         },
+         "then": [
+          {
+           "call": "p7c8.knob"
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "p7c8.aerial": [
+  {
+   "vista": "mk2_close",
+   "fade": 300
+  },
+  "He lifts the old aerial out of the sack: the bent fork-and-wire crown off the top of the original set, flattened by the first shark.",
+  {
+   "sfx": "mk2_antenna_buzz"
+  },
+  {
+   "vistaFx": "sparkle",
+   "x": 160,
+   "y": 60,
+   "count": 6
+  },
+  "It buzzes. On its own. It isn't connected to anything.",
+  "hale[alarmed]: Why is it doing that? It's not connected to anything!",
+  "garrick[businesslike]: Residual signal, Mister Hale. It remembers.",
+  {
+   "choice": [
+    {
+     "text": "\"Don't touch that.\"",
+     "then": [
+      "captain[alarmed]: Garrick. Don't touch that.",
+      "garrick: I'm only going to—"
+     ]
+    },
+    {
+     "text": "Say nothing. Step back.",
+     "then": [
+      "You say nothing. You take one long step back. So does everybody else.",
+      "garrick: I'm only going to—"
+     ]
+    },
+    {
+     "text": "\"Go on, then.\"",
+     "then": [
+      "captain[tired]: ...Go on, then.",
+      "Several of the crew look at you. You don't look back."
+     ]
+    }
+   ]
+  },
+  "He takes hold of it with both gloved hands.",
+  {
+   "sfx": "mk2_zap"
+  },
+  {
+   "vistaShow": "zap",
+   "visible": true
+  },
+  {
+   "vistaShow": "zapped",
+   "visible": true
+  },
+  "ZZZAAAPPP.",
+  {
+   "wait": 700
+  },
+  {
+   "vistaShow": "zap",
+   "visible": false
+  },
+  "When the light clears, the Grand Stenchmaster is still standing exactly where he was. His hair is standing straight up. So are his whiskers. So is the plume on his hat, for the first time in its life. A thin thread of smoke rises from each glove.",
+  {
+   "wait": 900
+  },
+  "pete[surprised]: ...Is he dead?",
+  "garrick[surprised]: No.",
+  "rook: Unfortunate.",
+  {
+   "vistaShow": "zapped",
+   "visible": false
+  },
+  "garrick[proud]: That's how you know it's got signal.",
+  {
+   "vistaEnd": true,
+   "fade": 300
+  },
+  {
+   "setFlag": "p7_mk2_aerial"
+  },
+  {
+   "event": "p7_mk2_step"
+  },
+  {
+   "if": {
+    "objectiveDone": "mark_two.build"
+   },
+   "then": [
+    {
+     "tutorial": "It's built. He's looking at the switch. Keep his hands off it (talk to him).",
+     "title": "The S.E.S. Mark II"
+    }
+   ],
+   "else": [
+    {
+     "tutorial": "He isn't finished. Keep watching (his bench).",
+     "title": "The S.E.S. Mark II"
+    }
+   ]
+  }
+ ],
+ "p7c8.insulation": [
+  "The Grand Stenchmaster takes a sock out of his coat. It is green, and wet, and dripping, and he starts wrapping it round the place where the aerial meets the crate.",
+  "captain[alarmed]: That sock is soaked in Frog Grog.",
+  "garrick[businesslike]: Special insulation.",
+  "captain[angry]: THAT MAKES IT WORSE.",
+  "garrick: Hold the crate steady, would you, Captain? It's the motion of the ship. Mark Two is sensitive.",
+  {
+   "repair": "assemble",
+   "strikes": 3,
+   "title": "HOLD THE CRATE STEADY"
+  },
+  "He ties the sock off in a bow. The aerial stops buzzing and starts humming instead. Nobody likes the humming more.",
+  {
+   "setFlag": "p7_mk2_insulation"
+  },
+  {
+   "event": "p7_mk2_step"
+  },
+  {
+   "if": {
+    "objectiveDone": "mark_two.build"
+   },
+   "then": [
+    {
+     "tutorial": "It's built. He's looking at the switch. Keep his hands off it (talk to him).",
+     "title": "The S.E.S. Mark II"
+    }
+   ],
+   "else": [
+    {
+     "tutorial": "He isn't finished. Keep watching (his bench).",
+     "title": "The S.E.S. Mark II"
+    }
+   ]
+  }
+ ],
+ "p7c8.routing": [
+  {
+   "vista": "mk2_close",
+   "fade": 300
+  },
+  {
+   "vistaFrame": "set",
+   "frame": "mk2_build_0"
+  },
+  "Next, the horseshoe goes on top, on a cotton reel, open end up. Then copper wire, round and round it and off to the tubes and back. Then he holds out his hand, without looking, like a surgeon.",
+  "garrick: Fork.",
+  {
+   "choice": [
+    {
+     "text": "Hand him the fork.",
+     "then": [
+      "You hand him the fork. He bends it into a shape forks do not go into and wedges it behind the horseshoe."
+     ]
+    },
+    {
+     "text": "Hand him the spoon.",
+     "then": [
+      "You hand him the spoon. He looks at it, and then at you, with great approval.",
+      "garrick[proud]: Fine tuning. Good instinct, Captain.",
+      "pete[annoyed]: You said that LAST time!",
+      "garrick: And it worked.",
+      "pete[annoyed]: THE LAST ONE CAUGHT FIRE!",
+      "garrick[businesslike]: ...Before that.",
+      "He takes the fork as well, and wedges both of them behind the horseshoe."
+     ]
+    },
+    {
+     "text": "Hand him nothing.",
+     "then": [
+      "You fold your arms. He finds the fork himself, without looking, and wedges it behind the horseshoe anyway."
+     ]
+    }
+   ]
+  },
+  {
+   "vistaFrame": "set",
+   "frame": "mk2_build_1"
+  },
+  {
+   "sfx": "mk2_tube_ping"
+  },
+  "bob[surprised]: What... what is happening?",
+  "garrick[businesslike]: Signal routing.",
+  "gristle[annoyed]: There IS no routing! It goes round the horseshoe and back to where it started!",
+  "garrick[proud]: There is now.",
+  {
+   "vistaEnd": true,
+   "fade": 300
+  },
+  {
+   "setFlag": "p7_mk2_routing"
+  },
+  {
+   "event": "p7_mk2_step"
+  },
+  {
+   "if": {
+    "objectiveDone": "mark_two.build"
+   },
+   "then": [
+    {
+     "tutorial": "It's built. He's looking at the switch. Keep his hands off it (talk to him).",
+     "title": "The S.E.S. Mark II"
+    }
+   ],
+   "else": [
+    {
+     "tutorial": "He isn't finished. Keep watching (his bench).",
+     "title": "The S.E.S. Mark II"
+    }
+   ]
+  }
+ ],
+ "p7c8.knob": [
+  {
+   "vista": "mk2_close",
+   "fade": 300
+  },
+  {
+   "vistaFrame": "set",
+   "frame": "mk2_build_1"
+  },
+  "Last of all, he takes one of the old set's knobs, ties a length of string round it, and hangs it on a nail on the side of the crate, where it swings when the ship rolls.",
+  {
+   "vistaFrame": "set",
+   "frame": "mk2_bezel_off"
+  },
+  {
+   "sfx": "spoon_tink"
+  },
+  "hale: Is that connected?",
+  "garrick[businesslike]: No.",
+  "hale: Then what does it DO?",
+  "garrick[proud]: Looks professional.",
+  {
+   "wait": 900
+  },
+  "He steps back. Mark Two sits on its crate: a turnip crate with a television tube in it, two mismatched tubes in tin cups, a horseshoe, a fork, a spoon, a compass, a patched speaker, a bell and a knob on a string. It looks like a fruit crate that has been told a secret.",
+  "garrick[delighted]: The Stenchmaster Entertainment System. Mark Two.",
+  {
+   "vistaEnd": true,
+   "fade": 300
+  },
+  {
+   "setFlag": "p7_mk2_knob"
+  },
+  {
+   "setFlag": "ses_mark2_built"
+  },
+  {
+   "setVar": "ses_generation",
+   "value": 2
+  },
+  {
+   "event": "p7_mk2_step"
+  },
+  "His hand drifts, as if by accident, towards the side of the crate where three switches are.",
+  {
+   "if": {
+    "objectiveDone": "mark_two.build"
+   },
+   "then": [
+    {
+     "tutorial": "It's built. He's looking at the switch. Keep his hands off it (talk to him).",
+     "title": "The S.E.S. Mark II"
+    }
+   ],
+   "else": [
+    {
+     "tutorial": "He isn't finished. Keep watching (his bench).",
+     "title": "The S.E.S. Mark II"
+    }
+   ]
+  }
+ ],
+ "p7c8.switch": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  {
+   "if": {
+    "notFlag": "p7_switch_stopped_1"
+   },
+   "then": [
+    "The Grand Stenchmaster's gloved hand is resting, very casually, on the first switch.",
+    "captain[angry]: Garrick.",
+    "garrick[pretend]: Mm?",
+    "captain[angry]: No.",
+    "garrick: I was only going to see if it—",
+    "captain[angry]: NO.",
+    "He takes his hand away and folds both of them on his stomach, and looks at the ceiling, whistling a few bars of his own song.",
+    {
+     "setFlag": "p7_switch_stopped_1"
+    },
+    {
+     "event": "p7_switch_stopped"
+    },
+    {
+     "tutorial": "Keep an eye on him. (He'll try again.)",
+     "title": "The S.E.S. Mark II"
+    }
+   ],
+   "else": [
+    {
+     "sfx": "hull_thud_big"
+    },
+    {
+     "shake": 2,
+     "duration": 400
+    },
+    {
+     "burst": "falldust",
+     "x": 11,
+     "y": 9,
+     "count": 6
+    },
+    "A landing overhead. Dust. And when it clears, his hand is back on the switch.",
+    "garrick[pretend]: Just a little warm-up, Captain. To keep the tubes from getting cold. It's very bad for tubes, cold.",
+    "captain[angry]: NO.",
+    {
+     "setFlag": "p7_switch_stopped_2"
+    },
+    {
+     "event": "p7_switch_stopped"
+    },
+    {
+     "call": "p7c8.noise"
+    }
+   ]
+  }
+ ],
+ "p7c8.noise": [
+  {
+   "wait": 800
+  },
+  {
+   "sfx": "hull_thud"
+  },
+  {
+   "wait": 900
+  },
+  {
+   "sfx": "hull_thud_big"
+  },
+  {
+   "shake": 2,
+   "duration": 400
+  },
+  {
+   "burst": "falldust",
+   "x": 9,
+   "y": 9,
+   "count": 6
+  },
+  {
+   "wait": 1200
+  },
+  {
+   "sfx": "deck_scrape"
+  },
+  "Thump. Thump. Something sliding across the deck overhead, right over your heads, very slowly, from one side to the other.",
+  "Nobody says anything for a long time. The lantern swings. Somebody's stomach rumbles. Somebody else's teeth are chattering.",
+  {
+   "wait": 1200
+  },
+  "pete[tired]: ...Maybe some noise would help.",
+  {
+   "wait": 600
+  },
+  "Every head in the hold turns, slowly, to look at Pete. Pete realises what he's said.",
+  "pete[alarmed]: I didn't mean—",
+  "garrick[delighted]: AUTHORISATION!",
+  {
+   "setFlag": "p7_noise_helps"
+  },
+  {
+   "call": "p7c8.startup"
+  }
+ ],
+ "p7c8.startup": [
+  {
+   "vista": "mk2_close",
+   "fade": 300
+  },
+  {
+   "vistaFrame": "set",
+   "frame": "mk2_bezel_off"
+  },
+  {
+   "vistaFrame": "screen",
+   "frame": "tv_off"
+  },
+  "Before anyone can reach him, the Grand Stenchmaster flips the first switch.",
+  {
+   "sfx": "mk2_switch"
+  },
+  {
+   "wait": 900
+  },
+  "Nothing.",
+  {
+   "sfx": "mk2_switch"
+  },
+  "He flips the second switch.",
+  {
+   "wait": 900
+  },
+  "Nothing.",
+  "bob[happy]: ...That's good, isn't it? Nothing's good?",
+  {
+   "sfx": "mk2_switch"
+  },
+  "He flips the third switch.",
+  {
+   "wait": 500
+  },
+  {
+   "sfx": "mk2_flash"
+  },
+  {
+   "vistaFrame": "screen",
+   "frame": "tv_white"
+  },
+  {
+   "vistaFx": "sparkle",
+   "x": 160,
+   "y": 120,
+   "count": 12
+  },
+  "FLASH.",
+  {
+   "wait": 500
+  },
+  {
+   "vistaFrame": "screen",
+   "frame": "tv_off"
+  },
+  {
+   "vistaFrame": "set",
+   "frame": "mk2_bezel"
+  },
+  {
+   "sfx": "mk2_tube_ping"
+  },
+  "One of the tubes on top glows orange. Then, after a long and unhealthy pause, the other one glows a suspicious blue.",
+  "gristle[alarmed]: That looks wrong.",
+  "garrick[businesslike]: Warm-up.",
+  {
+   "sfx": "ses_clicking"
+  },
+  "Clicking. Lots of clicking.",
+  {
+   "sfx": "mk2_hum"
+  },
+  "A hum, low and cheap, like a bee in a bucket. The crate rattles on its hinges.",
+  {
+   "sfx": "mk2_rattle"
+  },
+  "hale[alarmed]: That looks VERY wrong.",
+  "garrick[businesslike]: Warm-up!",
+  {
+   "sfx": "tv_spark"
+  },
+  {
+   "vistaFx": "sparkle",
+   "x": 136,
+   "y": 64,
+   "count": 8
+  },
+  "Sparks, off the horseshoe.",
+  {
+   "vistaFrame": "screen",
+   "frame": "tv_hline"
+  },
+  "A single bright line across the middle of the glass.",
+  {
+   "wait": 900
+  },
+  {
+   "sfx": "mk2_static"
+  },
+  {
+   "vistaShow": "snow",
+   "visible": true
+  },
+  "And then snow. Loud, white, roaring snow.",
+  "crew: IT LOOKS WRONG!",
+  "garrick[delighted]: WARM! UP!",
+  {
+   "tvSet": "ses_mk2",
+   "state": "working"
+  },
+  {
+   "tvSet": "ses_mk2",
+   "power": true,
+   "channel": 1
+  },
+  {
+   "setFlag": "p7_mk2_startup"
+  },
+  {
+   "vistaEnd": true,
+   "fade": 300
+  },
+  "garrick[proud]: And now, Captain, the knobs. You have a feel for knobs. I saw you, with the old one.",
+  {
+   "tutorial": "Mark II's knobs: on the set. (You know how this goes. Probably.)",
+   "title": "The S.E.S. Mark II"
+  }
+ ],
+ "p7c8.knobs": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "Round the side of the crate, on a strip of sailcloth tacked to the slats, there's a row of knobs. Each with a label, in crayon.",
+  {
+   "tv": "ses_mk2",
+   "mode": "knobs"
+  },
+  {
+   "if": {
+    "flag": "p7_franklin_found"
+   },
+   "then": [
+    {
+     "call": "p7c8.ribbit"
+    }
+   ],
+   "else": [
+    "You step back. The snow roars on.",
+    {
+     "bark": "garrick",
+     "text": "Try FROG MAYBE, Captain!",
+     "duration": 1600
+    },
+    {
+     "tutorial": "Mark II's knobs again (on the set). Something was nearly there.",
+     "title": "The S.E.S. Mark II"
+    }
+   ]
+  }
+ ],
+ "p7c8.ribbit": [
+  {
+   "wait": 500
+  },
+  "Everyone in the hold freezes.",
+  "Through the static, faint and wobbling, a small green shape. A tie. A pair of glasses.",
+  "franklin: ...Ribbit...",
+  {
+   "wait": 1200
+  },
+  "Nobody breathes.",
+  "garrick[delighted]: ...Franklin.",
+  "garrick[delighted]: FRANKLIN! FRANKLIN RETURNS!",
+  "He seizes the nearest pirate, who is Bob, and kisses him on the top of the head. Bob doesn't move. Bob may never move again.",
+  {
+   "setFlag": "ses_mark2_operational"
+  },
+  {
+   "completeQuest": "mark_two"
+  },
+  {
+   "call": "p7c9.begin"
+  }
+ ]
+}

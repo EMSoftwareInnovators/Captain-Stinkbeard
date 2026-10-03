@@ -590,6 +590,14 @@
     "variants": [
      {
       "if": {
+       "flag": "great_sharkstorm_returned"
+      },
+      "location": "Directly overhead",
+      "status": "Returned (forecasting language is nuanced)",
+      "notes": "Not destroyed. DISCOURAGED. The discouragement has worn off. There are no more barrels. I have suggested a Grand Sharkmaster be appointed to deal with it."
+     },
+     {
+      "if": {
        "flag": "great_sharkstorm_active"
       },
       "location": "The horizon (starboard)",
@@ -609,6 +617,84 @@
     "severity": "Concerning",
     "source": "The Captain",
     "notes": "No rotten garlic. EVER. Also onions, beans, cabbage, cheese. Soup: query pending. Bulk Frog Grog reserve: gone. A difficult time to hold this office."
+   },
+   {
+    "id": "p7_aura",
+    "title": "The Grand Stenchmaster Aura",
+    "if": {
+     "flag": "garrick_aura_named"
+    },
+    "location": "Around me (residual)",
+    "status": "Renamed",
+    "severity": "Mild",
+    "source": "The Grand Stenchmaster (official)",
+    "sharks": "Polite interest",
+    "notes": "Formerly residual Stenchmaster exhaust; the Captain has forbidden the phrase. The new name is better. The crew disagree. The crew are not on the naming committee."
+   },
+   {
+    "id": "p7_sharkmaster",
+    "title": "Grand Sharkmaster",
+    "if": {
+     "flag": "grand_sharkmaster_invented"
+    },
+    "location": "Vacant",
+    "status": "Vacant",
+    "severity": "Premium",
+    "source": "Established by me, during an argument",
+    "sharks": "Allegedly all of them",
+    "notes": "Department: sharks. Duties: the sharks. Not the stench (a different office). Applications: the pirate employment market (full of sharks; conflict of interest). [Underneath, in the Captain's hand: NOT REAL.]"
+   },
+   {
+    "id": "p7_cape",
+    "title": "The Cape Incident",
+    "if": {
+     "flag": "garrick_cape_torn"
+    },
+    "location": "A shark (whereabouts unknown)",
+    "status": "Partially missing",
+    "severity": "Catastrophic",
+    "source": "The gray one (probably)",
+    "sharks": "One, wearing THE MEDAL ONE",
+    "notes": "THE FORECAST ONE and THE MEDAL ONE, and a tassel. The crew declined a recovery mission. Ceremonial property. Recorded for the inquiry."
+   },
+   {
+    "id": "p7_song",
+    "title": "The Song of the Grand Stenchmaster",
+    "if": {
+     "flag": "grand_stenchmaster_song_performed"
+    },
+    "location": "The main deck (in a storm)",
+    "status": "Performed (a verse, the chorus, half a verse)",
+    "severity": "Premium",
+    "source": "Words and music: G.G.",
+    "sharks": "Several (flew off)",
+    "notes": "Interrupted by the Captain at the second verse. Audience participation enthusiastic and hostile. The parrot hid, which I take as awe. A triumph."
+   },
+   {
+    "id": "p7_mk2",
+    "title": "The Stenchmaster Entertainment System Mark II",
+    "if": {
+     "flag": "ses_mark2_operational"
+    },
+    "location": "The hold",
+    "status": "Operational",
+    "severity": "Mild",
+    "source": "Turnips, a horseshoe, commitment",
+    "sharks": "None (we're in the hold)",
+    "notes": "Built during the storm out of the old one and some of the ship. Receives The Frog Tax Man. Signal routing by horseshoe. Fine tuning by spoon. Startup: warm-up."
+   },
+   {
+    "id": "p7_evening",
+    "title": "A Pleasant Evening",
+    "if": {
+     "flag": "p7_complete"
+    },
+    "location": "Below decks",
+    "status": "Pleasant (somehow)",
+    "severity": "Moist",
+    "source": "Sixteen pirates, a ham and a frog",
+    "sharks": "Overhead",
+    "notes": "Everyone watched. EVERYONE. Grand Stenchmaster morale. (The Captain has asked me not to write that. I have written it small.) One episode, then I see about the storm. After this one."
    }
   ]
  }

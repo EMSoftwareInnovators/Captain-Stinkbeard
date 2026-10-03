@@ -1,0 +1,537 @@
+{
+ "//": "Story Phase 7, chapter 33: It's Coming Back. Two days after the Frog Grog Offensive. Repairs, complaints, the second cloud still in the sleeping quarters, the Grand Stenchmaster in his chair facing a broken television. Then Ned, at the bow: the storm on the horizon is getting bigger. Environmental progression: the dark rotating cloud through the telescope, then fins in the air, then yellow-tinged spray on the deck. It is the SAME storm, coming back (not re-formed: no formation scene). 'Didn't we destroy that thing?' 'Technically, we discouraged it.' The bulk Frog Grog is gone. THWACK: the first shark on the deck again. Squawks: 'No.' 'I know.' And the Grand Stenchmaster Aura.",
+ "p7.bed_sleep": {
+  "start": [
+   "Your bed. The yellow outline on the pillow has been joined by a smaller, sharper one, in the shape of a cloud of garlic.",
+   {
+    "choice": [
+     {
+      "text": "Sleep (the story continues)",
+      "goto": "sleep"
+     },
+     {
+      "text": "Not yet"
+     }
+    ]
+   }
+  ],
+  "sleep": [
+   {
+    "call": "p7c1.begin"
+   }
+  ]
+ },
+ "p7c1.begin": [
+  {
+   "fade": "out",
+   "duration": 900
+  },
+  {
+   "music": null,
+   "fade": 600
+  },
+  {
+   "clearFlag": "optional_duty_on"
+  },
+  {
+   "sharkDuty": "clear"
+  },
+  {
+   "setFlag": "p7_started"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 9
+  },
+  {
+   "setVar": "ses_generation",
+   "value": 1
+  },
+  {
+   "banner": "CHAPTER 33",
+   "sub": "It's Coming Back"
+  },
+  {
+   "narrate": "Two days later."
+  },
+  {
+   "narrate": "Two days of patching, splicing, scrubbing, and arguing about who was going to sleep where, since the sleeping quarters still belonged to the second cloud."
+  },
+  {
+   "narrate": "The storm was still out there, on the horizon. Everybody had stopped looking at it. That was the arrangement."
+  },
+  {
+   "close": true
+  },
+  {
+   "startQuest": "sharkstorm_returns"
+  },
+  {
+   "transition": "main_deck",
+   "x": 10,
+   "y": 13,
+   "facing": "down",
+   "then": "p7c1.deck",
+   "fade": 0
+  }
+ ],
+ "p7c1.deck": [
+  {
+   "fade": "in",
+   "duration": 1000
+  },
+  {
+   "wait": 500
+  },
+  "A grey morning. The deck is a mess of splintered planks and storm wreckage. Somebody is hammering. Somebody else is complaining about the hammering.",
+  "hale[resigned]: Morning, Captain. Repairs are coming along. Slowly. Everything we fix, something else falls off.",
+  "hale: The debris midships needs clearing, and Finch could use a hand with the fore shrouds. They took a beating.",
+  "From the station, without turning round, the Grand Stenchmaster sighs heavily at the broken television, for the forty-first time this morning.",
+  "garrick[worried]: ...Still nothing.",
+  "hale: He's been sitting there since dawn. Staring at it. Like it owes him money.",
+  {
+   "tutorial": "Help with the repairs: the storm debris (midships, by the mainmast) and the fore shrouds (the foremast, forward).",
+   "title": "It's Coming Back"
+  }
+ ],
+ "p7c1.debris": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "A heap of splintered rail, a snarl of line, a lot of seaweed and, inexplicably, a tooth.",
+  "gristle: Lift on three, Captain. Mind the tooth. It's not mine.",
+  {
+   "repair": "clear",
+   "strikes": 3,
+   "title": "CLEAR THE DEBRIS"
+  },
+  {
+   "setFlag": "p7_debris_cleared"
+  },
+  {
+   "event": "p7_repair_done"
+  },
+  "Over the side it goes. Most of it.",
+  "gristle[annoyed]: Two days. Two DAYS I've been clearing this deck, and it still smells like the inside of a boot that's been inside a shark.",
+  "gristle: And the grog. Don't get me started on the grog. Mags's new batch tastes like the old batch with regret in it.",
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p7_debris_cleared"
+     },
+     {
+      "flag": "p7_fore_rigging"
+     }
+    ]
+   },
+   "then": [
+    {
+     "wait": 500
+    },
+    {
+     "bark": "ned",
+     "text": "CAPTAIN! CAPTAIN, COME AND LOOK AT THIS!",
+     "duration": 2200,
+     "shout": true
+    },
+    {
+     "tutorial": "Ned's shouting from the bow. See what he wants.",
+     "title": "It's Coming Back"
+    }
+   ],
+   "else": [
+    {
+     "tutorial": "Another repair needs doing: the storm debris midships, or the foremast rigging forward.",
+     "title": "It's Coming Back"
+    }
+   ]
+  }
+ ],
+ "p7c1.foremast": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "The fore shrouds, half re-rove, slack and fraying where the storm had them.",
+  "finch: Haul when I say, Captain. Haul... now!",
+  {
+   "repair": "rope",
+   "strikes": 3,
+   "title": "RE-REEVE THE SHROUDS"
+  },
+  {
+   "setFlag": "p7_fore_rigging"
+  },
+  {
+   "event": "p7_repair_done"
+  },
+  "finch[happy]: There. Tight as Jim's purse.",
+  "finch: Sails are another matter. Every one of them's stained yellow up to the reefs. We look like a floating custard.",
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p7_debris_cleared"
+     },
+     {
+      "flag": "p7_fore_rigging"
+     }
+    ]
+   },
+   "then": [
+    {
+     "wait": 500
+    },
+    {
+     "bark": "ned",
+     "text": "CAPTAIN! CAPTAIN, COME AND LOOK AT THIS!",
+     "duration": 2200,
+     "shout": true
+    },
+    {
+     "tutorial": "Ned's shouting from the bow. See what he wants.",
+     "title": "It's Coming Back"
+    }
+   ],
+   "else": [
+    {
+     "tutorial": "Another repair needs doing: the storm debris midships, or the foremast rigging forward.",
+     "title": "It's Coming Back"
+    }
+   ]
+  }
+ ],
+ "p7c1.ned": [
+  {
+   "face": "ned",
+   "dir": "player"
+  },
+  "Ned is at the very bow, as far forward as anyone can go, staring out to starboard.",
+  "ned[concerned]: Captain. You know how the storm's been on the horizon? Over there? Not doing anything?",
+  "captain: Aye.",
+  "ned[concerned]: It's... bigger, Captain. Isn't it?",
+  "ned: I keep looking at it and telling myself it's further away. And then I look again.",
+  "captain: ...It's the light.",
+  "ned[concerned]: Aye. Course it is. ...Would you look anyway? Through the glass?",
+  {
+   "setFlag": "p7_ned_called"
+  },
+  {
+   "tutorial": "Look at the horizon through the telescope (starboard, by the forward rail).",
+   "title": "It's Coming Back"
+  }
+ ],
+ "p7c1.telescope": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "You put the telescope to your eye and find the horizon. Grey sea. Grey sea. Grey—",
+  {
+   "vista": "telescope_returning",
+   "mask": "telescope",
+   "fade": 500
+  },
+  {
+   "music": "sharkstorm_returns",
+   "fade": 1200
+  },
+  {
+   "sfx": "storm_distant"
+  },
+  "There.",
+  "The same mustard smudge as two days ago. The same thin dark thread down to the sea.",
+  "Except it isn't a smudge any more. It's a column. It's turning, and you can see it turning.",
+  {
+   "wait": 900
+  },
+  {
+   "vistaMove": "storm",
+   "scale": 1.9,
+   "duration": 2400,
+   "ease": "Sine.InOut"
+  },
+  "And it's bigger every time you blink.",
+  {
+   "wait": 800
+  },
+  {
+   "vistaEnd": true,
+   "fade": 500
+  },
+  {
+   "sharkstorm": "returning"
+  },
+  "You lower the telescope. You don't need it any more.",
+  {
+   "wait": 700
+  },
+  {
+   "sfx": "shark_whoosh"
+  },
+  {
+   "sprite": "high_fin_1",
+   "frame": "flying_small_0",
+   "x": -1,
+   "y": 22
+  },
+  {
+   "moveSprite": "high_fin_1",
+   "x": 22,
+   "y": 18,
+   "duration": 1600,
+   "ease": "Linear"
+  },
+  {
+   "removeSprite": "high_fin_1"
+  },
+  "Something goes over the ship. High. Very high. Fins. In the air. Going the wrong way for fins.",
+  {
+   "setFlag": "p7_fins_seen"
+  },
+  {
+   "sfx": "shark_whoosh",
+   "volume": 0.5
+  },
+  {
+   "sprite": "high_fin_2",
+   "frame": "flying_shark_0",
+   "x": 22,
+   "y": 30,
+   "flip": true
+  },
+  {
+   "moveSprite": "high_fin_2",
+   "x": -2,
+   "y": 24,
+   "duration": 1500,
+   "ease": "Linear"
+  },
+  {
+   "removeSprite": "high_fin_2"
+  },
+  "Then another.",
+  {
+   "wait": 600
+  },
+  {
+   "sfx": "splash"
+  },
+  {
+   "flash": "#d8c860",
+   "duration": 450
+  },
+  {
+   "burst": "splash",
+   "x": 5,
+   "y": 27,
+   "count": 14
+  },
+  "Spray comes over the starboard rail and spatters across the deck. You wipe it off your face. It's warm. It's yellow.",
+  {
+   "setFlag": "p7_spray_seen"
+  },
+  "ned[alarmed]: Captain...",
+  "captain[alarmed]: ...It's coming back.",
+  {
+   "setFlag": "great_sharkstorm_returned"
+  },
+  {
+   "call": "p7c1.realise"
+  }
+ ],
+ "p7c1.realise": [
+  {
+   "fade": "out",
+   "duration": 400
+  },
+  {
+   "place": "player",
+   "x": 10,
+   "y": 15,
+   "facing": "down"
+  },
+  {
+   "place": "pete",
+   "x": 9,
+   "y": 16,
+   "facing": "up"
+  },
+  {
+   "place": "rook",
+   "x": 8,
+   "y": 15,
+   "facing": "right"
+  },
+  {
+   "place": "bob",
+   "x": 7,
+   "y": 15,
+   "facing": "right"
+  },
+  {
+   "place": "mags",
+   "x": 12,
+   "y": 15,
+   "facing": "left"
+  },
+  {
+   "fade": "in",
+   "duration": 400
+  },
+  "By the time you're back aft, the whole crew is at the starboard rail. Nobody is hammering any more.",
+  "pete[alarmed]: Didn't we DESTROY that thing?",
+  "rook[alarmed]: We threw SIXTEEN BARRELS at it!",
+  "bob[concerned]: It fell down. I watched it fall down. It fell down like a curtain.",
+  "From his chair, not getting up, the Grand Stenchmaster raises one gloved finger.",
+  "garrick[businesslike]: Technically, we discouraged it.",
+  "crew: YOU SAID IT WAS GONE!",
+  "garrick[businesslike]: Forecasting language is nuanced.",
+  "pete[annoyed]: NUANCED?",
+  "garrick: 'Driven off.' Off. Not 'destroyed'. Off is a direction. Directions can be reversed.",
+  "rook[annoyed]: Somebody hold my coat.",
+  {
+   "wait": 500
+  },
+  "hale[concerned]: It's the sea, Captain. The sea's still yellow for miles. The air's still... the air. And there's still hundreds of sharks behind us. Every one of them still following the smell.",
+  "hale: We broke it up. We didn't take any of it away. It's had two days to pull itself back together.",
+  "You turn round, slowly, and look at the bulk Frog Grog lashings by the starboard rail.",
+  "Empty. Sixteen ropes, tied round nothing.",
+  "captain[alarmed]: ...Mags. The grog. How much have we got?",
+  "mags[concerned]: In bulk? Nothing, Captain. You know that. It all went into that.",
+  "mags: I've two small casks brewing and they're not ready, and if they were it wouldn't be enough to annoy a rowboat.",
+  "captain[alarmed]: Then we can't do it again.",
+  "mags[concerned]: No, Captain. We can't do it again.",
+  "You stare at the empty lashings. Two days ago you rolled the whole reserve into the sea, cheering. All of it. For this.",
+  {
+   "call": "p7c1.thwack"
+  }
+ ],
+ "p7c1.thwack": [
+  {
+   "wait": 600
+  },
+  {
+   "sfx": "shark_whistle"
+  },
+  "A whistle. Falling.",
+  {
+   "wait": 500
+  },
+  {
+   "sfx": "shark_land"
+  },
+  {
+   "shake": 3,
+   "duration": 400
+  },
+  {
+   "sprite": "thwack_shark",
+   "frame": "shark_deck_0",
+   "x": 8.5,
+   "y": 13.8,
+   "anim": "stage:shark_flop"
+  },
+  {
+   "burst": "splinters",
+   "x": 8,
+   "y": 13,
+   "count": 12
+  },
+  "THWACK.",
+  "A shark. On the deck. Again. Right in front of the cabin door, flopping.",
+  "Nobody moves.",
+  {
+   "wait": 900
+  },
+  {
+   "sfx": "shark_whoosh"
+  },
+  {
+   "sprite": "over_1",
+   "frame": "flying_hammer_0",
+   "x": 21,
+   "y": 9,
+   "flip": true
+  },
+  {
+   "moveSprite": "over_1",
+   "x": -2,
+   "y": 12,
+   "duration": 1100,
+   "ease": "Linear"
+  },
+  {
+   "removeSprite": "over_1"
+  },
+  "Another one sails over the mainmast. Then another, lower.",
+  {
+   "moveSprite": "thwack_shark",
+   "x": 2,
+   "y": 13,
+   "duration": 700,
+   "ease": "Quad.In"
+  },
+  {
+   "removeSprite": "thwack_shark"
+  },
+  {
+   "sfx": "splash"
+  },
+  "The one on the deck flops twice and throws itself back over the rail, as if it, too, would rather be anywhere else.",
+  {
+   "wait": 700
+  },
+  "In his basket by the cabin door, a small bald head comes up out of the blankets, and looks at the sky.",
+  "squawks[horrified]: No.",
+  "captain[tired]: I know.",
+  "squawks[furious]: Sky sharks again.",
+  {
+   "wait": 600
+  },
+  "captain[tired]: ...Aye.",
+  {
+   "setFlag": "p7_first_thwack"
+  },
+  {
+   "wait": 800
+  },
+  {
+   "call": "p7c1.aura"
+  }
+ ],
+ "p7c1.aura": [
+  {
+   "sfx": "wisp_puff"
+  },
+  {
+   "burst": "odor",
+   "x": 14,
+   "y": 17,
+   "count": 1
+  },
+  "From the Grand Stenchmaster's chair, a tiny pale wisp drifts up, curls, and is gone.",
+  "bob[surprised]: ...He's still smoking.",
+  "rook[disgusted]: That is not smoke.",
+  "garrick[proud]: That, gentlemen, is residual Stenchmaster exhaust. Perfectly normal after a historic event. It'll taper off over the next few—",
+  "captain[angry]: No.",
+  "garrick: No?",
+  "captain[angry]: I forbid it. The phrase. Never again. Not on this ship.",
+  "garrick[businesslike]: ...Very well, Captain. Let's call it the Grand Stenchmaster Aura.",
+  "crew: THAT'S WORSE!",
+  {
+   "setFlag": "p7_wisp_seen"
+  },
+  {
+   "setFlag": "garrick_aura_named"
+  },
+  {
+   "completeQuest": "sharkstorm_returns"
+  },
+  {
+   "call": "p7c2.begin"
+  }
+ ]
+}

@@ -1,0 +1,334 @@
+{
+ "//": "Story Phase 7, chapter 38: The Song of the Grand Stenchmaster. An original sea shanty, words and music by Garrick: loud, badly sung, self-aggrandising and annoyingly catchy, about the chair, the onions, the sleeping, the rest, the suit, the medal, refusing other people's duties, and telling someone else to handle the sharks. One verse, the chorus, and half a second verse before the captain stops it, with the crew shouting back (UGLY! IT'S A POT LID! NO! booing). Squawks hides. 'Song over?' 'Aye.' 'Best news tonight.' Then: 'Now I must get back to work.' The work is the television. A second shark finishes the original S.E.S. (wrecked, kept, stripped), and Garrick starts building another, out of the ship: the binnacle's compass ('you've been steering AWAY'), the wire off the cabin-door lantern ('it wasn't doing anything'; it falls), and the lucky horseshoe ('Reception.').",
+ "p7c6.begin": [
+  {
+   "setFlag": "p7_ch38_started"
+  },
+  {
+   "banner": "CHAPTER 38",
+   "sub": "The Song of the Grand Stenchmaster"
+  },
+  {
+   "music": null,
+   "fade": 300
+  },
+  {
+   "fade": "out",
+   "duration": 300
+  },
+  {
+   "place": "player",
+   "x": 10,
+   "y": 17,
+   "facing": "up"
+  },
+  {
+   "place": "garrick",
+   "x": 10,
+   "y": 15,
+   "facing": "down"
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "fade": "in",
+   "duration": 400
+  },
+  "The parade halts in front of the capstan. The Grand Stenchmaster turns to face the crew, takes a deep breath, and puts one gloved hand on his heart.",
+  "garrick[proud]: And now, to lift the spirits of the crew in their hour of need...",
+  "captain[alarmed]: Garrick. No.",
+  "garrick[delighted]: ...a SONG!",
+  {
+   "anim": "garrick",
+   "name": "sing"
+  },
+  {
+   "music": "grand_stenchmaster_song",
+   "fade": 0
+  },
+  {
+   "wait": 1200
+  },
+  "garrick[proud]: ♪ Oh, I warm the chair the captain left! ♪",
+  "garrick[proud]: ♪ I dine on onion, garlic, cheese! ♪",
+  "crew: BANNED!",
+  "garrick[proud]: ♪ I sleep the sleep of the truly blessed... ♪",
+  "garrick[proud]: ♪ ...and I let it go wherever I please! ♪",
+  "Inside your coat, a small bald head disappears from the collar, straight down, like a tortoise into its shell.",
+  "garrick[proud]: ♪ My regal suit of burgundy! ♪",
+  "crew: UGLY!",
+  "garrick[proud]: ♪ My medal shining like the sun! ♪",
+  "jim[angry]: IT'S A POT LID!",
+  "garrick[proud]: ♪ The bravest man upon the sea! ♪",
+  "crew: NO!",
+  "garrick[proud]: ♪ And never wrong! Not even once! ♪",
+  {
+   "sfx": "crowd_boo"
+  },
+  "The whole crew boos. Even Nell, up at the helm. Even, faintly, from somewhere inside your coat.",
+  "garrick[delighted]: ♪ SO IT'S YO-HO! THE STENCHMASTER-O! ♪",
+  "garrick[delighted]: ♪ HE STINKS FOR YOU, AND HE STINKS FOR ME! ♪",
+  "garrick[delighted]: ♪ AND IF IT'S SHARKS, WELL, DON'T ASK ME... ♪",
+  "garrick[delighted]: ♪ ...THAT'S A JOB FOR THE GRAND SHARKMASTER, SEE! ♪",
+  "pete[annoyed]: THERE ISN'T ONE!",
+  {
+   "choice": [
+    {
+     "text": "Stop him NOW.",
+     "then": [
+      "You lunge for him. Your boot finds the one wet plank on the deck, and you go down on one knee, and he takes a breath.",
+      "garrick[proud]: ♪ VERSE THE SECOND! ♪"
+     ]
+    },
+    {
+     "text": "Let him finish the verse. (You'll regret it.)",
+     "then": [
+      "You let him go on. You don't know why. Hope, possibly. That it'll be short.",
+      "garrick[proud]: ♪ VERSE THE SECOND! ♪"
+     ]
+    }
+   ]
+  },
+  "garrick[proud]: ♪ Now some may say I made a storm! ♪",
+  "crew: YOU DID!",
+  "garrick[proud]: ♪ That the sky is full of flying fish! ♪",
+  "bob[disgusted]: SHARKS!",
+  "garrick[proud]: ♪ But a Stenchmaster's duties are clearly drawn, and they're—♪",
+  {
+   "music": null,
+   "fade": 0
+  },
+  {
+   "sfx": "sword_draw"
+  },
+  "captain[angry]: ENOUGH.",
+  {
+   "anim": "garrick",
+   "name": "idle"
+  },
+  "You have him by the sash. The song stops. The band (there isn't one; where has the music been coming from?) stops. The storm, very briefly, sounds almost restful.",
+  {
+   "wait": 1200
+  },
+  "From inside your coat, muffled, a small voice.",
+  "squawks[worried]: ...Song over?",
+  "captain[tired]: Aye.",
+  "Slowly, a bald head comes back up out of the collar.",
+  "squawks[smug]: Best news tonight.",
+  {
+   "setFlag": "grand_stenchmaster_song_performed"
+  },
+  {
+   "setFlag": "stenchmaster_parade_done"
+  },
+  {
+   "completeQuest": "stenchmaster_parade"
+  },
+  {
+   "wait": 700
+  },
+  {
+   "call": "p7c6.work"
+  }
+ ],
+ "p7c6.work": [
+  {
+   "music": "great_sharkstorm",
+   "fade": 800
+  },
+  "The Grand Stenchmaster straightens his torn cape, adjusts his dented medal, and sets his crooked hat a little more crooked.",
+  "garrick[businesslike]: Well. Morale restored. Now I must get back to work.",
+  {
+   "wait": 800
+  },
+  "crew: ...Work?",
+  "He points. At the broken television.",
+  "garrick[proud]: The S.E.S., Captain. I'm going to rebuild it.",
+  "captain[angry]: NO.",
+  "garrick[businesslike]: Hear me out. These are stressful conditions. Sharkstorm conditions. Stress interferes with relaxation, relaxation with sleep, sleep with—",
+  "captain[angry]: I KNOW HOW THE PRODUCTION LINE GOES.",
+  "garrick[proud]: Then you'll agree. Television is more important now than it's ever been. It's practically a medical matter.",
+  {
+   "wait": 800
+  },
+  {
+   "sfx": "shark_whistle"
+  },
+  "A whistle. Falling. Right on top of the station.",
+  {
+   "wait": 400
+  },
+  {
+   "sfx": "ses_shark_crash"
+  },
+  {
+   "shake": 3,
+   "duration": 500
+  },
+  {
+   "burst": "splinters",
+   "x": 14,
+   "y": 17,
+   "count": 20
+  },
+  {
+   "tvSet": "ses",
+   "state": "wrecked"
+  },
+  {
+   "setFlag": "ses_mark1_wrecked"
+  },
+  "CRASH.",
+  "A shark comes down squarely on the original Stenchmaster Entertainment System, and the original Stenchmaster Entertainment System folds up underneath it like a dropped accordion.",
+  "The shark lies on top of the wreckage for a moment, looking as surprised as anyone, then flops off it, across the deck and over the rail.",
+  {
+   "sfx": "splash"
+  },
+  {
+   "wait": 900
+  },
+  "garrick[terrified]: ...",
+  "rook[surprised]: ...Well. A shark did what the Captain couldn't.",
+  "The Grand Stenchmaster kneels beside the wreckage. Picks up a knob. Puts it down again. Lifts a corner of the cabinet. It isn't a television any more. It's parts.",
+  {
+   "wait": 1000
+  },
+  "garrick[businesslike]: ...The tube's all right.",
+  "captain[surprised]: What?",
+  "garrick[delighted]: The TUBE is all right, Captain! The glass is cracked but the tube's fine! And the tubes on top are... well, one of them. And I've still got the old aerial. And the knobs are only a little bit bent.",
+  "garrick[proud]: It's not a television any more. It's PARTS. Parts for the NEXT one.",
+  "He takes an empty sack out of his coat. Nobody knows where it came from. He looks round the deck the way a magpie looks at a jewellery shop.",
+  "hale[alarmed]: ...Captain. He's looking at the SHIP.",
+  {
+   "setFlag": "p7_back_to_work"
+  },
+  {
+   "restage": "walk"
+  },
+  {
+   "startQuest": "back_to_work"
+  },
+  {
+   "tutorial": "Keep an eye on the Grand Stenchmaster. He's taking the ship apart. (He's started at the binnacle, on the quarterdeck.)",
+   "title": "Back to Work"
+  }
+ ],
+ "p7c6.compass": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "The Grand Stenchmaster is crouched at the binnacle with a spoon, prising the compass out of its socket.",
+  "captain[angry]: We need that to STEER!",
+  "garrick[businesslike]: You've been steering AWAY, Captain. All afternoon. You don't need a compass for away. Away's everywhere.",
+  "Up at the wheel, Nell opens her mouth, thinks about it, and closes it again.",
+  "nell: ...He's not wrong, Captain.",
+  "captain[angry]: NELL.",
+  {
+   "sfx": "spoon_tink"
+  },
+  "The compass comes out with a pop. Into the sack it goes. In its place he sticks a little note: BACK SOON. - G.G.",
+  {
+   "setFlag": "p7_salvage_compass"
+  },
+  {
+   "event": "p7_salvage"
+  },
+  "garrick[proud]: Scrap navigation panel. Excellent. A dial is a dial.",
+  {
+   "restage": "walk"
+  },
+  {
+   "tutorial": "He's off again. (The cabin door, now.)",
+   "title": "Back to Work"
+  }
+ ],
+ "p7c6.lantern": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "The Grand Stenchmaster is standing under the storm lantern by the cabin door, with his hand on the wire that runs up to its hook.",
+  "garrick[businesslike]: This wire isn't doing anything.",
+  "captain: It's holding up the LANTERN.",
+  "garrick: It's just sitting there, Captain. Look at it. Idle.",
+  "He pulls it.",
+  {
+   "sfx": "lantern_crash"
+  },
+  {
+   "shake": 1,
+   "duration": 200
+  },
+  {
+   "sprite": "falling_lantern",
+   "frame": "lantern_fall_0",
+   "x": 8.5,
+   "y": 11.5,
+   "anim": "stage:lantern_fall"
+  },
+  {
+   "moveSprite": "falling_lantern",
+   "x": 7.5,
+   "y": 12.6,
+   "duration": 300,
+   "ease": "Quad.In"
+  },
+  {
+   "removeSprite": "falling_lantern"
+  },
+  {
+   "setFlag": "p7_lantern_fell"
+  },
+  "The lantern drops off its hook, hits the deck and rolls, and goes out.",
+  "crew: SEE?",
+  "garrick[proud]: Well, now it's definitely free.",
+  "He winds the wire into a neat coil and puts it in the sack.",
+  {
+   "setFlag": "p7_salvage_lantern"
+  },
+  {
+   "event": "p7_salvage"
+  },
+  {
+   "restage": "walk"
+  },
+  {
+   "tutorial": "He's moved a step along. (Over the cabin door: the horseshoe.)",
+   "title": "Back to Work"
+  }
+ ],
+ "p7c6.horseshoe": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "The Grand Stenchmaster is up on his toes at the cabin door, working the lucky horseshoe off its nails.",
+  "captain[angry]: That horseshoe has been on that door since before I was captain.",
+  "garrick[proud]: And now it'll be on a television.",
+  "captain[angry]: What is the horseshoe FOR, Garrick?",
+  "garrick[businesslike]: Reception.",
+  "captain: Do ye actually KNOW that?",
+  {
+   "wait": 700
+  },
+  "garrick[businesslike]: ...I'll know if it works.",
+  {
+   "sfx": "horseshoe_clank"
+  },
+  "It comes off with a squeal of old nails. Two nails and a clean, horseshoe-shaped patch of door are left behind, open end up, where the luck used to be.",
+  {
+   "setFlag": "p7_salvage_horseshoe"
+  },
+  {
+   "event": "p7_salvage"
+  },
+  {
+   "completeQuest": "back_to_work"
+  },
+  {
+   "call": "p7c7.begin"
+  }
+ ]
+}

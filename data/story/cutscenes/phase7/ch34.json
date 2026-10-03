@@ -1,0 +1,391 @@
+{
+ "//": "Story Phase 7, chapter 34: Which Away? A shorter return to the Sharkstorm survival from Phase 6 (the same deck layer: sharks overhead, telegraphed landings that only ever knock the captain flat). Make the loose rigging fast, reef the mainsail, keep Squawks close (inside the captain's coat), heave a shark over the side, and take the helm. The captain has never steered round a cyclone made of sharks; nobody has. 'AWAY.' 'Which away?' 'That is an excellent question.' Meanwhile the Grand Stenchmaster is furious. Not about the storm: about his television. Franklin has an audit hearing tonight.",
+ "p7c2.begin": [
+  {
+   "setFlag": "p7_ch34_started"
+  },
+  {
+   "banner": "CHAPTER 34",
+   "sub": "Which Away?"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 10
+  },
+  {
+   "sharkstorm": "attacking_ship"
+  },
+  {
+   "music": "great_sharkstorm",
+   "fade": 600
+  },
+  {
+   "ambience": "sharkstorm_attack"
+  },
+  {
+   "sfx": "thunder"
+  },
+  {
+   "shake": 2,
+   "duration": 500
+  },
+  "The light goes out of the day as if somebody had shut a door on it. The column is right on top of the ship now, roaring, and sharks are coming out of it the way water comes out of a bucket.",
+  {
+   "restage": "walk"
+  },
+  "jory[alarmed]: Orders, Captain!",
+  "captain[determined]: Make the rigging fast! Get the main in before it rips! Clear anything that lands! And somebody watch the sky!",
+  "jory[alarmed]: Watch it for WHAT?",
+  "captain[determined]: SHARKS, Jory!",
+  {
+   "startQuest": "which_away"
+  },
+  {
+   "tutorial": "Hold her together: make the loose rigging fast (the port main shrouds; the starboard fore shrouds), reef the mainsail (the foot of the mainmast), and keep Squawks close (his basket). Watch the deck: a red ring and a growing shadow means a shark is coming down there. Step off it.",
+   "title": "Which Away?"
+  }
+ ],
+ "p7c2.after_task": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p7_line_a"
+     },
+     {
+      "flag": "p7_line_b"
+     },
+     {
+      "flag": "p7_sail_reefed"
+     },
+     {
+      "flag": "p7_squawks_coat"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p7c2.deck_shark"
+    }
+   ]
+  }
+ ],
+ "p7c2.line_a": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "The port main shrouds have worked loose and are whipping about like a dropped hose.",
+  {
+   "repair": "brace",
+   "strikes": 3,
+   "title": "MAKE IT FAST"
+  },
+  {
+   "setFlag": "p7_line_a"
+  },
+  {
+   "event": "p7_line_secured"
+  },
+  {
+   "bark": "rook",
+   "text": "Good! That one's holding!",
+   "duration": 1400,
+   "shout": true
+  },
+  {
+   "call": "p7c2.after_task"
+  }
+ ],
+ "p7c2.line_b": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "The starboard fore shrouds, banging against the rail every time the ship rolls.",
+  {
+   "repair": "brace",
+   "strikes": 3,
+   "title": "MAKE IT FAST"
+  },
+  {
+   "setFlag": "p7_line_b"
+  },
+  {
+   "event": "p7_line_secured"
+  },
+  {
+   "bark": "finch",
+   "text": "That'll hold! Probably!",
+   "duration": 1400,
+   "shout": true
+  },
+  {
+   "call": "p7c2.after_task"
+  }
+ ],
+ "p7c2.reef": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "The mainsail is bellied out hard, yellow-stained, and humming. If it isn't reefed it'll tear, and then the mast might go with it.",
+  "hale[alarmed]: Haul it in, Captain! Before it takes us up into that thing like a kite!",
+  {
+   "repair": "reef",
+   "strikes": 3,
+   "title": "REEF THE MAINSAIL"
+  },
+  {
+   "setFlag": "p7_sail_reefed"
+  },
+  {
+   "sfx": "sail_snap"
+  },
+  "Up it comes, reef by reef, until there's nothing left aloft for the wind to get a grip on.",
+  {
+   "bark": "hale",
+   "text": "That's got her!",
+   "duration": 1300,
+   "shout": true
+  },
+  {
+   "call": "p7c2.after_task"
+  }
+ ],
+ "p7c2.squawks": [
+  {
+   "face": "squawks",
+   "dir": "player"
+  },
+  "Squawks is pressed flat in the bottom of his basket, under every blanket he has, glaring at the sky.",
+  "squawks[furious]: Bad sky.",
+  "captain[tender]: Come on. You're coming with me.",
+  "You unbutton your coat, scoop him up, blankets and all, and button him in against your chest, with just his head out at the top.",
+  {
+   "setFlag": "p7_squawks_coat"
+  },
+  "squawks[exhausted]: ...Warm.",
+  "captain: Aye. Stay in there. Whatever happens.",
+  "squawks[insulting]: Smells of beard.",
+  "captain: Everything smells of beard.",
+  {
+   "call": "p7c2.after_task"
+  }
+ ],
+ "p7c2.deck_shark": [
+  {
+   "setFlag": "p7_deck_shark_falling"
+  },
+  {
+   "sfx": "shark_whistle"
+  },
+  {
+   "sprite": "p7_deck_shark_shadow",
+   "frame": "flying_shark_shadow",
+   "x": 12.5,
+   "y": 25.7,
+   "alpha": 0.5
+  },
+  "A whistle, falling. A shadow growing on the planks, forward of the main hatch.",
+  {
+   "removeSprite": "p7_deck_shark_shadow"
+  },
+  {
+   "sfx": "shark_land"
+  },
+  {
+   "shake": 3,
+   "duration": 400
+  },
+  {
+   "setFlag": "p7_deck_shark_landed"
+  },
+  {
+   "burst": "splinters",
+   "x": 12,
+   "y": 25,
+   "count": 12
+  },
+  "THUMP. A big one. It lands across the deck forward of the main hatch and starts thrashing, and the crew scatter.",
+  {
+   "bark": "gristle",
+   "text": "ANOTHER ONE ON DECK!",
+   "duration": 1400,
+   "shout": true
+  },
+  {
+   "tutorial": "Shark on deck! Heave it over the side (forward of the main hatch).",
+   "title": "Which Away?"
+  }
+ ],
+ "p7c2.heave": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "Gristle, Pete and Brask pile in beside you. A whole shark, wet, angry, and smelling faintly of the Grand Stenchmaster.",
+  "pete[alarmed]: This is the SECOND TIME THIS WEEK I've done this!",
+  {
+   "repair": "heave",
+   "strikes": 4,
+   "title": "HEAVE!"
+  },
+  {
+   "sprite": "p7_deck_shark",
+   "frame": "shark_deck_0",
+   "x": 12.5,
+   "y": 26,
+   "anim": "stage:shark_flop"
+  },
+  {
+   "setFlag": "p7_deck_shark_lifted"
+  },
+  {
+   "moveSprite": "p7_deck_shark",
+   "x": 16.5,
+   "y": 25,
+   "duration": 700,
+   "ease": "Quad.In"
+  },
+  {
+   "removeSprite": "p7_deck_shark"
+  },
+  {
+   "sfx": "splash_big"
+  },
+  "crew: HEAVE!",
+  "Over it goes. From inside your coat, a muffled voice says something unrepeatable.",
+  {
+   "setFlag": "p7_deck_shark_heaved"
+  },
+  {
+   "wait": 500
+  },
+  {
+   "sfx": "timber_creak"
+  },
+  "The Revenge heels hard. Up on the quarterdeck, Nell is fighting the wheel.",
+  {
+   "bark": "nell",
+   "text": "CAPTAIN! WHICH WAY?",
+   "duration": 1800,
+   "shout": true
+  },
+  {
+   "tutorial": "Take the helm (the quarterdeck).",
+   "title": "Which Away?"
+  }
+ ],
+ "p7c2.helm": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You take the wheel from Nell. It kicks like a mule. The column is off the starboard bow, filling half the sky, and the sharks are coming out of it in sheets.",
+  "nell[alarmed]: Which way, Captain?",
+  {
+   "wait": 700
+  },
+  "Which way.",
+  "Thirty years at sea. Hurricanes. Waterspouts. Reefs in the dark. A frigate with forty guns. You have never once had to steer round a cyclone made of sharks.",
+  "Nobody has. There isn't a chart for it. There isn't a word for it, except the one Garrick gave it.",
+  {
+   "choice": [
+    {
+     "text": "Grit your teeth. (determined)",
+     "then": [
+      "captain[determined]: Right."
+     ]
+    },
+    {
+     "text": "Be honest. (exhausted)",
+     "then": [
+      "captain[tired]: Nell, I'm going to be honest with ye."
+     ]
+    },
+    {
+     "text": "Shout it. (furious)",
+     "then": [
+      "captain[angry]: Fine. FINE."
+     ]
+    }
+   ]
+  },
+  "captain[determined]: AWAY.",
+  "nell[surprised]: ...Which away?",
+  {
+   "wait": 900
+  },
+  "captain[tired]: That is an excellent question.",
+  {
+   "wait": 500
+  },
+  "You put the helm over anyway, hard, so the column's on the quarter and not the bow. The Revenge comes round, groaning, and runs. Away. In general.",
+  {
+   "sfx": "wheel_turn"
+  },
+  {
+   "setFlag": "p7_helm_away"
+  },
+  "nell: ...It's following us, Captain.",
+  "captain[tired]: I know, Nell.",
+  {
+   "wait": 700
+  },
+  "And then, from the middle of the deck, over the storm, over the sharks, over everything, a voice of pure fury.",
+  {
+   "bark": "garrick",
+   "text": "THIS IS AN OUTRAGE!",
+   "duration": 2000,
+   "shout": true
+  },
+  "nell[surprised]: Is he finally upset about the storm?",
+  {
+   "tutorial": "Find out what the Grand Stenchmaster is shouting about (his chair, by the S.E.S.).",
+   "title": "Which Away?"
+  }
+ ],
+ "p7c2.garrick": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "The Grand Stenchmaster is on his feet beside his chair, red in the face, pointing a shaking glove at the broken S.E.S.",
+  "garrick[annoyed]: Look at it, Captain. LOOK at it.",
+  "captain: The storm?",
+  "garrick[annoyed]: The TELEVISION.",
+  {
+   "wait": 600
+  },
+  "garrick[annoyed]: A shark came through that rail two nights ago and went straight through my set. Nobody has done anything about it. Nobody has even ASKED.",
+  "captain[angry]: We have been rained on by sharks!",
+  "garrick[annoyed]: And I have been rained on by sharks WITHOUT A TELEVISION.",
+  "Pete arrives, soaked, with a line over his shoulder and a bite out of his hat.",
+  "pete[annoyed]: WE ARE BEING RAINED ON BY SHARKS.",
+  "garrick[annoyed]: I KNOW.",
+  "pete[annoyed]: AND YOU'RE WORRIED ABOUT A FROG DOING TAXES?",
+  "garrick[offended]: Franklin has an audit hearing tonight.",
+  "bob[disgusted]: FRANKLIN IS NOT THE PRIORITY.",
+  "garrick[businesslike]: That is an irresponsible attitude toward financial compliance, Bob.",
+  "bob[surprised]: ...",
+  "garrick[worried]: It's the finale of the season, Captain. Seventeen seasons of build-up. If I miss it I'll have to wait for the repeat, and the repeats are out of order.",
+  "rook[surprised]: Repeats?",
+  "garrick: I had the last four episodes saved, of course. Recorded. For emergencies like this one. All gone.",
+  "crew: HOW?",
+  {
+   "wait": 600
+  },
+  "garrick[smug]: Grand Stenchmaster technology.",
+  "Nobody asks a second time.",
+  {
+   "setFlag": "p7_tv_complaint"
+  },
+  {
+   "completeQuest": "which_away"
+  },
+  {
+   "call": "p7c3.begin"
+  }
+ ]
+}

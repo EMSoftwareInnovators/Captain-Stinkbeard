@@ -1,0 +1,565 @@
+{
+ "//": "Story Phase 7, chapter 41: A Pleasant Evening. The Frog Tax Man returns, on a television made from a fruit crate, in the bottom of a contaminated pirate ship, under a storm made of sharks. Everybody hates it. Then Bob laughs. Then Gristle watches (the bookkeeping is a disgrace). Then Pete. The captain refuses, finds two other things to do, and then a shark hits the hull and he sits down ('Do not claim this.'). Frog Grog in the shelter (warm, worse; 'like a fine wine' 'NO'). Squawks watches: the lily pad is forfeit ('Sad frog.' 'Aye.' 'Why taxes?'). Another letter: the whole crew leans forward ('No receipts?' 'He's finished.'); even Squawks ('Open letter.'). Garrick: GRAND STENCHMASTER MORALE. 'Do not.' The commercial break: the biggest landing yet. 'Still Sharkstorm.' Garrick suggests somebody go and deal with it; everybody stares; the labour rule; 'After the episode?' 'No.' 'Two episodes?' 'No.' The sword. 'One episode.' Squawks: 'Frog better Stenchmaster.' The captain laughs, for the first time in days. A toast in small mugs of Frog Grog (to Franklin; to getting through it; to throwing the television overboard one day); everyone gags but Garrick. The final image: the crew in the dark, watching Franklin learn about depreciation, while the Great Sharkstorm goes on overhead. It is, somehow, a pleasant evening. The storm is NOT resolved.",
+ "p7c9.begin": [
+  {
+   "setFlag": "p7_ch41_started"
+  },
+  {
+   "banner": "CHAPTER 41",
+   "sub": "A Pleasant Evening"
+  },
+  {
+   "vista": "shelter_watch",
+   "fade": 500
+  },
+  {
+   "music": "frog_tax_man_theme",
+   "fade": 400
+  },
+  {
+   "ambience": "below_shelter_tv"
+  },
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "season_seventeen_flies",
+   "layer": "screen",
+   "from": 0,
+   "to": 0
+  },
+  "crew: Oh, NO.",
+  "rook[disgusted]: It's the FROG.",
+  "hale[annoyed]: Turn it off. Turn it off, for the love of—",
+  "garrick[annoyed]: SHHH.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "season_seventeen_flies",
+   "layer": "screen",
+   "from": 1,
+   "to": 3
+  },
+  "pete[annoyed]: We're trapped in a hold. In a storm. Made of SHARKS. And we've got to watch THIS?",
+  "garrick[annoyed]: You don't HAVE to watch it, Mister Pete. You may look at the wall. Quietly.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "season_seventeen_flies",
+   "layer": "screen",
+   "from": 4,
+   "to": 5
+  },
+  {
+   "wait": 400
+  },
+  "A small noise, from the back. A snort. A sort of strangled hiccup.",
+  "Everyone turns round. Bob has both hands over his mouth.",
+  "pete[surprised]: ...Did you just LAUGH?",
+  "bob: No.",
+  "pete[surprised]: You did. You laughed. At the FROG.",
+  "bob: 'During business hours,' Pete. He ATE them during BUSINESS HOURS.",
+  "Bob goes very red and looks at the floor.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "season_seventeen_flies",
+   "layer": "screen",
+   "from": 6,
+   "to": 7
+  },
+  "gristle[annoyed]: ...That's a disgraceful way to keep books.",
+  "rook: What?",
+  "gristle[annoyed]: Inventory and consumables in the same column? Twenty-seven thousand units and no receipts? I've seen better ledgers kept by GULLS.",
+  "Gristle shuffles his barrel round to face the set. He is frowning at it with the deep, personal disapproval of a man who has kept a ship's stores for thirty years.",
+  "After a moment, so does Pete.",
+  "pete[annoyed]: ...I'm only watching so I know what not to do.",
+  {
+   "setFlag": "p7_episode_part1"
+  },
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  "captain[annoyed]: I'm not watching it.",
+  "Nobody answers. Nobody is listening.",
+  {
+   "startQuest": "pleasant_evening"
+  },
+  {
+   "tutorial": "Find something else to do. Anything but the television. (The hold has crates to count, a bilge pump, and a crew to talk to.)",
+   "title": "A Pleasant Evening"
+  }
+ ],
+ "p7c9.nw_after": [
+  {
+   "if": {
+    "objectiveDone": "pleasant_evening.elsewhere"
+   },
+   "then": [
+    {
+     "call": "p7c9.boom"
+    }
+   ],
+   "else": [
+    {
+     "tutorial": "Find something else to do. (Something else. Anything.)",
+     "title": "A Pleasant Evening"
+    }
+   ]
+  }
+ ],
+ "p7c9.nw_pump": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You check the bilge pump. It's fine. It's been fine every time you've checked it, which is four times.",
+  "From over by the set, the laugh track roars. Somebody, Rook possibly, laughs along with it and then pretends to cough.",
+  {
+   "setFlag": "p7_not_watching_pump"
+  },
+  {
+   "event": "p7_not_watching"
+  },
+  {
+   "call": "p7c9.nw_after"
+  }
+ ],
+ "p7c9.nw_crates": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You count the crates. Thirty-one. You count them again. Thirty-one.",
+  "Behind you the accountant says 'Schedule POND', and three separate pirates say 'ooh' at the same time.",
+  {
+   "setFlag": "p7_not_watching_crates"
+  },
+  {
+   "event": "p7_not_watching"
+  },
+  {
+   "call": "p7c9.nw_after"
+  }
+ ],
+ "p7c9.nw_crew": [
+  "You try to get a bit of sense out of the crew about the night ahead: the watch, the water, the lanterns.",
+  "Every one of them shushes you without taking their eyes off the screen.",
+  {
+   "setFlag": "p7_not_watching_crew"
+  },
+  {
+   "event": "p7_not_watching"
+  },
+  {
+   "call": "p7c9.nw_after"
+  }
+ ],
+ "p7c9.boom": [
+  {
+   "wait": 600
+  },
+  {
+   "sfx": "hull_thud_big"
+  },
+  {
+   "shake": 5,
+   "duration": 700
+  },
+  {
+   "burst": "falldust",
+   "x": 11,
+   "y": 9,
+   "count": 12
+  },
+  {
+   "burst": "falldust",
+   "x": 6,
+   "y": 9,
+   "count": 8
+  },
+  "Something lands on the deck overhead that is much, much bigger than a shark.",
+  "The whole hold jumps. Dust pours down in sheets. Somebody screams. The lantern swings right round on its hook. Mark II's picture does not even flicker.",
+  {
+   "wait": 900
+  },
+  "Across the hold, there's an empty crate. Next to it, in his basket, under his blankets, a small bald parrot is watching The Frog Tax Man.",
+  "You look at the crate for a long moment.",
+  {
+   "tutorial": "Sit down. (The empty crate, next to Squawks.)",
+   "title": "A Pleasant Evening"
+  }
+ ],
+ "p7c9.sit": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "You sit down on the crate. Next to Squawks. Facing the television. Only because it's the nearest crate.",
+  {
+   "setFlag": "p7_captain_sits"
+  },
+  "Three seats along, in his ceremonial chair, the Grand Stenchmaster turns his head, very slowly, and smiles at you.",
+  "captain[angry]: Do not claim this.",
+  "garrick[smug]: I didn't say a word, Captain.",
+  "captain[angry]: Your FACE said a word.",
+  {
+   "vista": "shelter_watch",
+   "fade": 500
+  },
+  {
+   "music": "frog_tax_man_theme",
+   "fade": 400
+  },
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "season_seventeen_flies",
+   "layer": "screen",
+   "from": 8,
+   "to": 11
+  },
+  "pete: Pass the grog.",
+  "The small mugs go round. Mags's new batch, warm from the hold. Pete drinks.",
+  {
+   "sfx": "gag"
+  },
+  "pete[disgusted]: ...Still awful.",
+  "gristle[disgusted]: It's WORSE warm. I didn't think it could get worse and it's worse warm.",
+  "garrick[proud]: Nonsense. It's opening up. Like a fine wine.",
+  "crew: NO.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "season_seventeen_flies",
+   "layer": "screen",
+   "from": 12,
+   "to": 14
+  },
+  "hale[surprised]: ...Morale. The DRAGONFLY'S morale.",
+  "Several people look at the Grand Stenchmaster. The Grand Stenchmaster looks at the screen.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "season_seventeen_flies",
+   "layer": "screen",
+   "from": 15,
+   "to": 16
+  },
+  {
+   "vistaFrame": "crew",
+   "frame": "crew_backs_lean"
+  },
+  {
+   "sfx": "ftm_drama"
+  },
+  "Dramatic music. The whole crew leans forward.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "season_seventeen_flies",
+   "layer": "screen",
+   "from": 17,
+   "to": 17
+  },
+  "rook[alarmed]: No receipts?",
+  "brask: He's finished.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "season_seventeen_flies",
+   "layer": "screen",
+   "from": 18,
+   "to": 20
+  },
+  {
+   "vistaFrame": "crew",
+   "frame": "crew_backs"
+  },
+  "squawks[worried]: ...Sad frog.",
+  "captain[tender]: Aye.",
+  "squawks[worried]: Why taxes?",
+  {
+   "wait": 600
+  },
+  "You think about it. You think about kings, and harbour fees, and the excise men at Port Royal, and every fat man in a wig who ever tried to take a cut of something you'd stolen fair and square.",
+  {
+   "choice": [
+    {
+     "text": "\"So kings can buy bigger hats.\"",
+     "then": [
+      "captain[tired]: So kings can buy bigger hats.",
+      "squawks: ...Bad hats."
+     ]
+    },
+    {
+     "text": "\"Somebody has to pay for the sea.\"",
+     "then": [
+      "captain[tired]: Somebody has to pay for the sea, apparently.",
+      "squawks[insulting]: Sea free."
+     ]
+    },
+    {
+     "text": "\"That's why we're pirates.\"",
+     "then": [
+      "captain[tired]: That's why we're pirates, Squawks.",
+      "squawks[smug]: Good pirates."
+     ]
+    }
+   ]
+  },
+  "squawks[worried]: ...Poor Franklin.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "season_seventeen_flies",
+   "layer": "screen",
+   "from": 21,
+   "to": 22
+  },
+  {
+   "vistaFrame": "crew",
+   "frame": "crew_backs_lean"
+  },
+  "Another letter. Every pirate in the hold leans in. Somebody is gripping somebody else's arm. Somebody else is biting a sleeve.",
+  "You look along the row of faces in the green light. Gristle. Pete. Hale. Rook. Bob, with his hands over his mouth again. All of them. Every single one.",
+  "Nobody denies it.",
+  "squawks[worried]: ...Open letter.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "season_seventeen_flies",
+   "layer": "screen",
+   "from": 23,
+   "to": 25
+  },
+  "crew: A REFUND!",
+  "Bob punches the air. Pete hugs Rook and then they both pretend that didn't happen.",
+  {
+   "vistaFrame": "crew",
+   "frame": "crew_backs"
+  },
+  "garrick[proud]: Grand Stenchmaster morale, gentlemen. As I said. I've been saying it for weeks.",
+  "captain[angry]: Do NOT.",
+  "garrick[smug]: I'm only observing the—",
+  "captain[angry]: The storm is still out there, Garrick. The ship's still half eaten. The supplies are still ruined. And all of it is still YOUR fault. A frog doesn't change that.",
+  "garrick[businesslike]: ...Noted, Captain.",
+  "He leans back in his ceremonial chair, entirely unrepentant, and folds his hands on his stomach.",
+  {
+   "call": "p7c9.commercial"
+  }
+ ],
+ "p7c9.commercial": [
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "season_seventeen_flies",
+   "layer": "screen",
+   "from": 26,
+   "to": 26
+  },
+  {
+   "wait": 500
+  },
+  {
+   "sfx": "hull_thud_big"
+  },
+  {
+   "shake": 5,
+   "duration": 800
+  },
+  {
+   "vistaFx": "sparkle",
+   "x": 160,
+   "y": 100,
+   "count": 6
+  },
+  "The biggest landing yet. The whole crew jumps. Hale falls off his barrel.",
+  {
+   "wait": 900
+  },
+  "bob[sad]: ...Still Sharkstorm.",
+  "garrick[businesslike]: Somebody should go and deal with that.",
+  {
+   "wait": 1000
+  },
+  "Every head in the hold turns. Slowly. To look at him.",
+  "The Grand Stenchmaster looks back at them. Then at you. And you watch him remember, in real time, that the emergency labour rule is in your coat pocket.",
+  "garrick[nervous]: ...After the episode?",
+  "captain[angry]: No.",
+  "garrick[nervous]: Two episodes?",
+  "captain[angry]: No.",
+  {
+   "sfx": "sword_draw"
+  },
+  "You draw your sword. Not far. Just enough for the green light to run along it.",
+  {
+   "wait": 900
+  },
+  "garrick[nervous]: ...One episode.",
+  {
+   "wait": 600
+  },
+  "captain: One episode.",
+  {
+   "setFlag": "p7_one_episode"
+  },
+  "garrick[businesslike]: Then I shall see about the Great Sharkstorm personally. Ceremonially. With all the resources of the office.",
+  "rook: What resources?",
+  "garrick[proud]: That's for the Grand Sharkmaster to say.",
+  {
+   "wait": 900
+  },
+  "A small voice, from the basket beside you.",
+  "squawks[smug]: Frog better Stenchmaster.",
+  {
+   "wait": 700
+  },
+  {
+   "sfx": "crew_laugh"
+  },
+  "The hold explodes. Rook laughs so hard he has to lie down. Gristle wheezes. Bob is crying. Pete is hitting the floor with his hat.",
+  "And you laugh. A real one, from the belly, the first in days, until your eyes run and the beard shakes.",
+  "garrick[offended]: ...I'm not dignifying that.",
+  {
+   "setFlag": "p7_squawks_verdict"
+  },
+  {
+   "call": "p7c9.toast"
+  }
+ ],
+ "p7c9.toast": [
+  "When everyone can breathe again, Pete hands round the small mugs, and fills them, and stands up.",
+  "pete[happy]: A toast. To Franklin.",
+  "crew: To Franklin!",
+  "hale[happy]: To getting through the Great Sharkstorm.",
+  "crew: To getting through it!",
+  "gristle[smug]: And to throwing that television overboard. One day.",
+  "crew: ONE DAY!",
+  "garrick[offended]: I object to the third one.",
+  "crew: NOTED.",
+  {
+   "sfx": "mug_clink"
+  },
+  "Everybody drinks.",
+  {
+   "wait": 600
+  },
+  {
+   "sfx": "gag"
+  },
+  "Everybody except the Grand Stenchmaster immediately gags.",
+  "garrick[delighted]: ...Notes of oak.",
+  {
+   "setFlag": "p7_toast"
+  },
+  {
+   "setFlag": "crew_watched_frog_tax_man"
+  },
+  {
+   "setFlag": "crew_franklin_fans"
+  },
+  {
+   "call": "p7c9.final"
+  }
+ ],
+ "p7c9.final": [
+  {
+   "music": "pleasant_evening",
+   "fade": 1200
+  },
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "season_seventeen_flies",
+   "layer": "screen",
+   "from": 27,
+   "to": 29
+  },
+  "Outside, the Great Sharkstorm is still raging. Every so often, something lands on the deck overhead, and the dust sifts down through the lantern light, and nobody looks up.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "season_seventeen_flies",
+   "layer": "screen",
+   "from": 30,
+   "to": 31
+  },
+  "The ship groans. The Frog Grog is still terrible. Squawks is still bald. The beard still reeks. The Grand Stenchmaster's suit is still hideous and torn. Mark II still looks like a fruit crate that is about to go off.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "season_seventeen_flies",
+   "layer": "screen",
+   "from": 32,
+   "to": 32
+  },
+  "And the crew are watching. All of them. Together. For the first time in a long while, nobody is shouting.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "season_seventeen_flies",
+   "layer": "screen",
+   "from": 33,
+   "to": 33
+  },
+  "It is, somehow, a pleasant evening.",
+  {
+   "wait": 1600
+  },
+  {
+   "fade": "out",
+   "duration": 2200
+  },
+  {
+   "vistaEnd": true,
+   "fade": 0
+  },
+  {
+   "call": "p7c9.finale"
+  }
+ ],
+ "p7c9.finale": [
+  {
+   "narrate": "So the Great Sharkstorm came back, as storms made of sharks will, and the crew of the Queen Anne's Revenge went below and barred the hatch."
+  },
+  {
+   "narrate": "The original Stenchmaster Entertainment System is a shell on the deck with PARTS chalked on it. The new one is a turnip crate with a horseshoe on top. The Grand Stenchmaster's cape is short a piece, the Grand Sharkmaster is vacant, and a song has been sung that nobody will ever be able to forget, however hard they try."
+  },
+  {
+   "narrate": "Overhead, the storm goes on. Down below, a frog is explaining depreciation."
+  },
+  {
+   "close": true
+  },
+  {
+   "sharkstorm": "active_near_ship"
+  },
+  {
+   "heal": "party"
+  },
+  {
+   "setFlag": "p7_rested"
+  },
+  {
+   "setFlag": "p7_complete"
+  },
+  {
+   "completeQuest": "pleasant_evening"
+  },
+  {
+   "banner": "END OF STORY PHASE 7",
+   "sub": "The Song of the Grand Stenchmaster"
+  },
+  {
+   "place": "player",
+   "x": 12,
+   "y": 13,
+   "facing": "down"
+  },
+  {
+   "call": "p7c9.coda"
+  }
+ ],
+ "p7c9.coda": [
+  {
+   "fade": "in",
+   "duration": 1400
+  },
+  {
+   "wait": 600
+  },
+  "The hold, late. Half the crew asleep where they sit. The other half still watching. The Great Sharkstorm, overhead, not going anywhere.",
+  {
+   "tutorial": "Story Phase 7 is complete. You've rested (everyone's health is restored). The Great Sharkstorm is parked over the ship and the hatches are barred: the crew are sheltering in the hold with the S.E.S. Mark II, which works (channels, and The Frog Tax Man, if you can stand it). The crew have things to say, and several of them are fans now. The story continues in the next chapter.",
+   "title": "To Be Continued"
+  },
+  {
+   "save": "auto"
+  }
+ ]
+}

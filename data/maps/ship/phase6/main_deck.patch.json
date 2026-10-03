@@ -4738,7 +4738,14 @@
    "x": 7,
    "y": 20,
    "if": {
-    "flag": "p6_ses_shark_hit"
+    "all": [
+     {
+      "flag": "p6_ses_shark_hit"
+     },
+     {
+      "notFlag": "p7_debris_cleared"
+     }
+    ]
    },
    "id": "debris_1"
   },

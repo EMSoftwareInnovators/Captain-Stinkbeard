@@ -1,0 +1,2400 @@
+[
+ {
+  "extend": "garrick",
+  "variants": [
+   {
+    "if": {
+     "flag": "garrick_cape_torn"
+    },
+    "appearance": "garrick_stenchmaster_torn",
+    "portrait": "garrick_stenchmaster_torn"
+   }
+  ],
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "which_away.garrick"
+    },
+    "script": "p7c2.garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "not_a_duty.read"
+    },
+    "script": "p7c3.read"
+   },
+   {
+    "if": {
+     "objectiveActive": "job_description.confront"
+    },
+    "script": "p7c4.confront"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "back_to_work.salvage"
+      },
+      {
+       "notFlag": "p7_salvage_compass"
+      }
+     ]
+    },
+    "script": "p7c6.compass"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "back_to_work.salvage"
+      },
+      {
+       "notFlag": "p7_salvage_lantern"
+      }
+     ]
+    },
+    "script": "p7c6.lantern"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "back_to_work.salvage"
+      },
+      {
+       "notFlag": "p7_salvage_horseshoe"
+      }
+     ]
+    },
+    "script": "p7c6.horseshoe"
+   },
+   {
+    "if": {
+     "objectiveActive": "mark_two.switch"
+    },
+    "script": "p7c8.switch"
+   },
+   {
+    "if": {
+     "flag": "p7_complete"
+    },
+    "cycle": [
+     "garrick.p7_u9_1",
+     "garrick.p7_u9_2",
+     "garrick.p7_u9_3",
+     "garrick.p7_u9_4",
+     "garrick.p7_u9_5"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_franklin_found"
+      },
+      {
+       "notFlag": "p7_complete"
+      }
+     ]
+    },
+    "script": "garrick.p7_u8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch39_started"
+      },
+      {
+       "notFlag": "p7_franklin_found"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p7_u7_1",
+     "garrick.p7_u7_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch38_started"
+      },
+      {
+       "notFlag": "p7_ch39_started"
+      }
+     ]
+    },
+    "script": "garrick.p7_u6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch37_started"
+      },
+      {
+       "notFlag": "p7_ch38_started"
+      }
+     ]
+    },
+    "script": "garrick.p7_u5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch36_started"
+      },
+      {
+       "notFlag": "p7_ch37_started"
+      }
+     ]
+    },
+    "script": "garrick.p7_u4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch35_started"
+      },
+      {
+       "notFlag": "p7_ch36_started"
+      }
+     ]
+    },
+    "script": "garrick.p7_u3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "great_sharkstorm_returned"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      }
+     ]
+    },
+    "script": "garrick.p7_u2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_started"
+      },
+      {
+       "notFlag": "great_sharkstorm_returned"
+      }
+     ]
+    },
+    "script": "garrick.p7_u1"
+   }
+  ]
+ },
+ {
+  "extend": "squawks",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "which_away.squawks"
+    },
+    "script": "p7c2.squawks"
+   },
+   {
+    "if": {
+     "flag": "p7_complete"
+    },
+    "cycle": [
+     "squawks.p7_u9_1",
+     "squawks.p7_u9_2",
+     "squawks.p7_u9_3"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_franklin_found"
+      },
+      {
+       "notFlag": "p7_complete"
+      }
+     ]
+    },
+    "script": "squawks.p7_u8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch39_started"
+      },
+      {
+       "notFlag": "p7_franklin_found"
+      }
+     ]
+    },
+    "script": "squawks.p7_u7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "great_sharkstorm_returned"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      }
+     ]
+    },
+    "script": "squawks.p7_u2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_started"
+      },
+      {
+       "notFlag": "great_sharkstorm_returned"
+      }
+     ]
+    },
+    "script": "squawks.p7_u1"
+   }
+  ]
+ },
+ {
+  "extend": "hale",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "job_description.crew"
+      },
+      {
+       "notFlag": "p7_grievance_hale"
+      }
+     ]
+    },
+    "script": "p7c4.hale"
+   },
+   {
+    "if": {
+     "objectiveActive": "pleasant_evening.elsewhere"
+    },
+    "script": "hale.p7_shush"
+   },
+   {
+    "if": {
+     "flag": "p7_complete"
+    },
+    "cycle": [
+     "hale.p7_u9_1",
+     "hale.p7_u9_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_franklin_found"
+      },
+      {
+       "notFlag": "p7_complete"
+      }
+     ]
+    },
+    "script": "hale.p7_u8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch39_started"
+      },
+      {
+       "notFlag": "p7_franklin_found"
+      }
+     ]
+    },
+    "cycle": [
+     "hale.p7_u7_1",
+     "hale.p7_u7_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch38_started"
+      },
+      {
+       "notFlag": "p7_ch39_started"
+      }
+     ]
+    },
+    "script": "hale.p7_u6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch37_started"
+      },
+      {
+       "notFlag": "p7_ch38_started"
+      }
+     ]
+    },
+    "script": "hale.p7_u5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch36_started"
+      },
+      {
+       "notFlag": "p7_ch37_started"
+      }
+     ]
+    },
+    "script": "hale.p7_u4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch35_started"
+      },
+      {
+       "notFlag": "p7_ch36_started"
+      }
+     ]
+    },
+    "script": "hale.p7_u3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "great_sharkstorm_returned"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      }
+     ]
+    },
+    "script": "hale.p7_u2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_started"
+      },
+      {
+       "notFlag": "great_sharkstorm_returned"
+      }
+     ]
+    },
+    "cycle": [
+     "hale.p7_u1_1",
+     "hale.p7_u1_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "wick",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "pleasant_evening.elsewhere"
+    },
+    "script": "wick.p7_shush"
+   },
+   {
+    "if": {
+     "flag": "p7_complete"
+    },
+    "script": "wick.p7_u9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_franklin_found"
+      },
+      {
+       "notFlag": "p7_complete"
+      }
+     ]
+    },
+    "script": "wick.p7_u8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch39_started"
+      },
+      {
+       "notFlag": "p7_franklin_found"
+      }
+     ]
+    },
+    "script": "wick.p7_u7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch38_started"
+      },
+      {
+       "notFlag": "p7_ch39_started"
+      }
+     ]
+    },
+    "script": "wick.p7_u6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch37_started"
+      },
+      {
+       "notFlag": "p7_ch38_started"
+      }
+     ]
+    },
+    "script": "wick.p7_u5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch36_started"
+      },
+      {
+       "notFlag": "p7_ch37_started"
+      }
+     ]
+    },
+    "script": "wick.p7_u4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch35_started"
+      },
+      {
+       "notFlag": "p7_ch36_started"
+      }
+     ]
+    },
+    "script": "wick.p7_u3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "great_sharkstorm_returned"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      }
+     ]
+    },
+    "script": "wick.p7_u2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_started"
+      },
+      {
+       "notFlag": "great_sharkstorm_returned"
+      }
+     ]
+    },
+    "script": "wick.p7_u1"
+   }
+  ]
+ },
+ {
+  "extend": "fennimore",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "pleasant_evening.elsewhere"
+    },
+    "script": "fennimore.p7_shush"
+   },
+   {
+    "if": {
+     "flag": "p7_complete"
+    },
+    "script": "fennimore.p7_u9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_franklin_found"
+      },
+      {
+       "notFlag": "p7_complete"
+      }
+     ]
+    },
+    "script": "fennimore.p7_u8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch39_started"
+      },
+      {
+       "notFlag": "p7_franklin_found"
+      }
+     ]
+    },
+    "script": "fennimore.p7_u7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch38_started"
+      },
+      {
+       "notFlag": "p7_ch39_started"
+      }
+     ]
+    },
+    "script": "fennimore.p7_u6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch37_started"
+      },
+      {
+       "notFlag": "p7_ch38_started"
+      }
+     ]
+    },
+    "script": "fennimore.p7_u5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch36_started"
+      },
+      {
+       "notFlag": "p7_ch37_started"
+      }
+     ]
+    },
+    "script": "fennimore.p7_u4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch35_started"
+      },
+      {
+       "notFlag": "p7_ch36_started"
+      }
+     ]
+    },
+    "script": "fennimore.p7_u3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "great_sharkstorm_returned"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      }
+     ]
+    },
+    "script": "fennimore.p7_u2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_started"
+      },
+      {
+       "notFlag": "great_sharkstorm_returned"
+      }
+     ]
+    },
+    "script": "fennimore.p7_u1"
+   }
+  ]
+ },
+ {
+  "extend": "rook",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "job_description.crew"
+      },
+      {
+       "notFlag": "p7_grievance_rook"
+      }
+     ]
+    },
+    "script": "p7c4.rook"
+   },
+   {
+    "if": {
+     "objectiveActive": "pleasant_evening.elsewhere"
+    },
+    "script": "rook.p7_shush"
+   },
+   {
+    "if": {
+     "flag": "p7_complete"
+    },
+    "cycle": [
+     "rook.p7_u9_1",
+     "rook.p7_u9_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_franklin_found"
+      },
+      {
+       "notFlag": "p7_complete"
+      }
+     ]
+    },
+    "script": "rook.p7_u8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch39_started"
+      },
+      {
+       "notFlag": "p7_franklin_found"
+      }
+     ]
+    },
+    "script": "rook.p7_u7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch38_started"
+      },
+      {
+       "notFlag": "p7_ch39_started"
+      }
+     ]
+    },
+    "script": "rook.p7_u6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch37_started"
+      },
+      {
+       "notFlag": "p7_ch38_started"
+      }
+     ]
+    },
+    "script": "rook.p7_u5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch36_started"
+      },
+      {
+       "notFlag": "p7_ch37_started"
+      }
+     ]
+    },
+    "script": "rook.p7_u4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch35_started"
+      },
+      {
+       "notFlag": "p7_ch36_started"
+      }
+     ]
+    },
+    "script": "rook.p7_u3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "great_sharkstorm_returned"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      }
+     ]
+    },
+    "script": "rook.p7_u2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_started"
+      },
+      {
+       "notFlag": "great_sharkstorm_returned"
+      }
+     ]
+    },
+    "script": "rook.p7_u1"
+   }
+  ]
+ },
+ {
+  "extend": "sully",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "pleasant_evening.elsewhere"
+    },
+    "script": "sully.p7_shush"
+   },
+   {
+    "if": {
+     "flag": "p7_complete"
+    },
+    "script": "sully.p7_u9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_franklin_found"
+      },
+      {
+       "notFlag": "p7_complete"
+      }
+     ]
+    },
+    "script": "sully.p7_u8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch39_started"
+      },
+      {
+       "notFlag": "p7_franklin_found"
+      }
+     ]
+    },
+    "script": "sully.p7_u7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch38_started"
+      },
+      {
+       "notFlag": "p7_ch39_started"
+      }
+     ]
+    },
+    "script": "sully.p7_u6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch37_started"
+      },
+      {
+       "notFlag": "p7_ch38_started"
+      }
+     ]
+    },
+    "script": "sully.p7_u5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch36_started"
+      },
+      {
+       "notFlag": "p7_ch37_started"
+      }
+     ]
+    },
+    "script": "sully.p7_u4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch35_started"
+      },
+      {
+       "notFlag": "p7_ch36_started"
+      }
+     ]
+    },
+    "script": "sully.p7_u3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "great_sharkstorm_returned"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      }
+     ]
+    },
+    "script": "sully.p7_u2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_started"
+      },
+      {
+       "notFlag": "great_sharkstorm_returned"
+      }
+     ]
+    },
+    "script": "sully.p7_u1"
+   }
+  ]
+ },
+ {
+  "extend": "brask",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "pleasant_evening.elsewhere"
+    },
+    "script": "brask.p7_shush"
+   },
+   {
+    "if": {
+     "flag": "p7_complete"
+    },
+    "script": "brask.p7_u9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_franklin_found"
+      },
+      {
+       "notFlag": "p7_complete"
+      }
+     ]
+    },
+    "script": "brask.p7_u8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch39_started"
+      },
+      {
+       "notFlag": "p7_franklin_found"
+      }
+     ]
+    },
+    "script": "brask.p7_u7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch38_started"
+      },
+      {
+       "notFlag": "p7_ch39_started"
+      }
+     ]
+    },
+    "script": "brask.p7_u6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch37_started"
+      },
+      {
+       "notFlag": "p7_ch38_started"
+      }
+     ]
+    },
+    "script": "brask.p7_u5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch36_started"
+      },
+      {
+       "notFlag": "p7_ch37_started"
+      }
+     ]
+    },
+    "script": "brask.p7_u4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch35_started"
+      },
+      {
+       "notFlag": "p7_ch36_started"
+      }
+     ]
+    },
+    "script": "brask.p7_u3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "great_sharkstorm_returned"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      }
+     ]
+    },
+    "script": "brask.p7_u2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_started"
+      },
+      {
+       "notFlag": "great_sharkstorm_returned"
+      }
+     ]
+    },
+    "script": "brask.p7_u1"
+   }
+  ]
+ },
+ {
+  "extend": "gristle",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "job_description.crew"
+      },
+      {
+       "notFlag": "p7_grievance_gristle"
+      }
+     ]
+    },
+    "script": "p7c4.gristle"
+   },
+   {
+    "if": {
+     "objectiveActive": "pleasant_evening.elsewhere"
+    },
+    "script": "gristle.p7_shush"
+   },
+   {
+    "if": {
+     "flag": "p7_complete"
+    },
+    "cycle": [
+     "gristle.p7_u9_1",
+     "gristle.p7_u9_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_franklin_found"
+      },
+      {
+       "notFlag": "p7_complete"
+      }
+     ]
+    },
+    "script": "gristle.p7_u8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch39_started"
+      },
+      {
+       "notFlag": "p7_franklin_found"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p7_u7_1",
+     "gristle.p7_u7_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch38_started"
+      },
+      {
+       "notFlag": "p7_ch39_started"
+      }
+     ]
+    },
+    "script": "gristle.p7_u6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch37_started"
+      },
+      {
+       "notFlag": "p7_ch38_started"
+      }
+     ]
+    },
+    "script": "gristle.p7_u5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch36_started"
+      },
+      {
+       "notFlag": "p7_ch37_started"
+      }
+     ]
+    },
+    "script": "gristle.p7_u4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch35_started"
+      },
+      {
+       "notFlag": "p7_ch36_started"
+      }
+     ]
+    },
+    "script": "gristle.p7_u3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "great_sharkstorm_returned"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      }
+     ]
+    },
+    "script": "gristle.p7_u2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_started"
+      },
+      {
+       "notFlag": "great_sharkstorm_returned"
+      }
+     ]
+    },
+    "script": "gristle.p7_u1"
+   }
+  ]
+ },
+ {
+  "extend": "jory",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "pleasant_evening.elsewhere"
+    },
+    "script": "jory.p7_shush"
+   },
+   {
+    "if": {
+     "flag": "p7_complete"
+    },
+    "script": "jory.p7_u9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_franklin_found"
+      },
+      {
+       "notFlag": "p7_complete"
+      }
+     ]
+    },
+    "script": "jory.p7_u8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch39_started"
+      },
+      {
+       "notFlag": "p7_franklin_found"
+      }
+     ]
+    },
+    "script": "jory.p7_u7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch38_started"
+      },
+      {
+       "notFlag": "p7_ch39_started"
+      }
+     ]
+    },
+    "script": "jory.p7_u6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch37_started"
+      },
+      {
+       "notFlag": "p7_ch38_started"
+      }
+     ]
+    },
+    "script": "jory.p7_u5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch36_started"
+      },
+      {
+       "notFlag": "p7_ch37_started"
+      }
+     ]
+    },
+    "script": "jory.p7_u4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch35_started"
+      },
+      {
+       "notFlag": "p7_ch36_started"
+      }
+     ]
+    },
+    "script": "jory.p7_u3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "great_sharkstorm_returned"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      }
+     ]
+    },
+    "script": "jory.p7_u2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_started"
+      },
+      {
+       "notFlag": "great_sharkstorm_returned"
+      }
+     ]
+    },
+    "script": "jory.p7_u1"
+   }
+  ]
+ },
+ {
+  "extend": "bob",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "job_description.crew"
+      },
+      {
+       "notFlag": "p7_grievance_bob"
+      }
+     ]
+    },
+    "script": "p7c4.bob"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "stenchmaster_parade.bob"
+      },
+      {
+       "notFlag": "p7_helped_bob"
+      }
+     ]
+    },
+    "script": "p7c5.bob"
+   },
+   {
+    "if": {
+     "objectiveActive": "pleasant_evening.elsewhere"
+    },
+    "script": "bob.p7_shush"
+   },
+   {
+    "if": {
+     "flag": "p7_complete"
+    },
+    "cycle": [
+     "bob.p7_u9_1",
+     "bob.p7_u9_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_franklin_found"
+      },
+      {
+       "notFlag": "p7_complete"
+      }
+     ]
+    },
+    "script": "bob.p7_u8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch39_started"
+      },
+      {
+       "notFlag": "p7_franklin_found"
+      }
+     ]
+    },
+    "script": "bob.p7_u7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch38_started"
+      },
+      {
+       "notFlag": "p7_ch39_started"
+      }
+     ]
+    },
+    "script": "bob.p7_u6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch37_started"
+      },
+      {
+       "notFlag": "p7_ch38_started"
+      }
+     ]
+    },
+    "script": "bob.p7_u5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch36_started"
+      },
+      {
+       "notFlag": "p7_ch37_started"
+      }
+     ]
+    },
+    "script": "bob.p7_u4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch35_started"
+      },
+      {
+       "notFlag": "p7_ch36_started"
+      }
+     ]
+    },
+    "script": "bob.p7_u3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "great_sharkstorm_returned"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      }
+     ]
+    },
+    "script": "bob.p7_u2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_started"
+      },
+      {
+       "notFlag": "great_sharkstorm_returned"
+      }
+     ]
+    },
+    "script": "bob.p7_u1"
+   }
+  ]
+ },
+ {
+  "extend": "ned",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "sharkstorm_returns.ned"
+    },
+    "script": "p7c1.ned"
+   },
+   {
+    "if": {
+     "objectiveActive": "pleasant_evening.elsewhere"
+    },
+    "script": "ned.p7_shush"
+   },
+   {
+    "if": {
+     "flag": "p7_complete"
+    },
+    "script": "ned.p7_u9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_franklin_found"
+      },
+      {
+       "notFlag": "p7_complete"
+      }
+     ]
+    },
+    "script": "ned.p7_u8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch39_started"
+      },
+      {
+       "notFlag": "p7_franklin_found"
+      }
+     ]
+    },
+    "script": "ned.p7_u7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch38_started"
+      },
+      {
+       "notFlag": "p7_ch39_started"
+      }
+     ]
+    },
+    "script": "ned.p7_u6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch37_started"
+      },
+      {
+       "notFlag": "p7_ch38_started"
+      }
+     ]
+    },
+    "script": "ned.p7_u5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch36_started"
+      },
+      {
+       "notFlag": "p7_ch37_started"
+      }
+     ]
+    },
+    "script": "ned.p7_u4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch35_started"
+      },
+      {
+       "notFlag": "p7_ch36_started"
+      }
+     ]
+    },
+    "script": "ned.p7_u3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "great_sharkstorm_returned"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      }
+     ]
+    },
+    "script": "ned.p7_u2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_started"
+      },
+      {
+       "notFlag": "great_sharkstorm_returned"
+      }
+     ]
+    },
+    "script": "ned.p7_u1"
+   }
+  ]
+ },
+ {
+  "extend": "nell",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "pleasant_evening.elsewhere"
+    },
+    "script": "nell.p7_shush"
+   },
+   {
+    "if": {
+     "flag": "p7_complete"
+    },
+    "script": "nell.p7_u9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_franklin_found"
+      },
+      {
+       "notFlag": "p7_complete"
+      }
+     ]
+    },
+    "script": "nell.p7_u8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch39_started"
+      },
+      {
+       "notFlag": "p7_franklin_found"
+      }
+     ]
+    },
+    "script": "nell.p7_u7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch38_started"
+      },
+      {
+       "notFlag": "p7_ch39_started"
+      }
+     ]
+    },
+    "script": "nell.p7_u6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch37_started"
+      },
+      {
+       "notFlag": "p7_ch38_started"
+      }
+     ]
+    },
+    "script": "nell.p7_u5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch36_started"
+      },
+      {
+       "notFlag": "p7_ch37_started"
+      }
+     ]
+    },
+    "script": "nell.p7_u4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch35_started"
+      },
+      {
+       "notFlag": "p7_ch36_started"
+      }
+     ]
+    },
+    "script": "nell.p7_u3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "great_sharkstorm_returned"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      }
+     ]
+    },
+    "script": "nell.p7_u2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_started"
+      },
+      {
+       "notFlag": "great_sharkstorm_returned"
+      }
+     ]
+    },
+    "script": "nell.p7_u1"
+   }
+  ]
+ },
+ {
+  "extend": "finch",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "pleasant_evening.elsewhere"
+    },
+    "script": "finch.p7_shush"
+   },
+   {
+    "if": {
+     "flag": "p7_complete"
+    },
+    "script": "finch.p7_u9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_franklin_found"
+      },
+      {
+       "notFlag": "p7_complete"
+      }
+     ]
+    },
+    "script": "finch.p7_u8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch39_started"
+      },
+      {
+       "notFlag": "p7_franklin_found"
+      }
+     ]
+    },
+    "script": "finch.p7_u7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch38_started"
+      },
+      {
+       "notFlag": "p7_ch39_started"
+      }
+     ]
+    },
+    "script": "finch.p7_u6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch37_started"
+      },
+      {
+       "notFlag": "p7_ch38_started"
+      }
+     ]
+    },
+    "script": "finch.p7_u5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch36_started"
+      },
+      {
+       "notFlag": "p7_ch37_started"
+      }
+     ]
+    },
+    "script": "finch.p7_u4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch35_started"
+      },
+      {
+       "notFlag": "p7_ch36_started"
+      }
+     ]
+    },
+    "script": "finch.p7_u3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "great_sharkstorm_returned"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      }
+     ]
+    },
+    "script": "finch.p7_u2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_started"
+      },
+      {
+       "notFlag": "great_sharkstorm_returned"
+      }
+     ]
+    },
+    "script": "finch.p7_u1"
+   }
+  ]
+ },
+ {
+  "extend": "pete",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "job_description.crew"
+      },
+      {
+       "notFlag": "p7_grievance_pete"
+      }
+     ]
+    },
+    "script": "p7c4.pete"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "stenchmaster_parade.pete"
+      },
+      {
+       "notFlag": "p7_helped_pete"
+      }
+     ]
+    },
+    "script": "p7c5.pete"
+   },
+   {
+    "if": {
+     "objectiveActive": "pleasant_evening.elsewhere"
+    },
+    "script": "pete.p7_shush"
+   },
+   {
+    "if": {
+     "flag": "p7_complete"
+    },
+    "cycle": [
+     "pete.p7_u9_1",
+     "pete.p7_u9_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_franklin_found"
+      },
+      {
+       "notFlag": "p7_complete"
+      }
+     ]
+    },
+    "script": "pete.p7_u8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch39_started"
+      },
+      {
+       "notFlag": "p7_franklin_found"
+      }
+     ]
+    },
+    "script": "pete.p7_u7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch38_started"
+      },
+      {
+       "notFlag": "p7_ch39_started"
+      }
+     ]
+    },
+    "script": "pete.p7_u6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch37_started"
+      },
+      {
+       "notFlag": "p7_ch38_started"
+      }
+     ]
+    },
+    "script": "pete.p7_u5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch36_started"
+      },
+      {
+       "notFlag": "p7_ch37_started"
+      }
+     ]
+    },
+    "script": "pete.p7_u4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch35_started"
+      },
+      {
+       "notFlag": "p7_ch36_started"
+      }
+     ]
+    },
+    "script": "pete.p7_u3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "great_sharkstorm_returned"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      }
+     ]
+    },
+    "script": "pete.p7_u2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_started"
+      },
+      {
+       "notFlag": "great_sharkstorm_returned"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p7_u1_1",
+     "pete.p7_u1_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "mags",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "pleasant_evening.elsewhere"
+    },
+    "script": "mags.p7_shush"
+   },
+   {
+    "if": {
+     "flag": "p7_complete"
+    },
+    "script": "mags.p7_u9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_franklin_found"
+      },
+      {
+       "notFlag": "p7_complete"
+      }
+     ]
+    },
+    "script": "mags.p7_u8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch39_started"
+      },
+      {
+       "notFlag": "p7_franklin_found"
+      }
+     ]
+    },
+    "script": "mags.p7_u7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch38_started"
+      },
+      {
+       "notFlag": "p7_ch39_started"
+      }
+     ]
+    },
+    "script": "mags.p7_u6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch37_started"
+      },
+      {
+       "notFlag": "p7_ch38_started"
+      }
+     ]
+    },
+    "script": "mags.p7_u5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch36_started"
+      },
+      {
+       "notFlag": "p7_ch37_started"
+      }
+     ]
+    },
+    "script": "mags.p7_u4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch35_started"
+      },
+      {
+       "notFlag": "p7_ch36_started"
+      }
+     ]
+    },
+    "script": "mags.p7_u3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "great_sharkstorm_returned"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      }
+     ]
+    },
+    "script": "mags.p7_u2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_started"
+      },
+      {
+       "notFlag": "great_sharkstorm_returned"
+      }
+     ]
+    },
+    "script": "mags.p7_u1"
+   }
+  ]
+ },
+ {
+  "extend": "jim",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "stenchmaster_parade.jim"
+      },
+      {
+       "notFlag": "p7_helped_jim"
+      }
+     ]
+    },
+    "script": "p7c5.jim"
+   },
+   {
+    "if": {
+     "objectiveActive": "pleasant_evening.elsewhere"
+    },
+    "script": "jim.p7_shush"
+   },
+   {
+    "if": {
+     "flag": "p7_complete"
+    },
+    "script": "jim.p7_u9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_franklin_found"
+      },
+      {
+       "notFlag": "p7_complete"
+      }
+     ]
+    },
+    "script": "jim.p7_u8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch39_started"
+      },
+      {
+       "notFlag": "p7_franklin_found"
+      }
+     ]
+    },
+    "script": "jim.p7_u7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch38_started"
+      },
+      {
+       "notFlag": "p7_ch39_started"
+      }
+     ]
+    },
+    "script": "jim.p7_u6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch37_started"
+      },
+      {
+       "notFlag": "p7_ch38_started"
+      }
+     ]
+    },
+    "script": "jim.p7_u5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch36_started"
+      },
+      {
+       "notFlag": "p7_ch37_started"
+      }
+     ]
+    },
+    "script": "jim.p7_u4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch35_started"
+      },
+      {
+       "notFlag": "p7_ch36_started"
+      }
+     ]
+    },
+    "script": "jim.p7_u3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "great_sharkstorm_returned"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      }
+     ]
+    },
+    "script": "jim.p7_u2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_started"
+      },
+      {
+       "notFlag": "great_sharkstorm_returned"
+      }
+     ]
+    },
+    "script": "jim.p7_u1"
+   }
+  ]
+ },
+ {
+  "extend": "quill",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "pleasant_evening.elsewhere"
+    },
+    "script": "quill.p7_shush"
+   },
+   {
+    "if": {
+     "flag": "p7_complete"
+    },
+    "script": "quill.p7_u9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_franklin_found"
+      },
+      {
+       "notFlag": "p7_complete"
+      }
+     ]
+    },
+    "script": "quill.p7_u8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch39_started"
+      },
+      {
+       "notFlag": "p7_franklin_found"
+      }
+     ]
+    },
+    "script": "quill.p7_u7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch38_started"
+      },
+      {
+       "notFlag": "p7_ch39_started"
+      }
+     ]
+    },
+    "script": "quill.p7_u6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch37_started"
+      },
+      {
+       "notFlag": "p7_ch38_started"
+      }
+     ]
+    },
+    "script": "quill.p7_u5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch36_started"
+      },
+      {
+       "notFlag": "p7_ch37_started"
+      }
+     ]
+    },
+    "script": "quill.p7_u4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch35_started"
+      },
+      {
+       "notFlag": "p7_ch36_started"
+      }
+     ]
+    },
+    "script": "quill.p7_u3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "great_sharkstorm_returned"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      }
+     ]
+    },
+    "script": "quill.p7_u2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_started"
+      },
+      {
+       "notFlag": "great_sharkstorm_returned"
+      }
+     ]
+    },
+    "script": "quill.p7_u1"
+   }
+  ]
+ },
+ {
+  "extend": "penhallow",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "pleasant_evening.elsewhere"
+    },
+    "script": "penhallow.p7_shush"
+   },
+   {
+    "if": {
+     "flag": "p7_complete"
+    },
+    "script": "penhallow.p7_u9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_franklin_found"
+      },
+      {
+       "notFlag": "p7_complete"
+      }
+     ]
+    },
+    "script": "penhallow.p7_u8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch39_started"
+      },
+      {
+       "notFlag": "p7_franklin_found"
+      }
+     ]
+    },
+    "script": "penhallow.p7_u7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_started"
+      },
+      {
+       "notFlag": "great_sharkstorm_returned"
+      }
+     ]
+    },
+    "script": "penhallow.p7_u1"
+   }
+  ]
+ }
+]

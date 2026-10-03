@@ -1,0 +1,114 @@
+{
+ "id": "galley_phase7",
+ "patch": "galley",
+ "//": "Story Phase 7 in the galley: empty while the crew are on deck; the way down to the shelter in chapter 39, where the main hatch is barred from below (14,3). Nobody goes back up while the Great Sharkstorm sits over the ship.",
+ "objects": [
+  {
+   "id": "p7_hatch_block",
+   "type": "block",
+   "x": 14,
+   "y": 3,
+   "if": {
+    "flag": "p7_hatch_secured"
+   }
+  },
+  {
+   "id": "p7_hatch_barred",
+   "type": "inspect",
+   "x": 14,
+   "y": 3,
+   "if": {
+    "flag": "p7_hatch_secured"
+   },
+   "script": "p7.inspect.hatch_barred"
+  },
+  {
+   "id": "p7g_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7g_mags_0",
+   "type": "npc",
+   "npc": "mags",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7g_quill_0",
+   "type": "npc",
+   "npc": "quill",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7g_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7g_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  }
+ ],
+ "onEnter": [
+  {
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "everyone_below.below"
+     },
+     {
+      "notFlag": "p7_hatch_secured"
+     }
+    ]
+   },
+   "script": "p7c7.hatch"
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "flag": "p7_hatch_secured"
+   },
+   "music": "hunker_down",
+   "musicFilter": "muffled",
+   "ambience": "below_shelter"
+  },
+  {
+   "if": {
+    "flag": "p7_started"
+   },
+   "music": "weary_morning",
+   "musicFilter": "muffled",
+   "ambience": "below_sharks"
+  }
+ ]
+}

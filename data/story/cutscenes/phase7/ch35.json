@@ -1,0 +1,205 @@
+{
+ "//": "Story Phase 7, chapter 35: Not a Stenchmaster Duty. The captain orders the Grand Stenchmaster to help. The crew invoke the emergency labour rule from Phase 5 (it is nailed to the mainmast, and it even says SHARKS). Garrick's loophole: these are not shipboard sharks but meteorological ones, and the rule only covers emergencies within the reasonable operational scope of the Grand Stenchmaster: Meteorological Shark Management is a different department. Then the job description, again, with the obvious answers forbidden (wear the suit, fart, watch television, be lazy); the three primary functions (eating, sleeping, farting); television as a support function (boredom interferes with digestion); 'Ye have invented a government office for being lazy.' 'At last, someone understands.' 'THAT WAS NOT PRAISE.' And the Grand Sharkmaster: the office that ought to handle the consequences of his office. It does not exist. That, says Garrick, is a staffing problem.",
+ "p7c3.begin": [
+  {
+   "setFlag": "p7_ch35_started"
+  },
+  {
+   "banner": "CHAPTER 35",
+   "sub": "Not a Stenchmaster Duty"
+  },
+  "captain[angry]: Garrick. The ship is being attacked. By a storm. That YOU made. I am ordering ye to help.",
+  "garrick[businesslike]: Of course, Captain. I'd love to. Unfortunately, it isn't a Stenchmaster duty.",
+  {
+   "wait": 600
+  },
+  "jory[annoyed]: THE RULE!",
+  "pete[annoyed]: The emergency rule! It's nailed to the MAST!",
+  "rook[annoyed]: 'In any genuine ship emergency!' It's a genuine ship emergency! There's SHARKS in it!",
+  "garrick: I'm familiar with the rule, Mister Rook. I was there when it was nailed. I think you'll find it has a scope.",
+  "captain[angry]: It has NAILS.",
+  "garrick[smug]: Read it to me, Captain. Out loud. Carefully. I think you'll find it supports my position.",
+  {
+   "startQuest": "not_a_duty"
+  },
+  {
+   "tutorial": "Fetch the emergency labour rule (nailed to the mainmast) and read it to him.",
+   "title": "Not a Stenchmaster Duty"
+  }
+ ],
+ "p7c3.rule": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "You wrench the nails out of the mainmast with the back of your cutlass and pull the rule down. Extra nails. You remember putting them in.",
+  {
+   "insert": "emergency_rule",
+   "caption": "Nailed to the mainmast (until now)."
+  },
+  "Under your signature, in green crayon, very small: 'ONE (1).' Underneath that: 'WE ARE COUNTING.' Underneath THAT, in a third hand: 'STILL COUNTING.'",
+  {
+   "setFlag": "p7_rule_fetched"
+  },
+  {
+   "tutorial": "Read it to the Grand Stenchmaster (his chair).",
+   "title": "Not a Stenchmaster Duty"
+  }
+ ],
+ "p7c3.read": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "You hold the rule up in front of his face, so close the paper touches his monocle.",
+  "captain[angry]: 'In any genuine ship emergency. SHARKS. The Center. Fire. Sinking. All of the above. The Grand Stenchmaster will do AT LEAST one useful thing.'",
+  "captain[angry]: SHARKS, Garrick. It says SHARKS.",
+  "garrick[businesslike]: Ship sharks, Captain.",
+  "captain: ...What?",
+  "garrick[businesslike]: Sharks in the water, under the ship, eating the hull. Shipboard sharks. I'd be the first to help with those. These, on the other hand...",
+  {
+   "sfx": "shark_whoosh"
+  },
+  {
+   "sprite": "arg_shark",
+   "frame": "flying_hammer_0",
+   "x": -1,
+   "y": 14
+  },
+  {
+   "moveSprite": "arg_shark",
+   "x": 21,
+   "y": 11,
+   "duration": 1000,
+   "ease": "Linear"
+  },
+  {
+   "removeSprite": "arg_shark"
+  },
+  "garrick[businesslike]: ...are in the SKY. They're weather. This is Meteorological Shark Management. A completely different department.",
+  "crew: IT IS NOT!",
+  "garrick: And there's an implied clause, of course. 'Within the reasonable operational scope of the Grand Stenchmaster.' It doesn't need writing down. Otherwise it would be unreasonable, and you, Captain, are a reasonable man.",
+  "captain[angry]: I am NOT a reasonable man. I am a PIRATE.",
+  "garrick: Besides, I did my one useful thing. In the spring.",
+  "crew: AT LEAST ONE!",
+  "gristle[annoyed]: It says AT LEAST! 'At least' means MORE!",
+  "garrick[offended]: 'At least' is a floor, Mister Gristle. Not a ceiling. I'm standing on the floor.",
+  {
+   "setFlag": "p7_loophole"
+  },
+  {
+   "wait": 800
+  },
+  "hale[annoyed]: Right. RIGHT.",
+  "Hale has fetched the slate from the galley, and a lump of chalk, and is writing on it with his teeth gritted.",
+  "hale[annoyed]: We're doing this properly this time. Once and for all. What does the Grand Stenchmaster ACTUALLY DO?",
+  "hale: And before you start: you are not allowed to say any of these.",
+  {
+   "insert": "job_slate",
+   "caption": "Hale's slate. (The chalk broke twice.)"
+  },
+  {
+   "setFlag": "p7_job_slate"
+  },
+  "garrick[alarmed]: ...That rules out several important departments.",
+  "hale[annoyed]: GOOD.",
+  "garrick[nervous]: Very well. Very well. Let me simplify the office for you. The Grand Stenchmaster has three primary functions.",
+  "garrick[businesslike]: One. EATING. That provides the raw material.",
+  "garrick[businesslike]: Two. SLEEPING. That conserves Grand Stenchmaster energy.",
+  "garrick[proud]: Three. Farting. That produces the official stench.",
+  {
+   "wait": 900
+  },
+  "pete[annoyed]: That's just being ALIVE, badly!",
+  "garrick[offended]: It is NOT. Anyone can be alive. Very few people can be alive at THIS level.",
+  "rook[annoyed]: And the television? Where's that? That's not on your three!",
+  "garrick[businesslike]: The television is a support function.",
+  "rook: A WHAT?",
+  "garrick[businesslike]: Boredom, Mister Rook, interferes with relaxation. Relaxation is necessary for sleeping. Sleeping is necessary for digestion. And digestion is necessary for eventual Grand Stenchmaster output.",
+  "garrick[proud]: So the television, if you follow it all the way down, is part of the production line.",
+  {
+   "wait": 900
+  },
+  "There is a long silence while the crew follow it all the way down.",
+  "bob: ...He's built a whole... system. To prove that watching television helps him fart.",
+  "gristle[disgusted]: He's built a GOVERNMENT.",
+  "captain[angry]: Ye have invented a government office for being lazy.",
+  "garrick[delighted]: At last, someone understands!",
+  "captain[angry]: THAT WAS NOT PRAISE!",
+  {
+   "wait": 700
+  },
+  {
+   "call": "p7c3.sharkmaster"
+  }
+ ],
+ "p7c3.sharkmaster": [
+  "captain[angry]: Listen to me. Every shark on this ship is here because of the smell. The smell is YOURS. The consequences of your stench are YOUR responsibility.",
+  "garrick[businesslike]: I disagree, Captain. Respectfully. And with the support of the organisational chart.",
+  "captain: There isn't an organisational chart.",
+  "garrick: There will be. The Grand Stenchmaster creates and manages the stench. That's my office. The consequences of the stench, the sharks and so forth, are properly the responsibility of a Grand Sharkmaster.",
+  {
+   "wait": 1000
+  },
+  "Everyone stops. Even the storm seems to pause for a moment, as if it would like to hear this too.",
+  "captain[surprised]: ...What?",
+  "garrick[businesslike]: The Grand Stenchmaster manages the stench. The Grand Sharkmaster manages the sharks. It's very simple.",
+  "bob[surprised]: There IS no Grand Sharkmaster!",
+  "garrick[proud]: Exactly. That's a staffing problem.",
+  {
+   "wait": 600
+  },
+  "gristle[annoyed]: YE JUST INVENTED ANOTHER OFFICE!",
+  "garrick[businesslike]: Organisational development.",
+  "pete[annoyed]: So we need another man whose whole job is fixing the disasters caused by YOUR job?",
+  "garrick[smug]: Now ye understand management.",
+  "captain[tired]: I understand nothing.",
+  "bob[concerned]: ...Where do we even hire a Grand Sharkmaster?",
+  "Garrick gestures, vaguely, out over the rail, at the open sea.",
+  "garrick: The pirate employment market?",
+  {
+   "sfx": "shark_whoosh"
+  },
+  {
+   "sprite": "market_shark",
+   "frame": "flying_shark_0",
+   "x": 21,
+   "y": 16,
+   "flip": true
+  },
+  {
+   "moveSprite": "market_shark",
+   "x": -2,
+   "y": 15,
+   "duration": 900,
+   "ease": "Linear"
+  },
+  {
+   "removeSprite": "market_shark"
+  },
+  "A shark goes past at head height, mouth open, very close.",
+  "pete[annoyed]: THE MARKET IS FULL OF SHARKS!",
+  "garrick: Hm.",
+  "The Grand Stenchmaster watches the shark go, and strokes his whiskers thoughtfully.",
+  "garrick[businesslike]: We could hire one of them, I suppose. They know the field.",
+  {
+   "wait": 700
+  },
+  "garrick[worried]: ...No. No. Conflict of interest.",
+  {
+   "wait": 800
+  },
+  "Rook sits down on the deck in the rain and puts his head between his knees. Bob pats him on the back without looking at him.",
+  "hale[resigned]: I'm writing it on the slate. GRAND SHARKMASTER. So it's on record that this happened.",
+  "garrick[proud]: Thank you, Mister Hale. Put 'vacant'. I'll draw up a notice.",
+  {
+   "setFlag": "grand_sharkmaster_invented"
+  },
+  {
+   "completeQuest": "not_a_duty"
+  },
+  {
+   "call": "p7c4.begin"
+  }
+ ]
+}

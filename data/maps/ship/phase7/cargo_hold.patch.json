@@ -1,0 +1,840 @@
+{
+ "id": "cargo_hold_phase7",
+ "patch": "cargo_hold",
+ "//": "Story Phase 7: the shelter. The whole crew in the hold, the strongest part of the ship, while the Great Sharkstorm sits on the deck overhead (landings, scrapes and dust come from the storm itself). The S.E.S. Mark II on a crate at (11,11): half-built, off, snow, then The Frog Tax Man; Garrick's ceremonial chair (he brought it) at (11,13); the empty crate the captain finally sits on at (12,14), beside Squawks (13,14). What everyone brought: Pete's supplies (9,15), Jim's food (12,16), Gristle's charts (7,14), Bob's rope (8,12), the mugs (10,12). The lyric sheet nailed to the pillar (8,10).",
+ "objects": [
+  {
+   "id": "p7_bench",
+   "type": "inspect",
+   "x": 11,
+   "y": 11,
+   "if": {
+    "objectiveActive": "mark_two.build"
+   },
+   "script": "p7c8.step"
+  },
+  {
+   "id": "p7_knobs",
+   "type": "inspect",
+   "x": 11,
+   "y": 11,
+   "if": {
+    "objectiveActive": "mark_two.knobs"
+   },
+   "script": "p7c8.knobs"
+  },
+  {
+   "id": "p7_mk2",
+   "type": "inspect",
+   "x": 11,
+   "y": 11,
+   "if": {
+    "flag": "p7_franklin_found"
+   },
+   "script": "p7.mk2"
+  },
+  {
+   "id": "p7_mk2_look",
+   "type": "inspect",
+   "x": 11,
+   "y": 11,
+   "if": {
+    "all": [
+     {
+      "flag": "p7_sheltered"
+     },
+     {
+      "notFlag": "p7_franklin_found"
+     }
+    ]
+   },
+   "script": "p7.mk2_look"
+  },
+  {
+   "id": "p7_seat_sit",
+   "type": "inspect",
+   "x": 12,
+   "y": 14,
+   "if": {
+    "objectiveActive": "pleasant_evening.sit"
+   },
+   "script": "p7c9.sit"
+  },
+  {
+   "id": "p7_seat",
+   "type": "inspect",
+   "x": 12,
+   "y": 14,
+   "if": {
+    "flag": "p7_sheltered"
+   },
+   "script": "p7.inspect.seat"
+  },
+  {
+   "id": "p7_nw_pump",
+   "type": "inspect",
+   "x": 10,
+   "y": 15,
+   "if": {
+    "objectiveActive": "pleasant_evening.elsewhere"
+   },
+   "script": "p7c9.nw_pump"
+  },
+  {
+   "id": "p7_nw_crates",
+   "type": "inspect",
+   "x": 14,
+   "y": 9,
+   "if": {
+    "objectiveActive": "pleasant_evening.elsewhere"
+   },
+   "script": "p7c9.nw_crates"
+  },
+  {
+   "id": "p7_song_sheet",
+   "type": "inspect",
+   "x": 8,
+   "y": 10,
+   "if": {
+    "flag": "grand_stenchmaster_song_performed"
+   },
+   "script": "p7.inspect.song_sheet"
+  },
+  {
+   "id": "p7h_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 11,
+   "y": 13,
+   "facing": "up",
+   "if": {
+    "flag": "p7_ch41_started"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p7h_garrick_1",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 11,
+   "y": 12,
+   "facing": "up",
+   "if": {
+    "flag": "ses_mark2_built"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p7h_garrick_2",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 11,
+   "y": 12,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p7_wheel_lashed"
+     },
+     {
+      "notFlag": "p7_ch41_started"
+     }
+    ]
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "work"
+   }
+  },
+  {
+   "id": "p7h_garrick_3",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7h_squawks_0",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 13,
+   "y": 14,
+   "facing": "up",
+   "if": {
+    "flag": "p7_sheltered"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p7h_squawks_1",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7h_hale_0",
+   "type": "npc",
+   "npc": "hale",
+   "x": 14,
+   "y": 13,
+   "facing": "up",
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p7h_hale_1",
+   "type": "npc",
+   "npc": "hale",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7h_wick_0",
+   "type": "npc",
+   "npc": "wick",
+   "x": 13,
+   "y": 15,
+   "facing": "up",
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p7h_wick_1",
+   "type": "npc",
+   "npc": "wick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7h_fennimore_0",
+   "type": "npc",
+   "npc": "fennimore",
+   "x": 14,
+   "y": 11,
+   "facing": "left",
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p7h_fennimore_1",
+   "type": "npc",
+   "npc": "fennimore",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7h_rook_0",
+   "type": "npc",
+   "npc": "rook",
+   "x": 15,
+   "y": 14,
+   "facing": "up",
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p7h_rook_1",
+   "type": "npc",
+   "npc": "rook",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7h_sully_0",
+   "type": "npc",
+   "npc": "sully",
+   "x": 7,
+   "y": 15,
+   "facing": "up",
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p7h_sully_1",
+   "type": "npc",
+   "npc": "sully",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7h_brask_0",
+   "type": "npc",
+   "npc": "brask",
+   "x": 16,
+   "y": 13,
+   "facing": "up",
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p7h_brask_1",
+   "type": "npc",
+   "npc": "brask",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7h_gristle_0",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 8,
+   "y": 14,
+   "facing": "up",
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p7h_gristle_1",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7h_jory_0",
+   "type": "npc",
+   "npc": "jory",
+   "x": 16,
+   "y": 11,
+   "facing": "left",
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p7h_jory_1",
+   "type": "npc",
+   "npc": "jory",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7h_bob_0",
+   "type": "npc",
+   "npc": "bob",
+   "x": 9,
+   "y": 13,
+   "facing": "up",
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p7h_bob_1",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7h_ned_0",
+   "type": "npc",
+   "npc": "ned",
+   "x": 4,
+   "y": 13,
+   "facing": "right",
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p7h_ned_1",
+   "type": "npc",
+   "npc": "ned",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7h_nell_0",
+   "type": "npc",
+   "npc": "nell",
+   "x": 16,
+   "y": 15,
+   "facing": "up",
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p7h_nell_1",
+   "type": "npc",
+   "npc": "nell",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7h_finch_0",
+   "type": "npc",
+   "npc": "finch",
+   "x": 4,
+   "y": 9,
+   "facing": "down",
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p7h_finch_1",
+   "type": "npc",
+   "npc": "finch",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7h_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 10,
+   "y": 14,
+   "facing": "up",
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p7h_pete_1",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7h_mags_0",
+   "type": "npc",
+   "npc": "mags",
+   "x": 6,
+   "y": 12,
+   "facing": "right",
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p7h_mags_1",
+   "type": "npc",
+   "npc": "mags",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7h_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 11,
+   "y": 15,
+   "facing": "up",
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p7h_jim_1",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7h_quill_0",
+   "type": "npc",
+   "npc": "quill",
+   "x": 3,
+   "y": 11,
+   "facing": "right",
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p7h_quill_1",
+   "type": "npc",
+   "npc": "quill",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7h_dunstan_0",
+   "type": "npc",
+   "npc": "dunstan",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_wheel_lashed"
+   }
+  },
+  {
+   "id": "p7h_dunstan_1",
+   "type": "npc",
+   "npc": "dunstan",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  },
+  {
+   "id": "p7h_penhallow_0",
+   "type": "npc",
+   "npc": "penhallow",
+   "x": 5,
+   "y": 9,
+   "facing": "down",
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p7h_penhallow_1",
+   "type": "npc",
+   "npc": "penhallow",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p7_started"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "ses2_building",
+   "x": 11,
+   "y": 11,
+   "if": {
+    "all": [
+     {
+      "flag": "p7_sheltered"
+     },
+     {
+      "notFlag": "ses_mark2_built"
+     }
+    ]
+   },
+   "id": "mk2_building"
+  },
+  {
+   "prop": "ses2_off",
+   "x": 11,
+   "y": 11,
+   "if": {
+    "all": [
+     {
+      "flag": "ses_mark2_built"
+     },
+     {
+      "notFlag": "p7_mk2_startup"
+     }
+    ]
+   },
+   "id": "mk2_off"
+  },
+  {
+   "prop": "ses2_static",
+   "x": 11,
+   "y": 11,
+   "if": {
+    "all": [
+     {
+      "flag": "p7_mk2_startup"
+     },
+     {
+      "notFlag": "p7_franklin_found"
+     }
+    ]
+   },
+   "id": "mk2_static"
+  },
+  {
+   "prop": "ses2_ftm",
+   "x": 11,
+   "y": 11,
+   "if": {
+    "flag": "p7_franklin_found"
+   },
+   "id": "mk2_ftm"
+  },
+  {
+   "prop": "stench_chair",
+   "x": 11,
+   "y": 13,
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "id": "hold_chair",
+   "depthOffset": -2
+  },
+  {
+   "prop": "crate",
+   "x": 12,
+   "y": 14,
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "id": "captain_seat"
+  },
+  {
+   "prop": "squawks_basket",
+   "x": 13,
+   "y": 14,
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "id": "hold_basket",
+   "depthOffset": -2
+  },
+  {
+   "prop": "supply_sack",
+   "x": 9,
+   "y": 15,
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "id": "pete_supplies"
+  },
+  {
+   "prop": "food_crate",
+   "x": 12,
+   "y": 16,
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "id": "jim_food"
+  },
+  {
+   "prop": "chart_rolls",
+   "x": 7,
+   "y": 14,
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "id": "gristle_charts"
+  },
+  {
+   "prop": "rope_coil",
+   "x": 8,
+   "y": 12,
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "id": "bob_rope"
+  },
+  {
+   "prop": "grog_mugs",
+   "x": 10,
+   "y": 12,
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "id": "grog_mugs"
+  },
+  {
+   "prop": "notice_nailed",
+   "x": 8,
+   "y": 10,
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "id": "song_sheet",
+   "depthOffset": 8
+  }
+ ],
+ "onEnter": [
+  {
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "everyone_below.below"
+     },
+     {
+      "notFlag": "p7_sheltered"
+     }
+    ]
+   },
+   "script": "p7c7.shelter"
+  }
+ ],
+ "lightingVariants": [
+  {
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "ambient": "#5a5068"
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "flag": "p7_complete"
+   },
+   "music": "pleasant_evening",
+   "ambience": "below_shelter_tv"
+  },
+  {
+   "if": {
+    "flag": "p7_franklin_found"
+   },
+   "music": "frog_tax_man_theme",
+   "musicFilter": "muffled",
+   "ambience": "below_shelter_tv"
+  },
+  {
+   "if": {
+    "flag": "p7_wheel_lashed"
+   },
+   "music": "hunker_down",
+   "ambience": "below_shelter"
+  }
+ ]
+}

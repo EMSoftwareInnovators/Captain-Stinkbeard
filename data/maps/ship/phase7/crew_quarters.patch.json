@@ -1,0 +1,26 @@
+{
+ "id": "crew_quarters_phase7",
+ "patch": "crew_quarters",
+ "//": "Story Phase 7 in the sleeping quarters: still the second cloud's. The ladder to the fore hatch (13,3) is barred from below once the crew shelter in the hold.",
+ "objects": [
+  {
+   "id": "p7_fore_hatch_block",
+   "type": "block",
+   "x": 13,
+   "y": 3,
+   "if": {
+    "flag": "p7_hatch_secured"
+   }
+  },
+  {
+   "id": "p7_fore_hatch_barred",
+   "type": "inspect",
+   "x": 13,
+   "y": 3,
+   "if": {
+    "flag": "p7_hatch_secured"
+   },
+   "script": "p7.inspect.hatch_barred"
+  }
+ ]
+}

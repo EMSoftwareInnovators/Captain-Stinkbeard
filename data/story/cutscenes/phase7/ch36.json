@@ -1,0 +1,343 @@
+{
+ "//": "Story Phase 7, chapter 36: The Job Description. A near-mutiny of pure frustration. The crew gather midships and each of them adds to the list: the title, the suit and the duties he invented; the contamination; the sharks he attracted; the second release; the storm made of those sharks; and now he won't help because a different imaginary department should. Garrick calls it an excellent summary. He defends his responsibilities (eating, sleeping, television, seat warming, Frog Grog evaluation, farting, being lazy, ceremonial appearances, documenting his own disasters) as institutional obligations; the crew point out they're all things he wants to do anyway; 'excellent career alignment'. Then a shark flies across the deck and takes a great piece of his cape. RIIIIP. Now it's personal. Not the ship, not Squawks, not the crew: the CAPE. 'GET THAT SHARK BACK.' 'Then what is the crew for?' The crew go for him, and he runs.",
+ "p7c4.begin": [
+  {
+   "setFlag": "p7_ch36_started"
+  },
+  {
+   "banner": "CHAPTER 36",
+   "sub": "The Job Description"
+  },
+  "Gristle is standing in the middle of the deck with his arms folded, and one by one the crew are going to stand beside him. Nobody is saying anything. That's the worrying part.",
+  "gristle[annoyed]: Captain. A word. Before we have a different kind of word, with him.",
+  "gristle: We've been making a list. Everybody's got a bit of it. You should hear it all, start to finish. Then you take it to him. Because if WE take it to him...",
+  "He doesn't finish. He doesn't need to.",
+  {
+   "startQuest": "job_description"
+  },
+  {
+   "tutorial": "Hear the crew out (they're gathering midships): Gristle, Pete, Bob, Hale and Rook each have their part of the list.",
+   "title": "The Job Description"
+  }
+ ],
+ "p7c4.after_grievance": [
+  {
+   "if": {
+    "objectiveDone": "job_description.crew"
+   },
+   "then": [
+    "Behind you, the crew close up into a line. Rook has a belaying pin. Pete has a bucket. Bob has, for some reason, a ladle.",
+    {
+     "tutorial": "Take the list to the Grand Stenchmaster (his chair). Before they do.",
+     "title": "The Job Description"
+    }
+   ],
+   "else": [
+    {
+     "tutorial": "Hear the rest of the crew out (they're gathering midships).",
+     "title": "The Job Description"
+    }
+   ]
+  }
+ ],
+ "p7c4.gristle": [
+  {
+   "face": "gristle",
+   "dir": "player"
+  },
+  "gristle[annoyed]: I'll start, Captain. From the beginning.",
+  "gristle[annoyed]: He came aboard with a jar of eels and a bag of beans. Then he gave himself a TITLE. Then he made himself a SUIT. Then he wrote himself some DUTIES. None of them are real. He invented all three.",
+  "gristle: That's my bit. Write it down.",
+  {
+   "setFlag": "p7_grievance_gristle"
+  },
+  {
+   "event": "p7_grievance"
+  },
+  {
+   "call": "p7c4.after_grievance"
+  }
+ ],
+ "p7c4.pete": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "pete[annoyed]: The contamination. That's mine.",
+  "pete[annoyed]: The treasure's ruined. The rum's ruined. The sails are custard. The WOOD is yellow, Captain. Your BEARD. All of it him. All of it out of him.",
+  "pete[sad]: ...I used to like the smell of the sea.",
+  {
+   "setFlag": "p7_grievance_pete"
+  },
+  {
+   "event": "p7_grievance"
+  },
+  {
+   "call": "p7c4.after_grievance"
+  }
+ ],
+ "p7c4.bob": [
+  {
+   "face": "bob",
+   "dir": "player"
+  },
+  "bob[disgusted]: The sharks, Captain.",
+  "bob[disgusted]: There weren't any sharks before him. Not like this. Hundreds of them, following us round like gulls round a chip. Because of the smell. Which is HIM.",
+  "bob: And they bite. I've been bitten twice. Once by a shark and once by Pete, but the Pete one was because of a shark.",
+  {
+   "setFlag": "p7_grievance_bob"
+  },
+  {
+   "event": "p7_grievance"
+  },
+  {
+   "call": "p7c4.after_grievance"
+  }
+ ],
+ "p7c4.hale": [
+  {
+   "face": "hale",
+   "dir": "player"
+  },
+  "hale[annoyed]: The second release. I logged it. Every word.",
+  "hale[annoyed]: He ate the rotten garlic after he'd been told. The ship inflated, Captain. INFLATED. Fired a broadside at nothing. And all those sharks, in all that smell, went round and round until...",
+  "He points, without looking, at the sky.",
+  "hale[resigned]: ...That. The storm's made of those sharks. HIS sharks. From HIS release.",
+  {
+   "setFlag": "p7_grievance_hale"
+  },
+  {
+   "event": "p7_grievance"
+  },
+  {
+   "call": "p7c4.after_grievance"
+  }
+ ],
+ "p7c4.rook": [
+  {
+   "face": "rook",
+   "dir": "player"
+  },
+  "rook[annoyed]: And now. NOW. He won't lift a finger, because the sharks belong to a different made-up job.",
+  "rook[annoyed]: He made up the first job so he wouldn't have to work, and now he's made up a SECOND job so he doesn't have to do the first one!",
+  "rook: That's my bit. That's the end of the list. That's the end of MY list, anyway.",
+  {
+   "setFlag": "p7_grievance_rook"
+  },
+  {
+   "event": "p7_grievance"
+  },
+  {
+   "call": "p7c4.after_grievance"
+  }
+ ],
+ "p7c4.confront": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "You stand in front of the Grand Stenchmaster's chair, with the whole crew in a line behind you, and you read him the list. All of it. The title. The suit. The duties. The contamination. The sharks. The release. The storm made of the sharks. And now the second imaginary office.",
+  {
+   "wait": 900
+  },
+  "The Grand Stenchmaster listens to all of it with his fingertips pressed together, nodding.",
+  "garrick[proud]: That's an excellent summary, Captain.",
+  "crew: WHAT?",
+  "garrick[businesslike]: Very thorough. Very well organised. I couldn't have put my career better myself.",
+  "Behind you, Rook makes a noise like a kettle.",
+  "garrick[businesslike]: But you've misunderstood the office. These are serious institutional obligations. Eating. Sleeping. Television watching. Seat warming. Frog Grog evaluation. Farting. Being lazy. Ceremonial appearances.",
+  "garrick[proud]: And documenting my own disasters. Somebody has to keep the Stench Log.",
+  {
+   "wait": 700
+  },
+  "captain[angry]: Every single thing on that list is something ye WANT to do anyway.",
+  "garrick[delighted]: I know! Excellent career alignment!",
+  {
+   "setFlag": "p7_career_alignment"
+  },
+  {
+   "wait": 500
+  },
+  "Rook takes one step forward with the belaying pin. Pete takes two.",
+  {
+   "call": "p7c4.cape"
+  }
+ ],
+ "p7c4.cape": [
+  {
+   "sfx": "shark_whistle"
+  },
+  "A whistle. Low. Coming in across the deck, not down onto it.",
+  {
+   "sprite": "cape_shark",
+   "frame": "flying_shark_0",
+   "x": 19,
+   "y": 17,
+   "flip": true
+  },
+  {
+   "moveSprite": "cape_shark",
+   "x": 14.5,
+   "y": 18.2,
+   "duration": 380,
+   "ease": "Quad.In"
+  },
+  {
+   "sfx": "cape_rip"
+  },
+  {
+   "shake": 2,
+   "duration": 400
+  },
+  {
+   "removeSprite": "cape_shark"
+  },
+  {
+   "sprite": "cape_shark2",
+   "frame": "flying_cape_0",
+   "x": 14,
+   "y": 18,
+   "anim": "stage:cape_shark"
+  },
+  {
+   "setFlag": "garrick_cape_torn"
+  },
+  "RIIIIIIIP.",
+  {
+   "moveSprite": "cape_shark2",
+   "x": -3,
+   "y": 16,
+   "duration": 1200,
+   "ease": "Quad.Out"
+  },
+  {
+   "removeSprite": "cape_shark2"
+  },
+  "A shark comes over the rail sideways, at the height of a man's shoulders, takes a great mouthful of the Grand Stenchmaster's painted cape in passing, and keeps going, out over the starboard rail, with a tassel and most of THE FORECAST ONE and all of THE MEDAL ONE flapping from its jaws.",
+  {
+   "wait": 900
+  },
+  {
+   "anim": "garrick",
+   "name": "panic"
+  },
+  "The Grand Stenchmaster turns round very slowly and looks at the back of himself.",
+  "garrick[terrified]: My... my cape.",
+  "garrick[terrified]: My CEREMONIAL CAPE.",
+  "garrick[annoyed]: ...Right. RIGHT. Now it's PERSONAL.",
+  {
+   "wait": 900
+  },
+  "captain[surprised]: ...THAT's what does it?",
+  "captain[angry]: The ship's half eaten. That wasn't personal. Squawks nearly DIED. Twice. That wasn't personal. The crew have been bitten, gassed, flooded and rained on by fish. Not personal.",
+  "captain[angry]: But the CAPE?",
+  "garrick[annoyed]: CEREMONIAL PROPERTY, Captain.",
+  "There is a sound from the crew like a pot about to boil over.",
+  {
+   "anim": "garrick",
+   "name": "proclaim"
+  },
+  "garrick[annoyed]: Mister Rook! Mister Pete! All of you! GET THAT SHARK BACK!",
+  "captain[angry]: I am NOT sending my crew into the Great Sharkstorm for a piece of FABRIC!",
+  "garrick[surprised]: ...Then what is the crew FOR?",
+  {
+   "wait": 900
+  },
+  {
+   "anim": "garrick",
+   "name": "idle"
+  },
+  "That does it.",
+  {
+   "call": "p7c4.chase"
+  }
+ ],
+ "p7c4.chase": [
+  "crew: GET HIM!",
+  {
+   "sfx": "crew_scramble"
+  },
+  "garrick[terrified]: ...Ah.",
+  {
+   "move": "garrick",
+   "to": [
+    15,
+    19
+   ],
+   "speed": 2.2,
+   "async": true
+  },
+  {
+   "move": "rook",
+   "to": [
+    13,
+    19
+   ],
+   "speed": 1.8,
+   "async": true
+  },
+  {
+   "move": "pete",
+   "to": [
+    13,
+    21
+   ],
+   "speed": 1.8,
+   "async": true
+  },
+  {
+   "wait": 700
+  },
+  "The Grand Stenchmaster runs. For a portly man in a ceremonial suit and brass-plated boots, in a storm, he runs remarkably well.",
+  {
+   "move": "garrick",
+   "to": [
+    15,
+    24
+   ],
+   "speed": 2.2
+  },
+  {
+   "move": "garrick",
+   "to": [
+    11,
+    26
+   ],
+   "speed": 2.2,
+   "async": true
+  },
+  {
+   "move": "rook",
+   "to": [
+    14,
+    23
+   ],
+   "speed": 1.8,
+   "async": true
+  },
+  "Round the station, down the port side, past the main hatch, round the capstan the long way, with half the crew behind him, and a flying shark overhead, and the rain coming sideways.",
+  {
+   "sfx": "shark_whoosh"
+  },
+  {
+   "wait": 900
+  },
+  "captain[tired]: ...Leave him. LEAVE him. We've a storm to get through first.",
+  "The crew stop, slowly, panting. Rook lowers the belaying pin. Bob, sadly, lowers the ladle.",
+  "From somewhere forward of the main hatch, out of breath, the Grand Stenchmaster calls:",
+  "garrick[proud]: ...I FORGIVE YOU ALL.",
+  "crew: WE DON'T WANT IT!",
+  {
+   "setFlag": "p7_cape_chase"
+  },
+  {
+   "restage": "walk"
+  },
+  {
+   "completeQuest": "job_description"
+  },
+  {
+   "call": "p7c5.begin"
+  }
+ ]
+}

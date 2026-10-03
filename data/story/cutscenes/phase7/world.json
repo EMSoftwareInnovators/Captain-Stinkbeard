@@ -1,0 +1,116 @@
+{
+ "//": "Story Phase 7: things to look at and poke. The telescope (the storm, back), the Grand Sharkmaster notice on the foremast, the original S.E.S. stripped for parts, the binnacle's empty socket, the fallen lantern, the barred hatches, the captain's crate in the hold, Garrick's lyric sheet on the pillar, and the S.E.S. Mark II itself. Map objects in data/maps/ship/phase7 point here.",
+ "p7.inspect.telescope": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  {
+   "if": {
+    "flag": "p7_ch34_started"
+   },
+   "then": [
+    "You don't need the telescope any more. The Great Sharkstorm fills the whole starboard sky, and it's throwing sharks."
+   ],
+   "else": [
+    "Through the glass: the column, turning. Bigger than the last time you looked. Closer than the last time you looked. You stop looking."
+   ]
+  }
+ ],
+ "p7.inspect.sharkmaster_notice": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "insert": "sharkmaster_notice_close",
+   "caption": "Nailed to the foremast, in the Grand Stenchmaster's crayon."
+  },
+  "Under the notice, in three different hands, the crew have added: APPLY WITHIN (THE SHARK). CONFLICT OF INTEREST. And a drawing of a shark in a tiny hat.",
+  {
+   "if": {
+    "flag": "p7_complete"
+   },
+   "then": [
+    "Somebody has also drawn a small green frog in the corner, wearing glasses and a tie. It has been given a gold star."
+   ]
+  }
+ ],
+ "p7.inspect.mk1": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "The original Stenchmaster Entertainment System. No glass, no tubes, no knobs, no aerial. The cabinet split down one side. Somebody has chalked PARTS on it.",
+  "A shark accomplished what you could not.",
+  "Then Garrick accomplished the rest."
+ ],
+ "p7.inspect.compass_gone": [
+  "The binnacle, with an empty socket where the compass was. Stuck into it, a note in green crayon: BACK SOON. - G.G.",
+  "Nell has drawn an arrow on the binnacle in chalk, pointing away from the storm. It says AWAY."
+ ],
+ "p7.inspect.lantern": [
+  "The storm lantern from beside the cabin door, on its side on the deck where it fell, cold. The wire that held it up is in a television now. It wasn't doing anything."
+ ],
+ "p7.inspect.hatch_barred": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The hatch is barred from below. Above it, something heavy lands, thrashes for a while, and slides away.",
+  "Not tonight."
+ ],
+ "p7.inspect.seat": [
+  {
+   "if": {
+    "flag": "p7_captain_sits"
+   },
+   "then": [
+    "Your crate. Squawks has put one of his blankets on it. For you, or for him, it isn't clear. You suspect him."
+   ],
+   "else": [
+    "An empty crate, next to Squawks's basket, facing the television. Nobody's sitting on it. It's very clearly the captain's."
+   ]
+  }
+ ],
+ "p7.inspect.song_sheet": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "insert": "song_sheet",
+   "caption": "Nailed to the pillar in the hold. Words and music by the Grand Stenchmaster."
+  },
+  {
+   "setFlag": "p7_song_sheet_seen"
+  },
+  "Someone has written the crew's parts in, in pencil, very neatly, so nobody will forget them. You suspect Quill.",
+  {
+   "if": {
+    "flag": "garrick_aura_named"
+   },
+   "then": [
+    "At the bottom, in green crayon: 'VERSE 3: THE AURA.' Somebody has crossed it out so hard the pencil went through the paper."
+   ]
+  }
+ ],
+ "p7.mk2_look": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  {
+   "tv": "ses_mk2"
+  }
+ ],
+ "p7.mk2": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  {
+   "tv": "ses_mk2"
+  }
+ ]
+}

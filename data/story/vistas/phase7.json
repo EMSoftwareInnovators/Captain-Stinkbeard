@@ -1,0 +1,175 @@
+{
+ "//": "Story Phase 7 vistas: the Great Sharkstorm coming back, through the telescope; the S.E.S. Mark II up close on its crate in the hold (building it, the zap, the startup); and the shelter, the crew from behind on their crates watching The Frog Tax Man on Mark II while the storm goes on overhead (the final image).",
+ "telescope_returning": {
+  "sky": "dusk",
+  "sea": "storm",
+  "horizon": 132,
+  "mask": "telescope",
+  "layers": [
+   {
+    "id": "storm",
+    "frame": "storm_returning_0",
+    "x": 160,
+    "y": 140,
+    "depth": 10,
+    "frames": [
+     "storm_returning_0",
+     "storm_returning_1"
+    ],
+    "frameMs": 420,
+    "scale": 1.2
+   }
+  ]
+ },
+ "mk2_close": {
+  "sky": "night",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "bg",
+    "frame": "hold_shelter",
+    "x": 160,
+    "y": 224,
+    "depth": 2
+   },
+   {
+    "id": "screen",
+    "frame": "tv_off",
+    "x": 160,
+    "y": 172,
+    "depth": 10
+   },
+   {
+    "id": "snow",
+    "frame": "tv_static_0",
+    "x": 160,
+    "y": 172,
+    "depth": 11,
+    "frames": [
+     "tv_static_0",
+     "tv_static_1",
+     "tv_static_2",
+     "tv_static_3"
+    ],
+    "frameMs": 70,
+    "hidden": true
+   },
+   {
+    "id": "scan",
+    "frame": "tv_scan",
+    "x": 160,
+    "y": 172,
+    "depth": 12,
+    "alpha": 0.5
+   },
+   {
+    "id": "glare",
+    "frame": "tv_glare",
+    "x": 160,
+    "y": 172,
+    "depth": 13
+   },
+   {
+    "id": "set",
+    "frame": "mk2_build_0",
+    "x": 160,
+    "y": 216,
+    "depth": 14
+   },
+   {
+    "id": "zap",
+    "frame": "zap_0",
+    "x": 172,
+    "y": 112,
+    "depth": 16,
+    "frames": [
+     "zap_0",
+     "zap_1"
+    ],
+    "frameMs": 70,
+    "hidden": true
+   },
+   {
+    "id": "zapped",
+    "frame": "garrick_zapped_0",
+    "x": 52,
+    "y": 216,
+    "depth": 17,
+    "frames": [
+     "garrick_zapped_0",
+     "garrick_zapped_1"
+    ],
+    "frameMs": 120,
+    "hidden": true
+   }
+  ]
+ },
+ "shelter_watch": {
+  "sky": "night",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "bg",
+    "frame": "hold_shelter",
+    "x": 160,
+    "y": 224,
+    "depth": 2
+   },
+   {
+    "id": "screen",
+    "frame": "ftm_season_0",
+    "x": 160,
+    "y": 136,
+    "depth": 10,
+    "scale": 0.55,
+    "frames": [
+     "ftm_season_0",
+     "ftm_season_1"
+    ],
+    "frameMs": 420
+   },
+   {
+    "id": "scan",
+    "frame": "tv_scan",
+    "x": 160,
+    "y": 136,
+    "depth": 11,
+    "alpha": 0.5,
+    "scale": 0.55
+   },
+   {
+    "id": "glare",
+    "frame": "tv_glare",
+    "x": 160,
+    "y": 136,
+    "depth": 12,
+    "scale": 0.55
+   },
+   {
+    "id": "set",
+    "frame": "mk2_bezel",
+    "x": 160,
+    "y": 160,
+    "depth": 13,
+    "scale": 0.55
+   },
+   {
+    "id": "garrick",
+    "frame": "garrick_back_suit",
+    "x": 163,
+    "y": 232,
+    "depth": 18,
+    "scale": 0.8
+   },
+   {
+    "id": "crew",
+    "frame": "crew_backs",
+    "x": 160,
+    "y": 240,
+    "depth": 20
+   }
+  ]
+ }
+}

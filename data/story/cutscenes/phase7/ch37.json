@@ -1,0 +1,229 @@
+{
+ "//": "Story Phase 7, chapter 37: The Grand Stenchmaster's Brilliant Contribution. He has an idea for morale. The crew are briefly hopeful. It's a parade: one man, in ceremonial uniform, marching round the deck in a storm of sharks, saluting, so that everyone else feels inspired. The captain orders him not to. He can't hear over the storm. The work goes on round him: Pete holding back a shark ('I'm assisting emotionally.' 'THEN EMOTIONALLY PULL!'), Bob tying off a line (knots wrinkle the cuffs, which are already soaked in Frog Grog), Salty Jim's crate (it's food; Garrick is interested; 'No.'). The flying sharks keep coming; the captain does the work.",
+ "p7c5.begin": [
+  {
+   "setFlag": "p7_ch37_started"
+  },
+  {
+   "banner": "CHAPTER 37",
+   "sub": "The Grand Stenchmaster's Brilliant Contribution"
+  },
+  "Ten minutes later, the Grand Stenchmaster reappears from behind the main hatch, slightly out of breath, with his torn cape held together behind him in one hand and the other raised for attention.",
+  "garrick[proud]: Crew of the Revenge! I have been thinking. About morale.",
+  "To your enormous surprise, several of the crew turn round. Hopeful. Just for a moment.",
+  "bob[surprised]: ...You're going to help?",
+  "garrick[delighted]: Better. I am going to INSPIRE.",
+  "The hope leaves Bob's face like water out of a sieve.",
+  "garrick[proud]: A Grand Stenchmaster Ceremonial Parade! While you all fight the storm, I shall march about the deck, in full ceremonial uniform, so that whenever anyone looks up, they see their Grand Stenchmaster, upright, unafraid, and in step.",
+  "garrick[proud]: Morale will be through the roof.",
+  "pete[annoyed]: The roof is FULL OF SHARKS.",
+  "captain[angry]: Garrick. I am ordering ye: do NOT do that.",
+  "The Grand Stenchmaster cups a gloved hand to his ear.",
+  "garrick[smug]: What's that, Captain? I can't hear ye over the storm!",
+  "captain[angry]: I'M RIGHT HERE.",
+  "garrick[proud]: Can't hear a WORD!",
+  {
+   "music": "stenchmaster_parade",
+   "fade": 300
+  },
+  {
+   "anim": "garrick",
+   "name": "march"
+  },
+  "He turns smartly on his heel, salutes nobody in particular, and marches off down the deck. Left, right. Left, right. The rain bounces off his hat.",
+  {
+   "setFlag": "p7_parade_started"
+  },
+  {
+   "restage": "walk"
+  },
+  {
+   "startQuest": "stenchmaster_parade"
+  },
+  {
+   "tutorial": "The work still needs doing. Help Pete with the shark (forward of the main hatch), Bob with his line (the port rail), and Salty Jim with his crate (by the empty grog lashings).",
+   "title": "The Grand Stenchmaster's Parade"
+  }
+ ],
+ "p7c5.pete": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "Pete has a shark half over the side, by the tail, and the shark has other ideas.",
+  "pete[alarmed]: HELP ME!",
+  "From across the deck, marching past, the Grand Stenchmaster salutes him.",
+  "garrick[proud]: Excellent effort, Mister Pete!",
+  "pete[annoyed]: GRAB THE OTHER END!",
+  "garrick[businesslike]: I'm assisting emotionally.",
+  "pete[annoyed]: THEN EMOTIONALLY PULL!",
+  {
+   "repair": "heave",
+   "strikes": 3,
+   "title": "HEAVE!"
+  },
+  {
+   "setFlag": "p7_helped_pete"
+  },
+  {
+   "sfx": "splash_big"
+  },
+  "You and Pete get a shoulder under it and heave, and over it goes.",
+  "pete[tired]: ...Thanks, Captain. One of us is doing this properly.",
+  "garrick[proud]: Splendid teamwork! I'll mention it in the log!",
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p7_helped_pete"
+     },
+     {
+      "flag": "p7_helped_bob"
+     },
+     {
+      "flag": "p7_helped_jim"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p7c6.begin"
+    }
+   ],
+   "else": [
+    {
+     "bark": "garrick",
+     "text": "MARVELLOUS WORK, EVERYONE!",
+     "duration": 1600,
+     "shout": true
+    },
+    {
+     "tutorial": "More hands needed: Pete's shark (forward of the main hatch), Bob's line (the port rail), Jim's crate (by the empty grog lashings).",
+     "title": "The Grand Stenchmaster's Parade"
+    }
+   ]
+  }
+ ],
+ "p7c5.bob": [
+  {
+   "face": "bob",
+   "dir": "player"
+  },
+  "Bob is at the port rail with a line that's trying to get away from him like a live eel.",
+  "bob[alarmed]: Captain! Help me tie this off!",
+  "As the parade comes past, Bob holds out the end of the line, hopefully.",
+  "bob: Garrick! Hold this! Just for a second!",
+  "garrick[businesslike]: I'm afraid I can't, Bob. Knots wrinkle the cuffs.",
+  "bob[disgusted]: Your cuffs are SOAKED in Frog Grog!",
+  "The Grand Stenchmaster glances down at his cuffs, which are, in fact, green to the elbow and dripping.",
+  "garrick[proud]: Ceremonially soaked, Bob. That's different.",
+  {
+   "repair": "knot",
+   "strikes": 3,
+   "title": "TIE IT OFF"
+  },
+  {
+   "setFlag": "p7_helped_bob"
+  },
+  "bob[happy]: That's got it. Good knot, Captain.",
+  "bob: ...Wrinkle the cuffs. I'll wrinkle HIS cuffs.",
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p7_helped_pete"
+     },
+     {
+      "flag": "p7_helped_bob"
+     },
+     {
+      "flag": "p7_helped_jim"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p7c6.begin"
+    }
+   ],
+   "else": [
+    {
+     "bark": "garrick",
+     "text": "MARVELLOUS WORK, EVERYONE!",
+     "duration": 1600,
+     "shout": true
+    },
+    {
+     "tutorial": "More hands needed: Pete's shark (forward of the main hatch), Bob's line (the port rail), Jim's crate (by the empty grog lashings).",
+     "title": "The Grand Stenchmaster's Parade"
+    }
+   ]
+  }
+ ],
+ "p7c5.jim": [
+  {
+   "face": "jim",
+   "dir": "player"
+  },
+  "Salty Jim is trying to drag a heavy crate towards the main hatch, against the slope of the deck.",
+  "jim[annoyed]: Captain. Give us a hand with this, she's heavy and the deck's going uphill.",
+  "jim: Oi! Grand Stenchmaster! Lend a hand!",
+  "garrick[proud]: I'm on parade, Jim.",
+  "jim: It's food.",
+  {
+   "wait": 500
+  },
+  "The parade stops dead. The Grand Stenchmaster's head turns, slowly, like an owl's.",
+  "garrick[greedy]: ...What kind of food?",
+  "jim[angry]: No.",
+  {
+   "wait": 600
+  },
+  "The Grand Stenchmaster considers this for a moment, then turns back, salutes the mainmast, and resumes the parade with tremendous dignity.",
+  {
+   "repair": "carry",
+   "strikes": 3,
+   "title": "LIFT!"
+  },
+  {
+   "setFlag": "p7_helped_jim"
+  },
+  "You get it to the hatch between you.",
+  "jim: Ship's biscuit, smoked ham, the last of the good onions.",
+  "From the far side of the deck, without breaking step:",
+  "garrick[delighted]: ONIONS?",
+  "captain[angry]: BANNED!",
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p7_helped_pete"
+     },
+     {
+      "flag": "p7_helped_bob"
+     },
+     {
+      "flag": "p7_helped_jim"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p7c6.begin"
+    }
+   ],
+   "else": [
+    {
+     "bark": "garrick",
+     "text": "MARVELLOUS WORK, EVERYONE!",
+     "duration": 1600,
+     "shout": true
+    },
+    {
+     "tutorial": "More hands needed: Pete's shark (forward of the main hatch), Bob's line (the port rail), Jim's crate (by the empty grog lashings).",
+     "title": "The Grand Stenchmaster's Parade"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,26 @@
+{
+ "id": "captains_quarters_phase7",
+ "patch": "captains_quarters",
+ "//": "Story Phase 7: the bed that starts it (after Phase 6).",
+ "objects": [
+  {
+   "id": "p7_bed",
+   "type": "inspect",
+   "x": 14,
+   "y": 4,
+   "w": 2,
+   "h": 3,
+   "script": "p7.bed_sleep",
+   "if": {
+    "all": [
+     {
+      "flag": "p6_complete"
+     },
+     {
+      "notFlag": "p7_started"
+     }
+    ]
+   }
+  }
+ ]
+}

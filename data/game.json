@@ -296,6 +296,76 @@
       "if": {
         "flag": "p6_complete"
       }
+    },
+    {
+      "id": "p7c1",
+      "name": "Chapter 33: It's Coming Back",
+      "if": {
+        "flag": "p7_started"
+      }
+    },
+    {
+      "id": "p7c2",
+      "name": "Chapter 34: Which Away?",
+      "if": {
+        "flag": "p7_ch34_started"
+      }
+    },
+    {
+      "id": "p7c3",
+      "name": "Chapter 35: Not a Stenchmaster Duty",
+      "if": {
+        "flag": "p7_ch35_started"
+      }
+    },
+    {
+      "id": "p7c4",
+      "name": "Chapter 36: The Job Description",
+      "if": {
+        "flag": "p7_ch36_started"
+      }
+    },
+    {
+      "id": "p7c5",
+      "name": "Chapter 37: The Grand Stenchmaster's Parade",
+      "if": {
+        "flag": "p7_ch37_started"
+      }
+    },
+    {
+      "id": "p7c6",
+      "name": "Chapter 38: The Song of the Grand Stenchmaster",
+      "if": {
+        "flag": "p7_ch38_started"
+      }
+    },
+    {
+      "id": "p7c7",
+      "name": "Chapter 39: Everyone Below",
+      "if": {
+        "flag": "p7_ch39_started"
+      }
+    },
+    {
+      "id": "p7c8",
+      "name": "Chapter 40: The Stenchmaster Entertainment System Mark II",
+      "if": {
+        "flag": "p7_ch40_started"
+      }
+    },
+    {
+      "id": "p7c9",
+      "name": "Chapter 41: A Pleasant Evening",
+      "if": {
+        "flag": "p7_ch41_started"
+      }
+    },
+    {
+      "id": "phase7_end",
+      "name": "The Song of the Grand Stenchmaster (complete)",
+      "if": {
+        "flag": "p7_complete"
+      }
     }
   ],
   "timeOfDay": [
@@ -474,6 +544,39 @@
         "var": {
           "name": "p4_tod",
           "eq": 8
+        }
+      }
+    },
+    {
+      "id": "p7_overcast",
+      "grade": "#d8dce4",
+      "interior": 0.32,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 9
+        }
+      }
+    },
+    {
+      "id": "p7_storm",
+      "grade": "#7e8670",
+      "interior": 0.6,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 10
+        }
+      }
+    },
+    {
+      "id": "p7_night_below",
+      "grade": "#8a8cb8",
+      "interior": 0.5,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 11
         }
       }
     }

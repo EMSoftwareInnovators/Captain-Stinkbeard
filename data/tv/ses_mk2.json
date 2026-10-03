@@ -1,0 +1,232 @@
+{
+ "//": "Story Phase 7: the Stenchmaster Entertainment System Mark II, built below decks during the returning Great Sharkstorm out of a turnip crate, the original's salvaged picture tube and whatever Garrick could prise off the ship. Its own art (bezel, back, power source), its own condition (under_construction until the startup), its own power and channel. It inherits the original's terrible knob panel. Like the original it is impossible: the back and the power source are crayon, string, a horseshoe and a lantern's glow. Nobody ever opens it, and nothing about it is a real procedure.",
+ "ses_mk2": {
+  "name": "The Stenchmaster Entertainment System Mark II",
+  "bezel": "mk2_bezel",
+  "back": "mk2_back",
+  "powerFrame": "mk2_power",
+  "channelVar": "ses_mk2_channel",
+  "powerVar": "ses_mk2_power",
+  "stateValue": "ses_mk2_state",
+  "flags": { "open": "ses_mk2_examined", "wiring": "ses_mk2_back_seen", "power": "ses_mk2_power_seen", "slap": "ses_mk2_slapped" },
+  "offComments": [
+   [
+    "captain: It's off. The tubes are still faintly warm. It's a fruit crate, and it's warm.",
+    "garrick: It's resting between episodes, Captain."
+   ],
+   ["captain: Dark glass in a turnip crate. A horseshoe on top. The knob on the string swings when the ship rolls."],
+   ["captain: FINEST TURNIPS, it says on the side.", "garrick: Was. It was finest turnips. Now it's finest television."]
+  ],
+  "channels": [
+   {
+    "id": 1,
+    "title": "Static",
+    "frames": ["tv_static_0", "tv_static_1", "tv_static_2", "tv_static_3"],
+    "frameMs": 70,
+    "glow": "#c8d0d8",
+    "hum": "mk2_static",
+    "comments": [
+     ["captain: Snow.", "garrick: Mark Two snow. Crisper."],
+     ["captain: It's the same snow as the old one.", "garrick: It's the same SKY, Captain. Different snow."],
+     ["captain: Somewhere above us a shark lands, and the snow jumps."]
+    ]
+   },
+   {
+    "id": 3,
+    "title": "Potatoes",
+    "frames": ["tv_potato_0", "tv_potato_1", "tv_potato_2"],
+    "frameMs": 440,
+    "glow": "#d8c890",
+    "hum": "mk2_hum",
+    "comments": [
+     [
+      "captain: The man peeling potatoes. He's still at it.",
+      "garrick: He never stopped. Good to know some things don't change."
+     ],
+     ["captain: ...He's on a different potato now.", "garrick: Character development."]
+    ]
+   },
+   {
+    "id": 4,
+    "title": "A Fish",
+    "frames": ["tv_fish_0", "tv_fish_1"],
+    "frameMs": 620,
+    "glow": "#90c8b8",
+    "hum": "mk2_hum",
+    "comments": [
+     ["captain: The fish.", "garrick: The fish."],
+     ["captain: At least it isn't a shark.", "garrick: Not in HERE, Captain."]
+    ]
+   },
+   {
+    "id": 7,
+    "title": "The Frog Tax Man",
+    "program": "frog_tax_man",
+    "if": { "flag": "frog_tax_man_unlocked" },
+    "frames": ["ftm_season_0", "ftm_season_1"],
+    "frameMs": 420,
+    "glow": "#7ac860",
+    "hum": "mk2_hum",
+    "comments": [
+     ["captain: Franklin.", "garrick[delighted]: FRANKLIN."],
+     [
+      "captain: I'm not watching it.",
+      "garrick: Of course not, Captain.",
+      "Every pirate in the hold is sitting down. You are the only one standing: directly behind all of them, with the best view in the house."
+     ],
+     ["captain: ...Has he found the receipts?", "garrick[proud]: Shh."]
+    ]
+   }
+  ],
+  "wiring": [
+   [
+    "captain: The back. SIGNAL (PROBABLY). DO NOT LICK. RECEPTION, with an arrow, to a horseshoe.",
+    "garrick: It's all labelled, Captain. That's professional."
+   ],
+   [
+    "captain: Copper going round and round and round. Into nothing.",
+    "garrick: Into the SIGNAL, Captain. Round is how signal likes it."
+   ],
+   ["captain: There's a spoon taped to the inside.", "garrick: Fine tuning."]
+  ],
+  "powerSource": [
+   [
+    "captain: The inside of the cabin-door lantern, a bottle of Frog Grog and the spare bell. Tied together with a garter.",
+    "captain: Whose garter?",
+    "garrick: Don't ask questions about the power source, Captain. It gets shy."
+   ],
+   ["captain: The lantern's glowing. It isn't lit. It's just... glowing.", "garrick: It's been told to."]
+  ],
+  "slap": [
+   ["garrick: Firmly. On the crate. Not the horseshoe. Never the horseshoe.", "captain: That shouldn't have worked."],
+   ["captain: I hit a turnip crate and it got better.", "garrick: Mark Two responds to leadership."]
+  ],
+  "failures": {
+   "every": [11000, 19000],
+   "kinds": ["roll", "buzz", "spark", "smoke"],
+   "lines": [
+    ["pete: It's doing the thing again!", "garrick: Warm-up."],
+    ["captain: It's rolling.", "garrick: Slap the crate. NOT the horseshoe."],
+    ["captain: That's smoke.", "garrick: That's the turnips, Captain. Residual turnips."],
+    ["gristle: It's going to go up!", "garrick: It's going to go up a CHANNEL, Mister Gristle."]
+   ]
+  },
+  "states": {
+   "under_construction": {
+    "dead": true,
+    "bezel": "mk2_build_1",
+    "lookComments": [
+     [
+      "captain: Half a television. A crate, a tube, a horseshoe, a great deal of string.",
+      "garrick: Three-quarters, Captain. The knob's coming."
+     ],
+     ["captain: Nothing. Good. Keep it that way."]
+    ]
+   }
+  },
+  "knobs": {
+   "//": "Story Phase 7 (chapter 40): Mark II inherits the original's panel, worse. Every wrong knob does something (louder, upside down, rolling, a shriek, a colour); none of them hurt; FROG MAYBE finds Franklin on the second try. Abstract knobs on the outside of a fictional box: nobody reaches inside it.",
+   "doneFlag": "p7_franklin_found",
+   "closeAfter": 3600,
+   "openLines": [
+    [
+     "captain: Knobs. In crayon again. VOLUME?, UPSIDE, ROLLY, SHRIEK, COLOUR, SPOON, FROG MAYBE.",
+     "garrick: I kept the layout. People like what they know."
+    ]
+   ],
+   "list": [
+    {
+     "id": "volume",
+     "label": "VOLUME?",
+     "effect": "louder",
+     "amount": 2,
+     "sfx": "mk2_antenna_buzz",
+     "lines": [
+      [
+       "The static goes from loud to LOUD. Dust comes down off the deckhead.",
+       "bob[alarmed]: The SHARKS will hear it!",
+       "garrick: The sharks have their own problems, Bob."
+      ],
+      ["Louder still. The crate rattles on its hinges.", "pete[annoyed]: STOP TURNING THAT ONE!"]
+     ]
+    },
+    {
+     "id": "upside",
+     "label": "UPSIDE",
+     "effect": "flip",
+     "sfx": "mk2_switch",
+     "lines": [
+      [
+       "The picture turns upside down. The snow falls upwards.",
+       "gristle: That's worse. I don't know how, but that's worse."
+      ],
+      ["Right way up again. Probably."]
+     ]
+    },
+    {
+     "id": "rolly",
+     "label": "ROLLY",
+     "effect": "roll",
+     "sfx": "mk2_rattle",
+     "lines": [
+      [
+       "The picture starts to roll, over and over, like the ship.",
+       "hale[disgusted]: Please. I've only just got my stomach back."
+      ],
+      ["The rolling stops. Hale breathes out."]
+     ]
+    },
+    {
+     "id": "shriek",
+     "label": "SHRIEK",
+     "effect": "shriek",
+     "sfx": "mk2_shriek",
+     "lines": [
+      [
+       "A noise comes out of Mark II that has no business coming out of anything.",
+       "squawks[furious]: NO.",
+       "garrick: That one's labelled, Squawks. Fair warning."
+      ]
+     ]
+    },
+    {
+     "id": "colour",
+     "label": "COLOUR",
+     "effect": "tint",
+     "sfx": "mk2_tube_ping",
+     "lines": [
+      [
+       "The snow goes green. Then a colour nobody has a name for.",
+       "bob[surprised]: Is that a colour?",
+       "garrick: It is now."
+      ]
+     ]
+    },
+    {
+     "id": "spoon",
+     "label": "SPOON",
+     "effect": "noop",
+     "sfx": "spoon_tink",
+     "lines": [
+      ["You turn the spoon. Nothing happens.", "garrick: Fine tuning, Captain. It's very fine. You won't see it."]
+     ]
+    },
+    {
+     "id": "frog",
+     "label": "FROG MAYBE",
+     "effect": "tune",
+     "tries": 2,
+     "channel": 7,
+     "sfx": "mk2_static",
+     "doneSfx": "ftm_ribbit",
+     "lines": [
+      ["Something green moves in the snow. For a moment. Then it's gone.", "garrick[alarmed]: AGAIN, Captain. AGAIN."]
+     ],
+     "doneLines": [
+      ["Through the static, faint, wobbling:", "franklin: ...Ribbit..."]
+     ]
+    }
+   ]
+  }
+ }
+}

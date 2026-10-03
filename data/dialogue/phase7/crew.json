@@ -1,0 +1,760 @@
+{
+ "//": "Story Phase 7 crew dialogue, one script per crew member per story state (u1 the repairs; u2 the storm back; u3 the loophole; u4 the list; u5 the parade; u6 the song and the salvage; u7 below; u8 Franklin; u9 after), plus the grievances, the parade asks and the shushing (selectors in data/npcs/phase7_crew.json).",
+ "hale.p7_shush": [
+  "hale: Shh, Captain. He's about to itemise.",
+  {
+   "setFlag": "p7_not_watching_crew"
+  },
+  {
+   "event": "p7_not_watching"
+  },
+  {
+   "call": "p7c9.nw_after"
+  }
+ ],
+ "hale.p7_u9_1": [
+  "hale[resigned]: Log entry: 'Great Sharkstorm returned. Crew sheltering below. Frog refunded three flies.' I can't believe I wrote that last bit. I can't believe I was GLAD."
+ ],
+ "hale.p7_u9_2": [
+  "hale[happy]: I've started a second log, Captain. Just for the Frog Tax Man. In case there's a test."
+ ],
+ "hale.p7_u8": [
+  "hale: Shh, Captain. He's about to itemise."
+ ],
+ "hale.p7_u7_1": [
+  "hale[resigned]: Two foot of oak, Captain. I know. I keep telling myself. Two foot of oak."
+ ],
+ "hale.p7_u7_2": [
+  "hale: Sixteen of us in the hold, a crate of food, Pete's supplies, and a television. I'd have packed differently."
+ ],
+ "hale.p7_u6": [
+  "hale: I've been trying to write it down, Captain. The song. For the log. I can't get past 'onion'."
+ ],
+ "hale.p7_u5": [
+  "hale[disgusted]: He saluted me. He saluted me while I was being sick over the side. It's in the log."
+ ],
+ "hale.p7_u4": [
+  "hale[annoyed]: I logged the second release. Every word of it. I'd like it read out. To HIM."
+ ],
+ "hale.p7_u3": [
+  "hale[annoyed]: I've a slate and a lump of chalk and I am going to get an ANSWER this time, Captain."
+ ],
+ "hale.p7_u2": [
+  "hale[alarmed]: The mainsail, Captain! If it's not reefed it'll take us up like a kite!"
+ ],
+ "hale.p7_u1_1": [
+  "hale[resigned]: I've moved the storm's mark on the chart every morning, Captain. It's moved further away every morning. I've been very careful not to measure it."
+ ],
+ "hale.p7_u1_2": [
+  "hale: Sleeping quarters are still the cloud's. Half the crew slept on deck, half in the galley, and Wick slept in a barrel. By choice."
+ ],
+ "wick.p7_shush": [
+  "wick: Shh! The pond!",
+  {
+   "setFlag": "p7_not_watching_crew"
+  },
+  {
+   "event": "p7_not_watching"
+  },
+  {
+   "call": "p7c9.nw_after"
+  }
+ ],
+ "wick.p7_u9": [
+  "wick[happy]: I'd like to do Franklin's laundry, Captain. That tie. Somebody ought to look after that tie."
+ ],
+ "wick.p7_u8": [
+  "wick: Shh! The pond!"
+ ],
+ "wick.p7_u7": [
+  "wick: I brought a clean shirt down. Just the one. I'm saving it for when this is over."
+ ],
+ "wick.p7_u6": [
+  "wick[sad]: Twenty years at sea and I'll go to my grave knowing the words to that song."
+ ],
+ "wick.p7_u5": [
+  "wick[disgusted]: He marched through my drying rack. Twice. In step."
+ ],
+ "wick.p7_u4": [
+  "wick[disgusted]: Put the laundry on the list, Captain. Put the laundry on the list."
+ ],
+ "wick.p7_u3": [
+  "wick: 'Television is a support function.' I'm a support function. I support this whole ship's SHIRTS."
+ ],
+ "wick.p7_u2": [
+  "wick[alarmed]: The washing line's GONE, Captain! A shark took it! It's wearing Thursday!"
+ ],
+ "wick.p7_u1": [
+  "wick[disgusted]: Two days of washing. TWO DAYS. And it all comes off the line the colour of custard."
+ ],
+ "fennimore.p7_shush": [
+  "fennimore[happy]: As a medical man, Captain, this is very calming. As a man, sit down, you're blocking the pond.",
+  {
+   "setFlag": "p7_not_watching_crew"
+  },
+  {
+   "event": "p7_not_watching"
+  },
+  {
+   "call": "p7c9.nw_after"
+  }
+ ],
+ "fennimore.p7_u9": [
+  "fennimore: Everyone's heart rate's down, Captain. I've been checking. Somehow the frog is better for this crew than anything in my chest."
+ ],
+ "fennimore.p7_u8": [
+  "fennimore[happy]: As a medical man, Captain, this is very calming. As a man, sit down, you're blocking the pond."
+ ],
+ "fennimore.p7_u7": [
+  "fennimore: Squawks is fine, Captain. Warm, fed, furious. Keep him by you tonight. He likes the coat."
+ ],
+ "fennimore.p7_u6": [
+  "fennimore[concerned]: Squawks hid during the song, Captain. As a medical man I'd say that's a perfectly healthy response."
+ ],
+ "fennimore.p7_u5": [
+  "fennimore[concerned]: I'd prescribe him rest, but he's never been anything else."
+ ],
+ "fennimore.p7_u4": [
+  "fennimore[annoyed]: I'll add one, Captain: two ruined medical chests. Both of them his."
+ ],
+ "fennimore.p7_u3": [
+  "fennimore[concerned]: As a medical man I've seen many conditions, Captain. I've never seen a man diagnose his own laziness as a department."
+ ],
+ "fennimore.p7_u2": [
+  "fennimore[alarmed]: Get Squawks, Captain! Keep him close! Inside the coat, like before!"
+ ],
+ "fennimore.p7_u1": [
+  "fennimore[concerned]: Squawks is eating again, Captain. Shouting again too. Both good signs. The shouting slightly better."
+ ],
+ "rook.p7_shush": [
+  "rook: Not now, Captain. NOT NOW.",
+  {
+   "setFlag": "p7_not_watching_crew"
+  },
+  {
+   "event": "p7_not_watching"
+  },
+  {
+   "call": "p7c9.nw_after"
+  }
+ ],
+ "rook.p7_u9_1": [
+  "rook[annoyed]: I don't like the frog, Captain. I want that on record. ...When's the next one on?"
+ ],
+ "rook.p7_u9_2": [
+  "rook[happy]: The judge. The big one, in the wig. 'No.' Just 'No.' That's how I want to talk from now on."
+ ],
+ "rook.p7_u8": [
+  "rook: Not now, Captain. Not NOW. The letter!"
+ ],
+ "rook.p7_u7": [
+  "rook[annoyed]: Unfortunate. I said unfortunate. I stand by unfortunate."
+ ],
+ "rook.p7_u6": [
+  "rook: 'A shark did what the Captain couldn't.' I'm sorry, Captain. It just came out. It's true, though."
+ ],
+ "rook.p7_u5": [
+  "rook[annoyed]: He's on PARADE. In a STORM. Someone hand me a belaying pin. Another one."
+ ],
+ "rook.p7_u4": [
+  "rook[annoyed]: He made up a second job so he wouldn't have to do the first one, Captain. I've got that bit. It's my bit."
+ ],
+ "rook.p7_u3": [
+  "rook[annoyed]: Meteorological. METEOROLOGICAL. I'm going to meteorologically put my boot somewhere."
+ ],
+ "rook.p7_u2": [
+  "rook[alarmed]: Make the shrouds fast, Captain! Port main! They're whipping like snakes!"
+ ],
+ "rook.p7_u1": [
+  "rook[annoyed]: Gristle's been clearing debris for two days and the deck still looks like a shark exploded on it. Because one did."
+ ],
+ "sully.p7_shush": [
+  "sully[surprised]: ...Did he say Schedule POND? Shh. Shh!",
+  {
+   "setFlag": "p7_not_watching_crew"
+  },
+  {
+   "event": "p7_not_watching"
+  },
+  {
+   "call": "p7c9.nw_after"
+  }
+ ],
+ "sully.p7_u9": [
+  "sully[happy]: I've worked out the dragonfly's deduction, Captain. Franklin's right. It IS morale. I'd claim it."
+ ],
+ "sully.p7_u8": [
+  "sully[surprised]: ...Did he say Schedule POND?"
+ ],
+ "sully.p7_u7": [
+  "sully: Two decks of oak overhead. I've been counting the planks to stay calm. There's a lot of planks."
+ ],
+ "sully.p7_u6": [
+  "sully[disgusted]: He's taken the compass. The COMPASS, Captain. We're steering by Nell's elbow."
+ ],
+ "sully.p7_u5": [
+  "sully[annoyed]: He gave me a salute and a 'carry on, sailor'. I'm a QUARTERMASTER'S MATE."
+ ],
+ "sully.p7_u4": [
+  "sully[annoyed]: Gristle's got a list, Captain. Hear him out. Hear all of them out. Then let us at him."
+ ],
+ "sully.p7_u3": [
+  "sully[surprised]: Three primary functions. And they're eating, sleeping and... yes. Yes. I understood the first time."
+ ],
+ "sully.p7_u2": [
+  "sully[alarmed]: Mind the shadows! Mind the shadows!"
+ ],
+ "sully.p7_u1": [
+  "sully[annoyed]: I've counted the sharks off the stern this morning, Captain. More than yesterday. I've stopped saying so out loud."
+ ],
+ "brask.p7_shush": [
+  "brask: Shh.",
+  {
+   "setFlag": "p7_not_watching_crew"
+  },
+  {
+   "event": "p7_not_watching"
+  },
+  {
+   "call": "p7c9.nw_after"
+  }
+ ],
+ "brask.p7_u9": [
+  "brask[happy]: Three flies, Captain. A refund of three flies. I've never been so pleased about flies."
+ ],
+ "brask.p7_u8": [
+  "brask: He's finished. Franklin's finished. No receipts."
+ ],
+ "brask.p7_u7": [
+  "brask: I'll take first watch at the hatch, Captain. Not that anything's coming through it. That I could shoot."
+ ],
+ "brask.p7_u6": [
+  "brask[annoyed]: If he goes near my powder for parts, Captain, I'll show him routing."
+ ],
+ "brask.p7_u5": [
+  "brask: I've lashed the barrels, Captain. He saluted every one of 'em."
+ ],
+ "brask.p7_u4": [
+  "brask[annoyed]: The cape went past my ear, Captain. I could've got that shark. Wasn't going to, mind."
+ ],
+ "brask.p7_u3": [
+  "brask[annoyed]: The Grand SHARKMASTER. I'll do it, Captain. I'll be the Grand Sharkmaster. First thing I'd do is—"
+ ],
+ "brask.p7_u2": [
+  "brask[alarmed]: Can't shoot 'em, Captain. They're coming DOWN, not along."
+ ],
+ "brask.p7_u1": [
+  "brask[annoyed]: I've had my gun cleaned and loaded for two days, Captain. Nothing to shoot. Everything's too far away. Or too big."
+ ],
+ "gristle.p7_shush": [
+  "gristle[annoyed]: Look at those books, Captain. LOOK at them. No. Don't talk. Look.",
+  {
+   "setFlag": "p7_not_watching_crew"
+  },
+  {
+   "event": "p7_not_watching"
+  },
+  {
+   "call": "p7c9.nw_after"
+  }
+ ],
+ "gristle.p7_u9_1": [
+  "gristle[annoyed]: His books are a DISGRACE, Captain. Twenty-seven thousand units and not one receipt. I could sort that frog out in an afternoon.",
+  "captain: Ye're a fan.",
+  "gristle[annoyed]: I'm a PROFESSIONAL."
+ ],
+ "gristle.p7_u9_2": [
+  "gristle: I've started a ledger for him. For Franklin. On the back of the charts. Just in case he ever needs one."
+ ],
+ "gristle.p7_u8": [
+  "gristle[annoyed]: Inventory and consumables in the same column. Disgraceful. Keep watching. I want to see how this ends."
+ ],
+ "gristle.p7_u7_1": [
+  "gristle[annoyed]: I brought the charts. Charts. Somebody had to bring something USEFUL."
+ ],
+ "gristle.p7_u7_2": [
+  "gristle[annoyed]: 'Poor planning.' He brought a CHAIR."
+ ],
+ "gristle.p7_u6": [
+  "gristle[annoyed]: He's taking the SHIP apart. For a TELEVISION. The compass, Captain!"
+ ],
+ "gristle.p7_u5": [
+  "gristle[annoyed]: He's marching round in a storm while the rest of us work. I'd like it noted I'm working AND angry."
+ ],
+ "gristle.p7_u4": [
+  "gristle[annoyed]: I want it heard, Captain. Start to finish. Then you take it to him. Because if WE do..."
+ ],
+ "gristle.p7_u3": [
+  "gristle[annoyed]: 'At least' means MORE, Captain. Doesn't it? It does. I'm sure it does."
+ ],
+ "gristle.p7_u2": [
+  "gristle[alarmed]: Anything that lands, we heave it! There's no other way to do it!"
+ ],
+ "gristle.p7_u1": [
+  "gristle[annoyed]: Mags's new grog tastes like the old grog with regret in it. That's not a complaint, Captain. That's a forecast."
+ ],
+ "jory.p7_shush": [
+  "jory: Shh.",
+  {
+   "setFlag": "p7_not_watching_crew"
+  },
+  {
+   "event": "p7_not_watching"
+  },
+  {
+   "call": "p7c9.nw_after"
+  }
+ ],
+ "jory.p7_u9": [
+  "jory[happy]: I'll take a Shark Duty shift tomorrow, Captain. If there's a tomorrow. After the next episode."
+ ],
+ "jory.p7_u8": [
+  "jory: Shh, Captain."
+ ],
+ "jory.p7_u7": [
+  "jory: Hatch is barred, Captain. Whatever's up there can stay up there."
+ ],
+ "jory.p7_u6": [
+  "jory[annoyed]: The lantern by your door, Captain. He took the wire off it. It fell. He seemed pleased."
+ ],
+ "jory.p7_u5": [
+  "jory: He came past saluting and I very nearly saluted back. I'm ashamed of myself."
+ ],
+ "jory.p7_u4": [
+  "jory[annoyed]: I've a bit for the list too, Captain, but the list's long enough. Leave room for the ending."
+ ],
+ "jory.p7_u3": [
+  "jory[annoyed]: The rule's on the mast, Captain! Read it to him! Read it LOUD!"
+ ],
+ "jory.p7_u2": [
+  "jory[alarmed]: Rig it fast, reef the main, clear the deck, Captain! Then the helm!"
+ ],
+ "jory.p7_u1": [
+  "jory: Shark Duty's quiet, Captain. Too quiet. They're not going for the hull. They're just... following. Like they're waiting for something."
+ ],
+ "bob.p7_shush": [
+  "bob: I'm not laughing, Captain. Shh. I'm not laughing.",
+  {
+   "setFlag": "p7_not_watching_crew"
+  },
+  {
+   "event": "p7_not_watching"
+  },
+  {
+   "call": "p7c9.nw_after"
+  }
+ ],
+ "bob.p7_u9_1": [
+  "bob[happy]: Franklin should get a better accountant, Captain. That one's good, but he's not on Franklin's SIDE."
+ ],
+ "bob.p7_u9_2": [
+  "bob[happy]: I've been doing his voice. 'Ribbit.' Pete says it's not right. Pete's been practising too."
+ ],
+ "bob.p7_u8": [
+  "bob: I wasn't laughing, Captain. I was coughing. At the right moment."
+ ],
+ "bob.p7_u7": [
+  "bob: I brought rope. It seemed like the sort of thing you bring. I don't know what for."
+ ],
+ "bob.p7_u6": [
+  "bob[concerned]: I've got the chorus in my head, Captain. I can't get it out. He stinks for you, and he stinks for... it's horrible."
+ ],
+ "bob.p7_u5": [
+  "bob[disgusted]: Wrinkle the cuffs. His cuffs are GREEN, Captain."
+ ],
+ "bob.p7_u4": [
+  "bob[disgusted]: The sharks are my bit, Captain. Ask me about the sharks."
+ ],
+ "bob.p7_u3": [
+  "bob: He's built a whole system, Captain. To prove the television helps him fart. I've never been so frightened of an idea."
+ ],
+ "bob.p7_u2": [
+  "bob[alarmed]: SHARKS AGAIN! Why is it always sharks?"
+ ],
+ "bob.p7_u1": [
+  "bob[concerned]: I keep looking at it, Captain. The storm. Ned keeps looking at it. We keep telling each other it's further away."
+ ],
+ "ned.p7_shush": [
+  "ned: Shh.",
+  {
+   "setFlag": "p7_not_watching_crew"
+  },
+  {
+   "event": "p7_not_watching"
+  },
+  {
+   "call": "p7c9.nw_after"
+  }
+ ],
+ "ned.p7_u9": [
+  "ned[smug]: I was the one who saw the storm coming back, Captain. Nobody'll remember that. They'll remember the refund."
+ ],
+ "ned.p7_u8": [
+  "ned: Shh."
+ ],
+ "ned.p7_u7": [
+  "ned: First time in weeks I've not been looking at the horizon. I'd forgotten what a ceiling looked like."
+ ],
+ "ned.p7_u6": [
+  "ned: He tried to take my spyglass, Captain. I bit him. A little."
+ ],
+ "ned.p7_u5": [
+  "ned: I came down off the bow to watch him march. I'm going back up. It was easier up there."
+ ],
+ "ned.p7_u4": [
+  "ned: The cape went by the bow, Captain. The shark looked very pleased with it."
+ ],
+ "ned.p7_u3": [
+  "ned: From the bow it looked like a cloud. From here it looks like a cloud with teeth."
+ ],
+ "ned.p7_u2": [
+  "ned[alarmed]: I can't see where we're GOING, Captain! Everything's sharks!"
+ ],
+ "ned.p7_u1": [
+  "ned[concerned]: I'm not saying anything, Captain. About the horizon. I'm just looking at it. A lot."
+ ],
+ "nell.p7_shush": [
+  "nell: Shh, Captain.",
+  {
+   "setFlag": "p7_not_watching_crew"
+  },
+  {
+   "event": "p7_not_watching"
+  },
+  {
+   "call": "p7c9.nw_after"
+  }
+ ],
+ "nell.p7_u9": [
+  "nell[happy]: Nobody's at the wheel, Captain. First time in my life I've been glad of it."
+ ],
+ "nell.p7_u8": [
+  "nell: Shh, Captain."
+ ],
+ "nell.p7_u7": [
+  "nell: She'll hold on the lashing, Captain. Not prettily. But she'll hold."
+ ],
+ "nell.p7_u6": [
+  "nell: He's not wrong about the compass, Captain. I'm steering by the storm. Away from it. It's very clear where it is."
+ ],
+ "nell.p7_u5": [
+  "nell[disgusted]: He saluted the wheel, Captain. My wheel."
+ ],
+ "nell.p7_u4": [
+  "nell: I saw the whole thing from up here, Captain. Best seat on the ship. I'm keeping it."
+ ],
+ "nell.p7_u3": [
+  "nell: Away's still the course, Captain. In general."
+ ],
+ "nell.p7_u2": [
+  "nell[alarmed]: I can hold her, Captain, but I need to know WHICH WAY!"
+ ],
+ "nell.p7_u1": [
+  "nell: Steady on east-by-north, Captain. Or what the binnacle calls east-by-north. It's been a funny few days."
+ ],
+ "finch.p7_shush": [
+  "finch: Shh!",
+  {
+   "setFlag": "p7_not_watching_crew"
+  },
+  {
+   "event": "p7_not_watching"
+  },
+  {
+   "call": "p7c9.nw_after"
+  }
+ ],
+ "finch.p7_u9": [
+  "finch: I'd like to see Franklin's office, Captain. A pond with a desk. That's the dream."
+ ],
+ "finch.p7_u8": [
+  "finch: Shh!"
+ ],
+ "finch.p7_u7": [
+  "finch: Everything's furled up top, Captain. What's left of it."
+ ],
+ "finch.p7_u6": [
+  "finch: He wanted a block off the fore shrouds. 'For acoustics.' I said no. He said 'Grand Stenchmaster technology.' I still said no."
+ ],
+ "finch.p7_u5": [
+  "finch: I've been aloft through the parade, Captain. Best view. Worst thing I've ever seen."
+ ],
+ "finch.p7_u4": [
+  "finch[disgusted]: Put the sails on the list. They're on there? Put them on twice."
+ ],
+ "finch.p7_u3": [
+  "finch: I've been aloft through this, Captain. Up there you can't hear him. I recommend it."
+ ],
+ "finch.p7_u2": [
+  "finch[alarmed]: The fore shrouds, Captain, starboard! They're banging like a door!"
+ ],
+ "finch.p7_u1": [
+  "finch: Every sail's stained to the reefs, Captain. We look like a floating custard."
+ ],
+ "pete.p7_shush": [
+  "pete[annoyed]: I'm only watching so I know what not to do, Captain. Shh.",
+  {
+   "setFlag": "p7_not_watching_crew"
+  },
+  {
+   "event": "p7_not_watching"
+  },
+  {
+   "call": "p7c9.nw_after"
+  }
+ ],
+ "pete.p7_u9_1": [
+  "pete[annoyed]: I don't care about the frog, Captain. I don't. ...When's the next one on, though? Roughly?"
+ ],
+ "pete.p7_u9_2": [
+  "pete: Three flies. A refund of three flies. I'd have framed the letter."
+ ],
+ "pete.p7_u8": [
+  "pete[annoyed]: Maybe some noise would help. MAYBE SOME NOISE WOULD HELP. I'll never say anything in a hold ever again."
+ ],
+ "pete.p7_u7": [
+  "pete: I brought the emergency supplies, Captain. Biscuit, water, bandages, a lamp. You know. USEFUL things."
+ ],
+ "pete.p7_u6": [
+  "pete[disgusted]: He took the spoon out of my hand, Captain. I was EATING with it. 'Fine tuning,' he says."
+ ],
+ "pete.p7_u5": [
+  "pete[annoyed]: 'Assisting emotionally.' I'll assist him emotionally, Captain."
+ ],
+ "pete.p7_u4": [
+  "pete[annoyed]: The contamination's my bit, Captain. I've been saving it."
+ ],
+ "pete.p7_u3": [
+  "pete[annoyed]: Three primary functions, Captain. Eating, sleeping and THAT. That's not a job. That's a description of my uncle."
+ ],
+ "pete.p7_u2": [
+  "pete[alarmed]: TWO sharks a week, Captain! I'm not a deckhand any more, I'm a SHARK THROWER!"
+ ],
+ "pete.p7_u1_1": [
+  "pete[annoyed]: Mags's new grog's ready, Captain. Don't. Just... don't."
+ ],
+ "pete.p7_u1_2": [
+  "pete: I keep checking the horizon, Captain. Everybody does. Then we pretend we didn't."
+ ],
+ "mags.p7_shush": [
+  "mags: Shh, Captain. Drink your grog.",
+  {
+   "setFlag": "p7_not_watching_crew"
+  },
+  {
+   "event": "p7_not_watching"
+  },
+  {
+   "call": "p7c9.nw_after"
+  }
+ ],
+ "mags.p7_u9": [
+  "mags[happy]: I'm going to name the new batch after Franklin, Captain. It's terrible. He'd want it to be."
+ ],
+ "mags.p7_u8": [
+  "mags[annoyed]: It's opening up like a fine wine, he says. It's opening up like a WOUND."
+ ],
+ "mags.p7_u7": [
+  "mags: The new grog's warm down here. That's not an improvement."
+ ],
+ "mags.p7_u6": [
+  "mags[concerned]: 'Notes of oak.' He'll say notes of oak, Captain. Watch him."
+ ],
+ "mags.p7_u5": [
+  "mags: I've brought my two casks below, Captain. Just in case. They're not ready. Nothing's ready."
+ ],
+ "mags.p7_u4": [
+  "mags[angry]: The reserve, Captain. Put the reserve on the list. He watched every barrel go over with his hat on his heart."
+ ],
+ "mags.p7_u3": [
+  "mags[annoyed]: 'Frog Grog evaluation.' He drank my evaluation. All of it."
+ ],
+ "mags.p7_u2": [
+  "mags[concerned]: There's nothing left to throw, Captain. Not this time. Not enough to annoy a rowboat."
+ ],
+ "mags.p7_u1": [
+  "mags[concerned]: Two small casks brewing, Captain. That's all. The reserve was sixteen. I keep looking at the empty lashings."
+ ],
+ "jim.p7_shush": [
+  "jim: I'm not watching it, Captain. I'm minding the food. And the food is watching it.",
+  {
+   "setFlag": "p7_not_watching_crew"
+  },
+  {
+   "event": "p7_not_watching"
+  },
+  {
+   "call": "p7c9.nw_after"
+  }
+ ],
+ "jim.p7_u9": [
+  "jim[happy]: I've made Franklin a little sandwich, Captain. Flies. Out of currants. Don't tell anyone."
+ ],
+ "jim.p7_u8": [
+  "jim: I'm not watching it, Captain. I'm minding the food. The food's watching it."
+ ],
+ "jim.p7_u7": [
+  "jim: I brought the food, Captain. I'm sitting on it. Don't take it personally. I'm sitting on it because of HIM."
+ ],
+ "jim.p7_u6": [
+  "jim: 'IT'S A POT LID.' I shouted that. I'd do it again. It IS a pot lid. It's MY pot lid."
+ ],
+ "jim.p7_u5": [
+  "jim[angry]: 'What kind of food?' NO kind, Captain. No kind of food."
+ ],
+ "jim.p7_u4": [
+  "jim[angry]: Put the onions on the list, Captain. The ones he ate. And the ones he tried to."
+ ],
+ "jim.p7_u3": [
+  "jim[annoyed]: 'Eating provides the raw material.' I'm the raw material, Captain. I'm the cook. It's all ME."
+ ],
+ "jim.p7_u2": [
+  "jim[alarmed]: My crate, Captain! The good onions are in it!"
+ ],
+ "jim.p7_u1": [
+  "jim[annoyed]: No food on deck, Captain. Last time I brought a plate up, it got taken. By a shark. Or him. Hard to tell."
+ ],
+ "quill.p7_shush": [
+  "quill: Shh. I'm taking notes.",
+  {
+   "setFlag": "p7_not_watching_crew"
+  },
+  {
+   "event": "p7_not_watching"
+  },
+  {
+   "call": "p7c9.nw_after"
+  }
+ ],
+ "quill.p7_u9": [
+  "quill: I've filed Franklin's whole case, Captain. Season seventeen. He'll win on appeal. I've seen the paperwork."
+ ],
+ "quill.p7_u8": [
+  "quill: Shh. I'm taking notes."
+ ],
+ "quill.p7_u7": [
+  "quill: The record says: everyone below, hatch barred, television under construction. I've underlined the last bit."
+ ],
+ "quill.p7_u6": [
+  "quill: I took down the song. Every word. I may burn it."
+ ],
+ "quill.p7_u5": [
+  "quill: I've timed the parade, Captain. Forty seconds a lap. He does a salute at each corner."
+ ],
+ "quill.p7_u4": [
+  "quill: The list's going in the record, Captain. All of it. In order."
+ ],
+ "quill.p7_u3": [
+  "quill: 'Grand Sharkmaster.' I've written it down, Captain. I don't know where to file it. Under 'no'."
+ ],
+ "quill.p7_u2": [
+  "quill[alarmed]: I can't WRITE in this, Captain! The ink's coming down sideways!"
+ ],
+ "quill.p7_u1": [
+  "quill: Writing it all down, Captain. Someone has to. Two days of repairs; nothing to report but repairs."
+ ],
+ "penhallow.p7_shush": [
+  "penhallow: In my day, Captain, nobody spoke during the frog.",
+  {
+   "setFlag": "p7_not_watching_crew"
+  },
+  {
+   "event": "p7_not_watching"
+  },
+  {
+   "call": "p7c9.nw_after"
+  }
+ ],
+ "penhallow.p7_u9": [
+  "penhallow[smug]: A frog with a tax problem, Captain. In my day, we'd have called that an admiral."
+ ],
+ "penhallow.p7_u8": [
+  "penhallow: In my day there was no such thing as a television. I see now we were deprived."
+ ],
+ "penhallow.p7_u7": [
+  "penhallow: In my day, Captain, we'd have sat in the hold and sung. I'm grateful we didn't. Given the singing."
+ ],
+ "penhallow.p7_u1": [
+  "penhallow[smug]: A storm that comes back, Captain. In my day, we'd have called that persistent weather. And we'd have been wrong."
+ ],
+ "garrick.p7_u1": [
+  "garrick[worried]: Forty-one times, Captain. I've tried the power forty-one times this morning. Nothing. Not a flicker. Not even a Franklin."
+ ],
+ "garrick.p7_u2": [
+  "garrick[annoyed]: Don't TALK to me, Captain. I'm in mourning. For my television."
+ ],
+ "garrick.p7_u3": [
+  "garrick[businesslike]: Meteorological Shark Management, Captain. It's a whole different department."
+ ],
+ "garrick.p7_u4": [
+  "garrick[smug]: The crew seem restless, Captain. A sign of a healthy organisation."
+ ],
+ "garrick.p7_u5": [
+  "garrick[proud]: Left! Right! Can't hear ye, Captain! Left! Right!"
+ ],
+ "garrick.p7_u6": [
+  "garrick[businesslike]: Parts, Captain. Everything is parts, if you look at it properly."
+ ],
+ "garrick.p7_u7_1": [
+  "garrick[proud]: A television without a chair is barbaric, Captain. I'll stand by that in any court."
+ ],
+ "garrick.p7_u7_2": [
+  "garrick[businesslike]: Mark Two will have better reception than Mark One. I've a horseshoe this time."
+ ],
+ "garrick.p7_u8": [
+  "garrick[delighted]: SHH, Captain! Season SEVENTEEN!"
+ ],
+ "garrick.p7_u9_1": [
+  "garrick[proud]: Grand Stenchmaster morale, Captain. I said it would work.",
+  "captain[angry]: Do NOT.",
+  "garrick[smug]: I'm just saying it worked."
+ ],
+ "garrick.p7_u9_2": [
+  "garrick[worried]: My cape, Captain. A whole panel. THE MEDAL ONE. Somewhere out there a shark is wearing THE MEDAL ONE.",
+  "captain: Good.",
+  "garrick[offended]: It's ceremonial property."
+ ],
+ "garrick.p7_u9_3": [
+  "garrick[businesslike]: One episode, Captain. I gave my word. After this one. ...Or the next. Depending how this one ends.",
+  "captain[angry]: ONE."
+ ],
+ "garrick.p7_u9_4": [
+  "garrick[offended]: 'Frog better Stenchmaster.' I've never been so insulted. By a parrot. With no feathers.",
+  "captain: He's not wrong."
+ ],
+ "garrick.p7_u9_5": [
+  "garrick[businesslike]: The Grand Sharkmaster post is still vacant, Captain, if you know anyone.",
+  "captain[angry]: It isn't REAL.",
+  "garrick: That's what makes it so hard to fill."
+ ],
+ "squawks.p7_u1": [
+  "squawks[worried]: Storm still there?",
+  "captain: Far off.",
+  "squawks[furious]: Not far ENOUGH."
+ ],
+ "squawks.p7_u2": [
+  "squawks[horrified]: Sky sharks.",
+  "captain[tender]: I know."
+ ],
+ "squawks.p7_u7": [
+  "squawks[worried]: Bad ceiling.",
+  "captain[tender]: Good ceiling. Bad sky."
+ ],
+ "squawks.p7_u8": [
+  "squawks[smug]: Shh. Frog."
+ ],
+ "squawks.p7_u9_1": [
+  "squawks[smug]: Frog better Stenchmaster.",
+  "captain: Aye."
+ ],
+ "squawks.p7_u9_2": [
+  "squawks[worried]: Lily pad gone.",
+  "captain[tender]: He got three flies back.",
+  "squawks[smug]: ...Good."
+ ],
+ "squawks.p7_u9_3": [
+  "squawks[smug]: Franklin. Good frog. Garrick. Bad frog.",
+  "captain: Garrick's not a frog.",
+  "squawks[insulting]: Worse."
+ ]
+}
