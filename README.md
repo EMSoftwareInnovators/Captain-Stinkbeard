@@ -36,7 +36,7 @@ Other scripts:
 | --- | --- |
 | `npm test` | Unit tests (Vitest): systems, battle math, scripts, saves, content, balance |
 | `npm run validate` | Content validation only (cross-references every data file) |
-| `npm run e2e` | Plays the prologue and Story Phases 2 to 5 in headless Chromium (Playwright), keyboard and simulated controllers (about 80 minutes). Run `npx playwright install chromium` once, or set `CHROMIUM_PATH` |
+| `npm run e2e` | Plays the prologue and Story Phases 2 to 6 in headless Chromium (Playwright), keyboard and simulated controllers (36 tests, about 85 minutes). Run `npx playwright install chromium` once, or set `CHROMIUM_PATH` |
 | `npm run e2e:smoke` | The quick browser checks (a few minutes) |
 | `npm run e2e:quick` | Every browser test except the long story playthroughs |
 | `npm run e2e:story` | Only the story playthroughs. Any tag works too: `npm run e2e -- --grep @phase3` (see [ARCHITECTURE.md](docs/ARCHITECTURE.md#testing)) |
