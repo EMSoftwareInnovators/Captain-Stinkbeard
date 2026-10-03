@@ -403,6 +403,28 @@ pieces rather than adding new architecture:
 - **Save version 6** keeps the layout (Phase 6 is flags, variables and
   values); the migration fills missing maps and never touches the inventory.
 
+## The storm comes back, a second television, below decks (Phase 7)
+
+Story Phase 7 (see [STORY_PHASE7.md](STORY_PHASE7.md)) adds no new
+architecture either:
+
+- **The Great Sharkstorm** gains two states (`returning`,
+  `active_near_ship`); the value moves on from where Phase 6 left it, so
+  the storm is the same one. A state's `flying.variants` lists extra
+  flying-shark frame prefixes. A state's `below` makes
+  `SharkstormLayer.belowDecks` play a muffled landing now and then in the
+  listed rooms (sound, small shake, `falldust` from the deckhead,
+  `sharkstorm_thud` event); it waits while a scene runs and never hurts.
+- **A second television** is a second `tvs` record (`data/tv/ses_mk2.json`)
+  with its own saved values and its own art (`bezel`, `back`, `powerFrame`
+  in the def, falling back to Mark I's). `TvView` reads everything from the
+  def, so the knob panel, programmes, channels and conditions all work for
+  either set. New knob effects: `roll`, `shriek` and `tune` (finds a
+  channel, powers the set and fires `doneFlag`, which is set before the
+  picture is drawn so a programme's newest episode is already unlocked).
+- **Save version 7** keeps the layout; the 6 → 7 migration fills missing
+  story/world maps and never removes items.
+
 ## Battle
 
 `BattleEngine` (`src/systems/battle/`) owns the rules and is fully
@@ -548,9 +570,9 @@ upgrades on load and walks into the next chapter.
 
   | Tag | What |
   | --- | --- |
-  | `@smoke` | a few minutes: menus, movement, a pad, Phase 2 presets, being walled in, the Dead Center's sealed door, the Forecast Board, the S.E.S. |
-  | `@story` | the long playthroughs (prologue, Phase 2, Phase 3, chapters 12 to 14, Phase 4, chapters 18 and 19, Phase 5, chapters 23 and 24, Phase 6) |
-  | `@prologue` `@phase2` `@phase3` `@phase4` `@phase5` `@phase6` | by part of the story |
+  | `@smoke` | a few minutes: menus, movement, a pad, Phase 2 presets, being walled in, the Dead Center's sealed door, the Forecast Board, the S.E.S., the Mark II knob panel |
+  | `@story` | the long playthroughs (prologue, Phase 2, Phase 3, chapters 12 to 14, Phase 4, chapters 18 and 19, Phase 5, chapters 23 and 24, Phase 6, Phase 7, chapters 39 to 41) |
+  | `@prologue` `@phase2` `@phase3` `@phase4` `@phase5` `@phase6` `@phase7` | by part of the story |
   | `@input` `@saves` `@world` `@scenes` `@ui` | by system |
 
   `npm run e2e:smoke`, `npm run e2e:quick` (all but `@story`),
@@ -567,7 +589,7 @@ upgrades on load and walks into the next chapter.
     - a captain boxed in when a scene ends;
     - a room whose doorways are cut off by people from some arrival point;
     - talking to someone who isn't in the room.
-- `tests/phase2_story.test.js` to `tests/phase6_story.test.js` play the Story Phases headlessly with the real
+- `tests/phase2_story.test.js` to `tests/phase7_story.test.js` play the Story Phases headlessly with the real
   scripts, quests and triggers and mock services, twice (always the first
   choice, always the last), and fails on any dead end, loop or script error.
   `tests/phase2.test.js` covers the fume model, variants, chapters and time of
@@ -580,6 +602,11 @@ upgrades on load and walks into the next chapter.
   `tests/phase6.test.js` covers the Great Sharkstorm states, the S.E.S.
   conditions, programme and knob panel, the second Dead Center, the bulk
   Frog Grog (and the captain's own, untouched), and save migration 5 → 6.
+  `tests/phase7.test.js` covers the storm's return (new states, shark
+  variants, the below-deck thud), both televisions (Mark I wrecked, Mark II's
+  art, channels, programme and `tune` knob), the empty bulk reserve, the
+  torn suit and its poses, the new music and sounds, and save migration
+  6 → 7 with round-trips at every Phase 7 checkpoint.
 
 ## Adding Chapter 8 (or anything else)
 

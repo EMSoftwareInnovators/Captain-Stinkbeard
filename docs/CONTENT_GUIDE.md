@@ -1060,6 +1060,57 @@ Appearances and portraits `garrick_stenchmaster_gaudy`,
 `garrick_stenchmaster_singed`, `squawks_nightcap` are in
 `data/appearances/phase6.json` and `data/portraits/phase6.json`.
 
+## Story Phase 7 formats
+
+### Storm states: shark variants, below decks (`data/hazards/sharkstorm.json`)
+
+```json
+"active_near_ship": { "intensity": 3, "distance": "near",
+  "flying": { "passEvery": [2400, 4600], "variants": ["flying_shark", "flying_hammer", "flying_small"] },
+  "rumble": { "every": [12000, 22000], "sfx": "vortex_roar" },
+  "below": { "maps": ["galley", "cargo_hold", "crew_quarters"], "every": [8000, 15000],
+             "sfx": ["hull_thud", "hull_thud_big", "deck_scrape"], "shake": 0.003 } }
+```
+
+`flying.variants` are stage frame prefixes (each needs `_0` and `_1`); a
+pass picks one. `below` plays a landing overhead in the listed rooms: a
+random sound from `sfx` (muffled), a shake, `falldust` from the deckhead
+(`"dust": false` to skip), and the script event `sharkstorm_thud`. It
+pauses while a scene runs. Validation checks the frames, sounds and maps.
+
+### A second television (`data/tv/ses_mk2.json`)
+
+```json
+"ses_mk2": { "name": "The Stenchmaster Entertainment System Mark II",
+  "bezel": "mk2_bezel", "back": "mk2_back", "powerFrame": "mk2_power",
+  "channelVar": "ses_mk2_channel", "powerVar": "ses_mk2_power", "stateValue": "ses_mk2_state",
+  "channels": [{ "id": 7, "title": "The Frog Tax Man", "program": "frog_tax_man", "frames": ["..."] }],
+  "states": { "under_construction": { "dead": true, "bezel": "mk2_build_1", "lookComments": [["..."]] } },
+  "knobs": { "doneFlag": "p7_franklin_found", "closeAfter": 3600,
+    "list": [{ "id": "frog", "label": "FROG MAYBE", "effect": "tune", "tries": 2, "channel": 7,
+               "doneSfx": "ftm_ribbit", "lines": [["..."]], "doneLines": [["franklin: ...Ribbit..."]] }] } }
+```
+
+Each set has its own saved variables and art; `bezel`, `back` and
+`powerFrame` fall back to Mark I's. Knob effects added: `roll` (the
+picture rolls), `shriek` (a squeal and a shake) and `tune` (after `tries`,
+switch the set on, change to `channel` and set `doneFlag`). A panel must
+have an `off` or a `tune` knob, and a `tune` channel must exist.
+`{ "tvSet": "ses_mk2", "state": "working" }` then
+`{ "tvSet": "ses_mk2", "power": true, "channel": 7 }`: set the condition
+first (a dead set refuses power).
+
+An episode can wait for a later flag:
+`{ "id": "season_seventeen_flies", "if": { "flag": "p7_franklin_found" }, "beats": [ ... ] }`.
+
+### Timing bars, poses, looks
+
+Timing-bar variants `clear`, `reef`, `knot`, `carry`, `lash` and
+`assemble`. Character extra `torn` (the cape's shark bite, a crooked crown,
+the plume mostly gone), poses `march` and `sing`, arms `salute` and `wide`.
+`garrick_stenchmaster_torn` is in `data/appearances/phase7.json` and
+`data/portraits/phase7.json`. The font has a `♪` glyph for sung lines.
+
 ## Tilesets and props
 
 **Tilesets** (`data/tilesets/`) list `frames` (painted by name in
