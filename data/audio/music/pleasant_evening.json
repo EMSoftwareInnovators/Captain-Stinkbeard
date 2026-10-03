@@ -1,0 +1,52 @@
+{
+ "id": "pleasant_evening",
+ "title": "A Pleasant Evening",
+ "//": "Story Phase 7: the end of the phase, the crew in the hold watching The Frog Tax Man while the storm goes on overhead. The Frog Tax Man's tune, slowed and softened: a flute, plucked chords and a warm pad, the brushes barely there. Absurdly cosy.",
+ "bpm": 88,
+ "stepsPerBeat": 4,
+ "reverb": 0.35,
+ "channels": {
+  "lead": {
+   "instrument": "flute",
+   "volume": 0.24
+  },
+  "pluck": {
+   "instrument": "pluck",
+   "volume": 0.16,
+   "pan": -0.25
+  },
+  "pad": {
+   "instrument": "pad",
+   "volume": 0.12
+  },
+  "bass": {
+   "instrument": "tri_bass",
+   "volume": 0.24
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.08
+  }
+ },
+ "patterns": {
+  "A": {
+   "lead": "C5:2 E5:2 G5:2 E5:2 C5:2 E5:2 G5:4 | A5:2 G5:2 F5:2 E5:2 D5:4 G4:4 | C5:2 E5:2 G5:2 C6:2 B5:2 A5:2 G5:4 | F5:2 D5:2 B4:2 D5:2 C5:8",
+   "pluck": "C4:2 G4:2 E4:2 G4:2 C4:2 G4:2 E4:2 G4:2 | F3:2 C4:2 A3:2 C4:2 G3:2 D4:2 B3:2 D4:2 | C4:2 G4:2 E4:2 G4:2 A3:2 E4:2 C4:2 E4:2 | G3:2 D4:2 B3:2 F4:2 C4:2 G4:2 E4:2 G4:2",
+   "pad": "[C4 E4 G4]:16 | [F3 A3 C4]:8 [G3 B3 D4]:8 | [C4 E4 G4]:8 [A3 C4 E4]:8 | [G3 B3 D4]:8 [C4 E4 G4]:8",
+   "bass": "C3:8 G2:8 | F2:8 G2:8 | C3:8 A2:8 | G2:8 C3:8",
+   "drums": "....h.......h... ....h.......h... ....h.......h... ....h.......h..."
+  },
+  "B": {
+   "lead": "A4:4 C5:4 E5:4 D5:4 | C5:2 B4:2 A4:2 G#4:2 A4:8 | F5:4 E5:4 D5:4 C5:4 | B4:2 C5:2 D5:2 B4:2 G4:8",
+   "pluck": "A3:2 E4:2 C4:2 E4:2 A3:2 E4:2 C4:2 E4:2 | E3:2 B3:2 G#3:2 B3:2 A3:2 E4:2 C4:2 E4:2 | F3:2 C4:2 A3:2 C4:2 F3:2 C4:2 A3:2 C4:2 | G3:2 D4:2 B3:2 D4:2 G3:2 D4:2 B3:2 D4:2",
+   "pad": "[A3 C4 E4]:16 | [E3 G#3 B3]:8 [A3 C4 E4]:8 | [F3 A3 C4]:16 | [G3 B3 D4]:16",
+   "bass": "A2:8 E2:8 | E2:8 A2:8 | F2:8 C3:8 | G2:16",
+   "drums": "....h.......h... ....h.......h... ....h.......h... ....h.......h..."
+  }
+ },
+ "sequence": [
+  "A",
+  "B",
+  "A"
+ ]
+}

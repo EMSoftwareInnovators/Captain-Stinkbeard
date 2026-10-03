@@ -1,0 +1,54 @@
+{
+ "id": "stenchmaster_parade",
+ "title": "The Grand Stenchmaster's Ceremonial Parade",
+ "//": "Story Phase 7: a march for one man walking round a deck in a storm. Garrick's own motif (C F A C, B-flat A G) as a brass oompah in F with a kazoo doubling it a beat late, a tuba on the off-beats, snare rolls, and one wrong note in every phrase, on purpose.",
+ "bpm": 116,
+ "stepsPerBeat": 4,
+ "reverb": 0.15,
+ "channels": {
+  "lead": {
+   "instrument": "brass",
+   "volume": 0.34
+  },
+  "kazoo": {
+   "instrument": "kazoo",
+   "volume": 0.14,
+   "pan": 0.3
+  },
+  "tuba": {
+   "instrument": "fm_bass",
+   "volume": 0.46
+  },
+  "chords": {
+   "instrument": "concertina",
+   "volume": 0.12,
+   "pan": -0.25
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.24
+  }
+ },
+ "patterns": {
+  "A": {
+   "lead": "C4:2 F4:2 A4:2 C5:2 Bb4:3 A4:1 G4:4 | A4:2 F4:2 D4:2 F4:2 E4:4 C4:4 | C4:2 F4:2 A4:2 C5:2 D5:3 C5:1 Bb4:2 A4:2 | G4:4 E4:2 G4:2 F4:6 r:2",
+   "kazoo": "r:2 C4:2 F4:2 A4:2 C5:2 Bb4:3 A4:1 G4:2 | r:2 A4:2 F4:2 D4:2 F4:2 Eb4:4 C4:2 | r:2 C4:2 F4:2 A4:2 C5:2 D5:3 C5:1 Bb4:2 | r:2 G4:4 E4:2 G4:2 F4:6",
+   "tuba": "F2:2 r:2 C3:2 r:2 F2:2 r:2 C3:2 r:2 | C3:2 r:2 G2:2 r:2 C3:2 r:2 G2:2 r:2 | F2:2 r:2 C3:2 r:2 Bb2:2 r:2 F2:2 r:2 | C3:2 r:2 G2:2 r:2 F2:2 r:2 F2:2 r:2",
+   "chords": "r:2 [A3 C4 F4]:2 r:2 [A3 C4 F4]:2 r:2 [A3 C4 F4]:2 r:2 [A3 C4 F4]:2 | r:2 [G3 Bb3 E4]:2 r:2 [G3 Bb3 E4]:2 r:2 [G3 Bb3 E4]:2 r:2 [G3 Bb3 E4]:2 | r:2 [A3 C4 F4]:2 r:2 [A3 C4 F4]:2 r:2 [Bb3 D4 F4]:2 r:2 [Bb3 D4 F4]:2 | r:2 [G3 Bb3 E4]:2 r:2 [G3 Bb3 E4]:2 r:2 [A3 C4 F4]:2 r:2 [A3 C4 F4]:2",
+   "drums": "k.s.k.s.k.s.k.ss k.s.k.s.k.s.k.ss k.s.k.s.k.s.k.ss k.s.k.s.ssssk..."
+  },
+  "B": {
+   "lead": "D5:3 C5:1 Bb4:4 G4:2 A4:2 Bb4:4 | C5:3 Bb4:1 A4:4 F4:2 G4:2 A4:4 | Bb4:2 D5:2 F5:4 Eb5:2 D5:2 C5:4 | C5:2 A4:2 F4:2 A4:2 G4:4 C4:4",
+   "kazoo": "r:4 D5:3 C5:1 Bb4:4 G4:2 A4:2 | r:4 C5:3 B4:1 A4:4 F4:2 G4:2 | r:4 Bb4:2 D5:2 F5:4 Eb5:2 D5:2 | r:4 C5:2 A4:2 F4:2 A4:2 G4:4",
+   "tuba": "Bb2:2 r:2 F2:2 r:2 Bb2:2 r:2 F2:2 r:2 | F2:2 r:2 C3:2 r:2 F2:2 r:2 C3:2 r:2 | Bb2:2 r:2 F2:2 r:2 Eb2:2 r:2 Bb2:2 r:2 | C3:2 r:2 G2:2 r:2 C3:2 r:2 C2:2 r:2",
+   "chords": "r:2 [D4 F4 Bb4]:2 r:2 [D4 F4 Bb4]:2 r:2 [D4 F4 Bb4]:2 r:2 [D4 F4 Bb4]:2 | r:2 [C4 F4 A4]:2 r:2 [C4 F4 A4]:2 r:2 [C4 F4 A4]:2 r:2 [C4 F4 A4]:2 | r:2 [D4 F4 Bb4]:2 r:2 [D4 F4 Bb4]:2 r:2 [Eb4 G4 Bb4]:2 r:2 [Eb4 G4 Bb4]:2 | r:2 [E4 G4 Bb4]:2 r:2 [E4 G4 Bb4]:2 r:2 [E4 G4 C5]:2 r:2 [E4 G4 C5]:2",
+   "drums": "k.s.k.s.k.s.k.ss k.s.k.s.k.s.k.ss k.s.k.s.k.s.k.ss ssssssssk.s.c..."
+  }
+ },
+ "sequence": [
+  "A",
+  "A",
+  "B",
+  "A"
+ ]
+}

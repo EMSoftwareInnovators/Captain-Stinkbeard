@@ -1,0 +1,60 @@
+{
+ "id": "sharkstorm_returns",
+ "title": "It's Coming Back",
+ "//": "Story Phase 7: the Great Sharkstorm's theme, slowed right down and dropped an octave, for the storm coming back over the horizon. The same E-minor figure, now on brass, with a heartbeat on the kit and the bell from the first night, further off.",
+ "bpm": 76,
+ "stepsPerBeat": 4,
+ "reverb": 0.35,
+ "channels": {
+  "lead": {
+   "instrument": "brass",
+   "volume": 0.34
+  },
+  "pad": {
+   "instrument": "pad",
+   "volume": 0.16
+  },
+  "bell": {
+   "instrument": "bell",
+   "volume": 0.1,
+   "pan": 0.3
+  },
+  "bass": {
+   "instrument": "fm_bass",
+   "volume": 0.4
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.18
+  }
+ },
+ "patterns": {
+  "I": {
+   "lead": "r:16 | r:16",
+   "pad": "[E3 B3]:16 | [E3 C4]:16",
+   "bell": "E5:4 r:12 | r:16",
+   "bass": "E2:8 E2:8 | E2:8 C2:8",
+   "drums": "k.......k....... k.......k...t.t."
+  },
+  "A": {
+   "lead": "E4:6 E4:2 G4:4 E4:4 | D4:8 B3:8 | E4:6 E4:2 G4:4 A4:4 | B4:16",
+   "pad": "[E3 B3]:16 | [D3 B3]:16 | [E3 C4]:16 | [B2 D#3 F#3]:16",
+   "bell": "r:16 | r:16 | A5:4 r:12 | B5:4 r:12",
+   "bass": "E2:8 E2:8 | G2:8 B1:8 | C2:8 C2:8 | B1:8 B1:8",
+   "drums": "k.......k....... k.......k....... k.......k....... k...k...T.T.t.t."
+  },
+  "B": {
+   "lead": "G4:8 F#4:8 | E4:8 D4:8 | C4:8 D4:8 | B3:16",
+   "pad": "[C3 G3]:16 | [A2 E3]:16 | [C3 G3]:16 | [B2 D#3 F#3]:16",
+   "bell": "G5:4 r:12 | r:16 | r:16 | B5:4 r:12",
+   "bass": "C2:8 C2:8 | A1:8 A1:8 | C2:8 D2:8 | B1:16",
+   "drums": "k.......k....... k.......k....... k.......k....... k.k.k.k.T.T.T.t."
+  }
+ },
+ "sequence": [
+  "I",
+  "A",
+  "B",
+  "A"
+ ]
+}

@@ -1,0 +1,54 @@
+{
+ "id": "grand_stenchmaster_song",
+ "title": "The Song of the Grand Stenchmaster",
+ "//": "Story Phase 7: an original sea shanty, words and music by Garrick Guzzlegut. D major, a stamping four, a concertina and a tuba, and the melody 'sung' by a wobbling FM voice that scoops up to every note and never quite lands. The verse lists his duties (the chair, the onions, the sleep, the rest), the chorus is his ceremonial leitmotif from now on ('He stinks for you, he stinks for me...'). The words are lines in the scene; this is the band. Reusable as Garrick's ceremonial theme.",
+ "bpm": 124,
+ "stepsPerBeat": 4,
+ "reverb": 0.2,
+ "channels": {
+  "voice": {
+   "instrument": "warble",
+   "volume": 0.34,
+   "pan": 0.05
+  },
+  "squeeze": {
+   "instrument": "concertina",
+   "volume": 0.14,
+   "pan": -0.3
+  },
+  "tuba": {
+   "instrument": "fm_bass",
+   "volume": 0.44
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.26
+  }
+ },
+ "patterns": {
+  "V": {
+   "voice": "A4:2 D5:2 D5:2 D5:2 F#5:4 A5:4 | G5:3 E5:1 E5:4 C#5:4 A4:4 | B4:2 D5:2 D5:2 D5:2 E5:4 F#5:4 | E5:12 r:4",
+   "squeeze": "[D4 F#4 A4]:4 r:4 [D4 F#4 A4]:4 r:4 | [A3 C#4 E4]:4 r:4 [A3 C#4 E4]:4 r:4 | [G3 B3 D4]:4 r:4 [G3 B3 D4]:4 r:4 | [A3 C#4 E4]:4 r:4 [A3 C#4 E4 G4]:4 r:4",
+   "tuba": "D2:4 A2:4 D2:4 A2:4 | A1:4 E2:4 A1:4 E2:4 | G1:4 D2:4 G1:4 D2:4 | A1:4 E2:4 A1:4 C#2:4",
+   "drums": "k...s...k...s... k...s...k...s... k...s...k...s... k...s...k.k.s.s."
+  },
+  "V2": {
+   "voice": "A4:2 D5:2 D5:2 D5:2 F#5:4 A5:4 | B5:3 A5:1 G5:4 F#5:4 E5:4 | E5:2 F#5:2 G5:2 E5:2 A5:4 C#5:4 | D5:12 r:4",
+   "squeeze": "[D4 F#4 A4]:4 r:4 [D4 F#4 A4]:4 r:4 | [G3 B3 D4]:4 r:4 [D4 F#4 A4]:4 r:4 | [A3 C#4 E4]:4 r:4 [A3 C#4 E4 G4]:4 r:4 | [D4 F#4 A4]:4 r:4 [D4 F#4 A4]:4 r:4",
+   "tuba": "D2:4 A2:4 D2:4 A2:4 | G1:4 D2:4 D2:4 A1:4 | A1:4 E2:4 A1:4 E2:4 | D2:4 A1:4 D2:8",
+   "drums": "k...s...k...s... k...s...k...s... k...s...k...s... k.k.s.s.k...c..."
+  },
+  "C": {
+   "voice": "F#5:2 F#5:2 F#5:2 G5:2 A5:4 F#5:4 | E5:2 E5:2 E5:2 F#5:2 G5:8 | F#5:2 F#5:2 E5:2 D5:2 B4:4 G4:4 | A4:4 B4:2 C#5:2 D5:8",
+   "squeeze": "[D4 F#4 A4]:2 r:2 [D4 F#4 A4]:2 r:2 [D4 F#4 A4]:2 r:2 [D4 F#4 A4]:2 r:2 | [A3 C#4 E4]:2 r:2 [A3 C#4 E4]:2 r:2 [G3 B3 D4]:2 r:2 [G3 B3 D4]:2 r:2 | [D4 F#4 A4]:2 r:2 [D4 F#4 A4]:2 r:2 [G3 B3 D4]:2 r:2 [G3 B3 D4]:2 r:2 | [A3 C#4 E4]:2 r:2 [A3 C#4 E4]:2 r:2 [D4 F#4 A4]:4 r:4",
+   "tuba": "D2:2 r:2 A2:2 r:2 D2:2 r:2 A2:2 r:2 | A1:2 r:2 E2:2 r:2 G1:2 r:2 D2:2 r:2 | D2:2 r:2 A2:2 r:2 G1:2 r:2 D2:2 r:2 | A1:2 r:2 E2:2 r:2 D2:8",
+   "drums": "k.s.k.s.k.s.k.s. k.s.k.s.k.s.k.s. k.s.k.s.k.s.k.s. k.s.k.s.c...k..."
+  }
+ },
+ "sequence": [
+  "V",
+  "V2",
+  "C",
+  "C"
+ ]
+}

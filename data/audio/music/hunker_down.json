@@ -1,0 +1,46 @@
+{
+ "id": "hunker_down",
+ "title": "Below, In the Dark",
+ "//": "Story Phase 7: the crew sheltering in the hold with the Great Sharkstorm on the deck above. Slow, sparse, A minor: a soft pad, a plucked figure like water in the bilge, a low bell now and then, no drums. It keeps almost turning hopeful.",
+ "bpm": 66,
+ "stepsPerBeat": 4,
+ "reverb": 0.45,
+ "channels": {
+  "pad": {
+   "instrument": "pad",
+   "volume": 0.16
+  },
+  "pluck": {
+   "instrument": "pluck",
+   "volume": 0.2,
+   "pan": -0.2
+  },
+  "bell": {
+   "instrument": "bell",
+   "volume": 0.08,
+   "pan": 0.3
+  },
+  "bass": {
+   "instrument": "tri_bass",
+   "volume": 0.26
+  }
+ },
+ "patterns": {
+  "A": {
+   "pad": "[A3 C4 E4]:16 | [F3 A3 C4]:16 | [G3 B3 D4]:16 | [E3 G#3 B3]:16",
+   "pluck": "A4:2 E4:2 C5:2 E4:2 A4:2 E4:2 B4:2 E4:2 | F4:2 C4:2 A4:2 C4:2 F4:2 C4:2 G4:2 C4:2 | G4:2 D4:2 B4:2 D4:2 G4:2 D4:2 A4:2 D4:2 | E4:2 B3:2 G#4:2 B3:2 E4:2 B3:2 D4:2 B3:2",
+   "bell": "E5:4 r:12 | r:16 | D5:4 r:12 | r:16",
+   "bass": "A2:16 | F2:16 | G2:16 | E2:16"
+  },
+  "B": {
+   "pad": "[F3 A3 C4]:16 | [C3 E3 G3]:16 | [D3 F3 A3]:16 | [E3 G#3 B3]:16",
+   "pluck": "F4:2 C4:2 A4:2 C4:2 C5:2 C4:2 A4:2 C4:2 | E4:2 C4:2 G4:2 C4:2 C5:2 G4:2 E4:2 C4:2 | D4:2 A3:2 F4:2 A3:2 A4:2 F4:2 D4:2 A3:2 | E4:2 B3:2 G#4:2 B3:2 B4:2 G#4:2 E4:2 B3:2",
+   "bell": "C6:4 r:12 | G5:4 r:12 | r:16 | B5:4 r:12",
+   "bass": "F2:16 | C2:16 | D2:16 | E2:16"
+  }
+ },
+ "sequence": [
+  "A",
+  "B"
+ ]
+}
