@@ -30,7 +30,8 @@ const compiled = (id) => {
 
 describe('the Great Sharkstorm (a saved state, not a weather simulation)', () => {
   it('has the five states the brief asks for, and starts not created', () => {
-    expect(Object.keys(sharkstormStates(content))).toEqual(['not_created', 'forming', 'attacking_ship', 'dispersed_near_ship', 'active_distant']);
+    // Phase 6's five, in order (Story Phase 7 adds returning and active_near_ship after them).
+    expect(Object.keys(sharkstormStates(content)).slice(0, 5)).toEqual(['not_created', 'forming', 'attacking_ship', 'dispersed_near_ship', 'active_distant']);
     const s = freshSession();
     expect(sharkstormNow(content, s).id).toBe('not_created');
     expect(evaluateCondition({ sharkstorm: 'not_created' }, s)).toBe(true);

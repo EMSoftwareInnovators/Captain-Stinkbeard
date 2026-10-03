@@ -111,10 +111,18 @@ async function playPhase3(pick) {
   return { s, chapters, names };
 }
 
+/** Every story phase after `n` that has flags (so a new phase's log entries are never counted as this one's). */
+function phasesAfter(n) {
+  return fs.readdirSync(path.resolve('data/story/flags'))
+    .map((f) => /^phase(\d+)\.json$/.exec(f))
+    .filter((m) => m && Number(m[1]) > n)
+    .map((m) => `phase${m[1]}`);
+}
+
 /** Flags that belong to later story phases (their log entries are not Phase 3's). */
 function laterPhaseFlags() {
   const ids = [];
-  for (const phase of ['phase4', 'phase5', 'phase6']) {
+  for (const phase of phasesAfter(3)) {
     ids.push(...JSON.parse(fs.readFileSync(path.resolve(`data/story/flags/${phase}.json`), 'utf8')).map((f) => f.id));
   }
   return new Set(ids);

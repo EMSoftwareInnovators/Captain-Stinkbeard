@@ -242,6 +242,14 @@ describe('Story Phase 5 debug presets are real, finishable points in the story',
   }
 });
 
+/** Every story phase after `n` that has flags (so a new phase's log entries are never counted as this one's). */
+function phasesAfter(n) {
+  return fs.readdirSync(path.resolve('data/story/flags'))
+    .map((f) => /^phase(\d+)\.json$/.exec(f))
+    .filter((m) => m && Number(m[1]) > n)
+    .map((m) => `phase${m[1]}`);
+}
+
 /** Flags that belong to later story phases (their log entries are not this phase's). */
 function laterPhaseFlags(phases) {
   return new Set(phases.flatMap((phase) => JSON.parse(fs.readFileSync(path.resolve(`data/story/flags/${phase}.json`), 'utf8')).map((f) => f.id)));
@@ -260,7 +268,7 @@ describe('Story Phase 5 stays inside its brief', () => {
     'data/story/flags/phase5.json', 'data/maps/ship/phase5', 'data/story/vistas/phase5.json', 'data/tv/ses.json',
     'data/hazards/alarms.json', 'data/hazards/shark_duty.json', 'data/logs/stench_log.json', 'data/appearances/phase5.json',
   ];
-  const later = laterPhaseFlags(['phase6']);
+  const later = laterPhaseFlags(phasesAfter(5));
   const text = files.flatMap((f) => {
     const p = path.resolve(f);
     const list = fs.statSync(p).isDirectory() ? fs.readdirSync(p).map((n) => path.join(p, n)) : [p];

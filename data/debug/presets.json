@@ -1802,5 +1802,414 @@
     "x": 10,
     "y": 13,
     "facing": "down"
+  },
+  {
+    "id": "p7_start",
+    "name": "Phase 7 Start",
+    "description": "Two days after Phase 6. Repairs, complaints, and the storm on the horizon nobody's looking at.",
+    "after": "p6_complete",
+    "flags": [
+      "p7_started"
+    ],
+    "vars": {
+      "p4_tod": 9,
+      "ses_generation": 1
+    },
+    "quests": {
+      "sharkstorm_returns": "active"
+    },
+    "map": "main_deck",
+    "x": 10,
+    "y": 13,
+    "facing": "down"
+  },
+  {
+    "id": "p7_sharkstorm_returning",
+    "name": "Sharkstorm Returning",
+    "description": "Repairs done; Ned has called you forward. Look through the telescope.",
+    "after": "p7_start",
+    "flags": [
+      "p7_debris_cleared",
+      "p7_fore_rigging",
+      "p7_ned_called"
+    ],
+    "quests": {
+      "sharkstorm_returns": {
+        "done": [
+          "repairs",
+          "ned"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 5,
+    "y": 28,
+    "facing": "left"
+  },
+  {
+    "id": "p7_flying_sharks_return",
+    "name": "Flying Sharks Return",
+    "description": "THWACK. The storm is back on top of the ship. Which away?",
+    "after": "p7_sharkstorm_returning",
+    "flags": [
+      "great_sharkstorm_returned",
+      "p7_fins_seen",
+      "p7_spray_seen",
+      "p7_first_thwack",
+      "p7_wisp_seen",
+      "garrick_aura_named",
+      "p7_ch34_started"
+    ],
+    "vars": {
+      "p4_tod": 10
+    },
+    "values": {
+      "great_sharkstorm": "attacking_ship",
+      "great_sharkstorm_distance": "near"
+    },
+    "quests": {
+      "sharkstorm_returns": "completed",
+      "which_away": "active"
+    },
+    "map": "main_deck",
+    "x": 10,
+    "y": 15,
+    "facing": "down"
+  },
+  {
+    "id": "p7_garrick_tv_complaint",
+    "name": "Garrick TV Complaint",
+    "description": "The rigging's fast, the main's reefed, Squawks is in your coat, the course is AWAY. The Grand Stenchmaster is shouting.",
+    "after": "p7_flying_sharks_return",
+    "flags": [
+      "p7_line_a",
+      "p7_line_b",
+      "p7_sail_reefed",
+      "p7_squawks_coat",
+      "p7_deck_shark_falling",
+      "p7_deck_shark_landed",
+      "p7_deck_shark_lifted",
+      "p7_deck_shark_heaved",
+      "p7_helm_away"
+    ],
+    "quests": {
+      "which_away": {
+        "done": [
+          "lines",
+          "sail",
+          "squawks",
+          "shark",
+          "helm"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 14,
+    "y": 19,
+    "facing": "up"
+  },
+  {
+    "id": "p7_not_a_duty",
+    "name": "Not a Stenchmaster Duty",
+    "description": "Franklin has an audit hearing tonight. The crew want the labour rule read out (the mainmast).",
+    "after": "p7_garrick_tv_complaint",
+    "flags": [
+      "p7_tv_complaint",
+      "p7_ch35_started"
+    ],
+    "quests": {
+      "which_away": "completed",
+      "not_a_duty": "active"
+    },
+    "map": "main_deck",
+    "x": 8,
+    "y": 20,
+    "facing": "right"
+  },
+  {
+    "id": "p7_grand_sharkmaster",
+    "name": "Grand Sharkmaster Argument",
+    "description": "You have the rule in your hand. Read it to him (his chair).",
+    "after": "p7_not_a_duty",
+    "flags": [
+      "p7_rule_fetched"
+    ],
+    "quests": {
+      "not_a_duty": {
+        "done": [
+          "rule"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 14,
+    "y": 19,
+    "facing": "up"
+  },
+  {
+    "id": "p7_crew_revolt",
+    "name": "Crew Job Revolt",
+    "description": "A Grand Sharkmaster. The crew are gathering midships with a list.",
+    "after": "p7_grand_sharkmaster",
+    "flags": [
+      "p7_loophole",
+      "p7_job_slate",
+      "grand_sharkmaster_invented",
+      "p7_ch36_started"
+    ],
+    "quests": {
+      "not_a_duty": "completed",
+      "job_description": "active"
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 21,
+    "facing": "down"
+  },
+  {
+    "id": "p7_cape_shark",
+    "name": "Cape Shark",
+    "description": "The list is complete. Take it to the Grand Stenchmaster (and mind the sky).",
+    "after": "p7_crew_revolt",
+    "flags": [
+      "p7_grievance_gristle",
+      "p7_grievance_pete",
+      "p7_grievance_bob",
+      "p7_grievance_hale"
+    ],
+    "quests": {
+      "job_description": {
+        "done": [
+          "crew"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 14,
+    "y": 19,
+    "facing": "up"
+  },
+  {
+    "id": "p7_stenchmaster_parade",
+    "name": "Stenchmaster Parade",
+    "description": "The cape is torn; the crew chased him; now he's on parade. Help Pete, Bob and Jim.",
+    "after": "p7_cape_shark",
+    "flags": [
+      "p7_career_alignment",
+      "garrick_cape_torn",
+      "p7_cape_chase",
+      "p7_ch37_started",
+      "p7_parade_started"
+    ],
+    "quests": {
+      "job_description": "completed",
+      "stenchmaster_parade": "active"
+    },
+    "map": "main_deck",
+    "x": 10,
+    "y": 20,
+    "facing": "down"
+  },
+  {
+    "id": "p7_stenchmaster_song",
+    "name": "Stenchmaster Song",
+    "description": "One job left (Jim's crate). Then he sings.",
+    "after": "p7_stenchmaster_parade",
+    "flags": [
+      "p7_helped_pete",
+      "p7_helped_bob"
+    ],
+    "quests": {
+      "stenchmaster_parade": {
+        "done": [
+          "pete",
+          "bob"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 25,
+    "facing": "left"
+  },
+  {
+    "id": "p7_mk1_wrecked",
+    "name": "S.E.S. Mark I Wrecked",
+    "description": "The song is over. A shark finished the original S.E.S. Garrick is taking the ship apart for parts (the binnacle first).",
+    "after": "p7_stenchmaster_song",
+    "flags": [
+      "p7_helped_jim",
+      "stenchmaster_parade_done",
+      "p7_ch38_started",
+      "grand_stenchmaster_song_performed",
+      "p7_back_to_work",
+      "ses_mark1_wrecked"
+    ],
+    "values": {
+      "ses_state": "wrecked"
+    },
+    "quests": {
+      "stenchmaster_parade": "completed",
+      "back_to_work": "active"
+    },
+    "map": "main_deck",
+    "x": 12,
+    "y": 7,
+    "facing": "up"
+  },
+  {
+    "id": "p7_retreat_below",
+    "name": "Retreat Below",
+    "description": "The storm worsens. Lash the wheel, then everyone below.",
+    "after": "p7_mk1_wrecked",
+    "flags": [
+      "p7_salvage_compass",
+      "p7_salvage_lantern",
+      "p7_lantern_fell",
+      "p7_salvage_horseshoe",
+      "p7_ch39_started"
+    ],
+    "quests": {
+      "back_to_work": "completed",
+      "everyone_below": "active"
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 7,
+    "facing": "up"
+  },
+  {
+    "id": "p7_mk2_construction",
+    "name": "Mark II Construction",
+    "description": "In the hold, sheltering. Watch the Grand Stenchmaster build a television (his bench).",
+    "after": "p7_retreat_below",
+    "flags": [
+      "p7_wheel_lashed",
+      "p7_hatch_secured",
+      "p7_sheltered",
+      "p7_ch40_started"
+    ],
+    "vars": {
+      "p4_tod": 11
+    },
+    "values": {
+      "great_sharkstorm": "active_near_ship",
+      "great_sharkstorm_distance": "near",
+      "ses_mk2_state": "under_construction"
+    },
+    "quests": {
+      "everyone_below": "completed",
+      "mark_two": "active"
+    },
+    "map": "cargo_hold",
+    "x": 12,
+    "y": 11,
+    "facing": "left"
+  },
+  {
+    "id": "p7_mk2_startup",
+    "name": "Mark II Startup",
+    "description": "Mark II is built. Keep his hands off the switch (talk to him). Twice.",
+    "after": "p7_mk2_construction",
+    "flags": [
+      "p7_mk2_aerial",
+      "p7_mk2_insulation",
+      "p7_mk2_routing",
+      "p7_mk2_knob",
+      "ses_mark2_built"
+    ],
+    "vars": {
+      "ses_generation": 2
+    },
+    "quests": {
+      "mark_two": {
+        "done": [
+          "build"
+        ]
+      }
+    },
+    "map": "cargo_hold",
+    "x": 12,
+    "y": 12,
+    "facing": "left"
+  },
+  {
+    "id": "p7_franklin_returns",
+    "name": "Franklin Returns",
+    "description": "It's on: snow, an orange tube, a suspicious blue one. The knobs (the set).",
+    "after": "p7_mk2_startup",
+    "flags": [
+      "p7_switch_stopped_1",
+      "p7_switch_stopped_2",
+      "p7_noise_helps",
+      "p7_mk2_startup"
+    ],
+    "vars": {
+      "ses_mk2_power": 1,
+      "ses_mk2_channel": 1
+    },
+    "values": {
+      "ses_mk2_state": null
+    },
+    "quests": {
+      "mark_two": {
+        "done": [
+          "build",
+          "switch"
+        ]
+      }
+    },
+    "map": "cargo_hold",
+    "x": 12,
+    "y": 11,
+    "facing": "left"
+  },
+  {
+    "id": "p7_crew_watches",
+    "name": "Crew Watches Frog Tax Man",
+    "description": "Franklin is back. Nobody is watching it. Find something else to do.",
+    "after": "p7_franklin_returns",
+    "flags": [
+      "p7_franklin_found",
+      "ses_mark2_operational",
+      "p7_ch41_started",
+      "p7_episode_part1"
+    ],
+    "vars": {
+      "ses_mk2_channel": 7
+    },
+    "quests": {
+      "mark_two": "completed",
+      "pleasant_evening": "active"
+    },
+    "map": "cargo_hold",
+    "x": 12,
+    "y": 12,
+    "facing": "down"
+  },
+  {
+    "id": "p7_complete",
+    "name": "Phase 7 Complete",
+    "description": "The crew below, watching Franklin explain depreciation, the Great Sharkstorm overhead.",
+    "after": "p7_crew_watches",
+    "flags": [
+      "p7_not_watching_crew",
+      "p7_not_watching_pump",
+      "p7_captain_sits",
+      "crew_watched_frog_tax_man",
+      "crew_franklin_fans",
+      "p7_one_episode",
+      "p7_squawks_verdict",
+      "p7_toast",
+      "p7_rested",
+      "p7_complete"
+    ],
+    "quests": {
+      "pleasant_evening": "completed"
+    },
+    "map": "cargo_hold",
+    "x": 12,
+    "y": 13,
+    "facing": "down"
   }
 ]
