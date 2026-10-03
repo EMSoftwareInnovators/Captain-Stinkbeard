@@ -3,6 +3,7 @@ import { drawText } from '../font/drawText.js';
 import { sesTv, miniScreen } from './phase5Props.js';
 import { PHASE6_SCREEN_PAINTERS } from '../vista/vistaPhase6.js';
 import { barrel } from './deckProps.js';
+import { sharkDeck } from '../stage/stageArt.js';
 
 /**
  * Props for Story Phase 6 (The Death Rattle of the Stenchmaster
@@ -275,7 +276,36 @@ function grogSplash() {
   return c;
 }
 
+/** A shroud worked loose in the Sharkstorm: a lanyard whipping off the rail, a "!" over it. */
+function looseShroud() {
+  const frames = [];
+  for (let f = 0; f < 4; f++) {
+    const c = canvas(16, 30);
+    c.rect(6, 20, 4, 8, WOOD.m);
+    c.hline(4, 11, 21, IRON.l);
+    for (let k = 0; k < 12; k++) {
+      const x = 7 + Math.round(Math.sin(k * 0.6 + f * 1.6) * (k / 3));
+      c.set(x, 20 - k, '#f0d080');
+      c.set(x + 1, 20 - k, '#cca660');
+    }
+    const lift = f % 2;
+    const bang = f < 2 ? '#ffe040' : '#ff8a30';
+    c.rect(6, 0 + lift, 4, 6, bang);
+    c.rect(6, 7 + lift, 4, 2, bang);
+    c.outline(INK);
+    frames.push(c);
+  }
+  return { frames, ms: 200 };
+}
+
+/** A shark landed midships in the Sharkstorm, flopping until the crew heave it over. */
+function deckShark() {
+  return { frames: [sharkDeck('flop0'), sharkDeck('flop1')], ms: 260 };
+}
+
 export const PHASE6_PROPS = {
+  deck_shark: deckShark,
+  loose_shroud: looseShroud,
   ses_tv_ftm: sesFtm,
   ses_tv_dying: sesDying,
   ses_tv_dead: sesDead,

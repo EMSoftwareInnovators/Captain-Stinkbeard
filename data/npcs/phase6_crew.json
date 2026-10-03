@@ -309,6 +309,35 @@
    },
    {
     "if": {
+     "objectiveActive": "the_great_sharkstorm.shark"
+    },
+    "script": "hale.p6_shark_hint"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "the_great_sharkstorm.brace"
+      },
+      {
+       "any": [
+        {
+         "notFlag": "p6_rope_a"
+        },
+        {
+         "notFlag": "p6_rope_b"
+        },
+        {
+         "notFlag": "p6_rope_c"
+        }
+       ]
+      }
+     ]
+    },
+    "script": "p6.shroud_hint"
+   },
+   {
+    "if": {
      "flag": "p6_complete"
     },
     "cycle": [
@@ -430,6 +459,35 @@
    },
    {
     "if": {
+     "objectiveActive": "the_great_sharkstorm.shark"
+    },
+    "script": "wick.p6_shark_hint"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "the_great_sharkstorm.brace"
+      },
+      {
+       "any": [
+        {
+         "notFlag": "p6_rope_a"
+        },
+        {
+         "notFlag": "p6_rope_b"
+        },
+        {
+         "notFlag": "p6_rope_c"
+        }
+       ]
+      }
+     ]
+    },
+    "script": "p6.shroud_hint"
+   },
+   {
+    "if": {
      "flag": "p6_complete"
     },
     "script": "wick.p6_t9"
@@ -517,6 +575,35 @@
  {
   "extend": "fennimore",
   "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "the_great_sharkstorm.shark"
+    },
+    "script": "fennimore.p6_shark_hint"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "the_great_sharkstorm.brace"
+      },
+      {
+       "any": [
+        {
+         "notFlag": "p6_rope_a"
+        },
+        {
+         "notFlag": "p6_rope_b"
+        },
+        {
+         "notFlag": "p6_rope_c"
+        }
+       ]
+      }
+     ]
+    },
+    "script": "p6.shroud_hint"
+   },
    {
     "if": {
      "flag": "p6_complete"
@@ -631,6 +718,35 @@
      ]
     },
     "script": "p6.refuge.barrel"
+   },
+   {
+    "if": {
+     "objectiveActive": "the_great_sharkstorm.shark"
+    },
+    "script": "rook.p6_shark_hint"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "the_great_sharkstorm.brace"
+      },
+      {
+       "any": [
+        {
+         "notFlag": "p6_rope_a"
+        },
+        {
+         "notFlag": "p6_rope_b"
+        },
+        {
+         "notFlag": "p6_rope_c"
+        }
+       ]
+      }
+     ]
+    },
+    "script": "p6.shroud_hint"
    },
    {
     "if": {
@@ -762,6 +878,35 @@
    },
    {
     "if": {
+     "objectiveActive": "the_great_sharkstorm.shark"
+    },
+    "script": "sully.p6_shark_hint"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "the_great_sharkstorm.brace"
+      },
+      {
+       "any": [
+        {
+         "notFlag": "p6_rope_a"
+        },
+        {
+         "notFlag": "p6_rope_b"
+        },
+        {
+         "notFlag": "p6_rope_c"
+        }
+       ]
+      }
+     ]
+    },
+    "script": "p6.shroud_hint"
+   },
+   {
+    "if": {
      "flag": "p6_complete"
     },
     "script": "sully.p6_t9"
@@ -877,6 +1022,35 @@
    },
    {
     "if": {
+     "objectiveActive": "the_great_sharkstorm.shark"
+    },
+    "script": "brask.p6_shark_hint"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "the_great_sharkstorm.brace"
+      },
+      {
+       "any": [
+        {
+         "notFlag": "p6_rope_a"
+        },
+        {
+         "notFlag": "p6_rope_b"
+        },
+        {
+         "notFlag": "p6_rope_c"
+        }
+       ]
+      }
+     ]
+    },
+    "script": "p6.shroud_hint"
+   },
+   {
+    "if": {
      "flag": "p6_complete"
     },
     "script": "brask.p6_t9"
@@ -979,6 +1153,35 @@
   "dialogue": [
    {
     "if": {
+     "objectiveActive": "the_great_sharkstorm.shark"
+    },
+    "script": "gristle.p6_shark_hint"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "the_great_sharkstorm.brace"
+      },
+      {
+       "any": [
+        {
+         "notFlag": "p6_rope_a"
+        },
+        {
+         "notFlag": "p6_rope_b"
+        },
+        {
+         "notFlag": "p6_rope_c"
+        }
+       ]
+      }
+     ]
+    },
+    "script": "p6.shroud_hint"
+   },
+   {
+    "if": {
      "flag": "p6_complete"
     },
     "script": "gristle.p6_t9"
@@ -1078,6 +1281,35 @@
      ]
     },
     "script": "p4.jory_duty_end"
+   },
+   {
+    "if": {
+     "objectiveActive": "the_great_sharkstorm.shark"
+    },
+    "script": "jory.p6_shark_hint"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "the_great_sharkstorm.brace"
+      },
+      {
+       "any": [
+        {
+         "notFlag": "p6_rope_a"
+        },
+        {
+         "notFlag": "p6_rope_b"
+        },
+        {
+         "notFlag": "p6_rope_c"
+        }
+       ]
+      }
+     ]
+    },
+    "script": "p6.shroud_hint"
    },
    {
     "if": {
@@ -1186,6 +1418,35 @@
    },
    {
     "if": {
+     "objectiveActive": "the_great_sharkstorm.shark"
+    },
+    "script": "bob.p6_shark_hint"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "the_great_sharkstorm.brace"
+      },
+      {
+       "any": [
+        {
+         "notFlag": "p6_rope_a"
+        },
+        {
+         "notFlag": "p6_rope_b"
+        },
+        {
+         "notFlag": "p6_rope_c"
+        }
+       ]
+      }
+     ]
+    },
+    "script": "p6.shroud_hint"
+   },
+   {
+    "if": {
      "flag": "p6_complete"
     },
     "script": "bob.p6_t9"
@@ -1288,6 +1549,35 @@
   "dialogue": [
    {
     "if": {
+     "objectiveActive": "the_great_sharkstorm.shark"
+    },
+    "script": "ned.p6_shark_hint"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "the_great_sharkstorm.brace"
+      },
+      {
+       "any": [
+        {
+         "notFlag": "p6_rope_a"
+        },
+        {
+         "notFlag": "p6_rope_b"
+        },
+        {
+         "notFlag": "p6_rope_c"
+        }
+       ]
+      }
+     ]
+    },
+    "script": "p6.shroud_hint"
+   },
+   {
+    "if": {
      "flag": "p6_complete"
     },
     "script": "ned.p6_t9"
@@ -1377,6 +1667,35 @@
   "dialogue": [
    {
     "if": {
+     "objectiveActive": "the_great_sharkstorm.shark"
+    },
+    "script": "nell.p6_shark_hint"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "the_great_sharkstorm.brace"
+      },
+      {
+       "any": [
+        {
+         "notFlag": "p6_rope_a"
+        },
+        {
+         "notFlag": "p6_rope_b"
+        },
+        {
+         "notFlag": "p6_rope_c"
+        }
+       ]
+      }
+     ]
+    },
+    "script": "p6.shroud_hint"
+   },
+   {
+    "if": {
      "flag": "p6_complete"
     },
     "script": "nell.p6_t9"
@@ -1440,6 +1759,35 @@
    },
    {
     "if": {
+     "objectiveActive": "the_great_sharkstorm.shark"
+    },
+    "script": "finch.p6_shark_hint"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "the_great_sharkstorm.brace"
+      },
+      {
+       "any": [
+        {
+         "notFlag": "p6_rope_a"
+        },
+        {
+         "notFlag": "p6_rope_b"
+        },
+        {
+         "notFlag": "p6_rope_c"
+        }
+       ]
+      }
+     ]
+    },
+    "script": "p6.shroud_hint"
+   },
+   {
+    "if": {
      "flag": "p6_complete"
     },
     "script": "finch.p6_t9"
@@ -1488,6 +1836,35 @@
  {
   "extend": "pete",
   "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "the_great_sharkstorm.shark"
+    },
+    "script": "pete.p6_shark_hint"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "the_great_sharkstorm.brace"
+      },
+      {
+       "any": [
+        {
+         "notFlag": "p6_rope_a"
+        },
+        {
+         "notFlag": "p6_rope_b"
+        },
+        {
+         "notFlag": "p6_rope_c"
+        }
+       ]
+      }
+     ]
+    },
+    "script": "p6.shroud_hint"
+   },
    {
     "if": {
      "flag": "p6_complete"
@@ -1579,6 +1956,35 @@
   "dialogue": [
    {
     "if": {
+     "objectiveActive": "the_great_sharkstorm.shark"
+    },
+    "script": "mags.p6_shark_hint"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "the_great_sharkstorm.brace"
+      },
+      {
+       "any": [
+        {
+         "notFlag": "p6_rope_a"
+        },
+        {
+         "notFlag": "p6_rope_b"
+        },
+        {
+         "notFlag": "p6_rope_c"
+        }
+       ]
+      }
+     ]
+    },
+    "script": "p6.shroud_hint"
+   },
+   {
+    "if": {
      "flag": "p6_complete"
     },
     "script": "mags.p6_t9"
@@ -1655,6 +2061,35 @@
   "dialogue": [
    {
     "if": {
+     "objectiveActive": "the_great_sharkstorm.shark"
+    },
+    "script": "jim.p6_shark_hint"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "the_great_sharkstorm.brace"
+      },
+      {
+       "any": [
+        {
+         "notFlag": "p6_rope_a"
+        },
+        {
+         "notFlag": "p6_rope_b"
+        },
+        {
+         "notFlag": "p6_rope_c"
+        }
+       ]
+      }
+     ]
+    },
+    "script": "p6.shroud_hint"
+   },
+   {
+    "if": {
      "flag": "p6_complete"
     },
     "script": "jim.p6_t9"
@@ -1718,6 +2153,35 @@
   "dialogue": [
    {
     "if": {
+     "objectiveActive": "the_great_sharkstorm.shark"
+    },
+    "script": "quill.p6_shark_hint"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "the_great_sharkstorm.brace"
+      },
+      {
+       "any": [
+        {
+         "notFlag": "p6_rope_a"
+        },
+        {
+         "notFlag": "p6_rope_b"
+        },
+        {
+         "notFlag": "p6_rope_c"
+        }
+       ]
+      }
+     ]
+    },
+    "script": "p6.shroud_hint"
+   },
+   {
+    "if": {
      "flag": "p6_complete"
     },
     "script": "quill.p6_t9"
@@ -1766,6 +2230,35 @@
  {
   "extend": "penhallow",
   "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "the_great_sharkstorm.shark"
+    },
+    "script": "penhallow.p6_shark_hint"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "the_great_sharkstorm.brace"
+      },
+      {
+       "any": [
+        {
+         "notFlag": "p6_rope_a"
+        },
+        {
+         "notFlag": "p6_rope_b"
+        },
+        {
+         "notFlag": "p6_rope_c"
+        }
+       ]
+      }
+     ]
+    },
+    "script": "p6.shroud_hint"
+   },
    {
     "if": {
      "flag": "p6_complete"

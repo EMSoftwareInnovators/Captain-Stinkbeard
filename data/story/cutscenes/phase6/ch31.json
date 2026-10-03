@@ -34,7 +34,7 @@
   },
   "Its shadow sweeps across the deck. Then the next one's.",
   {
-   "tutorial": "Brace the ship: secure the shrouds (three of them). Watch the deck: a red ring and a growing shadow means a shark is coming down there. Step off it.",
+   "tutorial": "Brace the ship: secure the three loose shrouds (the whipping ropes marked with a !): starboard rail by the laundry line, the port rail opposite, and the quarterdeck's starboard rail. Watch the deck: a red ring and a growing shadow means a shark is coming down there. Step off it.",
    "title": "The Great Sharkstorm"
   }
  ],
@@ -185,16 +185,19 @@
  ],
  "p6c7.deck_shark": [
   {
+   "setFlag": "p6_deck_shark_falling"
+  },
+  {
    "sfx": "shark_whistle"
   },
   {
    "sprite": "deck_shark_shadow",
    "frame": "flying_shark_shadow",
-   "x": 9.5,
-   "y": 22.7,
+   "x": 12.5,
+   "y": 21.7,
    "alpha": 0.5
   },
-  "A whistle, falling. A shadow on the planks midships, growing.",
+  "A whistle, falling. A shadow on the planks midships, just to port of the mainmast, growing.",
   {
    "removeSprite": "deck_shark_shadow"
   },
@@ -206,19 +209,15 @@
    "duration": 400
   },
   {
-   "sprite": "deck_shark",
-   "frame": "shark_deck_0",
-   "x": 9.5,
-   "y": 23,
-   "anim": "stage:shark_flop"
+   "setFlag": "p6_deck_shark_landed"
   },
   {
    "burst": "splinters",
-   "x": 9,
-   "y": 22,
+   "x": 12,
+   "y": 21,
    "count": 12
   },
-  "THUMP. A whole shark lands on the deck, midships, right in front of the main hatch, and starts thrashing.",
+  "THUMP. A whole shark lands on the deck, midships, just to port of the mainmast, and starts thrashing.",
   {
    "bark": "rook",
    "text": "SHARK ON DECK!",
@@ -226,7 +225,7 @@
    "shout": true
   },
   {
-   "tutorial": "Shark on deck! Get the crew together and heave it overboard (midships, by the main hatch).",
+   "tutorial": "Shark on deck! Get the crew together and heave it overboard. It's midships, just to port (right) of the mainmast.",
    "title": "The Great Sharkstorm"
   }
  ],
@@ -243,9 +242,19 @@
    "title": "HEAVE!"
   },
   {
+   "sprite": "deck_shark",
+   "frame": "shark_deck_0",
+   "x": 12.5,
+   "y": 22,
+   "anim": "stage:shark_flop"
+  },
+  {
+   "setFlag": "p6_deck_shark_lifted"
+  },
+  {
    "moveSprite": "deck_shark",
    "x": 16.5,
-   "y": 22,
+   "y": 21,
    "duration": 700,
    "ease": "Quad.In"
   },

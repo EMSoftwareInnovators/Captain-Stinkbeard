@@ -236,8 +236,8 @@
   {
    "id": "p6_heave",
    "type": "inspect",
-   "x": 9,
-   "y": 22,
+   "x": 12,
+   "y": 21,
    "if": {
     "objectiveActive": "the_great_sharkstorm.shark"
    },
@@ -246,8 +246,8 @@
   {
    "id": "p6_heave_block",
    "type": "block",
-   "x": 9,
-   "y": 22,
+   "x": 12,
+   "y": 21,
    "if": {
     "objectiveActive": "the_great_sharkstorm.shark"
    }
@@ -3291,9 +3291,9 @@
    "id": "p6d_pete_3",
    "type": "npc",
    "npc": "pete",
-   "x": 11,
-   "y": 21,
-   "facing": "down",
+   "x": 10,
+   "y": 22,
+   "facing": "right",
    "if": {
     "all": [
      {
@@ -4351,6 +4351,100 @@
   }
  ],
  "props": [
+  {
+   "prop": "deck_shark",
+   "x": 12,
+   "y": 21,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_great_sharkstorm.shark"
+     },
+     {
+      "notFlag": "p6_deck_shark_lifted"
+     },
+     {
+      "any": [
+       {
+        "flag": "p6_deck_shark_landed"
+       },
+       {
+        "notFlag": "p6_deck_shark_falling"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "prop": "loose_shroud",
+   "x": 3,
+   "y": 16,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_great_sharkstorm.brace"
+     },
+     {
+      "notFlag": "p6_rope_a"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "brace_ropes_s",
+   "x": 3,
+   "y": 16,
+   "if": {
+    "flag": "p6_rope_a"
+   }
+  },
+  {
+   "prop": "loose_shroud",
+   "x": 16,
+   "y": 16,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_great_sharkstorm.brace"
+     },
+     {
+      "notFlag": "p6_rope_b"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "brace_ropes",
+   "x": 16,
+   "y": 16,
+   "if": {
+    "flag": "p6_rope_b"
+   }
+  },
+  {
+   "prop": "loose_shroud",
+   "x": 3,
+   "y": 7,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_great_sharkstorm.brace"
+     },
+     {
+      "notFlag": "p6_rope_c"
+     }
+    ]
+   }
+  },
+  {
+   "prop": "brace_ropes_s",
+   "x": 3,
+   "y": 7,
+   "if": {
+    "flag": "p6_rope_c"
+   }
+  },
   {
    "prop": "ses_tv_ftm",
    "x": 14,

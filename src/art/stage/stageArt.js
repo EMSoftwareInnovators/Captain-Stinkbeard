@@ -339,7 +339,7 @@ function sharkBite(frame) {
 }
 
 /** A shark flopping on the deck (seen from above, lying on its side). */
-function sharkDeck(pose) {
+export function sharkDeck(pose) {
   const c = new PixelCanvas(40, 24);
   for (let y = 18; y < 22; y++) for (let x = 6; x < 34; x++) if ((x + y) % 2) c.set(x, y, '#0c0a1050');
   const lift = pose === 'flop1' ? -3 : 0;

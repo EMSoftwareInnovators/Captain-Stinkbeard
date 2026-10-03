@@ -122,7 +122,7 @@ async function partTwo(g, has) {
   await g.interact([16, 16]);
   await g.interact([3, 7]);
   await g.interact('squawks');
-  await g.interact([9, 22]); // HEAVE; the S.E.S. is hit
+  await g.interact([12, 21]); // HEAVE; the S.E.S. is hit
   expect(await value(g, 'ses_state')).toBe('shark_damaged');
   await g.interact([9, 6]); // the helm; "No."
   // 32: another ocean
@@ -161,7 +161,7 @@ test('Phase 6 from the Great Sharkstorm attack to the end plays from its preset'
   await g.interact([16, 16]);
   await g.interact([3, 7]);
   await g.interact('squawks');
-  await g.interact([9, 22]);
+  await g.interact([12, 21]);
   await g.interact([9, 6]);
   for (let i = 0; i < 5; i++) {
     await g.interact([5, 25]);
