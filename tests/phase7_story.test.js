@@ -252,6 +252,39 @@ describe('Story Phase 7 can be played start to finish (headless)', () => {
   });
 });
 
+describe('Chapter 34 keeps the captain pointed at the next job', () => {
+  it('each job says what is left and where; the crew stop asking for jobs already done; every later stage is named', async () => {
+    const s = makeStory({ preset: 'p7_flying_sharks_return' });
+    await s.enter(s.map, resolvePreset(s.content, 'p7_flying_sharks_return').script);
+    const said = async (fn) => {
+      const n = s.log.length;
+      await fn();
+      return s.log.slice(n).join('\n');
+    };
+    expect(await said(() => s.talk('rook'))).toMatch(/Make the shrouds fast/);
+    expect(await said(() => s.inspect('p7_line_a'))).toMatch(/fore shrouds, Captain! Starboard side/);
+    expect(await said(() => s.talk('rook'))).toMatch(/Port main's holding/);
+    expect(await said(() => s.talk('jory'))).toMatch(/One shroud still loose, Captain! The starboard fore/);
+    // Both shrouds fast: the game says so, and what comes next.
+    expect(await said(() => s.inspect('p7_line_b'))).toMatch(/Now the mainsail, Captain! Reef it, at the foot of the mainmast/);
+    const finch = await said(() => s.talk('finch'));
+    expect(finch).toMatch(/Fore shrouds are fast/);
+    expect(finch).not.toMatch(/banging like a door/);
+    expect(await said(() => s.talk('rook'))).not.toMatch(/Make the shrouds fast/);
+    expect(await said(() => s.talk('jory'))).toMatch(/Now reef the main/);
+    expect(await said(() => s.inspect('p7_reef'))).toMatch(/Squawks, Captain! He's still out in his basket by the cabin door/);
+    expect(await said(() => s.talk('hale'))).toMatch(/Main's reefed/);
+    // The last job: a shark lands, and everybody on deck says where.
+    await s.talk('squawks');
+    expect(s.session.quests.isObjectiveAvailable('which_away', 'shark')).toBe(true);
+    for (const npc of ['rook', 'finch', 'hale', 'jory', 'bob', 'gristle', 'nell']) expect(await said(() => s.talk(npc)), npc).toMatch(/main hatch/);
+    await s.inspect('p7_heave');
+    for (const npc of ['rook', 'jory', 'pete']) expect(await said(() => s.talk(npc)), npc).toMatch(/helm/i);
+    await s.inspect('p7_helm');
+    for (const npc of ['hale', 'jory', 'nell']) expect(await said(() => s.talk(npc)), npc).toMatch(/his chair/);
+  });
+});
+
 describe('Story Phase 7 debug presets are real, finishable points in the story', () => {
   const presets = ['p7_start', 'p7_sharkstorm_returning', 'p7_flying_sharks_return', 'p7_garrick_tv_complaint', 'p7_not_a_duty',
     'p7_grand_sharkmaster', 'p7_crew_revolt', 'p7_cape_shark', 'p7_stenchmaster_parade', 'p7_stenchmaster_song', 'p7_mk1_wrecked',

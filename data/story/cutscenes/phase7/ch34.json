@@ -67,6 +67,61 @@
     {
      "call": "p7c2.deck_shark"
     }
+   ],
+   "else": [
+    {
+     "call": "p7c2.next_task"
+    }
+   ]
+  }
+ ],
+ "p7c2.next_task": [
+  {
+   "if": {
+    "notFlag": "p7_line_a"
+   },
+   "then": [
+    {
+     "if": {
+      "flag": "p7_line_b"
+     },
+     "then": [
+      "rook[alarmed]: One more, Captain! The port main shrouds, by the mainmast! They're still loose!"
+     ],
+     "else": [
+      "jory[alarmed]: The shrouds, Captain! Port main, by the mainmast, and starboard fore, by the foremast!"
+     ]
+    }
+   ],
+   "else": [
+    {
+     "if": {
+      "notFlag": "p7_line_b"
+     },
+     "then": [
+      "finch[alarmed]: The fore shrouds, Captain! Starboard side, by the foremast! Still loose!"
+     ],
+     "else": [
+      {
+       "if": {
+        "notFlag": "p7_sail_reefed"
+       },
+       "then": [
+        "hale[alarmed]: Rigging's fast! Now the mainsail, Captain! Reef it, at the foot of the mainmast!"
+       ],
+       "else": [
+        {
+         "if": {
+          "notFlag": "p7_squawks_coat"
+         },
+         "then": [
+          "fennimore[alarmed]: Squawks, Captain! He's still out in his basket by the cabin door! Get him!"
+         ]
+        }
+       ]
+      }
+     ]
+    }
    ]
   }
  ],

@@ -292,6 +292,40 @@
    },
    {
     "if": {
+     "objectiveActive": "which_away.garrick"
+    },
+    "script": "hale.p7_wa_garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.helm"
+    },
+    "script": "hale.p7_wa_helm"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.shark"
+    },
+    "script": "hale.p7_wa_shark"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch34_started"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      },
+      {
+       "flag": "p7_sail_reefed"
+      }
+     ]
+    },
+    "script": "hale.p7_wa_done"
+   },
+   {
+    "if": {
      "flag": "p7_complete"
     },
     "cycle": [
@@ -422,6 +456,24 @@
    },
    {
     "if": {
+     "objectiveActive": "which_away.garrick"
+    },
+    "script": "wick.p7_wa_garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.helm"
+    },
+    "script": "wick.p7_wa_helm"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.shark"
+    },
+    "script": "wick.p7_wa_shark"
+   },
+   {
+    "if": {
      "flag": "p7_complete"
     },
     "script": "wick.p7_u9"
@@ -540,6 +592,40 @@
      "objectiveActive": "pleasant_evening.elsewhere"
     },
     "script": "fennimore.p7_shush"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.garrick"
+    },
+    "script": "fennimore.p7_wa_garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.helm"
+    },
+    "script": "fennimore.p7_wa_helm"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.shark"
+    },
+    "script": "fennimore.p7_wa_shark"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch34_started"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      },
+      {
+       "flag": "p7_squawks_coat"
+      }
+     ]
+    },
+    "script": "fennimore.p7_wa_done"
    },
    {
     "if": {
@@ -677,6 +763,40 @@
    },
    {
     "if": {
+     "objectiveActive": "which_away.garrick"
+    },
+    "script": "rook.p7_wa_garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.helm"
+    },
+    "script": "rook.p7_wa_helm"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.shark"
+    },
+    "script": "rook.p7_wa_shark"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch34_started"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      },
+      {
+       "flag": "p7_line_a"
+      }
+     ]
+    },
+    "script": "rook.p7_wa_done"
+   },
+   {
+    "if": {
      "flag": "p7_complete"
     },
     "cycle": [
@@ -801,6 +921,24 @@
    },
    {
     "if": {
+     "objectiveActive": "which_away.garrick"
+    },
+    "script": "sully.p7_wa_garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.helm"
+    },
+    "script": "sully.p7_wa_helm"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.shark"
+    },
+    "script": "sully.p7_wa_shark"
+   },
+   {
+    "if": {
      "flag": "p7_complete"
     },
     "script": "sully.p7_u9"
@@ -919,6 +1057,24 @@
      "objectiveActive": "pleasant_evening.elsewhere"
     },
     "script": "brask.p7_shush"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.garrick"
+    },
+    "script": "brask.p7_wa_garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.helm"
+    },
+    "script": "brask.p7_wa_helm"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.shark"
+    },
+    "script": "brask.p7_wa_shark"
    },
    {
     "if": {
@@ -1056,6 +1212,24 @@
    },
    {
     "if": {
+     "objectiveActive": "which_away.garrick"
+    },
+    "script": "gristle.p7_wa_garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.helm"
+    },
+    "script": "gristle.p7_wa_helm"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.shark"
+    },
+    "script": "gristle.p7_wa_shark"
+   },
+   {
+    "if": {
      "flag": "p7_complete"
     },
     "cycle": [
@@ -1180,6 +1354,109 @@
      "objectiveActive": "pleasant_evening.elsewhere"
     },
     "script": "jory.p7_shush"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.garrick"
+    },
+    "script": "jory.p7_wa_garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.helm"
+    },
+    "script": "jory.p7_wa_helm"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.shark"
+    },
+    "script": "jory.p7_wa_shark"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch34_started"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      },
+      {
+       "flag": "p7_line_a"
+      },
+      {
+       "flag": "p7_line_b"
+      },
+      {
+       "notFlag": "p7_sail_reefed"
+      }
+     ]
+    },
+    "script": "jory.p7_wa_left_1"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch34_started"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      },
+      {
+       "flag": "p7_line_a"
+      },
+      {
+       "flag": "p7_line_b"
+      },
+      {
+       "flag": "p7_sail_reefed"
+      },
+      {
+       "notFlag": "p7_squawks_coat"
+      }
+     ]
+    },
+    "script": "jory.p7_wa_left_2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch34_started"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      },
+      {
+       "flag": "p7_line_a"
+      },
+      {
+       "notFlag": "p7_line_b"
+      }
+     ]
+    },
+    "script": "jory.p7_wa_left_3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch34_started"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      },
+      {
+       "flag": "p7_line_b"
+      },
+      {
+       "notFlag": "p7_line_a"
+      }
+     ]
+    },
+    "script": "jory.p7_wa_left_4"
    },
    {
     "if": {
@@ -1330,6 +1607,24 @@
    },
    {
     "if": {
+     "objectiveActive": "which_away.garrick"
+    },
+    "script": "bob.p7_wa_garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.helm"
+    },
+    "script": "bob.p7_wa_helm"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.shark"
+    },
+    "script": "bob.p7_wa_shark"
+   },
+   {
+    "if": {
      "flag": "p7_complete"
     },
     "cycle": [
@@ -1460,6 +1755,24 @@
    },
    {
     "if": {
+     "objectiveActive": "which_away.garrick"
+    },
+    "script": "ned.p7_wa_garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.helm"
+    },
+    "script": "ned.p7_wa_helm"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.shark"
+    },
+    "script": "ned.p7_wa_shark"
+   },
+   {
+    "if": {
      "flag": "p7_complete"
     },
     "script": "ned.p7_u9"
@@ -1581,6 +1894,24 @@
    },
    {
     "if": {
+     "objectiveActive": "which_away.garrick"
+    },
+    "script": "nell.p7_wa_garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.helm"
+    },
+    "script": "nell.p7_wa_helm"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.shark"
+    },
+    "script": "nell.p7_wa_shark"
+   },
+   {
+    "if": {
      "flag": "p7_complete"
     },
     "script": "nell.p7_u9"
@@ -1699,6 +2030,40 @@
      "objectiveActive": "pleasant_evening.elsewhere"
     },
     "script": "finch.p7_shush"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.garrick"
+    },
+    "script": "finch.p7_wa_garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.helm"
+    },
+    "script": "finch.p7_wa_helm"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.shark"
+    },
+    "script": "finch.p7_wa_shark"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p7_ch34_started"
+      },
+      {
+       "notFlag": "p7_ch35_started"
+      },
+      {
+       "flag": "p7_line_b"
+      }
+     ]
+    },
+    "script": "finch.p7_wa_done"
    },
    {
     "if": {
@@ -1849,6 +2214,24 @@
    },
    {
     "if": {
+     "objectiveActive": "which_away.garrick"
+    },
+    "script": "pete.p7_wa_garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.helm"
+    },
+    "script": "pete.p7_wa_helm"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.shark"
+    },
+    "script": "pete.p7_wa_shark"
+   },
+   {
+    "if": {
      "flag": "p7_complete"
     },
     "cycle": [
@@ -1973,6 +2356,24 @@
      "objectiveActive": "pleasant_evening.elsewhere"
     },
     "script": "mags.p7_shush"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.garrick"
+    },
+    "script": "mags.p7_wa_garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.helm"
+    },
+    "script": "mags.p7_wa_helm"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.shark"
+    },
+    "script": "mags.p7_wa_shark"
    },
    {
     "if": {
@@ -2110,6 +2511,24 @@
    },
    {
     "if": {
+     "objectiveActive": "which_away.garrick"
+    },
+    "script": "jim.p7_wa_garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.helm"
+    },
+    "script": "jim.p7_wa_helm"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.shark"
+    },
+    "script": "jim.p7_wa_shark"
+   },
+   {
+    "if": {
      "flag": "p7_complete"
     },
     "script": "jim.p7_u9"
@@ -2228,6 +2647,24 @@
      "objectiveActive": "pleasant_evening.elsewhere"
     },
     "script": "quill.p7_shush"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.garrick"
+    },
+    "script": "quill.p7_wa_garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.helm"
+    },
+    "script": "quill.p7_wa_helm"
+   },
+   {
+    "if": {
+     "objectiveActive": "which_away.shark"
+    },
+    "script": "quill.p7_wa_shark"
    },
    {
     "if": {
