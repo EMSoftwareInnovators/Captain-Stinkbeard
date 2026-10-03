@@ -51,7 +51,7 @@ function sesDead() {
 }
 
 /** After the shark: cracked glass, a bite out of the corner, soot, the aerial bent flat. */
-function sesWrecked() {
+export function sesWrecked() {
   const c = sesDead();
   // the bite out of the top right corner
   for (const [bx, by, r] of [[21, 7, 3], [23, 10, 2]]) {

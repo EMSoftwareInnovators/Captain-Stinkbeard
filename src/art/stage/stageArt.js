@@ -3,6 +3,7 @@ import { ShelfAtlas } from '../atlas.js';
 import { PAL } from '../palette.js';
 import { addPhase4StageFrames, PHASE4_STAGE_FRAMES } from './stagePhase4.js';
 import { addPhase6StageFrames, PHASE6_STAGE_FRAMES } from './stagePhase6.js';
+import { addPhase7StageFrames, PHASE7_STAGE_FRAMES } from './stagePhase7.js';
 
 /**
  * "Stage" sprites: free-moving pieces that scripts place in the world (see
@@ -488,6 +489,7 @@ export function buildStageAtlas() {
   atlas.add('shark_deck_disgust', sharkDeck('disgust'));
   addPhase4StageFrames(atlas);
   addPhase6StageFrames(atlas);
+  addPhase7StageFrames(atlas);
   const built = atlas.build();
   return {
     ...built,
@@ -500,8 +502,10 @@ export function buildStageAtlas() {
       shark_flop: ['shark_deck_0', 'shark_deck_1'],
       shark_belly: ['shark_belly_0', 'shark_belly_1'],
       barrel_tumble: ['barrel_thrown_0', 'barrel_thrown_1'],
+      cape_shark: ['flying_cape_0', 'flying_cape_1'],
+      lantern_fall: ['lantern_fall_0', 'lantern_fall_1'],
     },
-    rates: { bathtub: 3, rowboat: 2.5, shark: 6, shark_belly: 2 },
+    rates: { bathtub: 3, rowboat: 2.5, shark: 6, shark_belly: 2, cape_shark: 6, lantern_fall: 5 },
   };
 }
 
@@ -516,4 +520,5 @@ export const STAGE_FRAMES = [
   'shark_belly_0', 'shark_belly_1', 'rat_mask_0', 'rat_mask_1', 'rat_mask_2',
   ...PHASE4_STAGE_FRAMES,
   ...PHASE6_STAGE_FRAMES,
+  ...PHASE7_STAGE_FRAMES,
 ];

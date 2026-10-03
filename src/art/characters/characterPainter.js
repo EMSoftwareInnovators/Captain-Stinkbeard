@@ -590,6 +590,21 @@ function limb(c, L, x0, y0, x1, y1, w, shade = 1) {
 
 /** Front/back view arm poses: (c, L, geometry) → draws both arms. */
 const EXTRA_ARMS_FRONT = {
+  // Story Phase 7: a salute (one glove at the brow), the other arm swinging: marching on parade.
+  salute(c, L, g) {
+    const elbowY = g.shoulderY + 3;
+    limb(c, L, g.lx + 1, g.shoulderY, g.lx - 2, elbowY, g.w, 2);
+    limb(c, L, g.lx - 2, elbowY, CX - 4, g.torsoTop - 8, g.w, 1);
+    if (!g.back) hand(c, L, CX - 5, g.torsoTop - 10, 3, 2);
+    armColumn(c, L, g.rx, g.shoulderY, g.hang, g.w, { inner: 'left' });
+  },
+  // Story Phase 7: both arms flung wide (singing, badly, at the storm).
+  wide(c, L, g) {
+    limb(c, L, g.lx + 1, g.shoulderY, g.lx - 5, g.shoulderY - 4, g.w, 2);
+    limb(c, L, g.rx + 1, g.shoulderY, g.rx + g.w + 4, g.shoulderY - 4, g.w, 0);
+    hand(c, L, g.lx - 7, g.shoulderY - 7, 3, 3);
+    hand(c, L, g.rx + g.w + 4, g.shoulderY - 7, 3, 3);
+  },
   // Hands on hips, elbows out: pleased with himself.
   hips(c, L, g) {
     const elbowY = g.shoulderY + Math.floor(L.build.torsoH / 2) - 1;
@@ -704,6 +719,16 @@ const EXTRA_ARMS_FRONT = {
 
 /** Side view (facing left) arm poses: draws the near arm. */
 const EXTRA_ARMS_SIDE = {
+  salute(c, L, g) {
+    const elbowY = g.shoulderY + 3;
+    limb(c, L, g.baseX + 1, g.shoulderY, g.baseX - 3, elbowY, g.w, 1);
+    limb(c, L, g.baseX - 3, elbowY, g.baseX - 2, g.torsoTop - 8, g.w, 1);
+    hand(c, L, g.baseX - 4, g.torsoTop - 10, 3, 2);
+  },
+  wide(c, L, g) {
+    limb(c, L, g.baseX + 1, g.shoulderY, g.baseX - 6, g.shoulderY - 5, g.w, 1);
+    hand(c, L, g.baseX - 9, g.shoulderY - 8, 3, 3);
+  },
   hips(c, L, g) {
     const elbowY = g.shoulderY + Math.floor(L.build.torsoH / 2) - 1;
     limb(c, L, g.baseX + 1, g.shoulderY, g.baseX + 4, elbowY, g.w, 1);
@@ -828,6 +853,7 @@ function headCanvas(L, dir, face) {
   c.stamp(beard[dir] || [], 0, 0, { b: L.beard[1], B: L.beard[2], v: L.beard[0], R: PAL.red3, m: skin.D });
   const hat = HAT_STYLES[L.hatStyle] || HAT_STYLES.none;
   c.stamp(hat[dir] || [], 0, 0, { a: L.hat[1], A: L.hat[2], q: L.hat[0], T: L.hatTrim[2], t: L.hatTrim[0], s: '#f0e8d8' });
+  if (L.extras.has('torn') && L.hatStyle === 'stenchhat') crookedHat(c, L, dir);
   if (L.extras.has('facecloth') && dir !== 'up') {
     // A wet cloth tied over nose and mouth.
     const cloth = ['#6a7c86', '#9aaab2', '#c8d6dc'];
@@ -975,6 +1001,7 @@ export function paintCharacterFrame(L, dir, pose = {}, { outline = true } = {}) 
   if (L.extras.has('brassboots')) brassBoots(c, L, dir);
   if (L.extras.has('gaudy')) gaudy(c, L, dir, torsoTop, torsoBottom);
   if (L.extras.has('singed')) singed(c, L, dir, torsoTop);
+  if (L.extras.has('torn')) torn(c, L, dir, torsoTop, torsoBottom);
   if (outline) c.outline(OUTLINE);
   c.torsoTop = torsoTop;
   return c;
@@ -1170,12 +1197,20 @@ export const EXTRA_POSES = {
   // Story Phase 4
   drink: [{ legs: 'stand', arms: 'drink0' }, { legs: 'stand', arms: 'drink1', bob: 1 }],
   poke: [{ legs: 'stepA', arms: 'poke0' }, { legs: 'stepA', arms: 'poke1', bob: 1 }],
+  // Story Phase 7: on parade, and in song
+  march: [
+    { legs: 'stepA', arms: 'salute' },
+    { legs: 'stand', arms: 'salute', bob: 1 },
+    { legs: 'stepB', arms: 'salute' },
+    { legs: 'stand', arms: 'salute', bob: 1 },
+  ],
+  sing: [{ legs: 'stand', arms: 'wide', face: 'surprised' }, { legs: 'stand', arms: 'wide', bob: 1 }],
 };
 
 /** Frames per second of the extra animations (0 = hold one frame). */
 export const EXTRA_POSE_RATES = {
   excited: 5, smug: 1.5, greedy: 6, carry: 1.5, carrywalk: 8, slouch: 0.8, eat: 4, nervous: 5, clutch: 3, panic: 7, relief: 1.2, hips: 0, shrug: 0,
-  proclaim: 1.4, brace: 6, drink: 2.5, poke: 5,
+  proclaim: 1.4, brace: 6, drink: 2.5, poke: 5, march: 6, sing: 3,
 };
 
 // ---------------------------------------------------------------------------
@@ -1266,7 +1301,7 @@ function gaudy(c, L, dir, top, bottom) {
     return;
   }
   tassel(CX - half - 1);
-  tassel(CX + half);
+  if (!L.extras.has('torn')) tassel(CX + half); // Story Phase 7: a shark has the other one
   // bottle caps round the hem, red and white, alternating
   for (let x = CX - half + 1; x < CX + half; x += 2) c.setIfOpaque(x, bottom, x % 4 === 1 ? '#c83a30' : '#e8e0d0');
   if (dir === 'up') return;
@@ -1276,6 +1311,12 @@ function gaudy(c, L, dir, top, bottom) {
   for (let y = -2; y <= 2; y++) for (let x = -2; x <= 2; x++) if (x * x + y * y <= 5) c.set(mx + x, my + y, x + y < 0 ? '#e8e8f0' : '#a8a8b4');
   c.set(mx, my, '#5a5a68');
   c.set(mx, my - 3, '#c83a30');
+  if (L.extras.has('torn')) {
+    // dented: a crease across the lid where it met a shark
+    c.set(mx + 1, my - 1, '#5a5a68');
+    c.set(mx + 2, my, '#5a5a68');
+    c.set(mx - 1, my + 1, '#e8e8f0');
+  }
   // mismatched buttons down the front
   for (const [k, col] of [[0, R.gold], [1, '#c8c8d0'], [2, R.goldD], [3, '#c87a2a']]) c.setIfOpaque(CX - 1, top + 3 + k * 3, col);
 }
@@ -1292,6 +1333,64 @@ function singed(c, L, dir, top) {
     c.setIfOpaque(CX - 4, top + 9, '#5a7a2a');
     c.setIfOpaque(CX + 2, top + 12, '#5a7a2a');
   }
+}
+
+/**
+ * Story Phase 7: after the cape shark. A big ragged piece of the cape gone
+ * (the shark took it), a seawater tide line round the coat, fresh Frog Grog
+ * stains. The missing tassel and the dented lid are in gaudy(); the crooked
+ * hat and the bent plume in crookedHat(). Same colours. He thinks it looks
+ * magnificent.
+ */
+function torn(c, L, dir, top, bottom) {
+  const cloak = L.cloak ? L.cloak.map((k) => rgba(k)) : [];
+  const isCloak = (x, y) => cloak.includes(c.get(x, y));
+  const half = Math.ceil(L.build.shoulder / 2);
+  if (dir === 'up') {
+    // The whole back is cape: a bite out of its lower right, the coat showing through, frayed edge.
+    for (let y = top + 4; y <= GROUND - 2; y++) {
+      const edge = CX + 2 - Math.floor((y - top - 4) * 0.9) + ((y * 3) % 3) - 1;
+      for (let x = edge; x < FRAME_W; x++) {
+        if (!isCloak(x, y)) continue;
+        if (y > bottom) c.set(x, y, '#00000000');
+        else c.set(x, y, (x + y) % 4 === 0 ? '#3a1418' : L.primary[0]);
+      }
+      if (isCloak(edge - 1, y)) c.set(edge - 1, y, (y % 2) ? '#e8d8b0' : L.cloak[2]);
+    }
+  } else {
+    // Front and side: the cape hanging behind is short a great piece on one side.
+    const side = dir === 'left' ? 1 : 1;
+    for (let y = top + 7; y <= GROUND; y++) {
+      for (let x = 0; x < FRAME_W; x++) {
+        const outside = side > 0 ? x > CX + half - (dir === 'left' ? 4 : 0) : x < CX - half;
+        if (outside && isCloak(x, y) && (y > top + 7 + ((x * 5) % 4))) c.set(x, y, '#00000000');
+      }
+    }
+  }
+  // the tide line: a dotted crust of salt round the lower coat
+  for (let x = 0; x < FRAME_W; x++) if (x % 2 === 0) c.setIfOpaque(x, bottom - 1, '#c8ccd0');
+  // fresh grog stains
+  if (dir === 'down') {
+    c.setIfOpaque(CX + 1, top + 5, '#7aa02c');
+    c.setIfOpaque(CX - 3, top + 11, '#7aa02c');
+    c.setIfOpaque(CX - 2, top + 11, '#4a6a1c');
+  } else if (dir === 'left') {
+    c.setIfOpaque(CX - 1, top + 8, '#7aa02c');
+  }
+}
+
+/** The ceremonial hat, knocked crooked: the crown leans right, the green puff bent over and half gone. */
+function crookedHat(c, L, dir) {
+  // lean: the top rows of the crown shift a pixel right
+  for (let y = 0; y <= 2; y++) {
+    for (let x = 15; x > 0; x--) c.set(x, y, c.get(x - 1, y));
+    c.set(0, y, '#00000000');
+  }
+  // the puff: most of it gone, one limp green stub hanging over the brim
+  for (let x = 0; x < 16; x++) if (c.get(x, 0) === rgba(L.hatTrim[2])) c.set(x, 0, '#00000000');
+  const sx = dir === 'up' ? 6 : 7;
+  c.set(sx, 1, L.hatTrim[0]);
+  c.set(sx - 1, 2, L.hatTrim[2]);
 }
 
 /** Ordinary boots with brass glued on: toe caps and a band. */

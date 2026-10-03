@@ -31,7 +31,7 @@ const H = SES_SCREEN.h;
 const BAYER = [[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]];
 
 // The S.E.S. shows everything in a sickly CRT green.
-const CRT = ['#06140a', '#0e2a14', '#1c4422', '#2e6a32', '#4a9a44', '#7ac860', '#b8f090', '#e8ffd0'];
+export const CRT = ['#06140a', '#0e2a14', '#1c4422', '#2e6a32', '#4a9a44', '#7ac860', '#b8f090', '#e8ffd0'];
 const SHARK = ['#2e3a4c', '#4a5a70', '#7a8aa0', '#c8d0dc'];
 const FUME = ['#8a7a20', '#b8a838', '#d8c048', '#f4e67a'];
 const GARLIC = ['#7a8a28', '#a8b040', '#d0d468', '#f4f4b0'];
@@ -41,7 +41,7 @@ const GROGC = ['#2a3a10', '#4a6a1c', '#7aa02c', '#b8e050', '#e8ff90'];
 // The Frog Tax Man
 
 /** Paints the green CRT treatment over a finished picture: rolling bar, bleed, vignette. */
-function crt(c, f) {
+export function crt(c, f) {
   const bar = (f * 31 + 17) % H;
   for (let y = 0; y < H; y++) {
     for (let x = 0; x < W; x++) {
@@ -56,7 +56,7 @@ function crt(c, f) {
   return c;
 }
 
-function screen(bg = CRT[1]) {
+export function screen(bg = CRT[1]) {
   const c = new PixelCanvas(W, H);
   c.fill(bg);
   return c;
@@ -66,7 +66,7 @@ function screen(bg = CRT[1]) {
  * Franklin the frog, sitting up. (x, y) is the top of his head; `s` 1 or 2.
  * mouth: 'shut' | 'open' | 'tongue'; sweat adds drops; glasses always.
  */
-function franklin(c, x, y, { s = 1, mouth = 'shut', sweat = false, flip = false } = {}) {
+export function franklin(c, x, y, { s = 1, mouth = 'shut', sweat = false, flip = false } = {}) {
   const X = (dx) => x + (flip ? -dx : dx) * s;
   const Y = (dy) => y + dy * s;
   const e = (dx, dy, rx, ry, col) => c.ellipse(X(dx), Y(dy), rx * s, ry * s, col);
@@ -98,7 +98,7 @@ function franklin(c, x, y, { s = 1, mouth = 'shut', sweat = false, flip = false 
 }
 
 /** The accountant: a person in a green visor and sleeve garters, a ledger. */
-function accountant(c, x, y, { point = false } = {}) {
+export function accountant(c, x, y, { point = false } = {}) {
   c.rect(x - 8, y + 10, 16, 18, CRT[2]);
   c.rect(x - 2, y + 10, 4, 10, CRT[7]);
   c.vline(x, y + 11, y + 19, CRT[1]);
@@ -117,7 +117,7 @@ function accountant(c, x, y, { point = false } = {}) {
 }
 
 /** A desk across the bottom, with paper on it. */
-function desk(c, y, { papers = 3 } = {}) {
+export function desk(c, y, { papers = 3 } = {}) {
   c.rect(0, y, W, H - y, CRT[2]);
   c.hline(0, W - 1, y, CRT[5]);
   for (let i = 0; i < papers; i++) {
@@ -178,7 +178,7 @@ function ftmFlies(f) {
 }
 
 /** The judge: a large frog in a curly wig behind a bench, gavel up or down. */
-function ftmCourt(f) {
+export function ftmCourt(f) {
   const c = screen(CRT[0]);
   c.rect(0, 0, W, 34, CRT[1]);
   for (let x = 8; x < W; x += 16) c.rect(x, 0, 6, 34, CRT[2]); // columns
@@ -304,7 +304,7 @@ function bite(c, cx, cy, rx) {
   }
 }
 
-function sesWrecked() {
+export function sesWrecked() {
   const c = bezel({ tubes: 'dark' });
   // the shark came in at the top right: a great bite out of the cabinet's corner
   bite(c, 178, 20, 9);
@@ -495,7 +495,7 @@ function stormBase(f) {
  * spray, streaked with yellow fume, flecked with timber and fins. Three
  * frames so the bands crawl round it.
  */
-function stormColumn(f) {
+export function stormColumn(f) {
   const cw = 140;
   const ch = 210;
   const c = new PixelCanvas(cw, ch);
@@ -579,7 +579,7 @@ function lightning(f) {
 }
 
 /** The storm far off: a small mustard funnel on the horizon, turning, still there. */
-function stormDistant(f) {
+export function stormDistant(f) {
   const c = new PixelCanvas(44, 48);
   for (let y = 0; y < 48; y++) {
     const t = 1 - y / 47;
