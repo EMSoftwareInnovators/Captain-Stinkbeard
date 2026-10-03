@@ -1,4 +1,4 @@
-import { tvDef, setPower } from '../src/systems/tv/tv.js';
+import { tvDef, setPower, setChannel } from '../src/systems/tv/tv.js';
 import { loadContent } from '../src/content/loadContent.js';
 import { EventBus } from '../src/core/EventBus.js';
 import { GameSession } from '../src/systems/GameSession.js';
@@ -88,7 +88,10 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
         const def = tvDef(content, id);
         if (def?.flags?.open && !session.story.has(def.flags.open)) session.story.set(def.flags.open);
         if (mode === 'knobs') {
-          setPower(def, session, false);
+          // Phase 7: a panel that ends by finding a channel ("tune") leaves the set on, on that channel.
+          const tune = def.knobs?.list?.find((k) => k.effect === 'tune');
+          setPower(def, session, !!tune);
+          if (tune?.channel) setChannel(def, session, tune.channel);
           if (def.knobs?.doneFlag) session.story.set(def.knobs.doneFlag);
         }
       },

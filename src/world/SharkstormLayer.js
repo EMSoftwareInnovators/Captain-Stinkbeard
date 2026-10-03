@@ -14,6 +14,13 @@ import { sharkstormNow, between } from '../systems/hazards/sharkstorm.js';
  *     A shark landing on the captain knocks him flat for a moment; it never
  *     hurts and never ends anything. The shark flops back over the rail.
  *   - rumble: once the storm has gone off to the horizon, distant thunder.
+ *   - below (Story Phase 7): with the crew sheltering below decks, the storm
+ *     is something heard through the planks: now and then a heavy, muffled
+ *     landing overhead, the lantern swings (a small shake), and grit sifts
+ *     down from the deckhead. Only on the maps the state lists.
+ *
+ * Flying sharks come in shapes (data "variants": frame prefixes, each with
+ * _0 and _1 frames), picked at random per pass.
  *
  * Reduced effects: fewer passes, no shake. It looks like hundreds of sharks
  * because the vistas and the shark crowd do the hundreds; this layer only
@@ -30,6 +37,8 @@ export class SharkstormLayer {
     this.passT = 1500;
     this.impactT = 3000;
     this.rumbleT = 8000;
+    this.thudT = 4000;
+    this.thuds = 0; // landings heard from below, this visit
     this.nextId = 1;
   }
 
@@ -46,6 +55,7 @@ export class SharkstormLayer {
     for (const p of this.passes) this.animatePass(p, dt);
     this.passes = this.passes.filter((p) => !p.done);
     if (this.impact) this.animateImpact(dt);
+    if (st.below && !busy && (st.below.maps ?? []).includes(this.scene.model?.id)) this.belowDecks(st.below, dt);
     if (!this.onDeck) return;
     if (st.rumble && !busy) {
       this.rumbleT -= dt;
@@ -71,6 +81,31 @@ export class SharkstormLayer {
     }
   }
 
+  // --- below decks (Story Phase 7) ----------------------------------------------
+
+  /** A landing on the deck overhead: a thud through the planks, a small shake, grit from the deckhead. */
+  belowDecks(below, dt) {
+    this.thudT -= dt;
+    if (this.thudT > 0) return;
+    this.thudT = between(below.every ?? [8000, 15000]);
+    this.thud(below);
+  }
+
+  thud(below = this.state.below ?? {}) {
+    const s = this.scene;
+    this.thuds += 1;
+    const sounds = below.sfx ?? ['hull_thud'];
+    s.app.audio.sfx(sounds[Math.floor(Math.random() * sounds.length)], { volume: below.volume ?? 0.55, rate: 0.85 + Math.random() * 0.3 });
+    const k = s.app.settings.shakeScale();
+    if (k > 0) s.cameras.main.shake(220, (below.shake ?? 0.003) * k);
+    if (below.dust !== false) {
+      const cam = s.cameras.main;
+      const n = s.app.settings.reducedEffects() ? 1 : 3;
+      for (let i = 0; i < n; i++) s.fx.burst('falldust', cam.scrollX + 30 + Math.random() * (SCREEN_WIDTH - 60), cam.scrollY + 10 + Math.random() * 40);
+    }
+    s.app.bus.emit('script:event', { name: 'sharkstorm_thud' });
+  }
+
   // --- sharks across the sky -----------------------------------------------------
 
   spawnPass() {
@@ -81,9 +116,11 @@ export class SharkstormLayer {
     const x0 = cam.scrollX + (fromLeft ? -30 : SCREEN_WIDTH + 30);
     const x1 = cam.scrollX + (fromLeft ? SCREEN_WIDTH + 30 : -30);
     const id = `storm_pass_${this.nextId++}`;
-    const shark = s.add.image(x0, y0, 'stage', 'flying_shark_0').setDepth(79200).setFlipX(!fromLeft).setScale(0.9 + Math.random() * 0.5);
+    const variants = this.state.flying?.variants ?? ['flying_shark'];
+    const kind = variants[Math.floor(Math.random() * variants.length)];
+    const shark = s.add.image(x0, y0, 'stage', `${kind}_0`).setDepth(79200).setFlipX(!fromLeft).setScale(0.9 + Math.random() * 0.5);
     const shadow = s.add.image(x0, y0 + 26, 'stage', 'flying_shark_shadow').setDepth(10).setAlpha(0.35);
-    this.passes.push({ id, shark, shadow, x0, x1, y0, t: 0, dur: 1100 + Math.random() * 700, spin: (Math.random() - 0.5) * 0.02, frame: 0 });
+    this.passes.push({ id, kind, shark, shadow, x0, x1, y0, t: 0, dur: 1100 + Math.random() * 700, spin: (Math.random() - 0.5) * 0.02, frame: 0 });
     if (Math.random() < 0.5) s.app.audio.sfx('shark_whoosh', { volume: 0.4, rate: 0.9 + Math.random() * 0.3 });
   }
 
@@ -95,7 +132,7 @@ export class SharkstormLayer {
     p.shark.setPosition(x, p.y0 - arc).setRotation(p.shark.rotation + p.spin * dt);
     p.shadow.setPosition(x, p.y0 + 26);
     p.frame += dt;
-    p.shark.setFrame(Math.floor(p.frame / 120) % 2 ? 'flying_shark_1' : 'flying_shark_0');
+    p.shark.setFrame(`${p.kind ?? 'flying_shark'}_${Math.floor(p.frame / 120) % 2}`);
     if (k >= 1) {
       p.shark.destroy();
       p.shadow.destroy();

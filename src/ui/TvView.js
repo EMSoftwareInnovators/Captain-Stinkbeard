@@ -3,7 +3,7 @@ import { addText, setText, UI_COLORS } from './text.js';
 import { ListMenu } from './ListMenu.js';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
 import { SES_BEZEL, SES_SCREEN } from '../art/vista/sesArt.js';
-import { tvState, setPower, stepChannel, nextLines, tvCondition, programDef, programEpisode } from '../systems/tv/tv.js';
+import { tvState, setPower, setChannel, stepChannel, nextLines, tvCondition, programDef, programEpisode } from '../systems/tv/tv.js';
 import { parseLine } from '../systems/script/parseLine.js';
 import { resolveVariant } from '../systems/story/progress.js';
 
@@ -28,6 +28,14 @@ import { resolveVariant } from '../systems/story/progress.js';
  *     from data ("knobs"), each with an effect on the picture or the sound,
  *     until the one that switches it off has been tried enough times. No
  *     wrong answer is ever a dead end.
+ *
+ * Story Phase 7 adds a second set (S.E.S. Mark II, data/tv/ses_mk2.json):
+ *   - a set can wear its own art ("bezel", "back", "powerFrame"; the
+ *     original's by default);
+ *   - knob effects "roll" (the picture loses its hold), "shriek" (a noise
+ *     with no business coming out of a television) and "tune" (after enough
+ *     tries, it finds a channel: the panel's way of ending in a programme
+ *     rather than in darkness).
  */
 const D = 740;
 const rand = (a, b) => a + Math.random() * (b - a);
@@ -85,7 +93,7 @@ export class TvView {
     this.scan = add(s.add.image(sx, sy, 'vista', 'tv_scan').setOrigin(0).setDepth(D + 4).setAlpha(0.55));
     this.glass = add(s.add.image(sx, sy, 'vista', 'tv_scan').setOrigin(0).setDepth(D + 5).setVisible(false));
     this.glare = add(s.add.image(sx, sy, 'vista', 'tv_glare').setOrigin(0).setDepth(D + 5));
-    this.bezel = add(s.add.image(bx, by, 'vista', 'ses_bezel').setOrigin(0).setDepth(D + 6));
+    this.bezel = add(s.add.image(bx, by, 'vista', this.def.bezel ?? 'ses_bezel').setOrigin(0).setDepth(D + 6));
     this.osd = add(addText(s, sx + SES_SCREEN.w - 30, sy + 4, '', { color: 0x8af0a0, depth: D + 7 }));
     this.puffs = [];
     // the controls and the comments underneath
@@ -144,7 +152,8 @@ export class TvView {
     const st = tvState(this.def, this.session);
     const cond = tvCondition(this.def, this.session);
     const front = this.view === 'front';
-    this.bezel.setFrame(front ? cond.bezel ?? 'ses_bezel' : this.view === 'wiring' ? cond.back ?? 'ses_back' : 'ses_power_source');
+    const d = this.def;
+    this.bezel.setFrame(front ? cond.bezel ?? d.bezel ?? 'ses_bezel' : this.view === 'wiring' ? cond.back ?? d.back ?? 'ses_back' : d.powerFrame ?? 'ses_power_source');
     for (const p of [this.screen, this.scan, this.glare, this.glow, this.osd]) p.setVisible(front);
     this.glass.setVisible(front && !!cond.glass);
     if (cond.glass) this.glass.setFrame(cond.glass);
@@ -251,6 +260,30 @@ export class TvView {
         k.frog = !k.frog;
         this.frameI = 0;
         break;
+      case 'roll':
+        // Story Phase 7: the picture loses its hold and slides (ends when slapped or another knob is turned).
+        if (this.failure?.kind === 'roll') this.endFailure();
+        else this.failure = { kind: 'roll', t: 0, roll: 0, knob: true };
+        break;
+      case 'shriek': {
+        setText(this.osd, '!!!!!!');
+        this.osdT = 1200;
+        const sk = this.app.settings.shakeScale();
+        if (sk > 0) this.scene.cameras.main.shake(260, 0.006 * sk);
+        this.scene.tweens.add({ targets: this.bezel, x: this.bx + 2, duration: 30, yoyo: true, repeat: 3 });
+        break;
+      }
+      case 'tune':
+        if (k.tries[id] >= (knob.tries ?? 1)) {
+          this.showLines(nextLines(this.def, this.session, `knob_${id}_done`, knob.doneLines ?? [], this.present));
+          this.tuneIn(knob);
+          return;
+        }
+        // Not yet: something nearly comes through the snow, and goes.
+        this.screen2.setVisible(false);
+        this.line.setVisible(true).setScale(1, 2).setAlpha(0.8);
+        this.scene.time.delayedCall(350, () => this.line.setVisible(false));
+        break;
       case 'off':
         if (k.tries[id] >= (knob.tries ?? 1)) {
           this.showLines(nextLines(this.def, this.session, `knob_${id}_done`, knob.doneLines ?? [], this.present));
@@ -273,6 +306,19 @@ export class TvView {
     this.app.audio.sfx('tv_power_off');
     this.powerFx(false);
     this.flag(this.def.knobs?.doneFlag);
+    this.knobsDone = true;
+    this.scene.time.delayedCall(this.def.knobs?.closeAfter ?? 2600, () => this.close());
+  }
+
+  /** Story Phase 7: the panel finds a channel (the one the knob names), sets its flag and lets go. */
+  tuneIn(knob) {
+    if (this.failure) this.endFailure();
+    // The flag first: a programme's newest episode may be waiting on it.
+    this.flag(this.def.knobs?.doneFlag);
+    setPower(this.def, this.session, true);
+    if (knob.channel) setChannel(this.def, this.session, knob.channel);
+    this.app.audio.sfx(knob.doneSfx ?? 'tv_power_on');
+    this.applyState(true);
     this.knobsDone = true;
     this.scene.time.delayedCall(this.def.knobs?.closeAfter ?? 2600, () => this.close());
   }
@@ -488,8 +534,8 @@ export class TvView {
 
   updateFailure(delta) {
     const f = this.def.failures;
-    if (!f?.kinds?.length) return;
     if (!this.failure) {
+      if (!f?.kinds?.length) return;
       this.failTimer -= delta;
       if (this.failTimer > 0) return;
       const kind = f.kinds[Math.floor(Math.random() * f.kinds.length)];
@@ -506,7 +552,7 @@ export class TvView {
     const sx = this.sx;
     const sy = this.sy;
     if (fl.kind === 'roll') {
-      // Vertical hold gone: the picture slides down and wraps round.
+      // Vertical hold gone: the picture slides down and wraps round (a knob's roll stops when the panel says so).
       fl.roll = (fl.roll + delta * 0.09) % SES_SCREEN.h;
       const r = Math.round(fl.roll);
       this.screen.setPosition(sx, sy + r).setCrop(0, 0, SES_SCREEN.w, SES_SCREEN.h - r);

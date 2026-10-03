@@ -112,6 +112,33 @@ export const MIGRATIONS = {
     },
     inventory: state.inventory && typeof state.inventory === 'object' ? state.inventory : { gold: 0, items: {} },
   }),
+  /**
+   * 6 -> 7 (Story Phase 7: the Great Sharkstorm returns; the Song of the
+   * Grand Stenchmaster). The layout is unchanged. The storm's new states
+   * (returning, active_near_ship) live in the same story value; the second
+   * television (S.E.S. Mark II) keeps its condition, power and channel in
+   * story values and variables of its own, beside the original's (which
+   * keeps its history: shark_damaged, then wrecked). The torn cape, the
+   * parade, the song and the Grand Sharkmaster are flags. A finished
+   * Phase 6 save walks into chapter 33 from the captain's bed. Missing
+   * fields are filled; nothing is removed (the captain's Frog Grog included).
+   */
+  6: (state) => ({
+    ...state,
+    story: {
+      ...state.story,
+      flags: Array.isArray(state.story?.flags) ? state.story.flags : [],
+      vars: state.story?.vars && typeof state.story.vars === 'object' ? state.story.vars : {},
+      values: state.story?.values && typeof state.story.values === 'object' ? state.story.values : {},
+    },
+    world: {
+      ...state.world,
+      objects: state.world?.objects ?? {},
+      visited: state.world?.visited ?? [],
+      counters: state.world?.counters ?? {},
+    },
+    inventory: state.inventory && typeof state.inventory === 'object' ? state.inventory : { gold: 0, items: {} },
+  }),
 };
 
 export function migrateState(state, fromVersion, toVersion, migrations = MIGRATIONS) {

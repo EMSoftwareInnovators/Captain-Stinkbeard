@@ -17,6 +17,8 @@ export const PARTICLE_KINDS = {
   odor: { frames: ['odor_0', 'odor_1', 'odor_2'], animMs: 160, count: 1, speed: [0, 4], up: 14, gravity: -4, life: [1500, 2200], fade: 0.5, alpha: 0.8, depth: 70013 },
   splash: { frames: ['drop_0', 'drop_1'], count: 10, speed: [30, 90], up: 120, gravity: 420, life: [400, 700], fade: 0.3 },
   dust: { frames: ['dust_0', 'dust_1'], count: 6, speed: [10, 40], up: 10, gravity: -6, drag: 1.2, life: [500, 900], grow: 0.6, fade: 0.6, alpha: 0.7 },
+  // Story Phase 7: grit shaken out of the deckhead below decks when something heavy lands overhead.
+  falldust: { frames: ['dust_0', 'dust_1'], count: 5, speed: [0, 12], up: 0, gravity: 70, drag: 0.6, life: [700, 1200], fade: 0.5, alpha: 0.55, spread: 18, pick: true, depth: 79100 },
   dishes: { frames: ['dish_0', 'dish_1', 'fork'], count: 4, speed: [30, 80], up: 100, gravity: 400, life: [500, 800], spin: 8, bounce: 0.2, fade: 0.2, pick: true },
 };
 

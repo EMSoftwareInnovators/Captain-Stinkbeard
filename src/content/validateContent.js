@@ -916,6 +916,8 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     looks(tv.failures?.lines, 'failures.lines');
     for (const k of tv.failures?.kinds ?? []) if (!['roll', 'spark', 'buzz', 'smoke'].includes(k)) c.error(`unknown failure "${k}"`);
     for (const f of ['ses_bezel', 'ses_back', 'ses_power_source', 'tv_off', 'tv_scan', 'tv_glare', 'tv_smoke', 'tv_spark_0']) if (!art.vista.has(f)) c.error(`no vista art "${f}"`);
+    // Story Phase 7: a set can wear its own art (S.E.S. Mark II)
+    for (const k of ['bezel', 'back', 'powerFrame']) if (tv[k] && !art.vista.has(tv[k])) c.error(`no vista art "${tv[k]}" (${k})`);
     (tv.channels || []).forEach((ch, i) => {
       if (ch.program && !db.tvPrograms?.has?.(ch.program)) c.at(`channels[${i}]`).error(`unknown programme "${ch.program}"`);
     });
@@ -928,9 +930,9 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       looks(st.flicker?.lines, `states.${sid}.flicker.lines`);
     }
     if (tv.knobs) {
-      const EFFECTS = ['louder', 'flip', 'tint', 'slow', 'shrink', 'frog', 'noop', 'off'];
+      const EFFECTS = ['louder', 'flip', 'tint', 'slow', 'shrink', 'frog', 'noop', 'off', 'roll', 'shriek', 'tune'];
       const list = tv.knobs.list ?? [];
-      if (!list.some((k) => k.effect === 'off')) c.error('the knob panel needs a knob with "effect": "off" (or it could never be switched off)');
+      if (!list.some((k) => k.effect === 'off' || k.effect === 'tune')) c.error('the knob panel needs a knob with "effect": "off" or "tune" (or it could never be finished)');
       if (tv.knobs.doneFlag) c.flag(tv.knobs.doneFlag);
       looks(tv.knobs.openLines, 'knobs.openLines');
       list.forEach((k, i) => {
@@ -938,9 +940,25 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
         if (!k.id || !k.label) kc.error('a knob needs an id and a label');
         if (!EFFECTS.includes(k.effect)) kc.error(`unknown knob effect "${k.effect}" (${EFFECTS.join(', ')})`);
         if (k.sfx && !db.sfx.has(k.sfx)) kc.error(`unknown sfx "${k.sfx}"`);
+        if (k.doneSfx && !db.sfx.has(k.doneSfx)) kc.error(`unknown sfx "${k.doneSfx}"`);
+        if (k.effect === 'tune' && k.channel !== undefined && !ids.has(k.channel)) kc.error(`a "tune" knob names channel ${k.channel}, which the set doesn't have`);
         looks(k.lines, `knobs.list[${i}].lines`);
         looks(k.doneLines, `knobs.list[${i}].doneLines`);
       });
+    }
+  }
+
+  // The Great Sharkstorm's states (Story Phase 6; flying-shark shapes and below-decks thuds from Phase 7)
+  {
+    const states = sharkstormStates(db);
+    for (const [sid, st] of Object.entries(states)) {
+      const c = C(`data/hazards/sharkstorm.json (great_sharkstorm.states.${sid})`);
+      for (const v of st.flying?.variants ?? []) for (const f of [`${v}_0`, `${v}_1`]) if (!art.stage.has(f)) c.error(`no stage art "${f}" (flying.variants)`);
+      if (st.rumble?.sfx && !db.sfx.has(st.rumble.sfx)) c.error(`unknown sfx "${st.rumble.sfx}"`);
+      if (st.below) {
+        for (const m of st.below.maps ?? []) c.map(m);
+        for (const f of st.below.sfx ?? []) if (!db.sfx.has(f)) c.error(`unknown sfx "${f}" (below)`);
+      }
     }
   }
 

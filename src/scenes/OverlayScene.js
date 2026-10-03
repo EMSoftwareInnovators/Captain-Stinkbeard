@@ -19,6 +19,13 @@ const REPAIR_KINDS = {
   brace: { title: 'BRACE!', hint: 'Haul on the green!', hit: 'rope_haul', miss: 'hammer_miss', done: 'repair_done', speed: 140 },
   heave: { title: 'HEAVE!', hint: 'Push together on the green!', hit: 'heave', miss: 'shark_flop', done: 'splash_big', speed: 150 },
   barrel: { title: 'LAUNCH THE BARREL', hint: 'Let go on the green!', hit: 'barrel_launch', miss: 'barrel_roll', done: 'grog_burst', speed: 130 },
+  // Story Phase 7
+  clear: { title: 'CLEAR THE DEBRIS', hint: 'Heave on the green!', hit: 'wood_crack', miss: 'hammer_miss', done: 'repair_done', speed: 130 },
+  reef: { title: 'REEF THE MAINSAIL', hint: 'Haul on the green!', hit: 'rope_haul', miss: 'sail_snap', done: 'repair_done', speed: 135 },
+  knot: { title: 'TIE IT OFF', hint: 'Pull tight on the green!', hit: 'rope_haul', miss: 'hammer_miss', done: 'repair_done', speed: 145 },
+  carry: { title: 'LIFT!', hint: 'Lift on the green!', hit: 'heave', miss: 'thud', done: 'thud_heavy', speed: 120 },
+  lash: { title: 'LASH THE WHEEL', hint: 'Make fast on the green!', hit: 'wheel_turn', miss: 'hammer_miss', done: 'repair_done', speed: 130 },
+  assemble: { title: 'HOLD IT STEADY', hint: 'Steady on the green!', hit: 'spoon_tink', miss: 'mk2_rattle', done: 'mk2_tube_ping', speed: 110 },
 };
 
 /**
