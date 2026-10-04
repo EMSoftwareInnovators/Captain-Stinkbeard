@@ -318,6 +318,11 @@ function validateStep(step, check, sctx) {
   if (name === 'alarm' && !alarmLevel(check.ctx.db, step.alarm)) check.error(`alarm level must be one of ${Object.keys(alarmLevels(check.ctx.db)).join(', ')}`);
   if (name === 'alarm' && step.where) validateText(step.where, check.at('alarm.where'));
   if (name === 'restage' && !['walk', 'cut'].includes(step.restage)) check.error('restage must be "walk" or "cut"');
+  // respawn puts the CAPTAIN at a spawn point ("safe", or a spawn's id): it is not a way to re-place an NPC
+  // (placements follow the story by themselves).
+  if (name === 'respawn' && step.respawn !== 'safe' && !spawnIds(check.ctx.db).has(step.respawn)) {
+    check.error(`respawn "${step.respawn}" is not a spawn point ("safe" or a map spawn id); NPCs re-place themselves when the story changes`);
+  }
   if (name === 'burst' && !PARTICLE_BURSTS.includes(step.burst)) check.error(`unknown burst "${step.burst}" (use: ${PARTICLE_BURSTS.join(', ')})`);
   if (name === 'propFx' && !PROP_FX.includes(step.propFx)) check.error(`unknown propFx "${step.propFx}" (use: ${PROP_FX.join(', ')})`);
   if (name === 'propFx' && !step.prop && !step.area) check.error('propFx needs "prop" or "area"');
@@ -476,6 +481,15 @@ function validateFumeZones(model, c) {
   });
   if (model.meta.fumeCollapse) c.script(model.meta.fumeCollapse);
   if (model.meta.fumeSafeSpawn && !model.spawns[model.meta.fumeSafeSpawn]) c.error(`fumeSafeSpawn "${model.meta.fumeSafeSpawn}" is not a spawn on this map`);
+}
+
+/** Every spawn id on any map (what `respawn` may name). */
+function spawnIds(db) {
+  if (!db.spawnIdCache) {
+    db.spawnIdCache = new Set();
+    for (const [, map] of db.maps.map ?? []) for (const o of map.objects ?? []) if (o.type === 'spawn') db.spawnIdCache.add(o.id);
+  }
+  return db.spawnIdCache;
 }
 
 export function validateContent(db, { art = ART_REGISTRY } = {}) {

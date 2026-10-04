@@ -143,6 +143,16 @@ describe('the lower hull, the barracks and the condemned quarters', () => {
     expect(mapDisplayName(null, atPreset('p8_complete'))).toBe('');
   });
 
+  it('respawn names a spawn point, never an NPC (it moves the captain)', () => {
+    const db = loadContent();
+    db.scripts.map.set('zz.respawn_npc', [{ respawn: 'garrick' }]);
+    db.scripts.map.set('zz.respawn_ok', [{ respawn: 'stairs' }, { respawn: 'safe' }]);
+    const errors = validateContent(db).errors.join('\n');
+    expect(errors).toMatch(/respawn "garrick" is not a spawn point/);
+    expect(errors).not.toMatch(/respawn "stairs"|respawn "safe"/);
+    expect(fs.readdirSync(path.resolve('data/story/cutscenes/phase8')).map((n) => fs.readFileSync(path.resolve('data/story/cutscenes/phase8', n), 'utf8')).join('')).not.toMatch(/"respawn"/);
+  });
+
   it('a name variant needs a condition and a name', () => {
     const db = loadContent();
     db.maps.get('galley').nameVariants = [{ if: { flag: 'p8_started' } }];
