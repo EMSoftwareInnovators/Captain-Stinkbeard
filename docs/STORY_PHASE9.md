@@ -43,6 +43,11 @@ states, all in `data/hazards/sharkstorm.json`:
 - `inland_crownskull`: after the blast. It smells the new stench, crosses the coast, and drops great whites on the ruins' yard and round the clearing.
 - `treasure_laden`: offshore again with most of the Crimson Fortune inside it. Gold flashes in the sky and the sharks going over wear it. Not resolved.
 
+**The Dead Center stays put.** It is still over the forward deck (`dead_center` =
+`second_forward_deck`), and the lee-side landing works round it: the helm, the capstan,
+the decoy, the lure and the boats all have somewhere clean to stand, and the crew on deck
+stand clear of the cloud.
+
 **Squawks** is alive and bald. He rides in the captain's padded pouch and says one or two
 words at a time. The captain promises him a share of the treasure (`squawks_share_promised`)
 and protects him from employment.
