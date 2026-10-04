@@ -103,6 +103,8 @@ async function visit(g, region) {
     let best = null;
     for (let y = r.y; y < r.y + r.h; y++) {
       for (let x = r.x; x < r.x + r.w; x++) {
+        // The path finder doesn't test the goal itself: skip walls and furniture.
+        if (w.isBlocked(x, y, w.player) || w.warpAt(x, y)) continue;
         const path = window.__GAME__.test.pathTo(x, y);
         if (path && (!best || path.length < best.n)) best = { x, y, n: path.length };
       }
