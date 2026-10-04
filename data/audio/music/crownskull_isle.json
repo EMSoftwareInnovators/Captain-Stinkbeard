@@ -1,0 +1,54 @@
+{
+ "id": "crownskull_isle",
+ "title": "Crownskull Isle",
+ "//": "Story Phase 9: the island theme for exploring Crownskull Isle. An original 6/8 pirate-adventure jig in D major (concertina lead, plucked chords, a flute answering on the repeat), with a B minor middle for the ruins and the jungle's quiet places. Bright on purpose: they've found the island.",
+ "bpm": 100,
+ "stepsPerBeat": 6,
+ "reverb": 0.22,
+ "channels": {
+  "lead": {
+   "instrument": "concertina",
+   "volume": 0.28
+  },
+  "counter": {
+   "instrument": "flute",
+   "volume": 0.15,
+   "pan": 0.3
+  },
+  "chords": {
+   "instrument": "pluck",
+   "volume": 0.14,
+   "pan": -0.25
+  },
+  "bass": {
+   "instrument": "pluck_bass",
+   "volume": 0.36
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.13
+  }
+ },
+ "patterns": {
+  "A": {
+   "lead": "D5:4 A4:2 F#4:4 A4:2 | D5:4 E5:2 F#5:4 D5:2 | E5:4 C#5:2 A4:4 C#5:2 | E5:6 A4:6 | D5:4 A4:2 F#4:4 A4:2 | G4:4 B4:2 D5:4 G5:2 | F#5:4 E5:2 D5:4 C#5:2 | D5:12",
+   "counter": "r:12 | r:12 | r:12 | r:12 | A5:12 | B5:12 | A5:6 G5:6 | F#5:12",
+   "chords": "[F#3 A3 D4]:6 [F#3 A3 D4]:6 | [F#3 A3 D4]:6 [F#3 A3 D4]:6 | [E3 A3 C#4]:6 [E3 A3 C#4]:6 | [E3 A3 C#4]:6 [E3 A3 C#4]:6 | [F#3 A3 D4]:6 [F#3 A3 D4]:6 | [G3 B3 D4]:6 [G3 B3 D4]:6 | [E3 A3 C#4]:6 [E3 A3 C#4]:6 | [F#3 A3 D4]:6 [F#3 A3 D4]:6",
+   "bass": "D2:4 A2:2 D2:4 A2:2 | D2:4 A2:2 D2:4 A2:2 | A1:4 E2:2 A1:4 E2:2 | A1:4 E2:2 A1:4 E2:2 | D2:4 A2:2 D2:4 A2:2 | G1:4 D2:2 G1:4 D2:2 | A1:4 E2:2 A1:4 E2:2 | D2:4 A2:2 D2:4 A2:2",
+   "drums": "k.hk.hk.hk.h k.hk.hk.hk.h k.hk.hk.hk.h k.hk.hk.hk.h k.hk.hk.hk.h k.hk.hk.hk.h k.hk.hk.hk.h k.hk.hk.hk.h"
+  },
+  "B": {
+   "lead": "B4:4 C#5:2 D5:4 B4:2 | F#5:6 E5:6 | D5:4 C#5:2 B4:4 A4:2 | B4:12 | G4:4 A4:2 B4:4 D5:2 | C#5:4 B4:2 A#4:4 C#5:2 | B4:4 D5:2 F#5:4 E5:2 | F#5:12",
+   "counter": "D5:12 | C#5:12 | B4:12 | D5:12 | B4:12 | A#4:12 | D5:12 | C#5:12",
+   "chords": "[F#3 B3 D4]:6 [F#3 B3 D4]:6 | [F#3 B3 D4]:6 [F#3 B3 D4]:6 | [G3 B3 D4]:6 [G3 B3 D4]:6 | [F#3 B3 D4]:6 [F#3 B3 D4]:6 | [G3 B3 D4]:6 [G3 B3 D4]:6 | [F#3 A#3 C#4]:6 [F#3 A#3 C#4]:6 | [F#3 B3 D4]:6 [F#3 B3 D4]:6 | [F#3 A#3 C#4]:6 [F#3 A#3 C#4]:6",
+   "bass": "B1:4 F#2:2 B1:4 F#2:2 | B1:4 F#2:2 B1:4 F#2:2 | G1:4 D2:2 G1:4 D2:2 | B1:4 F#2:2 B1:4 F#2:2 | G1:4 D2:2 G1:4 D2:2 | F#1:4 C#2:2 F#1:4 C#2:2 | B1:4 F#2:2 B1:4 F#2:2 | F#1:4 C#2:2 F#1:4 C#2:2",
+   "drums": "k....hk....h k....hk....h k....hk....h k....hk....h k....hk....h k....hk....h k....hk....h k....hk....h"
+  }
+ },
+ "sequence": [
+  "A",
+  "A",
+  "B",
+  "A"
+ ]
+}

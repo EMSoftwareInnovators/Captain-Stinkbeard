@@ -1,5 +1,5 @@
 {
- "//": "Story Phase 6: the Great Sharkstorm (see src/systems/hazards/sharkstorm.js and src/world/SharkstormLayer.js). One saved story value names its state; the story moves it along. It forms out of the second release and the frenzy, attacks the ship, is driven off by concentrated Frog Grog, and does NOT end: it ends the phase 'active_distant', a rotating storm front on the horizon. No weather simulation; flying sharks on deck are a few pooled sprites, always telegraphed, never harmful (a direct hit knocks the captain flat for a moment). Story Phase 7: it comes BACK (active_distant -> returning -> attacking_ship -> active_near_ship). Not recreated: the same storm, reorganised out of the contamination in the air and the sea and the hundreds of sharks still following the Revenge. It is not driven off again (there is no bulk Frog Grog left to do it with) and ends the phase parked over the ship. Flying sharks come in shapes now (variants); with the crew below, the storm is heard through the deck (below). Story Phase 8: it eases (easing_near_ship): fewer landings, further apart. Still there.",
+ "//": "Story Phase 6: the Great Sharkstorm (see src/systems/hazards/sharkstorm.js and src/world/SharkstormLayer.js). One saved story value names its state; the story moves it along. It forms out of the second release and the frenzy, attacks the ship, is driven off by concentrated Frog Grog, and does NOT end: it ends the phase 'active_distant', a rotating storm front on the horizon. No weather simulation; flying sharks on deck are a few pooled sprites, always telegraphed, never harmful (a direct hit knocks the captain flat for a moment). Story Phase 7: it comes BACK (active_distant -> returning -> attacking_ship -> active_near_ship). Not recreated: the same storm, reorganised out of the contamination in the air and the sea and the hundreds of sharks still following the Revenge. It is not driven off again (there is no bulk Frog Grog left to do it with) and ends the phase parked over the ship. Flying sharks come in shapes now (variants); with the crew below, the storm is heard through the deck (below). Story Phase 8: it eases (easing_near_ship): fewer landings, further apart. Still there. Story Phase 9: it follows the Revenge to Crownskull Isle (following_crownskull), hangs off the coast (offshore_crownskull), turns inland after the Grand Excavation (inland_crownskull) and ends treasure-laden (treasure_laden): most of the Crimson Fortune is in it.",
  "great_sharkstorm": {
   "name": "The Great Sharkstorm",
   "value": "great_sharkstorm",
@@ -65,6 +65,78 @@
      "every": [12000, 22000],
      "sfx": ["hull_thud", "hull_thud", "deck_scrape", "hull_thud_big"],
      "shake": 0.003
+    }
+   },
+   "following_crownskull": {
+    "//": "Story Phase 9: weaker than at its worst, still going, still following the Revenge (the contamination in the air round the Grand Stenchmaster and the ship). Behind them as they raise Crownskull Isle. Heard from below: further-off landings.",
+    "intensity": 2.5,
+    "distance": "approaching",
+    "flying": { "passEvery": [5000, 9000], "variants": ["flying_shark", "flying_hammer", "flying_small", "flying_shark"] },
+    "rumble": { "every": [12000, 24000], "sfx": "vortex_roar" },
+    "below": {
+     "maps": ["galley", "cargo_hold", "treasure_hold", "crew_quarters", "washroom", "captains_quarters"],
+     "every": [16000, 30000],
+     "sfx": ["hull_thud", "deck_scrape", "hull_thud"],
+     "shake": 0.002
+    }
+   },
+   "offshore_crownskull": {
+    "//": "Story Phase 9: off Crownskull Isle's coast. The cliffs break some of its wind; it can't quite come in. Sharks over the deck and the beach now and then; in the reef channel they come down in the water, and the wave shoves the rowboat back (never sinks it).",
+    "intensity": 2.5,
+    "distance": "near",
+    "maps": ["main_deck", "reef_passage", "crownskull_isle"],
+    "flying": {
+     "passEvery": [4200, 8000],
+     "variants": ["flying_shark", "flying_hammer", "flying_small", "flying_shark"],
+     "impactEvery": [3600, 6000],
+     "warnMs": 1500,
+     "areas": { "reef_passage": [2, 5, 19, 44] },
+     "ground": { "reef_passage": "water" },
+     "onHit": { "reef_passage": "push" }
+    },
+    "push": { "dir": "down", "tiles": 2 },
+    "rumble": { "every": [14000, 26000], "sfx": "vortex_roar" }
+   },
+   "inland_crownskull": {
+    "//": "Story Phase 9: after the Grand Excavation, the storm smells the new stench and crosses the coast. Sharks fall on the island: great whites coming down in the ruins' yard and round the clearing (marked first; a direct hit knocks the captain flat, nothing worse) before the storm yanks them back up.",
+    "intensity": 3,
+    "distance": "near",
+    "maps": ["crownskull_isle"],
+    "flying": {
+     "passEvery": [1600, 3200],
+     "variants": ["flying_shark", "flying_hammer", "flying_small", "flying_shark"],
+     "impactEvery": [2600, 4400],
+     "warnMs": 1700,
+     "areas": { "crownskull_isle": [19, 9, 35, 30] },
+     "ground": { "crownskull_isle": "land" },
+     "onHit": { "crownskull_isle": "knock" }
+    },
+    "rumble": { "every": [7000, 13000], "sfx": "vortex_roar" }
+   },
+   "treasure_laden": {
+    "//": "Story Phase 9, and the end of it: the Great Sharkstorm with most of the Crimson Fortune inside it. Gold flashes in the sky, coins and jewels, and the sharks going over are wearing it: pearls, a gold chain, a tiara, rings. Offshore again, still pursuing, still there. Not resolved.",
+    "intensity": 2.5,
+    "distance": "near",
+    "maps": ["crownskull_isle", "main_deck", "reef_passage"],
+    "flying": {
+     "passEvery": [3600, 6800],
+     "variants": [
+      "flying_shark_pearls",
+      "flying_shark_chain",
+      "flying_shark_tiara",
+      "flying_shark_rings",
+      "flying_shark_pearls",
+      "flying_hammer",
+      "flying_shark"
+     ]
+    },
+    "glints": { "every": [1600, 3400], "sfx": "coin_glint" },
+    "rumble": { "every": [14000, 26000], "sfx": "vortex_roar" },
+    "below": {
+     "maps": ["galley", "cargo_hold", "treasure_hold", "crew_quarters", "washroom", "captains_quarters"],
+     "every": [22000, 40000],
+     "sfx": ["hull_thud", "deck_scrape"],
+     "shake": 0.002
     }
    }
   }

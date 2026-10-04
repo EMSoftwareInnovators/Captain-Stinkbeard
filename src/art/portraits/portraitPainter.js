@@ -1,6 +1,6 @@
 import { PixelCanvas } from '../PixelCanvas.js';
 import { PAL, rgba } from '../palette.js';
-import { resolveLook, SASH, REGALIA } from '../characters/characterPainter.js';
+import { resolveLook, SASH, BLUE_SASH, REGALIA } from '../characters/characterPainter.js';
 
 /**
  * 48x48 dialogue portraits built from the same appearance data as the field
@@ -150,6 +150,20 @@ function drawBust(c, L) {
     c.rect(CX + 5, 40, 3, 3, SASH.badge);
     c.set(CX + 7, 42, '#8aba40');
     c.set(CX + 5, 42, SASH.ink);
+  }
+  if (L.extras.has('bluesash')) {
+    // Story Phase 9: the other half of the two-pack. Sky blue, GRAND
+    // SHARKMASTER daubed on it in white, the paint still a bit wet.
+    for (let i = 0; i < 12; i++) {
+      const x = CX + 9 - i;
+      const y = 37 + i;
+      c.set(x - 1, y, BLUE_SASH.edge);
+      c.set(x, y, BLUE_SASH.m);
+      c.set(x + 1, y, i % 2 ? BLUE_SASH.l : BLUE_SASH.badge);
+      c.set(x + 2, y, i % 3 === 1 ? BLUE_SASH.badge : BLUE_SASH.m);
+      c.set(x + 3, y, BLUE_SASH.d);
+      c.set(x + 4, y, BLUE_SASH.edge);
+    }
   }
 }
 

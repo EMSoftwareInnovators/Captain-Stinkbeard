@@ -105,6 +105,43 @@ export function renderRain(sampleRate, { seconds = 8, muffled = false, seed = 21
  * Wooden creak: friction impulses (stick–slip) exciting two resonators.
  * Variant changes pitch, length and resonances.
  */
+/**
+ * Story Phase 9: the jungle on Crownskull Isle. A bed of insects (a few
+ * cicada-ish voices: high tones pulsed in bursts, each on its own cycle that
+ * divides the loop, so it's seamless) and some soft hiss of leaves.
+ */
+export function renderInsects(sampleRate, { seconds = 8, seed = 33 } = {}) {
+  const n = Math.round(seconds * sampleRate);
+  const make = (sd) => {
+    const r = rng(sd);
+    const out = new Float32Array(n);
+    const voices = [0, 1, 2].map((k) => ({
+      f: 3800 + r() * 2200, am: 38 + r() * 30, cycle: seconds / (2 + k), on: 0.35 + r() * 0.3, phase: r(), level: 0.05 + r() * 0.03,
+    }));
+    let leaf = 0;
+    for (let i = 0; i < n; i++) {
+      const t = i / sampleRate;
+      let v = 0;
+      for (const c of voices) {
+        const pos = (t / c.cycle + c.phase) % 1;
+        if (pos > c.on) continue;
+        const env = Math.sin((Math.PI * pos) / c.on);
+        const pulse = 0.5 + 0.5 * Math.sin(TAU * c.am * t);
+        v += Math.sin(TAU * c.f * t) * pulse * pulse * env * c.level;
+      }
+      leaf += ((r() * 2 - 1) - leaf) * 0.05;
+      out[i] = v + leaf * 0.06 * (0.6 + 0.4 * Math.sin((TAU * t) / seconds));
+    }
+    const fade = Math.round(0.3 * sampleRate);
+    for (let i = 0; i < fade; i++) {
+      out[i] *= i / fade;
+      out[n - 1 - i] *= i / fade;
+    }
+    return out;
+  };
+  return { left: make(seed), right: make(seed + 7), sampleRate, loop: true };
+}
+
 export function renderCreak(sampleRate, variant = 0) {
   const r = rng(1000 + variant * 37);
   const dur = 0.45 + r() * 0.7;

@@ -408,7 +408,7 @@ function validateEffects(effects, check) {
 }
 
 const TARGET_TYPES = ['self', 'ally', 'allies', 'enemy', 'enemies', 'allyAny'];
-const AMBIENT_KINDS = ['wake', 'gulls', 'smoke', 'perchedGull', 'sailShadow', 'glitter', 'voice', 'rain', 'sailPuff', 'ratPeek', 'odorTrail'];
+const AMBIENT_KINDS = ['wake', 'gulls', 'smoke', 'perchedGull', 'sailShadow', 'glitter', 'voice', 'rain', 'sailPuff', 'ratPeek', 'odorTrail', 'fins'];
 const OBJECT_TYPES = ['spawn', 'warp', 'npc', 'enemy', 'inspect', 'chest', 'trigger', 'block'];
 
 function validateBehavior(b, check, model) {
@@ -724,7 +724,14 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       const ints = ['x', 'y', 'w', 'h'].every((k) => Number.isInteger(r[k]));
       if (!ints) rc.error('region needs integer x, y, w, h');
       else if (r.x < 0 || r.y < 0 || r.w < 1 || r.h < 1 || r.x + r.w > model.width || r.y + r.h > model.height) rc.error('region lies outside the map');
+      if ('name' in r && (typeof r.name !== 'string' || !r.name)) rc.error('a region\'s "name" must be a non-empty string (its location title)');
     });
+    if (model.meta.playerVehicle) {
+      const base = model.meta.playerVehicle;
+      for (const d of DIRECTIONS) {
+        if (!ART_REGISTRY.stage.has(`${base}_${d}`)) c.error(`playerVehicle "${base}" needs a stage frame "${base}_${d}"`);
+      }
+    }
     const ids = new Set();
     for (const obj of model.objects) {
       const oc = c.at(`object "${obj.id}"`);

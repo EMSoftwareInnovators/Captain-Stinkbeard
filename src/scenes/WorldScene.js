@@ -1151,12 +1151,18 @@ export class WorldScene extends BaseScene {
   /**
    * Map regions ({ id, x, y, w, h } in the map's "regions" list) announce
    * 'region:entered' when the captain walks into them (visit objectives).
+   * A region with a "name" (a landmark on a big outdoor map) also puts that
+   * name up as a location title as he walks in, unless a cutscene has him.
+   * The first region entered on arrival doesn't (the map's own title does).
    */
   updateRegions() {
     const p = this.player;
-    const inside = new Set(this.model.meta.regions.filter((r) => this.inRect(r, p.tx, p.ty)).map((r) => r.id));
-    for (const id of inside) {
-      if (!this.regionsInside?.has(id)) this.app.bus.emit('region:entered', { region: id, map: this.model.id });
+    const here = this.model.meta.regions.filter((r) => this.inRect(r, p.tx, p.ty));
+    const inside = new Set(here.map((r) => r.id));
+    for (const r of here) {
+      if (this.regionsInside?.has(r.id)) continue;
+      this.app.bus.emit('region:entered', { region: r.id, map: this.model.id });
+      if (r.name && this.regionsInside && !this.isBusy()) this.app.overlay.locationTitle(r.name);
     }
     this.regionsInside = inside;
   }

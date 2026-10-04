@@ -33,6 +33,13 @@ const REPAIR_KINDS = {
   // Story Phase 8
   nail: { title: 'NAIL IT UP', hint: 'Strike on the green!', stat: 'attack', hit: 'hammer_hit', miss: 'hammer_miss', done: 'repair_done', speed: 125 },
   hang: { title: 'HANG IT', hint: 'Pull on the green!', stat: 'speed', hit: 'sash_swish', miss: 'hammer_miss', done: 'hammock_creak', speed: 130 },
+  // Story Phase 9
+  dig: { title: 'DIG!', hint: 'Bite in on the green!', stat: 'attack', hit: 'shovel_dig', miss: 'shovel_clank', done: 'dirt_heap', speed: 135 },
+  pick: { title: 'BREAK THE STONE', hint: 'Swing on the green!', stat: 'attack', hit: 'pick_strike', miss: 'shovel_clank', done: 'stone_crack', speed: 150 },
+  pry: { title: 'PRY IT UP', hint: 'Lever on the green!', stat: 'defense', hit: 'stone_scrape', miss: 'shovel_clank', done: 'stone_crack', speed: 120 },
+  vines: { title: 'CUT THE VINES', hint: 'Slash on the green!', stat: 'speed', hit: 'vine_slash', miss: 'hammer_miss', done: 'vine_fall', speed: 140 },
+  throw: { title: 'THROW!', hint: 'Let fly on the green!', stat: 'attack', hit: 'heave', miss: 'thud', done: 'splash_big', speed: 140 },
+  lower: { title: 'LOWER AWAY', hint: 'Pay out on the green!', stat: 'speed', hit: 'rope_haul', miss: 'hammer_miss', done: 'splash', speed: 125 },
 };
 
 /**

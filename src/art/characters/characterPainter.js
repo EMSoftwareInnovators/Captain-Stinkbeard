@@ -30,6 +30,8 @@ const OUTLINE = PAL.ink;
  * fringe at the hip. He considers it extremely prestigious.
  */
 export const SASH = { d: '#9a6e14', m: '#c8982a', l: '#ecc450', edge: '#5e1624', gold: '#f4dc6c', badge: '#6a9a2c', ink: '#2a1a0e' };
+/** Story Phase 9: the other half of the two-pack, sky blue, GRAND SHARKMASTER painted on it in white (badly). */
+export const BLUE_SASH = { d: '#2a5a9a', m: '#4a86c8', l: '#7ab0e8', edge: '#16284a', gold: '#f0f4f8', badge: '#f0f4f8', ink: '#16284a' };
 
 export const BUILDS = {
   small: { shoulder: 12, waist: 10, torsoH: 9, legH: 9, legW: 4, legGap: 0, armW: 3, bootH: 3 },
@@ -71,6 +73,7 @@ export function resolveLook(app) {
     barefoot: !!outfit.barefoot,
     extras: new Set(app.extras || []),
     extraColor: clothRamp(app.extraColor || 'red'),
+    sashColors: (app.extras ?? []).includes('bluesash') ? BLUE_SASH : SASH,
     // Story Phase 3: an improvised ceremonial cloak (a torn curtain) and
     // whether it has since been through an hour with sharks.
     cloak: app.cloak ? clothRamp(app.cloak) : null,
@@ -278,7 +281,7 @@ function torsoFront(c, L, top, bottom, { back = false } = {}) {
     }
     c.set(CX - 1, top + Math.floor(H / 2), L.trim[2]);
   }
-  if (L.extras.has('stenchsash')) stenchSashFront(c, L, top, H, back);
+  if (L.extras.has('stenchsash') || L.extras.has('bluesash')) stenchSashFront(c, L, top, H, back);
   if (L.extras.has('patches') && (L.style === 'coat' || L.style === 'longcoat')) {
     // Sun-faded repairs on a battered coat.
     const w = b.shoulder;
@@ -321,6 +324,7 @@ function torsoFront(c, L, top, bottom, { back = false } = {}) {
     c.set(x1, bottom + 5, PAL.iron2);
     c.hline(x1 - 2, x1, bottom + 5, PAL.iron2);
   }
+  if (L.extras.has('parrotpouch')) parrotPouch(c, L, top, back);
   if (!back && L.extras.has('neckerchief')) {
     c.set(CX - 2, top, L.extraColor[1]);
     c.set(CX + 1, top, L.extraColor[1]);
@@ -332,7 +336,7 @@ function torsoFront(c, L, top, bottom, { back = false } = {}) {
 
 /** Coat tails (long coats) and skirts hang below the waist over/around the legs. */
 /** Over the left shoulder, down to the right hip (front); mirrored behind. */
-function stenchSashFront(c, L, top, H, back) {
+function stenchSashFront(c, L, top, H, back, SASH = L.sashColors) {
   const w = L.build.shoulder;
   const at = (i) => (back ? CX - Math.floor(w / 2) + 1 + Math.round((i * (w - 4)) / H) : CX + Math.floor(w / 2) - 3 - Math.round((i * (w - 4)) / H));
   for (let i = 0; i < H; i++) {
@@ -361,8 +365,50 @@ function stenchSashFront(c, L, top, H, back) {
   for (let k = 0; k < 4; k++) c.set(fx - 1 + k, top + H + 1 + (k % 2), SASH.gold);
 }
 
+/**
+ * Story Phase 9: a padded leather pouch slung across the captain's chest on
+ * a strap, and in it, Squawks: a bald pink head and a yellow beak poking out
+ * of the top, looking where they're going. From behind, just the strap.
+ */
+function parrotPouch(c, L, top, back) {
+  const w = L.build.shoulder;
+  // the strap, shoulder to hip (the pouch itself goes on last, over the beard: parrotPouchOver)
+  for (let i = 0; i < 7; i++) c.set(CX + Math.floor(w / 2) - 2 - i, top + 1 + i, back ? '#6e4626' : '#4a2e1a');
+}
+
+/**
+ * The pouch and its passenger, painted after the head so the captain's great
+ * beard doesn't swallow them: at his left hip from the front, out in front of
+ * him from the side. Nothing from behind but the strap.
+ */
+function parrotPouchOver(c, L, dir, torsoTop) {
+  if (dir === 'up') return;
+  const LEATHER = ['#4a2e1a', '#6e4626', '#8e5e34'];
+  const HEAD = ['#c87a78', '#e8a4a0', '#f6c4c0'];
+  const BEAK = ['#c8901c', '#f0c040'];
+  const side = dir !== 'down';
+  const sw = Math.max(8, Math.round(L.build.shoulder * 0.62));
+  const px = side ? CX - Math.floor(sw / 2) - 4 : CX - Math.floor(L.build.shoulder / 2) - 1;
+  const py = torsoTop + (side ? 7 : 8);
+  c.rect(px, py, 6, 5, LEATHER[1]);
+  c.hline(px, px + 5, py, LEATHER[2]);
+  c.hline(px, px + 5, py + 4, LEATHER[0]);
+  c.set(px, py + 1, LEATHER[0]);
+  c.set(px + 5, py + 1, LEATHER[0]);
+  c.set(px + 3, py + 2, LEATHER[2]);
+  // Squawks: a bald pink head over the rim, one eye, the beak
+  c.rect(px + 1, py - 3, 4, 3, HEAD[1]);
+  c.hline(px + 2, px + 3, py - 4, HEAD[1]);
+  c.set(px + 2, py - 3, HEAD[2]);
+  c.set(px + 4, py - 1, HEAD[0]);
+  c.set(px + 2, py - 2, '#1a1418');
+  c.set(px, py - 2, BEAK[1]);
+  c.set(px - 1, py - 2, BEAK[0]);
+  c.set(px, py - 1, BEAK[0]);
+}
+
 /** Side view: the sash crosses his chest as a bright band. */
-function stenchSashSide(c, L, top, bottom) {
+function stenchSashSide(c, L, top, bottom, SASH = L.sashColors) {
   const sw = Math.max(8, Math.round(L.build.shoulder * 0.62));
   const x0 = CX - Math.floor(sw / 2);
   for (let y = top + 1; y < bottom - 1; y++) {
@@ -1002,9 +1048,31 @@ export function paintCharacterFrame(L, dir, pose = {}, { outline = true } = {}) 
   if (L.extras.has('gaudy')) gaudy(c, L, dir, torsoTop, torsoBottom);
   if (L.extras.has('singed')) singed(c, L, dir, torsoTop);
   if (L.extras.has('torn')) torn(c, L, dir, torsoTop, torsoBottom);
+  if (L.extras.has('dusty')) dusty(c);
+  if (L.extras.has('parrotpouch')) parrotPouchOver(c, L, dir, torsoTop);
   if (outline) c.outline(OUTLINE);
   c.torsoTop = torsoTop;
   return c;
+}
+
+/**
+ * Story Phase 9: caked in the excavation. Sand and dried mud speckled over
+ * everything he's wearing (heavier lower down, where the crater got him),
+ * the same specks every frame so they don't crawl as he walks.
+ */
+function dusty(c) {
+  const SAND = ['#c8b080', '#b09460', '#8a6e44'];
+  for (let y = 0; y < c.height; y++) {
+    for (let x = 0; x < c.width; x++) {
+      if (c.alphaAt(x, y) === 0) continue;
+      // clumps: decided per 2x2 cell, so it reads as dirt, not noise
+      const cx = x >> 1;
+      const cy = y >> 1;
+      const h = (cx * 73 + cy * 151 + ((cx * cy) % 7) * 31) % 97;
+      const p = 8 + Math.round((y / c.height) * 30);
+      if (h < p) c.set(x, y, SAND[(h + x + y) % 3]);
+    }
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -1144,7 +1212,7 @@ function torsoSide(c, L, top, bottom) {
     c.set(x + 2, bottom + 3, PAL.iron4);
     c.set(x + 3, bottom + 4, PAL.iron3);
   }
-  if (L.extras.has('stenchsash')) stenchSashSide(c, L, top, bottom);
+  if (L.extras.has('stenchsash') || L.extras.has('bluesash')) stenchSashSide(c, L, top, bottom);
 }
 
 // ---------------------------------------------------------------------------

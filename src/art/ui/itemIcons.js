@@ -431,6 +431,28 @@ export const ICONS = {
     ],
     colors: { o: O, W: PAL.cloth3, w: PAL.cloth2 },
   },
+  // Story Phase 9: the captain's treasure map (the Crimson Kings' chart): old parchment, an island, a red X.
+  chart: {
+    rows: [
+      '................',
+      '..ooooooooooo...',
+      '.oPPPPPPPPPPPo..',
+      '.oPppppppppppPo.',
+      '.oPpppbbbppppPo.',
+      '.oPppbgggbbpppo.',
+      '.oPppbggggbpppo.',
+      '.oPpbggrgrgbppo.',
+      '.oPpbgggrggbppo.',
+      '.oPppbgrgrbpppo.',
+      '.oPpppbbbbppppo.',
+      '.oPkpppppppkkPo.',
+      '..oPPPPPPPPPPo..',
+      '...oooooooooo...',
+      '................',
+      '................',
+    ],
+    colors: { o: O, P: PAL.cloth2, p: PAL.cloth4, b: '#5a8ac0', g: '#5a9a4a', r: '#c8302a', k: '#7a5a3a' },
+  },
 };
 
 export function buildItemIcons() {

@@ -53,7 +53,11 @@ describe('the Great Sharkstorm (a saved state, not a weather simulation)', () =>
   it('only throws sharks at the deck while it is attacking, always with a warning', () => {
     for (const [id, st] of Object.entries(sharkstormStates(content))) {
       if (st.flying?.impactEvery) {
-        expect(id).toBe('attacking_ship');
+        // Story Phase 9's landings are on named maps only (the reef channel, the island), never the deck.
+        if (id !== 'attacking_ship') {
+          expect(Object.keys(st.flying.areas ?? {}), id).not.toContain('main_deck');
+          expect(Object.keys(st.flying.areas ?? {}).length, id).toBeGreaterThan(0);
+        }
         expect(st.flying.warnMs).toBeGreaterThanOrEqual(1200);
       }
     }

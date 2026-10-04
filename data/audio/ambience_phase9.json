@@ -1,0 +1,180 @@
+{
+ "//": "Story Phase 9 ambience: the surf at Crownskull Isle (a beach, gulls, the storm offshore); the jungle (insects, birds, a breath of wind in the leaves); the island with the storm come inland; and the island after (wind, the storm off the coast again, now and then something that sounds like money).",
+ "surf": {
+  "loops": [
+   {
+    "source": "ocean",
+    "volume": 0.5
+   },
+   {
+    "source": "wind",
+    "volume": 0.22
+   }
+  ],
+  "oneshots": [
+   {
+    "sounds": [
+     "surf_wash"
+    ],
+    "every": [
+     5,
+     10
+    ],
+    "volume": 0.3
+   },
+   {
+    "sounds": [
+     "oar_stroke"
+    ],
+    "every": [
+     3,
+     6
+    ],
+    "volume": 0.1
+   }
+  ]
+ },
+ "jungle": {
+  "loops": [
+   {
+    "source": "insects",
+    "volume": 0.42
+   },
+   {
+    "source": "ocean",
+    "muffled": true,
+    "volume": 0.18
+   }
+  ],
+  "oneshots": [
+   {
+    "sounds": [
+     "bird_call_a",
+     "bird_call_b"
+    ],
+    "every": [
+     4,
+     11
+    ],
+    "volume": 0.2
+   },
+   {
+    "sounds": [
+     "storm_distant"
+    ],
+    "every": [
+     24,
+     48
+    ],
+    "volume": 0.18
+   }
+  ]
+ },
+ "beach": {
+  "loops": [
+   {
+    "source": "ocean",
+    "volume": 0.44
+   },
+   {
+    "source": "insects",
+    "volume": 0.14
+   }
+  ],
+  "oneshots": [
+   {
+    "sounds": [
+     "surf_wash"
+    ],
+    "every": [
+     6,
+     12
+    ],
+    "volume": 0.26
+   },
+   {
+    "sounds": [
+     "bird_call_b"
+    ],
+    "every": [
+     10,
+     20
+    ],
+    "volume": 0.14
+   }
+  ]
+ },
+ "island_storm": {
+  "loops": [
+   {
+    "source": "wind",
+    "volume": 0.5
+   },
+   {
+    "source": "insects",
+    "volume": 0.08
+   }
+  ],
+  "oneshots": [
+   {
+    "sounds": [
+     "vortex_roar"
+    ],
+    "every": [
+     6,
+     12
+    ],
+    "volume": 0.3
+   },
+   {
+    "sounds": [
+     "shark_whoosh"
+    ],
+    "every": [
+     3,
+     7
+    ],
+    "volume": 0.2
+   }
+  ]
+ },
+ "island_after": {
+  "loops": [
+   {
+    "source": "wind",
+    "volume": 0.3
+   },
+   {
+    "source": "insects",
+    "volume": 0.18
+   },
+   {
+    "source": "ocean",
+    "muffled": true,
+    "volume": 0.2
+   }
+  ],
+  "oneshots": [
+   {
+    "sounds": [
+     "storm_distant"
+    ],
+    "every": [
+     14,
+     28
+    ],
+    "volume": 0.22
+   },
+   {
+    "sounds": [
+     "coin_glint"
+    ],
+    "every": [
+     9,
+     18
+    ],
+    "volume": 0.12
+   }
+  ]
+ }
+}

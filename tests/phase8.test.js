@@ -48,7 +48,8 @@ const p8Scripts = () => fs.readdirSync(path.resolve('data/story/cutscenes/phase8
 describe('the Great Sharkstorm in Phase 8 (it eases; it does not end)', () => {
   it('has one new state, easing_near_ship: still near, fewer and further-apart landings', () => {
     const st = sharkstormStates(content);
-    expect(Object.keys(st).slice(-1)).toEqual(['easing_near_ship']);
+    const ids = Object.keys(st);
+    expect(ids.indexOf('easing_near_ship')).toBe(ids.indexOf('active_near_ship') + 1);
     const near = st.active_near_ship;
     const easing = st.easing_near_ship;
     expect(easing.distance).toBe('near');

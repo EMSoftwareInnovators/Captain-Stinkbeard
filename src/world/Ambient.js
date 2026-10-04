@@ -7,7 +7,8 @@ import { evaluateCondition } from '../systems/conditions/conditions.js';
  * gulls with shadows, galley chimney smoke, a gull perched on the rail that
  * flies off when you get close, and slowly swaying sail shadows. Later
  * chapters add rain, sails that puff up on their own, a rat in a nose-cloth
- * peeking out of its hole, odour drifting off the captain's beard.
+ * peeking out of its hole, odour drifting off the captain's beard. Story
+ * Phase 9: fins circling a patch of open water (a reef, a lure, a lagoon).
  *
  * Every entry may carry "if": it comes and goes with the story, live.
  */
@@ -68,6 +69,18 @@ export class Ambient {
         e.drops = [];
         e.t = 0;
         break;
+      case 'fins': {
+        // { kind: 'fins', x, y, rx, ry, count, speed }: fins going round an
+        // ellipse (tiles) in open water, evenly spaced, slightly wobbling.
+        const n = a.count ?? 3;
+        e.fins = [];
+        for (let i = 0; i < n; i++) {
+          const img = s.add.sprite(px, py, 'stage', 'fin_h_0').setOrigin(0.5, 0.5).setDepth(-2350).setAlpha(0.95);
+          e.handles.push(img);
+          e.fins.push({ img, phase: (i / n) * Math.PI * 2 + Math.random() * 0.4, t: Math.random() * 1000 });
+        }
+        break;
+      }
       default:
         e.t = a.delay ?? this.nextDelay(a);
     }
@@ -82,9 +95,31 @@ export class Ambient {
     for (const d of e.drops ?? []) d.destroy();
     e.drops = null;
     e.perch = null;
+    e.fins = null;
     if (e.rat) {
       e.rat.destroy();
       e.rat = null;
+    }
+  }
+
+  updateFins(e, delta) {
+    const a = e.def;
+    const cx = ((a.x ?? 0) + 0.5) * TILE_SIZE;
+    const cy = ((a.y ?? 0) + 0.5) * TILE_SIZE;
+    const rx = (a.rx ?? 2) * TILE_SIZE;
+    const ry = (a.ry ?? 1.2) * TILE_SIZE;
+    const w = (a.speed ?? 0.6) / 1000;
+    for (const f of e.fins ?? []) {
+      f.phase += w * delta;
+      f.t += delta;
+      const x = cx + Math.cos(f.phase) * rx + Math.sin(f.t / 380) * 1.5;
+      const y = cy + Math.sin(f.phase) * ry;
+      const dx = -Math.sin(f.phase) * rx;
+      const dy = Math.cos(f.phase) * ry;
+      const n = Math.floor(f.t / 260) % 2;
+      f.img.setPosition(x, y);
+      if (Math.abs(dx) >= Math.abs(dy)) f.img.setFrame(`fin_h_${n}`).setFlipX(dx < 0);
+      else f.img.setFrame(`fin_v_${n}`).setFlipX(false);
     }
   }
 
@@ -108,6 +143,7 @@ export class Ambient {
         case 'sailPuff': this.updateSailPuff(e, delta); break;
         case 'ratPeek': if (!busy) this.updateRat(e, delta); break;
         case 'odorTrail': this.updateOdor(e, delta); break;
+        case 'fins': this.updateFins(e, delta); break;
         default: break;
       }
     }

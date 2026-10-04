@@ -26,7 +26,8 @@ import { sharkstormNow, between } from '../systems/hazards/sharkstorm.js';
  * main deck) with an area per map ("areas"), and how a landing goes there
  * ("ground": "deck" flops back over the rail, "land" is yanked back up into
  * the sky, "water" splashes down; "onHit": "knock" flattens the captain,
- * "push" shoves his rowboat back a few tiles). A treasure-laden storm
+ * "push" shoves his rowboat back a few tiles). With "areas", sharks only
+ * come down on the maps that have one. A treasure-laden storm
  * ("glints") flashes gold now and then: coins and jewels in the sky.
  *
  * Reduced effects: fewer passes, no shake. It looks like hundreds of sharks
@@ -82,8 +83,10 @@ export class SharkstormLayer {
       this.passT = between(fly.passEvery ?? [2500, 4500]) * (reduced ? 2 : 1);
       if (this.passes.length < MAX_PASSES) this.spawnPass();
     }
-    // Landings only while the captain can move (never during a scene).
+    // Landings only while the captain can move (never during a scene), and
+    // only on the maps the state gives an area to (when it gives any).
     if (busy || this.impact || !fly.impactEvery) return;
+    if (fly.areas && !fly.areas[this.scene.model?.id]) return;
     this.impactT -= dt;
     if (this.impactT <= 0) {
       this.impactT = between(fly.impactEvery);
