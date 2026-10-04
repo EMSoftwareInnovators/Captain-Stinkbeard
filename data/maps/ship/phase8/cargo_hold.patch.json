@@ -393,7 +393,7 @@
    "id": "p8h_garrick_2",
    "type": "npc",
    "npc": "garrick",
-   "x": 14,
+   "x": 13,
    "y": 15,
    "facing": "right",
    "if": {
@@ -671,9 +671,9 @@
    "id": "p8h_hale_5",
    "type": "npc",
    "npc": "hale",
-   "x": 16,
-   "y": 4,
-   "facing": "down",
+   "x": 17,
+   "y": 6,
+   "facing": "left",
    "if": {
     "all": [
      {
@@ -2359,9 +2359,9 @@
    "id": "p8h_jim_3",
    "type": "npc",
    "npc": "jim",
-   "x": 17,
+   "x": 16,
    "y": 11,
-   "facing": "up",
+   "facing": "right",
    "if": {
     "all": [
      {
@@ -2380,6 +2380,27 @@
    "id": "p8h_jim_4",
    "type": "npc",
    "npc": "jim",
+   "x": 17,
+   "y": 11,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p8_decree_heard"
+     },
+     {
+      "notFlag": "p8_lights_out"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p8h_jim_5",
+   "type": "npc",
+   "npc": "jim",
    "x": 1,
    "y": 1,
    "absent": true,
@@ -2395,7 +2416,7 @@
    }
   },
   {
-   "id": "p8h_jim_5",
+   "id": "p8h_jim_6",
    "type": "npc",
    "npc": "jim",
    "x": 13,

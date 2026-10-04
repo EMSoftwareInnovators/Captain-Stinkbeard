@@ -47,7 +47,7 @@
  ],
  "p8c7.blocked": [
   "The crew have crowded round the door to the old sleeping quarters.",
-  "And standing in front of it, facing them, is the Grand Stenchmaster. He looks... embarrassed. Nobody has ever seen that before. It doesn't suit him.",
+  "And standing beside it, in the way, facing them, is the Grand Stenchmaster. He looks... embarrassed. Nobody has ever seen that before. It doesn't suit him.",
   "garrick[nervous]: Gentlemen. Captain. A word. About the quarters.",
   "garrick[nervous]: They may be... unavailable.",
   "pete: Unavailable?",
@@ -73,6 +73,17 @@
   "pete[annoyed]: Stand aside.",
   "garrick[nervous]: I'd advise—",
   "pete[annoyed]: STAND. ASIDE.",
+  {
+   "move": "player",
+   "to": [
+    10,
+    10
+   ]
+  },
+  {
+   "face": "player",
+   "dir": "left"
+  },
   {
    "move": "garrick",
    "to": [
