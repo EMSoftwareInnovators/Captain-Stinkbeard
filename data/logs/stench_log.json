@@ -695,6 +695,137 @@
     "source": "Sixteen pirates, a ham and a frog",
     "sharks": "Overhead",
     "notes": "Everyone watched. EVERYONE. Grand Stenchmaster morale. (The Captain has asked me not to write that. I have written it small.) One episode, then I see about the storm. After this one."
+   },
+   {
+    "id": "p8_false_alarm",
+    "title": "The False Alarm",
+    "if": {
+     "flag": "garrick_possible_release_survived"
+    },
+    "location": "The hold (my chair)",
+    "status": "Did not occur",
+    "severity": "Concerning",
+    "source": "Me (possibly)",
+    "sharks": "Unaffected",
+    "notes": "Hunger, digestion, ordinary wind, or the beginning of something. I could not rule it out. I could not rule it in. Sometimes the fart is sneaky. The crew fled to the stairs. Bob got into a cask. It was not required, on this occasion."
+   },
+   {
+    "id": "p8_sash",
+    "title": "The Grand Stenchmaster Sash",
+    "if": {
+     "flag": "fart_sash_nickname"
+    },
+    "location": "Diagonally across me",
+    "status": "Ancient ceremonial relic",
+    "severity": "Premium",
+    "source": "Tradition",
+    "sharks": "Respectful",
+    "notes": "Sacred. Heritage. Must be held off the ground by two bearers during any major event (ceremonially). Volunteers: none. [Underneath, in the Captain's hand: FART SASH.] [Underneath that, mine: STENCHMASTER SASH.]",
+    "variants": [
+     {
+      "if": {
+       "flag": "sash_origin_revealed"
+      },
+      "location": "Diagonally across me (tag removed)",
+      "status": "Claimed: ancient ceremonial relic. Known: a sketchy discount shop, last week",
+      "source": "A discount bin. 70% off. Cash only. No refunds. No receipt.",
+      "notes": "CLAIMED ORIGIN: ancient ceremonial relic. ACTUAL KNOWN ORIGIN: a sketchy discount shop. Purchased last week. Seventy per cent off. Cash only. No refunds. (Revealed by me, in my sleep, which is inadmissible.) Captain's note: FART SASH. Grand Stenchmaster's correction: STENCHMASTER SASH. It was a very good deal."
+     }
+    ]
+   },
+   {
+    "id": "p8_crown",
+    "title": "The Grand Crown",
+    "if": {
+     "flag": "grand_crown_created"
+    },
+    "location": "On my head",
+    "status": "In service",
+    "severity": "Premium",
+    "source": "Fake gold, bottle caps, Jim's cutlery, the pump handle, the bell's clapper",
+    "sharks": "Dazzled",
+    "notes": "The Grand Stenchmaster's Grand Crown. Crest: a stink-cloud over an onion, two spoons crossed. A little saucepan on top, for gravitas. [Captain: Jim wants his forks back.]",
+    "variants": [
+     {
+      "if": {
+       "flag": "grand_crown_banned_for_sleep"
+      },
+      "location": "A crate (NOT IN THE HAMMOCK)",
+      "status": "Banned while sleeping",
+      "notes": "It slipped, once, in the night, onto the Captain. Forks, a spoon, the saucepan. Nobody was hurt. The Captain screamed anyway. He has called it GRAND STENCHMASTER CUTLERY. It may still be worn while awake, ceremonially. I have checked."
+     }
+    ]
+   },
+   {
+    "id": "p8_lost_fart",
+    "title": "The Lost Fart (my account)",
+    "if": {
+     "flag": "lost_fart_game_proposed"
+    },
+    "location": "The Lost Realm of Reekhollow",
+    "status": "Legend",
+    "severity": "Catastrophic",
+    "source": "Sir Garrick the First",
+    "sharks": "Very committed",
+    "notes": "GARRICK'S CLAIMS: the Temple of the Grand Stenchmaster; its seven chambers; the Golden Bottle of Wind; Sir Garrick the First (an ancestor; strong family resemblance); the ancient Grand Nap; the Bridge of the Sacred Sash; the Electric Frog Oracle; the Lost Fart. [In the Captain's hand: NONE OF THIS HAPPENED. IT IS A BEDTIME STORY. THE ORACLE IS THE TELLY.]",
+    "variants": [
+     {
+      "if": {
+       "flag": "lost_fart_legend_told"
+      },
+      "status": "Told in full (bedtime)",
+      "notes": "GARRICK'S CLAIMS (told in full, at bedtime, from a blank ledger): the Temple of the Grand Stenchmaster in the Lost Realm of Reekhollow; seven chambers; the Golden Bottle of Wind; Sir Garrick the First; the forbidden cheese; the ancient Grand Nap; the Bridge of the Sacred Sash; the Electric Frog Oracle; Professor Barnacle Bob; a giant rolling onion; the Lost Fart. Moral: always hold the sash. [Captain: NOT HISTORY. NOT TRUE. NOT EVEN A GOOD STORY.] [Pete: the onion was good.]"
+     }
+    ]
+   },
+   {
+    "id": "p8_quarters",
+    "title": "The Old Sleeping Quarters",
+    "if": {
+     "flag": "crew_quarters_condemned"
+    },
+    "location": "Through the galley door (do not)",
+    "status": "Condemned. Permanently.",
+    "severity": "Catastrophic",
+    "source": "The second major event (resident)",
+    "sharks": "Won't go near it",
+    "notes": "Not the Dead Center. The Center moved on; the Center is a free spirit. This is what it left behind: embedded, steeped, settled into the boards. The fart took residence. Estimated tenancy: centuries. Sign: CONDEMNED. GRAND STENCHMASTER ATMOSPHERIC EVENT. ENTER AT OWN RISK. [Captain: DO NOT ENTER.]"
+   },
+   {
+    "id": "p8_barracks",
+    "title": "The Lower Hull Barracks",
+    "if": {
+     "flag": "lower_hull_barracks"
+    },
+    "location": "The hold",
+    "status": "By decree",
+    "severity": "Moist",
+    "source": "The Grand Decree",
+    "sharks": "Overhead",
+    "notes": "Hammocks over the crates; a cargo net; a contraption of belts; Jim's pantry (padlocked); a cradle for the parrot beside the Captain; and over the Captain's bunk, the highest hammock. Rank. [Gristle: Altitude.]"
+   },
+   {
+    "id": "p8_grand_nap",
+    "title": "The Grand Nap",
+    "if": {
+     "flag": "p8_nap_banned"
+    },
+    "location": "The hold",
+    "status": "Banned",
+    "severity": "Concerning",
+    "source": "Ancient tradition (this afternoon)",
+    "sharks": "Not invited",
+    "notes": "Restorative rest. Digestive authority. Banned by the Captain until I can say whether I am about to kill everyone. I can't.",
+    "variants": [
+     {
+      "if": {
+       "flag": "p8_complete"
+      },
+      "status": "Taken (in full attire)",
+      "severity": "Severe",
+      "notes": "Taken at night, in full ceremonial attire, for the continuity of office. The Suit has STENCH RETENTION (FWOoF). The Captain calls it fabric contamination. Nobody else slept. I slept beautifully."
+     }
+    ]
    }
   ]
  }

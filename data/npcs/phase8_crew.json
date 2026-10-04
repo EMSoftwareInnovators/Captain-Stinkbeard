@@ -1,0 +1,3949 @@
+[
+ {
+  "extend": "garrick",
+  "variants": [
+   {
+    "if": {
+     "flag": "grand_crown_banned_for_sleep"
+    },
+    "appearance": "garrick_stenchmaster_torn",
+    "portrait": "garrick_grand_nap"
+   },
+   {
+    "if": {
+     "flag": "grand_crown_created"
+    },
+    "appearance": "garrick_stenchmaster_crowned",
+    "portrait": "garrick_stenchmaster_crowned"
+   }
+  ],
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "false_alarm.ask"
+    },
+    "script": "p8c2.ask"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.proposal"
+    },
+    "script": "p8c3.proposal"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.verdict"
+    },
+    "script": "p8c3.verdict"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.trunk"
+    },
+    "script": "p8c4.trunk"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.crown"
+    },
+    "script": "p8c4.crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.premise"
+    },
+    "script": "p8c4.premise"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_lights_out"
+      },
+      {
+       "notFlag": "p8_ch53_started"
+      }
+     ]
+    },
+    "script": "garrick.p8_w7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_decree_heard"
+      },
+      {
+       "notFlag": "p8_lights_out"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p8_w6_1",
+     "garrick.p8_w6_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch48_started"
+      },
+      {
+       "notFlag": "p8_decree_heard"
+      }
+     ]
+    },
+    "script": "garrick.p8_w5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch45_started"
+      },
+      {
+       "notFlag": "p8_ch48_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p8_w4_1",
+     "garrick.p8_w4_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch44_started"
+      },
+      {
+       "notFlag": "p8_ch45_started"
+      }
+     ]
+    },
+    "script": "garrick.p8_w3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch43_started"
+      },
+      {
+       "notFlag": "p8_ch44_started"
+      }
+     ]
+    },
+    "script": "garrick.p8_w2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_started"
+      },
+      {
+       "notFlag": "p8_ch43_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p8_w1_1",
+     "garrick.p8_w1_2",
+     "garrick.p8_w1_3"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "squawks",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "false_alarm.squawks"
+    },
+    "script": "p8c2.squawks"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_decree.squawks"
+    },
+    "script": "p8c9.squawks"
+   },
+   {
+    "if": {
+     "flag": "p8_complete"
+    },
+    "cycle": [
+     "squawks.p8_w10_1",
+     "squawks.p8_w10_2",
+     "squawks.p8_w10_3"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch54_started"
+      },
+      {
+       "notFlag": "p8_complete"
+      }
+     ]
+    },
+    "script": "squawks.p8_w9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch53_started"
+      },
+      {
+       "notFlag": "p8_ch54_started"
+      }
+     ]
+    },
+    "script": "squawks.p8_w8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_lights_out"
+      },
+      {
+       "notFlag": "p8_ch53_started"
+      }
+     ]
+    },
+    "script": "squawks.p8_w7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_decree_heard"
+      },
+      {
+       "notFlag": "p8_lights_out"
+      }
+     ]
+    },
+    "script": "squawks.p8_w6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch45_started"
+      },
+      {
+       "notFlag": "p8_ch48_started"
+      }
+     ]
+    },
+    "script": "squawks.p8_w4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch44_started"
+      },
+      {
+       "notFlag": "p8_ch45_started"
+      }
+     ]
+    },
+    "script": "squawks.p8_w3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_started"
+      },
+      {
+       "notFlag": "p8_ch45_started"
+      }
+     ]
+    },
+    "script": "squawks.p8_w1"
+   }
+  ]
+ },
+ {
+  "extend": "bob",
+  "variants": [
+   {
+    "if": {
+     "flag": "p8_professor_bob"
+    },
+    "appearance": "bob_explorer",
+    "portrait": "bob_explorer"
+   }
+  ]
+ },
+ {
+  "extend": "hale",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "sash_bearers.volunteers"
+      },
+      {
+       "notFlag": "p8_refused_hale"
+      }
+     ]
+    },
+    "script": "p8c3.refuse_hale"
+   },
+   {
+    "if": {
+     "objectiveActive": "still_trapped.corner"
+    },
+    "script": "hale.p8_hint_corner"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.ask"
+    },
+    "script": "hale.p8_hint_ask"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.squawks"
+    },
+    "script": "hale.p8_hint_squawks"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.hatch"
+    },
+    "script": "hale.p8_hint_hatch"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.proposal"
+    },
+    "script": "hale.p8_hint_proposal"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.verdict"
+    },
+    "script": "hale.p8_hint_verdict"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.crown"
+    },
+    "script": "hale.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.premise"
+    },
+    "script": "hale.p8_hint_premise"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.back"
+    },
+    "script": "hale.p8_hint_back"
+   },
+   {
+    "if": {
+     "objectiveActive": "bedtime_story.bed"
+    },
+    "script": "hale.p8_hint_bed"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.crown"
+    },
+    "script": "hale.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.back"
+    },
+    "script": "hale.p8_hint_back"
+   },
+   {
+    "if": {
+     "flag": "p8_complete"
+    },
+    "cycle": [
+     "hale.p8_w10_1",
+     "hale.p8_w10_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch54_started"
+      },
+      {
+       "notFlag": "p8_complete"
+      }
+     ]
+    },
+    "script": "hale.p8_w9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch53_started"
+      },
+      {
+       "notFlag": "p8_ch54_started"
+      }
+     ]
+    },
+    "script": "hale.p8_w8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_lights_out"
+      },
+      {
+       "notFlag": "p8_ch53_started"
+      }
+     ]
+    },
+    "script": "hale.p8_w7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_decree_heard"
+      },
+      {
+       "notFlag": "p8_lights_out"
+      }
+     ]
+    },
+    "script": "hale.p8_w6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch48_started"
+      },
+      {
+       "notFlag": "p8_decree_heard"
+      }
+     ]
+    },
+    "script": "hale.p8_w5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch45_started"
+      },
+      {
+       "notFlag": "p8_ch48_started"
+      }
+     ]
+    },
+    "script": "hale.p8_w4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch44_started"
+      },
+      {
+       "notFlag": "p8_ch45_started"
+      }
+     ]
+    },
+    "script": "hale.p8_w3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch43_started"
+      },
+      {
+       "notFlag": "p8_ch44_started"
+      }
+     ]
+    },
+    "script": "hale.p8_w2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_started"
+      },
+      {
+       "notFlag": "p8_ch43_started"
+      }
+     ]
+    },
+    "cycle": [
+     "hale.p8_w1_1",
+     "hale.p8_w1_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "wick",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "sash_bearers.volunteers"
+      },
+      {
+       "notFlag": "p8_refused_wick"
+      }
+     ]
+    },
+    "script": "p8c3.refuse_wick"
+   },
+   {
+    "if": {
+     "objectiveActive": "still_trapped.corner"
+    },
+    "script": "wick.p8_hint_corner"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.ask"
+    },
+    "script": "wick.p8_hint_ask"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.squawks"
+    },
+    "script": "wick.p8_hint_squawks"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.hatch"
+    },
+    "script": "wick.p8_hint_hatch"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.proposal"
+    },
+    "script": "wick.p8_hint_proposal"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.verdict"
+    },
+    "script": "wick.p8_hint_verdict"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.crown"
+    },
+    "script": "wick.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.premise"
+    },
+    "script": "wick.p8_hint_premise"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.quarters"
+    },
+    "script": "wick.p8_hint_quarters"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.back"
+    },
+    "script": "wick.p8_hint_back"
+   },
+   {
+    "if": {
+     "objectiveActive": "bedtime_story.bed"
+    },
+    "script": "wick.p8_hint_bed"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.crown"
+    },
+    "script": "wick.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.back"
+    },
+    "script": "wick.p8_hint_back"
+   },
+   {
+    "if": {
+     "flag": "p8_complete"
+    },
+    "script": "wick.p8_w10"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch54_started"
+      },
+      {
+       "notFlag": "p8_complete"
+      }
+     ]
+    },
+    "script": "wick.p8_w9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch53_started"
+      },
+      {
+       "notFlag": "p8_ch54_started"
+      }
+     ]
+    },
+    "script": "wick.p8_w8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_lights_out"
+      },
+      {
+       "notFlag": "p8_ch53_started"
+      }
+     ]
+    },
+    "script": "wick.p8_w7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_decree_heard"
+      },
+      {
+       "notFlag": "p8_lights_out"
+      }
+     ]
+    },
+    "script": "wick.p8_w6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch48_started"
+      },
+      {
+       "notFlag": "p8_decree_heard"
+      }
+     ]
+    },
+    "script": "wick.p8_w5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch45_started"
+      },
+      {
+       "notFlag": "p8_ch48_started"
+      }
+     ]
+    },
+    "script": "wick.p8_w4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch44_started"
+      },
+      {
+       "notFlag": "p8_ch45_started"
+      }
+     ]
+    },
+    "script": "wick.p8_w3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch43_started"
+      },
+      {
+       "notFlag": "p8_ch44_started"
+      }
+     ]
+    },
+    "script": "wick.p8_w2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_started"
+      },
+      {
+       "notFlag": "p8_ch43_started"
+      }
+     ]
+    },
+    "script": "wick.p8_w1"
+   }
+  ]
+ },
+ {
+  "extend": "fennimore",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "sash_bearers.volunteers"
+      },
+      {
+       "notFlag": "p8_refused_fennimore"
+      }
+     ]
+    },
+    "script": "p8c3.refuse_fennimore"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.ask"
+    },
+    "script": "fennimore.p8_hint_ask"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.squawks"
+    },
+    "script": "fennimore.p8_hint_squawks"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.hatch"
+    },
+    "script": "fennimore.p8_hint_hatch"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.proposal"
+    },
+    "script": "fennimore.p8_hint_proposal"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.verdict"
+    },
+    "script": "fennimore.p8_hint_verdict"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.quarters"
+    },
+    "script": "fennimore.p8_hint_quarters"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.back"
+    },
+    "script": "fennimore.p8_hint_back"
+   },
+   {
+    "if": {
+     "objectiveActive": "bedtime_story.bed"
+    },
+    "script": "fennimore.p8_hint_bed"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.crown"
+    },
+    "script": "fennimore.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.back"
+    },
+    "script": "fennimore.p8_hint_back"
+   },
+   {
+    "if": {
+     "flag": "p8_complete"
+    },
+    "script": "fennimore.p8_w10"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch54_started"
+      },
+      {
+       "notFlag": "p8_complete"
+      }
+     ]
+    },
+    "script": "fennimore.p8_w9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch53_started"
+      },
+      {
+       "notFlag": "p8_ch54_started"
+      }
+     ]
+    },
+    "script": "fennimore.p8_w8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_lights_out"
+      },
+      {
+       "notFlag": "p8_ch53_started"
+      }
+     ]
+    },
+    "script": "fennimore.p8_w7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_decree_heard"
+      },
+      {
+       "notFlag": "p8_lights_out"
+      }
+     ]
+    },
+    "script": "fennimore.p8_w6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch48_started"
+      },
+      {
+       "notFlag": "p8_decree_heard"
+      }
+     ]
+    },
+    "script": "fennimore.p8_w5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch45_started"
+      },
+      {
+       "notFlag": "p8_ch48_started"
+      }
+     ]
+    },
+    "script": "fennimore.p8_w4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch44_started"
+      },
+      {
+       "notFlag": "p8_ch45_started"
+      }
+     ]
+    },
+    "script": "fennimore.p8_w3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch43_started"
+      },
+      {
+       "notFlag": "p8_ch44_started"
+      }
+     ]
+    },
+    "script": "fennimore.p8_w2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_started"
+      },
+      {
+       "notFlag": "p8_ch43_started"
+      }
+     ]
+    },
+    "script": "fennimore.p8_w1"
+   }
+  ]
+ },
+ {
+  "extend": "rook",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "sash_bearers.volunteers"
+      },
+      {
+       "notFlag": "p8_refused_rook"
+      }
+     ]
+    },
+    "script": "p8c3.refuse_rook"
+   },
+   {
+    "if": {
+     "objectiveActive": "still_trapped.corner"
+    },
+    "script": "rook.p8_hint_corner"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.ask"
+    },
+    "script": "rook.p8_hint_ask"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.squawks"
+    },
+    "script": "rook.p8_hint_squawks"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.hatch"
+    },
+    "script": "rook.p8_hint_hatch"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.proposal"
+    },
+    "script": "rook.p8_hint_proposal"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.verdict"
+    },
+    "script": "rook.p8_hint_verdict"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.crown"
+    },
+    "script": "rook.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.premise"
+    },
+    "script": "rook.p8_hint_premise"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.back"
+    },
+    "script": "rook.p8_hint_back"
+   },
+   {
+    "if": {
+     "objectiveActive": "bedtime_story.bed"
+    },
+    "script": "rook.p8_hint_bed"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.crown"
+    },
+    "script": "rook.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.back"
+    },
+    "script": "rook.p8_hint_back"
+   },
+   {
+    "if": {
+     "flag": "p8_complete"
+    },
+    "script": "rook.p8_w10"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch54_started"
+      },
+      {
+       "notFlag": "p8_complete"
+      }
+     ]
+    },
+    "script": "rook.p8_w9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch53_started"
+      },
+      {
+       "notFlag": "p8_ch54_started"
+      }
+     ]
+    },
+    "script": "rook.p8_w8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_lights_out"
+      },
+      {
+       "notFlag": "p8_ch53_started"
+      }
+     ]
+    },
+    "script": "rook.p8_w7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_decree_heard"
+      },
+      {
+       "notFlag": "p8_lights_out"
+      }
+     ]
+    },
+    "script": "rook.p8_w6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch48_started"
+      },
+      {
+       "notFlag": "p8_decree_heard"
+      }
+     ]
+    },
+    "script": "rook.p8_w5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch45_started"
+      },
+      {
+       "notFlag": "p8_ch48_started"
+      }
+     ]
+    },
+    "script": "rook.p8_w4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch44_started"
+      },
+      {
+       "notFlag": "p8_ch45_started"
+      }
+     ]
+    },
+    "script": "rook.p8_w3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch43_started"
+      },
+      {
+       "notFlag": "p8_ch44_started"
+      }
+     ]
+    },
+    "script": "rook.p8_w2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_started"
+      },
+      {
+       "notFlag": "p8_ch43_started"
+      }
+     ]
+    },
+    "script": "rook.p8_w1"
+   }
+  ]
+ },
+ {
+  "extend": "sully",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "sash_bearers.volunteers"
+      },
+      {
+       "notFlag": "p8_refused_sully"
+      }
+     ]
+    },
+    "script": "p8c3.refuse_sully"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.ask"
+    },
+    "script": "sully.p8_hint_ask"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.squawks"
+    },
+    "script": "sully.p8_hint_squawks"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.hatch"
+    },
+    "script": "sully.p8_hint_hatch"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.proposal"
+    },
+    "script": "sully.p8_hint_proposal"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.verdict"
+    },
+    "script": "sully.p8_hint_verdict"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.crown"
+    },
+    "script": "sully.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.premise"
+    },
+    "script": "sully.p8_hint_premise"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.quarters"
+    },
+    "script": "sully.p8_hint_quarters"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.back"
+    },
+    "script": "sully.p8_hint_back"
+   },
+   {
+    "if": {
+     "objectiveActive": "bedtime_story.bed"
+    },
+    "script": "sully.p8_hint_bed"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.crown"
+    },
+    "script": "sully.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.back"
+    },
+    "script": "sully.p8_hint_back"
+   },
+   {
+    "if": {
+     "flag": "p8_complete"
+    },
+    "script": "sully.p8_w10"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch54_started"
+      },
+      {
+       "notFlag": "p8_complete"
+      }
+     ]
+    },
+    "script": "sully.p8_w9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch53_started"
+      },
+      {
+       "notFlag": "p8_ch54_started"
+      }
+     ]
+    },
+    "script": "sully.p8_w8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_lights_out"
+      },
+      {
+       "notFlag": "p8_ch53_started"
+      }
+     ]
+    },
+    "script": "sully.p8_w7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_decree_heard"
+      },
+      {
+       "notFlag": "p8_lights_out"
+      }
+     ]
+    },
+    "script": "sully.p8_w6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch48_started"
+      },
+      {
+       "notFlag": "p8_decree_heard"
+      }
+     ]
+    },
+    "script": "sully.p8_w5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch45_started"
+      },
+      {
+       "notFlag": "p8_ch48_started"
+      }
+     ]
+    },
+    "script": "sully.p8_w4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch44_started"
+      },
+      {
+       "notFlag": "p8_ch45_started"
+      }
+     ]
+    },
+    "script": "sully.p8_w3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch43_started"
+      },
+      {
+       "notFlag": "p8_ch44_started"
+      }
+     ]
+    },
+    "script": "sully.p8_w2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_started"
+      },
+      {
+       "notFlag": "p8_ch43_started"
+      }
+     ]
+    },
+    "script": "sully.p8_w1"
+   }
+  ]
+ },
+ {
+  "extend": "brask",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "sash_bearers.volunteers"
+      },
+      {
+       "notFlag": "p8_refused_brask"
+      }
+     ]
+    },
+    "script": "p8c3.refuse_brask"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.ask"
+    },
+    "script": "brask.p8_hint_ask"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.squawks"
+    },
+    "script": "brask.p8_hint_squawks"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.hatch"
+    },
+    "script": "brask.p8_hint_hatch"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.proposal"
+    },
+    "script": "brask.p8_hint_proposal"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.verdict"
+    },
+    "script": "brask.p8_hint_verdict"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.quarters"
+    },
+    "script": "brask.p8_hint_quarters"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.back"
+    },
+    "script": "brask.p8_hint_back"
+   },
+   {
+    "if": {
+     "objectiveActive": "bedtime_story.bed"
+    },
+    "script": "brask.p8_hint_bed"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.crown"
+    },
+    "script": "brask.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.back"
+    },
+    "script": "brask.p8_hint_back"
+   },
+   {
+    "if": {
+     "flag": "p8_complete"
+    },
+    "script": "brask.p8_w10"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch54_started"
+      },
+      {
+       "notFlag": "p8_complete"
+      }
+     ]
+    },
+    "script": "brask.p8_w9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch53_started"
+      },
+      {
+       "notFlag": "p8_ch54_started"
+      }
+     ]
+    },
+    "script": "brask.p8_w8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_lights_out"
+      },
+      {
+       "notFlag": "p8_ch53_started"
+      }
+     ]
+    },
+    "script": "brask.p8_w7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_decree_heard"
+      },
+      {
+       "notFlag": "p8_lights_out"
+      }
+     ]
+    },
+    "script": "brask.p8_w6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch48_started"
+      },
+      {
+       "notFlag": "p8_decree_heard"
+      }
+     ]
+    },
+    "script": "brask.p8_w5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch45_started"
+      },
+      {
+       "notFlag": "p8_ch48_started"
+      }
+     ]
+    },
+    "script": "brask.p8_w4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch44_started"
+      },
+      {
+       "notFlag": "p8_ch45_started"
+      }
+     ]
+    },
+    "script": "brask.p8_w3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch43_started"
+      },
+      {
+       "notFlag": "p8_ch44_started"
+      }
+     ]
+    },
+    "script": "brask.p8_w2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_started"
+      },
+      {
+       "notFlag": "p8_ch43_started"
+      }
+     ]
+    },
+    "script": "brask.p8_w1"
+   }
+  ]
+ },
+ {
+  "extend": "gristle",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "still_trapped.settle"
+      },
+      {
+       "notFlag": "p8_settled_gristle"
+      }
+     ]
+    },
+    "script": "p8c1.gristle"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "grand_decree.bunks"
+      },
+      {
+       "notFlag": "p8_bunk_gristle"
+      }
+     ]
+    },
+    "script": "p8c9.bunk_gristle"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "seventy_percent_off.wake"
+      },
+      {
+       "notFlag": "p8_woke_gristle"
+      }
+     ]
+    },
+    "script": "p8c13.wake_gristle"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.snap"
+    },
+    "script": "p8c5.snap"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.squawks_back"
+    },
+    "script": "p8c6.blanket"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "sash_bearers.volunteers"
+      },
+      {
+       "notFlag": "p8_refused_gristle"
+      }
+     ]
+    },
+    "script": "p8c3.refuse_gristle"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.squawks"
+    },
+    "script": "gristle.p8_hint_squawks"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.hatch"
+    },
+    "script": "gristle.p8_hint_hatch"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.proposal"
+    },
+    "script": "gristle.p8_hint_proposal"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.verdict"
+    },
+    "script": "gristle.p8_hint_verdict"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.crown"
+    },
+    "script": "gristle.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.premise"
+    },
+    "script": "gristle.p8_hint_premise"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.back"
+    },
+    "script": "gristle.p8_hint_back"
+   },
+   {
+    "if": {
+     "objectiveActive": "bedtime_story.bed"
+    },
+    "script": "gristle.p8_hint_bed"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.crown"
+    },
+    "script": "gristle.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.back"
+    },
+    "script": "gristle.p8_hint_back"
+   },
+   {
+    "if": {
+     "flag": "p8_complete"
+    },
+    "cycle": [
+     "gristle.p8_w10_1",
+     "gristle.p8_w10_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch54_started"
+      },
+      {
+       "notFlag": "p8_complete"
+      }
+     ]
+    },
+    "script": "gristle.p8_w9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch53_started"
+      },
+      {
+       "notFlag": "p8_ch54_started"
+      }
+     ]
+    },
+    "script": "gristle.p8_w8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_lights_out"
+      },
+      {
+       "notFlag": "p8_ch53_started"
+      }
+     ]
+    },
+    "script": "gristle.p8_w7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_decree_heard"
+      },
+      {
+       "notFlag": "p8_lights_out"
+      }
+     ]
+    },
+    "script": "gristle.p8_w6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch48_started"
+      },
+      {
+       "notFlag": "p8_decree_heard"
+      }
+     ]
+    },
+    "script": "gristle.p8_w5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch45_started"
+      },
+      {
+       "notFlag": "p8_ch48_started"
+      }
+     ]
+    },
+    "script": "gristle.p8_w4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch44_started"
+      },
+      {
+       "notFlag": "p8_ch45_started"
+      }
+     ]
+    },
+    "script": "gristle.p8_w3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch43_started"
+      },
+      {
+       "notFlag": "p8_ch44_started"
+      }
+     ]
+    },
+    "script": "gristle.p8_w2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_started"
+      },
+      {
+       "notFlag": "p8_ch43_started"
+      }
+     ]
+    },
+    "script": "gristle.p8_w1"
+   }
+  ]
+ },
+ {
+  "extend": "jory",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "sash_bearers.volunteers"
+      },
+      {
+       "notFlag": "p8_refused_jory"
+      }
+     ]
+    },
+    "script": "p8c3.refuse_jory"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.ask"
+    },
+    "script": "jory.p8_hint_ask"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.squawks"
+    },
+    "script": "jory.p8_hint_squawks"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.hatch"
+    },
+    "script": "jory.p8_hint_hatch"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.proposal"
+    },
+    "script": "jory.p8_hint_proposal"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.verdict"
+    },
+    "script": "jory.p8_hint_verdict"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.crown"
+    },
+    "script": "jory.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.premise"
+    },
+    "script": "jory.p8_hint_premise"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.back"
+    },
+    "script": "jory.p8_hint_back"
+   },
+   {
+    "if": {
+     "objectiveActive": "bedtime_story.bed"
+    },
+    "script": "jory.p8_hint_bed"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.crown"
+    },
+    "script": "jory.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.back"
+    },
+    "script": "jory.p8_hint_back"
+   },
+   {
+    "if": {
+     "flag": "p8_complete"
+    },
+    "script": "jory.p8_w10"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch54_started"
+      },
+      {
+       "notFlag": "p8_complete"
+      }
+     ]
+    },
+    "script": "jory.p8_w9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch53_started"
+      },
+      {
+       "notFlag": "p8_ch54_started"
+      }
+     ]
+    },
+    "script": "jory.p8_w8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_lights_out"
+      },
+      {
+       "notFlag": "p8_ch53_started"
+      }
+     ]
+    },
+    "script": "jory.p8_w7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_decree_heard"
+      },
+      {
+       "notFlag": "p8_lights_out"
+      }
+     ]
+    },
+    "script": "jory.p8_w6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch48_started"
+      },
+      {
+       "notFlag": "p8_decree_heard"
+      }
+     ]
+    },
+    "script": "jory.p8_w5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch45_started"
+      },
+      {
+       "notFlag": "p8_ch48_started"
+      }
+     ]
+    },
+    "script": "jory.p8_w4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch44_started"
+      },
+      {
+       "notFlag": "p8_ch45_started"
+      }
+     ]
+    },
+    "script": "jory.p8_w3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch43_started"
+      },
+      {
+       "notFlag": "p8_ch44_started"
+      }
+     ]
+    },
+    "script": "jory.p8_w2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_started"
+      },
+      {
+       "notFlag": "p8_ch43_started"
+      }
+     ]
+    },
+    "script": "jory.p8_w1"
+   }
+  ]
+ },
+ {
+  "extend": "bob",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "still_trapped.settle"
+      },
+      {
+       "notFlag": "p8_settled_bob"
+      }
+     ]
+    },
+    "script": "p8c1.bob"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "grand_decree.bunks"
+      },
+      {
+       "notFlag": "p8_bunk_bob"
+      }
+     ]
+    },
+    "script": "p8c9.bunk_bob"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "seventy_percent_off.wake"
+      },
+      {
+       "notFlag": "p8_woke_bob"
+      }
+     ]
+    },
+    "script": "p8c13.wake_bob"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "sash_bearers.volunteers"
+      },
+      {
+       "notFlag": "p8_refused_bob"
+      }
+     ]
+    },
+    "script": "p8c3.refuse_bob"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.squawks"
+    },
+    "script": "bob.p8_hint_squawks"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.proposal"
+    },
+    "script": "bob.p8_hint_proposal"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.verdict"
+    },
+    "script": "bob.p8_hint_verdict"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.back"
+    },
+    "script": "bob.p8_hint_back"
+   },
+   {
+    "if": {
+     "objectiveActive": "bedtime_story.bed"
+    },
+    "script": "bob.p8_hint_bed"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.crown"
+    },
+    "script": "bob.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.back"
+    },
+    "script": "bob.p8_hint_back"
+   },
+   {
+    "if": {
+     "flag": "p8_complete"
+    },
+    "cycle": [
+     "bob.p8_w10_1",
+     "bob.p8_w10_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch54_started"
+      },
+      {
+       "notFlag": "p8_complete"
+      }
+     ]
+    },
+    "script": "bob.p8_w9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch53_started"
+      },
+      {
+       "notFlag": "p8_ch54_started"
+      }
+     ]
+    },
+    "script": "bob.p8_w8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_lights_out"
+      },
+      {
+       "notFlag": "p8_ch53_started"
+      }
+     ]
+    },
+    "script": "bob.p8_w7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_decree_heard"
+      },
+      {
+       "notFlag": "p8_lights_out"
+      }
+     ]
+    },
+    "script": "bob.p8_w6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch48_started"
+      },
+      {
+       "notFlag": "p8_decree_heard"
+      }
+     ]
+    },
+    "script": "bob.p8_w5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch45_started"
+      },
+      {
+       "notFlag": "p8_ch48_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p8_w4_1",
+     "bob.p8_w4_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch44_started"
+      },
+      {
+       "notFlag": "p8_ch45_started"
+      }
+     ]
+    },
+    "script": "bob.p8_w3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch43_started"
+      },
+      {
+       "notFlag": "p8_ch44_started"
+      }
+     ]
+    },
+    "script": "bob.p8_w2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_started"
+      },
+      {
+       "notFlag": "p8_ch43_started"
+      }
+     ]
+    },
+    "script": "bob.p8_w1"
+   }
+  ]
+ },
+ {
+  "extend": "ned",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "sash_bearers.volunteers"
+      },
+      {
+       "notFlag": "p8_refused_ned"
+      }
+     ]
+    },
+    "script": "p8c3.refuse_ned"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.ask"
+    },
+    "script": "ned.p8_hint_ask"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.squawks"
+    },
+    "script": "ned.p8_hint_squawks"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.hatch"
+    },
+    "script": "ned.p8_hint_hatch"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.proposal"
+    },
+    "script": "ned.p8_hint_proposal"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.verdict"
+    },
+    "script": "ned.p8_hint_verdict"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.quarters"
+    },
+    "script": "ned.p8_hint_quarters"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.back"
+    },
+    "script": "ned.p8_hint_back"
+   },
+   {
+    "if": {
+     "objectiveActive": "bedtime_story.bed"
+    },
+    "script": "ned.p8_hint_bed"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.crown"
+    },
+    "script": "ned.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.back"
+    },
+    "script": "ned.p8_hint_back"
+   },
+   {
+    "if": {
+     "flag": "p8_complete"
+    },
+    "script": "ned.p8_w10"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch54_started"
+      },
+      {
+       "notFlag": "p8_complete"
+      }
+     ]
+    },
+    "script": "ned.p8_w9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch53_started"
+      },
+      {
+       "notFlag": "p8_ch54_started"
+      }
+     ]
+    },
+    "script": "ned.p8_w8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_lights_out"
+      },
+      {
+       "notFlag": "p8_ch53_started"
+      }
+     ]
+    },
+    "script": "ned.p8_w7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_decree_heard"
+      },
+      {
+       "notFlag": "p8_lights_out"
+      }
+     ]
+    },
+    "script": "ned.p8_w6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch48_started"
+      },
+      {
+       "notFlag": "p8_decree_heard"
+      }
+     ]
+    },
+    "script": "ned.p8_w5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch45_started"
+      },
+      {
+       "notFlag": "p8_ch48_started"
+      }
+     ]
+    },
+    "script": "ned.p8_w4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch44_started"
+      },
+      {
+       "notFlag": "p8_ch45_started"
+      }
+     ]
+    },
+    "script": "ned.p8_w3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch43_started"
+      },
+      {
+       "notFlag": "p8_ch44_started"
+      }
+     ]
+    },
+    "script": "ned.p8_w2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_started"
+      },
+      {
+       "notFlag": "p8_ch43_started"
+      }
+     ]
+    },
+    "script": "ned.p8_w1"
+   }
+  ]
+ },
+ {
+  "extend": "nell",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "sash_bearers.volunteers"
+      },
+      {
+       "notFlag": "p8_refused_nell"
+      }
+     ]
+    },
+    "script": "p8c3.refuse_nell"
+   },
+   {
+    "if": {
+     "objectiveActive": "still_trapped.corner"
+    },
+    "script": "nell.p8_hint_corner"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.ask"
+    },
+    "script": "nell.p8_hint_ask"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.squawks"
+    },
+    "script": "nell.p8_hint_squawks"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.hatch"
+    },
+    "script": "nell.p8_hint_hatch"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.proposal"
+    },
+    "script": "nell.p8_hint_proposal"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.verdict"
+    },
+    "script": "nell.p8_hint_verdict"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.crown"
+    },
+    "script": "nell.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.premise"
+    },
+    "script": "nell.p8_hint_premise"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.quarters"
+    },
+    "script": "nell.p8_hint_quarters"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.back"
+    },
+    "script": "nell.p8_hint_back"
+   },
+   {
+    "if": {
+     "objectiveActive": "bedtime_story.bed"
+    },
+    "script": "nell.p8_hint_bed"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.crown"
+    },
+    "script": "nell.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.back"
+    },
+    "script": "nell.p8_hint_back"
+   },
+   {
+    "if": {
+     "flag": "p8_complete"
+    },
+    "script": "nell.p8_w10"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch54_started"
+      },
+      {
+       "notFlag": "p8_complete"
+      }
+     ]
+    },
+    "script": "nell.p8_w9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch53_started"
+      },
+      {
+       "notFlag": "p8_ch54_started"
+      }
+     ]
+    },
+    "script": "nell.p8_w8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_lights_out"
+      },
+      {
+       "notFlag": "p8_ch53_started"
+      }
+     ]
+    },
+    "script": "nell.p8_w7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_decree_heard"
+      },
+      {
+       "notFlag": "p8_lights_out"
+      }
+     ]
+    },
+    "script": "nell.p8_w6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch48_started"
+      },
+      {
+       "notFlag": "p8_decree_heard"
+      }
+     ]
+    },
+    "script": "nell.p8_w5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch45_started"
+      },
+      {
+       "notFlag": "p8_ch48_started"
+      }
+     ]
+    },
+    "script": "nell.p8_w4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch44_started"
+      },
+      {
+       "notFlag": "p8_ch45_started"
+      }
+     ]
+    },
+    "script": "nell.p8_w3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch43_started"
+      },
+      {
+       "notFlag": "p8_ch44_started"
+      }
+     ]
+    },
+    "script": "nell.p8_w2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_started"
+      },
+      {
+       "notFlag": "p8_ch43_started"
+      }
+     ]
+    },
+    "script": "nell.p8_w1"
+   }
+  ]
+ },
+ {
+  "extend": "finch",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "sash_bearers.volunteers"
+      },
+      {
+       "notFlag": "p8_refused_finch"
+      }
+     ]
+    },
+    "script": "p8c3.refuse_finch"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.ask"
+    },
+    "script": "finch.p8_hint_ask"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.squawks"
+    },
+    "script": "finch.p8_hint_squawks"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.hatch"
+    },
+    "script": "finch.p8_hint_hatch"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.proposal"
+    },
+    "script": "finch.p8_hint_proposal"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.verdict"
+    },
+    "script": "finch.p8_hint_verdict"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.crown"
+    },
+    "script": "finch.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.premise"
+    },
+    "script": "finch.p8_hint_premise"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.quarters"
+    },
+    "script": "finch.p8_hint_quarters"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.back"
+    },
+    "script": "finch.p8_hint_back"
+   },
+   {
+    "if": {
+     "objectiveActive": "bedtime_story.bed"
+    },
+    "script": "finch.p8_hint_bed"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.crown"
+    },
+    "script": "finch.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.back"
+    },
+    "script": "finch.p8_hint_back"
+   },
+   {
+    "if": {
+     "flag": "p8_complete"
+    },
+    "script": "finch.p8_w10"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch54_started"
+      },
+      {
+       "notFlag": "p8_complete"
+      }
+     ]
+    },
+    "script": "finch.p8_w9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch53_started"
+      },
+      {
+       "notFlag": "p8_ch54_started"
+      }
+     ]
+    },
+    "script": "finch.p8_w8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_lights_out"
+      },
+      {
+       "notFlag": "p8_ch53_started"
+      }
+     ]
+    },
+    "script": "finch.p8_w7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_decree_heard"
+      },
+      {
+       "notFlag": "p8_lights_out"
+      }
+     ]
+    },
+    "script": "finch.p8_w6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch48_started"
+      },
+      {
+       "notFlag": "p8_decree_heard"
+      }
+     ]
+    },
+    "script": "finch.p8_w5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch45_started"
+      },
+      {
+       "notFlag": "p8_ch48_started"
+      }
+     ]
+    },
+    "script": "finch.p8_w4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch44_started"
+      },
+      {
+       "notFlag": "p8_ch45_started"
+      }
+     ]
+    },
+    "script": "finch.p8_w3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch43_started"
+      },
+      {
+       "notFlag": "p8_ch44_started"
+      }
+     ]
+    },
+    "script": "finch.p8_w2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_started"
+      },
+      {
+       "notFlag": "p8_ch43_started"
+      }
+     ]
+    },
+    "script": "finch.p8_w1"
+   }
+  ]
+ },
+ {
+  "extend": "pete",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "still_trapped.settle"
+      },
+      {
+       "notFlag": "p8_settled_pete"
+      }
+     ]
+    },
+    "script": "p8c1.pete"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "grand_decree.bunks"
+      },
+      {
+       "notFlag": "p8_bunk_pete"
+      }
+     ]
+    },
+    "script": "p8c9.bunk_pete"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "seventy_percent_off.wake"
+      },
+      {
+       "notFlag": "p8_woke_pete"
+      }
+     ]
+    },
+    "script": "p8c13.wake_pete"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.open"
+    },
+    "script": "p8c7.crack"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "sash_bearers.volunteers"
+      },
+      {
+       "notFlag": "p8_refused_pete"
+      }
+     ]
+    },
+    "script": "p8c3.refuse_pete"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.squawks"
+    },
+    "script": "pete.p8_hint_squawks"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.hatch"
+    },
+    "script": "pete.p8_hint_hatch"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.proposal"
+    },
+    "script": "pete.p8_hint_proposal"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.verdict"
+    },
+    "script": "pete.p8_hint_verdict"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.crown"
+    },
+    "script": "pete.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "lost_fart_expedition.premise"
+    },
+    "script": "pete.p8_hint_premise"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.back"
+    },
+    "script": "pete.p8_hint_back"
+   },
+   {
+    "if": {
+     "objectiveActive": "bedtime_story.bed"
+    },
+    "script": "pete.p8_hint_bed"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.crown"
+    },
+    "script": "pete.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.back"
+    },
+    "script": "pete.p8_hint_back"
+   },
+   {
+    "if": {
+     "flag": "p8_complete"
+    },
+    "cycle": [
+     "pete.p8_w10_1",
+     "pete.p8_w10_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch54_started"
+      },
+      {
+       "notFlag": "p8_complete"
+      }
+     ]
+    },
+    "script": "pete.p8_w9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch53_started"
+      },
+      {
+       "notFlag": "p8_ch54_started"
+      }
+     ]
+    },
+    "script": "pete.p8_w8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_lights_out"
+      },
+      {
+       "notFlag": "p8_ch53_started"
+      }
+     ]
+    },
+    "script": "pete.p8_w7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_decree_heard"
+      },
+      {
+       "notFlag": "p8_lights_out"
+      }
+     ]
+    },
+    "script": "pete.p8_w6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch48_started"
+      },
+      {
+       "notFlag": "p8_decree_heard"
+      }
+     ]
+    },
+    "script": "pete.p8_w5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch45_started"
+      },
+      {
+       "notFlag": "p8_ch48_started"
+      }
+     ]
+    },
+    "script": "pete.p8_w4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch44_started"
+      },
+      {
+       "notFlag": "p8_ch45_started"
+      }
+     ]
+    },
+    "script": "pete.p8_w3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch43_started"
+      },
+      {
+       "notFlag": "p8_ch44_started"
+      }
+     ]
+    },
+    "script": "pete.p8_w2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_started"
+      },
+      {
+       "notFlag": "p8_ch43_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p8_w1_1",
+     "pete.p8_w1_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "mags",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "sash_bearers.volunteers"
+      },
+      {
+       "notFlag": "p8_refused_mags"
+      }
+     ]
+    },
+    "script": "p8c3.refuse_mags"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.ask"
+    },
+    "script": "mags.p8_hint_ask"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.squawks"
+    },
+    "script": "mags.p8_hint_squawks"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.hatch"
+    },
+    "script": "mags.p8_hint_hatch"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.proposal"
+    },
+    "script": "mags.p8_hint_proposal"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.verdict"
+    },
+    "script": "mags.p8_hint_verdict"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.quarters"
+    },
+    "script": "mags.p8_hint_quarters"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.back"
+    },
+    "script": "mags.p8_hint_back"
+   },
+   {
+    "if": {
+     "objectiveActive": "bedtime_story.bed"
+    },
+    "script": "mags.p8_hint_bed"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.crown"
+    },
+    "script": "mags.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.back"
+    },
+    "script": "mags.p8_hint_back"
+   },
+   {
+    "if": {
+     "flag": "p8_complete"
+    },
+    "script": "mags.p8_w10"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch54_started"
+      },
+      {
+       "notFlag": "p8_complete"
+      }
+     ]
+    },
+    "script": "mags.p8_w9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch53_started"
+      },
+      {
+       "notFlag": "p8_ch54_started"
+      }
+     ]
+    },
+    "script": "mags.p8_w8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_lights_out"
+      },
+      {
+       "notFlag": "p8_ch53_started"
+      }
+     ]
+    },
+    "script": "mags.p8_w7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_decree_heard"
+      },
+      {
+       "notFlag": "p8_lights_out"
+      }
+     ]
+    },
+    "script": "mags.p8_w6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch48_started"
+      },
+      {
+       "notFlag": "p8_decree_heard"
+      }
+     ]
+    },
+    "script": "mags.p8_w5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch45_started"
+      },
+      {
+       "notFlag": "p8_ch48_started"
+      }
+     ]
+    },
+    "script": "mags.p8_w4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch44_started"
+      },
+      {
+       "notFlag": "p8_ch45_started"
+      }
+     ]
+    },
+    "script": "mags.p8_w3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch43_started"
+      },
+      {
+       "notFlag": "p8_ch44_started"
+      }
+     ]
+    },
+    "script": "mags.p8_w2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_started"
+      },
+      {
+       "notFlag": "p8_ch43_started"
+      }
+     ]
+    },
+    "script": "mags.p8_w1"
+   }
+  ]
+ },
+ {
+  "extend": "jim",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "still_trapped.settle"
+      },
+      {
+       "notFlag": "p8_settled_jim"
+      }
+     ]
+    },
+    "script": "p8c1.jim"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "grand_decree.bunks"
+      },
+      {
+       "notFlag": "p8_bunk_jim"
+      }
+     ]
+    },
+    "script": "p8c9.bunk_jim"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "sash_bearers.volunteers"
+      },
+      {
+       "notFlag": "p8_refused_jim"
+      }
+     ]
+    },
+    "script": "p8c3.refuse_jim"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.squawks"
+    },
+    "script": "jim.p8_hint_squawks"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.hatch"
+    },
+    "script": "jim.p8_hint_hatch"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.proposal"
+    },
+    "script": "jim.p8_hint_proposal"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.verdict"
+    },
+    "script": "jim.p8_hint_verdict"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.back"
+    },
+    "script": "jim.p8_hint_back"
+   },
+   {
+    "if": {
+     "objectiveActive": "bedtime_story.bed"
+    },
+    "script": "jim.p8_hint_bed"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.crown"
+    },
+    "script": "jim.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.back"
+    },
+    "script": "jim.p8_hint_back"
+   },
+   {
+    "if": {
+     "flag": "p8_complete"
+    },
+    "script": "jim.p8_w10"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch54_started"
+      },
+      {
+       "notFlag": "p8_complete"
+      }
+     ]
+    },
+    "script": "jim.p8_w9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch53_started"
+      },
+      {
+       "notFlag": "p8_ch54_started"
+      }
+     ]
+    },
+    "script": "jim.p8_w8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_lights_out"
+      },
+      {
+       "notFlag": "p8_ch53_started"
+      }
+     ]
+    },
+    "script": "jim.p8_w7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_decree_heard"
+      },
+      {
+       "notFlag": "p8_lights_out"
+      }
+     ]
+    },
+    "script": "jim.p8_w6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch48_started"
+      },
+      {
+       "notFlag": "p8_decree_heard"
+      }
+     ]
+    },
+    "script": "jim.p8_w5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch45_started"
+      },
+      {
+       "notFlag": "p8_ch48_started"
+      }
+     ]
+    },
+    "script": "jim.p8_w4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch44_started"
+      },
+      {
+       "notFlag": "p8_ch45_started"
+      }
+     ]
+    },
+    "script": "jim.p8_w3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch43_started"
+      },
+      {
+       "notFlag": "p8_ch44_started"
+      }
+     ]
+    },
+    "script": "jim.p8_w2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_started"
+      },
+      {
+       "notFlag": "p8_ch43_started"
+      }
+     ]
+    },
+    "script": "jim.p8_w1"
+   }
+  ]
+ },
+ {
+  "extend": "quill",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "sash_bearers.volunteers"
+      },
+      {
+       "notFlag": "p8_refused_quill"
+      }
+     ]
+    },
+    "script": "p8c3.refuse_quill"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.ask"
+    },
+    "script": "quill.p8_hint_ask"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.squawks"
+    },
+    "script": "quill.p8_hint_squawks"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.hatch"
+    },
+    "script": "quill.p8_hint_hatch"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.proposal"
+    },
+    "script": "quill.p8_hint_proposal"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.verdict"
+    },
+    "script": "quill.p8_hint_verdict"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.quarters"
+    },
+    "script": "quill.p8_hint_quarters"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.back"
+    },
+    "script": "quill.p8_hint_back"
+   },
+   {
+    "if": {
+     "objectiveActive": "bedtime_story.bed"
+    },
+    "script": "quill.p8_hint_bed"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.crown"
+    },
+    "script": "quill.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.back"
+    },
+    "script": "quill.p8_hint_back"
+   },
+   {
+    "if": {
+     "flag": "p8_complete"
+    },
+    "script": "quill.p8_w10"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch54_started"
+      },
+      {
+       "notFlag": "p8_complete"
+      }
+     ]
+    },
+    "script": "quill.p8_w9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch53_started"
+      },
+      {
+       "notFlag": "p8_ch54_started"
+      }
+     ]
+    },
+    "script": "quill.p8_w8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_lights_out"
+      },
+      {
+       "notFlag": "p8_ch53_started"
+      }
+     ]
+    },
+    "script": "quill.p8_w7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_decree_heard"
+      },
+      {
+       "notFlag": "p8_lights_out"
+      }
+     ]
+    },
+    "script": "quill.p8_w6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch48_started"
+      },
+      {
+       "notFlag": "p8_decree_heard"
+      }
+     ]
+    },
+    "script": "quill.p8_w5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch45_started"
+      },
+      {
+       "notFlag": "p8_ch48_started"
+      }
+     ]
+    },
+    "script": "quill.p8_w4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch44_started"
+      },
+      {
+       "notFlag": "p8_ch45_started"
+      }
+     ]
+    },
+    "script": "quill.p8_w3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch43_started"
+      },
+      {
+       "notFlag": "p8_ch44_started"
+      }
+     ]
+    },
+    "script": "quill.p8_w2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_started"
+      },
+      {
+       "notFlag": "p8_ch43_started"
+      }
+     ]
+    },
+    "script": "quill.p8_w1"
+   }
+  ]
+ },
+ {
+  "extend": "penhallow",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "sash_bearers.volunteers"
+      },
+      {
+       "notFlag": "p8_refused_penhallow"
+      }
+     ]
+    },
+    "script": "p8c3.refuse_penhallow"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.ask"
+    },
+    "script": "penhallow.p8_hint_ask"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.squawks"
+    },
+    "script": "penhallow.p8_hint_squawks"
+   },
+   {
+    "if": {
+     "objectiveActive": "false_alarm.hatch"
+    },
+    "script": "penhallow.p8_hint_hatch"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.proposal"
+    },
+    "script": "penhallow.p8_hint_proposal"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bearers.verdict"
+    },
+    "script": "penhallow.p8_hint_verdict"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.quarters"
+    },
+    "script": "penhallow.p8_hint_quarters"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_place_to_sleep.back"
+    },
+    "script": "penhallow.p8_hint_back"
+   },
+   {
+    "if": {
+     "objectiveActive": "bedtime_story.bed"
+    },
+    "script": "penhallow.p8_hint_bed"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.crown"
+    },
+    "script": "penhallow.p8_hint_crown"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_nap.back"
+    },
+    "script": "penhallow.p8_hint_back"
+   },
+   {
+    "if": {
+     "flag": "p8_complete"
+    },
+    "script": "penhallow.p8_w10"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch54_started"
+      },
+      {
+       "notFlag": "p8_complete"
+      }
+     ]
+    },
+    "script": "penhallow.p8_w9"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch53_started"
+      },
+      {
+       "notFlag": "p8_ch54_started"
+      }
+     ]
+    },
+    "script": "penhallow.p8_w8"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_lights_out"
+      },
+      {
+       "notFlag": "p8_ch53_started"
+      }
+     ]
+    },
+    "script": "penhallow.p8_w7"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_decree_heard"
+      },
+      {
+       "notFlag": "p8_lights_out"
+      }
+     ]
+    },
+    "script": "penhallow.p8_w6"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch48_started"
+      },
+      {
+       "notFlag": "p8_decree_heard"
+      }
+     ]
+    },
+    "script": "penhallow.p8_w5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch45_started"
+      },
+      {
+       "notFlag": "p8_ch48_started"
+      }
+     ]
+    },
+    "script": "penhallow.p8_w4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch44_started"
+      },
+      {
+       "notFlag": "p8_ch45_started"
+      }
+     ]
+    },
+    "script": "penhallow.p8_w3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_ch43_started"
+      },
+      {
+       "notFlag": "p8_ch44_started"
+      }
+     ]
+    },
+    "script": "penhallow.p8_w2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p8_started"
+      },
+      {
+       "notFlag": "p8_ch43_started"
+      }
+     ]
+    },
+    "script": "penhallow.p8_w1"
+   }
+  ]
+ }
+]

@@ -5,6 +5,7 @@ import { addPhase4VistaFrames, PHASE4_VISTA_FRAMES } from './vistaPhase4.js';
 import { addSesVistaFrames, SES_VISTA_FRAMES } from './sesArt.js';
 import { addPhase6VistaFrames, PHASE6_VISTA_FRAMES, garlicCloud } from './vistaPhase6.js';
 import { addPhase7VistaFrames, PHASE7_VISTA_FRAMES } from './vistaPhase7.js';
+import { addPhase8VistaFrames, PHASE8_VISTA_FRAMES } from './vistaPhase8.js';
 
 /**
  * Side-view art for vistas (scenes/CinemaScene.js): skies and seas for each
@@ -514,7 +515,8 @@ function telescopeMask() {
 }
 
 export function buildVistaAtlas() {
-  const atlas = new ShelfAtlas(1024, 1);
+  // 2048 wide since Story Phase 8 (the bedtime story's pictures): at 1024 the stack grew past 4096 tall.
+  const atlas = new ShelfAtlas(2048, 1);
   for (const name of Object.keys(SKIES)) {
     atlas.add(`sky_${name}`, paintSky(name));
     atlas.add(`sea_${name}_0`, paintSea(name, 0));
@@ -554,6 +556,7 @@ export function buildVistaAtlas() {
   addSesVistaFrames(atlas);
   addPhase6VistaFrames(atlas);
   addPhase7VistaFrames(atlas);
+  addPhase8VistaFrames(atlas);
   for (let i = 0; i < 3; i++) atlas.add(`cloud_garlic_${i}`, garlicCloud(cloudRise(i)));
   return atlas.build();
 }
@@ -571,4 +574,5 @@ export const VISTA_FRAMES = [
   ...SES_VISTA_FRAMES,
   ...PHASE6_VISTA_FRAMES,
   ...PHASE7_VISTA_FRAMES,
+  ...PHASE8_VISTA_FRAMES,
 ];

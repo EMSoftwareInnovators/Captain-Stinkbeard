@@ -1,0 +1,473 @@
+{
+ "//": "Story Phase 8, chapters 45 to 47: nobody will hold the sash, so the Grand Stenchmaster decides the problem is presentation. The costume trunk; a dented cork sun-helmet on Barnacle Bob (PROFESSOR BARNACLE BOB, explorer of gastrointestinal mysteries; he wants no part of it); the Grand Stenchmaster's Grand Crown (Grand twice; Jim's cutlery; brass off the bilge pump); THE GRAND EXPEDITION FOR THE LOST FART, hidden in the Temple of the Grand Stenchmaster ('Your stomach.' 'Ancient chamber.'); 'Lore does not make it better.' The landmarks are all in the room. Then the captain hands Squawks to Gristle (Stinkbeard angry. Very.): FART SASH / STENCHMASTER SASH, three weeks old, its 'history'. Then a yawn: the GRAND STENCHMASTER'S GRAND NAP; a fart blanket; everyone says it, even Squawks; the biggest rumble yet ('Was that the Lost Fart?' '...Maybe.'); the nap is banned. Everything Garrick says here is Garrick making it up, and everyone knows it.",
+ "p8c4.begin": [
+  {
+   "setFlag": "p8_ch45_started"
+  },
+  {
+   "banner": "CHAPTER 45",
+   "sub": "The Grand Expedition for the Lost Fart"
+  },
+  "The Grand Stenchmaster goes quiet. He's thinking again, which is worse than talking.",
+  "Then he gets up, crosses the hold, and opens the ship's costume trunk.",
+  "garrick[businesslike]: The problem, gentlemen, is presentation.",
+  "garrick[businesslike]: I made it sound like WORK. Nobody wants to do work.",
+  "garrick[delighted]: So we shan't. We shall have an ADVENTURE.",
+  "captain[tired]: Oh, no.",
+  {
+   "startQuest": "lost_fart_expedition"
+  },
+  {
+   "tutorial": "See what he's dragging out of the costume trunk (next to his chair).",
+   "title": "The Lost Fart Expedition"
+  }
+ ],
+ "p8c4.trunk": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The costume trunk, from the years when the crew put on a play every Midsummer. The Grand Stenchmaster is in it up to the elbows.",
+  "Out come: a wooden sword, a feather, a moth, a long knitted scarf, and a cork sun-helmet with a dent in the top and a patch on the dent.",
+  "Before anyone can stop him, he crosses the hold and puts the helmet on Barnacle Bob. Then he winds the scarf round Bob's neck, twice.",
+  {
+   "setFlag": "p8_professor_bob"
+  },
+  {
+   "respawn": "bob"
+  },
+  {
+   "music": "lost_fart_adventure",
+   "fade": 300
+  },
+  "garrick[proud]: Behold. PROFESSOR BARNACLE BOB. Legendary explorer of gastrointestinal mysteries.",
+  "bob[alarmed]: No.",
+  "garrick[proud]: He's very modest.",
+  "bob: I'm not modest, I'm saying NO.",
+  "rook: Suits you, Bob.",
+  "bob: It does NOT suit me.",
+  "It does, a bit.",
+  {
+   "music": "lower_hull",
+   "fade": 700
+  },
+  {
+   "tutorial": "And now he's putting something on his own head. Look at it (him). If you must.",
+   "title": "The Lost Fart Expedition"
+  }
+ ],
+ "p8c4.crown": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "garrick[proud]: And for the Grand Stenchmaster himself...",
+  "He reaches back into the trunk, takes out something that clanks, and lowers it onto his head with both hands.",
+  {
+   "sfx": "crown_clatter",
+   "volume": 0.5
+  },
+  {
+   "setFlag": "grand_crown_created"
+  },
+  {
+   "respawn": "garrick"
+  },
+  {
+   "insert": "grand_crown_close",
+   "caption": "THE GRAND STENCHMASTER'S GRAND CROWN"
+  },
+  "garrick[proud]: The Grand Stenchmaster's Grand Crown.",
+  "rook: Why's it say 'grand' twice?",
+  "garrick[proud]: Because it's very grand.",
+  "pete: It is not.",
+  "gristle: It is not.",
+  "jim[angry]: Are those my SPOONS?",
+  "garrick[businesslike]: Ceremonially repurposed.",
+  "jim[angry]: And my forks! And— is that my SAUCEPAN?",
+  "garrick[businesslike]: The topper. It's the topper now.",
+  "captain[annoyed]: And the gold.",
+  "garrick[nervous]: Gold?",
+  "captain[annoyed]: It isn't gold. It's brass. That's the handle off the bilge pump. And the bell's clapper.",
+  "garrick[nervous]: Speaking of adventure—",
+  "captain[angry]: GARRICK.",
+  "garrick[proud]: SPEAKING. OF. ADVENTURE.",
+  {
+   "tutorial": "He wants to explain the adventure. Hear the premise (him), if you must.",
+   "title": "The Lost Fart Expedition"
+  }
+ ],
+ "p8c4.premise": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  {
+   "music": "lost_fart_adventure",
+   "fade": 300
+  },
+  "garrick[proud]: Gather round. This is the tale of the GRAND EXPEDITION FOR THE LOST FART.",
+  "pete: The what.",
+  "garrick[proud]: Long ago, deep in the lost realm of Reekhollow, there stood a temple. The Temple of the Grand Stenchmaster.",
+  "garrick[proud]: And within it, sealed in its deepest chamber, the most powerful wind ever released. Or rather, NOT yet released. The Lost Fart.",
+  "gristle: Your stomach.",
+  "garrick[offended]: An ancient chamber.",
+  "pete: Stomach.",
+  "garrick[offended]: ANCIENT. CHAMBER.",
+  "garrick[proud]: The brave explorer must journey into the temple, find the Lost Fart, and at the moment of its release, hold the sacred sash aloft, so that it is not—",
+  "pete: Wrinkled.",
+  "garrick[businesslike]: —so that it comes to no harm.",
+  "pete[annoyed]: It's the same thing. It's the exact same thing. Hold the sash while you fart.",
+  "garrick[offended]: It is NOT the same thing. It has LORE.",
+  "pete[annoyed]: Lore does not make it better.",
+  {
+   "setFlag": "lost_fart_game_proposed"
+  },
+  {
+   "sfx": "stomach_grnk",
+   "volume": 0.7
+  },
+  {
+   "music": "lower_hull",
+   "fade": 700
+  },
+  {
+   "call": "p8c5.begin"
+  }
+ ],
+ "p8c5.begin": [
+  {
+   "setFlag": "p8_ch46_started"
+  },
+  {
+   "banner": "CHAPTER 46",
+   "sub": "The Legend of the Lost Fart"
+  },
+  "The Grand Stenchmaster will not let it go. He stands on his rug, crown on, and points around the hold as he goes, like a man giving a tour.",
+  "garrick[proud]: The temple has its chambers, gentlemen. Its ancient landmarks. The explorer must pass them all.",
+  "captain[tired]: They're all in this room, aren't they.",
+  "garrick[businesslike]: That's a coincidence.",
+  {
+   "tutorial": "His 'ancient landmarks' are all in this room. Go and see what they really are: the reserve casks (by Bob), Mark II, and the wet patch by the pump.",
+   "title": "The Lost Fart Expedition"
+  }
+ ],
+ "p8c5.grog": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "garrick[proud]: First, the explorer must cross the CHAMBER OF FROG GROG, where the ancient brew bubbles in its sacred vessels!",
+  "It's the three casks and a bit. One of them is leaking on Bob, who is still wearing the helmet.",
+  {
+   "sfx": "grog_drip",
+   "volume": 0.7
+  },
+  "bob[disgusted]: The sacred vessel is in my ear.",
+  "mags[annoyed]: It's my BREWING, Garrick. It's not sacred. It's barely legal.",
+  "From the blankets in your corner:",
+  "squawks[insulting]: Barrel.",
+  {
+   "setFlag": "p8_lm_grog"
+  },
+  {
+   "event": "p8_landmark"
+  },
+  {
+   "call": "p8c5.after_landmark"
+  }
+ ],
+ "p8c5.oracle": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "garrick[proud]: Then, the ELECTRIC FROG ORACLE, which speaks only in riddles!",
+  "It's Mark II. It goes ZZZT. On the screen, the Auditor is holding up a leaf.",
+  {
+   "sfx": "mk2_zzzt",
+   "volume": 0.6
+  },
+  "auditor: Disallowed.",
+  "garrick[delighted]: A PROPHECY.",
+  "captain[annoyed]: It's the frog.",
+  "garrick[proud]: The Oracle has SPOKEN.",
+  "gristle: The Oracle's being audited.",
+  {
+   "sfx": "hull_thud",
+   "volume": 0.6
+  },
+  {
+   "shake": 1,
+   "duration": 260
+  },
+  {
+   "burst": "falldust",
+   "x": 10,
+   "y": 9,
+   "count": 6
+  },
+  "pete: One plank. Maybe half.",
+  {
+   "setFlag": "p8_lm_oracle"
+  },
+  {
+   "event": "p8_landmark"
+  },
+  {
+   "call": "p8c5.after_landmark"
+  }
+ ],
+ "p8c5.ravine": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "garrick[proud]: And the BOTTOMLESS RAVINE, from which no explorer has ever returned!",
+  "It's a damp patch of floor by the pump, about six inches across, where Pete spilled his grog last night.",
+  "pete[annoyed]: I didn't spill it. It escaped.",
+  "You step over the Bottomless Ravine.",
+  "garrick[offended]: Show-off.",
+  {
+   "sfx": "stomach_bubble",
+   "volume": 0.7
+  },
+  "Everybody looks at the chair. The Grand Stenchmaster looks at his stomach. Nothing happens. Everybody looks away again.",
+  {
+   "setFlag": "p8_lm_ravine"
+  },
+  {
+   "event": "p8_landmark"
+  },
+  {
+   "call": "p8c5.after_landmark"
+  }
+ ],
+ "p8c5.after_landmark": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p8_lm_grog"
+     },
+     {
+      "flag": "p8_lm_oracle"
+     },
+     {
+      "flag": "p8_lm_ravine"
+     }
+    ]
+   },
+   "then": [
+    "garrick[proud]: And so the explorer, having braved the Chamber, consulted the Oracle and leapt the Ravine, stands before the Lost Fart itself, sash in hand—",
+    "You feel something go, quietly, somewhere behind your eyes. It is your patience.",
+    {
+     "tutorial": "That's enough. Hand Squawks to Gristle.",
+     "title": "The Lost Fart Expedition"
+    }
+   ]
+  }
+ ],
+ "p8c5.snap": [
+  {
+   "face": "gristle",
+   "dir": "player"
+  },
+  "You lift Squawks out of his blankets, very gently, and hand him to Gristle.",
+  "squawks[worried]: Stinkbeard angry.",
+  "gristle: Very.",
+  "The hold goes quiet. Everyone aboard knows what it means when the captain puts the parrot down.",
+  {
+   "wait": 300
+  },
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "captain[angry]: Garrick.",
+  "garrick[nervous]: Captain?",
+  "captain[angry]: The ship is half eaten.",
+  "captain[angry]: The crew haven't slept in a day and a half.",
+  "captain[angry]: Squawks is BALD.",
+  "captain[angry]: The treasure is ruined. My BEARD is ruined.",
+  "captain[angry]: There's a storm made of SHARKS sitting on the roof, and every one of us is shut in a box at the bottom of the ship with YOU...",
+  "captain[angry]: ...and ye want us to hold your FART SASH.",
+  "garrick[offended]: STENCHMASTER SASH.",
+  "captain[angry]: FART SASH.",
+  "garrick[offended]: STENCHMASTER SASH.",
+  {
+   "sfx": "hull_thud_big",
+   "volume": 0.7
+  },
+  {
+   "shake": 3,
+   "duration": 500
+  },
+  {
+   "burst": "falldust",
+   "x": 8,
+   "y": 9,
+   "count": 8
+  },
+  {
+   "burst": "falldust",
+   "x": 13,
+   "y": 10,
+   "count": 6
+  },
+  "captain[angry]: FART SASH.",
+  "garrick[offended]: STENCH—",
+  "captain[angry]: FART.",
+  {
+   "sfx": "hull_thud",
+   "volume": 0.6
+  },
+  {
+   "shake": 1,
+   "duration": 260
+  },
+  {
+   "burst": "falldust",
+   "x": 10,
+   "y": 9,
+   "count": 6
+  },
+  "pete: We're arguing about vocabulary. In a shark cyclone.",
+  "garrick[proud]: This sash has a NOBLE HISTORY, Captain.",
+  "captain[angry]: It's THREE WEEKS OLD.",
+  "garrick[proud]: Three glorious weeks.",
+  "captain[angry]: What has it actually DONE?",
+  "garrick[proud]: It led the first Grand Stenchmaster Parade.",
+  "captain[angry]: Fart sash.",
+  "garrick[proud]: It presided over the Frog Grog ceremony.",
+  "captain[angry]: Fart sash.",
+  "garrick[proud]: Television duty. Every night.",
+  "captain[angry]: Fart. Sash.",
+  "garrick[proud]: It was THERE, Captain, for the second major Stench event.",
+  "captain[angry]: That is the MOST fart-sash thing ye've ever said.",
+  "garrick[proud]: And it has survived the Great Sharkstorm. So far.",
+  "captain[angry]: So have the BISCUITS. Barely.",
+  "jim[angry]: BARELY.",
+  "garrick[offended]: I do not concede.",
+  {
+   "setFlag": "p8_captain_snapped"
+  },
+  {
+   "call": "p8c6.begin"
+  }
+ ],
+ "p8c6.begin": [
+  {
+   "setFlag": "p8_ch47_started"
+  },
+  {
+   "banner": "CHAPTER 47",
+   "sub": "The Grand Stenchmaster's Grand Nap"
+  },
+  "And then, right in the middle of it all, the Grand Stenchmaster yawns.",
+  "An enormous yawn. All the fight goes out of him at once, like air out of a sail.",
+  "garrick[happy]: Gentlemen. It is nearly time.",
+  "captain[angry]: For WHAT?",
+  "garrick[proud]: The GRAND STENCHMASTER'S GRAND NAP.",
+  "rook: Grand twice again.",
+  "gristle[annoyed]: He's found one adjective and he's going to ride it into the ground.",
+  "garrick[businesslike]: It is an ancient Stenchmaster tradition.",
+  "captain[angry]: There ARE no ancient Stenchmaster traditions, Garrick. There's YOU.",
+  "garrick[businesslike]: The preparations are traditional. The lanterns are dimmed. A little Frog Grog is taken. The ceremonial pillows are fluffed. The sash is laid nearby.",
+  "garrick[proud]: Restorative rest. Digestive authority.",
+  "Every word of this is being invented as he says it. You can see him doing it.",
+  {
+   "tutorial": "Take Squawks back from Gristle.",
+   "title": "The Lost Fart Expedition"
+  }
+ ],
+ "p8c6.blanket": [
+  {
+   "face": "gristle",
+   "dir": "player"
+  },
+  "Gristle hands Squawks back. Squawks climbs straight into your coat and turns round so he can see.",
+  "captain: So the sash is important. During the nap.",
+  "garrick[businesslike]: Vital.",
+  "captain[smug]: Would ye like to use it as a blanket? Your precious FART SASH?",
+  {
+   "sfx": "crew_laugh",
+   "volume": 0.8
+  },
+  "The hold erupts. Rook has to lie down.",
+  "garrick[offended]: HOW DARE—",
+  "pete: Fart sash.",
+  "bob: Fart sash.",
+  "gristle: Fart sash.",
+  "jim: Fart sash.",
+  "A small voice, from inside your coat.",
+  "squawks[smug]: Fart sash.",
+  "garrick[terrified]: ...Even the BIRD?",
+  "He looks more hurt by that than by anything else that has happened today. Including the storm.",
+  {
+   "wait": 700
+  },
+  {
+   "sfx": "stomach_big",
+   "volume": 0.95
+  },
+  {
+   "shake": 4,
+   "duration": 900
+  },
+  {
+   "burst": "falldust",
+   "x": 6,
+   "y": 9,
+   "count": 10
+  },
+  {
+   "burst": "falldust",
+   "x": 11,
+   "y": 9,
+   "count": 10
+  },
+  {
+   "burst": "falldust",
+   "x": 15,
+   "y": 10,
+   "count": 8
+  },
+  {
+   "sfx": "mk2_zzzt",
+   "volume": 0.7
+  },
+  {
+   "setValue": "garrick_release",
+   "value": "possibly_building"
+  },
+  "And his stomach unleashes the biggest rumble of the day.",
+  "Dust comes down out of the deckhead in sheets. Mark II's picture jumps. Every lantern swings.",
+  "Everybody freezes.",
+  {
+   "wait": 900
+  },
+  "pete[worried]: ...Was that the Lost Fart?",
+  "garrick[nervous]: ...Maybe.",
+  "captain[angry]: The nap is BANNED.",
+  "garrick[alarmed]: Banned?",
+  "captain[angry]: No napping. Grand or otherwise. Not until ye KNOW whether ye're about to kill us all.",
+  "garrick[nervous]: I still can't tell, Captain.",
+  "pete[annoyed]: THAT IS NOT GOOD ENOUGH.",
+  "bob[disgusted]: NOT GOOD ENOUGH.",
+  "gristle[annoyed]: Not nearly.",
+  {
+   "setValue": "garrick_release",
+   "value": "unknown"
+  },
+  {
+   "setFlag": "p8_nap_banned"
+  },
+  {
+   "completeQuest": "lost_fart_expedition"
+  },
+  {
+   "call": "p8c7.begin"
+  }
+ ]
+}

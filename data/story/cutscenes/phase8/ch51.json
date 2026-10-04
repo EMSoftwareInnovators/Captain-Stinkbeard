@@ -1,0 +1,462 @@
+{
+ "//": "Story Phase 8, chapter 51: the Grand Bedtime Story. Lights down, everybody in their new hammocks, the storm walking about on the roof. The Grand Stenchmaster stands up with a book (a blank ledger: 'Imagination.') and, because Grand Nap protocol apparently requires one, tells THE FULL LEGEND OF THE GRAND EXPEDITION FOR THE LOST FART. All of it is Garrick making things up out of the last month: the Lost Realm of Reekhollow, the seven chambers, the Golden Bottle of Wind, Sir Garrick the First (still him), forbidden cheese, Professor Barnacle Bob, a giant rolling onion, a label nobody read, very committed sharks, emotional support. The moral: always hold the sash. It was another attempt to get them to hold the sash. 'Historical education.' 'GO TO SLEEP.' Nothing in it is true; nobody thinks it is.",
+ "p8c10.begin": [
+  {
+   "fade": "out",
+   "duration": 800
+  },
+  {
+   "setFlag": "p8_ch51_started"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 13
+  },
+  {
+   "setFlag": "p8_lights_out"
+  },
+  {
+   "music": null
+  },
+  {
+   "ambience": "barracks_night_quiet"
+  },
+  {
+   "setValue": "garrick_release",
+   "value": "unknown"
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "fade": "in",
+   "duration": 800
+  },
+  {
+   "banner": "CHAPTER 51",
+   "sub": "The Grand Bedtime Story"
+  },
+  "Hale goes round the lanterns and turns them down, one by one, till there's just the one by the stairs, and the blue glow of the frog on the set, with the sound off.",
+  {
+   "sfx": "hull_thud",
+   "volume": 0.4
+  },
+  {
+   "shake": 1,
+   "duration": 200
+  },
+  "Overhead, a long way off now, something lands. The storm is still walking about on the roof. It just doesn't stamp as much.",
+  "One by one the crew climb into their new beds. The hammocks creak. Gristle's belts creak. Bob's net creaks, and so does Bob.",
+  {
+   "sfx": "hammock_creak",
+   "volume": 0.4
+  },
+  "wick: ...This is all right, actually.",
+  "hale: Don't say that. Something'll happen.",
+  {
+   "startQuest": "bedtime_story"
+  },
+  {
+   "tutorial": "Lights out. Get into your bunk (your corner, under the sailcloth).",
+   "title": "Bedtime Story"
+  }
+ ],
+ "p8c10.story": [
+  {
+   "place": "player",
+   "x": 16,
+   "y": 15,
+   "facing": "down"
+  },
+  {
+   "setFlag": "p8_story_started"
+  },
+  "You climb into your hammock. It's low, and dry, and nobody's foot is in it. Squawks is already curled up in his cradle, beside your head.",
+  "You close your eyes.",
+  {
+   "sfx": "door_puff",
+   "volume": 0.3
+  },
+  "A lantern comes on.",
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  {
+   "emote": "garrick",
+   "icon": "exclaim"
+  },
+  "The Grand Stenchmaster is standing in the middle of the hold, crown on, lantern in one hand, and in the other, a large book.",
+  "garrick[proud]: Gentlemen. Captain. Quiet hours shall now commence...",
+  "garrick[proud]: ...after THE GRAND STENCHMASTER'S GRAND BEDTIME STORY.",
+  {
+   "sfx": "crowd_boo",
+   "volume": 0.5
+  },
+  "The whole hold groans. Sixteen hammocks creak at once.",
+  "pete[tired]: Please. We just want to sleep.",
+  "bob[sad]: I'll pay you. I've got four coins and a button.",
+  "garrick[businesslike]: Grand Nap protocol requires a story. Otherwise it's just a nap.",
+  "gristle[annoyed]: That's FINE. We'd LOVE just a nap.",
+  "garrick[proud]: Tonight's story...",
+  "He opens the book.",
+  "jory: That book's blank.",
+  "It is. It's one of Hale's spare ledgers. There is nothing written in it at all.",
+  "garrick[smug]: Imagination.",
+  "garrick[proud]: Tonight's story is... THE FULL LEGEND... OF THE GRAND EXPEDITION... FOR THE LOST FART.",
+  "You realise what's happening. You pull your blanket over your face and scream into it.",
+  {
+   "sfx": "crew_panic",
+   "volume": 0.3
+  },
+  "captain[angry]: MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.",
+  "squawks[worried]: Captain okay?",
+  "captain[tired]: No.",
+  {
+   "call": "p8c10.legend"
+  }
+ ],
+ "p8c10.legend": [
+  {
+   "vista": "legend",
+   "fade": 600
+  },
+  {
+   "music": "lost_fart_adventure",
+   "fade": 300
+  },
+  "garrick[proud]: Long, long ago, in a land far, far away, there was THE LOST REALM OF REEKHOLLOW.",
+  "hale: Where's that?",
+  "garrick[proud]: Lost.",
+  "garrick[proud]: And in the middle of Reekhollow, deep in the jungle, there stood a temple. THE TEMPLE OF THE GRAND STENCHMASTER.",
+  "pete: Why's it shaped like a belly?",
+  "garrick[proud]: It's majestic.",
+  "bob: It's shaped like YOUR belly.",
+  "garrick[proud]: And inside the temple were SEVEN CHAMBERS.",
+  "gristle[concerned]: Seven.",
+  "garrick[proud]: Seven.",
+  {
+   "music": null
+  },
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_garlic"
+  },
+  "garrick[proud]: The first chamber: THE HALL OF GARLIC BREATH. Where the air itself was rotten with ancient garlic fumes.",
+  "pete: That's just the galley after you've eaten.",
+  "garrick[offended]: It's an ANCIENT hall.",
+  "pete: It's Tuesday.",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_grog"
+  },
+  "garrick[proud]: The second chamber: THE PIT OF FROG GROG. A bubbling lake of green-and-yellow death, which no man could cross.",
+  "Everybody turns, slowly, to look at the two casks of Frog Grog reserve by the hull. One of them is dripping.",
+  {
+   "sfx": "grog_drip",
+   "volume": 0.5
+  },
+  "bob: We live next to that.",
+  "mags: I'm SLEEPING next to that.",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_oracle"
+  },
+  "garrick[proud]: The third chamber: THE CHAMBER OF THE ELECTRIC FROG ORACLE. A great glowing box, with a frog inside it, who knew ALL THINGS.",
+  "fennimore: That's the telly.",
+  "garrick[proud]: It's an ORACLE. And whoever stood before it, and asked it a question—",
+  {
+   "sfx": "mk2_zzzt",
+   "volume": 0.5
+  },
+  "In the corner, the S.E.S. Mark II sparks. The sound comes on by itself, just for a moment.",
+  "auditor: —and what, Mr. Franklin, is your BASIS?",
+  {
+   "sfx": "mk2_tik",
+   "volume": 0.4
+  },
+  "It goes quiet again. Everybody looks at the set.",
+  "garrick[delighted]: You see? PROPHECY.",
+  "captain[annoyed]: It's a tax programme.",
+  "garrick[smug]: Prophecy about TAXES.",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_forecasts"
+  },
+  "garrick[proud]: The fourth chamber: THE CORRIDOR OF A THOUSAND FORECASTS. Its walls covered, floor to ceiling, with ancient charts of where the next great wind would blow.",
+  "gristle: Did any of them work?",
+  "garrick[businesslike]: No.",
+  "gristle: ...Right.",
+  "captain[smug]: So they're YOUR forecasts.",
+  "garrick[offended]: They're ANCIENT forecasts.",
+  "captain[smug]: They're all wrong, they're in crayon, and one of them's got a stink-cloud drawn on Tortuga.",
+  "garrick[annoyed]: ...ancient crayon.",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_bridge"
+  },
+  "garrick[proud]: The fifth chamber: THE BRIDGE OF THE SACRED SASH. A great chasm, and over it, a single bridge. And any explorer who would cross it must carry the Grand Stenchmaster's sash and keep it OFF THE GROUND, or—",
+  "captain[angry]: Here it is.",
+  "garrick[proud]: —or the bridge would fall.",
+  "captain[angry]: It's the sash. It's ALWAYS the sash. The whole temple is your sash.",
+  "garrick[offended]: The sash is a very small part of the temple.",
+  "captain[angry]: It's got its own BRIDGE.",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_throne"
+  },
+  "garrick[proud]: The sixth chamber: THE THRONE OF ETERNAL SEAT WARMING. A cold stone throne, which only the chosen Grand Stenchmaster could ever warm.",
+  "captain[annoyed]: So somebody sat on it.",
+  "garrick[proud]: WITH DESTINY.",
+  "captain[annoyed]: For about a minute. Then it was warm.",
+  "garrick[proud]: With DESTINY, Captain.",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_vault"
+  },
+  "garrick[proud]: And the seventh chamber. THE VAULT OF THE LOST FART.",
+  "The lantern flickers. Somewhere on the roof, a shark lands.",
+  {
+   "sfx": "hull_thud",
+   "volume": 0.4
+  },
+  {
+   "shake": 1,
+   "duration": 200
+  },
+  "garrick[proud]: Home of the most powerful release there ever was. A release so mighty that it could not be allowed to wander the world. And so it was sealed away...",
+  "garrick[proud]: ...in THE GOLDEN BOTTLE OF WIND.",
+  "hale: In a bottle.",
+  "garrick[proud]: A golden one.",
+  "nell: How do you get a fart in a bottle?",
+  "garrick[proud]: Ancient technique.",
+  "nell: Quickly, I'd imagine.",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_sir_garrick"
+  },
+  "garrick[proud]: And who sealed it? The FIRST Grand Stenchmaster. A hero. A legend. SIR GARRICK THE FIRST.",
+  "There is a long silence in the hold.",
+  "pete: That's still you.",
+  "garrick[businesslike]: An ancestor.",
+  "bob: He's got your face.",
+  "garrick[businesslike]: Strong family resemblance.",
+  "gristle: He's got your crown on. He's got a SPOON in it.",
+  "garrick[proud]: The spoon is traditional.",
+  "captain[tired]: Ye made that crown this AFTERNOON.",
+  "garrick[smug]: Traditionally.",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_feast"
+  },
+  "garrick[proud]: And on the night he sealed it, Sir Garrick the First sat down to the ancient feast. Onions, of absurd size. Garlic. Beans, in their hundreds. And... the FORBIDDEN CHEESE.",
+  "jim: What's forbidden cheese?",
+  "garrick[businesslike]: Cheese you're not supposed to eat.",
+  "jim[annoyed]: Expired cheese.",
+  "garrick[proud]: FORBIDDEN.",
+  "jim[annoyed]: It's out of date. That's what that is. That's out-of-date cheese. I've thrown that cheese away. I've thrown it away and found you eating it OUT OF THE BUCKET.",
+  "garrick[proud]: The ancients had no buckets.",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_feats"
+  },
+  "garrick[proud]: And so great was the Lost Fart that, in its time, it MOVED THE MOON...",
+  "gristle: No it didn't.",
+  "garrick[proud]: ...SANK MOUNTAINS...",
+  "hale: It didn't.",
+  "garrick[proud]: ...and caused every frog in the land to file its taxes EARLY.",
+  "From the cradle beside your head, a small bald face comes up over the edge.",
+  "squawks: Impossible.",
+  "Then it goes back down.",
+  "gristle: Even the bird won't have that one.",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_prof_bob"
+  },
+  "garrick[proud]: Until, one day, many ages later, there came to Reekhollow a daring explorer. A man of learning. A man of courage. PROFESSOR BARNACLE BOB.",
+  "bob: No.",
+  "garrick[proud]: In his trusty explorer's hat—",
+  "bob: I wasn't there. I'm not in this.",
+  "garrick[proud]: —Professor Barnacle Bob hacked his way through the jungle—",
+  "bob: I've never been in a jungle. I've never been in a FOREST.",
+  "garrick[proud]: —he swam the Pit of Frog Grog, he outwitted the Electric Frog Oracle—",
+  "bob: Nobody outwits the frog.",
+  "garrick[proud]: —and as he reached for the Golden Bottle of Wind... behind him... the floor began to tilt...",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_onion"
+  },
+  {
+   "music": "lost_fart_adventure",
+   "fade": 200
+  },
+  {
+   "sfx": "thud_heavy",
+   "volume": 0.4
+  },
+  {
+   "shake": 1,
+   "duration": 400
+  },
+  "garrick[proud]: ...and down the corridor, out of the dark, came A GIANT ROLLING ONION.",
+  "Nobody says anything.",
+  "pete: ...",
+  "pete: ...The onion's quite good, actually.",
+  "captain[angry]: PETE.",
+  "pete: I'm only saying. A big onion, rolling at you. It's a good onion.",
+  "wick: It IS a good onion.",
+  {
+   "music": null,
+   "fade": 1200
+  },
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_bottle"
+  },
+  "garrick[proud]: And Professor Bob dived out of its way, and caught the Golden Bottle as it fell, and stood up... and OPENED IT.",
+  "rook: Why'd he open it?",
+  "garrick[businesslike]: He didn't read the label.",
+  "A pause. Then, from all over the hold:",
+  "pete: ...That does sound like Bob.",
+  "gristle: That's very Bob.",
+  "hale: That's the most Bob thing in the whole story.",
+  "bob[disgusted]: I READ LABELS.",
+  "gristle: The cask that said DO NOT DRINK.",
+  "bob: That was more of a suggestion.",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_sharks"
+  },
+  "garrick[proud]: And the Lost Fart came out. And the temple turned yellow, from top to bottom. And then... THE SHARKS CAME.",
+  "captain[angry]: Hang on.",
+  "garrick[proud]: Hundreds of them.",
+  "captain[angry]: WHY ARE THERE SHARKS IN A JUNGLE TEMPLE?",
+  "garrick[businesslike]: Very committed sharks.",
+  "garrick[proud]: And they flew round and round, and formed a great and terrible Shark Storm—",
+  {
+   "sfx": "hull_thud",
+   "volume": 0.4
+  },
+  {
+   "shake": 1,
+   "duration": 200
+  },
+  "Right on cue, something lands on the deck overhead.",
+  {
+   "choice": [
+    {
+     "text": "Furious",
+     "then": [
+      "captain[angry]: NO. Ye don't get to put THAT in a bedtime story. That's not a legend, that's TUESDAY."
+     ]
+    },
+    {
+     "text": "Sarcastic",
+     "then": [
+      "captain[smug]: Oh, lovely. A storm made of sharks. I wonder where ye got the idea."
+     ]
+    },
+    {
+     "text": "Exhausted",
+     "then": [
+      "captain[tired]: It's on the roof, Garrick. The idea is on the roof. Right now. We can hear it."
+     ]
+    },
+    {
+     "text": "Threatening",
+     "then": [
+      "captain[determined]: Say 'Shark Storm' one more time and ye'll be sleeping in the Bottomless Ravine."
+     ]
+    },
+    {
+     "text": "Resigned",
+     "then": [
+      "captain[resigned]: ...Of course there's a Shark Storm. Of course there is."
+     ]
+    }
+   ]
+  },
+  "garrick[proud]: It's an ANCIENT Shark Storm.",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_support"
+  },
+  "garrick[proud]: And just when all seemed lost... the Grand Stenchmaster APPEARED.",
+  "hale: Sir Garrick the First.",
+  "garrick[proud]: The very same.",
+  "pete: Does he save everyone?",
+  "garrick[businesslike]: No.",
+  "pete: ...No?",
+  "garrick[proud]: He provides EMOTIONAL SUPPORT.",
+  {
+   "sfx": "crew_panic",
+   "volume": 0.6
+  },
+  "The hold screams. Not words. Just the noise.",
+  "gristle[annoyed]: That's what you DID. That's EXACTLY what you did. You stood on the forecastle in your sash and told us all to BREATHE THROUGH IT.",
+  "garrick[proud]: And you did. And you lived. Emotional support works.",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_moral"
+  },
+  "garrick[proud]: And the moral of the story, gentlemen...",
+  "He closes the blank ledger. He looks round the hold, slowly, at every hammock.",
+  "garrick[proud]: ALWAYS HOLD THE GRAND STENCHMASTER SASH... WHEN THE GRAND STENCHMASTER MIGHT FART.",
+  "Silence.",
+  "You sit up.",
+  "It was the sash. The whole thing. The Lost Realm, the temple, the seven chambers, the onion, the sharks, Sir Garrick the First, all of it. One more attempt to get somebody to hold the sash.",
+  "captain[angry]: That whole story was about the SASH.",
+  "garrick[proud]: It's historical education.",
+  "hale: Is any of it true?",
+  "garrick[businesslike]: It's a STORY, Hale.",
+  "garrick[proud]: ...A very important one.",
+  {
+   "choice": [
+    {
+     "text": "Furious",
+     "then": [
+      "captain[angry]: GO. TO. SLEEP."
+     ]
+    },
+    {
+     "text": "Sarcastic",
+     "then": [
+      "captain[smug]: Wonderful. Very educational. Now go to sleep before I educate ye."
+     ]
+    },
+    {
+     "text": "Exhausted",
+     "then": [
+      "captain[tired]: Garrick. Please. Go to sleep. I'm begging ye."
+     ]
+    },
+    {
+     "text": "Threatening",
+     "then": [
+      "captain[determined]: Go to sleep, Garrick, or I'll put ye in the Golden Bottle of Wind myself."
+     ]
+    },
+    {
+     "text": "Resigned",
+     "then": [
+      "captain[resigned]: ...Go to sleep, Garrick."
+     ]
+    }
+   ]
+  },
+  "garrick[offended]: The Grand Stenchmaster will now retire.",
+  {
+   "vistaEnd": true,
+   "fade": 600
+  },
+  {
+   "setFlag": "lost_fart_legend_told"
+  },
+  {
+   "completeQuest": "bedtime_story"
+  },
+  {
+   "call": "p8c11.begin"
+  }
+ ]
+}

@@ -19,6 +19,8 @@ export const PARTICLE_KINDS = {
   dust: { frames: ['dust_0', 'dust_1'], count: 6, speed: [10, 40], up: 10, gravity: -6, drag: 1.2, life: [500, 900], grow: 0.6, fade: 0.6, alpha: 0.7 },
   // Story Phase 7: grit shaken out of the deckhead below decks when something heavy lands overhead.
   falldust: { frames: ['dust_0', 'dust_1'], count: 5, speed: [0, 12], up: 0, gravity: 70, drag: 0.6, life: [700, 1200], fade: 0.5, alpha: 0.55, spread: 18, pick: true, depth: 79100 },
+  // Story Phase 8: the Grand Stenchmaster Suit letting out a little of what it has absorbed (FWOoF).
+  suitpuff: { frames: ['puff_0', 'puff_1', 'puff_2'], count: 3, speed: [4, 18], up: 10, gravity: -10, drag: 1.1, life: [900, 1500], grow: 0.8, fade: 0.55, alpha: 0.6, tint: 0xd8cc6a, pick: true, spread: 5, depth: 70012 },
   dishes: { frames: ['dish_0', 'dish_1', 'fork'], count: 4, speed: [30, 80], up: 100, gravity: 400, life: [500, 800], spin: 8, bounce: 0.2, fade: 0.2, pick: true },
 };
 

@@ -366,6 +366,104 @@
       "if": {
         "flag": "p7_complete"
       }
+    },
+    {
+      "id": "p8c1",
+      "name": "Chapter 42: Trapped Below Deck with Franklin",
+      "if": {
+        "flag": "p8_started"
+      }
+    },
+    {
+      "id": "p8c2",
+      "name": "Chapter 43: Does the Grand Stenchmaster Need to Blow?",
+      "if": {
+        "flag": "p8_ch43_started"
+      }
+    },
+    {
+      "id": "p8c3",
+      "name": "Chapter 44: Request for Sash Bearers",
+      "if": {
+        "flag": "p8_ch44_started"
+      }
+    },
+    {
+      "id": "p8c4",
+      "name": "Chapter 45: The Grand Expedition for the Lost Fart",
+      "if": {
+        "flag": "p8_ch45_started"
+      }
+    },
+    {
+      "id": "p8c5",
+      "name": "Chapter 46: The Legend of the Lost Fart",
+      "if": {
+        "flag": "p8_ch46_started"
+      }
+    },
+    {
+      "id": "p8c6",
+      "name": "Chapter 47: The Grand Stenchmaster's Grand Nap",
+      "if": {
+        "flag": "p8_ch47_started"
+      }
+    },
+    {
+      "id": "p8c7",
+      "name": "Chapter 48: The Sleeping Quarters Are Lost",
+      "if": {
+        "flag": "p8_ch48_started"
+      }
+    },
+    {
+      "id": "p8c8",
+      "name": "Chapter 49: The Grand Decree",
+      "if": {
+        "flag": "p8_ch49_started"
+      }
+    },
+    {
+      "id": "p8c9",
+      "name": "Chapter 50: Build the New Barracks",
+      "if": {
+        "flag": "p8_ch50_started"
+      }
+    },
+    {
+      "id": "p8c10",
+      "name": "Chapter 51: The Grand Bedtime Story",
+      "if": {
+        "flag": "p8_ch51_started"
+      }
+    },
+    {
+      "id": "p8c11",
+      "name": "Chapter 52: The Outfit Must Stay On",
+      "if": {
+        "flag": "p8_ch52_started"
+      }
+    },
+    {
+      "id": "p8c12",
+      "name": "Chapter 53: The Grand Crown Falls",
+      "if": {
+        "flag": "p8_ch53_started"
+      }
+    },
+    {
+      "id": "p8c13",
+      "name": "Chapter 54: The Sash Descends",
+      "if": {
+        "flag": "p8_ch54_started"
+      }
+    },
+    {
+      "id": "phase8_end",
+      "name": "The Grand Nap (complete)",
+      "if": {
+        "flag": "p8_complete"
+      }
     }
   ],
   "timeOfDay": [
@@ -577,6 +675,39 @@
         "var": {
           "name": "p4_tod",
           "eq": 11
+        }
+      }
+    },
+    {
+      "id": "p8_below_day",
+      "grade": "#c8c0d0",
+      "interior": 0.42,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 12
+        }
+      }
+    },
+    {
+      "id": "p8_lamplight",
+      "grade": "#8e80b0",
+      "interior": 0.64,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 13
+        }
+      }
+    },
+    {
+      "id": "p8_dead_of_night",
+      "grade": "#6e6aa0",
+      "interior": 0.74,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 14
         }
       }
     }

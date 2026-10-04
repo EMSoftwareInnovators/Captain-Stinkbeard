@@ -1,0 +1,121 @@
+{
+ "//": "Story Phase 8 ambience: the lower hull by day (the sea through the planks, the wind far off, the timbers, the odd scrape; the landings overhead come from the Great Sharkstorm itself, and the stomach and the set from the room), and at night (hammocks creaking, the ship talking to itself), with and without the Grand Stenchmaster asleep and snoring.",
+ "lower_hull": {
+  "loops": [
+   {
+    "source": "ocean",
+    "muffled": true,
+    "volume": 0.46
+   },
+   {
+    "source": "wind",
+    "muffled": true,
+    "volume": 0.2
+   }
+  ],
+  "oneshots": [
+   {
+    "sounds": [
+     "timber_creak"
+    ],
+    "every": [
+     7,
+     14
+    ],
+    "volume": 0.2
+   },
+   {
+    "sounds": [
+     "grog_drip"
+    ],
+    "every": [
+     9,
+     18
+    ],
+    "volume": 0.12
+   }
+  ]
+ },
+ "barracks_night_quiet": {
+  "loops": [
+   {
+    "source": "ocean",
+    "muffled": true,
+    "volume": 0.4
+   },
+   {
+    "source": "wind",
+    "muffled": true,
+    "volume": 0.16
+   }
+  ],
+  "oneshots": [
+   {
+    "sounds": [
+     "hammock_creak"
+    ],
+    "every": [
+     5,
+     11
+    ],
+    "volume": 0.16
+   },
+   {
+    "sounds": [
+     "timber_creak"
+    ],
+    "every": [
+     8,
+     16
+    ],
+    "volume": 0.16
+   }
+  ]
+ },
+ "barracks_night": {
+  "loops": [
+   {
+    "source": "ocean",
+    "muffled": true,
+    "volume": 0.4
+   },
+   {
+    "source": "wind",
+    "muffled": true,
+    "volume": 0.16
+   }
+  ],
+  "oneshots": [
+   {
+    "sounds": [
+     "garrick_snore"
+    ],
+    "every": [
+     4,
+     7
+    ],
+    "volume": 0.26
+   },
+   {
+    "sounds": [
+     "hammock_creak"
+    ],
+    "every": [
+     5,
+     11
+    ],
+    "volume": 0.16
+   },
+   {
+    "sounds": [
+     "timber_creak"
+    ],
+    "every": [
+     8,
+     16
+    ],
+    "volume": 0.14
+   }
+  ]
+ }
+}

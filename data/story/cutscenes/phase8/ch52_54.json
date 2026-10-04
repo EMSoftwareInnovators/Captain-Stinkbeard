@@ -1,0 +1,1243 @@
+{
+ "//": "Story Phase 8, chapters 52 to 54: the Grand Nap. The Grand Stenchmaster sleeps in full ceremonial attire (continuity of office), the Suit puffs every time he moves (FWOoF: stench retention), and he sleeps directly above the captain, so the captain is being farted upon by a man who isn't even farting. Bad bunk. Then the Grand Crown comes down in the night (cartoon cutlery: a fork through the canvas, a spoon off his nose, the saucepan in his lap; nobody hurt) and is banned from the hammock and put in a crate. Then the sash slips down into his face, and Garrick talks in his sleep: it smells; it's not a fart sash; it was a good deal; a sketchy discount store; LAST WEEK; seventy percent off; cash only; no refunds; no receipt. The captain wakes the crew with the evidence. The final rumble ('Lost Fart...' 'NO ADVENTURE.') isn't anything. Nobody sleeps. At three in the morning somebody turns the frog on, and for a little while everyone is more worried about Franklin's capital gains than the storm.",
+ "p8c11.begin": [
+  {
+   "setFlag": "p8_ch52_started"
+  },
+  {
+   "banner": "CHAPTER 52",
+   "sub": "The Outfit Must Stay On"
+  },
+  {
+   "startQuest": "grand_nap"
+  },
+  "The Grand Stenchmaster hangs his lantern on a nail, and turns, and makes for his hammock. The one over yours.",
+  "He is still wearing all of it. The Suit. The sash. The Grand Crown, with the spoons in.",
+  "captain[annoyed]: Garrick. Take that off before ye get in.",
+  "garrick[businesslike]: I can't.",
+  "captain[annoyed]: Ye CAN. It's got buttons.",
+  "garrick[proud]: GRAND NAP PROTOCOL. A Grand Stenchmaster must sleep in full ceremonial attire.",
+  "captain: Why?",
+  "garrick[proud]: To preserve the CONTINUITY OF OFFICE.",
+  "A pause, in which everyone in the hold tries to work out what that means.",
+  "gristle[annoyed]: That sentence doesn't mean anything.",
+  "hale: It's got 'office' in it. That's all it's got.",
+  "garrick[proud]: If I were to wake in the night, I'd wake as the Grand Stenchmaster. Not as some man in his drawers.",
+  "pete: We'd PREFER the man in his drawers.",
+  "bob: ...Would we?",
+  "pete: ...No. Fair.",
+  {
+   "move": "garrick",
+   "to": [
+    15,
+    15
+   ]
+  },
+  {
+   "burst": "suitpuff",
+   "x": 15,
+   "y": 15,
+   "count": 4
+  },
+  {
+   "sfx": "suit_fwoof",
+   "volume": 0.8
+  },
+  "As he moves, the Suit goes FWOoF.",
+  "A little cloud comes out of it, from somewhere round the middle, all on its own, and hangs there, yellow, in the lantern light.",
+  "Everybody stares at it.",
+  "pete[disgusted]: The suit exhaled.",
+  "garrick[businesslike]: Stench retention.",
+  "captain[disgusted]: Fabric contamination.",
+  "garrick[proud]: It's been through a great deal. It's seen two major releases, a Great Sharkstorm and a ritual. It REMEMBERS them.",
+  "captain[disgusted]: It's not remembering them, Garrick, it's STORING them.",
+  "He takes hold of the spreader plank of his hammock with both hands, and climbs up.",
+  {
+   "hop": "garrick",
+   "height": 10,
+   "duration": 380
+  },
+  {
+   "burst": "suitpuff",
+   "x": 15,
+   "y": 15,
+   "count": 5
+  },
+  {
+   "sfx": "suit_fwoof",
+   "volume": 0.8
+  },
+  {
+   "sfx": "hammock_creak",
+   "volume": 1.0
+  },
+  {
+   "shake": 1,
+   "duration": 400
+  },
+  {
+   "setFlag": "p8_garrick_in_bunk"
+  },
+  {
+   "respawn": "garrick"
+  },
+  "FWOoF. Then the ropes, all of them, at once.",
+  "Then quiet. The hammock over your bunk is swinging, very slightly, with an enormous weight in it.",
+  {
+   "place": "player",
+   "x": 16,
+   "y": 15,
+   "facing": "down"
+  },
+  "You get into your own bunk. Directly underneath.",
+  {
+   "call": "p8c11.bunk"
+  }
+ ],
+ "p8c11.bunk": [
+  {
+   "vista": "bunk_night",
+   "fade": 700
+  },
+  {
+   "ambience": "barracks_night_quiet"
+  },
+  {
+   "vistaFrame": "face",
+   "frame": "cap_face_open"
+  },
+  {
+   "vistaFrame": "squawks",
+   "frame": "bunk_squawks_0"
+  },
+  "You lie on your back and look up.",
+  "There he is: a vast sagging bulge of burgundy canvas, one boot over the far end, one glove over the near edge. The Grand Crown's points glint upside-down over the edge in the lantern light. The sash has been tucked in, carefully, under one arm. You can see the tassel.",
+  {
+   "sfx": "hammock_creak",
+   "volume": 0.8
+  },
+  {
+   "vistaMove": "garrick",
+   "y": 192,
+   "duration": 900,
+   "ease": "Sine.InOut"
+  },
+  "The hammock sags another inch towards you.",
+  "garrick[proud]: Goodnight, Captain.",
+  "captain[annoyed]: Don't talk to me.",
+  "garrick[proud]: Goodnight, Squawks.",
+  "squawks: No.",
+  {
+   "sfx": "hammock_creak",
+   "volume": 0.6
+  },
+  "He shifts. Just a little. Getting comfortable.",
+  {
+   "vistaMove": "puff",
+   "x": 150,
+   "y": 160,
+   "duration": 1,
+   "alpha": 0
+  },
+  {
+   "vistaShow": "puff",
+   "visible": true
+  },
+  {
+   "sfx": "suit_fwoof",
+   "volume": 0.7
+  },
+  {
+   "vistaMove": "puff",
+   "x": 158,
+   "y": 212,
+   "duration": 1600,
+   "ease": "Sine.In",
+   "alpha": 0.9
+  },
+  {
+   "vistaMove": "puff",
+   "x": 162,
+   "y": 224,
+   "duration": 700,
+   "alpha": 0
+  },
+  {
+   "vistaShow": "puff",
+   "visible": false
+  },
+  "A puff of something comes down out of the canvas, slowly, the way a feather comes down. It's yellow. It's coming down onto your face.",
+  "You don't know what it is until you breathe in.",
+  {
+   "vistaFrame": "face",
+   "frame": "cap_face_wide"
+  },
+  "captain[disgusted]: HHHRRRKK.",
+  "It's the Suit. It's everything the Suit has been through. Second-hand.",
+  {
+   "choice": [
+    {
+     "text": "Roll onto your side",
+     "then": [
+      "You roll onto your side, away from it. The hammock overhead creaks. He rolls onto his side too.",
+      {
+       "vistaMove": "puff",
+       "x": 150,
+       "y": 160,
+       "duration": 1,
+       "alpha": 0
+      },
+      {
+       "vistaShow": "puff",
+       "visible": true
+      },
+      {
+       "sfx": "suit_fwoof",
+       "volume": 0.7
+      },
+      {
+       "vistaMove": "puff",
+       "x": 158,
+       "y": 212,
+       "duration": 1600,
+       "ease": "Sine.In",
+       "alpha": 0.9
+      },
+      {
+       "vistaMove": "puff",
+       "x": 162,
+       "y": 224,
+       "duration": 700,
+       "alpha": 0
+      },
+      {
+       "vistaShow": "puff",
+       "visible": false
+      },
+      "FWOoF. Right into your ear."
+     ]
+    },
+    {
+     "text": "Blanket over your face",
+     "then": [
+      "You pull your blanket up over your face. It's warm under there, and dark, and safe.",
+      {
+       "vistaMove": "puff",
+       "x": 150,
+       "y": 160,
+       "duration": 1,
+       "alpha": 0
+      },
+      {
+       "vistaShow": "puff",
+       "visible": true
+      },
+      {
+       "sfx": "suit_fwoof",
+       "volume": 0.7
+      },
+      {
+       "vistaMove": "puff",
+       "x": 158,
+       "y": 212,
+       "duration": 1600,
+       "ease": "Sine.In",
+       "alpha": 0.9
+      },
+      {
+       "vistaMove": "puff",
+       "x": 162,
+       "y": 224,
+       "duration": 700,
+       "alpha": 0
+      },
+      {
+       "vistaShow": "puff",
+       "visible": false
+      },
+      "FWOoF. It comes through the blanket. You didn't know it could do that."
+     ]
+    },
+    {
+     "text": "Breathe through your mouth",
+     "then": [
+      "You breathe through your mouth, slowly, the way the Grand Stenchmaster told everyone to on the forecastle.",
+      {
+       "vistaMove": "puff",
+       "x": 150,
+       "y": 160,
+       "duration": 1,
+       "alpha": 0
+      },
+      {
+       "vistaShow": "puff",
+       "visible": true
+      },
+      {
+       "sfx": "suit_fwoof",
+       "volume": 0.7
+      },
+      {
+       "vistaMove": "puff",
+       "x": 158,
+       "y": 212,
+       "duration": 1600,
+       "ease": "Sine.In",
+       "alpha": 0.9
+      },
+      {
+       "vistaMove": "puff",
+       "x": 162,
+       "y": 224,
+       "duration": 700,
+       "alpha": 0
+      },
+      {
+       "vistaShow": "puff",
+       "visible": false
+      },
+      "FWOoF. Now you can TASTE it."
+     ]
+    }
+   ]
+  },
+  {
+   "vistaFrame": "face",
+   "frame": "cap_face_glare"
+  },
+  "And it comes to you, lying there.",
+  "He isn't even doing anything. He's lying still. He's not farting. He's not ABOUT to fart, as far as anyone knows.",
+  "And you are still being farted upon.",
+  "captain[angry]: He's not even DOING it. He's just LYING there and it's still HAPPENING.",
+  "garrick[businesslike]: Stench retention.",
+  "captain[angry]: GO TO SLEEP.",
+  "From the cradle beside your head, a very small voice:",
+  "squawks: Bad bunk.",
+  "captain[tired]: Aye.",
+  {
+   "setFlag": "p8_suit_puffed"
+  },
+  {
+   "call": "p8c12.begin"
+  }
+ ],
+ "p8c12.begin": [
+  {
+   "fade": "out",
+   "duration": 600
+  },
+  {
+   "setFlag": "p8_ch53_started"
+  },
+  {
+   "fade": "in",
+   "duration": 600
+  },
+  {
+   "banner": "CHAPTER 53",
+   "sub": "The Grand Crown Falls"
+  },
+  "One by one, the hold goes quiet. Rook mutters something about his belt. Hale stops writing. Bob's net stops creaking.",
+  {
+   "sfx": "garrick_snore",
+   "volume": 0.8
+  },
+  {
+   "ambience": "barracks_night"
+  },
+  "The Grand Stenchmaster is asleep almost at once. Of course he is. He hasn't done anything all day.",
+  "garrick_asleep: HHHNNNNNRRRRRK... pfffffff...",
+  {
+   "vistaFrame": "squawks",
+   "frame": "bunk_squawks_1"
+  },
+  {
+   "vistaFrame": "face",
+   "frame": "cap_face_shut"
+  },
+  "You close your eyes. Somewhere a long way off, the storm drops something into the sea. You're nearly asleep. You're almost there.",
+  {
+   "sfx": "hull_thud",
+   "volume": 0.35
+  },
+  {
+   "shake": 1,
+   "duration": 200
+  },
+  {
+   "sfx": "garrick_snore",
+   "volume": 0.8
+  },
+  "Overhead, he rolls over in his sleep. A big roll. The hammock tips.",
+  {
+   "sfx": "hammock_creak",
+   "volume": 0.9
+  },
+  "And the Grand Crown, which was never designed for anything, slides off his head.",
+  {
+   "vistaShow": "garrick",
+   "visible": false
+  },
+  {
+   "vistaShow": "garrick_bare",
+   "visible": true
+  },
+  {
+   "vistaShow": "crown",
+   "visible": true
+  },
+  {
+   "vistaShow": "fork",
+   "visible": true
+  },
+  {
+   "vistaShow": "spoon",
+   "visible": true
+  },
+  {
+   "vistaShow": "lid",
+   "visible": true
+  },
+  {
+   "sfx": "crown_clatter",
+   "volume": 1.0
+  },
+  {
+   "vistaMove": "fork",
+   "x": 120,
+   "y": 212,
+   "duration": 420,
+   "ease": "Quad.In",
+   "async": true
+  },
+  {
+   "vistaMove": "lid",
+   "x": 214,
+   "y": 224,
+   "duration": 520,
+   "ease": "Quad.In",
+   "async": true
+  },
+  {
+   "vistaMove": "crown",
+   "x": 96,
+   "y": 222,
+   "duration": 560,
+   "ease": "Quad.In",
+   "async": true
+  },
+  {
+   "vistaMove": "spoon",
+   "x": 176,
+   "y": 196,
+   "duration": 380,
+   "ease": "Quad.In"
+  },
+  {
+   "sfx": "spoon_boing",
+   "volume": 0.9
+  },
+  {
+   "vistaMove": "spoon",
+   "x": 236,
+   "y": 216,
+   "duration": 360,
+   "ease": "Sine.Out",
+   "async": true
+  },
+  {
+   "wait": 160
+  },
+  {
+   "sfx": "fork_thunk",
+   "volume": 1.0
+  },
+  {
+   "wait": 120
+  },
+  {
+   "sfx": "lid_clang",
+   "volume": 1.0
+  },
+  {
+   "vistaFrame": "face",
+   "frame": "cap_face_wide"
+  },
+  {
+   "shake": 2,
+   "duration": 400
+  },
+  "CLANG.",
+  "CLATTER.",
+  "A fork comes through the canvas of your hammock an inch from your ear and sticks there, quivering. Another one lands in your pillow. A spoon bounces off your nose, BOING, and away into the dark. And the little saucepan off the top lands in your lap, lid and all.",
+  "Nothing hurts. You are fine. You are entirely unhurt.",
+  "You SCREAM.",
+  {
+   "vistaEnd": true,
+   "fade": 250
+  },
+  {
+   "sfx": "crew_panic",
+   "volume": 0.9
+  },
+  {
+   "shake": 2,
+   "duration": 500
+  },
+  {
+   "setFlag": "p8_crown_fell"
+  },
+  {
+   "respawn": "garrick"
+  },
+  {
+   "emote": "pete",
+   "icon": "exclaim"
+  },
+  {
+   "emote": "gristle",
+   "icon": "exclaim"
+  },
+  {
+   "emote": "bob",
+   "icon": "exclaim"
+  },
+  {
+   "emote": "hale",
+   "icon": "exclaim"
+  },
+  {
+   "emote": "squawks",
+   "icon": "exclaim"
+  },
+  "The whole hold comes awake at once, all sixteen of them, in all directions.",
+  "hale[alarmed]: IS IT THE CENTER?",
+  "rook[alarmed]: SHARK! SHARK IN THE HOLD!",
+  "bob[alarmed]: IS IT THE LOST FART?",
+  "nell[alarmed]: Emergency? Is it an emergency? Do we run?",
+  "pete[alarmed]: WHAT IS IT, CAPTAIN? WHAT'S HAPPENED?",
+  "You sit up in your hammock. You hold up the fork.",
+  {
+   "anim": "player",
+   "name": "point",
+   "duration": 1600
+  },
+  "captain[angry]: GRAND. STENCHMASTER. CUTLERY.",
+  "Sixteen people look at the fork.",
+  "pete: ...Oh.",
+  "Overhead, the Grand Stenchmaster sleeps through all of it.",
+  "garrick_asleep: Mmm... the spoons are traditional...",
+  {
+   "sfx": "garrick_snore",
+   "volume": 0.8
+  },
+  {
+   "choice": [
+    {
+     "text": "Furious",
+     "then": [
+      "captain[angry]: THE CROWN IS BANNED. BANNED. In the hammock, near the hammock, OVER the hammock. BANNED."
+     ]
+    },
+    {
+     "text": "Sarcastic",
+     "then": [
+      "captain[smug]: Lovely. A crown that serves dinner. THE CROWN IS BANNED."
+     ]
+    },
+    {
+     "text": "Exhausted",
+     "then": [
+      "captain[tired]: I just wanted to sleep. THE CROWN IS BANNED."
+     ]
+    },
+    {
+     "text": "Threatening",
+     "then": [
+      "captain[determined]: If that crown comes within six feet of my bunk again, it goes over the side. With him in it. THE CROWN IS BANNED."
+     ]
+    },
+    {
+     "text": "Resigned",
+     "then": [
+      "captain[resigned]: ...The crown is banned. While he's asleep, at least. The crown is banned."
+     ]
+    }
+   ]
+  },
+  "gristle: Seconded.",
+  "pete: Thirded.",
+  "squawks: BANNED.",
+  "You gather it all up: the crown, the forks, the spoon, the saucepan, the lid.",
+  {
+   "tutorial": "Put the Grand Crown away somewhere it can't fall on anybody: the empty crate by the hull, next to your corner.",
+   "title": "The Grand Nap"
+  }
+ ],
+ "p8c12.crate": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You put the Grand Crown in the crate. Then the fork. Then the other fork. Then the spoon, and the little saucepan, and its lid.",
+  {
+   "sfx": "lid_clang",
+   "volume": 0.6
+  },
+  "You put the crate's own lid on, and sit on it for a moment.",
+  "Rook hands you a bit of chalk. You write on the lid: CROWN. NOT IN THE HAMMOCK.",
+  "He can wear it in the daytime, if he must. He can wear it at the next ritual. He can wear it on the TV. He is not wearing it over your face again.",
+  {
+   "setFlag": "grand_crown_banned_for_sleep"
+  },
+  "hale: Back to bed, everybody.",
+  "Slowly, the hold settles. Hammocks creak. Somebody says 'cutlery' to himself in the dark, and laughs, once, and stops.",
+  {
+   "respawn": "garrick"
+  },
+  {
+   "tutorial": "Back to your bunk. Try to sleep.",
+   "title": "The Grand Nap"
+  }
+ ],
+ "p8c12.back": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "You get back into your hammock, carefully, round the fork-hole.",
+  "Overhead, the Grand Stenchmaster sleeps on, bareheaded now. The hammock creaks. The Suit goes FWOoF.",
+  {
+   "setFlag": "p8_back_in_bunk"
+  },
+  {
+   "completeQuest": "grand_nap"
+  },
+  {
+   "call": "p8c13.begin"
+  }
+ ],
+ "p8c13.begin": [
+  {
+   "fade": "out",
+   "duration": 600
+  },
+  {
+   "setFlag": "p8_ch54_started"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 14
+  },
+  {
+   "setValue": "garrick_release",
+   "value": "calm"
+  },
+  {
+   "fade": "in",
+   "duration": 600
+  },
+  {
+   "banner": "CHAPTER 54",
+   "sub": "The Sash Descends"
+  },
+  {
+   "startQuest": "seventy_percent_off"
+  },
+  {
+   "vista": "bunk_night",
+   "fade": 600
+  },
+  {
+   "vistaShow": "garrick",
+   "visible": false
+  },
+  {
+   "vistaShow": "garrick_bare",
+   "visible": true
+  },
+  {
+   "vistaFrame": "squawks",
+   "frame": "bunk_squawks_1"
+  },
+  {
+   "vistaFrame": "face",
+   "frame": "cap_face_shut"
+  },
+  {
+   "sfx": "garrick_snore",
+   "volume": 0.7
+  },
+  "The hold settles again. It takes longer this time.",
+  "Every time the Grand Stenchmaster rolls over, the Suit lets something go.",
+  {
+   "vistaMove": "puff",
+   "x": 150,
+   "y": 160,
+   "duration": 1,
+   "alpha": 0
+  },
+  {
+   "vistaShow": "puff",
+   "visible": true
+  },
+  {
+   "sfx": "suit_fwoof",
+   "volume": 0.7
+  },
+  {
+   "vistaMove": "puff",
+   "x": 158,
+   "y": 212,
+   "duration": 1600,
+   "ease": "Sine.In",
+   "alpha": 0.9
+  },
+  {
+   "vistaMove": "puff",
+   "x": 162,
+   "y": 224,
+   "duration": 700,
+   "alpha": 0
+  },
+  {
+   "vistaShow": "puff",
+   "visible": false
+  },
+  "FWOoF.",
+  "You turn your head away from it.",
+  {
+   "vistaMove": "puff",
+   "x": 150,
+   "y": 160,
+   "duration": 1,
+   "alpha": 0
+  },
+  {
+   "vistaShow": "puff",
+   "visible": true
+  },
+  {
+   "sfx": "suit_fwoof",
+   "volume": 0.7
+  },
+  {
+   "vistaMove": "puff",
+   "x": 158,
+   "y": 212,
+   "duration": 1600,
+   "ease": "Sine.In",
+   "alpha": 0.9
+  },
+  {
+   "vistaMove": "puff",
+   "x": 162,
+   "y": 224,
+   "duration": 700,
+   "alpha": 0
+  },
+  {
+   "vistaShow": "puff",
+   "visible": false
+  },
+  "FWOoF.",
+  "You turn it back.",
+  "But you're tired. You are SO tired. Days of it. And slowly, in spite of everything, in spite of the storm and the fork-hole and the smell, you begin, finally, to fall asleep...",
+  {
+   "wait": 1200
+  },
+  "...",
+  {
+   "wait": 800
+  },
+  "Something touches your forehead.",
+  {
+   "vistaFrame": "sash",
+   "frame": "bunk_sash_1"
+  },
+  {
+   "sfx": "sash_swish",
+   "volume": 0.7
+  },
+  {
+   "vistaFrame": "face",
+   "frame": "cap_face_open"
+  },
+  "Something soft. Cloth. Mustard-coloured, with a burgundy edge, and a gold fringe on the end, swinging gently above your face.",
+  "THE GRAND STENCHMASTER SASH.",
+  "It has slipped out from under his arm, and over the side of his hammock, and come all the way down. And it's hanging there, right over you.",
+  {
+   "vistaFrame": "sash",
+   "frame": "bunk_sash_2"
+  },
+  {
+   "sfx": "sash_swish",
+   "volume": 0.6
+  },
+  "Right ONTO you.",
+  "And then you smell it.",
+  {
+   "vistaFrame": "face",
+   "frame": "cap_face_wide"
+  },
+  "It smells of the first great release, and of the second one, layered on top like a cake. It smells of garlic, and Frog Grog, and onion, and old sweat, and the inside of the Suit.",
+  "And underneath all that, faintly, there's something else. Something cheap and chemical and shiny. Something that smells like it came off a roll in a shop.",
+  "You recoil.",
+  {
+   "vistaFrame": "sash",
+   "frame": "bunk_sash_1"
+  },
+  {
+   "sfx": "sash_swish",
+   "volume": 0.6
+  },
+  "The sash swings away. Then it swings back.",
+  {
+   "vistaFrame": "sash",
+   "frame": "bunk_sash_2"
+  },
+  {
+   "sfx": "sash_swish",
+   "volume": 0.9
+  },
+  {
+   "shake": 1,
+   "duration": 200
+  },
+  "And hits you in the face.",
+  "You grab it.",
+  {
+   "vistaFrame": "face",
+   "frame": "cap_face_glare"
+  },
+  "Overhead, the Grand Stenchmaster stirs. Mumbles. He's talking in his sleep.",
+  {
+   "sfx": "sleep_mumble",
+   "volume": 0.8
+  },
+  "garrick_asleep: ...don't... wrinkle...",
+  "garrick_asleep: ...Stenchmaster... Sash...",
+  {
+   "sfx": "garrick_snore",
+   "volume": 0.5
+  },
+  "garrick_asleep: ...smells... horrible...",
+  "You go very still.",
+  "He knows. Even HE knows it stinks.",
+  {
+   "sfx": "sleep_mumble",
+   "volume": 0.8
+  },
+  "garrick_asleep: ...somebody... hold it... during the blast...",
+  "captain[angry]: (whispering) It's a FART SASH.",
+  "garrick_asleep: ...not... fart sash...",
+  "From the dark, a couple of hammocks along, Pete's voice. He isn't asleep either. Nobody is.",
+  "pete: He can argue unconscious.",
+  {
+   "sfx": "sleep_mumble",
+   "volume": 0.8
+  },
+  "garrick_asleep: ...good deal...",
+  "That's new. You look up at the canvas.",
+  "garrick_asleep: ...discount...",
+  "You look at the sash in your hand.",
+  "garrick_asleep: ...sketchy... store...",
+  "You look up at the canvas again.",
+  {
+   "sfx": "sleep_mumble",
+   "volume": 0.9
+  },
+  "garrick_asleep: ...bought it... last week...",
+  {
+   "wait": 900
+  },
+  "Silence.",
+  {
+   "wait": 1400
+  },
+  "Total silence. Even the storm seems to have stopped to listen.",
+  {
+   "wait": 900
+  },
+  "captain[surprised]: ...Last week?",
+  {
+   "sfx": "garrick_snore",
+   "volume": 0.9
+  },
+  "garrick_asleep: HHHNNNNNRRRK.",
+  "You wait.",
+  {
+   "sfx": "sleep_mumble",
+   "volume": 0.9
+  },
+  "garrick_asleep: ...seventy percent off...",
+  "Somewhere a hammock creaks as somebody sits up very suddenly. That's Pete. Then another. That's Gristle.",
+  "gristle: (whispering) Did he just say seventy percent off?",
+  "pete: (whispering) He said LAST WEEK.",
+  {
+   "sfx": "sleep_mumble",
+   "volume": 0.8
+  },
+  "garrick_asleep: ...in the discount bin...",
+  "garrick_asleep: ...cash only...",
+  "garrick_asleep: ...the shop smelled funny...",
+  "garrick_asleep: ...no refunds...",
+  {
+   "sfx": "garrick_snore",
+   "volume": 0.7
+  },
+  "Nobody says anything.",
+  "It was never ancient. It was never sacred. The ceremonial heritage, the noble history, three weeks of ancient tradition: he bought it last week, from a sketchy discount shop, out of a bin, at seventy percent off. Cash only. No refunds.",
+  "And he made you hold a bedtime story about it.",
+  "You tug the sash. It comes away in your hand: it was only ever held on with a safety pin.",
+  {
+   "vistaShow": "sash",
+   "visible": false
+  },
+  {
+   "vistaFrame": "face",
+   "frame": "cap_face_glare"
+  },
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "setFlag": "p8_sash_in_hand"
+  },
+  "You climb out of your hammock, holding the sash out in front of you like a piece of evidence in a courtroom.",
+  {
+   "anim": "player",
+   "name": "carry",
+   "duration": 1200
+  },
+  {
+   "tutorial": "Wake the crew. Show them: Pete (his rope pillow, port side), Gristle (his belt contraption, up by the hull) and Bob (in his cargo net).",
+   "title": "Seventy Percent Off"
+  }
+ ],
+ "p8c13.wake_pete": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "Pete is already sitting up on his rope pillow, wide awake, staring at nothing.",
+  "pete: I heard. Captain, I HEARD.",
+  "captain[angry]: Up. Come and look at this.",
+  "pete: I'm coming. I wouldn't miss this for the world.",
+  {
+   "setFlag": "p8_woke_pete"
+  },
+  {
+   "event": "p8_woken"
+  },
+  {
+   "respawn": "pete"
+  },
+  {
+   "call": "p8c13.after_wake"
+  }
+ ],
+ "p8c13.wake_gristle": [
+  {
+   "face": "gristle",
+   "dir": "player"
+  },
+  "Gristle is lying very straight in his contraption of belts, eyes open.",
+  "gristle: I'm awake. I've been awake for a week.",
+  "captain[angry]: Then come and SEE something.",
+  "gristle: Is it the tag? I bet there's a tag.",
+  {
+   "setFlag": "p8_woke_gristle"
+  },
+  {
+   "event": "p8_woken"
+  },
+  {
+   "respawn": "gristle"
+  },
+  {
+   "call": "p8c13.after_wake"
+  }
+ ],
+ "p8c13.wake_bob": [
+  {
+   "face": "bob",
+   "dir": "player"
+  },
+  "Bob is fast asleep in his cargo net, still in the sun-helmet, with one leg through the net to the knee.",
+  "You poke him.",
+  {
+   "emote": "bob",
+   "icon": "exclaim"
+  },
+  "bob[alarmed]: The ONION! It's ROLLING!",
+  "captain[angry]: Bob. Up. Evidence.",
+  "bob: ...What?",
+  {
+   "setFlag": "p8_woke_bob"
+  },
+  {
+   "event": "p8_woken"
+  },
+  {
+   "respawn": "bob"
+  },
+  {
+   "call": "p8c13.after_wake"
+  }
+ ],
+ "p8c13.after_wake": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p8_woke_pete"
+     },
+     {
+      "flag": "p8_woke_gristle"
+     },
+     {
+      "flag": "p8_woke_bob"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p8c13.evidence"
+    }
+   ]
+  }
+ ],
+ "p8c13.evidence": [
+  {
+   "restage": "cut"
+  },
+  {
+   "place": "player",
+   "x": 16,
+   "y": 15,
+   "facing": "left"
+  },
+  "By the time you're back at your bunk, half the hold is up, in their blankets, round the lantern. You hold up the sash.",
+  "captain[angry]: THIS. The ancient ceremonial heritage of the Grand Stenchmasters. The sacred sash. Three weeks of it.",
+  "captain[angry]: He bought it LAST WEEK.",
+  "pete: LAST WEEK?",
+  "bob: Where?",
+  "Overhead, from inside the hammock:",
+  {
+   "sfx": "sleep_mumble",
+   "volume": 0.9
+  },
+  "garrick_asleep: ...sketchy discount store...",
+  "captain[angry]: HE CONFIRMS IT!",
+  "gristle[annoyed]: He said CENTURIES.",
+  "captain[angry]: He made us play the Lost Fart nonsense over it.",
+  "bob: Twice.",
+  "You turn the sash over. On the back, held on with the safety pin, there is a tag.",
+  {
+   "insert": "sash_tag_close",
+   "caption": "The back of the Grand Stenchmaster Sash."
+  },
+  "hale: Seventy percent off. It says so. On the tag.",
+  "jim: Ten down to three. That's a FINAL SALE, that.",
+  "gristle: Told you there'd be a tag.",
+  {
+   "sfx": "sleep_mumble",
+   "volume": 0.9
+  },
+  "garrick_asleep: ...no... receipt...",
+  "And somehow THAT is the worst part.",
+  {
+   "choice": [
+    {
+     "text": "Furious",
+     "then": [
+      "captain[angry]: NO RECEIPT? He's got a TAG on it and he hasn't got a RECEIPT?"
+     ]
+    },
+    {
+     "text": "Sarcastic",
+     "then": [
+      "captain[smug]: Oh, no receipt. Naturally. Wouldn't want any EVIDENCE."
+     ]
+    },
+    {
+     "text": "Exhausted",
+     "then": [
+      "captain[tired]: No receipt. Of course there's no receipt. There's never a receipt."
+     ]
+    },
+    {
+     "text": "Threatening",
+     "then": [
+      "captain[determined]: When he wakes up, he's going to explain that receipt. Slowly."
+     ]
+    },
+    {
+     "text": "Resigned",
+     "then": [
+      "captain[resigned]: ...No receipt. Right."
+     ]
+    }
+   ]
+  },
+  "jory: Can't even take it back.",
+  "pete: Can't take HIM back either.",
+  "Overhead, the Grand Stenchmaster rolls over.",
+  {
+   "sfx": "hammock_creak",
+   "volume": 0.9
+  },
+  {
+   "burst": "suitpuff",
+   "x": 16,
+   "y": 15,
+   "count": 6
+  },
+  {
+   "sfx": "suit_fwoof",
+   "volume": 1.0
+  },
+  "FWOoF. A whole cloud of it, straight down, onto you.",
+  {
+   "anim": "player",
+   "name": "clutch",
+   "duration": 1400
+  },
+  "captain[disgusted]: HHHRRRRKK.",
+  {
+   "sfx": "sleep_mumble",
+   "volume": 0.8
+  },
+  "garrick_asleep: ...best purchase...",
+  "You stand there, in the lantern light, holding a sash, and you think about where you are.",
+  "You are sleeping underneath a man who is wearing a curtain soaked in two catastrophes, who wore a crown of cutlery that nearly took your ear off, and who owns a seventy-percent-off discount-store fart sash. While a storm made of sharks sits on your roof.",
+  "From the cradle, Squawks looks up at you.",
+  "squawks: Bad bunk.",
+  "captain[tired]: Aye.",
+  "You hang the sash back over the edge of his hammock. It's his. Nobody is holding it.",
+  {
+   "setFlag": "sash_origin_revealed"
+  },
+  {
+   "setValue": "garrick_release",
+   "value": "possibly_building"
+  },
+  {
+   "sfx": "stomach_glorp",
+   "volume": 0.9
+  },
+  {
+   "shake": 1,
+   "duration": 300
+  },
+  "GLOOOOOORP.",
+  "Everybody freezes. Sixteen people, holding their breath, in the dark.",
+  {
+   "sfx": "sleep_mumble",
+   "volume": 0.9
+  },
+  "garrick_asleep: ...Lost... Fart...",
+  "captain[determined]: DO NOT EVEN THINK ABOUT IT.",
+  "garrick_asleep: ...adventure...",
+  "captain[angry]: NO. ADVENTURE.",
+  {
+   "sfx": "garrick_snore",
+   "volume": 0.9
+  },
+  "He snores. Nothing comes out. Nothing happens at all.",
+  {
+   "setValue": "garrick_release",
+   "value": "unknown"
+  },
+  "Nobody believes it for a second.",
+  {
+   "completeQuest": "seventy_percent_off"
+  },
+  {
+   "call": "p8c13.coda"
+  }
+ ],
+ "p8c13.coda": [
+  {
+   "fade": "out",
+   "duration": 900
+  },
+  "Nobody sleeps for the rest of the night.",
+  "Not really. People lie in their hammocks with their eyes open. Every time he rolls over, sixteen people hold their breath.",
+  "At about three in the morning, somebody gets up and turns the frog on. Quietly. And one by one, without anyone saying anything, everybody sits up to watch.",
+  {
+   "vista": "shelter_watch",
+   "fade": 500
+  },
+  {
+   "vistaShow": "garrick",
+   "visible": false
+  },
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "capital_gains",
+   "layer": "screen",
+   "from": 0,
+   "to": 5
+  },
+  "pete: He sold a lily pad. For more than he paid. Oh, Franklin.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "capital_gains",
+   "layer": "screen",
+   "from": 6,
+   "to": 9
+  },
+  "pete[worried]: He hasn't got his basis records. He NEVER has his records.",
+  "gristle: He can reconstruct it. Flies in, flies out. It's just arithmetic.",
+  "bob: That toad's too hard on him.",
+  "squawks[smug]: Frog.",
+  "captain: I'm not watching this.",
+  "Nobody says anything. You're watching it.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "capital_gains",
+   "layer": "screen",
+   "from": 10,
+   "to": 11
+  },
+  {
+   "sfx": "crowd_gasp",
+   "volume": 0.8
+  },
+  "The whole hold GASPS.",
+  "hale: He ATE the RECORDS?",
+  "gristle[concerned]: That's... that's a problem. That's a real problem.",
+  "pete[worried]: What's he going to DO?",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "capital_gains",
+   "layer": "screen",
+   "from": 12,
+   "to": 13
+  },
+  "For a few minutes, at three in the morning, in a cargo hold with sixteen hammocks in it, everybody on board is more worried about a cartoon frog's capital gains than about the Great Sharkstorm sitting on their roof.",
+  "Overhead the hammock creaks. The Suit goes FWOoF, softly. Squawks is asleep against your arm. Somebody passes the biscuits along, past Jim, without asking, and Jim lets them.",
+  "It's terrible down here. It's cramped and it smells and there's a frog on the telly and a man in a curtain over your head.",
+  "It's home, apparently.",
+  {
+   "setFlag": "crew_ftm_invested"
+  },
+  {
+   "setFlag": "p8_complete"
+  },
+  {
+   "vistaEnd": true,
+   "fade": 900
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "tutorial": "The night of the Grand Nap is over (more or less). The Great Sharkstorm is still on the roof, the old quarters are condemned, the lower hull is the barracks now, and the Grand Stenchmaster's sash cost three. TO BE CONTINUED.",
+   "title": "End of Story Phase 8"
+  }
+ ]
+}

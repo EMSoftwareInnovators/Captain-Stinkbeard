@@ -2211,5 +2211,426 @@
     "x": 12,
     "y": 13,
     "facing": "down"
+  },
+  {
+    "id": "p8_start",
+    "name": "Phase 8 Start",
+    "description": "The next afternoon (or so). A day and a half in the hold; the storm walking about on the roof. See how everyone's managing.",
+    "after": "p7_complete",
+    "flags": [
+      "p8_started"
+    ],
+    "vars": {
+      "p4_tod": 12
+    },
+    "values": {
+      "garrick_release": "calm",
+      "great_sharkstorm": "active_near_ship"
+    },
+    "quests": {
+      "still_trapped": "active"
+    },
+    "map": "cargo_hold",
+    "x": 16,
+    "y": 14,
+    "facing": "down"
+  },
+  {
+    "id": "p8_lower_hull_shelter",
+    "name": "Lower Hull Shelter",
+    "description": "Everyone's wedged in. Sit down in your corner, with Squawks: Franklin's being audited.",
+    "after": "p8_start",
+    "flags": [
+      "p8_settled_pete",
+      "p8_settled_bob",
+      "p8_settled_gristle",
+      "p8_settled_jim"
+    ],
+    "quests": {
+      "still_trapped": {
+        "done": [
+          "settle"
+        ]
+      }
+    },
+    "map": "cargo_hold",
+    "x": 16,
+    "y": 15,
+    "facing": "down"
+  },
+  {
+    "id": "p8_garrick_rumbling",
+    "name": "Garrick Rumbling",
+    "description": "GLOOOORP. GRRRRRNNNK. Every head has turned. Somebody has to ask him (his chair).",
+    "after": "p8_lower_hull_shelter",
+    "flags": [
+      "p8_ftm_started",
+      "p8_ch43_started"
+    ],
+    "values": {
+      "garrick_release": "rumbling"
+    },
+    "quests": {
+      "still_trapped": "completed",
+      "false_alarm": "active"
+    },
+    "map": "cargo_hold",
+    "x": 12,
+    "y": 13,
+    "facing": "left"
+  },
+  {
+    "id": "p8_false_alarm",
+    "name": "False Alarm",
+    "description": "'I don't know.' 'Oh.' 'Ohhhh.' Full emergency: protect Squawks (your corner), then the stairs.",
+    "after": "p8_garrick_rumbling",
+    "flags": [
+      "p8_asked"
+    ],
+    "values": {
+      "garrick_release": "possibly_building"
+    },
+    "quests": {
+      "false_alarm": {
+        "done": [
+          "ask"
+        ]
+      }
+    },
+    "map": "cargo_hold",
+    "x": 15,
+    "y": 15,
+    "facing": "down"
+  },
+  {
+    "id": "p8_sash_bearer_request",
+    "name": "Sash Bearer Request",
+    "description": "A false alarm. The fart is sneaky. No rowboat. Now he's looking at his sash (his chair).",
+    "after": "p8_false_alarm",
+    "flags": [
+      "p8_alarm_squawks",
+      "p8_alarm_hatch",
+      "garrick_possible_release_survived",
+      "p8_ch44_started"
+    ],
+    "values": {
+      "garrick_release": "unknown"
+    },
+    "quests": {
+      "false_alarm": "completed",
+      "sash_bearers": "active"
+    },
+    "map": "cargo_hold",
+    "x": 12,
+    "y": 13,
+    "facing": "left"
+  },
+  {
+    "id": "p8_lost_fart_expedition",
+    "name": "Lost Fart Expedition",
+    "description": "Nobody volunteered. FART SASH. Now: the costume trunk (by his chair).",
+    "after": "p8_sash_bearer_request",
+    "flags": [
+      "p8_sash_proposal",
+      "p8_refused_gristle",
+      "p8_refused_pete",
+      "p8_refused_bob",
+      "p8_refused_jim",
+      "p8_refused_ned",
+      "fart_sash_nickname",
+      "p8_ch45_started"
+    ],
+    "quests": {
+      "sash_bearers": "completed",
+      "lost_fart_expedition": "active"
+    },
+    "map": "cargo_hold",
+    "x": 12,
+    "y": 13,
+    "facing": "up"
+  },
+  {
+    "id": "p8_grand_crown_reveal",
+    "name": "Grand Crown Reveal",
+    "description": "Professor Barnacle Bob is in his helmet. Now he's putting something on his own head (him).",
+    "after": "p8_lost_fart_expedition",
+    "flags": [
+      "p8_professor_bob"
+    ],
+    "quests": {
+      "lost_fart_expedition": {
+        "done": [
+          "trunk"
+        ]
+      }
+    },
+    "map": "cargo_hold",
+    "x": 10,
+    "y": 12,
+    "facing": "right"
+  },
+  {
+    "id": "p8_stinkbeard_fury",
+    "name": "Stinkbeard Fury",
+    "description": "The crown, the premise, the landmarks (all in this room). That's enough. Hand Squawks to Gristle.",
+    "after": "p8_grand_crown_reveal",
+    "flags": [
+      "grand_crown_created",
+      "lost_fart_game_proposed",
+      "p8_ch46_started",
+      "p8_lm_grog",
+      "p8_lm_oracle",
+      "p8_lm_ravine"
+    ],
+    "quests": {
+      "lost_fart_expedition": {
+        "done": [
+          "trunk",
+          "crown",
+          "premise",
+          "landmarks"
+        ]
+      }
+    },
+    "map": "cargo_hold",
+    "x": 9,
+    "y": 14,
+    "facing": "left"
+  },
+  {
+    "id": "p8_quarters_condemned",
+    "name": "Sleeping Quarters Condemned",
+    "description": "The storm eased, the Center moved on, Pete cracked the door: the fart took residence. Nail up the sign.",
+    "after": "p8_stinkbeard_fury",
+    "flags": [
+      "p8_captain_snapped",
+      "p8_ch47_started",
+      "p8_nap_banned",
+      "p8_ch48_started",
+      "p8_quarters_blocked",
+      "p8_door_cracked"
+    ],
+    "values": {
+      "garrick_release": "unknown",
+      "great_sharkstorm": "easing_near_ship",
+      "dead_center": "second_forward_deck"
+    },
+    "quests": {
+      "lost_fart_expedition": "completed",
+      "no_place_to_sleep": {
+        "done": [
+          "quarters",
+          "open"
+        ]
+      }
+    },
+    "map": "galley",
+    "x": 8,
+    "y": 11,
+    "facing": "down"
+  },
+  {
+    "id": "p8_lower_hull_barracks",
+    "name": "Lower Hull Barracks",
+    "description": "The Grand Decree: the hold is the barracks now. Build it (hammocks, sailcloth, the floor, Squawks's bed, four bunks).",
+    "after": "p8_quarters_condemned",
+    "flags": [
+      "crew_quarters_condemned",
+      "p8_ch49_started",
+      "p8_decree_heard",
+      "p8_ch50_started"
+    ],
+    "values": {
+      "garrick_release": "rumbling"
+    },
+    "quests": {
+      "no_place_to_sleep": "completed",
+      "grand_decree": "active"
+    },
+    "map": "cargo_hold",
+    "x": 14,
+    "y": 5,
+    "facing": "down"
+  },
+  {
+    "id": "p8_barracks_complete",
+    "name": "Barracks Complete",
+    "description": "Everyone's sorted. Have a look at your own bunk (and what's over it).",
+    "after": "p8_lower_hull_barracks",
+    "flags": [
+      "p8_ropes_tied",
+      "p8_sailcloth_hung",
+      "p8_crates_moved",
+      "squawks_sleep_spot",
+      "p8_bunk_pete",
+      "p8_bunk_bob",
+      "p8_bunk_gristle",
+      "p8_bunk_jim"
+    ],
+    "quests": {
+      "grand_decree": {
+        "done": [
+          "ropes",
+          "sailcloth",
+          "crates",
+          "squawks",
+          "bunks"
+        ]
+      }
+    },
+    "map": "cargo_hold",
+    "x": 16,
+    "y": 15,
+    "facing": "down"
+  },
+  {
+    "id": "p8_bedtime_story",
+    "name": "Bedtime Story",
+    "description": "Lights out. Get into your bunk. (He has a book.)",
+    "after": "p8_barracks_complete",
+    "flags": [
+      "garrick_top_hammock",
+      "lower_hull_barracks",
+      "p8_ch51_started",
+      "p8_lights_out"
+    ],
+    "vars": {
+      "p4_tod": 13
+    },
+    "values": {
+      "garrick_release": "unknown"
+    },
+    "quests": {
+      "grand_decree": "completed",
+      "bedtime_story": "active"
+    },
+    "map": "cargo_hold",
+    "x": 16,
+    "y": 15,
+    "facing": "down"
+  },
+  {
+    "id": "p8_grand_nap_start",
+    "name": "Grand Nap Start",
+    "description": "The legend is told (the moral: hold the sash). He's getting into his hammock. In full attire.",
+    "after": "p8_bedtime_story",
+    "flags": [
+      "p8_story_started",
+      "lost_fart_legend_told"
+    ],
+    "quests": {
+      "bedtime_story": "completed"
+    },
+    "map": "cargo_hold",
+    "x": 16,
+    "y": 15,
+    "facing": "down",
+    "script": "p8c11.begin"
+  },
+  {
+    "id": "p8_suit_fume_bunk",
+    "name": "Suit Fume Bunk",
+    "description": "He's up there. You're under him. FWOoF.",
+    "after": "p8_grand_nap_start",
+    "flags": [
+      "p8_ch52_started",
+      "p8_garrick_in_bunk"
+    ],
+    "quests": {
+      "grand_nap": "active"
+    },
+    "map": "cargo_hold",
+    "x": 16,
+    "y": 15,
+    "facing": "down",
+    "script": "p8c11.bunk"
+  },
+  {
+    "id": "p8_crown_fall",
+    "name": "Crown Fall",
+    "description": "Bad bunk. Everyone drifts off. Then the crown slips.",
+    "after": "p8_suit_fume_bunk",
+    "flags": [
+      "p8_suit_puffed"
+    ],
+    "quests": {
+      "grand_nap": {
+        "done": [
+          "comfortable"
+        ]
+      }
+    },
+    "map": "cargo_hold",
+    "x": 16,
+    "y": 15,
+    "facing": "down",
+    "script": "p8c12.begin"
+  },
+  {
+    "id": "p8_sash_descends",
+    "name": "Sash Descends",
+    "description": "The crown's in a crate. Back in your bunk. Nearly asleep. Something touches your forehead.",
+    "after": "p8_crown_fall",
+    "flags": [
+      "p8_ch53_started",
+      "p8_crown_fell",
+      "grand_crown_banned_for_sleep",
+      "p8_back_in_bunk"
+    ],
+    "quests": {
+      "grand_nap": "completed"
+    },
+    "map": "cargo_hold",
+    "x": 16,
+    "y": 15,
+    "facing": "down",
+    "script": "p8c13.begin"
+  },
+  {
+    "id": "p8_discount_store_reveal",
+    "name": "Discount Store Reveal",
+    "description": "LAST WEEK. Seventy per cent off. Cash only. No refunds. Wake the crew with the evidence (Pete, Gristle, Bob).",
+    "after": "p8_sash_descends",
+    "flags": [
+      "p8_ch54_started",
+      "p8_sash_in_hand"
+    ],
+    "vars": {
+      "p4_tod": 14
+    },
+    "values": {
+      "garrick_release": "calm"
+    },
+    "quests": {
+      "seventy_percent_off": "active"
+    },
+    "map": "cargo_hold",
+    "x": 16,
+    "y": 15,
+    "facing": "left"
+  },
+  {
+    "id": "p8_complete",
+    "name": "Phase 8 Complete",
+    "description": "The sash cost three. NO ADVENTURE. Nobody slept; at three in the morning, Franklin's capital gains.",
+    "after": "p8_discount_store_reveal",
+    "flags": [
+      "p8_woke_pete",
+      "p8_woke_gristle",
+      "p8_woke_bob",
+      "sash_origin_revealed",
+      "crew_ftm_invested",
+      "p8_complete"
+    ],
+    "values": {
+      "garrick_release": "unknown"
+    },
+    "quests": {
+      "seventy_percent_off": "completed"
+    },
+    "map": "cargo_hold",
+    "x": 16,
+    "y": 15,
+    "facing": "down"
   }
 ]

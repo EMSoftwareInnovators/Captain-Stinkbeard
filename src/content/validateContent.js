@@ -690,7 +690,13 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       if (a.kind === 'voice') (a.lines || []).forEach((l) => validateText(l, ac));
       if (a.kind === 'sailPuff' && !model.props.some((p) => p.uid === a.prop || p.prop === a.prop)) ac.error(`sailPuff names prop "${a.prop}", which this map does not have`);
       if (a.kind === 'odorTrail' && a.actor && a.actor !== 'player' && !db.npcs.has(a.actor)) ac.error(`odorTrail actor "${a.actor}" is not an NPC`);
+      if (a.kind === 'odorTrail' && a.fx && !PARTICLE_BURSTS.includes(a.fx)) ac.error(`odorTrail fx "${a.fx}" is not a particle kind (${PARTICLE_BURSTS.join(', ')})`);
       if (a.tint && !/^#[0-9a-fA-F]{6}$/.test(a.tint)) ac.error('tint must be "#rrggbb"');
+    });
+    (model.meta.nameVariants || []).forEach((v, i) => {
+      const nc = c.at(`nameVariants[${i}]`);
+      nc.condition(v.if);
+      if (typeof v.name !== 'string' || !v.name) nc.error('a name variant needs "if" and a "name"');
     });
     model.meta.regions.forEach((r, i) => {
       const rc = c.at(`regions[${i}]`);

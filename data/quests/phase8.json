@@ -1,0 +1,368 @@
+[
+ {
+  "id": "still_trapped",
+  "title": "Still Trapped",
+  "category": "main",
+  "giver": "hale",
+  "summary": "A day and a half in the hold. The storm is still on the roof. The frog is still on the set.",
+  "description": "The lower hull is now a Sharkstorm bunker, a television lounge, a dining room, a parrot recovery ward, a storeroom, temporary crew quarters and the Grand Stenchmaster's ceremonial area, all at once. It was designed to be none of these. See how everyone is managing, then sit down in your corner before somebody else takes it.",
+  "objectives": [
+   {
+    "id": "settle",
+    "text": "See how everyone's managing (Pete, Bob, Gristle and Salty Jim)",
+    "type": "event",
+    "target": "p8_settled",
+    "count": 4
+   },
+   {
+    "id": "corner",
+    "text": "Sit down in your corner, with Squawks (the crate, bottom right)",
+    "type": "flag",
+    "target": "p8_ftm_started",
+    "after": [
+     "settle"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 45
+  }
+ },
+ {
+  "id": "false_alarm",
+  "title": "False Alarm",
+  "category": "main",
+  "giver": "pete",
+  "summary": "Does the Grand Stenchmaster need to blow? The Grand Stenchmaster does not know.",
+  "description": "His stomach made a noise. Then a worse one. Nobody can tell whether it's hunger, digestion, ordinary wind or the start of something that ends with a ship turning yellow, and neither can he. Somebody has to ask.",
+  "objectives": [
+   {
+    "id": "ask",
+    "text": "Ask the Grand Stenchmaster the question everyone is thinking (his chair)",
+    "type": "flag",
+    "target": "p8_asked"
+   },
+   {
+    "id": "squawks",
+    "text": "Protect Squawks! (your corner)",
+    "type": "flag",
+    "target": "p8_alarm_squawks",
+    "after": [
+     "ask"
+    ]
+   },
+   {
+    "id": "hatch",
+    "text": "Get to the hatch! (the stairs up to the galley)",
+    "type": "flag",
+    "target": "p8_alarm_hatch",
+    "after": [
+     "squawks"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 50
+  }
+ },
+ {
+  "id": "sash_bearers",
+  "title": "Sash Bearers",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "He has had an idea about his sash. You have learned.",
+  "description": "In the event of a major Grand Stenchmaster event, the Grand Stenchmaster requires two pirates to stand either side of him and hold up his sash, ceremonially, so that it does not get caught in it. He is asking for volunteers.",
+  "objectives": [
+   {
+    "id": "proposal",
+    "text": "See why the Grand Stenchmaster is looking at his sash like that (his chair)",
+    "type": "flag",
+    "target": "p8_sash_proposal"
+   },
+   {
+    "id": "volunteers",
+    "text": "Ask the crew for volunteers (anyone at all)",
+    "type": "event",
+    "target": "p8_refusal",
+    "count": 5,
+    "after": [
+     "proposal"
+    ]
+   },
+   {
+    "id": "verdict",
+    "text": "Tell the Grand Stenchmaster how that went (his chair)",
+    "type": "flag",
+    "target": "fart_sash_nickname",
+    "after": [
+     "volunteers"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 50
+  }
+ },
+ {
+  "id": "lost_fart_expedition",
+  "title": "The Lost Fart Expedition",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "Nobody will hold the sash. The Grand Stenchmaster has decided the problem is presentation.",
+  "description": "The crew won't hold his sash because he made it sound like work. So he is going to make it sound like an adventure: costumes, a crown, ancient lore, a lost temple. It is the same request. It is the same request with lore.",
+  "objectives": [
+   {
+    "id": "trunk",
+    "text": "See what he's dragging out of the costume trunk (his chair)",
+    "type": "flag",
+    "target": "p8_professor_bob"
+   },
+   {
+    "id": "crown",
+    "text": "Look at what he's put on his head (him)",
+    "type": "flag",
+    "target": "grand_crown_created",
+    "after": [
+     "trunk"
+    ]
+   },
+   {
+    "id": "premise",
+    "text": "Hear the premise (if you must)",
+    "type": "flag",
+    "target": "lost_fart_game_proposed",
+    "after": [
+     "crown"
+    ]
+   },
+   {
+    "id": "landmarks",
+    "text": "See what his 'ancient landmarks' really are (the reserve casks, Mark II, the wet patch by the pump)",
+    "type": "event",
+    "target": "p8_landmark",
+    "count": 3,
+    "after": [
+     "premise"
+    ]
+   },
+   {
+    "id": "snap",
+    "text": "Hand Squawks to Gristle",
+    "type": "flag",
+    "target": "p8_captain_snapped",
+    "after": [
+     "landmarks"
+    ]
+   },
+   {
+    "id": "squawks_back",
+    "text": "Take Squawks back (Gristle)",
+    "type": "flag",
+    "target": "p8_nap_banned",
+    "after": [
+     "snap"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "no_place_to_sleep",
+  "title": "No Place to Sleep",
+  "category": "main",
+  "giver": "hale",
+  "summary": "The storm has eased off. Not much. Enough to go to bed. Where?",
+  "description": "The landings are further apart, the Center has drifted up through the fore hatch, and everybody wants their own hammock in the sleeping quarters. The Grand Stenchmaster is standing in front of the door looking embarrassed, which is new.",
+  "objectives": [
+   {
+    "id": "quarters",
+    "text": "Go back to the old sleeping quarters (through the galley)",
+    "type": "flag",
+    "target": "p8_quarters_blocked"
+   },
+   {
+    "id": "open",
+    "text": "Let Pete open the door (the galley, by the door)",
+    "type": "flag",
+    "target": "p8_door_cracked",
+    "after": [
+     "quarters"
+    ]
+   },
+   {
+    "id": "sign",
+    "text": "Nail the sign up (the door)",
+    "type": "flag",
+    "target": "crew_quarters_condemned",
+    "after": [
+     "open"
+    ]
+   },
+   {
+    "id": "back",
+    "text": "Go back down to the hold",
+    "type": "flag",
+    "target": "p8_decree_heard",
+    "after": [
+     "sign"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 55
+  }
+ },
+ {
+  "id": "grand_decree",
+  "title": "The Grand Decree",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "The lower hull shall become the new sleeping quarters. He decreed it. It's also true.",
+  "description": "Nobody vested any authority in him. Nobody has anywhere else to sleep. Rig hammocks over the crates, hang a screen against the drips, clear the floor, make Squawks a safe place next to you, and help the crew put together whatever they're going to call a bed.",
+  "objectives": [
+   {
+    "id": "ropes",
+    "text": "Sling the hammocks (the beams over the crates, port side)",
+    "type": "flag",
+    "target": "p8_ropes_tied"
+   },
+   {
+    "id": "sailcloth",
+    "text": "Hang a sailcloth screen (over your corner)",
+    "type": "flag",
+    "target": "p8_sailcloth_hung"
+   },
+   {
+    "id": "crates",
+    "text": "Shift the clutter to clear some floor (by the pump)",
+    "type": "flag",
+    "target": "p8_crates_moved"
+   },
+   {
+    "id": "squawks",
+    "text": "Make Squawks a safe place to sleep (beside your bunk)",
+    "type": "flag",
+    "target": "squawks_sleep_spot"
+   },
+   {
+    "id": "bunks",
+    "text": "Help the crew rig their bunks (Pete, Bob, Gristle, Salty Jim)",
+    "type": "event",
+    "target": "p8_bunk",
+    "count": 4
+   },
+   {
+    "id": "mine",
+    "text": "Look at your own bunk (your corner)",
+    "type": "flag",
+    "target": "garrick_top_hammock",
+    "after": [
+     "ropes",
+     "sailcloth",
+     "crates",
+     "squawks",
+     "bunks"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "bedtime_story",
+  "title": "The Grand Bedtime Story",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "Quiet hours begin after the Grand Bedtime Story. Nobody asked what that was. Nobody needed to.",
+  "description": "Lights down. The storm still at it overhead. Everyone in a hammock. And the Grand Stenchmaster standing in the lantern light with a ledger, clearing his throat.",
+  "objectives": [
+   {
+    "id": "bed",
+    "text": "Get into your bunk",
+    "type": "flag",
+    "target": "p8_story_started"
+   },
+   {
+    "id": "endure",
+    "text": "Endure the legend",
+    "type": "flag",
+    "target": "lost_fart_legend_told",
+    "after": [
+     "bed"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 55
+  }
+ },
+ {
+  "id": "grand_nap",
+  "title": "The Grand Nap",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "Full ceremonial attire. Directly above you.",
+  "description": "Grand Nap protocol: the Grand Stenchmaster sleeps in the full Grand Stenchmaster Suit, the sash and the Grand Crown, to preserve the continuity of the office. The Suit has been through two major releases. It remembers them. It shares.",
+  "objectives": [
+   {
+    "id": "comfortable",
+    "text": "Try to get comfortable",
+    "type": "flag",
+    "target": "p8_suit_puffed"
+   },
+   {
+    "id": "crown",
+    "text": "Put the Grand Crown somewhere it can't hurt anyone (the spare crate by your bunk)",
+    "type": "flag",
+    "target": "grand_crown_banned_for_sleep",
+    "after": [
+     "comfortable"
+    ]
+   },
+   {
+    "id": "back",
+    "text": "Back to bed (your bunk)",
+    "type": "flag",
+    "target": "p8_back_in_bunk",
+    "after": [
+     "crown"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 55
+  }
+ },
+ {
+  "id": "seventy_percent_off",
+  "title": "Seventy Percent Off",
+  "category": "main",
+  "giver": "squawks",
+  "summary": "He talks in his sleep. About the sash.",
+  "description": "Something soft has come down on your face in the dark, and above it the Grand Stenchmaster has started talking in his sleep, and what he is saying is very interesting indeed. Wake the crew. They need to hear this.",
+  "objectives": [
+   {
+    "id": "wake",
+    "text": "Wake the crew (Pete, Gristle, Bob)",
+    "type": "event",
+    "target": "p8_woken",
+    "count": 3
+   },
+   {
+    "id": "evidence",
+    "text": "Tell them what he said (by your bunk)",
+    "type": "flag",
+    "target": "sash_origin_revealed",
+    "after": [
+     "wake"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 80
+  }
+ }
+]

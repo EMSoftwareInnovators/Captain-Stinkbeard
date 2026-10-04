@@ -139,6 +139,33 @@ export const MIGRATIONS = {
     },
     inventory: state.inventory && typeof state.inventory === 'object' ? state.inventory : { gold: 0, items: {} },
   }),
+  /**
+   * 7 -> 8 (Story Phase 8: trapped below with Franklin; the Grand Nap). The
+   * layout is unchanged. The old sleeping quarters (condemned), the barracks
+   * in the lower hull, the bunks, the Grand Crown and its ban, the sash's
+   * nickname and where it really came from are flags; the Grand
+   * Stenchmaster's uncertain stomach is a story value (calm, rumbling,
+   * false_alarm, possibly_building, unknown) that only ever drives noises
+   * and dialogue: there is no release in it. A finished Phase 7 save walks
+   * into chapter 42 from the crate next to Squawks. Missing fields are
+   * filled; nothing is removed (the captain's Frog Grog included).
+   */
+  7: (state) => ({
+    ...state,
+    story: {
+      ...state.story,
+      flags: Array.isArray(state.story?.flags) ? state.story.flags : [],
+      vars: state.story?.vars && typeof state.story.vars === 'object' ? state.story.vars : {},
+      values: state.story?.values && typeof state.story.values === 'object' ? state.story.values : {},
+    },
+    world: {
+      ...state.world,
+      objects: state.world?.objects ?? {},
+      visited: state.world?.visited ?? [],
+      counters: state.world?.counters ?? {},
+    },
+    inventory: state.inventory && typeof state.inventory === 'object' ? state.inventory : { gold: 0, items: {} },
+  }),
 };
 
 export function migrateState(state, fromVersion, toVersion, migrations = MIGRATIONS) {

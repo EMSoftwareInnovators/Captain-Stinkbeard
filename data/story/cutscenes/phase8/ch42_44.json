@@ -1,0 +1,1048 @@
+{
+ "//": "Story Phase 8, chapters 42 to 44: a day and a half in the hold. The lower hull as everybody's everything; the crew pricing shark landings by the sound; Franklin audited (OFFICE REFRESHMENTS; networking expenses; 'With the flies?'); Squawks laughs; GLOOOORP, GRRRRRNNNK. Does the Grand Stenchmaster need to fart? He doesn't know. 'Oh.' 'Ohhhh.' A full emergency, a hatch nobody may open, a false alarm, the sneaky fart, no rowboat ('Bad planning'). Then the sash bearers: nobody volunteers ('I'd rather hold a shark.' 'I'd rather hold two.'), 'Tradition starts somewhere', WRINKLED, and the name that sticks: FART SASH.",
+ "p8.start": [
+  "The crate next to Squawks. Half the crew are asleep where they sit. The storm is still on the roof. Franklin is still explaining depreciation.",
+  {
+   "choice": [
+    {
+     "text": "Get some sleep, sitting up",
+     "then": [
+      {
+       "call": "p8c1.begin"
+      }
+     ]
+    },
+    {
+     "text": "Not yet",
+     "then": [
+      "You stay up a little longer. Franklin's lily pad is worth slightly less than it was."
+     ]
+    }
+   ]
+  }
+ ],
+ "p8c1.begin": [
+  {
+   "fade": "out",
+   "duration": 700
+  },
+  {
+   "setFlag": "p8_started"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 12
+  },
+  {
+   "setValue": "garrick_release",
+   "value": "calm"
+  },
+  {
+   "sharkstorm": "active_near_ship"
+  },
+  "You sleep sitting up on a crate, for what feels like four minutes.",
+  "When you wake, it's the next afternoon, or somebody says it is. Nobody has been up the stairs. The Great Sharkstorm is still sitting on the deck: you can hear it, walking about.",
+  {
+   "restage": "cut"
+  },
+  {
+   "place": "player",
+   "x": 16,
+   "y": 14,
+   "facing": "down"
+  },
+  {
+   "fade": "in",
+   "duration": 700
+  },
+  {
+   "banner": "CHAPTER 42",
+   "sub": "Trapped Below Deck with Franklin"
+  },
+  {
+   "music": "lower_hull",
+   "fade": 800
+  },
+  {
+   "ambience": "lower_hull"
+  },
+  "The lower hull is now a Sharkstorm bunker, a television lounge, an emergency dining room, a parrot recovery ward, temporary crew quarters, a storeroom and the Grand Stenchmaster's ceremonial area, all at the same time.",
+  "It was designed for none of them.",
+  "And the Grand Stenchmaster has taken an offensively large share of it: his chair, his rug, his costume trunk, the S.E.S. Mark II, himself, and the Suit, which counts separately.",
+  "hale[resigned]: A day and a half, Captain. I've stopped writing the time in the log. I've started writing how long since anyone saw daylight.",
+  "captain[tired]: How long?",
+  "hale[resigned]: I wrote 'a while'. Then I crossed it out and wrote 'longer'.",
+  {
+   "startQuest": "still_trapped"
+  },
+  {
+   "tutorial": "Everyone's crammed into the hold. See how they're managing: Pete (on his bucket), Bob (by the grog casks), Gristle (under the pulley) and Salty Jim (with the biscuits).",
+   "title": "Still Trapped"
+  }
+ ],
+ "p8c1.pete": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "Peg-Leg Pete is sitting on an overturned bucket. His wooden leg is wedged under a crate of somebody's onions, because there is nowhere else in the hold for it to go.",
+  "pete[tired]: Afternoon, Captain. Or morning. Can't tell any more.",
+  "captain: Comfortable?",
+  "pete[annoyed]: I'm sitting on a bucket with my leg in a crate. ...I've had worse. I've had worse this WEEK.",
+  {
+   "sfx": "hull_thud",
+   "volume": 0.6
+  },
+  {
+   "shake": 1,
+   "duration": 260
+  },
+  {
+   "burst": "falldust",
+   "x": 10,
+   "y": 9,
+   "count": 6
+  },
+  "Overhead, something lands on the deck. Something heavy.",
+  "pete: That sounded big.",
+  "bob[concerned]: How big?",
+  {
+   "sfx": "deck_scrape",
+   "volume": 0.6
+  },
+  {
+   "sfx": "hull_thud_big",
+   "volume": 0.7
+  },
+  {
+   "shake": 3,
+   "duration": 500
+  },
+  {
+   "burst": "falldust",
+   "x": 8,
+   "y": 9,
+   "count": 8
+  },
+  {
+   "burst": "falldust",
+   "x": 13,
+   "y": 10,
+   "count": 6
+  },
+  "A long scrape, then a crack, somewhere forward.",
+  "pete: Expensive-big.",
+  "captain[tired]: I don't want to know.",
+  "pete: Three planks and a stretch of rail, I'd say. Maybe a cleat.",
+  "captain[angry]: I said I don't want to KNOW, Pete.",
+  "pete: Sorry, Captain. You get an ear for it.",
+  {
+   "setFlag": "p8_settled_pete"
+  },
+  {
+   "event": "p8_settled"
+  },
+  {
+   "call": "p8c1.after_settle"
+  }
+ ],
+ "p8c1.bob": [
+  {
+   "face": "bob",
+   "dir": "player"
+  },
+  "Barnacle Bob is wedged between the last of the Frog Grog: three small casks and a bit, half full at best, all that's left after the sixteen barrels went into the storm.",
+  "One of them leaks. Onto Bob.",
+  {
+   "sfx": "grog_drip",
+   "volume": 0.7
+  },
+  "bob[disgusted]: Drip.",
+  "bob: Every eleven seconds, Captain. I've counted. I've had a day and a half to count.",
+  "captain: Move, then.",
+  "bob: Where?",
+  "You both look round the hold. There is nowhere.",
+  "mags[concerned]: It's not enough to do it again, Captain, before anyone asks. Three casks and a bit wouldn't frighten a goldfish, never mind a storm. It's for drinking. Medicinally. Grimly.",
+  {
+   "sfx": "grog_drip",
+   "volume": 0.7
+  },
+  "bob[disgusted]: ...It's in my ear now.",
+  {
+   "setFlag": "p8_settled_bob"
+  },
+  {
+   "event": "p8_settled"
+  },
+  {
+   "call": "p8c1.after_settle"
+  }
+ ],
+ "p8c1.gristle": [
+  {
+   "face": "gristle",
+   "dir": "player"
+  },
+  "Gristle sits with his charts across his knees, directly under a pulley block somebody hung from the deckhead for the cargo and forgot about.",
+  "The ship rolls. The pulley swings out, and back, and taps Gristle on the top of the head.",
+  {
+   "sfx": "pulley_thunk",
+   "volume": 0.7
+  },
+  "gristle[annoyed]: ...",
+  "gristle[annoyed]: Forty-one.",
+  "captain: Forty-one what?",
+  "gristle[annoyed]: Times. Since breakfast. I'm not moving. I was here first. The pulley can move.",
+  "She rolls the other way. The pulley comes back.",
+  {
+   "sfx": "pulley_thunk",
+   "volume": 0.7
+  },
+  "gristle[annoyed]: Forty-two.",
+  {
+   "setFlag": "p8_settled_gristle"
+  },
+  {
+   "event": "p8_settled"
+  },
+  {
+   "call": "p8c1.after_settle"
+  }
+ ],
+ "p8c1.jim": [
+  {
+   "face": "jim",
+   "dir": "player"
+  },
+  "Salty Jim is sitting on a sack with a biscuit tin on his knees and both arms round it. He is watching the Grand Stenchmaster without blinking.",
+  "jim[angry]: Emergency biscuits, Captain. For an emergency. Not for him.",
+  "captain: How many has he had?",
+  "jim[angry]: Eleven. I closed my eyes for a quarter of an hour. ELEVEN.",
+  "garrick[businesslike]: Quality control.",
+  "He doesn't take his eyes off the set to say it.",
+  "jim[angry]: I'm not sleeping again. Ever. Not while there's a biscuit left.",
+  {
+   "setFlag": "p8_settled_jim"
+  },
+  {
+   "event": "p8_settled"
+  },
+  {
+   "call": "p8c1.after_settle"
+  }
+ ],
+ "p8c1.after_settle": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p8_settled_pete"
+     },
+     {
+      "flag": "p8_settled_bob"
+     },
+     {
+      "flag": "p8_settled_gristle"
+     },
+     {
+      "flag": "p8_settled_jim"
+     }
+    ]
+   },
+   "then": [
+    "hale: Sit down, Captain. Your corner's free. Squawks has been guarding it.",
+    "squawks[smug]: Guarding.",
+    {
+     "tutorial": "Sit down in your corner, with Squawks (the crate, bottom right of the hold). Franklin's on.",
+     "title": "Still Trapped"
+    }
+   ]
+  }
+ ],
+ "p8c1.watch": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "You sit down on your crate, in your corner, which is the safest corner in the hold, which is to say the one furthest from the Grand Stenchmaster.",
+  "A bald pink head comes up out of the blankets beside you.",
+  "squawks: Captain.",
+  "captain[tender]: Squawks.",
+  "Across the hold, the S.E.S. Mark II goes MMMMMMMM... and tik... and ZZZT... and then carries on pretending to be a normal television.",
+  {
+   "sfx": "mk2_hum",
+   "volume": 0.5
+  },
+  {
+   "sfx": "mk2_tik",
+   "volume": 0.6
+  },
+  {
+   "sfx": "mk2_zzzt",
+   "volume": 0.5
+  },
+  {
+   "setFlag": "p8_ftm_started"
+  },
+  {
+   "vista": "shelter_watch",
+   "fade": 500
+  },
+  {
+   "music": "frog_tax_man_theme",
+   "fade": 400
+  },
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_audit",
+   "layer": "screen",
+   "from": 0,
+   "to": 2
+  },
+  "bob[concerned]: An AUDIT.",
+  "rook: He's done for.",
+  {
+   "sfx": "hull_thud",
+   "volume": 0.6
+  },
+  {
+   "shake": 1,
+   "duration": 260
+  },
+  {
+   "burst": "falldust",
+   "x": 10,
+   "y": 9,
+   "count": 6
+  },
+  "pete: Two planks.",
+  "captain[tired]: Pete.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_audit",
+   "layer": "screen",
+   "from": 3,
+   "to": 7
+  },
+  "bob[concerned]: He's finished. Franklin's finished.",
+  "gristle: He's not finished. Reclassify the remainder as samples. Product testing. Nobody can prove a fly wasn't a sample.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_audit",
+   "layer": "screen",
+   "from": 8,
+   "to": 10
+  },
+  "The whole hold laughs. Somebody laughs so hard they slide off a barrel.",
+  "gristle: See, that's a mistake. Never volunteer the flies.",
+  "pete: Gristle.",
+  "gristle: What?",
+  "pete: Are you doing his TAXES?",
+  "gristle[annoyed]: We've been trapped down here for a day and a half, Pete. Three hours of it has been this frog. I've had time to think.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_audit",
+   "layer": "screen",
+   "from": 11,
+   "to": 16
+  },
+  {
+   "sfx": "squawks_giggle",
+   "volume": 0.7
+  },
+  "A tiny noise, beside you. The blankets are shaking.",
+  "captain: ...Did you just laugh?",
+  "squawks[smug]: No.",
+  "Franklin says something about the tadpoles. The blankets shake again.",
+  "captain[tender]: Squawks.",
+  "squawks[smug]: ...Tax frog funny.",
+  "captain[tender]: Aye. He is.",
+  "You'd forgotten what Squawks sounds like when he laughs. So had he.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_audit",
+   "layer": "screen",
+   "from": 17,
+   "to": 18
+  },
+  {
+   "wait": 600
+  },
+  {
+   "sfx": "stomach_glorp",
+   "volume": 0.8
+  },
+  "GLOOOORP.",
+  "Nobody reacts. It's been a day and a half. Everything down here makes noises.",
+  {
+   "wait": 900
+  },
+  {
+   "sfx": "stomach_grnk",
+   "volume": 0.8
+  },
+  {
+   "shake": 1,
+   "duration": 300
+  },
+  "GRRRRRNNNK.",
+  "Slowly, one at a time, every head in the hold turns. Away from the frog. Toward the ceremonial chair.",
+  {
+   "vistaFrame": "crew",
+   "frame": "crew_backs_lean"
+  },
+  "The Grand Stenchmaster is looking down at his own stomach.",
+  "And for the first time anyone can remember, he looks uncertain.",
+  "garrick[nervous]: ...",
+  {
+   "setValue": "garrick_release",
+   "value": "rumbling"
+  },
+  {
+   "vistaEnd": true,
+   "fade": 500
+  },
+  {
+   "music": "lower_hull",
+   "fade": 600
+  },
+  {
+   "completeQuest": "still_trapped"
+  },
+  {
+   "call": "p8c2.begin"
+  }
+ ],
+ "p8c2.begin": [
+  {
+   "setFlag": "p8_ch43_started"
+  },
+  {
+   "banner": "CHAPTER 43",
+   "sub": "Does the Grand Stenchmaster Need to Blow?"
+  },
+  "pete[worried]: Captain.",
+  "bob[concerned]: Captain.",
+  "gristle[annoyed]: Somebody ask him.",
+  "Every pair of eyes in the hold has turned from the Grand Stenchmaster to you.",
+  {
+   "startQuest": "false_alarm"
+  },
+  {
+   "tutorial": "Somebody has to ask. Ask the Grand Stenchmaster (his chair).",
+   "title": "False Alarm"
+  }
+ ],
+ "p8c2.ask": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "garrick[nervous]: Captain.",
+  "captain: Garrick.",
+  {
+   "choice": [
+    {
+     "text": "Furious",
+     "then": [
+      "captain[angry]: DOES YE NEED TO FART?"
+     ]
+    },
+    {
+     "text": "Sarcastic",
+     "then": [
+      "captain[smug]: Is there something ye'd like to share with the room? Before it shares itself?"
+     ]
+    },
+    {
+     "text": "Exhausted",
+     "then": [
+      "captain[tired]: Please. Just tell me. Do ye need to fart."
+     ]
+    },
+    {
+     "text": "Threatening",
+     "then": [
+      "captain[determined]: If ye're about to fart, Garrick, I'll want to know which way to throw ye."
+     ]
+    },
+    {
+     "text": "Resigned",
+     "then": [
+      "captain[resigned]: Go on, then. Do ye need to fart."
+     ]
+    }
+   ]
+  },
+  "garrick[nervous]: ...I don't know.",
+  "It is a much worse answer than yes.",
+  "gristle[annoyed]: That's worse than yes.",
+  "pete[alarmed]: That's MUCH worse than yes.",
+  "garrick[businesslike]: It could be hunger, gentlemen. It could be digestion. It could be ordinary wind, of the everyday sort, that comes and goes.",
+  "captain: Or?",
+  "garrick[nervous]: ...Or it could be the beginning of something.",
+  "captain[angry]: Something like LAST TIME?",
+  "garrick[businesslike]: I can't rule it out, Captain. I can't rule it IN. That is the nature of the office.",
+  {
+   "sfx": "stomach_bubble",
+   "volume": 0.8
+  },
+  {
+   "setValue": "garrick_release",
+   "value": "unknown"
+  },
+  "His stomach makes a small sound, like a kettle thinking about it.",
+  {
+   "wait": 700
+  },
+  "garrick[alarmed]: Oh.",
+  "Everybody freezes.",
+  {
+   "wait": 800
+  },
+  "garrick[gastro]: Ohhhh.",
+  {
+   "setValue": "garrick_release",
+   "value": "possibly_building"
+  },
+  {
+   "sfx": "crew_panic",
+   "volume": 0.9
+  },
+  {
+   "shake": 2,
+   "duration": 500
+  },
+  {
+   "emote": "hale",
+   "icon": "exclaim"
+  },
+  {
+   "emote": "bob",
+   "icon": "exclaim"
+  },
+  {
+   "emote": "pete",
+   "icon": "exclaim"
+  },
+  {
+   "emote": "rook",
+   "icon": "exclaim"
+  },
+  "The hold explodes.",
+  "hale[alarmed]: MOVE!",
+  "bob[alarmed]: Protect the PARROT!",
+  "rook[alarmed]: The HATCH! Get to the HATCH!",
+  "jory[alarmed]: Don't OPEN the hatch! There's a STORM on it!",
+  "wick[alarmed]: Then what's it FOR?",
+  {
+   "setFlag": "p8_asked"
+  },
+  {
+   "tutorial": "Full emergency response! Protect Squawks (your corner), then everyone to the hatch.",
+   "title": "False Alarm"
+  }
+ ],
+ "p8c2.squawks": [
+  {
+   "face": "squawks",
+   "dir": "player"
+  },
+  "You scoop Squawks out of his basket, blankets and all, and button him into your coat.",
+  "squawks[furious]: Again?",
+  "captain[determined]: Again.",
+  {
+   "setFlag": "p8_alarm_squawks"
+  },
+  {
+   "tutorial": "To the hatch! (The stairs up to the galley. Don't open it.)",
+   "title": "False Alarm"
+  }
+ ],
+ "p8c2.hatch": [
+  "Half the crew are jammed at the foot of the stairs. Jory has his back against the barred hatch above them, arms out.",
+  "jory[alarmed]: Nobody opens it!",
+  "captain[angry]: Nobody's OPENING it!",
+  "bob[alarmed]: Then why are we all HERE?",
+  "nell[alarmed]: Because it's the furthest place from HIM!",
+  "Outside, a shark lands on the deck directly above the hatch, and thrashes, and slides away.",
+  {
+   "sfx": "hull_thud",
+   "volume": 0.6
+  },
+  {
+   "shake": 1,
+   "duration": 260
+  },
+  {
+   "burst": "falldust",
+   "x": 10,
+   "y": 9,
+   "count": 6
+  },
+  "Inside, a man in a burgundy suit sits in his ceremonial chair with a look of tremendous concentration.",
+  "Everyone waits.",
+  {
+   "wait": 1200
+  },
+  "Everyone keeps waiting.",
+  {
+   "wait": 1200
+  },
+  "garrick[relieved]: ...False alarm.",
+  {
+   "sfx": "false_alarm_sting",
+   "volume": 0.8
+  },
+  {
+   "setValue": "garrick_release",
+   "value": "false_alarm"
+  },
+  "pete[annoyed]: FALSE ALARM?",
+  "bob: I climbed into a CASK!",
+  "rook[annoyed]: I hit my head on the STAIRS!",
+  "gristle[annoyed]: I'm going to age decades tonight. I can feel them arriving. One at a time.",
+  "garrick[businesslike]: Gentlemen, these things are not an exact science.",
+  "captain[angry]: Ye said 'Oh.' Ye said 'OHHHH.'",
+  "garrick[businesslike]: Sometimes I know, Captain. Sometimes there's a clear warning. A bell, as it were.",
+  "captain: And sometimes?",
+  "garrick[businesslike]: Sometimes the fart is sneaky.",
+  "A groan goes round the hold.",
+  "gristle[annoyed]: Don't.",
+  "garrick[businesslike]: It may simply be sitting there. Waiting.",
+  "captain[angry]: Waiting for WHAT?",
+  "garrick[nervous]: Opportunity.",
+  "gristle[annoyed]: Gas, Garrick, is not planning an ambush.",
+  "garrick[offended]: With respect, Mister Gristle, you have never met it.",
+  {
+   "setValue": "garrick_release",
+   "value": "unknown"
+  },
+  "A small voice from inside your coat.",
+  "squawks[worried]: Rowboat?",
+  "captain[tired]: We can't get to the rowboats, Squawks. Not with the Great Sharkstorm sat on the deck. We'd never get one over the side, and if we did, the sharks would have it before it touched the water.",
+  "squawks[insulting]: Bad planning.",
+  "captain[tired]: Aye. Bad planning.",
+  "garrick[businesslike]: Whose?",
+  "Everybody looks at the Grand Stenchmaster. He finds something interesting on the ceiling.",
+  {
+   "restage": "walk"
+  },
+  {
+   "setFlag": "p8_alarm_hatch"
+  },
+  {
+   "setFlag": "garrick_possible_release_survived"
+  },
+  {
+   "completeQuest": "false_alarm"
+  },
+  {
+   "call": "p8c3.begin"
+  }
+ ],
+ "p8c3.begin": [
+  {
+   "setFlag": "p8_ch44_started"
+  },
+  {
+   "banner": "CHAPTER 44",
+   "sub": "Request for Sash Bearers"
+  },
+  "Everyone goes back to where they were sitting, or near enough. You put Squawks back in his basket. He stays in it, but he watches the chair.",
+  "The Grand Stenchmaster has been looking down at his sash for a full minute now. Thinking.",
+  "You've seen that look before.",
+  {
+   "startQuest": "sash_bearers"
+  },
+  {
+   "tutorial": "He's looking at his sash like that again. Find out why (his chair).",
+   "title": "Sash Bearers"
+  }
+ ],
+ "p8c3.proposal": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "garrick[businesslike]: Captain, I've had an idea—",
+  "captain[annoyed]: No.",
+  "garrick[offended]: I haven't SAID anything.",
+  "captain[tired]: I have learned.",
+  "garrick[businesslike]: Hear me out. IF, and it is only an if, a major Grand Stenchmaster event should prove necessary tonight...",
+  "garrick[proud]: ...the Grand Stenchmaster will require two pirates. One on either side of him. Holding up the sash.",
+  "Silence. Even the storm seems to stop and listen.",
+  "pete: You want us to hold your sash. While you fart.",
+  "garrick[businesslike]: Ceremonially.",
+  {
+   "sfx": "crowd_boo",
+   "volume": 0.7
+  },
+  "The hold erupts.",
+  "garrick[proud]: Volunteers?",
+  {
+   "setFlag": "p8_sash_proposal"
+  },
+  {
+   "tutorial": "He wants volunteers. Ask the crew (anyone at all).",
+   "title": "Sash Bearers"
+  }
+ ],
+ "p8c3.after_refusal": [
+  {
+   "if": {
+    "objectiveActive": "sash_bearers.verdict"
+   },
+   "then": [
+    {
+     "tutorial": "Not one volunteer. Tell the Grand Stenchmaster how that went (his chair).",
+     "title": "Sash Bearers"
+    }
+   ]
+  }
+ ],
+ "p8c3.verdict": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "captain: Nobody.",
+  "garrick[offended]: Nobody?",
+  "captain: Not one. Not even for money. Brask offered to pay NOT to.",
+  "garrick[offended]: This crew has no respect for tradition.",
+  {
+   "choice": [
+    {
+     "text": "Furious",
+     "then": [
+      "captain[angry]: There IS no tradition, Garrick!"
+     ]
+    },
+    {
+     "text": "Sarcastic",
+     "then": [
+      "captain[smug]: Which tradition is that? The one ye made up at lunchtime?"
+     ]
+    },
+    {
+     "text": "Exhausted",
+     "then": [
+      "captain[tired]: There's no tradition. There's just you. There's only ever just you."
+     ]
+    },
+    {
+     "text": "Threatening",
+     "then": [
+      "captain[determined]: Say 'tradition' once more and ye'll be holding your own sash. From the bottom of the sea."
+     ]
+    },
+    {
+     "text": "Resigned",
+     "then": [
+      "captain[resigned]: There's no such tradition. There never was. There never will be."
+     ]
+    }
+   ]
+  },
+  "garrick[proud]: Tradition starts somewhere, Captain.",
+  "captain[angry]: Why does it even need HOLDING?",
+  "garrick[nervous]: ...It might get wrinkled.",
+  "Everyone stares at him.",
+  "Outside, a shark lands on the deck, slides, and goes over the side. Nobody even looks up.",
+  "captain[angry]: The ship is being eaten by a cyclone made of SHARKS, and ye're worried about CREASES.",
+  "garrick[offended]: It's a delicate fabric.",
+  "captain[angry]: It's a FART SASH.",
+  "garrick[alarmed]: It is the GRAND STENCHMASTER SASH.",
+  "captain[angry]: It's a sash ye want held while ye fart. That's a fart sash.",
+  "garrick[offended]: Stenchmaster sash.",
+  "captain[angry]: Fart sash.",
+  "garrick[offended]: STENCHMASTER—",
+  "captain[angry]: FART.",
+  "Somewhere at the back of the hold, Pete chalks FART SASH on a crate, and underlines it.",
+  {
+   "setFlag": "fart_sash_nickname"
+  },
+  {
+   "completeQuest": "sash_bearers"
+  },
+  {
+   "call": "p8c4.begin"
+  }
+ ],
+ "p8c3.refuse_gristle": [
+  {
+   "face": "gristle",
+   "dir": "player"
+  },
+  "gristle[annoyed]: Absolutely not. Not ceremonially, not practically, and not in any way that puts me within arm's reach of that sash at that moment.",
+  {
+   "setFlag": "p8_refused_gristle"
+  },
+  {
+   "event": "p8_refusal"
+  },
+  {
+   "call": "p8c3.after_refusal"
+  }
+ ],
+ "p8c3.refuse_pete": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "pete: No.",
+  "captain: Just no?",
+  "pete[annoyed]: I don't want to spend any more words on it than that.",
+  {
+   "setFlag": "p8_refused_pete"
+  },
+  {
+   "event": "p8_refusal"
+  },
+  {
+   "call": "p8c3.after_refusal"
+  }
+ ],
+ "p8c3.refuse_bob": [
+  {
+   "face": "bob",
+   "dir": "player"
+  },
+  "bob[disgusted]: I'd rather hold a shark.",
+  {
+   "setFlag": "p8_refused_bob"
+  },
+  {
+   "event": "p8_refusal"
+  },
+  {
+   "call": "p8c3.after_refusal"
+  }
+ ],
+ "p8c3.refuse_jim": [
+  {
+   "face": "jim",
+   "dir": "player"
+  },
+  "jim[angry]: I'd rather hold two.",
+  {
+   "setFlag": "p8_refused_jim"
+  },
+  {
+   "event": "p8_refusal"
+  },
+  {
+   "call": "p8c3.after_refusal"
+  }
+ ],
+ "p8c3.refuse_ned": [
+  {
+   "face": "ned",
+   "dir": "player"
+  },
+  "ned: I'd rather hold the Great Sharkstorm.",
+  "captain: ...Fair.",
+  "ned: By the tail, Captain. In a high wind.",
+  {
+   "setFlag": "p8_refused_ned"
+  },
+  {
+   "event": "p8_refusal"
+  },
+  {
+   "call": "p8c3.after_refusal"
+  }
+ ],
+ "p8c3.refuse_hale": [
+  {
+   "face": "hale",
+   "dir": "player"
+  },
+  "hale[resigned]: With respect, Captain: there isn't enough rum in the hold. There isn't enough rum in the world.",
+  {
+   "setFlag": "p8_refused_hale"
+  },
+  {
+   "event": "p8_refusal"
+  },
+  {
+   "call": "p8c3.after_refusal"
+  }
+ ],
+ "p8c3.refuse_rook": [
+  {
+   "face": "rook",
+   "dir": "player"
+  },
+  "rook[annoyed]: I'll hold YOUR coat, Captain, while you throw him overboard. That's my offer. It's a good offer.",
+  {
+   "setFlag": "p8_refused_rook"
+  },
+  {
+   "event": "p8_refusal"
+  },
+  {
+   "call": "p8c3.after_refusal"
+  }
+ ],
+ "p8c3.refuse_wick": [
+  {
+   "face": "wick",
+   "dir": "player"
+  },
+  "wick[disgusted]: My hands are for washing, Captain. They've been through enough.",
+  {
+   "setFlag": "p8_refused_wick"
+  },
+  {
+   "event": "p8_refusal"
+  },
+  {
+   "call": "p8c3.after_refusal"
+  }
+ ],
+ "p8c3.refuse_sully": [
+  {
+   "face": "sully",
+   "dir": "player"
+  },
+  "sully: I'll hold the lantern. From the other end of the ship.",
+  {
+   "setFlag": "p8_refused_sully"
+  },
+  {
+   "event": "p8_refusal"
+  },
+  {
+   "call": "p8c3.after_refusal"
+  }
+ ],
+ "p8c3.refuse_brask": [
+  {
+   "face": "brask",
+   "dir": "player"
+  },
+  "brask: I'll pay not to. I've got four coins. Take the lot.",
+  {
+   "setFlag": "p8_refused_brask"
+  },
+  {
+   "event": "p8_refusal"
+  },
+  {
+   "call": "p8c3.after_refusal"
+  }
+ ],
+ "p8c3.refuse_jory": [
+  {
+   "face": "jory",
+   "dir": "player"
+  },
+  "jory: Put me down as a no, Captain. Put me down twice. Underline it.",
+  {
+   "setFlag": "p8_refused_jory"
+  },
+  {
+   "event": "p8_refusal"
+  },
+  {
+   "call": "p8c3.after_refusal"
+  }
+ ],
+ "p8c3.refuse_nell": [
+  {
+   "face": "nell",
+   "dir": "player"
+  },
+  "nell[annoyed]: I've held the wheel through two storms and a shark frenzy. I will not hold that.",
+  {
+   "setFlag": "p8_refused_nell"
+  },
+  {
+   "event": "p8_refusal"
+  },
+  {
+   "call": "p8c3.after_refusal"
+  }
+ ],
+ "p8c3.refuse_finch": [
+  {
+   "face": "finch",
+   "dir": "player"
+  },
+  "finch: Fifty years at sea, Captain. Never held a man's sash. Not starting tonight.",
+  {
+   "setFlag": "p8_refused_finch"
+  },
+  {
+   "event": "p8_refusal"
+  },
+  {
+   "call": "p8c3.after_refusal"
+  }
+ ],
+ "p8c3.refuse_mags": [
+  {
+   "face": "mags",
+   "dir": "player"
+  },
+  "mags: I'll hold a mug. That's as far as I go.",
+  {
+   "setFlag": "p8_refused_mags"
+  },
+  {
+   "event": "p8_refusal"
+  },
+  {
+   "call": "p8c3.after_refusal"
+  }
+ ],
+ "p8c3.refuse_quill": [
+  {
+   "face": "quill",
+   "dir": "player"
+  },
+  "quill: I'm recording the answers, Captain. So far the answers are all no. It's a very short page.",
+  {
+   "setFlag": "p8_refused_quill"
+  },
+  {
+   "event": "p8_refusal"
+  },
+  {
+   "call": "p8c3.after_refusal"
+  }
+ ],
+ "p8c3.refuse_fennimore": [
+  {
+   "face": "fennimore",
+   "dir": "player"
+  },
+  "fennimore: As a medical man: no. As a man: also no. As a friend: please don't ask me again.",
+  {
+   "setFlag": "p8_refused_fennimore"
+  },
+  {
+   "event": "p8_refusal"
+  },
+  {
+   "call": "p8c3.after_refusal"
+  }
+ ],
+ "p8c3.refuse_penhallow": [
+  {
+   "face": "penhallow",
+   "dir": "player"
+  },
+  "penhallow[smug]: In my day, Captain, a man held his own sash. And his own wind.",
+  {
+   "setFlag": "p8_refused_penhallow"
+  },
+  {
+   "event": "p8_refusal"
+  },
+  {
+   "call": "p8c3.after_refusal"
+  }
+ ]
+}

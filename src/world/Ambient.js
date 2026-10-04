@@ -256,16 +256,38 @@ export class Ambient {
     s.game.app.audio.sfx('squeak', { rate: 1.3, volume: 0.35, pan });
   }
 
-  /** Odour lines drifting off someone (the captain's beard, since it happened). */
+  /**
+   * Odour lines drifting off someone (the captain's beard, since it happened).
+   * Story Phase 8: "fx" picks the particle ("suitpuff": the Grand Stenchmaster
+   * Suit letting out some of what it has soaked up), "sfx" adds a sound, and
+   * "whenMoving" only lets one out when the wearer shifts (the suit exhales
+   * when disturbed), never more often than "every"; "idleEvery" lets one out
+   * now and then even when he sits still. Always a single small burst.
+   */
   updateOdor(e, delta) {
     const s = this.scene;
     const a = e.def;
     e.t -= delta;
     if (e.t > 0) return;
-    e.t = this.nextDelay(a, [2600, 5200]);
     const actor = a.actor === 'player' || !a.actor ? s.player : s.actors.get(a.actor);
     if (!actor?.sprite?.visible) return;
-    s.fx.burst('odor', actor.sprite.x + (a.dx ?? 3), actor.sprite.y - (a.dy ?? 30), { count: 1, alpha: a.alpha ?? 0.55 });
+    if (a.whenMoving) {
+      const at = `${actor.tx},${actor.ty},${actor.facing}`;
+      const moved = e.lastAt !== undefined && e.lastAt !== at;
+      e.lastAt = at;
+      e.idleT = (e.idleT ?? this.nextDelay({ every: a.idleEvery ?? [0, 0] })) - delta;
+      if (!moved && !(a.idleEvery && e.idleT <= 0)) return;
+      e.idleT = a.idleEvery ? this.nextDelay({ every: a.idleEvery }) : 0;
+    }
+    e.t = this.nextDelay(a, [2600, 5200]);
+    const x = actor.sprite.x + (a.dx ?? 3);
+    const y = actor.sprite.y - (a.dy ?? 30);
+    s.fx.burst(a.fx ?? 'odor', x, y, { count: a.count ?? 1, alpha: a.alpha ?? 0.55 });
+    if (a.sfx) {
+      const cam = s.cameras.main;
+      const pan = Math.max(-1, Math.min(1, (x - (cam.scrollX + 160)) / 200));
+      s.game.app.audio.sfx(a.sfx, { pan, volume: a.volume ?? 0.35, rate: 0.9 + Math.random() * 0.2 });
+    }
   }
 
   spawnGull() {

@@ -145,8 +145,10 @@ export function compileMap(def, tileset, props = null) {
       // Story-dependent overrides, first matching entry wins:
       //   musicVariants    [{ if, music?, ambience?, musicFilter? }]
       //   lightingVariants [{ if, ambient }]  (replaces the ambient colour)
+      //   nameVariants     [{ if, name }]  (what the room is called now; Story Phase 8)
       musicVariants: def.musicVariants ?? [],
       lightingVariants: def.lightingVariants ?? [],
+      nameVariants: def.nameVariants ?? [],
       // Environmental hazards (see systems/hazards/fumes.js).
       fumes: def.fumes ?? [],
       haze: def.haze ?? [],

@@ -1,0 +1,293 @@
+{
+ "//": "Story Phase 8: things to look at and poke. The door to the old sleeping quarters (locked for the whole phase: the second cloud's at first, then Pete's job, then the sign's, then condemned for good, with things to do from the doorway and nothing to fetch), the sign, the bilge pump without its handle, the captain's bunk with the Grand Stenchmaster asleep in the hammock over it (he talks), the crate the crown's in, Squawks's cradle, and the hold's flavour. Map objects in data/maps/ship/phase8 point here.",
+ "p8.condemned_door": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  {
+   "if": {
+    "objectiveActive": "no_place_to_sleep.sign"
+   },
+   "then": [
+    {
+     "call": "p8c7.nail"
+    }
+   ],
+   "else": [
+    {
+     "if": {
+      "flag": "crew_quarters_condemned"
+     },
+     "then": [
+      {
+       "call": "p8.condemned_look"
+      }
+     ],
+     "else": [
+      {
+       "if": {
+        "objectiveActive": "no_place_to_sleep.open"
+       },
+       "then": [
+        "You put your hand on the handle. The wood is warm. It shouldn't be warm.",
+        "pete: Let me, Captain. I've got a peg leg. If it goes wrong, I've less to lose.",
+        {
+         "tutorial": "Let Pete open the door (he's right there).",
+         "title": "No Place to Sleep"
+        }
+       ],
+       "else": [
+        {
+         "if": {
+          "flag": "p8_ch48_started"
+         },
+         "then": [
+          "The door to the old sleeping quarters. A thin line of yellow light all round the edge of it, which there shouldn't be, since there isn't a lantern in there."
+         ],
+         "else": [
+          "The door to the old sleeping quarters. The second cloud is still in there, sitting. You can feel it through the wood, like a held breath.",
+          "Not tonight."
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "p8.condemned_look": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "The old sleeping quarters. CONDEMNED, in crayon, and DO NOT ENTER underneath in your own hand, and three nails, and two planks Rook put across it later, for luck. A thin yellow haze leaks out underneath.",
+  {
+   "choice": [
+    {
+     "text": "Look through the crack",
+     "then": [
+      "You put your eye to the gap between two planks.",
+      "Haze. Mustard-coloured blankets. A hammock, still swinging, slowly, though nothing in there is moving it. The far wall is sweating.",
+      "You stop looking."
+     ]
+    },
+    {
+     "text": "Smell it",
+     "then": [
+      "You lean in and sniff. Just a little. To see.",
+      {
+       "anim": "player",
+       "name": "clutch",
+       "duration": 1200
+      },
+      "captain[disgusted]: HHHRRRK.",
+      "It's the second release, matured. It's had a week to think about what it's done, and it isn't sorry.",
+      {
+       "if": {
+        "flag": "p8_complete"
+       },
+       "then": [
+        "From the hold, faintly: 'Captain's sniffing the door again.'"
+       ]
+      }
+     ]
+    },
+    {
+     "text": "Fetch your things",
+     "then": [
+      "Your spare coat is in there. And your good boots. And the book you were reading, with the page turned down.",
+      "You think about the boots for a long time.",
+      "They're its boots now."
+     ]
+    },
+    {
+     "text": "Leave it",
+     "then": [
+      "You leave it. Everybody leaves it. That's the whole point of the sign."
+     ]
+    }
+   ]
+  }
+ ],
+ "p8.inspect.condemned_sign": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  {
+   "insert": "condemned_sign_close",
+   "caption": "The old sleeping quarters. Condemned. For good."
+  },
+  {
+   "if": {
+    "flag": "p8_complete"
+   },
+   "then": [
+    "Somebody has added, small, at the bottom, in a different crayon: 'ALSO THE SASH WAS 3.' Somebody else has drawn a frog in a tie, giving it a gold star."
+   ]
+  }
+ ],
+ "p8.inspect.pump": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "The bilge pump. Its brass handle is on the Grand Stenchmaster's head, as part of the Grand Crown.",
+  {
+   "if": {
+    "flag": "grand_crown_banned_for_sleep"
+   },
+   "then": [
+    "Or it was. Now it's in a crate. Either way, somebody has lashed a wooden spoon on where the handle was, and it pumps about as well as you'd think."
+   ],
+   "else": [
+    "Somebody has lashed a wooden spoon on where the handle was. It pumps about as well as you'd think."
+   ]
+  }
+ ],
+ "p8.inspect.ravine": [
+  "The Bottomless Ravine. Six inches across. Pete's grog, mostly. Somebody has put a little flag in it made from a matchstick and a biscuit wrapper."
+ ],
+ "p8.inspect.casks": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The last of the Frog Grog reserve: two casks and a bit. One of them drips. Mags has put a mug under the drip, and a sign on the mug that says MINE.",
+  {
+   "if": {
+    "flag": "lost_fart_game_proposed"
+   },
+   "then": [
+    "In crayon, on the side of the leaky one, an arrow, and the words CHAMBER OF FROG GROG. Underneath, in Mags's hand: NO."
+   ]
+  }
+ ],
+ "p8.inspect.trunk": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The costume trunk, open. Feathers, a scarf, a wooden sword, a moth that has seen things. The dent in the lining where the sun-helmet was.",
+  "At the bottom, a paper crown from a long-ago Midsummer play. It has 'KING (SPEAKING PART)' written inside it. The Grand Stenchmaster hasn't found it yet. You close the lid on it, gently."
+ ],
+ "p8.inspect.crown_crate": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The crate the Grand Crown is in. NOT IN THE HAMMOCK, it says, in chalk, in your writing. A fork tine sticks out through the lid, glinting.",
+  {
+   "if": {
+    "flag": "p8_complete"
+   },
+   "then": [
+    "Something inside it has been rattling, very quietly, every time the hull takes a landing. Like it wants to get out. It isn't getting out."
+   ]
+  }
+ ],
+ "p8.inspect.cradle": [
+  "Squawks's cradle: a small hammock across a crate, his blankets heaped in it, right beside your bunk, where you can reach it in the dark."
+ ],
+ "p8.inspect.bunk": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "Your bunk. A fork-hole in the canvas an inch from the pillow. Above it, the Grand Stenchmaster's hammock, sagging, creaking, with the Grand Stenchmaster asleep in it, bareheaded, the sash tucked back under his arm.",
+  {
+   "sfx": "garrick_snore",
+   "volume": 0.6
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p8_sleeptalk",
+     "eq": 1
+    }
+   },
+   "then": [
+    "garrick_asleep: ...a fine piece... very reasonable...",
+    {
+     "setVar": "p8_sleeptalk",
+     "value": 2
+    }
+   ],
+   "else": [
+    {
+     "if": {
+      "var": {
+       "name": "p8_sleeptalk",
+       "eq": 2
+      }
+     },
+     "then": [
+      "garrick_asleep: ...Sir Garrick... the First... strong resemblance...",
+      {
+       "setVar": "p8_sleeptalk",
+       "value": 3
+      }
+     ],
+     "else": [
+      {
+       "if": {
+        "var": {
+         "name": "p8_sleeptalk",
+         "eq": 3
+        }
+       },
+       "then": [
+        "garrick_asleep: ...it's... a STORY, Hale...",
+        {
+         "setVar": "p8_sleeptalk",
+         "value": 4
+        }
+       ],
+       "else": [
+        {
+         "if": {
+          "var": {
+           "name": "p8_sleeptalk",
+           "eq": 4
+          }
+         },
+         "then": [
+          "garrick_asleep: ...forbidden... cheese...",
+          "From the pantry, Salty Jim, not asleep: 'EXPIRED.'",
+          {
+           "setVar": "p8_sleeptalk",
+           "value": 0
+          }
+         ],
+         "else": [
+          "garrick_asleep: ...Stenchmaster... sash... mm... not fart...",
+          {
+           "setVar": "p8_sleeptalk",
+           "value": 1
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "burst": "suitpuff",
+   "x": 15,
+   "y": 16,
+   "count": 2
+  },
+  {
+   "sfx": "suit_fwoof",
+   "volume": 0.5
+  },
+  "FWOoF."
+ ],
+ "p8.inspect.corner": [
+  "Your crate, in your corner, the furthest corner in the hold from the Grand Stenchmaster. Squawks has put one of his blankets on it. It's warm."
+ ]
+}

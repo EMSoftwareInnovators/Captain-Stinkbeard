@@ -1,0 +1,658 @@
+{
+ "id": "galley_phase8",
+ "patch": "galley",
+ "//": "Story Phase 8 in the galley: empty, except in chapter 48, when half the crew go up to reclaim the old sleeping quarters and find the Grand Stenchmaster in front of the door (8,12). The door is locked for the whole phase: the second cloud's at first, then Pete's job, then the sign's, then CONDEMNED for good (boards, the sign at 7,12, a yellow haze leaking out underneath). Nobody is ever made to go in.",
+ "objects": [
+  {
+   "id": "p8_to_crew",
+   "type": "warp",
+   "x": 8,
+   "y": 12,
+   "to": {
+    "map": "crew_quarters",
+    "spawn": "north_door"
+   },
+   "sfx": "door",
+   "if": {
+    "notFlag": "p8_started"
+   },
+   "locked": "p8.condemned_door"
+  },
+  {
+   "id": "p8_door_nail",
+   "type": "inspect",
+   "x": 8,
+   "y": 12,
+   "if": {
+    "objectiveActive": "no_place_to_sleep.sign"
+   },
+   "script": "p8c7.nail"
+  },
+  {
+   "id": "p8_door_look",
+   "type": "inspect",
+   "x": 8,
+   "y": 12,
+   "if": {
+    "flag": "crew_quarters_condemned"
+   },
+   "script": "p8.condemned_look"
+  },
+  {
+   "id": "p8_sign_look",
+   "type": "inspect",
+   "x": 7,
+   "y": 12,
+   "if": {
+    "flag": "crew_quarters_condemned"
+   },
+   "script": "p8.inspect.condemned_sign"
+  },
+  {
+   "id": "p8g_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 7,
+   "y": 10,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p8_ch48_started"
+       },
+       {
+        "notFlag": "crew_quarters_condemned"
+       }
+      ]
+     },
+     {
+      "flag": "p8_door_cracked"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p8g_garrick_1",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 8,
+   "y": 11,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p8_ch48_started"
+     },
+     {
+      "notFlag": "crew_quarters_condemned"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p8g_garrick_2",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p8_started"
+   }
+  },
+  {
+   "id": "p8g_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 9,
+   "y": 11,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p8_ch48_started"
+       },
+       {
+        "notFlag": "crew_quarters_condemned"
+       }
+      ]
+     },
+     {
+      "flag": "p8_door_cracked"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p8g_pete_1",
+   "type": "npc",
+   "npc": "pete",
+   "x": 9,
+   "y": 11,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p8_ch48_started"
+     },
+     {
+      "notFlag": "crew_quarters_condemned"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p8g_pete_2",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p8_started"
+   }
+  },
+  {
+   "id": "p8g_gristle_0",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 7,
+   "y": 11,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p8_ch48_started"
+       },
+       {
+        "notFlag": "crew_quarters_condemned"
+       }
+      ]
+     },
+     {
+      "flag": "p8_door_cracked"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p8g_gristle_1",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 7,
+   "y": 11,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p8_ch48_started"
+     },
+     {
+      "notFlag": "crew_quarters_condemned"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p8g_gristle_2",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p8_started"
+   }
+  },
+  {
+   "id": "p8g_hale_0",
+   "type": "npc",
+   "npc": "hale",
+   "x": 10,
+   "y": 9,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p8_ch48_started"
+       },
+       {
+        "notFlag": "crew_quarters_condemned"
+       }
+      ]
+     },
+     {
+      "flag": "p8_door_cracked"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p8g_hale_1",
+   "type": "npc",
+   "npc": "hale",
+   "x": 10,
+   "y": 9,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p8_ch48_started"
+     },
+     {
+      "notFlag": "crew_quarters_condemned"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p8g_hale_2",
+   "type": "npc",
+   "npc": "hale",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p8_started"
+   }
+  },
+  {
+   "id": "p8g_bob_0",
+   "type": "npc",
+   "npc": "bob",
+   "x": 8,
+   "y": 9,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p8_ch48_started"
+       },
+       {
+        "notFlag": "crew_quarters_condemned"
+       }
+      ]
+     },
+     {
+      "flag": "p8_door_cracked"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p8g_bob_1",
+   "type": "npc",
+   "npc": "bob",
+   "x": 8,
+   "y": 9,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p8_ch48_started"
+     },
+     {
+      "notFlag": "crew_quarters_condemned"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p8g_bob_2",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p8_started"
+   }
+  },
+  {
+   "id": "p8g_rook_0",
+   "type": "npc",
+   "npc": "rook",
+   "x": 7,
+   "y": 9,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p8_ch48_started"
+       },
+       {
+        "notFlag": "crew_quarters_condemned"
+       }
+      ]
+     },
+     {
+      "flag": "p8_door_cracked"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p8g_rook_1",
+   "type": "npc",
+   "npc": "rook",
+   "x": 7,
+   "y": 9,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p8_ch48_started"
+     },
+     {
+      "notFlag": "crew_quarters_condemned"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p8g_rook_2",
+   "type": "npc",
+   "npc": "rook",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p8_started"
+   }
+  },
+  {
+   "id": "p8g_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 11,
+   "y": 10,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p8_ch48_started"
+       },
+       {
+        "notFlag": "crew_quarters_condemned"
+       }
+      ]
+     },
+     {
+      "flag": "p8_door_cracked"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p8g_jim_1",
+   "type": "npc",
+   "npc": "jim",
+   "x": 11,
+   "y": 10,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p8_ch48_started"
+     },
+     {
+      "notFlag": "crew_quarters_condemned"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p8g_jim_2",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p8_started"
+   }
+  },
+  {
+   "id": "p8g_wick_0",
+   "type": "npc",
+   "npc": "wick",
+   "x": 9,
+   "y": 8,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p8_ch48_started"
+       },
+       {
+        "notFlag": "crew_quarters_condemned"
+       }
+      ]
+     },
+     {
+      "flag": "p8_door_cracked"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p8g_wick_1",
+   "type": "npc",
+   "npc": "wick",
+   "x": 9,
+   "y": 8,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p8_ch48_started"
+     },
+     {
+      "notFlag": "crew_quarters_condemned"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p8g_wick_2",
+   "type": "npc",
+   "npc": "wick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p8_started"
+   }
+  },
+  {
+   "id": "p8g_jory_0",
+   "type": "npc",
+   "npc": "jory",
+   "x": 10,
+   "y": 8,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p8_ch48_started"
+       },
+       {
+        "notFlag": "crew_quarters_condemned"
+       }
+      ]
+     },
+     {
+      "flag": "p8_door_cracked"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p8g_jory_1",
+   "type": "npc",
+   "npc": "jory",
+   "x": 10,
+   "y": 8,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p8_ch48_started"
+     },
+     {
+      "notFlag": "crew_quarters_condemned"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p8g_jory_2",
+   "type": "npc",
+   "npc": "jory",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p8_started"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "condemned_boards",
+   "x": 8,
+   "y": 12,
+   "if": {
+    "flag": "crew_quarters_condemned"
+   },
+   "id": "p8_boards"
+  },
+  {
+   "prop": "condemned_sign",
+   "x": 7,
+   "y": 12,
+   "if": {
+    "flag": "crew_quarters_condemned"
+   },
+   "id": "p8_sign"
+  }
+ ],
+ "onEnter": [
+  {
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "no_place_to_sleep.quarters"
+     },
+     {
+      "notFlag": "p8_quarters_blocked"
+     }
+    ]
+   },
+   "script": "p8c7.blocked"
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "flag": "p8_lights_out"
+   },
+   "music": null,
+   "ambience": "barracks_night_quiet"
+  },
+  {
+   "if": {
+    "flag": "p8_started"
+   },
+   "music": "lower_hull",
+   "musicFilter": "muffled",
+   "ambience": "lower_hull"
+  }
+ ],
+ "ambient": [
+  {
+   "kind": "smoke",
+   "x": 8,
+   "y": 12,
+   "rise": 3,
+   "every": 1500,
+   "alpha": 0.4,
+   "tint": "#d8c850",
+   "if": {
+    "flag": "p8_ch48_started"
+   }
+  }
+ ]
+}

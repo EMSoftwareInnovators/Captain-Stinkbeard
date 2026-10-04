@@ -100,6 +100,77 @@
      { "frames": ["ftm_close_1"], "line": "franklin: That's the saddest thing I've ever heard.", "ms": 2600, "laugh": true },
      { "frames": ["ftm_season_0", "ftm_season_1"], "line": "announcer: Keep your receipts! The Frog Tax Man!", "ms": 2600, "sfx": "ftm_announcer", "frameMs": 420 }
     ]
+   },
+   {
+    "id": "the_audit",
+    "//": "Story Phase 8: the audit. A new character, the Auditor (a stern old toad with a magnifying glass). Four hundred flies filed as OFFICE REFRESHMENTS (eaten in the office does not make them office supplies); some reclassified as NETWORKING EXPENSES (\"Were you networking?\" \"With the flies?\"); receipts written on leaves; tadpole subcontractors. All invented frog paperwork.",
+    "if": { "flag": "p8_started" },
+    "beats": [
+     { "frames": ["ftm_season_0", "ftm_season_1"], "line": "announcer: THE FROG TAX MAN! Tonight: THE AUDIT.", "ms": 2600, "sfx": "ftm_horn", "frameMs": 420 },
+     {
+      "frames": ["ftm_audit_0", "ftm_audit_1"],
+      "line": "auditor: Mister Franklin. I'm from the Pond Revenue Service.",
+      "ms": 2800,
+      "sfx": "ftm_drama",
+      "frameMs": 500
+     },
+     { "frames": ["ftm_close_0"], "line": "franklin: ...Nice to meet you?", "ms": 2200, "laugh": true },
+     { "frames": ["ftm_refresh_0", "ftm_refresh_1"], "line": "auditor: Four hundred flies. Claimed as OFFICE REFRESHMENTS.", "ms": 3000, "frameMs": 500 },
+     { "frames": ["ftm_close_1"], "line": "franklin: I ate them in the office.", "ms": 2400 },
+     { "frames": ["ftm_audit_0", "ftm_audit_1"], "line": "auditor: Being eaten inside an office does not make a fly an office supply.", "ms": 3200, "frameMs": 500 },
+     { "frames": ["ftm_close_0"], "line": "franklin: It made it an office fly.", "ms": 2400, "laugh": true },
+     { "frames": ["ftm_audit_1"], "line": "auditor: Disallowed.", "ms": 2000, "sfx": "ftm_sting" },
+     { "frames": ["ftm_network_0", "ftm_network_1"], "line": "franklin: Then some of them were... networking expenses.", "ms": 3000, "frameMs": 400 },
+     { "frames": ["ftm_audit_0", "ftm_audit_1"], "line": "auditor: Were you networking, Franklin?", "ms": 2400, "frameMs": 500 },
+     { "frames": ["ftm_close_1"], "line": "franklin: With the flies?", "ms": 2200, "laugh": true },
+     { "frames": ["ftm_leaves_0", "ftm_leaves_1"], "line": "auditor: And these receipts. They're written on leaves.", "ms": 2800, "frameMs": 500 },
+     { "frames": ["ftm_close_0"], "line": "franklin: We're a paperless pond.", "ms": 2400, "laugh": true },
+     { "frames": ["ftm_leaves_0", "ftm_leaves_1"], "line": "auditor: And these, under SUBCONTRACTORS?", "ms": 2600, "frameMs": 500 },
+     { "frames": ["ftm_close_1"], "line": "franklin: Tadpoles. They do the heavy lifting.", "ms": 2600 },
+     { "frames": ["ftm_audit_0", "ftm_audit_1"], "line": "auditor: They're two days old.", "ms": 2200, "frameMs": 500 },
+     { "frames": ["ftm_close_0"], "line": "franklin: They grow up so fast.", "ms": 2400, "laugh": true },
+     { "frames": ["ftm_audit_0"], "line": "auditor: We'll continue this. After the break.", "ms": 2600, "sfx": "ftm_drama" },
+     { "frames": ["ftm_break_0", "ftm_break_1"], "line": "announcer: The Frog Tax Man will be right back, after a word from Pond Soap!", "ms": 3000, "frameMs": 400 }
+    ]
+   },
+   {
+    "id": "capital_gains",
+    "//": "Story Phase 8, late at night (after everyone has given up on sleep): Franklin sold a lily pad for more than he paid for it. A capital gain. Taxable. \"What was your basis?\" \"My what?\" Invented frog paperwork, real arithmetic.",
+    "if": { "flag": "p8_complete" },
+    "beats": [
+     {
+      "frames": ["ftm_season_0", "ftm_season_1"],
+      "line": "announcer: THE FROG TAX MAN! The late repeat: CAPITAL GAINS.",
+      "ms": 2600,
+      "sfx": "ftm_horn",
+      "frameMs": 420
+     },
+     { "frames": ["ftm_lilypad_0", "ftm_lilypad_1"], "line": "franklin: I sold a lily pad! For more than I paid for it!", "ms": 2800, "frameMs": 500 },
+     { "frames": ["ftm_audit_0", "ftm_audit_1"], "line": "auditor: Congratulations. That's a capital gain.", "ms": 2600, "frameMs": 500 },
+     { "frames": ["ftm_close_0"], "line": "franklin: ...Is that good?", "ms": 2000 },
+     { "frames": ["ftm_audit_1"], "line": "auditor: It's taxable.", "ms": 2000, "sfx": "ftm_sting" },
+     { "frames": ["ftm_close_1"], "line": "franklin: ...Is that good?", "ms": 2000, "laugh": true },
+     { "frames": ["ftm_audit_0", "ftm_audit_1"], "line": "auditor: What was your basis, Franklin?", "ms": 2400, "frameMs": 500 },
+     { "frames": ["ftm_close_0"], "line": "franklin: My what?", "ms": 2000 },
+     {
+      "frames": ["ftm_basis_0", "ftm_basis_1"],
+      "line": "auditor: Your BASIS. What you paid for it. You'll need records.",
+      "ms": 3000,
+      "sfx": "ftm_drama",
+      "frameMs": 400
+     },
+     { "frames": ["ftm_close_1"], "line": "franklin: I paid in flies.", "ms": 2200 },
+     { "frames": ["ftm_audit_0", "ftm_audit_1"], "line": "auditor: How many flies?", "ms": 2000, "frameMs": 500 },
+     { "frames": ["ftm_close_0"], "line": "franklin: ...I ate the records.", "ms": 2400, "laugh": true },
+     {
+      "frames": ["ftm_basis_0", "ftm_basis_1"],
+      "line": "announcer: Can Franklin reconstruct his basis? Find out... next week!",
+      "ms": 3000,
+      "sfx": "ftm_drama",
+      "frameMs": 400
+     },
+     { "frames": ["ftm_season_0", "ftm_season_1"], "line": "announcer: Keep your receipts! The Frog Tax Man!", "ms": 2600, "sfx": "ftm_announcer", "frameMs": 420 }
+    ]
    }
   ]
  }

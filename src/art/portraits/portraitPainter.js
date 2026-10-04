@@ -46,6 +46,8 @@ export const EXPRESSIONS = {
   proud: { brow: 'raised', eye: 'closed', mouth: 'smirk', fx: ['sparkle'] },
   // Story phase 4 (a week of the Dead Center: nobody has slept)
   tired: { brow: 'low', eye: 'half', mouth: 'frown', fx: ['bags'] },
+  // Story phase 8 (the Grand Nap: talking in his sleep)
+  asleep: { brow: 'low', eye: 'closed', mouth: 'open', fx: ['zzz'] },
 };
 
 export const EXPRESSION_NAMES = Object.keys(EXPRESSIONS);
@@ -451,6 +453,16 @@ function expressionFx(c, L, face, fx = []) {
     c.blend(CX - 7, 28, '#4a2a4a', 0.3);
     c.blend(CX + 5, 28, '#4a2a4a', 0.3);
   }
+  if (fx.includes('zzz')) {
+    // Two little Zs drifting off the top corner.
+    const z = (x, y, n) => {
+      c.hline(x, x + n - 1, y, '#c8d4f0');
+      for (let i = 1; i < n - 1; i++) c.set(x + n - 1 - i, y + i, '#c8d4f0');
+      c.hline(x, x + n - 1, y + n - 1, '#c8d4f0');
+    };
+    z(CX + 13, 9, 4);
+    z(CX + 18, 3, 3);
+  }
   if (fx.includes('sparkle')) {
     for (const [x, y] of [[CX - 15, 14], [CX + 14, 12]]) {
       c.set(x, y, PAL.gold5); c.set(x - 1, y, PAL.gold3); c.set(x + 1, y, PAL.gold3); c.set(x, y - 1, PAL.gold3); c.set(x, y + 1, PAL.gold3);
@@ -752,6 +764,59 @@ function hatMass(c, L, face, style) {
     c.set(CX, top - 10, t);
     c.rect(CX - 14, top + 3, 28, 3, a);
     c.hline(CX - 14, CX + 13, top + 5, q);
+    return;
+  }
+  if (style === 'grandcrown') {
+    // Story Phase 8: the Grand Stenchmaster's Grand Crown, made from whatever
+    // was in reach: fake-gold points with bilious jewels, a band of bottle
+    // caps and painted onions, a fork and a spoon jammed in the sides, a
+    // tiny saucepan on top, a tassel. No letters anywhere.
+    const silver = '#c8ccd4';
+    const silverD = '#7a7e88';
+    const t0 = Math.max(5, top);
+    c.rect(CX - 12, t0 - 1, 24, 5, a);
+    c.hline(CX - 12, CX + 11, t0 - 1, A);
+    c.hline(CX - 12, CX + 11, t0 + 3, q);
+    for (const i of [-9, -3, 3, 9]) {
+      c.ellipse(CX + i, t0 + 1, 1.6, 1.6, silver);
+      c.set(CX + i, t0 + 1, i % 2 ? '#c83a2a' : '#3a6ad0');
+    }
+    for (const i of [-6, 6]) c.set(CX + i, t0 + 1, '#8a4ac8');
+    for (const [px, h] of [[-9, 4], [-4, 5], [4, 5], [9, 4]]) {
+      for (let y = 0; y < h; y++) {
+        const w = y < 2 ? 1 : 0;
+        c.hline(CX + px - w, CX + px + w, t0 - 2 - y, y % 2 ? a : A);
+      }
+      c.set(CX + px, t0 - 2 - h, T);
+    }
+    // the saucepan
+    c.rect(CX - 3, t0 - 6, 6, 3, silverD);
+    c.hline(CX - 3, CX + 2, t0 - 6, silver);
+    c.hline(CX + 3, CX + 6, t0 - 5, '#5a3a20');
+    // fork (left) and spoon (right) jammed into the band
+    for (const dx of [0, 2, 4]) c.vline(CX - 16 + dx, t0 - 6, t0 - 2, silver);
+    c.hline(CX - 16, CX - 12, t0 - 1, silverD);
+    c.ellipse(CX + 15, t0 - 4, 2, 3, silver);
+    c.vline(CX + 15, t0 - 1, t0 + 2, silverD);
+    // a tassel off the left side
+    c.vline(CX - 13, t0 + 3, t0 + 8, T);
+    c.set(CX - 14, t0 + 8, t);
+    c.set(CX - 12, t0 + 8, t);
+    return;
+  }
+  if (style === 'explorer') {
+    // Story Phase 8: a dented cork sun-helmet out of the costume trunk, with a
+    // patch on it and a cloth band (a dome, not a brimmed felt hat).
+    c.ellipse(CX, top - 1, 11, 8, a);
+    c.ellipse(CX - 4, top - 4, 5, 3, A);
+    c.ellipse(CX + 3, top - 7, 2, 1, q); // the dent
+    c.rect(CX + 4, top - 3, 4, 3, '#b8a070'); // the patch
+    c.set(CX + 4, top - 3, q);
+    c.set(CX + 7, top - 1, q);
+    c.rect(CX - 11, top + 2, 22, 2, T);
+    c.hline(CX - 11, CX + 10, top + 3, t);
+    c.ellipse(CX, top + 5, 16, 2, a);
+    c.hline(CX - 15, CX + 14, top + 6, q);
     return;
   }
   if (style === 'tophat') {

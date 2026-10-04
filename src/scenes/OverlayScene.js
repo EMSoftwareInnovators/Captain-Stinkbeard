@@ -26,6 +26,9 @@ const REPAIR_KINDS = {
   carry: { title: 'LIFT!', hint: 'Lift on the green!', hit: 'heave', miss: 'thud', done: 'thud_heavy', speed: 120 },
   lash: { title: 'LASH THE WHEEL', hint: 'Make fast on the green!', hit: 'wheel_turn', miss: 'hammer_miss', done: 'repair_done', speed: 130 },
   assemble: { title: 'HOLD IT STEADY', hint: 'Steady on the green!', hit: 'spoon_tink', miss: 'mk2_rattle', done: 'mk2_tube_ping', speed: 110 },
+  // Story Phase 8
+  nail: { title: 'NAIL IT UP', hint: 'Strike on the green!', hit: 'hammer_hit', miss: 'hammer_miss', done: 'repair_done', speed: 125 },
+  hang: { title: 'HANG IT', hint: 'Pull on the green!', hit: 'sash_swish', miss: 'hammer_miss', done: 'hammock_creak', speed: 130 },
 };
 
 /**

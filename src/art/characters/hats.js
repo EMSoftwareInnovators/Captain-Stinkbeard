@@ -269,4 +269,67 @@ export const HAT_STYLES = {
       '..qqqqqqqqqqqq..',
     ],
   },
+  // Story Phase 8: the Grand Stenchmaster's Grand Crown. Fake-gold points with
+  // bilious jewels, a band of bottle caps, fork tines sticking out of both
+  // sides and a tiny saucepan on top. No letters on it anywhere.
+  grandcrown: {
+    down: [
+      '.......qq.......',
+      '......qAaq......',
+      '..s.q.qqqq.q.s..',
+      '..sqTq.qq.qTqs..',
+      '...qaAaaaaaAaq..',
+      '...qsTsTsTsTsq..',
+      '...qqqqqqqqqqq..',
+    ],
+    left: [
+      '......qq........',
+      '.....qAaq.......',
+      '.s.q.qqqq.q.s...',
+      '.sqTq.qq.qTqs...',
+      '..qaAaaaaaAaq...',
+      '..qsTsTsTsTsq...',
+      '..qqqqqqqqqqq...',
+    ],
+    up: [
+      '.......qq.......',
+      '......qaaq......',
+      '..s.q.qqqq.q.s..',
+      '..sqaq.qq.qaqs..',
+      '...qaaaaaaaaaq..',
+      '...qTaTaTaTaTq..',
+      '...qqqqqqqqqqq..',
+    ],
+  },
+  // Story Phase 8: out of the costume trunk, for "Professor" Barnacle Bob. A
+  // dented cork sun-helmet with a patch and a band: a dome, not a brimmed felt.
+  explorer: {
+    down: [
+      '................',
+      '......qq.qq.....',
+      '.....qaAqAaq....',
+      '....qaAaasaq....',
+      '....qTTTTTTq....',
+      '..qqaaaaaaaaqq..',
+      '..qqqqqqqqqqqq..',
+    ],
+    left: [
+      '................',
+      '.....qq.qq......',
+      '....qaAqAaq.....',
+      '...qaAaasaq.....',
+      '...qTTTTTTq.....',
+      '.qqaaaaaaaaqq...',
+      '.qqqqqqqqqqqq...',
+    ],
+    up: [
+      '................',
+      '......qq.qq.....',
+      '.....qaaqaaq....',
+      '....qaaaaaaq....',
+      '....qTTTTTTq....',
+      '..qqaaaaaaaaqq..',
+      '..qqqqqqqqqqqq..',
+    ],
+  },
 };

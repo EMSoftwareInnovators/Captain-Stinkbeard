@@ -15,6 +15,7 @@ import { OptionsPanel } from '../ui/panels/OptionsPanel.js';
 import { SaveLoadPanel } from '../ui/panels/SaveLoadPanel.js';
 import { formatPlayTime } from '../core/util.js';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
+import { mapDisplayName } from '../maps/mapName.js';
 
 const NAV = [
   { label: 'Status', value: 'status', page: StatusPage },
@@ -125,7 +126,7 @@ export class MenuScene extends BaseScene {
     this.side.add(addText(this, 30, y + 11, `<y>${s.inventory.gold}</>`, { depth: 11 }));
     this.side.add(addText(this, 10, y + 28, '<k>Time</>', { depth: 11 }));
     this.playTime = this.side.add(addText(this, 10, y + 39, formatPlayTime(s.playTime), { depth: 11 }));
-    const mapName = this.app.content.maps.get(s.location?.map)?.name ?? '';
+    const mapName = mapDisplayName(this.app.content.maps.get(s.location?.map), s);
     this.side.add(addText(this, 10, y + 56, '<k>Location</>', { depth: 11 }));
     this.side.add(addText(this, 10, y + 67, mapName, { maxWidth: 76, depth: 11 }));
   }

@@ -1,0 +1,612 @@
+{
+ "//": "Story Phase 8, chapters 48 to 50. The storm eases (not much); the Dead Center has drifted up through the fore hatch onto the forward deck; everyone wants their own hammock. The Grand Stenchmaster, embarrassed, is standing in front of the sleeping quarters' door: the second major release happened in there and the Center sat in there for a week afterwards, steeping. Pete cracks the door. 'The fart took residence.' 'How long?' 'Centuries.' The old sleeping quarters are condemned for good: permanent embedded contamination, not the moving Dead Center (which is somewhere else now). Then the Grand Decree from a crate (the lower hull is the barracks now; the highest hammock is his, 'Rank.' 'Altitude.'), and the crew build bunks out of what they've got: hammocks over the crates, a sailcloth screen, cleared floor, a cradle for Squawks, Pete's rope pillow, Bob's cargo net, Gristle's belts, Jim's padlocked pantry. And over the captain's bunk, the Grand Stenchmaster's enormous reinforced hammock. 'Still uncertain!' 'Move captain.' 'Where?' 'Bad options.'",
+ "p8c7.begin": [
+  {
+   "fade": "out",
+   "duration": 700
+  },
+  {
+   "setFlag": "p8_ch48_started"
+  },
+  "Hours go by. Nobody naps, grand or otherwise. The Grand Stenchmaster sits in his chair with his crown on, glaring at everyone who glares at him.",
+  {
+   "sharkstorm": "easing_near_ship"
+  },
+  {
+   "deadCenter": "second_forward_deck"
+  },
+  {
+   "setValue": "garrick_release",
+   "value": "rumbling"
+  },
+  {
+   "fade": "in",
+   "duration": 700
+  },
+  {
+   "banner": "CHAPTER 48",
+   "sub": "The Sleeping Quarters Are Lost"
+  },
+  "hale: Captain. Listen.",
+  "You listen. A landing, overhead. A long, long wait. Another, further off.",
+  "hale: They're further apart. It's not gone. It's just... less.",
+  "nell: And the Center's moved, Captain. It went up through the fore hatch an hour ago, onto the forward deck. I felt the planks by the quarters door go cold.",
+  "pete[happy]: Our hammocks, Captain. Our actual hammocks.",
+  "bob[happy]: A bed. A real one. With a blanket that hasn't got grog in it.",
+  "Before you can say anything, half the crew are heading up the stairs to the galley.",
+  {
+   "restage": "walk"
+  },
+  {
+   "startQuest": "no_place_to_sleep"
+  },
+  {
+   "tutorial": "Everyone's going back to the old sleeping quarters. Follow them (up to the galley, then the quarters door).",
+   "title": "No Place to Sleep"
+  }
+ ],
+ "p8c7.blocked": [
+  "The crew have crowded round the door to the old sleeping quarters.",
+  "And standing in front of it, facing them, is the Grand Stenchmaster. He looks... embarrassed. Nobody has ever seen that before. It doesn't suit him.",
+  "garrick[nervous]: Gentlemen. Captain. A word. About the quarters.",
+  "garrick[nervous]: They may be... unavailable.",
+  "pete: Unavailable?",
+  "garrick[nervous]: The second major event. At midnight. It happened in there, if you remember.",
+  "captain[angry]: We remember.",
+  "garrick[businesslike]: And the Center sat in there afterwards. For a week. Steeping.",
+  "gristle[disgusted]: Steeping.",
+  "garrick[businesslike]: The Center has moved on, gentlemen. The Center is a free spirit.",
+  "garrick[nervous]: The contents... may have stayed.",
+  {
+   "setFlag": "p8_quarters_blocked"
+  },
+  {
+   "tutorial": "Pete's not having it. Let Pete open the door (he's by the door).",
+   "title": "No Place to Sleep"
+  }
+ ],
+ "p8c7.crack": [
+  {
+   "face": "pete",
+   "dir": "down"
+  },
+  "pete[annoyed]: Stand aside.",
+  "garrick[nervous]: I'd advise—",
+  "pete[annoyed]: STAND. ASIDE.",
+  {
+   "move": "garrick",
+   "to": [
+    7,
+    10
+   ]
+  },
+  {
+   "face": "garrick",
+   "dir": "right"
+  },
+  {
+   "move": "pete",
+   "to": [
+    8,
+    11
+   ]
+  },
+  {
+   "face": "pete",
+   "dir": "down"
+  },
+  "Pete takes hold of the handle, and braces his peg, and opens the door a crack. Just a crack.",
+  {
+   "vista": "quarters_reveal",
+   "fade": 300
+  },
+  {
+   "vistaMove": "door",
+   "x": 178,
+   "duration": 900,
+   "ease": "Sine.Out"
+  },
+  {
+   "sfx": "door_puff",
+   "volume": 0.9
+  },
+  {
+   "vistaFx": "fume",
+   "x": 160,
+   "y": 120,
+   "count": 14
+  },
+  {
+   "vistaFx": "fume",
+   "x": 140,
+   "y": 150,
+   "count": 10
+  },
+  {
+   "vistaFx": "fume",
+   "x": 180,
+   "y": 100,
+   "count": 10
+  },
+  {
+   "flash": "#e8d870",
+   "duration": 400
+  },
+  {
+   "shake": 2,
+   "duration": 500
+  },
+  "A great, stored-up, held-in breath comes out of the gap, the way air comes out of a barrel you've just opened, except this has been waiting a week.",
+  {
+   "vistaShow": "inside"
+  },
+  {
+   "vistaShow": "door",
+   "visible": false
+  },
+  {
+   "vistaShow": "frame",
+   "visible": false
+  },
+  "And through the gap, for a moment, you can see what's left of the sleeping quarters.",
+  "The hammocks are still there, somewhere, behind the haze. The blankets have all gone the colour of mustard. The walls are sweating. Vapour is coming up out of the floorboards, slowly, like it lives there now.",
+  "Nothing moves in there. Nothing could.",
+  {
+   "vistaShow": "inside",
+   "visible": false
+  },
+  {
+   "vistaShow": "frame"
+  },
+  {
+   "vistaShow": "door"
+  },
+  {
+   "vistaMove": "door",
+   "x": 160,
+   "duration": 160,
+   "ease": "Sine.In"
+  },
+  {
+   "sfx": "thud_heavy",
+   "volume": 0.7
+  },
+  "Pete slams it.",
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "move": "pete",
+   "to": [
+    9,
+    11
+   ]
+  },
+  {
+   "face": "pete",
+   "dir": "left"
+  },
+  {
+   "anim": "pete",
+   "name": "clutch",
+   "duration": 1400
+  },
+  "pete[disgusted]: ...",
+  "garrick[businesslike]: The fart took residence.",
+  "pete[disgusted]: Don't say it like that.",
+  "bob[disgusted]: Don't say it at ALL.",
+  "captain[tired]: How long?",
+  "garrick[businesslike]: ...Centuries.",
+  {
+   "sfx": "crowd_boo",
+   "volume": 0.7
+  },
+  "The galley erupts.",
+  {
+   "choice": [
+    {
+     "text": "Furious",
+     "then": [
+      "captain[angry]: CENTURIES?"
+     ]
+    },
+    {
+     "text": "Sarcastic",
+     "then": [
+      "captain[smug]: Oh, good. Only centuries. I was worried it'd be a long time."
+     ]
+    },
+    {
+     "text": "Exhausted",
+     "then": [
+      "captain[tired]: Centuries. Of course. Why not. Centuries."
+     ]
+    },
+    {
+     "text": "Threatening",
+     "then": [
+      "captain[determined]: Then ye can spend them in there, Garrick. Ye'd fit right in."
+     ]
+    },
+    {
+     "text": "Resigned",
+     "then": [
+      "captain[resigned]: ...Centuries. Right. So we're not sleeping in there, then."
+     ]
+    }
+   ]
+  },
+  "garrick[businesslike]: Give or take. I've prepared a sign.",
+  "He produces it from inside the Suit. It's in his crayon. It says CONDEMNED, and then GRAND STENCHMASTER ATMOSPHERIC EVENT, and then ENTER AT OWN RISK.",
+  "captain[angry]: 'Atmospheric event.'",
+  "garrick[proud]: It's the technical term.",
+  "captain[angry]: 'ENTER AT OWN RISK.'",
+  "You take the sign, and his crayon, and cross out ENTER AT OWN RISK, and write DO NOT ENTER underneath, in capitals, twice the size. Then you put a ring round EVENT and a question mark next to it.",
+  "garrick[offended]: You've ruined the typography.",
+  {
+   "setFlag": "p8_door_cracked"
+  },
+  {
+   "tutorial": "Nail the sign up (the door to the old quarters).",
+   "title": "No Place to Sleep"
+  }
+ ],
+ "p8c7.nail": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "You hold the sign against the door. Rook passes you a hammer and three nails, and steps well back.",
+  {
+   "repair": "nail",
+   "strikes": 3,
+   "title": "NAIL IT UP"
+  },
+  {
+   "setFlag": "crew_quarters_condemned"
+  },
+  {
+   "insert": "condemned_sign_close",
+   "caption": "The old sleeping quarters. Condemned. For good."
+  },
+  "And that's that. The old sleeping quarters are condemned. Nobody's going in there again, not tonight, not ever. A thin yellow haze leaks out under the door, as if to agree.",
+  "gristle[concerned]: So where are we going to sleep?",
+  "Everybody looks at everybody.",
+  "garrick[proud]: Gentlemen. Follow me.",
+  {
+   "tutorial": "Go back down to the hold.",
+   "title": "No Place to Sleep"
+  }
+ ],
+ "p8c8.decree": [
+  {
+   "setFlag": "p8_ch49_started"
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "banner": "CHAPTER 49",
+   "sub": "The Grand Decree"
+  },
+  "By the time everyone's back down the stairs, the Grand Stenchmaster has climbed up on a crate.",
+  {
+   "hop": "garrick",
+   "height": 6,
+   "duration": 300
+  },
+  "garrick[proud]: By the authority vested in me—",
+  "captain[annoyed]: There's no authority vested in ye.",
+  "garrick[proud]: —by me— I hereby issue a GRAND STENCHMASTER'S GRAND DECREE.",
+  "garrick[proud]: The lower hull shall become the new sleeping quarters.",
+  "Everyone looks round the hold: the crates, the casks, the pulley, the bucket, the leak, the frog on the set. It's terrible.",
+  "Then everyone looks back up the stairs, toward the condemned door.",
+  "Suddenly the lower hull looks excellent.",
+  "hale: ...He's right.",
+  "captain[tired]: Don't tell him that.",
+  "garrick[proud]: Further decrees! One: the lower hull is now the barracks. Two: everyone shall construct sleeping arrangements. Three: the Grand Stenchmaster shall have the highest hammock.",
+  "captain: Why?",
+  "garrick[proud]: Rank.",
+  "gristle[annoyed]: Altitude.",
+  "garrick[proud]: Four: quiet hours shall begin after the GRAND BEDTIME STORY.",
+  "captain[surprised]: The what?",
+  "garrick[smug]: You'll see.",
+  "Nobody wants to.",
+  {
+   "setFlag": "p8_decree_heard"
+  },
+  {
+   "completeQuest": "no_place_to_sleep"
+  },
+  {
+   "call": "p8c9.begin"
+  }
+ ],
+ "p8c9.begin": [
+  {
+   "setFlag": "p8_ch50_started"
+  },
+  {
+   "banner": "CHAPTER 50",
+   "sub": "Build the New Barracks"
+  },
+  {
+   "music": "lower_hull",
+   "fade": 600
+  },
+  "The Grand Stenchmaster's own hammock goes up first. Pete and Bob do it. He supervises.",
+  "Then everybody else starts on theirs, with whatever there is.",
+  {
+   "startQuest": "grand_decree"
+  },
+  {
+   "tutorial": "Rig the barracks: sling the hammocks (the crates, port side), hang a sailcloth screen (over your corner), clear the floor (the clutter by the pump), make Squawks a safe place to sleep, and help Pete, Bob, Gristle and Jim with their bunks.",
+   "title": "The Grand Decree"
+  }
+ ],
+ "p8c9.ropes": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You climb up on the crates along the port side and sling hammocks from the beams over them, one after another, while Hale and Wick feed you rope.",
+  {
+   "repair": "knot",
+   "strikes": 3,
+   "title": "TIE IT OFF"
+  },
+  {
+   "setFlag": "p8_ropes_tied"
+  },
+  {
+   "sfx": "hammock_creak",
+   "volume": 0.5
+  },
+  "hale[happy]: That'll hold. Better than the old ones. The old ones are mustard.",
+  "wick: Bagsy the blue one.",
+  {
+   "call": "p8c9.after_task"
+  }
+ ],
+ "p8c9.sailcloth": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "An old length of sailcloth, hung from the beam over your corner, to keep the drips and the dust off. And, if you're honest, to keep the room out.",
+  {
+   "repair": "hang",
+   "strikes": 3,
+   "title": "HANG IT"
+  },
+  {
+   "setFlag": "p8_sailcloth_hung"
+  },
+  "It sags in the middle. It has a stain on it shaped like Ireland. It's yours.",
+  {
+   "call": "p8c9.after_task"
+  }
+ ],
+ "p8c9.crates": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "Pete's supplies, Gristle's charts, Bob's rope, the mugs, Jim's crate: everything that came down the stairs two nights ago and got dropped wherever there was room.",
+  {
+   "repair": "carry",
+   "strikes": 3,
+   "title": "LIFT!"
+  },
+  {
+   "setFlag": "p8_crates_moved"
+  },
+  "You stack it all along the starboard side. There's floor now. Actual floor.",
+  "gristle[happy]: I can see my feet.",
+  "Overhead, the pulley swings, and taps him on the head.",
+  {
+   "sfx": "pulley_thunk",
+   "volume": 0.6
+  },
+  "gristle[annoyed]: Forty-nine.",
+  {
+   "call": "p8c9.after_task"
+  }
+ ],
+ "p8c9.squawks": [
+  {
+   "face": "squawks",
+   "dir": "player"
+  },
+  "You make Squawks a bed: a small hammock tied across a crate, his blankets heaped in it, right beside your bunk, where you can reach it in the dark.",
+  "squawks[surprised]: Mine?",
+  "captain[tender]: Yours.",
+  "He climbs in, turns round three times, and looks out over the edge at you.",
+  "squawks[smug]: ...Good spot.",
+  {
+   "setFlag": "squawks_sleep_spot"
+  },
+  {
+   "restage": "walk"
+  },
+  {
+   "call": "p8c9.after_task"
+  }
+ ],
+ "p8c9.bunk_pete": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "pete[happy]: Rope coil, Captain. Two turns, and a dent for the head. Best pillow I've had in years.",
+  "captain: It's rope.",
+  "pete[happy]: It's SUPPORTIVE rope.",
+  "He lies down to show you, with his peg propped up on a bucket. He looks happier than you've seen him all week.",
+  {
+   "setFlag": "p8_bunk_pete"
+  },
+  {
+   "event": "p8_bunk"
+  },
+  {
+   "call": "p8c9.after_task"
+  }
+ ],
+ "p8c9.bunk_bob": [
+  {
+   "face": "bob",
+   "dir": "player"
+  },
+  "Bob, still in the helmet, has slung a cargo net over the powder kegs.",
+  "bob[happy]: Very airy, Captain. Lets the grog drip straight through. Nothing pools.",
+  "captain: Ye'll fall through it.",
+  "bob: Only a bit.",
+  {
+   "setFlag": "p8_bunk_bob"
+  },
+  {
+   "event": "p8_bunk"
+  },
+  {
+   "call": "p8c9.after_task"
+  }
+ ],
+ "p8c9.bunk_gristle": [
+  {
+   "face": "gristle",
+   "dir": "player"
+  },
+  "Gristle's bed is four belts buckled end to end, half a sail and a length of fishing net, slung over the barrels by the hull, and rigged better than anything on deck.",
+  "gristle: Hold this.",
+  "You hold it. He makes it fast.",
+  "captain: Whose belts?",
+  "gristle[annoyed]: Don't ask whose belts.",
+  "rook[alarmed]: HAS ANYONE SEEN MY BELT?",
+  {
+   "setFlag": "p8_bunk_gristle"
+  },
+  {
+   "event": "p8_bunk"
+  },
+  {
+   "call": "p8c9.after_task"
+  }
+ ],
+ "p8c9.bunk_jim": [
+  {
+   "face": "jim",
+   "dir": "player"
+  },
+  "jim: Pantry first, Captain. Then bed.",
+  "Two crates, a padlock, and a sign.",
+  "captain: What does the sign say?",
+  "jim[angry]: JIM'S. NOT YOURS. NOT HIS EITHER.",
+  "Then he slings his own hammock directly over the pantry, so that anyone going for the biscuits in the night will have to go through Salty Jim to get them.",
+  {
+   "setFlag": "p8_bunk_jim"
+  },
+  {
+   "event": "p8_bunk"
+  },
+  {
+   "call": "p8c9.after_task"
+  }
+ ],
+ "p8c9.after_task": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p8_ropes_tied"
+     },
+     {
+      "flag": "p8_sailcloth_hung"
+     },
+     {
+      "flag": "p8_crates_moved"
+     },
+     {
+      "flag": "squawks_sleep_spot"
+     },
+     {
+      "flag": "p8_bunk_pete"
+     },
+     {
+      "flag": "p8_bunk_bob"
+     },
+     {
+      "flag": "p8_bunk_gristle"
+     },
+     {
+      "flag": "p8_bunk_jim"
+     }
+    ]
+   },
+   "then": [
+    "Look around: hammocks over the crates, a cargo net, a contraption of belts, a pantry with a padlock, a sailcloth screen, a cradle for a bald parrot. It's terrible. It's the best the hold has ever looked.",
+    {
+     "tutorial": "Everyone's sorted. Have a look at your own bunk (your corner, under the sailcloth).",
+     "title": "The Grand Decree"
+    }
+   ]
+  }
+ ],
+ "p8c9.mine": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "Your bunk: a decent hammock, low, out of the drips, under the sailcloth, with Squawks's cradle right beside it.",
+  "Then you look up.",
+  "Directly above it, slung from the same posts on twice as many ropes, with a spreader plank, is a hammock the size of a mainsail. Burgundy. A mustard pillow. A stink-cloud embroidered on the pillow.",
+  {
+   "sfx": "hammock_creak",
+   "volume": 0.7
+  },
+  "Nobody is in it yet. The ropes are creaking anyway.",
+  "captain[angry]: No.",
+  "garrick[proud]: Top bunk, Captain. As decreed.",
+  "He's right behind you. He's been waiting.",
+  "captain[angry]: Ye're RIGHT ABOVE ME.",
+  "garrick[proud]: Highest hammock. Rank.",
+  "captain[angry]: Garrick, ye are an extremely heavy man, and those ropes are ALREADY complaining.",
+  {
+   "sfx": "hammock_creak",
+   "volume": 0.8
+  },
+  "garrick[businesslike]: Settling.",
+  "Behind you, quietly:",
+  "gristle: He wants the altitude.",
+  "pete: For when it goes.",
+  "You hear them. So does he.",
+  "captain[determined]: Garrick. If ye release so much as a SQUEAK directly above me—",
+  "garrick[nervous]: Still uncertain!",
+  {
+   "sfx": "stomach_grnk",
+   "volume": 0.8
+  },
+  {
+   "shake": 1,
+   "duration": 300
+  },
+  "His stomach answers for him.",
+  "squawks[worried]: Move captain.",
+  "captain[tired]: Where?",
+  "Squawks looks round the hold: the crates, the casks, the pulley, the leak, the bucket, sixteen pirates and a frog.",
+  "squawks: Bad options.",
+  "captain[tired]: Aye.",
+  {
+   "setFlag": "garrick_top_hammock"
+  },
+  {
+   "setFlag": "lower_hull_barracks"
+  },
+  {
+   "completeQuest": "grand_decree"
+  },
+  {
+   "call": "p8c10.begin"
+  }
+ ]
+}

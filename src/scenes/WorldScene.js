@@ -27,6 +27,7 @@ import { deadCenterZonesFor, deadCenterSeals } from '../systems/hazards/deadCent
 import { panicShouts } from '../systems/hazards/alarms.js';
 import { SharkDuty } from '../world/SharkDuty.js';
 import { SharkstormLayer } from '../world/SharkstormLayer.js';
+import { mapDisplayName } from '../maps/mapName.js';
 
 // Step durations chosen so a 60 Hz frame moves a whole number of pixels:
 // walking is 2 px per frame (8 frames per tile), running 3 px per frame.
@@ -442,7 +443,7 @@ export class WorldScene extends BaseScene {
     this.app.bus.emit('map:entered', { map: this.model.id, first: firstVisit });
     this.updateRegions();
     if (this.entry.fadeIn !== false) await this.app.overlay.fadeIn(this.entry.newGame ? 700 : 260);
-    if (!this.entry.newGame) this.app.overlay.locationTitle(this.model.name);
+    if (!this.entry.newGame) this.app.overlay.locationTitle(mapDisplayName(this.model, this.session));
     if (this.entry.newGame) {
       const script = this.content.game.newGame.startScript;
       if (script) await this.runScript(script);

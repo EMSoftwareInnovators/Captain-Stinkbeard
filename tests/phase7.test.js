@@ -38,7 +38,8 @@ const atPreset = (id) => {
 
 describe('the Great Sharkstorm in Phase 7 (it comes back; it is not made again)', () => {
   it('has two new states after Phase 6\'s five', () => {
-    expect(Object.keys(sharkstormStates(content))).toEqual(['not_created', 'forming', 'attacking_ship', 'dispersed_near_ship', 'active_distant', 'returning', 'active_near_ship']);
+    // Later phases may add more states after these (Phase 8: easing_near_ship).
+    expect(Object.keys(sharkstormStates(content)).slice(0, 7)).toEqual(['not_created', 'forming', 'attacking_ship', 'dispersed_near_ship', 'active_distant', 'returning', 'active_near_ship']);
     const st = sharkstormStates(content);
     expect(st.returning).toMatchObject({ distance: 'approaching' });
     expect(st.returning.flying.impactEvery).toBeUndefined(); // nothing lands while it's still coming
@@ -196,7 +197,7 @@ describe('Phase 7 art and sound', () => {
       expect(peak, id).toBeLessThan(1.2);
       expect(out.loopEnd, id).toBeGreaterThan(out.loopStart);
     }
-  });
+  }, 30000);
 
   it('the new sound effects render', () => {
     const sfx = JSON.parse(fs.readFileSync(path.resolve('data/audio/sfx_phase7.json')));

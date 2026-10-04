@@ -66,7 +66,14 @@
    "x": 12,
    "y": 14,
    "if": {
-    "flag": "p7_sheltered"
+    "all": [
+     {
+      "flag": "p7_sheltered"
+     },
+     {
+      "notFlag": "p8_started"
+     }
+    ]
    },
    "script": "p7.inspect.seat"
   },
@@ -720,7 +727,14 @@
    "x": 12,
    "y": 14,
    "if": {
-    "flag": "p7_wheel_lashed"
+    "all": [
+     {
+      "flag": "p7_wheel_lashed"
+     },
+     {
+      "notFlag": "p8_started"
+     }
+    ]
    },
    "id": "captain_seat"
   },
@@ -729,7 +743,14 @@
    "x": 13,
    "y": 14,
    "if": {
-    "flag": "p7_wheel_lashed"
+    "all": [
+     {
+      "flag": "p7_wheel_lashed"
+     },
+     {
+      "notFlag": "p8_started"
+     }
+    ]
    },
    "id": "hold_basket",
    "depthOffset": -2
@@ -739,7 +760,14 @@
    "x": 9,
    "y": 15,
    "if": {
-    "flag": "p7_wheel_lashed"
+    "all": [
+     {
+      "flag": "p7_wheel_lashed"
+     },
+     {
+      "notFlag": "p8_crates_moved"
+     }
+    ]
    },
    "id": "pete_supplies"
   },
@@ -748,7 +776,14 @@
    "x": 12,
    "y": 16,
    "if": {
-    "flag": "p7_wheel_lashed"
+    "all": [
+     {
+      "flag": "p7_wheel_lashed"
+     },
+     {
+      "notFlag": "p8_crates_moved"
+     }
+    ]
    },
    "id": "jim_food"
   },
@@ -757,7 +792,14 @@
    "x": 7,
    "y": 14,
    "if": {
-    "flag": "p7_wheel_lashed"
+    "all": [
+     {
+      "flag": "p7_wheel_lashed"
+     },
+     {
+      "notFlag": "p8_crates_moved"
+     }
+    ]
    },
    "id": "gristle_charts"
   },
@@ -766,7 +808,14 @@
    "x": 8,
    "y": 12,
    "if": {
-    "flag": "p7_wheel_lashed"
+    "all": [
+     {
+      "flag": "p7_wheel_lashed"
+     },
+     {
+      "notFlag": "p8_crates_moved"
+     }
+    ]
    },
    "id": "bob_rope"
   },
@@ -775,7 +824,14 @@
    "x": 10,
    "y": 12,
    "if": {
-    "flag": "p7_wheel_lashed"
+    "all": [
+     {
+      "flag": "p7_wheel_lashed"
+     },
+     {
+      "notFlag": "p8_crates_moved"
+     }
+    ]
    },
    "id": "grog_mugs"
   },

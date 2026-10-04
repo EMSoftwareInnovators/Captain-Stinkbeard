@@ -33,7 +33,8 @@ export class NpcBrain {
   applyPose() {
     const t = this.behavior.type;
     if (t === 'work') this.actor.playPose('work');
-    else if (t === 'sit') this.actor.playPose('sit');
+    // Sitting can be sitting asleep (Story Phase 8: "doze", head on chest).
+    else if (t === 'sit') this.actor.playPose(this.pose === 'doze' ? 'doze' : 'sit');
     // A standing pose from the map placement or the last conversation
     // (eating, smug, nervous...) survives being talked to.
     else this.actor.playPose(this.pose ?? 'idle');

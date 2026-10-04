@@ -1,0 +1,169 @@
+{
+ "//": "Story Phase 8 vistas: the door to the old sleeping quarters opening a crack (and what's behind it); the Grand Bedtime Story (the hold with the lantern turned low, Garrick and his blank ledger, and the crayon pictures the crew can't help imagining on a ruled page); and the captain's bunk at night, from his own pillow: the Grand Stenchmaster's hammock overhead, the crown that comes down in pieces, the suit's puffs, and the sash.",
+ "quarters_reveal": {
+  "sky": "night",
+  "sea": false,
+  "layers": [
+   {
+    "id": "inside",
+    "frame": "quarters_inside_0",
+    "x": 160,
+    "y": 224,
+    "depth": 3,
+    "frames": [
+     "quarters_inside_0",
+     "quarters_inside_1"
+    ],
+    "frameMs": 600,
+    "hidden": true
+   },
+   {
+    "id": "frame",
+    "frame": "quarters_door",
+    "x": 160,
+    "y": 224,
+    "depth": 5
+   },
+   {
+    "id": "door",
+    "frame": "quarters_panel",
+    "x": 160,
+    "y": 214,
+    "depth": 6
+   }
+  ]
+ },
+ "legend": {
+  "sky": "night",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "bg",
+    "frame": "legend_bg",
+    "x": 160,
+    "y": 224,
+    "depth": 2
+   },
+   {
+    "id": "page",
+    "frame": "legend_page",
+    "x": 212,
+    "y": 214,
+    "depth": 10
+   },
+   {
+    "id": "panel",
+    "frame": "leg_reekhollow",
+    "x": 214,
+    "y": 202,
+    "depth": 11
+   }
+  ]
+ },
+ "bunk_night": {
+  "sky": "night",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "bg",
+    "frame": "bunk_bg",
+    "x": 160,
+    "y": 224,
+    "depth": 2
+   },
+   {
+    "id": "garrick",
+    "frame": "bunk_garrick_0",
+    "x": 160,
+    "y": 186,
+    "depth": 10,
+    "frames": [
+     "bunk_garrick_0",
+     "bunk_garrick_1"
+    ],
+    "frameMs": 1400
+   },
+   {
+    "id": "garrick_bare",
+    "frame": "bunk_garrick_bare_0",
+    "x": 160,
+    "y": 186,
+    "depth": 10,
+    "frames": [
+     "bunk_garrick_bare_0",
+     "bunk_garrick_bare_1"
+    ],
+    "frameMs": 1400,
+    "hidden": true
+   },
+   {
+    "id": "sash",
+    "frame": "bunk_sash_0",
+    "x": 168,
+    "y": 250,
+    "depth": 18
+   },
+   {
+    "id": "puff",
+    "frame": "suit_puff_0",
+    "x": 150,
+    "y": 160,
+    "depth": 30,
+    "frames": [
+     "suit_puff_0",
+     "suit_puff_1"
+    ],
+    "frameMs": 500,
+    "hidden": true
+   },
+   {
+    "id": "squawks",
+    "frame": "bunk_squawks_1",
+    "x": 276,
+    "y": 220,
+    "depth": 14
+   },
+   {
+    "id": "face",
+    "frame": "cap_face_shut",
+    "x": 160,
+    "y": 228,
+    "depth": 16
+   },
+   {
+    "id": "crown",
+    "frame": "bunk_crown",
+    "x": 80,
+    "y": 98,
+    "depth": 20,
+    "hidden": true
+   },
+   {
+    "id": "fork",
+    "frame": "bunk_fork",
+    "x": 68,
+    "y": 98,
+    "depth": 21,
+    "hidden": true
+   },
+   {
+    "id": "spoon",
+    "frame": "bunk_spoon",
+    "x": 90,
+    "y": 98,
+    "depth": 21,
+    "hidden": true
+   },
+   {
+    "id": "lid",
+    "frame": "bunk_lid",
+    "x": 80,
+    "y": 88,
+    "depth": 22,
+    "hidden": true
+   }
+  ]
+ }
+}

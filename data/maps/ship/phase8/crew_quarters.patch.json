@@ -1,0 +1,52 @@
+{
+ "id": "crew_quarters_phase8",
+ "patch": "crew_quarters",
+ "//": "Story Phase 8: the old sleeping quarters, condemned. Not the Dead Center (that has moved on to the forward deck): what it left behind, embedded in the boards. Permanent, dense, everywhere. Nobody comes in here (the galley door is locked for good); this is what it would be if they did.",
+ "haze": [
+  {
+   "if": {
+    "flag": "crew_quarters_condemned"
+   },
+   "level": "dense"
+  }
+ ],
+ "fumes": [
+  {
+   "id": "p8_condemned",
+   "level": "dense",
+   "x": 1,
+   "y": 4,
+   "w": 16,
+   "h": 12,
+   "if": {
+    "flag": "crew_quarters_condemned"
+   }
+  }
+ ],
+ "ambient": [
+  {
+   "kind": "smoke",
+   "x": 4,
+   "y": 9,
+   "rise": 4,
+   "every": 1300,
+   "alpha": 0.5,
+   "tint": "#d8c850",
+   "if": {
+    "flag": "crew_quarters_condemned"
+   }
+  },
+  {
+   "kind": "smoke",
+   "x": 12,
+   "y": 7,
+   "rise": 4,
+   "every": 1700,
+   "alpha": 0.5,
+   "tint": "#d8c850",
+   "if": {
+    "flag": "crew_quarters_condemned"
+   }
+  }
+ ]
+}
