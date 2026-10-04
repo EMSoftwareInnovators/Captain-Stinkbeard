@@ -8,7 +8,7 @@
  */
 export const MIGRATIONS = {
   /**
-   * 1 → 2 (Story Phase 2: Garrick Guzzlegut and the Cursed Treasure)
+   * 1 → 2 (Story Phase 2: Garrick Grumblegut and the Cursed Treasure)
    * - The treasure hold was rebuilt larger for the new chapter: a save made
    *   inside it moves to the room's door so it never loads inside a wall.
    * - Story variables are always an object (older saves could omit them).
@@ -166,6 +166,39 @@ export const MIGRATIONS = {
     },
     inventory: state.inventory && typeof state.inventory === 'object' ? state.inventory : { gold: 0, items: {} },
   }),
+  /**
+   * 8 -> 9 (Story Phase 9: the Completely Authentic History; Crownskull Isle;
+   * the Grand Excavation; the Grand Treasure Catastrophe).
+   * - Garrick's surname is Grumblegut. Early builds called him "Guzzlegut",
+   *   and the flag for the first gust was "guzzlegut_gust": it becomes
+   *   "grumblegut_gust" (names on screen come from the game's data, so
+   *   nothing else needs renaming).
+   * Everything Phase 9 adds (Crownskull Isle, Pete's mock title, the Crimson
+   * Fortune's state, the crowned megalodon, the treasure-laden storm) is
+   * flags and story values that start unset, so a finished Phase 8 save
+   * walks into the morning after the Grand Nap. Missing fields are filled;
+   * nothing is removed.
+   */
+  8: (state) => {
+    const flags = Array.isArray(state.story?.flags) ? state.story.flags : [];
+    const renamed = [...new Set(flags.map((f) => (f === 'guzzlegut_gust' ? 'grumblegut_gust' : f)))];
+    return {
+      ...state,
+      story: {
+        ...state.story,
+        flags: renamed,
+        vars: state.story?.vars && typeof state.story.vars === 'object' ? state.story.vars : {},
+        values: state.story?.values && typeof state.story.values === 'object' ? state.story.values : {},
+      },
+      world: {
+        ...state.world,
+        objects: state.world?.objects ?? {},
+        visited: state.world?.visited ?? [],
+        counters: state.world?.counters ?? {},
+      },
+      inventory: state.inventory && typeof state.inventory === 'object' ? state.inventory : { gold: 0, items: {} },
+    };
+  },
 };
 
 export function migrateState(state, fromVersion, toVersion, migrations = MIGRATIONS) {

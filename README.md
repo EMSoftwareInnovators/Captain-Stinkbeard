@@ -3,7 +3,7 @@
 A retro 16-bit-style pirate RPG for the web, built with **Phaser 4**, plain
 JavaScript ES modules and **Vite**. This repository contains **Phase 1** (the
 engine foundation and a playable prologue aboard Blackbeard's ship, the
-*Revenge*, about 10–20 minutes), **Story Phase 2: Garrick Guzzlegut and the
+*Revenge*, about 10–20 minutes), **Story Phase 2: Garrick Grumblegut and the
 Cursed Treasure**, eight chapters that continue straight on from the prologue
 (about 30–60 minutes), **Story Phase 3: The Grand Stenchmaster**, six more
 chapters that pick up the same evening (about 45–75 minutes), and **Story
@@ -118,13 +118,13 @@ it would cover the people talking.
 
 ## What's in Story Phase 2
 
-*Garrick Guzzlegut and the Cursed Treasure.* Sleep in the captain's bed after
+*Garrick Grumblegut and the Cursed Treasure.* Sleep in the captain's bed after
 the prologue to begin. A peaceful morning on the Sapphire Sea ends when One-Eyed
-Ned spots a man paddling a bathtub with two giant sausages: Garrick Guzzlegut,
+Ned spots a man paddling a bathtub with two giant sausages: Garrick Grumblegut,
 disgraced dockside treasure appraiser and self-described maritime
 businessman. He joins the crew (provisionally), turns the foredeck into a toll
 road, eats a catastrophic lunch, and is taken to help in the treasure room.
-What follows is the Guzzlegut Gust, a yellow cloud through the whole ship, a
+What follows is the Grumblegut Gust, a yellow cloud through the whole ship, a
 rescue in the Dead Center, a ruined fortune, a trial, and a royal frigate.
 
 - **Eight chapters** with cutscenes, illustrated vistas (the telescope view,
@@ -132,7 +132,7 @@ rescue in the Dead Center, a ruined fortune, a trial, and a royal frigate.
   close-up inserts, and attitude choices that converge.
 - **Seven quests**: *Strange Cargo*, *The New Recruit*, *Treasure Inspection*,
   *Yellow Alert*, *Save Squawks*, *The Price of Gold*, *The Yellow Defense*.
-- **New characters**: Garrick Guzzlegut, Captain Squawks (normal, exposed,
+- **New characters**: Garrick Grumblegut, Captain Squawks (normal, exposed,
   bald and sweater looks), Salty Jim, One-Eyed Ned, Barnacle Bob and the
   prisoner-merchant Penhallow; crew dialogue for every stage of the day.
 - **Fume hazard**: light, dense and Dead Center zones, drifting pockets, an

@@ -6,7 +6,7 @@ trial and the frigate are behind everyone, and Garrick is on probation.
 Garrick decides all of this clearly qualifies him for a promotion.
 
 By the end, Blackbeard is **Captain Stinkbeard**, Garrick is **Grand
-Stenchmaster Garrick Guzzlegut** (temporarily), the ship's drink is **Frog
+Stenchmaster Garrick Grumblegut** (temporarily), the ship's drink is **Frog
 Grog**, the ship itself has changed for good, and Garrick has been sent off in
 the rowboat for the second time, trailing sharks toward another distant
 release. The phase stops there. The next canonical excerpt continues it.

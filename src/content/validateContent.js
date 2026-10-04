@@ -11,7 +11,7 @@ import { parseLine } from '../systems/script/parseLine.js';
 import { normalizeScript } from '../systems/script/ScriptRunner.js';
 import { OBJECTIVE_TYPES } from '../systems/quests/QuestSystem.js';
 import { EFFECT_TYPES } from '../systems/effects/effects.js';
-import { compileMap, isSolid } from '../maps/compileMap.js';
+import { compileMap, isSolid, bedsAt, BED_POSES } from '../maps/compileMap.js';
 import { checkStaging } from './staging.js';
 import { ACTIONS } from '../platform/input/bindings.js';
 import { ART_REGISTRY } from '../art/registry.js';
@@ -642,6 +642,12 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     if (!art.props.has(pr.sprite ?? pr.id)) c.error(`no prop art "${pr.sprite ?? pr.id}"`);
     if (pr.inspect) asArray(pr.inspect).forEach((line) => validateLine(line, c));
     if (pr.layer && !['floor', 'object', 'wall', 'overhead'].includes(pr.layer)) c.error(`bad prop layer "${pr.layer}"`);
+    if (pr.bed !== undefined && typeof pr.bed !== 'boolean') c.error('"bed" must be true or false');
+    if (pr.sling !== undefined) {
+      const ok = Array.isArray(pr.sling) && pr.sling.length === 4 && pr.sling.every(Number.isInteger) && pr.sling[0] < pr.sling[1];
+      if (!ok) c.error('"sling" must be [x0, x1, y, sag]: where a hammock\'s canvas starts and ends, its top edge at the ends, and its sag (image pixels)');
+      if (!pr.bed) c.error('"sling" is for beds ("bed": true)');
+    }
   }
 
   for (const npc of db.npcs.list()) {
@@ -753,7 +759,12 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
         case 'npc':
           oc.npc(obj.npc);
           if (obj.absent) break;
-          if (!walkable) oc.error('npc stands on a solid tile');
+          // Asleep in a hammock or a bedroll: on one of its tiles (a hammock may be over a crate), and keeping still.
+          if (BED_POSES.includes(obj.pose)) {
+            if (!bedsAt(model, obj.x, obj.y).length) oc.error(`npc posed "${obj.pose}" needs a bed under it (a prop with "bed": true at ${obj.x},${obj.y})`);
+            const still = obj.behavior?.type ?? db.npcs.get(obj.npc)?.behavior?.type ?? 'stand';
+            if (!['stand', 'sit'].includes(still)) oc.error(`npc posed "${obj.pose}" must stand or sit still (behavior "${still}")`);
+          } else if (!walkable) oc.error('npc stands on a solid tile');
           if (obj.blocks !== undefined && typeof obj.blocks !== 'boolean') oc.error('"blocks" must be true or false');
           if (obj.behavior) validateBehavior(obj.behavior, oc.at('behavior'), model);
           else validateBehavior(db.npcs.get(obj.npc)?.behavior, oc.at('behavior'), model);

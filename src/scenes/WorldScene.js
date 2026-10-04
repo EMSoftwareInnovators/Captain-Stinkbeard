@@ -28,6 +28,7 @@ import { panicShouts } from '../systems/hazards/alarms.js';
 import { SharkDuty } from '../world/SharkDuty.js';
 import { SharkstormLayer } from '../world/SharkstormLayer.js';
 import { mapDisplayName } from '../maps/mapName.js';
+import { bedsAt, BED_POSES } from '../maps/compileMap.js';
 
 // Step durations chosen so a 60 Hz frame moves a whole number of pixels:
 // walking is 2 px per frame (8 frames per tile), running 3 px per frame.
@@ -35,7 +36,7 @@ const FRAME_MS = 1000 / 60;
 const WALK_MS = FRAME_MS * 8;
 const RUN_MS = (FRAME_MS * 16) / 3;
 /** How long the captain leans on someone standing in his way before squeezing past. */
-const SQUEEZE_PAST_MS = 700;
+const SQUEEZE_PAST_MS = 280;
 
 /**
  * Exploration. Loads one map, spawns the player, NPCs, props and visible
@@ -470,8 +471,43 @@ export class WorldScene extends BaseScene {
     return this.model.solid[k] === 1 || this.dynSolid?.[k] === 1;
   }
 
+  /** Who stands on a tile (someone up in a hammock doesn't: people walk underneath). */
   occupantAt(x, y) {
-    return this.occupancy.get(this.key(x, y)) || null;
+    const a = this.occupancy.get(this.key(x, y));
+    return a && !a.aloft ? a : null;
+  }
+
+  /** Someone asleep in a hammock over a tile (see Actor.aloft). */
+  aloftAt(x, y) {
+    for (const a of this.actors.values()) if (a.aloft && a.tx === x && a.ty === y) return a;
+    return null;
+  }
+
+  /**
+   * The bed (a prop with "bed": true) over a tile, for a sleeper to lie in:
+   * its middle (`cx`), its image's top-left on screen and width, and, for a
+   * hammock, where its canvas hangs (`sling`, see Actor/hammockSleeper).
+   */
+  bedAt(x, y) {
+    const [bed] = bedsAt(this.model, x, y, (cond) => evaluateCondition(cond, this.session));
+    if (!bed) return null;
+    const def = this.content.props.get(bed.prop);
+    const cx = (bed.x + bed.w / 2) * TILE_SIZE;
+    const frame = this.textures.getFrame('props', def?.sprite ?? bed.prop);
+    const width = frame?.width ?? bed.w * TILE_SIZE;
+    const height = frame?.height ?? TILE_SIZE;
+    return { cx, left: Math.round(cx - width / 2), top: (bed.y + bed.h) * TILE_SIZE - height, width, sling: def?.sling ?? null, flip: bed.flip };
+  }
+
+  /** The bed a placement sleeps someone in, if it does. */
+  bedFor(obj) {
+    return BED_POSES.includes(obj?.pose) ? this.bedAt(obj.x, obj.y) : null;
+  }
+
+  /** Where a placement puts someone: in their bed if they sleep in one, else the nearest open tile to the spot. */
+  spotFor(obj, self = null) {
+    if (this.bedFor(obj)) return { x: obj.x, y: obj.y };
+    return this.openSpotNear(obj.x, obj.y, self);
   }
 
   isBlocked(x, y, self = null) {
@@ -661,7 +697,7 @@ export class WorldScene extends BaseScene {
     // Left in the air by a flight: come down where they belong.
     if (a.flight) {
       a.flight = null;
-      this.putActor(a, this.openSpotNear(obj.x, obj.y, a));
+      this.putActor(a, this.spotFor(obj, a));
       this.takeUpPlacement(a, obj);
       a.setVisible(true);
       return instant ? Promise.resolve() : this.fadeActor(a, 0, 1);
@@ -669,16 +705,16 @@ export class WorldScene extends BaseScene {
     if (instant || (a.tx === obj.x && a.ty === obj.y && !a.moving)) {
       a.brain.relocation?.resolve();
       a.brain.relocation = null;
-      if (instant) this.putActor(a, this.openSpotNear(obj.x, obj.y, a));
+      if (instant) this.putActor(a, this.spotFor(obj, a));
       this.takeUpPlacement(a, obj);
       return Promise.resolve();
     }
-    return a.brain.relocate({ x: obj.x, y: obj.y, placement: obj, inScene });
+    return a.brain.relocate({ x: obj.x, y: obj.y, placement: obj, inScene, bed: !!this.bedFor(obj) });
   }
 
   /** Someone the story brings into the room comes in from the nearest arrival point. */
   enterRoom(obj, { instant = false, inScene = false } = {}) {
-    const spot = this.openSpotNear(obj.x, obj.y);
+    const spot = this.spotFor(obj);
     const door = instant ? null : this.nearestArrival(spot.x, spot.y);
     if (!door) {
       const a = this.placeNpc(obj, spot);
@@ -686,7 +722,7 @@ export class WorldScene extends BaseScene {
     }
     const a = this.spawnNpc(obj.npc, { x: door.x, y: door.y, facing: door.facing ?? 'down', actorId: obj.npc, behavior: { type: 'stand' } });
     this.fadeActor(a, 0, 1);
-    return a.brain.relocate({ x: spot.x, y: spot.y, placement: obj, inScene });
+    return a.brain.relocate({ x: spot.x, y: spot.y, placement: obj, inScene, bed: !!this.bedFor(obj) });
   }
 
   /** Someone the story takes out of the room walks out by the nearest arrival point. */
@@ -719,7 +755,7 @@ export class WorldScene extends BaseScene {
       a.brain?.pause();
       await this.fadeActor(a, 1, 0);
       if (this.actors.get(a.id) !== a) return;
-      this.putActor(a, this.openSpotNear(goal.x, goal.y, a));
+      this.putActor(a, goal.placement ? this.spotFor(goal.placement, a) : this.openSpotNear(goal.x, goal.y, a));
       this.takeUpPlacement(a, goal.placement);
       a.brain?.resume();
       await this.fadeActor(a, 0, 1);
@@ -1028,7 +1064,8 @@ export class WorldScene extends BaseScene {
       return;
     }
     const blocked = this.app.flags.noclip ? nx < 0 || ny < 0 || nx >= this.model.width || ny >= this.model.height || !!occ : this.isBlocked(nx, ny, p);
-    const person = blocked && occ && occ !== p && occ.npc && !occ.moving && !occ.scripted && !this.isSolid(nx, ny) ? occ : null;
+    // Someone standing or sitting (not lying asleep) on open floor can be squeezed past.
+    const person = blocked && occ && occ !== p && occ.npc && !occ.moving && !occ.scripted && !occ.lying && !this.isSolid(nx, ny) ? occ : null;
     if (person && person !== this.pushing?.npc) this.pushing = { npc: person, since: this.time.now };
     if (!person) this.pushing = null;
     // Never leave the captain stuck behind people: walled in on every side,
@@ -1074,6 +1111,13 @@ export class WorldScene extends BaseScene {
     this.occupancy.set(there, p);
     p.beginStep(dir, ms, this.wasMoving ? p.carryMs : dt);
     this.wasMoving = true;
+    npc.brain?.squeezedPast();
+    // Now and then they say something about it (so it's clear you can push through a crowd).
+    const lines = this.content.game.squeezePast ?? [];
+    if (lines.length && this.time.now >= (this.squeezeBarkAt ?? 0)) {
+      this.squeezeBarkAt = this.time.now + 5000;
+      this.barks.show(npc, lines[Math.floor(Math.random() * lines.length)], { duration: 1200 });
+    }
   }
 
   bump() {
@@ -1154,7 +1198,7 @@ export class WorldScene extends BaseScene {
     // Shark Duty first: a shark at the rail can't wait for small talk.
     const duty = this.sharkDuty?.targetAt(x, y);
     if (duty) return { kind: 'duty', incident: duty, x, y };
-    const occ = this.occupantAt(x, y);
+    const occ = this.occupantAt(x, y) ?? this.aloftAt(x, y);
     if (occ && occ.kind === 'npc' && occ.npc) return { kind: 'npc', actor: occ, x, y };
     for (const obj of this.objects) {
       if ((obj.type === 'inspect' || obj.type === 'chest') && this.inRect(obj, x, y)) {
@@ -1401,7 +1445,9 @@ export class WorldScene extends BaseScene {
   }
 
   showEmote(actor, icon, duration = 900) {
-    const e = this.add.image(actor.sprite.x, actor.sprite.y - 44, 'ui', `emote_${icon}`).setOrigin(0.5, 1).setDepth(80001);
+    // Over the head (wherever the head is: up top, or at the pillow end of a bed).
+    const { x: ex, y: ey } = actor.emoteAnchor();
+    const e = this.add.image(ex, ey, 'ui', `emote_${icon}`).setOrigin(0.5, 1).setDepth(80001);
     e.setScale(1, 0.2);
     this.tweens.add({ targets: e, scaleY: 1, duration: 110, ease: 'Back.Out' });
     return new Promise((resolve) => {

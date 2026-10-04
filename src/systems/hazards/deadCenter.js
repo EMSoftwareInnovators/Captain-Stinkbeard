@@ -1,5 +1,5 @@
 /**
- * The Dead Center: the thick, concentrated core of the Guzzlegut Gust, which
+ * The Dead Center: the thick, concentrated core of the Grumblegut Gust, which
  * (Story Phase 4 establishes) still wanders the ship. Engine-agnostic rules;
  * the world draws it through the ordinary fume system (fumes.js, FumeLayer).
  *

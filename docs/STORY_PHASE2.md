@@ -1,4 +1,4 @@
-# Story Phase 2: Garrick Guzzlegut and the Cursed Treasure
+# Story Phase 2: Garrick Grumblegut and the Cursed Treasure
 
 The first canonical story chapter after the prologue. The player is still
 **Captain Blackbeard** of the *Queen Anne's Revenge*, on the Sapphire Sea.
@@ -8,7 +8,7 @@ not go further; the next excerpt continues it.
 About 30–60 minutes of play: 227 scripts, about 800 dialogue lines, 7 quests,
 69 story flags, and one playable rescue.
 
-## Garrick Guzzlegut
+## Garrick Grumblegut
 
 An original character: a disgraced dockside treasure appraiser, salvager, con
 man and "maritime businessman". Stout, loud, greedy, confident, lazy, knows
@@ -44,11 +44,11 @@ the flags (`data/game.json`).
 | 1 | The Man in the Bathtub | `ch1_morning_started` | Strange Cargo | `bob_lamp_oil_seen`, `ch1_foredeck_reached`, `bathtub_spotted`, `bathtub_seen`, `garrick_hauled_aboard`, `met_squawks`, `garrick_questioned`, `garrick_provisional` |
 | 2 | Garrick's First Day at Sea | `garrick_provisional` | The New Recruit | `garrick_toll_setup`, `garrick_toll_warned`, `garrick_toll_removed`, `garrick_scrub_seen`, `galley_lunch_seen`, `garrick_digestive_crisis`, `jim_warned`, `rumble_sails_seen`, `garrick_thunder_excuse` |
 | 3 | Blackbeard's Treasure Room | `garrick_thunder_excuse` | Treasure Inspection | `treasure_inspection_started`, `garrick_saw_treasure`, `garrick_searched`, `treasure_hoard_checked`, `treasure_chest_moved` |
-| 4 | The Guzzlegut Gust | `treasure_chest_moved` | (Treasure Inspection) | `guzzlegut_gust`, `quarters_evacuated`, `galley_evacuated`, `gust_aftermath_done`, `fumes_spread` |
+| 4 | The Grumblegut Gust | `treasure_chest_moved` | (Treasure Inspection) | `grumblegut_gust`, `quarters_evacuated`, `galley_evacuated`, `gust_aftermath_done`, `fumes_spread` |
 | 5 | The Cloud Takes the Ship | `gust_aftermath_done` | Yellow Alert | `deck_evacuated_seen`, `dead_center_explained`, `squawks_fell`, `squawks_exposed` |
 | 6 | Save Captain Squawks | `squawks_fell` | Save Squawks | `rescue_rope`, `rescue_cloth`, `rescue_gear_on`, `rescue_prepared`, `rescue_boots_moment`, `squawks_caught`, `squawks_rescued`, `squawks_bald`, `boots_stained` |
 | 7 | The Fate of the Treasure | `squawks_rescued` | The Price of Gold | `fumes_thinned`, `treasure_contaminated`, `ruined_reveal_seen`, `insp_ruined_*`, `merchant_test_started`, `merchant_test_done`, `ship_permanently_contaminated`, `crew_turned_on_garrick` |
-| 8 | The Trial of Garrick Guzzlegut | `trial_started` | The Yellow Defense | `squawks_sweater`, `frigate_sighted`, `frigate_plan_agreed`, `ship_turned`, `fume_sail_released`, `frigate_fled`, `garrick_on_probation`, `rowboat_protocol`, `squawks_deadly_brew`, `phase2_complete` |
+| 8 | The Trial of Garrick Grumblegut | `trial_started` | The Yellow Defense | `squawks_sweater`, `frigate_sighted`, `frigate_plan_agreed`, `ship_turned`, `fume_sail_released`, `frigate_fled`, `garrick_on_probation`, `rowboat_protocol`, `squawks_deadly_brew`, `phase2_complete` |
 
 ### What happens
 

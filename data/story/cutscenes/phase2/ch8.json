@@ -1,10 +1,10 @@
 {
-  "//": "Story Phase 2, chapter 8: The Trial of Garrick Guzzlegut. Trial layout (TRIAL placements): Garrick tied at (9,21), Squawks (11,21), the captain at (9,23). Frigate: helm (9,6), sail cleat (8,30), rowboat (4,24).",
+  "//": "Story Phase 2, chapter 8: The Trial of Garrick Grumblegut. Trial layout (TRIAL placements): Garrick tied at (9,21), Squawks (11,21), the captain at (9,23). Frigate: helm (9,6), sail cleat (8,30), rowboat (4,24).",
 
   "ch8.begin": [
     { "fade": "out", "duration": 800 },
     { "setFlag": ["trial_started", "squawks_sweater"] },
-    { "banner": "CHAPTER 8", "sub": "The Trial of Garrick Guzzlegut" },
+    { "banner": "CHAPTER 8", "sub": "The Trial of Garrick Grumblegut" },
     { "narrate": "Sundown. The sea turns to copper, the crew assembles on the main deck, and Mags finishes knitting something small, red and urgent." },
     { "close": true },
     { "transition": "main_deck", "x": 9, "y": 23, "facing": "up", "fade": 0 }
@@ -21,7 +21,7 @@
       "mags: It's sheep.",
       "squawks[smug]: It's CASHMERE.",
       { "face": "quill", "dir": "player" },
-      "quill: The Ship versus Garrick Guzzlegut. Captain Blackbeard presiding. I have the charges here.",
+      "quill: The Ship versus Garrick Grumblegut. Captain Blackbeard presiding. I have the charges here.",
       { "insert": "charge_sheet", "caption": "Written up by Quill in his best hand, with footnotes." },
       { "goto": "charges" }
     ],
@@ -133,7 +133,7 @@
       { "setFlag": "frigate_plan_agreed" },
       { "sfx": "sword_draw" },
       "Rook cuts Garrick's ropes with one swipe.",
-      "captain[determined]: ALL HANDS! Nell, clear the helm, I'm taking her myself! Rook, Brask, the foresail! Guzzlegut, with me!",
+      "captain[determined]: ALL HANDS! Nell, clear the helm, I'm taking her myself! Rook, Brask, the foresail! Grumblegut, with me!",
       { "transition": "main_deck", "x": 9, "y": 8, "facing": "up", "then": "ch8.stations", "fade": 500 }
     ]
   },
@@ -203,7 +203,7 @@
     "start": [
       { "face": "garrick", "dir": "player" },
       "garrick[smug]: Asset deployment, Captain. Textbook.",
-      "captain: Guzzlegut. Front and centre.",
+      "captain: Grumblegut. Front and centre.",
       "captain: You ruined my treasure. You gassed my ship. You nearly killed my parrot.",
       { "bark": "squawks", "text": "NEARLY!", "shout": true, "duration": 1200 },
       "captain: And you just saw off forty royal guns with a bedsheet.",
@@ -315,7 +315,7 @@
     { "fade": "out", "duration": 900 },
     { "vistaEnd": true, "fade": 0 },
     { "setFlag": "phase2_complete" },
-    { "banner": "END OF STORY PHASE 2", "sub": "Garrick Guzzlegut and the Cursed Treasure" },
+    { "banner": "END OF STORY PHASE 2", "sub": "Garrick Grumblegut and the Cursed Treasure" },
     { "transition": "main_deck", "spawn": "cabin_door", "then": "ch8.coda", "fade": 0 }
   ],
 

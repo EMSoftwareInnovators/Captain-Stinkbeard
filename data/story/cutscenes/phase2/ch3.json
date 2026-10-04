@@ -23,7 +23,7 @@
         "captain[annoyed]: ...Fine."
       ] }
     ] },
-    "captain[determined]: Guzzlegut. The treasure room door, in the cargo hold. You wait for me there.",
+    "captain[determined]: Grumblegut. The treasure room door, in the cargo hold. You wait for me there.",
     "captain[angry]: And you TOUCH. NOTHING.",
     "garrick[greedy]: Captain. I'm a professional.",
     { "anim": "garrick", "name": "greedy", "duration": 900 },
@@ -56,7 +56,7 @@
       { "wait": 300 },
       { "camera": "reset", "duration": 800 },
       { "face": "player", "dir": "right" },
-      "captain[smug]: Behold, Guzzlegut. The treasure of Captain Blackbeard.",
+      "captain[smug]: Behold, Grumblegut. The treasure of Captain Blackbeard.",
       { "face": "garrick", "dir": "up" },
       { "anim": "garrick", "name": "greedy" },
       "garrick[greedy]: Oh. Oh my.",
@@ -73,7 +73,7 @@
       { "burst": "gems", "actor": "garrick", "count": 8 },
       { "shake": 2, "duration": 250 },
       "garrick[delighted]: INVENTORY AUDIT!",
-      "captain[angry]: GUZZLEGUT!",
+      "captain[angry]: GRUMBLEGUT!",
       { "hop": "garrick", "height": 6 },
       { "sfx": "coin_scatter", "volume": 0.7 },
       { "burst": "coins", "actor": "garrick", "count": 16 },
@@ -126,7 +126,7 @@
   "ch3.inspect_hoard": [
     "The hoard has mostly ridden out the swell. A few piles have slumped and a crown has rolled under the strongbox...",
     "...and one chest has slid clean off the stack by the starboard wall. It's lying on its side.",
-    "captain: Guzzlegut. That chest. You're lifting the other end.",
+    "captain: Grumblegut. That chest. You're lifting the other end.",
     "garrick[pretend]: Heavy lifting. Right. I'd like it on record that I'm management.",
     { "setFlag": "treasure_hoard_checked" },
     { "move": "garrick", "to": [17, 10], "face": "left" }
@@ -195,7 +195,7 @@
       "garrick[nervous]: It's only us, Captain.",
       "captain[alarmed]: THEN BOTH OF US! OUT! NOW!",
       { "anim": "garrick", "name": "clutch" },
-      { "banner": "CHAPTER 4", "sub": "The Guzzlegut Gust" }
+      { "banner": "CHAPTER 4", "sub": "The Grumblegut Gust" }
     ]
   },
 

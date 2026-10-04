@@ -588,9 +588,9 @@ hatch you just climbed out of), so arriving and walking on feels natural.
 **Story-driven map fields** (all optional):
 
 ```json
-"musicVariants": [{ "if": { "flag": "guzzlegut_gust" }, "music": "yellow_alert", "ambience": "hold_fumes" }],
+"musicVariants": [{ "if": { "flag": "grumblegut_gust" }, "music": "yellow_alert", "ambience": "hold_fumes" }],
 "lightingVariants": [{ "if": { "flag": "trial_started" }, "ambient": "#c08870" }],
-"haze": [{ "if": { "flag": "fumes_thinned" }, "level": "faint" }, { "if": { "flag": "guzzlegut_gust" }, "level": "dense" }],
+"haze": [{ "if": { "flag": "fumes_thinned" }, "level": "faint" }, { "if": { "flag": "grumblegut_gust" }, "level": "dense" }],
 "fumes": [{ "id": "core", "level": "center", "x": 3, "y": 4, "w": 4, "h": 3, "if": { … },
            "path": [[3, 4], [6, 4]], "periodMs": 9000 }],
 "fumeCollapse": "hazard.collapse_hold",

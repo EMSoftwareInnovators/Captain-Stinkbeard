@@ -1163,6 +1163,8 @@ export const FIELD_POSES = {
   sit: [{ sit: true, arms: 'down' }],
   // Story Phase 8: asleep sitting up (the crew, the night nobody slept), head on chest.
   doze: [{ sit: true, arms: 'down', headDy: 2 }],
+  // Asleep lying down (Actor turns it on its side in a hammock or a bedroll), eyes shut.
+  sleep: [{ legs: 'stand', arms: 'down', face: 'asleep' }],
   point: [{ legs: 'stand', arms: 'point' }],
   surprised: [{ legs: 'stand', arms: 'up', face: 'surprised' }],
 };

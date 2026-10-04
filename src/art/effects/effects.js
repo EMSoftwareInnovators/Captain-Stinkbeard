@@ -71,6 +71,41 @@ function shadow(w, h) {
   return c;
 }
 
+/**
+ * The blanket over a sleeper lying in a hammock or a bedroll (Actor poses
+ * "hammock" and "bedroll"): it covers everything from the neck down, arms
+ * and all, so only the head shows at one end. Drawn for a head on the right
+ * (the turned-down edge at the neck); flipped for a head on the left. Two
+ * sizes: most of the crew, and the broad ones (the suit).
+ */
+function sleepBlanket(w, h) {
+  const c = new PixelCanvas(w, h);
+  const m = '#4a5a8a';
+  const d = '#36426a';
+  const l = '#6a7cb0';
+  const mid = h / 2;
+  for (let x = 0; x < w; x++) {
+    // Full height over the shoulders and arms, narrowing over the legs to the feet (on the left).
+    const fromNeck = w - 1 - x;
+    const legs = Math.max(0, fromNeck - 14) / Math.max(1, w - 15);
+    const half = mid - legs * (mid * 0.4) - (x === 0 ? 1 : 0);
+    const lump = Math.round(Math.sin(x * 0.5) * 0.6);
+    const top = Math.round(mid - half) + lump;
+    const bot = Math.round(mid + half) - 1;
+    c.vline(x, top, bot, m);
+    c.set(x, top, l);
+    c.set(x, top + 1, l);
+    c.vline(x, bot - 1, bot, d);
+  }
+  // the turned-down edge at the neck, a fold down the middle, and the stripes
+  c.vline(w - 3, 1, h - 2, '#e6dcc4');
+  c.vline(w - 2, 1, h - 2, '#cfc2a4');
+  for (let x = 3; x < w - 5; x++) if (x % 3) c.set(x, Math.round(mid) + (x % 7 === 0 ? 1 : 0), d);
+  for (let x = 5; x < w - 5; x += 6) c.vline(x, Math.round(mid) - 4, Math.round(mid) - 2, '#5e6ea0');
+  c.outline(PAL.ink);
+  return c;
+}
+
 function gull(frame) {
   const c = new PixelCanvas(16, 12);
   const wing = [0, 2, 4, 2][frame];
@@ -157,6 +192,8 @@ export function buildEffectsAtlas() {
   atlas.add('shadow_m', shadow(20, 6));
   atlas.add('shadow_l', shadow(28, 8));
   atlas.add('shadow_xs', shadow(10, 4));
+  atlas.add('sleep_blanket', sleepBlanket(26, 22));
+  atlas.add('sleep_blanket_l', sleepBlanket(27, 30));
   addFumeEffects(atlas);
   return atlas.build();
 }

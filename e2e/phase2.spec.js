@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { GameDriver } from './driver.js';
 
 /**
- * Story Phase 2 (Garrick Guzzlegut and the Cursed Treasure) in a real
+ * Story Phase 2 (Garrick Grumblegut and the Cursed Treasure) in a real
  * browser with real key presses. Chapter presets (data/debug/presets.json)
  * jump to the start of each set-piece; the long test plays the whole phase
  * from the end of the prologue.
@@ -95,7 +95,7 @@ test('saving and continuing mid-Phase 2 keeps the story', { tag: ['@phase2', '@s
   const s = await g.state();
   expect(s.map).toBe('treasure_hold');
   const flags = flagsOf(s);
-  for (const f of ['guzzlegut_gust', 'squawks_rescued', 'squawks_bald', 'boots_stained', 'treasure_contaminated', 'ruined_reveal_seen']) expect(flags.has(f), f).toBe(true);
+  for (const f of ['grumblegut_gust', 'squawks_rescued', 'squawks_bald', 'boots_stained', 'treasure_contaminated', 'ruined_reveal_seen']) expect(flags.has(f), f).toBe(true);
   expect(s.quests.price_of_gold.status).toBe('active');
   // The ruined treasure is what's on display, and the captain's boots stayed stained.
   const look = await g.eval(() => {

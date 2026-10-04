@@ -135,7 +135,7 @@ export class SaveManager {
   listSlots() {
     return this.allSlots().map((slot) => {
       const res = this.read(slot);
-      return { slot, status: res.status, summary: res.summary ?? null, savedAt: res.savedAt ?? null, reason: res.reason ?? null };
+      return { slot, status: res.status, summary: legacySummary(res.summary), savedAt: res.savedAt ?? null, reason: res.reason ?? null };
     });
   }
 
@@ -152,4 +152,16 @@ export class SaveManager {
   hasAnySave() {
     return this.latestSlot() !== null;
   }
+}
+
+/**
+ * A slot's summary as the menus show it. Summaries are written once, when
+ * the game is saved, so older ones can carry names the game has since
+ * corrected (Garrick's surname was "Guzzlegut" in early builds: it is
+ * Grumblegut).
+ */
+export function legacySummary(summary) {
+  if (!summary) return null;
+  const fix = (v) => (typeof v === 'string' ? v.replace(/Guzzlegut/g, 'Grumblegut').replace(/GUZZLEGUT/g, 'GRUMBLEGUT') : v);
+  return Object.fromEntries(Object.entries(summary).map(([k, v]) => [k, fix(v)]));
 }

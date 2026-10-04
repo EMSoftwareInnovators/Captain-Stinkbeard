@@ -90,7 +90,7 @@ describe('fume hazard model', () => {
     const s = freshSession();
     const haze = content.maps.require('treasure_hold').haze;
     expect(hazeFor(haze, s)).toBe(null);
-    s.story.set('guzzlegut_gust');
+    s.story.set('grumblegut_gust');
     expect(hazeFor(haze, s)).toBe('dense');
     s.story.set('fumes_thinned');
     expect(hazeFor(haze, s)).toBe('faint');

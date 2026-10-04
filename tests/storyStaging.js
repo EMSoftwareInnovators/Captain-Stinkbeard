@@ -1,4 +1,4 @@
-import { compileMap } from '../src/maps/compileMap.js';
+import { compileMap, bedsAt, BED_POSES, ALOFT_POSES } from '../src/maps/compileMap.js';
 import { findPath } from '../src/maps/pathfinding.js';
 import { evaluateCondition } from '../src/systems/conditions/conditions.js';
 import { placementChoices, placementChanges } from '../src/world/placements.js';
@@ -89,7 +89,7 @@ export class StagingTracker {
     const out = new Map();
     for (const [npc, o] of placementChoices(this.model(map).objects, this.session)) {
       if (!o) continue;
-      out.set(npc, [o.x, o.y]);
+      out.set(npc, [o.x, o.y, o.pose ?? null]);
       if (o.blocks) gates?.add(npc);
     }
     return out;
@@ -99,9 +99,15 @@ export class StagingTracker {
     return this.model(map).objects.filter((o) => o.type === 'warp');
   }
 
+  /** Who stands on a tile (someone asleep up in a hammock doesn't: people walk underneath). */
   occupied(x, y, except = null) {
-    for (const [id, p] of this.actors) if (id !== except && p[0] === x && p[1] === y) return id;
+    for (const [id, p] of this.actors) if (id !== except && p[0] === x && p[1] === y && !ALOFT_POSES.includes(p[2])) return id;
     return null;
+  }
+
+  /** Asleep in a bed on a tile of it (hammocks hang over crates; that's where people sleep). */
+  inBed(map, [x, y, pose]) {
+    return BED_POSES.includes(pose) && bedsAt(this.model(map), x, y, (c) => evaluateCondition(c, this.session)).length > 0;
   }
 
   // --- the world as scripts move it ------------------------------------------
@@ -245,12 +251,12 @@ export class StagingTracker {
       const where = `${this.context} on ${this.map}`;
       if (to) {
         if (!at) this.restageLog.push(`${where}: ${id} comes in to ${to.x},${to.y}`);
-        else if (at[0] !== to.x || at[1] !== to.y) this.restageLog.push(`${where}: ${id} walks from ${at} to ${to.x},${to.y}`);
-        this.actors.set(id, [to.x, to.y]);
+        else if (at[0] !== to.x || at[1] !== to.y) this.restageLog.push(`${where}: ${id} walks from ${at[0]},${at[1]} to ${to.x},${to.y}`);
+        this.actors.set(id, [to.x, to.y, to.pose ?? null]);
         if (to.blocks) this.gates.add(id);
         else this.gates.delete(id);
       } else if (at) {
-        this.restageLog.push(`${where}: ${id} leaves from ${at}`);
+        this.restageLog.push(`${where}: ${id} leaves from ${at[0]},${at[1]}`);
         this.actors.delete(id);
         this.gates.delete(id);
       }
@@ -268,8 +274,9 @@ export class StagingTracker {
   checkStanding() {
     if (!this.map) return;
     const all = [...this.actors].concat(this.player ? [['the captain', this.player]] : []);
-    for (const [id, [x, y]] of all) {
-      if (this.solid(this.map, x, y)) this.issue(`leaves ${id} standing on a solid tile (${x},${y}) on ${this.map}`);
+    for (const [id, at] of all) {
+      const [x, y] = at;
+      if (this.solid(this.map, x, y) && !this.inBed(this.map, at)) this.issue(`leaves ${id} standing on a solid tile (${x},${y}) on ${this.map}`);
     }
   }
 
@@ -297,7 +304,7 @@ export class StagingTracker {
     const gates = new Set();
     const people = map === this.map ? this.actors : this.placements(map, gates);
     if (map === this.map) this.gates.forEach((g) => gates.add(g));
-    const occupied = new Set([...people].filter(([id]) => !gates.has(id)).map(([, [x, y]]) => `${x},${y}`));
+    const occupied = new Set([...people].filter(([id, at]) => !gates.has(id) && !ALOFT_POSES.includes(at[2])).map(([, [x, y]]) => `${x},${y}`));
     const warps = this.warps(map);
     // Later chapters can lay a second door over an old one: stepping there reaches both.
     const warpsAt = (x, y) => warps.filter((w) => x >= w.x && x < w.x + (w.w || 1) && y >= w.y && y < w.y + (w.h || 1));

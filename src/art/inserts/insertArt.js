@@ -79,7 +79,7 @@ function tollSignClose() {
 function probationRules() {
   const c = parchment(226, 136, 5);
   drawText(c, 'TERMS OF PROBATION', 113, 8, PAL.red2, { center: true });
-  drawText(c, 'G. GUZZLEGUT, PIRATE (PROVISIONAL)', 113, 20, INK, { center: true });
+  drawText(c, 'G. GRUMBLEGUT, PIRATE (PROVISIONAL)', 113, 20, INK, { center: true });
   c.hline(14, 212, 31, PAL.cloth1);
   drawText(c, '1. NO MORE FERMENTED EEL PASTE.', 12, 38, INK);
   drawText(c, '2. NO ENTERING THE TREASURE ROOM', 12, 54, INK);
@@ -99,7 +99,7 @@ function probationRules() {
 /** Quill's charge sheet for the trial. */
 function chargeSheet() {
   const c = parchment(216, 110, 9);
-  drawText(c, 'THE SHIP V. G. GUZZLEGUT', 108, 8, PAL.red2, { center: true });
+  drawText(c, 'THE SHIP V. G. GRUMBLEGUT', 108, 8, PAL.red2, { center: true });
   c.hline(14, 202, 19, PAL.cloth1);
   drawText(c, 'I.   RUINING THE TREASURE', 12, 26, INK);
   drawText(c, 'II.  POISONING THE AIR', 12, 40, INK);

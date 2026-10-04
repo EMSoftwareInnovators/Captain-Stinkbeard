@@ -64,6 +64,11 @@ export const HEAD = {
 
 /** Mouth / eye variants for field expressions (applied over the down/left head). */
 export const FACE_VARIANTS = {
+  // Asleep: eyes shut (lids drawn as a dark line), for sleepers lying in hammocks and bedrolls.
+  asleep: {
+    down: { rows: { 9: '.dsSsssssssssdd.', 10: '.dsSseessseesdd.' } },
+    left: { rows: { 9: '.ssssssssdsdd...', 10: '.seesssssdSdd...' } },
+  },
   surprised: {
     down: { rows: { 13: '...ssssmmsdd....', 12: '..ssssmmmmsddd..' } },
     left: { rows: { 13: '..mmsssssddd....', 12: '.nmmsssssssd....' } },

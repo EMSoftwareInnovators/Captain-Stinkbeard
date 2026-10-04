@@ -3,7 +3,7 @@ import { unpack, pack, rgba } from '../palette.js';
 import { drawText } from '../font/drawText.js';
 
 /**
- * Props for Story Phase 2 (Garrick Guzzlegut and the Cursed Treasure):
+ * Props for Story Phase 2 (Garrick Grumblegut and the Cursed Treasure):
  * the richer treasure room, its contaminated twins, Garrick's toll deck,
  * the galley's eel paste, the rescue debris and the ship's new "features".
  */

@@ -1,8 +1,14 @@
 import { findPath } from '../maps/pathfinding.js';
 import { DIRECTIONS } from '../config/constants.js';
+import { BED_POSES } from '../maps/compileMap.js';
+
+/** Poses that mean asleep: the sleeper snores a "zzz" now and then. */
+const SLEEP_POSES = new Set(['doze', 'asleep', 'hammock', 'bedroll']);
 
 /** How long someone walking to a new placement waits on people in the way before stepping round them (a fade). */
 const RELOCATE_PATIENCE_MS = 3000;
+/** How long someone the captain squeezed past waits before going back to their spot. */
+const SQUEEZED_WAIT_MS = 1400;
 
 /**
  * Idle behaviour for an NPC. Data-driven via the NPC definition or the map
@@ -33,8 +39,9 @@ export class NpcBrain {
   applyPose() {
     const t = this.behavior.type;
     if (t === 'work') this.actor.playPose('work');
-    // Sitting can be sitting asleep (Story Phase 8: "doze", head on chest).
-    else if (t === 'sit') this.actor.playPose(this.pose === 'doze' ? 'doze' : 'sit');
+    // Sitting can be sitting asleep (Story Phase 8: "doze", head on chest), or
+    // lying down (in a hammock, a bedroll, or asleep where they dropped).
+    else if (t === 'sit') this.actor.playPose(SLEEP_POSES.has(this.pose) || BED_POSES.includes(this.pose) ? this.pose : 'sit');
     // A standing pose from the map placement or the last conversation
     // (eating, smug, nervous...) survives being talked to.
     else this.actor.playPose(this.pose ?? 'idle');
@@ -60,6 +67,7 @@ export class NpcBrain {
     this.behavior = behavior || { type: 'stand' };
     this.home = { x: a.tx, y: a.ty, facing: facing ?? a.facing };
     this.pose = pose ?? undefined;
+    this.squeezed = null;
     this.stepIndex = 0;
     this.path = null;
     this.state = 'idle';
@@ -68,6 +76,15 @@ export class NpcBrain {
     a.stopWalking();
     if (facing) a.face(facing);
     this.applyPose();
+  }
+
+  /** Asleep: a "zzz" now and then (staggered, so a room of sleepers doesn't snore in time). */
+  snore(delta) {
+    if (this.world.isBusy?.()) return;
+    this.zzz = (this.zzz ?? 2500 + this.rand() * 7000) - delta;
+    if (this.zzz > 0) return;
+    this.zzz = 7000 + this.rand() * 7000;
+    this.world.showEmote?.(this.actor, 'zzz', 1500);
   }
 
   relocating(delta) {
@@ -79,8 +96,17 @@ export class NpcBrain {
       return;
     }
     // The goal itself may be a doorway (someone leaving): only its occupant stops us there.
-    const blocked = (x, y) => (x === r.x && y === r.y ? this.world.isBlocked(x, y, a) : this.blocked(x, y));
+    // A bed may hang over a crate: walk up to it and climb in.
+    const blocked = (x, y) => (x === r.x && y === r.y ? !r.bed && this.world.isBlocked(x, y, a) : this.blocked(x, y));
     if (!this.path?.length) this.path = findPath(this.world.model.width, this.world.model.height, { x: a.tx, y: a.ty }, { x: r.x, y: r.y }, blocked);
+    if (r.bed && this.path?.length === 1) {
+      this.path = null;
+      if (a.pose === 'walk') a.stopWalking();
+      this.world.putActor(a, { x: r.x, y: r.y });
+      this.relocation = null;
+      this.world.relocated(a, r).then(r.resolve);
+      return;
+    }
     if (this.path?.length && this.world.tryMoveActor(a, this.path[0], r.speed ?? 240)) {
       this.path.shift();
       r.stuck = 0;
@@ -128,9 +154,14 @@ export class NpcBrain {
       if (a.pose === 'walk') a.stopWalking();
       return;
     }
+    if (SLEEP_POSES.has(a.pose)) this.snore(delta);
+    if (this.squeezed) {
+      this.goHome(delta);
+      return;
+    }
     switch (this.behavior.type) {
       case 'stand':
-        if (this.behavior.lookAround) this.lookAround(delta);
+        if (this.behavior.lookAround && !SLEEP_POSES.has(a.pose)) this.lookAround(delta);
         break;
       case 'wander':
         this.wander(delta);
@@ -140,6 +171,49 @@ export class NpcBrain {
         break;
       default:
         break;
+    }
+  }
+
+  /**
+   * The captain squeezed past (they traded places): after a moment, step
+   * back to where they were standing, and take up their pose there again.
+   * Someone who wanders or keeps a routine just carries on from here.
+   */
+  squeezedPast() {
+    if (this.behavior.type === 'wander' || this.behavior.type === 'routine') return;
+    this.squeezed = { wait: SQUEEZED_WAIT_MS, tries: 0 };
+    this.path = null;
+  }
+
+  goHome(delta) {
+    const a = this.actor;
+    const sq = this.squeezed;
+    if (a.tx === this.home.x && a.ty === this.home.y) {
+      this.squeezed = null;
+      this.path = null;
+      a.stopWalking();
+      a.face(this.behavior.facing ?? this.home.facing);
+      this.applyPose();
+      return;
+    }
+    if (sq.wait > 0) {
+      sq.wait -= delta;
+      if (a.pose === 'walk') a.stopWalking();
+      return;
+    }
+    if (!this.path?.length) this.path = findPath(this.world.model.width, this.world.model.height, { x: a.tx, y: a.ty }, { x: this.home.x, y: this.home.y }, (x, y) => this.blocked(x, y));
+    if (this.path?.length && this.world.tryMoveActor(a, this.path[0], 240)) {
+      this.path.shift();
+      return;
+    }
+    // Someone's in the way (the captain, probably): try again in a bit, then settle here.
+    this.path = null;
+    if (a.pose === 'walk') a.stopWalking();
+    sq.wait = 700;
+    if (++sq.tries > 12) {
+      this.squeezed = null;
+      this.home = { x: a.tx, y: a.ty, facing: this.home.facing };
+      this.applyPose();
     }
   }
 

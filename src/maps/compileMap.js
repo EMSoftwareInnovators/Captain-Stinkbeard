@@ -78,6 +78,8 @@ export function compileMap(def, tileset, props = null) {
   // Things that are only solid while a condition holds (a prop, block or
   // chest with "if"): the world scene re-evaluates these as the story moves.
   const dynamicSolids = [];
+  // Beds (props with "bed": true: hammocks, bedrolls), for sleepers to lie in.
+  const beds = [];
 
   // Props: "id x y [flip]" shorthand or objects.
   const propList = (def.props || []).map((p, i) => {
@@ -87,6 +89,7 @@ export function compileMap(def, tileset, props = null) {
       const pdef = props.get(rec.prop);
       if (!pdef) throw new ContentError(`${where}: unknown prop "${rec.prop}" (props[${i}])`);
       const [fw, fh] = pdef.footprint || [1, 1];
+      if (pdef.bed) beds.push({ x: rec.x, y: rec.y, w: fw, h: fh, if: rec.if ?? null, uid: rec.uid, prop: rec.prop, flip: !!rec.flip });
       if (pdef.solid !== false && rec.solid !== false && (pdef.layer ?? 'object') === 'object') {
         if (rec.if) dynamicSolids.push({ x: rec.x, y: rec.y, w: fw, h: fh, if: rec.if, source: `prop ${rec.uid}` });
         else {
@@ -132,6 +135,7 @@ export function compileMap(def, tileset, props = null) {
     objects,
     spawns,
     dynamicSolids,
+    beds,
     meta: {
       music: def.music ?? null,
       musicFilter: def.musicFilter ?? null,
@@ -218,4 +222,14 @@ export function pickFrame(type, typeId, x, y, neighbour, seed = '') {
 export function isSolid(model, x, y) {
   if (x < 0 || y < 0 || x >= model.width || y >= model.height) return true;
   return model.solid[y * model.width + x] === 1;
+}
+
+/** Placement poses for someone in a bed: they need a bed prop under them (Actor LYING_POSES). */
+export const BED_POSES = ['hammock', 'hammock_awake', 'bedroll'];
+/** Of those, up in a hammock: off the floor, so people walk underneath (Actor.aloft). */
+export const ALOFT_POSES = ['hammock', 'hammock_awake'];
+
+/** The beds (props with "bed": true) covering a tile; `active(cond)` filters conditional ones. */
+export function bedsAt(model, x, y, active = () => true) {
+  return (model.beds ?? []).filter((b) => x >= b.x && x < b.x + b.w && y >= b.y && y < b.y + b.h && (!b.if || active(b.if)));
 }

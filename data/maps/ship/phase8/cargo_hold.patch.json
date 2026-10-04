@@ -1,7 +1,7 @@
 {
  "id": "cargo_hold_phase8",
  "patch": "cargo_hold",
- "//": "Story Phase 8: the lower hull. Chapters 42 to 47: everybody's everything (a bunker, a lounge, a dining room, a parrot ward, crew quarters, a storeroom and the Grand Stenchmaster's ceremonial area): Pete on a bucket (10,14), the pulley over Gristle (8,13), Jim's biscuit tin (12,14), Garrick's rug (10,12) and costume trunk (12,12), the captain's corner (crate 16,16, Squawks's basket 15,16), the grog reserve (casks 5,12 and 6,13), the Bottomless Ravine (the wet patch, 11,14). Chapter 50 on: the barracks. Hammocks over the port crates (1,7 and 4,7) and amidships (11,5 and 14,6); Bob's cargo net over the powder kegs (1,10); Gristle's belts over the barrels (17,5); Jim's pantry (17,10) with his hammock over it (16,10); Pete's rope pillow (3,15); a sailcloth screen over the captain's corner (14,14); the captain's bunk with the Grand Stenchmaster's hammock over it (15,16); Squawks's cradle beside it (14,16); the spare crate the crown ends up in (17,14).",
+ "//": "Story Phase 8: the lower hull. Chapters 42 to 47: everybody's everything (a bunker, a lounge, a dining room, a parrot ward, crew quarters, a storeroom and the Grand Stenchmaster's ceremonial area): Pete on a bucket (10,14), the pulley over Gristle (8,13), Jim's biscuit tin (12,14), Garrick's rug (10,12) and costume trunk (12,12), the captain's corner (crate 16,16, Squawks's basket 15,16), the grog reserve (casks 5,12 and 6,13), the Bottomless Ravine (the wet patch, 11,14). Chapter 50 on: the barracks. Hammocks over the port crates (1,7 and 4,7) and amidships (11,5 and 14,6), and round the walls for everyone else (people walk under a sleeper's hammock); Bob's cargo net over the powder kegs (1,10); Gristle's belts over the barrels (17,5); Jim's pantry (17,10) with his hammock over it (16,10); Pete's rope pillow (3,15); a sailcloth screen over the captain's corner (14,14); the captain's bunk with the Grand Stenchmaster's hammock over it (15,16); Squawks's cradle beside it (14,16); the spare crate the crown ends up in (17,14).",
  "objects": [
   {
    "id": "p8_start",
@@ -590,14 +590,14 @@
    "type": "npc",
    "npc": "hale",
    "x": 2,
-   "y": 8,
-   "facing": "up",
+   "y": 7,
+   "facing": "down",
    "if": {
     "flag": "p8_complete"
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
@@ -605,8 +605,8 @@
    "type": "npc",
    "npc": "hale",
    "x": 2,
-   "y": 8,
-   "facing": "up",
+   "y": 7,
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -617,9 +617,9 @@
      }
     ]
    },
-   "pose": "doze",
+   "pose": "hammock",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
@@ -627,8 +627,8 @@
    "type": "npc",
    "npc": "hale",
    "x": 2,
-   "y": 8,
-   "facing": "up",
+   "y": 7,
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -639,9 +639,9 @@
      }
     ]
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
@@ -725,14 +725,14 @@
    "type": "npc",
    "npc": "wick",
    "x": 5,
-   "y": 8,
-   "facing": "up",
+   "y": 7,
+   "facing": "down",
    "if": {
     "flag": "p8_complete"
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
@@ -740,8 +740,8 @@
    "type": "npc",
    "npc": "wick",
    "x": 5,
-   "y": 8,
-   "facing": "up",
+   "y": 7,
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -752,9 +752,9 @@
      }
     ]
    },
-   "pose": "doze",
+   "pose": "hammock",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
@@ -762,8 +762,8 @@
    "type": "npc",
    "npc": "wick",
    "x": 5,
-   "y": 8,
-   "facing": "up",
+   "y": 7,
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -774,9 +774,9 @@
      }
     ]
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
@@ -860,14 +860,14 @@
    "type": "npc",
    "npc": "fennimore",
    "x": 12,
-   "y": 6,
-   "facing": "up",
+   "y": 5,
+   "facing": "down",
    "if": {
     "flag": "p8_complete"
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
@@ -875,8 +875,8 @@
    "type": "npc",
    "npc": "fennimore",
    "x": 12,
-   "y": 6,
-   "facing": "up",
+   "y": 5,
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -887,9 +887,9 @@
      }
     ]
    },
-   "pose": "doze",
+   "pose": "hammock",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
@@ -897,8 +897,8 @@
    "type": "npc",
    "npc": "fennimore",
    "x": 12,
-   "y": 6,
-   "facing": "up",
+   "y": 5,
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -909,9 +909,9 @@
      }
     ]
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
@@ -953,23 +953,23 @@
    "id": "p8h_rook_0",
    "type": "npc",
    "npc": "rook",
-   "x": 7,
-   "y": 12,
+   "x": 2,
+   "y": 4,
    "facing": "down",
    "if": {
     "flag": "p8_complete"
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_rook_1",
    "type": "npc",
    "npc": "rook",
-   "x": 7,
-   "y": 12,
+   "x": 2,
+   "y": 4,
    "facing": "down",
    "if": {
     "all": [
@@ -981,17 +981,17 @@
      }
     ]
    },
-   "pose": "doze",
+   "pose": "hammock",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_rook_2",
    "type": "npc",
    "npc": "rook",
-   "x": 7,
-   "y": 12,
+   "x": 2,
+   "y": 4,
    "facing": "down",
    "if": {
     "all": [
@@ -1003,18 +1003,18 @@
      }
     ]
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_rook_3",
    "type": "npc",
    "npc": "rook",
-   "x": 7,
-   "y": 12,
-   "facing": "down",
+   "x": 2,
+   "y": 5,
+   "facing": "up",
    "if": {
     "all": [
      {
@@ -1088,9 +1088,9 @@
    "id": "p8h_sully_0",
    "type": "npc",
    "npc": "sully",
-   "x": 7,
+   "x": 8,
    "y": 15,
-   "facing": "up",
+   "facing": "down",
    "if": {
     "flag": "p8_complete"
    },
@@ -1103,9 +1103,9 @@
    "id": "p8h_sully_1",
    "type": "npc",
    "npc": "sully",
-   "x": 7,
-   "y": 15,
-   "facing": "up",
+   "x": 8,
+   "y": 16,
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -1116,18 +1116,18 @@
      }
     ]
    },
-   "pose": "doze",
+   "pose": "hammock",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_sully_2",
    "type": "npc",
    "npc": "sully",
-   "x": 7,
-   "y": 15,
-   "facing": "up",
+   "x": 8,
+   "y": 16,
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -1138,18 +1138,18 @@
      }
     ]
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_sully_3",
    "type": "npc",
    "npc": "sully",
-   "x": 7,
+   "x": 8,
    "y": 15,
-   "facing": "up",
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -1205,23 +1205,23 @@
    "id": "p8h_brask_0",
    "type": "npc",
    "npc": "brask",
-   "x": 9,
-   "y": 13,
+   "x": 5,
+   "y": 16,
    "facing": "down",
    "if": {
     "flag": "p8_complete"
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_brask_1",
    "type": "npc",
    "npc": "brask",
-   "x": 9,
-   "y": 13,
+   "x": 5,
+   "y": 16,
    "facing": "down",
    "if": {
     "all": [
@@ -1233,17 +1233,17 @@
      }
     ]
    },
-   "pose": "doze",
+   "pose": "hammock",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_brask_2",
    "type": "npc",
    "npc": "brask",
-   "x": 9,
-   "y": 13,
+   "x": 5,
+   "y": 16,
    "facing": "down",
    "if": {
     "all": [
@@ -1255,17 +1255,17 @@
      }
     ]
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_brask_3",
    "type": "npc",
    "npc": "brask",
-   "x": 9,
-   "y": 13,
+   "x": 5,
+   "y": 15,
    "facing": "down",
    "if": {
     "all": [
@@ -1345,8 +1345,8 @@
    "type": "npc",
    "npc": "gristle",
    "x": 17,
-   "y": 6,
-   "facing": "up",
+   "y": 5,
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -1357,9 +1357,9 @@
      }
     ]
    },
-   "pose": "doze",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
@@ -1367,8 +1367,8 @@
    "type": "npc",
    "npc": "gristle",
    "x": 17,
-   "y": 6,
-   "facing": "up",
+   "y": 5,
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -1379,9 +1379,9 @@
      }
     ]
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
@@ -1463,23 +1463,23 @@
    "id": "p8h_jory_0",
    "type": "npc",
    "npc": "jory",
-   "x": 12,
-   "y": 8,
+   "x": 5,
+   "y": 9,
    "facing": "down",
    "if": {
     "flag": "p8_complete"
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_jory_1",
    "type": "npc",
    "npc": "jory",
-   "x": 12,
-   "y": 8,
+   "x": 5,
+   "y": 9,
    "facing": "down",
    "if": {
     "all": [
@@ -1491,17 +1491,17 @@
      }
     ]
    },
-   "pose": "doze",
+   "pose": "hammock",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_jory_2",
    "type": "npc",
    "npc": "jory",
-   "x": 12,
-   "y": 8,
+   "x": 5,
+   "y": 9,
    "facing": "down",
    "if": {
     "all": [
@@ -1513,18 +1513,18 @@
      }
     ]
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_jory_3",
    "type": "npc",
    "npc": "jory",
-   "x": 12,
-   "y": 8,
-   "facing": "down",
+   "x": 5,
+   "y": 10,
+   "facing": "up",
    "if": {
     "all": [
      {
@@ -1624,24 +1624,24 @@
    "id": "p8h_bob_1",
    "type": "npc",
    "npc": "bob",
-   "x": 3,
+   "x": 2,
    "y": 10,
-   "facing": "left",
+   "facing": "down",
    "if": {
     "flag": "p8_complete"
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_bob_2",
    "type": "npc",
    "npc": "bob",
-   "x": 3,
+   "x": 2,
    "y": 10,
-   "facing": "left",
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -1652,18 +1652,18 @@
      }
     ]
    },
-   "pose": "doze",
+   "pose": "hammock",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_bob_3",
    "type": "npc",
    "npc": "bob",
-   "x": 3,
+   "x": 2,
    "y": 10,
-   "facing": "left",
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -1674,9 +1674,9 @@
      }
     ]
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
@@ -1755,24 +1755,24 @@
    "id": "p8h_ned_0",
    "type": "npc",
    "npc": "ned",
-   "x": 4,
+   "x": 2,
    "y": 13,
-   "facing": "right",
+   "facing": "down",
    "if": {
     "flag": "p8_complete"
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_ned_1",
    "type": "npc",
    "npc": "ned",
-   "x": 4,
+   "x": 2,
    "y": 13,
-   "facing": "right",
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -1783,18 +1783,18 @@
      }
     ]
    },
-   "pose": "doze",
+   "pose": "hammock",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_ned_2",
    "type": "npc",
    "npc": "ned",
-   "x": 4,
+   "x": 2,
    "y": 13,
-   "facing": "right",
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -1805,18 +1805,18 @@
      }
     ]
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_ned_3",
    "type": "npc",
    "npc": "ned",
-   "x": 4,
-   "y": 13,
-   "facing": "right",
+   "x": 2,
+   "y": 12,
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -1850,22 +1850,22 @@
    "id": "p8h_nell_0",
    "type": "npc",
    "npc": "nell",
-   "x": 14,
+   "x": 17,
    "y": 12,
    "facing": "down",
    "if": {
     "flag": "p8_complete"
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_nell_1",
    "type": "npc",
    "npc": "nell",
-   "x": 14,
+   "x": 17,
    "y": 12,
    "facing": "down",
    "if": {
@@ -1878,16 +1878,16 @@
      }
     ]
    },
-   "pose": "doze",
+   "pose": "hammock",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_nell_2",
    "type": "npc",
    "npc": "nell",
-   "x": 14,
+   "x": 17,
    "y": 12,
    "facing": "down",
    "if": {
@@ -1900,18 +1900,18 @@
      }
     ]
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_nell_3",
    "type": "npc",
    "npc": "nell",
-   "x": 14,
-   "y": 12,
-   "facing": "down",
+   "x": 17,
+   "y": 13,
+   "facing": "up",
    "if": {
     "all": [
      {
@@ -1966,9 +1966,9 @@
    "id": "p8h_finch_0",
    "type": "npc",
    "npc": "finch",
-   "x": 9,
-   "y": 8,
-   "facing": "down",
+   "x": 8,
+   "y": 5,
+   "facing": "up",
    "if": {
     "flag": "p8_complete"
    },
@@ -1981,8 +1981,8 @@
    "id": "p8h_finch_1",
    "type": "npc",
    "npc": "finch",
-   "x": 9,
-   "y": 8,
+   "x": 8,
+   "y": 4,
    "facing": "down",
    "if": {
     "all": [
@@ -1994,17 +1994,17 @@
      }
     ]
    },
-   "pose": "doze",
+   "pose": "hammock",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_finch_2",
    "type": "npc",
    "npc": "finch",
-   "x": 9,
-   "y": 8,
+   "x": 8,
+   "y": 4,
    "facing": "down",
    "if": {
     "all": [
@@ -2016,18 +2016,18 @@
      }
     ]
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_finch_3",
    "type": "npc",
    "npc": "finch",
-   "x": 9,
-   "y": 8,
-   "facing": "down",
+   "x": 8,
+   "y": 5,
+   "facing": "up",
    "if": {
     "all": [
      {
@@ -2116,7 +2116,7 @@
      }
     ]
    },
-   "pose": "doze",
+   "pose": "sit",
    "behavior": {
     "type": "sit"
    }
@@ -2222,24 +2222,24 @@
    "id": "p8h_mags_0",
    "type": "npc",
    "npc": "mags",
-   "x": 6,
-   "y": 12,
-   "facing": "right",
+   "x": 4,
+   "y": 11,
+   "facing": "down",
    "if": {
     "flag": "p8_complete"
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_mags_1",
    "type": "npc",
    "npc": "mags",
-   "x": 6,
-   "y": 12,
-   "facing": "right",
+   "x": 4,
+   "y": 11,
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -2250,18 +2250,18 @@
      }
     ]
    },
-   "pose": "doze",
+   "pose": "hammock",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_mags_2",
    "type": "npc",
    "npc": "mags",
-   "x": 6,
-   "y": 12,
-   "facing": "right",
+   "x": 4,
+   "y": 11,
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -2272,18 +2272,18 @@
      }
     ]
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_mags_3",
    "type": "npc",
    "npc": "mags",
-   "x": 6,
+   "x": 4,
    "y": 12,
-   "facing": "right",
+   "facing": "up",
    "if": {
     "all": [
      {
@@ -2318,14 +2318,14 @@
    "type": "npc",
    "npc": "jim",
    "x": 17,
-   "y": 11,
-   "facing": "up",
+   "y": 10,
+   "facing": "down",
    "if": {
     "flag": "p8_complete"
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
@@ -2333,8 +2333,8 @@
    "type": "npc",
    "npc": "jim",
    "x": 17,
-   "y": 11,
-   "facing": "up",
+   "y": 10,
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -2345,9 +2345,9 @@
      }
     ]
    },
-   "pose": "doze",
+   "pose": "hammock",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
@@ -2355,8 +2355,8 @@
    "type": "npc",
    "npc": "jim",
    "x": 17,
-   "y": 11,
-   "facing": "up",
+   "y": 10,
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -2367,9 +2367,9 @@
      }
     ]
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
@@ -2452,14 +2452,14 @@
    "type": "npc",
    "npc": "quill",
    "x": 15,
-   "y": 7,
-   "facing": "up",
+   "y": 6,
+   "facing": "down",
    "if": {
     "flag": "p8_complete"
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
@@ -2467,8 +2467,8 @@
    "type": "npc",
    "npc": "quill",
    "x": 15,
-   "y": 7,
-   "facing": "up",
+   "y": 6,
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -2479,9 +2479,9 @@
      }
     ]
    },
-   "pose": "doze",
+   "pose": "hammock",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
@@ -2489,8 +2489,8 @@
    "type": "npc",
    "npc": "quill",
    "x": 15,
-   "y": 7,
-   "facing": "up",
+   "y": 6,
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -2501,9 +2501,9 @@
      }
     ]
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
@@ -2621,9 +2621,9 @@
    "id": "p8h_penhallow_0",
    "type": "npc",
    "npc": "penhallow",
-   "x": 5,
-   "y": 10,
-   "facing": "down",
+   "x": 17,
+   "y": 7,
+   "facing": "up",
    "if": {
     "flag": "p8_complete"
    },
@@ -2636,8 +2636,8 @@
    "id": "p8h_penhallow_1",
    "type": "npc",
    "npc": "penhallow",
-   "x": 5,
-   "y": 10,
+   "x": 17,
+   "y": 8,
    "facing": "down",
    "if": {
     "all": [
@@ -2649,17 +2649,17 @@
      }
     ]
    },
-   "pose": "doze",
+   "pose": "hammock",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_penhallow_2",
    "type": "npc",
    "npc": "penhallow",
-   "x": 5,
-   "y": 10,
+   "x": 17,
+   "y": 8,
    "facing": "down",
    "if": {
     "all": [
@@ -2671,18 +2671,18 @@
      }
     ]
    },
-   "pose": "sit",
+   "pose": "hammock_awake",
    "behavior": {
-    "type": "sit"
+    "type": "stand"
    }
   },
   {
    "id": "p8h_penhallow_3",
    "type": "npc",
    "npc": "penhallow",
-   "x": 5,
-   "y": 10,
-   "facing": "down",
+   "x": 17,
+   "y": 7,
+   "facing": "up",
    "if": {
     "all": [
      {
@@ -3003,6 +3003,87 @@
     "flag": "p8_bunk_pete"
    },
    "id": "p8_rope_pillow"
+  },
+  {
+   "prop": "hammock_sail",
+   "x": 1,
+   "y": 4,
+   "if": {
+    "flag": "p8_ropes_tied"
+   },
+   "id": "p8_hammock_5"
+  },
+  {
+   "prop": "hammock_blue",
+   "x": 7,
+   "y": 4,
+   "if": {
+    "flag": "p8_ropes_tied"
+   },
+   "id": "p8_hammock_6"
+  },
+  {
+   "prop": "hammock_patched",
+   "x": 4,
+   "y": 9,
+   "if": {
+    "flag": "p8_ropes_tied"
+   },
+   "id": "p8_hammock_7"
+  },
+  {
+   "prop": "hammock_sail",
+   "x": 3,
+   "y": 11,
+   "if": {
+    "flag": "p8_ropes_tied"
+   },
+   "id": "p8_hammock_8"
+  },
+  {
+   "prop": "hammock_sail",
+   "x": 1,
+   "y": 13,
+   "if": {
+    "flag": "p8_ropes_tied"
+   },
+   "id": "p8_hammock_9"
+  },
+  {
+   "prop": "hammock_blue",
+   "x": 4,
+   "y": 16,
+   "if": {
+    "flag": "p8_ropes_tied"
+   },
+   "id": "p8_hammock_10"
+  },
+  {
+   "prop": "hammock_sail",
+   "x": 7,
+   "y": 16,
+   "if": {
+    "flag": "p8_ropes_tied"
+   },
+   "id": "p8_hammock_11"
+  },
+  {
+   "prop": "hammock_patched",
+   "x": 16,
+   "y": 12,
+   "if": {
+    "flag": "p8_ropes_tied"
+   },
+   "id": "p8_hammock_12"
+  },
+  {
+   "prop": "hammock_blue",
+   "x": 16,
+   "y": 8,
+   "if": {
+    "flag": "p8_ropes_tied"
+   },
+   "id": "p8_hammock_13"
   }
  ],
  "onEnter": [

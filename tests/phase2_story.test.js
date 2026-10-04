@@ -57,9 +57,9 @@ async function playPhase2(story) {
   expect(s.has('treasure_chest_moved')).toBe(true);
   expect(await s.warp('to_hold')).toBe(false); // the crab holds the door
 
-  // --- Chapter 4: the Guzzlegut Gust ------------------------------------------------
+  // --- Chapter 4: the Grumblegut Gust ------------------------------------------------
   await s.trigger('escape_door');
-  expect(s.has('guzzlegut_gust')).toBe(true);
+  expect(s.has('grumblegut_gust')).toBe(true);
   expect(s.has('quarters_evacuated')).toBe(true);
   expect(s.has('galley_evacuated')).toBe(true);
   expect(s.has('gust_aftermath_done')).toBe(true);

@@ -1,35 +1,55 @@
 import { BaseScene } from './BaseScene.js';
 import { padDisplayName } from '../ui/panels/ControllerSetupPanel.js';
 import { DialogueBox } from '../ui/DialogueBox.js';
-import { Toasts } from '../ui/Toasts.js';
+import { Toasts, TOAST_TEXT_WIDTH } from '../ui/Toasts.js';
 import { addPanel } from '../ui/Panel.js';
 import { addText, centerText, setText, UI_COLORS } from '../ui/text.js';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
 import { alarmLevel, alarmColor } from '../systems/hazards/alarms.js';
 import { TvView } from '../ui/TvView.js';
 
-/** The timing bar's variants: title, prompt and sounds. */
+/**
+ * The timing bar's variants: title, prompt, sounds, and the captain's stat it
+ * leans on (see SKILL_STATS): heaving and hammering on Muscle (attack), knots
+ * and fiddly work on Hands (speed), keeping your feet on Footing (defense).
+ */
 const REPAIR_KINDS = {
-  hull: { title: 'PATCH THE HULL', hint: 'Strike on the green!', hit: 'hammer_hit', miss: 'hammer_miss', done: 'repair_done' },
-  shark: { title: 'REPEL THE SHARK', hint: 'Shove on the green!', hit: 'pole_strike', miss: 'pole_whiff', done: 'shark_repelled', speed: 170 },
-  rope: { title: 'SECURE THE ROPE', hint: 'Haul on the green!', hit: 'rope_haul', miss: 'hammer_miss', done: 'repair_done' },
-  helm: { title: 'BRING HER ABOUT', hint: 'Hold her on the mark!', hit: 'wheel_turn', miss: 'hammer_miss', done: 'repair_done', speed: 120 },
+  hull: { title: 'PATCH THE HULL', hint: 'Strike on the green!', stat: 'attack', hit: 'hammer_hit', miss: 'hammer_miss', done: 'repair_done' },
+  shark: { title: 'REPEL THE SHARK', hint: 'Shove on the green!', stat: 'attack', hit: 'pole_strike', miss: 'pole_whiff', done: 'shark_repelled', speed: 170 },
+  rope: { title: 'SECURE THE ROPE', hint: 'Haul on the green!', stat: 'speed', hit: 'rope_haul', miss: 'hammer_miss', done: 'repair_done' },
+  helm: { title: 'BRING HER ABOUT', hint: 'Hold her on the mark!', stat: 'defense', hit: 'wheel_turn', miss: 'hammer_miss', done: 'repair_done', speed: 120 },
   // Story Phase 6
-  smother: { title: 'SMOTHER IT', hint: 'Pat it out on the green!', hit: 'smother', miss: 'ember_hiss', done: 'repair_done', speed: 110 },
-  brace: { title: 'BRACE!', hint: 'Haul on the green!', hit: 'rope_haul', miss: 'hammer_miss', done: 'repair_done', speed: 140 },
-  heave: { title: 'HEAVE!', hint: 'Push together on the green!', hit: 'heave', miss: 'shark_flop', done: 'splash_big', speed: 150 },
-  barrel: { title: 'LAUNCH THE BARREL', hint: 'Let go on the green!', hit: 'barrel_launch', miss: 'barrel_roll', done: 'grog_burst', speed: 130 },
+  smother: { title: 'SMOTHER IT', hint: 'Pat it out on the green!', stat: 'speed', hit: 'smother', miss: 'ember_hiss', done: 'repair_done', speed: 110 },
+  brace: { title: 'BRACE!', hint: 'Haul on the green!', stat: 'defense', hit: 'rope_haul', miss: 'hammer_miss', done: 'repair_done', speed: 140 },
+  heave: { title: 'HEAVE!', hint: 'Push together on the green!', stat: 'attack', hit: 'heave', miss: 'shark_flop', done: 'splash_big', speed: 150 },
+  barrel: { title: 'LAUNCH THE BARREL', hint: 'Let go on the green!', stat: 'attack', hit: 'barrel_launch', miss: 'barrel_roll', done: 'grog_burst', speed: 130 },
   // Story Phase 7
-  clear: { title: 'CLEAR THE DEBRIS', hint: 'Heave on the green!', hit: 'wood_crack', miss: 'hammer_miss', done: 'repair_done', speed: 130 },
-  reef: { title: 'REEF THE MAINSAIL', hint: 'Haul on the green!', hit: 'rope_haul', miss: 'sail_snap', done: 'repair_done', speed: 135 },
-  knot: { title: 'TIE IT OFF', hint: 'Pull tight on the green!', hit: 'rope_haul', miss: 'hammer_miss', done: 'repair_done', speed: 145 },
-  carry: { title: 'LIFT!', hint: 'Lift on the green!', hit: 'heave', miss: 'thud', done: 'thud_heavy', speed: 120 },
-  lash: { title: 'LASH THE WHEEL', hint: 'Make fast on the green!', hit: 'wheel_turn', miss: 'hammer_miss', done: 'repair_done', speed: 130 },
-  assemble: { title: 'HOLD IT STEADY', hint: 'Steady on the green!', hit: 'spoon_tink', miss: 'mk2_rattle', done: 'mk2_tube_ping', speed: 110 },
+  clear: { title: 'CLEAR THE DEBRIS', hint: 'Heave on the green!', stat: 'attack', hit: 'wood_crack', miss: 'hammer_miss', done: 'repair_done', speed: 130 },
+  reef: { title: 'REEF THE MAINSAIL', hint: 'Haul on the green!', stat: 'speed', hit: 'rope_haul', miss: 'sail_snap', done: 'repair_done', speed: 135 },
+  knot: { title: 'TIE IT OFF', hint: 'Pull tight on the green!', stat: 'speed', hit: 'rope_haul', miss: 'hammer_miss', done: 'repair_done', speed: 145 },
+  carry: { title: 'LIFT!', hint: 'Lift on the green!', stat: 'attack', hit: 'heave', miss: 'thud', done: 'thud_heavy', speed: 120 },
+  lash: { title: 'LASH THE WHEEL', hint: 'Make fast on the green!', stat: 'speed', hit: 'wheel_turn', miss: 'hammer_miss', done: 'repair_done', speed: 130 },
+  assemble: { title: 'HOLD IT STEADY', hint: 'Steady on the green!', stat: 'speed', hit: 'spoon_tink', miss: 'mk2_rattle', done: 'mk2_tube_ping', speed: 110 },
   // Story Phase 8
-  nail: { title: 'NAIL IT UP', hint: 'Strike on the green!', hit: 'hammer_hit', miss: 'hammer_miss', done: 'repair_done', speed: 125 },
-  hang: { title: 'HANG IT', hint: 'Pull on the green!', hit: 'sash_swish', miss: 'hammer_miss', done: 'hammock_creak', speed: 130 },
+  nail: { title: 'NAIL IT UP', hint: 'Strike on the green!', stat: 'attack', hit: 'hammer_hit', miss: 'hammer_miss', done: 'repair_done', speed: 125 },
+  hang: { title: 'HANG IT', hint: 'Pull on the green!', stat: 'speed', hit: 'sash_swish', miss: 'hammer_miss', done: 'hammock_creak', speed: 130 },
 };
+
+/**
+ * How a stat helps a timing bar. `ref` is about where the captain starts;
+ * every point above it widens the green and slows the marker a little (and
+ * below it, the other way), so levels and gear show. Luck forgives the odd
+ * fumble.
+ */
+const SKILL_STATS = {
+  attack: { label: 'MUSCLE', ref: 20 },
+  speed: { label: 'HANDS', ref: 10 },
+  defense: { label: 'FOOTING', ref: 14 },
+};
+/** XP for each clean strike (no fumbles before it), and for a clean sweep. */
+const SKILL_XP = { clean: 2, sweep: 3 };
+/** A fumble locks the bar this long: pressing wildly is slower than waiting for the green. */
+const FUMBLE_MS = 480;
 
 /**
  * Always-on-top scene for UI shared by every other scene: dialogue,
@@ -44,7 +64,7 @@ export class OverlayScene extends BaseScene {
   create() {
     this.app.overlay = this;
     this.dialogue = new DialogueBox(this);
-    this.toasts = new Toasts(this, { top: () => this.topClear(6) });
+    this.toasts = new Toasts(this, { top: () => this.clearBelowHud(6, 6, 6 + TOAST_TEXT_WIDTH + 30) });
     this.fader = this.add.rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0x000000).setOrigin(0).setDepth(50).setAlpha(0);
     this.tutorialOpen = null;
     this.hint = null;
@@ -200,15 +220,19 @@ export class OverlayScene extends BaseScene {
 
   /**
    * A quick timing prompt: a marker swings along a bar; press Confirm as it
-   * crosses the green. Nothing can fail: two misses in a row and the next
-   * one is steadied for you. Resolves with the number of clean strikes.
-   * Kinds (Phase 3 and 4): hull (hammering a patch), shark (a pole shove),
-   * rope (hauling a line tight), helm (bringing the wheel back on course).
+   * crosses the green. It's a skill check on one of the captain's stats (the
+   * kind's `stat`, shown on the panel): a better stat makes the green wider
+   * and the marker slower. Pressing off the green is a fumble: the bar locks
+   * for a moment, so hammering the button is slower than waiting for the
+   * green. Nothing can fail: three fumbles in a row and the green widens,
+   * five and it's steadied for you. Clean strikes (no fumble before them)
+   * earn a little XP. Resolves with the number of clean strikes.
    * `speed` scales the marker and `zone` is the green zone's width in px
-   * (Shark Duty makes each shark harder); two misses still widen it.
+   * (Shark Duty makes each shark harder).
    */
   repair({ kind = 'hull', strikes = 3, title = null, speed = 1, zone: zoneWidth = 26 } = {}) {
     const K = REPAIR_KINDS[kind] ?? REPAIR_KINDS.hull;
+    const skill = this.skillFor(K.stat);
     return new Promise((resolve) => {
       const w = 208;
       const h = 64;
@@ -216,7 +240,7 @@ export class OverlayScene extends BaseScene {
       const y = 132;
       const D = 720;
       const panel = addPanel(this, x, y, w, h, { depth: D });
-      const head = addText(this, 0, y + 7, title ?? K.title, { font: 'bold', color: UI_COLORS.gold, depth: D + 2 });
+      const head = addText(this, 0, y + 7, title ?? K.title, { font: 'bold', color: UI_COLORS.gold, depth: D + 2, maxWidth: w - 16 });
       centerText(head, SCREEN_WIDTH / 2);
       const barX = x + 24;
       const barW = w - 48;
@@ -224,69 +248,126 @@ export class OverlayScene extends BaseScene {
       const back = this.add.rectangle(barX, barY, barW, 8, 0x1a1320).setOrigin(0).setDepth(D + 1);
       const zone = this.add.rectangle(barX, barY, 26, 8, 0x7cb45a).setOrigin(0).setDepth(D + 2);
       const mark = this.add.rectangle(barX, barY - 3, 3, 14, 0xfff4e0).setOrigin(0.5, 0).setDepth(D + 3);
-      const hint = addText(this, 0, y + 43, `{btn:confirm} ${K.hint}`, { depth: D + 2 });
+      const hint = addText(this, 0, y + 41, `{btn:confirm} ${K.hint}`, { depth: D + 2, maxWidth: w - 12 });
       centerText(hint, SCREEN_WIDTH / 2);
       const nails = [];
       for (let i = 0; i < strikes; i++) {
         nails.push(this.add.rectangle(x + w / 2 - (strikes * 10) / 2 + i * 10 + 2, y + h - 9, 6, 4, 0x6a6a80).setOrigin(0).setDepth(D + 2));
       }
       const parts = [panel, head, back, zone, mark, hint, ...nails];
+      if (skill) {
+        // Which stat this leans on, and whether it's helping (green) or not (grey).
+        const color = skill.bonus > 0.05 ? '<g>' : skill.bonus < -0.05 ? '<r>' : '<w>';
+        const tag = addText(this, x + 7, y + h - 13, `${skill.label} ${color}${skill.value}</>`, { depth: D + 2 });
+        parts.push(tag);
+      }
       parts.forEach((p) => p.setAlpha(0));
       this.tweens.add({ targets: parts, alpha: 1, duration: 150 });
       this.app.audio.ui('menu_open');
+      const bonus = skill?.bonus ?? 0;
       this.repairOpen = {
-        parts, resolve, zone, mark, nails, hint, barX, barW, strikes, K,
-        done: 0, clean: 0, misses: 0, t: 0, dir: 1, pos: 0, speed: (K.speed ?? 150) * speed, zoneW: Math.max(8, Math.round(zoneWidth)), lock: 250,
+        parts, resolve, zone, mark, nails, hint, barX, barW, strikes, K, skill,
+        done: 0, clean: 0, misses: 0, t: 0, dir: 1, pos: 0,
+        speed: (K.speed ?? 150) * speed * (1 - bonus * 0.25),
+        zoneW: Math.max(8, Math.round(zoneWidth * (1 + bonus))),
+        lock: 250,
       };
       this.placeRepairZone();
     });
   }
 
+  /** The prompt under the bar, kept centred. */
+  setRepairHint(r, text) {
+    setText(r.hint, text);
+    centerText(r.hint, SCREEN_WIDTH / 2);
+  }
+
+  /** The leader's stat a timing bar leans on, and how much it helps (-0.25 .. +0.6: a level or two shows). */
+  skillFor(stat) {
+    const def = SKILL_STATS[stat];
+    const leader = this.app.session?.party?.leader?.();
+    if (!def || !leader) return null;
+    const value = leader.stat(stat);
+    const luck = leader.stat('luck') ?? 0;
+    return { stat, label: def.label, value, luck, bonus: Math.max(-0.25, Math.min(0.6, (value - def.ref) / (def.ref * 3))) };
+  }
+
   placeRepairZone() {
     const r = this.repairOpen;
-    const assisted = r.misses >= 2 || this.app.flags?.autoTiming;
-    const zw = assisted ? r.barW : r.zoneW;
+    const steadied = r.misses >= 5 || this.app.flags?.autoTiming;
+    const widened = !steadied && r.misses >= 3;
+    const zw = steadied ? r.barW : Math.min(r.barW - 24, Math.round(r.zoneW * (widened ? 1.6 : 1)));
     r.zone.width = zw;
-    r.zone.x = assisted ? r.barX : r.barX + 12 + Math.floor(Math.random() * (r.barW - zw - 24));
-    r.zone.setFillStyle(assisted ? 0x9ad07a : 0x7cb45a);
-    if (assisted && r.misses >= 2) setText(r.hint, '<g>Steady... now!</>');
+    r.zone.x = steadied ? r.barX : r.barX + 12 + Math.floor(Math.random() * (r.barW - zw - 24));
+    r.zone.setFillStyle(steadied || widened ? 0x9ad07a : 0x7cb45a);
+    if (steadied && r.misses >= 5) this.setRepairHint(r, '<g>Steady... now!</>');
+    else if (widened) this.setRepairHint(r, '<g>Easy. Wait for it...</>');
   }
 
   updateRepair(delta, input) {
     const r = this.repairOpen;
     r.lock -= delta;
-    r.pos += r.dir * r.speed * (delta / 1000);
-    if (r.pos >= r.barW) { r.pos = r.barW; r.dir = -1; }
-    if (r.pos <= 0) { r.pos = 0; r.dir = 1; }
-    r.mark.x = Math.round(r.barX + r.pos);
-    if (r.lock > 0 || !input.pressed('confirm')) return;
+    if (r.lock <= 0 && r.fumbled) {
+      r.fumbled = false;
+      r.mark.setFillStyle(0xfff4e0);
+    }
+    // The marker stands still while fumbled (you've dropped the hammer).
+    if (!r.fumbled) {
+      r.pos += r.dir * r.speed * (delta / 1000);
+      if (r.pos >= r.barW) { r.pos = r.barW; r.dir = -1; }
+      if (r.pos <= 0) { r.pos = 0; r.dir = 1; }
+      r.mark.x = Math.round(r.barX + r.pos);
+    }
+    if (!input.pressed('confirm')) return;
     input.consume('confirm');
+    if (r.lock > 0) return;
     r.lock = 160;
     const hit = r.mark.x >= r.zone.x - 2 && r.mark.x <= r.zone.x + r.zone.width + 2;
     if (!hit) {
+      // Luck: now and then a bad swing comes good anyway (no fumble).
+      if (r.skill && Math.random() * 100 < r.skill.luck) {
+        this.setRepairHint(r, '<y>Lucky!</> Again!');
+        this.app.audio.sfx(r.K.miss, { rate: 1.2 });
+        return;
+      }
       r.misses += 1;
+      r.fumbles = (r.fumbles ?? 0) + 1;
+      r.lock = FUMBLE_MS;
+      r.fumbled = true;
+      r.mark.setFillStyle(0xd04040);
       this.app.audio.sfx(r.K.miss);
       this.tweens.add({ targets: r.mark, alpha: 0.3, duration: 80, yoyo: true });
+      this.setRepairHint(r, '<r>Fumbled!</> Wait for the green.');
       this.placeRepairZone();
       return;
     }
     this.app.audio.sfx(r.K.hit, { rate: 0.95 + r.done * 0.06 });
-    if (r.misses < 2) r.clean += 1;
-    r.nails[r.done].setFillStyle(0xe0ad38);
+    if (r.misses === 0) r.clean += 1;
+    r.nails[r.done].setFillStyle(r.misses === 0 ? 0xe0ad38 : 0xa08a5a);
     r.done += 1;
     r.misses = 0;
     const k = this.app.settings.shakeScale?.() ?? 1;
     if (k > 0) this.scene.get('World')?.cameras?.main?.shake(90, 0.004 * k);
     if (r.done < r.strikes) {
       r.speed += 22;
-      setText(r.hint, `{btn:confirm} ${r.K.hint}`);
+      this.setRepairHint(r, `{btn:confirm} ${r.K.hint}`);
       this.placeRepairZone();
       return;
     }
     this.repairOpen = null;
     this.app.audio.sfx(r.K.done);
     this.tweens.add({ targets: r.parts, alpha: 0, delay: 250, duration: 200, onComplete: () => r.parts.forEach((p) => p.destroy()) });
+    this.skillReward(r);
     r.resolve(r.clean);
+  }
+
+  /** Clean work earns a little experience (a clean sweep a little more). */
+  skillReward(r) {
+    const session = this.app.session;
+    if (!session || !r.clean) return;
+    const xp = r.clean * SKILL_XP.clean + (r.clean === r.strikes ? SKILL_XP.sweep : 0);
+    session.grantRewards({ xp, source: 'skill' });
+    this.toasts.push({ text: r.clean === r.strikes ? `Clean work! <y>+${xp} XP</>` : `<y>+${xp} XP</>`, hold: 1400 });
   }
 
   /**
@@ -311,7 +392,7 @@ export class OverlayScene extends BaseScene {
       const g = this.add.graphics().setDepth(D + 1);
       const title = addText(this, x + 46, y + 6, 'COURSE', { font: 'bold', color: UI_COLORS.gold, depth: D + 1 });
       const text = addText(this, x + 46, y + 20, '', { depth: D + 1, maxWidth: 46 });
-      this.courseDial = { parts: [panel, g, title, text], g, text, x, y, heading: heading ?? 0, target: target ?? 0, label };
+      this.courseDial = { parts: [panel, g, title, text], g, text, x, y, rect: { x, y, w: 96, h: 58 }, heading: heading ?? 0, target: target ?? 0, label };
       this.courseDial.parts.forEach((p) => p.setAlpha(0));
       this.tweens.add({ targets: this.courseDial.parts, alpha: 1, duration: 200 });
     }
@@ -391,6 +472,7 @@ export class OverlayScene extends BaseScene {
     b.panel.destroy();
     b.panel = addPanel(this, x, y, w, h, { depth: D });
     b.parts[0] = b.panel;
+    b.rect = { x, y, w, h };
     b.head.setPosition(x + 8, y + 5);
     b.body.setPosition(x + 8, y + 18);
     b.at.setPosition(x + 8, y + 29);
@@ -527,14 +609,31 @@ export class OverlayScene extends BaseScene {
     return this.dialogue.open && this.dialogue.dock === 'top' ? this.dialogue.boxY + 66 : pad;
   }
 
-  /** Small location title shown when entering a map (top-right, clear of toasts). */
+  /**
+   * Top edge for something in the columns x0..x1 at the top of the screen
+   * (toasts on the left, the room's name on the right): below the dialogue
+   * window when it's docked at the top, and below any HUD panel showing in
+   * those columns (the FUMES meter, the course dial, the Shark Duty board).
+   */
+  clearBelowHud(pad, x0, x1) {
+    let top = this.topClear(pad);
+    for (const h of [this.meter, this.courseDial, this.dutyBoard]) {
+      const r = h?.rect;
+      if (!r || h.hiding || r.x >= x1 || r.x + r.w <= x0) continue;
+      top = Math.max(top, r.y + r.h + 3);
+    }
+    return top;
+  }
+
+  /** Small location title shown when entering a map (top-right, clear of toasts and the HUD). */
   locationTitle(name) {
     this.locationParts?.forEach((p) => p.destroy());
-    const top = this.topClear(5);
-    const t = addText(this, 0, top + 5, name, { font: 'bold', color: 0xfff4e0, depth: 850 });
+    // Room for toasts on the left (TOAST_TEXT_WIDTH): a long name wraps.
+    const t = addText(this, 0, 0, name, { font: 'bold', color: 0xfff4e0, depth: 850, maxWidth: SCREEN_WIDTH - TOAST_TEXT_WIDTH - 52 });
     const w = t.textWidth + 24;
     const x = SCREEN_WIDTH - w - 6;
-    const panel = addPanel(this, x, top, w, 20, { depth: 849 });
+    const top = this.clearBelowHud(5, x, SCREEN_WIDTH);
+    const panel = addPanel(this, x, top, w, 9 + t.text.split('\n').length * 11, { depth: 849 });
     t.x = x + 12;
     t.y = top + 5;
     const parts = [panel, t];
@@ -592,7 +691,7 @@ export class OverlayScene extends BaseScene {
       const parts = [panel, label, barBack, bar, tag];
       parts.forEach((p) => p.setAlpha(0));
       this.tweens.add({ targets: parts, alpha: 1, duration: 200 });
-      this.meter = { parts, bar, tag, barW: w - 16, level: undefined, t: 0 };
+      this.meter = { parts, bar, tag, barW: w - 16, level: undefined, t: 0, rect: { x, y, w, h: 26 } };
     }
     const m = this.meter;
     const v = Math.max(0, Math.min(1, state.value));

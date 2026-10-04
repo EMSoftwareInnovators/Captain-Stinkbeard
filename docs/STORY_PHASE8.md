@@ -44,7 +44,7 @@ is only ever `calm`, `rumbling`, `false_alarm`, `possibly_building` or `unknown`
 drives the rumbles, the crew's nerves and the dialogue. Nothing is released. The final
 GLOOOORP is "Lost Fart..." "NO ADVENTURE." and then nothing.
 
-**Garrick is Garrick.** He is **Garrick Guzzlegut**, as in every earlier phase. The
+**Garrick is Garrick.** He is **Garrick Grumblegut**, as in every earlier phase. The
 Phase 8 brief called him "Grumblegut" but said to follow the repository's established
 name, so the repository's name stands. The suit keeps its burgundy, mustard and bilious
 palette, torn and singed and now saturated. He is the Grand Stenchmaster and nothing
