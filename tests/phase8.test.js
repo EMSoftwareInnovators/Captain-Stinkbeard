@@ -85,6 +85,30 @@ describe('the Grand Stenchmaster\'s stomach (a story value, never a release)', (
     expect([...text.matchAll(/"deadCenter": "([a-z_]+)"/g)].map((m) => m[1])).toEqual(['second_forward_deck']);
   });
 
+  it('every scene that changes a picture opens it first, and only uses layers it has (presets start scenes directly)', () => {
+    const LAYER_CMDS = ['vistaFrame', 'vistaMove', 'vistaShow', 'vistaFx'];
+    const layerOf = (st) => st.vistaFrame ?? st.vistaMove ?? st.vistaShow;
+    for (const n of fs.readdirSync(path.resolve('data/story/cutscenes/phase8'))) {
+      for (const [id, steps] of Object.entries(JSON.parse(fs.readFileSync(path.resolve('data/story/cutscenes/phase8', n), 'utf8')))) {
+        if (!Array.isArray(steps)) continue;
+        let open = null;
+        const walk = (list) => list.forEach((st) => {
+          if (!st || typeof st !== 'object') return;
+          if (st.vista) open = content.vistas.require(st.vista);
+          if (st.vistaEnd) open = null;
+          if (LAYER_CMDS.some((k) => k in st)) {
+            expect(open, `${id}: ${JSON.stringify(st)} with no vista open`).toBeTruthy();
+            const layer = layerOf(st);
+            if (layer) expect(open.layers.map((l) => l.id), `${id}: layer ${layer}`).toContain(layer);
+          }
+          for (const k of ['then', 'else']) if (Array.isArray(st[k])) walk(st[k]);
+          if (Array.isArray(st.choice)) st.choice.forEach((c) => Array.isArray(c.then) && walk(c.then));
+        });
+        walk(steps);
+      }
+    }
+  });
+
   it('every scene that fades out fades back in (nobody is left in the dark)', () => {
     for (const n of fs.readdirSync(path.resolve('data/story/cutscenes/phase8'))) {
       for (const [id, steps] of Object.entries(JSON.parse(fs.readFileSync(path.resolve('data/story/cutscenes/phase8', n), 'utf8')))) {

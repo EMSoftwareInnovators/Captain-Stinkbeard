@@ -22,6 +22,8 @@ async function open(page) {
 }
 
 test('every Phase 2 chapter preset starts cleanly', { tag: ['@phase2', '@smoke'] }, async ({ page }) => {
+  // It starts every preset in the game (111 after Phase 8, a few playing their opening scene).
+  test.setTimeout(25 * 60 * 1000);
   const { g, errors } = await open(page);
   const presets = await g.eval(() => window.__GAME__.app.content.debugPresets.list().map((p) => ({ id: p.id, map: p.map })));
   expect(presets.length).toBeGreaterThanOrEqual(9);
