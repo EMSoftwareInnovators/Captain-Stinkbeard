@@ -1,0 +1,289 @@
+{
+ "id": "island",
+ "name": "Crownskull Isle and its reefs",
+ "tileSize": 16,
+ "//": "Story Phase 9. Frames are painted in code by src/art/tiles/islandTiles.js. Edged terrain uses the \"mask\" rule (src/maps/compileMap.js): a frame per combination of sides that meet other ground.",
+ "frames": [
+  "island_void",
+  "sand_a",
+  "sand_b",
+  "sand_c",
+  "sand_1",
+  "sand_2",
+  "sand_3",
+  "sand_4",
+  "sand_5",
+  "sand_6",
+  "sand_7",
+  "sand_8",
+  "sand_9",
+  "sand_10",
+  "sand_11",
+  "sand_12",
+  "sand_13",
+  "sand_14",
+  "sand_15",
+  "grass_a",
+  "grass_b",
+  "grass_c",
+  "grass_1",
+  "grass_2",
+  "grass_3",
+  "grass_4",
+  "grass_5",
+  "grass_6",
+  "grass_7",
+  "grass_8",
+  "grass_9",
+  "grass_10",
+  "grass_11",
+  "grass_12",
+  "grass_13",
+  "grass_14",
+  "grass_15",
+  "jungle_a",
+  "jungle_b",
+  "jungle_1",
+  "jungle_2",
+  "jungle_3",
+  "jungle_4",
+  "jungle_5",
+  "jungle_6",
+  "jungle_7",
+  "jungle_8",
+  "jungle_9",
+  "jungle_10",
+  "jungle_11",
+  "jungle_12",
+  "jungle_13",
+  "jungle_14",
+  "jungle_15",
+  "river_a",
+  "river_b",
+  "river_1",
+  "river_2",
+  "river_3",
+  "river_4",
+  "river_5",
+  "river_6",
+  "river_7",
+  "river_8",
+  "river_9",
+  "river_10",
+  "river_11",
+  "river_12",
+  "river_13",
+  "river_14",
+  "river_15",
+  "rock_a",
+  "rock_1",
+  "rock_2",
+  "rock_3",
+  "rock_4",
+  "rock_5",
+  "rock_6",
+  "rock_7",
+  "rock_8",
+  "rock_9",
+  "rock_10",
+  "rock_11",
+  "rock_12",
+  "rock_13",
+  "rock_14",
+  "rock_15",
+  "reef_a",
+  "reef_1",
+  "reef_2",
+  "reef_3",
+  "reef_4",
+  "reef_5",
+  "reef_6",
+  "reef_7",
+  "reef_8",
+  "reef_9",
+  "reef_10",
+  "reef_11",
+  "reef_12",
+  "reef_13",
+  "reef_14",
+  "reef_15",
+  "ford_a",
+  "ford_b",
+  "path_a",
+  "path_b",
+  "path_c",
+  "rockfloor_a",
+  "rockfloor_b",
+  "cliff_top",
+  "cliff_mid",
+  "cliff_bot",
+  "ruin_floor_a",
+  "ruin_floor_b",
+  "ruin_floor_c",
+  "ruin_wall_top",
+  "ruin_wall_mid",
+  "ruin_wall_bot",
+  "clearing_a",
+  "clearing_b"
+ ],
+ "types": {
+  "void": {
+   "frame": "island_void",
+   "solid": true
+  },
+  "sea": {
+   "empty": true,
+   "solid": true
+  },
+  "lane": {
+   "empty": true
+  },
+  "sand": {
+   "mask": {
+    "frame": "sand",
+    "against": [
+     "sea",
+     "lane",
+     "reef"
+    ],
+    "edgeOut": true,
+    "plain": [
+     "sand_a",
+     "sand_b",
+     "sand_c"
+    ],
+    "weights": [
+     5,
+     3,
+     2
+    ]
+   }
+  },
+  "grass": {
+   "mask": {
+    "frame": "grass",
+    "against": [
+     "sand"
+    ],
+    "plain": [
+     "grass_a",
+     "grass_b",
+     "grass_c"
+    ],
+    "weights": [
+     5,
+     3,
+     3
+    ]
+   }
+  },
+  "jungle": {
+   "solid": true,
+   "mask": {
+    "frame": "jungle",
+    "plain": [
+     "jungle_a",
+     "jungle_b"
+    ]
+   }
+  },
+  "river": {
+   "solid": true,
+   "joins": [
+    "ford"
+   ],
+   "mask": {
+    "frame": "river",
+    "plain": [
+     "river_a",
+     "river_b"
+    ]
+   }
+  },
+  "ford": {
+   "variants": [
+    "ford_a",
+    "ford_b"
+   ]
+  },
+  "path": {
+   "variants": [
+    "path_a",
+    "path_b",
+    "path_c"
+   ],
+   "weights": [
+    5,
+    3,
+    2
+   ]
+  },
+  "rockfloor": {
+   "variants": [
+    "rockfloor_a",
+    "rockfloor_b"
+   ]
+  },
+  "rock": {
+   "solid": true,
+   "joins": [
+    "cliff"
+   ],
+   "mask": {
+    "frame": "rock",
+    "plain": [
+     "rock_a"
+    ]
+   }
+  },
+  "cliff": {
+   "solid": true,
+   "column": {
+    "top": "cliff_top",
+    "mid": "cliff_mid",
+    "bottom": "cliff_bot",
+    "single": "cliff_bot"
+   }
+  },
+  "ruin_floor": {
+   "variants": [
+    "ruin_floor_a",
+    "ruin_floor_b",
+    "ruin_floor_c"
+   ],
+   "weights": [
+    5,
+    3,
+    2
+   ]
+  },
+  "ruin_wall": {
+   "solid": true,
+   "column": {
+    "top": "ruin_wall_top",
+    "mid": "ruin_wall_mid",
+    "bottom": "ruin_wall_bot",
+    "single": "ruin_wall_bot"
+   }
+  },
+  "clearing": {
+   "variants": [
+    "clearing_a",
+    "clearing_b"
+   ]
+  },
+  "reef": {
+   "solid": true,
+   "mask": {
+    "frame": "reef",
+    "against": [
+     "sea",
+     "lane"
+    ],
+    "plain": [
+     "reef_a"
+    ]
+   }
+  }
+ }
+}

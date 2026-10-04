@@ -619,7 +619,8 @@ export class OverlayScene extends BaseScene {
     let top = this.topClear(pad);
     for (const h of [this.meter, this.courseDial, this.dutyBoard]) {
       const r = h?.rect;
-      if (!r || h.hiding || r.x >= x1 || r.x + r.w <= x0) continue;
+      // (one fading out still counts until it's gone)
+      if (!r || r.x >= x1 || r.x + r.w <= x0) continue;
       top = Math.max(top, r.y + r.h + 3);
     }
     return top;
@@ -633,7 +634,7 @@ export class OverlayScene extends BaseScene {
     const w = t.textWidth + 24;
     const x = SCREEN_WIDTH - w - 6;
     const top = this.clearBelowHud(5, x, SCREEN_WIDTH);
-    const panel = addPanel(this, x, top, w, 9 + t.text.split('\n').length * 11, { depth: 849 });
+    const panel = addPanel(this, x, top, w, 8 + t.text.split('\n').length * 12, { depth: 849 });
     t.x = x + 12;
     t.y = top + 5;
     const parts = [panel, t];

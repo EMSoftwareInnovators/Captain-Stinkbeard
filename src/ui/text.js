@@ -169,13 +169,15 @@ export function applySpans(bt, spans, offset = 0, visibleLength = Infinity) {
 }
 
 /** Creates a BitmapText with markup support. */
-export function addText(scene, x, y, str = '', { font = 'main', color = 0xffffff, align = 'left', maxWidth = 0, depth = 0, palette = null } = {}) {
+export function addText(scene, x, y, str = '', { font = 'main', color = 0xffffff, align = 'left', maxWidth = 0, depth = 0, palette = null, clipWidth = 0, maxLines = 0 } = {}) {
   const app = scene.game.app;
   const metrics = app.fontMetrics[font];
   const bt = scene.add.bitmapText(x, y, font, '', metrics.size);
   bt.setOrigin(0, 0);
   bt.setDepth(depth);
   bt.maxTextWidth = maxWidth;
+  bt.clipWidth = clipWidth;
+  bt.maxLines = maxLines;
   bt.fontName = font;
   // The shadowless ink font is for light surfaces, so its highlights use dark inks.
   bt.palette = palette ?? (font === 'ink' ? INK_COLORS : TEXT_COLORS);
@@ -183,18 +185,49 @@ export function addText(scene, x, y, str = '', { font = 'main', color = 0xffffff
   return bt;
 }
 
+/**
+ * Sets a text's markup. With `maxTextWidth` it wraps; with `maxLines` it
+ * keeps that many lines; with `clipWidth` it stays on one line that wide. A
+ * text cut short ends in "…" and is marked `truncated` (so a page can offer
+ * the whole thing).
+ */
 export function setText(bt, str, { color = null, align = null } = {}) {
   const app = bt.scene.game.app;
   const metrics = app.fontMetrics[bt.fontName ?? 'main'];
   const formatted = formatTokens(String(str), { app, session: app.session });
   const { text, spans } = parseMarkup(formatted, bt.palette ?? TEXT_COLORS);
-  const finalText = bt.maxTextWidth ? wrap(metrics, text, bt.maxTextWidth) : text;
+  let finalText = bt.maxTextWidth ? wrap(metrics, text, bt.maxTextWidth) : text;
+  bt.truncated = false;
+  if (bt.maxLines && finalText.split('\n').length > bt.maxLines) {
+    const keep = finalText.split('\n').slice(0, bt.maxLines);
+    finalText = keep.join('\n');
+    bt.truncated = true;
+  }
+  const limit = bt.clipWidth || (bt.truncated ? bt.maxTextWidth : 0);
+  if (limit) {
+    const lines = finalText.split('\n');
+    const last = lines.length - 1;
+    if (bt.truncated || measure(metrics, lines[last]) > limit) {
+      lines[last] = clipLine(metrics, lines[last], limit, bt.truncated);
+      bt.truncated = true;
+    }
+    finalText = lines.join('\n');
+  }
   bt.setText(finalText);
   if (color !== null) bt.setTint(color);
   if (align) bt.setAlign?.(align);
   applySpans(bt, spans);
   bt.textWidth = Math.max(...finalText.split('\n').map((l) => measure(metrics, l)));
   return bt;
+}
+
+/** Shortens one line to fit `width` with an ellipsis (always adds one when `force`). */
+export function clipLine(metrics, line, width, force = false) {
+  const ell = '…';
+  if (!force && measure(metrics, line) <= width) return line;
+  let out = line;
+  while (out.length && measure(metrics, `${out}${ell}`) > width) out = out.slice(0, -1);
+  return `${out.replace(/[\s,;:.-]+$/, '')}${ell}`;
 }
 
 /** Positions a text so it is horizontally centred on cx. */

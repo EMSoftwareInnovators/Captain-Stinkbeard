@@ -94,10 +94,12 @@ export class ItemsPage {
     });
     this.menu.setFocused(this.focused);
     this.menu.setVisible(items.length > 0);
-    // Description box
-    const dy = rect.y + rect.h - 50;
-    layer.add(addPanel(scene, rect.x + 4, dy, rect.w - 8, 46, { style: 'inset', depth: D }));
-    this.descText = layer.add(addText(scene, rect.x + 12, dy + 7, '', { maxWidth: rect.w - 24, depth: D + 1 }));
+    // Description box: under the list, down to the bottom (five lines).
+    const dy = listTop + 4 + 8 * 14 + 2;
+    layer.add(addPanel(scene, rect.x + 4, dy, rect.w - 8, rect.y + rect.h - 4 - dy, { style: 'inset', depth: D }));
+    this.descY = dy + 6;
+    this.descLines = Math.floor((rect.y + rect.h - 10 - this.descY) / 11);
+    this.descText = layer.add(addText(scene, rect.x + 12, this.descY, '', { maxWidth: rect.w - 24, depth: D + 1 }));
     this.describe();
   }
 
@@ -106,7 +108,7 @@ export class ItemsPage {
     if (!this.descText) return;
     const text = e ? e.def.description ?? '' : TABS[this.tabIndex].id === 'key' ? 'Important things you are carrying.' : '';
     this.descText.destroy();
-    this.descText = this.layer.add(addText(this.scene, this.rect.x + 12, this.rect.y + this.rect.h - 43, text, { maxWidth: this.rect.w - 24, depth: 21 }));
+    this.descText = this.layer.add(addText(this.scene, this.rect.x + 12, this.descY, text, { maxWidth: this.rect.w - 24, maxLines: this.descLines, depth: 21 }));
   }
 
   focus() {

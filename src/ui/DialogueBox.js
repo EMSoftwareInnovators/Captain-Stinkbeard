@@ -1,6 +1,7 @@
 import { addPanel } from './Panel.js';
 import { addText, setText, parseMarkup, formatTokens, wrap, paginate, applySpans, measure, UI_COLORS } from './text.js';
 import { ListMenu } from './ListMenu.js';
+import { SCREEN_WIDTH } from '../config/constants.js';
 import { TEXT_SPEED_MS } from '../systems/settings/Settings.js';
 import { resolveVariant } from '../systems/story/progress.js';
 
@@ -207,7 +208,8 @@ export class DialogueBox {
     const s = this.scene;
     const metrics = this.app.fontMetrics.main;
     const texts = options.map((o) => formatTokens(o.text, { app: this.app, session: this.app.session }));
-    const w = Math.min(220, Math.max(...texts.map((t) => measure(metrics, parseMarkup(t).text))) + 34);
+    // As wide as the longest option needs, up to nearly the whole screen.
+    const w = Math.min(SCREEN_WIDTH - 12, Math.max(...texts.map((t) => measure(metrics, parseMarkup(t).text))) + 34);
     const h = options.length * 12 + 10;
     const x = 316 - w;
     // Just above the window, or below it when it is docked at the top.

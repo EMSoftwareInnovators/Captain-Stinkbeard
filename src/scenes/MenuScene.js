@@ -58,6 +58,9 @@ export class MenuScene extends BaseScene {
     this.shopView = null;
     this.nav = null;
     this.hint = null;
+    // Notifications wait until the menu closes (they'd cover it); the menu's own still show.
+    this.app.overlay?.toasts.hold();
+    this.events.once('shutdown', () => this.app.overlay?.toasts.release());
     this.playTime = null;
     this.bookMode = false;
     this.navList = NAV;
@@ -124,11 +127,18 @@ export class MenuScene extends BaseScene {
     this.side.add(addPanel(this, 4, y, 88, h, { depth: 10 }));
     this.side.add(this.add.image(10, y + 7, 'ui', 'icon_gold').setOrigin(0).setDepth(11));
     this.side.add(addText(this, 30, y + 11, `<y>${s.inventory.gold}</>`, { depth: 11 }));
-    this.side.add(addText(this, 10, y + 28, '<k>Time</>', { depth: 11 }));
-    this.playTime = this.side.add(addText(this, 10, y + 39, formatPlayTime(s.playTime), { depth: 11 }));
     const mapName = mapDisplayName(this.app.content.maps.get(s.location?.map), s);
-    this.side.add(addText(this, 10, y + 56, '<k>Location</>', { depth: 11 }));
-    this.side.add(addText(this, 10, y + 67, mapName, { maxWidth: 76, depth: 11 }));
+    if (h >= 92) {
+      this.side.add(addText(this, 10, y + 28, '<k>Time</>', { depth: 11 }));
+      this.playTime = this.side.add(addText(this, 10, y + 39, formatPlayTime(s.playTime), { depth: 11 }));
+      this.side.add(addText(this, 10, y + 56, '<k>Location</>', { depth: 11 }));
+      this.side.add(addText(this, 10, y + 67, mapName, { maxWidth: 76, maxLines: Math.max(1, Math.floor((h - 71) / 11)), depth: 11 }));
+    } else {
+      // Short of room (a few logbooks in the list): time beside its label, the room's name under it.
+      this.side.add(addText(this, 10, y + 24, '<k>Time</>', { depth: 11 }));
+      this.playTime = this.side.add(addText(this, 36, y + 24, formatPlayTime(s.playTime), { depth: 11 }));
+      this.side.add(addText(this, 10, y + 38, mapName, { maxWidth: 76, maxLines: Math.max(1, Math.floor((h - 42) / 11)), depth: 11 }));
+    }
   }
 
   preview(value) {
@@ -189,10 +199,10 @@ export class MenuScene extends BaseScene {
     this.closeModal();
     if (res.ok) {
       this.app.audio.ui('save');
-      this.app.overlay.toasts.push({ text: `Saved to <y>Slot ${slot}</>.`, icon: 'ledger' });
+      this.app.overlay.toasts.push({ text: `Saved to <y>Slot ${slot}</>.`, icon: 'ledger', urgent: true });
     } else {
       this.app.audio.ui('buzzer');
-      this.app.overlay.toasts.push({ text: `<r>Save failed:</> ${res.reason}`, hold: 3500 });
+      this.app.overlay.toasts.push({ text: `<r>Save failed:</> ${res.reason}`, hold: 3500, urgent: true });
     }
   }
 

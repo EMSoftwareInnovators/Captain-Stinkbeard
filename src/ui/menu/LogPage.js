@@ -2,6 +2,7 @@ import { addPanel } from '../Panel.js';
 import { addText, centerText, UI_COLORS } from '../text.js';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../config/constants.js';
 import { ListMenu } from '../ListMenu.js';
+import { TextReader } from './TextReader.js';
 import { UiLayer } from './UiLayer.js';
 import { logEntries, unseenEntryIds, markEntrySeen, severityMarkup } from '../../systems/logs/logbook.js';
 import { resolveVariant } from '../../systems/story/progress.js';
@@ -84,21 +85,48 @@ export class LogPage {
         this.menu.refreshLabels();
       }
     }
-    let y = this.detailTop + 6;
     const x = rect.x + 12;
     const w = rect.w - 24;
-    for (const f of log.fields ?? []) {
+    const lines = (log.fields ?? []).map((f) => {
       const raw = e[f.id];
-      if (raw === undefined || raw === null || raw === '') continue;
+      if (raw === undefined || raw === null || raw === '') return null;
       const value = f.id === 'severity' || f.scale ? severityMarkup(log, raw) : f.quote ? `"${raw}"` : raw;
-      const t = this.detail.add(addText(scene, x, y, `<k>${f.label}</>  ${value}`, { depth: D, maxWidth: w }));
-      y += Math.max(1, t.text.split('\n').length) * 11 + 2;
-    }
+      return `<k>${f.label}</>  ${value}`;
+    }).filter(Boolean);
+    this.fields = [...lines];
+    // A title too long for the list shows whole here, first.
+    if (this.menu.items[this.menu.index]?.clipped) lines.unshift(`<y>${e.title}</>`);
+    // Fit what fits in the panel; the rest is a Confirm away (the whole entry, a page at a time).
+    const bottom = rect.y + rect.h - 8;
+    const fit = (limit) => {
+      this.detail.clear();
+      let y = this.detailTop + 6;
+      for (const line of lines) {
+        const room = Math.floor((limit - y) / 11);
+        if (room < 1) return true;
+        const t = this.detail.add(addText(scene, x, y, line, { depth: D, maxWidth: w, maxLines: room }));
+        if (t.truncated) return true;
+        y += Math.max(1, t.text.split('\n').length) * 11 + 2;
+      }
+      return false;
+    };
+    this.truncated = fit(e.insert ? bottom - 12 : bottom);
+    if (this.truncated && !e.insert) this.truncated = fit(bottom - 12);
     // An entry with a picture (a crayon forecast map) can be looked at full size.
-    if (e.insert) {
-      const hint = this.detail.add(addText(scene, 0, rect.y + rect.h - 20, `{btn:confirm} ${log.viewLabel ?? 'View the map'}`, { depth: D, color: UI_COLORS.gold }));
+    const label = this.truncated ? 'Read all' : e.insert ? log.viewLabel ?? 'View the map' : null;
+    if (label) {
+      const hint = this.detail.add(addText(scene, 0, rect.y + rect.h - 18, `{btn:confirm} ${label}`, { depth: D, color: UI_COLORS.gold }));
       hint.x = rect.x + rect.w - 12 - hint.textWidth;
     }
+  }
+
+  /** The whole entry, a page at a time (then its picture, if it has one). */
+  openReader(e) {
+    this.reader = new TextReader(this.scene, {
+      title: e.title,
+      paragraphs: this.fields,
+      closeLabel: e.insert ? this.log.viewLabel ?? 'View the map' : null,
+    });
   }
 
   /** The selected entry's picture, full size over the menu; any button closes it. */
@@ -144,6 +172,16 @@ export class LogPage {
   }
 
   update(input) {
+    if (this.reader) {
+      const done = this.reader.update(input);
+      if (done) {
+        this.reader.destroy();
+        this.reader = null;
+        const e = this.entries?.[this.menu?.index ?? 0];
+        if (done === 'confirm' && e?.insert) this.openPicture(e);
+      }
+      return null;
+    }
     if (this.picture) {
       this.picture.lock -= 16;
       if (this.picture.lock <= 0 && (input.pressed('confirm') || input.pressed('cancel'))) {
@@ -154,9 +192,10 @@ export class LogPage {
       return null;
     }
     const e = this.entries?.[this.menu?.index ?? 0];
-    if (this.focused && e?.insert && input.pressed('confirm')) {
+    if (this.focused && (e?.insert || this.truncated) && input.pressed('confirm')) {
       input.consume('confirm');
-      this.openPicture(e);
+      if (this.truncated) this.openReader(e);
+      else this.openPicture(e);
       return null;
     }
     this.menu?.update(input);
@@ -169,6 +208,8 @@ export class LogPage {
   }
 
   destroy() {
+    this.reader?.destroy();
+    this.reader = null;
     if (this.picture) this.picture.parts.forEach((p) => p.destroy());
     this.picture = null;
     this.layer.clear();

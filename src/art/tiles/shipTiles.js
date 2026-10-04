@@ -1,6 +1,7 @@
 import { PixelCanvas } from '../PixelCanvas.js';
 import { PAL } from '../palette.js';
 import { planksV, planksH, specks, edgeShadow, rand } from './tileHelpers.js';
+import { ISLAND_TILE_PAINTERS } from './islandTiles.js';
 
 /**
  * Painters for every frame of the "ship" tileset (16x16 each).
@@ -584,7 +585,7 @@ export const SHIP_TILE_PAINTERS = {
 
 /** Paints the frames listed in a tileset definition into a GridSheet-compatible list. */
 export function paintTile(name) {
-  const painter = SHIP_TILE_PAINTERS[name];
+  const painter = SHIP_TILE_PAINTERS[name] ?? ISLAND_TILE_PAINTERS[name];
   if (!painter) throw new Error(`No painter for tile frame "${name}"`);
   const c = new PixelCanvas(16, 16);
   painter(c);

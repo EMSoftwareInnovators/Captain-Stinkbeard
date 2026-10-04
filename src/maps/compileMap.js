@@ -197,6 +197,21 @@ export function pickFrame(type, typeId, x, y, neighbour, seed = '') {
     }
     return type.variants[0];
   }
+  if (type.mask) {
+    // Edges (Story Phase 9's island): a frame per combination of sides that
+    // meet other ground, "<frame>_<n>" with n = 1 north + 2 east + 4 south +
+    // 8 west. "against" lists what counts as other ground (default: anything
+    // not this type or one it "joins"); "edgeOut" makes the map's edge count.
+    const m = type.mask;
+    const other = (dx, dy) => {
+      const t = neighbour(dx, dy);
+      if (t === null) return !!m.edgeOut;
+      return m.against ? m.against.includes(t) : !sameType(t, typeId, type);
+    };
+    const n = (other(0, -1) ? 1 : 0) | (other(1, 0) ? 2 : 0) | (other(0, 1) ? 4 : 0) | (other(-1, 0) ? 8 : 0);
+    if (n === 0 && m.plain) return pickFrame({ variants: m.plain, weights: m.weights }, typeId, x, y, neighbour, seed);
+    return `${m.frame}_${n}`;
+  }
   if (type.column) {
     const up = sameType(neighbour(0, -1), typeId, type);
     const down = sameType(neighbour(0, 1), typeId, type);

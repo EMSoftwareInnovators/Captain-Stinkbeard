@@ -8,7 +8,9 @@ import { addText, setText, UI_COLORS } from './text.js';
  *   // each frame while focused:
  *   menu.update(input);
  *
- * Items: { label, value?, disabled?, right?, icon?, color? }
+ * Items: { label, value?, disabled?, right?, icon?, color? }. A label too long
+ * for its row is cut short with "…" (the item is marked `clipped`, so a
+ * page can show it whole somewhere else).
  */
 export class ListMenu {
   constructor(scene, opts) {
@@ -72,13 +74,20 @@ export class ListMenu {
         x += 18;
       }
       const color = item.disabled ? UI_COLORS.disabled : item.color ?? UI_COLORS.text;
-      objs.push(addText(this.scene, x, y, item.label, { color, depth: this.depth + 1 }).setVisible(this.visible));
-      if (item.right !== undefined && item.right !== null) {
+      let rightW = 0;
+      if (item.right !== undefined && item.right !== null && item.right !== '') {
         const r = addText(this.scene, 0, y, String(item.right), { color: item.disabled ? UI_COLORS.disabled : item.rightColor ?? UI_COLORS.text, depth: this.depth + 1 });
         r.x = this.x + this.width - r.textWidth - 2;
         r.setVisible(this.visible);
         objs.push(r);
+        rightW = r.textWidth + 6;
       }
+      // A label too long for the row ends in "…" (clear of the value on the right, and the scroll arrows if it scrolls).
+      const arrows = this.items.length > this.rows ? 10 : 2;
+      const room = this.x + this.width - x - Math.max(rightW, arrows);
+      const label = addText(this.scene, x, y, item.label, { color, depth: this.depth + 1, clipWidth: room }).setVisible(this.visible);
+      item.clipped = label.truncated;
+      objs.push(label);
       this.rowObjects.push(objs);
     }
     this.updateCursor();

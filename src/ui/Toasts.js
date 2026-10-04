@@ -36,17 +36,41 @@ export class Toasts {
     }
   }
 
-  push({ text, icon = null, sound = null, hold = 2200 }) {
-    this.queue.push({ text, icon, sound, hold });
+  push({ text, icon = null, sound = null, hold = 2200, urgent = false }) {
+    this.queue.push({ text, icon, sound, hold, urgent });
     this.pump();
   }
 
   pump() {
-    while (this.queue.length && this.active.length < 3) this.show(this.queue.shift());
+    // While held (the pause menu is open) only urgent ones show: the menu's own notices.
+    while (this.queue.length && this.active.length < 3) {
+      const i = this.held ? this.queue.findIndex((t) => t.urgent) : 0;
+      if (i < 0) return;
+      this.show(this.queue.splice(i, 1)[0]);
+    }
+  }
+
+  /** Puts what's showing away (back at the front of the queue) until release(): nothing covers the menu. */
+  hold() {
+    if (this.held) return;
+    this.held = true;
+    const showing = this.active.filter((e) => !e.t.urgent);
+    for (const e of showing) {
+      e.parts.forEach((p) => p.destroy());
+      e.gone = true;
+    }
+    this.active = this.active.filter((e) => !e.gone);
+    this.queue.unshift(...showing.map((e) => ({ ...e.t, hold: Math.max(1200, e.t.hold / 2) })));
+  }
+
+  release() {
+    this.held = false;
+    this.pump();
   }
 
   show(t) {
     const s = this.scene;
+    this.relayout(); // under whatever is at the top of the screen right now
     const formatted = formatTokens(t.text, { app: this.app, session: this.app.session });
     const x = 6;
     const y = this.base + this.active.reduce((n, e) => n + e.h + GAP, 0);
@@ -59,12 +83,13 @@ export class Toasts {
     const parts = [panel];
     if (t.icon) parts.push(s.add.image(x + 4, y + 2, 'ui', `icon_${t.icon}`).setOrigin(0, 0).setDepth(601));
     parts.push(text);
-    const entry = { parts, h, y };
+    const entry = { parts, h, y, t };
     this.active.push(entry);
     for (const p of parts) p.x -= w + 10;
     s.tweens.add({ targets: parts, x: `+=${w + 10}`, duration: 180, ease: 'Back.Out' });
     if (t.sound) this.app.audio.ui(t.sound);
     s.time.delayedCall(t.hold, () => {
+      if (entry.gone) return;
       s.tweens.add({
         targets: parts,
         alpha: 0,
