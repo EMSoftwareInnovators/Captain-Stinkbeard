@@ -3011,6 +3011,22 @@
     "objectiveActive": "no_place_to_sleep.back"
    },
    "script": "p8c8.decree"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p7_complete"
+     },
+     {
+      "notFlag": "p8_started"
+     },
+     {
+      "notFlag": "p8_ready_hint"
+     }
+    ]
+   },
+   "script": "p8.ready_hint"
   }
  ],
  "nameVariants": [

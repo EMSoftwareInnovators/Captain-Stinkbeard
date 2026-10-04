@@ -254,6 +254,24 @@ describe('Story Phase 8 can be played start to finish (headless)', () => {
   });
 });
 
+describe('A save from the end of Phase 7 is told where Phase 8 starts', () => {
+  it('coming into the hold says so once, and nothing starts until the captain sits on the crate', async () => {
+    const s = makeStory({ preset: 'p7_complete' });
+    await s.enter('cargo_hold');
+    expect(s.has('p8_ready_hint')).toBe(true);
+    expect(s.has('p8_started')).toBe(false);
+    const hint = s.content.scripts.get('p8.ready_hint').find((st) => st.tutorial);
+    expect(hint.tutorial).toMatch(/crate[\s\S]*Squawks/);
+    expect(s.content.maps.require('cargo_hold').onEnter.filter((e) => evaluateCondition(e.if, s.session))).toEqual([]);
+    s.choices.push(1); // "Not yet"
+    await s.inspect('p8_start');
+    expect(s.has('p8_started')).toBe(false);
+    s.choices.push(0); // "Get some sleep, sitting up"
+    await s.inspect('p8_start');
+    expect(s.has('p8_started')).toBe(true);
+  });
+});
+
 describe('Story Phase 8 debug presets are real, finishable points in the story', () => {
   const presets = ['p8_start', 'p8_lower_hull_shelter', 'p8_garrick_rumbling', 'p8_false_alarm', 'p8_sash_bearer_request', 'p8_lost_fart_expedition',
     'p8_grand_crown_reveal', 'p8_stinkbeard_fury', 'p8_quarters_condemned', 'p8_lower_hull_barracks', 'p8_barracks_complete', 'p8_bedtime_story',

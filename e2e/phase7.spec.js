@@ -192,6 +192,7 @@ test('after Phase 7: the Mark II works, and the hatch stays barred', { tag: ['@p
   test.setTimeout(5 * 60 * 1000);
   const { g, errors } = await open(page);
   await g.preset('p7_complete');
+  await g.skip(); // Phase 8's pointer to the crate
   await g.approach([11, 11]);
   await g.tap('KeyZ', 50, 250);
   await untilTv(g);

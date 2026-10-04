@@ -100,6 +100,8 @@ test('Story Phase 8 plays from the end of Phase 7 to three in the morning', { ta
   const { g, errors } = await open(page);
   const has = async (flag) => flagsOf(await g.state()).has(flag);
   await g.preset('p7_complete');
+  await g.skip(); // where the story goes on: the crate
+  expect(await has('p8_ready_hint')).toBe(true);
   expect(await has('p8_started')).toBe(false); // Phase 8 waits for the crate
   await g.interact([12, 14], 0); // "Get some sleep, sitting up"
   await g.skip();

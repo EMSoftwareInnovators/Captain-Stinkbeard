@@ -105,7 +105,7 @@ values: afternoon below decks (12), lamplight (13) and the dead of night (14).
 
 **42 · Trapped Below Deck with Franklin**
 
-- **Starts when:** the crate next to Squawks, after `p7_complete`.
+- **Starts when:** the crate next to Squawks (in front of the television), after `p7_complete`. Coming into the hold with a finished Phase 7 save shows a one-time pointer to it (`p8_ready_hint`), and Phase 7's closing message now says the same.
 - **Quest:** Still Trapped.
 - **What happens:** Settle in with Pete, Bob, Gristle and Jim; sit in your corner; the audit; "Tax frog funny."; GLOOOORP.
 
