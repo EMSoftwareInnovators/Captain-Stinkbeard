@@ -85,6 +85,18 @@ describe('the Grand Stenchmaster\'s stomach (a story value, never a release)', (
     expect([...text.matchAll(/"deadCenter": "([a-z_]+)"/g)].map((m) => m[1])).toEqual(['second_forward_deck']);
   });
 
+  it('every scene that fades out fades back in (nobody is left in the dark)', () => {
+    for (const n of fs.readdirSync(path.resolve('data/story/cutscenes/phase8'))) {
+      for (const [id, steps] of Object.entries(JSON.parse(fs.readFileSync(path.resolve('data/story/cutscenes/phase8', n), 'utf8')))) {
+        if (!Array.isArray(steps)) continue;
+        steps.forEach((st, i) => {
+          if (st?.fade !== 'out') return;
+          expect(steps.slice(i + 1).some((x) => x?.fade === 'in'), `${id} fades out at step ${i} and never back in`).toBe(true);
+        });
+      }
+    }
+  });
+
   it('the crown fall and the suit\'s puffs cannot hurt anyone (no damage, no battle, no fumes)', () => {
     const night = fs.readFileSync(path.resolve('data/story/cutscenes/phase8/ch52_54.json'), 'utf8');
     for (const banned of [/"battle"/, /"damage"/, /"fumeCloud"/, /"hurt"/, /"takeHp"/, /"heal"/]) expect(night).not.toMatch(banned);

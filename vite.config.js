@@ -35,8 +35,9 @@ export default defineConfig(({ mode }) => {
       outDir: 'dist',
       assetsInlineLimit: 0,
       // One bundle: the engine plus every story phase's content JSON (the art
-      // and music are generated from code at startup). About 0.8 MB gzipped.
-      chunkSizeWarningLimit: 3500,
+      // and music are generated from code at startup). About 1 MB gzipped
+      // after Phase 8; each phase adds a few hundred kB of dialogue.
+      chunkSizeWarningLimit: 4500,
     },
     test: {
       include: ['tests/**/*.test.js'],
