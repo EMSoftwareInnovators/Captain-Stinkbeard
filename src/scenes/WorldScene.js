@@ -340,6 +340,7 @@ export class WorldScene extends BaseScene {
     const appearance = this.playerAppearance();
     this.player = new Actor(this, { id: 'player', texture: `char_${appearance}`, x: pos.x, y: pos.y, facing: e.facing ?? pos.facing ?? 'down', kind: 'player', shadow: 'shadow_m' });
     if (e.hidePlayer) this.player.setVisible(false);
+    if (this.model.meta.playerVehicle) this.player.setVehicle(this.model.meta.playerVehicle);
     this.registerActor(this.player);
     this.session.location = { map: this.model.id, x: pos.x, y: pos.y, facing: this.player.facing };
   }

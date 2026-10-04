@@ -11,7 +11,7 @@ const INK = PAL.ink;
 const SHARK = { d: '#3a4658', m: '#5a6a80', l: '#8a9ab0', belly: '#d8dce4' };
 
 /** A flying shark, top-down-ish and three-quarter, tail flicking. */
-function flyingShark(frame) {
+export function flyingShark(frame) {
   const c = new PixelCanvas(30, 16);
   const k = frame ? 1 : -1;
   c.ellipse(13, 8, 10, 4, SHARK.m);

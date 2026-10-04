@@ -164,6 +164,8 @@ export function compileMap(def, tileset, props = null) {
       // Shark Duty (Phase 4, see world/SharkDuty.js): [{ if, session }], first match runs.
       sharkDuty: def.sharkDuty ?? [],
       outdoor: (def.background ?? 'void') === 'ocean',
+      // Story Phase 9: the captain is in something here (stage frames "<id>_<dir>": the rowboat).
+      playerVehicle: def.playerVehicle ?? null,
     },
   };
 }

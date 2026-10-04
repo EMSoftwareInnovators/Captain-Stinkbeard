@@ -4,6 +4,7 @@ import { PAL } from '../palette.js';
 import { addPhase4StageFrames, PHASE4_STAGE_FRAMES } from './stagePhase4.js';
 import { addPhase6StageFrames, PHASE6_STAGE_FRAMES } from './stagePhase6.js';
 import { addPhase7StageFrames, PHASE7_STAGE_FRAMES } from './stagePhase7.js';
+import { addPhase9StageFrames, PHASE9_STAGE_FRAMES } from './stagePhase9.js';
 
 /**
  * "Stage" sprites: free-moving pieces that scripts place in the world (see
@@ -490,6 +491,7 @@ export function buildStageAtlas() {
   addPhase4StageFrames(atlas);
   addPhase6StageFrames(atlas);
   addPhase7StageFrames(atlas);
+  addPhase9StageFrames(atlas);
   const built = atlas.build();
   return {
     ...built,
@@ -521,4 +523,5 @@ export const STAGE_FRAMES = [
   ...PHASE4_STAGE_FRAMES,
   ...PHASE6_STAGE_FRAMES,
   ...PHASE7_STAGE_FRAMES,
+  ...PHASE9_STAGE_FRAMES,
 ];

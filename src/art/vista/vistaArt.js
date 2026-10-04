@@ -6,6 +6,7 @@ import { addSesVistaFrames, SES_VISTA_FRAMES } from './sesArt.js';
 import { addPhase6VistaFrames, PHASE6_VISTA_FRAMES, garlicCloud } from './vistaPhase6.js';
 import { addPhase7VistaFrames, PHASE7_VISTA_FRAMES } from './vistaPhase7.js';
 import { addPhase8VistaFrames, PHASE8_VISTA_FRAMES } from './vistaPhase8.js';
+import { addPhase9VistaFrames, PHASE9_VISTA_FRAMES } from './vistaPhase9.js';
 
 /**
  * Side-view art for vistas (scenes/CinemaScene.js): skies and seas for each
@@ -557,6 +558,7 @@ export function buildVistaAtlas() {
   addPhase6VistaFrames(atlas);
   addPhase7VistaFrames(atlas);
   addPhase8VistaFrames(atlas);
+  addPhase9VistaFrames(atlas);
   for (let i = 0; i < 3; i++) atlas.add(`cloud_garlic_${i}`, garlicCloud(cloudRise(i)));
   return atlas.build();
 }
@@ -575,4 +577,5 @@ export const VISTA_FRAMES = [
   ...PHASE6_VISTA_FRAMES,
   ...PHASE7_VISTA_FRAMES,
   ...PHASE8_VISTA_FRAMES,
+  ...PHASE9_VISTA_FRAMES,
 ];

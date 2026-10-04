@@ -21,12 +21,12 @@ import { rng } from './sesArt.js';
 const PW = 176;
 const PH = 112;
 const INK = PAL.ink;
-const C = {
+export const C = {
   paper: '#efe4c4', paperD: '#dccfa8', brown: '#8a5426', red: '#d8322a', blue: '#2f64d0', green: '#3a9a3a', yellow: '#e8c830',
   bile: '#8ab030', burg: '#7a1826', mustard: '#c8a030', grey: '#7a7a86', pink: '#e8a8a0', purple: '#7a3a9a', black: '#2a2a32', orange: '#e07a2a',
 };
 
-function page(seed) {
+export function page(seed) {
   const c = new PixelCanvas(PW, PH);
   c.fill(C.paper);
   const r = rng(seed);
@@ -35,7 +35,7 @@ function page(seed) {
 }
 
 /** A crayon line: a little wobble, two pixels of waxy colour. */
-function cray(c, x0, y0, x1, y1, col, seed = 1) {
+export function cray(c, x0, y0, x1, y1, col, seed = 1) {
   const r = rng(seed * 31 + x0 * 7 + y0);
   const n = Math.max(Math.abs(x1 - x0), Math.abs(y1 - y0), 1);
   for (let i = 0; i <= n; i++) {
@@ -48,7 +48,7 @@ function cray(c, x0, y0, x1, y1, col, seed = 1) {
 }
 
 /** Crayon scribble fill inside an ellipse. */
-function blob(c, cx, cy, rx, ry, col, seed = 3) {
+export function blob(c, cx, cy, rx, ry, col, seed = 3) {
   const r = rng(seed);
   for (let y = -ry; y <= ry; y++) for (let x = -rx; x <= rx; x++) {
     if ((x * x) / (rx * rx) + (y * y) / (ry * ry) > 1) continue;
@@ -57,14 +57,14 @@ function blob(c, cx, cy, rx, ry, col, seed = 3) {
 }
 
 /** A caption in Garrick's crayon; a "|" breaks it onto a second line (upwards at the bottom, downwards at the top). */
-function label(c, text, y = 98, col = C.brown) {
+export function label(c, text, y = 98, col = C.brown) {
   const parts = text.split('|');
   const top = y < PH / 2 ? y : y - (parts.length - 1) * 10;
   parts.forEach((t, i) => drawText(c, t, PW / 2, top + i * 10, col, { center: true, jitter: 1, seed: t.length + i }));
 }
 
 /** A stick figure in Garrick's style. `body` colour; `hat`: 'helmet' | 'crown' | null. */
-function figure(c, x, y, { body = C.blue, hat = null, big = false, arms = 'down' } = {}) {
+export function figure(c, x, y, { body = C.blue, hat = null, big = false, arms = 'down' } = {}) {
   const s = big ? 1.5 : 1;
   blob(c, x, y, Math.round(5 * s), Math.round(5 * s), C.pink, x + y);
   if (big) for (const dx of [-7, 7]) blob(c, x + dx, y + 3, 3, 4, C.red, x); // sideburns

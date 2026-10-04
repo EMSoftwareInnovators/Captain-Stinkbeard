@@ -31,7 +31,7 @@ const INK = PAL.ink;
 // --- The Frog Tax Man, this week ------------------------------------------------
 
 /** The Auditor: a big stern toad in a bow tie, magnifying glass up. */
-function auditor(c, x, y, { glass = true, mouth = 'shut' } = {}) {
+export function auditor(c, x, y, { glass = true, mouth = 'shut' } = {}) {
   c.rect(x - 12, y + 14, 24, 20, CRT[2]);
   c.poly([[x - 3, y + 14], [x + 3, y + 14], [x, y + 18]], CRT[7]);
   c.rect(x - 4, y + 15, 8, 2, CRT[0]); // the bow tie

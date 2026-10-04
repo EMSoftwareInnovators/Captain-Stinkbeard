@@ -95,6 +95,7 @@ export class Actor {
     this.headLeft = false; // lying down: which end the head is (see layDown)
     this.bedDx = 0; // lying in a bed: from the middle of the tile to the middle of the bed
     this.sling = null; // asleep in a hammock's canvas (HammockSleeper)
+    this.vehicle = null; // sitting in something that moves with them (Story Phase 9: the rowboat)
     this.shadow = scene.add.image(0, 0, 'fx', shadow).setOrigin(0.5, 0.5);
     this.sprite = scene.add.sprite(0, 0, texture);
     if (anims === 'char') this.sprite.setOrigin(0.5, FOOT_Y / FRAME_H);
@@ -140,10 +141,35 @@ export class Actor {
       this.sprite.setPosition(x, y - lift);
       this.sprite.setDepth(this.flight?.depth ?? y + (this.kind === 'player' ? 0.5 : 0));
     }
+    if (this.vehicle) {
+      // The boat round them, under them; it faces the way they're going.
+      const v = this.vehicle;
+      const frame = `${v.base}_${this.facing}`;
+      if (v.img.frame.name !== frame) v.img.setFrame(frame);
+      v.img.setPosition(x, y - 5 - lift + (this.moving ? Math.round(Math.sin(this.moveT * Math.PI * 2)) : 0));
+      v.img.setDepth(this.sprite.depth - 0.3).setAlpha(this.sprite.alpha).setVisible(this.sprite.visible);
+      this.sprite.y += 2;
+    }
     this.shadow.setPosition(x, y - 2);
     this.shadow.setDepth(-400);
-    this.shadow.setAlpha((this.flight ? Math.max(0.25, 1 - (this.flight.alt || 0) / 60) : 1) * this.fade);
-    if (this.moving && this.pose === 'walk') this.updateWalkFrame();
+    this.shadow.setAlpha((this.flight ? Math.max(0.25, 1 - (this.flight.alt || 0) / 60) : 1) * this.fade * (this.vehicle ? 0 : 1));
+    if (this.moving && this.pose === 'walk' && !this.vehicle) this.updateWalkFrame();
+  }
+
+  /**
+   * Puts the actor in a vehicle (stage frames "<base>_<dir>": the rowboat on
+   * the reef passage) or takes them out (null). In it they sit, whatever
+   * they're doing, and the boat goes where they go.
+   */
+  setVehicle(base) {
+    if (this.vehicle?.base === base) return;
+    this.vehicle?.img.destroy();
+    this.vehicle = null;
+    if (base && this.scene.textures.get('stage')?.has(`${base}_down`)) {
+      this.vehicle = { base, img: this.scene.add.image(0, 0, 'stage', `${base}_${this.facing}`).setOrigin(0.5, 0.5) };
+    }
+    this.playPose(this.pose, true);
+    this.syncPosition();
   }
 
   /** Swaps the sprite sheet (a character's look changed), keeping pose and facing. */
@@ -185,6 +211,13 @@ export class Actor {
 
   playPose(pose, force = false) {
     this.pose = pose;
+    // In a boat: sitting, whether rowing along or waiting.
+    if (this.vehicle && (pose === 'walk' || pose === 'idle')) {
+      this.layDown(null);
+      const key = this.animKey('sit');
+      if (this.scene.anims.exists(key) && (force || this.sprite.anims.currentAnim?.key !== key)) this.sprite.play(key, true);
+      return;
+    }
     const lie = this.lying;
     if (lie) {
       // Lying down (see LYING_POSES): a still frame, no animation.
@@ -335,6 +368,7 @@ export class Actor {
     this.shadow.setVisible(v);
     if (this.blanket) this.blanket.setVisible(v && !!this.lying?.blanket && !this.sling);
     this.sling?.band.setVisible(v);
+    this.vehicle?.img.setVisible(v);
   }
 
   destroy() {
@@ -342,5 +376,6 @@ export class Actor {
     this.shadow.destroy();
     this.blanket?.destroy();
     this.sling?.destroy();
+    this.vehicle?.img.destroy();
   }
 }

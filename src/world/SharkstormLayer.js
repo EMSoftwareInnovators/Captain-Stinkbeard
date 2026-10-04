@@ -22,6 +22,13 @@ import { sharkstormNow, between } from '../systems/hazards/sharkstorm.js';
  * Flying sharks come in shapes (data "variants": frame prefixes, each with
  * _0 and _1 frames), picked at random per pass.
  *
+ * Story Phase 9: a state can name the maps it plays on ("maps", default the
+ * main deck) with an area per map ("areas"), and how a landing goes there
+ * ("ground": "deck" flops back over the rail, "land" is yanked back up into
+ * the sky, "water" splashes down; "onHit": "knock" flattens the captain,
+ * "push" shoves his rowboat back a few tiles). A treasure-laden storm
+ * ("glints") flashes gold now and then: coins and jewels in the sky.
+ *
  * Reduced effects: fewer passes, no shake. It looks like hundreds of sharks
  * because the vistas and the shark crowd do the hundreds; this layer only
  * ever has a handful of sprites.
@@ -46,8 +53,10 @@ export class SharkstormLayer {
     return sharkstormNow(this.scene.content, this.scene.session);
   }
 
-  get onDeck() {
-    return this.scene.model?.id === 'main_deck';
+  /** Is the storm overhead on this map (its "maps", or just the main deck)? */
+  get here() {
+    const maps = this.state.maps ?? ['main_deck'];
+    return maps.includes(this.scene.model?.id);
   }
 
   update(dt, busy) {
@@ -56,7 +65,8 @@ export class SharkstormLayer {
     this.passes = this.passes.filter((p) => !p.done);
     if (this.impact) this.animateImpact(dt);
     if (st.below && !busy && (st.below.maps ?? []).includes(this.scene.model?.id)) this.belowDecks(st.below, dt);
-    if (!this.onDeck) return;
+    if (!this.here) return;
+    if (st.glints && !busy) this.glint(st.glints, dt);
     if (st.rumble && !busy) {
       this.rumbleT -= dt;
       if (this.rumbleT <= 0) {
@@ -79,6 +89,19 @@ export class SharkstormLayer {
       this.impactT = between(fly.impactEvery);
       this.spawnImpact(fly);
     }
+  }
+
+  /** A treasure-laden storm (Story Phase 9): now and then, gold and jewels flash in the sky. */
+  glint(g, dt) {
+    this.glintT = (this.glintT ?? 2000) - dt;
+    if (this.glintT > 0) return;
+    this.glintT = between(g.every ?? [1800, 3600]) * (this.scene.app.settings.reducedEffects() ? 2 : 1);
+    const cam = this.scene.cameras.main;
+    const x = cam.scrollX + 20 + Math.random() * (SCREEN_WIDTH - 40);
+    const y = cam.scrollY + 10 + Math.random() * 50;
+    this.scene.fx.burst(Math.random() < 0.6 ? 'coins' : 'gems', x, y, { count: 4 });
+    this.scene.fx.burst('sparkle', x, y, { count: 3 });
+    if (Math.random() < 0.4) this.scene.app.audio.sfx(g.sfx ?? 'coin_glint', { volume: 0.25, rate: 0.9 + Math.random() * 0.3 });
   }
 
   // --- below decks (Story Phase 7) ----------------------------------------------
@@ -158,14 +181,16 @@ export class SharkstormLayer {
 
   spawnImpact(fly) {
     const s = this.scene;
-    const tile = this.pickTile(fly.area);
+    const tile = this.pickTile(fly.areas?.[s.model.id] ?? fly.area);
     if (!tile) return;
     const [x, y] = tile;
     const id = this.nextId++;
     const ring = s.stage.add(`storm_mark_${id}`, { frame: 'duty_mark_0', x: x + 0.5, y: y + 0.4, depth: 79000 });
     const shadow = s.add.image((x + 0.5) * T, (y + 0.7) * T, 'stage', 'flying_shark_shadow').setDepth(11).setAlpha(0.1).setScale(0.4);
     s.app.audio.sfx('shark_whistle', { volume: 0.6 });
-    this.impact = { id, x, y, t: 0, warn: fly.warnMs ?? 1500, ring, shadow, phase: 'warn' };
+    const ground = fly.ground?.[s.model.id] ?? 'deck';
+    const onHit = fly.onHit?.[s.model.id] ?? 'knock';
+    this.impact = { id, x, y, t: 0, warn: fly.warnMs ?? 1500, ring, shadow, phase: 'warn', ground, onHit, push: fly.push ?? { dir: 'down', tiles: 2 } };
   }
 
   animateImpact(dt) {
@@ -180,10 +205,16 @@ export class SharkstormLayer {
       return;
     }
     if (im.phase === 'landed' && im.t > 900) {
-      // It flops back over the rail with a sulk.
       s.stage.remove(`storm_shark_${im.id}`);
-      s.fx.burst('splash', (im.x + 0.5) * T, (im.y + 0.5) * T, { count: 8 });
-      s.app.audio.sfx('splash', { volume: 0.5 });
+      if (im.ground === 'land') {
+        // The storm takes it back: up it goes, in a spray of sand.
+        s.fx.burst('dust', (im.x + 0.5) * T, (im.y + 0.6) * T, { count: 8 });
+        s.app.audio.sfx('shark_whoosh', { volume: 0.5, rate: 0.8 });
+      } else {
+        // It flops back over the rail with a sulk (or just sinks back into the sea).
+        s.fx.burst('splash', (im.x + 0.5) * T, (im.y + 0.5) * T, { count: 8 });
+        s.app.audio.sfx('splash', { volume: 0.5 });
+      }
       this.impact = null;
     }
   }
@@ -195,14 +226,39 @@ export class SharkstormLayer {
     im.shadow.destroy();
     im.phase = 'landed';
     im.t = 0;
-    s.stage.add(`storm_shark_${im.id}`, { frame: 'shark_deck_0', x: im.x + 0.5, y: im.y + 1, anim: 'stage:shark_flop' });
-    s.app.audio.sfx('shark_land', { volume: 0.8 });
-    s.fx.burst('splinters', (im.x + 0.5) * T, (im.y + 0.6) * T, { count: s.app.settings.reducedEffects() ? 4 : 10 });
+    const water = im.ground === 'water';
+    if (!water) s.stage.add(`storm_shark_${im.id}`, { frame: 'shark_deck_0', x: im.x + 0.5, y: im.y + 1, anim: 'stage:shark_flop' });
+    s.app.audio.sfx(water ? 'splash_big' : 'shark_land', { volume: 0.8 });
+    const burst = water ? 'splash' : im.ground === 'land' ? 'dust' : 'splinters';
+    s.fx.burst(burst, (im.x + 0.5) * T, (im.y + 0.6) * T, { count: s.app.settings.reducedEffects() ? 4 : 10 });
     const k = s.app.settings.shakeScale();
     if (k > 0) s.cameras.main.shake(180, 0.006 * k);
     const p = s.player;
-    if (p.tx === im.x && p.ty === im.y) this.knockDown();
+    const near = Math.abs(p.tx - im.x) + Math.abs(p.ty - im.y);
+    if (im.onHit === 'push' ? near <= 1 : near === 0) {
+      if (im.onHit === 'push') this.pushBack(im.push);
+      else this.knockDown();
+    }
     s.app.bus.emit('script:event', { name: 'sharkstorm_impact' });
+  }
+
+  /** The wave off a shark hitting the water next to the rowboat shoves it back a little. Never sinks it. */
+  pushBack({ dir = 'down', tiles = 2 } = {}) {
+    const s = this.scene;
+    const p = s.player;
+    if (s.isBusy?.() || p.moving) return;
+    const v = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] }[dir];
+    let x = p.tx;
+    let y = p.ty;
+    for (let i = 0; i < tiles; i++) {
+      if (s.isBlocked(x + v[0], y + v[1], p)) break;
+      x += v[0];
+      y += v[1];
+    }
+    s.barks?.show?.(p, 'Whoa!', { duration: 900 });
+    if (x === p.tx && y === p.ty) return;
+    s.tweens.add({ targets: p, hop: 6, duration: 120, yoyo: true, onUpdate: () => p.syncPosition() });
+    s.putActor(p, { x, y });
   }
 
   /** Flattened, briefly. Never hurt, never lost. */
