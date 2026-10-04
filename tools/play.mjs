@@ -75,7 +75,7 @@ for (const line of lines) {
       case 'battle': await g.settleBattle(); break;
       case 'duty': console.log(`duty: ${await g.sharkDuty(arg)} answered`); break;
       case 'preset': {
-        await g.waitFor(() => window.__GAME__?.game.scene.isActive('Title'), null, 30000);
+        await g.waitFor(() => window.__GAME__?.game.scene.isActive('Title'), null, 120000);
         await page.evaluate(() => window.__GAME__.app.settings.set('textSpeed', 'instant'));
         await page.evaluate((id) => window.__GAME__.test.preset(id), rest[0]);
         await g.waitFor(() => window.__GAME__.game.scene.isActive('World') && !window.__GAME__.game.scene.getScene('World').leaving, null, 15000);

@@ -4,6 +4,8 @@
  * state and plan paths. Shared by the E2E spec and tools/play.mjs.
  */
 const DIR_KEYS = { up: 'ArrowUp', down: 'ArrowDown', left: 'ArrowLeft', right: 'ArrowRight' };
+/** Booting renders every song before the title (slow on a software-rendered test machine). */
+const BOOT_MS = 120000;
 
 export class GameDriver {
   constructor(page) {
@@ -39,7 +41,7 @@ export class GameDriver {
 
   /** Opens the title menu (past "Press Z") and confirms the entry with `value`. */
   async titleChoose(value) {
-    await this.waitFor(() => window.__GAME__?.game.scene.isActive('Title'));
+    await this.waitFor(() => window.__GAME__?.game.scene.isActive('Title'), null, BOOT_MS);
     const title = () => this.eval(() => window.__GAME__.game.scene.getScene('Title').state);
     while ((await title()) !== 'menu') await this.tap('KeyZ', 45, 400);
     const index = await this.eval((v) => window.__GAME__.game.scene.getScene('Title').menu.items.findIndex((i) => i.value === v), value);
@@ -54,7 +56,7 @@ export class GameDriver {
 
   /** Title screen → New Game, with fast text for testing. */
   async newGame({ autoTiming = 0 } = {}) {
-    await this.waitFor(() => window.__GAME__?.game.scene.isActive('Title'));
+    await this.waitFor(() => window.__GAME__?.game.scene.isActive('Title'), null, BOOT_MS);
     await this.eval((t) => {
       window.__GAME__.app.settings.set('textSpeed', 'instant');
       window.__GAME__.app.flags.autoTiming = t;
@@ -65,7 +67,7 @@ export class GameDriver {
 
   /** Starts a fresh game at a story preset (data/debug/presets.json), fast text. */
   async preset(id) {
-    await this.waitFor(() => window.__GAME__?.game.scene.isActive('Title') || window.__GAME__?.game.scene.isActive('World'), null, 30000);
+    await this.waitFor(() => window.__GAME__?.game.scene.isActive('Title') || window.__GAME__?.game.scene.isActive('World'), null, BOOT_MS);
     await this.eval(() => window.__GAME__.app.settings.set('textSpeed', 'instant'));
     await this.eval((p) => window.__GAME__.test.preset(p), id);
     await this.waitFor(() => window.__GAME__.game.scene.isActive('World') && !window.__GAME__.game.scene.getScene('World').leaving, null, 15000);

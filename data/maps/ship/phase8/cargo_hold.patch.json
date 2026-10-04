@@ -164,6 +164,23 @@
    "script": "p8c5.ravine"
   },
   {
+   "id": "p8_lm_ravine_step",
+   "type": "trigger",
+   "x": 11,
+   "y": 14,
+   "script": "p8c5.ravine",
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "lost_fart_expedition.landmarks"
+     },
+     {
+      "notFlag": "p8_lm_ravine"
+     }
+    ]
+   }
+  },
+  {
    "id": "p8_ravine",
    "type": "inspect",
    "x": 11,

@@ -1111,6 +1111,57 @@ the plume mostly gone), poses `march` and `sing`, arms `salute` and `wide`.
 `garrick_stenchmaster_torn` is in `data/appearances/phase7.json` and
 `data/portraits/phase7.json`. The font has a `♪` glyph for sung lines.
 
+## Story Phase 8 formats
+
+### Room names (`nameVariants`, maps and patches)
+
+```json
+"nameVariants": [
+  { "if": { "flag": "lower_hull_barracks" }, "name": "Lower Hull Barracks" },
+  { "if": { "flag": "p8_started" }, "name": "Lower Hull" }
+]
+```
+
+The first match names the room: the location title and the save slots. A
+later patch's entries come first. Each needs an `if` and a non-empty `name`.
+
+### Odour trails on anyone (`ambient`, kind `odorTrail`)
+
+```json
+{ "kind": "odorTrail", "actor": "garrick", "fx": "suitpuff", "sfx": "suit_fwoof", "volume": 0.3,
+  "whenMoving": true, "idleEvery": [16000, 28000], "every": [1800, 3200], "if": { "flag": "p8_started" } }
+```
+
+`actor` is `player` or an NPC id. `fx` is any particle burst (default
+`odor`), `count` the particles per puff (default 1). With `whenMoving` it
+puffs only when the actor changes tile or facing, plus once per
+`idleEvery` while still; `every` is the cooldown either way.
+
+### Story values as moods
+
+`garrick_release` is an ordinary story value
+(`{ "setValue": "garrick_release", "value": "rumbling" }`). Conditions read
+it with `in`:
+`{ "value": { "name": "garrick_release", "in": ["rumbling", "possibly_building", "unknown"] } }`.
+Phase 8 uses it for ambient rumbles and dialogue. It never triggers a
+release.
+
+### Condemned rooms
+
+A room nobody may enter is a locked warp, placed first on the tile so it
+wins: `{ "type": "warp", "if": { "notFlag": "p8_started" }, "locked":
+"p8.condemned_door" }`. The `locked` script is what the doorway offers.
+The room behind it has permanent `fumes`/`haze` on its own flag
+(`crew_quarters_condemned`), which has nothing to do with the Dead Center.
+
+### Sleep-talk, faces, poses, hats
+
+- **Sleep-talk** is the speaker `garrick_asleep` (portrait `garrick_grand_nap`, expression `asleep`): `"garrick_asleep: ...seventy percent off..."`.
+- **Faces and poses:** portrait expression `asleep`; field pose `doze` (use `"pose": "doze"` with a `sit` behaviour).
+- **Hats:** `grandcrown` and `explorer`.
+- **Timing bars:** variants `nail` and `hang`.
+- **Looks:** `garrick_stenchmaster_crowned` and `bob_explorer` are in `data/appearances/phase8.json` and `data/portraits/phase8.json`.
+
 ## Tilesets and props
 
 **Tilesets** (`data/tilesets/`) list `frames` (painted by name in

@@ -114,7 +114,7 @@ for (const [name, setup] of Object.entries(SETUPS)) {
     });
 
     await page.goto('/');
-    await page.waitForFunction(() => window.__GAME__?.game.scene.isActive('Title'), null, { timeout: 30000 });
+    await page.waitForFunction(() => window.__GAME__?.game.scene.isActive('Title'), null, { timeout: 120000 });
     await page.evaluate(() => window.__GAME__.app.settings.set('textSpeed', 'instant'));
     await page.waitForTimeout(800);
     // Nothing is pressed yet: the extra device's resting axis must not count as input.

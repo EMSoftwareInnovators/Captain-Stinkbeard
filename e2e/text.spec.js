@@ -12,7 +12,7 @@ test('no text runs off the screen in menus, banners or tips', { tag: ['@ui'] }, 
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('/');
   await page.waitForFunction(() => !!window.__GAME__?.app);
-  await page.waitForFunction(() => window.__GAME__.game.scene.isActive('Title'));
+  await page.waitForFunction(() => window.__GAME__.game.scene.isActive('Title'), null, { timeout: 120000 });
   await page.evaluate(() => window.__GAME__.app.settings.set('textSpeed', 'instant'));
   await page.evaluate(() => window.__GAME__.test.preset('phase3_complete'));
   await page.waitForFunction(() => window.__GAME__.game.scene.isActive('World'));

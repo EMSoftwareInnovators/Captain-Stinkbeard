@@ -56,7 +56,9 @@ const STEPS = [
   ['lost_fart_expedition.landmarks', async (s) => {
     await go(s, H);
     const left = order(s, [['grog', 'p8_lm_grog_a'], ['oracle', 'p8_lm_oracle'], ['ravine', 'p8_lm_ravine']]).find(([f]) => !s.has(`p8_lm_${f}`));
-    await s.inspect(left[1]);
+    // The ravine is floor: the last-pick run walks onto it instead of looking at it.
+    if (left[0] === 'ravine' && s.pickLast) await s.trigger('p8_lm_ravine_step');
+    else await s.inspect(left[1]);
   }],
   ['lost_fart_expedition.snap', async (s) => { await go(s, H); await s.talk('gristle'); }],
   ['lost_fart_expedition.squawks_back', async (s) => { await go(s, H); await s.talk('gristle'); }],
