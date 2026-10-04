@@ -453,6 +453,42 @@ with a few small engine pieces:
 - **Save version 8** keeps the layout; the 7 → 8 migration fills missing
   story/world maps and the inventory and never removes anything.
 
+## Crownskull Isle, the rowboat, the storm inland (Phase 9)
+
+Story Phase 9 (see [STORY_PHASE9.md](STORY_PHASE9.md)) leaves the ship for the
+first time. The island is an ordinary map (the `island` tileset), so the
+engine pieces are small:
+
+- **Named places.** A region may carry a `name`. `WorldScene.updateRegions`
+  shows it as a location title when the captain walks in (not during a
+  scene), and `visit` objectives complete on `region:entered`.
+- **A vehicle.** A map's `playerVehicle` seats the captain in a stage frame
+  (`Actor.setVehicle`): he sits whatever he's doing, and the boat faces the
+  way he goes and bobs as he moves. Frames are `<base>_<dir>` under him and,
+  if present, `<base>_<dir>_front` over him, both centred on his seat.
+  `Actor.destroy`/`setVisible` handle both.
+- **The storm, anywhere.** `SharkstormLayer` reads a state's `maps` (where
+  it plays; default the main deck) and per-map `flying.areas`, `ground`
+  (`deck`, `land`, `water`) and `onHit` (`knock`, `push` with `flying.push`).
+  With `areas`, sharks only come down on maps that have one. `glints`
+  flashes gold in the sky (the treasure-laden storm). Every landing is marked
+  first; a hit knocks the captain down or shoves the boat back, never worse.
+- **Fins** are an ambient kind (`fins`: an ellipse of circling fins).
+- **Timing bars** gained `dig`, `pick`, `pry`, `vines`, `throw` and `lower`.
+  A finished bar now resolves after its panel has faded, so the next line
+  never opens underneath it.
+- **Transitions close their window.** A script `transition` without `then`
+  ends that script (see `worldServices.transition`), so `transitionTo`
+  closes the dialogue behind the fade; otherwise a choice's question stayed
+  up on the new map.
+- **A quest may be left open** (`"open": true`): RECOVER THE CRIMSON FORTUNE
+  ends the phase active, with objectives nothing can complete yet.
+- **Vista captions** move to the bottom when the vista docks the dialogue at
+  the top.
+- **Save version 9** keeps the layout; the 8 → 9 migration renames the old
+  `guzzlegut_gust` flag to `grumblegut_gust`, fills missing maps and never
+  removes anything.
+
 ## Battle
 
 `BattleEngine` (`src/systems/battle/`) owns the rules and is fully
@@ -561,8 +597,8 @@ handles fullscreen, so pixels stay square and sharp.
 See the README and [RETRO_PORT_NOTES.md](RETRO_PORT_NOTES.md#save-schema).
 Autosave on map entry and after battles, three manual slots from the pause
 menu, checksum + version per record, migrations table for future formats.
-The schema is at version 6 (Story Phase 4 added story values: where the
-Dead Center is; Phases 5 and 6 keep the layout); a save from any earlier phase
+The schema is at version 9 (Story Phase 4 added story values: where the
+Dead Center is; Phases 5 to 9 keep the layout); a save from any earlier phase
 upgrades on load and walks into the next chapter.
 
 ## Testing
@@ -598,9 +634,9 @@ upgrades on load and walks into the next chapter.
 
   | Tag | What |
   | --- | --- |
-  | `@smoke` | a few minutes: menus, movement, a pad, Phase 2 presets, being walled in, the Dead Center's sealed door, the Forecast Board, the S.E.S., the Mark II knob panel, the discount-store reveal |
-  | `@story` | the long playthroughs (prologue, Phase 2, Phase 3, chapters 12 to 14, Phase 4, chapters 18 and 19, Phase 5, chapters 23 and 24, Phase 6, Phase 7, chapters 39 to 41, Phase 8, chapters 51 to 54) |
-  | `@prologue` `@phase2` `@phase3` `@phase4` `@phase5` `@phase6` `@phase7` `@phase8` | by part of the story |
+  | `@smoke` | a few minutes: menus, movement, a pad, Phase 2 presets, being walled in, the Dead Center's sealed door, the Forecast Board, the S.E.S., the Mark II knob panel, the discount-store reveal, the reef passage |
+  | `@story` | the long playthroughs (prologue, Phase 2, Phase 3, chapters 12 to 14, Phase 4, chapters 18 and 19, Phase 5, chapters 23 and 24, Phase 6, Phase 7, chapters 39 to 41, Phase 8, chapters 51 to 54, Phase 9, chapters 62 to 70) |
+  | `@prologue` `@phase2` `@phase3` `@phase4` `@phase5` `@phase6` `@phase7` `@phase8` `@phase9` | by part of the story |
   | `@input` `@saves` `@world` `@scenes` `@ui` | by system |
 
   `npm run e2e:smoke`, `npm run e2e:quick` (all but `@story`),
@@ -617,7 +653,7 @@ upgrades on load and walks into the next chapter.
     - a captain boxed in when a scene ends;
     - a room whose doorways are cut off by people from some arrival point;
     - talking to someone who isn't in the room.
-- `tests/phase2_story.test.js` to `tests/phase8_story.test.js` play the Story Phases headlessly with the real
+- `tests/phase2_story.test.js` to `tests/phase9_story.test.js` play the Story Phases headlessly with the real
   scripts, quests and triggers and mock services, twice (always the first
   choice, always the last), and fails on any dead end, loop or script error.
   `tests/phase2.test.js` covers the fume model, variants, chapters and time of
@@ -640,6 +676,11 @@ upgrades on load and walks into the next chapter.
   (with a fake scene), the hold's names, the barracks and the condemned
   quarters, the new hats, face, pose, pictures, music and sounds, and save
   migration 7 → 8 with round-trips at every Phase 8 checkpoint.
+  `tests/phase9.test.js` covers the storm's four new states and where their
+  sharks come down, the rowboat's two layers, the island's named places,
+  the boats both ways, the open quest, the new looks, props, pictures,
+  music and sounds, and save migration 8 → 9 with round-trips at every
+  Phase 9 checkpoint.
 
 ## Adding Chapter 8 (or anything else)
 

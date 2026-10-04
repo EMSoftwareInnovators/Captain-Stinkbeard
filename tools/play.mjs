@@ -74,22 +74,23 @@ for (const line of lines) {
       case 'fightuntil': await g.fightUntil(rest[0] || 'win'); break;
       case 'battle': await g.settleBattle(); break;
       case 'duty': console.log(`duty: ${await g.sharkDuty(arg)} answered`); break;
-      case 'preset': {
-        await g.waitFor(() => window.__GAME__?.game.scene.isActive('Title'), null, 120000);
-        await page.evaluate(() => window.__GAME__.app.settings.set('textSpeed', 'instant'));
-        await page.evaluate((id) => window.__GAME__.test.preset(id), rest[0]);
-        await g.waitFor(() => window.__GAME__.game.scene.isActive('World') && !window.__GAME__.game.scene.getScene('World').leaving, null, 15000);
-        await g.wait(900);
-        break;
-      }
+      case 'preset': await g.preset(rest[0]); await g.wait(200); break;
       case 'skipshot': {
         const picks = rest.slice(1).map(Number);
         let n = 0;
+        let inRepair = false;
         for (let guard = 0; guard < 600; guard++) {
           const st = await g.uiState();
           if (st === 'idle') break;
           if (st === 'battle') { await g.settleBattle(); continue; }
-          if (st === 'repair') { await g.repairTick(); continue; }
+          if (st === 'repair') {
+            // one shot of each timing panel, as it opens
+            if (!inRepair) await page.screenshot({ path: `${outDir}/${rest[0]}_${String(n++).padStart(3, '0')}.png` });
+            inRepair = true;
+            await g.repairTick();
+            continue;
+          }
+          inRepair = false;
           if (st === 'book') {
             await g.wait(250);
             await page.screenshot({ path: `${outDir}/${rest[0]}_${String(n++).padStart(3, '0')}.png` });

@@ -363,9 +363,13 @@ export class OverlayScene extends BaseScene {
     }
     this.repairOpen = null;
     this.app.audio.sfx(r.K.done);
-    this.tweens.add({ targets: r.parts, alpha: 0, delay: 250, duration: 200, onComplete: () => r.parts.forEach((p) => p.destroy()) });
     this.skillReward(r);
-    r.resolve(r.clean);
+    // The story carries on once the panel has gone, so the next line never
+    // opens underneath it.
+    this.tweens.add({
+      targets: r.parts, alpha: 0, delay: 250, duration: 160,
+      onComplete: () => { r.parts.forEach((p) => p.destroy()); r.resolve(r.clean); },
+    });
   }
 
   /** Clean work earns a little experience (a clean sweep a little more). */

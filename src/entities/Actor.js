@@ -142,13 +142,19 @@ export class Actor {
       this.sprite.setDepth(this.flight?.depth ?? y + (this.kind === 'player' ? 0.5 : 0));
     }
     if (this.vehicle) {
-      // The boat round them, under them; it faces the way they're going.
+      // The boat round them, faced the way they're going: its frames are
+      // centred on the seat (their hips), and the near part of it ("_front")
+      // goes over them, so they sit in it.
       const v = this.vehicle;
       const frame = `${v.base}_${this.facing}`;
-      if (v.img.frame.name !== frame) v.img.setFrame(frame);
-      v.img.setPosition(x, y - 5 - lift + (this.moving ? Math.round(Math.sin(this.moveT * Math.PI * 2)) : 0));
-      v.img.setDepth(this.sprite.depth - 0.3).setAlpha(this.sprite.alpha).setVisible(this.sprite.visible);
-      this.sprite.y += 2;
+      const bob = this.moving ? Math.round(Math.sin(this.moveT * Math.PI * 2)) : 0;
+      this.sprite.y += 2 + bob;
+      for (const [img, name, dz] of [[v.img, frame, -0.3], [v.front, `${frame}_front`, 0.3]]) {
+        if (!img) continue;
+        if (img.frame.name !== name) img.setFrame(name);
+        img.setPosition(x, this.sprite.y - 5);
+        img.setDepth(this.sprite.depth + dz).setAlpha(this.sprite.alpha).setVisible(this.sprite.visible);
+      }
     }
     this.shadow.setPosition(x, y - 2);
     this.shadow.setDepth(-400);
@@ -164,9 +170,12 @@ export class Actor {
   setVehicle(base) {
     if (this.vehicle?.base === base) return;
     this.vehicle?.img.destroy();
+    this.vehicle?.front?.destroy();
     this.vehicle = null;
-    if (base && this.scene.textures.get('stage')?.has(`${base}_down`)) {
-      this.vehicle = { base, img: this.scene.add.image(0, 0, 'stage', `${base}_${this.facing}`).setOrigin(0.5, 0.5) };
+    const stage = this.scene.textures.get('stage');
+    if (base && stage?.has(`${base}_down`)) {
+      const front = stage.has(`${base}_down_front`) ? this.scene.add.image(0, 0, 'stage', `${base}_${this.facing}_front`).setOrigin(0.5, 0.5) : null;
+      this.vehicle = { base, img: this.scene.add.image(0, 0, 'stage', `${base}_${this.facing}`).setOrigin(0.5, 0.5), front };
     }
     this.playPose(this.pose, true);
     this.syncPosition();
@@ -369,6 +378,7 @@ export class Actor {
     if (this.blanket) this.blanket.setVisible(v && !!this.lying?.blanket && !this.sling);
     this.sling?.band.setVisible(v);
     this.vehicle?.img.setVisible(v);
+    this.vehicle?.front?.setVisible(v);
   }
 
   destroy() {
@@ -377,5 +387,6 @@ export class Actor {
     this.blanket?.destroy();
     this.sling?.destroy();
     this.vehicle?.img.destroy();
+    this.vehicle?.front?.destroy();
   }
 }

@@ -556,7 +556,7 @@ Defeated map enemies stay defeated (saved per `map:object`).
   `bob` sets the height of the ocean swell around the ship (pixels).
 - `musicFilter: "muffled"` low-passes the music (below decks).
 - `ambient` life: `wake`, `gulls`, `smoke` (x, y), `perchedGull` (x, y),
-  `sailShadow` (x, y).
+  `sailShadow` (x, y), `fins` (x, y, rx, ry, count, speed; Story Phase 9).
 
 **Objects**:
 
@@ -1161,6 +1161,76 @@ The room behind it has permanent `fumes`/`haze` on its own flag
 - **Hats:** `grandcrown` and `explorer`.
 - **Timing bars:** variants `nail` and `hang`.
 - **Looks:** `garrick_stenchmaster_crowned` and `bob_explorer` are in `data/appearances/phase8.json` and `data/portraits/phase8.json`.
+
+## Story Phase 9 formats
+
+### Named places (`regions` with `name`)
+
+```json
+"regions": [
+  { "id": "isle_ford", "name": "The River Crossing", "x": 24, "y": 39, "w": 8, "h": 5 }
+]
+```
+
+A region with a `name` shows it as a location title when the captain walks
+in (not during a scene). The name must be a non-empty string. A quest
+objective `{ "type": "visit", "target": "isle_ford" }` completes on entry,
+the same as a map id.
+
+### Riding in something (`playerVehicle`)
+
+```json
+{ "id": "reef_passage", "playerVehicle": "rowboat_top", "...": "..." }
+```
+
+On this map the captain sits in the named stage sprite and it goes where he
+goes. It needs stage frames `<base>_up`, `_down`, `_left` and `_right`, each
+centred on his seat (his hips). Optional `<base>_<dir>_front` frames, the
+same size, are drawn over him: the part of the vehicle nearer the camera
+than the seat, so he sits in it rather than on it. The validator checks the
+four direction frames.
+
+### The storm on other maps (`data/hazards/sharkstorm.json`)
+
+```json
+"offshore_crownskull": { "intensity": 2.5, "distance": "near",
+  "maps": ["main_deck", "reef_passage", "crownskull_isle"],
+  "flying": { "passEvery": [4200, 8000], "variants": ["flying_shark", "flying_hammer"],
+    "impactEvery": [3600, 6000], "warnMs": 1500,
+    "areas": { "reef_passage": [2, 5, 19, 44] },
+    "ground": { "reef_passage": "water" },
+    "onHit": { "reef_passage": "push" }, "push": { "dir": "down", "tiles": 2 } } }
+```
+
+- `maps` lists where the storm is overhead (default: the main deck only).
+- `areas` gives an inclusive rectangle `[x0, y0, x1, y1]` per map where sharks may come down. With `areas`, they only come down on maps that have one. Each landing is marked `warnMs` ahead.
+- `ground` is how a landing goes: `deck` (flops back over the rail), `land` (yanked back into the sky) or `water` (a splash).
+- `onHit` is what a direct hit does: `knock` (the captain is knocked flat) or `push` (the wave shoves his boat back `push.tiles` the way of `push.dir`). Neither hurts.
+- `glints: { "every": [1600, 3400], "sfx": "coin_glint" }` flashes gold in the sky (the treasure-laden storm). The jewelled shark variants are `flying_shark_pearls`, `_chain`, `_tiara` and `_rings`.
+
+### Fins (`ambient`, kind `fins`)
+
+```json
+{ "kind": "fins", "x": 18, "y": 28, "rx": 2.4, "ry": 2.2, "count": 5, "speed": 1.1 }
+```
+
+Fins circling an ellipse centred on a tile (the decoy boat, the lure).
+
+### A quest left open
+
+```json
+{ "id": "recover_crimson_fortune", "open": true, "objectives": [ { "id": "crown", "type": "flag", "target": "crimson_crown_recovered" } ] }
+```
+
+`open` marks a quest that ends its phase still active, on purpose, with
+objectives a later phase will finish. The completeness checks skip it.
+
+### Timing bars, looks, speakers
+
+- **Timing bars:** variants `dig`, `pick`, `pry`, `vines`, `throw` and `lower`.
+- **Looks:** `garrick_stenchmaster_dusty`, `pete_grand_sharkmaster` (the `bluesash` extra) and `blackbeard_pouch` (Squawks in a padded pouch) are in `data/appearances/phase9.json` and `data/portraits/phase9.json`.
+- **Speakers:** `garrick_far` (shouting from a distance), and the imaginary `shark_chorus` and `hammerhead`.
+- **Vista captions:** a vista's `caption` sits along the top, or along the bottom when the vista has `"dock": "top"` (the dialogue window is up there).
 
 ## Tilesets and props
 

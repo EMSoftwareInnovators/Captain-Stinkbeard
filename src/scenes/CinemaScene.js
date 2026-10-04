@@ -127,8 +127,12 @@ export class CinemaScene extends BaseScene {
       const t = addText(this, 0, 0, caption ?? def.caption, { color: 0xfff4e0, depth: 950, maxWidth: SCREEN_WIDTH - 40, maxLines: 2, align: 'center' });
       const lines = String(t.text).split('\n').length;
       const w = t.textWidth + 16;
-      const panel = addPanel(this, Math.round((SCREEN_WIDTH - w) / 2), 8, w, 8 + lines * 10, { depth: 949 });
-      t.y = 12;
+      const h = 8 + lines * 10;
+      // Along the top, unless the dialogue window docks there for this vista:
+      // then along the bottom, so neither hides the other.
+      const y = def.dock === 'top' ? SCREEN_HEIGHT - 8 - h : 8;
+      const panel = addPanel(this, Math.round((SCREEN_WIDTH - w) / 2), y, w, h, { depth: 949 });
+      t.y = y + 4;
       centerText(t, SCREEN_WIDTH / 2);
       parts.push(panel, t);
     }

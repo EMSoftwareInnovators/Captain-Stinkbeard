@@ -1480,6 +1480,10 @@ export class WorldScene extends BaseScene {
   async transitionTo(map, opts = {}) {
     this.leaving = true;
     await this.app.overlay.fadeOut(opts.duration ?? 300);
+    // The script that asked for this ends here (see worldServices.transition):
+    // with nothing to carry on with ("then"), close its window behind the
+    // fade, or the last line (a choice's question) stays up on the new map.
+    if (!opts.then) this.app.overlay.dialogue.forceClose();
     this.scene.restart({ map, ...opts });
   }
 

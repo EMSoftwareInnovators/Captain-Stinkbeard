@@ -475,13 +475,13 @@ function crater() {
 }
 
 function uprootedPalm() {
-  const c = canvas(56, 26);
-  groundShadow(c, 28, 22, 26, 3);
-  c.rect(10, 12, 38, 6, BARK.m);
-  for (let x = 12; x < 48; x += 5) c.vline(x, 12, 17, BARK.d);
+  const c = canvas(48, 26);
+  groundShadow(c, 24, 22, 22, 3);
+  c.rect(10, 12, 30, 6, BARK.m);
+  for (let x = 12; x < 40; x += 5) c.vline(x, 12, 17, BARK.d);
   // roots at one end, fronds at the other, flattened
-  for (let i = 0; i < 7; i++) c.line(48, 15, 54, 6 + i * 3, BARK.d);
-  c.ellipse(52, 15, 4, 4, DIRT.m);
+  for (let i = 0; i < 7; i++) c.line(40, 15, 46, 6 + i * 3, BARK.d);
+  c.ellipse(44, 15, 3, 4, DIRT.m);
   for (let k = 0; k < 6; k++) c.line(10, 14, 0 + k, 4 + k * 3, LEAF.m);
   c.ellipse(8, 14, 6, 5, LEAF.d);
   c.outline(INK);
