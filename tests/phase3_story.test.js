@@ -225,7 +225,10 @@ describe('Story Phase 3 stays inside its brief', () => {
       if (!x.includes(`${path.sep}logs${path.sep}`)) return fs.readFileSync(x, 'utf8');
       // The logbooks are shared: leave out the entries a later phase unlocks.
       const logs = JSON.parse(fs.readFileSync(x, 'utf8'));
-      for (const log of Object.values(logs)) if (log?.entries) log.entries = log.entries.filter((e) => !later.has(e.if?.flag));
+      for (const [id, log] of Object.entries(logs)) {
+    if (later.has(log?.if?.flag)) delete logs[id];
+    else if (log?.entries) log.entries = log.entries.filter((e) => !later.has(e.if?.flag));
+  }
       return JSON.stringify(logs);
     });
   }).join('\n');

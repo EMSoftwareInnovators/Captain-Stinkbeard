@@ -1,0 +1,1628 @@
+[
+ {
+  "extend": "garrick",
+  "variants": [
+   {
+    "if": {
+     "flag": "garrick_dusty"
+    },
+    "appearance": "garrick_stenchmaster_dusty",
+    "portrait": "garrick_stenchmaster_dusty"
+   },
+   {
+    "if": {
+     "flag": "p9_nap_concluded"
+    },
+    "appearance": "garrick_stenchmaster_crowned",
+    "portrait": "garrick_stenchmaster_crowned"
+   }
+  ],
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "morning_after.talk"
+    },
+    "script": "p9c1.talk"
+   },
+   {
+    "if": {
+     "questActive": "completely_authentic"
+    },
+    "script": "p9c2.ask"
+   },
+   {
+    "if": {
+     "objectiveActive": "no_receipt.verdict"
+    },
+    "script": "p9c3.verdict"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bureaucracy.plain"
+    },
+    "script": "p9c4.plain"
+   },
+   {
+    "if": {
+     "objectiveActive": "seven_floors.garrick"
+    },
+    "script": "p9c11.garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "excavation_technology.proposal"
+    },
+    "script": "p9c12.proposal"
+   },
+   {
+    "if": {
+     "objectiveActive": "excavation_technology.listen"
+    },
+    "script": "p9c12.launch"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "rage_shanty_seen"
+      },
+      {
+       "notFlag": "p9_confronted"
+      }
+     ]
+    },
+    "script": "p9c16.confront"
+   },
+   {
+    "if": {
+     "flag": "p9_complete"
+    },
+    "cycle": [
+     "garrick.p9_post_1",
+     "garrick.p9_post_2",
+     "garrick.p9_post_3"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch64_started"
+      },
+      {
+       "notFlag": "p9_ch67_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p9_dig_1",
+     "garrick.p9_dig_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_landed"
+      },
+      {
+       "notFlag": "p9_ch64_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p9_isle_1",
+     "garrick.p9_isle_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch62_started"
+      },
+      {
+       "notFlag": "p9_landed"
+      }
+     ]
+    },
+    "script": "garrick.p9_deck"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch59_started"
+      },
+      {
+       "notFlag": "p9_ch62_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p9_council_1",
+     "garrick.p9_council_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_baited"
+      },
+      {
+       "notFlag": "p9_ch59_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p9_lecture_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_started"
+      },
+      {
+       "notFlag": "p9_baited"
+      }
+     ]
+    },
+    "script": "garrick.p9_morning"
+   }
+  ]
+ },
+ {
+  "extend": "squawks",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "no_receipt.witnesses"
+      },
+      {
+       "notFlag": "p9_witness_squawks"
+      }
+     ]
+    },
+    "script": "p9c3.squawks"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bureaucracy.herald"
+    },
+    "script": "p9c4.herald"
+   },
+   {
+    "if": {
+     "objectiveActive": "fire_in_the_hole.survive"
+    },
+    "script": "p9c14.survived"
+   },
+   {
+    "if": {
+     "flag": "p9_complete"
+    },
+    "cycle": [
+     "squawks.p9_post_1",
+     "squawks.p9_post_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch59_started"
+      },
+      {
+       "notFlag": "p9_ch62_started"
+      }
+     ]
+    },
+    "script": "squawks.p9_council"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_baited"
+      },
+      {
+       "notFlag": "p9_ch59_started"
+      }
+     ]
+    },
+    "script": "squawks.p9_lecture"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_started"
+      },
+      {
+       "notFlag": "p9_baited"
+      }
+     ]
+    },
+    "script": "squawks.p9_morning"
+   }
+  ]
+ },
+ {
+  "extend": "pete",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "morning_after.crew"
+      },
+      {
+       "notFlag": "p9_morning_pete"
+      }
+     ]
+    },
+    "script": "p9c1.pete"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "no_receipt.witnesses"
+      },
+      {
+       "notFlag": "p9_witness_pete"
+      }
+     ]
+    },
+    "script": "p9c3.pete"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_sharkmaster.sash"
+    },
+    "script": "p9c7.sash"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_sharkmaster.plan"
+    },
+    "script": "p9c7.plan"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_sharkmaster.petes_plan"
+    },
+    "script": "p9c7.pete_plan"
+   },
+   {
+    "if": {
+     "objectiveActive": "lee_side_landing.window"
+    },
+    "script": "p9c8.window"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "crimson_fortune.dreams"
+      },
+      {
+       "notFlag": "p9_dream_pete"
+      }
+     ]
+    },
+    "script": "p9c10.dream_pete"
+   },
+   {
+    "if": {
+     "flag": "p9_complete"
+    },
+    "cycle": [
+     "pete.p9_post_1",
+     "pete.p9_post_2",
+     "pete.p9_post_3"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_crowned_seen"
+      },
+      {
+       "notFlag": "p9_complete"
+      }
+     ]
+    },
+    "script": "pete.p9_shanty"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_great_white_rain_survived"
+      },
+      {
+       "notFlag": "p9_crowned_seen"
+      }
+     ]
+    },
+    "script": "pete.p9_after"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ruins_shelter_ready"
+      },
+      {
+       "notFlag": "p9_great_white_rain_survived"
+      }
+     ]
+    },
+    "script": "pete.p9_storm"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch67_started"
+      },
+      {
+       "notFlag": "ruins_shelter_ready"
+      }
+     ]
+    },
+    "script": "pete.p9_run"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch64_started"
+      },
+      {
+       "notFlag": "p9_ch67_started"
+      }
+     ]
+    },
+    "script": "pete.p9_dig"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_landed"
+      },
+      {
+       "notFlag": "p9_ch64_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p9_isle_1",
+     "pete.p9_isle_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch62_started"
+      },
+      {
+       "notFlag": "p9_landed"
+      }
+     ]
+    },
+    "script": "pete.p9_deck"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch59_started"
+      },
+      {
+       "notFlag": "p9_ch62_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p9_council_1",
+     "pete.p9_council_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_baited"
+      },
+      {
+       "notFlag": "p9_ch59_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p9_lecture_1",
+     "pete.p9_lecture_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_started"
+      },
+      {
+       "notFlag": "p9_baited"
+      }
+     ]
+    },
+    "script": "pete.p9_morning"
+   }
+  ],
+  "variants": [
+   {
+    "if": {
+     "flag": "pete_blue_sash_on"
+    },
+    "appearance": "pete_grand_sharkmaster",
+    "portrait": "pete_grand_sharkmaster"
+   }
+  ]
+ },
+ {
+  "extend": "bob",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "morning_after.crew"
+      },
+      {
+       "notFlag": "p9_morning_bob"
+      }
+     ]
+    },
+    "script": "p9c1.bob"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "no_receipt.witnesses"
+      },
+      {
+       "notFlag": "p9_witness_bob"
+      }
+     ]
+    },
+    "script": "p9c3.bob"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_bureaucracy.assistant"
+    },
+    "script": "p9c4.bob"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "crimson_fortune.dreams"
+      },
+      {
+       "notFlag": "p9_dream_bob"
+      }
+     ]
+    },
+    "script": "p9c10.dream_bob"
+   },
+   {
+    "if": {
+     "flag": "p9_complete"
+    },
+    "cycle": [
+     "bob.p9_post_1",
+     "bob.p9_post_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_crowned_seen"
+      },
+      {
+       "notFlag": "p9_complete"
+      }
+     ]
+    },
+    "script": "bob.p9_shanty"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_great_white_rain_survived"
+      },
+      {
+       "notFlag": "p9_crowned_seen"
+      }
+     ]
+    },
+    "script": "bob.p9_after"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ruins_shelter_ready"
+      },
+      {
+       "notFlag": "p9_great_white_rain_survived"
+      }
+     ]
+    },
+    "script": "bob.p9_storm"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch67_started"
+      },
+      {
+       "notFlag": "ruins_shelter_ready"
+      }
+     ]
+    },
+    "script": "bob.p9_run"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch64_started"
+      },
+      {
+       "notFlag": "p9_ch67_started"
+      }
+     ]
+    },
+    "script": "bob.p9_dig"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_landed"
+      },
+      {
+       "notFlag": "p9_ch64_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p9_isle_1",
+     "bob.p9_isle_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch62_started"
+      },
+      {
+       "notFlag": "p9_landed"
+      }
+     ]
+    },
+    "script": "bob.p9_deck"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch59_started"
+      },
+      {
+       "notFlag": "p9_ch62_started"
+      }
+     ]
+    },
+    "script": "bob.p9_council"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_baited"
+      },
+      {
+       "notFlag": "p9_ch59_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p9_lecture_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_started"
+      },
+      {
+       "notFlag": "p9_baited"
+      }
+     ]
+    },
+    "script": "bob.p9_morning"
+   }
+  ],
+  "variants": [
+   {
+    "if": {
+     "flag": "p9_hat_grabbed"
+    },
+    "appearance": "bob",
+    "portrait": "bob"
+   }
+  ]
+ },
+ {
+  "extend": "gristle",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "morning_after.crew"
+      },
+      {
+       "notFlag": "p9_morning_gristle"
+      }
+     ]
+    },
+    "script": "p9c1.gristle"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "no_receipt.witnesses"
+      },
+      {
+       "notFlag": "p9_witness_gristle"
+      }
+     ]
+    },
+    "script": "p9c3.gristle"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "crimson_fortune.dreams"
+      },
+      {
+       "notFlag": "p9_dream_gristle"
+      }
+     ]
+    },
+    "script": "p9c10.dream_gristle"
+   },
+   {
+    "if": {
+     "flag": "p9_complete"
+    },
+    "cycle": [
+     "gristle.p9_post_1",
+     "gristle.p9_post_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_crowned_seen"
+      },
+      {
+       "notFlag": "p9_complete"
+      }
+     ]
+    },
+    "script": "gristle.p9_shanty"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_great_white_rain_survived"
+      },
+      {
+       "notFlag": "p9_crowned_seen"
+      }
+     ]
+    },
+    "script": "gristle.p9_after"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ruins_shelter_ready"
+      },
+      {
+       "notFlag": "p9_great_white_rain_survived"
+      }
+     ]
+    },
+    "script": "gristle.p9_storm"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch67_started"
+      },
+      {
+       "notFlag": "ruins_shelter_ready"
+      }
+     ]
+    },
+    "script": "gristle.p9_run"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch64_started"
+      },
+      {
+       "notFlag": "p9_ch67_started"
+      }
+     ]
+    },
+    "script": "gristle.p9_dig"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_landed"
+      },
+      {
+       "notFlag": "p9_ch64_started"
+      }
+     ]
+    },
+    "script": "gristle.p9_isle"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch62_started"
+      },
+      {
+       "notFlag": "p9_landed"
+      }
+     ]
+    },
+    "script": "gristle.p9_deck"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch59_started"
+      },
+      {
+       "notFlag": "p9_ch62_started"
+      }
+     ]
+    },
+    "script": "gristle.p9_council"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_baited"
+      },
+      {
+       "notFlag": "p9_ch59_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p9_lecture_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_started"
+      },
+      {
+       "notFlag": "p9_baited"
+      }
+     ]
+    },
+    "script": "gristle.p9_morning"
+   }
+  ]
+ },
+ {
+  "extend": "jim",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "morning_after.crew"
+      },
+      {
+       "notFlag": "p9_morning_jim"
+      }
+     ]
+    },
+    "script": "p9c1.jim"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "crimson_fortune.dreams"
+      },
+      {
+       "notFlag": "p9_dream_jim"
+      }
+     ]
+    },
+    "script": "p9c10.dream_jim"
+   },
+   {
+    "if": {
+     "flag": "p9_complete"
+    },
+    "cycle": [
+     "jim.p9_post_1",
+     "jim.p9_post_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_crowned_seen"
+      },
+      {
+       "notFlag": "p9_complete"
+      }
+     ]
+    },
+    "script": "jim.p9_shanty"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_great_white_rain_survived"
+      },
+      {
+       "notFlag": "p9_crowned_seen"
+      }
+     ]
+    },
+    "script": "jim.p9_after"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ruins_shelter_ready"
+      },
+      {
+       "notFlag": "p9_great_white_rain_survived"
+      }
+     ]
+    },
+    "script": "jim.p9_storm"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch67_started"
+      },
+      {
+       "notFlag": "ruins_shelter_ready"
+      }
+     ]
+    },
+    "script": "jim.p9_run"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch64_started"
+      },
+      {
+       "notFlag": "p9_ch67_started"
+      }
+     ]
+    },
+    "script": "jim.p9_dig"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_landed"
+      },
+      {
+       "notFlag": "p9_ch64_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p9_isle_1",
+     "jim.p9_isle_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch62_started"
+      },
+      {
+       "notFlag": "p9_landed"
+      }
+     ]
+    },
+    "script": "jim.p9_deck"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch59_started"
+      },
+      {
+       "notFlag": "p9_ch62_started"
+      }
+     ]
+    },
+    "script": "jim.p9_council"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_baited"
+      },
+      {
+       "notFlag": "p9_ch59_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p9_lecture_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_started"
+      },
+      {
+       "notFlag": "p9_baited"
+      }
+     ]
+    },
+    "script": "jim.p9_morning"
+   }
+  ]
+ },
+ {
+  "extend": "ned",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "crimson_fortune.dreams"
+      },
+      {
+       "notFlag": "p9_dream_ned"
+      }
+     ]
+    },
+    "script": "p9c10.dream_ned"
+   },
+   {
+    "if": {
+     "flag": "p9_complete"
+    },
+    "cycle": [
+     "ned.p9_post_1",
+     "ned.p9_post_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_crowned_seen"
+      },
+      {
+       "notFlag": "p9_complete"
+      }
+     ]
+    },
+    "script": "ned.p9_shanty"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_great_white_rain_survived"
+      },
+      {
+       "notFlag": "p9_crowned_seen"
+      }
+     ]
+    },
+    "script": "ned.p9_after"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "ruins_shelter_ready"
+      },
+      {
+       "notFlag": "p9_great_white_rain_survived"
+      }
+     ]
+    },
+    "script": "ned.p9_storm"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch67_started"
+      },
+      {
+       "notFlag": "ruins_shelter_ready"
+      }
+     ]
+    },
+    "script": "ned.p9_run"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch64_started"
+      },
+      {
+       "notFlag": "p9_ch67_started"
+      }
+     ]
+    },
+    "script": "ned.p9_dig"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_landed"
+      },
+      {
+       "notFlag": "p9_ch64_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p9_isle_1",
+     "ned.p9_isle_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch62_started"
+      },
+      {
+       "notFlag": "p9_landed"
+      }
+     ]
+    },
+    "script": "ned.p9_deck"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch59_started"
+      },
+      {
+       "notFlag": "p9_ch62_started"
+      }
+     ]
+    },
+    "script": "ned.p9_council"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_baited"
+      },
+      {
+       "notFlag": "p9_ch59_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p9_lecture_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_started"
+      },
+      {
+       "notFlag": "p9_baited"
+      }
+     ]
+    },
+    "script": "ned.p9_morning"
+   }
+  ]
+ },
+ {
+  "extend": "hale",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p9_complete"
+    },
+    "script": "hale.p9_post"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch62_started"
+      },
+      {
+       "notFlag": "p9_landed"
+      }
+     ]
+    },
+    "script": "hale.p9_deck"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch59_started"
+      },
+      {
+       "notFlag": "p9_ch62_started"
+      }
+     ]
+    },
+    "script": "hale.p9_council"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_baited"
+      },
+      {
+       "notFlag": "p9_ch59_started"
+      }
+     ]
+    },
+    "script": "hale.p9_lecture"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_started"
+      },
+      {
+       "notFlag": "p9_baited"
+      }
+     ]
+    },
+    "script": "hale.p9_morning"
+   }
+  ]
+ },
+ {
+  "extend": "wick",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch59_started"
+      },
+      {
+       "notFlag": "p9_ch62_started"
+      }
+     ]
+    },
+    "script": "wick.p9_council"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_baited"
+      },
+      {
+       "notFlag": "p9_ch59_started"
+      }
+     ]
+    },
+    "script": "wick.p9_lecture"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_started"
+      },
+      {
+       "notFlag": "p9_baited"
+      }
+     ]
+    },
+    "script": "wick.p9_morning"
+   }
+  ]
+ },
+ {
+  "extend": "fennimore",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p9_complete"
+    },
+    "script": "fennimore.p9_post"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_baited"
+      },
+      {
+       "notFlag": "p9_ch59_started"
+      }
+     ]
+    },
+    "script": "fennimore.p9_lecture"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_started"
+      },
+      {
+       "notFlag": "p9_baited"
+      }
+     ]
+    },
+    "script": "fennimore.p9_morning"
+   }
+  ]
+ },
+ {
+  "extend": "rook",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_baited"
+      },
+      {
+       "notFlag": "p9_ch59_started"
+      }
+     ]
+    },
+    "script": "rook.p9_lecture"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_started"
+      },
+      {
+       "notFlag": "p9_baited"
+      }
+     ]
+    },
+    "script": "rook.p9_morning"
+   }
+  ]
+ },
+ {
+  "extend": "sully",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p9_complete"
+    },
+    "script": "sully.p9_post"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_started"
+      },
+      {
+       "notFlag": "p9_baited"
+      }
+     ]
+    },
+    "script": "sully.p9_morning"
+   }
+  ]
+ },
+ {
+  "extend": "brask",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_baited"
+      },
+      {
+       "notFlag": "p9_ch59_started"
+      }
+     ]
+    },
+    "script": "brask.p9_lecture"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_started"
+      },
+      {
+       "notFlag": "p9_baited"
+      }
+     ]
+    },
+    "script": "brask.p9_morning"
+   }
+  ]
+ },
+ {
+  "extend": "jory",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_baited"
+      },
+      {
+       "notFlag": "p9_ch59_started"
+      }
+     ]
+    },
+    "script": "jory.p9_lecture"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_started"
+      },
+      {
+       "notFlag": "p9_baited"
+      }
+     ]
+    },
+    "script": "jory.p9_morning"
+   }
+  ]
+ },
+ {
+  "extend": "nell",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p9_complete"
+    },
+    "script": "nell.p9_post"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_ch62_started"
+      },
+      {
+       "notFlag": "p9_landed"
+      }
+     ]
+    },
+    "script": "nell.p9_deck"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_started"
+      },
+      {
+       "notFlag": "p9_baited"
+      }
+     ]
+    },
+    "script": "nell.p9_morning"
+   }
+  ]
+ },
+ {
+  "extend": "finch",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_baited"
+      },
+      {
+       "notFlag": "p9_ch59_started"
+      }
+     ]
+    },
+    "script": "finch.p9_lecture"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_started"
+      },
+      {
+       "notFlag": "p9_baited"
+      }
+     ]
+    },
+    "script": "finch.p9_morning"
+   }
+  ]
+ },
+ {
+  "extend": "mags",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_baited"
+      },
+      {
+       "notFlag": "p9_ch59_started"
+      }
+     ]
+    },
+    "script": "mags.p9_lecture"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_started"
+      },
+      {
+       "notFlag": "p9_baited"
+      }
+     ]
+    },
+    "script": "mags.p9_morning"
+   }
+  ]
+ },
+ {
+  "extend": "quill",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_baited"
+      },
+      {
+       "notFlag": "p9_ch59_started"
+      }
+     ]
+    },
+    "script": "quill.p9_lecture"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_started"
+      },
+      {
+       "notFlag": "p9_baited"
+      }
+     ]
+    },
+    "script": "quill.p9_morning"
+   }
+  ]
+ },
+ {
+  "extend": "penhallow",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_baited"
+      },
+      {
+       "notFlag": "p9_ch59_started"
+      }
+     ]
+    },
+    "script": "penhallow.p9_lecture"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_started"
+      },
+      {
+       "notFlag": "p9_baited"
+      }
+     ]
+    },
+    "script": "penhallow.p9_morning"
+   }
+  ]
+ }
+]

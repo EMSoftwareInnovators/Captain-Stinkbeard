@@ -5,7 +5,7 @@ import { rng } from './sesArt.js';
 import { CRT, crt, screen, franklin, desk, stormColumn } from './vistaPhase6.js';
 import { auditor } from './vistaPhase8.js';
 import { C, page, cray, blob, label, figure } from './vistaLegend.js';
-import { paintProp } from '../props/index.js';
+import { megalodon } from '../props/phase9Props.js';
 
 /**
  * Vista art for Story Phase 9 (the Completely Authentic History; Crownskull
@@ -451,7 +451,7 @@ function megalodonShadow() {
 }
 
 /** The megalodon (and crowned), from the props: the same fish in a picture. */
-const megaFrame = (crowned) => paintProp(crowned ? 'megalodon_crowned' : 'megalodon').frames[0];
+const megaFrame = (crowned) => megalodon({ crowned, water: false }).frames[0];
 
 function impactDust() {
   const c = new PixelCanvas(220, 80);

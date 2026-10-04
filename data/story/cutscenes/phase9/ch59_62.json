@@ -1,0 +1,1062 @@
+{
+ "//": "Story Phase 9, Part Two (chapters 59-62). Ned sees land through the hull; it is the island on the captain's treasure map (Crownskull Isle: a pale beach, reefs, jungle, cliffs, a ridge like a skull with a crown on). The Great Sharkstorm followed them ('Strong scent'). The council: every way ashore and why it kills somebody; NO MORE FART-BASED NAVIGATION; the Grand Nap request; the Grand Sharkmaster revived. Pete appointed at random; the blue two-pack sash; the crayon paper, torn up. FORTY SECONDS. The Frog Tax Man: records eaten by a shark, then a shark storm (a coincidence; the Auditor is unmoved). Pete's plan, which is good. Then the landing on deck (helm, lines, the EMPTY decoy, the window, the lure, the boats) and the row through the reef.",
+ "p9c5.begin": [
+  {
+   "setFlag": "p9_ch59_started"
+  },
+  {
+   "banner": "PART TWO",
+   "sub": "The Grand Sharkmaster and Treasure Island"
+  },
+  {
+   "banner": "CHAPTER 59",
+   "sub": "LAND!"
+  },
+  "Everybody turns, slowly, to look at One-Eyed Ned, standing with his eye to a crack in the hull planks by the stairs, where the grey light comes in.",
+  "ned[alarmed]: I've been saying it for ages. LAND. There's LAND.",
+  "pete: Land?",
+  "ned: Green. Trees. Cliffs. A beach. And a big rock, on top, shaped like...",
+  "ned: ...like a skull. Wearing a crown.",
+  {
+   "startQuest": "land_ho"
+  },
+  {
+   "tutorial": "See what Ned's seen (the gap in the hull planks, by the stairs).",
+   "title": "LAND!"
+  }
+ ],
+ "p9c5.look": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "Ned steps aside. You put your eye to the gap where the sea-light comes in.",
+  {
+   "vista": "crownskull_reveal",
+   "fade": 700
+  },
+  {
+   "music": null
+  },
+  {
+   "sfx": "discovery_sting",
+   "volume": 0.7
+  },
+  "A mile off across the grey water, an island.",
+  "A pale beach, almost white. Reefs, a line of surf breaking across them like teeth. Jungle, thick and dark and green, all the way up from the sand. Cliffs.",
+  "And over it all, a great grey ridge of rock, with two dark hollows in it for eyes, a nose, a jaw, and along the top, a row of jagged spires.",
+  "A skull. Wearing a crown.",
+  "You've seen that ridge before.",
+  {
+   "vistaEnd": true,
+   "fade": 600
+  },
+  {
+   "setFlag": "crownskull_discovered"
+  },
+  "Your hand has already gone inside your coat, to the oilskin packet you have carried next to your heart for more years than you have told anyone.",
+  {
+   "giveItem": "crimson_chart",
+   "silent": true
+  },
+  {
+   "tutorial": "Take out your treasure map and hold it up to the gap.",
+   "title": "LAND!"
+  }
+ ],
+ "p9c5.map": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You unfold the map. The parchment is soft as cloth from folding. You hold it up beside the gap in the hull.",
+  {
+   "insert": "crownskull_treasure_map",
+   "caption": "The Crimson Chart: an island, a crowned skull for a ridge, a beach, a river, a broken tooth, a statue. And under the skull, X."
+  },
+  "The beach. The reef. The river. The ridge, with its two eyes and its jaw and its crown.",
+  "It's the same island. It's THE island.",
+  "All the tiredness goes out of you at once, like water out of a split barrel. You don't feel the night you didn't sleep. You don't feel the week.",
+  "captain: That's it.",
+  "squawks: Treasure?",
+  "captain: Aye, Squawks. Treasure.",
+  {
+   "sfx": "crowd_cheer",
+   "volume": 0.8
+  },
+  "The barracks goes up like a powder keg. Hammocks swing. Bob falls out of his net. Jim hugs Gristle, and Gristle allows it, for one second.",
+  "garrick[delighted]: MONEY!",
+  "captain: MY treasure.",
+  "garrick[businesslike]: Our treasure.",
+  "captain[angry]: MY treasure.",
+  "garrick[businesslike]: The Grand Stenchmaster's share, as an officer of—",
+  "captain[angry]: Is NOTHING.",
+  "garrick[businesslike]: A ceremonial nothing?",
+  "captain[angry]: An actual nothing.",
+  {
+   "sfx": "vortex_roar",
+   "volume": 0.8
+  },
+  {
+   "shake": 2,
+   "duration": 600
+  },
+  "Then, behind them, on the other side of the ship, something roars.",
+  "It's a long, rising, howling roar with a thousand thin screams in it. Every one of them knows what it is.",
+  {
+   "setValue": "great_sharkstorm",
+   "value": "following_crownskull"
+  },
+  {
+   "vista": "crownskull_offshore",
+   "fade": 600
+  },
+  "The Great Sharkstorm. Weaker than it was. Still turning. Still throwing sharks. And it has followed them, all the way here, across the sea, at a steady distance, like a dog that won't go home.",
+  {
+   "vistaEnd": true,
+   "fade": 500
+  },
+  "gristle: It followed us.",
+  "garrick[smug]: Strong scent.",
+  "Every head in the barracks turns, very slowly, to look at him.",
+  "garrick[nervous]: ...A scientific observation.",
+  {
+   "setFlag": "crownskull_map_unlocked"
+  },
+  {
+   "setFlag": "crownskull_isle_sighted"
+  },
+  {
+   "call": "p9c6.begin"
+  }
+ ],
+ "p9c6.begin": [
+  {
+   "setFlag": "p9_ch60_started"
+  },
+  {
+   "banner": "CHAPTER 60",
+   "sub": "The Landing Problem"
+  },
+  "hale[concerned]: Captain. Before anybody starts packing a shovel.",
+  "hale[concerned]: The island's a mile off. Between here and there there's a reef, all the way along. The ship's held together with rope and Wick's spare shirts. There are sharks under us. There's the Great Sharkstorm behind us. And the boats are... boats.",
+  "hale[concerned]: Small. Wooden. Delicious.",
+  {
+   "startQuest": "landing_problem"
+  },
+  {
+   "tutorial": "Hold a council. Pin the map up on the board by the barrels, and get everyone round it.",
+   "title": "The Landing Problem"
+  }
+ ],
+ "p9c6.council": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You take down the Grand Stenchmaster's organisation chart, fold it in four, hand it to him, and pin the Crimson Chart up in its place.",
+  "garrick[worried]: That's a historical document.",
+  "captain: So is this. Mine's real.",
+  "The crew crowd round the board, shoulder to shoulder, and look at the island, and at the reef drawn all round it in little scratchy lines.",
+  {
+   "setFlag": "p9_council"
+  },
+  {
+   "tutorial": "Go through every way of getting ashore (the board). All of them.",
+   "title": "The Landing Problem"
+  }
+ ],
+ "p9c6.options": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "choice": [
+    {
+     "text": "Run the Revenge straight up on the beach",
+     "if": {
+      "notFlag": "p9_opt_beach"
+     },
+     "then": [
+      "captain: We run her in. Straight up the beach. Nobody gets wet.",
+      "hale[alarmed]: Captain, she'll break her back on the reef. We'd be stood on the sand watching her sink. With all our biscuits on her.",
+      "jim: And my bowl.",
+      "garrick: The Grand Eating Bowl.",
+      "jim[angry]: MY BOWL.",
+      {
+       "setFlag": "p9_opt_beach"
+      },
+      {
+       "event": "p9_option"
+      }
+     ]
+    },
+    {
+     "text": "Anchor off and row in",
+     "if": {
+      "notFlag": "p9_opt_row"
+     },
+     "then": [
+      "captain: We anchor off the reef and row in.",
+      "gristle[annoyed]: Into that? There's every shark for fifty miles under this ship. They'd have the boats for breakfast and us for lunch. And Bob for afters.",
+      "bob: Why am I afters?",
+      "gristle: You've got a sweet face.",
+      {
+       "setFlag": "p9_opt_row"
+      },
+      {
+       "event": "p9_option"
+      }
+     ]
+    },
+    {
+     "text": "Swim for it",
+     "if": {
+      "notFlag": "p9_opt_swim"
+     },
+     "then": [
+      "captain: ...We could swim.",
+      "Everybody, at once, with no hesitation whatsoever: NO.",
+      "garrick[businesslike]: I'd like it noted that I can't swim in the Suit.",
+      "pete: That's not why it's no.",
+      "garrick: It's a very good reason.",
+      "gristle: It's not why it's NO.",
+      {
+       "setFlag": "p9_opt_swim"
+      },
+      {
+       "event": "p9_option"
+      }
+     ]
+    },
+    {
+     "text": "Sail round and come in from the far side",
+     "if": {
+      "notFlag": "p9_opt_circle"
+     },
+     "then": [
+      "captain: We go round. Come in from the other side, away from the storm.",
+      "ned[concerned]: The storm follows our wake, Captain. It follows the smell. We sail round, it sails round. We'd just be leading it in a circle. A big, stinking circle.",
+      {
+       "setFlag": "p9_opt_circle"
+      },
+      {
+       "event": "p9_option"
+      }
+     ]
+    },
+    {
+     "text": "Wait for the storm to go away",
+     "if": {
+      "notFlag": "p9_opt_wait"
+     },
+     "then": [
+      "captain: We wait. It'll get bored.",
+      "pete[tired]: It's been a WEEK, Captain. It's not getting bored. It's knocking bits off us every hour. There'll be nothing left to land.",
+      {
+       "setFlag": "p9_opt_wait"
+      },
+      {
+       "event": "p9_option"
+      }
+     ]
+    },
+    {
+     "text": "(The Grand Stenchmaster has his hand up)",
+     "if": {
+      "notFlag": "p9_opt_lure"
+     },
+     "then": [
+      "garrick[proud]: A release.",
+      "captain[angry]: No.",
+      "garrick[proud]: As a LURE. I go to the far end of the ship, I release, the storm goes that way, and you all row in the other way. Simple navigation.",
+      "captain[angry]: NO MORE FART-BASED NAVIGATION.",
+      "garrick[offended]: Then what's the point of having a Grand Stenchmaster?",
+      "captain[smug]: Exactly.",
+      {
+       "setFlag": "p9_opt_lure"
+      },
+      {
+       "event": "p9_option"
+      }
+     ]
+    },
+    {
+     "text": "(Step back from the board)",
+     "then": [
+      "You step back and look at it all from further away. It doesn't get any better from further away."
+     ]
+    }
+   ]
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p9_opt_beach"
+     },
+     {
+      "flag": "p9_opt_row"
+     },
+     {
+      "flag": "p9_opt_swim"
+     },
+     {
+      "flag": "p9_opt_circle"
+     },
+     {
+      "flag": "p9_opt_wait"
+     },
+     {
+      "flag": "p9_opt_lure"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p9c6.nap"
+    }
+   ]
+  }
+ ],
+ "p9c6.nap": [
+  "Six ways ashore. Six ways to die. The crew stand round the board in silence.",
+  "garrick[businesslike]: I'd like to request a Grand Nap.",
+  "captain[angry]: WHAT?",
+  "garrick[businesslike]: To think. The Grand Stenchmaster does his best thinking unconscious.",
+  {
+   "bark": "pete",
+   "text": "NO!",
+   "duration": 1600,
+   "shout": true
+  },
+  {
+   "bark": "gristle",
+   "text": "NO NAPS!",
+   "duration": 1600,
+   "shout": true
+  },
+  {
+   "bark": "jim",
+   "text": "YOU JUST HAD ONE!",
+   "duration": 1800,
+   "shout": true
+  },
+  {
+   "bark": "bob",
+   "text": "NO!",
+   "duration": 1400,
+   "shout": true
+  },
+  "captain[angry]: If you say 'Grand Nap' one more time today, Garrick, there will be CONSEQUENCES.",
+  "garrick[nervous]: Grand what kind of consequences?",
+  "captain[angry]: Ordinary ones. Very ordinary. Wet ones.",
+  "squawks[smug]: Good.",
+  "garrick[businesslike]: ...Then the problem, Captain, is plainly STAFFING.",
+  "captain[annoyed]: Here we go.",
+  "garrick[proud]: What this ship has needed since the storm came is a GRAND SHARKMASTER.",
+  "pete: There's no such thing as a Grand Sharkmaster.",
+  "garrick[smug]: Exactly. That's why you're understaffed.",
+  "You go for him. Gristle catches one of your arms and Jim the other, and between them they hold you there, leaning, about a foot short of his neck.",
+  "squawks[smug]: Violent management.",
+  {
+   "setFlag": "grand_sharkmaster_revived"
+  },
+  {
+   "call": "p9c7.begin"
+  }
+ ],
+ "p9c7.begin": [
+  {
+   "setFlag": "p9_ch61_started"
+  },
+  {
+   "banner": "CHAPTER 61",
+   "sub": "The Grand Sharkmaster"
+  },
+  {
+   "startQuest": "grand_sharkmaster"
+  },
+  "The Grand Stenchmaster closes his eyes, raises an arm, and turns slowly on the spot, his finger going round the crew like the hand of a clock.",
+  "Everybody ducks. The finger stops.",
+  "It's pointing at Peg-Leg Pete.",
+  "pete[alarmed]: No.",
+  "garrick[delighted]: CONGRATULATIONS.",
+  "pete[annoyed]: NO.",
+  "garrick[proud]: Peg-Leg Pete, I hereby appoint you GRAND SHARKMASTER.",
+  "From inside the Suit, somewhere around the sash, he produces a second sash. It's blue. Sky blue, a bit shiny, with GRAND SHARKMASTER daubed on it in white paint that isn't quite dry.",
+  "gristle: Why have you got a second sash?",
+  "garrick[businesslike]: The discount store sold a two-pack.",
+  "jim: You said it wasn't a discount store.",
+  "garrick[businesslike]: It's a two-pack of ANCIENT sashes.",
+  "He loops the blue sash over Pete's head before Pete can move, and steps back to admire it.",
+  {
+   "sfx": "sash_swish",
+   "volume": 0.6
+  },
+  {
+   "setFlag": "pete_mock_title_grand_sharkmaster"
+  },
+  {
+   "setFlag": "blue_sash_exists"
+  },
+  {
+   "setFlag": "pete_blue_sash_on"
+  },
+  "garrick[proud]: Shark defence. Shark forecasting. Shark removal. Shark negotiation. Sharkstorm suppression. And island access during shark conditions.",
+  "pete[annoyed]: How do you NEGOTIATE with a SHARK?",
+  "garrick[smug]: Professionally.",
+  {
+   "tutorial": "Pete is wearing a blue sash. Pete does not want to be wearing a blue sash. Help him get it off (Pete).",
+   "title": "The Grand Sharkmaster"
+  }
+ ],
+ "p9c7.sash": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p9_sash_tries",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You lift the blue sash off over Pete's head and throw it on the floor.",
+    {
+     "sfx": "sash_swish",
+     "volume": 0.5
+    },
+    "pete: Thank you, Captain.",
+    "You turn round to look at the board. When you turn back, the sash is on Pete again, and the Grand Stenchmaster is walking away, whistling.",
+    "pete[annoyed]: HOW.",
+    {
+     "setVar": "p9_sash_tries",
+     "value": 1
+    }
+   ],
+   "else": [
+    {
+     "if": {
+      "var": {
+       "name": "p9_sash_tries",
+       "eq": 1
+      }
+     },
+     "then": [
+      "Pete tears the sash off himself, balls it up, and stuffs it deep into the drinking-water barrel.",
+      {
+       "sfx": "splash",
+       "volume": 0.4
+      },
+      "He turns round. The sash is on him again. It's dripping.",
+      "pete[annoyed]: IT'S WET. IT'S WET AND IT'S ON ME.",
+      "garrick[smug]: Duty is persistent, Pete.",
+      {
+       "setVar": "p9_sash_tries",
+       "value": 2
+      }
+     ],
+     "else": [
+      "This time Pete takes the sash off, folds it with enormous care, walks across the barracks, and drops it into the bilge.",
+      {
+       "sfx": "grog_plop",
+       "volume": 0.5
+      },
+      "garrick[businesslike]: I anticipated resistance.",
+      "He pins a sheet of paper to the board, beside the map, with a crayon drawing on it of something like a shark, and in big, proud capitals:",
+      {
+       "insert": "sharkmaster_paper",
+       "caption": "GRAND SHARKMASTER = PETE"
+      },
+      "Pete looks at it for a long moment. Then he takes it down and tears it in half, and in half again, and in half again, until it's confetti.",
+      {
+       "sfx": "paper_tear",
+       "volume": 0.8
+      },
+      "garrick[offended]: That is ADMINISTRATIVE SABOTAGE.",
+      "pete[annoyed]: I don't want to be the Grand Sharkmaster. I don't want to be ANY master. I want to be Pete. In a hammock. Asleep.",
+      "garrick[smug]: You're still the Grand Sharkmaster. It's on file.",
+      "pete[annoyed]: I TORE UP THE FILE.",
+      "garrick[smug]: There's a copy.",
+      {
+       "setFlag": "blue_sash_refused"
+      },
+      {
+       "setFlag": "crayon_paper_torn"
+      },
+      {
+       "clearFlag": "pete_blue_sash_on"
+      },
+      "captain[smug]: Grand Sharkmaster.",
+      "pete[annoyed]: Not you as well.",
+      "captain[smug]: How do we get ashore?",
+      {
+       "tutorial": "Ask the Grand Sharkmaster for a landing plan (Pete). He'll love that.",
+       "title": "The Grand Sharkmaster"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "p9c7.plan": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "captain: So. Grand Sharkmaster. How do we get ashore?",
+  "pete[alarmed]: Why are you asking ME?",
+  "captain[smug]: Garrick's reassigned the consequences.",
+  "garrick[proud]: Delegation.",
+  "garrick[businesslike]: The Grand Stenchmaster requires a landing plan from the Grand Sharkmaster. Immediately.",
+  "pete[annoyed]: I HAVE BEEN GRAND SHARKMASTER FOR FORTY SECONDS!",
+  "garrick[businesslike]: Your performance review is coming up.",
+  "Pete takes a step towards him. Then another. Bob gets hold of his shirt.",
+  {
+   "setFlag": "p9_forty_seconds"
+  },
+  {
+   "sfx": "mk2_zzzt",
+   "volume": 0.6
+  },
+  "And then, across the barracks, the Mark II's sound comes on by itself.",
+  "franklin: ...I'm telling you, my records were EATEN.",
+  "Everybody stops.",
+  {
+   "tutorial": "Something on the Mark II has everybody's attention. Go and look.",
+   "title": "The Grand Sharkmaster"
+  }
+ ],
+ "p9c7.tv": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "vista": "shelter_watch",
+   "fade": 500
+  },
+  {
+   "music": "frog_tax_man_theme",
+   "fade": 400
+  },
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_sharkstorm",
+   "layer": "screen",
+   "from": 0,
+   "to": 4
+  },
+  "bob[alarmed]: A shark ate his records.",
+  "gristle: That happens.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_sharkstorm",
+   "layer": "screen",
+   "from": 5,
+   "to": 8
+  },
+  "One by one, every head in the barracks turns from the screen to the hull, and then back to the screen.",
+  "pete[alarmed]: A... shark storm.",
+  "garrick[delighted]: PROPHECY! The Electric Frog Oracle KNOWS!",
+  "captain[annoyed]: It's a coincidence. It's a tax programme. It was made before any of this.",
+  "garrick[delighted]: It's a PROPHETIC tax programme.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_sharkstorm",
+   "layer": "screen",
+   "from": 9,
+   "to": 13
+  },
+  "jim: ...He's not wrong.",
+  "gristle: He's never wrong. That's what's frightening about him.",
+  "ned: 'Poor record-keeping.' He's got a SHARK STORM.",
+  "squawks[smug]: Tax frog funny.",
+  {
+   "vistaEnd": true,
+   "fade": 500
+  },
+  {
+   "music": null,
+   "fade": 400
+  },
+  {
+   "setFlag": "p9_ftm_storm_seen"
+  },
+  {
+   "setFlag": "ftm_sharkstorm_coincidence"
+  },
+  "Pete is staring at the dark set. Then he turns, stamps over to the board on his peg, and jabs the map with one finger.",
+  "pete[annoyed]: FINE. You want a plan? I'll give you a plan.",
+  {
+   "tutorial": "Pete has a plan, and he's furious about it. Hear him out (Pete, at the board).",
+   "title": "The Grand Sharkmaster"
+  }
+ ],
+ "p9c7.pete_plan": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  {
+   "insert": "petes_plan",
+   "caption": "Pete's plan, done angrily on the back of the map in charcoal. Eight steps."
+  },
+  "pete[annoyed]: ONE. We go round to the south side. The lee side. Out of the wind.",
+  "pete[annoyed]: TWO. The cliffs there break the wind up. The storm can't get in close; it'll stand off.",
+  "pete[annoyed]: THREE. We bring the Revenge in as close as she'll go without touching the reef. Not one inch closer.",
+  "pete[annoyed]: FOUR. We launch a boat. An EMPTY boat. A decoy. Off the far end, with the stink of us on it.",
+  "pete[annoyed]: FIVE. We watch where the sharks go. We wait till they've thinned out.",
+  "pete[annoyed]: SIX. We throw something that STINKS off the OTHER side. A lure. A bit of timber from the old quarters. It's soaked. It's had a week.",
+  "pete[annoyed]: SEVEN. While they're all going for the stink, we launch the real boats. Away from them.",
+  "pete[annoyed]: EIGHT. We row like mad through the gap in the reef and get on that beach before anything notices.",
+  "pete[annoyed]: THERE. A PLAN. Happy?",
+  "Silence.",
+  "You look at the map. You look at Pete. You look at the map.",
+  "captain: ...That's solid.",
+  "pete[alarmed]: What?",
+  "captain: That's a good plan, Pete. That's a really good plan.",
+  "gristle: It's a good plan.",
+  "ned: Lee side. Decoy. Lure. That's a good plan.",
+  "squawks[smug]: Grand Sharkmaster.",
+  "pete: SQUAWKS.",
+  "garrick[delighted]: My appointment is VINDICATED.",
+  "pete[annoyed]: I hate this. I hate that it's good.",
+  {
+   "setFlag": "landing_plan_made"
+  },
+  {
+   "call": "p9c8.begin"
+  }
+ ],
+ "p9c8.begin": [
+  {
+   "fade": "out",
+   "duration": 700
+  },
+  {
+   "setFlag": "p9_ch62_started"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 16
+  },
+  {
+   "setValue": "great_sharkstorm",
+   "value": "offshore_crownskull"
+  },
+  {
+   "transition": "main_deck",
+   "x": 9,
+   "y": 22,
+   "facing": "down",
+   "hidePlayer": false,
+   "then": "p9c8.on_deck"
+  }
+ ],
+ "p9c8.on_deck": [
+  {
+   "banner": "CHAPTER 62",
+   "sub": "The Lee-Side Landing"
+  },
+  {
+   "music": "landing_tension",
+   "fade": 600
+  },
+  "Up on deck for the first time in days. Bright morning. Wind. The sea, which is mostly sharks, and the island, close now, its reef white with surf, the crowned skull of the ridge looking down at them.",
+  "Off to the north, the Great Sharkstorm, turning, throwing the odd shark at the sky to see where it lands.",
+  "You've packed Squawks into a padded pouch on your chest, buckled, with a blanket. His head pokes out of the top, watching everything.",
+  "squawks: Island.",
+  "captain[tender]: Island.",
+  {
+   "startQuest": "lee_side_landing"
+  },
+  {
+   "tutorial": "Pete's plan. Bring her round south of the reef (the helm), make the lines fast (the capstan), and ready the decoy boat (the port davits). EMPTY.",
+   "title": "The Lee-Side Landing"
+  }
+ ],
+ "p9c8.helm": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You take the wheel. The spokes are warm from the sun. The reef is off the port bow, surf boiling white along it, and beyond it the beach.",
+  "Which way?",
+  {
+   "choice": [
+    {
+     "text": "Hard a-port, round the reef to the south (the lee side)",
+     "then": [
+      "captain: Hard a-port. Round to the lee.",
+      {
+       "repair": "helm",
+       "strikes": 3,
+       "title": "BRING HER ROUND"
+      },
+      "She comes round, slow and groaning, the reef sliding past the port side close enough to spit on, and the wind drops off as the cliffs come between you and it.",
+      "hale: South side. Out of the wind. Pete's step one.",
+      "pete[annoyed]: Don't say my name.",
+      {
+       "setFlag": "p9_helm_done"
+      },
+      {
+       "call": "p9c8.prep_check"
+      }
+     ]
+    },
+    {
+     "text": "Straight in, at the beach",
+     "then": [
+      "hale[alarmed]: REEF, Captain! That's the reef! That's ALL reef!",
+      "You let go of the wheel. Straight in was never a plan. It was a feeling."
+     ]
+    },
+    {
+     "text": "Hard a-starboard",
+     "then": [
+      "nell[alarmed]: That's the windward side, Captain. That's where the storm's sitting.",
+      "You let go of the wheel. Nell is right. Nell is always right about wind."
+     ]
+    }
+   ]
+  }
+ ],
+ "p9c8.lines": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The capstan, and the lines that keep the Revenge where she's put. Gristle has the end of one; it's slack.",
+  "gristle: Close as she'll go, Captain. Pete's step three. Not one inch closer.",
+  {
+   "repair": "rope",
+   "strikes": 3,
+   "title": "MAKE THE LINES FAST"
+  },
+  "The lines go taut. The Revenge stops, heavy and patient, a long stone's throw off the reef.",
+  {
+   "setFlag": "p9_lines_done"
+  },
+  {
+   "call": "p9c8.prep_check"
+  }
+ ],
+ "p9c8.decoy": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "The ship's boat hangs in its davits by the port rail. The decoy.",
+  "garrick[proud]: Captain. Room in the decoy, I think, for the Sacred Seat.",
+  "He's carrying the galley chair.",
+  {
+   "choice": [
+    {
+     "text": "Put the Sacred Seat in the decoy",
+     "then": [
+      "captain[annoyed]: ...No. EMPTY, Pete said. An empty boat. That's the whole point of it.",
+      "garrick[worried]: It could have been a dignified decoy.",
+      "pete: EMPTY."
+     ]
+    },
+    {
+     "text": "Keep it empty",
+     "then": [
+      "captain: Empty. Nothing in it but the smell of us.",
+      "garrick[worried]: Not even the crown?",
+      "captain: ESPECIALLY not the crown."
+     ]
+    }
+   ]
+  },
+  "You rig the decoy: oars lashed so she'll drift, a scrap of the old quarters' blanket tied to the stern to trail the stink.",
+  {
+   "repair": "knot",
+   "strikes": 2,
+   "title": "RIG THE DECOY"
+  },
+  {
+   "setFlag": "p9_decoy_ready"
+  },
+  {
+   "call": "p9c8.prep_check"
+  }
+ ],
+ "p9c8.prep_check": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p9_helm_done"
+     },
+     {
+      "flag": "p9_lines_done"
+     },
+     {
+      "flag": "p9_decoy_ready"
+     }
+    ]
+   },
+   "then": [
+    {
+     "tutorial": "All set. Now Pete's steps four and five: launch the decoy and watch the fins for a window (Pete, at the starboard rail).",
+     "title": "The Lee-Side Landing"
+    }
+   ]
+  }
+ ],
+ "p9c8.window": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "Pete is at the starboard rail with his elbows on it, watching the water, the blue sash he refused sticking out of his back pocket where Garrick put it.",
+  "pete: Decoy away, Captain?",
+  "captain: Decoy away.",
+  {
+   "sfx": "rope_haul",
+   "volume": 0.6
+  },
+  {
+   "sfx": "splash",
+   "volume": 0.6
+  },
+  {
+   "vista": "lee_side",
+   "fade": 500
+  },
+  "The decoy boat drops into the sea, empty, trailing its scrap of blanket. The current takes it, slowly, away along the reef.",
+  "Under the water, a hundred shadows turn after it.",
+  {
+   "vistaEnd": true,
+   "fade": 500
+  },
+  "garrick[proud]: Ye got this, Pete.",
+  "pete: Help me watch, then.",
+  "garrick[businesslike]: Not Stenchmaster duty.",
+  "Pete lunges for him. Bob catches him by the back of the sash.",
+  "pete[annoyed]: Right. We watch. When it's thin, we go. Tell me when, Captain.",
+  {
+   "setVar": "p9_window_look",
+   "value": 0
+  },
+  {
+   "call": "p9c8.watch"
+  }
+ ],
+ "p9c8.watch": [
+  {
+   "addVar": "p9_window_look",
+   "value": 1
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p9_window_look",
+     "eq": 1
+    }
+   },
+   "then": [
+    "You look down at the water. Fins. Fins everywhere. They're thick as weed down the starboard side, going round and round under the hull."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p9_window_look",
+     "eq": 2
+    }
+   },
+   "then": [
+    "You look again. Thinner. A lot of them have peeled off after the decoy. But there's still a knot of them right under the bow, waiting."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p9_window_look",
+     "gte": 3
+    }
+   },
+   "then": [
+    "You look again. The water's almost clear. The decoy's half a mile off with most of the sharks going round it in circles like it's a party, and only a few stragglers left here, lazy, half asleep."
+   ]
+  },
+  {
+   "choice": [
+    {
+     "text": "Now!",
+     "then": [
+      {
+       "if": {
+        "var": {
+         "name": "p9_window_look",
+         "gte": 3
+        }
+       },
+       "then": [
+        "captain: NOW, Pete.",
+        "pete[surprised]: ...Aye. That's it. That's the window.",
+        {
+         "setFlag": "p9_window_found"
+        },
+        {
+         "tutorial": "Pete's step six: the lure. Throw the reeking timber off the starboard side, as far as it'll go.",
+         "title": "The Lee-Side Landing"
+        }
+       ],
+       "else": [
+        "captain: Now?",
+        "pete[alarmed]: NOT YET! Look at them! We'd lose a boat and three fingers!",
+        {
+         "call": "p9c8.watch"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "text": "Wait",
+     "then": [
+      {
+       "if": {
+        "var": {
+         "name": "p9_window_look",
+         "gte": 3
+        }
+       },
+       "then": [
+        "You wait. Pete looks at you. Pete looks at the water. The decoy drifts further off. A few of the sharks start to drift back.",
+        "pete: It's not getting better than this, Captain.",
+        {
+         "setVar": "p9_window_look",
+         "value": 2
+        }
+       ],
+       "else": [
+        "You wait. Pete nods. Down in the water, more of them peel off after the decoy."
+       ]
+      },
+      {
+       "call": "p9c8.watch"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "p9c8.lure": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "A length of timber off the old sleeping quarters' wall, as long as a man. It has spent a week inside the condemned room. It is yellow-green right through. It looks wet and isn't.",
+  "jim[disgusted]: I'm not touching it.",
+  "captain: Nobody's asking you, Jim.",
+  "jim: I'm saying it anyway.",
+  "You haven't got gloves. You pick it up anyway, by the very ends, at arm's length.",
+  {
+   "repair": "throw",
+   "strikes": 3,
+   "title": "THROW THE LURE"
+  },
+  {
+   "sfx": "splash_big",
+   "volume": 0.8
+  },
+  "It turns over twice in the air and goes into the sea with a smack a long way off the starboard side, and the sea there goes white.",
+  {
+   "vista": "lee_side",
+   "fade": 400
+  },
+  {
+   "vistaShow": "lure",
+   "visible": true
+  },
+  "Every shark that was left goes for it. Then every shark that went after the decoy turns round and goes for it as well.",
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  "pete[surprised]: ...It's working. It's actually working.",
+  "garrick[proud]: Of course it's working. That timber is HISTORIC.",
+  {
+   "setFlag": "p9_lure_thrown"
+  },
+  {
+   "tutorial": "Step seven. Lower the boats on the port side, away from the sharks, and row for the beach!",
+   "title": "The Lee-Side Landing"
+  }
+ ],
+ "p9c8.boats": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "The crew boat swings out in its falls over the port side, away from the sharks, away from the stink. Pete and Gristle in the stern, Bob and Jim at the oars, Ned in the bow with the boathook. The Grand Stenchmaster sitting in the middle, doing nothing, in full regalia.",
+  "You've got the first boat. You and Squawks.",
+  {
+   "repair": "lower",
+   "strikes": 3,
+   "title": "LOWER AWAY"
+  },
+  "hale: Good luck, Captain. We'll keep her off the reef. Bring us back something shiny.",
+  {
+   "setFlag": "p9_rowing"
+  },
+  {
+   "transition": "reef_passage",
+   "spawn": "from_ship",
+   "fade": 700,
+   "then": "p9c8.row"
+  }
+ ],
+ "p9c8.row": [
+  "You're down in the boat, oars in your hands, the Revenge's side going up like a wall behind you. Ahead, the gap in the reef, and beyond it, the beach.",
+  "squawks: Row.",
+  "captain: Aye, Squawks. Rowing.",
+  {
+   "tutorial": "Row for the beach, through the gaps in the reef. Sharks still come down out of the storm now and then: the water's marked first. If one lands next to you the wave shoves the boat back, that's all.",
+   "title": "The Lee-Side Landing"
+  }
+ ],
+ "p9c8.no_turning_back": [
+  "Behind you, the Revenge. Ahead of you, the beach. From the other boat, Pete: 'WRONG WAY, Captain!'",
+  {
+   "move": "player",
+   "to": [
+    11,
+    46
+   ]
+  }
+ ],
+ "p9c8.shore": [
+  {
+   "sfx": "wood_crack",
+   "volume": 0.4
+  },
+  {
+   "sfx": "surf_wash",
+   "volume": 0.7
+  },
+  "The boat runs up the sand with a long hiss and a crunch and stops.",
+  "You sit in it for a moment. Then you climb out, and your boots go into the warm, pale sand of an island you have been looking at on a piece of paper for most of your life.",
+  {
+   "setFlag": "p9_landed"
+  },
+  {
+   "setFlag": "crownskull_landed"
+  },
+  {
+   "transition": "crownskull_isle",
+   "spawn": "landing",
+   "fade": 800,
+   "then": "p9c9.begin"
+  }
+ ]
+}

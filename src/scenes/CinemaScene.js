@@ -123,9 +123,11 @@ export class CinemaScene extends BaseScene {
     const maskName = mask ?? def.mask;
     if (maskName) parts.push(this.add.image(0, 0, 'vista', `mask_${maskName}`).setOrigin(0).setDepth(900));
     if (caption ?? def.caption) {
-      const t = addText(this, 0, 0, caption ?? def.caption, { color: 0xfff4e0, depth: 950 });
+      // A long caption wraps (two lines at most) rather than running off the screen.
+      const t = addText(this, 0, 0, caption ?? def.caption, { color: 0xfff4e0, depth: 950, maxWidth: SCREEN_WIDTH - 40, maxLines: 2, align: 'center' });
+      const lines = String(t.text).split('\n').length;
       const w = t.textWidth + 16;
-      const panel = addPanel(this, Math.round((SCREEN_WIDTH - w) / 2), 8, w, 18, { depth: 949 });
+      const panel = addPanel(this, Math.round((SCREEN_WIDTH - w) / 2), 8, w, 8 + lines * 10, { depth: 949 });
       t.y = 12;
       centerText(t, SCREEN_WIDTH / 2);
       parts.push(panel, t);

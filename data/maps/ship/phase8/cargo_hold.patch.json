@@ -3407,7 +3407,14 @@
    "volume": 0.35,
    "delay": 4000,
    "if": {
-    "flag": "p8_complete"
+    "all": [
+     {
+      "flag": "p8_complete"
+     },
+     {
+      "notFlag": "p9_started"
+     }
+    ]
    }
   }
  ]

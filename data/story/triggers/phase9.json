@@ -1,0 +1,50 @@
+[
+ {
+  "id": "p9c10_begin",
+  "//": "Chapter 64: the captain has followed the map to the clearing under the skull.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "crownskull_isle.x"
+    },
+    {
+     "notFlag": "p9_ch64_started"
+    }
+   ]
+  },
+  "script": "p9c10.begin",
+  "once": false
+ },
+ {
+  "id": "p9c13_west",
+  "//": "Chapter 67: they ran west, to the beach, and the storm's there too.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "run.west"
+    },
+    {
+     "notFlag": "p9_west_trap"
+    }
+   ]
+  },
+  "script": "p9c13.west_trap",
+  "once": false
+ },
+ {
+  "id": "p9c13_ruins",
+  "//": "Chapter 67: into the ruins; the shelter jobs.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "run.ruins"
+    },
+    {
+     "notFlag": "p9_in_ruins"
+    }
+   ]
+  },
+  "script": "p9c13.ruins",
+  "once": false
+ }
+]

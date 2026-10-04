@@ -464,6 +464,125 @@
       "if": {
         "flag": "p8_complete"
       }
+    },
+    {
+      "id": "p9c1",
+      "name": "Chapter 55: The Morning After the Grand Nap",
+      "if": {
+        "flag": "p9_started"
+      }
+    },
+    {
+      "id": "p9c2",
+      "name": "Chapter 56: A Completely Authentic History",
+      "if": {
+        "flag": "p9_ch56_started"
+      }
+    },
+    {
+      "id": "p9c3",
+      "name": "Chapter 57: No Receipt",
+      "if": {
+        "flag": "p9_ch57_started"
+      }
+    },
+    {
+      "id": "p9c4",
+      "name": "Chapter 58: The Grand Sash Bureaucracy",
+      "if": {
+        "flag": "p9_ch58_started"
+      }
+    },
+    {
+      "id": "p9c5",
+      "name": "Chapter 59: LAND!",
+      "if": {
+        "flag": "p9_ch59_started"
+      }
+    },
+    {
+      "id": "p9c6",
+      "name": "Chapter 60: The Landing Problem",
+      "if": {
+        "flag": "p9_ch60_started"
+      }
+    },
+    {
+      "id": "p9c7",
+      "name": "Chapter 61: The Grand Sharkmaster",
+      "if": {
+        "flag": "p9_ch61_started"
+      }
+    },
+    {
+      "id": "p9c8",
+      "name": "Chapter 62: The Lee-Side Landing",
+      "if": {
+        "flag": "p9_ch62_started"
+      }
+    },
+    {
+      "id": "p9c9",
+      "name": "Chapter 63: Crownskull Isle",
+      "if": {
+        "flag": "p9_ch63_started"
+      }
+    },
+    {
+      "id": "p9c10",
+      "name": "Chapter 64: The Fortune of the Crimson Kings",
+      "if": {
+        "flag": "p9_ch64_started"
+      }
+    },
+    {
+      "id": "p9c11",
+      "name": "Chapter 65: Seven Floors Down",
+      "if": {
+        "flag": "p9_ch65_started"
+      }
+    },
+    {
+      "id": "p9c12",
+      "name": "Chapter 66: Stenchmaster Excavation Technology",
+      "if": {
+        "flag": "p9_ch66_started"
+      }
+    },
+    {
+      "id": "p9c13",
+      "name": "Chapter 67: RUN",
+      "if": {
+        "flag": "p9_ch67_started"
+      }
+    },
+    {
+      "id": "p9c14",
+      "name": "Chapter 68: Fire in the Hole",
+      "if": {
+        "flag": "p9_ch68_started"
+      }
+    },
+    {
+      "id": "p9c15",
+      "name": "Chapter 69: Vertical Relocation",
+      "if": {
+        "flag": "p9_ch69_started"
+      }
+    },
+    {
+      "id": "p9c16",
+      "name": "Chapter 70: The Shark Shanty",
+      "if": {
+        "flag": "p9_ch70_started"
+      }
+    },
+    {
+      "id": "phase9_end",
+      "name": "Recover the Crimson Fortune",
+      "if": {
+        "flag": "p9_complete"
+      }
     }
   ],
   "timeOfDay": [
@@ -708,6 +827,70 @@
         "var": {
           "name": "p4_tod",
           "eq": 14
+        }
+      }
+    },
+    {
+      "id": "p9_grey_morning",
+      "grade": "#c8cad8",
+      "interior": 0.36,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 15
+        }
+      }
+    },
+    {
+      "id": "p9_island_morning",
+      "grade": "#fff2e4",
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 16
+        }
+      }
+    },
+    {
+      "id": "p9_island_noon",
+      "grade": null,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 17
+        }
+      }
+    },
+    {
+      "id": "p9_island_afternoon",
+      "grade": "#ffeccc",
+      "interior": 0.3,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 18
+        }
+      }
+    },
+    {
+      "id": "p9_storm_inland",
+      "grade": "#7e8670",
+      "interior": 0.55,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 19
+        }
+      }
+    },
+    {
+      "id": "p9_aftermath",
+      "grade": "#eab89c",
+      "interior": 0.42,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 20
         }
       }
     }

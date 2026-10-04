@@ -1,0 +1,1119 @@
+{
+ "//": "Story Phase 9, Part Four (chapters 67-70). The launch sequence can't be stopped; the agency is in getting out of the way. West to the beach, where the Great Sharkstorm is too (Bob: sharks this way, Garrick that way). The ruins: a stone in the gap, a brace on the wall, a beam for a roof, a wet cloth on the door (emotionally useful), Squawks in the safest corner; Garrick's percentages from the clearing (70, 80, 85: of what?). WHOOOOSH; AWWOOOO-GRRRRR-BLOOORP ('They're communicating.' 'I forbid it.'). THERE IS NO TEAM. FIRE IN THE HOLE. The Grand Excavation (a palm tree goes by). Bad digging. The storm turns inland; great whites on the island; the megalodon. It WORKED: the Crimson Fortune, exposed. It keeps going: MY MONEY; NOT THAT ONE. Jewelled sharks; the Crimson King's Crown on the megalodon ('Big shark king.' 'No.'). Pfft. The crater (two per cent of it, reeking). The Shark Shanty, which is only in the captain's head. Vertical relocation; suit memory; STOP APPRAISING THEM; richer than pirates (currently). WE MUST RECOVER IT. The Grand Sharkmaster (NO). A jewelled shark economy. IT. WINKED. If the sharks want to act like pirates, he'll treat them like pirates.",
+ "p9c13.begin": [
+  {
+   "setFlag": "p9_ch67_started"
+  },
+  {
+   "banner": "PART FOUR",
+   "sub": "The Grand Treasure Catastrophe"
+  },
+  {
+   "banner": "CHAPTER 67",
+   "sub": "RUN"
+  },
+  "You look at the Grand Stenchmaster. You look at the hole. You look at the crew.",
+  "captain[angry]: RUN.",
+  {
+   "sfx": "crew_scramble",
+   "volume": 0.8
+  },
+  "The clearing empties. Shovels go down where they are. Bob comes out of the hole in one jump. Gristle grabs the Crimson Chart off the marker stone as he goes past. You clamp both arms over the pouch on your chest.",
+  "squawks: Captain!",
+  "captain[angry]: I've got ye. I've got ye.",
+  "Behind you, the Grand Stenchmaster doesn't move. He stands over the hole, feet apart, cape stirring, and looks down into it with one eye shut.",
+  "garrick[businesslike]: Targeting.",
+  {
+   "startQuest": "run"
+  },
+  {
+   "tutorial": "RUN! Away from him: west, along the path out of the clearing, to the beach!",
+   "title": "RUN"
+  }
+ ],
+ "p9c13.west_trap": [
+  {
+   "setFlag": "p9_west_trap"
+  },
+  "You burst out of the jungle onto the western beach, the crew all round you, and stop dead.",
+  {
+   "sfx": "vortex_roar",
+   "volume": 0.9
+  },
+  {
+   "shake": 2,
+   "duration": 600
+  },
+  {
+   "vista": "crownskull_offshore",
+   "fade": 500
+  },
+  "It's right there. The Great Sharkstorm. Not off the north coast where it was: here, a little way off the western beach, turning, huge, grey and yellow and full of teeth.",
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "sprite": "p9_land_1",
+   "frame": "shark_deck_0",
+   "x": 7.5,
+   "y": 31,
+   "anim": "stage:shark_flop"
+  },
+  {
+   "sfx": "shark_land",
+   "volume": 0.8
+  },
+  {
+   "burst": "dust",
+   "x": 7,
+   "y": 30,
+   "count": 10
+  },
+  {
+   "shake": 1,
+   "duration": 220
+  },
+  "A shark comes down out of it and lands on the sand ten feet away, flops twice, looks at you, and is yanked back up into the sky.",
+  {
+   "removeSprite": "p9_land_1"
+  },
+  {
+   "burst": "dust",
+   "x": 7,
+   "y": 30,
+   "count": 6
+  },
+  {
+   "sfx": "shark_whoosh",
+   "volume": 0.5
+  },
+  "bob[alarmed]: Sharks this way.",
+  "He points back the way you came.",
+  "bob[alarmed]: Garrick that way.",
+  "gristle: We're between them.",
+  "pete: We're between a SHARKSTORM and a GARRICK.",
+  "You look up, past the jungle, at the ridge, and at the broken walls along its foot that you saw from the trail this morning. Old walls. Thick ones. A corner with a bit of roof left.",
+  "captain[angry]: The ruins. North. Up the beach and in at the west gate. MOVE.",
+  {
+   "restage": "walk"
+  },
+  {
+   "tutorial": "To the ruins! North up the beach path, and in at the west gate.",
+   "title": "RUN"
+  }
+ ],
+ "p9c13.ruins": [
+  {
+   "setFlag": "p9_in_ruins"
+  },
+  "In through the gate. Old walls, thick as a man is long, green with moss, and in the north-east corner a room that still has three walls and half a roof.",
+  "captain[angry]: There. That room. Gristle, that gap in the corner wants a stone in it. Bob, that wall's cracked, brace it. Jim, that beam: drag it over, we'll have it for a roof. Pete...",
+  "pete: A cloth over the door. A wet one.",
+  "jim: Will a wet cloth stop a fart?",
+  "pete: No.",
+  "bob: Will it stop a shark?",
+  "pete: No.",
+  "gristle: Then why are we hanging it?",
+  "pete: It's emotionally useful.",
+  "Nobody argues with that.",
+  {
+   "setVar": "p9_shelter_jobs",
+   "value": 0
+  },
+  {
+   "tutorial": "Make the shelter: shift a stone block into the gap in the corner, brace the cracked wall, drag the fallen beam over, hang a cloth on the door. They need your back on every one.",
+   "title": "RUN"
+  }
+ ],
+ "p9c13.stone": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "A squared block of the old wall, fallen into the court. It's about the size of a sea chest and about as heavy as a ship.",
+  "gristle: On three. One—",
+  {
+   "repair": "carry",
+   "strikes": 3,
+   "title": "SHIFT THE STONE"
+  },
+  "You and Gristle walk it across the court, a step at a time, and drop it into the gap in the shelter's corner with a sound like a door shutting.",
+  {
+   "setFlag": "p9_shelter_stone"
+  },
+  {
+   "addVar": "p9_shelter_jobs",
+   "value": 1
+  },
+  {
+   "call": "p9c13.percent"
+  }
+ ],
+ "p9c13.brace": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The back wall of the room has a crack down it you could post a letter through.",
+  "bob: Timbers, Captain. Off the boats. Wedge 'em in.",
+  {
+   "repair": "brace",
+   "strikes": 3,
+   "title": "BRACE THE WALL"
+  },
+  "Two lengths of boat timber, jammed hard between the floor and the wall. The crack stops looking like it's thinking about things.",
+  {
+   "setFlag": "p9_shelter_brace"
+  },
+  {
+   "addVar": "p9_shelter_jobs",
+   "value": 1
+  },
+  {
+   "call": "p9c13.percent"
+  }
+ ],
+ "p9c13.beam": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "A great old roof beam, fallen into the court in some other century, half buried in moss.",
+  "jim: You take that end.",
+  {
+   "repair": "carry",
+   "strikes": 3,
+   "title": "DRAG THE BEAM"
+  },
+  "You drag it across the court and in at the door, and you and Jim get one end of it up onto the wall and the other onto the old roof, and there's a roof. Of a sort. A slant one.",
+  {
+   "setFlag": "p9_shelter_beam"
+  },
+  {
+   "addVar": "p9_shelter_jobs",
+   "value": 1
+  },
+  {
+   "call": "p9c13.percent"
+  }
+ ],
+ "p9c13.cloth": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "Pete has a sailcloth from the boats, soaked in the river on the way past, dripping.",
+  "pete: Up there. Over the doorway. Emotionally.",
+  {
+   "repair": "hang",
+   "strikes": 3,
+   "title": "HANG THE CLOTH"
+  },
+  "It hangs across the doorway, heavy and wet, swaying a little. It's not going to stop anything. It's very comforting.",
+  {
+   "setFlag": "p9_shelter_cloth"
+  },
+  {
+   "addVar": "p9_shelter_jobs",
+   "value": 1
+  },
+  {
+   "call": "p9c13.percent"
+  }
+ ],
+ "p9c13.percent": [
+  {
+   "if": {
+    "var": {
+     "name": "p9_shelter_jobs",
+     "eq": 1
+    }
+   },
+   "then": [
+    "From the clearing, faint and far away and very proud:",
+    "garrick_far: SEVENTY PER CENT!",
+    "jim[angry]: Seventy per cent of WHAT?",
+    "gristle: Don't ask him. Don't encourage him."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p9_shelter_jobs",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "sfx": "launch_whoosh",
+     "volume": 0.7
+    },
+    "Off to the west, from the storm: WHOOOOOOOSH.",
+    {
+     "sfx": "stomach_howl",
+     "volume": 0.6
+    },
+    "From the clearing, in answer: AWWOOOO-GRRRRR-BLOOORP.",
+    "bob[alarmed]: ...They're communicating.",
+    "gristle[annoyed]: No. They are not. I forbid it.",
+    "garrick_far: EIGHTY PER CENT!",
+    "pete[annoyed]: STOP DOING PERCENTAGES!"
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p9_shelter_jobs",
+     "eq": 3
+    }
+   },
+   "then": [
+    "garrick_far: EIGHTY-FIVE PER CENT!",
+    "ned: How's he even measuring it?",
+    "gristle: He isn't. He's making them up.",
+    "garrick_far: ...EIGHTY-FIVE AND A HALF!"
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p9_shelter_jobs",
+     "gte": 4
+    }
+   },
+   "then": [
+    "The shelter's as good as it's going to get. Stone in the corner, brace on the wall, beam across the top, a wet cloth on the door.",
+    {
+     "tutorial": "Put Squawks somewhere safe, inside the shelter.",
+     "title": "RUN"
+    }
+   ]
+  }
+ ],
+ "p9c13.squawks": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You crouch in the corner of the shelter, under the beam, where the old walls meet and the new brace holds them, and you unbuckle the pouch.",
+  "squawks[worried]: Captain stay?",
+  "captain[tender]: I'll be right outside, Squawks. I'm going to watch. I'll come straight back.",
+  "You make a nest of the pouch and your scarf in the corner and put him in it. He looks very small. He looks very bald.",
+  "squawks[worried]: Promise.",
+  "captain[tender]: I promise.",
+  {
+   "setFlag": "p9_squawks_sheltered"
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "tutorial": "Go and watch the clearing, from the gap in the south wall of the ruins.",
+   "title": "RUN"
+  }
+ ],
+ "p9c13.watch": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "You crouch in the gap in the old south wall with Pete and Ned, and look down across the jungle to the clearing.",
+  {
+   "setFlag": "ruins_shelter_ready"
+  },
+  {
+   "call": "p9c14.begin"
+  }
+ ],
+ "p9c14.begin": [
+  {
+   "setFlag": "p9_ch68_started"
+  },
+  {
+   "banner": "CHAPTER 68",
+   "sub": "Fire in the Hole"
+  },
+  {
+   "vista": "excavation",
+   "fade": 600
+  },
+  "Down in the clearing, small and burgundy and alone, the Grand Stenchmaster stands over his hole.",
+  {
+   "vista": "garrick_aim",
+   "fade": 400
+  },
+  "He shuffles a little to the left. A little to the right. He bends his knees. He looks down between his boots into the hole, and up at the sky, and down at the hole again.",
+  {
+   "vistaMove": "garrick",
+   "x": 166,
+   "duration": 400
+  },
+  "ned: He's... lining up.",
+  {
+   "vistaMove": "garrick",
+   "x": 158,
+   "duration": 400
+  },
+  "ned: He's making aiming adjustments.",
+  "pete: There's no such thing as aiming adjustments.",
+  {
+   "sfx": "crown_rattle",
+   "volume": 0.7
+  },
+  {
+   "sfx": "ground_hum",
+   "volume": 0.8
+  },
+  {
+   "shake": 1,
+   "duration": 800
+  },
+  "The crown rattles. The cape lifts. The sash stands out sideways, fluttering. Nobody is holding it.",
+  "garrick[proud]: GRAND STENCHMASTER EXCAVATION TEAM—",
+  "captain[angry]: THERE IS NO TEAM!",
+  "garrick[proud]: FIRE IN THE HOLE!",
+  {
+   "vista": "excavation",
+   "fade": 200
+  },
+  {
+   "music": null
+  },
+  {
+   "vistaShow": "column",
+   "visible": true
+  },
+  {
+   "sfx": "excavation_blast",
+   "volume": 1.0
+  },
+  {
+   "flash": "#f8e070",
+   "duration": 300
+  },
+  {
+   "shake": 4,
+   "duration": 1600
+  },
+  "It goes.",
+  {
+   "vistaFx": "dust",
+   "x": 160,
+   "y": 150,
+   "count": 20
+  },
+  "Sand goes up. Then clay, in red lumps the size of barrels. Then stone, the whole slab, turning over and over like a playing card. Then gravel, like hail going the wrong way.",
+  {
+   "vistaShow": "palm",
+   "visible": true
+  },
+  {
+   "vistaMove": "palm",
+   "x": 300,
+   "y": 40,
+   "duration": 1600,
+   "async": true
+  },
+  "A palm tree goes past, upside down, roots and all, quite slowly.",
+  {
+   "sfx": "tree_crash",
+   "volume": 0.7
+  },
+  {
+   "sfx": "debris_rain",
+   "volume": 0.8
+  },
+  "Chunks of the island come down in the jungle, and in the sea, and on the ruins' wall, which takes it.",
+  {
+   "music": "stenchmaster_catastrophe",
+   "fade": 400
+  },
+  "squawks: (from the shelter, faintly) Bad digging.",
+  "captain: ...Aye.",
+  {
+   "vistaShow": "wave",
+   "visible": true
+  },
+  {
+   "sfx": "fume_release",
+   "volume": 0.8
+  },
+  "Then the smell gets to the ruins.",
+  "It comes up the hill like a warm yellow wall and goes over the ruins' south wall and through every gap in it. Pete goes green. Ned goes greener. Gristle sits down without meaning to. Your eyes water so hard you can hear them.",
+  "Nobody dies. It just feels, for a while, as though dying would be a reasonable choice.",
+  {
+   "vistaShow": "storm",
+   "visible": true
+  },
+  {
+   "vistaMove": "storm",
+   "x": 250,
+   "duration": 2400,
+   "async": true
+  },
+  {
+   "sfx": "vortex_roar",
+   "volume": 0.9
+  },
+  "ned[alarmed]: Captain. CAPTAIN. The storm.",
+  "Off the coast, the Great Sharkstorm has stopped. It leans. It turns, slowly, like a dog that has heard its name. And then it comes in over the beach.",
+  "ned[alarmed]: It smells it. It's coming for the NEW smell.",
+  {
+   "vistaEnd": true,
+   "fade": 600
+  },
+  {
+   "setValue": "great_sharkstorm",
+   "value": "inland_crownskull"
+  },
+  {
+   "setValue": "crater_state",
+   "value": "blasted"
+  },
+  {
+   "setFlag": "grand_excavation_blast"
+  },
+  {
+   "setFlag": "great_sharkstorm_inland"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 19
+  },
+  {
+   "music": "great_sharkstorm",
+   "fade": 600
+  },
+  "The sky goes dark. The wind gets up all at once. And the first shark comes down in the ruins' yard, right between you and the shelter.",
+  {
+   "startQuest": "fire_in_the_hole"
+  },
+  {
+   "tutorial": "Get back to Squawks in the shelter! Sharks are falling in the yard: the ground's marked before each one lands.",
+   "title": "Fire in the Hole"
+  }
+ ],
+ "p9c14.survived": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You dive in under the wet cloth and land on your knees in the corner, and he's there, in his nest, eyes like saucers.",
+  "squawks: CAPTAIN.",
+  "captain[tender]: I'm here. I said I'd come back.",
+  {
+   "setFlag": "p9_great_white_rain_survived"
+  },
+  "Outside, the sharks come down in the yard, one after another, great whites as long as the boats, and flop, and are yanked back up into the sky, and come down again somewhere else.",
+  {
+   "sfx": "shark_land",
+   "volume": 0.8
+  },
+  {
+   "shake": 1,
+   "duration": 300
+  },
+  "Then the whole sky over the ruins goes dark.",
+  {
+   "vista": "excavation",
+   "fade": 400
+  },
+  {
+   "vistaShow": "shadow",
+   "visible": true
+  },
+  {
+   "vistaMove": "shadow",
+   "scale": 2.4,
+   "duration": 1800
+  },
+  "A shadow, getting bigger. Much bigger. A shadow the size of the ship.",
+  {
+   "vistaShow": "megalodon",
+   "visible": true
+  },
+  {
+   "vistaMove": "megalodon",
+   "y": 200,
+   "duration": 900
+  },
+  {
+   "sfx": "megalodon_impact",
+   "volume": 1.0
+  },
+  {
+   "shake": 5,
+   "duration": 1400
+  },
+  {
+   "vistaShow": "dust",
+   "visible": true
+  },
+  "Something comes down out of the storm and hits the lagoon west of the ruins so hard that the whole island jumps, and everybody in the shelter falls over, including the ones who were already sitting down.",
+  {
+   "vistaEnd": true,
+   "fade": 500
+  },
+  {
+   "setValue": "megalodon_state",
+   "value": "stranded_crownskull"
+  },
+  {
+   "setFlag": "megalodon_introduced"
+  },
+  "When you crawl to the gate and look out, there it is: in the lagoon, across most of it, lying half in the water and half on the sand, too big for the lagoon and too stuck to leave.",
+  "A shark. The biggest shark there has ever been. A megalodon.",
+  "squawks: Big shark.",
+  "captain: Aye.",
+  "squawks: Very big.",
+  "captain: Aye.",
+  "garrick_far: ...GRAND SHARKMASTER?",
+  "pete[annoyed]: NO. That is not a Grand Sharkmaster problem. That's a MEGA problem. Megas are out of my jurisdiction.",
+  {
+   "call": "p9c15.begin"
+  }
+ ],
+ "p9c15.begin": [
+  {
+   "setFlag": "p9_ch69_started"
+  },
+  {
+   "banner": "CHAPTER 69",
+   "sub": "Vertical Relocation"
+  },
+  "The column is still going. It hasn't stopped. It doesn't look like it knows how.",
+  "And then Ned, at the south gap, grabs your arm.",
+  "ned[alarmed]: Captain. LOOK.",
+  {
+   "vista": "treasure_exposed",
+   "fade": 600
+  },
+  {
+   "music": null
+  },
+  {
+   "sfx": "jewel_chime",
+   "volume": 0.8
+  },
+  "Down in the clearing, at the bottom of what was the hole and is now a crater, the last floor has gone. The Miser's Floor. Blown clean off.",
+  "And under it: gold.",
+  "Chests, split open. Coins in drifts. Crowns, a dozen of them, gold, tumbled together like apples in a barrel. Necklaces. Silver bars. Pearls. Rubies the size of eggs. And on top, catching the last of the light, a crown bigger than all the others, red-gold, set with stones.",
+  "The Crimson King's Crown.",
+  {
+   "setValue": "crimson_fortune_state",
+   "value": "exposed"
+  },
+  {
+   "setFlag": "crimson_fortune_exposed"
+  },
+  "garrick_far: IT WORKED! CAPTAIN! IT WORKED! TREASURE!",
+  "And for one moment, it did. You stand in the gap in the wall with your mouth open and something enormous and warm rising in your chest, and beside you, Pete laughs out loud.",
+  "pete: It WORKED.",
+  {
+   "call": "p9c15.blown"
+  }
+ ],
+ "p9c15.blown": [
+  {
+   "if": {
+    "notFlag": "crimson_fortune_exposed"
+   },
+   "then": [
+    {
+     "vista": "treasure_exposed",
+     "fade": 400
+    },
+    {
+     "setFlag": "crimson_fortune_exposed"
+    },
+    {
+     "setValue": "crimson_fortune_state",
+     "value": "exposed"
+    }
+   ]
+  },
+  {
+   "sfx": "ground_hum",
+   "volume": 0.9
+  },
+  {
+   "shake": 2,
+   "duration": 1200
+  },
+  "The blast doesn't stop.",
+  "garrick_far: ...Stop. STOP. Cancel launch! ABORT! REVERSE THRUST! SHUT DOWN! EMERGENCY STENCHMASTER OVERRIDE!",
+  "Nothing works.",
+  {
+   "vistaShow": "column",
+   "visible": true
+  },
+  {
+   "sfx": "coin_cascade",
+   "volume": 1.0
+  },
+  "The column takes the coins first. Up they go in a glittering rope. Then the necklaces. Then the crowns, one after another, turning over and over, flashing.",
+  "garrick_far: MY MONEY!",
+  "It's the first time anyone has ever heard him sound sorry.",
+  "Goblets. Sceptres. Silver bars, end over end. Chains. Up the column and into the dark at the top, where the Great Sharkstorm is waiting with its mouth open.",
+  {
+   "vistaShow": "crown",
+   "visible": true
+  },
+  {
+   "vistaMove": "crown",
+   "y": 20,
+   "duration": 2200
+  },
+  "And last of all, alone, turning slowly, red-gold, the Crimson King's Crown.",
+  "captain: NOT THAT ONE!",
+  {
+   "vistaShow": "storm",
+   "visible": true
+  },
+  "Gone.",
+  {
+   "vistaEnd": true,
+   "fade": 600
+  },
+  {
+   "setValue": "great_sharkstorm",
+   "value": "treasure_laden"
+  },
+  {
+   "setFlag": "great_sharkstorm_treasure_laden"
+  },
+  {
+   "setValue": "crimson_fortune_state",
+   "value": "scattered_into_sharkstorm"
+  },
+  {
+   "setFlag": "fortune_scattered"
+  },
+  "Overhead, the Great Sharkstorm has started to glitter.",
+  {
+   "call": "p9c15.crown"
+  }
+ ],
+ "p9c15.crown": [
+  {
+   "vista": "crowned_megalodon",
+   "fade": 500
+  },
+  "And something small and bright falls out of the bottom of it, turning over and over, all the way down, towards the lagoon.",
+  {
+   "vistaShow": "crown",
+   "visible": true
+  },
+  {
+   "vistaMove": "crown",
+   "x": 196,
+   "y": 150,
+   "duration": 2000
+  },
+  {
+   "sfx": "lid_clang",
+   "volume": 0.8
+  },
+  "It lands on the megalodon's head.",
+  {
+   "vistaShow": "crown",
+   "visible": false
+  },
+  {
+   "vistaShow": "crowned",
+   "visible": true
+  },
+  {
+   "sfx": "regal_sting",
+   "volume": 1.0
+  },
+  "Crooked. A perfect fit.",
+  "squawks: ...Big shark king.",
+  "captain[angry]: No.",
+  {
+   "vistaEnd": true,
+   "fade": 500
+  },
+  {
+   "setValue": "crimson_crown_holder",
+   "value": "megalodon"
+  },
+  {
+   "setFlag": "megalodon_crowned"
+  },
+  {
+   "sfx": "pfft_tiny",
+   "volume": 0.8
+  },
+  "Down in the clearing, the column thins. Shrinks. Becomes a plume, a puff, a wisp. And then, very small: pfft.",
+  "Silence.",
+  {
+   "setValue": "garrick_release",
+   "value": "spent"
+  },
+  {
+   "setFlag": "garrick_dusty"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 20
+  },
+  {
+   "music": "ruined_treasure",
+   "fade": 800
+  },
+  "garrick_far: ...Uh-oh.",
+  "You go back into the shelter and get Squawks out of his nest and buckle him back into the pouch. He doesn't say anything. He holds on to the edge of it with his beak.",
+  {
+   "setFlag": "p9_squawks_back"
+  },
+  {
+   "startQuest": "vertical_relocation"
+  },
+  {
+   "tutorial": "It's over. Go down and look in the crater (the clearing).",
+   "title": "Vertical Relocation"
+  }
+ ],
+ "p9c15.crater": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The crater is enormous. The clearing has gone: it's a pit now, raw and red, the width of the deck and deeper than the mast is tall, and round it the trees lie flat in a ring, all pointing away.",
+  "The Grand Stenchmaster is standing at the bottom of it in a thick coat of sand and clay, the Suit grey, the sash in a knot, the Grand Crown on sideways. He's holding a coin. He sniffs it.",
+  "Down in the cracks at the bottom, a few things glint. Not many. A handful of coins. A chain. A ring.",
+  "You climb down, and pick up a coin, and smell it.",
+  {
+   "sfx": "sting_reek",
+   "volume": 0.8
+  },
+  "It reeks. Right through. Gold doesn't take a smell, and this gold has taken the whole release, the way the ship's treasure took the first one, back at the very beginning. But worse.",
+  "captain[angry]: No. No more. NO MORE GRAND ANYTHING.",
+  "captain[angry]: No Grand Excavation. No Grand Technology. No Grand Team. No Grand Nothing.",
+  "You point at the crater. At the storm, glittering, overhead. At him.",
+  "captain[angry]: Doubloons. Royal crowns. Diamonds. Emeralds. Pearls. The Crimson King's Crown. ALL OF IT.",
+  "garrick[nervous]: ...The crown is technically still visible.",
+  "Your eye does something on its own.",
+  {
+   "giveItem": "reeking_doubloons",
+   "silent": true
+  },
+  {
+   "setVar": "crimson_fortune_recovered_percent",
+   "value": 2
+  },
+  {
+   "setFlag": "crater_treasure_contaminated"
+  },
+  "You put what's left in a bag. A double handful. About two per cent. You can smell it through the bag.",
+  {
+   "tutorial": "Go and look at the megalodon (in the lagoon, west of the ruins).",
+   "title": "Vertical Relocation"
+  }
+ ],
+ "p9c15.megalodon": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "The megalodon lies across the lagoon like a capsized ship, grey and vast and breathing slowly, the water slopping round it. Every so often its tail lifts and falls.",
+  "On its head, crooked, glittering, is the Crimson King's Crown.",
+  "pete: ...It looks regal.",
+  "captain[angry]: DON'T.",
+  {
+   "sfx": "shark_whoosh",
+   "volume": 0.6
+  },
+  {
+   "sprite": "p9_fly_1",
+   "frame": "flying_shark_pearls_0",
+   "x": 24,
+   "y": 8,
+   "depth": 79200
+  },
+  {
+   "moveSprite": "p9_fly_1",
+   "x": 4,
+   "y": 6,
+   "duration": 1600,
+   "async": true
+  },
+  "Overhead, a shark goes by in a rope of pearls. Then a hammerhead with a gold chain round its hammer.",
+  "bob: That one had a tiara.",
+  "jim: On a great white. A TIARA.",
+  {
+   "removeSprite": "p9_fly_1"
+  },
+  "squawks[smug]: Pretty.",
+  "captain[annoyed]: Not helping, Squawks.",
+  "squawks[smug]: Very pretty.",
+  {
+   "setFlag": "p9_crowned_seen"
+  },
+  {
+   "call": "p9c16.begin"
+  }
+ ],
+ "p9c16.begin": [
+  {
+   "setFlag": "p9_ch70_started"
+  },
+  {
+   "banner": "CHAPTER 70",
+   "sub": "The Shark Shanty"
+  },
+  "You stand on the shore and watch the sharks go round in the glittering sky with your treasure on, and something in you, something that has been holding on very tight since the morning of the Gust, quietly lets go.",
+  {
+   "vista": "shark_shanty",
+   "fade": 900
+  },
+  {
+   "music": "rage_shanty",
+   "fade": 300
+  },
+  "shark_chorus: Oh, the pirates dug and the pirates delved, through sand and clay and stone!",
+  "shark_chorus: And the sharks did nothing, nothing at all, and the sharks got the gold for their own!",
+  "shark_chorus: YO HO, the Captain's treasure! It's ON our fins today!",
+  "shark_chorus: His Stenchmaster blew it up to the sky, and we wear it all away!",
+  "captain[angry]: Stop it.",
+  "shark_chorus: Oh, we've crowns on our fins and pearls on our gills, and rings around our teeth!",
+  "shark_chorus: We're richer than any pirate afloat, and the Captain's in the reef!",
+  "captain[angry]: I am NOT in the reef.",
+  "shark_chorus: And the biggest of all wears the Crimson Crown, as he lies in the lagoon,",
+  "shark_chorus: And the Captain can dig for another three days, and it STILL won't be too soon!",
+  {
+   "vistaShow": "hammer",
+   "visible": true
+  },
+  "hammerhead: (solo) I've a chain of gold on my hammerhead, and it's all thanks to HIM!",
+  "captain[angry]: STOP SINGING.",
+  "shark_chorus: YO HO, the Captain's treasure! It's ON our fins today!",
+  "shark_chorus: His Stenchmaster blew it up to the sky, and we wear it all AWAY!",
+  "captain[angry]: STOP. SINGING. I AM THE CAPTAIN. THAT IS MY CROWN. YOU ARE FISH.",
+  {
+   "vistaEnd": true,
+   "fade": 700
+  },
+  {
+   "music": null,
+   "fade": 400
+  },
+  "You're standing on the shore of the lagoon, shouting at the sky.",
+  "The sharks are not singing. Sharks don't sing. They are going round in the storm, quietly, with your gold on, and the crew are standing behind you in a little row, watching you shout at them.",
+  "pete: (to the others, quietly) The captain is having a rage hallucination.",
+  "captain[angry]: Do not interrupt. I am having a rage hallucination.",
+  {
+   "setFlag": "rage_shanty_seen"
+  },
+  {
+   "sprite": "p9_land_2",
+   "frame": "shark_deck_0",
+   "x": 14.5,
+   "y": 19,
+   "anim": "stage:shark_flop"
+  },
+  {
+   "sfx": "shark_land",
+   "volume": 0.8
+  },
+  {
+   "burst": "dust",
+   "x": 14,
+   "y": 18,
+   "count": 10
+  },
+  {
+   "shake": 1,
+   "duration": 220
+  },
+  "A shark comes down on the sand at the lagoon's edge: a reef shark, with a scrap of torn sailcloth caught round its head like a bandana, a gold chain round its middle and half a hat stuck on one fin.",
+  "It looks at you. It flops. It is yanked back up into the sky.",
+  {
+   "removeSprite": "p9_land_2"
+  },
+  {
+   "burst": "dust",
+   "x": 14,
+   "y": 18,
+   "count": 6
+  },
+  {
+   "sfx": "shark_whoosh",
+   "volume": 0.5
+  },
+  "captain[angry]: IT'S MOCKING ME.",
+  "gristle: It's a fish, Captain.",
+  "captain[angry]: It's a fish in a HAT.",
+  {
+   "tutorial": "The Grand Stenchmaster is standing at the edge of the jungle, dusty, trying to look like a tree. Have a word with him.",
+   "title": "The Shark Shanty"
+  }
+ ],
+ "p9c16.confront": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "captain[angry]: You. The first time you went off, on the ship, you ruined my treasure. All of it. In the hold.",
+  "garrick[nervous]: It was a very—",
+  "captain[angry]: The second time, you made a STORM. Out of SHARKS.",
+  "garrick[nervous]: An unexpected—",
+  "captain[angry]: And now. NOW. We found it. We FOUND it.",
+  "garrick[nervous]: We did find it.",
+  "captain[angry]: It was REAL.",
+  "garrick: It was very real.",
+  "captain[angry]: We were going to be RICH. And you blew it into a SHARK CYCLONE.",
+  "garrick[businesslike]: ...Technically—",
+  "captain[angry]: NO TECHNICALLY.",
+  "garrick[businesslike]: Technically, Captain, the treasure was successfully excavated. It is no longer underground. It has been... vertically relocated.",
+  "Somewhere a long way inside you, something goes white-hot and stays there.",
+  {
+   "sfx": "suit_fwoof",
+   "volume": 0.6
+  },
+  {
+   "burst": "suitpuff",
+   "x": 16,
+   "y": 20,
+   "count": 3
+  },
+  "FWOoF.",
+  "garrick[proud]: Suit memory. Expedition patina. A historical aroma.",
+  "captain[angry]: STOP. MAKING. DISASTER. SOUND. PRESTIGIOUS.",
+  {
+   "sfx": "shark_whoosh",
+   "volume": 0.7
+  },
+  {
+   "sprite": "p9_fly_2",
+   "frame": "flying_shark_tiara_0",
+   "x": 30,
+   "y": 12,
+   "depth": 79200
+  },
+  {
+   "moveSprite": "p9_fly_2",
+   "x": 2,
+   "y": 10,
+   "duration": 1400,
+   "async": true
+  },
+  "Low over the lagoon, a shark goes by in a tiara, slowly, so everyone can see.",
+  "bob: That's a good tiara, that.",
+  "jim: That's real silver.",
+  "ned: The pearls on the other one were bigger.",
+  "captain[angry]: STOP APPRAISING THEM.",
+  {
+   "removeSprite": "p9_fly_2"
+  },
+  "squawks: Rich sharks.",
+  "captain[tired]: Aye.",
+  "squawks: Richer than pirates?",
+  "You look up at the glittering storm for a long time.",
+  "captain[concerned]: ...Currently.",
+  {
+   "setFlag": "p9_confronted"
+  },
+  {
+   "call": "p9c16.recover"
+  }
+ ],
+ "p9c16.recover": [
+  "captain[determined]: We must recover it.",
+  "gristle: All of it?",
+  "captain[determined]: AYE. All of it.",
+  "gristle: ...We could wait for the storm to weaken. It's done it before. Bits'll come down.",
+  "bob: We could catch it when it falls. Nets. I know about nets now.",
+  "ned: We stop the sharks leaving. Whatever they're wearing, they're wearing it HERE.",
+  "jim: And the crown. Somebody's going to have to get the crown off that.",
+  "Everyone looks at the megalodon. The megalodon looks at nobody. The crown glints.",
+  "The Grand Stenchmaster puts his hand up.",
+  "captain[angry]: No.",
+  "garrick[businesslike]: Purely organisationally, Captain, I'd recommend we consult... the GRAND SHARKMASTER.",
+  "Silence. Everyone turns to look at Pete.",
+  "pete[annoyed]: NO.",
+  "garrick[businesslike]: It's sharks. It's your jurisdiction.",
+  "pete[annoyed]: YOU BLEW IT THERE.",
+  "garrick[proud]: Stenchmaster operation completed. The rest is shark operations.",
+  "pete[annoyed]: IT CREATED A JEWELLED SHARK ECONOMY!",
+  "garrick[businesslike]: Unexpected downstream effects.",
+  "captain[angry]: GARRICK!",
+  {
+   "move": "garrick",
+   "to": [
+    21,
+    25
+   ],
+   "speed": 2.2,
+   "async": true
+  },
+  "The Grand Stenchmaster runs. He's surprisingly fast in the Suit, when he wants to be.",
+  {
+   "sfx": "shark_whoosh",
+   "volume": 0.8
+  },
+  {
+   "sprite": "p9_fly_3",
+   "frame": "flying_shark_chain_0",
+   "x": 28,
+   "y": 11,
+   "depth": 79200
+  },
+  {
+   "moveSprite": "p9_fly_3",
+   "x": 16,
+   "y": 12,
+   "duration": 900
+  },
+  "And a hammerhead comes down low over the shore, slow, a gold chain round its hammer, a ruby on a ring through one fin, and as it passes you it looks at you with one eye, and...",
+  "captain[angry]: It winked.",
+  {
+   "moveSprite": "p9_fly_3",
+   "x": 2,
+   "y": 10,
+   "duration": 900
+  },
+  {
+   "removeSprite": "p9_fly_3"
+  },
+  "pete: It probably just rolled, Captain.",
+  "captain[angry]: IT. WINKED.",
+  {
+   "sfx": "sword_draw",
+   "volume": 0.9
+  },
+  "You draw your cutlass. It rings.",
+  "captain[determined]: If the sharks want to act like pirates...",
+  "captain[determined]: ...I'll treat them like pirates.",
+  {
+   "startQuest": "recover_crimson_fortune"
+  },
+  {
+   "setValue": "crimson_fortune_state",
+   "value": "scattered_into_sharkstorm"
+  },
+  {
+   "setFlag": "recover_fortune_unlocked"
+  },
+  {
+   "music": "crownskull_isle",
+   "fade": 800
+  },
+  "From behind a palm tree at the edge of the jungle, a dusty face peeks out, crown sideways.",
+  "garrick[nervous]: ...Grand Sharkmaster operation?",
+  "You turn round.",
+  "He runs.",
+  {
+   "setFlag": "p9_complete"
+  },
+  {
+   "wait": 400
+  },
+  {
+   "tutorial": "The Crimson Fortune is in the Great Sharkstorm, on the sharks, and on the megalodon's head. Crownskull Isle is yours to wander; the boats on the landing beach go back to the Revenge, and back again. (Story Phase 9 is complete.)",
+   "title": "Recover the Crimson Fortune"
+  }
+ ]
+}

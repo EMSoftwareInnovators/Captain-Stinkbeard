@@ -1,0 +1,30 @@
+[
+ {
+  "extend": "blackbeard",
+  "variants": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_landed"
+      },
+      {
+       "not": {
+        "all": [
+         {
+          "flag": "p9_squawks_sheltered"
+         },
+         {
+          "notFlag": "p9_squawks_back"
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "appearance": "blackbeard_pouch",
+    "portrait": "blackbeard_stinkbeard"
+   }
+  ]
+ }
+]

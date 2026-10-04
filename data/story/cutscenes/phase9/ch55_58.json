@@ -1,0 +1,1264 @@
+{
+ "//": "Story Phase 9, Part One (chapters 55-58): the morning after the Grand Nap. Grey light through the hull. Everyone slept terribly except the Grand Stenchmaster, who slept directly over the captain. The captain, eerily calm, asks for the history of the sash; Garrick, delighted, gives it (all invented: the Sacred Stench, Princess Stenchalina the First and the ribbon that fluttered, the Sash Bearers, the Five Grand Treasures, the Grand Stenchmasters of old, Admiral Rumpus Thunderpants and the Battle of the Seven Winds). Then the trap: the discount bin. The witnesses. NO RECEIPT. Spiritual age. The plain purpose (somebody to hold it while he farts). The third Lost Fart attempt, and the explorer's hat confiscated. Then the jobs: the Grand Assistant (Bob resigns first), the Grand Steward, the org chart, the Ceremonial Sash Herald (Squawks is protected from employment), and at last, plain words.",
+ "p9.ready_hint": [
+  {
+   "setFlag": "p9_ready_hint"
+  },
+  {
+   "tutorial": "The story goes on from here. When you're ready, lie down in your bunk (your corner, under the Grand Stenchmaster's hammock) and try to sleep till morning.",
+   "title": "What Next?"
+  }
+ ],
+ "p9.start": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "Your bunk. Above it, sagging, the Grand Stenchmaster's hammock, and in it the Grand Stenchmaster, asleep, in full attire. It's three in the morning. It's been three in the morning for about a week.",
+  {
+   "choice": [
+    {
+     "text": "Lie down and try to sleep till morning",
+     "then": [
+      {
+       "call": "p9c1.begin"
+      }
+     ]
+    },
+    {
+     "text": "Not yet",
+     "then": [
+      "You're not ready. You'll never be ready. But not yet."
+     ]
+    }
+   ]
+  }
+ ],
+ "p9c1.begin": [
+  {
+   "fade": "out",
+   "duration": 900
+  },
+  {
+   "setFlag": "p9_started"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 15
+  },
+  {
+   "clearFlag": "p8_lights_out"
+  },
+  {
+   "setValue": "great_sharkstorm",
+   "value": "easing_near_ship"
+  },
+  {
+   "setValue": "garrick_release",
+   "value": "calm"
+  },
+  {
+   "music": null
+  },
+  {
+   "ambience": "barracks_night"
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "wait": 500
+  },
+  {
+   "banner": "PART ONE",
+   "sub": "Garrick's \"Completely Authentic\" History of the Grand Stenchmaster Sash"
+  },
+  {
+   "banner": "CHAPTER 55",
+   "sub": "The Morning After the Grand Nap"
+  },
+  {
+   "fade": "in",
+   "duration": 1200
+  },
+  "Morning. Or something like it. A thin grey light comes in through the cracks in the hull planks and lies across the barracks in stripes.",
+  {
+   "sfx": "garrick_snore",
+   "volume": 0.6
+  },
+  "Overhead, the Grand Stenchmaster snores. He has snored all night. He has snored through a crown falling, a confession, and a frog's capital gains.",
+  {
+   "burst": "suitpuff",
+   "x": 15,
+   "y": 15,
+   "count": 2
+  },
+  {
+   "sfx": "suit_fwoof",
+   "volume": 0.5
+  },
+  "FWOoF.",
+  "You did not sleep. You lay in your bunk with your eyes open and counted the puffs, and somewhere around forty you stopped counting and just lay there, being puffed on.",
+  {
+   "sfx": "hull_thud",
+   "volume": 0.3
+  },
+  {
+   "shake": 1,
+   "duration": 200
+  },
+  "A long way off, something lands on the deck. The Great Sharkstorm is still out there. Quieter than it was. Still out there.",
+  {
+   "emote": "squawks",
+   "icon": "zzz"
+  },
+  "Beside your head, a bald pink face comes up out of the cradle blankets and blinks at you.",
+  "squawks[exhausted]: Morning.",
+  "captain[tired]: Is it.",
+  "squawks: ...Bad bunk.",
+  "captain[tired]: Aye.",
+  {
+   "startQuest": "morning_after"
+  },
+  {
+   "ambience": "lower_hull"
+  },
+  {
+   "tutorial": "Nobody slept. See how the crew got through the night: Pete (on his rope pillow), Bob (in his cargo net), Gristle (in his belts) and Salty Jim (by his pantry).",
+   "title": "The Morning After"
+  }
+ ],
+ "p9c1.pete": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "Pete is sitting up on his rope pillow. He has the pattern of the rope pressed into one side of his face, deep, like a carving.",
+  "pete[tired]: Morning, Captain.",
+  "captain[tired]: Pete.",
+  "pete[tired]: I slept on a rope. I dreamed about rope. I think I am rope now, Captain. Ask me anything about knots.",
+  "captain: Did he puff on you too?",
+  "pete[tired]: Every twenty minutes. FWOoF. Like a clock that hates you. Once I nearly got to sleep and it did two.",
+  {
+   "setFlag": "p9_morning_pete"
+  },
+  {
+   "event": "p9_morning"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p9_morning_pete"
+     },
+     {
+      "flag": "p9_morning_bob"
+     },
+     {
+      "flag": "p9_morning_gristle"
+     },
+     {
+      "flag": "p9_morning_jim"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p9c1.crew_done"
+    }
+   ]
+  }
+ ],
+ "p9c1.bob": [
+  "Bob is lying in his cargo net over the powder kegs, looking up at the beams with the expression of a man who has just found out where he is.",
+  "bob: Captain? ...Why am I in a net?",
+  "captain: You chose it.",
+  "bob: I chose a NET? Like a FISH?",
+  "captain: You said it was better for your back.",
+  "bob[sad]: ...It is better for my back. It's worse for my face. Look. I'm all squares. I'm a waffle, Captain.",
+  {
+   "setFlag": "p9_morning_bob"
+  },
+  {
+   "event": "p9_morning"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p9_morning_pete"
+     },
+     {
+      "flag": "p9_morning_bob"
+     },
+     {
+      "flag": "p9_morning_gristle"
+     },
+     {
+      "flag": "p9_morning_jim"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p9c1.crew_done"
+    }
+   ]
+  }
+ ],
+ "p9c1.gristle": [
+  "Gristle is lying perfectly straight in his contraption of belts, arms at his sides, eyes wide open, exactly as he was at midnight.",
+  "gristle[annoyed]: Four hours.",
+  "captain: Gristle?",
+  "gristle[annoyed]: I lay here four hours with my eyes open. Very straight. I counted his snores. Nine hundred and twelve.",
+  "gristle[annoyed]: Then I counted the FWOoFs. Forty-one. Then I counted my regrets. I'm still going.",
+  {
+   "setFlag": "p9_morning_gristle"
+  },
+  {
+   "event": "p9_morning"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p9_morning_pete"
+     },
+     {
+      "flag": "p9_morning_bob"
+     },
+     {
+      "flag": "p9_morning_gristle"
+     },
+     {
+      "flag": "p9_morning_jim"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p9c1.crew_done"
+    }
+   ]
+  }
+ ],
+ "p9c1.jim": [
+  {
+   "face": "jim",
+   "dir": "player"
+  },
+  "Salty Jim is standing at his padlocked pantry with the lid of the biscuit tin in his hand, sniffing the air like a dog at a door.",
+  "jim[disgusted]: Smell that, Captain?",
+  "captain: I've been smelling it all night, Jim.",
+  "jim[disgusted]: That's the SUIT. It's still the suit. It's got into the biscuits. It's got into the oats. It's got into the butter.",
+  "captain: We haven't got any butter.",
+  "jim[angry]: It's got into the butter we HAVEN'T GOT, Captain. That's how far it's gone.",
+  {
+   "setFlag": "p9_morning_jim"
+  },
+  {
+   "event": "p9_morning"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p9_morning_pete"
+     },
+     {
+      "flag": "p9_morning_bob"
+     },
+     {
+      "flag": "p9_morning_gristle"
+     },
+     {
+      "flag": "p9_morning_jim"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p9c1.crew_done"
+    }
+   ]
+  }
+ ],
+ "p9c1.crew_done": [
+  {
+   "tutorial": "Now wake the one man in the barracks who slept: the Grand Stenchmaster (the hammock over your bunk).",
+   "title": "The Morning After"
+  }
+ ],
+ "p9c1.wake": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "You stand by your bunk and look up. The Grand Stenchmaster lies in the highest hammock in the barracks like a great burgundy pudding in a sling, his hands folded on the sash, smiling in his sleep.",
+  {
+   "sfx": "garrick_snore",
+   "volume": 0.6
+  },
+  {
+   "choice": [
+    {
+     "text": "Poke him",
+     "then": [
+      "You reach up and poke the Suit, once, firmly, in the region of the sash.",
+      {
+       "burst": "suitpuff",
+       "x": 15,
+       "y": 15,
+       "count": 2
+      },
+      {
+       "sfx": "suit_fwoof",
+       "volume": 0.5
+      },
+      "FWOoF.",
+      "It pokes back."
+     ]
+    },
+    {
+     "text": "Shake the hammock",
+     "then": [
+      "You take hold of the hammock rope and shake it. The whole barracks shakes. Three hammocks down the line, Wick falls out of his.",
+      {
+       "sfx": "thud",
+       "volume": 0.6
+      },
+      "wick: OW."
+     ]
+    },
+    {
+     "text": "Shout",
+     "then": [
+      "captain[angry]: GARRICK.",
+      "Every hammock in the barracks jumps. The Grand Stenchmaster does not."
+     ]
+    }
+   ]
+  },
+  "garrick_asleep: ...mm... seventy... very reasonable...",
+  "Then his eyes open. He stretches, enormously, all four limbs at once, and the Suit stretches with him.",
+  {
+   "sfx": "suit_fwoof",
+   "volume": 0.7
+  },
+  {
+   "burst": "suitpuff",
+   "x": 15,
+   "y": 15,
+   "count": 4
+  },
+  "Pffft.",
+  "A long, slow puff of stored night comes out of the Suit and rolls down over your bunk like fog off a moor.",
+  "pete[disgusted]: Good morning to the suit, too.",
+  {
+   "sfx": "suit_fanfare",
+   "volume": 0.5
+  },
+  "garrick[proud]: THE GRAND STENCHMASTER'S GRAND NAP...",
+  "garrick[proud]: ...HAS CONCLUDED.",
+  {
+   "bark": "pete",
+   "text": "HE WAS THE ONLY ONE WHO SLEPT.",
+   "duration": 2400,
+   "shout": true
+  },
+  {
+   "bark": "gristle",
+   "text": "THE ONLY ONE.",
+   "duration": 2200,
+   "shout": true
+  },
+  {
+   "bark": "bob",
+   "text": "I'M A WAFFLE.",
+   "duration": 2200,
+   "shout": true
+  },
+  {
+   "wait": 900
+  },
+  "From every hammock in the barracks, all at once:",
+  "pete[annoyed]: HE WAS THE ONLY PERSON WHO ACTUALLY SLEPT!",
+  "garrick[delighted]: I slept beautifully. Like a sacred log.",
+  "He climbs down out of the hammock, slowly, ceremonially, treading on your pillow on the way, and stands in front of you, beaming.",
+  {
+   "setFlag": "p9_nap_concluded"
+  },
+  {
+   "place": "garrick",
+   "x": 13,
+   "y": 15,
+   "facing": "right"
+  },
+  {
+   "sfx": "hammock_creak",
+   "volume": 0.5
+  },
+  "garrick[businesslike]: Where's my crown?",
+  "captain[tired]: In the crate.",
+  "garrick: Ah. Yes. Banned. For sleeping. I'm awake now.",
+  "captain: You are.",
+  "garrick[proud]: So.",
+  {
+   "tutorial": "Talk to him. You need to have a word.",
+   "title": "The Morning After"
+  }
+ ],
+ "p9c1.talk": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "You look at the Grand Stenchmaster. You don't shout. You don't go red. Your voice, when it comes, is low, and calm, and very, very pleasant.",
+  "captain: Garrick.",
+  "garrick[delighted]: Captain!",
+  "captain: We need to talk.",
+  "garrick[nervous]: ...Is it about the crown? Because that was the crown's fault.",
+  "captain: No.",
+  "garrick[nervous]: The puffing? The Suit has stench retention. It's a feature.",
+  "captain: No, Garrick. I've been lying awake all night, thinking. And I realised... I don't know anything about the sash.",
+  "Behind you, every hammock in the barracks goes very still.",
+  "captain: Its history. Where it comes from. What it means. I'd like to hear all of it. From the beginning.",
+  "There's a pause, and the Grand Stenchmaster's face does something it has never done before in your presence: it lights up with pure, uncomplicated joy.",
+  {
+   "sfx": "suit_fanfare",
+   "volume": 0.4
+  },
+  "garrick[delighted]: THE HISTORY... OF THE GRAND STENCHMASTER SASH?",
+  "captain: All of it.",
+  "garrick[delighted]: Captain, I have waited my whole LIFE for someone to ask me that.",
+  "garrick[proud]: I have materials. I prepared them. This morning. I mean: I have always had them. Ancient materials. Wait there. DON'T MOVE.",
+  "He hurries off to his rug, gathering up papers and crayons as he goes.",
+  "pete: (whispering) He's baiting him.",
+  "gristle: (whispering) Oh, he's baiting him all right.",
+  "bob: (whispering) What's baiting?",
+  "gristle: (whispering) Watch.",
+  "squawks[smug]: Fun.",
+  {
+   "setFlag": "p9_baited"
+  },
+  {
+   "call": "p9c2.begin"
+  }
+ ],
+ "p9c2.begin": [
+  {
+   "setFlag": "p9_ch56_started"
+  },
+  {
+   "restage": "walk"
+  },
+  {
+   "banner": "CHAPTER 56",
+   "sub": "A Completely Authentic History"
+  },
+  "The Grand Stenchmaster takes his place on his rug in front of the Mark II, as if it were a stage, and pins a crayon drawing to the set's antenna. He adjusts his sash with both hands, with great care, so that it lies just so.",
+  "The sash. Mustard and burgundy. Fake-gold trim. A little lumpy where the badge is. Diagonally across him like a road across a hill.",
+  "garrick[proud]: Gather round. Gather ROUND. Bob, sit there. Gristle, there. Jim, there, and please stop holding that biscuit tin like a weapon.",
+  "Half the barracks gathers round. The other half, who did not sleep, stays in its hammocks and turns over to watch.",
+  "garrick[proud]: Captain. Please. Ask me anything.",
+  {
+   "startQuest": "completely_authentic"
+  },
+  {
+   "music": "stenchmaster_theme",
+   "fade": 600
+  },
+  {
+   "tutorial": "He's on his rug, ready. Ask him things (talk to him, then pick a question). Look interested. Let him tell you all of it.",
+   "title": "A Completely Authentic History"
+  }
+ ],
+ "p9c2.ask": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "garrick[proud]: Yes, Captain? Another question?",
+  {
+   "choice": [
+    {
+     "text": "What is a Grand Stenchmaster FOR?",
+     "if": {
+      "notFlag": "p9_heard_sacred_stench"
+     },
+     "then": [
+      {
+       "call": "p9c2.sacred"
+      }
+     ]
+    },
+    {
+     "text": "Who wore the sash first?",
+     "if": {
+      "notFlag": "princess_stenchalina_heard"
+     },
+     "then": [
+      {
+       "call": "p9c2.first"
+      }
+     ]
+    },
+    {
+     "text": "Are there any treasures that go with the office?",
+     "if": {
+      "notFlag": "five_grand_treasures_heard"
+     },
+     "then": [
+      {
+       "call": "p9c2.treasures"
+      }
+     ]
+    },
+    {
+     "text": "Tell me about the great Stenchmasters of old.",
+     "if": {
+      "notFlag": "former_stenchmasters_heard"
+     },
+     "then": [
+      {
+       "call": "p9c2.masters"
+      }
+     ]
+    },
+    {
+     "text": "Thank him for a magnificent explanation",
+     "if": {
+      "all": [
+       {
+        "flag": "p9_heard_sacred_stench"
+       },
+       {
+        "flag": "princess_stenchalina_heard"
+       },
+       {
+        "flag": "five_grand_treasures_heard"
+       },
+       {
+        "flag": "former_stenchmasters_heard"
+       }
+      ]
+     },
+     "then": [
+      {
+       "call": "p9c2.trap"
+      }
+     ]
+    },
+    {
+     "text": "(Let him gather his thoughts)",
+     "then": [
+      "garrick[proud]: Take your time, Captain. History isn't going anywhere."
+     ]
+    }
+   ]
+  }
+ ],
+ "p9c2.sacred": [
+  "captain: What is a Grand Stenchmaster for?",
+  "garrick[proud]: An EXCELLENT question. Captain, since the dawn of time, the Grand Stenchmasters have been the guardians of... THE SACRED STENCH.",
+  "jim: The what?",
+  "garrick[proud]: The Sacred Stench. And the duties of the office are six. Eating. Sleeping. Resting. Farting. Ceremonial seat warming. And sash preservation.",
+  "pete: Hang on. Sleeping AND resting?",
+  "garrick[businesslike]: Two separate duties.",
+  "pete: They're the same thing.",
+  "garrick[proud]: Resting is sleeping with your eyes open.",
+  "gristle[annoyed]: That's just lying there. That's what I did all night. I didn't know I was resting. I'd have enjoyed it more.",
+  "captain: And how old is the office, would you say?",
+  "garrick[proud]: At least a thousand years.",
+  "jim: Yesterday you said centuries.",
+  "garrick[businesslike]: Centuries are inside a thousand years, Jim. A thousand years is mostly centuries.",
+  "captain: Fascinating. Is there any evidence? Tapestries, say?",
+  "garrick: Lost.",
+  "captain: Statues?",
+  "garrick: Destroyed.",
+  "captain: Written records?",
+  "garrick: Missing.",
+  "captain: Archaeological evidence?",
+  "garrick[smug]: Very private.",
+  "captain: ...Convenient.",
+  "garrick[delighted]: Thank you, Captain! It IS very convenient.",
+  "He sweeps a hand down his sash to show it off, with a flourish that would do credit to a stage magician, and a corner of the hem flips over.",
+  "On the inside of the hem, something small and square and paper clings on for dear life.",
+  {
+   "emote": "pete",
+   "icon": "question"
+  },
+  "Pete leans forward. Pete squints. Pete looks at you.",
+  {
+   "insert": "sash_clearance_close",
+   "caption": "The inside of the sash's hem. A sticky label, half peeled off: CLEARANCE."
+  },
+  "You say nothing at all. You smile.",
+  "It is not a nice smile. Over by the powder kegs, Bob sees it and pulls his net up over his face.",
+  {
+   "setFlag": "clearance_sticker_seen"
+  },
+  {
+   "setFlag": "p9_heard_sacred_stench"
+  }
+ ],
+ "p9c2.first": [
+  "captain: Who wore the sash first?",
+  "garrick[proud]: AH. Gentlemen, the first Grand Stenchmaster of all was a princess. An infant princess. PRINCESS STENCHALINA THE FIRST.",
+  {
+   "vista": "history_lesson",
+   "fade": 500
+  },
+  {
+   "vistaFrame": "panel",
+   "frame": "hist_stenchalina"
+  },
+  "garrick[proud]: One morning, in the royal nursery, the infant princess's stomach rumbled. And there came... the first Royal Waft.",
+  {
+   "sfx": "rumble_low",
+   "volume": 0.4
+  },
+  "garrick[proud]: The blast shook the palace. Her diaper flew across the nursery. Her little royal trousers flew across the nursery. Servants panicked. A yellow cloud filled the corridors...",
+  "garrick[worried]: ...and then, gentlemen, the worst thing that has ever happened in the history of the office.",
+  "He lowers his voice.",
+  {
+   "vistaFrame": "panel",
+   "frame": "hist_ribbon"
+  },
+  "garrick: Her ceremonial ribbon... FLUTTERED.",
+  "Silence.",
+  "bob: ...The ribbon?",
+  "garrick: It FLUTTERED, Bob.",
+  "pete: The palace shook. Her TROUSERS flew across the room.",
+  "garrick[annoyed]: Trousers can be replaced, Pete. A ribbon's DIGNITY cannot.",
+  "gristle: That's the disaster? Not the yellow cloud? Not the panicking servants?",
+  "garrick[proud]: And so the royal council decreed that never again would a Grand Stenchmaster's ceremonial fabric flap uncontrolled during a major Waft. And from that day there were... THE SACRED SASH BEARERS.",
+  {
+   "vistaFrame": "panel",
+   "frame": "hist_bearers"
+  },
+  "garrick[proud]: Two loyal attendants, one either side, to hold the sash off the ground during a major release. Ceremonially. With honour.",
+  "Pete sits up very slowly.",
+  "pete: Hang on. Hang on, hang on, hang on.",
+  "pete: So in your OWN made-up history... the very FIRST sash... was so somebody could hold it while she farted.",
+  "garrick[alarmed]: That is NOT what—",
+  "pete: It's a FART SASH. Even in your own story! Your own story says it's a fart sash!",
+  "garrick[annoyed]: IT IS THE GRAND STENCHMASTER SASH. IT IS A SACRED CEREMONIAL TEXTILE. IT IS NOT A— IT HAS NEVER BEEN A— I WILL NOT HAVE THAT WORD SAID IN FRONT OF THE PRINCESS.",
+  "jim: She's a drawing.",
+  "garrick[annoyed]: She's a HISTORICAL drawing.",
+  {
+   "vistaEnd": true,
+   "fade": 500
+  },
+  {
+   "setFlag": "princess_stenchalina_heard"
+  },
+  {
+   "setFlag": "sash_bearer_origin_heard"
+  }
+ ],
+ "p9c2.treasures": [
+  "captain: Are there any treasures that go with the office?",
+  "garrick[proud]: FIVE. The Five Grand Treasures of Stenchmaster History.",
+  {
+   "vista": "history_lesson",
+   "fade": 500
+  },
+  {
+   "vistaFrame": "panel",
+   "frame": "hist_treasures"
+  },
+  "garrick[proud]: The First Treasure: the Grand Crown.",
+  "pete: You made that yesterday. Out of Jim's forks.",
+  "garrick[businesslike]: I RECONSTRUCTED it. From historical descriptions.",
+  "gristle: What descriptions?",
+  "garrick[nervous]: The ones in my... imagin— ...my HISTORICAL INTUITION.",
+  "garrick[proud]: The Second Treasure: the Sacred Seat.",
+  "Everyone looks at his chair: the plain wooden chair from the galley with a cushion tied to it with string.",
+  "jim: That's the galley chair. That chair's got a wobble.",
+  "garrick[proud]: The wobble is ancient.",
+  "garrick[proud]: The Third Treasure: the Grand Eating Bowl.",
+  "He holds it up: a big, battered, dented tin bowl.",
+  {
+   "sfx": "lid_clang",
+   "volume": 0.5
+  },
+  "jim[angry]: THAT'S MY MIXING BOWL.",
+  "garrick[proud]: It's been in the office for generations.",
+  "jim[angry]: It's been in the GALLEY for six years! I mix PUDDING in it! I've been looking for that since TUESDAY!",
+  "garrick[proud]: The Fourth Treasure: the Stenchmaster Entertainment System.",
+  "He gestures grandly at the S.E.S. Mark II behind him. It goes tik.",
+  {
+   "sfx": "mk2_tik",
+   "volume": 0.5
+  },
+  "bob: The ancient Stenchmasters had... televisions?",
+  "garrick[smug]: Spiritually.",
+  "The crew, all together: ABSOLUTELY NOT.",
+  "garrick[proud]: And the Fifth, and Greatest, Treasure: the Grand Sash itself. Handed down. Descended through the generations.",
+  "pete: Down through the generations of a—",
+  "captain: Let him finish, Pete.",
+  "Pete looks at you. Pete sees the smile. Pete closes his mouth.",
+  {
+   "vistaEnd": true,
+   "fade": 500
+  },
+  {
+   "setFlag": "five_grand_treasures_heard"
+  }
+ ],
+ "p9c2.masters": [
+  "captain: Tell me about the great Grand Stenchmasters of old.",
+  "garrick[proud]: Gladly. The greatest of them...",
+  {
+   "vista": "history_lesson",
+   "fade": 500
+  },
+  {
+   "vistaFrame": "panel",
+   "frame": "hist_stenchmasters"
+  },
+  "garrick[proud]: Sir Stenchalot the Flatulent. Lady Windbottom the Mighty. Grand Duke Gassius the Loud.",
+  "bob: Why do they all look like you?",
+  "garrick[smug]: Strong family resemblance.",
+  "gristle: Lady Windbottom's got your moustache.",
+  "garrick[proud]: She was very distinguished. And the greatest of them all... ADMIRAL RUMPUS THUNDERPANTS.",
+  {
+   "vistaFrame": "panel",
+   "frame": "hist_seven_winds"
+  },
+  "garrick[proud]: At the Battle of the Seven Winds, the Admiral stood on his quarterdeck in the Grand Sash and faced seven enemy ships. And he released.",
+  {
+   "sfx": "rumble_mid",
+   "volume": 0.4
+  },
+  "garrick[proud]: And the blast turned six of those ships right round and sent them home.",
+  "captain: And the seventh?",
+  "garrick[proud]: ...It sank from embarrassment.",
+  "There is a long silence in the barracks.",
+  "ned: Ships don't get embarrassed.",
+  "garrick[businesslike]: This one did.",
+  "jim: How do you know?",
+  "garrick[proud]: It went red, Jim. Then it went down.",
+  {
+   "vistaEnd": true,
+   "fade": 500
+  },
+  {
+   "setFlag": "former_stenchmasters_heard"
+  }
+ ],
+ "p9c2.trap": [
+  {
+   "music": null,
+   "fade": 500
+  },
+  "You stand up. You walk slowly over to the Grand Stenchmaster's rug. You put a hand on his shoulder.",
+  "captain: Garrick. That was magnificent.",
+  "garrick[delighted]: It WAS, wasn't it?",
+  "captain: Truly. Every word of it. The Sacred Stench. Princess Stenchalina. The ribbon.",
+  "garrick[delighted]: The ribbon!",
+  "captain: The bowl.",
+  "jim[angry]: MY bowl.",
+  "captain: Admiral Thunderpants. The seventh ship. Everything.",
+  "The Grand Stenchmaster glows. He looks round the barracks at the crew with the face of a man who has, at last, after many hard years, won.",
+  "captain: ...Especially the part about the seventy-per-cent-off discount bin.",
+  {
+   "sfx": "sting_silence",
+   "volume": 0.7
+  },
+  "The Grand Stenchmaster freezes. The smile stays where it is on his face, but everything behind it leaves.",
+  "garrick[nervous]: ...The what.",
+  {
+   "setFlag": "sash_origin_confrontation"
+  },
+  {
+   "setFlag": "p9_trap_sprung"
+  },
+  {
+   "call": "p9c3.begin"
+  }
+ ],
+ "p9c3.begin": [
+  {
+   "setFlag": "p9_ch57_started"
+  },
+  {
+   "banner": "CHAPTER 57",
+   "sub": "No Receipt"
+  },
+  "garrick[nervous]: I've never been near a discount bin. I've never even heard of discount. What is a bin.",
+  "captain[smug]: Seventy per cent off.",
+  "garrick[nervous]: Lies.",
+  "captain[smug]: Cash only.",
+  "garrick[nervous]: Slander.",
+  "captain[smug]: No refunds. A sketchy discount shop. Bought LAST WEEK.",
+  "garrick[annoyed]: WHO SAID THAT?",
+  "captain[smug]: You did. In your sleep. Directly over my head. At three in the morning.",
+  "garrick[businesslike]: Sleep-talking is inadmissible.",
+  "captain[smug]: Is it.",
+  {
+   "startQuest": "no_receipt"
+  },
+  {
+   "tutorial": "He denies everything. Call your witnesses, one at a time: Pete, Gristle, Bob, and Squawks.",
+   "title": "No Receipt"
+  }
+ ],
+ "p9c3.pete": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "pete: I heard it, Captain. 'Seventy per cent off.' Clear as a bell. And then a FWOoF, like the Suit was agreeing with him.",
+  {
+   "setFlag": "p9_witness_pete"
+  },
+  {
+   "event": "p9_witness"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p9_witness_pete"
+     },
+     {
+      "flag": "p9_witness_gristle"
+     },
+     {
+      "flag": "p9_witness_bob"
+     },
+     {
+      "flag": "p9_witness_squawks"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p9c3.witnesses_done"
+    }
+   ]
+  }
+ ],
+ "p9c3.gristle": [
+  {
+   "face": "gristle",
+   "dir": "player"
+  },
+  "gristle: 'Cash only.' He said it twice. He sounded proud of it.",
+  "gristle[smug]: And I was resting at the time, so I'm a reliable witness. I had my eyes open.",
+  {
+   "setFlag": "p9_witness_gristle"
+  },
+  {
+   "event": "p9_witness"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p9_witness_pete"
+     },
+     {
+      "flag": "p9_witness_gristle"
+     },
+     {
+      "flag": "p9_witness_bob"
+     },
+     {
+      "flag": "p9_witness_squawks"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p9c3.witnesses_done"
+    }
+   ]
+  }
+ ],
+ "p9c3.bob": [
+  {
+   "face": "bob",
+   "dir": "player"
+  },
+  "bob: 'No refunds.' And then he said 'very reasonable' and he patted it. He patted the sash. In his sleep. Like a dog.",
+  {
+   "setFlag": "p9_witness_bob"
+  },
+  {
+   "event": "p9_witness"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p9_witness_pete"
+     },
+     {
+      "flag": "p9_witness_gristle"
+     },
+     {
+      "flag": "p9_witness_bob"
+     },
+     {
+      "flag": "p9_witness_squawks"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p9c3.witnesses_done"
+    }
+   ]
+  }
+ ],
+ "p9c3.squawks": [
+  "Squawks puts his head up out of the cradle and looks at the Grand Stenchmaster for a long moment.",
+  "squawks[smug]: No receipt.",
+  "captain[smug]: Say it again, Squawks. For the room.",
+  "squawks[smug]: NO. RECEIPT.",
+  {
+   "setFlag": "p9_witness_squawks"
+  },
+  {
+   "event": "p9_witness"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p9_witness_pete"
+     },
+     {
+      "flag": "p9_witness_gristle"
+     },
+     {
+      "flag": "p9_witness_bob"
+     },
+     {
+      "flag": "p9_witness_squawks"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p9c3.witnesses_done"
+    }
+   ]
+  }
+ ],
+ "p9c3.witnesses_done": [
+  {
+   "tutorial": "That's four witnesses. Put it to the Grand Stenchmaster.",
+   "title": "No Receipt"
+  }
+ ],
+ "p9c3.verdict": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "You turn to the Grand Stenchmaster. You take a breath, a big one, all the way down.",
+  {
+   "shake": 2,
+   "duration": 400
+  },
+  {
+   "sfx": "gavel",
+   "volume": 0.8
+  },
+  "captain[angry]: NO! RECEIPT!",
+  "The shout goes round the barracks and comes back. In his cradle, Squawks puts his wings over his ears, then takes them off again so as not to miss anything.",
+  "garrick[businesslike]: ...Irrelevant.",
+  "captain[angry]: IRRELEVANT?!",
+  "garrick[proud]: Captain. Where a sash physically came from has nothing to do with its SPIRITUAL AGE.",
+  "garrick[proud]: Bought last week? Materially. Ancient? Symbolically. Survived a thousand years? EMOTIONALLY.",
+  "captain[angry]: And the people who owned it before you?",
+  "garrick[proud]: Historical re-enactment.",
+  "gristle: He's changing what words mean.",
+  "ned: He's changing what TIME means.",
+  "pete: Fine. FINE. Then what does it actually represent? The sash. What is it FOR?",
+  "And the Grand Stenchmaster, without thinking, the way a man answers a question he has been asked a thousand times in his own head:",
+  "garrick: It's so somebody can hold it while I fart.",
+  {
+   "sfx": "crowd_gasp",
+   "volume": 0.6
+  },
+  "Silence.",
+  "Then the barracks erupts.",
+  {
+   "bark": "pete",
+   "text": "FART SASH!",
+   "duration": 2000,
+   "shout": true
+  },
+  {
+   "bark": "bob",
+   "text": "FART SASH!",
+   "duration": 2000,
+   "shout": true
+  },
+  {
+   "bark": "jim",
+   "text": "FART SASH!",
+   "duration": 2000,
+   "shout": true
+  },
+  "garrick[annoyed]: STENCHMASTER SASH!",
+  "pete: FART SASH!",
+  "garrick[annoyed]: STENCHMASTER SASH!",
+  "Everyone: FART. SASH.",
+  {
+   "sfx": "stomach_glorp",
+   "volume": 0.8
+  },
+  "GLOOOOORP.",
+  "Everybody freezes. Every head turns to the Grand Stenchmaster's middle. Bob's hand goes, slowly, to the edge of his net.",
+  "captain[alarmed]: ...Garrick?",
+  "garrick[nervous]: ...Still unsure.",
+  "Nothing happens. Nothing goes on happening. Slowly, the barracks breathes out.",
+  "Then the Grand Stenchmaster's eyes go to Bob's head, and to the dented cork explorer's helmet that has been on it since yesterday.",
+  "He snatches it, claps it on over his own hair, and strikes a pose.",
+  {
+   "sfx": "sash_swish",
+   "volume": 0.5
+  },
+  "garrick[proud]: Gentlemen. What if... THE GRAND EXPEDITION... FOR THE LOST FART—",
+  "captain[angry]: No.",
+  "garrick[proud]: Ancient ruins!",
+  "captain[angry]: Discount store!",
+  "garrick[proud]: Ten thousand years!",
+  "captain[angry]: Seven days!",
+  "garrick[proud]: Stench spirits!",
+  "captain[angry]: Bargain-bin employees!",
+  "You reach out and take the explorer's helmet off his head. He doesn't let go of it straight away. You don't either.",
+  "captain[angry]: Give.",
+  "garrick[worried]: ...It's for the expedition.",
+  "captain[angry]: There is no expedition. There is no Lost Fart. There is a hat, and it's going back in the box.",
+  {
+   "setFlag": "p9_spiritual_age"
+  },
+  {
+   "setFlag": "lost_fart_attempt_three"
+  },
+  {
+   "setFlag": "p9_hat_grabbed"
+  },
+  "bob[happy]: Thank you, Captain. I hated that hat.",
+  {
+   "tutorial": "Put the explorer's hat back in the costume trunk (by his rug).",
+   "title": "No Receipt"
+  }
+ ],
+ "p9c3.trunk": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You drop the explorer's helmet into the costume trunk, on top of the feathers and the wooden sword and the moth, and close the lid.",
+  {
+   "sfx": "chest_creak",
+   "volume": 0.6
+  },
+  "Then you sit on it.",
+  "garrick[worried]: ...It suited me.",
+  "captain[annoyed]: It suited Bob better. And it didn't suit him either.",
+  {
+   "setFlag": "p9_hat_confiscated"
+  },
+  {
+   "call": "p9c4.begin"
+  }
+ ],
+ "p9c4.begin": [
+  {
+   "setFlag": "p9_ch58_started"
+  },
+  {
+   "banner": "CHAPTER 58",
+   "sub": "The Grand Sash Bureaucracy"
+  },
+  "The Grand Stenchmaster stands on his rug, bareheaded, sash askew, and you can see him thinking. You can see it the way you can see weather coming.",
+  "garrick[businesslike]: The problem, Captain, isn't the sash. The problem is STAFFING.",
+  "His gaze goes slowly round the barracks, like a lighthouse, and stops on Bob.",
+  {
+   "emote": "bob",
+   "icon": "sweat"
+  },
+  {
+   "startQuest": "sash_bureaucracy"
+  },
+  {
+   "tutorial": "He's looking at Bob. Bob's looking at you. Go and see (Bob).",
+   "title": "The Grand Sash Bureaucracy"
+  }
+ ],
+ "p9c4.bob": [
+  {
+   "face": "bob",
+   "dir": "player"
+  },
+  "Before you can say anything, the Grand Stenchmaster is there, beaming, hand out, as if presenting a medal.",
+  "garrick[proud]: Bob. Congratulations—",
+  "bob[alarmed]: I resign.",
+  "garrick: You haven't been appointed yet.",
+  "bob: I resign in advance. I resign from everything. I resign from things that haven't been invented.",
+  "garrick[proud]: Bob. I hereby appoint you... THE GRAND STENCHMASTER'S GRAND STENCHMASTER SASH'S GRAND ASSISTANT.",
+  "pete: Which bit's grand?",
+  "garrick[businesslike]: All of it.",
+  "pete: No, but which bit? Is the ASSISTANT grand, or is the SASH grand?",
+  "gristle: Let me. The Grand Stenchmaster... has a sash. Which is a Grand Stenchmaster Sash. Which has an assistant. Who is grand. So it's grand four times, and Bob's at the bottom.",
+  "garrick[proud]: It sounds official.",
+  "garrick[proud]: And also, to be clear: GRAND STEWARD OF THE GRAND STENCHMASTER'S GRAND SASH.",
+  "The crew, together: THAT IS A SECOND TITLE.",
+  "garrick[businesslike]: Administrative clarity.",
+  "bob: But what do I actually DO?",
+  "The Grand Stenchmaster lifts the sash off over his head, lays it ceremonially across Bob's open hands, and steps back.",
+  "garrick[proud]: Hold this.",
+  {
+   "sfx": "crowd_boo",
+   "volume": 0.6
+  },
+  "The barracks groans, the long, deep groan of men who saw it coming and are disappointed in themselves anyway.",
+  "garrick[proud]: The procedure. The first holder stands to my left. The second, to my right. You maintain proper sash tension at all times. You monitor the wind. You prevent flutter. And you call the warnings.",
+  "garrick[proud]: 'STENCHMASTER PRESSURE BUILDING!'",
+  "captain[annoyed]: No.",
+  "garrick[proud]: 'SASH BEARERS READY!'",
+  "captain[annoyed]: No.",
+  "garrick[proud]: 'GRAND WAFT IMMINENT!'",
+  "captain[angry]: No.",
+  "garrick[proud]: 'BRACE THE SASH!'",
+  "captain[angry]: NO.",
+  "Bob holds the sash out at arm's length, as far from his body as his arms go, then lays it very gently back over the Grand Stenchmaster's shoulder and wipes his hands on Pete.",
+  "pete: Oi.",
+  {
+   "setFlag": "p9_bob_resigned"
+  },
+  {
+   "setFlag": "bob_refused_assistant"
+  },
+  {
+   "setFlag": "sash_bureaucracy_titles"
+  },
+  "The Grand Stenchmaster, undaunted, has already started pinning a big sheet of paper to the board by the barrels.",
+  {
+   "tutorial": "He's pinned something to the board by the barrels. Look at it.",
+   "title": "The Grand Sash Bureaucracy"
+  }
+ ],
+ "p9c4.chart": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "insert": "sash_org_chart",
+   "caption": "THE GRAND STENCHMASTER SASH: ORGANISATION. In crayon."
+  },
+  "garrick[proud]: The organisation. Under the Grand Steward: the Deputy Grand Sash Steward. The Acting Assistant Deputy Grand Steward of Stenchmaster Textiles. The Emergency Sash Technician.",
+  "garrick[proud]: And the Senior Flutter Observer, who stands fifteen feet away. For safety.",
+  "ned: Hang on.",
+  "Ned leans in and looks at the chart with his one eye, very close.",
+  "ned: The Flutter Observer stands fifteen feet away. For SAFETY.",
+  "garrick: Correct.",
+  "ned: And the two holders stand... right next to you. Holding the sash. Right next to where it's coming out.",
+  "garrick[businesslike]: Ceremonially.",
+  "ned[alarmed]: So the only safe job is the one that's fifteen feet away from the job.",
+  "bob: I KNEW IT. I KNEW IT. I could FEEL it.",
+  {
+   "setFlag": "p9_org_chart_seen"
+  },
+  "Down in his cradle, a bald pink head has come up, and is listening with great interest.",
+  {
+   "tutorial": "Squawks is looking at the chart. Uh-oh. Go to him (his cradle).",
+   "title": "The Grand Sash Bureaucracy"
+  }
+ ],
+ "p9c4.herald": [
+  "squawks: Parrot job?",
+  "garrick[delighted]: CEREMONIAL SASH HERALD!",
+  "He's across the barracks before you can blink, hand out, beaming down into the cradle.",
+  "You step between them. You stand over the cradle with your arms out, like a man in front of a runaway cart.",
+  "captain[angry]: No. NO. Get back.",
+  "garrick[proud]: The Herald announces the release! It's a speaking part, Captain!",
+  "captain[angry]: Squawks. Listen to me. I am protecting ye from employment.",
+  "squawks: ...",
+  "Squawks looks at the Grand Stenchmaster. Squawks looks at the sash. Squawks considers it.",
+  "squawks[smug]: No job.",
+  "captain[tender]: Good lad.",
+  {
+   "setFlag": "p9_herald_refused"
+  },
+  {
+   "tutorial": "Enough. Make him say what he actually wants, in plain words (him).",
+   "title": "The Grand Sash Bureaucracy"
+  }
+ ],
+ "p9c4.plain": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "captain[angry]: Right. New rule. No Grand Steward. No Grand Assistant. No Deputy anything. No Textile Officers. No Heralds. Plain words. What. Do. You. Want.",
+  "garrick[nervous]: The Grand Stenchmaster requires a ceremonial—",
+  "captain[angry]: PLAIN. WORDS.",
+  "The Grand Stenchmaster's mouth works. You can see the titles queuing up behind his teeth, one after another, and you can see him send them all away.",
+  "garrick[worried]: ...I want somebody to hold the sash so it doesn't flutter... while I fart.",
+  {
+   "sfx": "crowd_cheer",
+   "volume": 0.6
+  },
+  "The whole barracks: FINALLY.",
+  "squawks[smug]: Fart sash holder.",
+  "garrick[annoyed]: That is NOT the—",
+  "pete: FART SASH HOLDER!",
+  "garrick[annoyed]: STENCHMASTER SASH—",
+  {
+   "move": "ned",
+   "to": [
+    7,
+    4
+   ],
+   "async": true
+  },
+  "Nobody notices Ned get up. Nobody notices him go over to the hull planks by the stairs and put his eye to a crack where the light comes in.",
+  {
+   "bark": "ned",
+   "text": "Land.",
+   "duration": 1400
+  },
+  "bob: FART SASH HOLDER! I'm putting that on the chart!",
+  {
+   "bark": "ned",
+   "text": "LAND!",
+   "duration": 1600
+  },
+  "garrick[annoyed]: STENCHMASTER— SASH— HOLDER—",
+  "jim: FART SASH HOLDER, and give me back my BOWL!",
+  {
+   "bark": "ned",
+   "text": "LAND! LAND!",
+   "duration": 1800,
+   "shout": true
+  },
+  "gristle: Fart sash—",
+  {
+   "face": "ned",
+   "dir": "down"
+  },
+  {
+   "shake": 1,
+   "duration": 300
+  },
+  "ned[alarmed]: LAAAAAAAAAAAAND!",
+  "Everything stops.",
+  {
+   "setFlag": "plain_language_admission"
+  },
+  {
+   "call": "p9c5.begin"
+  }
+ ]
+}

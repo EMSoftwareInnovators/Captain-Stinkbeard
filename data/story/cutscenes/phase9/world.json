@@ -1,0 +1,341 @@
+{
+ "//": "Story Phase 9: inspect scripts on the ship (the gap in the hull, the board) and on Crownskull Isle (the boats, the marker, the dig, the shelter, the crater, the megalodon, the views), and the crossing between the island and the Revenge after the phase.",
+ "p9.hold.gap": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "if": {
+    "flag": "p9_landed"
+   },
+   "then": [
+    "The gap in the hull planks. Through it: the island, close, the pale beach, the jungle, the crowned skull of the ridge, and the Great Sharkstorm, glittering now, going round off the coast."
+   ],
+   "else": [
+    {
+     "if": {
+      "flag": "crownskull_discovered"
+     },
+     "then": [
+      "The gap in the hull planks, the grey sea-light coming in. Through it, a mile off: Crownskull Isle. Your island."
+     ],
+     "else": [
+      "A crack between two hull planks where the sea-light comes in, grey and cold. Ned's been looking through it all morning."
+     ]
+    }
+   ]
+  }
+ ],
+ "p9.inspect.bunk": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "Your bunk. Above it, the highest hammock in the barracks, empty now, still sagging in the shape of him. It'll sag like that for weeks.",
+  {
+   "if": {
+    "flag": "p9_landed"
+   },
+   "then": [
+    "It smells of him, too. It'll smell of him for longer."
+   ]
+  }
+ ],
+ "p9.inspect.board": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "if": {
+    "flag": "landing_plan_made"
+   },
+   "then": [
+    {
+     "insert": "petes_plan",
+     "caption": "Pete's plan. Eight steps. It's good. He's still furious about it."
+    }
+   ],
+   "else": [
+    {
+     "if": {
+      "flag": "p9_council"
+     },
+     "then": [
+      {
+       "insert": "crownskull_treasure_map",
+       "caption": "The Crimson Chart, pinned up for the council."
+      }
+     ],
+     "else": [
+      {
+       "if": {
+        "flag": "p9_org_chart_seen"
+       },
+       "then": [
+        {
+         "insert": "sash_org_chart",
+         "caption": "The Grand Stenchmaster Sash: Organisation. The Senior Flutter Observer stands fifteen feet away."
+        }
+       ],
+       "else": [
+        "A board. Nothing on it yet. The Grand Stenchmaster keeps looking at it, the way a man looks at an empty plate."
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "p9.deck.boat": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "The ship's boat, in its falls. Over the side, a long stone's throw off, the reef; past it, Crownskull Isle.",
+  {
+   "choice": [
+    {
+     "text": "Row across to Crownskull Isle",
+     "then": [
+      {
+       "sfx": "rope_haul",
+       "volume": 0.6
+      },
+      {
+       "sfx": "oar_stroke",
+       "volume": 0.6
+      },
+      {
+       "transition": "crownskull_isle",
+       "spawn": "from_ship",
+       "fade": 700
+      }
+     ]
+    },
+    {
+     "text": "Stay aboard",
+     "then": [
+      "You stay aboard. The island will keep. The sharks wearing your gold will keep. Probably."
+     ]
+    }
+   ]
+  }
+ ],
+ "p9.isle.boat": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  {
+   "if": {
+    "flag": "p9_complete"
+   },
+   "then": [
+    "The boats, pulled up on the sand. Offshore, the Revenge rides at anchor on the lee side, where Hale is keeping her off the reef.",
+    {
+     "choice": [
+      {
+       "text": "Row back to the Revenge",
+       "then": [
+        {
+         "sfx": "oar_stroke",
+         "volume": 0.6
+        },
+        {
+         "sfx": "splash",
+         "volume": 0.4
+        },
+        {
+         "transition": "main_deck",
+         "x": 6,
+         "y": 13,
+         "facing": "right",
+         "fade": 700
+        }
+       ]
+      },
+      {
+       "text": "Stay on the island",
+       "then": [
+        "You stay. It's your island. Even now."
+       ]
+      }
+     ]
+    }
+   ],
+   "else": [
+    "The boats, pulled up on the sand, still wet. Not yet. Not without the treasure."
+   ]
+  }
+ ],
+ "p9.isle.marker_vines": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "A hump under a thick green blanket of vines, about as tall as Bob. Stone, by the feel of it."
+ ],
+ "p9.isle.marker": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "insert": "crimson_inscription",
+   "caption": "THE FORTUNE OF THE CRIMSON KINGS. Beneath seven floors. Let him who would have it dig."
+  }
+ ],
+ "p9.isle.tools": [
+  "The tools: shovels, the pick, the crowbar, a lantern, a bucket. And, for a while, the Grand Stenchmaster, sitting on them."
+ ],
+ "p9.isle.hole": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "if": {
+    "var": {
+     "name": "dig_layer",
+     "gte": 3
+    }
+   },
+   "then": [
+    "Three floors down. Four to go. Days."
+   ],
+   "else": [
+    "The dig. The X, pegged out with string, and as much hole under it as you've dug."
+   ]
+  }
+ ],
+ "p9.isle.shelter": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "if": {
+    "flag": "grand_excavation_blast"
+   },
+   "then": [
+    "The shelter. The stone in the corner held. The brace held. The beam held. The wet cloth is still dripping. It was very comforting."
+   ],
+   "else": [
+    "The shelter: the old corner room, a stone in the gap, a brace on the wall, a beam for a roof, a wet cloth over the door. Emotionally useful."
+   ]
+  }
+ ],
+ "p9.isle.crater": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The crater. Seven floors deep and then some, where the Crimson Clearing used to be. The trees lie round it in a ring, all pointing away. It still smells. It'll smell for years.",
+  {
+   "if": {
+    "flag": "p9_complete"
+   },
+   "then": [
+    "At the bottom, the cracks still glint here and there. Every glint reeks."
+   ]
+  }
+ ],
+ "p9.isle.megalodon": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  {
+   "if": {
+    "flag": "megalodon_crowned"
+   },
+   "then": [
+    "The megalodon, stranded across the lagoon, breathing slowly. On its head, crooked, glittering: the Crimson King's Crown.",
+    "It looks at you. It doesn't blink. Sharks can't.",
+    {
+     "if": {
+      "flag": "p9_complete"
+     },
+     "then": [
+      "One day, that crown is coming off. Not today. You haven't got a ladder long enough, or a plan."
+     ]
+    }
+   ],
+   "else": [
+    "The megalodon, stranded across the lagoon, too big to turn round, too stuck to leave. Grey, vast, breathing slowly."
+   ]
+  }
+ ],
+ "p9.isle.lagoon": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "A lagoon, round and green and quiet, with a narrow mouth to the sea. Little fish. Calm water. The kind of place nothing big could ever get into."
+ ],
+ "p9.isle.view": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "A post with an old spyglass bracket on it, green with salt. Somebody stood here, a long time ago, and kept watch.",
+  {
+   "vista": "ridge_view",
+   "fade": 500
+  },
+  {
+   "if": {
+    "flag": "great_sharkstorm_treasure_laden"
+   },
+   "then": [
+    "Out on the sea: the Revenge at anchor, small, patched, off the reef. And standing off the coast, the Great Sharkstorm, going round and round. Every so often something in it flashes gold."
+   ],
+   "else": [
+    "Out on the sea: the Revenge at anchor, small, patched, off the reef. And standing off the coast, the Great Sharkstorm, going round and round, waiting."
+   ]
+  },
+  {
+   "vistaEnd": true,
+   "fade": 500
+  },
+  {
+   "setFlag": "p9_view_seen"
+  }
+ ],
+ "p9.isle.river": [
+  "The river, clear and quick over pale stones. Little silver fish. Bob says they nibble. Bob has been in it."
+ ],
+ "p9.isle.reef": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "The reef, white with surf, all along the coast. Beyond it, the sea, which is mostly fins."
+ ],
+ "p9.isle.west_sea": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  {
+   "if": {
+    "flag": "great_sharkstorm_treasure_laden"
+   },
+   "then": [
+    "The sea off the western beach. Somewhere out there the storm's glittering."
+   ],
+   "else": [
+    "The sea off the western beach, open and grey to the horizon."
+   ]
+  }
+ ],
+ "p9.isle.ruin_wall": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The ruins' old north wall, thick as a man is long, carved all over with crowns and skulls and little piles of coins. Whoever built this place really liked money."
+ ]
+}

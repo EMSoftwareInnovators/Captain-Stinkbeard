@@ -1,0 +1,395 @@
+{
+ "garrick_history": {
+  "title": "Garrick's History of the Grand Stenchmaster Sash",
+  "menuLabel": "Sash History",
+  "keeper": "garrick",
+  "byline": "<k>Claims by</> the Grand Stenchmaster. <k>Notes by</> the Captain.",
+  "icon": "ledger",
+  "if": {
+   "flag": "p9_heard_sacred_stench"
+  },
+  "fields": [
+   {
+    "id": "claim",
+    "label": "Claim"
+   },
+   {
+    "id": "source",
+    "label": "Source"
+   },
+   {
+    "id": "evidence",
+    "label": "Evidence"
+   },
+   {
+    "id": "reliability",
+    "label": "Reliability",
+    "scale": true
+   },
+   {
+    "id": "note",
+    "label": "Captain's note",
+    "quote": true
+   }
+  ],
+  "severities": {
+   "Verified": "g",
+   "Admitted": "g",
+   "Questionable": "y",
+   "Extremely questionable": "o",
+   "None whatsoever": "r",
+   "Disproved": "r"
+  },
+  "entries": [
+   {
+    "id": "verified",
+    "title": "VERIFIED HISTORY",
+    "if": {
+     "flag": "p9_heard_sacred_stench"
+    },
+    "claim": "Everything below this line is the Grand Stenchmaster's claim. Nothing in it has been verified by anyone, ever.",
+    "source": "(none)",
+    "evidence": "(none)",
+    "reliability": "Verified",
+    "note": "This is the only true entry. It's this one."
+   },
+   {
+    "id": "sacred",
+    "title": "The Sacred Stench",
+    "if": {
+     "flag": "p9_heard_sacred_stench"
+    },
+    "claim": "Since the dawn of time the Grand Stenchmasters have guarded THE SACRED STENCH. Six duties: eating, sleeping, resting, farting, ceremonial seat warming, sash preservation.",
+    "source": "Garrick",
+    "evidence": "None",
+    "reliability": "Extremely questionable",
+    "note": "Resting and sleeping are the same thing. He says resting is sleeping with your eyes open. Gristle did that all night. He didn't enjoy it."
+   },
+   {
+    "id": "age",
+    "title": "The Age of the Office",
+    "if": {
+     "flag": "p9_heard_sacred_stench"
+    },
+    "claim": "At least a thousand years. (Yesterday: centuries.) Tapestries: lost. Statues: destroyed. Written records: missing. Archaeological evidence: 'very private'.",
+    "source": "Garrick",
+    "evidence": "Lost, destroyed, missing, private",
+    "reliability": "None whatsoever",
+    "note": "Convenient."
+   },
+   {
+    "id": "stenchalina",
+    "title": "Princess Stenchalina the First",
+    "if": {
+     "flag": "princess_stenchalina_heard"
+    },
+    "claim": "The first Grand Stenchmaster: an infant princess. The first Royal Waft shook the palace; her diaper and little royal trousers flew across the nursery; a yellow cloud; servants panicking. The disaster: her ceremonial ribbon FLUTTERED.",
+    "source": "Garrick",
+    "evidence": "None",
+    "reliability": "Extremely questionable",
+    "note": "He made this up this morning."
+   },
+   {
+    "id": "bearers",
+    "title": "The Sacred Sash Bearers",
+    "if": {
+     "flag": "sash_bearer_origin_heard"
+    },
+    "claim": "The royal council decreed that a Grand Stenchmaster's ceremonial fabric must never flap during a major Waft: two attendants hold the sash during a release.",
+    "source": "Garrick",
+    "evidence": "None",
+    "reliability": "Extremely questionable",
+    "note": "His own made-up history says it's a fart sash. (Pete.)"
+   },
+   {
+    "id": "treasures",
+    "title": "The Five Grand Treasures",
+    "if": {
+     "flag": "five_grand_treasures_heard"
+    },
+    "claim": "I. The Grand Crown ('reconstructed from historical descriptions'). II. The Sacred Seat. III. The Grand Eating Bowl. IV. The Stenchmaster Entertainment System ('spiritually'). V. The Grand Sash ('descended through generations').",
+    "source": "Garrick",
+    "evidence": "The crown was made yesterday out of Jim's forks. The seat is the galley chair. The bowl is Jim's mixing bowl. The television is a television.",
+    "reliability": "None whatsoever",
+    "note": "Jim wants his bowl back. Jim wants it back un-grand."
+   },
+   {
+    "id": "masters",
+    "title": "The Grand Stenchmasters of Old",
+    "if": {
+     "flag": "former_stenchmasters_heard"
+    },
+    "claim": "Sir Stenchalot the Flatulent. Lady Windbottom the Mighty. Grand Duke Gassius the Loud. Admiral Rumpus Thunderpants.",
+    "source": "Garrick (crayon portraits)",
+    "evidence": "The portraits all have his moustache",
+    "reliability": "Extremely questionable",
+    "note": "'Strong family resemblance.'"
+   },
+   {
+    "id": "winds",
+    "title": "The Battle of the Seven Winds",
+    "if": {
+     "flag": "former_stenchmasters_heard"
+    },
+    "claim": "Admiral Thunderpants, in the Grand Sash, faced seven ships. His blast turned six of them round. The seventh sank from embarrassment.",
+    "source": "Garrick",
+    "evidence": "'It went red. Then it went down.'",
+    "reliability": "None whatsoever",
+    "note": "Ships don't blush. (Ned, forty years at sea.)"
+   },
+   {
+    "id": "sash",
+    "title": "The Grand Stenchmaster Sash",
+    "if": {
+     "flag": "sash_origin_confrontation"
+    },
+    "claim": "Ancient. Descended through generations. A sacred ceremonial textile.",
+    "source": "Garrick (awake)",
+    "evidence": "A CLEARANCE sticker inside the hem. His own words, asleep: a sketchy discount shop; LAST WEEK; seventy per cent off; cash only; no refunds. Witnesses: Pete, Gristle, Bob, Squawks. No receipt.",
+    "reliability": "Disproved",
+    "note": "NO RECEIPT.",
+    "variants": [
+     {
+      "if": {
+       "flag": "p9_spiritual_age"
+      },
+      "claim": "Ancient. Descended through generations. (Revised: bought last week MATERIALLY; ancient SYMBOLICALLY; survived a thousand years EMOTIONALLY; previous owners: historical re-enactment.)",
+      "note": "NO RECEIPT. He's changing what words mean. Ned says he's changing what TIME means."
+     }
+    ]
+   },
+   {
+    "id": "purpose",
+    "title": "What the Sash Is For",
+    "if": {
+     "flag": "p9_spiritual_age"
+    },
+    "claim": "'It's so somebody can hold it while I fart.' Later, in plain words: 'I want somebody to hold the sash so it doesn't flutter while I fart.'",
+    "source": "Garrick, without thinking",
+    "evidence": "He said it. Twice.",
+    "reliability": "Admitted",
+    "note": "FART SASH. (Garrick: STENCHMASTER SASH.)"
+   },
+   {
+    "id": "lost_fart",
+    "title": "The Lost Fart (third attempt)",
+    "if": {
+     "flag": "lost_fart_attempt_three"
+    },
+    "claim": "THE GRAND EXPEDITION FOR THE LOST FART: ancient ruins, ten thousand years, stench spirits.",
+    "source": "Garrick, in Bob's explorer's helmet",
+    "evidence": "A discount store. Seven days. Bargain-bin employees.",
+    "reliability": "None whatsoever",
+    "note": "The hat is back in the trunk. I sat on the lid."
+   },
+   {
+    "id": "titles",
+    "title": "The Sash Organisation",
+    "if": {
+     "flag": "sash_bureaucracy_titles"
+    },
+    "claim": "The Grand Stenchmaster's Grand Stenchmaster Sash's Grand Assistant (Bob: resigned in advance). The Grand Steward of the Grand Stenchmaster's Grand Sash. The Deputy Grand Sash Steward. The Acting Assistant Deputy Grand Steward of Stenchmaster Textiles. The Emergency Sash Technician. The Senior Flutter Observer (fifteen feet away, for safety). The Ceremonial Sash Herald (Squawks: no job).",
+    "source": "Garrick (an organisation chart, in crayon)",
+    "evidence": "None of these jobs exist",
+    "reliability": "None whatsoever",
+    "note": "The only safe job is the one fifteen feet away from the job. (Ned.) I KNEW IT. (Bob.)"
+   },
+   {
+    "id": "excavation",
+    "title": "Stenchmaster Excavation Technology",
+    "if": {
+     "flag": "excavation_proposal_rejected"
+    },
+    "claim": "Stand over the hole and release: the sand goes elsewhere, the clay goes elsewhere, the rocks go VERY elsewhere. The treasure 'hopefully stays'.",
+    "source": "Garrick",
+    "evidence": "Proposed. Rejected. Happened anyway.",
+    "reliability": "Questionable",
+    "note": "NO.",
+    "variants": [
+     {
+      "if": {
+       "flag": "fortune_scattered"
+      },
+      "evidence": "The treasure did not stay. The treasure went VERY elsewhere: up the column, into the Great Sharkstorm.",
+      "reliability": "Disproved",
+      "note": "'Vertical relocation.' The treasure is no longer underground, he says. It's in the SKY."
+     }
+    ]
+   }
+  ]
+ },
+ "captains_journal": {
+  "title": "The Captain's Journal",
+  "menuLabel": "Journal",
+  "byline": "<k>Kept by</> the Captain",
+  "icon": "chart",
+  "if": {
+   "flag": "crownskull_discovered"
+  },
+  "viewLabel": "Look at it",
+  "fields": [
+   {
+    "id": "status",
+    "label": "Status",
+    "scale": true
+   },
+   {
+    "id": "where",
+    "label": "Where"
+   },
+   {
+    "id": "holder",
+    "label": "Held by"
+   },
+   {
+    "id": "notes",
+    "label": "Notes",
+    "quote": true
+   }
+  ],
+  "severities": {
+   "Discovered": "g",
+   "Landed": "g",
+   "Located": "g",
+   "Exposed": "y",
+   "SCATTERED INTO THE GREAT SHARKSTORM": "r",
+   "Unwanted": "o",
+   "Alive. Stranded. Crowned.": "r",
+   "Alive. Stranded.": "o",
+   "Following": "o",
+   "Offshore": "o",
+   "Inland": "r",
+   "TREASURE-LADEN": "r"
+  },
+  "entries": [
+   {
+    "id": "crownskull",
+    "title": "Crownskull Isle",
+    "if": {
+     "flag": "crownskull_discovered"
+    },
+    "insert": "crownskull_treasure_map",
+    "caption": "The Crimson Chart: Crownskull Isle, and its X.",
+    "status": "Discovered",
+    "where": "A mile off the Revenge, on the map at last",
+    "holder": "Nobody",
+    "notes": "Pale beach, reefs, jungle, a river, cliffs, ruins, and the ridge: a skull with a crown on. The island on my map. MY island.",
+    "variants": [
+     {
+      "if": {
+       "flag": "p9_landed"
+      },
+      "status": "Landed",
+      "where": "Lee side, south beach (the boats)",
+      "notes": "Pale beach, reefs, jungle, a river with a ford, a broken tooth, a statue, ruins, a lagoon, a ridge like a crowned skull. Landed by Pete's plan, which was good. He's still furious about it."
+     }
+    ]
+   },
+   {
+    "id": "fortune",
+    "title": "The Fortune of the Crimson Kings",
+    "if": {
+     "flag": "crimson_fortune_found"
+    },
+    "insert": "crimson_inscription",
+    "caption": "The marker: THE FORTUNE OF THE CRIMSON KINGS.",
+    "status": "Located",
+    "where": "The Crimson Clearing, under the skull. Beneath seven floors.",
+    "holder": "The ground",
+    "notes": "Twelve royal gold crowns. Chests of doubloons. Rubies. Emerald necklaces. Silver bars. Pearls. Diamonds. The plate and sceptres of six kings. And the Crimson King's Crown.",
+    "variants": [
+     {
+      "if": {
+       "flag": "fortune_scattered"
+      },
+      "status": "SCATTERED INTO THE GREAT SHARKSTORM",
+      "where": "Up. In the storm. On the sharks.",
+      "holder": "The Great Sharkstorm; the sharks (pearls, chains, a tiara, rings); the crowned megalodon",
+      "notes": "Found. Dug. Exposed. Blown up a column of the Grand Stenchmaster's release into the Great Sharkstorm. Recovered: about two per cent, out of the crater, and it reeks. Known major object: the Crimson King's Crown. Current holder: THE CROWNED MEGALODON. We are going to get it ALL back."
+     }
+    ]
+   },
+   {
+    "id": "sharkmaster",
+    "title": "The Grand Sharkmaster",
+    "if": {
+     "flag": "pete_mock_title_grand_sharkmaster"
+    },
+    "insert": "sharkmaster_paper",
+    "caption": "GRAND SHARKMASTER = PETE. (A copy. Pete tore up the first one.)",
+    "status": "Unwanted",
+    "where": "Wherever Pete is",
+    "holder": "Peg-Leg Pete (unwillingly)",
+    "notes": "Appointed: Peg-Leg Pete. Accepted: No. Authority: None. Duties: apparently every shark problem Garrick doesn't want. Pete's note: 'I QUIT.' Garrick's note: 'Request denied.' (A title, not a job. Pete is still a deckhand.)"
+   },
+   {
+    "id": "blue_sash",
+    "title": "The Blue Sash",
+    "if": {
+     "flag": "blue_sash_exists"
+    },
+    "status": "Unwanted",
+    "where": "Pete's back pocket, mostly",
+    "holder": "Pete, against his will",
+    "notes": "The other half of the discount two-pack. Sky blue, GRAND SHARKMASTER painted on in white. Thrown on the floor, stuffed in the water barrel, dropped in the bilge. It keeps coming back."
+   },
+   {
+    "id": "megalodon",
+    "title": "The Megalodon",
+    "if": {
+     "flag": "megalodon_introduced"
+    },
+    "status": "Alive. Stranded.",
+    "where": "The lagoon on Crownskull Isle, west of the ruins",
+    "holder": "",
+    "notes": "Thrown out of the Great Sharkstorm after the Grand Excavation. The biggest shark there has ever been. Too big for the lagoon; too stuck to leave.",
+    "variants": [
+     {
+      "if": {
+       "flag": "megalodon_crowned"
+      },
+      "status": "Alive. Stranded. Crowned.",
+      "holder": "The Crimson King's Crown (on its head)",
+      "notes": "Thrown out of the Great Sharkstorm after the Grand Excavation. Too big for the lagoon; too stuck to leave. The Crimson King's Crown fell out of the storm and landed on its head, crooked. A perfect fit. Squawks: 'Big shark king.' No."
+     }
+    ]
+   },
+   {
+    "id": "storm",
+    "title": "The Great Sharkstorm",
+    "if": {
+     "flag": "crownskull_isle_sighted"
+    },
+    "status": "Following",
+    "where": "Behind the Revenge",
+    "holder": "",
+    "notes": "Weaker than at its worst. Still turning. Still throwing sharks. It followed us all the way to the island. 'Strong scent.'",
+    "variants": [
+     {
+      "if": {
+       "flag": "great_sharkstorm_treasure_laden"
+      },
+      "status": "TREASURE-LADEN",
+      "where": "Off the coast of Crownskull Isle",
+      "holder": "Most of the Crimson Fortune",
+      "notes": "It came inland after the Grand Excavation, dropped great whites on the island, threw a megalodon into the lagoon, and swallowed the Crimson Fortune. Now it glitters. The sharks going round in it are wearing my treasure. One of them winked."
+     },
+     {
+      "if": {
+       "flag": "great_sharkstorm_inland"
+      },
+      "status": "Inland",
+      "where": "Over Crownskull Isle"
+     },
+     {
+      "if": {
+       "flag": "p9_ch62_started"
+      },
+      "status": "Offshore",
+      "where": "Off Crownskull Isle's coast (the cliffs keep it out)"
+     }
+    ]
+   }
+  ]
+ }
+}

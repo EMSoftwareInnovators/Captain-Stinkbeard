@@ -1,0 +1,464 @@
+{
+ "id": "reef_passage",
+ "name": "The Reef Passage",
+ "tileset": "island",
+ "background": "ocean",
+ "//": "Story Phase 9: the rowboat landing. The captain is in the boat (playerVehicle: the top-down rowboat); Squawks in the bow, Pete and Gristle at the oars of the boat behind. Four reef banks, a gap in each, zigzagging; the lure has pulled most of the sharks off east, and the decoy drew the rest round the far side. Storm sharks come down in the channel now and then (marked first); the wave pushes the boat back. Row to the beach.",
+ "music": "landing_tension",
+ "ambience": "surf",
+ "playerVehicle": "rowboat_top",
+ "legend": {
+  "~": "sea",
+  "-": "lane",
+  "%": "reef",
+  ".": "sand",
+  "R": "rock"
+ },
+ "tiles": [
+  "......................",
+  "...R.............R....",
+  "...........--.........",
+  "~~------------------~~",
+  "~~------------------~~",
+  "~~------------------~~",
+  "~~------------------~~",
+  "~~------------%%----~~",
+  "~~---%%--------%----~~",
+  "~~------------------~~",
+  "~~--------%---------~~",
+  "~~-%--------------%-~~",
+  "~~------------------~~",
+  "~~-%%%-------%%--%%%~~",
+  "~~%%%%%-----%%%%%%%%~~",
+  "~~%%%%%-----%%%%%%%%~~",
+  "~~%%%%%-----%%%%%%%%~~",
+  "~~%%%%%-----%%%%%%%%~~",
+  "~~%%%%%-----%%%%%%%%~~",
+  "~~------------------~~",
+  "~~------------------~~",
+  "~~------------------~~",
+  "~~%%%%%%%%%%-----%%%~~",
+  "~~%%%%%%%%%%-----%%%~~",
+  "~~%%%%%%%%%%-----%%%~~",
+  "~~%%%%%%%%%%-----%%%~~",
+  "~~%%%%%%%%%%-----%%%~~",
+  "~~------------------~~",
+  "~~------------------~~",
+  "~~-----------------%~~",
+  "~~%%%----%%%%%%%%%%%~~",
+  "~~%%%----%%%%%%%%%%%~~",
+  "~~%%%----%%%%%%%%%%%~~",
+  "~~%%%----%%%%%%%%%%%~~",
+  "~~%%%----%%%%%%%%%%%~~",
+  "~~---------%%-------~~",
+  "~~------------------~~",
+  "~~------------------~~",
+  "~~%%%%%%%%-----%%%%%~~",
+  "~~%%%%%%%%-----%%%%%~~",
+  "~~%%%%%%%%-----%%%%%~~",
+  "~~%%%%%%%%-----%%%%%~~",
+  "~~--%%%----------%%%~~",
+  "~~------------------~~",
+  "~~------------------~~",
+  "~~------------------~~",
+  "~~------------------~~",
+  "~~------------------~~",
+  "~~------------------~~",
+  "~~------------------~~"
+ ],
+ "props": [
+  {
+   "prop": "decoy_boat",
+   "x": 3,
+   "y": 45,
+   "id": "p9_decoy_drifting"
+  },
+  {
+   "prop": "lure_timber",
+   "x": 17,
+   "y": 28,
+   "id": "p9_lure_floating"
+  }
+ ],
+ "ambient": [
+  {
+   "kind": "fins",
+   "x": 4,
+   "y": 45,
+   "rx": 2.6,
+   "ry": 1.6,
+   "count": 4,
+   "speed": 0.9
+  },
+  {
+   "kind": "fins",
+   "x": 18,
+   "y": 28,
+   "rx": 2.4,
+   "ry": 2.2,
+   "count": 5,
+   "speed": 1.1
+  },
+  {
+   "kind": "fins",
+   "x": 4,
+   "y": 20,
+   "rx": 1.6,
+   "ry": 1.2,
+   "count": 2,
+   "speed": 0.7
+  },
+  {
+   "kind": "gulls"
+  }
+ ],
+ "objects": [
+  {
+   "id": "from_ship",
+   "type": "spawn",
+   "x": 11,
+   "y": 47,
+   "facing": "up"
+  },
+  {
+   "id": "beach",
+   "type": "spawn",
+   "x": 10,
+   "y": 4,
+   "facing": "up"
+  },
+  {
+   "id": "p9_shore_2",
+   "type": "trigger",
+   "x": 2,
+   "y": 3,
+   "script": "p9c8.shore",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_landed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9_shore_3",
+   "type": "trigger",
+   "x": 3,
+   "y": 3,
+   "script": "p9c8.shore",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_landed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9_shore_4",
+   "type": "trigger",
+   "x": 4,
+   "y": 3,
+   "script": "p9c8.shore",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_landed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9_shore_5",
+   "type": "trigger",
+   "x": 5,
+   "y": 3,
+   "script": "p9c8.shore",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_landed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9_shore_6",
+   "type": "trigger",
+   "x": 6,
+   "y": 3,
+   "script": "p9c8.shore",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_landed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9_shore_7",
+   "type": "trigger",
+   "x": 7,
+   "y": 3,
+   "script": "p9c8.shore",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_landed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9_shore_8",
+   "type": "trigger",
+   "x": 8,
+   "y": 3,
+   "script": "p9c8.shore",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_landed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9_shore_9",
+   "type": "trigger",
+   "x": 9,
+   "y": 3,
+   "script": "p9c8.shore",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_landed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9_shore_10",
+   "type": "trigger",
+   "x": 10,
+   "y": 3,
+   "script": "p9c8.shore",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_landed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9_shore_11",
+   "type": "trigger",
+   "x": 11,
+   "y": 3,
+   "script": "p9c8.shore",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_landed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9_shore_12",
+   "type": "trigger",
+   "x": 12,
+   "y": 3,
+   "script": "p9c8.shore",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_landed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9_shore_13",
+   "type": "trigger",
+   "x": 13,
+   "y": 3,
+   "script": "p9c8.shore",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_landed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9_shore_14",
+   "type": "trigger",
+   "x": 14,
+   "y": 3,
+   "script": "p9c8.shore",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_landed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9_shore_15",
+   "type": "trigger",
+   "x": 15,
+   "y": 3,
+   "script": "p9c8.shore",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_landed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9_shore_16",
+   "type": "trigger",
+   "x": 16,
+   "y": 3,
+   "script": "p9c8.shore",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_landed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9_shore_17",
+   "type": "trigger",
+   "x": 17,
+   "y": 3,
+   "script": "p9c8.shore",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_landed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9_shore_18",
+   "type": "trigger",
+   "x": 18,
+   "y": 3,
+   "script": "p9c8.shore",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_landed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9_shore_19",
+   "type": "trigger",
+   "x": 19,
+   "y": 3,
+   "script": "p9c8.shore",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_landed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9_back",
+   "type": "trigger",
+   "x": 11,
+   "y": 49,
+   "script": "p9c8.no_turning_back",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_landed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9_decoy_look",
+   "type": "inspect",
+   "x": 4,
+   "y": 44,
+   "w": 3,
+   "text": [
+    "The decoy boat, empty, going round and round with half the sharks of the Great Sharkstorm escorting it. It has never been so popular."
+   ]
+  }
+ ]
+}

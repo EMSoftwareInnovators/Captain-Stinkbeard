@@ -1,0 +1,737 @@
+[
+ {
+  "id": "morning_after",
+  "title": "The Morning After",
+  "category": "main",
+  "giver": "squawks",
+  "summary": "Grey light through the hull. Everybody slept terribly. Almost everybody.",
+  "description": "The Grand Nap is over. Nobody else in the lower hull slept at all: there was a suit puffing, a crown falling, and a confession. See how the crew got through the night, then wake the one man who slept like a baby, directly over your bunk.",
+  "objectives": [
+   {
+    "id": "crew",
+    "text": "See how everyone slept (Pete, Bob in his net, Gristle in his belts, Salty Jim)",
+    "type": "event",
+    "target": "p9_morning",
+    "count": 4
+   },
+   {
+    "id": "wake",
+    "text": "Wake the Grand Stenchmaster (the hammock over your bunk)",
+    "type": "flag",
+    "target": "p9_nap_concluded",
+    "after": [
+     "crew"
+    ]
+   },
+   {
+    "id": "talk",
+    "text": "Tell him you need to talk (him)",
+    "type": "flag",
+    "target": "p9_baited",
+    "after": [
+     "wake"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 50
+  }
+ },
+ {
+  "id": "completely_authentic",
+  "title": "A Completely Authentic History",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "The captain wants to hear the history of the sash. The Grand Stenchmaster is thrilled. Everyone else can see what's happening.",
+  "description": "He's on his rug with his crayon pictures, ready to lecture. Ask him everything, and look interested. Let him tell you all of it. Then thank him. Warmly.",
+  "objectives": [
+   {
+    "id": "sacred",
+    "text": "Ask what a Grand Stenchmaster is for (him, on his rug)",
+    "type": "flag",
+    "target": "p9_heard_sacred_stench"
+   },
+   {
+    "id": "first",
+    "text": "Ask who wore the sash first (him)",
+    "type": "flag",
+    "target": "princess_stenchalina_heard"
+   },
+   {
+    "id": "treasures",
+    "text": "Ask about the treasures of the office (him)",
+    "type": "flag",
+    "target": "five_grand_treasures_heard"
+   },
+   {
+    "id": "masters",
+    "text": "Ask about the great Stenchmasters of old (him)",
+    "type": "flag",
+    "target": "former_stenchmasters_heard"
+   },
+   {
+    "id": "trap",
+    "text": "Thank him for a magnificent explanation (him)",
+    "type": "flag",
+    "target": "sash_origin_confrontation",
+    "after": [
+     "sacred",
+     "first",
+     "treasures",
+     "masters"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "no_receipt",
+  "title": "No Receipt",
+  "category": "main",
+  "giver": "pete",
+  "summary": "Seventy per cent off. Cash only. No refunds. Last week. He said it himself, in his sleep.",
+  "description": "The Grand Stenchmaster says he never said any of it. Everyone in the barracks heard him say all of it. Call your witnesses, one at a time, then put it to him.",
+  "objectives": [
+   {
+    "id": "witnesses",
+    "text": "Call your witnesses (Pete, Gristle, Bob, and Squawks)",
+    "type": "event",
+    "target": "p9_witness",
+    "count": 4
+   },
+   {
+    "id": "verdict",
+    "text": "Put it to the Grand Stenchmaster (him)",
+    "type": "flag",
+    "target": "p9_spiritual_age",
+    "after": [
+     "witnesses"
+    ]
+   },
+   {
+    "id": "hat",
+    "text": "Put the explorer's hat back in the costume trunk, where it belongs (the trunk)",
+    "type": "flag",
+    "target": "p9_hat_confiscated",
+    "after": [
+     "verdict"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "sash_bureaucracy",
+  "title": "The Grand Sash Bureaucracy",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "If nobody will hold the sash, he'll make it a job. Then several jobs. With titles.",
+  "description": "He has looked at Bob. Bob has resigned. Bob had not been appointed yet. There is going to be an organisation chart.",
+  "objectives": [
+   {
+    "id": "assistant",
+    "text": "Find out what he wants with Bob (Bob)",
+    "type": "flag",
+    "target": "p9_bob_resigned"
+   },
+   {
+    "id": "chart",
+    "text": "Look at the organisation chart (the board by the barrels)",
+    "type": "flag",
+    "target": "p9_org_chart_seen",
+    "after": [
+     "assistant"
+    ]
+   },
+   {
+    "id": "herald",
+    "text": "Protect Squawks from employment (Squawks)",
+    "type": "flag",
+    "target": "p9_herald_refused",
+    "after": [
+     "chart"
+    ]
+   },
+   {
+    "id": "plain",
+    "text": "Make him say it in plain words (him)",
+    "type": "flag",
+    "target": "plain_language_admission",
+    "after": [
+     "herald"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "land_ho",
+  "title": "LAND!",
+  "category": "main",
+  "giver": "ned",
+  "summary": "Ned's been shouting LAND for a while. Nobody could hear him over the sash.",
+  "description": "One-Eyed Ned is at the gap in the hull planks, pointing. Through it: green, trees, cliffs, a pale beach, and a ridge shaped like a skull with a crown on.",
+  "objectives": [
+   {
+    "id": "look",
+    "text": "See what Ned's seen (the gap in the hull, by the stairs)",
+    "type": "flag",
+    "target": "crownskull_discovered"
+   },
+   {
+    "id": "map",
+    "text": "Check it against your treasure map (your sea chest, by your bunk)",
+    "type": "flag",
+    "target": "crownskull_map_unlocked",
+    "after": [
+     "look"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "landing_problem",
+  "title": "The Landing Problem",
+  "category": "main",
+  "giver": "hale",
+  "summary": "The island is a mile off. Between here and there: reefs, sharks, a damaged ship and the Great Sharkstorm.",
+  "description": "Hold a council round the map. Go through every way of getting ashore, and why each one would kill somebody.",
+  "objectives": [
+   {
+    "id": "council",
+    "text": "Call a council round the map (the board by the barrels)",
+    "type": "flag",
+    "target": "p9_council"
+   },
+   {
+    "id": "options",
+    "text": "Go through every option (the board)",
+    "type": "event",
+    "target": "p9_option",
+    "count": 6,
+    "after": [
+     "council"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 55
+  }
+ },
+ {
+  "id": "grand_sharkmaster",
+  "title": "The Grand Sharkmaster",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "There is no Grand Sharkmaster. That, says the Grand Stenchmaster, is why you're understaffed.",
+  "description": "He has pointed at someone at random. It was Pete. There is a sash. It's blue. Pete's class has not changed; Pete's patience has.",
+  "objectives": [
+   {
+    "id": "appointed",
+    "text": "See who's been appointed (the Grand Stenchmaster)",
+    "type": "flag",
+    "target": "pete_mock_title_grand_sharkmaster"
+   },
+   {
+    "id": "sash",
+    "text": "Get the blue sash off Pete (Pete)",
+    "type": "flag",
+    "target": "blue_sash_refused",
+    "after": [
+     "appointed"
+    ]
+   },
+   {
+    "id": "plan",
+    "text": "Ask the Grand Sharkmaster for a landing plan (Pete)",
+    "type": "flag",
+    "target": "p9_forty_seconds",
+    "after": [
+     "sash"
+    ]
+   },
+   {
+    "id": "tv",
+    "text": "See what the Frog Tax Man's doing (the Mark II)",
+    "type": "flag",
+    "target": "p9_ftm_storm_seen",
+    "after": [
+     "plan"
+    ]
+   },
+   {
+    "id": "petes_plan",
+    "text": "Hear Pete's plan (Pete, at the board)",
+    "type": "flag",
+    "target": "landing_plan_made",
+    "after": [
+     "tv"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 65
+  }
+ },
+ {
+  "id": "lee_side_landing",
+  "title": "The Lee-Side Landing",
+  "category": "main",
+  "giver": "pete",
+  "summary": "Pete's plan, in eight steps. It's solid. Nobody is more upset about that than Pete.",
+  "description": "Bring the Revenge round to the island's lee side, south of the reef. Make everything fast. Launch an EMPTY decoy boat and watch the sharks follow it. Throw the reeking timber the other way. Then the boats, and row for the beach.",
+  "objectives": [
+   {
+    "id": "helm",
+    "text": "Bring her round, south of the reef (the helm)",
+    "type": "flag",
+    "target": "p9_helm_done"
+   },
+   {
+    "id": "lines",
+    "text": "Make the lines fast (the capstan)",
+    "type": "flag",
+    "target": "p9_lines_done"
+   },
+   {
+    "id": "decoy",
+    "text": "Ready the decoy boat. EMPTY. (the port davits)",
+    "type": "flag",
+    "target": "p9_decoy_ready"
+   },
+   {
+    "id": "window",
+    "text": "Watch the fins with Pete for a window (Pete, at the starboard rail)",
+    "type": "flag",
+    "target": "p9_window_found",
+    "after": [
+     "helm",
+     "lines",
+     "decoy"
+    ]
+   },
+   {
+    "id": "lure",
+    "text": "Throw the lure (the reeking timber, starboard side)",
+    "type": "flag",
+    "target": "p9_lure_thrown",
+    "after": [
+     "window"
+    ]
+   },
+   {
+    "id": "boats",
+    "text": "Lower the boats and row for the beach (the port davits)",
+    "type": "flag",
+    "target": "p9_landed",
+    "after": [
+     "lure"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 80
+  }
+ },
+ {
+  "id": "crownskull_isle",
+  "title": "Crownskull Isle",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "Your island. Your map. Somewhere inland, under an X, your treasure.",
+  "description": "The map says: up from the beach on the jungle trail, over the river, to the broken tooth; follow the statue's arm; and in the clearing under the skull, X. Explore as much as you like on the way.",
+  "objectives": [
+   {
+    "id": "trail",
+    "text": "Follow the jungle trail north from the beach",
+    "type": "visit",
+    "target": "isle_trail"
+   },
+   {
+    "id": "ford",
+    "text": "Cross the river at the ford",
+    "type": "visit",
+    "target": "isle_ford",
+    "after": [
+     "trail"
+    ]
+   },
+   {
+    "id": "tooth",
+    "text": "Find the broken-tooth boulder",
+    "type": "visit",
+    "target": "isle_fork",
+    "after": [
+     "ford"
+    ]
+   },
+   {
+    "id": "statue",
+    "text": "Follow the statue's arm",
+    "type": "visit",
+    "target": "isle_statue",
+    "after": [
+     "tooth"
+    ]
+   },
+   {
+    "id": "x",
+    "text": "Find the X (the clearing under the skull)",
+    "type": "visit",
+    "target": "isle_clearing",
+    "after": [
+     "statue"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "isle_curiosities",
+  "title": "Curiosities of Crownskull Isle",
+  "category": "side",
+  "giver": "ned",
+  "summary": "A whole island, and nobody's in a hurry yet.",
+  "description": "Ned wants to know what's on it. So, if you're honest, do you. The reef point, the western beach, the old ruins, the top of the ridge path, the glades off the trails.",
+  "objectives": [
+   {
+    "id": "reef",
+    "text": "The reef point (east along the beach)",
+    "type": "visit",
+    "target": "isle_reef_point"
+   },
+   {
+    "id": "west",
+    "text": "The western beach",
+    "type": "visit",
+    "target": "isle_west_beach"
+   },
+   {
+    "id": "ruins",
+    "text": "The ruins (north of the clearing)",
+    "type": "visit",
+    "target": "isle_ruins"
+   },
+   {
+    "id": "view",
+    "text": "The view from the ridge path (up the rocky slope)",
+    "type": "visit",
+    "target": "isle_view"
+   },
+   {
+    "id": "glade_ne",
+    "text": "The glade by the river, off the ridge path",
+    "type": "visit",
+    "target": "glade_ne"
+   },
+   {
+    "id": "glade_w",
+    "text": "The glade west of the jungle trail",
+    "type": "visit",
+    "target": "glade_w"
+   },
+   {
+    "id": "glade_e",
+    "text": "The glade east of the jungle trail",
+    "type": "visit",
+    "target": "glade_e"
+   }
+  ],
+  "rewards": {
+   "xp": 90,
+   "gold": 40
+  }
+ },
+ {
+  "id": "crimson_fortune",
+  "title": "The Fortune of the Crimson Kings",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "A marker stone under the vines. A carving. An inscription. This is the place.",
+  "description": "Clear the marker. Read it. Then ask everybody what they're going to do with their share, because for one afternoon, that's a real question.",
+  "objectives": [
+   {
+    "id": "vines",
+    "text": "Cut the vines off the marker stone (the clearing)",
+    "type": "flag",
+    "target": "crimson_fortune_found"
+   },
+   {
+    "id": "dreams",
+    "text": "Ask the crew what they'll do with their share (Pete, Bob, Salty Jim, Gristle, Ned)",
+    "type": "event",
+    "target": "p9_dream",
+    "count": 5,
+    "after": [
+     "vines"
+    ]
+   },
+   {
+    "id": "squawks",
+    "text": "Ask Squawks (in your pouch: talk to yourself... well, to him)",
+    "type": "flag",
+    "target": "squawks_share_promised",
+    "after": [
+     "dreams"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "seven_floors",
+  "title": "Seven Floors Down",
+  "category": "main",
+  "giver": "gristle",
+  "summary": "The inscription says it's under seven floors. The inscription wasn't joking.",
+  "description": "Sand. Clay. Stone. Clay again. Gravel. Stone again. And at the bottom, the Miser's Floor. Pick the right tool for each layer, and dig.",
+  "objectives": [
+   {
+    "id": "tools",
+    "text": "Get the tools (the pile by the clearing's edge)",
+    "type": "flag",
+    "target": "p9_tools_fetched"
+   },
+   {
+    "id": "first",
+    "text": "Dig the first floor: loose sand (the X)",
+    "type": "flag",
+    "target": "excavation_started",
+    "after": [
+     "tools"
+    ]
+   },
+   {
+    "id": "garrick",
+    "text": "Give the Grand Stenchmaster a turn (him)",
+    "type": "flag",
+    "target": "garrick_quit_digging",
+    "after": [
+     "first"
+    ]
+   },
+   {
+    "id": "deeper",
+    "text": "Dig on (the pit)",
+    "type": "event",
+    "target": "p9_layer",
+    "count": 2,
+    "after": [
+     "garrick"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "excavation_technology",
+  "title": "Stenchmaster Excavation Technology",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "Four more floors. Days of digging. He has a proposal. It is the worst proposal.",
+  "description": "Hear him out. Then say no. Say it as many times as it takes.",
+  "objectives": [
+   {
+    "id": "proposal",
+    "text": "Hear the Grand Stenchmaster's proposal (him)",
+    "type": "flag",
+    "target": "excavation_proposal_rejected"
+   },
+   {
+    "id": "listen",
+    "text": "Listen. What is that noise? (him)",
+    "type": "flag",
+    "target": "launch_sequence_started",
+    "after": [
+     "proposal"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 50
+  }
+ },
+ {
+  "id": "run",
+  "title": "RUN",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "Launch command acknowledged. Nothing can stop it. Everybody can get out of the way.",
+  "description": "Get away from the clearing, west, to the beach. Then, when that turns out to be a terrible idea, to the ruins: walls, a roof of sorts, between the Grand Stenchmaster and the Great Sharkstorm. Make the shelter as good as you can before he goes.",
+  "objectives": [
+   {
+    "id": "west",
+    "text": "Away from him! West, to the beach (the path west from the clearing)",
+    "type": "visit",
+    "target": "isle_west_beach"
+   },
+   {
+    "id": "ruins",
+    "text": "To the ruins! (north, up the beach path to the west gate)",
+    "type": "visit",
+    "target": "isle_ruins",
+    "after": [
+     "west"
+    ]
+   },
+   {
+    "id": "stone",
+    "text": "Shift a stone block into the gap (the shelter's broken corner)",
+    "type": "flag",
+    "target": "p9_shelter_stone",
+    "after": [
+     "ruins"
+    ]
+   },
+   {
+    "id": "brace",
+    "text": "Brace the cracked wall (the shelter's east wall)",
+    "type": "flag",
+    "target": "p9_shelter_brace",
+    "after": [
+     "ruins"
+    ]
+   },
+   {
+    "id": "beam",
+    "text": "Drag the fallen beam over for a roof (the court)",
+    "type": "flag",
+    "target": "p9_shelter_beam",
+    "after": [
+     "ruins"
+    ]
+   },
+   {
+    "id": "cloth",
+    "text": "Hang a cloth over the doorway (the shelter door)",
+    "type": "flag",
+    "target": "p9_shelter_cloth",
+    "after": [
+     "ruins"
+    ]
+   },
+   {
+    "id": "squawks",
+    "text": "Put Squawks somewhere safe (inside the shelter)",
+    "type": "flag",
+    "target": "p9_squawks_sheltered",
+    "after": [
+     "stone",
+     "brace",
+     "beam",
+     "cloth"
+    ]
+   },
+   {
+    "id": "watch",
+    "text": "Watch the clearing (the gap in the south wall)",
+    "type": "flag",
+    "target": "ruins_shelter_ready",
+    "after": [
+     "squawks"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 80
+  }
+ },
+ {
+  "id": "fire_in_the_hole",
+  "title": "Fire in the Hole",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "THERE IS NO TEAM.",
+  "description": "It's happening. Then it's still happening. Then the storm smells it. Get back into the shelter alive, with sharks coming down in the yard.",
+  "objectives": [
+   {
+    "id": "survive",
+    "text": "Get back to Squawks in the shelter! (the sharks are marked before they land)",
+    "type": "flag",
+    "target": "p9_great_white_rain_survived"
+   }
+  ],
+  "rewards": {
+   "xp": 80
+  }
+ },
+ {
+  "id": "vertical_relocation",
+  "title": "Vertical Relocation",
+  "category": "main",
+  "giver": "pete",
+  "summary": "It worked. Then it kept working.",
+  "description": "The release is over. Go and look at what's left in the crater. Then look up.",
+  "objectives": [
+   {
+    "id": "crater",
+    "text": "Go and look in the crater (the clearing)",
+    "type": "flag",
+    "target": "crater_treasure_contaminated"
+   },
+   {
+    "id": "megalodon",
+    "text": "Look at the megalodon (the lagoon, west of the ruins)",
+    "type": "flag",
+    "target": "p9_crowned_seen",
+    "after": [
+     "crater"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "recover_crimson_fortune",
+  "title": "Recover the Crimson Fortune",
+  "category": "main",
+  "giver": "blackbeard",
+  "open": true,
+  "//": "Left unresolved on purpose: Story Phase 9 ends with it open. A later phase finishes it.",
+  "summary": "From the Great Sharkstorm. From the sharks. From the megalodon's head. All of it. AYE.",
+  "description": "The Fortune of the Crimson Kings was real, and found, and dug up, and then blown up a column of the Grand Stenchmaster's release into the Great Sharkstorm. Most of it is going round in the sky. Some of it is wearing a shark. The Crimson King's Crown is on a megalodon. What's left in the crater reeks. If the sharks want to act like pirates, they'll be treated like pirates.",
+  "objectives": [
+   {
+    "id": "crown",
+    "text": "Recover the Crimson King's Crown (from the crowned megalodon)",
+    "type": "flag",
+    "target": "crimson_crown_recovered"
+   },
+   {
+    "id": "sharks",
+    "text": "Retrieve the treasure the sharks are wearing",
+    "type": "flag",
+    "target": "shark_treasure_recovered"
+   },
+   {
+    "id": "storm",
+    "text": "Recover the loose treasure inside the Great Sharkstorm",
+    "type": "flag",
+    "target": "storm_treasure_recovered"
+   },
+   {
+    "id": "deal",
+    "text": "Deal with the Great Sharkstorm",
+    "type": "flag",
+    "target": "great_sharkstorm_dealt_with"
+   }
+  ]
+ }
+]

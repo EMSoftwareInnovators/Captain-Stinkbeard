@@ -171,6 +171,39 @@
      },
      { "frames": ["ftm_season_0", "ftm_season_1"], "line": "announcer: Keep your receipts! The Frog Tax Man!", "ms": 2600, "sfx": "ftm_announcer", "frameMs": 420 }
     ]
+   },
+   {
+    "id": "the_sharkstorm",
+    "//": "Story Phase 9: the excuse. Franklin's records were eaten by a shark, in a shark storm, and the Auditor does not care. Broadcast the morning the Revenge raises Crownskull Isle with the Great Sharkstorm behind it: a coincidence (the set doesn't know anything; the crew are not sure). Invented frog paperwork.",
+    "if": { "flag": "p9_started" },
+    "beats": [
+     { "frames": ["ftm_season_0", "ftm_season_1"], "line": "announcer: THE FROG TAX MAN! Tonight: THE EXCUSE.", "ms": 2600, "sfx": "ftm_horn", "frameMs": 420 },
+     { "frames": ["ftm_audit_0", "ftm_audit_1"], "line": "auditor: Mister Franklin. Your records. Where are they?", "ms": 2800, "frameMs": 500 },
+     { "frames": ["ftm_close_0"], "line": "franklin: They were eaten.", "ms": 2000, "laugh": true },
+     { "frames": ["ftm_audit_1"], "line": "auditor: Eaten.", "ms": 1800 },
+     {
+      "frames": ["ftm_eaten_0", "ftm_eaten_1"],
+      "line": "franklin: By a SHARK. I was carrying them across the pond, and a shark came up and ate every leaf.",
+      "ms": 3200,
+      "sfx": "ftm_drama",
+      "frameMs": 400
+     },
+     { "frames": ["ftm_audit_0", "ftm_audit_1"], "line": "auditor: There are no sharks in a pond, Mister Franklin.", "ms": 2600, "frameMs": 500 },
+     { "frames": ["ftm_close_1"], "line": "franklin: There are when there's a STORM.", "ms": 2400 },
+     { "frames": ["ftm_audit_0"], "line": "auditor: A storm.", "ms": 1800 },
+     {
+      "frames": ["ftm_storm_0", "ftm_storm_1"],
+      "line": "franklin: A SHARK storm! Sharks! In the sky! Going round and round! And one came down and ATE MY RECEIPTS!",
+      "ms": 3400,
+      "sfx": "ftm_drama",
+      "frameMs": 300
+     },
+     { "frames": ["ftm_audit_0", "ftm_audit_1"], "line": "auditor: ...", "ms": 1800, "frameMs": 600 },
+     { "frames": ["ftm_audit_1"], "line": "auditor: Mister Franklin. A sharkstorm is not a valid excuse for poor record-keeping.", "ms": 3200, "sfx": "ftm_sting" },
+     { "frames": ["ftm_close_0"], "line": "franklin: It ATE them!", "ms": 2000, "laugh": true },
+     { "frames": ["ftm_audit_0", "ftm_audit_1"], "line": "auditor: Then you should have kept copies. Disallowed.", "ms": 2600, "sfx": "ftm_gavel", "frameMs": 500 },
+     { "frames": ["ftm_break_0", "ftm_break_1"], "line": "announcer: The Frog Tax Man will be right back, after a word from Pond Soap!", "ms": 3000, "frameMs": 400 }
+    ]
    }
   ]
  }

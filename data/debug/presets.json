@@ -2632,5 +2632,885 @@
     "x": 16,
     "y": 15,
     "facing": "down"
+  },
+  {
+    "id": "p9_start",
+    "name": "Phase 9 Start",
+    "description": "The morning after the Grand Nap: grey light, nobody slept (except him). Starts the chapter 55 morning.",
+    "after": "p8_complete",
+    "clearFlags": [
+      "p8_lights_out"
+    ],
+    "map": "cargo_hold",
+    "x": 15,
+    "y": 15,
+    "facing": "down",
+    "script": "p9c1.begin"
+  },
+  {
+    "id": "p9_morning_after",
+    "name": "Morning After Grand Nap",
+    "description": "Everyone's checked on (rope, a waffle, nine hundred and twelve snores, the butter). Wake him (the hammock over your bunk).",
+    "after": "p8_complete",
+    "flags": [
+      "p9_started",
+      "p9_morning_pete",
+      "p9_morning_bob",
+      "p9_morning_gristle",
+      "p9_morning_jim"
+    ],
+    "clearFlags": [
+      "p8_lights_out"
+    ],
+    "vars": {
+      "p4_tod": 15
+    },
+    "values": {
+      "great_sharkstorm": "easing_near_ship",
+      "garrick_release": "calm"
+    },
+    "quests": {
+      "morning_after": {
+        "done": [
+          "crew"
+        ]
+      }
+    },
+    "map": "cargo_hold",
+    "x": 15,
+    "y": 15,
+    "facing": "down"
+  },
+  {
+    "id": "p9_history_lesson",
+    "name": "Sash History Lesson",
+    "description": "He's on his rug with his crayon pictures. Ask him everything. Look interested.",
+    "after": "p9_morning_after",
+    "flags": [
+      "p9_nap_concluded",
+      "p9_baited",
+      "p9_ch56_started"
+    ],
+    "quests": {
+      "morning_after": "completed",
+      "completely_authentic": "active"
+    },
+    "map": "cargo_hold",
+    "x": 11,
+    "y": 13,
+    "facing": "up"
+  },
+  {
+    "id": "p9_princess_stenchalina",
+    "name": "Princess Stenchalina Story",
+    "description": "The Sacred Stench is explained (and a CLEARANCE sticker seen). Now: who wore the sash first?",
+    "after": "p9_history_lesson",
+    "flags": [
+      "p9_heard_sacred_stench",
+      "clearance_sticker_seen"
+    ],
+    "quests": {
+      "completely_authentic": {
+        "done": [
+          "sacred"
+        ]
+      }
+    },
+    "map": "cargo_hold",
+    "x": 11,
+    "y": 13,
+    "facing": "up",
+    "script": "p9c2.first"
+  },
+  {
+    "id": "p9_five_treasures",
+    "name": "Five Grand Treasures",
+    "description": "The ribbon fluttered; it's a fart sash in his own story. Now the Five Grand Treasures (Jim's bowl among them).",
+    "after": "p9_princess_stenchalina",
+    "flags": [
+      "princess_stenchalina_heard",
+      "sash_bearer_origin_heard"
+    ],
+    "quests": {
+      "completely_authentic": {
+        "done": [
+          "sacred",
+          "first"
+        ]
+      }
+    },
+    "map": "cargo_hold",
+    "x": 11,
+    "y": 13,
+    "facing": "up",
+    "script": "p9c2.treasures"
+  },
+  {
+    "id": "p9_discount_confrontation",
+    "name": "Discount Sash Confrontation",
+    "description": "All of it heard, Admiral Thunderpants included. Thank him. Warmly. Then the discount bin.",
+    "after": "p9_five_treasures",
+    "flags": [
+      "five_grand_treasures_heard",
+      "former_stenchmasters_heard"
+    ],
+    "quests": {
+      "completely_authentic": {
+        "done": [
+          "sacred",
+          "first",
+          "treasures",
+          "masters"
+        ]
+      }
+    },
+    "map": "cargo_hold",
+    "x": 11,
+    "y": 13,
+    "facing": "up",
+    "script": "p9c2.trap"
+  },
+  {
+    "id": "p9_lost_fart_three",
+    "name": "Lost Fart Attempt Three",
+    "description": "The witnesses have spoken. NO RECEIPT. Spiritual age; the plain purpose; the explorer's hat (attempt three).",
+    "after": "p9_discount_confrontation",
+    "flags": [
+      "sash_origin_confrontation",
+      "p9_trap_sprung",
+      "p9_ch57_started",
+      "p9_witness_pete",
+      "p9_witness_gristle",
+      "p9_witness_bob",
+      "p9_witness_squawks"
+    ],
+    "quests": {
+      "completely_authentic": "completed",
+      "no_receipt": {
+        "done": [
+          "witnesses"
+        ]
+      }
+    },
+    "map": "cargo_hold",
+    "x": 11,
+    "y": 13,
+    "facing": "up",
+    "script": "p9c3.verdict"
+  },
+  {
+    "id": "p9_sash_bureaucracy",
+    "name": "Sash Bureaucracy",
+    "description": "The hat's in the trunk. He's looking at Bob (by the mast). Bob resigns first.",
+    "after": "p9_lost_fart_three",
+    "flags": [
+      "p9_spiritual_age",
+      "lost_fart_attempt_three",
+      "p9_hat_grabbed",
+      "p9_hat_confiscated",
+      "p9_ch58_started"
+    ],
+    "quests": {
+      "no_receipt": "completed",
+      "sash_bureaucracy": "active"
+    },
+    "map": "cargo_hold",
+    "x": 9,
+    "y": 12,
+    "facing": "left"
+  },
+  {
+    "id": "p9_plain_language",
+    "name": "Plain-Language Admission",
+    "description": "Titles, a second title, the org chart, a Herald refused. Make him say it plainly. (Then: LAND.)",
+    "after": "p9_sash_bureaucracy",
+    "flags": [
+      "p9_bob_resigned",
+      "bob_refused_assistant",
+      "sash_bureaucracy_titles",
+      "p9_org_chart_seen",
+      "p9_herald_refused"
+    ],
+    "quests": {
+      "sash_bureaucracy": {
+        "done": [
+          "assistant",
+          "chart",
+          "herald"
+        ]
+      }
+    },
+    "map": "cargo_hold",
+    "x": 10,
+    "y": 12,
+    "facing": "right",
+    "script": "p9c4.plain"
+  },
+  {
+    "id": "p9_land_sighted",
+    "name": "Land Sighted",
+    "description": "FART SASH HOLDER. LAAAAND. Ned's at the gap in the hull by the stairs.",
+    "after": "p9_plain_language",
+    "flags": [
+      "plain_language_admission",
+      "p9_ch59_started"
+    ],
+    "quests": {
+      "sash_bureaucracy": "completed",
+      "land_ho": "active"
+    },
+    "map": "cargo_hold",
+    "x": 6,
+    "y": 5,
+    "facing": "up"
+  },
+  {
+    "id": "p9_crownskull_reveal",
+    "name": "Crownskull Isle Reveal",
+    "description": "A pale beach, reefs, jungle, cliffs, a ridge like a crowned skull. Hold your map up to it.",
+    "after": "p9_land_sighted",
+    "flags": [
+      "crownskull_discovered"
+    ],
+    "quests": {
+      "land_ho": {
+        "done": [
+          "look"
+        ]
+      }
+    },
+    "items": [
+      "crimson_chart"
+    ],
+    "map": "cargo_hold",
+    "x": 6,
+    "y": 4,
+    "facing": "up",
+    "script": "p9c5.map"
+  },
+  {
+    "id": "p9_landing_strategy",
+    "name": "Landing Strategy",
+    "description": "MY treasure; it followed us ('Strong scent'). Council round the map (the board by the barrels).",
+    "after": "p9_crownskull_reveal",
+    "flags": [
+      "crownskull_map_unlocked",
+      "crownskull_isle_sighted",
+      "p9_ch60_started"
+    ],
+    "values": {
+      "great_sharkstorm": "following_crownskull"
+    },
+    "quests": {
+      "land_ho": "completed",
+      "landing_problem": "active"
+    },
+    "map": "cargo_hold",
+    "x": 6,
+    "y": 11,
+    "facing": "up"
+  },
+  {
+    "id": "p9_grand_sharkmaster",
+    "name": "Grand Sharkmaster Appointment",
+    "description": "Six ways ashore, six ways to die. A Grand Nap requested; a Grand Sharkmaster revived. Who gets pointed at?",
+    "after": "p9_landing_strategy",
+    "flags": [
+      "p9_council",
+      "p9_opt_beach",
+      "p9_opt_row",
+      "p9_opt_swim",
+      "p9_opt_circle",
+      "p9_opt_wait",
+      "p9_opt_lure",
+      "grand_sharkmaster_revived"
+    ],
+    "quests": {
+      "landing_problem": "completed"
+    },
+    "map": "cargo_hold",
+    "x": 6,
+    "y": 11,
+    "facing": "up",
+    "script": "p9c7.begin"
+  },
+  {
+    "id": "p9_ftm_coincidence",
+    "name": "Frog Tax Man Sharkstorm Coincidence",
+    "description": "FORTY SECONDS. And the Mark II has come on by itself (the Mark II, by the rug).",
+    "after": "p9_grand_sharkmaster",
+    "flags": [
+      "p9_ch61_started",
+      "pete_mock_title_grand_sharkmaster",
+      "blue_sash_exists",
+      "blue_sash_refused",
+      "crayon_paper_torn",
+      "p9_forty_seconds"
+    ],
+    "vars": {
+      "p9_sash_tries": 2
+    },
+    "quests": {
+      "grand_sharkmaster": {
+        "done": [
+          "appointed",
+          "sash",
+          "plan"
+        ]
+      }
+    },
+    "map": "cargo_hold",
+    "x": 11,
+    "y": 12,
+    "facing": "up"
+  },
+  {
+    "id": "p9_petes_plan",
+    "name": "Pete's Landing Plan",
+    "description": "Records eaten by a shark; a shark storm; poor record-keeping. Pete has a plan, and he's furious about it.",
+    "after": "p9_ftm_coincidence",
+    "flags": [
+      "p9_ftm_storm_seen",
+      "ftm_sharkstorm_coincidence"
+    ],
+    "quests": {
+      "grand_sharkmaster": {
+        "done": [
+          "appointed",
+          "sash",
+          "plan",
+          "tv"
+        ]
+      }
+    },
+    "map": "cargo_hold",
+    "x": 7,
+    "y": 11,
+    "facing": "right",
+    "script": "p9c7.pete_plan"
+  },
+  {
+    "id": "p9_lee_side",
+    "name": "Lee-Side Approach",
+    "description": "Up on deck. Bring her round south of the reef (the helm), lines fast (the capstan), the decoy EMPTY (port davits).",
+    "after": "p9_petes_plan",
+    "flags": [
+      "landing_plan_made",
+      "p9_ch62_started"
+    ],
+    "vars": {
+      "p4_tod": 16
+    },
+    "values": {
+      "great_sharkstorm": "offshore_crownskull"
+    },
+    "quests": {
+      "grand_sharkmaster": "completed",
+      "lee_side_landing": "active"
+    },
+    "map": "main_deck",
+    "x": 10,
+    "y": 8,
+    "facing": "up"
+  },
+  {
+    "id": "p9_decoy_boat",
+    "name": "Decoy Boat",
+    "description": "Helm, lines, decoy: done. Launch the decoy with Pete and watch the fins for a window (starboard rail).",
+    "after": "p9_lee_side",
+    "flags": [
+      "p9_helm_done",
+      "p9_lines_done",
+      "p9_decoy_ready"
+    ],
+    "quests": {
+      "lee_side_landing": {
+        "done": [
+          "helm",
+          "lines",
+          "decoy"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 14,
+    "y": 21,
+    "facing": "right"
+  },
+  {
+    "id": "p9_crownskull_landing",
+    "name": "Crownskull Landing",
+    "description": "The lure's thrown; the boats are down. Row through the reef to the beach (sharks still come down in the channel).",
+    "after": "p9_decoy_boat",
+    "flags": [
+      "p9_window_found",
+      "p9_lure_thrown",
+      "p9_rowing"
+    ],
+    "quests": {
+      "lee_side_landing": {
+        "done": [
+          "helm",
+          "lines",
+          "decoy",
+          "window",
+          "lure"
+        ]
+      }
+    },
+    "map": "reef_passage",
+    "x": 11,
+    "y": 47,
+    "facing": "up"
+  },
+  {
+    "id": "p9_jungle_exploration",
+    "name": "Jungle Exploration",
+    "description": "Ashore. Follow the map (trail, ford, broken tooth, statue, X), or look round first: it's your island.",
+    "after": "p9_crownskull_landing",
+    "flags": [
+      "p9_landed",
+      "crownskull_landed",
+      "p9_ch63_started",
+      "p9_isle_briefed"
+    ],
+    "quests": {
+      "lee_side_landing": "completed",
+      "crownskull_isle": "active",
+      "isle_curiosities": "active"
+    },
+    "map": "crownskull_isle",
+    "x": 30,
+    "y": 58,
+    "facing": "up"
+  },
+  {
+    "id": "p9_fortune_site",
+    "name": "Crimson Fortune Site",
+    "description": "The statue points north. The clearing under the skull.",
+    "after": "p9_jungle_exploration",
+    "quests": {
+      "crownskull_isle": {
+        "done": [
+          "trail",
+          "ford",
+          "tooth",
+          "statue"
+        ]
+      }
+    },
+    "map": "crownskull_isle",
+    "x": 29,
+    "y": 28,
+    "facing": "up"
+  },
+  {
+    "id": "p9_digging_start",
+    "name": "Digging Start",
+    "description": "THE FORTUNE OF THE CRIMSON KINGS. Everyone's share promised (Squawks: a gold pouch). Seven floors. Dig at the X.",
+    "after": "p9_fortune_site",
+    "flags": [
+      "p9_ch64_started",
+      "crimson_fortune_site_found",
+      "crimson_fortune_found",
+      "p9_dream_pete",
+      "p9_dream_bob",
+      "p9_dream_jim",
+      "p9_dream_gristle",
+      "p9_dream_ned",
+      "squawks_share_promised",
+      "garrick_share_denied",
+      "p9_ch65_started",
+      "p9_tools_fetched"
+    ],
+    "vars": {
+      "dig_layer": 0,
+      "p4_tod": 17
+    },
+    "values": {
+      "crimson_fortune_state": "located"
+    },
+    "quests": {
+      "crownskull_isle": "completed",
+      "crimson_fortune": "completed",
+      "seven_floors": {
+        "done": [
+          "tools"
+        ]
+      }
+    },
+    "map": "crownskull_isle",
+    "x": 29,
+    "y": 25,
+    "facing": "up"
+  },
+  {
+    "id": "p9_garrick_quits",
+    "name": "Garrick Quits Digging",
+    "description": "The sand's out. Give the Grand Stenchmaster his turn with the shovel.",
+    "after": "p9_digging_start",
+    "flags": [
+      "excavation_started"
+    ],
+    "vars": {
+      "dig_layer": 1
+    },
+    "values": {
+      "crimson_fortune_state": "excavating",
+      "crater_state": "dug"
+    },
+    "quests": {
+      "seven_floors": {
+        "done": [
+          "tools",
+          "first"
+        ]
+      }
+    },
+    "map": "crownskull_isle",
+    "x": 30,
+    "y": 26,
+    "facing": "right",
+    "script": "p9c11.garrick"
+  },
+  {
+    "id": "p9_excavation_proposal",
+    "name": "Excavation Proposal",
+    "description": "Three floors down, four to go: days. He has a proposal.",
+    "after": "p9_garrick_quits",
+    "flags": [
+      "garrick_quit_digging",
+      "p9_ch66_started"
+    ],
+    "vars": {
+      "dig_layer": 3,
+      "p4_tod": 18
+    },
+    "quests": {
+      "seven_floors": "completed",
+      "excavation_technology": "active"
+    },
+    "map": "crownskull_isle",
+    "x": 30,
+    "y": 25,
+    "facing": "right",
+    "script": "p9c12.proposal"
+  },
+  {
+    "id": "p9_launch_sequence",
+    "name": "Launch Sequence",
+    "description": "NO. Then the howl, the birds, the crown rattling, the ground humming. Ask him.",
+    "after": "p9_excavation_proposal",
+    "flags": [
+      "excavation_proposal_rejected"
+    ],
+    "values": {
+      "garrick_release": "building"
+    },
+    "quests": {
+      "excavation_technology": {
+        "done": [
+          "proposal"
+        ]
+      }
+    },
+    "map": "crownskull_isle",
+    "x": 30,
+    "y": 25,
+    "facing": "right",
+    "script": "p9c12.launch"
+  },
+  {
+    "id": "p9_evacuation_run",
+    "name": "Evacuation Run",
+    "description": "Launch command acknowledged. RUN: west along the path out of the clearing, to the beach.",
+    "after": "p9_launch_sequence",
+    "flags": [
+      "launch_sequence_started",
+      "release_triggered",
+      "p9_ch67_started"
+    ],
+    "values": {
+      "garrick_release": "launch_sequence"
+    },
+    "quests": {
+      "excavation_technology": "completed",
+      "run": "active"
+    },
+    "map": "crownskull_isle",
+    "x": 23,
+    "y": 27,
+    "facing": "left"
+  },
+  {
+    "id": "p9_western_beach_trap",
+    "name": "Western Beach Trap",
+    "description": "Out onto the western beach... where the storm is too.",
+    "after": "p9_evacuation_run",
+    "map": "crownskull_isle",
+    "x": 13,
+    "y": 30,
+    "facing": "left"
+  },
+  {
+    "id": "p9_ruins_shelter",
+    "name": "Ancient Ruins Shelter",
+    "description": "Between a Sharkstorm and a Garrick: the ruins. Make the shelter (stone, brace, beam, cloth).",
+    "after": "p9_western_beach_trap",
+    "flags": [
+      "p9_west_trap",
+      "p9_in_ruins"
+    ],
+    "vars": {
+      "p9_shelter_jobs": 0
+    },
+    "quests": {
+      "run": {
+        "done": [
+          "west",
+          "ruins"
+        ]
+      }
+    },
+    "map": "crownskull_isle",
+    "x": 24,
+    "y": 15,
+    "facing": "right"
+  },
+  {
+    "id": "p9_final_warning",
+    "name": "Final Warning",
+    "description": "Eighty-five and a half per cent. Squawks is in his corner. Watch the clearing (the gap in the south wall).",
+    "after": "p9_ruins_shelter",
+    "flags": [
+      "p9_shelter_stone",
+      "p9_shelter_brace",
+      "p9_shelter_beam",
+      "p9_shelter_cloth",
+      "p9_squawks_sheltered"
+    ],
+    "vars": {
+      "p9_shelter_jobs": 4
+    },
+    "quests": {
+      "run": {
+        "done": [
+          "west",
+          "ruins",
+          "stone",
+          "brace",
+          "beam",
+          "cloth",
+          "squawks"
+        ]
+      }
+    },
+    "map": "crownskull_isle",
+    "x": 31,
+    "y": 18,
+    "facing": "down"
+  },
+  {
+    "id": "p9_excavation_blast",
+    "name": "Excavation Blast",
+    "description": "THERE IS NO TEAM. FIRE IN THE HOLE.",
+    "after": "p9_final_warning",
+    "flags": [
+      "ruins_shelter_ready"
+    ],
+    "quests": {
+      "run": "completed"
+    },
+    "map": "crownskull_isle",
+    "x": 31,
+    "y": 18,
+    "facing": "down",
+    "script": "p9c14.begin"
+  },
+  {
+    "id": "p9_sharkstorm_inland",
+    "name": "Great Sharkstorm Inland",
+    "description": "Bad digging. The storm smelled it and came in. Get back to Squawks in the shelter.",
+    "after": "p9_final_warning",
+    "flags": [
+      "ruins_shelter_ready",
+      "p9_ch68_started",
+      "grand_excavation_blast",
+      "great_sharkstorm_inland"
+    ],
+    "vars": {
+      "p4_tod": 19,
+      "dig_layer": 7
+    },
+    "values": {
+      "great_sharkstorm": "inland_crownskull",
+      "crater_state": "blasted"
+    },
+    "quests": {
+      "run": "completed",
+      "fire_in_the_hole": "active"
+    },
+    "map": "crownskull_isle",
+    "x": 31,
+    "y": 18,
+    "facing": "up"
+  },
+  {
+    "id": "p9_great_white_rain",
+    "name": "Great White Rain",
+    "description": "Halfway across the ruins' yard, great whites coming down (marked first).",
+    "after": "p9_sharkstorm_inland",
+    "map": "crownskull_isle",
+    "x": 25,
+    "y": 15,
+    "facing": "right"
+  },
+  {
+    "id": "p9_megalodon_arrival",
+    "name": "Megalodon Arrival",
+    "description": "Back with Squawks. Then a shadow the size of the ship.",
+    "after": "p9_sharkstorm_inland",
+    "map": "crownskull_isle",
+    "x": 30,
+    "y": 10,
+    "facing": "up",
+    "script": "p9c14.survived"
+  },
+  {
+    "id": "p9_treasure_exposed",
+    "name": "Treasure Exposed",
+    "description": "The megalodon's in the lagoon. Down in the crater: the Crimson Fortune, exposed. It WORKED.",
+    "after": "p9_sharkstorm_inland",
+    "flags": [
+      "p9_great_white_rain_survived",
+      "megalodon_introduced"
+    ],
+    "values": {
+      "megalodon_state": "stranded_crownskull"
+    },
+    "quests": {
+      "fire_in_the_hole": "completed"
+    },
+    "map": "crownskull_isle",
+    "x": 31,
+    "y": 18,
+    "facing": "down",
+    "script": "p9c15.begin"
+  },
+  {
+    "id": "p9_treasure_blown_away",
+    "name": "Treasure Blown Away",
+    "description": "It worked... and it keeps going. MY MONEY. NOT THAT ONE.",
+    "after": "p9_treasure_exposed",
+    "flags": [
+      "p9_ch69_started"
+    ],
+    "map": "crownskull_isle",
+    "x": 31,
+    "y": 18,
+    "facing": "down",
+    "script": "p9c15.blown"
+  },
+  {
+    "id": "p9_crowned_megalodon",
+    "name": "Crowned Megalodon",
+    "description": "The fortune's in the storm. Something small and bright falls out of it, towards the lagoon.",
+    "after": "p9_treasure_blown_away",
+    "flags": [
+      "crimson_fortune_exposed",
+      "fortune_scattered",
+      "great_sharkstorm_treasure_laden"
+    ],
+    "values": {
+      "great_sharkstorm": "treasure_laden",
+      "crimson_fortune_state": "scattered_into_sharkstorm"
+    },
+    "map": "crownskull_isle",
+    "x": 31,
+    "y": 18,
+    "facing": "down",
+    "script": "p9c15.crown"
+  },
+  {
+    "id": "p9_treasure_laden",
+    "name": "Treasure-Laden Sharkstorm",
+    "description": "Pfft. The storm glitters; jewelled sharks go over. Go and look in the crater.",
+    "after": "p9_crowned_megalodon",
+    "flags": [
+      "megalodon_crowned",
+      "garrick_dusty",
+      "p9_squawks_back"
+    ],
+    "vars": {
+      "p4_tod": 20
+    },
+    "values": {
+      "crimson_crown_holder": "megalodon",
+      "garrick_release": "spent"
+    },
+    "quests": {
+      "vertical_relocation": "active"
+    },
+    "map": "crownskull_isle",
+    "x": 29,
+    "y": 28,
+    "facing": "up"
+  },
+  {
+    "id": "p9_rage_shanty",
+    "name": "Stinkbeard Rage Shanty",
+    "description": "Two per cent, reeking. A crowned megalodon. Something in the captain lets go.",
+    "after": "p9_treasure_laden",
+    "flags": [
+      "crater_treasure_contaminated",
+      "p9_crowned_seen",
+      "p9_ch70_started"
+    ],
+    "vars": {
+      "crimson_fortune_recovered_percent": 2
+    },
+    "quests": {
+      "vertical_relocation": "completed"
+    },
+    "items": [
+      "reeking_doubloons"
+    ],
+    "map": "crownskull_isle",
+    "x": 16,
+    "y": 14,
+    "facing": "left",
+    "script": "p9c16.begin"
+  },
+  {
+    "id": "p9_recovery_unlocked",
+    "name": "Recovery Quest Unlocked",
+    "description": "Vertical relocation; suit memory; richer than pirates (currently). WE MUST RECOVER IT.",
+    "after": "p9_rage_shanty",
+    "flags": [
+      "rage_shanty_seen",
+      "p9_confronted"
+    ],
+    "map": "crownskull_isle",
+    "x": 16,
+    "y": 14,
+    "facing": "left",
+    "script": "p9c16.recover"
+  },
+  {
+    "id": "p9_complete",
+    "name": "Phase 9 Complete",
+    "description": "IT. WINKED. Recover the Crimson Fortune (open). Crownskull Isle to wander; the boats go back to the Revenge.",
+    "after": "p9_recovery_unlocked",
+    "flags": [
+      "recover_fortune_unlocked",
+      "p9_complete"
+    ],
+    "quests": {
+      "recover_crimson_fortune": "active"
+    },
+    "map": "crownskull_isle",
+    "x": 30,
+    "y": 58,
+    "facing": "up"
   }
 ]

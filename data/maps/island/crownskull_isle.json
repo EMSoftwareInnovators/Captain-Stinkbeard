@@ -1,0 +1,3001 @@
+{
+ "id": "crownskull_isle",
+ "name": "Crownskull Isle",
+ "tileset": "island",
+ "background": "ocean",
+ "//": "Story Phase 9: Crownskull Isle. The landing beach (south), the jungle trail north over the river's ford, the broken-tooth boulder, the statue, the Crimson Clearing under the crowned skull of the ridge (and after the Grand Excavation, the crater), the ancient ruins north of it with the shelter room in their north-east corner, the lagoon to the west of them (where the megalodon ends up, crowned), the western beach, the reef point, the ridge path's view, and three quiet glades. A permanent location: the boats on the landing beach go back to the Revenge once the phase is over.",
+ "music": "crownskull_isle",
+ "ambience": "jungle",
+ "legend": {
+  "~": "sea",
+  ".": "sand",
+  ",": "grass",
+  "#": "jungle",
+  "=": "river",
+  "f": "ford",
+  ":": "path",
+  "^": "rockfloor",
+  "R": "rock",
+  "C": "cliff",
+  "o": "ruin_floor",
+  "H": "ruin_wall",
+  "c": "clearing",
+  "%": "reef"
+ },
+ "tiles": [
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.R~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~....RRR~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~.....~~~~~~~~~~~~~~~~~~......RRRRR~~~~~~~~~~~~~~~~~~",
+  "~~~~~~.........~~~~~~~,,~~~~~,,,.#..#RRRRRR~~~~~~~~~~~~~~~~~",
+  "~~~~~...#####...~~HHHHHHHoooHHHHHHHHH###..RR~~~~~~~~~~~~~~~~",
+  "~~~~..............H,,,oooooooHooooooH#CCCCCC~~~~~~~~~~~~~~~~",
+  "~~~..............,HoooooooooooooooooH,,##^^^^~~~~~~~~~~~~~~~",
+  "~~....~~~~~~~....,HooooooooooHooooooH,,#^^^^^^~~~~~~~~~~~~~~",
+  "~~...~~~~~~~~~~.,,HooooooooooHHHooHHH^^^^^^^^^^~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~::ooooooooooooooooooo^^^^^^^^^^^~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~::ooooooooooooooooooo,^^^^^^^^^::~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~::Hoooooooooo,,,ooooH,^^^^^^^^:::^~~~~~~~~~~",
+  "~...~~~~~~~~~~~~::Hoooooooooo,,,ooooH,^^^^^^^:::^^^~~~~~~~~~",
+  "~....~~~~~~~~~~.::Hooooooooo,,,,,oooH,^^^^^^:::^^^^^~~~~~~~~",
+  "~..#..~~~~~~~..:::Hoooooooo,,,,,ooooH#^^^^^^::^^^^^^~~~~~~~~",
+  "~..##..........::#HHHHHooHHHHHH,oHHHH#^^^^^:::^^^^^^~~~~~~~~",
+  "~~...#.......#:::######,,,,,,,#########^^^^::^^^^^^^^~~~~~~~",
+  "~~...########:::###########ccccc#######^^^^::^^^^^^^^~~~~~~~",
+  "~~~...######:::,########ccccccccccc#####^^:::^^^,,,^^~~~~~~~",
+  "~~~....####:::,########ccccccccccccc#####^::^^^::,,,,~~~~~~~",
+  "~~~~...####::,#########ccccccccccccc#####:::^::::,,,,~~~~~~~",
+  "~~~~~.....:::,#######,ccccccccccccccc###,:::::::,,,,,~~~~~~~",
+  "~~~~~~~...::#######,,::ccccccccccccc####::::::##,,,..~~~~~~~",
+  "~~~~~~~......######::::ccccccccccccc####::::,,#####..~~~~~~~",
+  "~~~~~~~......##,,:::::##cccc::ccccc###,::::,#######...~~~~~~",
+  "~~~~~~~~......,:::::######cc::cc#####,:::##########==.~~~~~~",
+  "~~~~~~~~.....:::::#########,:::#####,:::#########====..~~~~~",
+  "~~~~~~~~...:::::############,::,###,:::,########====...~~~~~",
+  "~~~~~~~....:::,,###########,,::,,,,:::,#######====###...~~~~",
+  "~~~~~~~........############,,::,,::::,#######====####...~~~~",
+  "~~~~~~~.......##############,:::::::,######====#######...~~~",
+  "~~~~~~........##############::::::,,######====#########...~~",
+  "~~~~~~........############,,::::,,######====###########...~~",
+  "~~~~~.........###########,,,::,,,,####=====##############..~",
+  "~~~~~........#############,:::,,,###=====################..~",
+  "~~~~.........##############::,####=====##################..~",
+  "~~~~..#.....######======###::,f======####################..~",
+  "~~~~..##...###===========ffffff====######################..~",
+  "~~~~..###==========####==ffffff#########################..~~",
+  "~~~~~==========###########,::,##########################..~~",
+  "~~~~~=====################,::,##########,,#############..~~~",
+  "~~~~~..###################,::,#########,::,,,##########..~~~",
+  "~~~~~~..###################:::#######,,:::,,,#########..~~~~",
+  "~~~~~~...###################::######,::::,,,,########..~~~~~",
+  "~~~~~~~...##################::#####,::::#############...~~~~",
+  "~~~~~~~...####,,,,#,,,,##:::::,,,,::::##############...~~~~~",
+  "~~~~~~~...###,,,,::::::::::::::,,::::,########^^^^#...~~~~~~",
+  "~~~~~~~~...##,,,,:::::::::,,,::::::,,,######^^^^^^^^.~~~~~~~",
+  "~~~~~~~~..###,,,,,,,,,,,##,,,:::::,,,,#####^^^^^^RRR~~~~~~~~",
+  "~~~~~~~~..####,,,,########,,,:::,,,,,,####^^:::^RRRR~~~~~~~~",
+  "~~~~~~~~..################,,,::,,,,,,##,,,:::::^^RRR~~~~~~~~",
+  "~~~~~~~~~..#################,::,,,,##,,::::::^^^^^^~~~~~~~~~",
+  "~~~~~~~~~..#################,::####,,::::::^^^^^^^^~~~~~~~~~",
+  "~~~~~~~~~..#################.::....:::::####^^^^^^^~~~~~~~~~",
+  "~~~~~~~~~~..########.........::....:::....######^.~~~~~~~~~~",
+  "~~~~~~~~~~~...####...........::.............####..~~~~~~~~~~",
+  "~~~~~~~~~~~~.................::..................~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~..................................~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~......................~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~...............~~.~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~............~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~..........~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~......~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+ ],
+ "props": [
+  {
+   "prop": "palm_lean_l",
+   "x": 6,
+   "y": 7
+  },
+  {
+   "prop": "palm_lean_l",
+   "x": 40,
+   "y": 8
+  },
+  {
+   "prop": "palm_lean_l",
+   "x": 7,
+   "y": 10
+  },
+  {
+   "prop": "palm_lean_l",
+   "x": 1,
+   "y": 17
+  },
+  {
+   "prop": "palm_lean_l",
+   "x": 2,
+   "y": 20
+  },
+  {
+   "prop": "palm_lean_l",
+   "x": 52,
+   "y": 27
+  },
+  {
+   "prop": "palm_lean_l",
+   "x": 53,
+   "y": 30
+  },
+  {
+   "prop": "palm_lean_l",
+   "x": 54,
+   "y": 33
+  },
+  {
+   "prop": "palm_lean_l",
+   "x": 56,
+   "y": 36
+  },
+  {
+   "prop": "palm_lean_l",
+   "x": 57,
+   "y": 39
+  },
+  {
+   "prop": "palm",
+   "x": 4,
+   "y": 42
+  },
+  {
+   "prop": "palm_lean_l",
+   "x": 55,
+   "y": 44
+  },
+  {
+   "prop": "palm_lean_l",
+   "x": 5,
+   "y": 45
+  },
+  {
+   "prop": "palm_lean_l",
+   "x": 52,
+   "y": 49
+  },
+  {
+   "prop": "palm",
+   "x": 8,
+   "y": 51
+  },
+  {
+   "prop": "palm_lean_l",
+   "x": 8,
+   "y": 54
+  },
+  {
+   "prop": "palm_lean_l",
+   "x": 9,
+   "y": 57
+  },
+  {
+   "prop": "palm_lean_l",
+   "x": 19,
+   "y": 59
+  },
+  {
+   "prop": "palm_lean_l",
+   "x": 48,
+   "y": 59
+  },
+  {
+   "prop": "palm",
+   "x": 12,
+   "y": 60
+  },
+  {
+   "prop": "palm",
+   "x": 40,
+   "y": 60
+  },
+  {
+   "prop": "palm_lean_l",
+   "x": 15,
+   "y": 61
+  },
+  {
+   "prop": "palm_lean_l",
+   "x": 43,
+   "y": 61
+  },
+  {
+   "prop": "fern_flowers",
+   "x": 38,
+   "y": 28
+  },
+  {
+   "prop": "jungle_bush",
+   "x": 39,
+   "y": 31
+  },
+  {
+   "prop": "jungle_bush",
+   "x": 15,
+   "y": 32
+  },
+  {
+   "prop": "fern_flowers",
+   "x": 31,
+   "y": 32
+  },
+  {
+   "prop": "jungle_bush",
+   "x": 32,
+   "y": 38
+  },
+  {
+   "prop": "jungle_bush",
+   "x": 29,
+   "y": 40
+  },
+  {
+   "prop": "jungle_bush",
+   "x": 29,
+   "y": 43
+  },
+  {
+   "prop": "jungle_bush",
+   "x": 26,
+   "y": 45
+  },
+  {
+   "prop": "jungle_bush",
+   "x": 36,
+   "y": 47
+  },
+  {
+   "prop": "fern_flowers",
+   "x": 19,
+   "y": 49
+  },
+  {
+   "prop": "jungle_bush",
+   "x": 32,
+   "y": 49
+  },
+  {
+   "prop": "jungle_bush",
+   "x": 37,
+   "y": 50
+  },
+  {
+   "prop": "jungle_bush",
+   "x": 19,
+   "y": 52
+  },
+  {
+   "prop": "fern_flowers",
+   "x": 21,
+   "y": 52
+  },
+  {
+   "prop": "fern_flowers",
+   "x": 26,
+   "y": 53
+  },
+  {
+   "prop": "boulder",
+   "x": 41,
+   "y": 13
+  },
+  {
+   "prop": "boulder",
+   "x": 38,
+   "y": 18
+  },
+  {
+   "prop": "boulder",
+   "x": 48,
+   "y": 20
+  },
+  {
+   "prop": "boulder",
+   "x": 39,
+   "y": 21
+  },
+  {
+   "prop": "boulder",
+   "x": 47,
+   "y": 50
+  },
+  {
+   "prop": "boulder",
+   "x": 50,
+   "y": 56
+  },
+  {
+   "prop": "crownskull_rock",
+   "x": 37,
+   "y": 5
+  },
+  {
+   "prop": "broken_tooth",
+   "x": 32,
+   "y": 36
+  },
+  {
+   "prop": "ancient_statue",
+   "x": 26,
+   "y": 32
+  },
+  {
+   "prop": "spyglass_post",
+   "x": 49,
+   "y": 15
+  },
+  {
+   "prop": "boulder_big",
+   "x": 44,
+   "y": 56
+  },
+  {
+   "prop": "boat_beached",
+   "x": 25,
+   "y": 62
+  },
+  {
+   "prop": "boat_beached",
+   "x": 34,
+   "y": 62
+  },
+  {
+   "prop": "debris_island",
+   "x": 22,
+   "y": 60
+  },
+  {
+   "prop": "debris_island_b",
+   "x": 40,
+   "y": 61
+  },
+  {
+   "prop": "ruin_pillar",
+   "x": 20,
+   "y": 9
+  },
+  {
+   "prop": "ruin_pillar",
+   "x": 27,
+   "y": 9
+  },
+  {
+   "prop": "ruin_pillar_broken",
+   "x": 23,
+   "y": 9
+  },
+  {
+   "prop": "ruin_pillar",
+   "x": 20,
+   "y": 17
+  },
+  {
+   "prop": "ruin_pillar_broken",
+   "x": 27,
+   "y": 18
+  },
+  {
+   "prop": "fallen_column",
+   "x": 21,
+   "y": 11
+  },
+  {
+   "prop": "rubble",
+   "x": 25,
+   "y": 12
+  },
+  {
+   "prop": "rubble_b",
+   "x": 22,
+   "y": 14
+  },
+  {
+   "prop": "rubble",
+   "x": 34,
+   "y": 17
+  },
+  {
+   "prop": "stone_block_carved",
+   "x": 35,
+   "y": 15
+  },
+  {
+   "prop": "ruin_pillar_broken",
+   "x": 33,
+   "y": 14
+  },
+  {
+   "prop": "stone_block_carved",
+   "x": 14,
+   "y": 50
+  },
+  {
+   "prop": "crimson_marker",
+   "x": 29,
+   "y": 22,
+   "if": {
+    "all": [
+     {
+      "flag": "p9_landed"
+     },
+     {
+      "notFlag": "crimson_fortune_found"
+     }
+    ]
+   },
+   "id": "p9_marker"
+  },
+  {
+   "prop": "crimson_marker_clear",
+   "x": 29,
+   "y": 22,
+   "if": {
+    "all": [
+     {
+      "flag": "crimson_fortune_found"
+     },
+     {
+      "not": {
+       "flag": "grand_excavation_blast"
+      }
+     }
+    ]
+   },
+   "id": "p9_marker_clear"
+  },
+  {
+   "prop": "dig_pit_0",
+   "x": 28,
+   "y": 23,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "crimson_fortune_found"
+       },
+       {
+        "not": {
+         "flag": "grand_excavation_blast"
+        }
+       }
+      ]
+     },
+     {
+      "var": {
+       "name": "dig_layer",
+       "eq": 0
+      }
+     }
+    ]
+   },
+   "id": "p9_pit_0"
+  },
+  {
+   "prop": "dig_pit_2",
+   "x": 28,
+   "y": 23,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "crimson_fortune_found"
+       },
+       {
+        "not": {
+         "flag": "grand_excavation_blast"
+        }
+       }
+      ]
+     },
+     {
+      "var": {
+       "name": "dig_layer",
+       "eq": 1
+      }
+     }
+    ]
+   },
+   "id": "p9_pit_2"
+  },
+  {
+   "prop": "dig_pit_3",
+   "x": 28,
+   "y": 23,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "crimson_fortune_found"
+       },
+       {
+        "not": {
+         "flag": "grand_excavation_blast"
+        }
+       }
+      ]
+     },
+     {
+      "var": {
+       "name": "dig_layer",
+       "eq": 2
+      }
+     }
+    ]
+   },
+   "id": "p9_pit_3"
+  },
+  {
+   "prop": "dig_pit_4",
+   "x": 28,
+   "y": 23,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "crimson_fortune_found"
+       },
+       {
+        "not": {
+         "flag": "grand_excavation_blast"
+        }
+       }
+      ]
+     },
+     {
+      "var": {
+       "name": "dig_layer",
+       "eq": 3
+      }
+     }
+    ]
+   },
+   "id": "p9_pit_4"
+  },
+  {
+   "prop": "dig_pit_5",
+   "x": 28,
+   "y": 23,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "crimson_fortune_found"
+       },
+       {
+        "not": {
+         "flag": "grand_excavation_blast"
+        }
+       }
+      ]
+     },
+     {
+      "var": {
+       "name": "dig_layer",
+       "eq": 4
+      }
+     }
+    ]
+   },
+   "id": "p9_pit_5"
+  },
+  {
+   "prop": "dig_pit_6",
+   "x": 28,
+   "y": 23,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "crimson_fortune_found"
+       },
+       {
+        "not": {
+         "flag": "grand_excavation_blast"
+        }
+       }
+      ]
+     },
+     {
+      "var": {
+       "name": "dig_layer",
+       "eq": 5
+      }
+     }
+    ]
+   },
+   "id": "p9_pit_6"
+  },
+  {
+   "prop": "dig_pit_7",
+   "x": 28,
+   "y": 23,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "crimson_fortune_found"
+       },
+       {
+        "not": {
+         "flag": "grand_excavation_blast"
+        }
+       }
+      ]
+     },
+     {
+      "var": {
+       "name": "dig_layer",
+       "eq": 6
+      }
+     }
+    ]
+   },
+   "id": "p9_pit_7"
+  },
+  {
+   "prop": "tool_pile",
+   "x": 34,
+   "y": 26,
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch64_started"
+     },
+     {
+      "not": {
+       "flag": "grand_excavation_blast"
+      }
+     }
+    ]
+   },
+   "id": "p9_tools"
+  },
+  {
+   "prop": "shovel_stuck",
+   "x": 31,
+   "y": 24,
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_quit_digging"
+     },
+     {
+      "notFlag": "p9_ch67_started"
+     }
+    ]
+   },
+   "id": "p9_shovel"
+  },
+  {
+   "prop": "crater",
+   "x": 25,
+   "y": 21,
+   "if": {
+    "flag": "grand_excavation_blast"
+   },
+   "id": "p9_crater"
+  },
+  {
+   "prop": "uprooted_palm",
+   "x": 23,
+   "y": 28,
+   "if": {
+    "flag": "grand_excavation_blast"
+   },
+   "id": "p9_uprooted"
+  },
+  {
+   "prop": "debris_island",
+   "x": 23,
+   "y": 23,
+   "if": {
+    "flag": "grand_excavation_blast"
+   },
+   "id": "p9_debris_0"
+  },
+  {
+   "prop": "debris_island_b",
+   "x": 35,
+   "y": 24,
+   "if": {
+    "flag": "grand_excavation_blast"
+   },
+   "id": "p9_debris_1"
+  },
+  {
+   "prop": "debris_island",
+   "x": 34,
+   "y": 28,
+   "if": {
+    "flag": "grand_excavation_blast"
+   },
+   "id": "p9_debris_2"
+  },
+  {
+   "prop": "debris_island_b",
+   "x": 22,
+   "y": 26,
+   "if": {
+    "flag": "grand_excavation_blast"
+   },
+   "id": "p9_debris_3"
+  },
+  {
+   "prop": "debris_island",
+   "x": 30,
+   "y": 19,
+   "if": {
+    "flag": "grand_excavation_blast"
+   },
+   "id": "p9_debris_4"
+  },
+  {
+   "prop": "debris_island_b",
+   "x": 25,
+   "y": 18,
+   "if": {
+    "flag": "grand_excavation_blast"
+   },
+   "id": "p9_debris_5"
+  },
+  {
+   "prop": "debris_island",
+   "x": 38,
+   "y": 26,
+   "if": {
+    "flag": "grand_excavation_blast"
+   },
+   "id": "p9_debris_6"
+  },
+  {
+   "prop": "debris_island_b",
+   "x": 29,
+   "y": 31,
+   "if": {
+    "flag": "grand_excavation_blast"
+   },
+   "id": "p9_debris_7"
+  },
+  {
+   "prop": "foul_coins",
+   "x": 27,
+   "y": 26,
+   "if": {
+    "flag": "grand_excavation_blast"
+   },
+   "id": "p9_coins_a"
+  },
+  {
+   "prop": "foul_coins",
+   "x": 32,
+   "y": 22,
+   "if": {
+    "flag": "grand_excavation_blast"
+   },
+   "id": "p9_coins_b"
+  },
+  {
+   "prop": "stone_block",
+   "x": 26,
+   "y": 15,
+   "if": {
+    "all": [
+     {
+      "flag": "p9_landed"
+     },
+     {
+      "notFlag": "p9_shelter_stone"
+     }
+    ]
+   },
+   "id": "p9_loose_stone"
+  },
+  {
+   "prop": "stone_block",
+   "x": 29,
+   "y": 10,
+   "if": {
+    "flag": "p9_shelter_stone"
+   },
+   "id": "p9_stone_in_gap"
+  },
+  {
+   "prop": "braced_wall",
+   "x": 34,
+   "y": 9,
+   "if": {
+    "flag": "p9_shelter_brace"
+   },
+   "id": "p9_brace"
+  },
+  {
+   "prop": "beam",
+   "x": 21,
+   "y": 16,
+   "if": {
+    "all": [
+     {
+      "flag": "p9_landed"
+     },
+     {
+      "notFlag": "p9_shelter_beam"
+     }
+    ]
+   },
+   "id": "p9_beam_fallen"
+  },
+  {
+   "prop": "beam",
+   "x": 30,
+   "y": 11,
+   "if": {
+    "flag": "p9_shelter_beam"
+   },
+   "id": "p9_beam_roof"
+  },
+  {
+   "prop": "shelter_cloth",
+   "x": 32,
+   "y": 12,
+   "if": {
+    "flag": "p9_shelter_cloth"
+   },
+   "id": "p9_cloth"
+  },
+  {
+   "prop": "megalodon",
+   "x": 5,
+   "y": 13,
+   "if": {
+    "all": [
+     {
+      "flag": "megalodon_introduced"
+     },
+     {
+      "notFlag": "megalodon_crowned"
+     }
+    ]
+   },
+   "id": "p9_megalodon",
+   "flip": true
+  },
+  {
+   "prop": "megalodon_crowned",
+   "x": 5,
+   "y": 13,
+   "if": {
+    "flag": "megalodon_crowned"
+   },
+   "id": "p9_megalodon_crowned",
+   "flip": true
+  },
+  {
+   "prop": "palm_lean_r",
+   "x": 20,
+   "y": 26,
+   "id": "p9_hiding_palm"
+  }
+ ],
+ "regions": [
+  {
+   "id": "isle_beach",
+   "name": "The Landing Beach",
+   "x": 12,
+   "y": 57,
+   "w": 37,
+   "h": 9
+  },
+  {
+   "id": "isle_trail",
+   "name": "The Jungle Trail",
+   "x": 25,
+   "y": 44,
+   "w": 11,
+   "h": 13
+  },
+  {
+   "id": "isle_ford",
+   "name": "The River Crossing",
+   "x": 24,
+   "y": 39,
+   "w": 8,
+   "h": 5
+  },
+  {
+   "id": "isle_fork",
+   "name": "The Broken Tooth",
+   "x": 25,
+   "y": 34,
+   "w": 11,
+   "h": 5
+  },
+  {
+   "id": "isle_statue",
+   "name": "The Statue",
+   "x": 25,
+   "y": 30,
+   "w": 10,
+   "h": 4
+  },
+  {
+   "id": "isle_clearing",
+   "name": "The Crimson Clearing",
+   "x": 22,
+   "y": 20,
+   "w": 16,
+   "h": 10
+  },
+  {
+   "id": "isle_ruins",
+   "name": "The Ancient Ruins",
+   "x": 18,
+   "y": 8,
+   "w": 19,
+   "h": 12
+  },
+  {
+   "id": "isle_west_beach",
+   "name": "The Western Beach",
+   "x": 1,
+   "y": 24,
+   "w": 13,
+   "h": 17
+  },
+  {
+   "id": "isle_reef_point",
+   "name": "The Reef Point",
+   "x": 40,
+   "y": 50,
+   "w": 14,
+   "h": 9
+  },
+  {
+   "id": "isle_view",
+   "name": "The Ridge Path",
+   "x": 43,
+   "y": 12,
+   "w": 8,
+   "h": 7
+  },
+  {
+   "id": "isle_lagoon",
+   "name": "The Lagoon",
+   "x": 1,
+   "y": 9,
+   "w": 17,
+   "h": 11
+  },
+  {
+   "id": "glade_ne",
+   "name": "A Quiet Glade",
+   "x": 46,
+   "y": 21,
+   "w": 8,
+   "h": 7
+  },
+  {
+   "id": "glade_w",
+   "name": "A Quiet Glade",
+   "x": 12,
+   "y": 48,
+   "w": 9,
+   "h": 6
+  },
+  {
+   "id": "glade_e",
+   "name": "A Quiet Glade",
+   "x": 36,
+   "y": 43,
+   "w": 10,
+   "h": 6
+  }
+ ],
+ "objects": [
+  {
+   "id": "landing",
+   "type": "spawn",
+   "x": 30,
+   "y": 60,
+   "facing": "up"
+  },
+  {
+   "id": "from_ship",
+   "type": "spawn",
+   "x": 30,
+   "y": 60,
+   "facing": "up"
+  },
+  {
+   "id": "p9_boats",
+   "type": "inspect",
+   "x": 25,
+   "y": 62,
+   "w": 3,
+   "script": "p9.isle.boat"
+  },
+  {
+   "id": "p9_boats_b",
+   "type": "inspect",
+   "x": 34,
+   "y": 62,
+   "w": 3,
+   "script": "p9.isle.boat"
+  },
+  {
+   "id": "p9_vines",
+   "type": "inspect",
+   "x": 29,
+   "y": 22,
+   "if": {
+    "objectiveActive": "crimson_fortune.vines"
+   },
+   "script": "p9c10.vines"
+  },
+  {
+   "id": "p9_marker_look",
+   "type": "inspect",
+   "x": 29,
+   "y": 22,
+   "if": {
+    "all": [
+     {
+      "flag": "crimson_fortune_found"
+     },
+     {
+      "not": {
+       "flag": "grand_excavation_blast"
+      }
+     }
+    ]
+   },
+   "script": "p9.isle.marker"
+  },
+  {
+   "id": "p9_marker_vines_look",
+   "type": "inspect",
+   "x": 29,
+   "y": 22,
+   "if": {
+    "all": [
+     {
+      "flag": "p9_landed"
+     },
+     {
+      "notFlag": "crimson_fortune_found"
+     }
+    ]
+   },
+   "script": "p9.isle.marker_vines"
+  },
+  {
+   "id": "p9_tools_get",
+   "type": "inspect",
+   "x": 34,
+   "y": 26,
+   "w": 2,
+   "if": {
+    "objectiveActive": "seven_floors.tools"
+   },
+   "script": "p9c11.tools"
+  },
+  {
+   "id": "p9_tools_look",
+   "type": "inspect",
+   "x": 34,
+   "y": 26,
+   "w": 2,
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch64_started"
+     },
+     {
+      "not": {
+       "flag": "grand_excavation_blast"
+      }
+     }
+    ]
+   },
+   "script": "p9.isle.tools"
+  },
+  {
+   "id": "p9_dig",
+   "type": "inspect",
+   "x": 28,
+   "y": 23,
+   "w": 3,
+   "h": 2,
+   "if": {
+    "any": [
+     {
+      "objectiveActive": "seven_floors.first"
+     },
+     {
+      "objectiveActive": "seven_floors.deeper"
+     }
+    ]
+   },
+   "script": "p9c11.dig"
+  },
+  {
+   "id": "p9_dig_look",
+   "type": "inspect",
+   "x": 28,
+   "y": 23,
+   "w": 3,
+   "h": 2,
+   "if": {
+    "all": [
+     {
+      "flag": "crimson_fortune_found"
+     },
+     {
+      "not": {
+       "flag": "grand_excavation_blast"
+      }
+     }
+    ]
+   },
+   "script": "p9.isle.hole"
+  },
+  {
+   "id": "p9_pit_block_0",
+   "type": "block",
+   "x": 28,
+   "y": 23,
+   "w": 1,
+   "h": 2,
+   "if": {
+    "all": [
+     {
+      "flag": "excavation_started"
+     },
+     {
+      "not": {
+       "flag": "grand_excavation_blast"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9_pit_block_1",
+   "type": "block",
+   "x": 29,
+   "y": 23,
+   "w": 1,
+   "h": 2,
+   "if": {
+    "all": [
+     {
+      "flag": "excavation_started"
+     },
+     {
+      "not": {
+       "flag": "grand_excavation_blast"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9_pit_block_2",
+   "type": "block",
+   "x": 30,
+   "y": 23,
+   "w": 1,
+   "h": 2,
+   "if": {
+    "all": [
+     {
+      "flag": "excavation_started"
+     },
+     {
+      "not": {
+       "flag": "grand_excavation_blast"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9_job_stone",
+   "type": "inspect",
+   "x": 26,
+   "y": 15,
+   "if": {
+    "objectiveActive": "run.stone"
+   },
+   "script": "p9c13.stone"
+  },
+  {
+   "id": "p9_job_brace",
+   "type": "inspect",
+   "x": 34,
+   "y": 8,
+   "w": 2,
+   "if": {
+    "objectiveActive": "run.brace"
+   },
+   "script": "p9c13.brace"
+  },
+  {
+   "id": "p9_job_beam",
+   "type": "inspect",
+   "x": 21,
+   "y": 16,
+   "w": 3,
+   "if": {
+    "objectiveActive": "run.beam"
+   },
+   "script": "p9c13.beam"
+  },
+  {
+   "id": "p9_job_cloth",
+   "type": "inspect",
+   "x": 32,
+   "y": 12,
+   "w": 2,
+   "if": {
+    "objectiveActive": "run.cloth"
+   },
+   "script": "p9c13.cloth"
+  },
+  {
+   "id": "p9_job_squawks",
+   "type": "inspect",
+   "x": 30,
+   "y": 9,
+   "if": {
+    "objectiveActive": "run.squawks"
+   },
+   "script": "p9c13.squawks"
+  },
+  {
+   "id": "p9_job_watch",
+   "type": "inspect",
+   "x": 31,
+   "y": 19,
+   "w": 2,
+   "if": {
+    "objectiveActive": "run.watch"
+   },
+   "script": "p9c13.watch"
+  },
+  {
+   "id": "p9_shelter_look",
+   "type": "inspect",
+   "x": 32,
+   "y": 12,
+   "w": 2,
+   "if": {
+    "flag": "p9_shelter_cloth"
+   },
+   "script": "p9.isle.shelter"
+  },
+  {
+   "id": "p9_crater_block_0",
+   "type": "block",
+   "x": 26,
+   "y": 22,
+   "w": 1,
+   "h": 4,
+   "if": {
+    "flag": "grand_excavation_blast"
+   }
+  },
+  {
+   "id": "p9_crater_block_1",
+   "type": "block",
+   "x": 27,
+   "y": 22,
+   "w": 1,
+   "h": 4,
+   "if": {
+    "flag": "grand_excavation_blast"
+   }
+  },
+  {
+   "id": "p9_crater_block_2",
+   "type": "block",
+   "x": 28,
+   "y": 22,
+   "w": 1,
+   "h": 4,
+   "if": {
+    "flag": "grand_excavation_blast"
+   }
+  },
+  {
+   "id": "p9_crater_block_3",
+   "type": "block",
+   "x": 29,
+   "y": 22,
+   "w": 1,
+   "h": 4,
+   "if": {
+    "flag": "grand_excavation_blast"
+   }
+  },
+  {
+   "id": "p9_crater_block_4",
+   "type": "block",
+   "x": 30,
+   "y": 22,
+   "w": 1,
+   "h": 4,
+   "if": {
+    "flag": "grand_excavation_blast"
+   }
+  },
+  {
+   "id": "p9_crater_block_5",
+   "type": "block",
+   "x": 31,
+   "y": 22,
+   "w": 1,
+   "h": 4,
+   "if": {
+    "flag": "grand_excavation_blast"
+   }
+  },
+  {
+   "id": "p9_crater_block_6",
+   "type": "block",
+   "x": 32,
+   "y": 22,
+   "w": 1,
+   "h": 4,
+   "if": {
+    "flag": "grand_excavation_blast"
+   }
+  },
+  {
+   "id": "p9_crater",
+   "type": "inspect",
+   "x": 26,
+   "y": 25,
+   "w": 7,
+   "if": {
+    "objectiveActive": "vertical_relocation.crater"
+   },
+   "script": "p9c15.crater"
+  },
+  {
+   "id": "p9_crater_look",
+   "type": "inspect",
+   "x": 26,
+   "y": 25,
+   "w": 7,
+   "if": {
+    "all": [
+     {
+      "flag": "grand_excavation_blast"
+     },
+     {
+      "not": {
+       "objectiveActive": "vertical_relocation.crater"
+      }
+     }
+    ]
+   },
+   "script": "p9.isle.crater"
+  },
+  {
+   "id": "p9_megalodon",
+   "type": "inspect",
+   "x": 15,
+   "y": 12,
+   "h": 5,
+   "if": {
+    "objectiveActive": "vertical_relocation.megalodon"
+   },
+   "script": "p9c15.megalodon"
+  },
+  {
+   "id": "p9_megalodon_look",
+   "type": "inspect",
+   "x": 15,
+   "y": 12,
+   "h": 5,
+   "if": {
+    "all": [
+     {
+      "flag": "megalodon_introduced"
+     },
+     {
+      "not": {
+       "objectiveActive": "vertical_relocation.megalodon"
+      }
+     }
+    ]
+   },
+   "script": "p9.isle.megalodon"
+  },
+  {
+   "id": "p9_lagoon_look",
+   "type": "inspect",
+   "x": 15,
+   "y": 12,
+   "h": 5,
+   "if": {
+    "notFlag": "megalodon_introduced"
+   },
+   "script": "p9.isle.lagoon"
+  },
+  {
+   "id": "p9_view",
+   "type": "inspect",
+   "x": 49,
+   "y": 15,
+   "script": "p9.isle.view"
+  },
+  {
+   "id": "p9_river_w",
+   "type": "inspect",
+   "x": 24,
+   "y": 41,
+   "h": 2,
+   "script": "p9.isle.river"
+  },
+  {
+   "id": "p9_river_e",
+   "type": "inspect",
+   "x": 31,
+   "y": 41,
+   "h": 2,
+   "script": "p9.isle.river"
+  },
+  {
+   "id": "p9_reef_look",
+   "type": "inspect",
+   "x": 52,
+   "y": 55,
+   "h": 3,
+   "script": "p9.isle.reef"
+  },
+  {
+   "id": "p9_west_sea",
+   "type": "inspect",
+   "x": 1,
+   "y": 30,
+   "h": 6,
+   "script": "p9.isle.west_sea"
+  },
+  {
+   "id": "p9_ruin_wall",
+   "type": "inspect",
+   "x": 20,
+   "y": 8,
+   "w": 5,
+   "script": "p9.isle.ruin_wall"
+  },
+  {
+   "id": "p9_chest_ne",
+   "type": "chest",
+   "x": 50,
+   "y": 23,
+   "prop": "chest",
+   "gold": 30,
+   "items": [
+    {
+     "id": "crownskull_charm",
+     "count": 1
+    }
+   ],
+   "text": "A sea chest, rotten through, half sunk in the ferns. Somebody hid it here, and then never came back for it."
+  },
+  {
+   "id": "p9_chest_w",
+   "type": "chest",
+   "x": 15,
+   "y": 52,
+   "prop": "chest",
+   "gold": 20,
+   "items": [
+    {
+     "id": "healing_tonic",
+     "count": 2
+    }
+   ],
+   "text": "An old iron-bound box under a fern, its lock rusted to orange lace."
+  },
+  {
+   "id": "p9_chest_e",
+   "type": "chest",
+   "x": 42,
+   "y": 44,
+   "prop": "treasure_chest_small",
+   "items": [
+    {
+     "id": "frog_grog",
+     "count": 1
+    },
+    {
+     "id": "hardtack",
+     "count": 2
+    }
+   ],
+   "text": "A small chest someone dragged up here from a wreck, by the look of it. Inside: biscuits, sealed in wax. A bottle of something green."
+  },
+  {
+   "id": "p9_chest_reef",
+   "type": "chest",
+   "x": 47,
+   "y": 52,
+   "prop": "crate",
+   "gold": 15,
+   "text": "A crate washed up on the rocks, with a little sea-worn money in it."
+  },
+  {
+   "id": "p9i_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 24,
+   "y": 25,
+   "facing": "right",
+   "if": {
+    "flag": "p9_complete"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p9i_pete_1",
+   "type": "npc",
+   "npc": "pete",
+   "x": 19,
+   "y": 12,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_crowned_seen"
+     },
+     {
+      "notFlag": "p9_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_pete_2",
+   "type": "npc",
+   "npc": "pete",
+   "x": 24,
+   "y": 24,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_great_white_rain_survived"
+     },
+     {
+      "notFlag": "p9_crowned_seen"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_pete_3",
+   "type": "npc",
+   "npc": "pete",
+   "x": 31,
+   "y": 11,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "ruins_shelter_ready"
+     },
+     {
+      "notFlag": "p9_great_white_rain_survived"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_pete_4",
+   "type": "npc",
+   "npc": "pete",
+   "x": 30,
+   "y": 18,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_in_ruins"
+     },
+     {
+      "notFlag": "ruins_shelter_ready"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_pete_5",
+   "type": "npc",
+   "npc": "pete",
+   "x": 24,
+   "y": 14,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_west_trap"
+     },
+     {
+      "notFlag": "p9_in_ruins"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_pete_6",
+   "type": "npc",
+   "npc": "pete",
+   "x": 8,
+   "y": 28,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch67_started"
+     },
+     {
+      "notFlag": "p9_west_trap"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_pete_7",
+   "type": "npc",
+   "npc": "pete",
+   "x": 26,
+   "y": 24,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch64_started"
+     },
+     {
+      "notFlag": "p9_ch67_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_pete_8",
+   "type": "npc",
+   "npc": "pete",
+   "x": 47,
+   "y": 54,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_isle_briefed"
+     },
+     {
+      "notFlag": "p9_ch64_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9i_pete_9",
+   "type": "npc",
+   "npc": "pete",
+   "x": 28,
+   "y": 59,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch63_started"
+     },
+     {
+      "notFlag": "p9_isle_briefed"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_pete_10",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p9_landed"
+   }
+  },
+  {
+   "id": "p9i_gristle_0",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 32,
+   "y": 10,
+   "facing": "down",
+   "if": {
+    "flag": "p9_complete"
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_gristle_1",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 19,
+   "y": 16,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_crowned_seen"
+     },
+     {
+      "notFlag": "p9_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_gristle_2",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 34,
+   "y": 23,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_great_white_rain_survived"
+     },
+     {
+      "notFlag": "p9_crowned_seen"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_gristle_3",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 33,
+   "y": 9,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "ruins_shelter_ready"
+     },
+     {
+      "notFlag": "p9_great_white_rain_survived"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_gristle_4",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 27,
+   "y": 16,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_in_ruins"
+     },
+     {
+      "notFlag": "ruins_shelter_ready"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9i_gristle_5",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 25,
+   "y": 16,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_west_trap"
+     },
+     {
+      "notFlag": "p9_in_ruins"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_gristle_6",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 9,
+   "y": 30,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch67_started"
+     },
+     {
+      "notFlag": "p9_west_trap"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_gristle_7",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 32,
+   "y": 23,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch64_started"
+     },
+     {
+      "notFlag": "p9_ch67_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_gristle_8",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 31,
+   "y": 38,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_isle_briefed"
+     },
+     {
+      "notFlag": "p9_ch64_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9i_gristle_9",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 32,
+   "y": 59,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch63_started"
+     },
+     {
+      "notFlag": "p9_isle_briefed"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_gristle_10",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p9_landed"
+   }
+  },
+  {
+   "id": "p9i_bob_0",
+   "type": "npc",
+   "npc": "bob",
+   "x": 25,
+   "y": 42,
+   "facing": "right",
+   "if": {
+    "flag": "p9_complete"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p9i_bob_1",
+   "type": "npc",
+   "npc": "bob",
+   "x": 20,
+   "y": 15,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_crowned_seen"
+     },
+     {
+      "notFlag": "p9_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_bob_2",
+   "type": "npc",
+   "npc": "bob",
+   "x": 25,
+   "y": 27,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_great_white_rain_survived"
+     },
+     {
+      "notFlag": "p9_crowned_seen"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_bob_3",
+   "type": "npc",
+   "npc": "bob",
+   "x": 35,
+   "y": 10,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "ruins_shelter_ready"
+     },
+     {
+      "notFlag": "p9_great_white_rain_survived"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_bob_4",
+   "type": "npc",
+   "npc": "bob",
+   "x": 33,
+   "y": 13,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_in_ruins"
+     },
+     {
+      "notFlag": "ruins_shelter_ready"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9i_bob_5",
+   "type": "npc",
+   "npc": "bob",
+   "x": 23,
+   "y": 15,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_west_trap"
+     },
+     {
+      "notFlag": "p9_in_ruins"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_bob_6",
+   "type": "npc",
+   "npc": "bob",
+   "x": 7,
+   "y": 29,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch67_started"
+     },
+     {
+      "notFlag": "p9_west_trap"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_bob_7",
+   "type": "npc",
+   "npc": "bob",
+   "x": 27,
+   "y": 27,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch64_started"
+     },
+     {
+      "notFlag": "p9_ch67_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9i_bob_8",
+   "type": "npc",
+   "npc": "bob",
+   "x": 25,
+   "y": 42,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_isle_briefed"
+     },
+     {
+      "notFlag": "p9_ch64_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9i_bob_9",
+   "type": "npc",
+   "npc": "bob",
+   "x": 25,
+   "y": 60,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch63_started"
+     },
+     {
+      "notFlag": "p9_isle_briefed"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_bob_10",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p9_landed"
+   }
+  },
+  {
+   "id": "p9i_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 27,
+   "y": 59,
+   "facing": "down",
+   "if": {
+    "flag": "p9_complete"
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_jim_1",
+   "type": "npc",
+   "npc": "jim",
+   "x": 21,
+   "y": 13,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_crowned_seen"
+     },
+     {
+      "notFlag": "p9_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_jim_2",
+   "type": "npc",
+   "npc": "jim",
+   "x": 33,
+   "y": 27,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_great_white_rain_survived"
+     },
+     {
+      "notFlag": "p9_crowned_seen"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_jim_3",
+   "type": "npc",
+   "npc": "jim",
+   "x": 34,
+   "y": 11,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "ruins_shelter_ready"
+     },
+     {
+      "notFlag": "p9_great_white_rain_survived"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_jim_4",
+   "type": "npc",
+   "npc": "jim",
+   "x": 22,
+   "y": 15,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_in_ruins"
+     },
+     {
+      "notFlag": "ruins_shelter_ready"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9i_jim_5",
+   "type": "npc",
+   "npc": "jim",
+   "x": 26,
+   "y": 13,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_west_trap"
+     },
+     {
+      "notFlag": "p9_in_ruins"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_jim_6",
+   "type": "npc",
+   "npc": "jim",
+   "x": 10,
+   "y": 31,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch67_started"
+     },
+     {
+      "notFlag": "p9_west_trap"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_jim_7",
+   "type": "npc",
+   "npc": "jim",
+   "x": 32,
+   "y": 27,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch64_started"
+     },
+     {
+      "notFlag": "p9_ch67_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9i_jim_8",
+   "type": "npc",
+   "npc": "jim",
+   "x": 15,
+   "y": 51,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_isle_briefed"
+     },
+     {
+      "notFlag": "p9_ch64_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9i_jim_9",
+   "type": "npc",
+   "npc": "jim",
+   "x": 34,
+   "y": 60,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch63_started"
+     },
+     {
+      "notFlag": "p9_isle_briefed"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_jim_10",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p9_landed"
+   }
+  },
+  {
+   "id": "p9i_ned_0",
+   "type": "npc",
+   "npc": "ned",
+   "x": 47,
+   "y": 15,
+   "facing": "right",
+   "if": {
+    "flag": "p9_complete"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9i_ned_1",
+   "type": "npc",
+   "npc": "ned",
+   "x": 16,
+   "y": 11,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_crowned_seen"
+     },
+     {
+      "notFlag": "p9_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_ned_2",
+   "type": "npc",
+   "npc": "ned",
+   "x": 27,
+   "y": 20,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_great_white_rain_survived"
+     },
+     {
+      "notFlag": "p9_crowned_seen"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_ned_3",
+   "type": "npc",
+   "npc": "ned",
+   "x": 35,
+   "y": 11,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "ruins_shelter_ready"
+     },
+     {
+      "notFlag": "p9_great_white_rain_survived"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_ned_4",
+   "type": "npc",
+   "npc": "ned",
+   "x": 24,
+   "y": 10,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_in_ruins"
+     },
+     {
+      "notFlag": "ruins_shelter_ready"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9i_ned_5",
+   "type": "npc",
+   "npc": "ned",
+   "x": 27,
+   "y": 14,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_west_trap"
+     },
+     {
+      "notFlag": "p9_in_ruins"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_ned_6",
+   "type": "npc",
+   "npc": "ned",
+   "x": 8,
+   "y": 32,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch67_started"
+     },
+     {
+      "notFlag": "p9_west_trap"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_ned_7",
+   "type": "npc",
+   "npc": "ned",
+   "x": 25,
+   "y": 25,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch64_started"
+     },
+     {
+      "notFlag": "p9_ch67_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9i_ned_8",
+   "type": "npc",
+   "npc": "ned",
+   "x": 47,
+   "y": 15,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_isle_briefed"
+     },
+     {
+      "notFlag": "p9_ch64_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9i_ned_9",
+   "type": "npc",
+   "npc": "ned",
+   "x": 31,
+   "y": 58,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch63_started"
+     },
+     {
+      "notFlag": "p9_isle_briefed"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p9i_ned_10",
+   "type": "npc",
+   "npc": "ned",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p9_landed"
+   }
+  },
+  {
+   "id": "p9i_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 21,
+   "y": 25,
+   "facing": "right",
+   "if": {
+    "flag": "p9_complete"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9i_garrick_1",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 14,
+   "y": 20,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_crowned_seen"
+     },
+     {
+      "notFlag": "p9_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9i_garrick_2",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 31,
+   "y": 26,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_great_white_rain_survived"
+     },
+     {
+      "notFlag": "p9_crowned_seen"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9i_garrick_3",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 29,
+   "y": 26,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch67_started"
+     },
+     {
+      "not": {
+       "flag": "grand_excavation_blast"
+      }
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9i_garrick_4",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 34,
+   "y": 27,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "garrick_quit_digging"
+     },
+     {
+      "notFlag": "p9_ch66_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p9i_garrick_5",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 31,
+   "y": 25,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch64_started"
+     },
+     {
+      "notFlag": "p9_ch67_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9i_garrick_6",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 26,
+   "y": 44,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_isle_briefed"
+     },
+     {
+      "notFlag": "p9_ch64_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9i_garrick_7",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 27,
+   "y": 59,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch63_started"
+     },
+     {
+      "notFlag": "p9_isle_briefed"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9i_garrick_8",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p9_landed"
+   }
+  },
+  {
+   "id": "p9i_squawks_0",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 30,
+   "y": 9,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_squawks_sheltered"
+     },
+     {
+      "notFlag": "p9_squawks_back"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9i_squawks_1",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p9_ch62_started"
+   }
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "flag": "p9_ch70_started"
+   },
+   "music": "crownskull_isle",
+   "ambience": "island_after"
+  },
+  {
+   "if": {
+    "flag": "p9_great_white_rain_survived"
+   },
+   "music": "ruined_treasure",
+   "ambience": "island_after"
+  },
+  {
+   "if": {
+    "flag": "great_sharkstorm_inland"
+   },
+   "music": "great_sharkstorm",
+   "ambience": "island_storm"
+  },
+  {
+   "if": {
+    "flag": "launch_sequence_started"
+   },
+   "music": "launch_buildup",
+   "ambience": "jungle"
+  }
+ ],
+ "ambient": [
+  {
+   "kind": "gulls"
+  },
+  {
+   "kind": "smoke",
+   "x": 29,
+   "y": 23,
+   "rise": 10,
+   "every": 1600,
+   "alpha": 0.35,
+   "tint": "#d8c850",
+   "if": {
+    "flag": "grand_excavation_blast"
+   }
+  },
+  {
+   "kind": "glitter",
+   "x": 27,
+   "y": 22,
+   "w": 5,
+   "h": 3,
+   "every": 1300,
+   "if": {
+    "flag": "grand_excavation_blast"
+   }
+  },
+  {
+   "kind": "voice",
+   "x": 29,
+   "y": 24,
+   "every": [
+    7000,
+    12000
+   ],
+   "shout": false,
+   "lines": [
+    "<k>gloooorp</>",
+    "<k>AWWOOOO</>",
+    "<k>grrrnnk</>"
+   ],
+   "sfx": "stomach_grnk",
+   "volume": 0.45,
+   "delay": 3000,
+   "if": {
+    "all": [
+     {
+      "flag": "launch_sequence_started"
+     },
+     {
+      "not": {
+       "flag": "grand_excavation_blast"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "kind": "voice",
+   "x": 29,
+   "y": 24,
+   "every": [
+    9000,
+    15000
+   ],
+   "shout": false,
+   "lines": [
+    "<k>aiming...</>",
+    "<k>a little left...</>",
+    "<k>targeting...</>"
+   ],
+   "delay": 5000,
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch67_started"
+     },
+     {
+      "not": {
+       "flag": "grand_excavation_blast"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "kind": "voice",
+   "x": 14,
+   "y": 15,
+   "every": [
+    16000,
+    28000
+   ],
+   "shout": false,
+   "lines": [
+    "<k>HHHHRRRMMMM...</>",
+    "<k>blub</>"
+   ],
+   "sfx": "rumble_low",
+   "volume": 0.3,
+   "delay": 6000,
+   "if": {
+    "flag": "megalodon_introduced"
+   }
+  }
+ ]
+}

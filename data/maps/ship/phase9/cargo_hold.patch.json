@@ -1,0 +1,1605 @@
+{
+ "id": "cargo_hold_phase9",
+ "patch": "cargo_hold",
+ "//": "Story Phase 9 in the lower-hull barracks. The morning after the Grand Nap: grey light through the hull; the main cast up (Pete on his rope pillow, Jim at his pantry; Bob, Gristle and Ned in their beds), the Grand Stenchmaster asleep over the captain's bunk until woken. The lecture on his rug before the Mark II (11,12), the crew sitting round (the minor crew catch up on sleep in their hammocks: the floor stays clear). The board by the barrels (5,10): the org chart, then the Crimson Chart for the council, then Pete's plan. The gap in the hull planks by the stairs (6,3), where Ned sees land. From chapter 62 the landing party is gone (on deck, then ashore).",
+ "objects": [
+  {
+   "id": "p9_start",
+   "type": "inspect",
+   "x": 15,
+   "y": 16,
+   "w": 2,
+   "if": {
+    "all": [
+     {
+      "flag": "p8_complete"
+     },
+     {
+      "notFlag": "p9_started"
+     }
+    ]
+   },
+   "script": "p9.start"
+  },
+  {
+   "id": "p9_wake",
+   "type": "inspect",
+   "x": 15,
+   "y": 16,
+   "w": 2,
+   "if": {
+    "objectiveActive": "morning_after.wake"
+   },
+   "script": "p9c1.wake"
+  },
+  {
+   "id": "p9_bunk",
+   "type": "inspect",
+   "x": 15,
+   "y": 16,
+   "w": 2,
+   "if": {
+    "flag": "p9_nap_concluded"
+   },
+   "script": "p9.inspect.bunk"
+  },
+  {
+   "id": "p9_trunk",
+   "type": "inspect",
+   "x": 12,
+   "y": 12,
+   "if": {
+    "objectiveActive": "no_receipt.hat"
+   },
+   "script": "p9c3.trunk"
+  },
+  {
+   "id": "p9_chart",
+   "type": "inspect",
+   "x": 5,
+   "y": 10,
+   "w": 2,
+   "if": {
+    "objectiveActive": "sash_bureaucracy.chart"
+   },
+   "script": "p9c4.chart"
+  },
+  {
+   "id": "p9_council",
+   "type": "inspect",
+   "x": 5,
+   "y": 10,
+   "w": 2,
+   "if": {
+    "objectiveActive": "landing_problem.council"
+   },
+   "script": "p9c6.council"
+  },
+  {
+   "id": "p9_options",
+   "type": "inspect",
+   "x": 5,
+   "y": 10,
+   "w": 2,
+   "if": {
+    "objectiveActive": "landing_problem.options"
+   },
+   "script": "p9c6.options"
+  },
+  {
+   "id": "p9_board",
+   "type": "inspect",
+   "x": 5,
+   "y": 10,
+   "w": 2,
+   "if": {
+    "flag": "p9_ch58_started"
+   },
+   "script": "p9.inspect.board"
+  },
+  {
+   "id": "p9_gap_look",
+   "type": "inspect",
+   "x": 6,
+   "y": 3,
+   "w": 2,
+   "if": {
+    "objectiveActive": "land_ho.look"
+   },
+   "script": "p9c5.look"
+  },
+  {
+   "id": "p9_gap_map",
+   "type": "inspect",
+   "x": 6,
+   "y": 3,
+   "w": 2,
+   "if": {
+    "objectiveActive": "land_ho.map"
+   },
+   "script": "p9c5.map"
+  },
+  {
+   "id": "p9_gap",
+   "type": "inspect",
+   "x": 6,
+   "y": 3,
+   "w": 2,
+   "if": {
+    "flag": "p9_started"
+   },
+   "script": "p9.hold.gap"
+  },
+  {
+   "id": "p9_tv",
+   "type": "inspect",
+   "x": 11,
+   "y": 11,
+   "if": {
+    "objectiveActive": "grand_sharkmaster.tv"
+   },
+   "script": "p9c7.tv"
+  },
+  {
+   "id": "p9h_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p9_ch62_started"
+   }
+  },
+  {
+   "id": "p9h_garrick_1",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 8,
+   "y": 12,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch60_started"
+     },
+     {
+      "notFlag": "p9_ch62_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_garrick_2",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 11,
+   "y": 6,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch59_started"
+     },
+     {
+      "notFlag": "p9_ch60_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_garrick_3",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 11,
+   "y": 12,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_baited"
+     },
+     {
+      "notFlag": "p9_ch59_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_garrick_4",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 13,
+   "y": 15,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_nap_concluded"
+     },
+     {
+      "notFlag": "p9_baited"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_garrick_5",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p9_started"
+     },
+     {
+      "notFlag": "p9_nap_concluded"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p9h_squawks_0",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p9_ch62_started"
+   }
+  },
+  {
+   "id": "p9h_squawks_1",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 14,
+   "y": 16,
+   "facing": "up",
+   "if": {
+    "flag": "p9_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_hale_0",
+   "type": "npc",
+   "npc": "hale",
+   "x": 2,
+   "y": 7,
+   "facing": "down",
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "p9_started"
+       },
+       {
+        "notFlag": "p9_nap_concluded"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p9_nap_concluded"
+       },
+       {
+        "notFlag": "p9_baited"
+       }
+      ]
+     }
+    ]
+   },
+   "pose": "hammock_awake",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_hale_1",
+   "type": "npc",
+   "npc": "hale",
+   "x": 2,
+   "y": 7,
+   "facing": "down",
+   "if": {
+    "flag": "p9_started"
+   },
+   "pose": "hammock_awake",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_wick_0",
+   "type": "npc",
+   "npc": "wick",
+   "x": 5,
+   "y": 7,
+   "facing": "down",
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "p9_started"
+       },
+       {
+        "notFlag": "p9_nap_concluded"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p9_nap_concluded"
+       },
+       {
+        "notFlag": "p9_baited"
+       }
+      ]
+     }
+    ]
+   },
+   "pose": "hammock_awake",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_wick_1",
+   "type": "npc",
+   "npc": "wick",
+   "x": 5,
+   "y": 7,
+   "facing": "down",
+   "if": {
+    "flag": "p9_started"
+   },
+   "pose": "hammock",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_fennimore_0",
+   "type": "npc",
+   "npc": "fennimore",
+   "x": 12,
+   "y": 5,
+   "facing": "down",
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "p9_started"
+       },
+       {
+        "notFlag": "p9_nap_concluded"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p9_nap_concluded"
+       },
+       {
+        "notFlag": "p9_baited"
+       }
+      ]
+     }
+    ]
+   },
+   "pose": "hammock_awake",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_fennimore_1",
+   "type": "npc",
+   "npc": "fennimore",
+   "x": 12,
+   "y": 5,
+   "facing": "down",
+   "if": {
+    "flag": "p9_started"
+   },
+   "pose": "hammock",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_rook_0",
+   "type": "npc",
+   "npc": "rook",
+   "x": 2,
+   "y": 4,
+   "facing": "down",
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "p9_started"
+       },
+       {
+        "notFlag": "p9_nap_concluded"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p9_nap_concluded"
+       },
+       {
+        "notFlag": "p9_baited"
+       }
+      ]
+     }
+    ]
+   },
+   "pose": "hammock_awake",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_rook_1",
+   "type": "npc",
+   "npc": "rook",
+   "x": 2,
+   "y": 4,
+   "facing": "down",
+   "if": {
+    "flag": "p9_started"
+   },
+   "pose": "hammock",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_sully_0",
+   "type": "npc",
+   "npc": "sully",
+   "x": 8,
+   "y": 16,
+   "facing": "down",
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "p9_started"
+       },
+       {
+        "notFlag": "p9_nap_concluded"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p9_nap_concluded"
+       },
+       {
+        "notFlag": "p9_baited"
+       }
+      ]
+     }
+    ]
+   },
+   "pose": "hammock_awake",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_sully_1",
+   "type": "npc",
+   "npc": "sully",
+   "x": 8,
+   "y": 16,
+   "facing": "down",
+   "if": {
+    "flag": "p9_started"
+   },
+   "pose": "hammock",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_brask_0",
+   "type": "npc",
+   "npc": "brask",
+   "x": 5,
+   "y": 16,
+   "facing": "down",
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "p9_started"
+       },
+       {
+        "notFlag": "p9_nap_concluded"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p9_nap_concluded"
+       },
+       {
+        "notFlag": "p9_baited"
+       }
+      ]
+     }
+    ]
+   },
+   "pose": "hammock_awake",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_brask_1",
+   "type": "npc",
+   "npc": "brask",
+   "x": 5,
+   "y": 16,
+   "facing": "down",
+   "if": {
+    "flag": "p9_started"
+   },
+   "pose": "hammock",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_gristle_0",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p9_ch62_started"
+   }
+  },
+  {
+   "id": "p9h_gristle_1",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 7,
+   "y": 9,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch60_started"
+     },
+     {
+      "notFlag": "p9_ch62_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_gristle_2",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 10,
+   "y": 5,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch59_started"
+     },
+     {
+      "notFlag": "p9_ch60_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_gristle_3",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 13,
+   "y": 12,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_baited"
+     },
+     {
+      "notFlag": "p9_ch59_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_gristle_4",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 17,
+   "y": 5,
+   "facing": "down",
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "p9_started"
+       },
+       {
+        "notFlag": "p9_nap_concluded"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p9_nap_concluded"
+       },
+       {
+        "notFlag": "p9_baited"
+       }
+      ]
+     }
+    ]
+   },
+   "pose": "hammock_awake",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_jory_0",
+   "type": "npc",
+   "npc": "jory",
+   "x": 5,
+   "y": 9,
+   "facing": "down",
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "p9_started"
+       },
+       {
+        "notFlag": "p9_nap_concluded"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p9_nap_concluded"
+       },
+       {
+        "notFlag": "p9_baited"
+       }
+      ]
+     }
+    ]
+   },
+   "pose": "hammock_awake",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_jory_1",
+   "type": "npc",
+   "npc": "jory",
+   "x": 5,
+   "y": 9,
+   "facing": "down",
+   "if": {
+    "flag": "p9_started"
+   },
+   "pose": "hammock",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_bob_0",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p9_ch62_started"
+   }
+  },
+  {
+   "id": "p9h_bob_1",
+   "type": "npc",
+   "npc": "bob",
+   "x": 4,
+   "y": 13,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch60_started"
+     },
+     {
+      "notFlag": "p9_ch62_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_bob_2",
+   "type": "npc",
+   "npc": "bob",
+   "x": 5,
+   "y": 5,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch59_started"
+     },
+     {
+      "notFlag": "p9_ch60_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_bob_3",
+   "type": "npc",
+   "npc": "bob",
+   "x": 8,
+   "y": 13,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_baited"
+     },
+     {
+      "notFlag": "p9_ch59_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p9h_bob_4",
+   "type": "npc",
+   "npc": "bob",
+   "x": 2,
+   "y": 10,
+   "facing": "down",
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "p9_started"
+       },
+       {
+        "notFlag": "p9_nap_concluded"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p9_nap_concluded"
+       },
+       {
+        "notFlag": "p9_baited"
+       }
+      ]
+     }
+    ]
+   },
+   "pose": "hammock_awake",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_ned_0",
+   "type": "npc",
+   "npc": "ned",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p9_ch62_started"
+   }
+  },
+  {
+   "id": "p9h_ned_1",
+   "type": "npc",
+   "npc": "ned",
+   "x": 3,
+   "y": 11,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch60_started"
+     },
+     {
+      "notFlag": "p9_ch62_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_ned_2",
+   "type": "npc",
+   "npc": "ned",
+   "x": 7,
+   "y": 4,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch59_started"
+     },
+     {
+      "notFlag": "p9_ch60_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_ned_3",
+   "type": "npc",
+   "npc": "ned",
+   "x": 7,
+   "y": 13,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_baited"
+     },
+     {
+      "notFlag": "p9_ch59_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p9h_ned_4",
+   "type": "npc",
+   "npc": "ned",
+   "x": 2,
+   "y": 13,
+   "facing": "down",
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "p9_started"
+       },
+       {
+        "notFlag": "p9_nap_concluded"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p9_nap_concluded"
+       },
+       {
+        "notFlag": "p9_baited"
+       }
+      ]
+     }
+    ]
+   },
+   "pose": "hammock_awake",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_nell_0",
+   "type": "npc",
+   "npc": "nell",
+   "x": 17,
+   "y": 12,
+   "facing": "down",
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "p9_started"
+       },
+       {
+        "notFlag": "p9_nap_concluded"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p9_nap_concluded"
+       },
+       {
+        "notFlag": "p9_baited"
+       }
+      ]
+     }
+    ]
+   },
+   "pose": "hammock_awake",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_nell_1",
+   "type": "npc",
+   "npc": "nell",
+   "x": 17,
+   "y": 12,
+   "facing": "down",
+   "if": {
+    "flag": "p9_started"
+   },
+   "pose": "hammock",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_finch_0",
+   "type": "npc",
+   "npc": "finch",
+   "x": 8,
+   "y": 4,
+   "facing": "down",
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "p9_started"
+       },
+       {
+        "notFlag": "p9_nap_concluded"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p9_nap_concluded"
+       },
+       {
+        "notFlag": "p9_baited"
+       }
+      ]
+     }
+    ]
+   },
+   "pose": "hammock_awake",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_finch_1",
+   "type": "npc",
+   "npc": "finch",
+   "x": 8,
+   "y": 4,
+   "facing": "down",
+   "if": {
+    "flag": "p9_started"
+   },
+   "pose": "hammock",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p9_ch62_started"
+   }
+  },
+  {
+   "id": "p9h_pete_1",
+   "type": "npc",
+   "npc": "pete",
+   "x": 8,
+   "y": 11,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch60_started"
+     },
+     {
+      "notFlag": "p9_ch62_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_pete_2",
+   "type": "npc",
+   "npc": "pete",
+   "x": 9,
+   "y": 4,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch59_started"
+     },
+     {
+      "notFlag": "p9_ch60_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_pete_3",
+   "type": "npc",
+   "npc": "pete",
+   "x": 9,
+   "y": 14,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_baited"
+     },
+     {
+      "notFlag": "p9_ch59_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p9h_pete_4",
+   "type": "npc",
+   "npc": "pete",
+   "x": 3,
+   "y": 15,
+   "facing": "right",
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "p9_started"
+       },
+       {
+        "notFlag": "p9_nap_concluded"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p9_nap_concluded"
+       },
+       {
+        "notFlag": "p9_baited"
+       }
+      ]
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p9h_mags_0",
+   "type": "npc",
+   "npc": "mags",
+   "x": 4,
+   "y": 11,
+   "facing": "down",
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "p9_started"
+       },
+       {
+        "notFlag": "p9_nap_concluded"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p9_nap_concluded"
+       },
+       {
+        "notFlag": "p9_baited"
+       }
+      ]
+     }
+    ]
+   },
+   "pose": "hammock_awake",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_mags_1",
+   "type": "npc",
+   "npc": "mags",
+   "x": 4,
+   "y": 11,
+   "facing": "down",
+   "if": {
+    "flag": "p9_started"
+   },
+   "pose": "hammock",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p9_ch62_started"
+   }
+  },
+  {
+   "id": "p9h_jim_1",
+   "type": "npc",
+   "npc": "jim",
+   "x": 3,
+   "y": 12,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch60_started"
+     },
+     {
+      "notFlag": "p9_ch62_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_jim_2",
+   "type": "npc",
+   "npc": "jim",
+   "x": 9,
+   "y": 6,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch59_started"
+     },
+     {
+      "notFlag": "p9_ch60_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_jim_3",
+   "type": "npc",
+   "npc": "jim",
+   "x": 13,
+   "y": 14,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_baited"
+     },
+     {
+      "notFlag": "p9_ch59_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_jim_4",
+   "type": "npc",
+   "npc": "jim",
+   "x": 16,
+   "y": 11,
+   "facing": "right",
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "p9_started"
+       },
+       {
+        "notFlag": "p9_nap_concluded"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p9_nap_concluded"
+       },
+       {
+        "notFlag": "p9_baited"
+       }
+      ]
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_quill_0",
+   "type": "npc",
+   "npc": "quill",
+   "x": 15,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "p9_started"
+       },
+       {
+        "notFlag": "p9_nap_concluded"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p9_nap_concluded"
+       },
+       {
+        "notFlag": "p9_baited"
+       }
+      ]
+     }
+    ]
+   },
+   "pose": "hammock_awake",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_quill_1",
+   "type": "npc",
+   "npc": "quill",
+   "x": 15,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "flag": "p9_started"
+   },
+   "pose": "hammock",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_dunstan_0",
+   "type": "npc",
+   "npc": "dunstan",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p9_started"
+   }
+  },
+  {
+   "id": "p9h_penhallow_0",
+   "type": "npc",
+   "npc": "penhallow",
+   "x": 17,
+   "y": 8,
+   "facing": "down",
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "p9_started"
+       },
+       {
+        "notFlag": "p9_nap_concluded"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p9_nap_concluded"
+       },
+       {
+        "notFlag": "p9_baited"
+       }
+      ]
+     }
+    ]
+   },
+   "pose": "hammock_awake",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9h_penhallow_1",
+   "type": "npc",
+   "npc": "penhallow",
+   "x": 17,
+   "y": 8,
+   "facing": "down",
+   "if": {
+    "flag": "p9_started"
+   },
+   "pose": "hammock",
+   "behavior": {
+    "type": "stand"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "bunk_double",
+   "x": 15,
+   "y": 16,
+   "if": {
+    "flag": "p9_nap_concluded"
+   },
+   "id": "p9_bunk_empty"
+  },
+  {
+   "prop": "plan_board",
+   "x": 5,
+   "y": 10,
+   "if": {
+    "flag": "p9_ch58_started"
+   },
+   "id": "p9_board"
+  },
+  {
+   "prop": "hull_gap",
+   "x": 6,
+   "y": 3,
+   "if": {
+    "flag": "p9_started"
+   },
+   "id": "p9_gap_a"
+  },
+  {
+   "prop": "hull_gap",
+   "x": 7,
+   "y": 3,
+   "if": {
+    "flag": "p9_started"
+   },
+   "id": "p9_gap_b"
+  }
+ ],
+ "propConditions": [
+  {
+   "id": "p8_bunk_bare",
+   "if": {
+    "notFlag": "p9_nap_concluded"
+   }
+  }
+ ],
+ "onEnter": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p8_complete"
+     },
+     {
+      "notFlag": "p9_started"
+     },
+     {
+      "notFlag": "p9_ready_hint"
+     }
+    ]
+   },
+   "script": "p9.ready_hint"
+  }
+ ],
+ "lightingVariants": [
+  {
+   "if": {
+    "flag": "p9_started"
+   },
+   "ambient": "#857f98"
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "flag": "p9_ch62_started"
+   },
+   "music": "lower_hull",
+   "musicFilter": "muffled",
+   "ambience": "lower_hull"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p9_baited"
+     },
+     {
+      "notFlag": "p9_ch62_started"
+     }
+    ]
+   },
+   "music": null,
+   "ambience": "lower_hull"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p9_started"
+     },
+     {
+      "notFlag": "p9_nap_concluded"
+     }
+    ]
+   },
+   "music": null,
+   "ambience": "barracks_night"
+  },
+  {
+   "if": {
+    "flag": "p9_started"
+   },
+   "music": null,
+   "ambience": "lower_hull"
+  }
+ ],
+ "ambient": [
+  {
+   "kind": "voice",
+   "x": 15,
+   "y": 15,
+   "every": [
+    6000,
+    11000
+   ],
+   "shout": false,
+   "lines": [
+    "<k>HHHNNNRRRK...</>",
+    "<k>pfffff...</>",
+    "<k>...very reasonable...</>",
+    "<k>FWOoF</>"
+   ],
+   "sfx": "garrick_snore",
+   "volume": 0.4,
+   "delay": 2500,
+   "if": {
+    "all": [
+     {
+      "flag": "p9_started"
+     },
+     {
+      "notFlag": "p9_nap_concluded"
+     }
+    ]
+   }
+  }
+ ]
+}

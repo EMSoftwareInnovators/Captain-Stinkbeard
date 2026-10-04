@@ -1,0 +1,504 @@
+{
+ "//": "Story Phase 9 vistas: Garrick's 'Completely Authentic' history in crayon (shown on the hold's wall, one picture at a time); Crownskull Isle through the broken planks of the hull; the island close up from the lee side with the decoy boat going away under escort; the Grand Excavation (the clearing from the ruins, the Grand Stenchmaster bent over his hole taking aim, the plume, a palm tree going by, the odour wave, the storm turning inland, the megalodon); the Crimson Fortune exposed and then going up the plume into the storm, the Crimson King's Crown last, onto the megalodon; and the Shark Shanty, which is happening only in the captain's head.",
+ "history_lesson": {
+  "sky": "morning",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "bg",
+    "frame": "hold_shelter",
+    "x": 160,
+    "y": 224,
+    "depth": 2
+   },
+   {
+    "id": "panel",
+    "frame": "hist_stenchalina",
+    "x": 160,
+    "y": 220,
+    "depth": 10,
+    "scale": 1.25
+   }
+  ]
+ },
+ "crownskull_reveal": {
+  "sky": "morning",
+  "sea": "day",
+  "horizon": 150,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "island",
+    "frame": "crownskull_far",
+    "x": 160,
+    "y": 160,
+    "depth": 8
+   },
+   {
+    "id": "hull",
+    "frame": "hull_breach",
+    "x": 160,
+    "y": 224,
+    "depth": 30
+   }
+  ]
+ },
+ "crownskull_offshore": {
+  "sky": "day",
+  "sea": "day",
+  "horizon": 130,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "storm",
+    "frame": "storm_far_0",
+    "x": 270,
+    "y": 140,
+    "depth": 6,
+    "frames": [
+     "storm_far_0",
+     "storm_far_1"
+    ],
+    "frameMs": 420,
+    "scale": 1.1
+   },
+   {
+    "id": "island",
+    "frame": "crownskull_far",
+    "x": 150,
+    "y": 142,
+    "depth": 8,
+    "scale": 1.05
+   },
+   {
+    "id": "revenge",
+    "frame": "revenge_side",
+    "x": 70,
+    "y": 200,
+    "depth": 12,
+    "scale": 0.55,
+    "bob": 1
+   }
+  ]
+ },
+ "lee_side": {
+  "sky": "day",
+  "sea": "day",
+  "horizon": 132,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "storm",
+    "frame": "storm_far_0",
+    "x": 300,
+    "y": 128,
+    "depth": 5,
+    "frames": [
+     "storm_far_0",
+     "storm_far_1"
+    ],
+    "frameMs": 420,
+    "scale": 0.8
+   },
+   {
+    "id": "cliffs",
+    "frame": "island_cliffs",
+    "x": 160,
+    "y": 160,
+    "depth": 8
+   },
+   {
+    "id": "decoy",
+    "frame": "decoy_side",
+    "x": 80,
+    "y": 196,
+    "depth": 12
+   },
+   {
+    "id": "fins",
+    "school": {
+     "frames": [
+      "fin_side_0",
+      "fin_side_1"
+     ],
+     "count": 14,
+     "area": [
+      0,
+      176,
+      140,
+      40
+     ],
+     "scale": [
+      0.6,
+      1.0
+     ],
+     "speed": [
+      16,
+      30
+     ],
+     "flip": "random",
+     "frameMs": 220
+    },
+    "depth": 11
+   },
+   {
+    "id": "lure",
+    "frame": "shark_leap",
+    "x": 260,
+    "y": 200,
+    "depth": 13,
+    "hidden": true
+   }
+  ]
+ },
+ "excavation": {
+  "sky": "afternoon",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "clearing",
+    "frame": "clearing_bg",
+    "x": 160,
+    "y": 214,
+    "depth": 4
+   },
+   {
+    "id": "garrick",
+    "frame": "garrick_aim_0",
+    "x": 160,
+    "y": 186,
+    "depth": 8,
+    "frames": [
+     "garrick_aim_0",
+     "garrick_aim_1"
+    ],
+    "frameMs": 300,
+    "scale": 0.5
+   },
+   {
+    "id": "column",
+    "frame": "blast_column_0",
+    "x": 160,
+    "y": 196,
+    "depth": 9,
+    "frames": [
+     "blast_column_0",
+     "blast_column_1",
+     "blast_column_2"
+    ],
+    "frameMs": 140,
+    "hidden": true
+   },
+   {
+    "id": "palm",
+    "frame": "palm_flying_0",
+    "x": 120,
+    "y": 120,
+    "depth": 12,
+    "frames": [
+     "palm_flying_0",
+     "palm_flying_1"
+    ],
+    "frameMs": 200,
+    "hidden": true
+   },
+   {
+    "id": "wave",
+    "frame": "odor_wave_0",
+    "x": 160,
+    "y": 224,
+    "depth": 16,
+    "frames": [
+     "odor_wave_0",
+     "odor_wave_1"
+    ],
+    "frameMs": 260,
+    "hidden": true
+   },
+   {
+    "id": "storm",
+    "frame": "storm_far_0",
+    "x": 330,
+    "y": 120,
+    "depth": 5,
+    "frames": [
+     "storm_far_0",
+     "storm_far_1"
+    ],
+    "frameMs": 300,
+    "hidden": true,
+    "scale": 1.4
+   },
+   {
+    "id": "shadow",
+    "frame": "megalodon_shadow",
+    "x": 160,
+    "y": 200,
+    "depth": 6,
+    "hidden": true,
+    "alpha": 0.6
+   },
+   {
+    "id": "megalodon",
+    "frame": "megalodon_side",
+    "x": 160,
+    "y": 60,
+    "depth": 14,
+    "hidden": true
+   },
+   {
+    "id": "dust",
+    "frame": "impact_dust",
+    "x": 160,
+    "y": 214,
+    "depth": 15,
+    "hidden": true
+   },
+   {
+    "id": "wall",
+    "frame": "ruins_fg",
+    "x": 160,
+    "y": 224,
+    "depth": 20
+   }
+  ]
+ },
+ "garrick_aim": {
+  "sky": "afternoon",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "clearing",
+    "frame": "clearing_bg",
+    "x": 160,
+    "y": 224,
+    "depth": 4
+   },
+   {
+    "id": "garrick",
+    "frame": "garrick_aim_0",
+    "x": 160,
+    "y": 220,
+    "depth": 10,
+    "frames": [
+     "garrick_aim_0",
+     "garrick_aim_1"
+    ],
+    "frameMs": 260,
+    "scale": 1.6
+   }
+  ]
+ },
+ "treasure_exposed": {
+  "sky": "storm",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "clearing",
+    "frame": "clearing_bg",
+    "x": 160,
+    "y": 224,
+    "depth": 4
+   },
+   {
+    "id": "hoard",
+    "frame": "hoard_0",
+    "x": 160,
+    "y": 206,
+    "depth": 8,
+    "frames": [
+     "hoard_0",
+     "hoard_1"
+    ],
+    "frameMs": 300,
+    "scale": 1.3
+   },
+   {
+    "id": "column",
+    "frame": "treasure_column_0",
+    "x": 160,
+    "y": 200,
+    "depth": 10,
+    "frames": [
+     "treasure_column_0",
+     "treasure_column_1"
+    ],
+    "frameMs": 160,
+    "hidden": true
+   },
+   {
+    "id": "crown",
+    "frame": "crimson_crown_big",
+    "x": 160,
+    "y": 150,
+    "depth": 14,
+    "hidden": true
+   },
+   {
+    "id": "storm",
+    "frame": "storm_far_0",
+    "x": 262,
+    "y": 96,
+    "depth": 3,
+    "frames": [
+     "storm_far_0",
+     "storm_far_1"
+    ],
+    "frameMs": 300,
+    "hidden": true,
+    "scale": 1.3
+   }
+  ]
+ },
+ "crowned_megalodon": {
+  "sky": "storm",
+  "sea": "storm",
+  "horizon": 140,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "storm",
+    "frame": "storm_far_0",
+    "x": 250,
+    "y": 130,
+    "depth": 4,
+    "frames": [
+     "storm_far_0",
+     "storm_far_1"
+    ],
+    "frameMs": 360,
+    "scale": 1.3
+   },
+   {
+    "id": "megalodon",
+    "frame": "megalodon_side",
+    "x": 160,
+    "y": 200,
+    "depth": 10
+   },
+   {
+    "id": "crowned",
+    "frame": "megalodon_side_crowned",
+    "x": 160,
+    "y": 200,
+    "depth": 11,
+    "hidden": true
+   },
+   {
+    "id": "crown",
+    "frame": "crimson_crown_big",
+    "x": 150,
+    "y": 30,
+    "depth": 14,
+    "hidden": true,
+    "scale": 0.5
+   }
+  ]
+ },
+ "ridge_view": {
+  "sky": "day",
+  "sea": "day",
+  "horizon": 120,
+  "mask": "telescope",
+  "layers": [
+   {
+    "id": "storm",
+    "frame": "storm_far_0",
+    "x": 236,
+    "y": 132,
+    "depth": 6,
+    "frames": [
+     "storm_far_0",
+     "storm_far_1"
+    ],
+    "frameMs": 420,
+    "scale": 1.2
+   },
+   {
+    "id": "revenge",
+    "frame": "revenge_side",
+    "x": 120,
+    "y": 170,
+    "depth": 10,
+    "scale": 0.6,
+    "bob": 1
+   }
+  ]
+ },
+ "shark_shanty": {
+  "sky": "night",
+  "sea": false,
+  "dock": "top",
+  "caption": "In Stinkbeard's increasingly furious imagination...",
+  "layers": [
+   {
+    "id": "stage",
+    "frame": "shanty_stage",
+    "x": 160,
+    "y": 224,
+    "depth": 2
+   },
+   {
+    "id": "megalodon",
+    "frame": "megalodon_side_crowned",
+    "x": 160,
+    "y": 150,
+    "depth": 4,
+    "scale": 0.62
+   },
+   {
+    "id": "pearls",
+    "frame": "shanty_pearls_0",
+    "x": 70,
+    "y": 196,
+    "depth": 10,
+    "frames": [
+     "shanty_pearls_0",
+     "shanty_pearls_1"
+    ],
+    "frameMs": 300
+   },
+   {
+    "id": "tiara",
+    "frame": "shanty_tiara_0",
+    "x": 128,
+    "y": 200,
+    "depth": 11,
+    "frames": [
+     "shanty_tiara_0",
+     "shanty_tiara_1"
+    ],
+    "frameMs": 320
+   },
+   {
+    "id": "accordion",
+    "frame": "shanty_accordion_0",
+    "x": 192,
+    "y": 200,
+    "depth": 12,
+    "frames": [
+     "shanty_accordion_0",
+     "shanty_accordion_1"
+    ],
+    "frameMs": 240
+   },
+   {
+    "id": "hammer",
+    "frame": "shanty_hammer_0",
+    "x": 252,
+    "y": 196,
+    "depth": 13,
+    "frames": [
+     "shanty_hammer_0",
+     "shanty_hammer_1"
+    ],
+    "frameMs": 280,
+    "hidden": true
+   }
+  ]
+ }
+}

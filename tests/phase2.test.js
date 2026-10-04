@@ -156,7 +156,8 @@ describe('story state lookups', () => {
 
   it('every flag objective in Phase 2 is set by some script or reward', () => {
     const all = JSON.stringify([...content.scripts.map.values()]) + JSON.stringify(content.quests.list().map((q) => q.rewards ?? {}));
-    for (const q of content.quests.list()) {
+    // A quest marked "open" is left unresolved on purpose at the end of its phase (a later phase finishes it).
+    for (const q of content.quests.list().filter((x) => !x.open)) {
       for (const o of q.objectives.filter((x) => x.type === 'flag')) {
         expect(all.includes(`"${o.target}"`), `${q.id}.${o.id} waits on ${o.target}, which nothing sets`).toBe(true);
       }

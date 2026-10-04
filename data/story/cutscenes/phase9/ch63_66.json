@@ -1,0 +1,863 @@
+{
+ "//": "Story Phase 9, Part Three (chapters 63-66) on Crownskull Isle: the landing beach; the Grand Crown back on ('Formal dress is required. For an island.' 'Ugly crown.'); the captain's map (beach, trail, river, broken tooth, statue, and under the skull, X) and a whole island to look round; the marker under the vines, THE FORTUNE OF THE CRIMSON KINGS, and what's buried there; what everyone will do with their share (Pete's own ship, Bob's tavern, Jim's kitchen with a lock, Gristle's porch, Ned's house far from Garrick, and a gold pouch for Squawks, promised); seven floors (sand, clay, stone, clay, gravel, stone, the Miser's Floor), the right tool for each; the Grand Stenchmaster's three shovelfuls ('How long?' 'Two or three minutes.' 'I thought it was forty hours.'); days of digging; STENCHMASTER EXCAVATION TECHNOLOGY (no); and then the howl, and the launch commands, which have already been sent.",
+ "p9c9.begin": [
+  {
+   "setFlag": "p9_ch63_started"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 16
+  },
+  {
+   "banner": "PART THREE",
+   "sub": "The Grand Stenchmaster's Grand Excavation"
+  },
+  {
+   "banner": "CHAPTER 63",
+   "sub": "Crownskull Isle"
+  },
+  {
+   "music": "crownskull_isle",
+   "fade": 800
+  },
+  "Behind you, the second boat runs up the sand, and the crew fall out of it: Pete, Gristle, Bob, Salty Jim, Ned.",
+  "And the Grand Stenchmaster, stepping out last, carefully, onto a sandbar so his boots don't get wet, in full regalia: the Suit, the sash, the cape. And on his head, glinting, with Jim's forks sticking out of it...",
+  "garrick[proud]: THE GRAND CROWN RETURNS.",
+  "captain[annoyed]: It's banned.",
+  "garrick[businesslike]: From SLEEPING. I'm not sleeping. And formal dress is required. For an island.",
+  "squawks[smug]: Ugly crown.",
+  "garrick[offended]: ...It's ANCIENT.",
+  "squawks[smug]: Ugly ancient crown.",
+  "You unfold the Crimson Chart on your knee. The beach. The trail going up into the jungle, a wiggly line. The river, and a crossing marked with stepping stones. A boulder like a broken tooth. A statue with its arm out. And the clearing under the skull, with its X.",
+  "captain: Up the trail. Over the river. The broken tooth. Follow the statue's arm. And under the skull...",
+  "pete: X.",
+  "captain: X.",
+  "ned: Captain? Could I have a look round? It's a whole island. I've never been on a whole island.",
+  "captain[tender]: Go on, Ned. Everybody, spread out. Not far. Keep the trail in sight. The X isn't going anywhere.",
+  "garrick[proud]: The Grand Stenchmaster will supervise. From the shade.",
+  {
+   "setFlag": "p9_isle_briefed"
+  },
+  {
+   "startQuest": "crownskull_isle"
+  },
+  {
+   "startQuest": "isle_curiosities",
+   "silent": true
+  },
+  {
+   "restage": "walk"
+  },
+  {
+   "tutorial": "Follow the map: up the jungle trail, over the river, to the broken tooth, then the statue, then the X. Or look round first: the reef point, the western beach, the ruins, the ridge path, the glades. It's your island.",
+   "title": "Crownskull Isle"
+  }
+ ],
+ "p9c10.begin": [
+  {
+   "setFlag": "p9_ch64_started"
+  },
+  {
+   "setFlag": "crimson_fortune_site_found"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 17
+  },
+  {
+   "banner": "CHAPTER 64",
+   "sub": "The Fortune of the Crimson Kings"
+  },
+  "The trail comes out of the jungle into a wide round clearing of bare red earth, ringed with trees, open to the sky.",
+  "And over it, filling the whole of the north, grey and enormous, the Crownskull Ridge, looking down out of its two dark eyes.",
+  "Under the skull.",
+  "In the middle of the clearing there's a hump of something under a thick green blanket of vines. Stone, by the shape of it. Standing up. About as tall as Bob.",
+  {
+   "restage": "walk"
+  },
+  "One by one the crew come out of the trees behind you and stop, and look at it.",
+  {
+   "startQuest": "crimson_fortune"
+  },
+  {
+   "tutorial": "Cut the vines off the marker stone.",
+   "title": "The Fortune of the Crimson Kings"
+  }
+ ],
+ "p9c10.vines": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You draw your cutlass.",
+  {
+   "repair": "vines",
+   "strikes": 3,
+   "title": "CUT THE VINES"
+  },
+  {
+   "sfx": "vine_fall",
+   "volume": 0.7
+  },
+  "The vines come away in a long green heap, and under them is a stone.",
+  {
+   "setFlag": "crimson_fortune_found"
+  },
+  {
+   "setValue": "crimson_fortune_state",
+   "value": "located"
+  },
+  "Grey, square, old. Carved on its face: a skull, wearing a crown, over two crossed swords. Around it, a ring of little signs nobody aboard can read. And under it, cut deep, words you can.",
+  {
+   "insert": "crimson_inscription",
+   "caption": "THE FORTUNE OF THE CRIMSON KINGS. Beneath seven floors. Let him who would have it dig."
+  },
+  "Nobody says anything for a long time.",
+  "Then you take out the Crimson Chart and read them the list along its bottom edge, the one you have read to yourself a thousand times by lamplight, and never out loud.",
+  {
+   "sfx": "jewel_chime",
+   "volume": 0.5
+  },
+  "captain[tender]: Twelve royal crowns of gold. Chests of doubloons, more than a man can count. Rubies like pigeons' eggs. Emerald necklaces. Bars of silver. Pearls. Diamonds. The plate and the sceptres and the ceremonial what-have-you of six kings.",
+  "captain[tender]: And the Crimson King's Crown. The big one. The one they're all named after.",
+  "bob: ...Under here?",
+  "captain[tender]: Under here, Bob.",
+  "For one moment, nobody is thinking about the sash. Nobody is thinking about the storm. Even the Grand Stenchmaster has taken off his crown, and is holding it to his chest, the way a man holds his hat in church.",
+  "pete: We're going to be rich.",
+  "gristle: We're going to be rich.",
+  {
+   "tutorial": "Ask the crew what they'll do with their share. Every one of them. Pete, Bob, Salty Jim, Gristle and Ned.",
+   "title": "The Fortune of the Crimson Kings"
+  }
+ ],
+ "p9c10.dream_pete": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "captain: Pete. What'll you do with your share?",
+  "pete[concerned]: A ship, Captain. Not a big one. My own. With my own hammock, and nobody's hammock over it. And a little brass bell that only rings when I say.",
+  "pete: And no sashes. Of any colour.",
+  {
+   "setFlag": "p9_dream_pete"
+  },
+  {
+   "event": "p9_dream"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p9_dream_pete"
+     },
+     {
+      "flag": "p9_dream_bob"
+     },
+     {
+      "flag": "p9_dream_jim"
+     },
+     {
+      "flag": "p9_dream_gristle"
+     },
+     {
+      "flag": "p9_dream_ned"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p9c10.squawks"
+    }
+   ]
+  }
+ ],
+ "p9c10.dream_bob": [
+  {
+   "face": "bob",
+   "dir": "player"
+  },
+  "captain: Bob? Your share?",
+  "bob[happy]: A tavern, Captain. On a harbour. The Barnacle, I'll call it. Fish pies. A fire. Proper beds.",
+  "bob[happy]: No nets. Nobody sleeps in a net at the Barnacle.",
+  {
+   "setFlag": "p9_dream_bob"
+  },
+  {
+   "event": "p9_dream"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p9_dream_pete"
+     },
+     {
+      "flag": "p9_dream_bob"
+     },
+     {
+      "flag": "p9_dream_jim"
+     },
+     {
+      "flag": "p9_dream_gristle"
+     },
+     {
+      "flag": "p9_dream_ned"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p9c10.squawks"
+    }
+   ]
+  }
+ ],
+ "p9c10.dream_jim": [
+  {
+   "face": "jim",
+   "dir": "player"
+  },
+  "captain: Jim?",
+  "jim[happy]: A kitchen, Captain. A big one. On land. With a lock on the door, and a lock on the pantry, and a lock on the lock.",
+  "jim[happy]: And my bowl in it. My OWN bowl. That nobody calls the Grand anything.",
+  {
+   "setFlag": "p9_dream_jim"
+  },
+  {
+   "event": "p9_dream"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p9_dream_pete"
+     },
+     {
+      "flag": "p9_dream_bob"
+     },
+     {
+      "flag": "p9_dream_jim"
+     },
+     {
+      "flag": "p9_dream_gristle"
+     },
+     {
+      "flag": "p9_dream_ned"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p9c10.squawks"
+    }
+   ]
+  }
+ ],
+ "p9c10.dream_gristle": [
+  {
+   "face": "gristle",
+   "dir": "player"
+  },
+  "captain: Gristle. What about you?",
+  "gristle: ...Maybe retire. A chair on a porch. A porch that doesn't move. I'd sit in the chair and I wouldn't get up for anybody.",
+  "gristle[smug]: I'd rest. Properly. With my eyes shut.",
+  {
+   "setFlag": "p9_dream_gristle"
+  },
+  {
+   "event": "p9_dream"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p9_dream_pete"
+     },
+     {
+      "flag": "p9_dream_bob"
+     },
+     {
+      "flag": "p9_dream_jim"
+     },
+     {
+      "flag": "p9_dream_gristle"
+     },
+     {
+      "flag": "p9_dream_ned"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p9c10.squawks"
+    }
+   ]
+  }
+ ],
+ "p9c10.dream_ned": [
+  {
+   "face": "ned",
+   "dir": "player"
+  },
+  "captain: Ned?",
+  "ned[concerned]: A little house, Captain. Quiet. Inland. Up a hill. A long way from the sea.",
+  "ned: A LONG way from Garrick. Where the wind blows the other way.",
+  {
+   "setFlag": "p9_dream_ned"
+  },
+  {
+   "event": "p9_dream"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p9_dream_pete"
+     },
+     {
+      "flag": "p9_dream_bob"
+     },
+     {
+      "flag": "p9_dream_jim"
+     },
+     {
+      "flag": "p9_dream_gristle"
+     },
+     {
+      "flag": "p9_dream_ned"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p9c10.squawks"
+    }
+   ]
+  }
+ ],
+ "p9c10.squawks": [
+  "Something stirs in the pouch on your chest. A bald pink head comes up, and turns, and looks at you, very seriously.",
+  "squawks: Squawks share?",
+  "captain[tender]: ...Aye. Of course. Squawks gets a share.",
+  "squawks: Gold pouch.",
+  "captain[tender]: A gold pouch. Your own. Velvet. Full to the top.",
+  "squawks[smug]: Squawks pouch.",
+  "captain[tender]: I promise.",
+  {
+   "setFlag": "squawks_share_promised"
+  },
+  "garrick[proud]: And the Grand Stenchmaster's share?",
+  "captain: No.",
+  "garrick[businesslike]: A Grand Stenchmaster BONUS, then. For leadership.",
+  "captain: No.",
+  "garrick[businesslike]: A ceremonial percentage.",
+  "captain[annoyed]: No.",
+  "garrick[businesslike]: A royalty. On every release that—",
+  "captain[angry]: ABSOLUTELY NOT.",
+  {
+   "setFlag": "garrick_share_denied"
+  },
+  {
+   "call": "p9c11.begin"
+  }
+ ],
+ "p9c11.begin": [
+  {
+   "setFlag": "p9_ch65_started"
+  },
+  {
+   "banner": "CHAPTER 65",
+   "sub": "Seven Floors Down"
+  },
+  "Gristle is down on one knee by the stone, reading the small writing round the bottom of it with a finger, the way he reads the ship's articles.",
+  "gristle: 'Beneath the sand, the clay. Beneath the clay, the stone. Beneath the stone, the clay again. Beneath that, the gravel. Beneath that, the stone again. And beneath all, the Miser's Floor.'",
+  "gristle: 'Seven floors lie over the Fortune. Let him who would have it dig.'",
+  "garrick: Seven?",
+  "gristle: Seven.",
+  "garrick: SEVEN FLOORS? That's... that's DAYS.",
+  "gristle[smug]: Several.",
+  {
+   "startQuest": "seven_floors"
+  },
+  {
+   "tutorial": "Get the tools from the pile at the clearing's edge.",
+   "title": "Seven Floors Down"
+  }
+ ],
+ "p9c11.tools": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "Off the boats and up the trail: three shovels, a pick, a crowbar, a lantern, a coil of rope and a bucket. Bob carried most of it. Bob is still breathing hard.",
+  "You pick out a shovel, the pick and the crowbar, and hand the rest round.",
+  {
+   "setFlag": "p9_tools_fetched"
+  },
+  {
+   "tutorial": "Dig at the X. Each floor wants the right tool: you'll know the wrong one when you feel it.",
+   "title": "Seven Floors Down"
+  }
+ ],
+ "p9c11.dig": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "if": {
+    "var": {
+     "name": "dig_layer",
+     "gte": 3
+    }
+   },
+   "then": [
+    "Four more floors. Clay, gravel, stone, and the Miser's Floor. Days of it. You lean on the shovel and look at the hole."
+   ],
+   "else": [
+    {
+     "if": {
+      "var": {
+       "name": "dig_layer",
+       "eq": 0
+      }
+     },
+     "then": [
+      "The X. Loose, pale sand, blown in over the years. Which tool?",
+      {
+       "choice": [
+        {
+         "text": "The shovel",
+         "then": [
+          {
+           "repair": "dig",
+           "strikes": 3,
+           "title": "FLOOR 1: LOOSE SAND"
+          },
+          {
+           "addVar": "dig_layer",
+           "value": 1
+          },
+          {
+           "sfx": "dirt_heap",
+           "volume": 0.6
+          },
+          {
+           "call": "p9c11.dug"
+          }
+         ]
+        },
+        {
+         "text": "The pick",
+         "then": [
+          "The pick goes into the sand up to the handle and comes out with a little sigh. It's sand. You want a shovel.",
+          "(Try another tool.)"
+         ]
+        },
+        {
+         "text": "The crowbar",
+         "then": [
+          "You lever at the sand. The sand doesn't mind. It's sand.",
+          "(Try another tool.)"
+         ]
+        }
+       ]
+      }
+     ],
+     "else": [
+      {
+       "if": {
+        "all": [
+         {
+          "var": {
+           "name": "dig_layer",
+           "eq": 1
+          }
+         },
+         {
+          "notFlag": "garrick_quit_digging"
+         }
+        ]
+       },
+       "then": [
+        "The Grand Stenchmaster has been watching the shovel the whole time, the way a dog watches a bath being run. It's his turn first."
+       ],
+       "else": [
+        {
+         "if": {
+          "var": {
+           "name": "dig_layer",
+           "eq": 1
+          }
+         },
+         "then": [
+          "The second floor: packed red clay, hard as brick and sticky with it. Which tool?",
+          {
+           "choice": [
+            {
+             "text": "The shovel",
+             "then": [
+              "The shovel goes in an inch and bounces out again, ringing. It's like digging into cheese. Cold, wet, stubborn cheese. Break it up first.",
+              "(Try another tool.)"
+             ]
+            },
+            {
+             "text": "The pick",
+             "then": [
+              {
+               "repair": "pick",
+               "strikes": 3,
+               "title": "FLOOR 2: PACKED CLAY"
+              },
+              {
+               "addVar": "dig_layer",
+               "value": 1
+              },
+              {
+               "sfx": "dirt_heap",
+               "volume": 0.6
+              },
+              {
+               "call": "p9c11.dug"
+              }
+             ]
+            },
+            {
+             "text": "The crowbar",
+             "then": [
+              "The crowbar sinks in and stays there. It takes you and Bob both to get it out.",
+              "(Try another tool.)"
+             ]
+            }
+           ]
+          }
+         ],
+         "else": [
+          "The third floor: stone. One slab, by the sound of it, right across the hole. Which tool?",
+          {
+           "choice": [
+            {
+             "text": "The shovel",
+             "then": [
+              "CLANG. The shovel says no. Your arms say no. Squawks, in your pouch, says 'Ow.'",
+              "(Try another tool.)"
+             ]
+            },
+            {
+             "text": "The pick",
+             "then": [
+              {
+               "repair": "pick",
+               "strikes": 3,
+               "title": "FLOOR 3: STONE"
+              },
+              {
+               "addVar": "dig_layer",
+               "value": 1
+              },
+              {
+               "sfx": "dirt_heap",
+               "volume": 0.6
+              },
+              {
+               "call": "p9c11.dug"
+              }
+             ]
+            },
+            {
+             "text": "The crowbar",
+             "then": [
+              "There's nothing to get the crowbar under. It's one stone, all the way across. It wants breaking.",
+              "(Try another tool.)"
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "p9c11.dug": [
+  {
+   "if": {
+    "all": [
+     {
+      "var": {
+       "name": "dig_layer",
+       "eq": 1
+      }
+     },
+     {
+      "notFlag": "excavation_started"
+     }
+    ]
+   },
+   "then": [
+    "The sand comes up in shovelfuls, and the hole goes down, and at the bottom of it, red: the clay.",
+    {
+     "setFlag": "excavation_started"
+    },
+    {
+     "setValue": "crimson_fortune_state",
+     "value": "excavating"
+    },
+    {
+     "setValue": "crater_state",
+     "value": "dug"
+    },
+    "garrick[proud]: Excellent progress. The Grand Stenchmaster is very pleased.",
+    "captain[smug]: Good. Your turn.",
+    "garrick[alarmed]: My what?",
+    {
+     "tutorial": "Give the Grand Stenchmaster a turn with the shovel (him).",
+     "title": "Seven Floors Down"
+    }
+   ]
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "var": {
+       "name": "dig_layer",
+       "eq": 2
+      }
+     },
+     {
+      "flag": "garrick_quit_digging"
+     }
+    ]
+   },
+   "then": [
+    "The clay breaks up in red lumps and comes out in buckets, and under it, grey: stone.",
+    {
+     "event": "p9_layer"
+    }
+   ]
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "var": {
+       "name": "dig_layer",
+       "eq": 3
+      }
+     },
+     {
+      "flag": "garrick_quit_digging"
+     }
+    ]
+   },
+   "then": [
+    "The slab cracks across, and you and Gristle get it out in three pieces, and under it, red again. More clay.",
+    {
+     "event": "p9_layer"
+    },
+    {
+     "call": "p9c11.estimate"
+    }
+   ]
+  }
+ ],
+ "p9c11.garrick": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "You hold out the shovel to the Grand Stenchmaster. He looks at it for a long moment, the way a cat looks at a bath.",
+  "garrick[proud]: Very well. The Grand Stenchmaster will dig. Ceremonially. Stand back.",
+  "He takes it in both gloved hands, lifts it high over his head, and brings it down into the hole.",
+  {
+   "sfx": "shovel_dig",
+   "volume": 0.7
+  },
+  "One.",
+  {
+   "sfx": "shovel_dig",
+   "volume": 0.6
+  },
+  "Two.",
+  {
+   "sfx": "shovel_dig",
+   "volume": 0.5
+  },
+  "...Three.",
+  "He stops. He leans on the shovel. He takes off the crown and wipes his brow with the back of his glove. He breathes like a man who has crossed a desert.",
+  "garrick[worried]: How long have I been digging?",
+  "pete: ...Two minutes? Three?",
+  "garrick: I thought it was FORTY HOURS.",
+  {
+   "sfx": "crew_laugh",
+   "volume": 0.8
+  },
+  "The crew lose it. Bob sits down. Jim has to hold on to a tree. Even Gristle makes a noise like a kettle.",
+  "garrick[businesslike]: The Grand Stenchmaster requires a Grand Snack.",
+  "captain: No.",
+  "garrick[businesslike]: A break, then.",
+  "captain: No.",
+  "garrick[businesslike]: A nap—",
+  "Everybody, all at once: NO.",
+  "He sits down on the tool pile, in the shade, with the dignity of a man who has given everything.",
+  {
+   "setFlag": "garrick_quit_digging"
+  },
+  {
+   "tutorial": "Dig on (the pit). Floor two, then floor three.",
+   "title": "Seven Floors Down"
+  }
+ ],
+ "p9c11.estimate": [
+  "Three floors down. The sun has gone right over. The hole is as deep as Bob is tall, and Bob is at the bottom of it, passing up buckets.",
+  "Gristle drops a plumb line down the side and reads it, and does a sum on his fingers, and does it again.",
+  "gristle: Three floors in most of a day, Captain. Four to go. Two of them stone. And then the Miser's Floor, which is fitted stone, which'll be slow.",
+  "gristle: Three days. Four, if the stone's thick.",
+  "garrick: DAYS?",
+  "captain[tired]: Days.",
+  "garrick: Of THIS?",
+  "Then something comes over his face. Something thoughtful. Something you have seen on it before, every time, just before something terrible.",
+  {
+   "setVar": "p4_tod",
+   "value": 18
+  },
+  {
+   "call": "p9c12.begin"
+  }
+ ],
+ "p9c12.begin": [
+  {
+   "setFlag": "p9_ch66_started"
+  },
+  {
+   "banner": "CHAPTER 66",
+   "sub": "Stenchmaster Excavation Technology"
+  },
+  "garrick[businesslike]: Captain. I have a proposal.",
+  {
+   "startQuest": "excavation_technology"
+  },
+  {
+   "tutorial": "He has a proposal. Hear him out (him). You won't like it.",
+   "title": "Stenchmaster Excavation Technology"
+  }
+ ],
+ "p9c12.proposal": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "garrick[proud]: STENCHMASTER EXCAVATION TECHNOLOGY.",
+  "captain: Absolutely not.",
+  "garrick[proud]: You haven't heard it.",
+  "captain: I don't need to.",
+  "garrick[proud]: I stand over the hole. I release. A Grand Excavation Release. The sand goes elsewhere. The clay goes elsewhere. The rocks go VERY elsewhere.",
+  "pete[alarmed]: WHERE?",
+  "garrick[proud]: Elsewhere.",
+  "jim: And the treasure?",
+  "garrick[proud]: ...Hopefully stays.",
+  "You take hold of him by the sash with both hands and pull his face down to yours.",
+  "captain[angry]: NO.",
+  {
+   "setFlag": "excavation_proposal_rejected"
+  },
+  "And from somewhere inside the Grand Stenchmaster, deep down, comes a sound nobody has heard before.",
+  {
+   "sfx": "stomach_howl",
+   "volume": 0.9
+  },
+  {
+   "shake": 2,
+   "duration": 900
+  },
+  "AWWOOOOOOOO.",
+  "It isn't a gloorp. It isn't a grrrnk. It's a HOWL, long and rising, like a wolf down a well.",
+  {
+   "sfx": "birds_flee",
+   "volume": 0.8
+  },
+  {
+   "burst": "feathers",
+   "x": 30,
+   "y": 18,
+   "count": 12
+  },
+  "Every bird in the jungle goes up at once, in a great shrieking cloud, and away over the ridge.",
+  {
+   "sfx": "crown_rattle",
+   "volume": 0.7
+  },
+  "The Grand Crown rattles on his head, all by itself. The forks sing.",
+  {
+   "sfx": "ground_hum",
+   "volume": 0.8
+  },
+  {
+   "shake": 1,
+   "duration": 1600
+  },
+  "And under your feet, the ground starts, very gently, to hum.",
+  "garrick[nervous]: ...Oh.",
+  {
+   "setValue": "garrick_release",
+   "value": "building"
+  },
+  {
+   "tutorial": "That's not a false alarm. Ask him (him).",
+   "title": "Stenchmaster Excavation Technology"
+  }
+ ],
+ "p9c12.launch": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "captain[alarmed]: Garrick. How long?",
+  "garrick[nervous]: ...Soon.",
+  "captain[alarmed]: How SOON?",
+  "garrick[nervous]: Captain, I may have already sent the launch commands.",
+  "captain[alarmed]: To WHOM?",
+  "He points, slowly, at his own middle.",
+  "garrick[businesslike]: Internal Stenchmaster operations.",
+  "captain[angry]: That doesn't exist.",
+  {
+   "sfx": "stomach_howl",
+   "volume": 0.9
+  },
+  {
+   "shake": 2,
+   "duration": 700
+  },
+  "AWWOOOO-GRRRRRR-BLOOOORP.",
+  "garrick[nervous]: He disagrees.",
+  "captain[angry]: CANCEL IT. CANCEL THE COMMANDS. TELL HIM NO.",
+  "The Grand Stenchmaster closes his eyes and concentrates, very hard, on his middle.",
+  {
+   "sfx": "stomach_bubble",
+   "volume": 0.7
+  },
+  "garrick[nervous]: ...Launch command acknowledged.",
+  "There is no way to stop it. There never was. You know it the way you know the tide's coming in.",
+  {
+   "music": "launch_buildup",
+   "fade": 300
+  },
+  {
+   "setValue": "garrick_release",
+   "value": "launch_sequence"
+  },
+  {
+   "setFlag": "launch_sequence_started"
+  },
+  {
+   "setFlag": "release_triggered"
+  },
+  {
+   "call": "p9c13.begin"
+  }
+ ]
+}

@@ -1,0 +1,419 @@
+{
+ "id": "main_deck_phase9",
+ "patch": "main_deck",
+ "//": "Story Phase 9 on the main deck: the lee-side landing (chapter 62). The helm (9,6), the capstan (9,14), the decoy (the ship's boat in its port davits, 4,24), Pete at the starboard rail (15,21) for the window, the reeking timber from the old quarters (13,26), the crew boat forward on the port side (4,12). After the landing: Hale and Nell keep her off the reef; once the phase is over the ship's boat goes back and forth to the island.",
+ "objects": [
+  {
+   "id": "p9_helm",
+   "type": "inspect",
+   "x": 9,
+   "y": 6,
+   "w": 2,
+   "if": {
+    "objectiveActive": "lee_side_landing.helm"
+   },
+   "script": "p9c8.helm"
+  },
+  {
+   "id": "p9_lines",
+   "type": "inspect",
+   "x": 9,
+   "y": 14,
+   "w": 2,
+   "if": {
+    "objectiveActive": "lee_side_landing.lines"
+   },
+   "script": "p9c8.lines"
+  },
+  {
+   "id": "p9_decoy",
+   "type": "inspect",
+   "x": 4,
+   "y": 24,
+   "w": 2,
+   "if": {
+    "objectiveActive": "lee_side_landing.decoy"
+   },
+   "script": "p9c8.decoy"
+  },
+  {
+   "id": "p9_lure",
+   "type": "inspect",
+   "x": 13,
+   "y": 26,
+   "w": 2,
+   "if": {
+    "objectiveActive": "lee_side_landing.lure"
+   },
+   "script": "p9c8.lure"
+  },
+  {
+   "id": "p9_boats",
+   "type": "inspect",
+   "x": 4,
+   "y": 12,
+   "w": 2,
+   "if": {
+    "objectiveActive": "lee_side_landing.boats"
+   },
+   "script": "p9c8.boats"
+  },
+  {
+   "id": "p9_boat_hub",
+   "type": "inspect",
+   "x": 4,
+   "y": 12,
+   "w": 2,
+   "if": {
+    "flag": "p9_complete"
+   },
+   "script": "p9.deck.boat"
+  },
+  {
+   "id": "p9d_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p9_rowing"
+   }
+  },
+  {
+   "id": "p9d_pete_1",
+   "type": "npc",
+   "npc": "pete",
+   "x": 15,
+   "y": 21,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_rowing"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9d_gristle_0",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p9_rowing"
+   }
+  },
+  {
+   "id": "p9d_gristle_1",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 10,
+   "y": 15,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_rowing"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9d_bob_0",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p9_rowing"
+   }
+  },
+  {
+   "id": "p9d_bob_1",
+   "type": "npc",
+   "npc": "bob",
+   "x": 6,
+   "y": 23,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_rowing"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9d_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p9_rowing"
+   }
+  },
+  {
+   "id": "p9d_jim_1",
+   "type": "npc",
+   "npc": "jim",
+   "x": 12,
+   "y": 26,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_rowing"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9d_ned_0",
+   "type": "npc",
+   "npc": "ned",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p9_rowing"
+   }
+  },
+  {
+   "id": "p9d_ned_1",
+   "type": "npc",
+   "npc": "ned",
+   "x": 9,
+   "y": 34,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_rowing"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9d_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p9_rowing"
+   }
+  },
+  {
+   "id": "p9d_garrick_1",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 8,
+   "y": 27,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_rowing"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9d_squawks_0",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p9_ch62_started"
+   }
+  },
+  {
+   "id": "p9d_hale_0",
+   "type": "npc",
+   "npc": "hale",
+   "x": 11,
+   "y": 7,
+   "facing": "left",
+   "if": {
+    "flag": "p9_complete"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9d_hale_1",
+   "type": "npc",
+   "npc": "hale",
+   "x": 11,
+   "y": 7,
+   "facing": "left",
+   "if": {
+    "flag": "p9_ch62_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9d_nell_0",
+   "type": "npc",
+   "npc": "nell",
+   "x": 8,
+   "y": 7,
+   "facing": "up",
+   "if": {
+    "flag": "p9_ch62_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p9d_sully_0",
+   "type": "npc",
+   "npc": "sully",
+   "x": 6,
+   "y": 16,
+   "facing": "left",
+   "if": {
+    "flag": "p9_complete"
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "work"
+   }
+  },
+  {
+   "id": "p9d_fennimore_0",
+   "type": "npc",
+   "npc": "fennimore",
+   "x": 13,
+   "y": 20,
+   "facing": "down",
+   "if": {
+    "flag": "p9_complete"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "lure_timber",
+   "x": 13,
+   "y": 26,
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_lure_thrown"
+     }
+    ]
+   },
+   "id": "p9_lure"
+  },
+  {
+   "prop": "rowboat",
+   "x": 4,
+   "y": 12,
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "any": [
+       {
+        "notFlag": "p9_rowing"
+       },
+       {
+        "flag": "p9_complete"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "p9_crew_boat"
+  }
+ ],
+ "propConditions": [
+  {
+   "id": "rowboat",
+   "if": {
+    "notFlag": "p9_window_found"
+   }
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "flag": "p9_complete"
+   },
+   "music": "ship_theme",
+   "ambience": "deck"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p9_ch62_started"
+     },
+     {
+      "notFlag": "p9_rowing"
+     }
+    ]
+   },
+   "music": "landing_tension",
+   "ambience": "surf"
+  }
+ ]
+}

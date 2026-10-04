@@ -518,14 +518,16 @@ function foulCoins() {
  * the Crimson King's Crown jammed on at an angle, as if it had been made for
  * it. Two frames (the gills going).
  */
-function megalodon({ crowned = false } = {}) {
+export function megalodon({ crowned = false, water = true } = {}) {
   const frames = [0, 1].map((f) => {
     const W = 168;
     const H = 72;
     const c = canvas(W, H);
-    // the shallows round it
-    c.ellipse(84, 58, 82, 12, '#5aa2c4');
-    c.ellipse(84, 58, 74, 9, '#7ab8d4');
+    // the shallows round it (not when it's in the air)
+    if (water) {
+      c.ellipse(84, 58, 82, 12, '#5aa2c4');
+      c.ellipse(84, 58, 74, 9, '#7ab8d4');
+    }
     // body
     c.ellipse(80, 40, 66, 20, SHARKC.m);
     c.ellipse(80, 46, 58, 12, SHARKC.belly);
