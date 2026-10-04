@@ -1,7 +1,7 @@
 {
  "id": "main_deck_phase9",
  "patch": "main_deck",
- "//": "Story Phase 9 on the main deck: the lee-side landing (chapter 62). The helm (9,6), the capstan (9,14), the decoy (the ship's boat in its port davits, 4,24), Pete at the starboard rail (15,21) for the window, the reeking timber from the old quarters (13,26), the crew boat forward on the port side (4,12). After the landing: Hale and Nell keep her off the reef; once the phase is over the ship's boat goes back and forth to the island.",
+ "//": "Story Phase 9 on the main deck: the lee-side landing (chapter 62). The helm (9,6), the capstan (9,14), the decoy (the ship's boat in its port davits, 4,24), Pete at the starboard rail (15,21) for the window, the reeking timber from the old quarters (11,22: everything here is kept clear of the Dead Center's cloud over the forward deck, rows 25 to 33, which Phase 9 leaves where Phase 8 put it), the crew boat forward on the port side (4,12). After the landing: Hale and Nell keep her off the reef; once the phase is over the ship's boat goes back and forth to the island.",
  "objects": [
   {
    "id": "p9_helm",
@@ -39,8 +39,8 @@
   {
    "id": "p9_lure",
    "type": "inspect",
-   "x": 13,
-   "y": 26,
+   "x": 11,
+   "y": 22,
    "w": 2,
    "if": {
     "objectiveActive": "lee_side_landing.lure"
@@ -181,8 +181,8 @@
    "type": "npc",
    "npc": "jim",
    "x": 12,
-   "y": 26,
-   "facing": "right",
+   "y": 19,
+   "facing": "down",
    "if": {
     "all": [
      {
@@ -244,8 +244,8 @@
    "id": "p9d_garrick_1",
    "type": "npc",
    "npc": "garrick",
-   "x": 8,
-   "y": 27,
+   "x": 5,
+   "y": 21,
    "facing": "down",
    "if": {
     "all": [
@@ -347,8 +347,8 @@
  "props": [
   {
    "prop": "lure_timber",
-   "x": 13,
-   "y": 26,
+   "x": 11,
+   "y": 22,
    "if": {
     "all": [
      {

@@ -13,6 +13,8 @@ import { currentChapter } from '../src/systems/story/progress.js';
 import { compileMap } from '../src/maps/compileMap.js';
 import { resolvePreset, applyPresetPlan } from '../src/debug/presets.js';
 import { sharkstormStates, sharkstormNow } from '../src/systems/hazards/sharkstorm.js';
+import { deadCenterLocation, deadCenterLocations } from '../src/systems/hazards/deadCenter.js';
+import { evaluateCondition } from '../src/systems/conditions/conditions.js';
 import { characterSheet } from '../src/art/sheets.js';
 import { buildStageAtlas, STAGE_FRAMES } from '../src/art/stage/stageArt.js';
 import { buildVistaAtlas, VISTA_FRAMES } from '../src/art/vista/vistaArt.js';
@@ -188,6 +190,32 @@ describe('Crownskull Isle', () => {
     expect(s.story.getValue('crater_state')).toBe('blasted');
     const props = content.maps.require('crownskull_isle').props.filter((p) => p.if && JSON.stringify(p.if).includes('grand_excavation_blast') && !JSON.stringify(p.if).includes('"not"'));
     expect(props.map((p) => p.prop)).toEqual(expect.arrayContaining(['crater', 'uprooted_palm', 'foul_coins']));
+  });
+});
+
+describe('the landing on deck, round the Dead Center', () => {
+  it('Phase 9 leaves the Dead Center where Phase 8 put it, and nothing on deck needs you to stand in its cloud', () => {
+    const s = atPreset('p9_lee_side');
+    expect(deadCenterLocation(s)).toBe('second_forward_deck');
+    const zones = deadCenterLocations(content).second_forward_deck.zones;
+    const inCloud = (x, y) => zones.some((z) => x >= z.x && x < z.x + z.w && y >= z.y && y < z.y + z.h);
+    const deck = content.maps.require('main_deck');
+    const m = compiled('main_deck');
+    for (const id of ['p9_helm', 'p9_lines', 'p9_decoy', 'p9_lure', 'p9_boats']) {
+      const o = deck.objects.find((x) => x.id === id);
+      const tiles = [];
+      for (let x = o.x; x < o.x + (o.w || 1); x++) tiles.push([x, o.y]);
+      expect(tiles.some(([x, y]) => inCloud(x, y)), `${id} is in the cloud`).toBe(false);
+      // Somewhere to stand next to it that isn't in the cloud either.
+      const stands = tiles.flatMap(([x, y]) => [[x, y - 1], [x, y + 1], [x - 1, y], [x + 1, y]])
+        .filter(([x, y]) => !tiles.some(([a, b]) => a === x && b === y) && !inCloud(x, y) && x > 3 && x < 16 && y > 0 && y < m.height);
+      expect(stands.length, `${id}: somewhere clean to stand`).toBeGreaterThan(0);
+    }
+    // The crew on deck for the landing stand clear of it too.
+    for (const o of deck.objects.filter((x) => x.type === 'npc' && !x.absent && x.id.startsWith('p9d_'))) {
+      if (!evaluateCondition(o.if, s)) continue;
+      expect(inCloud(o.x, o.y), `${o.npc} at ${o.x},${o.y}`).toBe(false);
+    }
   });
 });
 

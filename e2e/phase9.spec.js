@@ -99,7 +99,7 @@ async function inspect(g, id, ...picks) {
 async function visit(g, region) {
   const at = await g.eval((rid) => {
     const w = window.__GAME__.game.scene.getScene('World');
-    const r = w.model.regions.find((x) => x.id === rid);
+    const r = w.model.meta.regions.find((x) => x.id === rid);
     let best = null;
     for (let y = r.y; y < r.y + r.h; y++) {
       for (let x = r.x; x < r.x + r.w; x++) {
