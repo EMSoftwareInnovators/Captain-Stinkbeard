@@ -4,6 +4,22 @@
  "//": "Story Phase 9 on the main deck: the lee-side landing (chapter 62). The helm (9,6), the capstan (9,14), the decoy (the ship's boat in its port davits, 4,24), Pete at the starboard rail (15,21) for the window, the reeking timber from the old quarters (11,22: everything here is kept clear of the Dead Center's cloud over the forward deck, rows 25 to 33, which Phase 9 leaves where Phase 8 put it), the crew boat forward on the port side (4,12). After the landing: Hale and Nell keep her off the reef; once the phase is over the ship's boat goes back and forth to the island.",
  "objects": [
   {
+   "id": "p9_to_crew",
+   "type": "warp",
+   "x": 9,
+   "y": 33,
+   "w": 2,
+   "to": {
+    "map": "crew_quarters",
+    "spawn": "ladder"
+   },
+   "sfx": "ladder",
+   "if": {
+    "notFlag": "p8_started"
+   },
+   "locked": "p9.fore_hatch_condemned"
+  },
+  {
    "id": "p9_helm",
    "type": "inspect",
    "x": 9,

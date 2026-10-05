@@ -292,7 +292,10 @@ crown goes on the megalodon.
 - The captain has a new level of anger and one priority: RECOVER THE CRIMSON FORTUNE.
 
 **The Revenge** rides at anchor on the lee side, battered and usable: the hub for whatever
-comes next.
+comes next. The hatches Phase 7 barred from below (the galley's ladder, the sleeping
+quarters' ladder) open again when the crew go up on deck in chapter 62, so the deck, the
+galley and the hold connect both ways. The fore hatch from the deck down into the
+condemned quarters is nailed shut ("Nobody goes in.").
 
 ## Testing it
 

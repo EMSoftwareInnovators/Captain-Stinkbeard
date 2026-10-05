@@ -219,6 +219,53 @@ describe('the landing on deck, round the Dead Center', () => {
   });
 });
 
+describe('no one-way doors', () => {
+  /** The rooms a warp can take you to from `mapId` right now (the first warp on a tile is the one you take). */
+  const exits = (mapId, s) => {
+    const m = compiled(mapId);
+    const solidNow = (x, y) => m.solid[y * m.width + x] === 1
+      || m.dynamicSolids.some((d) => x >= d.x && x < d.x + d.w && y >= d.y && y < d.y + d.h && evaluateCondition(d.if, s));
+    const warps = m.objects.filter((o) => o.type === 'warp');
+    const out = new Set();
+    for (const w of warps) {
+      for (let y = w.y; y < w.y + (w.h || 1); y++) {
+        for (let x = w.x; x < w.x + (w.w || 1); x++) {
+          const first = warps.find((o) => x >= o.x && x < o.x + (o.w || 1) && y >= o.y && y < o.y + (o.h || 1));
+          if (first !== w || solidNow(x, y)) continue;
+          if (w.if && !evaluateCondition(w.if, s)) continue;
+          out.add(w.to.map);
+        }
+      }
+    }
+    return out;
+  };
+  const reach = (from, s) => {
+    const seen = new Set([from]);
+    const todo = [from];
+    while (todo.length) for (const n of exits(todo.pop(), s)) if (!seen.has(n)) { seen.add(n); todo.push(n); }
+    return seen;
+  };
+
+  it('at every story checkpoint (every phase), every room you can walk into from where you are has a way back', () => {
+    for (const id of content.debugPresets.list().map((p) => p.id)) {
+      const s = atPreset(id);
+      const start = resolvePreset(content, id).location?.map;
+      if (!start) continue;
+      for (const room of reach(start, s)) {
+        expect(reach(room, s).has(start), `${id}: from ${start} into ${room}, and no way back`).toBe(true);
+      }
+    }
+  });
+
+  it('the hatches open again when the crew go up on deck, and the condemned quarters stay shut from the deck', () => {
+    const s = atPreset('p9_lee_side');
+    expect(exits('galley', s).has('main_deck')).toBe(true);
+    expect(exits('main_deck', s).has('crew_quarters')).toBe(false);
+    expect(exits('cargo_hold', atPreset('p9_landing_strategy')).has('galley')).toBe(true);
+    expect(reach('cargo_hold', atPreset('p9_landing_strategy')).has('main_deck')).toBe(false); // still barred below until chapter 62
+  });
+});
+
 describe('RECOVER THE CRIMSON FORTUNE is left open', () => {
   it('is marked open, active at the end, and nothing in the game can finish it yet', () => {
     const q = content.quests.require('recover_crimson_fortune');

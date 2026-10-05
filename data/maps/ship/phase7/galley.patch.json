@@ -9,7 +9,14 @@
    "x": 14,
    "y": 3,
    "if": {
-    "flag": "p7_hatch_secured"
+    "all": [
+     {
+      "flag": "p7_hatch_secured"
+     },
+     {
+      "notFlag": "p9_ch62_started"
+     }
+    ]
    }
   },
   {
@@ -18,7 +25,14 @@
    "x": 14,
    "y": 3,
    "if": {
-    "flag": "p7_hatch_secured"
+    "all": [
+     {
+      "flag": "p7_hatch_secured"
+     },
+     {
+      "notFlag": "p9_ch62_started"
+     }
+    ]
    },
    "script": "p7.inspect.hatch_barred"
   },
