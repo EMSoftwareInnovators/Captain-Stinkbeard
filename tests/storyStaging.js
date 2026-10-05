@@ -149,7 +149,18 @@ export class StagingTracker {
 
   place(id, x, y) {
     this.checkTile(id, x, y, 'places');
+    this.checkScripted(id, 'places');
     this.setPos(id, [x, y]);
+  }
+
+  /**
+   * The game throws on a place or move for someone who isn't in the room. A
+   * placement the story switches on mid-scene doesn't count: people come in
+   * when the scene is over (restage), so a scene that wants someone now
+   * spawns them.
+   */
+  checkScripted(id, what) {
+    if (this.map && id !== 'player' && id !== 'captain' && !this.actors.has(id)) this.issue(`${what} ${id}, who isn't on ${this.map}`);
   }
 
   despawn(id) {
@@ -166,11 +177,7 @@ export class StagingTracker {
   }
 
   move(id, { path, to } = {}) {
-    // The game throws on a move for someone who isn't in the room (placements
-    // are live, so someone the story has just put here counts).
-    if (this.map && id !== 'player' && id !== 'captain' && !this.actors.has(id) && !this.placements(this.map, new Set()).has(id)) {
-      this.issue(`moves ${id}, who isn't on ${this.map}`);
-    }
+    this.checkScripted(id, 'moves');
     const from = this.posOf(id);
     if (Array.isArray(to)) {
       const [tx, ty] = to;
