@@ -477,6 +477,11 @@ engine pieces are small:
 - **Timing bars** gained `dig`, `pick`, `pry`, `vines`, `throw` and `lower`.
   A finished bar now resolves after its panel has faded, so the next line
   never opens underneath it.
+- **A job underfoot.** When nothing is in front of the captain, the
+  confirm button also takes an inspect spot under his feet, if it is an
+  open objective's (its `if` names `objectiveActive`): the X to dig at, a
+  beam to drag. The marker sits over his head. Flavour inspects on the
+  floor don't prompt as you walk over them.
 - **Transitions close their window.** A script `transition` without `then`
   ends that script (see `worldServices.transition`), so `transitionTo`
   closes the dialogue behind the fade; otherwise a choice's question stayed

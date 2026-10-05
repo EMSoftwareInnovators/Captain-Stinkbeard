@@ -170,6 +170,24 @@ describe('Crownskull Isle', () => {
     expect(validateContent(db).errors.join('\n')).toMatch(/a region's "name" must be a non-empty string/);
   });
 
+  it('RUN: watching the clearing works from either gap in the ruins\' south wall, by stepping into it or looking out of it', () => {
+    const wallRow = 19;
+    const gaps = [];
+    for (let x = 0; x < isle.width; x++) {
+      const inRuins = x >= 18 && x <= 36;
+      if (inRuins && !isle.solid[wallRow * isle.width + x] && isle.solid[wallRow * isle.width + x - 1] !== undefined) gaps.push(x);
+    }
+    expect(gaps).toEqual([23, 24, 31, 32]); // two gaps, two tiles each
+    const watch = isle.objects.filter((o) => o.script === 'p9c13.watch');
+    for (const x of gaps) {
+      for (const type of ['trigger', 'inspect']) {
+        expect(watch.some((o) => o.type === type && x >= o.x && x < o.x + (o.w || 1) && o.y === wallRow), `${type} at ${x},${wallRow}`).toBe(true);
+      }
+    }
+    for (const o of watch) expect(o.if).toEqual({ objectiveActive: 'run.watch' });
+    expect(content.quests.require('run').objectives.find((o) => o.id === 'watch').text).toMatch(/gap in the ruins' south wall/);
+  });
+
   it('fins circle the decoy and the lure in the reef passage', () => {
     const fins = content.maps.require('reef_passage').ambient.filter((a) => a.kind === 'fins');
     expect(fins.length).toBeGreaterThanOrEqual(2);

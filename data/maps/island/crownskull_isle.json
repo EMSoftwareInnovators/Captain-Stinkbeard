@@ -1283,6 +1283,39 @@
    "script": "p9c13.watch"
   },
   {
+   "id": "p9_job_watch_w",
+   "type": "inspect",
+   "x": 23,
+   "y": 19,
+   "w": 2,
+   "if": {
+    "objectiveActive": "run.watch"
+   },
+   "script": "p9c13.watch"
+  },
+  {
+   "id": "p9_watch_gap_e",
+   "type": "trigger",
+   "x": 31,
+   "y": 19,
+   "w": 2,
+   "if": {
+    "objectiveActive": "run.watch"
+   },
+   "script": "p9c13.watch"
+  },
+  {
+   "id": "p9_watch_gap_w",
+   "type": "trigger",
+   "x": 23,
+   "y": 19,
+   "w": 2,
+   "if": {
+    "objectiveActive": "run.watch"
+   },
+   "script": "p9c13.watch"
+  },
+  {
    "id": "p9_shelter_look",
    "type": "inspect",
    "x": 32,

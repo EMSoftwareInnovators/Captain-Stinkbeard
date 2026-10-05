@@ -1217,7 +1217,19 @@ export class WorldScene extends BaseScene {
     if (prop?.def?.inspect) return { kind: 'prop', prop, x, y };
     const warp = this.warpAt(x, y);
     if (warp && this.warpLockScript(warp) && !this.warpUnlocked(warp)) return { kind: 'locked', warp, x, y };
+    // Nothing in front: a job you're standing right on counts too (the X you
+    // dig at, the gap in a wall you look out of). People walk onto the place
+    // they've been sent to and press the button.
+    const here = this.jobUnderfoot();
+    if (here) return { kind: 'inspect', obj: here, x: this.player.tx, y: this.player.ty, underfoot: true };
     return null;
+  }
+
+  /** An inspect spot for an open objective under the captain's feet (see interactionTarget). */
+  jobUnderfoot() {
+    const { tx, ty } = this.player;
+    return this.objects.find((o) => o.type === 'inspect' && o.if && this.inRect(o, tx, ty)
+      && JSON.stringify(o.if).includes('objectiveActive') && evaluateCondition(o.if, this.session)) ?? null;
   }
 
   interact() {
@@ -1335,6 +1347,10 @@ export class WorldScene extends BaseScene {
       hint = 'Talk';
       mx = t.actor.sprite.x;
       my = t.actor.sprite.y - 45;
+    } else if (t.underfoot) {
+      // Over the captain's head: it's his own tile.
+      mx = this.player.sprite.x;
+      my = this.player.sprite.y - 45;
     } else if (t.kind === 'chest') {
       hint = this.session.world.isOpened(WorldState.key(this.model.id, t.obj.id)) ? 'Inspect' : 'Open';
     } else if (t.kind === 'duty') {

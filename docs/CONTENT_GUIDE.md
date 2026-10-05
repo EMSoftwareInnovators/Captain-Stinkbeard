@@ -1216,6 +1216,14 @@ four direction frames.
 
 Fins circling an ellipse centred on a tile (the decoy boat, the lure).
 
+### Jobs on the floor
+
+An inspect spot on walkable floor works from beside it (facing it) and,
+when nothing is in front of the captain, from on top of it, as long as its
+`if` names `objectiveActive` (it's something the story has sent him to do).
+To start a scene just by walking somewhere, add a `trigger` on the same
+tiles with the same `if` (RUN's watch: either gap in the ruins' south wall).
+
 ### A quest left open
 
 ```json
