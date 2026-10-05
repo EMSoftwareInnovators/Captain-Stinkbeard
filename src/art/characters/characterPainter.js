@@ -50,7 +50,8 @@ export function resolveLook(app) {
   const skin = skinRamp(app.skin);
   return {
     id: app.id,
-    build: { ...BUILDS[app.build || 'medium'] },
+    // `buildTweak` nudges a build for one look (Story Phase 10: a belly fully charged).
+    build: { ...BUILDS[app.build || 'medium'], ...(app.buildTweak ?? {}) },
     skin,
     hair: hairRamp(app.hair?.color || 'brown'),
     hairStyle: app.hair?.style || 'short',
@@ -1049,6 +1050,8 @@ export function paintCharacterFrame(L, dir, pose = {}, { outline = true } = {}) 
   if (L.extras.has('singed')) singed(c, L, dir, torsoTop);
   if (L.extras.has('torn')) torn(c, L, dir, torsoTop, torsoBottom);
   if (L.extras.has('dusty')) dusty(c);
+  if (L.extras.has('charged')) charged(c, L, dir, torsoTop, torsoBottom);
+  if (L.extras.has('sashtaut')) sashTaut(c, L, dir, torsoTop);
   if (L.extras.has('parrotpouch')) parrotPouchOver(c, L, dir, torsoTop);
   if (outline) c.outline(OUTLINE);
   c.torsoTop = torsoTop;
@@ -1072,6 +1075,53 @@ function dusty(c) {
       const p = 8 + Math.round((y / c.height) * 30);
       if (h < p) c.set(x, y, SAND[(h + x + y) % 3]);
     }
+  }
+}
+
+/**
+ * Story Phase 10: fully charged. The suit strained over the belly (pale
+ * stress lines where the seams are pulling), one button gone, and a faint
+ * bilious shimmer coming off him at the hips. Nothing glows. Nearly.
+ */
+function charged(c, L, dir, top, bottom) {
+  const strain = L.primary[2];
+  const mid = top + Math.round((bottom - top) * 0.62);
+  for (const dy of [-2, 0, 2]) {
+    const y = mid + dy;
+    for (let x = 0; x < FRAME_W; x++) {
+      if (!c.alphaAt(x, y) || !c.alphaAt(x - 2, y) || !c.alphaAt(x + 2, y)) continue;
+      if ((x + dy) % 3 === 0 && Math.abs(x - CX) < 9) c.set(x, y, strain);
+    }
+  }
+  if (dir === 'down') c.setIfOpaque(CX, mid - 1, L.primary[0]); // where the button was
+  // the shimmer, both sides (left view: behind and in front)
+  const W = ['#6a9a24', '#a8cc48', '#d4ec80'];
+  const half = Math.ceil((L.build.waist + (L.build.belly ?? 0)) / 2);
+  const wisps = [[-1, -2, 1], [-2, -4, 2], [-2, -6, 1], [-3, -7, 0], [0, -1, 1], [1, -3, 2], [1, -5, 1], [2, -6, 0]];
+  wisps.forEach(([dx, dy, k], i) => {
+    const x = i < 4 ? CX - half + dx : CX + half - 1 + dx;
+    const y = mid + dy;
+    if (x >= 0 && x < FRAME_W && !c.alphaAt(x, y)) c.set(x, y, W[k]);
+  });
+}
+
+/**
+ * Story Phase 10: the sash held out taut on both sides by the two sash
+ * holders (Rusty Tom on his left, Barnacle Bill on his right). From the front
+ * or behind, a mustard band runs out from his middle to the edge of the
+ * frame, where the holder standing next to him has hold of it. From the side
+ * the holders are in front and behind, and the band is hidden.
+ */
+function sashTaut(c, L, dir, top) {
+  if (dir === 'left') return;
+  const S = L.sashColors;
+  const y = top + 6;
+  const half = Math.ceil(L.build.shoulder / 2);
+  for (let x = 0; x < FRAME_W; x++) {
+    if (x > CX - half && x < CX + half) continue;
+    c.set(x, y - 1, S.edge);
+    c.set(x, y, x % 4 === 1 ? S.gold : S.m);
+    c.set(x, y + 1, S.d);
   }
 }
 

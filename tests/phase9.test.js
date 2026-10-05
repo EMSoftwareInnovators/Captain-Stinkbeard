@@ -325,7 +325,7 @@ describe('Phase 9 state', () => {
 
 describe('Phase 9 saves', () => {
   it('is version 9, and a finished Phase 8 save migrates and waits for the bunk', () => {
-    expect(SAVE_VERSION).toBe(9);
+    expect(SAVE_VERSION).toBeGreaterThanOrEqual(9); // 10 since Story Phase 10 (tests/phase10.test.js)
     const v8 = JSON.parse(JSON.stringify(atPreset('p8_complete').serialize()));
     const v9 = migrateState(v8, 8, 9);
     const loaded = GameSession.fromState({ content, bus: new EventBus(), state: v9 });

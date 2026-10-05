@@ -190,7 +190,7 @@ function extras(c) {
  * Mark II at a stage of building (0 the crate and the tube; 1 + tubes, horseshoe, routing;
  * 2 finished, off; 3 finished and lit).
  */
-function mk2(stage, { lit = false } = {}) {
+export function mk2(stage, { lit = false } = {}) {
   const c = new PixelCanvas(BW, BH);
   crateBody(c);
   screenHole(c);

@@ -8,6 +8,7 @@ import { STAGE_FRAMES } from './stage/stageArt.js';
 import { VISTA_FRAMES, VISTA_SKIES } from './vista/vistaArt.js';
 import { INSERT_NAMES } from './inserts/insertArt.js';
 import { FUME_FX_FRAMES } from './effects/fumeArt.js';
+import { PHASE10_FX_FRAMES } from './effects/phase10Fx.js';
 import { EXPRESSION_NAMES } from './portraits/portraitPainter.js';
 import { EXTRA_POSES } from './characters/characterPainter.js';
 
@@ -28,7 +29,7 @@ export const ART_REGISTRY = {
   vista: new Set(VISTA_FRAMES),
   vistaSkies: new Set(VISTA_SKIES),
   inserts: new Set(INSERT_NAMES),
-  fx: new Set([...FUME_FX_FRAMES, ...BASE_FX_FRAMES]),
+  fx: new Set([...FUME_FX_FRAMES, ...PHASE10_FX_FRAMES, ...BASE_FX_FRAMES]),
   expressions: new Set(EXPRESSION_NAMES),
   extraPoses: new Set(Object.keys(EXTRA_POSES)),
   portraitPainters: new Set(['parrot']),

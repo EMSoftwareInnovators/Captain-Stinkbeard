@@ -199,6 +199,42 @@ export const MIGRATIONS = {
       inventory: state.inventory && typeof state.inventory === 'object' ? state.inventory : { gold: 0, items: {} },
     };
   },
+  /**
+   * 9 -> 10 (Story Phase 10: the Bling Bling King's prizes, the beans, the
+   * Counter-Sharkstorm Initiative, and the Queen Anne's Revenge blown into
+   * the Great Sharkstorm). The layout is unchanged.
+   * - The Grumblegut rename runs again (it is idempotent): a save written by
+   *   a build between the two can still carry "guzzlegut_gust", and a story
+   *   value written as text can still carry the old surname.
+   * Everything Phase 10 adds (the megalodon's alias and chain, the sash
+   * holders, where the ship is, Garrick's charge, Brogath's and Rumpold's
+   * unverified legends, the antenna) is flags and story values that start
+   * unset, so a finished Phase 9 save walks onto Crownskull Isle the
+   * moment after the Crimson Fortune went up. Missing fields are filled;
+   * nothing is removed.
+   */
+  9: (state) => {
+    const flags = Array.isArray(state.story?.flags) ? state.story.flags : [];
+    const renamed = [...new Set(flags.map((f) => (f === 'guzzlegut_gust' ? 'grumblegut_gust' : f)))];
+    const values = state.story?.values && typeof state.story.values === 'object' ? state.story.values : {};
+    const fix = (v) => (typeof v === 'string' ? v.replace(/Guzzlegut/g, 'Grumblegut').replace(/GUZZLEGUT/g, 'GRUMBLEGUT').replace(/guzzlegut/g, 'grumblegut') : v);
+    return {
+      ...state,
+      story: {
+        ...state.story,
+        flags: renamed,
+        vars: state.story?.vars && typeof state.story.vars === 'object' ? state.story.vars : {},
+        values: Object.fromEntries(Object.entries(values).map(([k, v]) => [k, fix(v)])),
+      },
+      world: {
+        ...state.world,
+        objects: state.world?.objects ?? {},
+        visited: state.world?.visited ?? [],
+        counters: state.world?.counters ?? {},
+      },
+      inventory: state.inventory && typeof state.inventory === 'object' ? state.inventory : { gold: 0, items: {} },
+    };
+  },
 };
 
 export function migrateState(state, fromVersion, toVersion, migrations = MIGRATIONS) {

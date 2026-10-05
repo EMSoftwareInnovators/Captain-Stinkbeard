@@ -8,6 +8,7 @@ import { addPhase6Inserts, PHASE6_INSERT_NAMES } from './phase6Inserts.js';
 import { addPhase7Inserts, PHASE7_INSERT_NAMES } from './phase7Inserts.js';
 import { addPhase8Inserts, PHASE8_INSERT_NAMES } from './phase8Inserts.js';
 import { addPhase9Inserts, PHASE9_INSERT_NAMES } from './phase9Inserts.js';
+import { addPhase10Inserts, PHASE10_INSERT_NAMES } from './phase10Inserts.js';
 
 /**
  * Close-up "inserts" shown full-size in a frame (CinemaScene.insert): a
@@ -157,7 +158,8 @@ function shipNames() {
 }
 
 export function buildInsertAtlas() {
-  const atlas = new ShelfAtlas(512, 2);
+  // 1024 wide since Story Phase 10: at 512 the stack grew past 4096 tall.
+  const atlas = new ShelfAtlas(1024, 2);
   atlas.add('eel_jar_label', eelJarLabel());
   atlas.add('toll_sign_close', tollSignClose());
   atlas.add('probation_rules', probationRules());
@@ -170,7 +172,8 @@ export function buildInsertAtlas() {
   addPhase7Inserts(atlas);
   addPhase8Inserts(atlas);
   addPhase9Inserts(atlas);
+  addPhase10Inserts(atlas);
   return atlas.build();
 }
 
-export const INSERT_NAMES = ['eel_jar_label', 'toll_sign_close', 'probation_rules', 'charge_sheet', 'amendment_notice', 'ship_names', ...FORECAST_INSERT_NAMES, ...PHASE5_INSERT_NAMES, ...PHASE6_INSERT_NAMES, ...PHASE7_INSERT_NAMES, ...PHASE8_INSERT_NAMES, ...PHASE9_INSERT_NAMES];
+export const INSERT_NAMES = ['eel_jar_label', 'toll_sign_close', 'probation_rules', 'charge_sheet', 'amendment_notice', 'ship_names', ...FORECAST_INSERT_NAMES, ...PHASE5_INSERT_NAMES, ...PHASE6_INSERT_NAMES, ...PHASE7_INSERT_NAMES, ...PHASE8_INSERT_NAMES, ...PHASE9_INSERT_NAMES, ...PHASE10_INSERT_NAMES];

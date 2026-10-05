@@ -21,6 +21,9 @@ export const PARTICLE_KINDS = {
   falldust: { frames: ['dust_0', 'dust_1'], count: 5, speed: [0, 12], up: 0, gravity: 70, drag: 0.6, life: [700, 1200], fade: 0.5, alpha: 0.55, spread: 18, pick: true, depth: 79100 },
   // Story Phase 8: the Grand Stenchmaster Suit letting out a little of what it has absorbed (FWOoF).
   suitpuff: { frames: ['puff_0', 'puff_1', 'puff_2'], count: 3, speed: [4, 18], up: 10, gravity: -10, drag: 1.1, life: [900, 1500], grow: 0.8, fade: 0.55, alpha: 0.6, tint: 0xd8cc6a, pick: true, spread: 5, depth: 70012 },
+  // Story Phase 10: the Bean Smoothie gets loose (it rains beans), and the Bling Bling King's prizes come with confetti.
+  beans: { frames: ['bean_0', 'bean_1', 'bean_2'], count: 14, speed: [30, 110], up: 120, gravity: 380, life: [600, 1100], spin: 6, bounce: 0.25, fade: 0.3, pick: true },
+  confetti: { frames: ['confetti_0', 'confetti_1', 'confetti_2', 'confetti_3'], count: 14, speed: [20, 70], up: 60, gravity: 40, drag: 1.4, life: [1200, 2200], sway: 14, spin: 4, fade: 0.4, pick: true, depth: 80002 },
   dishes: { frames: ['dish_0', 'dish_1', 'fork'], count: 4, speed: [30, 80], up: 100, gravity: 400, life: [500, 800], spin: 8, bounce: 0.2, fade: 0.2, pick: true },
 };
 

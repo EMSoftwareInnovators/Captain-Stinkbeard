@@ -7,6 +7,7 @@ import { addPhase6VistaFrames, PHASE6_VISTA_FRAMES, garlicCloud } from './vistaP
 import { addPhase7VistaFrames, PHASE7_VISTA_FRAMES } from './vistaPhase7.js';
 import { addPhase8VistaFrames, PHASE8_VISTA_FRAMES } from './vistaPhase8.js';
 import { addPhase9VistaFrames, PHASE9_VISTA_FRAMES } from './vistaPhase9.js';
+import { addPhase10VistaFrames, PHASE10_VISTA_FRAMES } from './vistaPhase10.js';
 
 /**
  * Side-view art for vistas (scenes/CinemaScene.js): skies and seas for each
@@ -32,6 +33,11 @@ export const SKIES = {
   noon: { top: '#2e6cc0', bottom: '#b8e0f4', sun: [160, 22, '#fffef0'], clouds: '#ffffff' },
   // Story Phase 6: the night of the Great Sharkstorm (bruised, mustard-lit from below)
   storm: { top: '#0c0e10', bottom: '#5a5430', sun: null, clouds: '#2a2c24' },
+  // Story Phase 10: the captain's fantasy (everything golden); the sea after the wrong-way blast (the same storm, a
+  // sea the colour of bean soup); and inside the Great Sharkstorm (grey-green cloud on every side)
+  gold: { top: '#e89a30', bottom: '#fff0b0', sun: [160, 34, '#ffffff'], clouds: '#fff4c8' },
+  foul: { top: '#0c0e0a', bottom: '#6a6630', sun: null, clouds: '#34361e' },
+  inside: { top: '#141c18', bottom: '#3e584a', sun: null, clouds: '#56705e' },
 };
 
 const SEAS = {
@@ -44,6 +50,9 @@ const SEAS = {
   night: ['#060818', '#101430', '#2c3058', '#6a6a98'],
   noon: ['#10427a', '#1e5a90', '#58a8d4', '#f0fbff'],
   storm: ['#06100e', '#12201c', '#3a4a3a', '#c8c070'],
+  gold: ['#1a5a8a', '#2a7aa8', '#7ac0d8', '#fff4c0'],
+  foul: ['#1e2a0e', '#3a4a18', '#6a7a2c', '#c8c880'],
+  inside: ['#141e1a', '#22322a', '#3e584a', '#9ab8b0'],
 };
 
 function paintSky(name) {
@@ -559,6 +568,7 @@ export function buildVistaAtlas() {
   addPhase7VistaFrames(atlas);
   addPhase8VistaFrames(atlas);
   addPhase9VistaFrames(atlas);
+  addPhase10VistaFrames(atlas);
   for (let i = 0; i < 3; i++) atlas.add(`cloud_garlic_${i}`, garlicCloud(cloudRise(i)));
   return atlas.build();
 }
@@ -578,4 +588,5 @@ export const VISTA_FRAMES = [
   ...PHASE7_VISTA_FRAMES,
   ...PHASE8_VISTA_FRAMES,
   ...PHASE9_VISTA_FRAMES,
+  ...PHASE10_VISTA_FRAMES,
 ];

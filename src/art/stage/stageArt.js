@@ -5,6 +5,7 @@ import { addPhase4StageFrames, PHASE4_STAGE_FRAMES } from './stagePhase4.js';
 import { addPhase6StageFrames, PHASE6_STAGE_FRAMES } from './stagePhase6.js';
 import { addPhase7StageFrames, PHASE7_STAGE_FRAMES } from './stagePhase7.js';
 import { addPhase9StageFrames, PHASE9_STAGE_FRAMES } from './stagePhase9.js';
+import { addPhase10StageFrames, PHASE10_STAGE_FRAMES } from './stagePhase10.js';
 
 /**
  * "Stage" sprites: free-moving pieces that scripts place in the world (see
@@ -492,6 +493,7 @@ export function buildStageAtlas() {
   addPhase6StageFrames(atlas);
   addPhase7StageFrames(atlas);
   addPhase9StageFrames(atlas);
+  addPhase10StageFrames(atlas);
   const built = atlas.build();
   return {
     ...built,
@@ -506,8 +508,10 @@ export function buildStageAtlas() {
       barrel_tumble: ['barrel_thrown_0', 'barrel_thrown_1'],
       cape_shark: ['flying_cape_0', 'flying_cape_1'],
       lantern_fall: ['lantern_fall_0', 'lantern_fall_1'],
+      pillow_tumble: ['pillow_flying_0', 'pillow_flying_1'],
+      bbk_swim: ['flying_bbk_0', 'flying_bbk_1'],
     },
-    rates: { bathtub: 3, rowboat: 2.5, shark: 6, shark_belly: 2, cape_shark: 6, lantern_fall: 5 },
+    rates: { bathtub: 3, rowboat: 2.5, shark: 6, shark_belly: 2, cape_shark: 6, lantern_fall: 5, pillow_tumble: 5, bbk_swim: 3 },
   };
 }
 
@@ -524,4 +528,5 @@ export const STAGE_FRAMES = [
   ...PHASE6_STAGE_FRAMES,
   ...PHASE7_STAGE_FRAMES,
   ...PHASE9_STAGE_FRAMES,
+  ...PHASE10_STAGE_FRAMES,
 ];

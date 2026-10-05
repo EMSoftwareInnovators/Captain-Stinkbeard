@@ -121,7 +121,7 @@ export const COMMAND_SCHEMAS = {
 /** Commands that may carry "async": true (start and continue without waiting). */
 export const ASYNC_COMMANDS = new Set(['token', 'move', 'fly', 'hop', 'propFx', 'roll', 'moveSprite', 'fumeCloud', 'vistaMove', 'shake', 'emote', 'tint', 'sharkEvent', 'course', 'restage']);
 
-export const PARTICLE_BURSTS = ['coins', 'gems', 'splinters', 'feathers', 'sparkle', 'fume', 'odor', 'splash', 'dust', 'dishes', 'falldust', 'suitpuff'];
+export const PARTICLE_BURSTS = ['coins', 'gems', 'splinters', 'feathers', 'sparkle', 'fume', 'odor', 'splash', 'dust', 'dishes', 'falldust', 'suitpuff', 'beans', 'confetti'];
 export const PROP_FX = ['jiggle', 'swing', 'fall', 'frame'];
 
 /** Keys that may appear on any step without being a command. */

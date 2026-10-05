@@ -1,0 +1,48 @@
+{
+ "//": "Story Phase 10 ambience: the ship trailing the Great Sharkstorm (wind, the swell, the storm close, now and then a plastic clack); the galley at night (the storm muffled, the hull creaking, a bean pot settling, the S.E.S. humming); and inside the Great Sharkstorm (a muffled roar on every side, the hull creaking as she circles, treasure and the odd token rattling off the planking, sharks going by).",
+ "storm_trailing": {
+  "loops": [
+   { "source": "wind", "volume": 0.4 },
+   { "source": "ocean", "volume": 0.34 }
+  ],
+  "oneshots": [
+   { "sounds": ["storm_distant", "vortex_roar"], "every": [9, 18], "volume": 0.24 },
+   { "sounds": ["token_clack", "coin_glint"], "every": [16, 34], "volume": 0.12 },
+   { "sounds": ["timber_creak"], "every": [7, 14], "volume": 0.16 }
+  ]
+ },
+ "galley_night": {
+  "loops": [
+   { "source": "wind", "volume": 0.14 },
+   { "source": "ocean", "muffled": true, "volume": 0.3 }
+  ],
+  "oneshots": [
+   { "sounds": ["timber_creak", "hammock_creak"], "every": [6, 12], "volume": 0.16 },
+   { "sounds": ["grog_bubble", "pot_bubble"], "every": [14, 26], "volume": 0.08 },
+   { "sounds": ["storm_distant"], "every": [18, 32], "volume": 0.14 }
+  ]
+ },
+ "inside_storm": {
+  "loops": [
+   { "source": "wind", "volume": 0.5 },
+   { "source": "rain", "muffled": true, "volume": 0.24 }
+  ],
+  "oneshots": [
+   { "sounds": ["vortex_roar"], "every": [5, 10], "volume": 0.26 },
+   { "sounds": ["shark_whoosh"], "every": [3, 7], "volume": 0.16 },
+   { "sounds": ["token_clack", "coin_glint", "jewel_chime"], "every": [6, 13], "volume": 0.12 },
+   { "sounds": ["timber_creak", "drift_creak"], "every": [4, 8], "volume": 0.2 }
+  ]
+ },
+ "inside_storm_galley": {
+  "loops": [
+   { "source": "wind", "volume": 0.24 },
+   { "source": "rain", "muffled": true, "volume": 0.18 }
+  ],
+  "oneshots": [
+   { "sounds": ["timber_creak", "drift_creak", "dish_rattle"], "every": [4, 9], "volume": 0.16 },
+   { "sounds": ["vortex_roar"], "every": [8, 16], "volume": 0.14 },
+   { "sounds": ["token_clack"], "every": [12, 24], "volume": 0.08 }
+  ]
+ }
+}

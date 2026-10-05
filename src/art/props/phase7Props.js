@@ -41,7 +41,7 @@ function sesScrapped() {
 }
 
 /** Mark II, small: a crate with a tube in it. `screen` is a picture (or null for dark). */
-function mk2Small(screen, { stage = 2, lit = false } = {}) {
+export function mk2Small(screen, { stage = 2, lit = false } = {}) {
   const c = canvas(26, 30);
   groundShadow(c, 13, 28, 12, 2);
   // the crate, slatted

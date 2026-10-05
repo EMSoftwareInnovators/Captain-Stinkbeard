@@ -8,9 +8,10 @@ import { PHASE6_PROPS } from './phase6Props.js';
 import { PHASE7_PROPS } from './phase7Props.js';
 import { PHASE8_PROPS } from './phase8Props.js';
 import { PHASE9_PROPS } from './phase9Props.js';
+import { PHASE10_PROPS } from './phase10Props.js';
 
 /** Every prop painter by sprite name (treasure also comes in a contaminated "_foul" twin). */
-export const PROP_PAINTERS = withFoulTwins({ ...DECK_PROPS, ...INTERIOR_PROPS, ...STORY_PROPS, ...PHASE3_PROPS, ...PHASE4_PROPS, ...PHASE5_PROPS, ...PHASE6_PROPS, ...PHASE7_PROPS, ...PHASE8_PROPS, ...PHASE9_PROPS });
+export const PROP_PAINTERS = withFoulTwins({ ...DECK_PROPS, ...INTERIOR_PROPS, ...STORY_PROPS, ...PHASE3_PROPS, ...PHASE4_PROPS, ...PHASE5_PROPS, ...PHASE6_PROPS, ...PHASE7_PROPS, ...PHASE8_PROPS, ...PHASE9_PROPS, ...PHASE10_PROPS });
 
 /** Normalises a painter result to { frames: PixelCanvas[], ms }. */
 export function paintProp(name) {

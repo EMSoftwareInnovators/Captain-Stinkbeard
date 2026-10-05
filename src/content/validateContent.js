@@ -16,6 +16,7 @@ import { checkStaging } from './staging.js';
 import { ACTIONS } from '../platform/input/bindings.js';
 import { ART_REGISTRY } from '../art/registry.js';
 import { ENGINE_FLAGS } from '../config/engineFlags.js';
+import { REPAIR_KINDS, REPAIR_SOUND_KEYS } from '../systems/repairKinds.js';
 
 /**
  * Cross-reference validation for all content. Returns { errors, warnings }.
@@ -347,6 +348,7 @@ function validateStep(step, check, sctx) {
     if (['bite', 'flop', 'lure'].includes(step.sharkEvent) && (step.x === undefined || step.y === undefined)) check.error(`shark event "${step.sharkEvent}" needs x and y`);
   }
   if (name === 'tint' && !/^#[0-9a-fA-F]{6}$/.test(step.color ?? '')) check.error('tint color must be "#rrggbb"');
+  if (name === 'repair' && !REPAIR_KINDS[step.repair]) check.error(`unknown timing-bar kind "${step.repair}" (see src/systems/repairKinds.js)`);
   if (name === 'repair' && step.strikes !== undefined && (step.strikes < 1 || step.strikes > 8)) check.error('repair strikes must be 1..8');
   if (name === 'swapItem' && step.swapItem === step.to) check.error('swapItem needs two different items');
 }
@@ -521,6 +523,11 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       if (t.grade !== undefined && t.grade !== null && !/^#[0-9a-fA-F]{6}$/.test(t.grade)) tc.error('grade must be "#rrggbb"');
       if ('if' in t) tc.condition(t.if);
     });
+  }
+
+  // The timing bar's kinds play these sounds.
+  for (const [id, K] of Object.entries(REPAIR_KINDS)) {
+    for (const key of REPAIR_SOUND_KEYS) if (!db.sfx.has(K[key])) ctx.errors.push(`src/systems/repairKinds.js (${id}): unknown ${key} sfx "${K[key]}"`);
   }
 
   for (const item of db.items.list()) {
@@ -964,7 +971,8 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     // Story Phase 6: conditions, the knob panel
     for (const [sid, st] of Object.entries(tv.states ?? {})) {
       const sc = c.at(`states.${sid}`);
-      for (const f of [st.bezel, st.back, st.glass, ...(st.flicker?.frames ?? [])]) if (f && !art.vista.has(f)) sc.error(`no vista art "${f}"`);
+      for (const f of [st.bezel, st.back, st.glass, ...(st.flicker?.frames ?? []), ...(st.frames ?? [])]) if (f && !art.vista.has(f)) sc.error(`no vista art "${f}"`);
+      if (st.frames !== undefined && (!Array.isArray(st.frames) || !st.frames.length)) sc.error('"frames" must be a non-empty list of vista frames');
       if (st.flicker?.sfx && !db.sfx.has(st.flicker.sfx)) sc.error(`unknown sfx "${st.flicker.sfx}"`);
       looks(st.lookComments, `states.${sid}.lookComments`);
       looks(st.flicker?.lines, `states.${sid}.flicker.lines`);

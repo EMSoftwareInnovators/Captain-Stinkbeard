@@ -36,6 +36,12 @@ import { resolveVariant } from '../systems/story/progress.js';
  *     with no business coming out of a television) and "tune" (after enough
  *     tries, it finds a channel: the panel's way of ending in a programme
  *     rather than in darkness).
+ *
+ * Story Phase 10 adds more than one knob panel per set ("knobPanels", the tv
+ * command's "panel"), knobs that only turn up after N other tries ("after":
+ * the last idea), a "glimpse" effect (another picture for a moment), and a
+ * condition that holds the picture to its own "frames" whatever the channel
+ * (no reception), with its own "osd".
  */
 const D = 740;
 const rand = (a, b) => a + Math.random() * (b - a);
@@ -177,11 +183,15 @@ export class TvView {
     this.channel = st.channel;
     this.frameT = 0;
     this.frameI = 0;
-    this.startProgram();
+    // Story Phase 10: a condition can hold the picture to its own frames whatever
+    // the channel (no reception: snow, and now and then a frame of something).
+    this.condFrames = cond.frames ?? null;
+    this.condFrameMs = cond.frameMs ?? null;
+    if (!this.condFrames) this.startProgram();
     this.screen.setFrame(this.currentFrames()[0] ?? 'tv_static_0');
     this.glow.setFillStyle(Phaser_hex(this.channel?.glow ?? '#c8d0d8'), 0.22);
     if (animate) {
-      setText(this.osd, `CH ${this.channel?.label ?? this.channel?.id ?? ''}`);
+      setText(this.osd, cond.osd ?? `CH ${this.channel?.label ?? this.channel?.id ?? ''}`);
       this.osdT = 1400;
     }
   }
@@ -203,6 +213,7 @@ export class TvView {
   }
 
   currentFrames() {
+    if (this.condFrames) return this.condFrames;
     if (this.knobState.frog && this.program?.closeup) return this.program.closeup;
     return this.beat?.frames ?? this.channel?.frames ?? [];
   }
@@ -499,7 +510,7 @@ export class TvView {
     }
     // Frames, flicker, the hum.
     const frames = this.currentFrames();
-    const frameMs = this.beat?.frameMs ?? this.channel.frameMs ?? 300;
+    const frameMs = this.condFrameMs ?? this.beat?.frameMs ?? this.channel.frameMs ?? 300;
     this.frameT += delta;
     if (frames.length > 1 && this.frameT >= frameMs) {
       this.frameT = 0;
