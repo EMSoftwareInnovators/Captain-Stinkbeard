@@ -59,7 +59,17 @@ async function go(g, map) {
  * before anyone digs), so "next to it" has to mean outside it.
  */
 async function standFor(g, id) {
-  const at = await g.eval((oid) => {
+  // After a scene the crew walk back to their places: give them a moment to get out of the way.
+  for (let tries = 0; tries < 20; tries++) {
+    const at = await standNow(g, id);
+    if (at) return at;
+    await g.wait(300);
+  }
+  throw new Error(`nowhere to stand for ${id} on ${await onMap(g)}`);
+}
+
+async function standNow(g, id) {
+  return g.eval((oid) => {
     const w = window.__GAME__.game.scene.getScene('World');
     const o = w.model.objects.find((x) => x.id === oid);
     if (!o) return null;
@@ -81,8 +91,6 @@ async function standFor(g, id) {
     }
     return best;
   }, id);
-  if (!at) throw new Error(`nowhere to stand for ${id} on ${await onMap(g)}`);
-  return at;
 }
 
 async function inspect(g, id, ...picks) {
@@ -98,7 +106,18 @@ async function inspect(g, id, ...picks) {
 
 /** Walks into a named place on the island: the nearest open tile of it. */
 async function visit(g, region) {
-  const at = await g.eval((rid) => {
+  let at = null;
+  for (let tries = 0; tries < 20 && !at; tries++) {
+    if (tries) await g.wait(300);
+    at = await openTileIn(g, region);
+  }
+  if (!at) throw new Error(`no way into ${region}`);
+  await g.goto(at[0], at[1]);
+  await g.skip();
+}
+
+function openTileIn(g, region) {
+  return g.eval((rid) => {
     const w = window.__GAME__.game.scene.getScene('World');
     const r = w.model.meta.regions.find((x) => x.id === rid);
     let best = null;
@@ -112,9 +131,6 @@ async function visit(g, region) {
     }
     return best && [best.x, best.y];
   }, region);
-  if (!at) throw new Error(`no way into ${region}`);
-  await g.goto(at[0], at[1]);
-  await g.skip();
 }
 
 /** A question menu: the first topic still open. */
