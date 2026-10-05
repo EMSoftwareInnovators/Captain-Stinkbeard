@@ -153,6 +153,8 @@ export function compileMap(def, tileset, props = null) {
       musicVariants: def.musicVariants ?? [],
       lightingVariants: def.lightingVariants ?? [],
       nameVariants: def.nameVariants ?? [],
+      //   backgroundVariants [{ if, background }]  (what's outside the rails now; Story Phase 10)
+      backgroundVariants: def.backgroundVariants ?? [],
       // Environmental hazards (see systems/hazards/fumes.js).
       fumes: def.fumes ?? [],
       haze: def.haze ?? [],

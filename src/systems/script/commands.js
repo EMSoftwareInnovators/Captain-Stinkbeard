@@ -108,7 +108,7 @@ export function createCommandImplementations() {
       return step.async ? null : p;
     },
     /** Operate a television (data/tv): opens the close-up and waits until the captain steps away. */
-    tv: (step, ctx) => service(ctx, 'ui', 'tv').tv(step.tv, { mode: step.mode ?? 'normal' }),
+    tv: (step, ctx) => service(ctx, 'ui', 'tv').tv(step.tv, { mode: step.mode ?? 'normal', panel: step.panel ?? null }),
     /**
      * Story Phase 6: plays a programme's episode on a vista's screen layer,
      * beat by beat (frames, sound, the laugh track, and each line said like
@@ -286,6 +286,13 @@ export function createCommandImplementations() {
     },
     removeSprite: (step, ctx) => {
       service(ctx, 'world', 'removeSprite').removeSprite(step.removeSprite);
+    },
+    token: (step, ctx) => {
+      const p = service(ctx, 'world', 'token').dropToken(step.token, step.x, step.y, { id: step.id, max: step.max, sfx: step.sfx });
+      return step.async ? null : p;
+    },
+    clearTokens: (step, ctx) => {
+      service(ctx, 'world', 'clearTokens').clearTokens();
     },
     tether: (step, ctx) => {
       service(ctx, 'world', 'tether').tether(step.tether === 'on', { x: step.x, y: step.y });

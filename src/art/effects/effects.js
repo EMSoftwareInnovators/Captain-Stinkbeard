@@ -198,6 +198,42 @@ export function buildEffectsAtlas() {
   return atlas.build();
 }
 
+/**
+ * Story Phase 10: the inside of the Great Sharkstorm, as seen over the rail
+ * once the Revenge is up in it. Tileable (64x64 per frame, 4 frames): grey-green
+ * cloud banks streaking sideways, spray, a glint of somebody's gold now and
+ * then. The motion is the texture scrolling (WorldMap), not the camera.
+ */
+export function paintStormSky(frames = 4) {
+  const S = 64;
+  const c = new PixelCanvas(S * frames, S);
+  const tones = ['#1a2622', '#24352e', '#30463c', '#3e584a', '#56705e'];
+  for (let f = 0; f < frames; f++) {
+    for (let y = 0; y < S; y++) {
+      for (let x = 0; x < S; x++) {
+        // streaks: long sideways bands that wobble, drifting with the frame
+        const ph = (f / frames) * Math.PI * 2;
+        const v = Math.sin((y / S) * Math.PI * 2 * 3 + Math.sin((x / S) * Math.PI * 2 + ph) * 0.9)
+          + Math.sin((x / S) * Math.PI * 2 * 2 - (y / S) * Math.PI * 2 + ph) * 0.45;
+        const i = Math.max(0, Math.min(4, Math.round((v + 1.6) * 1.25)));
+        c.set(f * S + x, y, tones[i]);
+      }
+    }
+    // spray and rain: short pale dashes, slanted
+    for (let i = 0; i < 26; i++) {
+      const bx = (i * 23 + f * 9) % S;
+      const by = (i * 37 + 5) % S;
+      for (let k = 0; k < 4; k++) c.set(f * S + ((bx + k) % S), (by + Math.floor(k / 2)) % S, k === 0 ? '#9ab8a8' : '#6e8c7c');
+    }
+    // a glint of stolen gold, now and then
+    const gx = (f * 19 + 11) % S;
+    const gy = (f * 29 + 21) % S;
+    c.set(f * S + gx, gy, '#f8e070');
+    c.set(f * S + ((gx + 1) % S), gy, '#e0b030');
+  }
+  return c;
+}
+
 /** Tileable animated ocean (64x64 per frame, 4 frames in a row). */
 export function paintOcean(frames = 4) {
   const S = 64;

@@ -1,6 +1,6 @@
 import { addTexture, addGridTexture, addBitmapFont, addAnimations } from './textures.js';
 import {
-  fontSheet, uiSheet, fxSheet, oceanSheet, tileSheet, propAtlas, characterSheet, battlerSheet,
+  fontSheet, uiSheet, fxSheet, oceanSheet, stormSkySheet, tileSheet, propAtlas, characterSheet, battlerSheet,
   enemySheet, ENEMY_IDS, portraitAtlas, BACKDROP_IDS, backdropImage, titleImages, FX_ONESHOT,
   fumeVignette, stageSheet, vistaSheet, insertSheet,
 } from '../art/sheets.js';
@@ -26,6 +26,7 @@ export function assetSteps(scene, app) {
       addAnimations(scene, 'fx', fx.anims, fx.rates);
       for (const k of FX_ONESHOT) scene.anims.get(`fx:${k}`).repeat = 0;
       addGridTexture(scene, 'ocean', oceanSheet());
+      addGridTexture(scene, 'stormsky', stormSkySheet());
       addTexture(scene, 'fume_vignette', { canvas: fumeVignette() });
     }],
     ['tiles', () => {

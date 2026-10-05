@@ -30,6 +30,18 @@ import { sharkstormNow, between } from '../systems/hazards/sharkstorm.js';
  * come down on the maps that have one. A treasure-laden storm
  * ("glints") flashes gold now and then: coins and jewels in the sky.
  *
+ * Story Phase 10: the Bling Bling King's sharks throw things. A state's
+ * "tokens" ({ every, frames, max, sfx, maps? }) drops a cheap plastic prize
+ * (a participation coin, a trophy, a rosette, a lobster shell) onto a free
+ * tile near the captain now and then: it falls, bounces, clacks and lies
+ * there as scenery. Never more than "max" at once (the oldest is swept
+ * away), never during a scene, gone when you leave the room. Scenes throw
+ * their own with the "token" command (dropToken). "sway" ({ maps, amp,
+ * period }) lets a room drift gently with the ship once she's inside the
+ * storm (a few pixels of camera, never a spin, off with screen shake off),
+ * and "flying.swirl" sends the passing sharks across at a slant, every
+ * which way, the way things go round inside a whirlwind.
+ *
  * Reduced effects: fewer passes, no shake. It looks like hundreds of sharks
  * because the vistas and the shark crowd do the hundreds; this layer only
  * ever has a handful of sprites.
@@ -48,6 +60,9 @@ export class SharkstormLayer {
     this.thudT = 4000;
     this.thuds = 0; // landings heard from below, this visit
     this.nextId = 1;
+    this.tokens = []; // cheap prizes lying on this map (ids, oldest first)
+    this.tokenT = 6000;
+    this.swayT = 0;
   }
 
   get state() {
@@ -66,6 +81,7 @@ export class SharkstormLayer {
     this.passes = this.passes.filter((p) => !p.done);
     if (this.impact) this.animateImpact(dt);
     if (st.below && !busy && (st.below.maps ?? []).includes(this.scene.model?.id)) this.belowDecks(st.below, dt);
+    if (st.tokens && !busy) this.tokenRain(st.tokens, dt);
     if (!this.here) return;
     if (st.glints && !busy) this.glint(st.glints, dt);
     if (st.rumble && !busy) {
@@ -107,6 +123,71 @@ export class SharkstormLayer {
     if (Math.random() < 0.4) this.scene.app.audio.sfx(g.sfx ?? 'coin_glint', { volume: 0.25, rate: 0.9 + Math.random() * 0.3 });
   }
 
+  // --- the Bling Bling King's prizes (Story Phase 10) ------------------------------------
+
+  tokenRain(t, dt) {
+    const map = this.scene.model?.id;
+    if (!(t.maps ?? this.state.maps ?? ['main_deck']).includes(map)) return;
+    this.tokenT -= dt;
+    if (this.tokenT > 0) return;
+    this.tokenT = between(t.every ?? [20000, 40000]) * (this.scene.app.settings.reducedEffects() ? 2 : 1);
+    const frames = t.frames ?? ['token_coin'];
+    const tile = this.pickTile(t.areas?.[map] ?? t.area);
+    if (tile) this.dropToken(frames[Math.floor(Math.random() * frames.length)], tile[0], tile[1], { max: t.max ?? 3, sfx: t.sfx });
+  }
+
+  /**
+   * A cheap prize falls onto a tile, bounces and lies there (a stage sprite).
+   * Resolves when it has landed. Keeps at most "max" on the map (the oldest
+   * goes first); "id" names it, so a scene can pick it up again.
+   */
+  dropToken(frame, x, y, { id = null, max = 3, sfx = 'token_clack' } = {}) {
+    const s = this.scene;
+    const key = id ?? `storm_token_${this.nextId++}`;
+    while (this.tokens.length >= Math.max(1, max)) s.stage.remove(this.tokens.shift());
+    const rec = s.stage.add(key, { frame, x: x + 0.5, y: y + 0.85, depth: (y + 0.85) * T - 6 });
+    this.tokens.push(key);
+    const land = rec.img.y;
+    rec.img.y = land - 6 * T;
+    rec.img.setAngle(-30 + Math.random() * 60);
+    s.app.audio.sfx('token_whistle', { volume: 0.35, rate: 0.9 + Math.random() * 0.3 });
+    return new Promise((resolve) => {
+      s.tweens.add({
+        targets: rec.img,
+        y: land,
+        angle: Math.random() < 0.5 ? -8 : 8,
+        duration: 700,
+        ease: 'Bounce.Out',
+        onComplete: () => {
+          s.app.audio.sfx(sfx ?? 'token_clack', { volume: 0.6, rate: 0.9 + Math.random() * 0.25 });
+          s.fx.burst('sparkle', rec.img.x, rec.img.y - 4, { count: 2 });
+          resolve(key);
+        },
+      });
+    });
+  }
+
+  /** Clears every prize off this map (a scene that sweeps the deck). */
+  clearTokens() {
+    for (const id of this.tokens) this.scene.stage?.remove?.(id);
+    this.tokens = [];
+  }
+
+  /** Story Phase 10: a gentle drift of the whole view while the ship is up inside the storm. */
+  swayOffset(dt) {
+    const sw = this.state.sway;
+    if (!sw || !(sw.maps ?? []).includes(this.scene.model?.id)) return null;
+    const k = this.scene.app.settings.shakeScale();
+    if (!k) return null;
+    this.swayT += dt;
+    const p = sw.period ?? 5200;
+    const amp = (sw.amp ?? 1.5) * k;
+    return {
+      x: Math.sin((this.swayT / p) * Math.PI * 2) * amp,
+      y: Math.sin((this.swayT / (p * 1.37)) * Math.PI * 2) * amp * 0.6,
+    };
+  }
+
   // --- below decks (Story Phase 7) ----------------------------------------------
 
   /** A landing on the deck overhead: a thud through the planks, a small shake, grit from the deckhead. */
@@ -139,6 +220,8 @@ export class SharkstormLayer {
     const cam = s.cameras.main;
     const fromLeft = Math.random() < 0.5;
     const y0 = cam.scrollY + 20 + Math.random() * (SCREEN_HEIGHT - 60);
+    // Inside the storm (Story Phase 10) things go across at a slant, every which way.
+    const y1 = this.state.flying?.swirl ? y0 + (Math.random() - 0.5) * 160 : y0;
     const x0 = cam.scrollX + (fromLeft ? -30 : SCREEN_WIDTH + 30);
     const x1 = cam.scrollX + (fromLeft ? SCREEN_WIDTH + 30 : -30);
     const id = `storm_pass_${this.nextId++}`;
@@ -146,7 +229,7 @@ export class SharkstormLayer {
     const kind = variants[Math.floor(Math.random() * variants.length)];
     const shark = s.add.image(x0, y0, 'stage', `${kind}_0`).setDepth(79200).setFlipX(!fromLeft).setScale(0.9 + Math.random() * 0.5);
     const shadow = s.add.image(x0, y0 + 26, 'stage', 'flying_shark_shadow').setDepth(10).setAlpha(0.35);
-    this.passes.push({ id, kind, shark, shadow, x0, x1, y0, t: 0, dur: 1100 + Math.random() * 700, spin: (Math.random() - 0.5) * 0.02, frame: 0 });
+    this.passes.push({ id, kind, shark, shadow, x0, x1, y0, y1, t: 0, dur: 1100 + Math.random() * 700, spin: (Math.random() - 0.5) * 0.02, frame: 0 });
     if (Math.random() < 0.5) s.app.audio.sfx('shark_whoosh', { volume: 0.4, rate: 0.9 + Math.random() * 0.3 });
   }
 
@@ -154,9 +237,10 @@ export class SharkstormLayer {
     p.t += dt;
     const k = Math.min(1, p.t / p.dur);
     const x = p.x0 + (p.x1 - p.x0) * k;
+    const y = p.y0 + ((p.y1 ?? p.y0) - p.y0) * k;
     const arc = Math.sin(k * Math.PI) * 18;
-    p.shark.setPosition(x, p.y0 - arc).setRotation(p.shark.rotation + p.spin * dt);
-    p.shadow.setPosition(x, p.y0 + 26);
+    p.shark.setPosition(x, y - arc).setRotation(p.shark.rotation + p.spin * dt);
+    p.shadow.setPosition(x, y + 26);
     p.frame += dt;
     p.shark.setFrame(`${p.kind ?? 'flying_shark'}_${Math.floor(p.frame / 120) % 2}`);
     if (k >= 1) {
@@ -278,6 +362,7 @@ export class SharkstormLayer {
   }
 
   destroy() {
+    this.clearTokens();
     for (const p of this.passes) {
       p.shark.destroy();
       p.shadow.destroy();

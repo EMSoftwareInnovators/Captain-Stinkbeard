@@ -1,7 +1,7 @@
 import { buildFonts } from './font/buildFont.js';
 import { buildUiAtlas } from './ui/uiSprites.js';
 import { buildItemIcons } from './ui/itemIcons.js';
-import { buildEffectsAtlas, paintOcean } from './effects/effects.js';
+import { buildEffectsAtlas, paintOcean, paintStormSky } from './effects/effects.js';
 import { paintFumeVignette } from './effects/fumeArt.js';
 import { buildStageAtlas } from './stage/stageArt.js';
 import { buildVistaAtlas } from './vista/vistaArt.js';
@@ -54,6 +54,11 @@ export function fumeVignette() {
 
 export function oceanSheet() {
   return { canvas: paintOcean(4), frameWidth: 64, frameHeight: 64 };
+}
+
+/** Story Phase 10: the inside of the Great Sharkstorm (a map's "stormsky" background). */
+export function stormSkySheet() {
+  return { canvas: paintStormSky(4), frameWidth: 64, frameHeight: 64 };
 }
 
 /** Tileset image: frames in tileset order, 16 per row (frame index = tile id). */

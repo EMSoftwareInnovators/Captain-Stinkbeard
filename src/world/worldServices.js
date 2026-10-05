@@ -382,6 +382,13 @@ export function createWorldServices(scene) {
     removeSprite(id) {
       scene.stage.remove(id);
     },
+    /** Story Phase 10: a cheap prize from the storm lands on (x, y) (SharkstormLayer.dropToken). */
+    dropToken(frame, x, y, opts = {}) {
+      return scene.sharkstorm.dropToken(frame, x, y, { max: opts.max ?? 6, ...(opts.id ? { id: opts.id } : {}), ...(opts.sfx ? { sfx: opts.sfx } : {}) });
+    },
+    clearTokens() {
+      scene.sharkstorm.clearTokens();
+    },
 
     /** The rescue rope: tied off at (x, y), trails behind the captain. */
     tether(on, { x, y } = {}) {
@@ -519,7 +526,7 @@ export function createWorldServices(scene) {
         await overlay.dialogue.close();
         return overlay.repair(opts);
       },
-      tv: async (id, { mode = 'normal' } = {}) => {
+      tv: async (id, { mode = 'normal', panel = null } = {}) => {
         await overlay.dialogue.close();
         const def = tvDef(scene.content, id);
         if (!def) throw new Error(`No television "${id}"`);
@@ -527,7 +534,7 @@ export function createWorldServices(scene) {
           const a = scene.actors.get(who);
           return !!a && a.sprite?.visible !== false;
         };
-        return overlay.tv(def, { present, mode });
+        return overlay.tv(def, { present, mode, panel });
       },
     },
     audio: {

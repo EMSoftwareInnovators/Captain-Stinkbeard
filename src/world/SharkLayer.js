@@ -30,7 +30,7 @@ export class SharkLayer {
     this.override = null;
     this.follower = null;
     this.bumpTimer = 4000;
-    this.outdoor = scene.model.meta.background === 'ocean';
+    this.outdoor = (scene.background ?? scene.model.meta.background) === 'ocean';
     this.loops = new Map();
     this.width = scene.model.width;
     // Phase 4: the crowd of distant fins, and a frenzy focus on the hull.

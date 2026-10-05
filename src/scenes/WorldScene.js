@@ -28,6 +28,7 @@ import { panicShouts } from '../systems/hazards/alarms.js';
 import { SharkDuty } from '../world/SharkDuty.js';
 import { SharkstormLayer } from '../world/SharkstormLayer.js';
 import { mapDisplayName } from '../maps/mapName.js';
+import { mapBackground } from '../maps/mapBackground.js';
 import { bedsAt, BED_POSES } from '../maps/compileMap.js';
 
 // Step durations chosen so a 60 Hz frame moves a whole number of pixels:
@@ -93,8 +94,10 @@ export class WorldScene extends BaseScene {
     this.entryHeld = new Set(DIRECTIONS.filter((d) => this.controls.isDown(d)));
     this.lockedHold = null;
 
-    this.cameras.main.setBackgroundColor(this.model.meta.background === 'ocean' ? '#16416f' : '#07060b');
-    this.worldMap = new WorldMap(this, this.model, this.tileset);
+    // What's outside the rails (Story Phase 10: the inside of the Great Sharkstorm, once the ship is in it).
+    this.background = mapBackground(this.model, this.session);
+    this.cameras.main.setBackgroundColor({ ocean: '#16416f', stormsky: '#1e2a26' }[this.background] ?? '#07060b');
+    this.worldMap = new WorldMap(this, this.model, this.tileset, this.background);
     this.dynSolid = new Uint8Array(this.model.width * this.model.height);
     this.buildProps();
     this.refreshDynamicSolids();
@@ -1656,6 +1659,8 @@ export class WorldScene extends BaseScene {
     let sy = focus.y - SCREEN_HEIGHT / 2;
     sx = W <= SCREEN_WIDTH ? (W - SCREEN_WIDTH) / 2 : Math.max(0, Math.min(W - SCREEN_WIDTH, sx));
     sy = H <= SCREEN_HEIGHT ? (H - SCREEN_HEIGHT) / 2 : Math.max(0, Math.min(H - SCREEN_HEIGHT, sy));
-    cam.setScroll(Math.round(sx), Math.round(sy));
+    // Story Phase 10: inside the Great Sharkstorm the whole ship drifts a little (never a spin).
+    const sway = this.sharkstorm?.swayOffset(dt) ?? null;
+    cam.setScroll(Math.round(sx + (sway?.x ?? 0)), Math.round(sy + (sway?.y ?? 0)));
   }
 }

@@ -46,7 +46,7 @@ export class TvView {
    * @param {object} def from systems/tv/tv.js tvDef
    * @param {{ present?: (id: string) => boolean, onClose: () => void }} opts
    */
-  constructor(scene, def, { present = () => true, onClose, mode = 'normal' }) {
+  constructor(scene, def, { present = () => true, onClose, mode = 'normal', panel = null }) {
     this.scene = scene;
     this.app = scene.game.app;
     this.session = this.app.session;
@@ -54,6 +54,9 @@ export class TvView {
     this.present = present;
     this.onClose = onClose;
     this.mode = mode;
+    // Story Phase 10: a set can have more than one knob panel ("knobPanels"); the script names which.
+    this.knobs = (panel && def.knobPanels?.[panel]) || def.knobs || null;
+    this.knobKey = panel ? `${panel}_` : '';
     this.knobState = { vol: 0, flip: false, tint: 0, slow: false, shrink: false, tries: {} };
     this.flickerT = 2500;
     this.flickering = 0;
@@ -109,13 +112,16 @@ export class TvView {
     });
     this.refreshMenu();
     this.applyState(false);
-    if (this.mode === 'knobs') this.showLines(nextLines(this.def, this.session, 'knobs_open', this.def.knobs?.openLines ?? [], this.present));
+    if (this.mode === 'knobs') this.showLines(nextLines(this.def, this.session, `${this.knobKey}knobs_open`, this.knobs?.openLines ?? [], this.present));
   }
 
   refreshMenu() {
     const st = tvState(this.def, this.session);
     if (this.mode === 'knobs') {
-      const knobs = (this.def.knobs?.list ?? []).map((k) => ({ label: k.label, value: `knob:${k.id}`, color: k.effect === 'off' ? UI_COLORS.gold : undefined }));
+      // A knob with "after" only turns up once that many other turns have been tried (the last idea).
+      const turned = Object.values(this.knobState.tries).reduce((a, b) => a + b, 0);
+      const knobs = (this.knobs?.list ?? []).filter((k) => !k.after || turned >= k.after)
+        .map((k) => ({ label: k.label, value: `knob:${k.id}`, color: k.effect === 'off' || k.after ? UI_COLORS.gold : undefined }));
       knobs.push({ label: 'Step away', value: 'leave' });
       const keepK = this.menu.selected?.value;
       this.menu.setItems(knobs, Math.max(0, knobs.findIndex((i) => i.value === keepK)));
@@ -226,7 +232,7 @@ export class TvView {
   // --- the knob panel (Story Phase 6) ----------------------------------------------
 
   turnKnob(id) {
-    const knob = (this.def.knobs?.list ?? []).find((k) => k.id === id);
+    const knob = (this.knobs?.list ?? []).find((k) => k.id === id);
     if (!knob) return;
     const k = this.knobState;
     const audio = this.app.audio;
@@ -256,6 +262,11 @@ export class TvView {
         this.screen.setScale(k.shrink ? 0.55 : 1);
         this.screen.setPosition(this.sx + (k.shrink ? SES_SCREEN.w * 0.225 : 0), this.sy + (k.shrink ? SES_SCREEN.h * 0.225 : 0));
         break;
+      case 'glimpse':
+        // Story Phase 10: another channel comes through for a moment (weather, cooking, an advert) and goes.
+        this.glimpse = { frames: knob.frames ?? [], t: 0, ms: knob.ms ?? 1400, frameMs: knob.frameMs ?? 300 };
+        if (this.glimpse.frames[0]) this.screen.setFrame(this.glimpse.frames[0]);
+        break;
       case 'frog':
         k.frog = !k.frog;
         this.frameI = 0;
@@ -275,7 +286,7 @@ export class TvView {
       }
       case 'tune':
         if (k.tries[id] >= (knob.tries ?? 1)) {
-          this.showLines(nextLines(this.def, this.session, `knob_${id}_done`, knob.doneLines ?? [], this.present));
+          this.showLines(nextLines(this.def, this.session, `knob_${this.knobKey}${id}_done`, knob.doneLines ?? [], this.present));
           this.tuneIn(knob);
           return;
         }
@@ -286,7 +297,7 @@ export class TvView {
         break;
       case 'off':
         if (k.tries[id] >= (knob.tries ?? 1)) {
-          this.showLines(nextLines(this.def, this.session, `knob_${id}_done`, knob.doneLines ?? [], this.present));
+          this.showLines(nextLines(this.def, this.session, `knob_${this.knobKey}${id}_done`, knob.doneLines ?? [], this.present));
           this.shutDown();
           return;
         }
@@ -297,7 +308,7 @@ export class TvView {
       default:
         break;
     }
-    this.showLines(nextLines(this.def, this.session, `knob_${id}`, knob.lines ?? [], this.present));
+    this.showLines(nextLines(this.def, this.session, `knob_${this.knobKey}${id}`, knob.lines ?? [], this.present));
   }
 
   /** OFF MAYBE, at last: the picture folds to a dot, the flag is set, the close-up shuts. */
@@ -305,22 +316,22 @@ export class TvView {
     setPower(this.def, this.session, false);
     this.app.audio.sfx('tv_power_off');
     this.powerFx(false);
-    this.flag(this.def.knobs?.doneFlag);
+    this.flag(this.knobs?.doneFlag);
     this.knobsDone = true;
-    this.scene.time.delayedCall(this.def.knobs?.closeAfter ?? 2600, () => this.close());
+    this.scene.time.delayedCall(this.knobs?.closeAfter ?? 2600, () => this.close());
   }
 
   /** Story Phase 7: the panel finds a channel (the one the knob names), sets its flag and lets go. */
   tuneIn(knob) {
     if (this.failure) this.endFailure();
     // The flag first: a programme's newest episode may be waiting on it.
-    this.flag(this.def.knobs?.doneFlag);
+    this.flag(this.knobs?.doneFlag);
     setPower(this.def, this.session, true);
     if (knob.channel) setChannel(this.def, this.session, knob.channel);
     this.app.audio.sfx(knob.doneSfx ?? 'tv_power_on');
     this.applyState(true);
     this.knobsDone = true;
-    this.scene.time.delayedCall(this.def.knobs?.closeAfter ?? 2600, () => this.close());
+    this.scene.time.delayedCall(this.knobs?.closeAfter ?? 2600, () => this.close());
   }
 
   // --- the controls ---------------------------------------------------------------
@@ -330,6 +341,8 @@ export class TvView {
     const st = tvState(this.def, this.session);
     if (value.startsWith('knob:')) {
       if (!this.knobsDone) this.turnKnob(value.slice(5));
+      // A knob that waits for others ("after") may have just turned up.
+      if (!this.knobsDone && this.knobs?.list?.some((k) => k.after)) this.refreshMenu();
       return;
     }
     switch (value) {
@@ -474,6 +487,15 @@ export class TvView {
     if (this.beat) {
       this.beatT += delta;
       if (this.beatT >= (this.beat.ms ?? 2600) * (this.knobState.slow ? 1.6 : 1)) this.nextBeat();
+    }
+    // Story Phase 10: a knob's glimpse of another channel, then back to whatever it was.
+    if (this.glimpse) {
+      const g = this.glimpse;
+      g.t += delta;
+      const i = Math.floor(g.t / g.frameMs) % Math.max(1, g.frames.length);
+      if (g.frames[i]) this.screen.setFrame(g.frames[i]);
+      if (g.t < g.ms) return;
+      this.glimpse = null;
     }
     // Frames, flicker, the hum.
     const frames = this.currentFrames();

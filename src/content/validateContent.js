@@ -303,7 +303,8 @@ function validateStep(step, check, sctx) {
   if (name === 'deadCenter') check.deadCenter(step.deadCenter);
   if (name === 'sharkstorm') check.sharkstorm(step.sharkstorm);
   if (name === 'tv' && step.mode !== undefined && !['normal', 'knobs'].includes(step.mode)) check.error('tv mode must be normal or knobs');
-  if (name === 'tv' && step.mode === 'knobs' && !check.ctx.db.tv?.get?.(step.tv)?.knobs) check.error(`television "${step.tv}" has no knobs`);
+  if (name === 'tv' && step.mode === 'knobs' && !step.panel && !check.ctx.db.tv?.get?.(step.tv)?.knobs) check.error(`television "${step.tv}" has no knobs`);
+  if (name === 'tv' && step.panel && !check.ctx.db.tv?.get?.(step.tv)?.knobPanels?.[step.panel]) check.error(`television "${step.tv}" has no knob panel "${step.panel}"`);
   if (name === 'tvSet' && step.state !== undefined) {
     const st = check.ctx.db.tv?.get?.(step.tvSet)?.states ?? {};
     if (step.state !== 'working' && !st[step.state]) check.error(`television "${step.tvSet}" has no state "${step.state}"`);
@@ -336,6 +337,7 @@ function validateStep(step, check, sctx) {
     const frame = step.frame;
     if (!check.ctx.art.stage.has(frame) && !check.ctx.art.props.has(frame) && !check.ctx.art.fx.has(frame)) check.error(`no stage/prop/fx art "${frame}"`);
   }
+  if (name === 'token' && !check.ctx.art.stage.has(step.token) && !check.ctx.art.props.has(step.token)) check.error(`no stage/prop art "${step.token}" for the token`);
   if (name === 'insert' && !check.ctx.art.inserts.has(step.insert)) check.error(`no insert art "${step.insert}"`);
   if ('async' in step && step.async && !ASYNC_COMMANDS.has(name)) check.error(`"${name}" cannot run async`);
   if (name === 'fade' && !['in', 'out'].includes(step.fade)) check.error('fade must be "in" or "out"');
@@ -967,21 +969,29 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       looks(st.lookComments, `states.${sid}.lookComments`);
       looks(st.flicker?.lines, `states.${sid}.flicker.lines`);
     }
-    if (tv.knobs) {
-      const EFFECTS = ['louder', 'flip', 'tint', 'slow', 'shrink', 'frog', 'noop', 'off', 'roll', 'shriek', 'tune'];
-      const list = tv.knobs.list ?? [];
-      if (!list.some((k) => k.effect === 'off' || k.effect === 'tune')) c.error('the knob panel needs a knob with "effect": "off" or "tune" (or it could never be finished)');
-      if (tv.knobs.doneFlag) c.flag(tv.knobs.doneFlag);
-      looks(tv.knobs.openLines, 'knobs.openLines');
+    // The knob panel, and (Story Phase 10) any further named panels ("knobPanels").
+    const panels = [...(tv.knobs ? [['knobs', tv.knobs]] : []), ...Object.entries(tv.knobPanels ?? {}).map(([pid, kp]) => [`knobPanels.${pid}`, kp])];
+    for (const [where, knobs] of panels) {
+      const EFFECTS = ['louder', 'flip', 'tint', 'slow', 'shrink', 'frog', 'noop', 'off', 'roll', 'shriek', 'tune', 'glimpse'];
+      const list = knobs.list ?? [];
+      // An ending knob that waits ("after") is still reachable if some knob is there from the start (knobs turn as often as you like).
+      const ends = list.filter((k) => k.effect === 'off' || k.effect === 'tune');
+      if (!ends.some((k) => !k.after || list.some((o) => !o.after))) {
+        c.error(`${where}: the knob panel needs a knob with "effect": "off" or "tune" it can reach (or it could never be finished)`);
+      }
+      if (knobs.doneFlag) c.flag(knobs.doneFlag);
+      looks(knobs.openLines, `${where}.openLines`);
       list.forEach((k, i) => {
-        const kc = c.at(`knobs.list[${i}]`);
+        const kc = c.at(`${where}.list[${i}]`);
+        if (k.effect === 'glimpse') for (const f of k.frames ?? []) if (!art.vista.has(f)) kc.error(`no vista art "${f}" (glimpse)`);
+        if (k.after !== undefined && (!Number.isInteger(k.after) || k.after < 1)) kc.error('"after" is how many other turns first (a whole number, 1 or more)');
         if (!k.id || !k.label) kc.error('a knob needs an id and a label');
         if (!EFFECTS.includes(k.effect)) kc.error(`unknown knob effect "${k.effect}" (${EFFECTS.join(', ')})`);
         if (k.sfx && !db.sfx.has(k.sfx)) kc.error(`unknown sfx "${k.sfx}"`);
         if (k.doneSfx && !db.sfx.has(k.doneSfx)) kc.error(`unknown sfx "${k.doneSfx}"`);
         if (k.effect === 'tune' && k.channel !== undefined && !ids.has(k.channel)) kc.error(`a "tune" knob names channel ${k.channel}, which the set doesn't have`);
-        looks(k.lines, `knobs.list[${i}].lines`);
-        looks(k.doneLines, `knobs.list[${i}].doneLines`);
+        looks(k.lines, `${where}.list[${i}].lines`);
+        looks(k.doneLines, `${where}.list[${i}].doneLines`);
       });
     }
   }

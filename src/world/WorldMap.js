@@ -9,10 +9,11 @@ import { rgba, unpack, pack } from '../art/palette.js';
  * tile layers, animated tiles and the baked lighting overlay.
  */
 export class WorldMap {
-  constructor(scene, model, tileset) {
+  constructor(scene, model, tileset, background = model.meta.background) {
     this.scene = scene;
     this.model = model;
     this.tileset = tileset;
+    this.background = background;
     this.widthPx = model.width * TILE_SIZE;
     this.heightPx = model.height * TILE_SIZE;
     this.buildBackground();
@@ -22,7 +23,26 @@ export class WorldMap {
 
   buildBackground() {
     const s = this.scene;
-    if (this.model.meta.background === 'ocean') {
+    if (this.background === 'stormsky') {
+      // Story Phase 10: the inside of the Great Sharkstorm, going round the ship.
+      // A scrolling cloud texture, not a spinning camera.
+      const pad = 64;
+      this.sky = s.add
+        .tileSprite(-pad, -pad, this.widthPx + pad * 2, this.heightPx + pad * 2, 'stormsky', 0)
+        .setOrigin(0)
+        .setDepth(-3000);
+      this.skyFrame = 0;
+      s.time.addEvent({
+        delay: 240,
+        loop: true,
+        callback: () => {
+          this.skyFrame = (this.skyFrame + 1) % 4;
+          this.sky.setFrame(this.skyFrame);
+        },
+      });
+      return;
+    }
+    if (this.background === 'ocean') {
       const pad = 64;
       this.oceanPad = pad;
       this.bobTime = 0;
@@ -80,6 +100,12 @@ export class WorldMap {
       a.t -= a.ms;
       a.step += 1;
       for (const c of a.cells) c.tile.index = a.frames[(a.step + c.offset) % a.frames.length];
+    }
+    if (this.sky) {
+      // The storm going round: fast sideways, a little upward drift.
+      const slow = this.scene.app?.settings?.reducedEffects?.() ? 0.35 : 1;
+      this.sky.tilePositionX += delta * 0.09 * slow;
+      this.sky.tilePositionY -= delta * 0.012 * slow;
     }
     if (this.ocean) {
       this.ocean.tilePositionY -= delta * 0.004;

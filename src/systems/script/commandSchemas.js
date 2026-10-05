@@ -84,6 +84,9 @@ export const COMMAND_SCHEMAS = {
   moveSprite: { moveSprite: 'string', x: 'number?', y: 'number?', duration: 'number?', ease: 'string?', alpha: 'number?', scale: 'number?', angle: 'number?', async: 'boolean?' },
   spriteFrame: { spriteFrame: 'string', frame: 'string' },
   removeSprite: { removeSprite: 'string' },
+  // Story Phase 10: one of the Bling Bling King's cheap prizes falls onto a tile and lies there.
+  token: { token: 'string', x: 'number', y: 'number', id: 'string?', max: 'number?', sfx: 'string?', async: 'boolean?' },
+  clearTokens: { clearTokens: 'boolean' },
   tether: { tether: 'string', x: 'number?', y: 'number?' },
   respawn: { respawn: 'string' },
   fumeCloud: { fumeCloud: 'string', level: 'string?', x: 'number?', y: 'number?', w: 'number?', h: 'number?', grow: 'number?', remove: 'boolean?', async: 'boolean?' },
@@ -110,13 +113,13 @@ export const COMMAND_SCHEMAS = {
   alarm: { alarm: 'number', where: 'string?', wait: 'boolean?' },
   course: { course: 'string', heading: 'number?', target: 'number?', to: 'number?', duration: 'number?', label: 'string?', async: 'boolean?' },
   sharkDuty: { sharkDuty: 'string' },
-  tv: { tv: 'tv', mode: 'string?' },
+  tv: { tv: 'tv', mode: 'string?', panel: 'string?' },
   tvSet: { tvSet: 'tv', channel: 'number?', power: 'boolean?', state: 'string?' },
   tvProgram: { tvProgram: 'string', episode: 'string?', layer: 'string?', from: 'number?', to: 'number?' },
 };
 
 /** Commands that may carry "async": true (start and continue without waiting). */
-export const ASYNC_COMMANDS = new Set(['move', 'fly', 'hop', 'propFx', 'roll', 'moveSprite', 'fumeCloud', 'vistaMove', 'shake', 'emote', 'tint', 'sharkEvent', 'course', 'restage']);
+export const ASYNC_COMMANDS = new Set(['token', 'move', 'fly', 'hop', 'propFx', 'roll', 'moveSprite', 'fumeCloud', 'vistaMove', 'shake', 'emote', 'tint', 'sharkEvent', 'course', 'restage']);
 
 export const PARTICLE_BURSTS = ['coins', 'gems', 'splinters', 'feathers', 'sparkle', 'fume', 'odor', 'splash', 'dust', 'dishes', 'falldust', 'suitpuff'];
 export const PROP_FX = ['jiggle', 'swing', 'fall', 'frame'];
