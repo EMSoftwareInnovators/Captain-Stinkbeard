@@ -53,8 +53,6 @@ async function go(g, map) {
   throw new Error(`never reached ${map}`);
 }
 
-const DIR_KEYS = { up: 'ArrowUp', down: 'ArrowDown', left: 'ArrowLeft', right: 'ArrowRight' };
-
 /**
  * Where to stand to look at a map object (by id): the nearest open tile just
  * outside it, and which way to face. Some are floor you can walk on (the X
@@ -90,7 +88,10 @@ async function standFor(g, id) {
 async function inspect(g, id, ...picks) {
   const { stand, face } = await standFor(g, id);
   await g.goto(stand[0], stand[1]);
-  await g.tap(DIR_KEYS[face], 40, 150);
+  // Turn to face it without a key: some of these are floor you can walk on, and on a
+  // slow machine a short tap can turn into a step onto it.
+  await g.eval((dir) => window.__GAME__.game.scene.getScene('World').player.face(dir), face);
+  await g.wait(60);
   await g.tap('KeyZ', 50, 250);
   await g.skip(...picks);
 }
@@ -190,6 +191,8 @@ async function rowAshore(g) {
 
 async function playToEnd(g) {
   const has = async (flag) => flagsOf(await g.state()).has(flag);
+  let last = null;
+  let repeats = 0;
   for (let n = 0; n < 220 && !(await has('p9_complete')); n++) {
     // Chapter 70 has no objective of its own until the end: a word with Garrick.
     if ((await has('rage_shanty_seen')) && !(await has('p9_confronted'))) {
@@ -202,6 +205,12 @@ async function playToEnd(g) {
       return window.__GAME__.app.session.quests.isObjectiveAvailable(q, o);
     }), refs);
     if (!ref) throw new Error(`stuck on ${await onMap(g)}: no open Phase 9 objective the player can act on`);
+    repeats = ref === last ? repeats + 1 : 0;
+    last = ref;
+    if (repeats >= 12) {
+      const st = await g.state();
+      throw new Error(`${ref} never gets done (on ${st.map} at ${st.x},${st.y}, facing ${st.facing})`);
+    }
     await STEPS.find(([r]) => r === ref)[1](g);
   }
 }
