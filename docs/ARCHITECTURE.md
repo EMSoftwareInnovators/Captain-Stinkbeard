@@ -523,7 +523,11 @@ the story already has, through patches; the engine pieces are:
 - **The headless harness** reports a scene that turns, poses, emotes, hops,
   barks or bursts at someone who isn't in the room (the game throws), keeps
   people walking out of a non-cut restage and people flown off-screen in the
-  room, and understands named knob panels.
+  room, and understands named knob panels. It also reports an objective
+  object with someone standing on every tile of it (the game talks to them
+  first) unless talking to them starts the same scene, and a captain who
+  arrives (a transition or a preset) on a tile someone is placed on (they
+  get shoved aside, maybe somewhere unreachable).
 - **Save version 10** keeps the layout; the 9 → 10 migration re-runs the
   Grumblegut rename on flags and story values and fills missing maps.
 
@@ -691,7 +695,10 @@ upgrades on load and walks into the next chapter.
     - a captain boxed in when a scene ends;
     - a room whose doorways are cut off by people from some arrival point;
     - talking to, turning, posing, emoting, barking or bursting at someone
-      who isn't in the room (the game throws on those).
+      who isn't in the room (the game throws on those);
+    - an objective's object covered by someone standing on it (talking
+      comes first) whose dialogue doesn't start the same scene;
+    - the captain arriving on someone's placed tile.
 - `tests/phase2_story.test.js` to `tests/phase10_story.test.js` play the Story Phases headlessly with the real
   scripts, quests and triggers and mock services, twice (always the first
   choice, always the last), and fails on any dead end, loop or script error.

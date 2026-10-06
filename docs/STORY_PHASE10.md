@@ -160,7 +160,7 @@ stays on the Bling Bling King, he fires the wrong way, and the Revenge goes in.
 
 **Testing aids**
 
-- The headless story harness (`tests/storyHarness.js`) now fails when a scene turns, poses, emotes, hops, barks or bursts at someone who isn't in the room (the game throws), and understands named knob panels.
+- The headless story harness (`tests/storyHarness.js`) now fails when a scene turns, poses, emotes, hops, barks or bursts at someone who isn't in the room (the game throws); when an objective's object has someone standing on it whose dialogue doesn't start the same scene (the game talks to them first: Squawks in his basket, Garrick in his hammock now say the same scenes); and when the captain arrives on someone's placed tile (chapter 87's muster used to land on Bob). It understands named knob panels.
 - `tests/laterPhases.js`: older phases' brief tests read shared logbooks and programmes without the entries a later phase unlocks.
 
 ## Where things live
