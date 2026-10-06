@@ -1,0 +1,129 @@
+{
+ "thirty_second_trial": {
+  "//": "Story Phase 12 (chapter 115): THE THIRTY-SECOND TRIAL. Real seconds, Pete counting. Escalates at 5, 10, 15, 20, 25, 27, 28, 29, 30: the release growls, the band narrows, surges and gusts. Out of the band too long, somebody grabs the end (fail-soft); at thirty, LET IT FLUTTER (or your hands slip).",
+  "title": "THE THIRTY-SECOND TRIAL",
+  "seconds": 30,
+  "band": [
+   36,
+   70
+  ],
+  "pull": 58,
+  "slack": 42,
+  "sway": {
+   "amp": 12,
+   "period": 4.8
+  },
+  "grace": 1.8,
+  "count": {
+   "name": "PETE",
+   "sfx": "count_tick"
+  },
+  "tightSfx": "sash_creak",
+  "slackSfx": "sash_flap_small",
+  "surgeSfx": "fume_surge",
+  "gustSfx": "sash_flap_small",
+  "caughtSfx": "sash_flap",
+  "slackLine": "<y>PETE:</> <r>NOT YET!</> Don't let it go slack!",
+  "tightLine": "<y>GRISTLE:</> <o>EASY!</> You'll have him over!",
+  "hazeColor": "#8a9a2a",
+  "surges": [
+   {
+    "at": 20,
+    "kick": -30
+   },
+   {
+    "at": 26.5,
+    "kick": 26
+   }
+  ],
+  "milestones": [
+   {
+    "at": 2,
+    "text": "It's... going. It's GOING.",
+    "sfx": "release_rumble",
+    "haze": 0.08
+   },
+   {
+    "at": 5,
+    "text": "<y>PETE:</> FIVE! (It's growling. The fart is GROWLING.)",
+    "sfx": "fart_growl",
+    "haze": 0.14,
+    "shake": 0.003
+   },
+   {
+    "at": 10,
+    "text": "TEN. Only TEN? It's been a WEEK.",
+    "sfx": "fart_growl",
+    "haze": 0.2,
+    "shake": 0.003
+   },
+   {
+    "at": 15,
+    "text": "<y>PETE:</> FIFTEEN! HALFWAY! (Halfway is not encouraging.)",
+    "sfx": "fart_growl",
+    "haze": 0.26,
+    "shake": 0.004,
+    "sway": 1.2
+   },
+   {
+    "at": 20,
+    "text": "TWENTY. It SURGES. Hold it DOWN.",
+    "sfx": "fart_roar",
+    "haze": 0.32,
+    "shake": 0.006,
+    "flash": true,
+    "band": [
+     40,
+     66
+    ]
+   },
+   {
+    "at": 25,
+    "text": "<y>PETE:</> TWENTY-FIVE! (The sash is fighting you now.)",
+    "sfx": "fart_growl",
+    "haze": 0.36,
+    "shake": 0.005,
+    "band": [
+     43,
+     64
+    ],
+    "sway": 1.6,
+    "gusts": true
+   },
+   {
+    "at": 27,
+    "text": "<y>PETE:</> TWENTY-SEVEN!",
+    "sfx": "fart_growl",
+    "haze": 0.38,
+    "shake": 0.004
+   },
+   {
+    "at": 28,
+    "text": "<y>PETE:</> TWENTY-EIGHT!",
+    "sfx": "fart_growl",
+    "haze": 0.4,
+    "shake": 0.004
+   },
+   {
+    "at": 29,
+    "text": "<y>PETE:</> TWENTY-NINE!",
+    "sfx": "fart_roar",
+    "haze": 0.42,
+    "shake": 0.005
+   },
+   {
+    "at": 30,
+    "text": "<y>PETE:</> THIRTY!",
+    "sfx": "count_thirty",
+    "volume": 1.0
+   }
+  ],
+  "release": {
+   "cue": "LET IT FLUTTER!",
+   "auto": 4000,
+   "sfx": "sash_release",
+   "cueSfx": "sash_cue",
+   "slipLine": "Your hands slip. The sash goes."
+  }
+ }
+}

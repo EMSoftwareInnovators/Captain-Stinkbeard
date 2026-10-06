@@ -1,0 +1,149 @@
+[
+ {
+  "id": "p12_ready",
+  "//": "Phase 12 begins after Phase 11: a one-time hint (go to sleep).",
+  "if": {
+   "all": [
+    {
+     "flag": "p11_complete"
+    },
+    {
+     "notFlag": "p12_ready_hint"
+    },
+    {
+     "notFlag": "p12_started"
+    }
+   ]
+  },
+  "script": "p12.ready_hint",
+  "once": false
+ },
+ {
+  "id": "p12_geared",
+  "//": "Chapter 112: all the gear on.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "he_woke_up_loaded.gear"
+    },
+    {
+     "notFlag": "trial_gear_on"
+    }
+   ]
+  },
+  "script": "p12c1.geared",
+  "once": false
+ },
+ {
+  "id": "p12_complaints",
+  "//": "Chapter 116: every complaint read.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "the_flutter.complaints"
+    },
+    {
+     "notFlag": "sash_flutter_humiliation_valid"
+    }
+   ]
+  },
+  "script": "p12c5.done",
+  "once": false
+ },
+ {
+  "id": "p12_normal_die",
+  "//": "Chapter 118: he's been everywhere; Bob's die falls out.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "find_the_dice.follow"
+    },
+    {
+     "notFlag": "normal_die_six"
+    }
+   ]
+  },
+  "script": "p12c7.normal_die",
+  "once": false
+ },
+ {
+  "id": "p12_fine_print",
+  "//": "Chapter 119: every clause read.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "no_escape.read"
+    },
+    {
+     "notFlag": "fine_print_read"
+    }
+   ]
+  },
+  "script": "p12c8.done",
+  "once": false
+ },
+ {
+  "id": "p12_celebrated",
+  "//": "Chapter 121: three cheers; then tik.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "grand_dice_ceremony.celebrate"
+    },
+    {
+     "notFlag": "p12_ch122_started"
+    }
+   ]
+  },
+  "script": "p12c11.begin",
+  "once": false
+ },
+ {
+  "id": "p12_whiffed",
+  "//": "Chapter 124: verified; custody.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "authenticity_whiff.whiff"
+    },
+    {
+     "notFlag": "p12_custody_said"
+    }
+   ]
+  },
+  "script": "p12c13.custody",
+  "once": false
+ },
+ {
+  "id": "p12_breakfast_ready",
+  "//": "Chapter 125: every part cooked.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "normal_breakfast.parts"
+    },
+    {
+     "notFlag": "p12_bf_said"
+    }
+   ]
+  },
+  "script": "p12c14.ready",
+  "once": false
+ },
+ {
+  "id": "p12_finger_all",
+  "//": "Chapter 126: everyone has refused; he asks the captain.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "pull_my_finger.intervene"
+    },
+    {
+     "notFlag": "finger_crisis_seen"
+    }
+   ]
+  },
+  "script": "p12c15.you",
+  "once": false
+ }
+]

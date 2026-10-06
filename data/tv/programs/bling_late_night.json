@@ -1,6 +1,6 @@
 {
  "bling_late_night": {
-  "title": "Bling Bling King, Late",
+  "title": "The Bling Bling King Show",
   "//": "Story Phase 11: a late-night comedy programme hosted, from behind a desk, by the Bling Bling King (on television it talks; in person it never has). It knows things it can't know: the hammock over the captain, the Finger-Puller vote, the toy sashes. Nobody explains how. Original jokes; the cast are extra speakers.",
   "laugh": "ftm_laugh",
   "episodes": [
@@ -201,6 +201,146 @@
       ],
       "line": "bling_king_tv: We'll be right back. Don't touch that dial. I MEAN it.",
       "ms": 2800,
+      "laugh": true,
+      "frameMs": 600
+     }
+    ]
+   },
+   {
+    "id": "one_day_special",
+    "if": {
+     "flag": "finger_crisis_seen"
+    },
+    "//": "Story Phase 12 (chapter 126), daytime: it knows about the dice, the beans, the breakfast and the thirty seconds. It switches itself on and off. Nobody explains it.",
+    "beats": [
+     {
+      "frames": [
+       "bbk_day_title_0",
+       "bbk_day_title_1"
+      ],
+      "line": "announcer: IT'S DAYTIME! IT'S... THE BLING BLING KING, DAYTIME!",
+      "ms": 2800,
+      "sfx": "late_sting",
+      "frameMs": 400
+     },
+     {
+      "frames": [
+       "bbk_court_0",
+       "bbk_court_1"
+      ],
+      "line": "bling_king_tv: Big ruling from the Grand Court today, folks. On DICE.",
+      "ms": 2800,
+      "frameMs": 700
+     },
+     {
+      "frames": [
+       "bbk_day_dice_0",
+       "bbk_day_dice_1"
+      ],
+      "line": "bling_king_tv: Six! Three MONTHS! The crowd goes wild! And then... beans.",
+      "ms": 3200,
+      "sfx": "bean_tick",
+      "laugh": true,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "bbk_day_face_0",
+       "bbk_day_face_1"
+      ],
+      "line": "bling_king_tv: We don't have pictures of the captain's face at that moment. We have a drawing.",
+      "ms": 3200,
+      "laugh": true,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "bbk_late_0",
+       "bbk_late_1"
+      ],
+      "line": "bling_king_tv: One day! The ONE-DAY Stenchmaster crisis. How will he cope? Two hours in, folks. Two hours.",
+      "ms": 3600,
+      "laugh": true,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "bbk_day_finger_0",
+       "bbk_day_finger_1"
+      ],
+      "line": "bling_king_tv: Here he is asking a cook to pull his finger. The cook has a LADLE.",
+      "ms": 3200,
+      "laugh": true,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "bbk_day_breakfast_0",
+       "bbk_day_breakfast_1"
+      ],
+      "line": "announcer: A NORMAL BREAKFAST! Eggs! Bacon! TEA! Brought to you by... nobody. Nobody would sponsor that.",
+      "ms": 3800,
+      "laugh": true,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "bbk_day_breakfast_0",
+       "bbk_day_breakfast_1"
+      ],
+      "line": "bling_king_tv: No beans, folks. That's not a breakfast. That's a hostage situation.",
+      "ms": 3200,
+      "laugh": true,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "bbk_day_reenact_0",
+       "bbk_day_reenact_1"
+      ],
+      "line": "announcer: And now: our dramatic reconstruction of THE THIRTY SECONDS.",
+      "ms": 3000,
+      "sfx": "late_sting",
+      "frameMs": 400
+     },
+     {
+      "frames": [
+       "bbk_day_reenact_0",
+       "bbk_day_reenact_1"
+      ],
+      "line": "bling_king_tv: (in a very small captain's hat) One! Two! ...Twenty-NINE! THIRTY! LET IT FLUTTER!",
+      "ms": 3800,
+      "laugh": true,
+      "frameMs": 300
+     },
+     {
+      "frames": [
+       "hold_my_sash_0",
+       "hold_my_sash_1"
+      ],
+      "line": "announcer: HOLD MY STENCHMASTER! The cartoon sash puffs up all on its own, goes PRRRBBT, and flies away.",
+      "ms": 3800,
+      "sfx": "tab_prrbt",
+      "laugh": true,
+      "frameMs": 300
+     },
+     {
+      "frames": [
+       "bbk_day_teaser_0",
+       "bbk_day_teaser_1"
+      ],
+      "line": "announcer: Coming up tonight, a brand-new musical number: DON'T THROW MY SASH IN THE TRASH!",
+      "ms": 3400,
+      "sfx": "cheapo_jingle",
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "bbk_late_0",
+       "bbk_late_1"
+      ],
+      "line": "bling_king_tv: Don't touch that dial. Seriously. I'll know.",
+      "ms": 2600,
       "laugh": true,
       "frameMs": 600
      }

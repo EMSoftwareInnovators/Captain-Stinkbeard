@@ -1,0 +1,353 @@
+[
+ {
+  "id": "he_woke_up_loaded",
+  "title": "He Woke Up Loaded",
+  "category": "main",
+  "giver": "pete",
+  "summary": "GRRRRRRRRNNNNNNK. This is it.",
+  "description": "The Grand Stenchmaster has woken up with the biggest one in a month. Today's the day. Gather every bit of protection the ship has: you're going to be standing directly behind him.",
+  "objectives": [
+   {
+    "id": "gear",
+    "text": "Gather protection: a wet cloth (Jim's bucket), goggles (the salvage crate, in the hold), a waist rope (the stores), a clean beard wrap (your wardrobe, in your cabin)",
+    "type": "event",
+    "target": "p12_gear",
+    "count": 4
+   },
+   {
+    "id": "pot",
+    "text": "Bob has a pot (optional)",
+    "type": "flag",
+    "target": "gear_clay_pot",
+    "optional": true
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "volunteer",
+  "title": "Volunteer",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "He needs a sash holder.",
+  "description": "Up on deck, the Grand Stenchmaster takes his position. Somebody has to hold the sash. It's in the book: the highest-ranking officer present.",
+  "objectives": [
+   {
+    "id": "deck",
+    "text": "Up on deck: the ceremony (by the mainmast)",
+    "type": "flag",
+    "target": "p12_on_deck"
+   },
+   {
+    "id": "take",
+    "text": "Take the sash (him)",
+    "type": "flag",
+    "target": "sash_taken",
+    "after": [
+     "deck"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "the_trial",
+  "title": "The Thirty-Second Trial",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "Thirty seconds. Behind him. Holding it.",
+  "description": "Hold the sash properly for thirty seconds, behind the Grand Stenchmaster, while he releases. Keep it in the band whatever the ship and the blast do. Then, at thirty, let it flutter.",
+  "objectives": [
+   {
+    "id": "hold",
+    "text": "Hold the sash for thirty seconds (him, from behind)",
+    "type": "flag",
+    "target": "thirty_seconds_held"
+   }
+  ],
+  "rewards": {
+   "xp": 120
+  }
+ },
+ {
+  "id": "the_flutter",
+  "title": "The Flutter",
+  "category": "main",
+  "giver": "squawks",
+  "summary": "FLAP. FLAP-FLAP.",
+  "description": "It fluttered. Everyone saw. And now the storm has things to say about the noise.",
+  "objectives": [
+   {
+    "id": "complaints",
+    "text": "Read the complaints (the tokens, all over the deck)",
+    "type": "event",
+    "target": "p12_complaint",
+    "count": 4
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "find_the_dice",
+  "title": "Find the Dice",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "He requests the Dice. There aren't any. He's looking anyway.",
+  "description": "The Grand Stenchmaster is tearing the galley apart for a Grand Dice of Grandness. Follow him. Stop him if you can. Then make sure there's nothing at the bottom of that crate.",
+  "objectives": [
+   {
+    "id": "follow",
+    "text": "Follow him! (him: the drawers, the beans, the long table, the crate)",
+    "type": "event",
+    "target": "p12_ransack",
+    "count": 4
+   },
+   {
+    "id": "crate",
+    "text": "Search the Cheap-O-Rama crate yourself (the crate)",
+    "type": "flag",
+    "target": "grand_dice_found",
+    "after": [
+     "follow"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "no_escape",
+  "title": "No Escape",
+  "category": "main",
+  "giver": "pete",
+  "summary": "There must be a loophole.",
+  "description": "Read the Grand Dice's fine print, every clause. There has to be a way out.",
+  "objectives": [
+   {
+    "id": "read",
+    "text": "Read the fine print, every clause (the Grand Dice, on the long table)",
+    "type": "event",
+    "target": "p12_clause",
+    "count": 8
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "six_dice",
+  "title": "The Grand Dice Shipment",
+  "category": "main",
+  "giver": "ned",
+  "summary": "It's back. It's lowering something.",
+  "description": "The flying machine has lowered another crate down the galley hatch.",
+  "objectives": [
+   {
+    "id": "open",
+    "text": "See what came down the hatch (the crate at the foot of the ladder)",
+    "type": "flag",
+    "target": "grand_dice_shipment_received"
+   }
+  ],
+  "rewards": {
+   "xp": 50
+  }
+ },
+ {
+  "id": "grand_dice_ceremony",
+  "title": "The Grand Dice Ceremony",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "Inspect. Witness. Roll.",
+  "description": "The ceremony needs an inspection of the Dice and a witness. Then he rolls. You don't. Nobody but him.",
+  "objectives": [
+   {
+    "id": "inspect",
+    "text": "Inspect the Grand Dice (the long table)",
+    "type": "flag",
+    "target": "p12_die_inspected"
+   },
+   {
+    "id": "witness",
+    "text": "Choose a witness (the long table)",
+    "type": "flag",
+    "target": "p12_witness_chosen"
+   },
+   {
+    "id": "roll",
+    "text": "Let him roll (him)",
+    "type": "flag",
+    "target": "apparent_three_months",
+    "after": [
+     "inspect",
+     "witness"
+    ]
+   },
+   {
+    "id": "celebrate",
+    "text": "Celebrate! (talk to the crew)",
+    "type": "event",
+    "target": "p12_cheer",
+    "count": 3,
+    "after": [
+     "roll"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 80
+  }
+ },
+ {
+  "id": "jumping_beans",
+  "title": "Mexican Jumping Beans",
+  "category": "main",
+  "giver": "bob",
+  "summary": "tik. tik-tik.",
+  "description": "The Grand Dice won't keep still. Catch it.",
+  "objectives": [
+   {
+    "id": "catch",
+    "text": "Catch the die! (it's hopping round the galley)",
+    "type": "event",
+    "target": "p12_hop",
+    "count": 3
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "not_grand",
+  "title": "Garrick Is Not Grand",
+  "category": "main",
+  "giver": "pete",
+  "summary": "One day. Read him the rules.",
+  "description": "For one day, under his own booklet, the Grand Stenchmaster is suspended. Read him the rules.",
+  "objectives": [
+   {
+    "id": "rules",
+    "text": "Read him the suspension rules (him)",
+    "type": "flag",
+    "target": "garrick_not_grand"
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "authenticity_whiff",
+  "title": "The Authenticity Whiff",
+  "category": "main",
+  "giver": "pete",
+  "summary": "Custody of the sash. There's a condition.",
+  "description": "Before you can take custody of the sash for the Silence you have to verify it: look at it, the fabric, the fringe, and one deep ceremonial inhalation. Then it goes in your wardrobe. For the whole Silence.",
+  "objectives": [
+   {
+    "id": "exam",
+    "text": "Verify the sash: look, fabric, fringe (the sash, on the long table)",
+    "type": "event",
+    "target": "p12_exam",
+    "count": 3
+   },
+   {
+    "id": "whiff",
+    "text": "The ceremonial inhalation (the sash)",
+    "type": "flag",
+    "target": "authenticity_whiff_done",
+    "after": [
+     "exam"
+    ]
+   },
+   {
+    "id": "wardrobe",
+    "text": "Put it in your wardrobe (your cabin)",
+    "type": "flag",
+    "target": "sash_in_wardrobe",
+    "after": [
+     "whiff"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 80
+  }
+ },
+ {
+  "id": "normal_breakfast",
+  "title": "A Normal Pirate Breakfast",
+  "category": "main",
+  "giver": "jim",
+  "summary": "No beans. No Grog. No sauce. No smoothie.",
+  "description": "Help Jim make an ordinary breakfast. Eggs, bacon, fried potatoes, toast, fruit and tea. Then eat it.",
+  "objectives": [
+   {
+    "id": "parts",
+    "text": "Cook: eggs, bacon, potatoes (the stove), toast and fruit (the prep table), tea (the long table)",
+    "type": "event",
+    "target": "p12_bf",
+    "count": 6
+   },
+   {
+    "id": "eat",
+    "text": "Breakfast! (the long table)",
+    "type": "flag",
+    "target": "normal_breakfast_eaten",
+    "after": [
+     "parts"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "pull_my_finger",
+  "title": "One Day Is Apparently Unbearable",
+  "category": "main",
+  "giver": "pete",
+  "summary": "Pull my finger.",
+  "description": "Garrick, suspended, is going round the crew asking each of them to pull his finger. Stop him.",
+  "objectives": [
+   {
+    "id": "intervene",
+    "text": "Stop Garrick asking (follow him round: Pete, Bob, Gristle, Jim, Rusty Tom)",
+    "type": "event",
+    "target": "p12_finger",
+    "count": 5
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "the_suspension",
+  "title": "The Suspension",
+  "category": "main",
+  "giver": "pete",
+  "open": true,
+  "//": "Story Phase 12: open while the one-day Stench Silence runs. The hours left are a story variable (suspension_hours_left). Not finished in Phases 12 or 13.",
+  "summary": "One day. No Grand anything.",
+  "description": "The Grand Dice said one day (it said three months first, for several beautiful seconds). Until it's up, Garrick is not Grand: no title, no decrees, no Grand Feasts, no Grand Naps, no regalia, no releases. About {var:suspension_hours_left} hours to go. The sash is in your wardrobe.",
+  "objectives": [
+   {
+    "id": "hold",
+    "text": "Keep him to it: no releases (about {var:suspension_hours_left} hours to go)",
+    "type": "flag",
+    "target": "stenchmaster_suspension_over"
+   }
+  ]
+ }
+]

@@ -884,6 +884,118 @@
       "if": {
         "flag": "p11_complete"
       }
+    },
+    {
+      "id": "p12c1",
+      "name": "Chapter 112: He Woke Up Loaded",
+      "if": {
+        "flag": "p12_started"
+      }
+    },
+    {
+      "id": "p12c2",
+      "name": "Chapter 113: Volunteer",
+      "if": {
+        "flag": "p12_ch113_started"
+      }
+    },
+    {
+      "id": "p12c3",
+      "name": "Chapter 114: Pre-Waft",
+      "if": {
+        "flag": "p12_ch114_started"
+      }
+    },
+    {
+      "id": "p12c4",
+      "name": "Chapter 115: The Thirty-Second Trial",
+      "if": {
+        "flag": "p12_ch115_started"
+      }
+    },
+    {
+      "id": "p12c5",
+      "name": "Chapter 116: The Flutter",
+      "if": {
+        "flag": "p12_ch116_started"
+      }
+    },
+    {
+      "id": "p12c6",
+      "name": "Chapter 117: Three Weeks!",
+      "if": {
+        "flag": "p12_ch117_started"
+      }
+    },
+    {
+      "id": "p12c7",
+      "name": "Chapter 118: Find the Dice",
+      "if": {
+        "flag": "p12_ch118_started"
+      }
+    },
+    {
+      "id": "p12c8",
+      "name": "Chapter 119: Rules, Loopholes and No Escape",
+      "if": {
+        "flag": "p12_ch119_started"
+      }
+    },
+    {
+      "id": "p12c9",
+      "name": "Chapter 120: The Grand Dice Shipment",
+      "if": {
+        "flag": "p12_ch120_started"
+      }
+    },
+    {
+      "id": "p12c10",
+      "name": "Chapter 121: The Grand Dice Ceremony",
+      "if": {
+        "flag": "p12_ch121_started"
+      }
+    },
+    {
+      "id": "p12c11",
+      "name": "Chapter 122: Mexican Jumping Beans",
+      "if": {
+        "flag": "p12_ch122_started"
+      }
+    },
+    {
+      "id": "p12c12",
+      "name": "Chapter 123: Garrick Is Not Grand",
+      "if": {
+        "flag": "p12_ch123_started"
+      }
+    },
+    {
+      "id": "p12c13",
+      "name": "Chapter 124: The Authenticity Whiff",
+      "if": {
+        "flag": "p12_ch124_started"
+      }
+    },
+    {
+      "id": "p12c14",
+      "name": "Chapter 125: A Normal Pirate Breakfast",
+      "if": {
+        "flag": "p12_ch125_started"
+      }
+    },
+    {
+      "id": "p12c15",
+      "name": "Chapter 126: One Day Is Apparently Unbearable",
+      "if": {
+        "flag": "p12_ch126_started"
+      }
+    },
+    {
+      "id": "phase12_end",
+      "name": "One Day",
+      "if": {
+        "flag": "p12_complete"
+      }
     }
   ],
   "timeOfDay": [
@@ -1269,6 +1381,17 @@
         "var": {
           "name": "p4_tod",
           "eq": 27
+        }
+      }
+    },
+    {
+      "id": "p12_storm_morning",
+      "grade": "#d8e2d0",
+      "interior": 0.34,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 28
         }
       }
     }

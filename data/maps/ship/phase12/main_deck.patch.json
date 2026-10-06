@@ -1,0 +1,375 @@
+{
+ "id": "main_deck_phase12",
+ "patch": "main_deck",
+ "//": "Story Phase 12 on deck: the trial at the mainmast. The Grand Stenchmaster facing the bow (9,16), the captain behind him (9,15), the crew in a half-circle at a respectful (large) distance, the two sash holders behind the mast with a sudden cold. The storm's complaints come down all over the deck afterwards. Rusty Tom runs to the bow (126).",
+ "objects": [
+  {
+   "id": "p12_complaint_1",
+   "type": "inspect",
+   "x": 5,
+   "y": 13,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_flutter.complaints"
+     },
+     {
+      "notFlag": "p12_complaint_1"
+     }
+    ]
+   },
+   "script": "p12c5.c1"
+  },
+  {
+   "id": "p12_complaint_2",
+   "type": "inspect",
+   "x": 13,
+   "y": 13,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_flutter.complaints"
+     },
+     {
+      "notFlag": "p12_complaint_2"
+     }
+    ]
+   },
+   "script": "p12c5.c2"
+  },
+  {
+   "id": "p12_complaint_3",
+   "type": "inspect",
+   "x": 7,
+   "y": 18,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_flutter.complaints"
+     },
+     {
+      "notFlag": "p12_complaint_3"
+     }
+    ]
+   },
+   "script": "p12c5.c3"
+  },
+  {
+   "id": "p12_complaint_4",
+   "type": "inspect",
+   "x": 14,
+   "y": 15,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_flutter.complaints"
+     },
+     {
+      "notFlag": "p12_complaint_4"
+     }
+    ]
+   },
+   "script": "p12c5.c4"
+  },
+  {
+   "id": "p12d_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 9,
+   "y": 16,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p12_ch113_started"
+     },
+     {
+      "notFlag": "p12_ch118_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p12d_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 11,
+   "y": 17,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p12_ch113_started"
+     },
+     {
+      "notFlag": "p12_ch118_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p12d_bob_0",
+   "type": "npc",
+   "npc": "bob",
+   "x": 6,
+   "y": 17,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p12_ch113_started"
+     },
+     {
+      "notFlag": "p12_ch118_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p12d_gristle_0",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 12,
+   "y": 15,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p12_ch113_started"
+     },
+     {
+      "notFlag": "p12_ch118_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p12d_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 6,
+   "y": 15,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p12_ch113_started"
+     },
+     {
+      "notFlag": "p12_ch118_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p12d_ned_0",
+   "type": "npc",
+   "npc": "ned",
+   "x": 13,
+   "y": 18,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p12_ch113_started"
+     },
+     {
+      "notFlag": "p12_ch118_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p12d_squawks_0",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 8,
+   "y": 18,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p12_ch113_started"
+     },
+     {
+      "notFlag": "p12_ch118_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p12d_rusty_tom_0",
+   "type": "npc",
+   "npc": "rusty_tom",
+   "x": 9,
+   "y": 36,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p12_fg_tom"
+     },
+     {
+      "notFlag": "p13_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p12d_rusty_tom_1",
+   "type": "npc",
+   "npc": "rusty_tom",
+   "x": 9,
+   "y": 21,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p12_ch113_started"
+     },
+     {
+      "notFlag": "p12_ch118_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p12d_barnacle_bill_0",
+   "type": "npc",
+   "npc": "barnacle_bill",
+   "x": 10,
+   "y": 21,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p12_ch113_started"
+     },
+     {
+      "notFlag": "p12_ch118_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "token_card_floor",
+   "x": 5,
+   "y": 13,
+   "if": {
+    "all": [
+     {
+      "flag": "p12_complaints_down"
+     },
+     {
+      "notFlag": "p12_complaint_1"
+     }
+    ]
+   },
+   "id": "p12_complaint_1"
+  },
+  {
+   "prop": "token_card_floor",
+   "x": 13,
+   "y": 13,
+   "if": {
+    "all": [
+     {
+      "flag": "p12_complaints_down"
+     },
+     {
+      "notFlag": "p12_complaint_2"
+     }
+    ]
+   },
+   "id": "p12_complaint_2"
+  },
+  {
+   "prop": "token_card_floor",
+   "x": 7,
+   "y": 18,
+   "if": {
+    "all": [
+     {
+      "flag": "p12_complaints_down"
+     },
+     {
+      "notFlag": "p12_complaint_3"
+     }
+    ]
+   },
+   "id": "p12_complaint_3"
+  },
+  {
+   "prop": "token_card_floor",
+   "x": 14,
+   "y": 15,
+   "if": {
+    "all": [
+     {
+      "flag": "p12_complaints_down"
+     },
+     {
+      "notFlag": "p12_complaint_4"
+     }
+    ]
+   },
+   "id": "p12_complaint_4"
+  }
+ ],
+ "onEnter": [
+  {
+   "if": {
+    "objectiveActive": "volunteer.deck"
+   },
+   "script": "p12c2.deck"
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p12_ch113_started"
+     },
+     {
+      "notFlag": "p12_ch118_started"
+     }
+    ]
+   },
+   "music": "thirty_second_trial",
+   "ambience": "inside_storm"
+  }
+ ]
+}

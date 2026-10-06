@@ -1,0 +1,85 @@
+{
+ "id": "captains_quarters_phase12",
+ "patch": "captains_quarters",
+ "//": "Story Phase 12 in the captain's cabin: the wardrobe (3,4). A clean neckerchief for the trial; then, for the whole Silence, the sash, hung behind the good coat, door shut, a faint yellow curl leaking out underneath. Your coats are doomed.",
+ "objects": [
+  {
+   "id": "p12_wardrobe_wrap",
+   "type": "inspect",
+   "x": 3,
+   "y": 4,
+   "w": 2,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "he_woke_up_loaded.gear"
+     },
+     {
+      "notFlag": "gear_beard_wrap"
+     }
+    ]
+   },
+   "script": "p12c1.wrap"
+  },
+  {
+   "id": "p12_wardrobe_sash",
+   "type": "inspect",
+   "x": 3,
+   "y": 4,
+   "w": 2,
+   "if": {
+    "objectiveActive": "authenticity_whiff.wardrobe"
+   },
+   "script": "p12c13.wardrobe"
+  },
+  {
+   "id": "p12_wardrobe_look",
+   "type": "inspect",
+   "x": 3,
+   "y": 4,
+   "w": 2,
+   "if": {
+    "flag": "sash_in_wardrobe"
+   },
+   "script": "p12.inspect.wardrobe"
+  }
+ ],
+ "props": [
+  {
+   "prop": "wardrobe_sash_leak",
+   "x": 3,
+   "y": 4,
+   "if": {
+    "flag": "sash_in_wardrobe"
+   },
+   "id": "p12_wardrobe_leak"
+  }
+ ],
+ "fumes": [
+  {
+   "id": "p12_wardrobe_fumes",
+   "level": "light",
+   "x": 3,
+   "y": 5,
+   "w": 2,
+   "h": 1,
+   "if": {
+    "flag": "sash_in_wardrobe"
+   }
+  }
+ ],
+ "ambient": [
+  {
+   "kind": "smoke",
+   "x": 3,
+   "y": 5,
+   "rise": 3,
+   "every": 2600,
+   "alpha": 0.35,
+   "tint": "#d8c850",
+   "if": {
+    "flag": "sash_in_wardrobe"
+   }
+  }
+ ]
+}

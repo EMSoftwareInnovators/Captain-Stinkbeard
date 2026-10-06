@@ -1,0 +1,36 @@
+[
+ {
+  "extend": "blackbeard",
+  "variants": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "trial_gear_on"
+      },
+      {
+       "notFlag": "trial_gear_off"
+      },
+      {
+       "flag": "gear_clay_pot"
+      }
+     ]
+    },
+    "appearance": "blackbeard_trial_gear_pot"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "trial_gear_on"
+      },
+      {
+       "notFlag": "trial_gear_off"
+      }
+     ]
+    },
+    "appearance": "blackbeard_trial_gear"
+   }
+  ]
+ }
+]

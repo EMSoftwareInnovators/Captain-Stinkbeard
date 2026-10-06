@@ -1,0 +1,1460 @@
+{
+ "//": "Story Phase 12, chapters 119-126: the fine print; six dice; the Grand Dice ceremony (SIX, then the jumping beans: THREE, ONE DAY); Garrick is not Grand; the Authenticity Whiff and the wardrobe; a normal breakfast; one day is unbearable.",
+ "p12c8.begin": [
+  {
+   "setFlag": "p12_ch119_started"
+  },
+  {
+   "banner": "CHAPTER 119",
+   "sub": "Rules, Loopholes and No Escape"
+  },
+  "The die sits on the long table. Everybody sits round it. You open the booklet at the back. Pete opens the Grand Dice's own leaflet, which is longer than the booklet.",
+  "pete: (grimly) Right. Fine print. Every word. There's got to be a way out.",
+  {
+   "if": {
+    "value": {
+     "name": "anti_dice_strategy",
+     "eq": "destroy"
+    }
+   },
+   "then": [
+    "captain: (quietly) Plan A was 'destroy every dice on the ship'.",
+    "gristle: (quietly) Let's read the rules first, Captain. Before we destroy anything."
+   ]
+  },
+  {
+   "if": {
+    "value": {
+     "name": "anti_dice_strategy",
+     "eq": "invalid"
+    }
+   },
+   "then": [
+    "captain: (quietly) Plan A was 'declare the dice invalid'.",
+    "pete: (quietly) Then let's find the rule that lets us."
+   ]
+  },
+  {
+   "if": {
+    "value": {
+     "name": "anti_dice_strategy",
+     "eq": "paperwork"
+    }
+   },
+   "then": [
+    "captain: (quietly) Plan A was paperwork.",
+    "pete: (quietly) It's ALL paperwork, Captain. Look at it."
+   ]
+  },
+  {
+   "if": {
+    "value": {
+     "name": "anti_dice_strategy",
+     "eq": "alter"
+    }
+   },
+   "then": [
+    "captain: (quietly) Plan A was altering the book.",
+    "bob: (quietly) The leaflet's in INK, Captain."
+   ]
+  },
+  {
+   "if": {
+    "value": {
+     "name": "anti_dice_strategy",
+     "in": [
+      "rebrand",
+      "ego"
+     ]
+    }
+   },
+   "then": [
+    "captain: (quietly) The Sacred Twenty-One Days nearly worked.",
+    "pete: (quietly) Nearly. Let's read."
+   ]
+  },
+  {
+   "startQuest": "no_escape"
+  },
+  {
+   "tutorial": "Read the fine print, every clause (the Grand Dice, on the long table). There must be a way out.",
+   "title": "No Escape"
+  }
+ ],
+ "p12c8.read": {
+  "start": [
+   {
+    "face": "player",
+    "dir": "left"
+   },
+   {
+    "goto": "menu"
+   }
+  ],
+  "menu": [
+   {
+    "choice": [
+     {
+      "text": "Clause 2",
+      "if": {
+       "notFlag": "p12_clause_witness"
+      },
+      "then": [
+       "pete: (reading) Clause 2: A ROLL REQUIRES A WITNESS.",
+       "pete: Fine. Easy. We've got plenty of witnesses. We've got too MANY witnesses.",
+       {
+        "setFlag": "p12_clause_witness"
+       },
+       {
+        "event": "p12_clause"
+       },
+       {
+        "goto": "menu"
+       }
+      ]
+     },
+     {
+      "text": "Clause 3",
+      "if": {
+       "notFlag": "p12_clause_holders"
+      },
+      "then": [
+       "pete: (reading) Clause 3: THE SASH MUST BE HELD THROUGHOUT BY COURT-APPOINTED SASH HOLDERS.",
+       "captain: There's no Court.",
+       "pete: (reading on) Clause four.",
+       {
+        "setFlag": "p12_clause_holders"
+       },
+       {
+        "event": "p12_clause"
+       },
+       {
+        "goto": "menu"
+       }
+      ]
+     },
+     {
+      "text": "Clause 4",
+      "if": {
+       "notFlag": "p12_clause_emergency"
+      },
+      "then": [
+       "pete: (reading) Clause 4: IF THE GRAND COURT IS ABSENT, NEARBY PERSONS BECOME EMERGENCY APPOINTEES.",
+       "gristle: ...Nearby persons.",
+       "Everybody takes one step back. It doesn't help. You're all still nearby.",
+       {
+        "setFlag": "p12_clause_emergency"
+       },
+       {
+        "event": "p12_clause"
+       },
+       {
+        "goto": "menu"
+       }
+      ]
+     },
+     {
+      "text": "Clause 5",
+      "if": {
+       "notFlag": "p12_clause_chairs"
+      },
+      "then": [
+       "pete: (reading) Clause 5: IF NO PERSONS ARE AVAILABLE, CHAIRS MAY SERVE AS PROXIES.",
+       "jim: CHAIRS?",
+       "Every chair in the galley suddenly looks very official.",
+       {
+        "setFlag": "p12_clause_chairs"
+       },
+       {
+        "event": "p12_clause"
+       },
+       {
+        "goto": "menu"
+       }
+      ]
+     },
+     {
+      "text": "Clause 6",
+      "if": {
+       "notFlag": "p12_clause_rerolls"
+      },
+      "then": [
+       "pete: (reading) Clause 6: AN INVALID OR NON-TUMBLING ROLL ENTITLES THE STENCHMASTER TO A REROLL.",
+       "pete: So if he drops it badly he gets ANOTHER go.",
+       "garrick[smug]: Fairness, Pete.",
+       {
+        "setFlag": "p12_clause_rerolls"
+       },
+       {
+        "event": "p12_clause"
+       },
+       {
+        "goto": "menu"
+       }
+      ]
+     },
+     {
+      "text": "Clause 7",
+      "if": {
+       "notFlag": "p12_clause_destroy"
+      },
+      "then": [
+       "pete: (reading) Clause 7: SHOULD THE CAPTAIN DESTROY THE GRAND DICE, THE SHORTEST DURATION APPLIES.",
+       "You look at the die. You look at your cutlass. You look at the die.",
+       "captain[angry]: ...Shortest. If I cut it in half he gets THIRTY MINUTES.",
+       {
+        "setFlag": "p12_clause_destroy"
+       },
+       {
+        "event": "p12_clause"
+       },
+       {
+        "goto": "menu"
+       }
+      ]
+     },
+     {
+      "text": "Clause 8",
+      "if": {
+       "notFlag": "p12_clause_lost"
+      },
+      "then": [
+       "pete: (reading) Clause 8: GRAND DICE LOST TO WEATHER, SHARKS, PIRACY OR ANGRY CAPTAINS: THE SHORTEST DURATION APPLIES.",
+       "ned: 'Angry captains.' It says angry captains. Specifically.",
+       "captain[angry]: HOW DOES IT KNOW?",
+       {
+        "setFlag": "p12_clause_lost"
+       },
+       {
+        "event": "p12_clause"
+       },
+       {
+        "goto": "menu"
+       }
+      ]
+     },
+     {
+      "text": "Clause 9",
+      "if": {
+       "notFlag": "p12_clause_mandatory"
+      },
+      "then": [
+       "pete: (reading) Clause 9: ONCE THE STENCHMASTER HAS TOUCHED THE DICE AFTER A HUMILIATION, THE ROLL IS MANDATORY.",
+       "Everybody turns, slowly. The Grand Stenchmaster has both hands on the Grand Dice. He's been stroking it.",
+       "garrick[smug]: Mandatory, Captain.",
+       {
+        "setFlag": "p12_clause_mandatory"
+       },
+       {
+        "event": "p12_clause"
+       },
+       {
+        "goto": "menu"
+       }
+      ]
+     },
+     {
+      "text": "Stop reading for now",
+      "then": [
+       "You put it down. It doesn't help."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "p12c8.done": [
+  "Pete puts the leaflet down. Nobody says anything.",
+  "pete[tired]: Every loophole is worse than the last.",
+  "captain[angry]: There's no way OUT.",
+  "garrick[smug]: There's a way FORWARD, Captain. It's called rolling.",
+  {
+   "sfx": "page_tear_tiny",
+   "volume": 0.7
+  },
+  "Pete, putting the booklet down, catches it with his thumb. One of the staples goes. The booklet hangs on by the other one.",
+  {
+   "wear": "pocket_legend_book",
+   "to": "loose_staple"
+  },
+  "captain: Then we hide it. The die. We put it somewhere he'll never...",
+  "gristle: Clause eight. Lost to angry captains. Shortest duration.",
+  "captain[angry]: ...",
+  {
+   "setFlag": "fine_print_read"
+  },
+  {
+   "completeQuest": "no_escape"
+  },
+  {
+   "call": "p12c9.begin"
+  }
+ ],
+ "p12c9.begin": [
+  {
+   "setFlag": "p12_ch120_started"
+  },
+  {
+   "banner": "CHAPTER 120",
+   "sub": "The Grand Dice Shipment"
+  },
+  {
+   "sfx": "helicopter_rotor",
+   "volume": 0.9
+  },
+  "And as if it had been listening (it had), the thudding comes back, overhead.",
+  "ned: (at the ladder) It's back. The flying machine. It's... it's lowering something. Down the HATCH.",
+  {
+   "sfx": "winch_whirr",
+   "volume": 0.8
+  },
+  "A crate comes down through the hatch on a rope, swinging, bumps the ladder twice, and settles at the foot of it. The rope lets go by itself and goes back up.",
+  {
+   "startQuest": "six_dice"
+  },
+  {
+   "tutorial": "See what came down the hatch (the crate at the foot of the ladder).",
+   "title": "The Grand Dice Shipment"
+  }
+ ],
+ "p12c9.open": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "sfx": "package_crinkle",
+   "volume": 0.9
+  },
+  "You open it. Packed in shredded paper, side by side, like eggs: six more Grand Dice of Grandness. Purple. Foam. Enormous. Each squeaks as you touch it.",
+  {
+   "insert": "bbk_dice_note",
+   "caption": "ENOUGH THAT NOBODY CAN CLAIM THEY MYSTERIOUSLY WENT MISSING. ENJOY THE CEREMONY! - B.B.K."
+  },
+  "captain[angry]: SIX.",
+  "pete: It knew. It knew we'd try to lose it.",
+  "garrick[delighted]: A full set! Captain, that's very generous of it. It's practically a SPONSOR.",
+  {
+   "sfx": "token_whistle",
+   "volume": 0.8
+  },
+  "A token comes in through the porthole, bounces off the lamp, and lands in the crate. Squawks hops over and reads it before you can.",
+  {
+   "insert": "token_odds",
+   "caption": "SHARK BOOK - TODAY'S ODDS: GARRICK ROLLS BADLY 3 TO 1. GARRICK ROLLS WELL 1 TO 3. NO REFUNDS."
+  },
+  "squawks[smug]: Sharks betting.",
+  "jim: Betting on WHAT?",
+  "squawks[smug]: On him.",
+  "garrick[offended]: Odds AGAINST me? I'm the Grand Stenchmaster. I'm due a GOOD roll.",
+  {
+   "setFlag": "grand_dice_shipment_received"
+  },
+  {
+   "setValue": "grand_dice_count",
+   "value": "seven"
+  },
+  {
+   "completeQuest": "six_dice"
+  },
+  {
+   "call": "p12c10.begin"
+  }
+ ],
+ "p12c10.begin": [
+  {
+   "setFlag": "p12_ch121_started"
+  },
+  {
+   "banner": "CHAPTER 121",
+   "sub": "The Grand Dice Ceremony"
+  },
+  {
+   "music": "grand_dice_ceremony",
+   "fade": 800
+  },
+  "It has to be done properly. Of course it does. The Grand Stenchmaster arranges the long table: the display model in the middle, the other six on the bench behind like a jury, the booklet open, the crew standing round.",
+  "garrick[proud]: The ceremony requires: an inspection of the Dice. A reading of the faces. And a witness.",
+  {
+   "startQuest": "grand_dice_ceremony"
+  },
+  {
+   "tutorial": "Inspect the die, choose a witness (the Grand Dice, on the long table), then let him roll (him).",
+   "title": "The Grand Dice Ceremony"
+  }
+ ],
+ "p12c10.inspect": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  {
+   "dice": "show",
+   "face": 1
+  },
+  "You turn it over in your hands. It squeaks. Every face has its pips and, printed under them on a little sticker, what they mean.",
+  {
+   "dice": "show",
+   "face": 2
+  },
+  {
+   "dice": "show",
+   "face": 4
+  },
+  {
+   "dice": "show",
+   "face": 5
+  },
+  {
+   "dice": "show",
+   "face": 6
+  },
+  "Thirty minutes. One hour. Three days. One week. Three MONTHS. You save three for last.",
+  {
+   "dice": "show",
+   "face": 3
+  },
+  {
+   "insert": "grand_dice_faces",
+   "caption": "1: 30 MINUTES. 2: 1 HOUR. 3: ONE DAY. 4: 3 DAYS. 5: 1 WEEK. 6: 3 MONTHS."
+  },
+  "captain: Three says ONE DAY. The booklet says six hours.",
+  "pete: (reading the leaflet) 'Where the booklet and the Grand Dice disagree, the Grand Dice are correct. The Grand Dice are ALWAYS correct.'",
+  "gristle: A misprint.",
+  "jim: So three's a whole day instead of six hours. Nobody's rolling a three.",
+  "garrick[nervous]: (very quietly) Nobody's rolling a three.",
+  {
+   "dice": "hide"
+  },
+  {
+   "setFlag": "p12_die_inspected"
+  }
+ ],
+ "p12c10.witness": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "garrick[proud]: And the witness. Chosen by the highest-ranking officer present.",
+  {
+   "choice": [
+    {
+     "text": "Squawks.",
+     "then": [
+      {
+       "setValue": "dice_witness",
+       "value": "squawks"
+      },
+      "squawks[smug]: Witness. Bird.",
+      "garrick[nervous]: ...He's a very hostile witness, Captain."
+     ]
+    },
+    {
+     "text": "Pete.",
+     "then": [
+      {
+       "setValue": "dice_witness",
+       "value": "pete"
+      },
+      "pete[tired]: Another fake job. Fine. FINE. I'm witnessing."
+     ]
+    },
+    {
+     "text": "Bob.",
+     "then": [
+      {
+       "setValue": "dice_witness",
+       "value": "bob"
+      },
+      "bob[happy]: I've never been a witness! Do I get a hat?",
+      "garrick[delighted]: There could be a hat, Bob."
+     ]
+    },
+    {
+     "text": "A chair. (Clause 5.)",
+     "then": [
+      {
+       "setValue": "dice_witness",
+       "value": "chair"
+      },
+      "You put a chair at the end of the long table. Everybody looks at it.",
+      "gristle: ...It's a good chair. It's impartial."
+     ]
+    }
+   ]
+  },
+  {
+   "setFlag": "p12_witness_chosen"
+  }
+ ],
+ "p12c10.roll": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "The Grand Stenchmaster picks up the display model in both hands. He holds it up to the six-rope lamp. He closes his eyes. He whispers something to it.",
+  "garrick[annoyed]: Low. Low, low, low. Come on, Grand Dice. Thirty minutes. For the office.",
+  "He throws it.",
+  {
+   "dice": "roll",
+   "result": 6,
+   "bounces": 3
+  },
+  "It bounces on the long table. Off the bread. Off Squawks' basket. Across the floor, over and over, squeaking, and rolls to a stop in the middle of the galley.",
+  "Six.",
+  "THREE MONTHS.",
+  {
+   "wait": 800
+  },
+  "Nobody moves.",
+  "Nobody breathes.",
+  "garrick: ...No.",
+  "And then the galley EXPLODES.",
+  {
+   "music": "flutter_triumph",
+   "fade": 200
+  },
+  {
+   "sfx": "crew_cheer",
+   "volume": 1.0
+  },
+  "pete[happy]: THREE MONTHS!",
+  "jim[happy]: THREE! MONTHS!",
+  "bob[happy]: How long is three months?",
+  "gristle[happy]: (grabbing Bob, spinning him round) LONG, Bob! It's LONG!",
+  {
+   "choice": [
+    {
+     "text": "Throw your hat in the air.",
+     "then": [
+      "Your hat goes up and hits the six-rope lamp, and the lamp doesn't even move, and for once you LOVE that lamp."
+     ]
+    },
+    {
+     "text": "Fall to your knees.",
+     "then": [
+      "You go down on your knees on the galley floor with your arms up. You haven't knelt since you were a boy. You'd kneel again."
+     ]
+    },
+    {
+     "text": "Hug Squawks.",
+     "then": [
+      "You pick up Squawks and hug him. He allows it. For four seconds.",
+      "squawks[smug]: Enough."
+     ]
+    }
+   ]
+  },
+  "Thirty seconds. You held it for thirty seconds. It was worth it. It was worth ALL of it.",
+  "pete[happy]: No Grand Naps.",
+  "jim[happy]: No bean ceremonies.",
+  "ned: No Finger-Puller.",
+  "gristle[happy]: No great big releases.",
+  "bob[happy]: No Grand anything!",
+  "garrick[alarmed]: (on the floor, looking at the die) ...Three months.",
+  {
+   "setValue": "grand_dice_apparent_result",
+   "value": "six_three_months"
+  },
+  {
+   "setFlag": "apparent_three_months"
+  },
+  {
+   "tutorial": "Celebrate! (Talk to the crew.)",
+   "title": "THREE MONTHS"
+  }
+ ],
+ "p12c10.cheer_pete": [
+  "pete[happy]: I'm going to sleep for a WEEK, Captain. In my bed sash. And then I'm going to sleep for another one.",
+  {
+   "setFlag": "p12_cheer_pete"
+  },
+  {
+   "event": "p12_cheer"
+  }
+ ],
+ "p12c10.cheer_jim": [
+  "jim[happy]: Bread, Captain. Real bread. With nothing in it. Not even an onion. Every day for three months.",
+  {
+   "setFlag": "p12_cheer_jim"
+  },
+  {
+   "event": "p12_cheer"
+  }
+ ],
+ "p12c10.cheer_bob": [
+  "bob[happy]: I'm going to do a dance. I don't know any dances. I'm going to make one up. It's called The Three Months.",
+  {
+   "setFlag": "p12_cheer_bob"
+  },
+  {
+   "event": "p12_cheer"
+  }
+ ],
+ "p12c10.cheer_gristle": [
+  "gristle[happy]: (shaking your hand, gruffly) Good work, Captain. Good work. Thirty seconds. I couldn't have done it.",
+  {
+   "setFlag": "p12_cheer_gristle"
+  },
+  {
+   "event": "p12_cheer"
+  }
+ ],
+ "p12c10.cheer_ned": [
+  "ned: I'm writing it in the log. In big letters. THREE MONTHS. Underlined.",
+  {
+   "setFlag": "p12_cheer_ned"
+  },
+  {
+   "event": "p12_cheer"
+  }
+ ],
+ "p12c11.begin": [
+  {
+   "setFlag": "p12_ch122_started"
+  },
+  {
+   "banner": "CHAPTER 122",
+   "sub": "Mexican Jumping Beans"
+  },
+  {
+   "music": null
+  },
+  {
+   "sfx": "bean_tick",
+   "volume": 0.8
+  },
+  "tik.",
+  "Everybody stops.",
+  {
+   "sfx": "bean_tick",
+   "volume": 0.8
+  },
+  {
+   "wait": 150
+  },
+  {
+   "sfx": "bean_tick",
+   "volume": 0.8
+  },
+  "tik-tik.",
+  {
+   "dice": "show",
+   "face": 6
+  },
+  {
+   "dice": "hop",
+   "to": 5,
+   "hops": 1
+  },
+  "The die moves. By itself. In the middle of the floor, the great purple cube rocks on its edge, and hops, and lands, and shows FIVE.",
+  "pete: ...What's it DOING?",
+  "garrick[delighted]: (sitting up) Oh. OH. There's something IN it.",
+  {
+   "dice": "hide"
+  },
+  {
+   "startQuest": "jumping_beans"
+  },
+  {
+   "tutorial": "CATCH THE DIE! (It's hopping round the galley.)",
+   "title": "Mexican Jumping Beans"
+  }
+ ],
+ "p12c11.catch_1": [
+  "You dive for it. It hops away from your hands like a frog.",
+  {
+   "dice": "show",
+   "face": 5
+  },
+  {
+   "dice": "hop",
+   "to": 2,
+   "hops": 2
+  },
+  {
+   "dice": "hide"
+  },
+  "It lands by the stove. TWO.",
+  "jim: It's ALIVE.",
+  "garrick[delighted]: Mexican jumping beans, Jim! The display model is FILLED with them! It's in the leaflet! 'For extra fun!'",
+  {
+   "setFlag": "p12_hop_1"
+  },
+  {
+   "event": "p12_hop"
+  }
+ ],
+ "p12c11.catch_2": [
+  "You grab it. It squeaks, twists, and jumps out of your arms.",
+  {
+   "dice": "show",
+   "face": 2
+  },
+  {
+   "dice": "hop",
+   "to": 4,
+   "hops": 2
+  },
+  {
+   "dice": "hide"
+  },
+  "It bounces off Bob, off the bench, under the long table. FOUR.",
+  "bob: It went for my knees!",
+  {
+   "setFlag": "p12_hop_2"
+  },
+  {
+   "event": "p12_hop"
+  }
+ ],
+ "p12c11.catch_3": [
+  "You get both arms round it and it goes still. You hold it. You don't breathe. You put it down, very gently, in the middle of the floor, six up.",
+  {
+   "dice": "show",
+   "face": 6
+  },
+  "Six. Three months. Stay. STAY.",
+  {
+   "sfx": "bean_tick",
+   "volume": 0.7
+  },
+  "tik.",
+  {
+   "dice": "hop",
+   "to": 3,
+   "hops": 3
+  },
+  "It hops. Once. Twice. Three times. Each time a little smaller.",
+  "It lands.",
+  "Three.",
+  "ONE DAY.",
+  "Nobody moves.",
+  "pete: (reading the leaflet, in a very small voice) 'The first face shown is not binding while there is internal bean activity. The result is binding when the Grand Dice has remained STILL for ten ceremonial seconds.'",
+  "garrick[annoyed]: Count it, Pete. COUNT it.",
+  "pete[sad]: One...",
+  {
+   "dice": "hold",
+   "seconds": 10
+  },
+  "pete[sad]: ...ten.",
+  "It hasn't moved. It isn't going to. It's three.",
+  "ONE DAY.",
+  {
+   "setValue": "grand_dice_final_result",
+   "value": "three_one_day"
+  },
+  {
+   "setValue": "stenchmaster_suspension_duration",
+   "value": "one_day"
+  },
+  {
+   "setFlag": "stenchmaster_suspension_active"
+  },
+  {
+   "setVar": "suspension_hours_left",
+   "value": 24
+  },
+  {
+   "dice": "hide"
+  },
+  "garrick[relieved]: (lying back on the floor with his arms out) ...One day. Oh, ONE day. Oh, thank you, beans.",
+  {
+   "choice": [
+    {
+     "text": "\"ONE DAY?\"",
+     "then": [
+      "captain[angry]: ONE. DAY?"
+     ]
+    },
+    {
+     "text": "\"...Beans. It was beans.\"",
+     "then": [
+      "captain[devastated]: ...Beans. It was beans. Of course it was beans. It was always going to be beans."
+     ]
+    },
+    {
+     "text": "Say nothing. Sit down on the floor.",
+     "then": [
+      "You sit down on the floor next to the die. You look at it. It looks back, three pips, a sticker that says ONE DAY."
+     ]
+    }
+   ]
+  },
+  "jim: At least it's a whole day and not six hours. The misprint...",
+  "captain[angry]: THAT IS NOT A CONSOLATION, JIM.",
+  "squawks[smug]: One day.",
+  {
+   "setFlag": "one_day_betrayal"
+  },
+  {
+   "completeQuest": "jumping_beans"
+  },
+  {
+   "call": "p12c12.begin"
+  }
+ ],
+ "p12c12.begin": [
+  {
+   "setFlag": "p12_ch123_started"
+  },
+  {
+   "banner": "CHAPTER 123",
+   "sub": "Garrick Is Not Grand"
+  },
+  "But it IS one day. A whole day. Pete turns the booklet over to the last page and holds it out to you, and you read it aloud. Slowly. Savouring it. You've earned this much.",
+  {
+   "startQuest": "not_grand"
+  },
+  {
+   "tutorial": "Read him the suspension rules (him).",
+   "title": "Garrick Is Not Grand"
+  }
+ ],
+ "p12c12.rules": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  {
+   "insert": "suspension_rules",
+   "caption": "DURING A STENCH SILENCE THE STENCHMASTER IS SUSPENDED. NO TITLE. NO DECREES. NO GRAND FEASTS. NO GRAND NAPS. NO REGALIA. NO RELEASES."
+  },
+  "captain[smug]: 'During a Stench Silence the Stenchmaster is SUSPENDED.'",
+  "captain[smug]: 'No title.'",
+  "garrick: Not the TITLE.",
+  "captain[smug]: 'No decrees. No Grand Feast authority. No Grand Nap authority.'",
+  "garrick: Not the NAP.",
+  "captain[smug]: 'No ceremonial regalia.' Off.",
+  "He looks round at everybody. Nobody helps him. Slowly, one piece at a time, he takes it off: the crown, the sash (you hold out your hand for it, and he gives it to you), the cape with his historic releases painted on it, the saucepan-lid medal.",
+  {
+   "setFlag": "regalia_removed"
+  },
+  "Underneath, it's just the suit. Just a man in a burgundy suit with too many buttons, with his hair flat from the crown.",
+  "pete[happy]: Morning, GARRICK.",
+  "jim[happy]: Morning, Garrick.",
+  "bob[happy]: Hello, Garrick!",
+  "garrick[offended]: (miserably) Grand... Stenchmaster...",
+  "gristle: Not today.",
+  "squawks[smug]: Regular fart man.",
+  "garrick[offended]: (with real anguish) Not THAT.",
+  {
+   "setFlag": "garrick_not_grand"
+  },
+  {
+   "setValue": "garrick_title_state",
+   "value": "suspended"
+  },
+  {
+   "startQuest": "the_suspension"
+  },
+  {
+   "completeQuest": "not_grand"
+  },
+  {
+   "call": "p12c13.begin"
+  }
+ ],
+ "p12c13.begin": [
+  {
+   "setFlag": "p12_ch124_started"
+  },
+  {
+   "banner": "CHAPTER 124",
+   "sub": "The Authenticity Whiff"
+  },
+  "You're holding the sash. It's warm. You go to put it down.",
+  "pete: (reading, very carefully, not looking at you) '...the sash passes into the custody of the highest-ranking officer present, who before accepting custody must verify its authenticity.'",
+  "captain: Verify it HOW?",
+  "pete: 'By visual review. By examination of the fabric. By verification of the fringe.' And... 'By one deep ceremonial inhalation.'",
+  "Silence.",
+  "garrick: (sitting up, VERY interested, despite everything) That's right. That's the custody rule. It's a very old rule.",
+  {
+   "startQuest": "authenticity_whiff"
+  },
+  {
+   "tutorial": "Verify the sash: look at it, the fabric, the fringe (the sash, on the long table).",
+   "title": "The Authenticity Whiff"
+  }
+ ],
+ "p12c13.exam": {
+  "start": [
+   {
+    "face": "player",
+    "dir": "left"
+   },
+   {
+    "goto": "menu"
+   }
+  ],
+  "menu": [
+   {
+    "choice": [
+     {
+      "text": "Visual review",
+      "if": {
+       "notFlag": "p12_exam_look"
+      },
+      "then": [
+       {
+        "insert": "old_sash_foul",
+        "caption": "Visual review: mustard (formerly), burgundy (still), a nose (embroidered), stains (many)."
+       },
+       "Authentic. Authentically horrible.",
+       {
+        "setFlag": "p12_exam_look"
+       },
+       {
+        "event": "p12_exam"
+       },
+       {
+        "goto": "menu"
+       }
+      ]
+     },
+     {
+      "text": "Examine the fabric",
+      "if": {
+       "notFlag": "p12_exam_fabric"
+      },
+      "then": [
+       "You rub it between finger and thumb. It's stiff. It crackles. It's slightly damp in a way nothing on a ship should be.",
+       "gristle: That's not cloth any more, Captain. That's a SUBSTANCE.",
+       {
+        "setFlag": "p12_exam_fabric"
+       },
+       {
+        "event": "p12_exam"
+       },
+       {
+        "goto": "menu"
+       }
+      ]
+     },
+     {
+      "text": "Verify the fringe",
+      "if": {
+       "notFlag": "p12_exam_fringe"
+      },
+      "then": [
+       "The fringe. Gold, once. Now a colour you'd see on the underside of a jetty.",
+       "You count the threads. There are forty. There were forty in the shop. History.",
+       {
+        "setFlag": "p12_exam_fringe"
+       },
+       {
+        "event": "p12_exam"
+       },
+       {
+        "goto": "menu"
+       }
+      ]
+     },
+     {
+      "text": "Put it down for now",
+      "then": [
+       "You put it down. It doesn't get any better."
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "p12c13.whiff": {
+  "start": [
+   {
+    "face": "player",
+    "dir": "left"
+   },
+   "The ceremonial inhalation. One deep breath. Through the nose. Of the sash.",
+   "Your whole body says no. Every muscle. Your beard, wrapped up and furious, says no.",
+   {
+    "goto": "ask"
+   }
+  ],
+  "ask": [
+   {
+    "choice": [
+     {
+      "text": "...Do it.",
+      "then": [
+       {
+        "goto": "do"
+       }
+      ]
+     },
+     {
+      "text": "No. No. Absolutely not.",
+      "then": [
+       "pete: (gently) It's the custody rule, Captain. If you don't verify it, it goes back to him.",
+       "garrick[smug]: (from the floor) Back to ME, Captain.",
+       {
+        "goto": "ask"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "do": [
+   "You lift it to your face. You close your eyes. You think of three weeks you didn't get, and the one day you did.",
+   {
+    "sfx": "sniff",
+    "volume": 0.8
+   },
+   "You breathe in.",
+   {
+    "sfx": "gag",
+    "volume": 0.9
+   },
+   {
+    "flash": "#c8d870",
+    "duration": 300
+   },
+   {
+    "shake": 2,
+    "duration": 600
+   },
+   "...",
+   "When you can see again, you're on the floor, and Jim is fanning you with a frying pan, and Squawks is standing on your chest looking into your eyes.",
+   "squawks[smug]: Alive?",
+   "captain[queasy]: (very faintly) ...Authentic.",
+   "garrick[proud]: (from across the galley) It's VERY authentic.",
+   {
+    "setFlag": "authenticity_whiff_done"
+   }
+  ]
+ },
+ "p12c13.custody": [
+  {
+   "setFlag": "p12_custody_said"
+  },
+  "pete: (reading on, apologetically) '...and the sash shall remain, for the whole of the Silence, in the highest-ranking officer's PERSONAL WARDROBE.'",
+  "captain[queasy]: My...",
+  "pete: Your wardrobe, Captain.",
+  "captain[angry]: With my COATS?",
+  "jim: (quietly, to Bob) That's his coats done for.",
+  "bob: (quietly) All of them?",
+  "jim: (quietly) All of them, Bob.",
+  {
+   "giveItem": "stenchmaster_sash"
+  },
+  {
+   "tutorial": "Put the sash in your wardrobe (your cabin, up on deck).",
+   "title": "The Authenticity Whiff"
+  }
+ ],
+ "p12c13.wardrobe": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "Your wardrobe. Your good coat. Your second-best coat. Your shirts. The drawer where the neckerchief was.",
+  "You hang the sash on the hook at the back, behind the good coat, and shut the door on it, fast, and lean on the door.",
+  {
+   "takeItem": "stenchmaster_sash"
+  },
+  {
+   "sfx": "wardrobe_shut",
+   "volume": 0.8
+  },
+  "From under the door, very faintly, a little curl of yellow comes out, and goes up, and hangs there.",
+  "Your coats are doomed. You know they're doomed. You can hear them being doomed.",
+  {
+   "setValue": "stenchmaster_sash_custody",
+   "value": "captains_wardrobe"
+  },
+  {
+   "setFlag": "sash_in_wardrobe"
+  },
+  {
+   "completeQuest": "authenticity_whiff"
+  },
+  {
+   "call": "p12c14.begin"
+  }
+ ],
+ "p12c14.begin": [
+  {
+   "setFlag": "p12_ch125_started"
+  },
+  {
+   "banner": "CHAPTER 125",
+   "sub": "A Normal Pirate Breakfast"
+  },
+  "When you come back down, Jim is standing at the stove with his sleeves rolled up and a look on his face you've never seen before. Hope.",
+  "jim: Captain. One day. No beans. No Frog Grog. No Spicy Stench Sauce. No SMOOTHIE.",
+  "jim[happy]: I'm going to make breakfast. A NORMAL breakfast. Will you help?",
+  {
+   "startQuest": "normal_breakfast"
+  },
+  {
+   "tutorial": "Help Jim make a normal breakfast: eggs, bacon and fried potatoes (the stove), toast and fruit (the prep table), and tea (the long table).",
+   "title": "A Normal Pirate Breakfast"
+  }
+ ],
+ "p12c14.eggs": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "Eggs. Real ones, from the crate Jim's been hiding behind the flour. You crack them into the pan.",
+  {
+   "repair": "crack",
+   "strikes": 3,
+   "title": "CRACK THE EGGS"
+  },
+  "Six eggs, sizzling. Not one of them is crying.",
+  {
+   "setFlag": "p12_bf_eggs"
+  },
+  {
+   "event": "p12_bf"
+  }
+ ],
+ "p12c14.bacon": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "Bacon, from the smoked side Jim keeps for emergencies. This is an emergency.",
+  {
+   "repair": "stir",
+   "strikes": 3,
+   "title": "FRY THE BACON"
+  },
+  "The galley fills with a smell. A GOOD smell. Bob comes in from the hold with his eyes shut, following it.",
+  {
+   "setFlag": "p12_bf_bacon"
+  },
+  {
+   "event": "p12_bf"
+  }
+ ],
+ "p12c14.potatoes": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "Potatoes, cubed, into the fat.",
+  {
+   "repair": "stir",
+   "strikes": 3,
+   "title": "FRY THE POTATOES"
+  },
+  "jim[happy]: Look at that. Look at that COLOUR.",
+  {
+   "setFlag": "p12_bf_potatoes"
+  },
+  {
+   "event": "p12_bf"
+  }
+ ],
+ "p12c14.toast": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "Bread, Jim's, sliced thick and held to the stove on a fork.",
+  {
+   "repair": "plate",
+   "strikes": 3,
+   "title": "TOAST IT"
+  },
+  "Toast. Brown on both sides. Buttered.",
+  {
+   "setFlag": "p12_bf_toast"
+  },
+  {
+   "event": "p12_bf"
+  }
+ ],
+ "p12c14.fruit": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "Fruit: three apples (wrinkled), an orange (heroic) and some figs Jim swears are from Portsmouth.",
+  {
+   "repair": "slice",
+   "strikes": 3,
+   "title": "SLICE THE FRUIT"
+  },
+  "A plate of fruit. Nobody has seen a plate of fruit in a month. Ned takes his hat off to it.",
+  {
+   "setFlag": "p12_bf_fruit"
+  },
+  {
+   "event": "p12_bf"
+  }
+ ],
+ "p12c14.tea": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "Tea. A pot of it, strong, brewed with water from the clean cask.",
+  {
+   "repair": "pour",
+   "strikes": 3,
+   "title": "POUR THE TEA"
+  },
+  "Steam. Brown. Hot. Tea.",
+  {
+   "setFlag": "p12_bf_tea"
+  },
+  {
+   "event": "p12_bf"
+  }
+ ],
+ "p12c14.ready": [
+  {
+   "setFlag": "p12_bf_said"
+  },
+  "jim[happy]: That's it. That's all of it. Sit DOWN, everybody. At the table. Like PEOPLE.",
+  {
+   "tutorial": "Breakfast is ready (the long table).",
+   "title": "A Normal Pirate Breakfast"
+  }
+ ],
+ "p12c14.eat": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  {
+   "music": "one_day_suspension",
+   "fade": 800
+  },
+  "And everybody sits down at the long table, under the six-rope lamp, and eats breakfast.",
+  "Eggs. Bacon. Fried potatoes. Toast. Fruit. Tea.",
+  "Nobody talks for a long time. Bob is crying a little. Jim is watching everyone eat with his hands clasped.",
+  "You pick up your tea. You hold it under your nose. You hesitate. Then you drink.",
+  {
+   "sfx": "tea_sip",
+   "volume": 0.7
+  },
+  "It tastes of tea.",
+  "Just tea. Hot and strong and brown. It doesn't taste of him. It doesn't taste of the Dead Center or the Grand Feast or the treasure room. It tastes of TEA.",
+  "captain[laugh]: (quietly, to the cup) ...It doesn't taste like him.",
+  "jim[happy]: (quietly) No, Captain.",
+  "At the end of the table, Garrick, in his suit, without his crown, pokes at a fried egg.",
+  "garrick: It's very... it's very NORMAL, isn't it.",
+  "pete[happy]: Yes, Garrick.",
+  "garrick: There's no... kick. Where's the kick? Where are the BEANS?",
+  "jim[happy]: Tomorrow, Garrick.",
+  "garrick[worried]: (eating it anyway) ...It's horrible. It tastes of nothing. It tastes like FOOD.",
+  {
+   "setFlag": "normal_breakfast_eaten"
+  },
+  {
+   "setVar": "suspension_hours_left",
+   "value": 22
+  },
+  {
+   "completeQuest": "normal_breakfast"
+  },
+  {
+   "call": "p12c15.begin"
+  }
+ ],
+ "p12c15.begin": [
+  {
+   "setFlag": "p12_ch126_started"
+  },
+  {
+   "banner": "CHAPTER 126",
+   "sub": "One Day Is Apparently Unbearable"
+  },
+  {
+   "sfx": "stomach_grnk",
+   "volume": 0.8
+  },
+  "Two hours later. Twenty-two to go.",
+  {
+   "sfx": "stomach_growl_big",
+   "volume": 0.8
+  },
+  "gloooooorp.",
+  "Garrick is standing in the middle of the galley holding his stomach with one hand. With the other, he's holding out a finger. To Pete.",
+  "garrick[gastro]: Pete. Pete. Pull my finger.",
+  {
+   "startQuest": "pull_my_finger"
+  },
+  {
+   "tutorial": "Stop Garrick asking everyone to pull his finger (follow him: Pete, Bob, Gristle, Jim, Rusty Tom).",
+   "title": "One Day Is Apparently Unbearable"
+  }
+ ],
+ "p12c15.pete": [
+  "pete[annoyed]: No.",
+  "garrick[gastro]: It's not a RELEASE, Pete, it's a GESTURE...",
+  "pete[annoyed]: NO.",
+  "You step between them. Garrick sighs and moves on, finger out, to Bob.",
+  {
+   "setFlag": "p12_fg_pete"
+  },
+  {
+   "event": "p12_finger"
+  }
+ ],
+ "p12c15.bob": [
+  "garrick[gastro]: Bob. Bob, you've always been my favourite. Pull my...",
+  "bob: No, Garrick.",
+  "garrick[gastro]: Not even if there's a hat?",
+  "bob: (sadly) Not even if there's a hat.",
+  "You walk Garrick away from Bob by the elbow. He goes to Gristle.",
+  {
+   "setFlag": "p12_fg_bob"
+  },
+  {
+   "event": "p12_finger"
+  }
+ ],
+ "p12c15.gristle": [
+  "garrick[gastro]: Mister Gristle. As a practical man...",
+  "gristle: No.",
+  "garrick[gastro]: You haven't heard the proposal.",
+  "gristle: I've seen the FINGER.",
+  "Garrick, deflating, wanders toward the stove.",
+  {
+   "setFlag": "p12_fg_gristle"
+  },
+  {
+   "event": "p12_finger"
+  }
+ ],
+ "p12c15.jim": [
+  "garrick[gastro]: Jim. My dear Jim. My GRAND CHEF...",
+  "jim[angry]: You are NOT pulling anything in my galley. And I am not pulling anything OF yours. NO.",
+  "He holds up a ladle. Garrick retreats.",
+  {
+   "setFlag": "p12_fg_jim"
+  },
+  {
+   "event": "p12_finger"
+  }
+ ],
+ "p12c15.tom": [
+  "garrick[gastro]: Tom! Tom, old friend, old SASH HOLDER...",
+  "Rusty Tom takes one look at the finger and runs. Out of the galley, up the ladder, and (you hear him) all the way to the bow.",
+  "rusty_tom[alarmed]: (distant) NOOOOO...",
+  {
+   "setFlag": "p12_fg_tom"
+  },
+  {
+   "event": "p12_finger"
+  }
+ ],
+ "p12c15.you": [
+  "Which leaves you.",
+  "Garrick turns, slowly, finger out, belly gurgling, eyes huge and pleading.",
+  "garrick[gastro]: ...Captain.",
+  "captain: Absolutely not.",
+  "garrick[gastro]: Just a little...",
+  "captain: ABSOLUTELY. NOT.",
+  "garrick[worried]: (lowering the finger) ...Twenty-two hours.",
+  "captain[smug]: Twenty-one and a half.",
+  {
+   "sfx": "tv_power_on",
+   "volume": 0.8
+  },
+  {
+   "sfx": "crt_warmup",
+   "volume": 0.7
+  },
+  "And in the corner, by itself, the Mark II comes on.",
+  {
+   "tvSet": "ses_mk2",
+   "power": true,
+   "channel": 8
+  },
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "vista": "galley_storm_watch",
+   "fade": 500
+  },
+  {
+   "music": "late_night_bling",
+   "fade": 400
+  },
+  {
+   "tvProgram": "bling_late_night",
+   "episode": "one_day_special",
+   "layer": "screen",
+   "from": 0,
+   "to": 2
+  },
+  "pete: It's DAYTIME now. It's got a daytime show.",
+  {
+   "tvProgram": "bling_late_night",
+   "episode": "one_day_special",
+   "layer": "screen",
+   "from": 3,
+   "to": 5
+  },
+  "captain[angry]: That's US. That's THIS MORNING. That's MY FACE.",
+  {
+   "tvProgram": "bling_late_night",
+   "episode": "one_day_special",
+   "layer": "screen",
+   "from": 6,
+   "to": 7
+  },
+  "jim[annoyed]: They're laughing at my BREAKFAST?",
+  {
+   "tvProgram": "bling_late_night",
+   "episode": "one_day_special",
+   "layer": "screen",
+   "from": 8,
+   "to": 10
+  },
+  "garrick[offended]: The sash doesn't DO that. The sash has never...",
+  "squawks[smug]: Flap-flap.",
+  {
+   "tvProgram": "bling_late_night",
+   "episode": "one_day_special",
+   "layer": "screen",
+   "from": 11,
+   "to": 12
+  },
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "tvSet": "ses_mk2",
+   "power": false
+  },
+  "It switches itself off. You didn't touch it.",
+  "garrick[worried]: (very quietly, looking up at the hatch, toward the cabin, toward the wardrobe) ...Tonight. A musical number. About my SASH.",
+  "captain[smug]: Twenty hours, Garrick.",
+  "garrick[worried]: (holding his stomach) ...Twenty hours.",
+  {
+   "setFlag": "finger_crisis_seen"
+  },
+  {
+   "setFlag": "bbk_daytime_seen"
+  },
+  {
+   "setVar": "suspension_hours_left",
+   "value": 20
+  },
+  {
+   "completeQuest": "pull_my_finger"
+  },
+  {
+   "setFlag": "p12_complete"
+  },
+  {
+   "wait": 400
+  },
+  {
+   "tutorial": "Garrick is suspended: one day, no Grand anything, about twenty hours to go. The sash is in your wardrobe. The storm is still going round. (Story Phase 12 is complete.)",
+   "title": "One Day"
+  }
+ ]
+}

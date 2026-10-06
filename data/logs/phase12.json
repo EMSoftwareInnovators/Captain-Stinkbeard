@@ -1,0 +1,97 @@
+{
+ "//": "Story Phase 12: the trial, the dice, the suspension. Garrick's rules stay HIS rules (alleged), even when they're used against him.",
+ "garrick_legends_p12": {
+  "extend": "garrick_legends",
+  "entries": [
+   {
+    "id": "dice_rule",
+    "variants": [
+     {
+      "if": {
+       "flag": "one_day_betrayal"
+      },
+      "evidence": "One giant purple foam die (display model), six more (shipped), a leaflet longer than the booklet, and a lot of Mexican jumping beans",
+      "verified": "Tested. On me.",
+      "reliability": "Highly Questionable",
+      "note": "I held it for thirty seconds. It fluttered. Everybody saw. Twenty-one days. Then 'or at the Stenchmaster's request'. He rolled a SIX: three months, for several beautiful seconds. Then the beans. Three. ONE DAY (the booklet says six hours; the Dice are always correct). Ten ceremonial seconds. Still three."
+     }
+    ]
+   },
+   {
+    "id": "suspension",
+    "title": "The Stench Silence (Suspension)",
+    "if": {
+     "flag": "garrick_not_grand"
+    },
+    "insert": "suspension_rules",
+    "caption": "NO TITLE. NO DECREES. NO GRAND FEASTS. NO GRAND NAPS. NO REGALIA. NO RELEASES.",
+    "claim": "During a Stench Silence the Stenchmaster is suspended: no title, no decrees, no Grand Feast authority, no Grand Nap authority, no ceremonial regalia, no releases. The sash passes into the custody of the highest-ranking officer (after an Authenticity Whiff) and stays in that officer's personal wardrobe for the whole Silence.",
+    "source": "The pocket edition, the last page; the Grand Dice leaflet",
+    "evidence": "Garrick, in a burgundy suit, with flat hair, being called Garrick",
+    "verified": "In force",
+    "reliability": "Alleged",
+    "note": "One day. It's his own rule and he has to keep it. 'Regular fart man.' (Squawks.) The sash is in my wardrobe. My coats are doomed."
+   }
+  ]
+ },
+ "bbk_trash_p12": {
+  "extend": "bbk_trash",
+  "entries": [
+   {
+    "id": "complaints",
+    "title": "The Complaints",
+    "if": {
+     "flag": "sash_flutter_humiliation_valid"
+    },
+    "insert": "token_standards",
+    "caption": "SHARKSTORM LUXURY ACCOMMODATION STANDARDS HAVE NOT BEEN MET. 1 STAR.",
+    "printed": "COMPLAINT: EXCESSIVE BUTTQUAKE. / NOISE COMPLAINT: SOME OF US ARE TRYING TO ROTATE. / WEATHER CONTAMINATION NOTICE. / SHARKSTORM LUXURY ACCOMMODATION STANDARDS HAVE NOT BEEN MET. 1 STAR.",
+    "arrived": "All over the deck, like hail, the moment the sash fluttered and the blast surged",
+    "value": "None",
+    "verdict": "The weather complained about us. Fair. One star is generous."
+   },
+   {
+    "id": "dice_note",
+    "title": "The Six Dice",
+    "if": {
+     "flag": "grand_dice_shipment_received"
+    },
+    "insert": "bbk_dice_note",
+    "caption": "ENOUGH THAT NOBODY CAN CLAIM THEY MYSTERIOUSLY WENT MISSING.",
+    "printed": "ENOUGH THAT NOBODY CAN CLAIM THEY MYSTERIOUSLY WENT MISSING. ENJOY THE CEREMONY! - B.B.K.",
+    "arrived": "Down the galley hatch on a winch, from the Cheap-O-Rama flying machine, while we were reading the fine print about losing dice",
+    "value": "Six Grand Dice of Grandness",
+    "verdict": "It thinks ahead. It's a shark in a storm, and it thinks ahead."
+   },
+   {
+    "id": "odds",
+    "title": "The Shark Book",
+    "if": {
+     "flag": "grand_dice_shipment_received"
+    },
+    "insert": "token_odds",
+    "caption": "TODAY'S ODDS: GARRICK ROLLS BADLY 3 TO 1.",
+    "printed": "SHARK BOOK - TODAY'S ODDS: GARRICK ROLLS BADLY 3 TO 1. GARRICK ROLLS WELL 1 TO 3. NO REFUNDS.",
+    "arrived": "Through the porthole, off the lamp, into the crate",
+    "value": "Depends who you bet on",
+    "verdict": "Sharks are betting on him. The ones who bet on 'well' won. With beans."
+   }
+  ]
+ },
+ "captains_journal_p12": {
+  "extend": "captains_journal",
+  "entries": [
+   {
+    "id": "suspension",
+    "title": "The One-Day Silence",
+    "if": {
+     "flag": "stenchmaster_suspension_active"
+    },
+    "status": "SUSPENDED",
+    "where": "The galley (him); my wardrobe (the sash)",
+    "holder": "Me (the sash, in custody)",
+    "notes": "Thirty seconds behind him, holding the sash, through all of it. It fluttered. Three months, for several beautiful seconds. Then beans. ONE DAY. He's just Garrick until it's up. He asked everyone to pull his finger two hours in. Nobody did."
+   }
+  ]
+ }
+}

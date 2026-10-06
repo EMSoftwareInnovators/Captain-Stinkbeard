@@ -1,0 +1,1593 @@
+[
+ {
+  "extend": "garrick",
+  "variants": [
+   {
+    "if": {
+     "flag": "regalia_removed"
+    },
+    "name": "Garrick",
+    "title": "Garrick (suspended)",
+    "appearance": "garrick_suspended",
+    "portrait": "garrick_suspended"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_started"
+      },
+      {
+       "notFlag": "thirty_seconds_held"
+      }
+     ]
+    },
+    "appearance": "garrick_stenchmaster_charged",
+    "portrait": "garrick_stenchmaster_charged"
+   }
+  ],
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "volunteer.take"
+    },
+    "script": "p12c2.take"
+   },
+   {
+    "if": {
+     "objectiveActive": "the_trial.hold"
+    },
+    "script": "p12c4.trial"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "find_the_dice.follow"
+      },
+      {
+       "notFlag": "p12_rs_1"
+      }
+     ]
+    },
+    "script": "p12c7.drawers"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "find_the_dice.follow"
+      },
+      {
+       "flag": "p12_rs_1"
+      },
+      {
+       "notFlag": "p12_rs_2"
+      }
+     ]
+    },
+    "script": "p12c7.beans"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "find_the_dice.follow"
+      },
+      {
+       "flag": "p12_rs_1"
+      },
+      {
+       "flag": "p12_rs_2"
+      },
+      {
+       "notFlag": "p12_rs_3"
+      }
+     ]
+    },
+    "script": "p12c7.table"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "find_the_dice.follow"
+      },
+      {
+       "flag": "p12_rs_1"
+      },
+      {
+       "flag": "p12_rs_2"
+      },
+      {
+       "flag": "p12_rs_3"
+      },
+      {
+       "notFlag": "p12_rs_4"
+      }
+     ]
+    },
+    "script": "p12c7.packages"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_dice_ceremony.roll"
+    },
+    "script": "p12c10.roll"
+   },
+   {
+    "if": {
+     "objectiveActive": "not_grand.rules"
+    },
+    "script": "p12c12.rules"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "pull_my_finger.intervene"
+      },
+      {
+       "notFlag": "p12_fg_pete"
+      }
+     ]
+    },
+    "script": "p12c15.pete"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "pull_my_finger.intervene"
+      },
+      {
+       "flag": "p12_fg_pete"
+      },
+      {
+       "notFlag": "p12_fg_bob"
+      }
+     ]
+    },
+    "script": "p12c15.bob"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "pull_my_finger.intervene"
+      },
+      {
+       "flag": "p12_fg_pete"
+      },
+      {
+       "flag": "p12_fg_bob"
+      },
+      {
+       "notFlag": "p12_fg_gristle"
+      }
+     ]
+    },
+    "script": "p12c15.gristle"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "pull_my_finger.intervene"
+      },
+      {
+       "flag": "p12_fg_pete"
+      },
+      {
+       "flag": "p12_fg_bob"
+      },
+      {
+       "flag": "p12_fg_gristle"
+      },
+      {
+       "notFlag": "p12_fg_jim"
+      }
+     ]
+    },
+    "script": "p12c15.jim"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "pull_my_finger.intervene"
+      },
+      {
+       "flag": "p12_fg_pete"
+      },
+      {
+       "flag": "p12_fg_bob"
+      },
+      {
+       "flag": "p12_fg_gristle"
+      },
+      {
+       "flag": "p12_fg_jim"
+      },
+      {
+       "notFlag": "p12_fg_tom"
+      }
+     ]
+    },
+    "script": "p12c15.tom"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "normal_breakfast_eaten"
+      },
+      {
+       "notFlag": "p13_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p12_breakfast_1",
+     "garrick.p12_breakfast_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_not_grand"
+      },
+      {
+       "notFlag": "normal_breakfast_eaten"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p12_suspension_1",
+     "garrick.p12_suspension_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "one_day_betrayal"
+      },
+      {
+       "notFlag": "garrick_not_grand"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p12_one_day_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "apparent_three_months"
+      },
+      {
+       "notFlag": "one_day_betrayal"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p12_three_months_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "dice_clause_invoked"
+      },
+      {
+       "notFlag": "apparent_three_months"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p12_before_dice_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "thirty_seconds_held"
+      },
+      {
+       "notFlag": "dice_clause_invoked"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p12_flutter_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_started"
+      },
+      {
+       "notFlag": "thirty_seconds_held"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p12_morning_1",
+     "garrick.p12_morning_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "squawks",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "normal_breakfast_eaten"
+      },
+      {
+       "notFlag": "p13_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p12_breakfast_1",
+     "squawks.p12_breakfast_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_not_grand"
+      },
+      {
+       "notFlag": "normal_breakfast_eaten"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p12_suspension_1",
+     "squawks.p12_suspension_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "one_day_betrayal"
+      },
+      {
+       "notFlag": "garrick_not_grand"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p12_one_day_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "apparent_three_months"
+      },
+      {
+       "notFlag": "one_day_betrayal"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p12_three_months_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "dice_clause_invoked"
+      },
+      {
+       "notFlag": "apparent_three_months"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p12_before_dice_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "thirty_seconds_held"
+      },
+      {
+       "notFlag": "dice_clause_invoked"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p12_flutter_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_started"
+      },
+      {
+       "notFlag": "thirty_seconds_held"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p12_morning_1",
+     "squawks.p12_morning_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "pete",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "grand_dice_ceremony.celebrate"
+      },
+      {
+       "notFlag": "p12_cheer_pete"
+      }
+     ]
+    },
+    "script": "p12c10.cheer_pete"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "normal_breakfast_eaten"
+      },
+      {
+       "notFlag": "p13_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p12_breakfast_1",
+     "pete.p12_breakfast_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_not_grand"
+      },
+      {
+       "notFlag": "normal_breakfast_eaten"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p12_suspension_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "one_day_betrayal"
+      },
+      {
+       "notFlag": "garrick_not_grand"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p12_one_day_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "apparent_three_months"
+      },
+      {
+       "notFlag": "one_day_betrayal"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p12_three_months_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "dice_clause_invoked"
+      },
+      {
+       "notFlag": "apparent_three_months"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p12_before_dice_1",
+     "pete.p12_before_dice_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "thirty_seconds_held"
+      },
+      {
+       "notFlag": "dice_clause_invoked"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p12_flutter_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_started"
+      },
+      {
+       "notFlag": "thirty_seconds_held"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p12_morning_1",
+     "pete.p12_morning_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "bob",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "he_woke_up_loaded.pot"
+      },
+      {
+       "notFlag": "gear_clay_pot"
+      },
+      {
+       "notFlag": "gear_clay_pot_refused"
+      }
+     ]
+    },
+    "script": "p12c1.pot"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "grand_dice_ceremony.celebrate"
+      },
+      {
+       "notFlag": "p12_cheer_bob"
+      }
+     ]
+    },
+    "script": "p12c10.cheer_bob"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "normal_breakfast_eaten"
+      },
+      {
+       "notFlag": "p13_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p12_breakfast_1",
+     "bob.p12_breakfast_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_not_grand"
+      },
+      {
+       "notFlag": "normal_breakfast_eaten"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p12_suspension_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "one_day_betrayal"
+      },
+      {
+       "notFlag": "garrick_not_grand"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p12_one_day_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "apparent_three_months"
+      },
+      {
+       "notFlag": "one_day_betrayal"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p12_three_months_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "dice_clause_invoked"
+      },
+      {
+       "notFlag": "apparent_three_months"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p12_before_dice_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "thirty_seconds_held"
+      },
+      {
+       "notFlag": "dice_clause_invoked"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p12_flutter_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_started"
+      },
+      {
+       "notFlag": "thirty_seconds_held"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p12_morning_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "gristle",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "grand_dice_ceremony.celebrate"
+      },
+      {
+       "notFlag": "p12_cheer_gristle"
+      }
+     ]
+    },
+    "script": "p12c10.cheer_gristle"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "normal_breakfast_eaten"
+      },
+      {
+       "notFlag": "p13_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p12_breakfast_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_not_grand"
+      },
+      {
+       "notFlag": "normal_breakfast_eaten"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p12_suspension_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "one_day_betrayal"
+      },
+      {
+       "notFlag": "garrick_not_grand"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p12_one_day_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "apparent_three_months"
+      },
+      {
+       "notFlag": "one_day_betrayal"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p12_three_months_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "dice_clause_invoked"
+      },
+      {
+       "notFlag": "apparent_three_months"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p12_before_dice_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "thirty_seconds_held"
+      },
+      {
+       "notFlag": "dice_clause_invoked"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p12_flutter_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_started"
+      },
+      {
+       "notFlag": "thirty_seconds_held"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p12_morning_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "jim",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "grand_dice_ceremony.celebrate"
+      },
+      {
+       "notFlag": "p12_cheer_jim"
+      }
+     ]
+    },
+    "script": "p12c10.cheer_jim"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "normal_breakfast_eaten"
+      },
+      {
+       "notFlag": "p13_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p12_breakfast_1",
+     "jim.p12_breakfast_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_not_grand"
+      },
+      {
+       "notFlag": "normal_breakfast_eaten"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p12_suspension_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "one_day_betrayal"
+      },
+      {
+       "notFlag": "garrick_not_grand"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p12_one_day_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "apparent_three_months"
+      },
+      {
+       "notFlag": "one_day_betrayal"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p12_three_months_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "dice_clause_invoked"
+      },
+      {
+       "notFlag": "apparent_three_months"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p12_before_dice_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "thirty_seconds_held"
+      },
+      {
+       "notFlag": "dice_clause_invoked"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p12_flutter_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_started"
+      },
+      {
+       "notFlag": "thirty_seconds_held"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p12_morning_1",
+     "jim.p12_morning_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "ned",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "grand_dice_ceremony.celebrate"
+      },
+      {
+       "notFlag": "p12_cheer_ned"
+      }
+     ]
+    },
+    "script": "p12c10.cheer_ned"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "normal_breakfast_eaten"
+      },
+      {
+       "notFlag": "p13_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p12_breakfast_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_not_grand"
+      },
+      {
+       "notFlag": "normal_breakfast_eaten"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p12_suspension_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "one_day_betrayal"
+      },
+      {
+       "notFlag": "garrick_not_grand"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p12_one_day_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "apparent_three_months"
+      },
+      {
+       "notFlag": "one_day_betrayal"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p12_three_months_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "dice_clause_invoked"
+      },
+      {
+       "notFlag": "apparent_three_months"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p12_before_dice_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "thirty_seconds_held"
+      },
+      {
+       "notFlag": "dice_clause_invoked"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p12_flutter_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_started"
+      },
+      {
+       "notFlag": "thirty_seconds_held"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p12_morning_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "rusty_tom",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "normal_breakfast_eaten"
+      },
+      {
+       "notFlag": "p13_started"
+      }
+     ]
+    },
+    "cycle": [
+     "rusty_tom.p12_breakfast_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_not_grand"
+      },
+      {
+       "notFlag": "normal_breakfast_eaten"
+      }
+     ]
+    },
+    "cycle": [
+     "rusty_tom.p12_suspension_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "one_day_betrayal"
+      },
+      {
+       "notFlag": "garrick_not_grand"
+      }
+     ]
+    },
+    "cycle": [
+     "rusty_tom.p12_one_day_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "apparent_three_months"
+      },
+      {
+       "notFlag": "one_day_betrayal"
+      }
+     ]
+    },
+    "cycle": [
+     "rusty_tom.p12_three_months_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "dice_clause_invoked"
+      },
+      {
+       "notFlag": "apparent_three_months"
+      }
+     ]
+    },
+    "cycle": [
+     "rusty_tom.p12_before_dice_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "thirty_seconds_held"
+      },
+      {
+       "notFlag": "dice_clause_invoked"
+      }
+     ]
+    },
+    "cycle": [
+     "rusty_tom.p12_flutter_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_started"
+      },
+      {
+       "notFlag": "thirty_seconds_held"
+      }
+     ]
+    },
+    "cycle": [
+     "rusty_tom.p12_morning_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "barnacle_bill",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "normal_breakfast_eaten"
+      },
+      {
+       "notFlag": "p13_started"
+      }
+     ]
+    },
+    "cycle": [
+     "barnacle_bill.p12_breakfast_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_not_grand"
+      },
+      {
+       "notFlag": "normal_breakfast_eaten"
+      }
+     ]
+    },
+    "cycle": [
+     "barnacle_bill.p12_suspension_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "one_day_betrayal"
+      },
+      {
+       "notFlag": "garrick_not_grand"
+      }
+     ]
+    },
+    "cycle": [
+     "barnacle_bill.p12_one_day_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "apparent_three_months"
+      },
+      {
+       "notFlag": "one_day_betrayal"
+      }
+     ]
+    },
+    "cycle": [
+     "barnacle_bill.p12_three_months_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "dice_clause_invoked"
+      },
+      {
+       "notFlag": "apparent_three_months"
+      }
+     ]
+    },
+    "cycle": [
+     "barnacle_bill.p12_before_dice_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "thirty_seconds_held"
+      },
+      {
+       "notFlag": "dice_clause_invoked"
+      }
+     ]
+    },
+    "cycle": [
+     "barnacle_bill.p12_flutter_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_started"
+      },
+      {
+       "notFlag": "thirty_seconds_held"
+      }
+     ]
+    },
+    "cycle": [
+     "barnacle_bill.p12_morning_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "hale",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "normal_breakfast_eaten"
+      },
+      {
+       "notFlag": "p13_started"
+      }
+     ]
+    },
+    "script": "hale.p12_breakfast"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_not_grand"
+      },
+      {
+       "notFlag": "normal_breakfast_eaten"
+      }
+     ]
+    },
+    "script": "hale.p12_suspension"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "one_day_betrayal"
+      },
+      {
+       "notFlag": "garrick_not_grand"
+      }
+     ]
+    },
+    "script": "hale.p12_one_day"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "apparent_three_months"
+      },
+      {
+       "notFlag": "one_day_betrayal"
+      }
+     ]
+    },
+    "script": "hale.p12_three_months"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "dice_clause_invoked"
+      },
+      {
+       "notFlag": "apparent_three_months"
+      }
+     ]
+    },
+    "script": "hale.p12_before_dice"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "thirty_seconds_held"
+      },
+      {
+       "notFlag": "dice_clause_invoked"
+      }
+     ]
+    },
+    "script": "hale.p12_flutter"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_started"
+      },
+      {
+       "notFlag": "thirty_seconds_held"
+      }
+     ]
+    },
+    "script": "hale.p12_morning"
+   }
+  ]
+ },
+ {
+  "extend": "nell",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_started"
+      },
+      {
+       "notFlag": "p13_started"
+      }
+     ]
+    },
+    "script": "nell.p12"
+   }
+  ]
+ },
+ {
+  "extend": "sully",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_started"
+      },
+      {
+       "notFlag": "p13_started"
+      }
+     ]
+    },
+    "script": "sully.p12"
+   }
+  ]
+ },
+ {
+  "extend": "fennimore",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_started"
+      },
+      {
+       "notFlag": "p13_started"
+      }
+     ]
+    },
+    "script": "fennimore.p12"
+   }
+  ]
+ },
+ {
+  "extend": "wick",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_started"
+      },
+      {
+       "notFlag": "p13_started"
+      }
+     ]
+    },
+    "script": "wick.p12"
+   }
+  ]
+ },
+ {
+  "extend": "rook",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_started"
+      },
+      {
+       "notFlag": "p13_started"
+      }
+     ]
+    },
+    "script": "rook.p12"
+   }
+  ]
+ },
+ {
+  "extend": "brask",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_started"
+      },
+      {
+       "notFlag": "p13_started"
+      }
+     ]
+    },
+    "script": "brask.p12"
+   }
+  ]
+ },
+ {
+  "extend": "jory",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_started"
+      },
+      {
+       "notFlag": "p13_started"
+      }
+     ]
+    },
+    "script": "jory.p12"
+   }
+  ]
+ },
+ {
+  "extend": "finch",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_started"
+      },
+      {
+       "notFlag": "p13_started"
+      }
+     ]
+    },
+    "script": "finch.p12"
+   }
+  ]
+ },
+ {
+  "extend": "mags",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_started"
+      },
+      {
+       "notFlag": "p13_started"
+      }
+     ]
+    },
+    "script": "mags.p12"
+   }
+  ]
+ },
+ {
+  "extend": "quill",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_started"
+      },
+      {
+       "notFlag": "p13_started"
+      }
+     ]
+    },
+    "script": "quill.p12"
+   }
+  ]
+ },
+ {
+  "extend": "penhallow",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_started"
+      },
+      {
+       "notFlag": "p13_started"
+      }
+     ]
+    },
+    "script": "penhallow.p12"
+   }
+  ]
+ }
+]

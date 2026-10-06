@@ -1,0 +1,930 @@
+{
+ "//": "Story Phase 12, chapters 112-118: he woke up loaded; the gear; the volunteer; the pre-waft; THE THIRTY-SECOND TRIAL; THE FLUTTER; three weeks, then the Dice; find the dice.",
+ "p12.ready_hint": [
+  {
+   "setFlag": "p12_ready_hint"
+  },
+  {
+   "tutorial": "The plan's made. Get some sleep (your bed). Something tells you you'll need it.",
+   "title": "The Night Before"
+  }
+ ],
+ "p12c1.begin": [
+  {
+   "setFlag": "p12_started"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 28
+  },
+  {
+   "sharkstorm": "inside_morning"
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "banner": "PART 1",
+   "sub": "The Thirty-Second Sash Trial"
+  },
+  {
+   "banner": "CHAPTER 112",
+   "sub": "He Woke Up Loaded"
+  },
+  "You sleep. Badly. On a bed sash. Under him.",
+  "In the morning the storm is still going round, and the light through the portholes is grey-green, and you wake up because the whole galley is vibrating.",
+  {
+   "sfx": "stomach_growl_big",
+   "volume": 0.9
+  },
+  {
+   "shake": 1,
+   "duration": 500
+  },
+  "GRRRRRRRRRRRRNNNNNNNNNNNNNNNNNNNNNK.",
+  "It goes on for a long time. The pots on their hooks swing. The six-rope lamp hums. Squawks, in his basket, opens both eyes.",
+  "Over your head, the hammock is bulging downward. Not with a man. With a man and a great deal of PRESSURE.",
+  "garrick[gastro]: (from the hammock, delighted) Good MORNING, everybody.",
+  {
+   "sfx": "stomach_growl_big",
+   "volume": 0.9
+  },
+  {
+   "shake": 1,
+   "duration": 500
+  },
+  "garrick[gastro]: Oh, my. Oh, that's a BIG one. That's been brewing since the Grand Feast. That's a... that's a once-a-month one, Captain.",
+  "Nobody says anything. Nobody needs to. Across the galley, five pirates look at each other, silently, and every one of them is thinking the same thing.",
+  "THIS IS IT.",
+  "pete: (very quietly, to you) ...Today?",
+  "captain[determined]: (very quietly) Today.",
+  "gristle: (very quietly) Then you're not going back there in a NIGHTSHIRT, Captain. Gear. Everything we've got.",
+  {
+   "startQuest": "he_woke_up_loaded"
+  },
+  {
+   "tutorial": "Gather protection: a wet cloth (Jim's bucket, by the stove), goggles (the salvage crate, in the hold), a waist rope (the stores, by the Mark II) and a clean beard wrap (your wardrobe, in your cabin).",
+   "title": "He Woke Up Loaded"
+  }
+ ],
+ "p12c1.cloth": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "Jim's wash bucket. You soak a clean galley cloth in it, wring it out, and tie it over your nose and mouth.",
+  "jim: That's my good cloth.",
+  "captain: I'll give it back.",
+  "jim: No. You won't. And I don't want you to.",
+  {
+   "giveItem": "wet_cloth"
+  },
+  {
+   "setFlag": "gear_wet_cloth"
+  },
+  {
+   "event": "p12_gear"
+  }
+ ],
+ "p12c1.goggles": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "The salvage crate: everything the hold has fished out of the sea and couldn't think what to do with. Under a boot and a lot of string: two thick green bottle-bottoms, bound in leather with a strap.",
+  "Goggles. Of a kind. You put them on. The hold goes green.",
+  {
+   "giveItem": "bottle_goggles"
+  },
+  {
+   "setFlag": "gear_goggles"
+  },
+  {
+   "event": "p12_gear"
+  }
+ ],
+ "p12c1.rope": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "Good line, from the stores. Gristle ties it round your waist himself, with a knot you've never seen him use.",
+  "gristle: That's so we can pull you OUT, Captain. If it comes to that.",
+  "captain: Will it come to that?",
+  "gristle: (not answering) Good knot, that.",
+  {
+   "giveItem": "waist_rope"
+  },
+  {
+   "setFlag": "gear_waist_rope"
+  },
+  {
+   "event": "p12_gear"
+  }
+ ],
+ "p12c1.wrap": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "Your wardrobe. Your good coat, your second-best coat, your shirts, and in the drawer, folded, a clean black neckerchief that has never been near the Grand Stenchmaster in its life.",
+  "You wrap it round your beard. All of it. Tightly. Your beard has been waiting a month to get at you, and it's not getting another chance today.",
+  {
+   "giveItem": "beard_wrap"
+  },
+  {
+   "setFlag": "gear_beard_wrap"
+  },
+  {
+   "event": "p12_gear"
+  }
+ ],
+ "p12c1.pot": [
+  "bob: (holding out a clay pot) For your head, Captain. In case.",
+  "captain: In case of WHAT?",
+  "bob: ...In case.",
+  {
+   "choice": [
+    {
+     "text": "Put the pot on.",
+     "then": [
+      "You put the pot on your head. It comes down over your ears. It smells, faintly, of soup.",
+      "bob[happy]: You look very brave, Captain.",
+      {
+       "giveItem": "clay_pot_helmet"
+      },
+      {
+       "setFlag": "gear_clay_pot"
+      }
+     ]
+    },
+    {
+     "text": "\"No, Bob.\"",
+     "then": [
+      "bob: I'll hold it for you. In case.",
+      {
+       "setFlag": "gear_clay_pot_refused"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "p12c1.grog": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "A cask of Frog Grog. For courage, it says, in Garrick's crayon, on a label he's added.",
+  "Absolutely not."
+ ],
+ "p12c1.geared": [
+  {
+   "setFlag": "trial_gear_on"
+  },
+  "You stand in the middle of the galley in a wet cloth, bottle-bottom goggles, a rope round your middle and a neckerchief strangling your beard.",
+  {
+   "if": {
+    "flag": "gear_clay_pot"
+   },
+   "then": [
+    "And a pot on your head."
+   ]
+  },
+  "Everybody looks at you.",
+  "squawks[smug]: Fashion.",
+  "pete: (quietly) You look like a man going to war, Captain.",
+  "captain[determined]: (quietly) I am.",
+  {
+   "sfx": "hammock_creak",
+   "volume": 0.9
+  },
+  {
+   "sfx": "stomach_growl_big",
+   "volume": 0.9
+  },
+  {
+   "shake": 1,
+   "duration": 500
+  },
+  "garrick[gastro]: (climbing down out of the hammock, holding his stomach with both hands) Up on deck, everybody. This one needs AIR. This one needs SKY.",
+  {
+   "completeQuest": "he_woke_up_loaded"
+  },
+  {
+   "call": "p12c2.begin"
+  }
+ ],
+ "p12c2.begin": [
+  {
+   "setFlag": "p12_ch113_started"
+  },
+  {
+   "banner": "CHAPTER 113",
+   "sub": "Volunteer"
+  },
+  {
+   "startQuest": "volunteer"
+  },
+  {
+   "tutorial": "Up on deck. The ceremony (the mainmast).",
+   "title": "Volunteer"
+  }
+ ],
+ "p12c2.deck": [
+  {
+   "restage": "cut"
+  },
+  {
+   "music": "thirty_second_trial",
+   "fade": 800
+  },
+  "On deck, the storm goes round. The Grand Stenchmaster takes up his position by the mainmast, facing the bow, sash on, crown on, belly out, and spreads his arms.",
+  "garrick[gastro]: Sash holders! Assemble!",
+  "Nobody assembles. Over by the mast, Rusty Tom and Barnacle Bill have found a sudden interest in the far side of it.",
+  "garrick[offended]: Tom. Bill. Left and right. You know the positions.",
+  "rusty_tom[alarmed]: (from behind the mast) I've got a cold, Garrick.",
+  "barnacle_bill: (from behind the mast) I've got a cold too.",
+  "garrick[offended]: You've both got the SAME cold?",
+  "barnacle_bill: It's a very catching cold.",
+  "garrick[worried]: Then who's going to hold the... somebody has to hold the...",
+  "captain[determined]: I'll do it.",
+  "Total silence. Even the storm seems to go quieter.",
+  "garrick[surprised]: ...You?",
+  "captain[determined]: Me. The highest-ranking officer present. It's in the book.",
+  "The Grand Stenchmaster looks at you for a long moment. His lower lip trembles. His eyes fill.",
+  "garrick[happy]: Captain. Oh, CAPTAIN. After all this time. You RESPECT the institution.",
+  "captain: No.",
+  "garrick[happy]: (not hearing) I always knew. I always knew, deep down, under all the shouting...",
+  "captain: I don't. I really, really don't.",
+  "garrick[happy]: (wiping his eyes with the end of the sash) Then take it, Captain. Take the sash. Hold it like it MATTERS.",
+  {
+   "setFlag": "p12_on_deck"
+  },
+  {
+   "setFlag": "stinkbeard_volunteered"
+  },
+  {
+   "tutorial": "Take the sash (him).",
+   "title": "Volunteer"
+  }
+ ],
+ "p12c2.take": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "He holds out the two ends of the sash, behind him. You step up behind the Grand Stenchmaster and take them.",
+  {
+   "insert": "old_sash_foul",
+   "caption": "The ceremonial sash, up close. Darker than it was. Stiff. Stained. The fringe gone a colour."
+  },
+  "You've never been this close to it. In daylight it's not mustard any more. It's mustard that's been through things. The fringe has gone a colour fringe shouldn't go. It's stiff, and where your hands are, slightly warm.",
+  "And then the smell reaches you. Through the cloth, through the wrap, through the goggles somehow, it arrives.",
+  {
+   "sfx": "sniff",
+   "volume": 0.5
+  },
+  {
+   "sfx": "gag",
+   "volume": 0.6
+  },
+  "Every Grand Feast. Every Grand Nap. Every release since the discount shop. All of it, soaked into one strip of cheap cloth.",
+  "captain[queasy]: (through the wet cloth) ...It's worse than my BEARD.",
+  "garrick[proud]: History, Captain.",
+  "captain[queasy]: History should not SMELL like that.",
+  {
+   "setFlag": "sash_taken"
+  },
+  {
+   "setFlag": "old_sash_worse_than_beard"
+  },
+  {
+   "completeQuest": "volunteer"
+  },
+  {
+   "call": "p12c3.begin"
+  }
+ ],
+ "p12c3.begin": [
+  {
+   "setFlag": "p12_ch114_started"
+  },
+  {
+   "banner": "CHAPTER 114",
+   "sub": "Pre-Waft"
+  },
+  {
+   "sfx": "stomach_growl_big",
+   "volume": 0.9
+  },
+  {
+   "shake": 1,
+   "duration": 500
+  },
+  "garrick[gastro]: Everybody back, please. Give it room. It's a big one. It needs ROOM.",
+  "The crew back off. All of them. Further than he asked. Ned backs off so far he ends up at the rail.",
+  {
+   "sfx": "pre_waft",
+   "volume": 0.6
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 15,
+   "count": 3
+  },
+  "pfff.",
+  "A little warning plume curls up out of the back of the Grand Stenchmaster, very small, very yellow, directly into your goggles.",
+  "captain[queasy]: (eyes watering) That was NOTHING. That was the WARNING?",
+  {
+   "sfx": "pre_waft",
+   "volume": 0.7
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 15,
+   "count": 4
+  },
+  "pffft. A second one. The goggles fog. The cloth goes stiff. Somewhere in the wrap, your beard shivers.",
+  "garrick[gastro]: Pre-waft, Captain. Purely ceremonial. Clearing the way.",
+  "pete: (from much further away than before) Thirty seconds, Captain! I'll count! LOUD!",
+  "jim: (from behind Pete) We believe in you, Captain!",
+  "You stand behind him with the ends of the sash in your fists, rope round your middle, pot on your head or not, and you think about three weeks.",
+  "Three weeks.",
+  "What do you tell yourself?",
+  {
+   "choice": [
+    {
+     "text": "\"Three weeks. Three WEEKS.\"",
+     "then": [
+      {
+       "setValue": "trial_encouragement",
+       "value": "three_weeks"
+      },
+      "captain[determined]: (through the cloth) Three. Weeks."
+     ]
+    },
+    {
+     "text": "\"For the ship.\"",
+     "then": [
+      {
+       "setValue": "trial_encouragement",
+       "value": "for_the_ship"
+      },
+      "captain[determined]: (through the cloth) For the Revenge."
+     ]
+    },
+    {
+     "text": "\"I used to be Blackbeard.\"",
+     "then": [
+      {
+       "setValue": "trial_encouragement",
+       "value": "blackbeard"
+      },
+      "captain[determined]: (through the cloth) I used to be Blackbeard. I can do thirty seconds."
+     ]
+    }
+   ]
+  },
+  {
+   "startQuest": "the_trial"
+  },
+  {
+   "tutorial": "THE THIRTY-SECOND TRIAL. Hold Confirm (or Up) to pull the sash, let go to ease it. Keep the needle in the green band, whatever the ship and the blast do, for thirty seconds. Then, when Pete says thirty: LET IT FLUTTER.",
+   "title": "The Thirty-Second Trial"
+  }
+ ],
+ "p12c4.trial": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  {
+   "setFlag": "p12_ch115_started"
+  },
+  {
+   "banner": "CHAPTER 115",
+   "sub": "The Thirty-Second Trial"
+  },
+  "garrick[gastro]: Sash holder... READY?",
+  "captain[determined]: Ready.",
+  "garrick[proud]: Then, by the authority of the office...",
+  {
+   "sfx": "stomach_growl_big",
+   "volume": 0.9
+  },
+  {
+   "shake": 1,
+   "duration": 500
+  },
+  {
+   "sfx": "grand_release_start",
+   "volume": 1.0
+  },
+  {
+   "shake": 2,
+   "duration": 800
+  },
+  "It begins.",
+  {
+   "sashTension": "thirty_second_trial",
+   "var": "trial_slips",
+   "releasedVar": "trial_released"
+  },
+  {
+   "setFlag": "thirty_seconds_held"
+  },
+  {
+   "if": {
+    "var": {
+     "name": "trial_released",
+     "eq": 0
+    }
+   },
+   "then": [
+    "At thirty your fists won't open. They've forgotten how. Then the blast leans on the sash, and your hands slip, all on their own, and the sash goes."
+   ],
+   "else": [
+    "Pete's voice cracks on THIRTY. And you open your hands."
+   ]
+  },
+  {
+   "completeQuest": "the_trial"
+  },
+  {
+   "call": "p12c5.begin"
+  }
+ ],
+ "p12c5.begin": [
+  {
+   "setFlag": "p12_ch116_started"
+  },
+  {
+   "banner": "CHAPTER 116",
+   "sub": "The Flutter"
+  },
+  {
+   "music": "flutter_triumph",
+   "fade": 300
+  },
+  {
+   "vista": "sash_flutter",
+   "fade": 300
+  },
+  "The Great Sharkstorm, going round, reaches down over the rail and finds the loose sash.",
+  {
+   "vistaFrame": "sash",
+   "frame": "sash_flap_1"
+  },
+  {
+   "sfx": "sash_flap",
+   "volume": 1.0
+  },
+  "FLAP.",
+  {
+   "vistaFrame": "sash",
+   "frame": "sash_flap_2"
+  },
+  {
+   "sfx": "sash_flap",
+   "volume": 1.0
+  },
+  {
+   "wait": 200
+  },
+  {
+   "sfx": "sash_flap",
+   "volume": 1.0
+  },
+  "FLAP-FLAP.",
+  {
+   "vistaFrame": "sash",
+   "frame": "sash_flap_full"
+  },
+  {
+   "sfx": "sash_flutter_big",
+   "volume": 1.0
+  },
+  "And then it lifts, all of it, both ends, straight out sideways in the wind like a flag on a mast, and it FLUTTERS. Up and down. Snapping. In front of everybody.",
+  "The Grand Stenchmaster's head turns, slowly, over his shoulder. He sees it.",
+  {
+   "choice": [
+    {
+     "text": "\"THE SASH!\"",
+     "then": [
+      "captain[laugh]: THE SASH!"
+     ]
+    },
+    {
+     "text": "\"FULL FLUTTER!\"",
+     "then": [
+      "captain[laugh]: FULL! FLUTTER!"
+     ]
+    },
+    {
+     "text": "\"OH, THE SHAME!\"",
+     "then": [
+      "captain[laugh]: OH! THE! SHAME!"
+     ]
+    }
+   ]
+  },
+  "pete[happy]: (pointing, gasping, exactly as rehearsed) GASP!",
+  "jim[happy]: (pointing) It FLUTTERED! It's FLUTTERING!",
+  "bob[happy]: (pointing with both hands) OH, THE SHAME! OH, THE TERRIBLE SHAME!",
+  "gristle: (pointing, deadpan) Disgraceful.",
+  "ned: (pointing from the rail) I SAW it! I'm a WITNESS!",
+  "squawks[smug]: Flap-flap.",
+  "garrick: NO. No, no, no. Not the SASH. Not in FRONT of...",
+  "You stand there in your goggles with your hands open and your face in the full blast and you are, for the first time in a month, HAPPY.",
+  {
+   "setFlag": "sash_fluttered"
+  },
+  {
+   "call": "p12c5.surge"
+  }
+ ],
+ "p12c5.surge": [
+  "And then it goes wrong.",
+  "garrick: (mortified, losing control of everything) I can't... I can't STOP it... the SHAME, Captain, the shame makes it...",
+  {
+   "vistaFrame": "blast",
+   "frame": "blast_surge"
+  },
+  {
+   "sfx": "blast_surge",
+   "volume": 1.0
+  },
+  {
+   "shake": 3,
+   "duration": 1400
+  },
+  {
+   "flash": "#c8d870",
+   "duration": 200
+  },
+  "...WORSE.",
+  "The blast, which should have stopped, doubles. The humiliation goes straight into it. It roars. The deck shakes. The rigging hums. The whole ship rattles in her frames.",
+  {
+   "vistaEnd": true,
+   "fade": 300
+  },
+  "Below, in the galley, the Mark II switches itself on, flips through every channel it has, and comes to rest on a picture of the shark at its desk, holding its nose.",
+  {
+   "insert": "mk2_glitch_nose",
+   "caption": "(Below, the Mark II. On by itself. The shark, holding its nose.)"
+  },
+  {
+   "sfx": "token_whistle",
+   "volume": 0.9
+  },
+  "And out of the storm, all over the deck, like hail: tokens.",
+  {
+   "token": "token_card",
+   "x": 6,
+   "y": 15,
+   "id": "p12_c1",
+   "async": true
+  },
+  {
+   "wait": 200
+  },
+  {
+   "token": "token_card",
+   "x": 12,
+   "y": 14,
+   "id": "p12_c2",
+   "async": true
+  },
+  {
+   "wait": 200
+  },
+  {
+   "token": "token_card",
+   "x": 7,
+   "y": 18,
+   "id": "p12_c3",
+   "async": true
+  },
+  {
+   "wait": 200
+  },
+  {
+   "token": "token_card",
+   "x": 13,
+   "y": 17,
+   "id": "p12_c4",
+   "async": true
+  },
+  {
+   "wait": 600
+  },
+  {
+   "setFlag": "p12_complaints_down"
+  },
+  "At last, at long, long last, it stops. The Grand Stenchmaster stands in the middle of the deck, empty, with his face in his hands.",
+  {
+   "startQuest": "the_flutter"
+  },
+  {
+   "tutorial": "The storm has things to say about that. Read the complaints (the tokens, all over the deck).",
+   "title": "The Flutter"
+  }
+ ],
+ "p12c5.c1": [
+  {
+   "removeSprite": "p12_c1"
+  },
+  {
+   "insert": "token_buttquake",
+   "caption": "COMPLAINT: EXCESSIVE BUTTQUAKE. SEVERAL OF OUR GUESTS WERE THROWN FROM THEIR LOUNGERS."
+  },
+  "gristle: Loungers. They have LOUNGERS up there.",
+  {
+   "setFlag": "p12_complaint_1"
+  },
+  {
+   "event": "p12_complaint"
+  }
+ ],
+ "p12c5.c2": [
+  {
+   "removeSprite": "p12_c2"
+  },
+  {
+   "insert": "token_noise",
+   "caption": "NOISE COMPLAINT: SOME OF US ARE TRYING TO ROTATE."
+  },
+  "pete: It's trying to rotate. It's a storm. It's ALWAYS rotating.",
+  {
+   "setFlag": "p12_complaint_2"
+  },
+  {
+   "event": "p12_complaint"
+  }
+ ],
+ "p12c5.c3": [
+  {
+   "removeSprite": "p12_c3"
+  },
+  {
+   "insert": "token_weather",
+   "caption": "WEATHER CONTAMINATION NOTICE. THE STORM WILL NEED TO BE CLEANED."
+  },
+  "ned: We've contaminated the WEATHER?",
+  "jim: We've contaminated a lot of things, Ned.",
+  {
+   "setFlag": "p12_complaint_3"
+  },
+  {
+   "event": "p12_complaint"
+  }
+ ],
+ "p12c5.c4": [
+  {
+   "removeSprite": "p12_c4"
+  },
+  {
+   "insert": "token_standards",
+   "caption": "SHARKSTORM LUXURY ACCOMMODATION STANDARDS HAVE NOT BEEN MET. 1 STAR."
+  },
+  "bob: One star. That's harsh.",
+  "captain[smug]: It's fair.",
+  {
+   "setFlag": "p12_complaint_4"
+  },
+  {
+   "event": "p12_complaint"
+  }
+ ],
+ "p12c5.done": [
+  {
+   "setFlag": "sash_flutter_humiliation_valid"
+  },
+  {
+   "setValue": "sash_flutter_humiliation",
+   "value": "valid"
+  },
+  "Witnessed. Noticed. Gasped at. Pointed at. Complained about by the WEATHER.",
+  "If anything has ever been valid, this is.",
+  {
+   "completeQuest": "the_flutter"
+  },
+  {
+   "call": "p12c6.begin"
+  }
+ ],
+ "p12c6.begin": [
+  {
+   "setFlag": "p12_ch117_started"
+  },
+  {
+   "banner": "CHAPTER 117",
+   "sub": "Three Weeks!"
+  },
+  {
+   "setFlag": "trial_gear_off"
+  },
+  "You take off the goggles. You untie the cloth. You hold the booklet up, open at page nine, and you read it aloud to the whole deck, slowly, savouring every word.",
+  "captain[laugh]: 'Penalty: the traditional Stench Silence of twenty-one days. No releases. No toots. No exceptions.'",
+  "The crew cheer. Properly. Hats go up. Bob hugs Ned. Jim hugs the mast.",
+  "pete[happy]: The SACRED Twenty-One Days of Stenchless Honour!",
+  "gristle: The Ancient Silence of the Sash!",
+  "jim[happy]: The TRUE Stenchmaster tradition! Brogath would have taken the full twenty-one!",
+  "bob[happy]: Princess Stenchalina never needed a toy cube!",
+  "The Grand Stenchmaster lifts his face out of his hands. He looks round at all of them. He's thinking. You can see it. You hold your breath (you've learned that much).",
+  "garrick: ...The Sacred Twenty-One Days.",
+  "pete: (nodding very hard) Very sacred.",
+  "garrick: The full traditional penalty. As Brogath would have...",
+  "He nods, slowly. He's going to take it. He's actually going to take it.",
+  "Then his face changes.",
+  "garrick[smug]: ...Or, at the Stenchmaster's request.",
+  "Everything on deck goes still.",
+  "garrick[smug]: Page nine, Captain. The bottom of page nine. 'Or, at the Stenchmaster's request, roll the Grand Dice of Grandness.' I REQUEST.",
+  "You feel your face do something. It starts at the top and goes all the way down. Everybody watching sees it happen.",
+  {
+   "insert": "captain_face_collapse",
+   "caption": "(Your face, collapsing.)"
+  },
+  "captain[devastated]: ...There are no dice.",
+  "garrick[smug]: Then we'll FIND some.",
+  {
+   "setFlag": "dice_clause_invoked"
+  },
+  {
+   "call": "p12c7.begin"
+  }
+ ],
+ "p12c7.begin": [
+  {
+   "setFlag": "p12_ch118_started"
+  },
+  {
+   "banner": "CHAPTER 118",
+   "sub": "Find the Dice"
+  },
+  {
+   "restage": "cut"
+  },
+  "He goes down the hatch like a man half his size, and the crew pile down after him.",
+  {
+   "startQuest": "find_the_dice"
+  },
+  {
+   "tutorial": "Follow him! He's tearing the galley apart (him). Get there first.",
+   "title": "Find the Dice"
+  },
+  {
+   "transition": "galley",
+   "spawn": "ladder",
+   "then": "p12c7.below"
+  }
+ ],
+ "p12c7.below": [
+  {
+   "sfx": "drawer_crash",
+   "volume": 0.8
+  },
+  "The galley. The Grand Stenchmaster is already in the drawers."
+ ],
+ "p12c7.drawers": [
+  {
+   "sfx": "drawer_crash",
+   "volume": 0.9
+  },
+  "He's at the prep table, pulling out drawers and tipping them out: spoons, string, Jim's good knives, Jim's spare good knives, a mousetrap (occupied).",
+  "jim[angry]: NOT THE KNIVES.",
+  "garrick[annoyed]: A die is a small thing, Jim. It could be ANYWHERE.",
+  "You get between him and the cutlery drawer. He ducks under your arm and is gone, toward the stores.",
+  {
+   "setFlag": "p12_rs_1"
+  },
+  {
+   "event": "p12_ransack"
+  }
+ ],
+ "p12c7.beans": [
+  {
+   "sfx": "sack_slide",
+   "volume": 0.8
+  },
+  "He's in the bean sacks by the stores, up to his elbows, hurling Crying Beans over his shoulder by the handful.",
+  "jim[angry]: Those were CRYING!",
+  "garrick[annoyed]: Dice like to hide in beans, Jim. Everybody knows that.",
+  "You grab his collar. He leaves you holding it (it's detachable) and goes for the long table.",
+  {
+   "setFlag": "p12_rs_2"
+  },
+  {
+   "event": "p12_ransack"
+  }
+ ],
+ "p12c7.table": [
+  {
+   "sfx": "dish_rattle",
+   "volume": 0.9
+  },
+  "He's under the long table. Then on it. Then lifting it up at one end and looking underneath, while Pete holds the other end and shouts.",
+  "pete[annoyed]: There's NOTHING UNDER IT. There's NEVER been anything under it.",
+  "garrick[annoyed]: That's what they WANT you to think, Pete.",
+  "You get him by the ankle. He kicks free. He's going for the crate.",
+  {
+   "setFlag": "p12_rs_3"
+  },
+  {
+   "event": "p12_ransack"
+  }
+ ],
+ "p12c7.packages": [
+  {
+   "sfx": "package_crinkle",
+   "volume": 1.0
+  },
+  "He's in the Cheap-O-Rama crate head-first, throwing sash boxes out behind him: PRRRBBT, PRRRBBT, PRRRBBT, as every pull tab hits the floor.",
+  "bob[happy]: (catching them) PRRRBBT!",
+  "garrick[annoyed]: (muffled, from inside the crate) It's HERE. It has to be here. Sold separately means sold SOMEWHERE.",
+  {
+   "setFlag": "p12_rs_4"
+  },
+  {
+   "event": "p12_ransack"
+  }
+ ],
+ "p12c7.normal_die": [
+  "And then, out of Bob's pocket, with all the bending down to catch boxes: a little bone die falls out, bounces once on the planks, rolls the length of the galley and stops at the Grand Stenchmaster's feet.",
+  "Everybody looks at it.",
+  "It's showing six.",
+  "garrick: ...THREE MONTHS!",
+  "He stares at it. It's the most horrified anyone has ever looked at anything.",
+  "garrick: Three MONTHS. Oh, no. Oh, NO. It's a SIX...",
+  {
+   "choice": [
+    {
+     "text": "\"IT COUNTS!\"",
+     "then": [
+      "captain[laugh]: IT COUNTS! THREE MONTHS! IT ROLLED! YOU ALL SAW IT!",
+      "pete[tired]: (sighing) ...It doesn't count, Captain."
+     ]
+    },
+    {
+     "text": "\"...It doesn't count, does it.\"",
+     "then": [
+      "captain[concerned]: ...It doesn't count, does it.",
+      "pete[tired]: No, Captain."
+     ]
+    },
+    {
+     "text": "Pick it up very slowly and say nothing.",
+     "then": [
+      "You pick it up very, very slowly. Nobody says anything. Then Pete puts his hand on your shoulder.",
+      "pete[tired]: ...It doesn't count, Captain."
+     ]
+    }
+   ]
+  },
+  "pete: It's Bob's. It's a normal die. Bob uses it for Pig. It's not GRAND. It wasn't rolled. It FELL out of Bob.",
+  "gristle: It's not a Grand Dice. It's barely a dice.",
+  "bob: It's my lucky one.",
+  "garrick[relieved]: (clutching his chest) ...It doesn't count. Oh, thank goodness. It doesn't count.",
+  "You've never hated honesty more. You've never hated PETE more. Pete hates it too. You can see it.",
+  {
+   "setFlag": "normal_die_six"
+  },
+  {
+   "tutorial": "He didn't get to the bottom of the crate. Search it yourself (the crate). Maybe there's nothing there.",
+   "title": "Find the Dice"
+  }
+ ],
+ "p12c7.crate": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "You climb into the crate yourself, down past the boxes, past the shredded paper, to the bottom, to prove there's nothing there.",
+  "There's something there.",
+  {
+   "sfx": "foam_squeak",
+   "volume": 0.9
+  },
+  "Under the last layer of sash boxes, in its own box, the size of a cabin trunk: a cube of purple foam. Big as a bucket. Soft as a cushion. Squeaks when you squeeze it.",
+  {
+   "insert": "grand_dice_box",
+   "caption": "THE GRAND DICE OF GRANDNESS (DISPLAY MODEL - NOT FOR SALE)"
+  },
+  "garrick[delighted]: (from behind you, reverently) ...The Grand Dice.",
+  "captain[devastated]: Sold. SEPARATELY.",
+  "garrick[delighted]: The display model, Captain. Even better. A display model has been DISPLAYED.",
+  "You lift it out. It squeaks. You put it on the long table. It sits there, huge and purple and soft, with its pips the size of plates.",
+  {
+   "setFlag": "grand_dice_found"
+  },
+  {
+   "completeQuest": "find_the_dice"
+  },
+  {
+   "call": "p12c8.begin"
+  }
+ ]
+}

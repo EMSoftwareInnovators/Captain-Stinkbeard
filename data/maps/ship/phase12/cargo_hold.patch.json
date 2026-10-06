@@ -1,0 +1,42 @@
+{
+ "id": "cargo_hold_phase12",
+ "patch": "cargo_hold",
+ "//": "Story Phase 12 in the hold: the salvage crate (15,13), with a pair of bottle-bottom goggles in it.",
+ "objects": [
+  {
+   "id": "p12_goggles",
+   "type": "inspect",
+   "x": 15,
+   "y": 13,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "he_woke_up_loaded.gear"
+     },
+     {
+      "notFlag": "gear_goggles"
+     }
+    ]
+   },
+   "script": "p12c1.goggles"
+  },
+  {
+   "id": "p12_salvage_look",
+   "type": "inspect",
+   "x": 15,
+   "y": 13,
+   "if": {
+    "flag": "p12_started"
+   },
+   "script": "p12.inspect.salvage"
+  }
+ ],
+ "props": [
+  {
+   "prop": "salvage_crate",
+   "x": 15,
+   "y": 13,
+   "id": "p12_salvage"
+  }
+ ]
+}
