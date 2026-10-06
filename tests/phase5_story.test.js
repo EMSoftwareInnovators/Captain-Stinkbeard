@@ -6,6 +6,7 @@ import { logEntries } from '../src/systems/logs/logbook.js';
 import { deadCenterLocation } from '../src/systems/hazards/deadCenter.js';
 import { sharedText } from './laterPhases.js';
 import { makeStory } from './storyHarness.js';
+import { BANNED_LIST } from './bannedNames.js';
 
 /**
  * Plays Story Phase 5 (What Does the Grand Stenchmaster Actually Do?) with
@@ -273,7 +274,7 @@ describe('Story Phase 5 stays inside its brief', () => {
   }).join('\n');
 
   it('never uses borrowed characters, consoles or later-phase material', () => {
-    for (const banned of [/wario/i, /nintendo/i, /\bNES\b/, /famicom/i, /\bwa+h+\b/i, /sharkstorm/i, /shark storm/i, /brogath/i,
+    for (const banned of [...BANNED_LIST, /nintendo/i, /\bNES\b/, /famicom/i, /\bwa+h+\b/i, /sharkstorm/i, /shark storm/i, /brogath/i,
       /bling bling/i, /ancient grand stenchmaster/i, /ancient stenchmaster/i, /midnight (fart|release)/i, /treasure .*into the storm/i]) {
       expect(text).not.toMatch(banned);
     }

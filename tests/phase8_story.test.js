@@ -10,6 +10,7 @@ import { evaluateCondition } from '../src/systems/conditions/conditions.js';
 import { mapDisplayName } from '../src/maps/mapName.js';
 import { isShared, laterPhaseFlags, sharedText } from './laterPhases.js';
 import { makeStory } from './storyHarness.js';
+import { BANNED_LIST } from './bannedNames.js';
 
 /**
  * Plays Story Phase 8 (the Lost Fart; the Grand Nap) with the real content
@@ -320,8 +321,8 @@ describe('Story Phase 8 stays inside its brief', () => {
   }).join('\n');
 
   it('uses its own adventure: no borrowed films, heroes, hats or plumbers', () => {
-    for (const banned of [/wario/i, /nintendo/i, /\bwa+h+\b/i, /raiders/i, /indiana/i, /\bindy\b/i, /fedora/i, /\bwhip\b/i, /\bidol\b/i, /\bboulder\b/i,
-      /stenchsylvania/i, /sharknado/i]) {
+    for (const banned of [...BANNED_LIST, /nintendo/i, /\bwa+h+\b/i, /raiders/i, /indiana/i, /\bindy\b/i, /fedora/i, /\bwhip\b/i, /\bidol\b/i, /\bboulder\b/i,
+      /stenchsylvania/i]) {
       expect(text).not.toMatch(banned);
     }
     expect(text).toMatch(/THE GRAND EXPEDITION FOR THE LOST FART/);

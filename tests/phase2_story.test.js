@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { currentChapter } from '../src/systems/story/progress.js';
 import { makeStory } from './storyHarness.js';
+import { BANNED_LIST } from './bannedNames.js';
 
 /**
  * Plays Story Phase 2 from the end of the prologue to "phase 2 complete"
@@ -143,13 +144,13 @@ describe('Story Phase 2 can be played start to finish (headless)', () => {
     await playPhase2(story);
   });
 
-  it('never names Wario or Stinkbeard-era story in Phase 2 lines', async () => {
+  it('never names the source\'s lead or Stinkbeard-era story in Phase 2 lines', async () => {
     const story = makeStory();
     await playPhase2(story);
     // Only Phase 2's own lines: Phase 3 starts straight after (see phase3_story.test.js).
     const text = story.log.slice(0, story.flagAt.phase2_complete).join('\n');
     expect(story.flagAt.phase2_complete).toBeGreaterThan(400);
-    for (const banned of [/wario/i, /nintendo/i, /stinkbeard/i, /stenchmaster/i, /sharkstorm/i, /stenchcaster/i, /frog grog/i, /brogath/i]) {
+    for (const banned of [...BANNED_LIST, /nintendo/i, /stinkbeard/i, /stenchmaster/i, /sharkstorm/i, /stenchcaster/i, /frog grog/i, /brogath/i]) {
       expect(text).not.toMatch(banned);
     }
   });

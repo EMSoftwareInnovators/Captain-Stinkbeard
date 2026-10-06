@@ -6,6 +6,7 @@ import { logEntries } from '../src/systems/logs/logbook.js';
 import { deadCenterLocation } from '../src/systems/hazards/deadCenter.js';
 import { sharedText } from './laterPhases.js';
 import { makeStory } from './storyHarness.js';
+import { BANNED_LIST } from './bannedNames.js';
 
 /**
  * Plays Story Phase 4 (Life Around the Dead Center) with the real content
@@ -256,7 +257,7 @@ describe('Story Phase 4 stays inside its brief', () => {
   }).join('\n');
 
   it('never uses borrowed characters or later-phase mythology', () => {
-    for (const banned of [/wario/i, /nintendo/i, /\bwa+h+\b/i, /sharkstorm/i, /shark storm/i, /stenchcaster/i, /brogath/i,
+    for (const banned of [...BANNED_LIST, /nintendo/i, /\bwa+h+\b/i, /sharkstorm/i, /shark storm/i, /stenchcaster/i, /brogath/i,
       /ancient grand stenchmaster/i, /grand stenchmaster fart/i, /midnight (fart|release)/i, /sash (has|gives|grants) (power|magic)/i]) {
       expect(text).not.toMatch(banned);
     }

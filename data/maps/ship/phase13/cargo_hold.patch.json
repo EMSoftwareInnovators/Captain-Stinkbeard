@@ -14,7 +14,14 @@
    },
    "sfx": "heavy_door",
    "when": {
-    "flag": "treasure_room_sealed"
+    "all": [
+     {
+      "flag": "treasure_room_sealed"
+     },
+     {
+      "flag": "p13_started"
+     }
+    ]
    },
    "if": {
     "notFlag": "treasure_room_sealed"

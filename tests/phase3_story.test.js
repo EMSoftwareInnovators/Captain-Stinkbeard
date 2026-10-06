@@ -5,6 +5,7 @@ import { currentChapter, resolveVariant } from '../src/systems/story/progress.js
 import { logEntries } from '../src/systems/logs/logbook.js';
 import { isShared, sharedText } from './laterPhases.js';
 import { makeStory } from './storyHarness.js';
+import { BANNED_LIST } from './bannedNames.js';
 
 /**
  * Plays Story Phase 3 (The Grand Stenchmaster) with the real content (see
@@ -227,7 +228,7 @@ describe('Story Phase 3 stays inside its brief', () => {
   }).join('\n');
 
   it('never uses borrowed characters or later-phase mythology', () => {
-    for (const banned of [/wario/i, /nintendo/i, /\bwa+h+\b/i, /sharkstorm/i, /stenchcaster/i, /entertainment system/i, /brogath/i,
+    for (const banned of [...BANNED_LIST, /nintendo/i, /\bwa+h+\b/i, /sharkstorm/i, /stenchcaster/i, /entertainment system/i, /brogath/i,
       /bling bling/i, /codex/i, /raiders/i, /sash law/i, /stenchmaster'?s? court/i, /ancient grand stenchmaster/i]) {
       expect(text).not.toMatch(banned);
     }

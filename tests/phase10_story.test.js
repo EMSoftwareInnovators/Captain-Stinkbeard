@@ -10,6 +10,7 @@ import { resolvePreset } from '../src/debug/presets.js';
 import { evaluateCondition } from '../src/systems/conditions/conditions.js';
 import { makeStory } from './storyHarness.js';
 import { PHASE10_QUESTS, playPhase10, playToEndP10 } from './phase10Play.js';
+import { BANNED, BANNED_LIST } from './bannedNames.js';
 
 /**
  * Story Phase 10, played headless from the end of Phase 9: the crater and the
@@ -193,7 +194,7 @@ describe('Story Phase 10 stays inside its brief', () => {
   }).join('\n');
 
   it('uses its own names: Garrick Grumblegut, the Great Sharkstorm, the Grand Expedition for the Lost Fart, Brogath (and no plumbers)', () => {
-    for (const banned of [/wario/i, /nintendo/i, /\bwa+h+\b/i, /sharknado/i, /\bnado\b/i, /guzzlegut/i, /raiders/i, /indiana/i, /fedora/i, /brograth/i]) {
+    for (const banned of [...BANNED_LIST, /nintendo/i, /\bwa+h+\b/i, /\bnado\b/i, /guzzlegut/i, /raiders/i, /indiana/i, /fedora/i, /brograth/i]) {
       expect(text).not.toMatch(banned);
     }
     expect(text).toMatch(/The Grand Expedition for the Lost Fart: Complete Grand Stenchmaster Legends - Volume One of Probably Many/);
@@ -205,7 +206,7 @@ describe('Story Phase 10 stays inside its brief', () => {
     expect(fs.readFileSync(path.resolve('data/npcs/phase10_crew.json'), 'utf8')).not.toMatch(/"name": "Barnacle Bob"/);
     // Nothing anywhere in the game data says the forbidden storm name or the borrowed book title.
     const all = fs.readdirSync(path.resolve('data'), { recursive: true }).filter((f) => f.endsWith('.json')).map((f) => fs.readFileSync(path.resolve('data', f), 'utf8')).join('\n');
-    expect(all).not.toMatch(/sharknado|raiders of the lost/i);
+    for (const banned of [BANNED.storm, BANNED.book, /raiders of the lost/i]) expect(all).not.toMatch(banned);
   });
 
   it('leaves the next phase alone: the storm unresolved, the crown on the megalodon, Brogath unverified, no court', () => {

@@ -10,6 +10,7 @@ import { resolvePreset } from '../src/debug/presets.js';
 import { evaluateCondition } from '../src/systems/conditions/conditions.js';
 import { isShared, laterPhaseFlags, sharedText } from './laterPhases.js';
 import { makeStory } from './storyHarness.js';
+import { BANNED_LIST } from './bannedNames.js';
 
 /**
  * Plays Story Phase 7 (the Great Sharkstorm returns; the Song of the Grand
@@ -331,7 +332,7 @@ describe('Story Phase 7 stays inside its brief', () => {
   }).join('\n');
 
   it('never uses borrowed characters, the forbidden storm name, or later-phase material', () => {
-    for (const banned of [/wario/i, /nintendo/i, /\bwa+h+\b/i, /sharknado/i, /\bnado\b/i, /brogath/i, /codex/i, /raiders/i,
+    for (const banned of [...BANNED_LIST, /nintendo/i, /\bwa+h+\b/i, /\bnado\b/i, /brogath/i, /codex/i, /raiders/i,
       /stenchmaster'?s? court/i, /ancient (grand )?stenchmaster/i, /buried treasure/i, /treasure .*into the (great )?sharkstorm/i, /purple/i]) {
       expect(text).not.toMatch(banned);
     }

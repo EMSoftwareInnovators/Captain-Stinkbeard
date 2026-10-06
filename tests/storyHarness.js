@@ -10,6 +10,8 @@ import { resolvePreset, applyPresetPlan } from '../src/debug/presets.js';
 import { WorldState } from '../src/systems/world/WorldState.js';
 import { StagingTracker } from './storyStaging.js';
 import { deadCenterSeals } from '../src/systems/hazards/deadCenter.js';
+import { SaveManager } from '../src/systems/save/SaveManager.js';
+import { MemoryStorage } from '../src/platform/storage.js';
 
 /**
  * A headless story player shared by the story-phase tests: the real scripts,
@@ -20,6 +22,7 @@ import { deadCenterSeals } from '../src/systems/hazards/deadCenter.js';
  * no way through.
  *
  *   makeStory({ pick: 'first' | 'last', preset: 'prologue_done' })
+ *   makeStory({ pick, state })   // from a save (SaveManager.read(slot).state)
  */
 
 class Transition {
@@ -29,11 +32,15 @@ class Transition {
   }
 }
 
-export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
+export function makeStory({ pick = 'first', preset = 'prologue_done', state = null } = {}) {
   const content = loadContent();
   const bus = new EventBus();
-  const session = GameSession.newGame({ content, bus, strictFlags: true });
-  applyPresetPlan(session, resolvePreset(content, preset));
+  let session;
+  if (state) session = GameSession.fromState({ content, bus, state, strictFlags: true, onWarning: (w) => { throw new Error(`loading the save: ${w}`); } });
+  else {
+    session = GameSession.newGame({ content, bus, strictFlags: true });
+    applyPresetPlan(session, resolvePreset(content, preset));
+  }
   const log = [];
   const choices = [];
   const opened = [];
@@ -146,6 +153,7 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
   const story = {
     content,
     session,
+    bus,
     log,
     choices,
     opened,
@@ -313,4 +321,23 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
     },
   };
   return story;
+}
+
+/**
+ * Saves a story through the real SaveManager (memory storage), reads it back
+ * and loads it into a fresh harness, the way the title screen's Continue
+ * does. The walk's own memory (which choices it has already refused) carries
+ * over; the caller re-enters the room.
+ */
+export function reloadStory(s) {
+  const saves = new SaveManager({ storage: new MemoryStorage(), content: s.content });
+  const wrote = saves.save(1, s.session);
+  if (!wrote.ok) throw new Error(`save failed: ${wrote.reason}`);
+  const read = saves.read(1);
+  if (!read.ok) throw new Error(`load failed: ${read.reason ?? read.error}`);
+  const t = makeStory({ pick: s.pickLast ? 'last' : 'first', state: read.state });
+  t.pickLast = s.pickLast;
+  t.refused = s.refused;
+  t.record = wrote.record;
+  return t;
 }

@@ -7,6 +7,7 @@ import { logEntries } from '../src/systems/logs/logbook.js';
 import { resolvePreset } from '../src/debug/presets.js';
 import { evaluateCondition } from '../src/systems/conditions/conditions.js';
 import { makeStory } from './storyHarness.js';
+import { BANNED_LIST } from './bannedNames.js';
 
 /**
  * Plays Story Phase 9 (Garrick's "Completely Authentic" History; the Grand
@@ -348,7 +349,7 @@ describe('Story Phase 9 stays inside its brief', () => {
   }).join('\n');
 
   it('uses its own names: Garrick Grumblegut, the Great Sharkstorm, Crownskull Isle (and no plumbers)', () => {
-    for (const banned of [/wario/i, /nintendo/i, /\bwa+h+\b/i, /sharknado/i, /skull island/i, /guzzlegut/i, /raiders/i, /indiana/i, /fedora/i]) {
+    for (const banned of [...BANNED_LIST, /nintendo/i, /\bwa+h+\b/i, /skull island/i, /guzzlegut/i, /raiders/i, /indiana/i, /fedora/i]) {
       expect(text).not.toMatch(banned);
     }
     expect(text).toMatch(/Crownskull Isle/);

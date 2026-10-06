@@ -9,6 +9,7 @@ import { logEntries } from '../src/systems/logs/logbook.js';
 import { resolvePreset } from '../src/debug/presets.js';
 import { isShared, laterPhaseFlags, sharedText } from './laterPhases.js';
 import { makeStory } from './storyHarness.js';
+import { BANNED_LIST } from './bannedNames.js';
 
 /**
  * Plays Story Phase 6 (The Death Rattle of the Stenchmaster Entertainment
@@ -287,7 +288,7 @@ describe('Story Phase 6 stays inside its brief', () => {
   }).join('\n');
 
   it('never uses borrowed characters, the forbidden storm name, or later-phase material', () => {
-    for (const banned of [/wario/i, /nintendo/i, /\bwa+h+\b/i, /sharknado/i, /\bnado\b/i, /brogath/i, /codex/i, /raiders/i,
+    for (const banned of [...BANNED_LIST, /nintendo/i, /\bwa+h+\b/i, /\bnado\b/i, /brogath/i, /codex/i, /raiders/i,
       /stenchmaster'?s? court/i, /ancient (grand )?stenchmaster/i, /buried treasure/i, /treasure .*into the (great )?sharkstorm/i,
       /purple/i, /\bwah\b/i]) {
       expect(text).not.toMatch(banned);
