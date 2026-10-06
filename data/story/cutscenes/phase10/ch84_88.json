@@ -1,0 +1,928 @@
+{
+ "//": "Story Phase 10, Parts Three and Four (chapters 84-88): Rumpold Windbreaker the Resolute (alleged); the captain's fantasy and 'Unfortunately...'; the rest of the legend (fifty-three times worse: Garrick's claim, never a fact); the fart-man trophy; the stolen book and the research; the plan and its fifty-three clause; the briefing; every alternative is stupid; two sash holders; Pete's fake duties and Garrick's line; Rusty Tom and Barnacle Bill draw lots.",
+ "p10c14.begin": [
+  {
+   "setFlag": "p10_ch84_started"
+  },
+  {
+   "banner": "PART THREE",
+   "sub": "The Legend of the Tornado-Stopping Stenchmaster"
+  },
+  {
+   "banner": "CHAPTER 84",
+   "sub": "Meet Wind with Wind"
+  },
+  "Back down the ladder. The galley's dark but for the lamp. In the hammock over your bed, a page turns.",
+  "garrick[proud]: (from above) Can't sleep, Captain?",
+  "You lie down on your beans. The ribbon crinkles. You look up at the bottom of the hammock for a while.",
+  {
+   "startQuest": "meet_wind_with_wind"
+  },
+  {
+   "tutorial": "Ask him something (the Grand Stenchmaster's hammock, over your bed).",
+   "title": "Meet Wind with Wind"
+  }
+ ],
+ "p10c14.story": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "captain: Garrick.",
+  "garrick[businesslike]: Captain.",
+  "captain: Your... Grand Stenchmasters. Of old. Did any of them ever have trouble with weather?",
+  "The hammock goes very still. Then a face comes over the side of it, upside down, lit from below by the lamp, delighted.",
+  "garrick[delighted]: Captain. Do you mean... a STORM?",
+  "captain[tired]: I mean a storm.",
+  {
+   "sfx": "suit_fanfare",
+   "volume": 0.4
+  },
+  {
+   "vista": "galley_legend",
+   "fade": 500
+  },
+  {
+   "music": "legend_ballad",
+   "fade": 400
+  },
+  "garrick[proud]: Then you want the greatest of them all. GRAND STENCHMASTER RUMPOLD WINDBREAKER THE RESOLUTE. The Grand Stenchmaster who stopped the storm.",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_rumpold_faces"
+  },
+  "garrick[proud]: Long ago, a terrible whirlwind came across the sea towards Rumpold's town. Everybody ran. Not Rumpold. Rumpold turned round, faced it REAR-FIRST, and planted his feet.",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_rumpold_eye"
+  },
+  "garrick[proud]: And he waited. Not for the edge of it. For the EYE. The very centre, where it was calmest.",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_rumpold_wind"
+  },
+  "garrick[proud]: And there, Rumpold met wind with wind. A great opposing release, into the heart of the funnel, the other way round.",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_rumpold_collapse"
+  },
+  "garrick[proud]: And the rotation was disrupted. And the funnel collapsed. And the town was saved.",
+  {
+   "music": null
+  },
+  "You're sitting up. You didn't decide to sit up. You're just up, on your beans, the ribbon on your chest, looking at the crayon.",
+  "captain: ...Say that again.",
+  "garrick[delighted]: The town was saved.",
+  "captain[determined]: No. The middle bit. Wind with wind.",
+  "And you can see it, suddenly, the way you see a course on a chart. The storm is wind. It goes round. And you have a man who can put out more wind than anything that has ever lived. He's lying a foot above your face.",
+  "captain[determined]: A blast. At the centre. The other way.",
+  "gristle: (from the dark, not asleep) Captain...",
+  "captain[determined]: We'd put the stern to it. Rope him in place. Hatches battened, everybody below. Ned on the alignment. Aim him at the centre and...",
+  "squawks: (from the basket, very small) ...No more sky sharks?",
+  "You look at him. Bald head on the rim of the bread basket. You haven't heard him sound like that before.",
+  "captain[tender]: No more sky sharks, Squawks.",
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "vista": "fantasy",
+   "fade": 700
+  },
+  {
+   "music": "stenchmaster_fanfare",
+   "fade": 400
+  },
+  "And for one moment, you can see it all.",
+  "The storm breaking up into nothing. Gold coming down out of the sky, slowly, like warm snow. The Crimson King's Crown turning over and over and landing, exactly, in your two hands.",
+  {
+   "vistaShow": "bbk",
+   "visible": true
+  },
+  "The Bling Bling King in the sea, crownless, chainless, sulking, with a plastic token round its neck.",
+  {
+   "vistaShow": "crew",
+   "visible": true
+  },
+  "The crew rich. Squawks in every feather he ever had. The Frog Grog turned back into rum. And your beard, black, glossy, smelling of nothing at all.",
+  "You're Blackbeard again.",
+  {
+   "wait": 800
+  },
+  "garrick[businesslike]: (somewhere outside it) Unfortunately...",
+  {
+   "sfx": "paper_tear",
+   "volume": 0.9
+  },
+  {
+   "vistaShow": "crack",
+   "visible": true
+  },
+  {
+   "flash": "#ffffff",
+   "duration": 300
+  },
+  {
+   "vistaEnd": true,
+   "fade": 200
+  },
+  {
+   "music": null
+  },
+  {
+   "vista": "galley_legend",
+   "fade": 0
+  },
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_rumpold_after"
+  },
+  "garrick[businesslike]: ...there was the rest of the legend.",
+  "captain: ...The rest.",
+  "garrick[businesslike]: Well, the storm was full of Rumpold, wasn't it, at that point. And it fell down. On everything. The rain was Rumpold. The rivers. The bay. The local sea.",
+  "garrick[businesslike]: Fifty times worse than a fresh release, the legend says. Fifty-plus. Approximately fifty-three times. The fish. The boats. The sails, the ropes, everyone's clothes...",
+  "garrick[businesslike]: ...and the beards. Beards absorb, Captain. You know that better than anyone.",
+  {
+   "sfx": "gag",
+   "volume": 0.6
+  },
+  "You put a hand to your beard. It's bad enough now. Fifty-three times. You can't even picture fifty-three times. You try, and your eyes water.",
+  "squawks: (from the basket) ...Bad plan.",
+  "captain[tired]: Aye.",
+  "pete: (from the dark) Let me just get this straight. His first release ruined the ship.",
+  "jim: His second one helped make the storm.",
+  "ned: His third one blew our treasure into it.",
+  "pete: And you were about to ASK him for a fourth.",
+  "captain[tired]: ...Go to sleep, Pete.",
+  {
+   "vistaEnd": true,
+   "fade": 500
+  },
+  {
+   "setValue": "rumpold_status",
+   "value": "alleged"
+  },
+  {
+   "setFlag": "rumpold_legend_heard"
+  },
+  {
+   "setFlag": "tornado_counter_concept"
+  },
+  {
+   "setFlag": "p10_fifty_three_heard"
+  },
+  {
+   "logbook": "garrick_legends",
+   "entry": "rumpold"
+  },
+  {
+   "completeQuest": "meet_wind_with_wind"
+  },
+  {
+   "call": "p10c15.begin"
+  }
+ ],
+ "p10c15.begin": [
+  {
+   "setFlag": "p10_ch85_started"
+  },
+  {
+   "banner": "CHAPTER 85",
+   "sub": "Fart Man"
+  },
+  {
+   "sfx": "trophy_clunk",
+   "volume": 1.0
+  },
+  {
+   "sfx": "token_clack",
+   "volume": 0.7
+  },
+  "CLANG.",
+  "Something heavy comes down the ladder, end over end, and lands by the foot of it with a clatter that wakes up everybody who was asleep and confirms everybody who wasn't.",
+  {
+   "startQuest": "fart_man"
+  },
+  {
+   "tutorial": "See what came down the hatch (by the foot of the ladder).",
+   "title": "Fart Man"
+  }
+ ],
+ "p10c15.trophy": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "A trophy. A gold plastic cup on a black plastic base, crooked where the mould slipped, and a plaque that goes on for a while.",
+  {
+   "insert": "leadership_trophy",
+   "caption": "WORLD'S OKAYEST CAPTAIN. FOR HIRING A FART MAN. DUTIES: EAT, SLEEP, TV, FARTS. TIP: HIRE SOMEONE USEFUL."
+  },
+  "garrick[offended]: FART MAN?",
+  "He's come out of the hammock for this. He's standing in the middle of the galley in his nightcap and his crown, both at once, quivering.",
+  "garrick[offended]: Grand Stenchmaster. GRAND STENCHMASTER. It's a TITLE. It's a sacred OFFICE. With DUTIES.",
+  "pete: Name one.",
+  "garrick[proud]: The Grand Nap.",
+  "pete: Sleeping.",
+  "garrick[proud]: Ceremonial seat warming.",
+  "gristle: Sitting.",
+  "garrick[proud]: Frog Grog tasting.",
+  "jim: Drinking.",
+  "garrick[proud]: SASH PRESERVATION.",
+  "ned: Looking after a bit of cloth off a discount pile.",
+  "garrick[offended]: ...Releases, then. STRATEGIC releases.",
+  "Everyone looks at him.",
+  "squawks[smug]: Fart man.",
+  "garrick[offended]: SQUAWKS.",
+  {
+   "sfx": "chain_jangle",
+   "volume": 0.8
+  },
+  {
+   "sfx": "shark_whoosh",
+   "volume": 0.8
+  },
+  {
+   "shake": 1,
+   "duration": 400
+  },
+  "Up the hatch, the stars go out. Something goes over, low, more decorated than before: you hear the chain before you see the shadow, and the shadow is the whole hatch.",
+  {
+   "sfx": "token_whistle",
+   "volume": 0.6
+  },
+  {
+   "token": "token_card",
+   "x": 14,
+   "y": 5
+  },
+  {
+   "sfx": "token_clack",
+   "volume": 0.8
+  },
+  "Tok. Down the ladder: a token. FREE ADVICE: FEWER GRAND TITLES, MORE JOB DESCRIPTIONS.",
+  {
+   "insert": "token_advice",
+   "caption": "FREE ADVICE: FEWER GRAND TITLES, MORE JOB DESCRIPTIONS."
+  },
+  "captain[angry]: It's giving us ORGANISATIONAL ADVICE.",
+  "gristle: It's not wrong.",
+  "captain[angry]: IT'S A SHARK, GRISTLE.",
+  "You realise you're standing in the middle of the galley, at night, shouting at a plastic coin, with a ribbon on. Everybody's looking at you. You sit down on your beans.",
+  "captain[tired]: I'm fine.",
+  "Nobody says anything.",
+  "captain[angry]: I'm FINE.",
+  {
+   "setFlag": "p10_leadership_trophy"
+  },
+  {
+   "setFlag": "leadership_trophy_received"
+  },
+  {
+   "completeQuest": "fart_man"
+  },
+  {
+   "call": "p10c16.begin"
+  }
+ ],
+ "p10c16.begin": [
+  {
+   "setFlag": "p10_ch86_started"
+  },
+  {
+   "banner": "CHAPTER 86",
+   "sub": "Fart Literature"
+  },
+  "Later. Much later. The pot's stopped going BLORP. Everybody's asleep. Really asleep: Bob talking about lobster, Jim talking about hams, the Grand Stenchmaster snoring over your face like weather.",
+  {
+   "sfx": "garrick_snore",
+   "volume": 0.5
+  },
+  "You're awake. You've been awake for an hour, looking at the bottom of the hammock.",
+  "The book is up there. He fell asleep reading. You can see the corner of it, poking out by the communal pillow.",
+  {
+   "startQuest": "fart_literature"
+  },
+  {
+   "tutorial": "Borrow the book. Quietly (the Grand Stenchmaster's hammock, right over you).",
+   "title": "Fart Literature"
+  }
+ ],
+ "p10c16.book": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "You get up on one elbow. You reach up, very slowly, between the hammock's ropes, and take hold of the corner of the book.",
+  {
+   "repair": "grab",
+   "strikes": 3,
+   "title": "EASE IT OUT"
+  },
+  "garrick_asleep: ...mm... Brogath... very shy...",
+  "He turns over. You freeze. The hammock lowers by an inch, groaning, and settles. You have the book.",
+  {
+   "giveItem": "lost_fart_book"
+  },
+  {
+   "emote": "squawks",
+   "icon": "exclaim"
+  },
+  "In the bread basket, two eyes are open, and watching you.",
+  "captain: (whispering) Not a word.",
+  "squawks: (whispering) ...Bad book.",
+  "captain: (whispering) I know.",
+  "You hold it up to the lamp. It's greasy, and yellow at the edges, and somehow warm. Every page is a different paper: ledger, notebook, the back of a bean label, a bit of somebody's chart.",
+  "You open it. A tiny stale puff comes out of the spine. You turn a page. A different smell. Another page: different again.",
+  "captain[disgusted]: (whispering) A book should not have LAYERS of aroma.",
+  "captain[tired]: (whispering) I cannot believe I am stealing fart literature.",
+  {
+   "setFlag": "stinkbeard_read_book"
+  },
+  {
+   "tutorial": "Read the Rumpold chapter properly, by the lamp (the long table). Every phrase that matters.",
+   "title": "Fart Literature"
+  }
+ ],
+ "p10c16.read": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The long table, the lamp turned up a hair, the book open at RUMPOLD WINDBREAKER THE RESOLUTE. Garrick's crayon, Garrick's spelling, Garrick's very large exclamation marks.",
+  {
+   "insert": "book_rumpold",
+   "caption": "RUMPOLD WINDBREAKER THE RESOLUTE. (Garrick's hand. Not a reliable source.)"
+  },
+  {
+   "choice": [
+    {
+     "text": "'He faced the tornado rear-first.'",
+     "if": {
+      "notFlag": "p10_phr_rear"
+     },
+     "then": [
+      "ORIENTATION. You write it down: GARRICK REAR TOWARD VORTEX. You look at it. You underline it, because if you're going to write it you're going to mean it.",
+      {
+       "setFlag": "p10_phr_rear"
+      },
+      {
+       "event": "p10_phrase"
+      }
+     ]
+    },
+    {
+     "text": "'And waited for the eye of it, the very center.'",
+     "if": {
+      "notFlag": "p10_phr_eye"
+     },
+     "then": [
+      "The middle. Not the edge, not the wall: the centre, where it's calm and it's thinnest. You write: AIM AT THE CENTRE. WAIT FOR IT.",
+      {
+       "setFlag": "p10_phr_eye"
+      },
+      {
+       "event": "p10_phrase"
+      }
+     ]
+    },
+    {
+     "text": "'There he met wind with opposing wind.'",
+     "if": {
+      "notFlag": "p10_phr_wind"
+     },
+     "then": [
+      "Wind against wind. The storm goes round one way; you push the other way, at the heart of it. It's how you'd stop a wheel. You've stopped wheels.",
+      {
+       "setFlag": "p10_phr_wind"
+      },
+      {
+       "event": "p10_phrase"
+      }
+     ]
+    },
+    {
+     "text": "'And the rotation was disrupted.'",
+     "if": {
+      "notFlag": "p10_phr_rotation"
+     },
+     "then": [
+      "The thing that keeps it alive is the going round. Stop the going round, and it's just a lot of sharks in the air with nothing holding them up. You write: STOP THE GOING ROUND.",
+      {
+       "setFlag": "p10_phr_rotation"
+      },
+      {
+       "event": "p10_phrase"
+      }
+     ]
+    },
+    {
+     "text": "'And the funnel collapsed. Hooray.'",
+     "if": {
+      "notFlag": "p10_phr_collapse"
+     },
+     "then": [
+      "'Hooray' is underlined three times in crayon. You don't underline it. But you look at it for a long time.",
+      {
+       "setFlag": "p10_phr_collapse"
+      },
+      {
+       "event": "p10_phrase"
+      }
+     ]
+    },
+    {
+     "text": "Close it for now",
+     "then": [
+      "You close the book on your finger and listen to him snore for a while."
+     ]
+    }
+   ]
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p10_phr_rear"
+     },
+     {
+      "flag": "p10_phr_eye"
+     },
+     {
+      "flag": "p10_phr_wind"
+     },
+     {
+      "flag": "p10_phr_rotation"
+     },
+     {
+      "flag": "p10_phr_collapse"
+     }
+    ]
+   },
+   "then": [
+    {
+     "tutorial": "That's all of it that matters. Write it up (the long table).",
+     "title": "Fart Literature"
+    }
+   ]
+  }
+ ],
+ "p10c16.notes": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You find a pencil and the back of the participation trophy's box, and you write it up.",
+  {
+   "insert": "research_notes",
+   "caption": "ORIENTATION: GARRICK REAR TOWARD VORTEX."
+  },
+  "Underneath you draw it: the storm, a spiral; an arrow; and Garrick, a little stick man with a crown, rear to the spiral.",
+  "Squawks climbs out of the basket, walks up the table, looks at the drawing for a long time, takes the pencil in his beak, and makes Garrick's belly about three times bigger.",
+  {
+   "insert": "research_notes_fat",
+   "caption": "(Squawks' correction: BIGGER.)"
+  },
+  "squawks: (whispering) Accurate.",
+  "captain: (whispering) ...Fair.",
+  "Then the plan. Step by step. You've planned boarding actions with fewer steps.",
+  {
+   "insert": "plan_notes",
+   "caption": "COUNTER-SHARKSTORM. 1 POSITION SHIP NEAR VORTEX ... 11 RECOVER DIGNITY."
+  },
+  "squawks: (whispering) Dignity hardest.",
+  "captain: (whispering) Dignity's last for a reason.",
+  "And at the bottom, because you're an honest man and it's in the book, the clause.",
+  "POSSIBLE CONSEQUENCE: LOCAL SEA MAY REEK FIFTY TO FIFTY-THREE TIMES WORSE THAN A FRESH RELEASE. (HE SAYS.)",
+  "You look at it. You put a hand to your beard, without meaning to. Your stomach turns over, slowly, like the pot.",
+  {
+   "sfx": "chain_jangle",
+   "volume": 0.6
+  },
+  {
+   "sfx": "shark_whoosh",
+   "volume": 0.6
+  },
+  "Above you, through the hatch, the stars go out, and come back.",
+  {
+   "sfx": "token_whistle",
+   "volume": 0.5
+  },
+  {
+   "token": "token_coin",
+   "x": 8,
+   "y": 8
+  },
+  "Tok. On the table, by your hand. You turn it over. GOOD LUCK WITH YOUR FART PLAN!",
+  {
+   "insert": "token_good_luck",
+   "caption": "GOOD LUCK WITH YOUR FART PLAN!"
+  },
+  "You look at it for a long time. Then you pick up the pencil and write one more line, under the clause.",
+  {
+   "insert": "plan_notes_considering",
+   "caption": "STILL CONSIDERING IT."
+  },
+  {
+   "giveItem": "counter_plan_notes"
+  },
+  {
+   "setFlag": "p10_plan_written"
+  },
+  {
+   "setFlag": "fifty_three_clause_written"
+  },
+  {
+   "completeQuest": "fart_literature"
+  },
+  "You don't sleep. You sit at the long table with the book and the plan and the lamp until the hatch goes grey.",
+  {
+   "call": "p10c17.begin"
+  }
+ ],
+ "p10c17.begin": [
+  {
+   "setFlag": "p10_ch87_started"
+  },
+  {
+   "fade": "out",
+   "duration": 900
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 24
+  },
+  {
+   "ambience": "storm_trailing"
+  },
+  {
+   "wait": 400
+  },
+  {
+   "banner": "PART FOUR",
+   "sub": "The Counter-Sharkstorm Initiative"
+  },
+  {
+   "banner": "CHAPTER 87",
+   "sub": "The Counter-Sharkstorm Initiative"
+  },
+  {
+   "transition": "main_deck",
+   "x": 12,
+   "y": 22,
+   "facing": "up",
+   "fade": 900,
+   "then": "p10c17.muster_call"
+  }
+ ],
+ "p10c17.muster_call": [
+  {
+   "restage": "cut"
+  },
+  "Morning. Grey and clean on deck, and astern the storm, standing off, glittering in the first light like it's been up all night counting.",
+  "You've nailed a board to the mainmast. On it: the plan. Under it: the charts, the notes, the book, and your cutlass, point down in the deck.",
+  {
+   "sfx": "bell_cough",
+   "volume": 0.9
+  },
+  "You ring the bell yourself. KLANG. KOFF.",
+  "captain[determined]: ALL HANDS ON DECK!",
+  {
+   "startQuest": "counter_sharkstorm"
+  },
+  {
+   "tutorial": "Brief the crew (the board, by the mainmast).",
+   "title": "The Counter-Sharkstorm Initiative"
+  }
+ ],
+ "p10c17.brief": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "They come up the hatches and stand round you in a half-circle, blinking. They look at the board. They look at the book. They look at you.",
+  "jim: ...Captain. Did you READ that?",
+  "captain: I read one chapter.",
+  "gristle: You read his BOOK.",
+  "garrick[delighted]: (pushing to the front) Captain! You've been studying! You're becoming a SCHOLAR!",
+  "captain[angry]: I am NOT a scholar.",
+  "garrick[delighted]: A student, then. Of the Grand Stenchmaster arts.",
+  "captain[angry]: I am not a student. I am not a believer. I don't believe a word of it. I extracted ONE IDEA, and I am going to use it, and then I am going to give the book back and wash my hands until they bleed.",
+  "captain[determined]: Here's the idea. The Great Sharkstorm is wind, going round. So: we take the Revenge in close. We put her stern to it. And we fire a full Grand Stenchmaster release into its centre. The other way.",
+  "Silence. Then everyone at once.",
+  "pete[annoyed]: You said you didn't believe his history!",
+  "captain: I don't.",
+  "ned: Then why are we DOING his history?",
+  "jim: Can't we just look at the alternatives?",
+  "bob: It's still following us, Captain. We could just... let it follow.",
+  "pete: Maybe the barge'll come back. With more pillows.",
+  "gristle: Did you read the REST of it? The bit after? The fifty-three?",
+  "captain[tired]: ...Aye.",
+  "gristle: And?",
+  "captain[tired]: It's stupid. Aye. It's a stupid plan.",
+  "captain[determined]: So give me a better one. Any of you. Go on.",
+  {
+   "setFlag": "p10_briefing"
+  },
+  {
+   "tutorial": "Hear out the alternatives: Ned, Bob, Jim, Gristle, Hale and Pete each have one.",
+   "title": "The Counter-Sharkstorm Initiative"
+  }
+ ],
+ "p10c17.alt_ned": [
+  {
+   "face": "ned",
+   "dir": "player"
+  },
+  "ned: We wait. It'll weaken. Storms do.",
+  "captain: It's FOLLOWING us, Ned. It's been following us for a month. It'll weaken when we're dead.",
+  "ned: ...Waiting's out.",
+  {
+   "setFlag": "p10_alt_ned"
+  },
+  {
+   "event": "p10_alt"
+  }
+ ],
+ "p10c17.alt_bob": [
+  {
+   "face": "bob",
+   "dir": "player"
+  },
+  "bob[concerned]: We fight 'em! Cutlasses! Board the storm!",
+  "captain: There are hundreds of them, Bob. In the AIR.",
+  "bob: ...We'd need a ladder.",
+  "captain: We'd need hundreds of ladders.",
+  {
+   "setFlag": "p10_alt_bob"
+  },
+  {
+   "event": "p10_alt"
+  }
+ ],
+ "p10c17.alt_jim": [
+  {
+   "face": "jim",
+   "dir": "player"
+  },
+  "jim: We ask HIM. Nicely. To do it somewhere useful. On his own. When it suits him.",
+  "Everyone turns and looks at the Grand Stenchmaster, who is admiring his own reflection in the bell.",
+  "jim: ...No, you're right. That's ridiculous.",
+  {
+   "setFlag": "p10_alt_jim"
+  },
+  {
+   "event": "p10_alt"
+  }
+ ],
+ "p10c17.alt_gristle": [
+  {
+   "face": "gristle",
+   "dir": "player"
+  },
+  "gristle: Row in. Small boats. Get under it, grab what falls.",
+  "captain: Into the sharks. In the boats they bit last time.",
+  "gristle: ...That's not a plan, that's a funeral with oars.",
+  {
+   "setFlag": "p10_alt_gristle"
+  },
+  {
+   "event": "p10_alt"
+  }
+ ],
+ "p10c17.alt_hale": [
+  {
+   "face": "hale",
+   "dir": "player"
+  },
+  "hale: Cannons, Captain. A broadside into the middle of it.",
+  "captain: Hale. We've got four cannons and two of them are full of beans. And the ship's in no state to take the recoil.",
+  "hale: ...Noted, Captain.",
+  {
+   "setFlag": "p10_alt_hale"
+  },
+  {
+   "event": "p10_alt"
+  }
+ ],
+ "p10c17.alt_pete": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "pete: We negotiate. With the Bling Bling King. Talk to it.",
+  "captain: It doesn't TALK, Pete. It throws trophies.",
+  "pete: ...We'd get a participation prize.",
+  "captain: We'd get a participation prize.",
+  {
+   "setFlag": "p10_alt_pete"
+  },
+  {
+   "event": "p10_alt"
+  }
+ ],
+ "p10c17.alts_done": [
+  {
+   "setFlag": "p10_alts_said"
+  },
+  "Every plan is stupid. You look round at them, and they look back at you, and they know it too.",
+  {
+   "tutorial": "Decide (the board).",
+   "title": "The Counter-Sharkstorm Initiative"
+  }
+ ],
+ "p10c17.decide": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "captain[determined]: Every plan's stupid.",
+  "captain[determined]: Waiting: it follows. Fighting: hundreds. Asking him nicely: ridiculous. Rowing in: suicide. Cannons: the ship's falling apart. Talking to it: participation trophies.",
+  "captain[determined]: At least this one has INSTRUCTIONS.",
+  "Silence on the deck.",
+  "gristle: ...It does have instructions.",
+  "ned: Step five's me. Holding course. I like that.",
+  "bob: Step seven is me surviving somehow.",
+  "captain: Step seven is you surviving somehow, Bob.",
+  "bob[happy]: I'm IN a step.",
+  "captain[determined]: Then it's agreed. The Counter-Sharkstorm Initiative. We go in tomorrow.",
+  {
+   "setFlag": "counter_plan_approved"
+  },
+  {
+   "completeQuest": "counter_sharkstorm"
+  },
+  {
+   "call": "p10c18.begin"
+  }
+ ],
+ "p10c18.begin": [
+  {
+   "setFlag": "p10_ch88_started"
+  },
+  {
+   "banner": "CHAPTER 88",
+   "sub": "Sash Holders"
+  },
+  "There's a cough from beside the bell.",
+  "garrick[businesslike]: The Grand Stenchmaster accepts.",
+  "captain: ...Just like that?",
+  "garrick[businesslike]: Just like that. On ONE condition.",
+  {
+   "startQuest": "sash_holders"
+  },
+  {
+   "tutorial": "Ask the Grand Stenchmaster what he needs (him, by the bell).",
+   "title": "Sash Holders"
+  }
+ ],
+ "p10c18.condition": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "garrick[proud]: For a release of this importance... a FULL Grand Stenchmaster release, with an audience... the sash must not flutter.",
+  "garrick[proud]: I require TWO SASH HOLDERS.",
+  "Every member of the crew finds something on the horizon to look at.",
+  "captain: I'm not doing it.",
+  "garrick[businesslike]: You're the captain, Captain. Of course not. You're commanding.",
+  "captain[smug]: I'm commanding.",
+  "garrick[businesslike]: Any volunteers?",
+  "Nobody moves. A gull lands on the rail, takes one look at Garrick, and leaves.",
+  "garrick[businesslike]: There is a small risk, I should say. For the holders. Standing that close to a full release, their noses may stop working correctly.",
+  "bob[happy]: That's GOOD!",
+  "ned: Not smelling anything? After this month?",
+  "jim[happy]: Sign me up for that.",
+  "garrick[businesslike]: No, not like THAT. Not working correctly. They'd smell it continuously. The release. For years, possibly. It'd sort of... stay on.",
+  "Everybody who was stepping forward steps back.",
+  "squawks[smug]: Captain exempt.",
+  "captain: Captain exempt. Beard. I've done my bit.",
+  {
+   "setFlag": "p10_holders_needed"
+  },
+  "garrick[businesslike]: Then perhaps... the Grand Sharkmaster?",
+  {
+   "tutorial": "Find two volunteers (the crew: try Pete first, since he's been mentioned).",
+   "title": "Sash Holders"
+  }
+ ],
+ "p10c18.pete": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "Pete takes a folded paper out of his pocket, unfolds it, and clears his throat.",
+  "pete: Unfortunately, as Grand Sharkmaster, I have duties.",
+  "garrick[surprised]: ...You have what?",
+  "pete: During the operation, the Grand Sharkmaster will be monitoring shark activity. Assessing the Bling Bling King. Observing shark morale. Predicting shark dispersal. And preparing the post-storm shark response.",
+  "He folds the paper back up.",
+  "pete: So I'm afraid I'll be very busy. Over there. Far away.",
+  "The Grand Stenchmaster stares at him. His face goes through several colours. You can see the thought arriving, slowly, from a long way off, like a ship coming over the horizon.",
+  "garrick[offended]: YE'RE USING FAKE JOB DUTIES TO AVOID REAL WORK!",
+  "Silence.",
+  "Total silence. On the whole ship. Even the storm seems to stop going round for a second.",
+  "Every single person on deck turns, very slowly, and looks at the Grand Stenchmaster.",
+  "pete: ...Say that again.",
+  "garrick[nervous]: ...What?",
+  "pete: What you just said. Slowly. Louder. So everyone can hear it.",
+  "garrick[nervous]: ...I said you were using fake job duties to... to...",
+  "He stops. He can hear it now. Everybody can see that he can hear it.",
+  "garrick[offended]: ...Lazy, then. You're being lazy, Pete. The Grand Stenchmaster offers you his moral support in your laziness.",
+  {
+   "sfx": "crew_laugh",
+   "volume": 1.0
+  },
+  {
+   "sfx": "crowd_cheer",
+   "volume": 0.5
+  },
+  "And the deck goes up. The whole crew, laughing, the kind of laughing you can't stop: Bob on his knees, Jim holding onto the bell, Gristle wiping his eyes, Hale at the helm with his head down on the wheel.",
+  "It's the hardest anybody's laughed since the Gust.",
+  "squawks[smug]: Garrick learned.",
+  "garrick[offended]: I've always known, Squawks.",
+  "squawks[smug]: Garrick learned from Pete.",
+  {
+   "setFlag": "pete_bureaucracy_reversal"
+  },
+  {
+   "tutorial": "Still two sash holders short. Draw lots (the board).",
+   "title": "Sash Holders"
+  }
+ ],
+ "p10c18.lots": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "Lots, then. You cut eleven straws from the broom, two of them short, and hold them in your fist, and the crew come up one at a time and draw.",
+  "Long. Long. Long. Bob, long, and he cries a little. Jim, long. Ned, long.",
+  "rusty_tom: ...Short.",
+  "Rusty Tom holds it up. He doesn't look surprised. He's had that kind of week.",
+  "Long. Long.",
+  "barnacle_bill: ...Short.",
+  "Barnacle Bill looks at his straw, and then at Tom's, and then puts his pipe in his mouth, unlit, and bites it.",
+  "bob: (very quietly, very relieved) Not related.",
+  "barnacle_bill: Not related.",
+  {
+   "setValue": "sash_holder_left",
+   "value": "rusty_tom"
+  },
+  {
+   "setValue": "sash_holder_right",
+   "value": "barnacle_bill"
+  },
+  {
+   "setFlag": "sash_holders_chosen"
+  },
+  {
+   "setFlag": "rusty_tom_sash_holder"
+  },
+  {
+   "setFlag": "barnacle_bill_sash_holder"
+  },
+  "garrick[proud]: Rusty Tom, on my left. Barnacle Bill, on my right. Gentlemen, you'll follow my every movement, and keep the sash TAUT. A little practice, I think.",
+  {
+   "setFlag": "sash_holders_on"
+  },
+  "He sets off along the deck. They take an end each and follow, at arm's length, faces turned as far away as faces go, the sash between them tight as a sail.",
+  {
+   "move": "garrick",
+   "to": [
+    10,
+    17
+   ],
+   "speed": 1.2,
+   "async": true
+  },
+  {
+   "move": "rusty_tom",
+   "to": [
+    9,
+    17
+   ],
+   "speed": 1.2,
+   "async": true
+  },
+  {
+   "move": "barnacle_bill",
+   "to": [
+    11,
+    17
+   ],
+   "speed": 1.2
+  },
+  "He stops. They stop. He turns left. They turn left. He bends down to look at something. They bend down.",
+  "garrick[proud]: Perfect. NOT A FLUTTER.",
+  "rusty_tom: (to Bill, from the side of his mouth) We're going to smell it for years.",
+  "barnacle_bill: (from the side of his) Aye.",
+  {
+   "clearFlag": "sash_holders_on"
+  },
+  {
+   "completeQuest": "sash_holders"
+  },
+  {
+   "call": "p10c19.begin"
+  }
+ ]
+}

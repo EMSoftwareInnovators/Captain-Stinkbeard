@@ -342,7 +342,8 @@ describe('Story Phase 9 stays inside its brief', () => {
   ];
   const text = files.flatMap((f) => {
     const p = path.resolve(f);
-    const list = fs.statSync(p).isDirectory() ? fs.readdirSync(p).map((n) => path.join(p, n)) : [p];
+    // Only the folder's own files (data/maps/island/phase10 is a later phase's).
+    const list = fs.statSync(p).isDirectory() ? fs.readdirSync(p).map((n) => path.join(p, n)).filter((x) => fs.statSync(x).isFile()) : [p];
     return list.map((x) => fs.readFileSync(x, 'utf8'));
   }).join('\n');
 

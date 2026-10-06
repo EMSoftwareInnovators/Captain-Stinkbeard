@@ -4,6 +4,7 @@ import path from 'node:path';
 import { currentChapter, resolveVariant } from '../src/systems/story/progress.js';
 import { logEntries } from '../src/systems/logs/logbook.js';
 import { deadCenterLocation } from '../src/systems/hazards/deadCenter.js';
+import { sharedText } from './laterPhases.js';
 import { makeStory } from './storyHarness.js';
 
 /**
@@ -255,15 +256,8 @@ function laterPhaseFlags(phases) {
   return new Set(phases.flatMap((phase) => JSON.parse(fs.readFileSync(path.resolve(`data/story/flags/${phase}.json`), 'utf8')).map((f) => f.id)));
 }
 
-/** A shared logbook file without the entries a later phase unlocks. */
-function withoutLaterEntries(file, later) {
-  const logs = JSON.parse(fs.readFileSync(file, 'utf8'));
-  for (const [id, log] of Object.entries(logs)) {
-    if (later.has(log?.if?.flag)) delete logs[id];
-    else if (log?.entries) log.entries = log.entries.filter((e) => !later.has(e.if?.flag));
-  }
-  return JSON.stringify(logs);
-}
+/** A shared logbook file without the entries (and variants) a later phase unlocks. */
+const withoutLaterEntries = (file, later) => sharedText(file, later);
 
 describe('Story Phase 5 stays inside its brief', () => {
   const files = [

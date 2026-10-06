@@ -1,0 +1,160 @@
+[
+ {
+  "id": "p10_ready",
+  "//": "Phase 10 begins after the Shark Shanty: a one-time hint (notFlag p10_started, as Phase 9's test requires of anything after p9_complete).",
+  "if": {
+   "all": [
+    {
+     "flag": "p9_complete"
+    },
+    {
+     "notFlag": "p10_ready_hint"
+    },
+    {
+     "notFlag": "p10_started"
+    }
+   ]
+  },
+  "script": "p10.ready_hint",
+  "once": false
+ },
+ {
+  "id": "p10_salvage_half",
+  "//": "Chapter 72: four spots searched; the Grand Stenchmaster has an opinion.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "saddest_salvage.first"
+    },
+    {
+     "notFlag": "p10_half_said"
+    }
+   ]
+  },
+  "script": "p10c2.half",
+  "once": false
+ },
+ {
+  "id": "p10_salvage_done",
+  "//": "Chapter 72: all eight searched; Gristle counts it.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "saddest_salvage.rest"
+    },
+    {
+     "notFlag": "p10_rest_said"
+    }
+   ]
+  },
+  "script": "p10c2.rest_done",
+  "once": false
+ },
+ {
+  "id": "p10_tiara",
+  "//": "Chapter 73: on the trail, the tiara falls out of the sky.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "wealthy_sharks.down"
+    },
+    {
+     "notFlag": "p10_tiara_fallen"
+    }
+   ]
+  },
+  "script": "p10c3.tiara_falls",
+  "once": false
+ },
+ {
+  "id": "p10_swept",
+  "//": "Chapter 77: the deck's clear; then something goes off below.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "shark_catering.sweep"
+    },
+    {
+     "notFlag": "p10_ch78_started"
+    }
+   ]
+  },
+  "script": "p10c7.swept",
+  "once": false
+ },
+ {
+  "id": "p10_alts",
+  "//": "Chapter 87: every alternative heard.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "counter_sharkstorm.alternatives"
+    },
+    {
+     "notFlag": "p10_alts_said"
+    }
+   ]
+  },
+  "script": "p10c17.alts_done",
+  "once": false
+ },
+ {
+  "id": "p10_feast_ready",
+  "//": "Chapter 89: all five parts cooked; plate it.",
+  "if": {
+   "all": [
+    {
+     "flag": "p10_feast_crying"
+    },
+    {
+     "flag": "p10_feast_baked"
+    },
+    {
+     "flag": "p10_feast_burnt"
+    },
+    {
+     "flag": "bean_smoothie_made"
+    },
+    {
+     "flag": "p10_feast_sauce"
+    },
+    {
+     "notFlag": "p10_feast_parts_said"
+    }
+   ]
+  },
+  "script": "p10c19.parts_done",
+  "once": false
+ },
+ {
+  "id": "p10_approach_ready",
+  "//": "Chapter 90: everything's tied down; Pete has a report.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "the_approach.sails"
+    },
+    {
+     "objectiveDone": "the_approach.cargo"
+    },
+    {
+     "objectiveDone": "the_approach.ropes"
+    },
+    {
+     "objectiveDone": "the_approach.helm"
+    },
+    {
+     "objectiveDone": "the_approach.galley"
+    },
+    {
+     "objectiveDone": "the_approach.holders"
+    },
+    {
+     "notFlag": "p10_approach_done_said"
+    }
+   ]
+  },
+  "script": "p10c20.all_done",
+  "once": false
+ }
+]

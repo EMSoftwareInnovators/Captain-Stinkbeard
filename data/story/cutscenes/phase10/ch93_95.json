@@ -1,0 +1,723 @@
+{
+ "//": "Story Phase 10, the end (chapters 93-95): inside the Great Sharkstorm; the tokens' welcome; NO AFTERSHOCKS; the galley bunker and the sauce-can aerial; the impossible audit (Franklin, the Bling Bling King on television, the fake Transfer Doctrine, PAID with the captain's crown, the commercial); 'I USED TO BE BLACKBEARD'; the Grand Nap, postponed. Ends with the Revenge still inside the storm.",
+ "p10c23.begin": [
+  {
+   "setFlag": "p10_ch93_started"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 26
+  },
+  {
+   "setValue": "great_sharkstorm",
+   "value": "inside_ship"
+  },
+  {
+   "setValue": "queen_annes_revenge_location",
+   "value": "inside_great_sharkstorm"
+  },
+  {
+   "setFlag": "great_sharkstorm_ship_captured"
+  },
+  {
+   "setFlag": "qar_inside_storm"
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "banner": "CHAPTER 93",
+   "sub": "Inside the Spout"
+  },
+  {
+   "music": "inside_the_storm",
+   "fade": 800
+  },
+  {
+   "ambience": "inside_storm_galley"
+  },
+  {
+   "sfx": "timber_creak",
+   "volume": 0.8
+  },
+  {
+   "sfx": "dish_rattle",
+   "volume": 0.7
+  },
+  "The galley tips one way, slowly, and then the other way, slowly, and keeps doing it.",
+  "Everybody's on the floor. Nobody's hurt. The pots are swinging. A can of Crying Beans rolls the length of the galley, bumps the wall, thinks about it, and rolls back.",
+  "Then the tipping evens out into something steady and long, and you realise the ship isn't falling. She's going ROUND.",
+  "You climb the ladder and put your head out of the hatch.",
+  {
+   "vista": "inside_spout",
+   "fade": 700
+  },
+  "Walls. On every side, as far up as you can see, walls of grey-green cloud and spray streaming past, going round, and in them, going round with you: sharks. Hundreds. Wearing your gold. And pillows, and crab shells, and somebody's quilt, and the odd crown.",
+  "The Queen Anne's Revenge is inside the Great Sharkstorm. Up off the sea. Going round in it like a toy boat in a bath with the plug out.",
+  {
+   "vistaShow": "welcome",
+   "visible": true
+  },
+  {
+   "vistaMove": "welcome",
+   "x": -80,
+   "duration": 5200,
+   "async": true
+  },
+  {
+   "sfx": "token_clack",
+   "volume": 0.8
+  },
+  "And floating past the hatch, close enough to touch: a token. Enormous, the size of a door, a pink ribbon across it: WELCOME TO THE BLING BLING EXPRESS!",
+  {
+   "wait": 1400
+  },
+  {
+   "vistaShow": "congrats",
+   "visible": true
+  },
+  {
+   "vistaMove": "congrats",
+   "x": 400,
+   "duration": 5600,
+   "async": true
+  },
+  "Then another: CONGRATULATIONS! YOU ENTERED THE STORM!",
+  "pete: (behind you on the ladder) ...They had those READY.",
+  "pete: They had those MADE. In ADVANCE. They KNEW.",
+  {
+   "vistaEnd": true,
+   "fade": 600
+  },
+  "You come back down the ladder. In the middle of the galley floor, flat on his back with his arms out, the sash still held at either end by two very pale men, the Grand Stenchmaster opens his eyes.",
+  "garrick[relieved]: ...Captain.",
+  "garrick[delighted]: I feel FANTASTIC.",
+  "He sits up. Light. Refreshed. Rosy. The Suit is loose on him again.",
+  "garrick[delighted]: I feel like a young man. I feel like I could do anything. I feel EMPTY.",
+  {
+   "burst": "suitpuff",
+   "x": 11,
+   "y": 9,
+   "count": 3
+  },
+  {
+   "sfx": "after_puff",
+   "volume": 0.6
+  },
+  "Pff.",
+  "captain[angry]: ...",
+  {
+   "burst": "suitpuff",
+   "x": 11,
+   "y": 9,
+   "count": 3
+  },
+  {
+   "sfx": "after_puff",
+   "volume": 0.6
+  },
+  "Pfft. Pff.",
+  "captain[angry]: GARRICK.",
+  "garrick[proud]: After-puffs, Captain. Settling. Entirely normal.",
+  {
+   "burst": "suitpuff",
+   "x": 11,
+   "y": 9,
+   "count": 3
+  },
+  {
+   "sfx": "after_puff",
+   "volume": 0.6
+  },
+  "garrick[proud]: ...NO AFTERSHOCKS.",
+  {
+   "setValue": "garrick_charge",
+   "value": "calm"
+  },
+  {
+   "setFlag": "garrick_pressure_reset"
+  },
+  {
+   "clearFlag": "sash_holders_on"
+  },
+  "Rusty Tom and Barnacle Bill let go of the sash at last, at exactly the same moment, and both of them fall over.",
+  "rusty_tom[coughing]: Did we... did we let go?",
+  "barnacle_bill: Not once.",
+  "rusty_tom: Can you smell it?",
+  "barnacle_bill: ...I can't tell any more. Can you?",
+  "rusty_tom: I can't tell either. That's either very good or very bad.",
+  {
+   "sfx": "dish_rattle",
+   "volume": 0.9
+  },
+  {
+   "sfx": "timber_creak",
+   "volume": 0.8
+  },
+  "Then the galley tips the long way again, and in the corner the Mark II breaks its lashings and starts to slide, crate and all, across the floor towards the stove...",
+  {
+   "sfx": "stomp_run",
+   "volume": 0.8
+  },
+  "...and the Grand Stenchmaster, who has not moved fast for anything in his life except running away from you, crosses the galley in two strides and catches it.",
+  "garrick[proud]: Got her.",
+  "captain[angry]: We are INSIDE A STORM. Made of SHARKS. And you saved the TELEVISION.",
+  "garrick[businesslike]: Priorities, Captain.",
+  {
+   "tvSet": "ses_mk2",
+   "state": "storm_static",
+   "power": true,
+   "channel": 7
+  },
+  {
+   "sfx": "tv_power_on",
+   "volume": 0.7
+  },
+  {
+   "sfx": "tv_static",
+   "volume": 0.6
+  },
+  "He sets it back in its corner and switches it on. Snow. Nothing but snow. And then, for one frame, a frog, and then snow.",
+  "garrick[worried]: ...No. No, no, no. The signal.",
+  "garrick[worried]: The aerial's down, Captain. Look at it. The horseshoe's on its side. It's been through a STORM.",
+  "pete: We're IN a storm.",
+  "garrick[worried]: Exactly my point, Pete.",
+  {
+   "setFlag": "ses_signal_failure"
+  },
+  {
+   "startQuest": "inside_the_spout"
+  },
+  {
+   "tutorial": "Get a picture on the Mark II: fiddle with its aerial (the Mark II, in the corner by the stores).",
+   "title": "Inside the Spout"
+  }
+ ],
+ "p10c23.antenna": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "tv": "ses_mk2",
+   "mode": "knobs",
+   "panel": "antenna"
+  },
+  {
+   "if": {
+    "flag": "p10_antenna_fixed"
+   },
+   "then": [
+    {
+     "tvSet": "ses_mk2",
+     "state": "sauce_antenna",
+     "channel": 7,
+     "power": true
+    },
+    {
+     "setValue": "ses_mark2_antenna",
+     "value": "spicy_stench_sauce_can"
+    },
+    {
+     "setFlag": "sauce_antenna_installed"
+    },
+    "The can of Spicy Stench Sauce sits on the horseshoe on top of the turnip crate, wedged in place, very slightly bulging, and on the screen, perfectly clear, there is a frog in a tie.",
+    "Everybody looks at the can.",
+    "pete[annoyed]: I hate that it worked.",
+    "captain: I'm not acknowledging it.",
+    "garrick[delighted]: Sauce has a very high signal content, Captain. I always said.",
+    "jim: You've never said that.",
+    "garrick[proud]: I always THOUGHT it.",
+    {
+     "completeQuest": "inside_the_spout"
+    },
+    {
+     "call": "p10c24.begin"
+    }
+   ],
+   "else": [
+    "Snow. And under the snow, somewhere, a frog."
+   ]
+  }
+ ],
+ "p10c24.begin": [
+  {
+   "setFlag": "p10_ch94_started"
+  },
+  {
+   "banner": "CHAPTER 94",
+   "sub": "The Impossible Audit"
+  },
+  "garrick[delighted]: He's on. Everybody. Everybody, sit down, he's ON.",
+  "And because there's nothing else to do inside a storm made of sharks, everybody does.",
+  {
+   "startQuest": "the_impossible_audit"
+  },
+  {
+   "tutorial": "Watch the Frog Tax Man (the Mark II).",
+   "title": "The Impossible Audit"
+  }
+ ],
+ "p10c24.watch": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "vista": "galley_storm_watch",
+   "fade": 500
+  },
+  {
+   "music": "frog_tax_man_theme",
+   "fade": 400
+  },
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_storm_audit",
+   "layer": "screen",
+   "from": 0,
+   "to": 1
+  },
+  "ned: ...A rotating weather system.",
+  "gristle: That's us. That's a storm. He's doing a storm.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_storm_audit",
+   "layer": "screen",
+   "from": 2,
+   "to": 2
+  },
+  "jim: Crowns. Diamonds. EMERALDS.",
+  "captain[surprised]: ...That's the Crimson King's Crown.",
+  "Nobody says anything. On the screen, in green, turning slowly on a little stand marked EXHIBIT A, is a crown you held in your hands for about a second and a half.",
+  "captain[angry]: THIS IS ABOUT US.",
+  "pete: It can't be. It's a TAX programme. It's a frog. We're inside a STORM.",
+  "gristle: How's he getting a SIGNAL in here?",
+  "garrick[proud]: The sauce.",
+  "gristle: How's he getting a signal ABOUT us?",
+  "Nobody has an answer to that. Nobody tries.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_storm_audit",
+   "layer": "screen",
+   "from": 3,
+   "to": 5
+  },
+  "captain[determined]: 'May not satisfy the legal requirement.' HA. HA! You hear that? Not satisfied. The FROG is with US.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_storm_audit",
+   "layer": "screen",
+   "from": 6,
+   "to": 6
+  },
+  {
+   "call": "p10c24.interview"
+  }
+ ],
+ "p10c24.interview": [
+  {
+   "sfx": "broadcast_sting",
+   "volume": 0.8
+  },
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_storm_audit",
+   "layer": "screen",
+   "from": 7,
+   "to": 8
+  },
+  "And on the screen, settling into an armchair like he owns it: the megalodon. Crown. Chain. Pendant. Three-quarters to camera, at ease. And it's TALKING.",
+  "bob: It talks.",
+  "ned: It doesn't talk. It never talks. It spat a coin at us.",
+  "pete: It's talking NOW.",
+  "Everyone in the galley turns from the screen to the hatch, where, outside, going round, the real one goes past, silent, and back to the screen, where it is saying 'respect the brand' in a voice like warm honey.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_storm_audit",
+   "layer": "screen",
+   "from": 9,
+   "to": 9
+  },
+  "garrick[offended]: (to the screen) GRAND STENCHMASTER.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_storm_audit",
+   "layer": "screen",
+   "from": 10,
+   "to": 10
+  },
+  {
+   "sfx": "crew_laugh",
+   "volume": 0.8
+  },
+  "The galley laughs. It can't help it.",
+  "captain[tired]: ...It's not wrong.",
+  "garrick[offended]: CAPTAIN.",
+  "captain[tired]: Eats. Sleeps. Watches television. Creates strategic odours. Name one thing on that list that isn't you.",
+  "garrick[offended]: STRATEGIC. It said STRATEGIC. That's a compliment.",
+  {
+   "setFlag": "bbk_tv_seen"
+  },
+  {
+   "call": "p10c24.doctrine"
+  }
+ ],
+ "p10c24.doctrine": [
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_storm_audit",
+   "layer": "screen",
+   "from": 11,
+   "to": 12
+  },
+  "It's holding up a book. It's holding up THE book. Greasy, string-bound, crayon. The Grand Expedition for the Lost Fart.",
+  "garrick[offended]: THAT'S MADE UP!",
+  "Silence.",
+  "Every head in the galley turns, slowly, from the screen to the Grand Stenchmaster.",
+  "Nobody says anything. Nobody has to.",
+  "garrick[nervous]: ...I mean to say. It's an INCORRECT INTERPRETATION of sacred lore.",
+  "pete: There ARE only eleven chapters.",
+  "garrick[nervous]: There are only eleven chapters SO FAR, Pete.",
+  "ned: Which one's Brogath in?",
+  "garrick[nervous]: ...Three. Brogath's in three. He's never been in forty-seven. Forty-seven doesn't EXIST.",
+  "squawks[smug]: Fart it, lose it.",
+  "garrick[offended]: SQUAWKS.",
+  {
+   "setFlag": "transfer_doctrine_heard"
+  },
+  {
+   "call": "p10c24.tax"
+  }
+ ],
+ "p10c24.tax": [
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_storm_audit",
+   "layer": "screen",
+   "from": 13,
+   "to": 15
+  },
+  "captain: Pirate crowns. It's paying in pirate crowns. Whose pirate crowns does a SHARK have?",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_storm_audit",
+   "layer": "screen",
+   "from": 16,
+   "to": 16
+  },
+  "On the screen, on Franklin's desk: a crown. Not the Crimson King's. The other one. The second-best one. The one with the dent in the band where it hit a beam on its way up the column.",
+  "That was going to be yours.",
+  {
+   "sfx": "stamp_paid",
+   "volume": 1.0
+  },
+  "PAID.",
+  "captain[angry]: THAT'S MY CROWN. THAT IS MY CROWN. IT PAID ITS TAX WITH MY CROWN.",
+  {
+   "sfx": "stomp_run",
+   "volume": 0.6
+  },
+  {
+   "shake": 1,
+   "duration": 300
+  },
+  "You go for the television. Bob gets one arm, Gristle the other, Ned your belt, Jim your coat, and they hold on to you, just, while you strain at the screen with your teeth bared.",
+  "gristle: CAPTAIN. It's a TELEVISION.",
+  "captain[angry]: IT'S A THIEF ON A TELEVISION.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_storm_audit",
+   "layer": "screen",
+   "from": 17,
+   "to": 17
+  },
+  {
+   "setFlag": "ftm_tax_seen"
+  },
+  {
+   "setValue": "bbk_tax_status",
+   "value": "paid_with_captains_crown"
+  },
+  {
+   "call": "p10c24.ad"
+  }
+ ],
+ "p10c24.ad": [
+  "Then there's an advertisement, and they let go of you, carefully, one at a time.",
+  {
+   "sfx": "sunglasses_ting",
+   "volume": 0.8
+  },
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_storm_audit",
+   "layer": "screen",
+   "from": 18,
+   "to": 18
+  },
+  "It's wearing sunglasses.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_storm_audit",
+   "layer": "screen",
+   "from": 19,
+   "to": 20
+  },
+  "garrick[delighted]: (leaning closer) Oh, it's a long one. Shh. Let's watch the whole thing.",
+  "captain[angry]: We are NOT watching the whole...",
+  "garrick[delighted]: There's a jingle at the end. Shh. SHH.",
+  {
+   "vistaEnd": true,
+   "fade": 500
+  },
+  {
+   "music": null
+  },
+  {
+   "setFlag": "p10_audit_seen"
+  },
+  {
+   "setFlag": "anomalous_ftm_watched"
+  },
+  {
+   "setFlag": "ftm_impossible_broadcast"
+  },
+  {
+   "setFlag": "bbk_commercial_seen"
+  },
+  {
+   "logbook": "garrick_legends",
+   "entry": "doctrine"
+  },
+  {
+   "completeQuest": "the_impossible_audit"
+  },
+  {
+   "call": "p10c25.begin"
+  }
+ ],
+ "p10c24.from_interview": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "vista": "galley_storm_watch",
+   "fade": 500
+  },
+  {
+   "music": "frog_tax_man_theme",
+   "fade": 400
+  },
+  {
+   "call": "p10c24.interview"
+  }
+ ],
+ "p10c24.from_doctrine": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "vista": "galley_storm_watch",
+   "fade": 500
+  },
+  {
+   "music": "frog_tax_man_theme",
+   "fade": 400
+  },
+  {
+   "call": "p10c24.doctrine"
+  }
+ ],
+ "p10c24.from_tax": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "vista": "galley_storm_watch",
+   "fade": 500
+  },
+  {
+   "music": "frog_tax_man_theme",
+   "fade": 400
+  },
+  {
+   "call": "p10c24.tax"
+  }
+ ],
+ "p10c24.from_ad": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "vista": "galley_storm_watch",
+   "fade": 500
+  },
+  {
+   "music": "frog_tax_man_theme",
+   "fade": 400
+  },
+  {
+   "call": "p10c24.ad"
+  }
+ ],
+ "p10c25.begin": [
+  {
+   "setFlag": "p10_ch95_started"
+  },
+  {
+   "banner": "CHAPTER 95",
+   "sub": "I Used to Be Blackbeard"
+  },
+  "The set goes on to the weather, somewhere sunny. Nobody's watching it.",
+  "You're standing in the middle of the galley, breathing hard.",
+  "captain[angry]: There is a SHARK. On the TELEVISION.",
+  "captain[angry]: With an ADVERTISING BUDGET. Paid for with MY TREASURE. My crowns. My diamonds. My gold. Stolen. Out of MY ground. By HIS...",
+  "You point at the Grand Stenchmaster. He waves.",
+  "captain[angry]: ...and spent. On LOBSTER. On PILLOWS. On a CHAIN. And now my ship is in the AIR. And the sea under us is BEAN SOUP.",
+  "garrick[businesslike]: To be fair, Captain, the sharks do have very diversified assets now.",
+  "captain[angry]: DIVERSIFIED...",
+  "garrick[businesslike]: And the advertising is tax-deductible. I watched the frog.",
+  {
+   "sfx": "sword_draw",
+   "volume": 1.0
+  },
+  "Your cutlass is out. You didn't decide to draw it. It's just out, in your hand, ringing, and everybody's backing away from you, even Gristle, even Squawks.",
+  "And then you stop.",
+  "You stand there with the sword up and you can feel how tired you are. All of it. The whole month. In your arms.",
+  "squawks: (very quietly) ...Breathe, Captain.",
+  {
+   "startQuest": "blackbeard"
+  },
+  {
+   "tutorial": "Breathe.",
+   "title": "I Used to Be Blackbeard"
+  }
+ ],
+ "p10c25.breathe": [
+  "You lower the sword. You close your eyes. You lift your chin, and you take a long, slow, calming breath, in through the nose...",
+  {
+   "sfx": "sniff",
+   "volume": 0.6
+  },
+  "...through the beard.",
+  {
+   "sfx": "gag",
+   "volume": 0.5
+  },
+  "It's still in there. Root-deep. It will always be in there.",
+  "captain[concerned]: ...I used to be Blackbeard.",
+  "Nobody laughs. Nobody says anything clever. In the dark galley, going round and round inside a storm, the crew look at their captain.",
+  {
+   "vista": "glory_days",
+   "fade": 700
+  },
+  "gristle: You were, Captain.",
+  "ned: Ships ran when they saw your flag. I saw it. Three of them, off Nassau, before we'd fired a gun.",
+  "jim: Ports surrendered. Whole ports. They'd send the keys out in a boat.",
+  "bob: You had the best beard on the sea. Everybody said. Black as a cannon. You used to put lit fuses in it.",
+  "pete: Everyone was terrified of you, Captain. In a GOOD way.",
+  "hale: (from the stairs down to the hold) The finest captain I ever sailed with. I mean that.",
+  "You sit down on a sack of beans. The cutlass goes down across your knees.",
+  {
+   "vistaEnd": true,
+   "fade": 600
+  },
+  "captain[concerned]: ...And now I'm Stinkbeard.",
+  {
+   "sfx": "sniff",
+   "volume": 0.4
+  },
+  "Your beard, as if on cue, gives off a little of what it's holding. You look across the galley at the man responsible.",
+  "captain[angry]: You did this. BLACKBEARD. To STINKBEARD. In one night.",
+  "garrick[businesslike]: I think of it as a brand evolution, Captain.",
+  "captain[angry]: A BRAND...",
+  "garrick[proud]: Blackbeard was very... dated. Very... gunpowder. Stinkbeard is MEMORABLE.",
+  {
+   "sfx": "stomp_run",
+   "volume": 0.8
+  },
+  "You come up off the beans and he goes round the long table and you go round after him, and he goes round again, and you go round again, three times round the long table at a run, in a rotating ship, until the galley tips and you both fall over.",
+  {
+   "setFlag": "blackbeard_breakdown_seen"
+  },
+  {
+   "completeQuest": "blackbeard"
+  },
+  {
+   "call": "p10c25.nap"
+  }
+ ],
+ "p10c25.nap": [
+  "On the floor, out of breath, the Grand Stenchmaster sits up, reaches over, and switches the Mark II off.",
+  {
+   "sfx": "tv_power_off",
+   "volume": 0.7
+  },
+  {
+   "tvSet": "ses_mk2",
+   "power": false
+  },
+  "garrick[proud]: Everyone. EVERYONE. Relax.",
+  "garrick[proud]: We've had a very big day. There's only one thing for it. THE GRAND STENCHMASTER'S GRAND NAP.",
+  "pete[annoyed]: A NAP?",
+  "jim[angry]: WE'RE INSIDE A STORM!",
+  "ned[alarmed]: We're FLYING!",
+  "bob[alarmed]: Going ROUND!",
+  "garrick[proud]: Exactly. Perfect napping weather. It's the perfect reason to stay indoors.",
+  "He climbs up into his hammock. It's still strung over your bed. It sways with the ship, round and round.",
+  "captain[angry]: You are NOT sleeping over me in a STORM.",
+  "garrick[businesslike]: Hierarchy, Captain.",
+  "captain[angry]: YOU DO NOT OUTRANK ME.",
+  "garrick[businesslike]: (lying back) Physically.",
+  {
+   "sfx": "token_whistle",
+   "volume": 0.8
+  },
+  "And then, one more: tok, down the ladder, bouncing, rolling across the floor, and coming to rest against the leg of the hammock stool, face up.",
+  {
+   "token": "token_coin",
+   "x": 12,
+   "y": 9,
+   "id": "p10_last_token"
+  },
+  "The Grand Stenchmaster leans out of the hammock, picks it up, and reads it.",
+  {
+   "insert": "token_good_night",
+   "caption": "GOOD NIGHT, FART MAN! THANKS FOR THE RIDE!"
+  },
+  {
+   "removeSprite": "p10_last_token"
+  },
+  "garrick[offended]: ...Fart man.",
+  "He looks at the token. He looks at you. He looks up, at the hatch, at the storm going round outside it, and the shadow of something very large going past, slowly, with a chain.",
+  "For a long time, nobody says anything.",
+  "garrick[annoyed]: ...Maybe the nap can wait.",
+  "garrick[annoyed]: Until after we deal with THAT.",
+  "You look at him. He looks at you. And for the first time, maybe the first time ever, you find that the two of you want exactly the same thing.",
+  "captain[determined]: Aye.",
+  "captain[determined]: Aye, Garrick. We deal with THAT.",
+  "squawks[smug]: (from the basket) Finally.",
+  {
+   "music": "inside_the_storm",
+   "fade": 1200
+  },
+  {
+   "startQuest": "inside_great_sharkstorm"
+  },
+  {
+   "setFlag": "p10_complete"
+  },
+  {
+   "wait": 500
+  },
+  {
+   "tutorial": "The Queen Anne's Revenge is inside the Great Sharkstorm, going round, with the Bling Bling King and most of the Crimson Fortune. The ship is yours to walk (the deck too, if you can stand the view). (Story Phase 10 is complete.)",
+   "title": "Inside the Great Sharkstorm"
+  }
+ ]
+}

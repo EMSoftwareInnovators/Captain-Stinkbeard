@@ -1,0 +1,1976 @@
+[
+ {
+  "id": "rusty_tom",
+  "name": "Rusty Tom",
+  "title": "Deckhand",
+  "appearance": "rusty_tom",
+  "portrait": "rusty_tom",
+  "//": "Story Phase 10: a deckhand since Portsmouth. First to volunteer for anything, sorry every time. Holds the sash on the Grand Stenchmaster's left.",
+  "voice": {
+   "pitch": 1.05
+  },
+  "behavior": {
+   "type": "stand",
+   "lookAround": true
+  },
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "the_approach.holders"
+    },
+    "script": "p10c20.holders"
+   },
+   {
+    "if": {
+     "flag": "p10_complete"
+    },
+    "script": "rusty_tom.p10_post"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch93_started"
+      },
+      {
+       "notFlag": "p10_complete"
+      }
+     ]
+    },
+    "script": "rusty_tom.p10_inside"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fired_wrong_direction"
+      },
+      {
+       "notFlag": "p10_ch93_started"
+      }
+     ]
+    },
+    "script": "rusty_tom.p10_entry"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch90_started"
+      },
+      {
+       "notFlag": "fired_wrong_direction"
+      }
+     ]
+    },
+    "script": "rusty_tom.p10_approach"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch89_started"
+      },
+      {
+       "notFlag": "p10_ch90_started"
+      }
+     ]
+    },
+    "script": "rusty_tom.p10_feast"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch87_started"
+      },
+      {
+       "notFlag": "p10_ch89_started"
+      }
+     ]
+    },
+    "script": "rusty_tom.p10_plan"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch86_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "script": "rusty_tom.p10_asleep"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch78_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "cycle": [
+     "rusty_tom.p10_night_1",
+     "rusty_tom.p10_night_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch76_started"
+      },
+      {
+       "notFlag": "p10_ch78_started"
+      }
+     ]
+    },
+    "script": "rusty_tom.p10_dinner"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_aboard"
+      },
+      {
+       "notFlag": "p10_ch76_started"
+      }
+     ]
+    },
+    "cycle": [
+     "rusty_tom.p10_aboard_1"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "barnacle_bill",
+  "name": "Barnacle Bill",
+  "title": "Deckhand",
+  "appearance": "barnacle_bill",
+  "portrait": "barnacle_bill",
+  "//": "Story Phase 10: an old deckhand, NOT Barnacle Bob (no relation, and he would like that known). Says very little. Holds the sash on the right.",
+  "voice": {
+   "pitch": 0.66
+  },
+  "behavior": {
+   "type": "stand"
+  },
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "the_approach.holders"
+    },
+    "script": "p10c20.holders"
+   },
+   {
+    "if": {
+     "flag": "p10_complete"
+    },
+    "script": "barnacle_bill.p10_post"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch93_started"
+      },
+      {
+       "notFlag": "p10_complete"
+      }
+     ]
+    },
+    "script": "barnacle_bill.p10_inside"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fired_wrong_direction"
+      },
+      {
+       "notFlag": "p10_ch93_started"
+      }
+     ]
+    },
+    "script": "barnacle_bill.p10_entry"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch90_started"
+      },
+      {
+       "notFlag": "fired_wrong_direction"
+      }
+     ]
+    },
+    "script": "barnacle_bill.p10_approach"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch89_started"
+      },
+      {
+       "notFlag": "p10_ch90_started"
+      }
+     ]
+    },
+    "cycle": [
+     "barnacle_bill.p10_feast_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch87_started"
+      },
+      {
+       "notFlag": "p10_ch89_started"
+      }
+     ]
+    },
+    "script": "barnacle_bill.p10_plan"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch86_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "script": "barnacle_bill.p10_asleep"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch78_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "cycle": [
+     "barnacle_bill.p10_night_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch76_started"
+      },
+      {
+       "notFlag": "p10_ch78_started"
+      }
+     ]
+    },
+    "script": "barnacle_bill.p10_dinner"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_aboard"
+      },
+      {
+       "notFlag": "p10_ch76_started"
+      }
+     ]
+    },
+    "cycle": [
+     "barnacle_bill.p10_aboard_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "garrick",
+  "variants": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sash_holders_on"
+      },
+      {
+       "flag": "garrick_charged"
+      },
+      {
+       "notFlag": "fired_wrong_direction"
+      }
+     ]
+    },
+    "appearance": "garrick_sash_held",
+    "portrait": "garrick_stenchmaster_charged"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "garrick_charged"
+      },
+      {
+       "notFlag": "fired_wrong_direction"
+      }
+     ]
+    },
+    "appearance": "garrick_stenchmaster_charged",
+    "portrait": "garrick_stenchmaster_charged"
+   },
+   {
+    "if": {
+     "flag": "p10_garrick_brushed"
+    },
+    "appearance": "garrick_stenchmaster_crowned",
+    "portrait": "garrick_stenchmaster_crowned"
+   }
+  ],
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "saddest_salvage.appraisal"
+    },
+    "script": "p10c2.appraisal"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_holders.condition"
+    },
+    "script": "p10c18.condition"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_feast.serve"
+    },
+    "script": "p10c19.serve"
+   },
+   {
+    "if": {
+     "objectiveActive": "the_one_time.position"
+    },
+    "script": "p10c21.position"
+   },
+   {
+    "if": {
+     "objectiveActive": "the_one_time.persuade"
+    },
+    "script": "p10c21.argue"
+   },
+   {
+    "if": {
+     "flag": "p10_complete"
+    },
+    "script": "garrick.p10_post"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch93_started"
+      },
+      {
+       "notFlag": "p10_complete"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p10_inside_1",
+     "garrick.p10_inside_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fired_wrong_direction"
+      },
+      {
+       "notFlag": "p10_ch93_started"
+      }
+     ]
+    },
+    "script": "garrick.p10_entry"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch90_started"
+      },
+      {
+       "notFlag": "fired_wrong_direction"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p10_approach_1",
+     "garrick.p10_approach_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch89_started"
+      },
+      {
+       "notFlag": "p10_ch90_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p10_feast_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch87_started"
+      },
+      {
+       "notFlag": "p10_ch89_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p10_plan_1",
+     "garrick.p10_plan_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch86_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "script": "garrick.p10_asleep"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch78_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p10_night_1",
+     "garrick.p10_night_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch76_started"
+      },
+      {
+       "notFlag": "p10_ch78_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p10_dinner_1",
+     "garrick.p10_dinner_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_aboard"
+      },
+      {
+       "notFlag": "p10_ch76_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p10_aboard_1",
+     "garrick.p10_aboard_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_started"
+      },
+      {
+       "notFlag": "p10_aboard"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p10_isle_1",
+     "garrick.p10_isle_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "squawks",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "wrong_way.squawks"
+    },
+    "script": "p10c22.squawks"
+   },
+   {
+    "if": {
+     "flag": "p10_complete"
+    },
+    "script": "squawks.p10_post"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch93_started"
+      },
+      {
+       "notFlag": "p10_complete"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p10_inside_1",
+     "squawks.p10_inside_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch90_started"
+      },
+      {
+       "notFlag": "fired_wrong_direction"
+      }
+     ]
+    },
+    "script": "squawks.p10_approach"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch89_started"
+      },
+      {
+       "notFlag": "p10_ch90_started"
+      }
+     ]
+    },
+    "script": "squawks.p10_feast"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch87_started"
+      },
+      {
+       "notFlag": "p10_ch89_started"
+      }
+     ]
+    },
+    "script": "squawks.p10_plan"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch78_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "script": "squawks.p10_night"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch76_started"
+      },
+      {
+       "notFlag": "p10_ch78_started"
+      }
+     ]
+    },
+    "script": "squawks.p10_dinner"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_aboard"
+      },
+      {
+       "notFlag": "p10_ch76_started"
+      }
+     ]
+    },
+    "script": "squawks.p10_aboard"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_started"
+      },
+      {
+       "notFlag": "p10_aboard"
+      }
+     ]
+    },
+    "script": "squawks.p10_isle"
+   }
+  ]
+ },
+ {
+  "extend": "pete",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p9_complete"
+      },
+      {
+       "notFlag": "p10_started"
+      }
+     ]
+    },
+    "script": "p10c1.begin"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "counter_sharkstorm.alternatives"
+      },
+      {
+       "notFlag": "p10_alt_pete"
+      }
+     ]
+    },
+    "script": "p10c17.alt_pete"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_holders.volunteers"
+    },
+    "script": "p10c18.pete"
+   },
+   {
+    "if": {
+     "objectiveActive": "the_approach.report"
+    },
+    "script": "p10c20.report"
+   },
+   {
+    "if": {
+     "flag": "p10_complete"
+    },
+    "script": "pete.p10_post"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch93_started"
+      },
+      {
+       "notFlag": "p10_complete"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p10_inside_1",
+     "pete.p10_inside_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fired_wrong_direction"
+      },
+      {
+       "notFlag": "p10_ch93_started"
+      }
+     ]
+    },
+    "script": "pete.p10_entry"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch90_started"
+      },
+      {
+       "notFlag": "fired_wrong_direction"
+      }
+     ]
+    },
+    "script": "pete.p10_approach"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch89_started"
+      },
+      {
+       "notFlag": "p10_ch90_started"
+      }
+     ]
+    },
+    "script": "pete.p10_feast"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch87_started"
+      },
+      {
+       "notFlag": "p10_ch89_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p10_plan_1",
+     "pete.p10_plan_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch86_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "script": "pete.p10_asleep"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch78_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p10_night_1",
+     "pete.p10_night_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch76_started"
+      },
+      {
+       "notFlag": "p10_ch78_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p10_dinner_1",
+     "pete.p10_dinner_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_aboard"
+      },
+      {
+       "notFlag": "p10_ch76_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p10_aboard_1",
+     "pete.p10_aboard_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_started"
+      },
+      {
+       "notFlag": "p10_aboard"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p10_isle_1",
+     "pete.p10_isle_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "bob",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "counter_sharkstorm.alternatives"
+      },
+      {
+       "notFlag": "p10_alt_bob"
+      }
+     ]
+    },
+    "script": "p10c17.alt_bob"
+   },
+   {
+    "if": {
+     "flag": "p10_complete"
+    },
+    "script": "bob.p10_post"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch93_started"
+      },
+      {
+       "notFlag": "p10_complete"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p10_inside_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fired_wrong_direction"
+      },
+      {
+       "notFlag": "p10_ch93_started"
+      }
+     ]
+    },
+    "script": "bob.p10_entry"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch90_started"
+      },
+      {
+       "notFlag": "fired_wrong_direction"
+      }
+     ]
+    },
+    "script": "bob.p10_approach"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch89_started"
+      },
+      {
+       "notFlag": "p10_ch90_started"
+      }
+     ]
+    },
+    "script": "bob.p10_feast"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch87_started"
+      },
+      {
+       "notFlag": "p10_ch89_started"
+      }
+     ]
+    },
+    "script": "bob.p10_plan"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch86_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "script": "bob.p10_asleep"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch78_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p10_night_1",
+     "bob.p10_night_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch76_started"
+      },
+      {
+       "notFlag": "p10_ch78_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p10_dinner_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_aboard"
+      },
+      {
+       "notFlag": "p10_ch76_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p10_aboard_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_started"
+      },
+      {
+       "notFlag": "p10_aboard"
+      }
+     ]
+    },
+    "script": "bob.p10_isle"
+   }
+  ]
+ },
+ {
+  "extend": "gristle",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "saddest_salvage.tally"
+    },
+    "script": "p10c2.tally"
+   },
+   {
+    "if": {
+     "objectiveActive": "release_moved_in.where"
+    },
+    "script": "p10c8.where"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "counter_sharkstorm.alternatives"
+      },
+      {
+       "notFlag": "p10_alt_gristle"
+      }
+     ]
+    },
+    "script": "p10c17.alt_gristle"
+   },
+   {
+    "if": {
+     "flag": "p10_complete"
+    },
+    "script": "gristle.p10_post"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch93_started"
+      },
+      {
+       "notFlag": "p10_complete"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p10_inside_1",
+     "gristle.p10_inside_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fired_wrong_direction"
+      },
+      {
+       "notFlag": "p10_ch93_started"
+      }
+     ]
+    },
+    "script": "gristle.p10_entry"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch90_started"
+      },
+      {
+       "notFlag": "fired_wrong_direction"
+      }
+     ]
+    },
+    "script": "gristle.p10_approach"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch89_started"
+      },
+      {
+       "notFlag": "p10_ch90_started"
+      }
+     ]
+    },
+    "script": "gristle.p10_feast"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch87_started"
+      },
+      {
+       "notFlag": "p10_ch89_started"
+      }
+     ]
+    },
+    "script": "gristle.p10_plan"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch86_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "script": "gristle.p10_asleep"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch78_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p10_night_1",
+     "gristle.p10_night_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch76_started"
+      },
+      {
+       "notFlag": "p10_ch78_started"
+      }
+     ]
+    },
+    "script": "gristle.p10_dinner"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_aboard"
+      },
+      {
+       "notFlag": "p10_ch76_started"
+      }
+     ]
+    },
+    "script": "gristle.p10_aboard"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_started"
+      },
+      {
+       "notFlag": "p10_aboard"
+      }
+     ]
+    },
+    "script": "gristle.p10_isle"
+   }
+  ]
+ },
+ {
+  "extend": "jim",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "treasure_feast.pantry"
+    },
+    "script": "p10c5.pantry"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "counter_sharkstorm.alternatives"
+      },
+      {
+       "notFlag": "p10_alt_jim"
+      }
+     ]
+    },
+    "script": "p10c17.alt_jim"
+   },
+   {
+    "if": {
+     "flag": "p10_complete"
+    },
+    "script": "jim.p10_post"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch93_started"
+      },
+      {
+       "notFlag": "p10_complete"
+      }
+     ]
+    },
+    "script": "jim.p10_inside"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fired_wrong_direction"
+      },
+      {
+       "notFlag": "p10_ch93_started"
+      }
+     ]
+    },
+    "script": "jim.p10_entry"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch90_started"
+      },
+      {
+       "notFlag": "fired_wrong_direction"
+      }
+     ]
+    },
+    "script": "jim.p10_approach"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch89_started"
+      },
+      {
+       "notFlag": "p10_ch90_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p10_feast_1",
+     "jim.p10_feast_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch87_started"
+      },
+      {
+       "notFlag": "p10_ch89_started"
+      }
+     ]
+    },
+    "script": "jim.p10_plan"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch86_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "script": "jim.p10_asleep"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch78_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p10_night_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch76_started"
+      },
+      {
+       "notFlag": "p10_ch78_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p10_dinner_1",
+     "jim.p10_dinner_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_aboard"
+      },
+      {
+       "notFlag": "p10_ch76_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p10_aboard_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_started"
+      },
+      {
+       "notFlag": "p10_aboard"
+      }
+     ]
+    },
+    "script": "jim.p10_isle"
+   }
+  ]
+ },
+ {
+  "extend": "ned",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "shark_suites.look"
+    },
+    "script": "p10c9.look"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "counter_sharkstorm.alternatives"
+      },
+      {
+       "notFlag": "p10_alt_ned"
+      }
+     ]
+    },
+    "script": "p10c17.alt_ned"
+   },
+   {
+    "if": {
+     "flag": "p10_complete"
+    },
+    "script": "ned.p10_post"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch93_started"
+      },
+      {
+       "notFlag": "p10_complete"
+      }
+     ]
+    },
+    "script": "ned.p10_inside"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "fired_wrong_direction"
+      },
+      {
+       "notFlag": "p10_ch93_started"
+      }
+     ]
+    },
+    "script": "ned.p10_entry"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch90_started"
+      },
+      {
+       "notFlag": "fired_wrong_direction"
+      }
+     ]
+    },
+    "script": "ned.p10_approach"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch89_started"
+      },
+      {
+       "notFlag": "p10_ch90_started"
+      }
+     ]
+    },
+    "script": "ned.p10_feast"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch87_started"
+      },
+      {
+       "notFlag": "p10_ch89_started"
+      }
+     ]
+    },
+    "script": "ned.p10_plan"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch86_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "script": "ned.p10_asleep"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch78_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p10_night_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch76_started"
+      },
+      {
+       "notFlag": "p10_ch78_started"
+      }
+     ]
+    },
+    "script": "ned.p10_dinner"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_aboard"
+      },
+      {
+       "notFlag": "p10_ch76_started"
+      }
+     ]
+    },
+    "script": "ned.p10_aboard"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_started"
+      },
+      {
+       "notFlag": "p10_aboard"
+      }
+     ]
+    },
+    "script": "ned.p10_isle"
+   }
+  ]
+ },
+ {
+  "extend": "hale",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "counter_sharkstorm.alternatives"
+      },
+      {
+       "notFlag": "p10_alt_hale"
+      }
+     ]
+    },
+    "script": "p10c17.alt_hale"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch93_started"
+      },
+      {
+       "notFlag": "p10_complete"
+      }
+     ]
+    },
+    "script": "hale.p10_inside"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch90_started"
+      },
+      {
+       "notFlag": "fired_wrong_direction"
+      }
+     ]
+    },
+    "script": "hale.p10_approach"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch87_started"
+      },
+      {
+       "notFlag": "p10_ch89_started"
+      }
+     ]
+    },
+    "script": "hale.p10_plan"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch78_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "script": "hale.p10_night"
+   }
+  ]
+ },
+ {
+  "extend": "nell",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch93_started"
+      },
+      {
+       "notFlag": "p10_complete"
+      }
+     ]
+    },
+    "script": "nell.p10_inside"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch90_started"
+      },
+      {
+       "notFlag": "fired_wrong_direction"
+      }
+     ]
+    },
+    "script": "nell.p10_approach"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch78_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "script": "nell.p10_night"
+   }
+  ]
+ },
+ {
+  "extend": "sully",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch93_started"
+      },
+      {
+       "notFlag": "p10_complete"
+      }
+     ]
+    },
+    "script": "sully.p10_inside"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch90_started"
+      },
+      {
+       "notFlag": "fired_wrong_direction"
+      }
+     ]
+    },
+    "script": "sully.p10_approach"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch78_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "script": "sully.p10_night"
+   }
+  ]
+ },
+ {
+  "extend": "fennimore",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch93_started"
+      },
+      {
+       "notFlag": "p10_complete"
+      }
+     ]
+    },
+    "script": "fennimore.p10_inside"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch90_started"
+      },
+      {
+       "notFlag": "fired_wrong_direction"
+      }
+     ]
+    },
+    "script": "fennimore.p10_approach"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch78_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "script": "fennimore.p10_night"
+   }
+  ]
+ },
+ {
+  "extend": "wick",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch93_started"
+      },
+      {
+       "notFlag": "p10_complete"
+      }
+     ]
+    },
+    "script": "wick.p10_inside"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch78_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "script": "wick.p10_night"
+   }
+  ]
+ },
+ {
+  "extend": "rook",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch93_started"
+      },
+      {
+       "notFlag": "p10_complete"
+      }
+     ]
+    },
+    "script": "rook.p10_inside"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch78_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "script": "rook.p10_night"
+   }
+  ]
+ },
+ {
+  "extend": "brask",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch93_started"
+      },
+      {
+       "notFlag": "p10_complete"
+      }
+     ]
+    },
+    "script": "brask.p10_inside"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch78_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "script": "brask.p10_night"
+   }
+  ]
+ },
+ {
+  "extend": "jory",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch93_started"
+      },
+      {
+       "notFlag": "p10_complete"
+      }
+     ]
+    },
+    "script": "jory.p10_inside"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch78_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "script": "jory.p10_night"
+   }
+  ]
+ },
+ {
+  "extend": "finch",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch93_started"
+      },
+      {
+       "notFlag": "p10_complete"
+      }
+     ]
+    },
+    "script": "finch.p10_inside"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch78_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "script": "finch.p10_night"
+   }
+  ]
+ },
+ {
+  "extend": "mags",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch93_started"
+      },
+      {
+       "notFlag": "p10_complete"
+      }
+     ]
+    },
+    "script": "mags.p10_inside"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch78_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "script": "mags.p10_night"
+   }
+  ]
+ },
+ {
+  "extend": "quill",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch93_started"
+      },
+      {
+       "notFlag": "p10_complete"
+      }
+     ]
+    },
+    "script": "quill.p10_inside"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch78_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "script": "quill.p10_night"
+   }
+  ]
+ },
+ {
+  "extend": "penhallow",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch93_started"
+      },
+      {
+       "notFlag": "p10_complete"
+      }
+     ]
+    },
+    "script": "penhallow.p10_inside"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_ch78_started"
+      },
+      {
+       "notFlag": "p10_ch87_started"
+      }
+     ]
+    },
+    "script": "penhallow.p10_night"
+   }
+  ]
+ }
+]

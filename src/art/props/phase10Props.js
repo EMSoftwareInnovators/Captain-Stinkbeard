@@ -3,6 +3,7 @@ import { miniScreen } from './phase5Props.js';
 import { mk2Small } from './phase7Props.js';
 import { staticFrame } from '../vista/sesArt.js';
 import { PHASE10_SCREEN_PAINTERS } from '../vista/vistaPhase10.js';
+import { tokenCoin, tiaraGround } from '../stage/stagePhase10.js';
 
 /**
  * Props for Story Phase 10 (the Bling Bling King's prizes; the beans; the
@@ -277,4 +278,7 @@ export const PHASE10_PROPS = {
   ses2_bent: mk2Bent,
   ses2_sauce: mk2Sauce,
   ses2_sauce_off: mk2SauceOff,
+  // the same coin and tiara as the stage sprites, lying where they fell (so they're still there if you leave and come back)
+  token_coin_floor: tokenCoin,
+  tiara_floor: tiaraGround,
 };

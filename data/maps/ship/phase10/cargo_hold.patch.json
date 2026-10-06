@@ -1,0 +1,783 @@
+{
+ "id": "cargo_hold_phase10",
+ "patch": "cargo_hold",
+ "//": "Story Phase 10 in the hold. Jim's pantry (17,10): all beans. The water casks (5,12): all Frog Grog. Garrick's vats of Spicy Stench Sauce, bought in bulk (18,7 to 18,9); after dinner one vents (CONTENTS MAY PRESSURIZE AFTER OPENING), red on everything, and nobody sleeps in the barracks again this phase (the hands go up on deck, the rest to the galley). The Mark II goes up to the galley. Inside the storm the hands come back down and hold on.",
+ "objects": [
+  {
+   "id": "p10_pantry",
+   "type": "inspect",
+   "x": 17,
+   "y": 10,
+   "if": {
+    "objectiveActive": "treasure_feast.pantry"
+   },
+   "script": "p10c5.pantry"
+  },
+  {
+   "id": "p10_casks_a",
+   "type": "inspect",
+   "x": 5,
+   "y": 12,
+   "if": {
+    "objectiveActive": "treasure_feast.casks"
+   },
+   "script": "p10c5.casks"
+  },
+  {
+   "id": "p10_casks_b",
+   "type": "inspect",
+   "x": 6,
+   "y": 13,
+   "if": {
+    "objectiveActive": "treasure_feast.casks"
+   },
+   "script": "p10c5.casks"
+  },
+  {
+   "id": "p10_vats_feast",
+   "type": "inspect",
+   "x": 18,
+   "y": 7,
+   "h": 3,
+   "if": {
+    "objectiveActive": "grand_feast.sauce"
+   },
+   "script": "p10c19.sauce"
+  },
+  {
+   "id": "p10_vats",
+   "type": "inspect",
+   "x": 18,
+   "y": 7,
+   "h": 3,
+   "if": {
+    "flag": "p10_ch75_started"
+   },
+   "script": "p10.inspect.vats"
+  },
+  {
+   "id": "p10_pantry_look",
+   "type": "inspect",
+   "x": 17,
+   "y": 10,
+   "if": {
+    "flag": "bean_pantry_revealed"
+   },
+   "script": "p10.inspect.pantry"
+  },
+  {
+   "id": "p10_mk2_gone",
+   "type": "inspect",
+   "x": 11,
+   "y": 11,
+   "if": {
+    "flag": "p10_mk2_moved"
+   },
+   "script": "p10.inspect.mk2_gone"
+  },
+  {
+   "id": "p10h_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 13,
+   "y": 7,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p10_ch78_started"
+     },
+     {
+      "notFlag": "p10_sleep_discussed"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10h_bob_0",
+   "type": "npc",
+   "npc": "bob",
+   "x": 12,
+   "y": 8,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p10_ch78_started"
+     },
+     {
+      "notFlag": "p10_sleep_discussed"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10h_gristle_0",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 16,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p10_ch78_started"
+     },
+     {
+      "notFlag": "p10_sleep_discussed"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10h_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 16,
+   "y": 11,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p10_ch75_started"
+     },
+     {
+      "notFlag": "p10_ch76_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10h_jim_1",
+   "type": "npc",
+   "npc": "jim",
+   "x": 16,
+   "y": 9,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p10_ch78_started"
+     },
+     {
+      "notFlag": "p10_sleep_discussed"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10h_ned_0",
+   "type": "npc",
+   "npc": "ned",
+   "x": 15,
+   "y": 8,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p10_ch78_started"
+     },
+     {
+      "notFlag": "p10_sleep_discussed"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10h_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 11,
+   "y": 7,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p10_ch78_started"
+     },
+     {
+      "notFlag": "p10_sleep_discussed"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10h_rusty_tom_0",
+   "type": "npc",
+   "npc": "rusty_tom",
+   "x": 10,
+   "y": 8,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p10_ch78_started"
+     },
+     {
+      "notFlag": "p10_sleep_discussed"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10h_barnacle_bill_0",
+   "type": "npc",
+   "npc": "barnacle_bill",
+   "x": 10,
+   "y": 9,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p10_ch78_started"
+     },
+     {
+      "notFlag": "p10_sleep_discussed"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10h_nell_0",
+   "type": "npc",
+   "npc": "nell",
+   "x": 13,
+   "y": 7,
+   "facing": "left",
+   "if": {
+    "flag": "p10_ch93_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10h_nell_1",
+   "type": "npc",
+   "npc": "nell",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "hold_barracks_sauced"
+   }
+  },
+  {
+   "id": "p10h_nell_2",
+   "type": "npc",
+   "npc": "nell",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p10_ch78_started"
+   }
+  },
+  {
+   "id": "p10h_sully_0",
+   "type": "npc",
+   "npc": "sully",
+   "x": 12,
+   "y": 8,
+   "facing": "up",
+   "if": {
+    "flag": "p10_ch93_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10h_sully_1",
+   "type": "npc",
+   "npc": "sully",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "hold_barracks_sauced"
+   }
+  },
+  {
+   "id": "p10h_sully_2",
+   "type": "npc",
+   "npc": "sully",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p10_ch78_started"
+   }
+  },
+  {
+   "id": "p10h_fennimore_0",
+   "type": "npc",
+   "npc": "fennimore",
+   "x": 10,
+   "y": 9,
+   "facing": "right",
+   "if": {
+    "flag": "p10_ch93_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10h_fennimore_1",
+   "type": "npc",
+   "npc": "fennimore",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "hold_barracks_sauced"
+   }
+  },
+  {
+   "id": "p10h_fennimore_2",
+   "type": "npc",
+   "npc": "fennimore",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p10_ch78_started"
+   }
+  },
+  {
+   "id": "p10h_wick_0",
+   "type": "npc",
+   "npc": "wick",
+   "x": 9,
+   "y": 7,
+   "facing": "down",
+   "if": {
+    "flag": "p10_ch93_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10h_wick_1",
+   "type": "npc",
+   "npc": "wick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "hold_barracks_sauced"
+   }
+  },
+  {
+   "id": "p10h_wick_2",
+   "type": "npc",
+   "npc": "wick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p10_ch78_started"
+   }
+  },
+  {
+   "id": "p10h_rook_0",
+   "type": "npc",
+   "npc": "rook",
+   "x": 8,
+   "y": 9,
+   "facing": "right",
+   "if": {
+    "flag": "p10_ch93_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10h_rook_1",
+   "type": "npc",
+   "npc": "rook",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "hold_barracks_sauced"
+   }
+  },
+  {
+   "id": "p10h_rook_2",
+   "type": "npc",
+   "npc": "rook",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p10_ch78_started"
+   }
+  },
+  {
+   "id": "p10h_brask_0",
+   "type": "npc",
+   "npc": "brask",
+   "x": 7,
+   "y": 8,
+   "facing": "right",
+   "if": {
+    "flag": "p10_ch93_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10h_brask_1",
+   "type": "npc",
+   "npc": "brask",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "hold_barracks_sauced"
+   }
+  },
+  {
+   "id": "p10h_brask_2",
+   "type": "npc",
+   "npc": "brask",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p10_ch78_started"
+   }
+  },
+  {
+   "id": "p10h_jory_0",
+   "type": "npc",
+   "npc": "jory",
+   "x": 6,
+   "y": 9,
+   "facing": "right",
+   "if": {
+    "flag": "p10_ch93_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10h_jory_1",
+   "type": "npc",
+   "npc": "jory",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "hold_barracks_sauced"
+   }
+  },
+  {
+   "id": "p10h_jory_2",
+   "type": "npc",
+   "npc": "jory",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p10_ch78_started"
+   }
+  },
+  {
+   "id": "p10h_finch_0",
+   "type": "npc",
+   "npc": "finch",
+   "x": 4,
+   "y": 8,
+   "facing": "right",
+   "if": {
+    "flag": "p10_ch93_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10h_finch_1",
+   "type": "npc",
+   "npc": "finch",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "hold_barracks_sauced"
+   }
+  },
+  {
+   "id": "p10h_finch_2",
+   "type": "npc",
+   "npc": "finch",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p10_ch78_started"
+   }
+  },
+  {
+   "id": "p10h_mags_0",
+   "type": "npc",
+   "npc": "mags",
+   "x": 3,
+   "y": 9,
+   "facing": "right",
+   "if": {
+    "flag": "p10_ch93_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10h_mags_1",
+   "type": "npc",
+   "npc": "mags",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "hold_barracks_sauced"
+   }
+  },
+  {
+   "id": "p10h_mags_2",
+   "type": "npc",
+   "npc": "mags",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p10_ch78_started"
+   }
+  },
+  {
+   "id": "p10h_quill_0",
+   "type": "npc",
+   "npc": "quill",
+   "x": 11,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "flag": "p10_ch93_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10h_quill_1",
+   "type": "npc",
+   "npc": "quill",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "hold_barracks_sauced"
+   }
+  },
+  {
+   "id": "p10h_quill_2",
+   "type": "npc",
+   "npc": "quill",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p10_ch78_started"
+   }
+  },
+  {
+   "id": "p10h_penhallow_0",
+   "type": "npc",
+   "npc": "penhallow",
+   "x": 9,
+   "y": 12,
+   "facing": "up",
+   "if": {
+    "flag": "p10_ch93_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10h_penhallow_1",
+   "type": "npc",
+   "npc": "penhallow",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "hold_barracks_sauced"
+   }
+  },
+  {
+   "id": "p10h_penhallow_2",
+   "type": "npc",
+   "npc": "penhallow",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p10_ch78_started"
+   }
+  },
+  {
+   "id": "p10h_hale_0",
+   "type": "npc",
+   "npc": "hale",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p10_ch93_started"
+   }
+  },
+  {
+   "id": "p10h_hale_1",
+   "type": "npc",
+   "npc": "hale",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p10_ch78_started"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "bean_pantry_open",
+   "x": 17,
+   "y": 10,
+   "if": {
+    "flag": "bean_pantry_revealed"
+   },
+   "id": "p10_pantry_open"
+  },
+  {
+   "prop": "sauce_vat",
+   "x": 18,
+   "y": 7,
+   "if": {
+    "notFlag": "hold_barracks_sauced"
+   },
+   "id": "p10_vat_a"
+  },
+  {
+   "prop": "sauce_vat_vented",
+   "x": 18,
+   "y": 7,
+   "if": {
+    "flag": "hold_barracks_sauced"
+   },
+   "id": "p10_vat_a_vented"
+  },
+  {
+   "prop": "sauce_vat",
+   "x": 18,
+   "y": 8,
+   "id": "p10_vat_b"
+  },
+  {
+   "prop": "sauce_vat",
+   "x": 18,
+   "y": 9,
+   "id": "p10_vat_c"
+  },
+  {
+   "prop": "sauce_stain",
+   "x": 16,
+   "y": 7,
+   "if": {
+    "flag": "hold_barracks_sauced"
+   },
+   "id": "p10_stain_a"
+  },
+  {
+   "prop": "sauce_stain",
+   "x": 13,
+   "y": 9,
+   "if": {
+    "flag": "hold_barracks_sauced"
+   },
+   "id": "p10_stain_b"
+  }
+ ],
+ "propConditions": [
+  {
+   "id": "p8_pantry",
+   "if": {
+    "notFlag": "bean_pantry_revealed"
+   }
+  },
+  {
+   "id": "mk2_ftm",
+   "if": {
+    "notFlag": "p10_mk2_moved"
+   }
+  }
+ ],
+ "onEnter": [
+  {
+   "if": {
+    "objectiveActive": "release_moved_in.hold"
+   },
+   "script": "p10c8.hold"
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "flag": "p10_ch93_started"
+   },
+   "music": "inside_the_storm",
+   "ambience": "inside_storm_galley"
+  },
+  {
+   "if": {
+    "flag": "p10_ch78_started"
+   },
+   "music": null,
+   "ambience": "lower_hull"
+  }
+ ]
+}

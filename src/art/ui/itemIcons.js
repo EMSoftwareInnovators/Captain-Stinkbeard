@@ -453,6 +453,50 @@ export const ICONS = {
     ],
     colors: { o: O, P: PAL.cloth2, p: PAL.cloth4, b: '#5a8ac0', g: '#5a9a4a', r: '#c8302a', k: '#7a5a3a' },
   },
+  // Story Phase 10: the Bling Bling King's participation coin (plastic, fake gold, a mould seam).
+  token: {
+    rows: [
+      '................',
+      '.....oooooo.....',
+      '....oyyyyyyo....',
+      '...oyYYYYYYyo...',
+      '..oyYYdYdYdYyo..',
+      '..oyYYdddddYyo..',
+      '..osssssssssso..',
+      '..oyYdddddYYyo..',
+      '..oyYYdYYYYYyo..',
+      '...oyYYYYYYyo...',
+      '....oyyyyyyo....',
+      '.....oooooo.....',
+      '................',
+      '................',
+      '................',
+      '................',
+    ],
+    colors: { o: O, y: '#b8962c', Y: '#e8c850', d: '#8a6a1c', s: '#d0b878' },
+  },
+  // Story Phase 10: Garrick's book (homemade: ledger paper, string, stains).
+  book: {
+    rows: [
+      '................',
+      '...oooooooooo...',
+      '..obbbbbbbbbbo..',
+      '..obppppppppbo..',
+      '..obpkkkkkkpbo..',
+      '..obppppppppbo..',
+      '..obpkkkkpppbo..',
+      '..obppppyyppbo..',
+      '..obppppyyppbo..',
+      '..obppppppppbo..',
+      '..obwbbwbbbwbo..',
+      '..oooooooooooo..',
+      '................',
+      '................',
+      '................',
+      '................',
+    ],
+    colors: { o: O, b: '#5a3a1a', p: '#efe4c4', k: '#8a5426', y: '#d8c060', w: '#e8e0c8' },
+  },
 };
 
 export function buildItemIcons() {

@@ -24,7 +24,7 @@ const RUBY = '#d02838';
 const EMERALD = '#28a050';
 
 /** The participation coin, lying on the deck: plastic gold, a crowned shark stamped off-centre, a mould seam. */
-function tokenCoin() {
+export function tokenCoin() {
   const c = new PixelCanvas(10, 9);
   c.ellipse(5, 4.5, 4.5, 4, PLASTIC.m);
   c.ellipse(5, 4.5, 3, 2.6, PLASTIC.l);
@@ -220,7 +220,7 @@ function pillow(tilt = 0) {
 
 // --- the tiara, beans, sauce, smoothie ---
 
-function tiaraGround() {
+export function tiaraGround() {
   const c = new PixelCanvas(10, 6);
   c.hline(1, 8, 4, GOLD.m);
   c.hline(2, 7, 5, GOLD.d);

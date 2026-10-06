@@ -1,0 +1,456 @@
+{
+ "garrick_legends": {
+  "title": "Garrick's Alleged Stenchmaster Legends",
+  "menuLabel": "Alleged Legends",
+  "keeper": "garrick",
+  "byline": "<k>Told by</> the Grand Stenchmaster. <k>Doubted by</> everyone.",
+  "icon": "book",
+  "if": {
+   "flag": "brogath_legend_heard"
+  },
+  "fields": [
+   {
+    "id": "claim",
+    "label": "Claim"
+   },
+   {
+    "id": "source",
+    "label": "First source"
+   },
+   {
+    "id": "evidence",
+    "label": "Evidence"
+   },
+   {
+    "id": "verified",
+    "label": "Verification"
+   },
+   {
+    "id": "reliability",
+    "label": "Reliability",
+    "scale": true
+   },
+   {
+    "id": "note",
+    "label": "Captain's note",
+    "quote": true
+   }
+  ],
+  "severities": {
+   "Verified": "g",
+   "Alleged": "y",
+   "Highly Questionable": "o",
+   "A guess": "o",
+   "Made up": "r"
+  },
+  "entries": [
+   {
+    "id": "verified",
+    "title": "VERIFIED STENCHMASTER HISTORY",
+    "if": {
+     "flag": "brogath_legend_heard"
+    },
+    "claim": "Everything below this line is a legend told by the Grand Stenchmaster. None of it has been verified by anyone. This line is the only verified history.",
+    "source": "(none)",
+    "evidence": "(none)",
+    "verified": "This line",
+    "reliability": "Verified",
+    "note": "Still empty. Still the only true entry."
+   },
+   {
+    "id": "brogath",
+    "title": "Brogath the Bashful",
+    "if": {
+     "flag": "brogath_legend_heard"
+    },
+    "claim": "An ancient Grand Stenchmaster, terribly shy about his releases. Owned a huge treasure. Got tired after three minutes of digging. One mighty blast: the treasure went up into a shark storm, the sharks got rich, and the biggest shark wore his crown. The lesson: ALWAYS HIRE A GRAND SHARKMASTER.",
+    "source": "Garrick's bedtime story (out of his book, in the galley, by lamplight)",
+    "evidence": "None",
+    "verified": "None",
+    "reliability": "Highly Questionable",
+    "note": "He invented him five minutes ago. (Jim: he invented the entire thing after dinner, on the back of a bean label.) It happened to US. THIS AFTERNOON. (Pete.)",
+    "variants": [
+     {
+      "if": {
+       "flag": "transfer_doctrine_heard"
+      },
+      "evidence": "None. Cited on the television, by a shark, as legal precedent ('See: Brogath'). Being on television is not evidence.",
+      "note": "He invented him after dinner. Now a shark's lawyer is quoting him. Still not verified. Still not real, as far as anybody can prove."
+     }
+    ]
+   },
+   {
+    "id": "book",
+    "title": "The Grand Expedition for the Lost Fart",
+    "if": {
+     "flag": "stinkbeard_read_book"
+    },
+    "insert": "book_cover",
+    "caption": "The Grand Expedition for the Lost Fart: Complete Grand Stenchmaster Legends. Volume One of Probably Many.",
+    "claim": "'The Grand Expedition for the Lost Fart: Complete Grand Stenchmaster Legends - Volume One of Probably Many.' The collected wisdom of the Grand Stenchmasters of old.",
+    "source": "Garrick (author, illustrator, bookbinder)",
+    "evidence": "Old ledger paper, salvaged notebooks and blank pages, in crayon. Stained. Badly bound. It smells like him. Volume One of a series of one.",
+    "verified": "None",
+    "reliability": "Highly Questionable",
+    "note": "I read it at night, at the long table, when he was asleep. I'm not proud. It's not a reliable source. It's the only source."
+   },
+   {
+    "id": "rumpold",
+    "title": "Rumpold Windbreaker the Resolute",
+    "if": {
+     "flag": "rumpold_legend_heard"
+    },
+    "insert": "book_rumpold",
+    "caption": "The Rumpold chapter. In crayon.",
+    "claim": "A Grand Stenchmaster who faced a tornado rear-first, waited for the eye, the very centre, and met wind with opposing wind; the rotation was disrupted and the funnel collapsed. Afterwards (he says) the rain, the rivers, the bay and the local sea reeked 'fifty times worse than a fresh release. Fifty-plus. Approximately fifty-three.'",
+    "source": "Garrick's second bedtime story (the same book)",
+    "evidence": "None",
+    "verified": "None",
+    "reliability": "Highly Questionable",
+    "note": "It's a story. It's also the only plan anybody's got.",
+    "variants": [
+     {
+      "if": {
+       "flag": "fired_wrong_direction"
+      },
+      "note": "It's a story. We tried it anyway. He faced the wrong way. (Rumpold, allegedly, did not.)"
+     }
+    ]
+   },
+   {
+    "id": "fifty_three",
+    "title": "The Fifty-Three Times Claim",
+    "if": {
+     "flag": "p10_fifty_three_heard"
+    },
+    "claim": "A Rumpold-sized counter-blast leaves the local sea reeking fifty to fifty-three times worse than a fresh release.",
+    "source": "Garrick, quoting Garrick's book",
+    "evidence": "None. Nobody has measured it. Nobody knows how you would.",
+    "verified": "None",
+    "reliability": "Highly Questionable",
+    "note": "I wrote it in the plan as a POSSIBLE CONSEQUENCE, with (HE SAYS.) after it. Then I wrote STILL CONSIDERING IT."
+   },
+   {
+    "id": "five_hundred",
+    "title": "The Five Hundred Times Guess",
+    "if": {
+     "flag": "p10_arg_ocean"
+    },
+    "claim": "Into open water instead of into the storm: 'MAYBE five hundred times.'",
+    "source": "Garrick, at the bow, losing his nerve",
+    "evidence": "None. He said himself: 'That's a guess. I'm not a scientist.'",
+    "verified": "None",
+    "reliability": "A guess",
+    "note": "He was trying to talk me out of it. Then he did it anyway, into the ocean. Nobody's measuring the sea. Nobody's going to."
+   },
+   {
+    "id": "doctrine",
+    "title": "The Ancient Stenchmaster Transfer Doctrine",
+    "if": {
+     "flag": "transfer_doctrine_heard"
+    },
+    "claim": "'Fart It, Lose It.' Treasure a Grand Stenchmaster blasts into the sky belongs to whoever catches it. Chapter Forty-Seven. See: Brogath.",
+    "source": "The Bling Bling King, on the Frog Tax Man, citing Garrick's book as ancient legal authority",
+    "evidence": "None. The book has nowhere near forty-seven chapters.",
+    "verified": "None",
+    "reliability": "Made up",
+    "note": "Garrick: 'That's MADE UP!' Everyone turned round and looked at him, slowly. He revised it: 'an incorrect interpretation of sacred lore.'"
+   }
+  ]
+ },
+ "bbk_trash": {
+  "title": "The Bling Bling King's Participation Trash",
+  "menuLabel": "Participation Trash",
+  "byline": "<k>Thrown by</> the Bling Bling King. <k>Kept</> as evidence.",
+  "icon": "token",
+  "if": {
+   "flag": "p10_first_coin"
+  },
+  "viewLabel": "Look at it",
+  "fields": [
+   {
+    "id": "printed",
+    "label": "It says",
+    "quote": true
+   },
+   {
+    "id": "arrived",
+    "label": "Arrived"
+   },
+   {
+    "id": "value",
+    "label": "Value"
+   },
+   {
+    "id": "verdict",
+    "label": "Verdict",
+    "quote": true
+   }
+  ],
+  "entries": [
+   {
+    "id": "coin",
+    "title": "Official Participation Treasure",
+    "if": {
+     "flag": "p10_first_coin"
+    },
+    "insert": "participation_coin_front",
+    "caption": "TREASURE IS ABOUT THE JOURNEY!",
+    "printed": "TREASURE IS ABOUT THE JOURNEY! / OFFICIAL PARTICIPATION TREASURE. CONGRATULATIONS - YOU FOUND IT! VALUE: GREAT MEMORIES. NO CASH VALUE.",
+    "arrived": "Spat onto the deck by the Bling Bling King, the day it came back",
+    "value": "Great memories. No cash value.",
+    "verdict": "Plastic. The gold comes off on your thumb. I threw it at the Grand Stenchmaster. He gave it back: 'We DID participate.'"
+   },
+   {
+    "id": "leftovers",
+    "title": "The Sharks' Leftovers",
+    "if": {
+     "flag": "shark_leftovers_seen"
+    },
+    "printed": "(Nothing. It's rubbish.)",
+    "arrived": "Out of the sky, like hail, after the sharks' catered dinner",
+    "value": "Lobster shells, crab shells, a foil tray of oyster shells, a takeout box, a caviar tin licked clean, napkins, a little fork. Paid for with my treasure.",
+    "verdict": "Swept over the side. All three heaps. We are NOT eating the sharks' leftovers."
+   },
+   {
+    "id": "bedtime",
+    "title": "Bedtime Tokens",
+    "if": {
+     "flag": "p10_bedtime_tokens"
+    },
+    "insert": "token_sweet_dreams",
+    "caption": "SWEET DREAMS! WE KEPT THE GOOD PILLOWS!",
+    "printed": "SWEET DREAMS! WE KEPT THE GOOD PILLOWS! / REST EASY! YOUR GOLD IS COMFORTABLE! / ENJOY THE FLOOR! SHARK SUITES ARE SOLD OUT!",
+    "arrived": "Down the galley hatch, at night, one at a time",
+    "value": "None",
+    "verdict": "The sharks have pillows. We have one."
+   },
+   {
+    "id": "captain_under",
+    "title": "'Captain Under Fart Suit'",
+    "if": {
+     "flag": "p10_bedtime_tokens"
+    },
+    "insert": "token_captain_under",
+    "caption": "CAPTAIN UNDER FART SUIT",
+    "printed": "CAPTAIN / UNDER FART SUIT (a picture: a hammock, and something under it)",
+    "arrived": "Down the hatch, the same night",
+    "value": "None",
+    "verdict": "Squawks read it out loud. I broke it in half."
+   },
+   {
+    "id": "ribbon",
+    "title": "The Grand Award Ribbon",
+    "if": {
+     "flag": "bedtime_ribbon_received"
+    },
+    "insert": "grand_award_ribbon",
+    "caption": "GRAND PRIZE.",
+    "printed": "GRAND PRIZE FOR FINDING TREASURE FOR SOMEBODY ELSE. EXCELLENCE IN ACCIDENTAL SHARK ENRICHMENT. SPECIAL MENTION: MANAGING ONE (1) GRAND STENCHMASTER (SORT OF).",
+    "arrived": "Down the hatch. Stuck to me.",
+    "value": "Far too much glitter",
+    "verdict": "It's still on my coat. The glitter is never coming off."
+   },
+   {
+    "id": "trophy",
+    "title": "The Leadership Trophy",
+    "if": {
+     "flag": "leadership_trophy_received"
+    },
+    "insert": "leadership_trophy",
+    "caption": "FOR HIRING A FART MAN.",
+    "printed": "FOR HIRING A FART MAN. DUTIES: EAT, SLEEP, TV, FARTS.",
+    "arrived": "Down the hatch with a clang",
+    "value": "None",
+    "verdict": "He wants it known he is a GRAND STENCHMASTER. The crew went through his duties one by one. They're not wrong. Squawks: 'Fart man.'"
+   },
+   {
+    "id": "advice",
+    "title": "Free Advice",
+    "if": {
+     "flag": "p10_plan_written"
+    },
+    "insert": "token_good_luck",
+    "caption": "GOOD LUCK WITH YOUR FART PLAN!",
+    "printed": "GOOD LUCK WITH YOUR FART PLAN! / FREE ADVICE: FEWER GRAND TITLES, MORE JOB DESCRIPTIONS.",
+    "arrived": "On deck, while we were planning. They knew. HOW did they know?",
+    "value": "None",
+    "verdict": "The second one is, regrettably, good advice."
+   },
+   {
+    "id": "approach",
+    "title": "Approach Tokens",
+    "if": {
+     "flag": "close_approach_started"
+    },
+    "insert": "token_bad_decisions",
+    "caption": "WE LOVE BAD DECISIONS.",
+    "printed": "WE LOVE BAD DECISIONS. / BRAVERY OR TERRIBLE JUDGMENT?",
+    "arrived": "All over the deck, on the way in",
+    "value": "None",
+    "verdict": "Both."
+   },
+   {
+    "id": "cowardice",
+    "title": "The Certificate of Grand Cowardice",
+    "if": {
+     "flag": "cowardice_award_received"
+    },
+    "insert": "cowardice_award",
+    "caption": "(TOO GRAND)",
+    "printed": "THE GRAND STENCHMASTER GRAND CERTIFICATE OF GRAND COWARDICE, GRAND HONOURABLE MENTION, GRAND COMMITTEE FOR GRANDLY NOT DOING IT (TOO GRAND).",
+    "arrived": "Out of the sky, onto him, at the bow, with a sash that fluttered",
+    "value": "Motivational, briefly",
+    "verdict": "It worked. It got him back to the stern. Then he ran again."
+   },
+   {
+    "id": "good_night",
+    "title": "The Last One (So Far)",
+    "if": {
+     "flag": "p10_complete"
+    },
+    "insert": "token_good_night",
+    "caption": "GOOD NIGHT, FART MAN! THANKS FOR THE RIDE!",
+    "printed": "GOOD NIGHT, FART MAN! THANKS FOR THE RIDE!",
+    "arrived": "Down the hatch, inside the storm, while he napped",
+    "value": "None",
+    "verdict": "They're right next to us now. They can throw them by hand."
+   }
+  ]
+ },
+ "captains_journal_p10": {
+  "extend": "captains_journal",
+  "severities": {
+   "THE BLING BLING KING": "r",
+   "Contaminated": "r",
+   "INSIDE IT": "r",
+   "Battered": "o",
+   "Dead ahead": "r"
+  },
+  "entries": [
+   {
+    "id": "fortune",
+    "variants": [
+     {
+      "if": {
+       "flag": "bbk_tv_seen"
+      },
+      "status": "SCATTERED INTO THE GREAT SHARKSTORM",
+      "where": "Up. In the storm, all round us. On the sharks.",
+      "holder": "The Great Sharkstorm; the sharks; the Bling Bling King (the Crimson King's Crown, on its head; a second-best jewelled crown, paid on television as TAX)",
+      "notes": "Found. Dug. Blown into the Great Sharkstorm. Recovered: about two per cent, contaminated. Spent by the sharks: lobster, catering, bedding, an ADVERTISING CAMPAIGN. One of my crowns was handed to a frog in a tax office, on television, by a shark. Recovered since: nothing. Not yet."
+     },
+     {
+      "if": {
+       "flag": "luxury_seafood_seen"
+      },
+      "holder": "The Great Sharkstorm; the sharks (who are SPENDING it); the Bling Bling King",
+      "notes": "Found. Dug. Blown into the Great Sharkstorm. Recovered: about two per cent, out of the crater, contaminated. The rest is up there, going round, and the sharks are spending it: catered seafood, delivered, paid for in crowns."
+     }
+    ]
+   },
+   {
+    "id": "megalodon",
+    "variants": [
+     {
+      "if": {
+       "flag": "bbk_tv_seen"
+      },
+      "status": "THE BLING BLING KING",
+      "where": "The Great Sharkstorm. And, somehow, the television.",
+      "holder": "The Crimson King's Crown; a gold chain thick as a hawser; a diamond pendant reading BLING BLING KING",
+      "notes": "The crowned megalodon. Lifted out of the lagoon by the storm and brought back in a chain, as the Bling Bling King. It never says a word. It throws things. Then it was on the Frog Tax Man, TALKING: smooth, friendly, quoting his book as law, paying its tax with my crown, and then an advertisement. It can't have been. Nobody can explain it."
+     },
+     {
+      "if": {
+       "flag": "bling_bling_king_revealed"
+      },
+      "status": "THE BLING BLING KING",
+      "where": "The Great Sharkstorm (it comes down to gloat)",
+      "holder": "The Crimson King's Crown; a gold chain thick as a hawser; a diamond pendant reading BLING BLING KING",
+      "notes": "The crowned megalodon. The storm lifted it out of the lagoon; it came back up under the Revenge in a chain, as THE BLING BLING KING. It never says a word. It throws things: coins, tokens, ribbons, trophies, rubbish. Plastic, mostly. Mockery, entirely."
+     },
+     {
+      "if": {
+       "flag": "megalodon_left_lagoon"
+      },
+      "where": "Gone from the lagoon (up into the storm)"
+     }
+    ]
+   },
+   {
+    "id": "storm",
+    "variants": [
+     {
+      "if": {
+       "flag": "qar_inside_storm"
+      },
+      "status": "INSIDE IT",
+      "where": "All round us",
+      "holder": "The Revenge (us). The Fortune. The Bling Bling King.",
+      "notes": "He fired the wrong way: into the ocean. The blast pushed the Revenge backwards, stern-first, straight into the Great Sharkstorm, and we're in it now, going round. Not destroyed. Not stopped. Treasure-laden. Sharks in jewellery going past the portholes. The nap can wait, he says."
+     },
+     {
+      "if": {
+       "flag": "close_approach_started"
+      },
+      "status": "Dead ahead",
+      "where": "Right in front of the bow"
+     },
+     {
+      "if": {
+       "flag": "bling_bling_king_revealed"
+      },
+      "status": "TREASURE-LADEN",
+      "where": "Behind the Revenge, close. Following."
+     }
+    ]
+   },
+   {
+    "id": "salvage",
+    "title": "The Crater Salvage",
+    "if": {
+     "flag": "contaminated_salvage_obtained"
+    },
+    "insert": "salvage_tally",
+    "caption": "Gristle's tally of the saddest salvage.",
+    "status": "Contaminated",
+    "where": "The hold (Gristle's tally)",
+    "holder": "The Revenge",
+    "notes": "Twenty-seven gold coins, a few silver ones, four small emeralds, a ruby, half a necklace, a cracked goblet, a bent ceremonial spoon, six pearls and a suspicious brass button. Everything smells like him. 'Direct-blast exposure. Second-layer bouquet.' I've asked him to stop reviewing the coins."
+   },
+   {
+    "id": "revenge",
+    "title": "The Queen Anne's Revenge",
+    "if": {
+     "flag": "p10_aboard"
+    },
+    "status": "Battered",
+    "where": "Off Crownskull Isle",
+    "holder": "Me. Still.",
+    "notes": "Rigging like knitting. A hull that's been through a sharkstorm. A sick bell. A galley that is now also the bedroom. A barracks full of vented Spicy Stench Sauce. Old quarters: STILL condemned (Rusty Tom checked).",
+    "variants": [
+     {
+      "if": {
+       "flag": "qar_inside_storm"
+      },
+      "status": "INSIDE IT",
+      "where": "Inside the Great Sharkstorm, going round",
+      "notes": "Propelled stern-first into the Great Sharkstorm by a wrong-way blast. Trapped inside, going round. Holding together, just. Everybody below in the galley. The Mark II working, on a can of Spicy Stench Sauce."
+     }
+    ]
+   },
+   {
+    "id": "sea",
+    "title": "The Local Sea",
+    "if": {
+     "flag": "great_sharkstorm_sea_contamination"
+    },
+    "status": "Contaminated",
+    "where": "Under the Great Sharkstorm",
+    "holder": "",
+    "notes": "He fired into the ocean. The sea came up brown and green and yellow, in bubbles the size of the longboat. The fish left. Why green? BEANS. How much worse than a fresh release? Garrick guessed: maybe five hundred times. A guess. Nobody's measured it."
+   }
+  ]
+ }
+}

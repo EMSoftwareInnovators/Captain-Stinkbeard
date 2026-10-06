@@ -583,6 +583,188 @@
       "if": {
         "flag": "p9_complete"
       }
+    },
+    {
+      "id": "p10c1",
+      "name": "Chapter 71: Not Pete's Fault",
+      "if": {
+        "flag": "p10_started"
+      }
+    },
+    {
+      "id": "p10c2",
+      "name": "Chapter 72: The Saddest Salvage",
+      "if": {
+        "flag": "p10_ch72_started"
+      }
+    },
+    {
+      "id": "p10c3",
+      "name": "Chapter 73: Wealthy Sharks",
+      "if": {
+        "flag": "p10_ch73_started"
+      }
+    },
+    {
+      "id": "p10c4",
+      "name": "Chapter 74: The Participation Prize",
+      "if": {
+        "flag": "p10_ch74_started"
+      }
+    },
+    {
+      "id": "p10c5",
+      "name": "Chapter 75: The Least Celebratory Celebration",
+      "if": {
+        "flag": "p10_ch75_started"
+      }
+    },
+    {
+      "id": "p10c6",
+      "name": "Chapter 76: The Grand Galley Grand Chef",
+      "if": {
+        "flag": "p10_ch76_started"
+      }
+    },
+    {
+      "id": "p10c7",
+      "name": "Chapter 77: Shark Catering",
+      "if": {
+        "flag": "p10_ch77_started"
+      }
+    },
+    {
+      "id": "p10c8",
+      "name": "Chapter 78: That Release Moved In",
+      "if": {
+        "flag": "p10_ch78_started"
+      }
+    },
+    {
+      "id": "p10c9",
+      "name": "Chapter 79: Shark Suites",
+      "if": {
+        "flag": "p10_ch79_started"
+      }
+    },
+    {
+      "id": "p10c10",
+      "name": "Chapter 80: Bad Hotel",
+      "if": {
+        "flag": "p10_ch80_started"
+      }
+    },
+    {
+      "id": "p10c11",
+      "name": "Chapter 81: Bedtime Television",
+      "if": {
+        "flag": "p10_ch81_started"
+      }
+    },
+    {
+      "id": "p10c12",
+      "name": "Chapter 82: Brogath the Bashful",
+      "if": {
+        "flag": "p10_ch82_started"
+      }
+    },
+    {
+      "id": "p10c13",
+      "name": "Chapter 83: Sweet Dreams",
+      "if": {
+        "flag": "p10_ch83_started"
+      }
+    },
+    {
+      "id": "p10c14",
+      "name": "Chapter 84: Meet Wind with Wind",
+      "if": {
+        "flag": "p10_ch84_started"
+      }
+    },
+    {
+      "id": "p10c15",
+      "name": "Chapter 85: Fart Man",
+      "if": {
+        "flag": "p10_ch85_started"
+      }
+    },
+    {
+      "id": "p10c16",
+      "name": "Chapter 86: Fart Literature",
+      "if": {
+        "flag": "p10_ch86_started"
+      }
+    },
+    {
+      "id": "p10c17",
+      "name": "Chapter 87: The Counter-Sharkstorm Initiative",
+      "if": {
+        "flag": "p10_ch87_started"
+      }
+    },
+    {
+      "id": "p10c18",
+      "name": "Chapter 88: Sash Holders",
+      "if": {
+        "flag": "p10_ch88_started"
+      }
+    },
+    {
+      "id": "p10c19",
+      "name": "Chapter 89: The Grand Feast",
+      "if": {
+        "flag": "p10_ch89_started"
+      }
+    },
+    {
+      "id": "p10c20",
+      "name": "Chapter 90: The Approach",
+      "if": {
+        "flag": "p10_ch90_started"
+      }
+    },
+    {
+      "id": "p10c21",
+      "name": "Chapter 91: The One Time",
+      "if": {
+        "flag": "p10_ch91_started"
+      }
+    },
+    {
+      "id": "p10c22",
+      "name": "Chapter 92: The Wrong Way",
+      "if": {
+        "flag": "p10_ch92_started"
+      }
+    },
+    {
+      "id": "p10c23",
+      "name": "Chapter 93: Inside the Spout",
+      "if": {
+        "flag": "p10_ch93_started"
+      }
+    },
+    {
+      "id": "p10c24",
+      "name": "Chapter 94: The Impossible Audit",
+      "if": {
+        "flag": "p10_ch94_started"
+      }
+    },
+    {
+      "id": "p10c25",
+      "name": "Chapter 95: I Used to Be Blackbeard",
+      "if": {
+        "flag": "p10_ch95_started"
+      }
+    },
+    {
+      "id": "phase10_end",
+      "name": "Inside the Great Sharkstorm",
+      "if": {
+        "flag": "p10_complete"
+      }
     }
   ],
   "timeOfDay": [
@@ -891,6 +1073,72 @@
         "var": {
           "name": "p4_tod",
           "eq": 20
+        }
+      }
+    },
+    {
+      "id": "p10_late_afternoon",
+      "grade": "#ffe0bc",
+      "interior": 0.34,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 21
+        }
+      }
+    },
+    {
+      "id": "p10_sunset",
+      "grade": "#eca88e",
+      "interior": 0.45,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 22
+        }
+      }
+    },
+    {
+      "id": "p10_night",
+      "grade": "#7a7cb4",
+      "interior": 0.62,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 23
+        }
+      }
+    },
+    {
+      "id": "p10_morning",
+      "grade": "#eae6f2",
+      "interior": 0.32,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 24
+        }
+      }
+    },
+    {
+      "id": "p10_storm_close",
+      "grade": "#868e7c",
+      "interior": 0.52,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 25
+        }
+      }
+    },
+    {
+      "id": "p10_inside_storm",
+      "grade": "#7c968a",
+      "interior": 0.5,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 26
         }
       }
     }

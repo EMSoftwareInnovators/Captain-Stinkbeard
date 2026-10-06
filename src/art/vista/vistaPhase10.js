@@ -253,6 +253,22 @@ function stormNest(f) {
   return c;
 }
 
+/** Pillows blown off the top of the nest, tumbling down the wind towards you. */
+function pillowsTumble(f) {
+  const c = new PixelCanvas(120, 70);
+  const r = rng(51 + f);
+  for (let i = 0; i < 7; i++) {
+    const x = 12 + Math.floor(r() * 96);
+    const y = 10 + Math.floor(r() * 50);
+    const t = (i + f) % 2;
+    c.poly([[x - 8, y - 4 + t], [x + 7, y - 5], [x + 8, y + 4 - t], [x - 7, y + 5]], ['#e8e0f0', '#f0d0e0', '#d8e8f0'][i % 3]);
+    c.line(x - 6, y - 3, x + 5, y - 4, '#ffffff');
+    for (const [dx, dy] of [[-9, -5], [8, -6], [9, 5], [-8, 6]]) c.set(x + dx, y + dy, GOLD.m);
+  }
+  c.outline(INK);
+  return c;
+}
+
 // --- Garrick's legends (crayon) ------------------------------------------------------------
 
 function brogathShy() {
@@ -1047,6 +1063,7 @@ const PAIRS = {
   barge_seafood: (f) => barge(f, 'seafood'),
   barge_bedding: (f) => barge(f, 'bedding'),
   shark_diner: sharkDiner,
+  pillows_tumble: pillowsTumble,
   storm_nest: stormNest,
   fantasy_coins: fantasyCoins,
   storm_wall: stormWall,

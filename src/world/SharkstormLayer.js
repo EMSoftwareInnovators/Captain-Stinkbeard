@@ -36,7 +36,7 @@ import { sharkstormNow, between } from '../systems/hazards/sharkstorm.js';
  * tile near the captain now and then: it falls, bounces, clacks and lies
  * there as scenery. Never more than "max" at once (the oldest is swept
  * away), never during a scene, gone when you leave the room. Scenes throw
- * their own with the "token" command (dropToken). "sway" ({ maps, amp,
+ * their own with the "token" command (dropToken). "sway" ({ maps, drift,
  * period }) lets a room drift gently with the ship once she's inside the
  * storm (a few pixels of camera, never a spin, off with screen shake off),
  * and "flying.swirl" sends the passing sharks across at a slant, every
@@ -181,10 +181,10 @@ export class SharkstormLayer {
     if (!k) return null;
     this.swayT += dt;
     const p = sw.period ?? 5200;
-    const amp = (sw.amp ?? 1.5) * k;
+    const px = (sw.drift ?? 1.5) * k;
     return {
-      x: Math.sin((this.swayT / p) * Math.PI * 2) * amp,
-      y: Math.sin((this.swayT / (p * 1.37)) * Math.PI * 2) * amp * 0.6,
+      x: Math.sin((this.swayT / p) * Math.PI * 2) * px,
+      y: Math.sin((this.swayT / (p * 1.37)) * Math.PI * 2) * px * 0.6,
     };
   }
 

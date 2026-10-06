@@ -1015,6 +1015,22 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
         for (const m of st.below.maps ?? []) c.map(m);
         for (const f of st.below.sfx ?? []) if (!db.sfx.has(f)) c.error(`unknown sfx "${f}" (below)`);
       }
+      for (const m of st.maps ?? []) c.map(m);
+      // Story Phase 10: the Bling Bling King's prizes, and the gentle drift once the ship is inside
+      if (st.tokens) {
+        const t = st.tokens;
+        if (!Array.isArray(t.frames) || !t.frames.length) c.error('tokens need "frames"');
+        for (const f of t.frames ?? []) if (!art.stage.has(f) && !art.props.has(f)) c.error(`no stage/prop art "${f}" (tokens.frames)`);
+        for (const m of t.maps ?? []) c.map(m);
+        if (t.sfx && !db.sfx.has(t.sfx)) c.error(`unknown sfx "${t.sfx}" (tokens)`);
+        if (t.max !== undefined && (!Number.isInteger(t.max) || t.max < 1 || t.max > 8)) c.error('tokens.max must be 1..8 (they are scenery, not clutter)');
+        if (!Array.isArray(t.every) || t.every.length !== 2 || t.every[0] < 3000) c.error('tokens.every must be [min, max] ms, at least 3000');
+      }
+      if (st.sway) {
+        for (const m of st.sway.maps ?? []) c.map(m);
+        if ((st.sway.drift ?? 1.5) > 3) c.error('sway.drift must be 3 px or less (a gentle drift, never seasickness)');
+        if ((st.sway.period ?? 5200) < 3000) c.error('sway.period must be at least 3000 ms');
+      }
     }
   }
 

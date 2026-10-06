@@ -1,0 +1,28 @@
+[
+ {
+  "extend": "blackbeard",
+  "variants": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p10_entry_squawks"
+      },
+      {
+       "notFlag": "p10_ch93_started"
+      }
+     ]
+    },
+    "appearance": "blackbeard_pouch",
+    "portrait": "blackbeard_stinkbeard"
+   },
+   {
+    "if": {
+     "flag": "p10_aboard"
+    },
+    "appearance": "blackbeard_stinkbeard",
+    "portrait": "blackbeard_stinkbeard"
+   }
+  ]
+ }
+]

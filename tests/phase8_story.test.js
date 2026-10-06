@@ -8,6 +8,7 @@ import { logEntries } from '../src/systems/logs/logbook.js';
 import { resolvePreset } from '../src/debug/presets.js';
 import { evaluateCondition } from '../src/systems/conditions/conditions.js';
 import { mapDisplayName } from '../src/maps/mapName.js';
+import { isShared, laterPhaseFlags, sharedText } from './laterPhases.js';
 import { makeStory } from './storyHarness.js';
 
 /**
@@ -314,7 +315,8 @@ describe('Story Phase 8 stays inside its brief', () => {
   const text = files.flatMap((f) => {
     const p = path.resolve(f);
     const list = fs.statSync(p).isDirectory() ? fs.readdirSync(p).map((n) => path.join(p, n)) : [p];
-    return list.map((x) => fs.readFileSync(x, 'utf8'));
+    // The programmes are shared: leave out the episodes a later phase unlocks.
+    return list.map((x) => (isShared(x) ? sharedText(x, laterPhaseFlags(8)) : fs.readFileSync(x, 'utf8')));
   }).join('\n');
 
   it('uses its own adventure: no borrowed films, heroes, hats or plumbers', () => {

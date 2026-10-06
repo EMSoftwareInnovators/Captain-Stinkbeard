@@ -3,37 +3,178 @@
   "//": "Story Phase 6: the first recurring programme on the S.E.S. An original show: Franklin, a frog in a tie and glasses, is in trouble with his taxes. His accountant wears a green visor; the judge is a large frog in a wig. Crude green picture, rolling bar, an excessive laugh track, a dramatic sting for every tax term. Garrick is obsessed with it. Episodes are data: a channel carries the programme, a cutscene can play any episode on a vista's screen.",
   "title": "The Frog Tax Man",
   "laugh": "ftm_laugh",
-  "closeup": ["ftm_close_0", "ftm_close_1"],
+  "closeup": [
+   "ftm_close_0",
+   "ftm_close_1"
+  ],
   "episodes": [
    {
     "id": "forty_seven_hundred_flies",
     "title": "Forty-Seven Hundred Flies",
     "beats": [
-     { "frames": ["ftm_title_0", "ftm_title_1"], "line": "announcer: THE FROG TAX MAN!", "ms": 2400, "sfx": "ftm_horn", "frameMs": 420 },
-     { "frames": ["ftm_title_0", "ftm_title_1"], "ms": 1600, "sfx": "ftm_jingle", "frameMs": 300 },
-     { "frames": ["ftm_office_0", "ftm_office_1"], "line": "accountant: Franklin. Sit down. We need to talk about your return.", "ms": 2800 },
-     { "frames": ["ftm_office_0", "ftm_office_1"], "line": "franklin: Is this about the lily pad?", "ms": 2200, "sfx": "ftm_ribbit" },
-     { "frames": ["ftm_lilypad"], "line": "accountant: You have depreciated this lily pad NINE TIMES.", "ms": 2800, "laugh": true },
-     { "frames": ["ftm_close_0", "ftm_close_1"], "line": "franklin: It's a very old lily pad.", "ms": 2400, "laugh": true },
      {
-      "frames": ["ftm_flies_0", "ftm_flies_1"],
+      "frames": [
+       "ftm_title_0",
+       "ftm_title_1"
+      ],
+      "line": "announcer: THE FROG TAX MAN!",
+      "ms": 2400,
+      "sfx": "ftm_horn",
+      "frameMs": 420
+     },
+     {
+      "frames": [
+       "ftm_title_0",
+       "ftm_title_1"
+      ],
+      "ms": 1600,
+      "sfx": "ftm_jingle",
+      "frameMs": 300
+     },
+     {
+      "frames": [
+       "ftm_office_0",
+       "ftm_office_1"
+      ],
+      "line": "accountant: Franklin. Sit down. We need to talk about your return.",
+      "ms": 2800
+     },
+     {
+      "frames": [
+       "ftm_office_0",
+       "ftm_office_1"
+      ],
+      "line": "franklin: Is this about the lily pad?",
+      "ms": 2200,
+      "sfx": "ftm_ribbit"
+     },
+     {
+      "frames": [
+       "ftm_lilypad"
+      ],
+      "line": "accountant: You have depreciated this lily pad NINE TIMES.",
+      "ms": 2800,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_close_0",
+       "ftm_close_1"
+      ],
+      "line": "franklin: It's a very old lily pad.",
+      "ms": 2400,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_flies_0",
+       "ftm_flies_1"
+      ],
       "line": "accountant: Franklin, you cannot claim forty-seven hundred flies as business expenses!",
       "ms": 3400,
       "frameMs": 500
      },
-     { "frames": ["ftm_close_0", "ftm_close_1"], "line": "franklin: I ate them during work hours!", "ms": 2600, "laugh": true },
-     { "frames": ["ftm_office_0", "ftm_office_1"], "line": "accountant: 'Pond maintenance.' Franklin, you live IN the pond.", "ms": 2800 },
-     { "frames": ["ftm_close_0", "ftm_close_1"], "line": "franklin: Home office deduction.", "ms": 2200, "laugh": true },
-     { "frames": ["ftm_canoe_0", "ftm_canoe_1"], "line": "accountant: And this canoe is not a 'mobile office'.", "ms": 2600 },
-     { "frames": ["ftm_canoe_0", "ftm_canoe_1"], "line": "franklin: It has a DESK LAMP!", "ms": 2200, "laugh": true },
-     { "frames": ["ftm_office_0", "ftm_office_1"], "line": "accountant: Two hundred and twelve dependants?", "ms": 2400 },
-     { "frames": ["ftm_close_0", "ftm_close_1"], "line": "franklin: Tadpoles. They are all VERY dependent.", "ms": 2600, "laugh": true },
-     { "frames": ["ftm_office_0", "ftm_office_1"], "line": "accountant: And the mosquito consultancy. Undeclared.", "ms": 2600, "sfx": "ftm_sting" },
-     { "frames": ["ftm_court_0", "ftm_court_1"], "line": "judge: Franklin. Did you itemize?", "ms": 2800, "sfx": "ftm_gavel" },
-     { "frames": ["ftm_close_1"], "line": "franklin: I TOOK THE STANDARD DEDUCTION!", "ms": 3000, "sfx": "ftm_sting" },
-     { "frames": ["ftm_court_0", "ftm_court_1"], "line": "judge: ...Case dismissed.", "ms": 2400, "sfx": "ftm_gavel", "laugh": true },
      {
-      "frames": ["ftm_title_0", "ftm_title_1"],
+      "frames": [
+       "ftm_close_0",
+       "ftm_close_1"
+      ],
+      "line": "franklin: I ate them during work hours!",
+      "ms": 2600,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_office_0",
+       "ftm_office_1"
+      ],
+      "line": "accountant: 'Pond maintenance.' Franklin, you live IN the pond.",
+      "ms": 2800
+     },
+     {
+      "frames": [
+       "ftm_close_0",
+       "ftm_close_1"
+      ],
+      "line": "franklin: Home office deduction.",
+      "ms": 2200,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_canoe_0",
+       "ftm_canoe_1"
+      ],
+      "line": "accountant: And this canoe is not a 'mobile office'.",
+      "ms": 2600
+     },
+     {
+      "frames": [
+       "ftm_canoe_0",
+       "ftm_canoe_1"
+      ],
+      "line": "franklin: It has a DESK LAMP!",
+      "ms": 2200,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_office_0",
+       "ftm_office_1"
+      ],
+      "line": "accountant: Two hundred and twelve dependants?",
+      "ms": 2400
+     },
+     {
+      "frames": [
+       "ftm_close_0",
+       "ftm_close_1"
+      ],
+      "line": "franklin: Tadpoles. They are all VERY dependent.",
+      "ms": 2600,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_office_0",
+       "ftm_office_1"
+      ],
+      "line": "accountant: And the mosquito consultancy. Undeclared.",
+      "ms": 2600,
+      "sfx": "ftm_sting"
+     },
+     {
+      "frames": [
+       "ftm_court_0",
+       "ftm_court_1"
+      ],
+      "line": "judge: Franklin. Did you itemize?",
+      "ms": 2800,
+      "sfx": "ftm_gavel"
+     },
+     {
+      "frames": [
+       "ftm_close_1"
+      ],
+      "line": "franklin: I TOOK THE STANDARD DEDUCTION!",
+      "ms": 3000,
+      "sfx": "ftm_sting"
+     },
+     {
+      "frames": [
+       "ftm_court_0",
+       "ftm_court_1"
+      ],
+      "line": "judge: ...Case dismissed.",
+      "ms": 2400,
+      "sfx": "ftm_gavel",
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_title_0",
+       "ftm_title_1"
+      ],
       "line": "announcer: Next week on THE FROG TAX MAN: quarterly estimates!",
       "ms": 3000,
       "sfx": "ftm_announcer",
@@ -45,164 +186,1091 @@
     "id": "quarterly_estimates",
     "title": "Quarterly Estimates",
     "beats": [
-     { "frames": ["ftm_title_0", "ftm_title_1"], "line": "announcer: THE FROG TAX MAN!", "ms": 2400, "sfx": "ftm_horn", "frameMs": 420 },
-     { "frames": ["ftm_office_0", "ftm_office_1"], "line": "accountant: Franklin, it's the fifteenth. Where are your quarterly estimates?", "ms": 3000 },
-     { "frames": ["ftm_close_0", "ftm_close_1"], "line": "franklin: I estimated them. Quarterly.", "ms": 2400, "laugh": true },
-     { "frames": ["ftm_office_0", "ftm_office_1"], "line": "accountant: You estimated them at 'a lot of flies'.", "ms": 2600, "laugh": true },
-     { "frames": ["ftm_court_0", "ftm_court_1"], "line": "judge: Is this true, Franklin?", "ms": 2400, "sfx": "ftm_gavel" },
-     { "frames": ["ftm_close_1"], "line": "franklin: ...Ribbit.", "ms": 2000, "sfx": "ftm_ribbit", "laugh": true },
-     { "frames": ["ftm_title_0", "ftm_title_1"], "line": "announcer: Remember to file! The Frog Tax Man!", "ms": 2800, "sfx": "ftm_announcer", "frameMs": 420 }
+     {
+      "frames": [
+       "ftm_title_0",
+       "ftm_title_1"
+      ],
+      "line": "announcer: THE FROG TAX MAN!",
+      "ms": 2400,
+      "sfx": "ftm_horn",
+      "frameMs": 420
+     },
+     {
+      "frames": [
+       "ftm_office_0",
+       "ftm_office_1"
+      ],
+      "line": "accountant: Franklin, it's the fifteenth. Where are your quarterly estimates?",
+      "ms": 3000
+     },
+     {
+      "frames": [
+       "ftm_close_0",
+       "ftm_close_1"
+      ],
+      "line": "franklin: I estimated them. Quarterly.",
+      "ms": 2400,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_office_0",
+       "ftm_office_1"
+      ],
+      "line": "accountant: You estimated them at 'a lot of flies'.",
+      "ms": 2600,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_court_0",
+       "ftm_court_1"
+      ],
+      "line": "judge: Is this true, Franklin?",
+      "ms": 2400,
+      "sfx": "ftm_gavel"
+     },
+     {
+      "frames": [
+       "ftm_close_1"
+      ],
+      "line": "franklin: ...Ribbit.",
+      "ms": 2000,
+      "sfx": "ftm_ribbit",
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_title_0",
+       "ftm_title_1"
+      ],
+      "line": "announcer: Remember to file! The Frog Tax Man!",
+      "ms": 2800,
+      "sfx": "ftm_announcer",
+      "frameMs": 420
+     }
     ],
-    "if": { "flag": "p6_complete" }
+    "if": {
+     "flag": "p6_complete"
+    }
    },
    {
     "id": "season_seventeen_flies",
     "//": "Story Phase 7: season seventeen, the one Garrick has been waiting for. Franklin listed 27,000 flies as business inventory and ate them (business snacks or personal snacks?); his pond is down as investment property (Schedule POND); the dragonfly is a business expense (morale); no receipts, so the lily pad is forfeit; another letter: a refund (three flies); and then depreciation. All the forms are invented frog forms (RIB-40, Schedule POND, 10-FROG-X).",
-    "if": { "flag": "p7_franklin_found" },
+    "if": {
+     "flag": "p7_franklin_found"
+    },
     "beats": [
-     { "frames": ["ftm_season_0", "ftm_season_1"], "line": "announcer: THE FROG TAX MAN! Season seventeen!", "ms": 2400, "sfx": "ftm_horn", "frameMs": 420 },
-     { "frames": ["ftm_office_0", "ftm_office_1"], "line": "accountant: Franklin. Sit down. It's about the flies.", "ms": 2600 },
-     { "frames": ["ftm_snacks_0"], "line": "accountant: Twenty-seven thousand flies. Listed as business inventory.", "ms": 3000 },
-     { "frames": ["ftm_close_0"], "line": "franklin: They're for the business.", "ms": 2200 },
-     { "frames": ["ftm_snacks_1"], "line": "accountant: You ATE them, Franklin.", "ms": 2400, "laugh": true },
-     { "frames": ["ftm_close_1"], "line": "franklin: ...During business hours.", "ms": 2400, "laugh": true },
-     { "frames": ["ftm_snacks_0", "ftm_snacks_1"], "line": "accountant: So which is it? Business snacks, or personal snacks?", "ms": 2800 },
-     { "frames": ["ftm_close_0"], "line": "franklin: Can they be both?", "ms": 2200, "laugh": true },
-     { "frames": ["ftm_form_0"], "line": "accountant: Not on a Form RIB-40, they can't.", "ms": 2600, "sfx": "ftm_sting" },
-     { "frames": ["ftm_pond_0", "ftm_pond_1"], "line": "accountant: And the pond. You've listed your own pond as investment property.", "ms": 3000, "frameMs": 500 },
-     { "frames": ["ftm_close_1"], "line": "franklin: I invest a lot of time in it.", "ms": 2400, "laugh": true },
      {
-      "frames": ["ftm_form_1"],
+      "frames": [
+       "ftm_season_0",
+       "ftm_season_1"
+      ],
+      "line": "announcer: THE FROG TAX MAN! Season seventeen!",
+      "ms": 2400,
+      "sfx": "ftm_horn",
+      "frameMs": 420
+     },
+     {
+      "frames": [
+       "ftm_office_0",
+       "ftm_office_1"
+      ],
+      "line": "accountant: Franklin. Sit down. It's about the flies.",
+      "ms": 2600
+     },
+     {
+      "frames": [
+       "ftm_snacks_0"
+      ],
+      "line": "accountant: Twenty-seven thousand flies. Listed as business inventory.",
+      "ms": 3000
+     },
+     {
+      "frames": [
+       "ftm_close_0"
+      ],
+      "line": "franklin: They're for the business.",
+      "ms": 2200
+     },
+     {
+      "frames": [
+       "ftm_snacks_1"
+      ],
+      "line": "accountant: You ATE them, Franklin.",
+      "ms": 2400,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_close_1"
+      ],
+      "line": "franklin: ...During business hours.",
+      "ms": 2400,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_snacks_0",
+       "ftm_snacks_1"
+      ],
+      "line": "accountant: So which is it? Business snacks, or personal snacks?",
+      "ms": 2800
+     },
+     {
+      "frames": [
+       "ftm_close_0"
+      ],
+      "line": "franklin: Can they be both?",
+      "ms": 2200,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_form_0"
+      ],
+      "line": "accountant: Not on a Form RIB-40, they can't.",
+      "ms": 2600,
+      "sfx": "ftm_sting"
+     },
+     {
+      "frames": [
+       "ftm_pond_0",
+       "ftm_pond_1"
+      ],
+      "line": "accountant: And the pond. You've listed your own pond as investment property.",
+      "ms": 3000,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "ftm_close_1"
+      ],
+      "line": "franklin: I invest a lot of time in it.",
+      "ms": 2400,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_form_1"
+      ],
       "line": "accountant: That's Schedule POND, line nine. You'll have to file an amended return. A 10-FROG-X.",
       "ms": 3200,
       "sfx": "ftm_sting"
      },
-     { "frames": ["ftm_dragonfly_0", "ftm_dragonfly_1"], "line": "franklin: I also claimed the dragonfly. As a business expense.", "ms": 2800, "frameMs": 300 },
-     { "frames": ["ftm_dragonfly_1"], "line": "accountant: What does the dragonfly DO, Franklin?", "ms": 2400 },
-     { "frames": ["ftm_close_0"], "line": "franklin: ...Morale.", "ms": 2200, "laugh": true },
-     { "frames": ["ftm_letter_0", "ftm_letter_1"], "line": "announcer: Later that week...", "ms": 2600, "sfx": "ftm_drama", "frameMs": 500 },
-     { "frames": ["ftm_letter_1"], "line": "franklin: A letter. From the Pond Revenue Service.", "ms": 2600 },
-     { "frames": ["ftm_office_0", "ftm_office_1"], "line": "accountant: The flies, Franklin. Do you have the receipts?", "ms": 2600 },
-     { "frames": ["ftm_close_1"], "line": "franklin: ...Ribbit.", "ms": 2000, "sfx": "ftm_ribbit", "laugh": true },
-     { "frames": ["ftm_court_1"], "line": "judge: No receipts? Then the lily pad is FORFEIT.", "ms": 2800, "sfx": "ftm_gavel" },
-     { "frames": ["ftm_lilypad"], "line": "franklin: Not the LILY PAD!", "ms": 2400 },
-     { "frames": ["ftm_letter_0", "ftm_letter_1"], "line": "announcer: And then... ANOTHER letter!", "ms": 2600, "sfx": "ftm_drama", "frameMs": 500 },
-     { "frames": ["ftm_letter_1"], "line": "franklin: It's from the Pond Revenue Service. Again.", "ms": 2600 },
-     { "frames": ["ftm_close_0"], "line": "accountant: Open it, Franklin.", "ms": 2200 },
-     { "frames": ["ftm_letter_1"], "line": "franklin: 'Dear Mister Franklin. Following review, you have overpaid. By three flies.'", "ms": 3200 },
-     { "frames": ["ftm_title_1"], "line": "accountant: A REFUND!", "ms": 2200, "sfx": "ftm_jingle", "laugh": true },
-     { "frames": ["ftm_break_0", "ftm_break_1"], "line": "announcer: The Frog Tax Man will be right back, after a word from Pond Soap!", "ms": 3000, "frameMs": 400 },
-     { "frames": ["ftm_close_1"], "line": "franklin: Can I have my lily pad back?", "ms": 2200 },
-     { "frames": ["ftm_court_0"], "line": "judge: No.", "ms": 1800, "sfx": "ftm_gavel", "laugh": true },
-     { "frames": ["ftm_lilypad"], "line": "accountant: But you can DEPRECIATE it, Franklin. It's worth a little less every year.", "ms": 3200 },
-     { "frames": ["ftm_close_0"], "line": "franklin: So everything I own is slowly worth nothing?", "ms": 2600 },
-     { "frames": ["ftm_lilypad"], "line": "accountant: That's depreciation, Franklin.", "ms": 2400 },
-     { "frames": ["ftm_close_1"], "line": "franklin: That's the saddest thing I've ever heard.", "ms": 2600, "laugh": true },
-     { "frames": ["ftm_season_0", "ftm_season_1"], "line": "announcer: Keep your receipts! The Frog Tax Man!", "ms": 2600, "sfx": "ftm_announcer", "frameMs": 420 }
+     {
+      "frames": [
+       "ftm_dragonfly_0",
+       "ftm_dragonfly_1"
+      ],
+      "line": "franklin: I also claimed the dragonfly. As a business expense.",
+      "ms": 2800,
+      "frameMs": 300
+     },
+     {
+      "frames": [
+       "ftm_dragonfly_1"
+      ],
+      "line": "accountant: What does the dragonfly DO, Franklin?",
+      "ms": 2400
+     },
+     {
+      "frames": [
+       "ftm_close_0"
+      ],
+      "line": "franklin: ...Morale.",
+      "ms": 2200,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_letter_0",
+       "ftm_letter_1"
+      ],
+      "line": "announcer: Later that week...",
+      "ms": 2600,
+      "sfx": "ftm_drama",
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "ftm_letter_1"
+      ],
+      "line": "franklin: A letter. From the Pond Revenue Service.",
+      "ms": 2600
+     },
+     {
+      "frames": [
+       "ftm_office_0",
+       "ftm_office_1"
+      ],
+      "line": "accountant: The flies, Franklin. Do you have the receipts?",
+      "ms": 2600
+     },
+     {
+      "frames": [
+       "ftm_close_1"
+      ],
+      "line": "franklin: ...Ribbit.",
+      "ms": 2000,
+      "sfx": "ftm_ribbit",
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_court_1"
+      ],
+      "line": "judge: No receipts? Then the lily pad is FORFEIT.",
+      "ms": 2800,
+      "sfx": "ftm_gavel"
+     },
+     {
+      "frames": [
+       "ftm_lilypad"
+      ],
+      "line": "franklin: Not the LILY PAD!",
+      "ms": 2400
+     },
+     {
+      "frames": [
+       "ftm_letter_0",
+       "ftm_letter_1"
+      ],
+      "line": "announcer: And then... ANOTHER letter!",
+      "ms": 2600,
+      "sfx": "ftm_drama",
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "ftm_letter_1"
+      ],
+      "line": "franklin: It's from the Pond Revenue Service. Again.",
+      "ms": 2600
+     },
+     {
+      "frames": [
+       "ftm_close_0"
+      ],
+      "line": "accountant: Open it, Franklin.",
+      "ms": 2200
+     },
+     {
+      "frames": [
+       "ftm_letter_1"
+      ],
+      "line": "franklin: 'Dear Mister Franklin. Following review, you have overpaid. By three flies.'",
+      "ms": 3200
+     },
+     {
+      "frames": [
+       "ftm_title_1"
+      ],
+      "line": "accountant: A REFUND!",
+      "ms": 2200,
+      "sfx": "ftm_jingle",
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_break_0",
+       "ftm_break_1"
+      ],
+      "line": "announcer: The Frog Tax Man will be right back, after a word from Pond Soap!",
+      "ms": 3000,
+      "frameMs": 400
+     },
+     {
+      "frames": [
+       "ftm_close_1"
+      ],
+      "line": "franklin: Can I have my lily pad back?",
+      "ms": 2200
+     },
+     {
+      "frames": [
+       "ftm_court_0"
+      ],
+      "line": "judge: No.",
+      "ms": 1800,
+      "sfx": "ftm_gavel",
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_lilypad"
+      ],
+      "line": "accountant: But you can DEPRECIATE it, Franklin. It's worth a little less every year.",
+      "ms": 3200
+     },
+     {
+      "frames": [
+       "ftm_close_0"
+      ],
+      "line": "franklin: So everything I own is slowly worth nothing?",
+      "ms": 2600
+     },
+     {
+      "frames": [
+       "ftm_lilypad"
+      ],
+      "line": "accountant: That's depreciation, Franklin.",
+      "ms": 2400
+     },
+     {
+      "frames": [
+       "ftm_close_1"
+      ],
+      "line": "franklin: That's the saddest thing I've ever heard.",
+      "ms": 2600,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_season_0",
+       "ftm_season_1"
+      ],
+      "line": "announcer: Keep your receipts! The Frog Tax Man!",
+      "ms": 2600,
+      "sfx": "ftm_announcer",
+      "frameMs": 420
+     }
     ]
    },
    {
     "id": "the_audit",
     "//": "Story Phase 8: the audit. A new character, the Auditor (a stern old toad with a magnifying glass). Four hundred flies filed as OFFICE REFRESHMENTS (eaten in the office does not make them office supplies); some reclassified as NETWORKING EXPENSES (\"Were you networking?\" \"With the flies?\"); receipts written on leaves; tadpole subcontractors. All invented frog paperwork.",
-    "if": { "flag": "p8_started" },
+    "if": {
+     "flag": "p8_started"
+    },
     "beats": [
-     { "frames": ["ftm_season_0", "ftm_season_1"], "line": "announcer: THE FROG TAX MAN! Tonight: THE AUDIT.", "ms": 2600, "sfx": "ftm_horn", "frameMs": 420 },
      {
-      "frames": ["ftm_audit_0", "ftm_audit_1"],
+      "frames": [
+       "ftm_season_0",
+       "ftm_season_1"
+      ],
+      "line": "announcer: THE FROG TAX MAN! Tonight: THE AUDIT.",
+      "ms": 2600,
+      "sfx": "ftm_horn",
+      "frameMs": 420
+     },
+     {
+      "frames": [
+       "ftm_audit_0",
+       "ftm_audit_1"
+      ],
       "line": "auditor: Mister Franklin. I'm from the Pond Revenue Service.",
       "ms": 2800,
       "sfx": "ftm_drama",
       "frameMs": 500
      },
-     { "frames": ["ftm_close_0"], "line": "franklin: ...Nice to meet you?", "ms": 2200, "laugh": true },
-     { "frames": ["ftm_refresh_0", "ftm_refresh_1"], "line": "auditor: Four hundred flies. Claimed as OFFICE REFRESHMENTS.", "ms": 3000, "frameMs": 500 },
-     { "frames": ["ftm_close_1"], "line": "franklin: I ate them in the office.", "ms": 2400 },
-     { "frames": ["ftm_audit_0", "ftm_audit_1"], "line": "auditor: Being eaten inside an office does not make a fly an office supply.", "ms": 3200, "frameMs": 500 },
-     { "frames": ["ftm_close_0"], "line": "franklin: It made it an office fly.", "ms": 2400, "laugh": true },
-     { "frames": ["ftm_audit_1"], "line": "auditor: Disallowed.", "ms": 2000, "sfx": "ftm_sting" },
-     { "frames": ["ftm_network_0", "ftm_network_1"], "line": "franklin: Then some of them were... networking expenses.", "ms": 3000, "frameMs": 400 },
-     { "frames": ["ftm_audit_0", "ftm_audit_1"], "line": "auditor: Were you networking, Franklin?", "ms": 2400, "frameMs": 500 },
-     { "frames": ["ftm_close_1"], "line": "franklin: With the flies?", "ms": 2200, "laugh": true },
-     { "frames": ["ftm_leaves_0", "ftm_leaves_1"], "line": "auditor: And these receipts. They're written on leaves.", "ms": 2800, "frameMs": 500 },
-     { "frames": ["ftm_close_0"], "line": "franklin: We're a paperless pond.", "ms": 2400, "laugh": true },
-     { "frames": ["ftm_leaves_0", "ftm_leaves_1"], "line": "auditor: And these, under SUBCONTRACTORS?", "ms": 2600, "frameMs": 500 },
-     { "frames": ["ftm_close_1"], "line": "franklin: Tadpoles. They do the heavy lifting.", "ms": 2600 },
-     { "frames": ["ftm_audit_0", "ftm_audit_1"], "line": "auditor: They're two days old.", "ms": 2200, "frameMs": 500 },
-     { "frames": ["ftm_close_0"], "line": "franklin: They grow up so fast.", "ms": 2400, "laugh": true },
-     { "frames": ["ftm_audit_0"], "line": "auditor: We'll continue this. After the break.", "ms": 2600, "sfx": "ftm_drama" },
-     { "frames": ["ftm_break_0", "ftm_break_1"], "line": "announcer: The Frog Tax Man will be right back, after a word from Pond Soap!", "ms": 3000, "frameMs": 400 }
+     {
+      "frames": [
+       "ftm_close_0"
+      ],
+      "line": "franklin: ...Nice to meet you?",
+      "ms": 2200,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_refresh_0",
+       "ftm_refresh_1"
+      ],
+      "line": "auditor: Four hundred flies. Claimed as OFFICE REFRESHMENTS.",
+      "ms": 3000,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "ftm_close_1"
+      ],
+      "line": "franklin: I ate them in the office.",
+      "ms": 2400
+     },
+     {
+      "frames": [
+       "ftm_audit_0",
+       "ftm_audit_1"
+      ],
+      "line": "auditor: Being eaten inside an office does not make a fly an office supply.",
+      "ms": 3200,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "ftm_close_0"
+      ],
+      "line": "franklin: It made it an office fly.",
+      "ms": 2400,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_audit_1"
+      ],
+      "line": "auditor: Disallowed.",
+      "ms": 2000,
+      "sfx": "ftm_sting"
+     },
+     {
+      "frames": [
+       "ftm_network_0",
+       "ftm_network_1"
+      ],
+      "line": "franklin: Then some of them were... networking expenses.",
+      "ms": 3000,
+      "frameMs": 400
+     },
+     {
+      "frames": [
+       "ftm_audit_0",
+       "ftm_audit_1"
+      ],
+      "line": "auditor: Were you networking, Franklin?",
+      "ms": 2400,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "ftm_close_1"
+      ],
+      "line": "franklin: With the flies?",
+      "ms": 2200,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_leaves_0",
+       "ftm_leaves_1"
+      ],
+      "line": "auditor: And these receipts. They're written on leaves.",
+      "ms": 2800,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "ftm_close_0"
+      ],
+      "line": "franklin: We're a paperless pond.",
+      "ms": 2400,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_leaves_0",
+       "ftm_leaves_1"
+      ],
+      "line": "auditor: And these, under SUBCONTRACTORS?",
+      "ms": 2600,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "ftm_close_1"
+      ],
+      "line": "franklin: Tadpoles. They do the heavy lifting.",
+      "ms": 2600
+     },
+     {
+      "frames": [
+       "ftm_audit_0",
+       "ftm_audit_1"
+      ],
+      "line": "auditor: They're two days old.",
+      "ms": 2200,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "ftm_close_0"
+      ],
+      "line": "franklin: They grow up so fast.",
+      "ms": 2400,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_audit_0"
+      ],
+      "line": "auditor: We'll continue this. After the break.",
+      "ms": 2600,
+      "sfx": "ftm_drama"
+     },
+     {
+      "frames": [
+       "ftm_break_0",
+       "ftm_break_1"
+      ],
+      "line": "announcer: The Frog Tax Man will be right back, after a word from Pond Soap!",
+      "ms": 3000,
+      "frameMs": 400
+     }
     ]
    },
    {
     "id": "capital_gains",
     "//": "Story Phase 8, late at night (after everyone has given up on sleep): Franklin sold a lily pad for more than he paid for it. A capital gain. Taxable. \"What was your basis?\" \"My what?\" Invented frog paperwork, real arithmetic.",
-    "if": { "flag": "p8_complete" },
+    "if": {
+     "flag": "p8_complete"
+    },
     "beats": [
      {
-      "frames": ["ftm_season_0", "ftm_season_1"],
+      "frames": [
+       "ftm_season_0",
+       "ftm_season_1"
+      ],
       "line": "announcer: THE FROG TAX MAN! The late repeat: CAPITAL GAINS.",
       "ms": 2600,
       "sfx": "ftm_horn",
       "frameMs": 420
      },
-     { "frames": ["ftm_lilypad_0", "ftm_lilypad_1"], "line": "franklin: I sold a lily pad! For more than I paid for it!", "ms": 2800, "frameMs": 500 },
-     { "frames": ["ftm_audit_0", "ftm_audit_1"], "line": "auditor: Congratulations. That's a capital gain.", "ms": 2600, "frameMs": 500 },
-     { "frames": ["ftm_close_0"], "line": "franklin: ...Is that good?", "ms": 2000 },
-     { "frames": ["ftm_audit_1"], "line": "auditor: It's taxable.", "ms": 2000, "sfx": "ftm_sting" },
-     { "frames": ["ftm_close_1"], "line": "franklin: ...Is that good?", "ms": 2000, "laugh": true },
-     { "frames": ["ftm_audit_0", "ftm_audit_1"], "line": "auditor: What was your basis, Franklin?", "ms": 2400, "frameMs": 500 },
-     { "frames": ["ftm_close_0"], "line": "franklin: My what?", "ms": 2000 },
      {
-      "frames": ["ftm_basis_0", "ftm_basis_1"],
+      "frames": [
+       "ftm_lilypad_0",
+       "ftm_lilypad_1"
+      ],
+      "line": "franklin: I sold a lily pad! For more than I paid for it!",
+      "ms": 2800,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "ftm_audit_0",
+       "ftm_audit_1"
+      ],
+      "line": "auditor: Congratulations. That's a capital gain.",
+      "ms": 2600,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "ftm_close_0"
+      ],
+      "line": "franklin: ...Is that good?",
+      "ms": 2000
+     },
+     {
+      "frames": [
+       "ftm_audit_1"
+      ],
+      "line": "auditor: It's taxable.",
+      "ms": 2000,
+      "sfx": "ftm_sting"
+     },
+     {
+      "frames": [
+       "ftm_close_1"
+      ],
+      "line": "franklin: ...Is that good?",
+      "ms": 2000,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_audit_0",
+       "ftm_audit_1"
+      ],
+      "line": "auditor: What was your basis, Franklin?",
+      "ms": 2400,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "ftm_close_0"
+      ],
+      "line": "franklin: My what?",
+      "ms": 2000
+     },
+     {
+      "frames": [
+       "ftm_basis_0",
+       "ftm_basis_1"
+      ],
       "line": "auditor: Your BASIS. What you paid for it. You'll need records.",
       "ms": 3000,
       "sfx": "ftm_drama",
       "frameMs": 400
      },
-     { "frames": ["ftm_close_1"], "line": "franklin: I paid in flies.", "ms": 2200 },
-     { "frames": ["ftm_audit_0", "ftm_audit_1"], "line": "auditor: How many flies?", "ms": 2000, "frameMs": 500 },
-     { "frames": ["ftm_close_0"], "line": "franklin: ...I ate the records.", "ms": 2400, "laugh": true },
      {
-      "frames": ["ftm_basis_0", "ftm_basis_1"],
+      "frames": [
+       "ftm_close_1"
+      ],
+      "line": "franklin: I paid in flies.",
+      "ms": 2200
+     },
+     {
+      "frames": [
+       "ftm_audit_0",
+       "ftm_audit_1"
+      ],
+      "line": "auditor: How many flies?",
+      "ms": 2000,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "ftm_close_0"
+      ],
+      "line": "franklin: ...I ate the records.",
+      "ms": 2400,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_basis_0",
+       "ftm_basis_1"
+      ],
       "line": "announcer: Can Franklin reconstruct his basis? Find out... next week!",
       "ms": 3000,
       "sfx": "ftm_drama",
       "frameMs": 400
      },
-     { "frames": ["ftm_season_0", "ftm_season_1"], "line": "announcer: Keep your receipts! The Frog Tax Man!", "ms": 2600, "sfx": "ftm_announcer", "frameMs": 420 }
+     {
+      "frames": [
+       "ftm_season_0",
+       "ftm_season_1"
+      ],
+      "line": "announcer: Keep your receipts! The Frog Tax Man!",
+      "ms": 2600,
+      "sfx": "ftm_announcer",
+      "frameMs": 420
+     }
     ]
    },
    {
     "id": "the_sharkstorm",
     "//": "Story Phase 9: the excuse. Franklin's records were eaten by a shark, in a shark storm, and the Auditor does not care. Broadcast the morning the Revenge raises Crownskull Isle with the Great Sharkstorm behind it: a coincidence (the set doesn't know anything; the crew are not sure). Invented frog paperwork.",
-    "if": { "flag": "p9_started" },
+    "if": {
+     "flag": "p9_started"
+    },
     "beats": [
-     { "frames": ["ftm_season_0", "ftm_season_1"], "line": "announcer: THE FROG TAX MAN! Tonight: THE EXCUSE.", "ms": 2600, "sfx": "ftm_horn", "frameMs": 420 },
-     { "frames": ["ftm_audit_0", "ftm_audit_1"], "line": "auditor: Mister Franklin. Your records. Where are they?", "ms": 2800, "frameMs": 500 },
-     { "frames": ["ftm_close_0"], "line": "franklin: They were eaten.", "ms": 2000, "laugh": true },
-     { "frames": ["ftm_audit_1"], "line": "auditor: Eaten.", "ms": 1800 },
      {
-      "frames": ["ftm_eaten_0", "ftm_eaten_1"],
+      "frames": [
+       "ftm_season_0",
+       "ftm_season_1"
+      ],
+      "line": "announcer: THE FROG TAX MAN! Tonight: THE EXCUSE.",
+      "ms": 2600,
+      "sfx": "ftm_horn",
+      "frameMs": 420
+     },
+     {
+      "frames": [
+       "ftm_audit_0",
+       "ftm_audit_1"
+      ],
+      "line": "auditor: Mister Franklin. Your records. Where are they?",
+      "ms": 2800,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "ftm_close_0"
+      ],
+      "line": "franklin: They were eaten.",
+      "ms": 2000,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_audit_1"
+      ],
+      "line": "auditor: Eaten.",
+      "ms": 1800
+     },
+     {
+      "frames": [
+       "ftm_eaten_0",
+       "ftm_eaten_1"
+      ],
       "line": "franklin: By a SHARK. I was carrying them across the pond, and a shark came up and ate every leaf.",
       "ms": 3200,
       "sfx": "ftm_drama",
       "frameMs": 400
      },
-     { "frames": ["ftm_audit_0", "ftm_audit_1"], "line": "auditor: There are no sharks in a pond, Mister Franklin.", "ms": 2600, "frameMs": 500 },
-     { "frames": ["ftm_close_1"], "line": "franklin: There are when there's a STORM.", "ms": 2400 },
-     { "frames": ["ftm_audit_0"], "line": "auditor: A storm.", "ms": 1800 },
      {
-      "frames": ["ftm_storm_0", "ftm_storm_1"],
+      "frames": [
+       "ftm_audit_0",
+       "ftm_audit_1"
+      ],
+      "line": "auditor: There are no sharks in a pond, Mister Franklin.",
+      "ms": 2600,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "ftm_close_1"
+      ],
+      "line": "franklin: There are when there's a STORM.",
+      "ms": 2400
+     },
+     {
+      "frames": [
+       "ftm_audit_0"
+      ],
+      "line": "auditor: A storm.",
+      "ms": 1800
+     },
+     {
+      "frames": [
+       "ftm_storm_0",
+       "ftm_storm_1"
+      ],
       "line": "franklin: A SHARK storm! Sharks! In the sky! Going round and round! And one came down and ATE MY RECEIPTS!",
       "ms": 3400,
       "sfx": "ftm_drama",
       "frameMs": 300
      },
-     { "frames": ["ftm_audit_0", "ftm_audit_1"], "line": "auditor: ...", "ms": 1800, "frameMs": 600 },
-     { "frames": ["ftm_audit_1"], "line": "auditor: Mister Franklin. A sharkstorm is not a valid excuse for poor record-keeping.", "ms": 3200, "sfx": "ftm_sting" },
-     { "frames": ["ftm_close_0"], "line": "franklin: It ATE them!", "ms": 2000, "laugh": true },
-     { "frames": ["ftm_audit_0", "ftm_audit_1"], "line": "auditor: Then you should have kept copies. Disallowed.", "ms": 2600, "sfx": "ftm_gavel", "frameMs": 500 },
-     { "frames": ["ftm_break_0", "ftm_break_1"], "line": "announcer: The Frog Tax Man will be right back, after a word from Pond Soap!", "ms": 3000, "frameMs": 400 }
+     {
+      "frames": [
+       "ftm_audit_0",
+       "ftm_audit_1"
+      ],
+      "line": "auditor: ...",
+      "ms": 1800,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "ftm_audit_1"
+      ],
+      "line": "auditor: Mister Franklin. A sharkstorm is not a valid excuse for poor record-keeping.",
+      "ms": 3200,
+      "sfx": "ftm_sting"
+     },
+     {
+      "frames": [
+       "ftm_close_0"
+      ],
+      "line": "franklin: It ATE them!",
+      "ms": 2000,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_audit_0",
+       "ftm_audit_1"
+      ],
+      "line": "auditor: Then you should have kept copies. Disallowed.",
+      "ms": 2600,
+      "sfx": "ftm_gavel",
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "ftm_break_0",
+       "ftm_break_1"
+      ],
+      "line": "announcer: The Frog Tax Man will be right back, after a word from Pond Soap!",
+      "ms": 3000,
+      "frameMs": 400
+     }
+    ]
+   },
+   {
+    "id": "the_sleep_deductions",
+    "//": "Story Phase 10, the first night in the galley: Franklin tries to deduct his hammock, his pillows and his sleep. A coincidence (the crew have just lost their beds to a release that moved in, and their pillows to the sharks). Invented frog paperwork.",
+    "if": {
+     "flag": "galley_night_barracks"
+    },
+    "beats": [
+     {
+      "frames": [
+       "ftm_season_0",
+       "ftm_season_1"
+      ],
+      "line": "announcer: THE FROG TAX MAN! Tonight: BEDTIME.",
+      "ms": 2600,
+      "sfx": "ftm_horn",
+      "frameMs": 420
+     },
+     {
+      "frames": [
+       "ftm_hammock_0",
+       "ftm_hammock_1"
+      ],
+      "line": "franklin: The hammock is a business expense. I sleep here so I can work here.",
+      "ms": 3000,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "ftm_audit_0",
+       "ftm_audit_1"
+      ],
+      "line": "auditor: Your hammock is over your desk, Mister Franklin.",
+      "ms": 2600,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "ftm_close_0"
+      ],
+      "line": "franklin: For efficiency.",
+      "ms": 1800,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_pillows_0",
+       "ftm_pillows_1"
+      ],
+      "line": "franklin: And the pillows. Twelve. For posture.",
+      "ms": 2600,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "ftm_audit_1"
+      ],
+      "line": "auditor: Twelve.",
+      "ms": 1800
+     },
+     {
+      "frames": [
+       "ftm_close_1"
+      ],
+      "line": "franklin: And sleep. I'd like to deduct sleep. I do it every night, for work.",
+      "ms": 3000,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_sleep_receipt_0",
+       "ftm_sleep_receipt_1"
+      ],
+      "line": "auditor: Disallowed. The hammock, the pillows, the sleep. All of it.",
+      "ms": 3000,
+      "sfx": "ftm_gavel",
+      "frameMs": 700
+     },
+     {
+      "frames": [
+       "ftm_lilypad"
+      ],
+      "line": "franklin: ...Ribbit.",
+      "ms": 2200,
+      "sfx": "ftm_ribbit"
+     },
+     {
+      "frames": [
+       "ftm_break_0",
+       "ftm_break_1"
+      ],
+      "line": "announcer: The Frog Tax Man will be right back, after a word from Pond Soap!",
+      "ms": 3000,
+      "frameMs": 400
+     }
+    ]
+   },
+   {
+    "id": "the_storm_audit",
+    "//": "Story Phase 10, the impossible broadcast (inside the Great Sharkstorm, through a can of Spicy Stench Sauce): Franklin audits a treasure-bearing shark storm, the Bling Bling King comes on as its largest account holder and SPEAKS (smooth; the real one never has), cites Garrick's book as law, pays the tax with the captain's treasure, and there's an advertisement. Nobody explains it; the crew notice that it can't be happening. Shown once, in the scene: on the channel it's only there until it has been seen.",
+    "if": {
+     "all": [
+      {
+       "flag": "p10_antenna_fixed"
+      },
+      {
+       "notFlag": "p10_audit_seen"
+      }
+     ]
+    },
+    "beats": [
+     {
+      "frames": [
+       "ftm_bulletin_0",
+       "ftm_bulletin_1"
+      ],
+      "line": "announcer: THE FROG TAX MAN! A special broadcast. Tonight: THE STORM.",
+      "ms": 2800,
+      "sfx": "ftm_horn",
+      "frameMs": 420
+     },
+     {
+      "frames": [
+       "ftm_stormchart_0",
+       "ftm_stormchart_1"
+      ],
+      "line": "franklin: Today's audit: a rotating weather system. Assets on board: considerable.",
+      "ms": 3000,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "ftm_exhibit_0",
+       "ftm_exhibit_1"
+      ],
+      "line": "franklin: Doubloon chests. Crowns. Diamonds. Emeralds. And one Crimson King's Crown.",
+      "ms": 3200,
+      "sfx": "ftm_drama",
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "ftm_found_0",
+       "ftm_found_1"
+      ],
+      "line": "franklin: The storm's position is that all of it is FOUND PROPERTY.",
+      "ms": 3000,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "ftm_close_0"
+      ],
+      "line": "franklin: Were any attempts made to return it to its owner?",
+      "ms": 2600
+     },
+     {
+      "frames": [
+       "ftm_token_0",
+       "ftm_token_1"
+      ],
+      "line": "franklin: The storm has produced... a participation token. 'Treasure is about the journey.'",
+      "ms": 3200,
+      "laugh": true,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "ftm_close_1"
+      ],
+      "line": "franklin: That may not satisfy the legal requirement.",
+      "ms": 2600,
+      "sfx": "ftm_sting"
+     },
+     {
+      "frames": [
+       "bbk_tv_0",
+       "bbk_tv_1"
+      ],
+      "line": "announcer: Joining us tonight: the storm's largest account holder.",
+      "ms": 2800,
+      "sfx": "broadcast_sting",
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "bbk_tv_0",
+       "bbk_tv_1"
+      ],
+      "line": "bling_king_tv: Evening, Franklin. Lovely to be here. Respect the brand.",
+      "ms": 3000,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "ftm_close_0"
+      ],
+      "line": "franklin: Our documents list a 'designated fart man' aboard the vessel in question.",
+      "ms": 3000
+     },
+     {
+      "frames": [
+       "bbk_tv_0",
+       "bbk_tv_1"
+      ],
+      "line": "bling_king_tv: Eats. Sleeps. Watches television. Creates strategic odours. That's the whole job.",
+      "ms": 3200,
+      "laugh": true,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "bbk_tv_book_0",
+       "bbk_tv_book_1"
+      ],
+      "line": "bling_king_tv: And under the Ancient Stenchmaster Transfer Doctrine, Franklin. Fart It, Lose It.",
+      "ms": 3200,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "bbk_doctrine_0",
+       "bbk_doctrine_1"
+      ],
+      "line": "bling_king_tv: Chapter Forty-Seven. Treasure a Grand Stenchmaster blasts into the sky belongs to whoever catches it. See: Brogath.",
+      "ms": 3600,
+      "sfx": "ftm_drama",
+      "frameMs": 700
+     },
+     {
+      "frames": [
+       "ftm_taxcalc_0",
+       "ftm_taxcalc_1"
+      ],
+      "line": "franklin: In that case the tax liability is... considerable.",
+      "ms": 2800,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "bbk_tv_0",
+       "bbk_tv_1"
+      ],
+      "line": "bling_king_tv: Do you take pirate crowns?",
+      "ms": 2200,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "ftm_close_1"
+      ],
+      "line": "franklin: ...Apparently, yes.",
+      "ms": 2000,
+      "laugh": true
+     },
+     {
+      "frames": [
+       "ftm_paid_0",
+       "ftm_paid_1"
+      ],
+      "line": "franklin: Received: one jewelled crown, Crimson Fortune, second-best. PAID.",
+      "ms": 3000,
+      "sfx": "stamp_paid",
+      "frameMs": 700
+     },
+     {
+      "frames": [
+       "ftm_break_0",
+       "ftm_break_1"
+      ],
+      "line": "announcer: The Frog Tax Man will be right back, after this message.",
+      "ms": 2600,
+      "frameMs": 400
+     },
+     {
+      "frames": [
+       "bbk_ad_0",
+       "bbk_ad_1"
+      ],
+      "line": "bling_king_tv: Tired of digging? Why dig for days, when somebody else's Grand Stenchmaster can blast treasure directly to you?",
+      "ms": 3800,
+      "sfx": "sunglasses_ting",
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "bbk_montage_0",
+       "bbk_montage_1"
+      ],
+      "line": "bling_king_tv: Crowns. Diamond chains. Luxury seafood. Premium bedding. Treasure acquisition.",
+      "ms": 3200,
+      "sfx": "bling_sting",
+      "frameMs": 700
+     },
+     {
+      "frames": [
+       "bbk_logo_0",
+       "bbk_logo_1"
+      ],
+      "line": "announcer: Bling Bling King Treasure Solutions. If your captain hired a Grand Stenchmaster instead of someone useful: not our problem.",
+      "ms": 4000,
+      "frameMs": 500
+     }
     ]
    }
   ]

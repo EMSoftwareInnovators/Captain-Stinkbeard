@@ -7,6 +7,7 @@ import { sharkstormNow } from '../src/systems/hazards/sharkstorm.js';
 import { tvDef, tvCondition } from '../src/systems/tv/tv.js';
 import { logEntries } from '../src/systems/logs/logbook.js';
 import { resolvePreset } from '../src/debug/presets.js';
+import { isShared, laterPhaseFlags, sharedText } from './laterPhases.js';
 import { makeStory } from './storyHarness.js';
 
 /**
@@ -281,7 +282,8 @@ describe('Story Phase 6 stays inside its brief', () => {
   const text = files.flatMap((f) => {
     const p = path.resolve(f);
     const list = fs.statSync(p).isDirectory() ? fs.readdirSync(p).map((n) => path.join(p, n)) : [p];
-    return list.map((x) => fs.readFileSync(x, 'utf8'));
+    // The programmes are shared: leave out the episodes a later phase unlocks.
+    return list.map((x) => (isShared(x) ? sharedText(x, laterPhaseFlags(6)) : fs.readFileSync(x, 'utf8')));
   }).join('\n');
 
   it('never uses borrowed characters, the forbidden storm name, or later-phase material', () => {

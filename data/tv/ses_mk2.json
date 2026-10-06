@@ -8,33 +8,60 @@
   "channelVar": "ses_mk2_channel",
   "powerVar": "ses_mk2_power",
   "stateValue": "ses_mk2_state",
-  "flags": { "open": "ses_mk2_examined", "wiring": "ses_mk2_back_seen", "power": "ses_mk2_power_seen", "slap": "ses_mk2_slapped" },
+  "flags": {
+   "open": "ses_mk2_examined",
+   "wiring": "ses_mk2_back_seen",
+   "power": "ses_mk2_power_seen",
+   "slap": "ses_mk2_slapped"
+  },
   "offComments": [
    [
     "captain: It's off. The tubes are still faintly warm. It's a fruit crate, and it's warm.",
     "garrick: It's resting between episodes, Captain."
    ],
-   ["captain: Dark glass in a turnip crate. A horseshoe on top. The knob on the string swings when the ship rolls."],
-   ["captain: FINEST TURNIPS, it says on the side.", "garrick: Was. It was finest turnips. Now it's finest television."]
+   [
+    "captain: Dark glass in a turnip crate. A horseshoe on top. The knob on the string swings when the ship rolls."
+   ],
+   [
+    "captain: FINEST TURNIPS, it says on the side.",
+    "garrick: Was. It was finest turnips. Now it's finest television."
+   ]
   ],
   "channels": [
    {
     "id": 1,
     "title": "Static",
-    "frames": ["tv_static_0", "tv_static_1", "tv_static_2", "tv_static_3"],
+    "frames": [
+     "tv_static_0",
+     "tv_static_1",
+     "tv_static_2",
+     "tv_static_3"
+    ],
     "frameMs": 70,
     "glow": "#c8d0d8",
     "hum": "mk2_static",
     "comments": [
-     ["captain: Snow.", "garrick: Mark Two snow. Crisper."],
-     ["captain: It's the same snow as the old one.", "garrick: It's the same SKY, Captain. Different snow."],
-     ["captain: Somewhere above us a shark lands, and the snow jumps."]
+     [
+      "captain: Snow.",
+      "garrick: Mark Two snow. Crisper."
+     ],
+     [
+      "captain: It's the same snow as the old one.",
+      "garrick: It's the same SKY, Captain. Different snow."
+     ],
+     [
+      "captain: Somewhere above us a shark lands, and the snow jumps."
+     ]
     ]
    },
    {
     "id": 3,
     "title": "Potatoes",
-    "frames": ["tv_potato_0", "tv_potato_1", "tv_potato_2"],
+    "frames": [
+     "tv_potato_0",
+     "tv_potato_1",
+     "tv_potato_2"
+    ],
     "frameMs": 440,
     "glow": "#d8c890",
     "hum": "mk2_hum",
@@ -43,38 +70,61 @@
       "captain: The man peeling potatoes. He's still at it.",
       "garrick: He never stopped. Good to know some things don't change."
      ],
-     ["captain: ...He's on a different potato now.", "garrick: Character development."]
+     [
+      "captain: ...He's on a different potato now.",
+      "garrick: Character development."
+     ]
     ]
    },
    {
     "id": 4,
     "title": "A Fish",
-    "frames": ["tv_fish_0", "tv_fish_1"],
+    "frames": [
+     "tv_fish_0",
+     "tv_fish_1"
+    ],
     "frameMs": 620,
     "glow": "#90c8b8",
     "hum": "mk2_hum",
     "comments": [
-     ["captain: The fish.", "garrick: The fish."],
-     ["captain: At least it isn't a shark.", "garrick: Not in HERE, Captain."]
+     [
+      "captain: The fish.",
+      "garrick: The fish."
+     ],
+     [
+      "captain: At least it isn't a shark.",
+      "garrick: Not in HERE, Captain."
+     ]
     ]
    },
    {
     "id": 7,
     "title": "The Frog Tax Man",
     "program": "frog_tax_man",
-    "if": { "flag": "frog_tax_man_unlocked" },
-    "frames": ["ftm_season_0", "ftm_season_1"],
+    "if": {
+     "flag": "frog_tax_man_unlocked"
+    },
+    "frames": [
+     "ftm_season_0",
+     "ftm_season_1"
+    ],
     "frameMs": 420,
     "glow": "#7ac860",
     "hum": "mk2_hum",
     "comments": [
-     ["captain: Franklin.", "garrick[delighted]: FRANKLIN."],
+     [
+      "captain: Franklin.",
+      "garrick[delighted]: FRANKLIN."
+     ],
      [
       "captain: I'm not watching it.",
       "garrick: Of course not, Captain.",
       "Every pirate in the hold is sitting down. You are the only one standing: directly behind all of them, with the best view in the house."
      ],
-     ["captain: ...Has he found the receipts?", "garrick[proud]: Shh."]
+     [
+      "captain: ...Has he found the receipts?",
+      "garrick[proud]: Shh."
+     ]
     ]
    }
   ],
@@ -87,7 +137,10 @@
     "captain: Copper going round and round and round. Into nothing.",
     "garrick: Into the SIGNAL, Captain. Round is how signal likes it."
    ],
-   ["captain: There's a spoon taped to the inside.", "garrick: Fine tuning."]
+   [
+    "captain: There's a spoon taped to the inside.",
+    "garrick: Fine tuning."
+   ]
   ],
   "powerSource": [
    [
@@ -95,20 +148,49 @@
     "captain: Whose garter?",
     "garrick: Don't ask questions about the power source, Captain. It gets shy."
    ],
-   ["captain: The lantern's glowing. It isn't lit. It's just... glowing.", "garrick: It's been told to."]
+   [
+    "captain: The lantern's glowing. It isn't lit. It's just... glowing.",
+    "garrick: It's been told to."
+   ]
   ],
   "slap": [
-   ["garrick: Firmly. On the crate. Not the horseshoe. Never the horseshoe.", "captain: That shouldn't have worked."],
-   ["captain: I hit a turnip crate and it got better.", "garrick: Mark Two responds to leadership."]
+   [
+    "garrick: Firmly. On the crate. Not the horseshoe. Never the horseshoe.",
+    "captain: That shouldn't have worked."
+   ],
+   [
+    "captain: I hit a turnip crate and it got better.",
+    "garrick: Mark Two responds to leadership."
+   ]
   ],
   "failures": {
-   "every": [11000, 19000],
-   "kinds": ["roll", "buzz", "spark", "smoke"],
+   "every": [
+    11000,
+    19000
+   ],
+   "kinds": [
+    "roll",
+    "buzz",
+    "spark",
+    "smoke"
+   ],
    "lines": [
-    ["pete: It's doing the thing again!", "garrick: Warm-up."],
-    ["captain: It's rolling.", "garrick: Slap the crate. NOT the horseshoe."],
-    ["captain: That's smoke.", "garrick: That's the turnips, Captain. Residual turnips."],
-    ["gristle: It's going to go up!", "garrick: It's going to go up a CHANNEL, Mister Gristle."]
+    [
+     "pete: It's doing the thing again!",
+     "garrick: Warm-up."
+    ],
+    [
+     "captain: It's rolling.",
+     "garrick: Slap the crate. NOT the horseshoe."
+    ],
+    [
+     "captain: That's smoke.",
+     "garrick: That's the turnips, Captain. Residual turnips."
+    ],
+    [
+     "gristle: It's going to go up!",
+     "garrick: It's going to go up a CHANNEL, Mister Gristle."
+    ]
    ]
   },
   "states": {
@@ -120,7 +202,44 @@
       "captain: Half a television. A crate, a tube, a horseshoe, a great deal of string.",
       "garrick: Three-quarters, Captain. The knob's coming."
      ],
-     ["captain: Nothing. Good. Keep it that way."]
+     [
+      "captain: Nothing. Good. Keep it that way."
+     ]
+    ]
+   },
+   "storm_static": {
+    "//": "Story Phase 10: inside the Great Sharkstorm, the horseshoe aerial knocked flat in the spin. On, but it gets nothing but snow whatever the channel, and now and then, for a frame, Franklin.",
+    "bezel": "mk2_bezel_bent",
+    "frames": [
+     "tv_static_0",
+     "tv_static_1",
+     "tv_static_2",
+     "tv_static_3",
+     "tv_static_0",
+     "ftm_ghost_0",
+     "tv_static_2",
+     "tv_static_1",
+     "ftm_ghost_1",
+     "tv_static_3"
+    ],
+    "frameMs": 90,
+    "osd": "NO SIGNAL",
+    "lookComments": [
+     [
+      "captain: Snow. And in the snow, now and then, a frog.",
+      "garrick[worried]: The aerial, Captain. The aerial's been through a lot."
+     ]
+    ]
+   },
+   "sauce_antenna": {
+    "//": "Story Phase 10, and after: a can of Spicy Stench Sauce jammed on the horseshoe aerial. It works. Nobody will say why.",
+    "bezel": "mk2_bezel_sauce",
+    "lookComments": [
+     [
+      "captain: A can of sauce on a horseshoe on a turnip crate.",
+      "pete[annoyed]: I hate that it works.",
+      "captain: I'm not acknowledging it."
+     ]
     ]
    }
   },
@@ -147,7 +266,10 @@
        "bob[alarmed]: The SHARKS will hear it!",
        "garrick: The sharks have their own problems, Bob."
       ],
-      ["Louder still. The crate rattles on its hinges.", "pete[annoyed]: STOP TURNING THAT ONE!"]
+      [
+       "Louder still. The crate rattles on its hinges.",
+       "pete[annoyed]: STOP TURNING THAT ONE!"
+      ]
      ]
     },
     {
@@ -160,7 +282,9 @@
        "The picture turns upside down. The snow falls upwards.",
        "gristle: That's worse. I don't know how, but that's worse."
       ],
-      ["Right way up again. Probably."]
+      [
+       "Right way up again. Probably."
+      ]
      ]
     },
     {
@@ -173,7 +297,9 @@
        "The picture starts to roll, over and over, like the ship.",
        "hale[disgusted]: Please. I've only just got my stomach back."
       ],
-      ["The rolling stops. Hale breathes out."]
+      [
+       "The rolling stops. Hale breathes out."
+      ]
      ]
     },
     {
@@ -208,7 +334,10 @@
      "effect": "noop",
      "sfx": "spoon_tink",
      "lines": [
-      ["You turn the spoon. Nothing happens.", "garrick: Fine tuning, Captain. It's very fine. You won't see it."]
+      [
+       "You turn the spoon. Nothing happens.",
+       "garrick: Fine tuning, Captain. It's very fine. You won't see it."
+      ]
      ]
     },
     {
@@ -220,13 +349,144 @@
      "sfx": "mk2_static",
      "doneSfx": "ftm_ribbit",
      "lines": [
-      ["Something green moves in the snow. For a moment. Then it's gone.", "garrick[alarmed]: AGAIN, Captain. AGAIN."]
+      [
+       "Something green moves in the snow. For a moment. Then it's gone.",
+       "garrick[alarmed]: AGAIN, Captain. AGAIN."
+      ]
      ],
      "doneLines": [
-      ["Through the static, faint, wobbling:", "franklin: ...Ribbit..."]
+      [
+       "Through the static, faint, wobbling:",
+       "franklin: ...Ribbit..."
+      ]
      ]
     }
    ]
+  },
+  "knobPanels": {
+   "antenna": {
+    "//": "Story Phase 10 (chapter 93): the aerial, inside the Great Sharkstorm. Every adjustment gets a glimpse of something (the weather, a cooking programme, an advert, Franklin for a second); none of it holds. After three tries, the last idea turns up: the can of Spicy Stench Sauce. It works. No wrong answer is a dead end.",
+    "doneFlag": "p10_antenna_fixed",
+    "closeAfter": 3200,
+    "openLines": [
+     [
+      "captain: The aerial. A horseshoe, a cotton reel, a fork, a lot of copper wire. All of it flat.",
+      "garrick[worried]: Gently, Captain. She's delicate. She's been through a STORM."
+     ]
+    ],
+    "list": [
+     {
+      "id": "bend",
+      "label": "BEND IT BACK",
+      "effect": "glimpse",
+      "frames": [
+       "tv_weather_0",
+       "tv_weather_1"
+      ],
+      "ms": 1400,
+      "frameMs": 400,
+      "sfx": "mk2_switch",
+      "lines": [
+       [
+        "You bend the horseshoe upright. The weather, somewhere sunny, for a second. Then snow.",
+        "bob: Sunny. Somewhere's sunny."
+       ],
+       [
+        "Upright again. A little sun with a face on it waves. Snow."
+       ]
+      ]
+     },
+     {
+      "id": "fork",
+      "label": "TWIST THE FORK",
+      "effect": "glimpse",
+      "frames": [
+       "tv_potato_0",
+       "tv_potato_1",
+       "tv_potato_2"
+      ],
+      "ms": 1500,
+      "frameMs": 300,
+      "sfx": "spoon_tink",
+      "lines": [
+       [
+        "You twist the fork. A man peeling potatoes, calm as anything. Gone.",
+        "jim[annoyed]: He's got a kitchen that stays still. I hate him."
+       ]
+      ]
+     },
+     {
+      "id": "wire",
+      "label": "WIGGLE THE WIRE",
+      "effect": "glimpse",
+      "frames": [
+       "ftm_break_0",
+       "ftm_break_1"
+      ],
+      "ms": 1400,
+      "frameMs": 400,
+      "sfx": "mk2_antenna_buzz",
+      "lines": [
+       [
+        "You wiggle the copper wire. An advert for Pond Soap, very cheerful, very brief.",
+        "gristle: Even the adverts are getting more signal than us."
+       ]
+      ]
+     },
+     {
+      "id": "horseshoe",
+      "label": "FLIP THE HORSESHOE",
+      "effect": "glimpse",
+      "frames": [
+       "ftm_season_0",
+       "ftm_season_1"
+      ],
+      "ms": 1000,
+      "frameMs": 300,
+      "sfx": "mk2_switch",
+      "lines": [
+       [
+        "You flip the horseshoe round. FRANKLIN. For one second, Franklin. Then snow.",
+        "garrick[alarmed]: HE'S IN THERE, Captain! He's trying to get through!"
+       ]
+      ]
+     },
+     {
+      "id": "slap",
+      "label": "SLAP IT",
+      "effect": "noop",
+      "sfx": "tv_slap",
+      "lines": [
+       [
+        "You slap the side of the crate. The snow gets snowier.",
+        "squawks[smug]: Good slap. Bad idea."
+       ]
+      ]
+     },
+     {
+      "id": "sauce",
+      "label": "THE SAUCE CAN",
+      "effect": "tune",
+      "after": 3,
+      "tries": 1,
+      "channel": 7,
+      "sfx": "can_hiss",
+      "doneSfx": "ftm_ribbit",
+      "lines": [
+       [
+        "You jam the can of Spicy Stench Sauce onto the horseshoe."
+       ]
+      ],
+      "doneLines": [
+       [
+        "The snow parts like a curtain. A frog in a tie, perfectly clear.",
+        "pete[annoyed]: ...I hate that it worked.",
+        "captain: I am not acknowledging that."
+       ]
+      ]
+     }
+    ]
+   }
   }
  }
 }

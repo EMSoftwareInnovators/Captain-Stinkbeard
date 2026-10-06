@@ -1,0 +1,834 @@
+[
+ {
+  "id": "saddest_salvage",
+  "title": "The Saddest Salvage",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "Recover whatever didn't go into the Great Sharkstorm. It won't be much. It will smell.",
+  "description": "The Crimson Clearing is a crater now. Most of the Fortune of the Crimson Kings is going round in the sky. Search the rim for whatever came down again, get the Grand Stenchmaster's professional opinion (if you must), and hand the lot to Gristle to count.",
+  "objectives": [
+   {
+    "id": "first",
+    "text": "Search the crater rim (the glints on the south and east side)",
+    "type": "event",
+    "target": "p10_salvage_a",
+    "count": 4
+   },
+   {
+    "id": "appraisal",
+    "text": "Ask the Grand Stenchmaster for his professional opinion (him, on the rim)",
+    "type": "flag",
+    "target": "p10_appraisal",
+    "after": [
+     "first"
+    ]
+   },
+   {
+    "id": "rest",
+    "text": "Search the rest of the rim (the glints on the north and west side)",
+    "type": "event",
+    "target": "p10_salvage_b",
+    "count": 4,
+    "after": [
+     "appraisal"
+    ]
+   },
+   {
+    "id": "tally",
+    "text": "Give Gristle the haul to count (Gristle)",
+    "type": "flag",
+    "target": "crater_salvage_complete",
+    "after": [
+     "rest"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "wealthy_sharks",
+  "title": "Wealthy Sharks",
+  "category": "main",
+  "giver": "pete",
+  "summary": "Back down the trail to the boats. The storm's overhead. So's your money.",
+  "description": "Walk the jungle trail back to the landing beach while the Great Sharkstorm hangs over the island and its sharks go by wearing the Crimson Fortune. Then row for the Revenge.",
+  "objectives": [
+   {
+    "id": "down",
+    "text": "Head back down the jungle trail, toward the beach",
+    "type": "visit",
+    "target": "isle_trail"
+   },
+   {
+    "id": "tiara",
+    "text": "The tiara! It came down on the trail. GET IT.",
+    "type": "flag",
+    "target": "p10_tiara_stolen",
+    "after": [
+     "down"
+    ]
+   },
+   {
+    "id": "boats",
+    "text": "Row back to the Revenge (the boats on the landing beach)",
+    "type": "flag",
+    "target": "p10_aboard",
+    "after": [
+     "tiara"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "participation_prize",
+  "title": "The Participation Prize",
+  "category": "main",
+  "giver": "squawks",
+  "summary": "It came up out of the sea in a chain. It spat something at you.",
+  "description": "The megalodon wearing the Crimson King's Crown has come back from inside the Great Sharkstorm wearing a great deal more. It spat something onto the deck. Pick it up. Read it. Both sides.",
+  "objectives": [
+   {
+    "id": "coin",
+    "text": "Pick up what it spat out (on the deck)",
+    "type": "flag",
+    "target": "p10_first_coin"
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "treasure_feast",
+  "title": "A Celebration (Allegedly)",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "Morale is terrible. A proper meal will help. Probably.",
+  "description": "Order food. Get Jim to open his pantry in the hold, and find something to drink with it. There is going to be a feast. The Grand Stenchmaster has already named it.",
+  "objectives": [
+   {
+    "id": "pantry",
+    "text": "Get Jim to open his pantry (Jim, in the hold)",
+    "type": "flag",
+    "target": "bean_pantry_revealed"
+   },
+   {
+    "id": "casks",
+    "text": "Find something to drink (the water casks, in the hold)",
+    "type": "flag",
+    "target": "frog_grog_drinks",
+    "after": [
+     "pantry"
+    ]
+   },
+   {
+    "id": "galley",
+    "text": "Take it up to the galley and cook (the galley)",
+    "type": "flag",
+    "target": "p10_ch76_started",
+    "after": [
+     "casks"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 50
+  }
+ },
+ {
+  "id": "grand_galley",
+  "title": "The Grand Galley Grand Chef",
+  "category": "main",
+  "giver": "jim",
+  "summary": "Crying Beans. Spicy Stench Sauce. Dinner.",
+  "description": "Jim won't take the title. He'll take the help. Open the Crying Beans, heat the pot, shake the Spicy Stench Sauce, and whatever happens, stop the Grand Stenchmaster putting the whole can in.",
+  "objectives": [
+   {
+    "id": "beans",
+    "text": "Open the Crying Beans (the prep table)",
+    "type": "flag",
+    "target": "crying_beans_introduced"
+   },
+   {
+    "id": "pot",
+    "text": "Heat the pot (the stove)",
+    "type": "flag",
+    "target": "p10_pot_heated",
+    "after": [
+     "beans"
+    ]
+   },
+   {
+    "id": "sauce",
+    "text": "Shake up the Spicy Stench Sauce (the long table)",
+    "type": "flag",
+    "target": "spicy_sauce_introduced",
+    "after": [
+     "pot"
+    ]
+   },
+   {
+    "id": "stop",
+    "text": "Stop the Grand Stenchmaster! (the stove)",
+    "type": "flag",
+    "target": "p10_too_much_sauce",
+    "after": [
+     "sauce"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "shark_catering",
+  "title": "Shark Catering",
+  "category": "main",
+  "giver": "pete",
+  "summary": "We have beans. They have lobster.",
+  "description": "The sharks have ordered dinner, paid for it with your treasure, and thrown the leftovers on your deck. Get their rubbish off your ship.",
+  "objectives": [
+   {
+    "id": "sweep",
+    "text": "Sweep the sharks' rubbish over the side (three heaps on the deck)",
+    "type": "event",
+    "target": "p10_swept",
+    "count": 3
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "release_moved_in",
+  "title": "That Release Moved In",
+  "category": "main",
+  "giver": "gristle",
+  "summary": "Something went off in the hold. Tonight, everyone needs somewhere to sleep.",
+  "description": "Find out what that bang below was. Then decide where everybody sleeps tonight, now that the barracks are what they are and the old quarters are... well. Somebody is going to want to check the old quarters.",
+  "objectives": [
+   {
+    "id": "hold",
+    "text": "See what went off (the hold)",
+    "type": "flag",
+    "target": "p10_hold_vented_seen"
+   },
+   {
+    "id": "where",
+    "text": "Decide where everyone sleeps (the crew, in the hold)",
+    "type": "flag",
+    "target": "p10_sleep_discussed",
+    "after": [
+     "hold"
+    ]
+   },
+   {
+    "id": "test",
+    "text": "Rusty Tom checks the old quarters (the old door, in the galley)",
+    "type": "flag",
+    "target": "quarters_reconfirmed_condemned",
+    "after": [
+     "where"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "shark_suites",
+  "title": "Shark Suites",
+  "category": "main",
+  "giver": "ned",
+  "summary": "The barge is back. It's bringing bedding. Not for us.",
+  "description": "Go up and see what Ned's seen. Then catch whatever the wind brings you.",
+  "objectives": [
+   {
+    "id": "look",
+    "text": "See what Ned's seen (Ned, on deck)",
+    "type": "flag",
+    "target": "luxury_bedding_seen"
+   },
+   {
+    "id": "pillows",
+    "text": "Catch a pillow! (they're coming down on the deck)",
+    "type": "event",
+    "target": "p10_pillow",
+    "count": 2,
+    "after": [
+     "look"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "bad_hotel",
+  "title": "Bad Hotel",
+  "category": "main",
+  "giver": "squawks",
+  "summary": "The galley. Tonight it's a bedroom. Again.",
+  "description": "Make the galley into somewhere nine people and a parrot can sleep: bean sacks for beds, Squawks' basket, and a spot for yourself. The Grand Stenchmaster has his own arrangements.",
+  "objectives": [
+   {
+    "id": "sacks",
+    "text": "Lay out bean sacks for beds (the sacks by the stores)",
+    "type": "event",
+    "target": "p10_sack",
+    "count": 3
+   },
+   {
+    "id": "squawks",
+    "text": "Make up Squawks' bed (his basket)",
+    "type": "flag",
+    "target": "p10_squawks_bed",
+    "after": [
+     "sacks"
+    ]
+   },
+   {
+    "id": "bunk",
+    "text": "Pick your spot (the sacks by the long table)",
+    "type": "flag",
+    "target": "galley_night_barracks",
+    "after": [
+     "squawks"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 50
+  }
+ },
+ {
+  "id": "bedtime_television",
+  "title": "Bedtime Television",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "The Mark II has moved in too. It's bedtime. Franklin's on.",
+  "description": "Watch the Frog Tax Man on the Mark II. Then do something about that lamp.",
+  "objectives": [
+   {
+    "id": "tv",
+    "text": "Watch the Frog Tax Man (the Mark II, by the stores)",
+    "type": "flag",
+    "target": "p10_ftm_bedtime_seen"
+   },
+   {
+    "id": "lamp",
+    "text": "Do something about that lamp (the kerosene lamp)",
+    "type": "flag",
+    "target": "p10_lamp_lowered",
+    "after": [
+     "tv"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 50
+  }
+ },
+ {
+  "id": "brogath_the_bashful",
+  "title": "Brogath the Bashful",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "A bedtime story. An ancient legend. Allegedly.",
+  "description": "The Grand Stenchmaster has a book, and a lantern, and a story. Lie down and hear it.",
+  "objectives": [
+   {
+    "id": "story",
+    "text": "Hear the bedtime story (the Grand Stenchmaster's hammock)",
+    "type": "flag",
+    "target": "brogath_legend_heard"
+   }
+  ],
+  "rewards": {
+   "xp": 50
+  }
+ },
+ {
+  "id": "sweet_dreams",
+  "title": "Sweet Dreams",
+  "category": "main",
+  "giver": "squawks",
+  "summary": "Something keeps coming down the hatch. It's plastic.",
+  "description": "The sharks are throwing things down the galley hatch. See what they say. Then go up and have a word with that storm.",
+  "objectives": [
+   {
+    "id": "tokens",
+    "text": "See what's coming down the hatch (on the floor)",
+    "type": "event",
+    "target": "p10_bedtime_token",
+    "count": 3
+   },
+   {
+    "id": "deck",
+    "text": "Go up and have a word with that storm (on deck)",
+    "type": "flag",
+    "target": "p10_storm_confronted",
+    "after": [
+     "tokens"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "meet_wind_with_wind",
+  "title": "Meet Wind with Wind",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "Another story. This one's about a storm. And somebody who stopped it.",
+  "description": "Ask the Grand Stenchmaster whether any of his Grand Stenchmasters of old ever had trouble with weather. He has a story.",
+  "objectives": [
+   {
+    "id": "rumpold",
+    "text": "Ask for a story about a storm (the Grand Stenchmaster's hammock)",
+    "type": "flag",
+    "target": "rumpold_legend_heard"
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "fart_man",
+  "title": "Fart Man",
+  "category": "main",
+  "giver": "pete",
+  "summary": "It came down the hatch with a clang. It's a trophy.",
+  "description": "See what came down the hatch this time.",
+  "objectives": [
+   {
+    "id": "trophy",
+    "text": "See what came down the hatch (by the ladder)",
+    "type": "flag",
+    "target": "p10_leadership_trophy"
+   }
+  ],
+  "rewards": {
+   "xp": 40
+  }
+ },
+ {
+  "id": "fart_literature",
+  "title": "Fart Literature",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "You can't sleep. The book is right there.",
+  "description": "Borrow the Grand Stenchmaster's book while he sleeps. Read the Rumpold chapter properly, at the long table, and write down anything useful. Tell nobody.",
+  "objectives": [
+   {
+    "id": "book",
+    "text": "Borrow the book (from the Grand Stenchmaster's hammock)",
+    "type": "flag",
+    "target": "stinkbeard_read_book"
+   },
+   {
+    "id": "research",
+    "text": "Read the Rumpold chapter properly (the long table)",
+    "type": "event",
+    "target": "p10_phrase",
+    "count": 5,
+    "after": [
+     "book"
+    ]
+   },
+   {
+    "id": "notes",
+    "text": "Write it up (the long table)",
+    "type": "flag",
+    "target": "p10_plan_written",
+    "after": [
+     "research"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "counter_sharkstorm",
+  "title": "The Counter-Sharkstorm Initiative",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "ALL HANDS ON DECK.",
+  "description": "Tell the crew the plan, hear out every other plan anybody has, and decide.",
+  "objectives": [
+   {
+    "id": "muster",
+    "text": "Brief the crew (the board, by the mainmast)",
+    "type": "flag",
+    "target": "p10_briefing"
+   },
+   {
+    "id": "alternatives",
+    "text": "Hear out the alternatives (the crew)",
+    "type": "event",
+    "target": "p10_alt",
+    "count": 6,
+    "after": [
+     "muster"
+    ]
+   },
+   {
+    "id": "decide",
+    "text": "Decide (the board)",
+    "type": "flag",
+    "target": "counter_plan_approved",
+    "after": [
+     "alternatives"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "sash_holders",
+  "title": "Sash Holders",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "He'll do it. On one condition.",
+  "description": "Ask the Grand Stenchmaster what he needs. Find two people to hold the sash. It will be difficult.",
+  "objectives": [
+   {
+    "id": "condition",
+    "text": "Ask the Grand Stenchmaster what he needs (him)",
+    "type": "flag",
+    "target": "p10_holders_needed"
+   },
+   {
+    "id": "volunteers",
+    "text": "Find two volunteers (the crew)",
+    "type": "flag",
+    "target": "pete_bureaucracy_reversal",
+    "after": [
+     "condition"
+    ]
+   },
+   {
+    "id": "lots",
+    "text": "Draw lots (the board)",
+    "type": "flag",
+    "target": "sash_holders_chosen",
+    "after": [
+     "volunteers"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "grand_feast",
+  "title": "The Grand Feast",
+  "category": "main",
+  "giver": "jim",
+  "summary": "The Grand Stenchmaster needs charging. That means eating. That means beans.",
+  "description": "Cook the Grand Stenchmaster's Grand Stenchmaster Fart's Grand Feast, all five parts, in any order: Crying Beans, Garrick-Approved Baked Beans, Burnt Beans, a Bean Smoothie and the sauce. Then plate it. Formally. Then serve it.",
+  "objectives": [
+   {
+    "id": "crying",
+    "text": "Crying Beans (the prep table)",
+    "type": "flag",
+    "target": "p10_feast_crying"
+   },
+   {
+    "id": "baked",
+    "text": "Garrick-Approved Baked Beans (the long table)",
+    "type": "flag",
+    "target": "p10_feast_baked"
+   },
+   {
+    "id": "burnt",
+    "text": "Burnt Beans (the stove)",
+    "type": "flag",
+    "target": "p10_feast_burnt"
+   },
+   {
+    "id": "smoothie",
+    "text": "A Bean Smoothie (the blender, on the long table)",
+    "type": "flag",
+    "target": "bean_smoothie_made"
+   },
+   {
+    "id": "sauce",
+    "text": "The sauce ceremony (the sauce vats, in the hold)",
+    "type": "flag",
+    "target": "p10_feast_sauce"
+   },
+   {
+    "id": "plate",
+    "text": "Plate it, formally (the long table)",
+    "type": "flag",
+    "target": "charging_feast_prepared",
+    "after": [
+     "crying",
+     "baked",
+     "burnt",
+     "smoothie",
+     "sauce"
+    ]
+   },
+   {
+    "id": "serve",
+    "text": "Serve the Grand Stenchmaster (him)",
+    "type": "flag",
+    "target": "garrick_charged",
+    "after": [
+     "plate"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 90
+  }
+ },
+ {
+  "id": "the_approach",
+  "title": "The Approach",
+  "category": "main",
+  "giver": "gristle",
+  "summary": "Take her in close. Everything that can move, tie down.",
+  "description": "Bring the Revenge in to the Great Sharkstorm. Trim the sails, lash the cargo, check the ropes, take the helm with Gristle, secure the galley and get the sash holders into position. Watch the sky: the sharks are coming down on the deck now, marked first.",
+  "objectives": [
+   {
+    "id": "sails",
+    "text": "Trim the sails (the mainmast's sheets, both sides)",
+    "type": "event",
+    "target": "p10_sail",
+    "count": 2
+   },
+   {
+    "id": "cargo",
+    "text": "Lash the cargo (the crates by the starboard rail)",
+    "type": "flag",
+    "target": "p10_cargo_lashed"
+   },
+   {
+    "id": "ropes",
+    "text": "Check the ropes (the coils by the mainmast)",
+    "type": "flag",
+    "target": "p10_ropes_checked"
+   },
+   {
+    "id": "helm",
+    "text": "Take the helm with Gristle (the helm)",
+    "type": "flag",
+    "target": "p10_helm_set"
+   },
+   {
+    "id": "galley",
+    "text": "Secure the galley (below: the pots)",
+    "type": "flag",
+    "target": "p10_galley_secured"
+   },
+   {
+    "id": "holders",
+    "text": "Get the sash holders ready (Rusty Tom and Barnacle Bill)",
+    "type": "flag",
+    "target": "p10_holders_positioned"
+   },
+   {
+    "id": "report",
+    "text": "Ask the Grand Sharkmaster for a report (Pete, with his spyglass)",
+    "type": "flag",
+    "target": "p10_pete_report",
+    "after": [
+     "sails",
+     "cargo",
+     "ropes",
+     "helm",
+     "galley",
+     "holders"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 90
+  }
+ },
+ {
+  "id": "the_one_time",
+  "title": "The One Time",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "THIS IS THE ONE TIME.",
+  "description": "Get the Grand Stenchmaster into firing position at the stern rail. Then, when he runs, talk him back.",
+  "objectives": [
+   {
+    "id": "position",
+    "text": "Firing position (the stern rail, with the Grand Stenchmaster)",
+    "type": "flag",
+    "target": "p10_firing_position"
+   },
+   {
+    "id": "persuade",
+    "text": "Talk him back to the stern (him, at the bow)",
+    "type": "event",
+    "target": "p10_argument",
+    "count": 3,
+    "after": [
+     "position"
+    ]
+   },
+   {
+    "id": "award",
+    "text": "...What's that coming down? (him)",
+    "type": "flag",
+    "target": "cowardice_award_received",
+    "after": [
+     "persuade"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 80
+  }
+ },
+ {
+  "id": "wrong_way",
+  "title": "The Wrong Way",
+  "category": "main",
+  "giver": "ned",
+  "summary": "Final approach.",
+  "description": "Bring the Revenge's stern round to the centre of the storm at the helm, and hold her there. Then hold on.",
+  "objectives": [
+   {
+    "id": "align",
+    "text": "Bring her stern to the centre (the helm)",
+    "type": "flag",
+    "target": "p10_aligned"
+   },
+   {
+    "id": "rail",
+    "text": "HOLD ON (the rail)",
+    "type": "flag",
+    "target": "p10_entry_rail",
+    "after": [
+     "align"
+    ]
+   },
+   {
+    "id": "squawks",
+    "text": "Get hold of Squawks!",
+    "type": "flag",
+    "target": "p10_entry_squawks",
+    "after": [
+     "rail"
+    ]
+   },
+   {
+    "id": "below",
+    "text": "Get below! (the galley hatch)",
+    "type": "flag",
+    "target": "p10_entry_below",
+    "after": [
+     "squawks"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 90
+  }
+ },
+ {
+  "id": "inside_the_spout",
+  "title": "Inside the Spout",
+  "category": "main",
+  "giver": "pete",
+  "summary": "Round and round.",
+  "description": "The Revenge is inside the Great Sharkstorm, going round. The Grand Stenchmaster has saved the television. Get a picture on it.",
+  "objectives": [
+   {
+    "id": "antenna",
+    "text": "Get a picture on the Mark II (its aerial)",
+    "type": "flag",
+    "target": "p10_antenna_fixed"
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "the_impossible_audit",
+  "title": "The Impossible Audit",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "The Frog Tax Man is on. He's auditing the storm. The one we're in.",
+  "description": "Watch it.",
+  "objectives": [
+   {
+    "id": "watch",
+    "text": "Watch the Frog Tax Man (the Mark II)",
+    "type": "flag",
+    "target": "p10_audit_seen"
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "blackbeard",
+  "title": "I Used to Be Blackbeard",
+  "category": "main",
+  "giver": "squawks",
+  "summary": "Breathe, Captain.",
+  "description": "Breathe.",
+  "objectives": [
+   {
+    "id": "breathe",
+    "text": "Breathe (somewhere quiet, if there is one)",
+    "type": "flag",
+    "target": "blackbeard_breakdown_seen"
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "inside_great_sharkstorm",
+  "title": "Inside the Great Sharkstorm",
+  "category": "main",
+  "giver": "garrick",
+  "open": true,
+  "//": "Left unresolved on purpose: Story Phase 10 ends with the Revenge inside the storm. A later phase finishes it.",
+  "summary": "The nap can wait. Until after we deal with THAT.",
+  "description": "The Queen Anne's Revenge is inside the Great Sharkstorm, going round, with the Bling Bling King and his sharks and most of the Crimson Fortune. The sea below reeks like bean soup. The Grand Stenchmaster feels fantastic. He has agreed, for once, that the nap can wait.",
+  "objectives": [
+   {
+    "id": "out",
+    "text": "Get the Revenge out of the Great Sharkstorm",
+    "type": "flag",
+    "target": "revenge_out_of_sharkstorm"
+   },
+   {
+    "id": "king",
+    "text": "Deal with the Bling Bling King",
+    "type": "flag",
+    "target": "bling_bling_king_dealt_with"
+   }
+  ]
+ }
+]

@@ -69,6 +69,9 @@ export const REGISTRY_KINDS = [
   'mapPatches', 'logs', 'tv', 'tvPrograms',
 ];
 
+/** Content paths in load order: numbers compare as numbers ("phase9" before "phase10"). */
+const byPath = (a, b) => a.localeCompare(b, 'en', { numeric: true });
+
 function relativePath(path) {
   const idx = path.indexOf('data/');
   return idx >= 0 ? path.slice(idx + 5) : path;
@@ -81,9 +84,11 @@ export class ContentDB {
     this.leveling = null;
     this.loadErrors = [];
     this.extensions = []; // { kind: 'npcs'|'characters', rec, source }
-    this.files = Object.keys(files).map(relativePath).sort();
+    this.files = Object.keys(files).map(relativePath).sort(byPath);
 
-    for (const [path, json] of Object.entries(files).sort(([a], [b]) => a.localeCompare(b))) {
+    // Numeric-aware: "phase10" loads after "phase9", so a later phase's
+    // patches and extensions go on top of the earlier ones (Story Phase 10).
+    for (const [path, json] of Object.entries(files).sort(([a], [b]) => byPath(a, b))) {
       this.ingest(relativePath(path), json);
     }
     this.applyExtensions();
@@ -129,7 +134,9 @@ export class ContentDB {
         }
         for (const [id, rec] of Object.entries(json)) {
           if (id.startsWith('//') || id.startsWith('_')) continue; // comment keys
-          registry.add(id, rec, source);
+          // Story Phase 10: a later logbook record can extend an earlier one ("extend": "<id>").
+          if (rule.kind === 'logs' && rec && typeof rec.extend === 'string') this.extensions.push({ kind: 'logs', rec, source: `${source} (${id})` });
+          else registry.add(id, rec, source);
         }
         break;
       }
@@ -154,9 +161,44 @@ export class ContentDB {
     }
   }
 
+  /**
+   * A logbook extension (Story Phase 10): its "entries" are added to the
+   * logbook; an entry whose id the logbook already has instead puts its
+   * "variants" ahead of the old ones (the newest state of an entry wins).
+   * New "severities" (labels for scaled fields) are added to the old ones.
+   */
+  extendLog(ext) {
+    const base = this.logs.get(ext.rec.extend);
+    if (!base) {
+      this.loadErrors.push(`${ext.source}: "extend" names unknown logbook "${ext.rec.extend}"`);
+      return;
+    }
+    for (const key of Object.keys(ext.rec)) {
+      if (!['extend', 'entries', 'severities'].includes(key) && !key.startsWith('//')) this.loadErrors.push(`${ext.source}: a logbook extension may only add "entries" and "severities" (found "${key}")`);
+    }
+    const entries = [...(base.entries ?? [])];
+    for (const e of ext.rec.entries ?? []) {
+      const i = entries.findIndex((o) => o.id === e.id);
+      if (i < 0) {
+        entries.push(e);
+        continue;
+      }
+      for (const key of Object.keys(e)) {
+        if (!['id', 'variants'].includes(key) && !key.startsWith('//')) this.loadErrors.push(`${ext.source}: entry "${e.id}" already exists; an extension may only add "variants" to it (found "${key}")`);
+      }
+      entries[i] = { ...entries[i], variants: [...(e.variants ?? []), ...(entries[i].variants ?? [])] };
+    }
+    const severities = ext.rec.severities ? { ...(base.severities ?? {}), ...ext.rec.severities } : base.severities;
+    this.logs.map.set(ext.rec.extend, { ...base, entries, ...(severities ? { severities } : {}) });
+  }
+
   /** Merges map patches and NPC/character extensions into their base records. */
   applyExtensions() {
     for (const ext of this.extensions) {
+      if (ext.kind === 'logs') {
+        this.extendLog(ext);
+        continue;
+      }
       const registry = this[ext.kind];
       const base = registry.get(ext.rec.extend);
       if (!base) {

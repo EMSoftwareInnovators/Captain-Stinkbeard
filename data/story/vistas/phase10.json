@@ -1,0 +1,578 @@
+{
+ "//": "Story Phase 10 vistas: rowing back to the Revenge (she looks terrible); the Bling Bling King rising beside her in the Crimson King's Crown and an enormous chain; the catering barge bringing the sharks luxury seafood (and a ruby necklace going the other way); the barge again with bedding, the storm nesting, and pillows blowing at the ship; bedtime television in the galley; Garrick's legends on a ledger page (Brogath; Rumpold); the captain's golden fantasy, and the crack through it; the wrong-way blast off the bow, the sea erupting, and the Revenge driven stern-first into the storm; inside the spout, with the storm's welcome signs; the impossible broadcast in the galley bunker; the captain's glory days, in sepia.",
+ "row_back": {
+  "sky": "afternoon",
+  "sea": "afternoon",
+  "horizon": 132,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "storm",
+    "frame": "storm_far_0",
+    "x": 270,
+    "y": 128,
+    "depth": 4,
+    "frames": [
+     "storm_far_0",
+     "storm_far_1"
+    ],
+    "frameMs": 360,
+    "scale": 1.2
+   },
+   {
+    "id": "revenge",
+    "frame": "revenge_bitten_3",
+    "x": 150,
+    "y": 160,
+    "depth": 10,
+    "scale": 0.72,
+    "bob": 1
+   },
+   {
+    "id": "rowboat",
+    "frame": "rowboat_0",
+    "x": 70,
+    "y": 190,
+    "depth": 12,
+    "frames": [
+     "rowboat_0",
+     "rowboat_1"
+    ],
+    "frameMs": 420,
+    "bob": 2
+   }
+  ]
+ },
+ "bbk_reveal": {
+  "sky": "evening",
+  "sea": "evening",
+  "horizon": 132,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "storm",
+    "frame": "storm_far_0",
+    "x": 276,
+    "y": 126,
+    "depth": 4,
+    "frames": [
+     "storm_far_0",
+     "storm_far_1"
+    ],
+    "frameMs": 360,
+    "scale": 1.3
+   },
+   {
+    "id": "revenge",
+    "frame": "revenge_bitten_3",
+    "x": 92,
+    "y": 166,
+    "depth": 10,
+    "scale": 0.7,
+    "bob": 1
+   },
+   {
+    "id": "shadow",
+    "frame": "megalodon_shadow",
+    "x": 200,
+    "y": 190,
+    "depth": 9,
+    "alpha": 0.6
+   },
+   {
+    "id": "bbk",
+    "frame": "megalodon_bling_0",
+    "x": 200,
+    "y": 300,
+    "depth": 12,
+    "frames": [
+     "megalodon_bling_0",
+     "megalodon_bling_1"
+    ],
+    "frameMs": 520,
+    "hidden": true
+   },
+   {
+    "id": "pendant",
+    "frame": "bling_pendant",
+    "x": 160,
+    "y": 118,
+    "depth": 20,
+    "hidden": true
+   }
+  ]
+ },
+ "shark_catering": {
+  "sky": "sunset",
+  "sea": "sunset",
+  "horizon": 132,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "storm",
+    "frame": "storm_column_0",
+    "x": 236,
+    "y": 176,
+    "depth": 6,
+    "frames": [
+     "storm_column_0",
+     "storm_column_1",
+     "storm_column_2"
+    ],
+    "frameMs": 180,
+    "scale": 0.9
+   },
+   {
+    "id": "barge",
+    "frame": "barge_seafood_0",
+    "x": -60,
+    "y": 60,
+    "depth": 10,
+    "frames": [
+     "barge_seafood_0",
+     "barge_seafood_1"
+    ],
+    "frameMs": 120,
+    "scale": 0.8
+   },
+   {
+    "id": "diners",
+    "frame": "shark_diner_0",
+    "x": 236,
+    "y": 120,
+    "depth": 11,
+    "frames": [
+     "shark_diner_0",
+     "shark_diner_1"
+    ],
+    "frameMs": 380,
+    "hidden": true
+   },
+   {
+    "id": "necklace",
+    "frame": "ruby_necklace",
+    "x": 236,
+    "y": 150,
+    "depth": 12,
+    "hidden": true
+   }
+  ]
+ },
+ "shark_suites": {
+  "sky": "night",
+  "sea": "night",
+  "horizon": 132,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "storm",
+    "frame": "storm_column_0",
+    "x": 236,
+    "y": 176,
+    "depth": 6,
+    "frames": [
+     "storm_column_0",
+     "storm_column_1",
+     "storm_column_2"
+    ],
+    "frameMs": 180,
+    "scale": 0.9
+   },
+   {
+    "id": "nest",
+    "frame": "storm_nest_0",
+    "x": 236,
+    "y": 176,
+    "depth": 7,
+    "frames": [
+     "storm_nest_0",
+     "storm_nest_1"
+    ],
+    "frameMs": 240,
+    "scale": 0.9,
+    "hidden": true
+   },
+   {
+    "id": "barge",
+    "frame": "barge_bedding_0",
+    "x": -60,
+    "y": 60,
+    "depth": 10,
+    "frames": [
+     "barge_bedding_0",
+     "barge_bedding_1"
+    ],
+    "frameMs": 120,
+    "scale": 0.8
+   },
+   {
+    "id": "pillows",
+    "frame": "pillows_tumble_0",
+    "x": 236,
+    "y": 90,
+    "depth": 14,
+    "frames": [
+     "pillows_tumble_0",
+     "pillows_tumble_1"
+    ],
+    "frameMs": 180,
+    "scale": 0.6,
+    "hidden": true
+   }
+  ]
+ },
+ "galley_watch": {
+  "sky": "night",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "bg",
+    "frame": "galley_night",
+    "x": 160,
+    "y": 224,
+    "depth": 2
+   },
+   {
+    "id": "screen",
+    "frame": "ftm_season_0",
+    "x": 160,
+    "y": 136,
+    "depth": 10,
+    "scale": 0.55,
+    "frames": [
+     "ftm_season_0",
+     "ftm_season_1"
+    ],
+    "frameMs": 420
+   },
+   {
+    "id": "scan",
+    "frame": "tv_scan",
+    "x": 160,
+    "y": 136,
+    "depth": 11,
+    "alpha": 0.5,
+    "scale": 0.55
+   },
+   {
+    "id": "glare",
+    "frame": "tv_glare",
+    "x": 160,
+    "y": 136,
+    "depth": 12,
+    "scale": 0.55
+   },
+   {
+    "id": "set",
+    "frame": "mk2_bezel",
+    "x": 160,
+    "y": 160,
+    "depth": 13,
+    "scale": 0.55
+   },
+   {
+    "id": "crew",
+    "frame": "crew_backs",
+    "x": 160,
+    "y": 240,
+    "depth": 18
+   }
+  ]
+ },
+ "galley_legend": {
+  "sky": "night",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "bg",
+    "frame": "legend_bg",
+    "x": 160,
+    "y": 224,
+    "depth": 2
+   },
+   {
+    "id": "page",
+    "frame": "legend_page",
+    "x": 212,
+    "y": 214,
+    "depth": 10
+   },
+   {
+    "id": "panel",
+    "frame": "leg_brogath_shy",
+    "x": 214,
+    "y": 202,
+    "depth": 11
+   }
+  ]
+ },
+ "fantasy": {
+  "sky": "gold",
+  "sea": "gold",
+  "horizon": 150,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "coins",
+    "frame": "fantasy_coins_0",
+    "x": 160,
+    "y": 170,
+    "depth": 6,
+    "frames": [
+     "fantasy_coins_0",
+     "fantasy_coins_1"
+    ],
+    "frameMs": 260
+   },
+   {
+    "id": "bbk",
+    "frame": "fantasy_bbk",
+    "x": 250,
+    "y": 214,
+    "depth": 8,
+    "scale": 0.7,
+    "hidden": true
+   },
+   {
+    "id": "crew",
+    "frame": "fantasy_crew",
+    "x": 160,
+    "y": 224,
+    "depth": 12,
+    "hidden": true
+   },
+   {
+    "id": "captain",
+    "frame": "fantasy_captain",
+    "x": 110,
+    "y": 214,
+    "depth": 14,
+    "bob": 1
+   },
+   {
+    "id": "crack",
+    "frame": "fantasy_crack",
+    "x": 160,
+    "y": 224,
+    "depth": 30,
+    "hidden": true
+   }
+  ]
+ },
+ "wrong_way": {
+  "sky": "storm",
+  "sea": "storm",
+  "horizon": 132,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "storm",
+    "frame": "storm_wall_0",
+    "x": 20,
+    "y": 224,
+    "depth": 4,
+    "frames": [
+     "storm_wall_0",
+     "storm_wall_1"
+    ],
+    "frameMs": 200
+   },
+   {
+    "id": "stain",
+    "frame": "sea_stain",
+    "x": 160,
+    "y": 224,
+    "depth": 6,
+    "alpha": 0.0,
+    "hidden": true
+   },
+   {
+    "id": "revenge",
+    "frame": "revenge_bitten_3",
+    "x": 196,
+    "y": 168,
+    "depth": 10,
+    "scale": 0.72,
+    "bob": 1
+   },
+   {
+    "id": "blast",
+    "frame": "blast_down_0",
+    "x": 286,
+    "y": 214,
+    "depth": 11,
+    "frames": [
+     "blast_down_0",
+     "blast_down_1",
+     "blast_down_2"
+    ],
+    "frameMs": 110,
+    "hidden": true
+   },
+   {
+    "id": "erupt",
+    "frame": "ocean_erupt_0",
+    "x": 292,
+    "y": 240,
+    "depth": 12,
+    "frames": [
+     "ocean_erupt_0",
+     "ocean_erupt_1"
+    ],
+    "frameMs": 180,
+    "hidden": true
+   },
+   {
+    "id": "plume",
+    "frame": "wrong_plume_0",
+    "x": 292,
+    "y": 118,
+    "depth": 13,
+    "frames": [
+     "wrong_plume_0",
+     "wrong_plume_1"
+    ],
+    "frameMs": 260,
+    "hidden": true
+   },
+   {
+    "id": "lines",
+    "frame": "speed_lines_0",
+    "x": 160,
+    "y": 224,
+    "depth": 20,
+    "frames": [
+     "speed_lines_0",
+     "speed_lines_1"
+    ],
+    "frameMs": 80,
+    "alpha": 0.7,
+    "hidden": true
+   }
+  ]
+ },
+ "inside_spout": {
+  "sky": "inside",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "spout",
+    "frame": "spout_wall_0",
+    "x": 160,
+    "y": 224,
+    "depth": 4,
+    "frames": [
+     "spout_wall_0",
+     "spout_wall_1",
+     "spout_wall_2"
+    ],
+    "frameMs": 160
+   },
+   {
+    "id": "welcome",
+    "frame": "token_sign_welcome",
+    "x": 400,
+    "y": 96,
+    "depth": 12,
+    "hidden": true
+   },
+   {
+    "id": "congrats",
+    "frame": "token_sign_congrats",
+    "x": -80,
+    "y": 150,
+    "depth": 13,
+    "hidden": true
+   }
+  ]
+ },
+ "galley_storm_watch": {
+  "sky": "inside",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "bg",
+    "frame": "galley_bunker_0",
+    "x": 160,
+    "y": 224,
+    "depth": 2,
+    "frames": [
+     "galley_bunker_0",
+     "galley_bunker_1"
+    ],
+    "frameMs": 900
+   },
+   {
+    "id": "screen",
+    "frame": "ftm_season_0",
+    "x": 160,
+    "y": 136,
+    "depth": 10,
+    "scale": 0.55,
+    "frames": [
+     "ftm_season_0",
+     "ftm_season_1"
+    ],
+    "frameMs": 420
+   },
+   {
+    "id": "scan",
+    "frame": "tv_scan",
+    "x": 160,
+    "y": 136,
+    "depth": 11,
+    "alpha": 0.5,
+    "scale": 0.55
+   },
+   {
+    "id": "glare",
+    "frame": "tv_glare",
+    "x": 160,
+    "y": 136,
+    "depth": 12,
+    "scale": 0.55
+   },
+   {
+    "id": "set",
+    "frame": "mk2_bezel_sauce",
+    "x": 160,
+    "y": 160,
+    "depth": 13,
+    "scale": 0.55
+   },
+   {
+    "id": "crew",
+    "frame": "crew_backs_lean",
+    "x": 160,
+    "y": 240,
+    "depth": 18
+   }
+  ]
+ },
+ "glory_days": {
+  "sky": "night",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "bg",
+    "frame": "galley_night",
+    "x": 160,
+    "y": 224,
+    "depth": 2,
+    "alpha": 0.5
+   },
+   {
+    "id": "memory",
+    "frame": "glory_days",
+    "x": 160,
+    "y": 190,
+    "depth": 10
+   }
+  ]
+ }
+}

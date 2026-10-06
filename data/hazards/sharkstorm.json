@@ -1,5 +1,5 @@
 {
- "//": "Story Phase 6: the Great Sharkstorm (see src/systems/hazards/sharkstorm.js and src/world/SharkstormLayer.js). One saved story value names its state; the story moves it along. It forms out of the second release and the frenzy, attacks the ship, is driven off by concentrated Frog Grog, and does NOT end: it ends the phase 'active_distant', a rotating storm front on the horizon. No weather simulation; flying sharks on deck are a few pooled sprites, always telegraphed, never harmful (a direct hit knocks the captain flat for a moment). Story Phase 7: it comes BACK (active_distant -> returning -> attacking_ship -> active_near_ship). Not recreated: the same storm, reorganised out of the contamination in the air and the sea and the hundreds of sharks still following the Revenge. It is not driven off again (there is no bulk Frog Grog left to do it with) and ends the phase parked over the ship. Flying sharks come in shapes now (variants); with the crew below, the storm is heard through the deck (below). Story Phase 8: it eases (easing_near_ship): fewer landings, further apart. Still there. Story Phase 9: it follows the Revenge to Crownskull Isle (following_crownskull), hangs off the coast (offshore_crownskull), turns inland after the Grand Excavation (inland_crownskull) and ends treasure-laden (treasure_laden): most of the Crimson Fortune is in it.",
+ "//": "Story Phase 6: the Great Sharkstorm (see src/systems/hazards/sharkstorm.js and src/world/SharkstormLayer.js). One saved story value names its state; the story moves it along. It forms out of the second release and the frenzy, attacks the ship, is driven off by concentrated Frog Grog, and does NOT end: it ends the phase 'active_distant', a rotating storm front on the horizon. No weather simulation; flying sharks on deck are a few pooled sprites, always telegraphed, never harmful (a direct hit knocks the captain flat for a moment). Story Phase 7: it comes BACK (active_distant -> returning -> attacking_ship -> active_near_ship). Not recreated: the same storm, reorganised out of the contamination in the air and the sea and the hundreds of sharks still following the Revenge. It is not driven off again (there is no bulk Frog Grog left to do it with) and ends the phase parked over the ship. Flying sharks come in shapes now (variants); with the crew below, the storm is heard through the deck (below). Story Phase 8: it eases (easing_near_ship): fewer landings, further apart. Still there. Story Phase 9: it follows the Revenge to Crownskull Isle (following_crownskull), hangs off the coast (offshore_crownskull), turns inland after the Grand Excavation (inland_crownskull) and ends treasure-laden (treasure_laden): most of the Crimson Fortune is in it. Story Phase 10: it trails the limping Revenge (p10_trailing), fills the sky while the crew get ready (close_approach), takes the Revenge in when Garrick fires the wrong way (entering), and ends with her inside it, going round (inside_ship).",
  "great_sharkstorm": {
   "name": "The Great Sharkstorm",
   "value": "great_sharkstorm",
@@ -137,6 +137,174 @@
      "every": [22000, 40000],
      "sfx": ["hull_thud", "deck_scrape"],
      "shake": 0.002
+    }
+   },
+   "p10_trailing": {
+    "//": "Story Phase 10: still treasure-laden, still following the limping Revenge (the contamination round her and her Grand Stenchmaster). The sharks going over are wearing the Crimson Fortune; now and then one of the Bling Bling King's cheap prizes comes down on the deck with a clack (never more than three lying about; never in a scene).",
+    "intensity": 2.5,
+    "distance": "near",
+    "maps": ["main_deck"],
+    "flying": {
+     "passEvery": [4200, 8000],
+     "variants": [
+      "flying_shark_pearls",
+      "flying_shark_chain",
+      "flying_shark_tiara",
+      "flying_shark_rings",
+      "flying_shark_belt",
+      "flying_shark_bigchain",
+      "flying_shark",
+      "flying_hammer"
+     ]
+    },
+    "glints": { "every": [2400, 4600], "sfx": "coin_glint" },
+    "tokens": {
+     "every": [30000, 55000],
+     "frames": [
+      "token_coin",
+      "token_trophy",
+      "token_rosette",
+      "token_medal",
+      "token_card",
+      "lobster_shell",
+      "oyster_tray",
+      "takeout_box"
+     ],
+     "max": 3,
+     "maps": ["main_deck"],
+     "area": [4, 3, 15, 23]
+    },
+    "rumble": { "every": [16000, 28000], "sfx": "vortex_roar" },
+    "below": {
+     "maps": ["galley", "cargo_hold", "treasure_hold", "crew_quarters", "washroom", "captains_quarters"],
+     "every": [26000, 46000],
+     "sfx": ["hull_thud", "deck_scrape"],
+     "shake": 0.002
+    }
+   },
+   "close_approach": {
+    "//": "Story Phase 10: the Revenge brought in close for the Counter-Sharkstorm Initiative. The storm fills the sky; treasure going round in it; the Bling Bling King's sharks make fast low passes, throw prizes and seafood rubbish, and now and then one comes down on the deck (marked first; a direct hit knocks the captain flat, nothing worse). Kept off the forward deck.",
+    "intensity": 3.5,
+    "distance": "near",
+    "maps": ["main_deck"],
+    "flying": {
+     "passEvery": [1800, 3600],
+     "variants": [
+      "flying_shark_pearls",
+      "flying_shark_chain",
+      "flying_shark_tiara",
+      "flying_shark_rings",
+      "flying_shark_belt",
+      "flying_shark_bigchain",
+      "flying_shark",
+      "flying_hammer",
+      "flying_bbk"
+     ],
+     "impactEvery": [5200, 8400],
+     "warnMs": 1800,
+     "areas": { "main_deck": [4, 12, 15, 23] },
+     "ground": { "main_deck": "deck" },
+     "onHit": { "main_deck": "knock" }
+    },
+    "glints": { "every": [1400, 2800], "sfx": "coin_glint" },
+    "tokens": {
+     "every": [11000, 18000],
+     "frames": [
+      "token_coin",
+      "token_trophy",
+      "token_rosette",
+      "token_medal",
+      "token_card",
+      "lobster_shell",
+      "oyster_tray",
+      "takeout_box"
+     ],
+     "max": 5,
+     "maps": ["main_deck"],
+     "area": [4, 3, 15, 23]
+    },
+    "rumble": { "every": [6000, 11000], "sfx": "vortex_roar" },
+    "below": {
+     "maps": ["galley", "cargo_hold", "treasure_hold", "crew_quarters", "washroom", "captains_quarters"],
+     "every": [9000, 16000],
+     "sfx": ["hull_thud", "deck_scrape", "token_clack"],
+     "shake": 0.003
+    }
+   },
+   "entering": {
+    "//": "Story Phase 10: the Revenge being driven stern-first into the Great Sharkstorm by the wrong-way blast. Everything whirls past at a slant. Short: the entry sequence only.",
+    "intensity": 4,
+    "distance": "near",
+    "maps": ["main_deck"],
+    "flying": {
+     "passEvery": [700, 1400],
+     "variants": [
+      "flying_shark_pearls",
+      "flying_shark_chain",
+      "flying_shark_tiara",
+      "flying_shark_rings",
+      "flying_shark_belt",
+      "flying_shark_bigchain",
+      "flying_shark",
+      "flying_hammer",
+      "pillow_flying",
+      "flying_bbk"
+     ],
+     "swirl": true
+    },
+    "rumble": { "every": [3000, 6000], "sfx": "vortex_roar" },
+    "below": {
+     "maps": ["galley", "cargo_hold", "treasure_hold", "crew_quarters", "washroom", "captains_quarters"],
+     "every": [4000, 8000],
+     "sfx": ["hull_thud", "deck_scrape"],
+     "shake": 0.004
+    }
+   },
+   "inside_ship": {
+    "//": "Story Phase 10, and the end of it: the Revenge inside the Great Sharkstorm, lifted, going round. On deck the sky is the storm's wall (a 'stormsky' backdrop) and things whirl past every which way: sharks in jewellery, pillows, the odd token or crown; treasure and prizes come down on the planks. Below, the rooms drift gently with her (a few pixels, never a spin; off with screen shake off) and things land overhead now and then. Not resolved.",
+    "intensity": 3,
+    "distance": "inside",
+    "maps": ["main_deck"],
+    "flying": {
+     "passEvery": [1600, 3200],
+     "variants": [
+      "flying_shark_pearls",
+      "flying_shark_chain",
+      "flying_shark_tiara",
+      "flying_shark_rings",
+      "flying_shark_belt",
+      "flying_shark_bigchain",
+      "flying_shark",
+      "flying_hammer",
+      "pillow_flying",
+      "flying_bbk"
+     ],
+     "swirl": true
+    },
+    "glints": { "every": [1800, 3600], "sfx": "coin_glint" },
+    "tokens": {
+     "every": [26000, 42000],
+     "frames": [
+      "token_coin",
+      "token_trophy",
+      "token_rosette",
+      "token_medal",
+      "token_card",
+      "lobster_shell",
+      "oyster_tray",
+      "takeout_box"
+     ],
+     "max": 4,
+     "maps": ["main_deck"],
+     "area": [4, 3, 15, 23]
+    },
+    "sway": { "maps": ["main_deck", "galley", "cargo_hold", "treasure_hold", "crew_quarters", "washroom", "captains_quarters"], "drift": 1.5, "period": 5600 },
+    "rumble": { "every": [9000, 16000], "sfx": "vortex_roar" },
+    "below": {
+     "maps": ["galley", "cargo_hold", "treasure_hold", "crew_quarters", "washroom", "captains_quarters"],
+     "every": [14000, 26000],
+     "sfx": ["hull_thud", "token_clack", "deck_scrape"],
+     "shake": 0.0015
     }
    }
   }

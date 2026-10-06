@@ -1,0 +1,1527 @@
+{
+ "//": "Story Phase 10, Part One (chapters 71-77): the Bling Bling King's Participation Prize. The crater and the saddest salvage; the walk back under the wealthy sharks; the Revenge, looking terrible; the megalodon returns as the BLING BLING KING (it never speaks) and spits a participation coin; beans, Frog Grog, Crying Beans and Spicy Stench Sauce; the sharks' luxury seafood, paid for with the captain's treasure, and their rubbish.",
+ "p10.ready_hint": [
+  {
+   "setFlag": "p10_ready_hint"
+  },
+  {
+   "tutorial": "The story goes on from here. When you're ready, find Pete in the Crimson Clearing (he's hovering by the crater, and he'd like a word).",
+   "title": "What Next?"
+  }
+ ],
+ "p10c1.begin": [
+  {
+   "fade": "out",
+   "duration": 800
+  },
+  {
+   "setFlag": "p10_started"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 20
+  },
+  {
+   "music": null
+  },
+  {
+   "setValue": "great_sharkstorm",
+   "value": "treasure_laden"
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "place": "player",
+   "x": 24,
+   "y": 27,
+   "facing": "up"
+  },
+  {
+   "wait": 400
+  },
+  {
+   "banner": "PART ONE",
+   "sub": "The Bling Bling King's Participation Prize"
+  },
+  {
+   "banner": "CHAPTER 71",
+   "sub": "Not Pete's Fault"
+  },
+  {
+   "fade": "in",
+   "duration": 1000
+  },
+  {
+   "ambience": "island_after"
+  },
+  "Pete is standing on the crater's rim with his hands up, like a man who has been waiting some time for somebody to start shouting at him.",
+  "pete[worried]: Captain. Before you say anything.",
+  "captain: Pete.",
+  "pete[worried]: I did not create the storm.",
+  "pete[worried]: I did not attract the sharks. I did not blast the treasure. I did not appoint myself to anything. I was APPOINTED. Against my will. With a sash.",
+  "pete[worried]: I just want that on the record. Before the shouting.",
+  "captain[tired]: I know, Pete.",
+  "pete[surprised]: ...You know?",
+  "captain: None of it was you. I'm not angry with you.",
+  "Pete's shoulders come down from round his ears for the first time since the storm came inland.",
+  "pete[happy]: Oh. Oh, good. Right. Good.",
+  "captain[angry]: I'm angry with the SHARKS.",
+  {
+   "sfx": "shark_whoosh",
+   "volume": 0.6
+  },
+  {
+   "sprite": "p10_fly_a",
+   "frame": "flying_shark_rings_0",
+   "x": 40,
+   "y": 14,
+   "depth": 79200
+  },
+  {
+   "moveSprite": "p10_fly_a",
+   "x": 10,
+   "y": 12,
+   "duration": 1800,
+   "async": true
+  },
+  "Overhead, something goes by with rings on.",
+  "captain[angry]: And I am angry, especially, with...",
+  "You turn round.",
+  "The Grand Stenchmaster is standing very close behind Barnacle Bob. Not near him. Behind him. With a hand on each of his shoulders.",
+  {
+   "removeSprite": "p10_fly_a"
+  },
+  "bob: ...Why are you behind me?",
+  "garrick[businesslike]: Leadership protection, Bob.",
+  "bob: I'm not your leader.",
+  "garrick[businesslike]: Not yet. That's the beauty of it.",
+  "captain[angry]: Garrick.",
+  "garrick[nervous]: Captain! In these difficult times, I've been thinking about morale. YOUR morale. And I have a solution.",
+  "He points over Bob's shoulder at Pete.",
+  "garrick[proud]: The Grand Sharkmaster will be taking over captain morale. And the de-escalation of shark-adjacent emotional events.",
+  "pete[annoyed]: That's not a job.",
+  "garrick[businesslike]: It's a portfolio.",
+  "pete[annoyed]: That's you hiding behind me with extra words. You're already hiding behind BOB.",
+  "garrick[proud]: Layered protection.",
+  {
+   "sfx": "coin_glint",
+   "volume": 0.3
+  },
+  "Up in the storm, something flashes gold. Your gold. You stare at it. Then down at your hands. Then, for a long time, at your beard.",
+  "captain[concerned]: ...I used to be Blackbeard.",
+  "Nobody says anything. Even the jungle goes a bit quiet.",
+  "captain[concerned]: Ports surrendered when they saw the flag. Grown men wept. I had the finest black beard on any sea. I was BLACKBEARD.",
+  {
+   "emote": "squawks",
+   "icon": "ellipsis"
+  },
+  "From the pouch on your chest, a small bald head comes up and looks at you.",
+  "squawks[smug]: Now Stinkbeard.",
+  "captain[concerned]: ...Aye.",
+  "squawks: Stinkbeard.",
+  "captain[annoyed]: I heard you the first time, Squawks.",
+  "garrick[delighted]: It IS catchy, though.",
+  "pete: Captain, why don't you, er... breathe? Deep breath. In through the nose. That's what you do.",
+  "captain[tired]: Breathe.",
+  "pete: It helps. Slow. In.",
+  "You close your eyes. You lift your chin. You take a long, slow, deep breath, in through the nose...",
+  "...which, because of where your nose is, comes in through the beard.",
+  {
+   "sfx": "sniff",
+   "volume": 0.6
+  },
+  {
+   "wait": 400
+  },
+  {
+   "sfx": "gag",
+   "volume": 0.7
+  },
+  {
+   "shake": 2,
+   "duration": 300
+  },
+  "The Waft comes up out of the beard like a rat out of a drain and goes straight up your nose and sits down behind your eyes.",
+  "captain[coughing]: IT STILL STINKS!",
+  "garrick[businesslike]: Root-deep, Captain. I did warn you. It's in the follicles now.",
+  "captain[angry]: GARRICK.",
+  {
+   "move": "garrick",
+   "to": [
+    19,
+    27
+   ],
+   "speed": 2.4,
+   "async": true
+  },
+  {
+   "move": "player",
+   "to": [
+    22,
+    27
+   ],
+   "speed": 2.0,
+   "async": true
+  },
+  "He lets go of Bob and runs. You run after him. Bob stays exactly where he is, with his hands still up in front of him, the way he was told.",
+  {
+   "wait": 600
+  },
+  {
+   "move": "garrick",
+   "to": [
+    21,
+    28
+   ],
+   "speed": 2.4
+  },
+  "He gets round behind the uprooted palm and stops there, puffing, a crown sideways on his head, and puts the palm between you.",
+  {
+   "burst": "suitpuff",
+   "x": 15,
+   "y": 15,
+   "count": 2
+  },
+  {
+   "sfx": "suit_fwoof",
+   "volume": 0.5
+  },
+  "garrick[nervous]: The palm and I are in talks, Captain.",
+  "You stand there breathing through your mouth. It's going to be a long day. It's already been a long day.",
+  {
+   "setFlag": "pete_blame_cleared"
+  },
+  {
+   "setFlag": "blackbeard_identity_crisis"
+  },
+  {
+   "fade": "out",
+   "duration": 700
+  },
+  {
+   "setFlag": "p10_ch72_started"
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "place": "player",
+   "x": 27,
+   "y": 28,
+   "facing": "up"
+  },
+  {
+   "fade": "in",
+   "duration": 700
+  },
+  {
+   "banner": "CHAPTER 72",
+   "sub": "The Saddest Salvage"
+  },
+  "The crater where the Crimson Clearing was. Fifteen paces across, raw and steaming, and a long way down. It smells exactly the way you'd think.",
+  "Here and there round the rim, something glints.",
+  {
+   "startQuest": "saddest_salvage"
+  },
+  {
+   "tutorial": "RECOVER WHATEVER DIDN'T ENTER THE GREAT SHARKSTORM. Search the glints round the crater rim (the south and east side first).",
+   "title": "The Saddest Salvage"
+  }
+ ],
+ "p10c2.salv_1": [
+  {
+   "sfx": "shovel_dig",
+   "volume": 0.4
+  },
+  "Twenty-seven gold coins in a little drift of crater ash. You count them twice. Twenty-seven.",
+  "They're warm. They're warm in a way gold shouldn't be. They smell exactly like him.",
+  {
+   "if": {
+    "flag": "p10_salv_said_smell"
+   },
+   "then": [],
+   "else": [
+    "squawks: Bad gold.",
+    {
+     "setFlag": "p10_salv_said_smell"
+    }
+   ]
+  },
+  {
+   "setFlag": "p10_salv_1"
+  },
+  {
+   "event": "p10_salvage_a"
+  }
+ ],
+ "p10c2.salv_2": [
+  {
+   "sfx": "shovel_dig",
+   "volume": 0.4
+  },
+  "A handful of silver coins, blackened round the edges like they've been near something.",
+  "They have. Everything here has been near something.",
+  {
+   "setFlag": "p10_salv_2"
+  },
+  {
+   "event": "p10_salvage_a"
+  }
+ ],
+ "p10c2.salv_3": [
+  {
+   "sfx": "shovel_dig",
+   "volume": 0.4
+  },
+  "Four small emeralds, in a clump of clay, like peas in a pod that went wrong.",
+  "Small ones. The big ones are going round in the sky on a hammerhead.",
+  {
+   "setFlag": "p10_salv_3"
+  },
+  {
+   "event": "p10_salvage_a"
+  }
+ ],
+ "p10c2.salv_4": [
+  {
+   "sfx": "shovel_dig",
+   "volume": 0.4
+  },
+  "A ruby. One. On its own. Red as anything, steaming slightly.",
+  "You hold it up to the light. The light gets worse.",
+  {
+   "setFlag": "p10_salv_4"
+  },
+  {
+   "event": "p10_salvage_a"
+  }
+ ],
+ "p10c2.salv_5": [
+  {
+   "sfx": "shovel_dig",
+   "volume": 0.4
+  },
+  "Half a necklace. Gold links, three pearls, and then nothing, where the rest of it left at speed.",
+  "Somewhere up there, a shark is wearing the other half.",
+  {
+   "setFlag": "p10_salv_5"
+  },
+  {
+   "event": "p10_salvage_b"
+  }
+ ],
+ "p10c2.salv_6": [
+  {
+   "sfx": "shovel_dig",
+   "volume": 0.4
+  },
+  "A goblet, cracked from the rim to the stem. You could still drink out of it. Nobody should.",
+  "There's something in the bottom of it. It's crater. You hope it's crater.",
+  {
+   "setFlag": "p10_salv_6"
+  },
+  {
+   "event": "p10_salvage_b"
+  }
+ ],
+ "p10c2.salv_7": [
+  {
+   "sfx": "shovel_dig",
+   "volume": 0.4
+  },
+  "A ceremonial spoon, bent in the middle, and six pearls rolled into the bowl of it like they were hiding.",
+  "Bent. Ceremonially.",
+  {
+   "setFlag": "p10_salv_7"
+  },
+  {
+   "event": "p10_salvage_b"
+  }
+ ],
+ "p10c2.salv_8": [
+  {
+   "sfx": "shovel_dig",
+   "volume": 0.4
+  },
+  "A brass button. It's not gold. It's not old. It's not part of any royal anything.",
+  "It's suspicious. It's very suspicious. It looks like it came off a suit.",
+  {
+   "setFlag": "p10_salv_8"
+  },
+  {
+   "event": "p10_salvage_b"
+  }
+ ],
+ "p10c2.half": [
+  {
+   "setFlag": "p10_half_said"
+  },
+  "Four lots of it in your bag, and every one of them smells like the Grand Stenchmaster. Not a bit. Exactly. Like you've put him in a bag.",
+  "garrick[businesslike]: (from the rim) If you'd like a professional opinion, Captain...",
+  {
+   "tutorial": "Four spots searched. The Grand Stenchmaster has an opinion (him, on the rim). You may not like it.",
+   "title": "The Saddest Salvage"
+  }
+ ],
+ "p10c2.appraisal": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "The Grand Stenchmaster is crouched on the rim of the crater with one of the gold coins held up between finger and thumb, sniffing it like a man at a wine tasting.",
+  "garrick[businesslike]: Direct-blast exposure, Captain.",
+  "captain: What?",
+  "garrick[businesslike]: The coins nearest the centre took a direct blast. You can tell. See how it's gone right in? Into the metal. That's not a smell any more. That's a property.",
+  {
+   "sfx": "sniff",
+   "volume": 0.5
+  },
+  "garrick[proud]: And under it, if you're patient... a second-layer bouquet. Clay. A hint of palm. The Miser's Floor.",
+  "captain[annoyed]: Stop reviewing the coins.",
+  "garrick[businesslike]: I'm grading them, Captain. For posterity.",
+  "captain[angry]: STOP REVIEWING THE COINS.",
+  "squawks: Bad gold.",
+  "garrick[offended]: It's not BAD gold, Squawks. It's EXPERIENCED gold.",
+  {
+   "setValue": "crimson_salvage_contamination",
+   "value": "grand_stenchmaster_direct_blast"
+  },
+  {
+   "setFlag": "p10_appraisal"
+  },
+  {
+   "tutorial": "Search the rest of the rim (the north and west side).",
+   "title": "The Saddest Salvage"
+  }
+ ],
+ "p10c2.rest_done": [
+  {
+   "setFlag": "p10_rest_said"
+  },
+  "That's the lot. Everything that came back down. You look at it in the bag, and then up at the storm, where everything that didn't is going round.",
+  {
+   "tutorial": "Give Gristle the haul to count (Gristle, by the crater).",
+   "title": "The Saddest Salvage"
+  }
+ ],
+ "p10c2.tally": [
+  {
+   "face": "gristle",
+   "dir": "player"
+  },
+  "You tip the bag out on a flat stone in front of Gristle. He counts it twice, licks his pencil, regrets licking his pencil, and writes it down.",
+  {
+   "insert": "salvage_tally",
+   "caption": "SALVAGE: THE CRATER. Smell: all of it. (Him.)"
+  },
+  "gristle: Twenty-seven gold coins. A few silver. Four little emeralds, a ruby, half a necklace, one goblet (cracked), one spoon (bent), six pearls and a button.",
+  "gristle[annoyed]: Three per cent, Captain. Of the Fortune of the Crimson Kings. That's what came back down.",
+  "captain[tired]: Three per cent.",
+  "gristle: Up from two. It's progress. Small, smelly progress.",
+  {
+   "takeItem": "reeking_doubloons",
+   "silent": true
+  },
+  {
+   "giveItem": "crater_salvage"
+  },
+  {
+   "setVar": "crimson_fortune_recovered_percent",
+   "value": 3
+  },
+  {
+   "setFlag": "crater_salvage_complete"
+  },
+  {
+   "setFlag": "contaminated_salvage_obtained"
+  },
+  {
+   "sfx": "vortex_roar",
+   "volume": 0.7
+  },
+  {
+   "shake": 2,
+   "duration": 600
+  },
+  "Then the wind changes.",
+  {
+   "camera": "pan",
+   "x": 8,
+   "y": 13,
+   "duration": 900
+  },
+  "Over the lagoon to the west, the Great Sharkstorm comes down low, lower than it's been all afternoon, a grey-green column with gold going round in it, right on top of the water.",
+  {
+   "sfx": "splash_big",
+   "volume": 0.8
+  },
+  {
+   "flash": "#ffffff",
+   "duration": 300
+  },
+  {
+   "setFlag": "megalodon_left_lagoon"
+  },
+  "When the spray clears, the lagoon is empty.",
+  "ned: ...It's taken the megalodon.",
+  "jim: It's taken the CROWN.",
+  "pete: It was always going to take the crown. It's been taking everything else.",
+  {
+   "camera": "reset",
+   "duration": 800
+  },
+  "garrick[businesslike]: Technically the megalodon wasn't ours.",
+  "captain[angry]: The CROWN was.",
+  "Up in the storm, very high, something very big goes round once, and something on its head catches the sun.",
+  {
+   "completeQuest": "saddest_salvage"
+  },
+  {
+   "setFlag": "p10_ch73_started"
+  },
+  {
+   "banner": "CHAPTER 73",
+   "sub": "Wealthy Sharks"
+  },
+  "gristle: Time we got back to the ship, Captain. Before it comes back for the button.",
+  {
+   "startQuest": "wealthy_sharks"
+  },
+  {
+   "tutorial": "Back to the boats: down the jungle trail to the landing beach. The crew have gone on ahead.",
+   "title": "Wealthy Sharks"
+  }
+ ],
+ "p10c3.fly_pearls": [
+  {
+   "setFlag": "p10_fly_pearls"
+  },
+  {
+   "sfx": "shark_whoosh",
+   "volume": 0.8
+  },
+  {
+   "sprite": "p10_bull",
+   "frame": "flying_shark_pearls_0",
+   "x": 42,
+   "y": 26,
+   "depth": 79200
+  },
+  {
+   "moveSprite": "p10_bull",
+   "x": 14,
+   "y": 30,
+   "duration": 2400,
+   "async": true
+  },
+  "A bull shark comes down out of the storm and goes over the statue so low you could touch it. Round its neck: a pearl necklace. Three strings. Big ones.",
+  {
+   "wait": 800
+  },
+  {
+   "removeSprite": "p10_bull"
+  },
+  "pete: (from further down the trail) Captain! Did you see that one? That one's RICH.",
+  "captain[angry]: That one is EXTREMELY CRIMINAL, Pete.",
+  "pete: ...Extremely criminal. Sorry, Captain. Extremely criminal."
+ ],
+ "p10c3.fly_belt": [
+  {
+   "setFlag": "p10_fly_belt"
+  },
+  {
+   "sfx": "shark_whoosh",
+   "volume": 0.8
+  },
+  {
+   "sprite": "p10_belt",
+   "frame": "flying_shark_belt_0",
+   "x": 16,
+   "y": 30,
+   "depth": 79200
+  },
+  {
+   "moveSprite": "p10_belt",
+   "x": 44,
+   "y": 34,
+   "duration": 2200,
+   "async": true
+  },
+  "Another one, going the other way, slower, so you can get a good look: a jewelled belt round its middle. Rubies. A big emerald on the buckle. The buckle is facing out.",
+  {
+   "wait": 700
+  },
+  {
+   "sfx": "shark_whoosh",
+   "volume": 0.7
+  },
+  {
+   "sprite": "p10_white",
+   "frame": "flying_shark_bigchain_0",
+   "x": 44,
+   "y": 30,
+   "depth": 79200
+  },
+  {
+   "moveSprite": "p10_white",
+   "x": 12,
+   "y": 36,
+   "duration": 2600,
+   "async": true
+  },
+  "And behind it a great white in two heavy gold chains, the kind you'd need both hands to lift, swinging as it goes.",
+  {
+   "wait": 900
+  },
+  {
+   "removeSprite": "p10_belt"
+  },
+  {
+   "removeSprite": "p10_white"
+  },
+  "captain[angry]: That was a CHAIN, Squawks. That was MY chain.",
+  "squawks[smug]: Nice chain."
+ ],
+ "p10c3.landing": [
+  {
+   "setFlag": "p10_shark_landed"
+  },
+  {
+   "sfx": "shark_whistle",
+   "volume": 0.7
+  },
+  {
+   "sprite": "p10_lander",
+   "frame": "flying_shark_belt_0",
+   "x": 34,
+   "y": 38,
+   "depth": 79200
+  },
+  {
+   "moveSprite": "p10_lander",
+   "x": 28,
+   "y": 46,
+   "duration": 900,
+   "async": false
+  },
+  {
+   "sfx": "shark_land",
+   "volume": 0.9
+  },
+  {
+   "shake": 2,
+   "duration": 300
+  },
+  {
+   "burst": "dust",
+   "x": 28,
+   "y": 46,
+   "count": 6
+  },
+  "Something comes down on the trail ahead of you with a thump that shakes the ferns: a shark, a whole one, flat on the path, in a jewelled belt.",
+  "It flaps. It looks at you. It does not look worried.",
+  {
+   "sfx": "vortex_roar",
+   "volume": 0.6
+  },
+  {
+   "moveSprite": "p10_lander",
+   "x": 28,
+   "y": 30,
+   "duration": 1200
+  },
+  "Then the storm yanks it back up by the tail, like somebody calling a dog in, and it goes, glittering.",
+  {
+   "removeSprite": "p10_lander"
+  },
+  "captain[angry]: It was CLOSE enough to rob.",
+  "squawks: Fast shark."
+ ],
+ "p10c3.tiara_falls": [
+  {
+   "setFlag": "p10_tiara_fallen"
+  },
+  {
+   "sfx": "coin_glint",
+   "volume": 0.8
+  },
+  "Something small and bright drops out of the sky ahead of you, turning over and over in the sun, and lands on the trail with a little silver chime.",
+  {
+   "sfx": "jewel_chime",
+   "volume": 0.8
+  },
+  "It's the tiara. THE tiara. The one off the shark, the one that went over the lagoon. It's lying on the path, twenty paces away, all on its own.",
+  "captain[surprised]: ...It fell off.",
+  "squawks[surprised]: Get it.",
+  "captain[determined]: GET IT.",
+  {
+   "tutorial": "The tiara! It's on the trail ahead. Get to it before anything else does!",
+   "title": "Wealthy Sharks"
+  }
+ ],
+ "p10c3.tiara_snatch": [
+  {
+   "sfx": "shark_whoosh",
+   "volume": 0.9
+  },
+  {
+   "sprite": "p10_snatch",
+   "frame": "flying_shark_0",
+   "x": 44,
+   "y": 47,
+   "depth": 79200
+  },
+  {
+   "moveSprite": "p10_snatch",
+   "x": 30,
+   "y": 51,
+   "duration": 500,
+   "async": false
+  },
+  {
+   "setFlag": "p10_tiara_taken"
+  },
+  "You're one step away, your hand out, when a shark comes down the trail behind you at head height, goes past your ear, scoops the tiara off the path in its mouth without slowing down...",
+  {
+   "moveSprite": "p10_snatch",
+   "x": 14,
+   "y": 44,
+   "duration": 900,
+   "async": true
+  },
+  "...and goes back up into the storm with it, glittering, the tiara on its nose like a hat.",
+  {
+   "wait": 700
+  },
+  {
+   "removeSprite": "p10_snatch"
+  },
+  "captain[angry]: IT STOLE IT AGAIN!",
+  "Somewhere a long way off up the trail, very faintly, Bob: 'Was that the tiara?'",
+  "squawks[smug]: Twice.",
+  "captain[angry]: I KNOW HOW MANY TIMES, SQUAWKS.",
+  {
+   "setFlag": "p10_tiara_stolen"
+  },
+  {
+   "tutorial": "Row back to the Revenge: the boats on the landing beach.",
+   "title": "Wealthy Sharks"
+  }
+ ],
+ "p10c3.row": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "The boats. The crew are already in them, waiting, and none of them say anything about the tiara, which is how you know they all saw.",
+  {
+   "choice": [
+    {
+     "text": "Row back to the Revenge",
+     "then": [
+      {
+       "fade": "out",
+       "duration": 700
+      },
+      {
+       "sfx": "oar_stroke",
+       "volume": 0.6
+      },
+      {
+       "vista": "row_back",
+       "fade": 600
+      },
+      {
+       "music": "ruined_treasure",
+       "fade": 600
+      },
+      "You row. Nobody talks. The island goes small behind you, the crater still steaming on it, and ahead of you, riding at anchor in the lee, the Queen Anne's Revenge.",
+      {
+       "sfx": "oar_stroke",
+       "volume": 0.5
+      },
+      "She looks terrible.",
+      "Shark bites out of her hull, a great half-moon one by the bow. The port rail chewed. The sails torn and patched and torn again. The figurehead looking away, like it doesn't want to be associated.",
+      {
+       "sfx": "bell_cough",
+       "volume": 0.7
+      },
+      "Somebody on deck rings the bell for you. KLANG. It hacks. KOFF. It's been like that since the Dead Center.",
+      "squawks[exhausted]: Home.",
+      "captain[tired]: ...Unfortunately.",
+      {
+       "vistaEnd": true,
+       "fade": 500
+      },
+      {
+       "setFlag": "crew_returned_to_ship"
+      },
+      {
+       "transition": "main_deck",
+       "x": 6,
+       "y": 13,
+       "facing": "right",
+       "fade": 600,
+       "then": "p10c4.begin"
+      }
+     ]
+    },
+    {
+     "text": "Not yet",
+     "then": [
+      "Not yet. The island will keep. So, apparently, will the tiara. On a shark."
+     ]
+    }
+   ]
+  }
+ ],
+ "p10c4.begin": [
+  {
+   "setFlag": "p10_aboard"
+  },
+  {
+   "setFlag": "p10_ch74_started"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 21
+  },
+  {
+   "setValue": "great_sharkstorm",
+   "value": "p10_trailing"
+  },
+  {
+   "setFlag": "p10_garrick_brushed"
+  },
+  {
+   "clearFlag": "garrick_dusty"
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "banner": "CHAPTER 74",
+   "sub": "The Participation Prize"
+  },
+  "Aboard. The deck under your boots again, still faintly yellow in the boards. Hale salutes. Nell looks at the empty boats and doesn't ask.",
+  "The Grand Stenchmaster comes up the side last, slaps the dust off his Suit in great clouds over everyone, and straightens the crown.",
+  {
+   "burst": "suitpuff",
+   "x": 15,
+   "y": 15,
+   "count": 2
+  },
+  {
+   "sfx": "suit_fwoof",
+   "volume": 0.5
+  },
+  "garrick[proud]: Home, sweet Grand Stenchmaster home.",
+  {
+   "sfx": "rumble_low",
+   "volume": 0.5
+  },
+  {
+   "shake": 1,
+   "duration": 900
+  },
+  "Then the deck goes dark.",
+  "Not night. Shadow. A shadow the size of the ship slides under the hull, slow, from stern to bow, and the water goes still round it the way water goes still round something very big.",
+  "ned[alarmed]: Captain...",
+  {
+   "music": null
+  },
+  {
+   "vista": "bbk_reveal",
+   "fade": 700
+  },
+  "It comes up off the port side.",
+  {
+   "vistaShow": "shadow",
+   "visible": false
+  },
+  {
+   "vistaShow": "bbk",
+   "visible": true
+  },
+  {
+   "sfx": "splash_big",
+   "volume": 1.0
+  },
+  {
+   "vistaMove": "bbk",
+   "y": 172,
+   "duration": 1600,
+   "ease": "Cubic.Out"
+  },
+  {
+   "shake": 3,
+   "duration": 900
+  },
+  "The megalodon. Out of the sea up to the gills, water sheeting off it, the Crimson King's Crown on its head, crooked, perfect.",
+  {
+   "music": "bling_bling_king",
+   "fade": 300
+  },
+  {
+   "sfx": "chain_jangle",
+   "volume": 0.9
+  },
+  "And round its neck, a chain.",
+  "A gold chain. An ENORMOUS gold chain, links like ship's rings, more gold than you've seen in one place outside of a crater. And hanging off it, on its chest, a pendant the size of a door.",
+  {
+   "vistaShow": "pendant",
+   "visible": true
+  },
+  {
+   "sfx": "bling_sting",
+   "volume": 0.9
+  },
+  "Diamonds, set in a slab of ice-white, with a crowned shark's head on it in gold, and across it in letters you can read from here: BLING BLING KING.",
+  "Nobody says anything for a long time.",
+  "bob: ...Is that a name, or a job?",
+  "pete: It's a brand.",
+  {
+   "vistaShow": "pendant",
+   "visible": false
+  },
+  "The megalodon looks along the deck at all of you, slowly, the way you'd look along a shelf of something you weren't going to buy.",
+  "It doesn't make a sound. It just looks. And then its jaw works, once, the way a man works a pip round his mouth.",
+  {
+   "sfx": "pfft_tiny",
+   "volume": 1.0
+  },
+  "Ptoo.",
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "setValue": "megalodon_alias",
+   "value": "Bling Bling King"
+  },
+  {
+   "setFlag": "megalodon_bling_chain"
+  },
+  {
+   "setFlag": "bling_bling_king_revealed"
+  },
+  {
+   "token": "token_coin",
+   "x": 8,
+   "y": 13,
+   "id": "p10_coin"
+  },
+  "Something small comes spinning out of the sky and lands on the deck in front of you with a hollow little clack, and spins, and settles.",
+  "The megalodon sinks back into the sea. The water closes over the crown. The chain goes last.",
+  {
+   "sfx": "splash",
+   "volume": 0.6
+  },
+  {
+   "setFlag": "p10_coin_spat"
+  },
+  {
+   "startQuest": "participation_prize"
+  },
+  {
+   "tutorial": "It spat something at you. Pick it up (on the deck, in front of you).",
+   "title": "The Participation Prize"
+  }
+ ],
+ "p10c4.coin": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "removeSprite": "p10_coin"
+  },
+  "You pick it up. It's a coin. It weighs about as much as a biscuit. It's plastic, with gold paint on it, the gold already coming off at the edges, and a seam all the way round where the mould joined.",
+  {
+   "insert": "participation_coin_front",
+   "caption": "TREASURE IS ABOUT THE JOURNEY!"
+  },
+  "On one side, slightly off-centre, a cartoon shark wearing a crown, grinning. Round it: TREASURE IS ABOUT THE JOURNEY!",
+  "You turn it over.",
+  {
+   "insert": "participation_coin_back",
+   "caption": "OFFICIAL PARTICIPATION TREASURE. CONGRATULATIONS - YOU FOUND IT! VALUE: GREAT MEMORIES. NO CASH VALUE."
+  },
+  "You look at it for a long time. Your face doesn't do anything at all.",
+  "squawks: (reading, from the pouch) ...Great memories.",
+  "captain[tired]: Thank you, Squawks.",
+  "squawks: No cash value.",
+  "captain[tired]: Thank you, Squawks.",
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "garrick[businesslike]: Well, technically, Captain... I did participate.",
+  {
+   "sfx": "grab_swipe",
+   "volume": 0.8
+  },
+  {
+   "sprite": "p10_thrown",
+   "frame": "token_coin",
+   "x": 7,
+   "y": 13,
+   "depth": 80000
+  },
+  {
+   "moveSprite": "p10_thrown",
+   "x": 11,
+   "y": 12,
+   "duration": 260
+  },
+  {
+   "sfx": "token_clack",
+   "volume": 1.0
+  },
+  {
+   "emote": "garrick",
+   "icon": "exclaim"
+  },
+  "garrick[offended]: OW.",
+  {
+   "removeSprite": "p10_thrown"
+  },
+  "It bounces off the crown. It takes a while to stop bouncing.",
+  "garrick[offended]: That's a prize, Captain. You don't throw a prize.",
+  "Then he picks it up and hands it back to you, carefully, both hands, like it's real.",
+  {
+   "giveItem": "participation_coin"
+  },
+  {
+   "setFlag": "p10_first_coin"
+  },
+  {
+   "setFlag": "participation_coin_obtained"
+  },
+  {
+   "setFlag": "bbk_mockery_unlocked"
+  },
+  "Up in the storm, very high, something very big goes round once, and you'd swear it was enjoying itself.",
+  {
+   "completeQuest": "participation_prize"
+  },
+  {
+   "call": "p10c5.begin"
+  }
+ ],
+ "p10c5.begin": [
+  {
+   "setFlag": "p10_ch75_started"
+  },
+  {
+   "banner": "CHAPTER 75",
+   "sub": "The Least Celebratory Celebration"
+  },
+  "The Revenge weighs anchor and limps out of the lee of Crownskull Isle, listing a little to port where the bites are. Behind her, the Great Sharkstorm comes off the coast and follows, at a distance. It glitters.",
+  "Nobody on deck is talking. Bob is looking at his hands. Ned is looking at the island. Gristle is looking at Garrick, steadily, the way you'd look at weather.",
+  "It's bad. You know morale when you see it, and this isn't it.",
+  "captain[determined]: Right. Listen. All of you.",
+  "Every head comes round.",
+  "captain[determined]: We found the treasure. We dug it up. That happened. And we are going to EAT. A proper dinner. A celebration.",
+  "bob[happy]: ...A celebration?",
+  "captain: A celebration.",
+  "garrick[delighted]: A GRAND STENCHMASTER TREASURE FEAST!",
+  "captain[annoyed]: It's not a Grand Stenchmaster...",
+  "garrick[delighted]: It's a FEAST, Captain. Of treasure. Run by a Grand Stenchmaster. It names itself.",
+  "captain[tired]: Jim. Open the pantry.",
+  {
+   "startQuest": "treasure_feast"
+  },
+  {
+   "tutorial": "Get Jim to open his pantry (Jim, down in the hold, by his pantry).",
+   "title": "A Celebration (Allegedly)"
+  }
+ ],
+ "p10c5.pantry": [
+  {
+   "face": "jim",
+   "dir": "player"
+  },
+  "Jim takes the key on its string out of his shirt and looks at it like it's going to hurt.",
+  "jim[sad]: You're not going to like it, Captain.",
+  {
+   "sfx": "chest_open",
+   "volume": 0.6
+  },
+  {
+   "setFlag": "bean_pantry_revealed"
+  },
+  "The padlock comes off. The doors swing back.",
+  "Beans.",
+  "Red beans. White beans. Black beans. Baked beans. Beans in tins, beans in sacks, beans in a jar with a cork in it. Family-size beans. Emergency beans. A little tin of travel beans with a handle on it.",
+  "captain: ...Jim. Where's the food?",
+  "jim[annoyed]: That's the food.",
+  "captain: Where's the OTHER food?",
+  "jim[angry]: HE bought it. While we were provisioning. He took the purse and came back with a cart.",
+  "garrick[proud]: (from the stairs) Stenchmaster nutrition, Captain. Bought in bulk. Very economical.",
+  "captain[angry]: It's all BEANS.",
+  "garrick[businesslike]: It's a balanced diet of beans. Some are red.",
+  "jim[sad]: There was a ham. There was a whole ham, Captain. He swapped it for a sack of black-eyed peas and a sash.",
+  {
+   "tutorial": "Something to drink with it, at least (the water casks, by the bilge).",
+   "title": "A Celebration (Allegedly)"
+  }
+ ],
+ "p10c5.casks": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The water casks. You knock the bung out of one with the heel of your hand and pour a cup.",
+  {
+   "sfx": "grog_drip",
+   "volume": 0.5
+  },
+  "It's green.",
+  "You smell it. It's Frog Grog. You try the next cask. Frog Grog. The one after that: not Frog Grog, quite, but it's been standing next to the Frog Grog for so long it's started to agree with it.",
+  "captain[disgusted]: It's ALL Frog Grog.",
+  "jim: Everything's Frog Grog now, Captain. The water, the rum, the vinegar. I think the ship's sweating it.",
+  "squawks: Frog water.",
+  {
+   "setFlag": "frog_grog_drinks"
+  },
+  {
+   "tutorial": "Beans, and Frog Grog. Take it up to the galley, and cook (the stairs up, to the galley).",
+   "title": "A Celebration (Allegedly)"
+  }
+ ],
+ "p10c6.begin": [
+  {
+   "setFlag": "p10_ch76_started"
+  },
+  {
+   "completeQuest": "treasure_feast"
+  },
+  {
+   "banner": "CHAPTER 76",
+   "sub": "The Grand Galley Grand Chef"
+  },
+  {
+   "music": "galley_beans",
+   "fade": 600
+  },
+  "The galley. Jim ties his apron on with the look of a man tying a rope round himself before going over a cliff.",
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "garrick[proud]: Salty Jim. For a feast of this importance, the kitchen must be led by an officer of the proper rank.",
+  "jim[annoyed]: It's led by the cook.",
+  "garrick[proud]: I hereby appoint you GRAND STENCHMASTER'S GRAND GALLEY GRAND CHEF.",
+  "jim[angry]: No.",
+  "garrick[businesslike]: It comes with a hat.",
+  "jim[angry]: I've GOT a hat. I'm the cook. I was the cook before you had a sash. I'll be the cook after you've had six.",
+  "garrick[offended]: The title remains available.",
+  "jim: Tonight's dinner is Crying Beans. In Spicy Stench Sauce. It's all there is that's not in a sack. Captain, you'll have to help me, I've only got the two hands and one of them's shaking.",
+  {
+   "startQuest": "grand_galley"
+  },
+  {
+   "tutorial": "Open the Crying Beans (the prep table, by the stove).",
+   "title": "The Grand Galley Grand Chef"
+  }
+ ],
+ "p10c6.beans": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The Crying Beans. A stack of tins, absurdly yellow, with a cartoon bean on the front crying a fountain of tears.",
+  {
+   "insert": "crying_beans_label",
+   "caption": "CRYING BEANS. SO SAD THEY SEASON THEMSELVES!"
+  },
+  "captain: 'Natural tear essence.'",
+  "jim[disgusted]: Read the end.",
+  "captain[disgusted]: 'Artificial old-sock flavour.'",
+  "jim: That's the one I'm worried about. Artificial. That means somebody MADE that.",
+  {
+   "repair": "can",
+   "strikes": 3
+  },
+  {
+   "sfx": "can_hiss",
+   "volume": 0.7
+  },
+  "The lid comes up. The beans inside glisten. One of them, you'd swear, sniffs.",
+  {
+   "setFlag": "crying_beans_introduced"
+  },
+  {
+   "tutorial": "Heat the pot (the stove).",
+   "title": "The Grand Galley Grand Chef"
+  }
+ ],
+ "p10c6.pot": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The big pot on the stove. In go the Crying Beans, all of them, in a wet yellow slump.",
+  {
+   "repair": "stir",
+   "strikes": 3
+  },
+  {
+   "sfx": "pot_bubble",
+   "volume": 0.7
+  },
+  "The pot comes up to a simmer. The smell comes up with it: onions, garlic, extra garlic, cabbage that's been through something, and underneath it, very faintly, a sock.",
+  "bob: (from the doorway) That smells... sad.",
+  {
+   "setFlag": "p10_pot_heated"
+  },
+  {
+   "tutorial": "Shake up the sauce (the Spicy Stench Sauce, on the long table).",
+   "title": "The Grand Galley Grand Chef"
+  }
+ ],
+ "p10c6.sauce": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "Garrick's contribution: a can of Spicy Stench Sauce, red, with a black-and-yellow warning stripe round it like a wasp. And a sticker on the lid.",
+  {
+   "insert": "spicy_sauce_label",
+   "caption": "SPICY STENCH SAUCE. WARNING. (And a CLEARANCE sticker: seventy per cent off.)"
+  },
+  "captain: ...That's the same sticker as the sash.",
+  "garrick[delighted]: Same shop! Same aisle, Captain. They were next to each other. It felt like fate.",
+  "pete: 'Contents may pressurise after opening.'",
+  "garrick[businesslike]: That's how you know it's fresh.",
+  "pete: 'Enclosed-vessel use discouraged.' We're IN an enclosed vessel. We're in a SHIP.",
+  "garrick[businesslike]: A ship is a vessel of the sea, Pete. It's not ENCLOSED. It's got a top.",
+  {
+   "repair": "shake",
+   "strikes": 3
+  },
+  {
+   "sfx": "sauce_pressure",
+   "volume": 0.8
+  },
+  "The can swells in your hands, gently, like it's taking a breath.",
+  {
+   "setFlag": "spicy_sauce_introduced"
+  },
+  "garrick[proud]: Now: the sauce goes in. A splash, Captain. For flavour.",
+  {
+   "tutorial": "Get the sauce in. And whatever you do, stop the Grand Stenchmaster putting the whole lot in (the stove).",
+   "title": "The Grand Galley Grand Chef"
+  }
+ ],
+ "p10c6.stop": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "He's at the pot with the can before you've turned round, holding it up over the beans at arm's length, the way you'd hold up a baby to look at the sea.",
+  "garrick[proud]: A splash...",
+  "captain[alarmed]: GARRICK. A SPLASH. ONLY A...",
+  {
+   "repair": "grip",
+   "strikes": 3,
+   "title": "STOP HIM!"
+  },
+  "You get hold of his wrist. Both hands. You've got him.",
+  "So he pours with the other hand.",
+  {
+   "sfx": "grog_spill",
+   "volume": 0.8
+  },
+  {
+   "sfx": "sauce_pressure",
+   "volume": 0.6
+  },
+  "Glug. Glug. GLUG. The whole can goes in, and the bit in the lid, and then he shakes it, upside down, for the last drops, and then he looks inside it, and then he shakes it again.",
+  "garrick[proud]: ...A Grand Stenchmaster splash.",
+  {
+   "sfx": "pot_bubble",
+   "volume": 1.0
+  },
+  {
+   "shake": 1,
+   "duration": 600
+  },
+  "The pot thinks about it. Then it begins to bubble in a new way, a deep slow BLORP, BLORP, like something large turning over in its sleep.",
+  "jim: My POT.",
+  {
+   "emote": "squawks",
+   "icon": "sweat"
+  },
+  "squawks: Parrot not hungry.",
+  {
+   "setFlag": "p10_too_much_sauce"
+  },
+  {
+   "setFlag": "p10_dinner_cooked"
+  },
+  {
+   "completeQuest": "grand_galley"
+  },
+  "jim[sad]: ...Dinner is served. On deck. I'm not having that smell in my galley overnight.",
+  {
+   "transition": "main_deck",
+   "x": 7,
+   "y": 19,
+   "facing": "right",
+   "fade": 700,
+   "then": "p10c7.begin"
+  }
+ ],
+ "p10c7.begin": [
+  {
+   "setFlag": "p10_ch77_started"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 22
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "banner": "CHAPTER 77",
+   "sub": "Shark Catering"
+  },
+  {
+   "music": null
+  },
+  "Dinner on deck, at sunset. Everybody sitting round the mainmast with a bowl, and in every bowl the same thing: Crying Beans in Spicy Stench Sauce, glowing faintly.",
+  "Bob tries a spoonful. Bob's eyes fill up. Bob says nothing for some time.",
+  "bob[sad]: They're... crying. In my mouth.",
+  "gristle[coughing]: It's the sauce. The sauce is the one doing the crying. The beans are just there.",
+  "ned: I can't feel my teeth, Captain. Is that normal for a celebration?",
+  "Squawks has his head under his wing and refuses to come out.",
+  {
+   "sfx": "rotor_whup",
+   "volume": 0.8
+  },
+  "Then, from the direction of the storm, a sound. WHUP. WHUP. WHUP.",
+  {
+   "vista": "shark_catering",
+   "fade": 600
+  },
+  {
+   "music": "bling_bling_king",
+   "fade": 500
+  },
+  "Something's flying down the sky towards the Great Sharkstorm. A barge, a flat gilded barge with a striped awning, hung under a great spinning rotor on a mast, which should not be possible and is clearly happening anyway.",
+  {
+   "vistaMove": "barge",
+   "x": 196,
+   "y": 132,
+   "duration": 2400,
+   "ease": "Sine.Out"
+  },
+  "On the side, in gold: THE GILDED GILL.",
+  "pete: ...Catering.",
+  "On its deck under the awning: platters. Silver platters, piled up. Lobster. Crab legs. Oysters on ice. Caviar. Shrimp. A whole tuna, sliced.",
+  {
+   "vistaShow": "diners",
+   "visible": true
+  },
+  {
+   "sfx": "tray_clatter",
+   "volume": 0.7
+  },
+  "It comes alongside the storm, and the sharks come out of it to meet it, and the platters go round, and the sharks EAT.",
+  {
+   "sfx": "shark_munch",
+   "volume": 0.8
+  },
+  "One of them has a napkin tied on. One of them is using a fork. You don't know where it got a fork.",
+  "pete[sad]: ...We have beans.",
+  "captain[angry]: Do not.",
+  "pete: I'm just saying, Captain. They have lobster. We have beans.",
+  "captain[angry]: DO NOT.",
+  {
+   "vistaShow": "necklace",
+   "visible": true
+  },
+  {
+   "vistaMove": "necklace",
+   "x": 200,
+   "y": 104,
+   "duration": 1400,
+   "ease": "Sine.InOut"
+  },
+  {
+   "sfx": "jewel_chime",
+   "volume": 0.8
+  },
+  "Then a ruby necklace comes up out of the storm on a gust of wind, and turns over in the air, and settles on the barge's deck at the feet of a man in a white jacket, who picks it up, holds it to the light, bows, and puts it in his pocket.",
+  "captain[angry]: THAT IS MY NECKLACE.",
+  "jim: They're paying with it.",
+  "captain[angry]: THAT IS MY INCOME!",
+  "Nobody asks how sharks know about catering. It doesn't seem like the time.",
+  {
+   "vistaShow": "necklace",
+   "visible": false
+  },
+  {
+   "vistaMove": "barge",
+   "x": 360,
+   "y": 60,
+   "duration": 2200,
+   "ease": "Sine.In",
+   "async": true
+  },
+  {
+   "sfx": "rotor_whup",
+   "volume": 0.5
+  },
+  "The barge lifts away, WHUP, WHUP, WHUP, a lot lighter. And the sharks, full, start throwing their rubbish.",
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "music": null
+  },
+  {
+   "sfx": "token_whistle",
+   "volume": 0.6
+  },
+  {
+   "token": "lobster_shell",
+   "x": 6,
+   "y": 16,
+   "async": true,
+   "max": 8
+  },
+  {
+   "token": "oyster_tray",
+   "x": 12,
+   "y": 18,
+   "async": true,
+   "max": 8
+  },
+  {
+   "token": "crab_shell",
+   "x": 8,
+   "y": 21,
+   "max": 8
+  },
+  {
+   "token": "takeout_box",
+   "x": 13,
+   "y": 15,
+   "async": true,
+   "max": 8
+  },
+  {
+   "token": "caviar_tin",
+   "x": 5,
+   "y": 20,
+   "async": true,
+   "max": 8
+  },
+  {
+   "token": "napkin",
+   "x": 11,
+   "y": 21,
+   "max": 8
+  },
+  "It comes down on the deck like hail. Lobster shells. Crab shells. A foil tray of empty oyster shells. A takeout box. A caviar tin, licked clean. Napkins. A little fork.",
+  {
+   "setFlag": "luxury_seafood_seen"
+  },
+  {
+   "setFlag": "shark_leftovers_seen"
+  },
+  "Bob looks at the lobster shell by his foot. Then at his bowl. Then at the lobster shell.",
+  "bob: ...There's still a bit of meat in this one, Captain.",
+  "captain[angry]: Bob. Put it down.",
+  "bob: It's lobster, Captain. Real lob...",
+  "captain[angry]: We are NOT eating the sharks' leftovers.",
+  "bob[sad]: ...No, Captain.",
+  {
+   "emote": "squawks",
+   "icon": "heart"
+  },
+  "Squawks has come out from under his wing and is holding a crab claw in his beak, very proud, the way a cat holds a bird.",
+  "squawks[smug]: Shark gift.",
+  "You take it off him, gently, and throw it over the side. He watches it go.",
+  "squawks[worried]: ...Shark gift.",
+  {
+   "clearTokens": true
+  },
+  {
+   "setFlag": "p10_leftovers_dumped"
+  },
+  {
+   "startQuest": "shark_catering"
+  },
+  {
+   "tutorial": "Get the sharks' rubbish off your deck: sweep each heap over the side (three heaps).",
+   "title": "Shark Catering"
+  }
+ ],
+ "p10c7.sweep_1": [
+  {
+   "repair": "sweep",
+   "strikes": 3
+  },
+  {
+   "sfx": "splash",
+   "volume": 0.5
+  },
+  "Over the side it goes: shells, a tray, a napkin. A gull comes down to look at it and changes its mind.",
+  {
+   "setFlag": "p10_swept_1"
+  },
+  {
+   "event": "p10_swept"
+  }
+ ],
+ "p10c7.sweep_2": [
+  {
+   "repair": "sweep",
+   "strikes": 3
+  },
+  {
+   "sfx": "splash",
+   "volume": 0.5
+  },
+  "Over the side: the takeout box, a crab shell, the little fork. The fork floats, which feels personal.",
+  {
+   "setFlag": "p10_swept_2"
+  },
+  {
+   "event": "p10_swept"
+  }
+ ],
+ "p10c7.sweep_3": [
+  {
+   "repair": "sweep",
+   "strikes": 3
+  },
+  {
+   "sfx": "splash",
+   "volume": 0.5
+  },
+  "Over the side: the caviar tin, licked clean, and a lobster shell with the meat Bob was right about still in it.",
+  {
+   "setFlag": "p10_swept_3"
+  },
+  {
+   "event": "p10_swept"
+  }
+ ],
+ "p10c7.swept": [
+  "The deck's clear. It still smells of lobster, which is somehow the worst smell on it, because it's the only nice one and it isn't yours.",
+  {
+   "completeQuest": "shark_catering"
+  },
+  {
+   "call": "p10c8.begin"
+  }
+ ]
+}

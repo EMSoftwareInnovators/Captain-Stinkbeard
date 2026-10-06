@@ -1,0 +1,1380 @@
+{
+ "//": "Story Phase 10, Parts Five to Seven (chapters 89-92): the Grand Feast and the one bite; the approach; the cowardice crisis and the Cowardice Award; alignment, and the wrong-way blast into the ocean that drives the Revenge stern-first into the Great Sharkstorm.",
+ "p10c19.begin": [
+  {
+   "setFlag": "p10_ch89_started"
+  },
+  {
+   "banner": "PART FIVE",
+   "sub": "Garrick Charges the Stenchmaster"
+  },
+  {
+   "banner": "CHAPTER 89",
+   "sub": "The Grand Feast"
+  },
+  "garrick[businesslike]: There is one more thing, Captain. Before tomorrow.",
+  "captain: What.",
+  "garrick[proud]: A full Grand Stenchmaster release requires a full Grand Stenchmaster. I'm running at about a third. I need to CHARGE.",
+  "captain: ...Charge.",
+  "jim[sad]: He means eat.",
+  "garrick[proud]: I mean THE GRAND STENCHMASTER'S GRAND STENCHMASTER FART'S GRAND FEAST.",
+  "There's a pause while everyone counts the Grands.",
+  "garrick[proud]: And for this, Salty Jim, I hereby appoint you GRAND STENCHMASTER'S GRAND GALLEY'S GRAND BEAN COOK.",
+  "jim[angry]: That's worse than the last one.",
+  "garrick[businesslike]: It's a promotion.",
+  "jim[angry]: It's the SAME JOB with more beans in the title.",
+  "jim[sad]: ...Five courses, he wants. Five. Captain, you're helping. I'm not doing five courses of beans on my own for a man who's going to point them at the sea.",
+  "captain: At the STORM.",
+  "jim: That's what I said.",
+  {
+   "startQuest": "grand_feast"
+  },
+  {
+   "transition": "galley",
+   "spawn": "ladder",
+   "fade": 600,
+   "then": "p10c19.kitchen"
+  }
+ ],
+ "p10c19.kitchen": [
+  {
+   "restage": "cut"
+  },
+  {
+   "music": "galley_beans",
+   "fade": 500
+  },
+  {
+   "tutorial": "Cook the Grand Feast, all five parts, in any order: Crying Beans (prep table), Baked Beans (long table), Burnt Beans (stove), a Bean Smoothie (the blender, on the long table) and the sauce (the vats, down in the hold).",
+   "title": "The Grand Feast"
+  }
+ ],
+ "p10c19.crying": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "Crying Beans. Again. You know the tins now. You know the bean on the front personally.",
+  {
+   "repair": "can",
+   "strikes": 2
+  },
+  {
+   "repair": "stir",
+   "strikes": 3
+  },
+  {
+   "sfx": "bean_weep",
+   "volume": 0.8
+  },
+  "As they come up to a simmer, the beans start to... weep. A thin, high, sad little sound, from inside the pot, like kettles at a funeral.",
+  "jim[disgusted]: They didn't do that last night.",
+  "garrick[proud]: Emotional nutrition, Jim. They're giving it everything.",
+  {
+   "setFlag": "p10_feast_crying"
+  }
+ ],
+ "p10c19.baked": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "A can of baked beans on the long table, its label crossed out in crayon and a new one stuck on.",
+  {
+   "insert": "baked_beans_label",
+   "caption": "GARRICK-APPROVED BAKED BEANS. EXTRA MOLASSES. EXTRA ONION. QUESTIONABLE GARLIC."
+  },
+  "garrick[proud]: The extra onion I provide personally.",
+  "He reaches into the Suit and comes out with an onion. Then another. He has onions about him the way other men have handkerchiefs.",
+  "captain: Why do you have onions in your SUIT?",
+  "garrick[businesslike]: Emergency onions, Captain. A Grand Stenchmaster is never without.",
+  "And then, from a deeper pocket, something grey-green and soft that was once a garlic bulb.",
+  "garrick[proud]: And the questionable garlic.",
+  {
+   "choice": [
+    {
+     "text": "Absolutely not",
+     "then": [
+      "captain[disgusted]: Absolutely not.",
+      "You take it off him with two fingers and drop it out of the porthole. It doesn't make a splash. It doesn't make any sound at all.",
+      "garrick[offended]: That was VINTAGE."
+     ]
+    },
+    {
+     "text": "Let him (and regret it)",
+     "then": [
+      "You let him. It goes in. The beans go quiet. Even the Crying Beans stop crying, out of respect.",
+      "jim: ...Captain."
+     ]
+    }
+   ]
+  },
+  {
+   "repair": "stir",
+   "strikes": 2
+  },
+  {
+   "setFlag": "p10_feast_baked"
+  }
+ ],
+ "p10c19.burnt": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "garrick[proud]: The third course: Burnt Beans. Charred. To the very edge of their lives.",
+  "jim[angry]: I don't burn beans. I've never burnt a bean in my life.",
+  "garrick[businesslike]: Then today you'll learn, Jim. Growth.",
+  {
+   "repair": "scorch",
+   "strikes": 3
+  },
+  {
+   "sfx": "burnt_clack",
+   "volume": 1.0
+  },
+  "You tip them out onto a plate. They land like gravel. CLACK. CLACK-CLACK.",
+  "jim: Is that... food?",
+  "garrick[proud]: Stenchmaster fuel.",
+  "jim: It CLACKED.",
+  {
+   "setFlag": "p10_feast_burnt"
+  }
+ ],
+ "p10c19.smoothie": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "On the end of the long table, something Garrick built in the night: a jar on a crate, a crank on the side, a vacuum tube on top for no reason that lights up when you look at it, and a fork, wired in, where the blades should be.",
+  "captain: WHY does everything you build have a FORK in it?",
+  "garrick[businesslike]: Forks are very versatile, Captain. It's a blender. The Grand Bean Smoothie: beans, a Frog Grog base, and a whisper of sauce.",
+  "In it goes. Beans. Frog Grog. The whisper of sauce, which is a glug.",
+  {
+   "repair": "crank",
+   "strikes": 4
+  },
+  {
+   "sfx": "blender_whirr",
+   "volume": 0.9
+  },
+  "The fork goes round. The tube lights up. The whole thing starts to shake, and then to hop, and then to WALK.",
+  {
+   "sprite": "p10_blender",
+   "frame": "blender_fork",
+   "x": 9.5,
+   "y": 8,
+   "depth": 80000
+  },
+  {
+   "setFlag": "p10_blender_walking"
+  },
+  {
+   "sfx": "blender_walk",
+   "volume": 0.8
+  },
+  {
+   "moveSprite": "p10_blender",
+   "x": 7.5,
+   "y": 8,
+   "duration": 1600
+  },
+  "It walks down the long table on its crate, buzzing, everybody leaning back out of its way, to the very end...",
+  {
+   "sfx": "pot_slop",
+   "volume": 1.0
+  },
+  {
+   "burst": "beans",
+   "x": 7,
+   "y": 7,
+   "count": 18
+  },
+  "...and the lid comes off.",
+  {
+   "sprite": "p10_splat_a",
+   "frame": "sludge_splat",
+   "x": 6,
+   "y": 4,
+   "depth": 70
+  },
+  {
+   "sprite": "p10_splat_b",
+   "frame": "sludge_splat",
+   "x": 10,
+   "y": 3,
+   "depth": 70
+  },
+  "Smoothie on the wall. Smoothie on the deckhead. Smoothie on Jim. And then, a second later, coming down off the ceiling, beans, pattering down on everyone like the first drops before the rain.",
+  {
+   "sfx": "bean_rain",
+   "volume": 0.9
+  },
+  {
+   "burst": "beans",
+   "x": 9,
+   "y": 5,
+   "count": 14
+  },
+  "squawks[smug]: Bean rain.",
+  {
+   "removeSprite": "p10_blender"
+  },
+  {
+   "clearFlag": "p10_blender_walking"
+  },
+  "There's about a goblet's worth left in the jar. Garrick pours it into a goblet, very carefully, and holds it up to the light.",
+  "garrick[proud]: The Grand Bean Smoothie.",
+  {
+   "setFlag": "bean_smoothie_made"
+  }
+ ],
+ "p10c19.sauce": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "The sauce vats, the three that didn't go off, lids bulging, ticking quietly to themselves in the red-spattered hold.",
+  "garrick[proud]: The sauce ceremony.",
+  "jim: Just a spoonful, Captain. One spoonful. For flavour. I'm a professional and I'm asking.",
+  "garrick[proud]: A SPOONFUL.",
+  {
+   "repair": "shake",
+   "strikes": 3
+  },
+  {
+   "sfx": "sauce_pressure",
+   "volume": 0.9
+  },
+  "He opens the vat. It sighs. He pours. Jim holds out a spoon. Garrick pours past the spoon, over the spoon, round the spoon, into the bucket, the bucket fills, he keeps pouring, he pours until the bucket is a red hill with a spoon in it.",
+  "jim: That's not a spoonful.",
+  "garrick[proud]: It's a Grand spoonful.",
+  {
+   "setFlag": "p10_feast_sauce"
+  }
+ ],
+ "p10c19.parts_done": [
+  {
+   "setFlag": "p10_feast_parts_said"
+  },
+  {
+   "tutorial": "All five parts cooked. Now plate it, formally (the long table, in the galley).",
+   "title": "The Grand Feast"
+  }
+ ],
+ "p10c19.plate": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "garrick[proud]: Formal plating, Captain. A Grand Feast deserves presentation.",
+  {
+   "repair": "plate",
+   "strikes": 4
+  },
+  {
+   "sfx": "plate_ding",
+   "volume": 0.9
+  },
+  "A molded dome of Crying Beans, still faintly weeping. A curve of Garrick-Approved Baked Beans. A pyramid of Burnt Beans, stacked with tweezers. A sauce spiral. A ring of onion. The goblet of Bean Smoothie at the side.",
+  "Jim reaches over to take the little sprig of parsley off the top.",
+  "garrick[offended]: LEAVE the parsley.",
+  "jim: It's a garnish. Nobody eats the parsley.",
+  "garrick[proud]: A Grand Stenchmaster has STANDARDS.",
+  {
+   "insert": "feast_plate",
+   "caption": "THE GRAND FEAST."
+  },
+  {
+   "setFlag": "charging_feast_prepared"
+  },
+  {
+   "tutorial": "Serve it to the Grand Stenchmaster (him).",
+   "title": "The Grand Feast"
+  }
+ ],
+ "p10c19.serve": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "You set the Grand Feast down in front of him. He tucks a napkin into the collar of the Suit. He picks up a fork. He looks at it all, for a long, respectful moment.",
+  "jim: That took me four hours.",
+  "garrick[proud]: And it shows, Jim.",
+  "Then he picks up the whole plate, tips it, and eats the entire feast in ONE BITE.",
+  {
+   "sfx": "chomp",
+   "volume": 1.0
+  },
+  {
+   "sfx": "gulp_forecast",
+   "volume": 0.8
+  },
+  "Crying Beans. Baked Beans. Burnt Beans, CLACK. The sauce. The onion. The plate is clean. The parsley is still there.",
+  "Then he drinks the smoothie.",
+  {
+   "sfx": "grog_gulp",
+   "volume": 0.9
+  },
+  "garrick[proud]: ...Same bite.",
+  "jim: FOUR HOURS.",
+  {
+   "wait": 500
+  },
+  {
+   "sfx": "thoom",
+   "volume": 0.9
+  },
+  {
+   "shake": 2,
+   "duration": 500
+  },
+  "THOOM.",
+  "Something deep in the Grand Stenchmaster moves, the way a ship moves when a wave hits it from below.",
+  {
+   "sfx": "stomach_glorp",
+   "volume": 0.8
+  },
+  {
+   "sfx": "dish_rattle",
+   "volume": 0.8
+  },
+  {
+   "shake": 1,
+   "duration": 700
+  },
+  "Every fork in the galley rattles in its drawer. The pots swing on their hooks. The Mark II comes on by itself, shows a frog, and goes off.",
+  {
+   "sfx": "stomach_howl",
+   "volume": 0.6
+  },
+  "garrick[gastro]: Charge level... increasing... rapidly...",
+  {
+   "sfx": "charge_rise",
+   "volume": 0.8
+  },
+  {
+   "setFlag": "garrick_charged"
+  },
+  {
+   "setValue": "garrick_charge",
+   "value": "full"
+  },
+  "The Suit creaks. A button goes, somewhere, PING, across the galley. A faint green shimmer comes up off him at the hips.",
+  "garrick[gastro]: Captain. I would like to go outside now.",
+  "captain[alarmed]: GET HIM TO THE STERN.",
+  {
+   "completeQuest": "grand_feast"
+  },
+  {
+   "call": "p10c20.begin"
+  }
+ ],
+ "p10c20.begin": [
+  {
+   "setFlag": "p10_ch90_started"
+  },
+  {
+   "fade": "out",
+   "duration": 800
+  },
+  {
+   "banner": "PART SIX",
+   "sub": "The Grand Stenchmaster Cowardice Crisis"
+  },
+  {
+   "banner": "CHAPTER 90",
+   "sub": "The Approach"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 25
+  },
+  {
+   "setValue": "great_sharkstorm",
+   "value": "close_approach"
+  },
+  {
+   "transition": "main_deck",
+   "x": 12,
+   "y": 13,
+   "facing": "up",
+   "fade": 900,
+   "then": "p10c20.deck"
+  }
+ ],
+ "p10c20.deck": [
+  {
+   "restage": "cut"
+  },
+  {
+   "music": "charge_rising",
+   "fade": 500
+  },
+  {
+   "sfx": "vortex_roar",
+   "volume": 0.9
+  },
+  {
+   "shake": 2,
+   "duration": 800
+  },
+  "Afternoon, and the Great Sharkstorm fills the sky astern.",
+  "Not on the horizon now. HERE. A wall of grey-green going round, as high as you can tip your head back, and all through it, going round with it: sharks, timber, a crab pot, and gold. Your gold. Flashing.",
+  {
+   "deadCenter": "none"
+  },
+  {
+   "sfx": "launch_whoosh",
+   "volume": 0.7
+  },
+  "And off the forward deck, for the first time in weeks, the Dead Center's yellow cloud lifts, and streams away astern in a long rope, and the storm takes it in without a pause, the way you'd take in a noodle.",
+  "gristle: ...Even the Dead Center's leaving.",
+  "ned: Strong scent.",
+  "gristle: Take her in, Captain. Everything that can move gets tied down. And watch the sky: they're coming down on the deck now. You'll see the mark before they land.",
+  {
+   "setFlag": "close_approach_started"
+  },
+  {
+   "startQuest": "the_approach"
+  },
+  {
+   "tutorial": "Get her ready: trim the sails (the mainmast's sheets, both sides), lash the cargo (starboard crates), check the ropes (the coils), take the helm with Gristle, secure the galley (below), and get the sash holders ready (Tom and Bill). Sharks land on the deck now: watch for the marks.",
+   "title": "The Approach"
+  }
+ ],
+ "p10c20.sail_port": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "repair": "trim",
+   "strikes": 3
+  },
+  "The port sheet hauled in and made fast. The mainsail stops flogging and leans into it.",
+  {
+   "setFlag": "p10_sail_port"
+  },
+  {
+   "event": "p10_sail"
+  }
+ ],
+ "p10c20.sail_starboard": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "repair": "trim",
+   "strikes": 3
+  },
+  "The starboard sheet in. The mainsail fills with a crack like a cannon and the Revenge picks up her feet.",
+  {
+   "setFlag": "p10_sail_starboard"
+  },
+  {
+   "event": "p10_sail"
+  }
+ ],
+ "p10c20.cargo": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "repair": "buckle",
+   "strikes": 3
+  },
+  "The crates by the starboard rail, lashed down with three turns and a hitch. One of them's full of the Grand Stenchmaster's spare sashes. You lash that one twice.",
+  {
+   "setFlag": "p10_cargo_lashed"
+  }
+ ],
+ "p10c20.ropes": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "repair": "knot",
+   "strikes": 3
+  },
+  "Every coil by the mainmast checked, every line run, every knot pulled tight. Two of them were tied by Bob. You retie those.",
+  {
+   "setFlag": "p10_ropes_checked"
+  }
+ ],
+ "p10c20.helm": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "gristle: Hands on, Captain. She's fighting it. Bring her round with me, stern to the storm.",
+  {
+   "repair": "helm",
+   "strikes": 3,
+   "title": "BRING HER ROUND"
+  },
+  "Together you bring her round, slowly, until the Great Sharkstorm is dead astern and the whole ship is backing down towards it on the wind.",
+  "gristle: That's it. Stern to it. I'll hold her here.",
+  {
+   "setFlag": "p10_helm_set"
+  }
+ ],
+ "p10c20.galley": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The galley. Everything that can move, moving. The pots on their hooks swing in long slow arcs; the cans walk across the shelves.",
+  {
+   "repair": "buckle",
+   "strikes": 3,
+   "title": "LASH THE POTS"
+  },
+  "Pots lashed. Cans in the bin. The Mark II jammed into its corner with a sack either side, the way you'd wedge in a baby.",
+  "jim: (from the doorway) Mind the blender.",
+  "You put the blender in a drawer and sit on it until it stops.",
+  {
+   "setFlag": "p10_galley_secured"
+  }
+ ],
+ "p10c20.holders": [
+  {
+   "face": "rusty_tom",
+   "dir": "player"
+  },
+  "Rusty Tom and Barnacle Bill, side by side, holding the two ends of a rope where the sash will be, practising. Tom has stuffed his ears with cotton, which isn't the right end. Bill has his pipe in his teeth, unlit, bitten nearly through.",
+  "rusty_tom: Ready, Captain. Left side.",
+  "barnacle_bill: Right side.",
+  "captain: You don't let go. Whatever happens. Whatever he does. You don't let go of that sash.",
+  "rusty_tom: Whatever he does.",
+  "barnacle_bill: (darkly) Whatever he does.",
+  {
+   "setFlag": "p10_holders_positioned"
+  }
+ ],
+ "p10c20.all_done": [
+  {
+   "setFlag": "p10_approach_done_said"
+  },
+  {
+   "sfx": "chain_jangle",
+   "volume": 1.0
+  },
+  {
+   "sfx": "shark_whoosh",
+   "volume": 1.0
+  },
+  {
+   "shake": 1,
+   "duration": 400
+  },
+  {
+   "sprite": "p10_bbk_pass",
+   "frame": "flying_bbk_0",
+   "x": 24,
+   "y": 9,
+   "depth": 79200
+  },
+  {
+   "moveSprite": "p10_bbk_pass",
+   "x": -6,
+   "y": 13,
+   "duration": 1000,
+   "async": false
+  },
+  {
+   "removeSprite": "p10_bbk_pass"
+  },
+  "The Bling Bling King goes over the deck so low the topmast scrapes its belly. On the way past it throws something. Then something else. It's been throwing things all afternoon.",
+  {
+   "sfx": "token_whistle",
+   "volume": 0.6
+  },
+  {
+   "token": "token_coin",
+   "x": 7,
+   "y": 14
+  },
+  {
+   "token": "token_rosette",
+   "x": 13,
+   "y": 16,
+   "async": true
+  },
+  {
+   "insert": "token_bad_decisions",
+   "caption": "WE LOVE BAD DECISIONS."
+  },
+  {
+   "insert": "token_bravery",
+   "caption": "BRAVERY OR TERRIBLE JUDGMENT?"
+  },
+  "You stand at the rail with your cutlass out and point it at the storm, at each thing as it goes round.",
+  "captain[angry]: MY gold. MY rubies. MY chain. MY necklace, which bought LOBSTER. MY pillows. MY CROWN.",
+  "squawks: (from your shoulder) Shark does have crown.",
+  "captain[angry]: I KNOW it has the crown, Squawks. That's the POINT.",
+  "squawks[smug]: Big crown.",
+  "captain[angry]: You're not helping.",
+  {
+   "tutorial": "Everything's tied down. Ask the Grand Sharkmaster for a report (Pete, with his spyglass at the stern).",
+   "title": "The Approach"
+  }
+ ],
+ "p10c20.report": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "Pete has a spyglass to his eye, trained on the storm. He doesn't take it down.",
+  "captain: Grand Sharkmaster. Report.",
+  "pete: ...Many sharks.",
+  "captain: Anything else?",
+  "Pete looks for a while longer. He adjusts the spyglass. He looks again.",
+  "pete: They look angry.",
+  "captain[determined]: Excellent.",
+  "pete: How is that EXCELLENT?",
+  "captain[determined]: Because so am I.",
+  {
+   "setFlag": "p10_pete_report"
+  },
+  {
+   "setFlag": "p10_close_approach_done"
+  },
+  {
+   "completeQuest": "the_approach"
+  },
+  {
+   "call": "p10c21.begin"
+  }
+ ],
+ "p10c21.begin": [
+  {
+   "setFlag": "p10_ch91_started"
+  },
+  {
+   "banner": "CHAPTER 91",
+   "sub": "The One Time"
+  },
+  {
+   "sfx": "stomach_grnk",
+   "volume": 0.6
+  },
+  {
+   "shake": 1,
+   "duration": 400
+  },
+  "From the waist of the ship, a sound like a cello falling down a staircase.",
+  "garrick[gastro]: (from somewhere) Captain. Pressure is... FULL.",
+  {
+   "startQuest": "the_one_time"
+  },
+  {
+   "tutorial": "Firing position: get the Grand Stenchmaster to the stern rail (him, then the chalk mark at the stern).",
+   "title": "The One Time"
+  }
+ ],
+ "p10c21.position": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "The Grand Stenchmaster, fully charged, is standing in the middle of the deck very carefully not moving, the Suit straining at every seam, his holders an arm's length either side.",
+  "captain[determined]: Garrick. ASSUME FIRING POSITION.",
+  "garrick[gastro]: Assuming.",
+  {
+   "fade": "out",
+   "duration": 500
+  },
+  {
+   "setFlag": "sash_holders_on"
+  },
+  {
+   "setFlag": "p10_firing_position"
+  },
+  {
+   "place": "garrick",
+   "x": 9,
+   "y": 4,
+   "facing": "down"
+  },
+  {
+   "place": "rusty_tom",
+   "x": 8,
+   "y": 4,
+   "facing": "down"
+  },
+  {
+   "place": "barnacle_bill",
+   "x": 10,
+   "y": 4,
+   "facing": "down"
+  },
+  {
+   "place": "player",
+   "x": 9,
+   "y": 8,
+   "facing": "up"
+  },
+  {
+   "fade": "in",
+   "duration": 600
+  },
+  "The stern. The chalk X. He backs up to the rail and stops on it, his rear to the storm, facing you down the length of the ship. Tom on his left, Bill on his right, the sash between them pulled taut.",
+  "Behind him: the Great Sharkstorm, filling the sky. In front of him: the crew, on the quarterdeck steps, holding onto things.",
+  "He looks over his shoulder at it.",
+  "At the sharks going round. At their teeth. At the storm, and how big it is. At the Bling Bling King, going round in it, crown and chain, looking back at him.",
+  "garrick[nervous]: ...Captain.",
+  "captain: What?",
+  "garrick[nervous]: Maybe this is a bad idea.",
+  "captain: You've been telling me for a month that it was a GOOD idea.",
+  "garrick[worried]: What if they don't LIKE it, Captain? The sharks. What if it upsets them?",
+  "captain[angry]: They ATE MY SHIP.",
+  "garrick[worried]: Well, bits of it...",
+  "captain[angry]: They STOLE MY TREASURE. They dumped their RUBBISH on my deck. They bought LOBSTER with my NECKLACE. They bought PILLOWS with my GOLD. They threw PLASTIC at me all NIGHT. They gave me a PARTICIPATION PRIZE. And one of them is WEARING MY CROWN.",
+  "garrick[worried]: It does wear it well...",
+  "captain[angry]: THIS IS THE ONE TIME!",
+  "The whole deck goes quiet.",
+  "captain[angry]: For a MONTH you've released everywhere. In my cabin. In the galley. In the hold. At breakfast. In your SLEEP. Without permission, without warning, without a SHRED of shame.",
+  "captain[angry]: And now, for ONCE, your captain is ASKING you. Garrick: let 'er rip.",
+  "garrick[offended]: ...I'd prefer 'commence the Grand Stenchmaster release sequence', Captain. It's a ceremonial occasion.",
+  "captain[angry]: LET. 'ER. RIP.",
+  {
+   "sfx": "stomach_grnk",
+   "volume": 0.6
+  },
+  {
+   "shake": 1,
+   "duration": 400
+  },
+  "He shuts his eyes. He braces. The holders brace. The sash goes so taut it hums.",
+  "And then, very slowly, the Grand Stenchmaster starts to walk away.",
+  {
+   "move": "garrick",
+   "to": [
+    12,
+    7
+   ],
+   "speed": 0.8,
+   "async": true
+  },
+  {
+   "move": "rusty_tom",
+   "to": [
+    11,
+    7
+   ],
+   "speed": 0.8,
+   "async": true
+  },
+  {
+   "move": "barnacle_bill",
+   "to": [
+    13,
+    7
+   ],
+   "speed": 0.8
+  },
+  "captain: Garrick.",
+  "He's waddling. Fully charged, holding his stomach with both hands, waddling down the deck towards the bow, and Tom and Bill are coming with him, because they were told not to let go, and they haven't.",
+  "captain[angry]: GARRICK.",
+  {
+   "fade": "out",
+   "duration": 500
+  },
+  {
+   "place": "garrick",
+   "x": 9,
+   "y": 38,
+   "facing": "up"
+  },
+  {
+   "place": "rusty_tom",
+   "x": 8,
+   "y": 38,
+   "facing": "up"
+  },
+  {
+   "place": "barnacle_bill",
+   "x": 10,
+   "y": 38,
+   "facing": "up"
+  },
+  {
+   "place": "player",
+   "x": 9,
+   "y": 35,
+   "facing": "down"
+  },
+  {
+   "fade": "in",
+   "duration": 500
+  },
+  "All the way down the ship. Past the mast. Past the hatch. Round the foremast, Bill on the wrong side of it for a second, the sash wrapping it once, Tom going round after it the wrong way, both of them unwinding it at a run. To the bow.",
+  "He backs up to the bow rail, over the sea, rear-first.",
+  "garrick[businesslike]: New plan, Captain. I'll fire DOWN. Into the ocean. Nice and safe. No sharks harmed.",
+  "captain[angry]: NO.",
+  "garrick[worried]: They're LIVING creatures, Captain.",
+  "pete: (from halfway down the deck) Since WHEN do you care about marine life?",
+  "garrick[proud]: Since this morning. I've grown.",
+  {
+   "setFlag": "p10_balked"
+  },
+  {
+   "tutorial": "Talk him back to the stern (him, at the bow).",
+   "title": "The One Time"
+  }
+ ],
+ "p10c21.argue": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  {
+   "if": {
+    "notFlag": "p10_arg_ocean"
+   },
+   "then": [
+    "captain[angry]: Into the OCEAN. Do you know what that would do?",
+    "garrick[businesslike]: I've a rough idea, Captain.",
+    "garrick[businesslike]: Worse than Rumpold, probably. Rumpold's was fifty-three times. Into open water... MAYBE five hundred times. That's a guess. I'm not a scientist.",
+    "captain[angry]: FIVE HUNDRED?",
+    "garrick[businesslike]: The waters would smell for years, Captain. The waves. The fish. The spray. The rain, after. The hull. And...",
+    "He looks at your beard.",
+    "garrick[businesslike]: ...the beards.",
+    {
+     "sfx": "gag",
+     "volume": 0.8
+    },
+    {
+     "shake": 1,
+     "duration": 300
+    },
+    "You make a noise you've never made before. Squawks makes it with you.",
+    {
+     "setFlag": "p10_arg_ocean"
+    },
+    {
+     "event": "p10_argument"
+    }
+   ],
+   "else": [
+    {
+     "if": {
+      "notFlag": "p10_arg_force"
+     },
+     "then": [
+      "gristle: (arriving at a run, out of breath) Captain. Captain. It's worse than that.",
+      "gristle: If he fires DOWN, off the bow, he pushes the ship the OTHER WAY. Backwards. Stern-first. And what's astern?",
+      "Everyone looks astern. The Great Sharkstorm looks back.",
+      "gristle: So let me be sure I've got it. One: he poisons the ocean. Two: for years. Three: he uses himself as a rocket engine. Four: he launches the ship, backwards, INTO THE STORM.",
+      "garrick[businesslike]: ...When ye phrase it like that...",
+      "gristle[annoyed]: THERE IS NO BETTER WAY TO PHRASE IT.",
+      {
+       "setFlag": "p10_arg_force"
+      },
+      {
+       "event": "p10_argument"
+      }
+     ],
+     "else": [
+      "captain[angry]: Garrick. I am BEGGING you. Fart at the sharks.",
+      "garrick[offended]: No, Captain. It's an animal welfare issue.",
+      "pete: An animal WELFARE...",
+      "pete[annoyed]: They are WEALTHY CRIMINAL SHARKS who are ACTIVELY BULLYING THE CREW.",
+      "garrick[businesslike]: And they've done very well for themselves, Pete. You have to admire it. The chain alone. That's STYLE, that.",
+      "captain[angry]: STOP COMPLIMENTING IT.",
+      {
+       "setFlag": "p10_arg_beg"
+      },
+      {
+       "event": "p10_argument"
+      },
+      {
+       "call": "p10c21.award"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "p10c21.award": [
+  {
+   "sfx": "chain_jangle",
+   "volume": 1.0
+  },
+  {
+   "sfx": "shark_whoosh",
+   "volume": 1.0
+  },
+  {
+   "shake": 2,
+   "duration": 400
+  },
+  {
+   "sprite": "p10_bbk_award",
+   "frame": "flying_bbk_0",
+   "x": 24,
+   "y": 33,
+   "depth": 79200
+  },
+  {
+   "moveSprite": "p10_bbk_award",
+   "x": -6,
+   "y": 36,
+   "duration": 1000,
+   "async": false
+  },
+  {
+   "removeSprite": "p10_bbk_award"
+  },
+  "The Bling Bling King comes down the length of the ship from astern, so low the bowsprit nearly takes the pendant, and as it goes over the bow, it lets go of something.",
+  {
+   "sfx": "token_whistle",
+   "volume": 0.8
+  },
+  {
+   "sfx": "medal_rattle",
+   "volume": 0.9
+  },
+  "It comes down slowly, turning, ribbons streaming, and lands, flump, across the Grand Stenchmaster's chest.",
+  "An award. The biggest yet. A rosette like a cartwheel, five ribbons, and a card hanging off it with a title on it that goes on for most of the card.",
+  {
+   "insert": "cowardice_award",
+   "caption": "THE GRAND STENCHMASTER GRAND CERTIFICATE OF GRAND COWARDICE..."
+  },
+  "squawks: (reading it out, at length, then giving up) ...Too grand.",
+  "Garrick reads it. Leadership. Cowardice. 'Fart man', in quotation marks. The ocean. The storm. Every Grand. He takes it all with dignity.",
+  "Then he looks at the picture in the middle.",
+  "It's him, in crayon, running away. And behind him, streaming off him in the wind, flapping loose, out of control, unheld, his SASH.",
+  "garrick[offended]: ...It's FLUTTERING.",
+  "garrick[offended]: They've drawn my sash FLUTTERING. Look at it. It's all over the place. Nobody would ever let a Grand Stenchmaster's sash flutter like that. That's DEFAMATION.",
+  "captain[determined]: Then do something about it.",
+  "He looks up at you. Then astern, at the storm. Something in him sets, like glue.",
+  "garrick[annoyed]: ...Gentlemen. To the stern.",
+  {
+   "setValue": "cowardice_award",
+   "value": "received"
+  },
+  {
+   "setFlag": "cowardice_award_received"
+  },
+  {
+   "setFlag": "sash_insult_motivation"
+  },
+  {
+   "setFlag": "p10_cowardice_done"
+  },
+  {
+   "completeQuest": "the_one_time"
+  },
+  {
+   "call": "p10c22.begin"
+  }
+ ],
+ "p10c22.begin": [
+  {
+   "setFlag": "p10_ch92_started"
+  },
+  {
+   "banner": "PART SEVEN",
+   "sub": "The Great Sharkstorm Spout Catastrophe"
+  },
+  {
+   "banner": "CHAPTER 92",
+   "sub": "The Wrong Way"
+  },
+  {
+   "fade": "out",
+   "duration": 500
+  },
+  {
+   "place": "garrick",
+   "x": 9,
+   "y": 4,
+   "facing": "down"
+  },
+  {
+   "place": "rusty_tom",
+   "x": 8,
+   "y": 4,
+   "facing": "down"
+  },
+  {
+   "place": "barnacle_bill",
+   "x": 10,
+   "y": 4,
+   "facing": "down"
+  },
+  {
+   "place": "player",
+   "x": 12,
+   "y": 7,
+   "facing": "up"
+  },
+  {
+   "fade": "in",
+   "duration": 600
+  },
+  "Back at the stern. Back on the chalk X. Rear to the storm. The sash held so taut it sings.",
+  "ned: (up the mainmast) Captain! She's drifting off the centre! Bring her round!",
+  {
+   "startQuest": "wrong_way"
+  },
+  {
+   "tutorial": "Bring her stern round to the centre of the storm, and hold her there (the helm).",
+   "title": "The Wrong Way"
+  }
+ ],
+ "p10c22.align": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "course": "show",
+   "heading": 168,
+   "target": 180,
+   "label": "THE CENTRE"
+  },
+  "gristle: She wants to fall off to port. Hold her. Hold her...",
+  {
+   "repair": "helm",
+   "strikes": 4,
+   "title": "HOLD HER ON THE CENTRE"
+  },
+  {
+   "course": "drift",
+   "to": 180,
+   "duration": 1800
+  },
+  "ned: Ten degrees... five... ON THE CENTRE, Captain!",
+  "gristle: Holding course.",
+  "pete: (with his spyglass) Grand Sharkmaster... ready. Whatever that means.",
+  {
+   "course": "hide"
+  },
+  {
+   "setFlag": "p10_aligned"
+  },
+  {
+   "setFlag": "final_alignment_reached"
+  },
+  "You leave the wheel to Gristle and walk aft to the rail beside the Grand Stenchmaster, and look up into the storm.",
+  "captain[determined]: (to the sky) Oi. BLING. You want a participation prize?",
+  "Up in the storm, very high, something very big turns its head.",
+  "captain[determined]: Garrick. Final approach.",
+  "garrick[annoyed]: Final approach.",
+  {
+   "sfx": "stomach_grnk",
+   "volume": 0.6
+  },
+  {
+   "shake": 1,
+   "duration": 400
+  },
+  "He plants his feet. The holders plant theirs. Ned counts down from the mast.",
+  "ned: FIVE...",
+  "ned: FOUR...",
+  "It's going to work. You can feel it. The pressure coming up through the deck into your boots. He's actually, finally going to...",
+  "ned: THREE...",
+  "garrick[terrified]: ...nope.",
+  {
+   "call": "p10c22.bolt"
+  }
+ ],
+ "p10c22.bolt": [
+  {
+   "sfx": "stomp_run",
+   "volume": 0.9
+  },
+  "He bolts.",
+  {
+   "fade": "out",
+   "duration": 300
+  },
+  {
+   "place": "garrick",
+   "x": 9,
+   "y": 38,
+   "facing": "up"
+  },
+  {
+   "place": "rusty_tom",
+   "x": 8,
+   "y": 38,
+   "facing": "up"
+  },
+  {
+   "place": "barnacle_bill",
+   "x": 10,
+   "y": 38,
+   "facing": "up"
+  },
+  {
+   "place": "player",
+   "x": 9,
+   "y": 34,
+   "facing": "down"
+  },
+  {
+   "fade": "in",
+   "duration": 300
+  },
+  "Down the whole length of the ship, Tom and Bill dragged behind him like kites, their feet hardly touching the deck, and you're running after him, and you're not going to make it, you can see you're not going to make it...",
+  "garrick[annoyed]: STENCHMASTER LAUNCH.",
+  "captain[angry]: NOT INTO THE OCEAN!",
+  "It's too late.",
+  {
+   "call": "p10c22.blast"
+  }
+ ],
+ "p10c22.blast": [
+  {
+   "music": null
+  },
+  {
+   "vista": "wrong_way",
+   "fade": 0
+  },
+  {
+   "wait": 400
+  },
+  {
+   "sfx": "wrong_way_blast",
+   "volume": 1.0
+  },
+  {
+   "shake": 4,
+   "duration": 2200
+  },
+  {
+   "flash": "#f0e8a0",
+   "duration": 500
+  },
+  {
+   "vistaShow": "blast",
+   "visible": true
+  },
+  "It starts as a sound you feel in your back teeth, below hearing. Then the deck jumps. Then the air in front of the bow goes wavy, like heat off a stove. Then the sash, held at both ends, goes STRAIGHT OUT like a flag in a gale, and doesn't flutter. Not once.",
+  {
+   "call": "p10c22.sea"
+  }
+ ],
+ "p10c22.sea": [
+  {
+   "sfx": "ocean_eruption",
+   "volume": 1.0
+  },
+  {
+   "vistaShow": "erupt",
+   "visible": true
+  },
+  {
+   "vistaShow": "plume",
+   "visible": true
+  },
+  "And the sea in front of the bow goes UP.",
+  "A column of water as high as the mast, brown and green and yellow, boiling with bubbles the size of barrels, fish going up in it looking deeply put out, and a plume of yellow-brown coming off the top of it and rolling out across the water in every direction.",
+  {
+   "vistaShow": "stain",
+   "visible": true
+  },
+  {
+   "vistaMove": "stain",
+   "alpha": 0.9,
+   "duration": 1800
+  },
+  "It spreads. Out and out. You watch the colour of the whole sea change, from blue, to green, to a kind of brown, to a colour there isn't a name for.",
+  "ned: (from the mast) ...Why is it GREEN?",
+  "jim: BEANS!",
+  {
+   "setFlag": "fired_wrong_direction"
+  },
+  {
+   "setFlag": "great_sharkstorm_sea_contamination"
+  },
+  {
+   "setValue": "garrick_charge",
+   "value": "spent"
+  },
+  {
+   "setValue": "local_sea_state",
+   "value": "contaminated"
+  },
+  {
+   "call": "p10c22.propel"
+  }
+ ],
+ "p10c22.propel": [
+  "And then the ship starts to move.",
+  {
+   "sfx": "ship_surge",
+   "volume": 1.0
+  },
+  {
+   "shake": 3,
+   "duration": 1500
+  },
+  {
+   "vistaMove": "revenge",
+   "x": 46,
+   "duration": 3200,
+   "ease": "Cubic.In",
+   "async": true
+  },
+  {
+   "vistaShow": "lines",
+   "visible": true
+  },
+  "Backwards. Stern-first. Fast, and getting faster, the way a cork comes out of a bottle, the Grand Stenchmaster still going off the bow like the world's worst engine, the sea behind you heaped up and foaming and the wind going the wrong way through the sails.",
+  "Straight into the Great Sharkstorm.",
+  {
+   "setValue": "great_sharkstorm",
+   "value": "entering"
+  },
+  {
+   "vistaEnd": true,
+   "fade": 200
+  },
+  {
+   "setFlag": "qar_propelled_into_storm"
+  },
+  {
+   "music": "great_sharkstorm",
+   "fade": 200
+  },
+  {
+   "sfx": "vortex_roar",
+   "volume": 1.0
+  },
+  {
+   "shake": 3,
+   "duration": 1000
+  },
+  "garrick[relieved]: (from the bow, still going) ...Oh, that's BETTER.",
+  {
+   "tutorial": "HOLD ON! Grab the rail!",
+   "title": "The Wrong Way"
+  }
+ ],
+ "p10c22.from_sea": [
+  {
+   "restage": "cut"
+  },
+  {
+   "music": null
+  },
+  {
+   "vista": "wrong_way",
+   "fade": 300
+  },
+  {
+   "vistaShow": "blast",
+   "visible": true
+  },
+  {
+   "call": "p10c22.sea"
+  }
+ ],
+ "p10c22.from_propel": [
+  {
+   "restage": "cut"
+  },
+  {
+   "music": null
+  },
+  {
+   "vista": "wrong_way",
+   "fade": 300
+  },
+  {
+   "vistaShow": "blast",
+   "visible": true
+  },
+  {
+   "vistaShow": "erupt",
+   "visible": true
+  },
+  {
+   "vistaShow": "plume",
+   "visible": true
+  },
+  {
+   "vistaShow": "stain",
+   "visible": true
+  },
+  {
+   "vistaMove": "stain",
+   "alpha": 0.9,
+   "duration": 0
+  },
+  {
+   "call": "p10c22.propel"
+  }
+ ],
+ "p10c22.rail": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "repair": "grip",
+   "strikes": 3,
+   "title": "HOLD ON!"
+  },
+  {
+   "sfx": "rail_grip",
+   "volume": 0.9
+  },
+  "You get both hands on the rail and hang on, and the deck tips, and everything that wasn't lashed goes past you: a bucket, a broom, the bell's clapper, Bob.",
+  "bob: (going past) I'M ALL RIGHT!",
+  "And then they're everywhere: sharks, going past the rail, under the yards, over the bow, every which way, in their jewellery, round and round.",
+  {
+   "setFlag": "p10_entry_rail"
+  },
+  "squawks[horrified]: CAPTAIN!",
+  {
+   "tutorial": "Squawks! Get hold of him! (the rail, aft of you)",
+   "title": "The Wrong Way"
+  }
+ ],
+ "p10c22.squawks": [
+  {
+   "face": "squawks",
+   "dir": "player"
+  },
+  "Squawks, holding onto the rail with both feet and his beak, every one of his non-feathers standing on end, his little body going out sideways in the wind like a sock on a line.",
+  {
+   "repair": "buckle",
+   "strikes": 3,
+   "title": "SECURE SQUAWKS"
+  },
+  "You get a hand round him and stuff him down the front of your coat, into the pouch, and button it.",
+  "squawks[furious]: (muffled) BAD SHIP.",
+  {
+   "setFlag": "p10_entry_squawks"
+  },
+  {
+   "tutorial": "Get below! (the galley hatch, midships)",
+   "title": "The Wrong Way"
+  }
+ ],
+ "p10c22.below": [
+  "You reached the hatch on your hands and knees, with a shark going over your head close enough to comb your hair, and fell down the ladder into the galley, and the whole crew fell in after you.",
+  {
+   "setFlag": "p10_entry_below"
+  },
+  {
+   "setFlag": "great_sharkstorm_entry_complete"
+  },
+  {
+   "completeQuest": "wrong_way"
+  },
+  {
+   "call": "p10c23.begin"
+  }
+ ]
+}

@@ -1,0 +1,228 @@
+{
+ "//": "Story Phase 10: inspect scripts on Crownskull Isle (the boats, until it's time) and on the ship (the boat, the plan board, the galley bed and the hammock over it, the lamp, the Mark II, the sauce vats, the pantry, the empty crate in the hold, the rail inside the storm), and the galley hatch while it's locked at the entry.",
+ "p10.isle.boats_wait": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  {
+   "if": {
+    "flag": "crater_salvage_complete"
+   },
+   "then": [
+    "The boats, pulled up on the sand, where you left them this morning when you were going to be rich.",
+    "Not yet. Something glittered on the trail behind you, and the crew are still coming down."
+   ],
+   "else": [
+    "The boats, pulled up on the sand. Not yet: there's still the crater, and whatever's left in it."
+   ]
+  }
+ ],
+ "p10.deck.boat": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  {
+   "if": {
+    "flag": "p10_ch90_started"
+   },
+   "then": [
+    "The ship's boat, lashed down in its falls with three extra turns. Gristle checked it. Then he checked it again."
+   ],
+   "else": [
+    "The ship's boat, back in its falls, still dripping.",
+    "Crownskull Isle's behind you now. There's nothing on it but a crater. The treasure isn't on the island any more. It's in the sky, going round, and it's following you."
+   ]
+  }
+ ],
+ "p10.inspect.board": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "if": {
+    "flag": "fifty_three_clause_written"
+   },
+   "then": [
+    {
+     "insert": "plan_notes_considering",
+     "caption": "THE COUNTER-SHARKSTORM INITIATIVE. Possible consequence: (HE SAYS.) STILL CONSIDERING IT."
+    }
+   ],
+   "else": [
+    {
+     "insert": "plan_notes",
+     "caption": "THE COUNTER-SHARKSTORM INITIATIVE."
+    }
+   ]
+  },
+  {
+   "if": {
+    "flag": "counter_plan_approved"
+   },
+   "then": [
+    "Somebody has written APPROVED across the bottom, and somebody else has written (UNFORTUNATELY) under that."
+   ]
+  }
+ ],
+ "p10.inspect.galley_bed": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  {
+   "if": {
+    "flag": "p10_ch93_started"
+   },
+   "then": [
+    "Your bed: three bean sacks, slid down to the low side of the galley and back again. Over it, the Grand Stenchmaster's hammock, swinging gently with the ship.",
+    "Every time the ship goes round, the hammock goes round a little more."
+   ],
+   "else": [
+    "Your bed: three bean sacks, pushed together, by the long table. It is, at a generous estimate, a bed.",
+    "Directly over it: the Grand Stenchmaster's hammock. Hierarchy. 'Not personal. Structural.'"
+   ]
+  }
+ ],
+ "p10.inspect.hammock": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "if": {
+    "flag": "p10_ch93_started"
+   },
+   "then": [
+    "The Grand Stenchmaster's hammock, swinging with the storm. It's the only thing on the ship that seems to be enjoying it."
+   ],
+   "else": [
+    {
+     "if": {
+      "flag": "p10_ch86_started"
+     },
+     "then": [
+      "The Grand Stenchmaster's hammock. He's in it, asleep, the book on his chest going up and down. The hammock sags to within an inch of your bed."
+     ],
+     "else": [
+      "The Grand Stenchmaster's hammock, strung across the galley beams directly over your bed. He measured. You watched him measure."
+     ]
+    }
+   ]
+  }
+ ],
+ "p10.inspect.lamp": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "if": {
+    "flag": "p10_lamp_lowered"
+   },
+   "then": [
+    "The kerosene lamp, turned right down: a little yellow bead of light by the Mark II, enough to see the ladder by. Enough to read by, if you were the kind of captain who reads other people's books at night."
+   ],
+   "else": [
+    "The kerosene lamp, turned up full, hissing, right by your head."
+   ]
+  }
+ ],
+ "p10.galley_tv": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "tv": "ses_mk2"
+  }
+ ],
+ "p10.inspect.vats": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "if": {
+    "flag": "hold_barracks_sauced"
+   },
+   "then": [
+    "The vats of Spicy Stench Sauce the Grand Stenchmaster bought in bulk. One of them vented. The barracks are red from the deck to the beams, and they smell like the inside of a pepper.",
+    {
+     "insert": "spicy_sauce_label",
+     "caption": "CONTENTS MAY PRESSURIZE AFTER OPENING. ENCLOSED-VESSEL USE DISCOURAGED."
+    },
+    "Nobody's sleeping down here again. Not this week. Possibly not this voyage."
+   ],
+   "else": [
+    "Three vats of Spicy Stench Sauce, bought in bulk, from the same establishment as the sash. They tick, gently, like they're thinking about something.",
+    {
+     "insert": "spicy_sauce_label",
+     "caption": "SPICY STENCH SAUCE. EXTRA STRENGTH."
+    }
+   ]
+  }
+ ],
+ "p10.inspect.pantry": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "Jim's pantry. Beans. Shelf after shelf of beans. Behind the beans, more beans. Behind those, a single sad onion, keeping its head down.",
+  {
+   "insert": "crying_beans_label",
+   "caption": "CRYING BEANS. So sad they season themselves!"
+  }
+ ],
+ "p10.inspect.mk2_gone": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "The crate where the Mark II used to stand. Just the crate now, and a clean square in the dust. The set's up in the galley."
+ ],
+ "p10.hatch_hold_on": [
+  {
+   "if": {
+    "notFlag": "p10_entry_rail"
+   },
+   "then": [
+    "You let go of the rail for one second to reach for the hatch, and the deck tips, and you're back at the rail, holding on, without deciding to be.",
+    {
+     "tutorial": "HOLD ON first! (the rail)",
+     "title": "The Wrong Way"
+    }
+   ],
+   "else": [
+    "squawks[horrified]: (from the rail) CAPTAIN!",
+    "You're not going below without him.",
+    {
+     "tutorial": "Squawks first! (the rail, aft of you)",
+     "title": "The Wrong Way"
+    }
+   ]
+  }
+ ],
+ "p10.inspect.inside_rail": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "if": {
+    "flag": "p10_complete"
+   },
+   "then": [
+    "Outside the rail: the inside of the Great Sharkstorm, going round. A shark in a pearl necklace. A treasure chest. A pillow (theirs). A participation token, spinning. The same lobster as before.",
+    "Below, a long way down, the sea, a colour the sea should never be.",
+    "Somewhere out there, the Bling Bling King."
+   ],
+   "else": [
+    "Outside the rail, the wall of the storm, close enough to touch and going round: sharks, sea, treasure, rubbish, cloud. The ship goes round with it, gently, like a cork in a drain.",
+    "Don't look down. You look down. Don't do that again."
+   ]
+  }
+ ]
+}

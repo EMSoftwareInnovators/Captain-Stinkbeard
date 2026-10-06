@@ -1,0 +1,1183 @@
+{
+ "//": "Story Phase 10, Part Two (chapters 78-83): the Bling Bling King's Bedtime Mockery. The vented sauce vats; Rusty Tom's test of the old quarters (still condemned: 'That release moved in'); the sharks' luxury bedding and the one pillow; the galley as a bedroom, his hammock over the captain ('YOU DO NOT OUTRANK ME.' 'Physically.'); the Frog Tax Man's sleep deductions; the kerosene lamp; Brogath the Bashful (alleged); tokens down the hatch; the Grand Award Ribbon; a word with the storm.",
+ "p10c8.begin": [
+  {
+   "setFlag": "p10_ch78_started"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 23
+  },
+  {
+   "sfx": "sauce_vent",
+   "volume": 1.0
+  },
+  {
+   "sfx": "thud_heavy",
+   "volume": 0.9
+  },
+  {
+   "shake": 3,
+   "duration": 700
+  },
+  "WHUMP.",
+  "From somewhere under your feet, a deep, soft, wet WHUMP, and the whole ship shivers, and for a moment the deck is warm.",
+  "Then, through the cracks round the main hatch: a thin red mist. And a smell like somebody set fire to a pepper.",
+  {
+   "banner": "CHAPTER 78",
+   "sub": "That Release Moved In"
+  },
+  "gristle[alarmed]: That was the hold.",
+  "garrick[nervous]: That was... possibly... a vat.",
+  "captain: A WHAT?",
+  "garrick[nervous]: Spicy Stench Sauce. I bought it in bulk, Captain. The same shop. It was on offer. I opened one for dinner. For the splash.",
+  {
+   "startQuest": "release_moved_in"
+  },
+  {
+   "tutorial": "Go down and see what went off (the hold, below the galley).",
+   "title": "That Release Moved In"
+  }
+ ],
+ "p10c8.hold": [
+  {
+   "setFlag": "p10_hold_vented_seen"
+  },
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "The hold. Or what the hold was an hour ago.",
+  {
+   "sfx": "sauce_vent",
+   "volume": 0.4
+  },
+  "In the corner by Jim's pantry, Garrick's vats of Spicy Stench Sauce, four of them, lids bulging. One of them has no lid. The lid is up in the beam above it, embedded, like an axe.",
+  "Red sauce up the wall. Red sauce on the hammocks. Red sauce on Gristle's rig, on Bob's net, on the patched hammock you've been sleeping under for a week. It's still dripping.",
+  "pete[disgusted]: 'Contents may pressurise after opening.'",
+  "garrick[businesslike]: It did say.",
+  "pete[annoyed]: 'ENCLOSED-VESSEL USE DISCOURAGED.'",
+  "garrick[businesslike]: That's more of a guideline.",
+  "bob[coughing]: My eyes are doing the thing the beans did.",
+  {
+   "setFlag": "hold_barracks_sauced"
+  },
+  {
+   "tutorial": "Nobody's sleeping in that. Decide where everyone sleeps tonight (talk to the crew here).",
+   "title": "That Release Moved In"
+  }
+ ],
+ "p10c8.where": [
+  {
+   "face": "gristle",
+   "dir": "player"
+  },
+  "gristle[coughing]: We can't sleep down here, Captain. Not in this. I've had my head in a pepper before. This is worse. This is a pepper with ambitions.",
+  "hale: (from the stairs) Our lot'll take the deck, Captain. Under the spare sail. We've slept in worse. We've slept in THAT.",
+  "He points at the hold. Fair.",
+  "captain: And the rest of us?",
+  "There's a pause. Then Bob, brightening:",
+  "bob[happy]: The old quarters!",
+  "ned: Our quarters. Our proper bunks. It's been weeks, Captain. It'll have aired out by now.",
+  "bob[happy]: It'll have aired RIGHT out.",
+  "jim[disgusted]: It has NOT aired out.",
+  "ned: You don't know that.",
+  "jim[angry]: I walk past the door every morning to get to my stove. I know what's on the other side of it. It knows what's on THIS side of it.",
+  "The Grand Stenchmaster clears his throat, quietly, from the back.",
+  "garrick[businesslike]: It hasn't aired out.",
+  "captain: How do you know?",
+  "garrick[businesslike]: That release moved in, Captain.",
+  "gristle[annoyed]: It's not a LODGER, Garrick.",
+  "garrick[businesslike]: I'm not saying it's sentient, Gristle. I'm saying it's settled. It's unpacked. It's put its feet up.",
+  "Into the silence, from somewhere near the barrels, a hand goes up.",
+  "rusty_tom: I'll check, Captain.",
+  "Everyone turns. A lanky man in a grey knitted cap with a rust-red moustache, holding his hand up like he's at school.",
+  "captain: ...Tom.",
+  "rusty_tom: Rusty Tom, Captain. Deckhand. Since Portsmouth.",
+  "captain: I know who you are, Tom.",
+  "You don't, quite. But you will.",
+  "Next to him, a stout old man with a white beard and an unlit pipe nods once.",
+  "barnacle_bill: Bill. Barnacle Bill.",
+  "bob: Bob. Barnacle Bob.",
+  "barnacle_bill: Not related.",
+  "bob: Not related.",
+  "They say it at the same time, without looking at each other, in the tone of men who have been asked a great deal.",
+  "rusty_tom: I'll have a look in the old quarters for everyone. Quick look. In and out.",
+  {
+   "setFlag": "p10_sleep_discussed"
+  },
+  {
+   "setFlag": "rusty_tom_introduced"
+  },
+  {
+   "setFlag": "barnacle_bill_introduced"
+  },
+  {
+   "tutorial": "Rusty Tom will check the old quarters. Meet him at their door (the boarded-up door at the back of the galley).",
+   "title": "That Release Moved In"
+  }
+ ],
+ "p10c8.test": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "The old door at the back of the galley, boarded up since the night it happened, DO NOT ENTER chalked across it in a hand very like yours.",
+  "Rusty Tom is tying a cloth over his nose and mouth. Then a second cloth. Then he asks Jim for a third, and Jim gives him a tea towel.",
+  "garrick[businesslike]: I'd hold your breath, Tom. And then, when you've held it, hold it again.",
+  "rusty_tom: Right you are.",
+  {
+   "sfx": "wood_crack",
+   "volume": 0.7
+  },
+  {
+   "setFlag": "p10_quarters_open"
+  },
+  "Bill takes the boards off with the claw of a hammer, one by one, slowly, the way you'd take the lid off a box with a snake in it.",
+  {
+   "sfx": "door",
+   "volume": 0.7
+  },
+  "Tom opens the door just wide enough. A warm breath comes out round the edges of it, like a house sighing.",
+  {
+   "move": "rusty_tom",
+   "to": [
+    8,
+    12
+   ]
+  },
+  "He goes in. The door shuts behind him.",
+  {
+   "despawn": "rusty_tom"
+  },
+  {
+   "wait": 1200
+  },
+  "Silence.",
+  {
+   "wait": 1400
+  },
+  "More silence. Somebody's stomach rumbles. It's Bob's.",
+  {
+   "wait": 1000
+  },
+  {
+   "sfx": "cough_heavy",
+   "volume": 0.9
+  },
+  {
+   "sfx": "door",
+   "volume": 0.9
+  },
+  {
+   "shake": 1,
+   "duration": 300
+  },
+  {
+   "spawn": "rusty_tom",
+   "x": 8,
+   "y": 11,
+   "facing": "up"
+  },
+  {
+   "emote": "rusty_tom",
+   "icon": "sweat"
+  },
+  "The door bangs open and Rusty Tom comes out of it backwards at speed, coughing so hard his cap comes off, tea towel and all.",
+  "rusty_tom[coughing]: It is STILL IN THERE.",
+  "He sits down on the floor. Bill hands him a cup of Frog Grog. He drinks it. That's how bad it was.",
+  "rusty_tom[coughing]: It's... warm, Captain. It's warmer than the galley. It's waiting.",
+  "garrick[proud]: Told ye.",
+  "Every head in the galley turns.",
+  "captain: ...Told him.",
+  "garrick[businesslike]: I said it moved in, Captain. I said it was settled. Now we have field confirmation.",
+  "captain[angry]: You KNEW?",
+  "garrick[businesslike]: I had a strong professional suspicion.",
+  "captain[angry]: YOU LET HIM GO IN THERE FOR FIELD CONFIRMATION?",
+  "garrick[businesslike]: Science needs a volunteer, Captain. And Tom volunteered. He's a credit to the ship.",
+  "rusty_tom[coughing]: I'm all right, Captain. I can't feel my eyebrows. But I'm all right.",
+  {
+   "sfx": "hammer_hit",
+   "volume": 0.6
+  },
+  {
+   "sfx": "hammer_hit",
+   "volume": 0.6
+  },
+  "Bill nails the boards back on. Then two more. Then he chalks DO NOT ENTER on them again, underneath yours, in capitals.",
+  {
+   "setValue": "crew_quarters_state",
+   "value": "condemned_reconfirmed"
+  },
+  {
+   "setFlag": "quarters_reconfirmed_condemned"
+  },
+  {
+   "setFlag": "rusty_tom_quarters_test"
+  },
+  {
+   "completeQuest": "release_moved_in"
+  },
+  {
+   "wait": 500
+  },
+  "ned: (from the hatch) Captain! You'll want to see this.",
+  "ned: You won't WANT to. But you'll want to.",
+  {
+   "call": "p10c9.begin"
+  }
+ ],
+ "p10c9.begin": [
+  {
+   "setFlag": "p10_ch79_started"
+  },
+  {
+   "banner": "CHAPTER 79",
+   "sub": "Shark Suites"
+  },
+  {
+   "startQuest": "shark_suites"
+  },
+  {
+   "tutorial": "See what Ned's seen (Ned, on deck: the stern rail).",
+   "title": "Shark Suites"
+  }
+ ],
+ "p10c9.look": [
+  {
+   "face": "ned",
+   "dir": "player"
+  },
+  "ned: The barge, Captain. The catering one. It's back.",
+  {
+   "sfx": "rotor_whup",
+   "volume": 0.7
+  },
+  {
+   "vista": "shark_suites",
+   "fade": 600
+  },
+  {
+   "music": "bling_bling_king",
+   "fade": 500
+  },
+  "WHUP. WHUP. WHUP. Down out of the dark towards the storm, lanterns lit all along it: THE GILDED GILL, low in the air with what it's carrying.",
+  {
+   "vistaMove": "barge",
+   "x": 190,
+   "y": 128,
+   "duration": 2400,
+   "ease": "Sine.Out"
+  },
+  "Pillows. Quilts. Mattress pads. Folded sheets with a shine on them. Hammocks, rolled. And on top of the lot, lashed down, an enormous yellow foam cushion the size of a rowboat.",
+  "pete: ...Bedding.",
+  "jim: Linens. It says LINENS.",
+  {
+   "vistaShow": "nest",
+   "visible": true
+  },
+  "And the sharks come out of the storm and take it all in, quilt by quilt, and wind it into the storm as they go round, until near the top, where it's calm, there's a NEST: pillows, quilts, the great yellow cushion in the middle.",
+  "Something very big settles into the cushion with a sigh you can hear from here.",
+  "captain[angry]: They're buying BEDDING.",
+  "gristle: They're buying luxury bedding.",
+  "captain[angry]: With MY MONEY.",
+  "Then the wind comes round.",
+  {
+   "vistaShow": "pillows",
+   "visible": true
+  },
+  {
+   "vistaMove": "pillows",
+   "x": 120,
+   "y": 230,
+   "scale": 2.2,
+   "duration": 2200,
+   "ease": "Sine.In"
+  },
+  {
+   "sfx": "pillow_poof",
+   "volume": 0.6
+  },
+  "A gust off the storm, and pillows come tumbling off the top of the nest and down the wind, straight at the ship.",
+  {
+   "vistaEnd": true,
+   "fade": 300
+  },
+  {
+   "music": null
+  },
+  {
+   "setFlag": "luxury_bedding_seen"
+  },
+  "bob[happy]: PILLOWS! FREE PILLOWS!",
+  "Everyone on deck moves at once.",
+  {
+   "tutorial": "Catch a pillow! Two are coming down on the deck (port side, and forward of the cabin).",
+   "title": "Shark Suites"
+  }
+ ],
+ "p10c9.pillow_1": [
+  {
+   "sfx": "pillow_poof",
+   "volume": 0.5
+  },
+  "A real pillow. Satin, piped, gold tassels. It smells of nothing at all. You'd forgotten things could.",
+  {
+   "repair": "grab",
+   "strikes": 2,
+   "title": "GRAB IT!"
+  },
+  "You've got it. You've GOT it. You've actually...",
+  {
+   "sfx": "chain_jangle",
+   "volume": 0.8
+  },
+  {
+   "sfx": "shark_whoosh",
+   "volume": 1.0
+  },
+  {
+   "shake": 2,
+   "duration": 300
+  },
+  {
+   "sprite": "p10_bbk_swoop_1",
+   "frame": "flying_bbk_0",
+   "x": -3,
+   "y": 13,
+   "depth": 79200
+  },
+  {
+   "moveSprite": "p10_bbk_swoop_1",
+   "x": 22,
+   "y": 16,
+   "duration": 900,
+   "async": false
+  },
+  {
+   "removeSprite": "p10_bbk_swoop_1"
+  },
+  "Something enormous goes over the deck so low the masts duck. A chain, a pendant, a crown, a great grey flank, and a WIND that takes your hat half off.",
+  "When you look down, your hands are empty.",
+  "captain[angry]: I HAD IT. I HAD IT IN MY HANDS.",
+  {
+   "setFlag": "p10_pillow_1"
+  },
+  {
+   "event": "p10_pillow"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p10_pillow_1"
+     },
+     {
+      "flag": "p10_pillow_2"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p10c9.catch"
+    }
+   ]
+  }
+ ],
+ "p10c9.pillow_2": [
+  {
+   "sfx": "pillow_poof",
+   "volume": 0.5
+  },
+  "A real pillow. Satin, piped, gold tassels. It smells of nothing at all. You'd forgotten things could.",
+  {
+   "repair": "grab",
+   "strikes": 2,
+   "title": "GRAB IT!"
+  },
+  "You've got it. You've GOT it. You've actually...",
+  {
+   "sfx": "chain_jangle",
+   "volume": 0.8
+  },
+  {
+   "sfx": "shark_whoosh",
+   "volume": 1.0
+  },
+  {
+   "shake": 2,
+   "duration": 300
+  },
+  {
+   "sprite": "p10_bbk_swoop_2",
+   "frame": "flying_bbk_0",
+   "x": 22,
+   "y": 11,
+   "depth": 79200
+  },
+  {
+   "moveSprite": "p10_bbk_swoop_2",
+   "x": -3,
+   "y": 14,
+   "duration": 900,
+   "async": false
+  },
+  {
+   "removeSprite": "p10_bbk_swoop_2"
+  },
+  "Something enormous goes over the deck so low the masts duck. A chain, a pendant, a crown, a great grey flank, and a WIND that takes your hat half off.",
+  "When you look down, your hands are empty.",
+  "squawks[smug]: Bling king got it.",
+  {
+   "setFlag": "p10_pillow_2"
+  },
+  {
+   "event": "p10_pillow"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p10_pillow_1"
+     },
+     {
+      "flag": "p10_pillow_2"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p10c9.catch"
+    }
+   ]
+  }
+ ],
+ "p10c9.catch": [
+  "Up the wind, one more pillow comes tumbling down, end over end, over the whole length of the deck.",
+  "Everybody dives for it. Bob dives for it. Pete dives for it. Gristle, who has never dived for anything, dives for it.",
+  {
+   "sfx": "thud",
+   "volume": 0.6
+  },
+  {
+   "sfx": "thud",
+   "volume": 0.5
+  },
+  "It sails over all of them...",
+  {
+   "sfx": "pillow_poof",
+   "volume": 0.8
+  },
+  "...and lands, plumf, in the arms of the Grand Stenchmaster, who hasn't moved, and has been standing there the whole time with his arms out like a man waiting for a bus.",
+  "garrick[delighted]: Oh!",
+  "He looks at it. He hugs it.",
+  "pete: ...That's the only thing you've ever got back out of that storm.",
+  "garrick[proud]: The Grand Stenchmaster's Pillow.",
+  "captain: COMMUNAL pillow.",
+  "garrick[offended]: ...The Grand Stenchmaster's Communal Pillow.",
+  "captain[angry]: The communal pillow.",
+  "garrick[businesslike]: With Grand Stenchmaster oversight.",
+  {
+   "setFlag": "single_pillow_recovered"
+  },
+  {
+   "completeQuest": "shark_suites"
+  },
+  "Overhead, very high, in a nest of quilts, something very big turns over and goes to sleep.",
+  "gristle[concerned]: The galley, then, Captain. All of us. It's that or the deck with Hale's lot, and the deck's got sky over it, and the sky's got opinions.",
+  {
+   "transition": "galley",
+   "spawn": "ladder",
+   "fade": 700,
+   "then": "p10c10.begin"
+  }
+ ],
+ "p10c10.begin": [
+  {
+   "setFlag": "p10_ch80_started"
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "banner": "CHAPTER 80",
+   "sub": "Bad Hotel"
+  },
+  {
+   "ambience": "galley_night"
+  },
+  "The galley, at night. Nine people and a parrot, a stove, a long table, sacks of beans, barrels of Frog Grog, and the big pot from dinner, still on the stove, still faintly going BLORP.",
+  "jim[sad]: My galley. It's my GALLEY. People cook in here.",
+  "gristle: Tonight people sleep in it. Beds, Captain. Something soft.",
+  "jim: There's nothing soft. There's beans.",
+  "Everybody looks at the bean sacks.",
+  {
+   "startQuest": "bad_hotel"
+  },
+  {
+   "tutorial": "Lay out bean sacks for beds (the sacks by the stores, on the right).",
+   "title": "Bad Hotel"
+  }
+ ],
+ "p10c10.sacks": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "if": {
+    "notFlag": "p10_sack_1"
+   },
+   "then": [
+    {
+     "repair": "carry",
+     "strikes": 2,
+     "title": "LIFT!"
+    },
+    "You haul the first sacks off the pile and lay them out end to end on the floor by the long table: one bed for Pete, one for Bob.",
+    "They're lumpy. They're very lumpy. Every lump is a bean.",
+    "pete: It's like lying on a beach, Captain. Made of beans.",
+    {
+     "setFlag": "p10_sack_1"
+    }
+   ],
+   "else": [
+    {
+     "if": {
+      "notFlag": "p10_sack_2"
+     },
+     "then": [
+      {
+       "repair": "carry",
+       "strikes": 2,
+       "title": "LIFT!"
+      },
+      "Two more by the walls: one for Gristle by the benches, one for Ned by the stairs.",
+      "gristle: I'll make a rig out of mine. Belts. You'll see.",
+      {
+       "setFlag": "p10_sack_2"
+      }
+     ],
+     "else": [
+      {
+       "repair": "carry",
+       "strikes": 2,
+       "title": "LIFT!"
+      },
+      "The last of them: Jim by his stove, Tom and Bill along the south wall, and two side by side under the beam by the long table. Yours.",
+      "barnacle_bill: Beans.",
+      "rusty_tom: Better than the quarters.",
+      "barnacle_bill: Anything's better than the quarters.",
+      {
+       "setFlag": "p10_sack_3"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "event": "p10_sack"
+  },
+  {
+   "if": {
+    "flag": "p10_sack_3"
+   },
+   "then": [
+    {
+     "tutorial": "Make up Squawks' bed (his basket, by the long table).",
+     "title": "Bad Hotel"
+    }
+   ]
+  }
+ ],
+ "p10c10.squawks": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "Squawks' basket: the old bread basket. You fold a clean tea towel into it, and then, because it's been a day, a second one.",
+  "He climbs out of the pouch, gets in, turns round three times, and settles, his bald head on the rim.",
+  "squawks[exhausted]: Bad hotel.",
+  "captain[tired]: Aye.",
+  "squawks: Very bad hotel.",
+  {
+   "setFlag": "p10_squawks_bed"
+  },
+  {
+   "tutorial": "Pick your spot (the sacks under the beam by the long table).",
+   "title": "Bad Hotel"
+  }
+ ],
+ "p10c10.bunk": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "Your sacks. You lie down. A bean finds the exact middle of your back immediately, as if it had been waiting.",
+  {
+   "sfx": "hammock_creak",
+   "volume": 0.6
+  },
+  "Above you, something creaks.",
+  "You open your eyes. The Grand Stenchmaster is up on a stool, stringing a hammock between the beam over your head and the hook by the pots. Directly over you. Precisely over you.",
+  {
+   "setFlag": "galley_hammock_strung"
+  },
+  "captain: Garrick.",
+  "garrick[businesslike]: Hierarchy, Captain.",
+  "captain: Hierarchy.",
+  "garrick[proud]: The Grand Stenchmaster sleeps at the top. It's the proper order of things. You'll find it's the same in every great institution.",
+  "captain[angry]: YOU DO NOT OUTRANK ME.",
+  "He climbs into it. It takes a while. The hammock lowers, groaning, until it's about a foot above your face, and stops.",
+  {
+   "sfx": "hammock_creak",
+   "volume": 0.8
+  },
+  "garrick[businesslike]: Physically.",
+  {
+   "burst": "suitpuff",
+   "x": 12,
+   "y": 8,
+   "count": 2
+  },
+  {
+   "sfx": "suit_fwoof",
+   "volume": 0.5
+  },
+  "FWOoF.",
+  "squawks[exhausted]: (from the basket) Bad hotel.",
+  {
+   "setFlag": "galley_night_barracks"
+  },
+  {
+   "completeQuest": "bad_hotel"
+  },
+  {
+   "call": "p10c11.begin"
+  }
+ ],
+ "p10c11.begin": [
+  {
+   "setFlag": "p10_ch81_started"
+  },
+  {
+   "banner": "CHAPTER 81",
+   "sub": "Bedtime Television"
+  },
+  "garrick[proud]: And now, everyone... the Grand Stenchmaster's Grand Bedtime Viewing.",
+  "In the corner by the stores, on a crate, where it was not an hour ago: the Stenchmaster Entertainment System Mark II. He went down to the sauce and brought it up.",
+  "pete: You carried the TELLY up?",
+  "garrick[proud]: It goes where the Grand Stenchmaster sleeps, Pete. It's a household.",
+  {
+   "setFlag": "p10_mk2_moved"
+  },
+  {
+   "startQuest": "bedtime_television"
+  },
+  {
+   "tutorial": "Watch the Frog Tax Man (the Mark II, in the corner by the stores).",
+   "title": "Bedtime Television"
+  }
+ ],
+ "p10c11.tv": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "vista": "galley_watch",
+   "fade": 500
+  },
+  {
+   "music": "frog_tax_man_theme",
+   "fade": 400
+  },
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_sleep_deductions",
+   "layer": "screen",
+   "from": 0,
+   "to": 1
+  },
+  "bob: (whispering) His HAMMOCK. He's got a hammock over his desk.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_sleep_deductions",
+   "layer": "screen",
+   "from": 2,
+   "to": 5
+  },
+  "One by one, every head in the galley turns, slowly, and looks up at the hammock over your head, and the pillow in it, and then back at the screen.",
+  "ned: ...Twelve pillows.",
+  "gristle: We've got one. It's communal.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_sleep_deductions",
+   "layer": "screen",
+   "from": 6,
+   "to": 7
+  },
+  "squawks[smug]: Frog doomed.",
+  {
+   "sfx": "crew_laugh",
+   "volume": 0.8
+  },
+  "And the galley laughs. All of it. Bob first, then Jim, then everybody, the whole room going, and you hear yourself laughing too, for a second, properly, in the dark, on a bean.",
+  "garrick[delighted]: (from above) Grand Stenchmaster morale!",
+  "You stop laughing.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "the_sleep_deductions",
+   "layer": "screen",
+   "from": 8,
+   "to": 9
+  },
+  {
+   "vistaEnd": true,
+   "fade": 500
+  },
+  {
+   "music": null
+  },
+  {
+   "setFlag": "p10_ftm_bedtime_seen"
+  },
+  {
+   "sfx": "kerosene",
+   "volume": 0.7
+  },
+  "Then a match strikes overhead. The Grand Stenchmaster, leaning out of his hammock, has lit the kerosene lamp on the crate by the set. He turns it up. All the way up.",
+  {
+   "setFlag": "p10_lamp_lit"
+  },
+  "garrick[proud]: Reading light.",
+  {
+   "tutorial": "Do something about that lamp (the kerosene lamp, on the crate by the Mark II).",
+   "title": "Bedtime Television"
+  }
+ ],
+ "p10c11.lamp": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "The kerosene lamp, burning high and yellow, on a wooden crate, next to a television that sparks if you look at it, in a wooden ship, beside a barrel of Frog Grog, in a room full of bean fumes, under a man in a Suit that has absorbed a month of releases.",
+  {
+   "choice": [
+    {
+     "text": "Point all of that out",
+     "then": [
+      "captain: Garrick. The lamp.",
+      "garrick[businesslike]: Mm?",
+      "captain: It's on a WOODEN crate. Next to a television that SPARKS. In a WOODEN ship. Next to a barrel of FROG GROG. In a room full of BEAN fumes. Under YOU.",
+      "garrick[businesslike]: ...Noted, Captain.",
+      {
+       "sfx": "lamp_turn",
+       "volume": 0.7
+      },
+      "He leans out and turns the wick down. You watch it very closely. It goes down by the width of a hair.",
+      "garrick[proud]: There. Safer."
+     ]
+    },
+    {
+     "text": "Turn it down yourself",
+     "then": [
+      {
+       "sfx": "lamp_turn",
+       "volume": 0.7
+      },
+      "You turn the wick down. The flame drops to something sensible.",
+      "From above, a hand comes down out of the hammock and turns it back up again. Then, after you look at it, down. By a hair.",
+      "garrick[proud]: A compromise."
+     ]
+    }
+   ]
+  },
+  "Nothing catches fire. It's the most anyone can say for it.",
+  {
+   "setFlag": "p10_lamp_lowered"
+  },
+  {
+   "completeQuest": "bedtime_television"
+  },
+  {
+   "call": "p10c12.begin"
+  }
+ ],
+ "p10c12.begin": [
+  {
+   "setFlag": "p10_ch82_started"
+  },
+  {
+   "banner": "CHAPTER 82",
+   "sub": "Brogath the Bashful"
+  },
+  "Then the hammock rustles, and the Grand Stenchmaster produces, from somewhere about the Suit, a book.",
+  "It isn't a book so much as a heap of paper with ambitions. Ledger pages, notebook pages, a page of sea chart, all stitched down one side with string, greasy and stained. Every page has a different smell.",
+  "garrick[proud]: A bedtime story, everyone. From the archive.",
+  {
+   "startQuest": "brogath_the_bashful"
+  },
+  {
+   "tutorial": "Lie down and hear the bedtime story (the Grand Stenchmaster's hammock, over your bed).",
+   "title": "Brogath the Bashful"
+  }
+ ],
+ "p10c12.story": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  {
+   "insert": "book_cover",
+   "caption": "THE GRAND EXPEDITION FOR THE LOST FART: COMPLETE GRAND STENCHMASTER LEGENDS. VOLUME ONE OF PROBABLY MANY."
+  },
+  "pete: 'Volume One of Probably Many.'",
+  "garrick[proud]: It's an ongoing project, Pete.",
+  "jim: You WROTE that. That's your crayon.",
+  "garrick[businesslike]: I COMPILED it, Jim. From sources.",
+  {
+   "vista": "galley_legend",
+   "fade": 500
+  },
+  {
+   "music": "legend_ballad",
+   "fade": 400
+  },
+  "garrick[proud]: Tonight... the Legend of BROGATH THE BASHFUL.",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_brogath_shy"
+  },
+  "garrick[proud]: Long, long ago, there lived a mighty Grand Stenchmaster called Brogath. Mightiest of them all. But Brogath had a secret. He was SHY. About his releases.",
+  "garrick[proud]: Every time he felt one coming, he'd blush, and hide behind a rock, and let it go very quietly. And the rocks didn't last.",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_brogath_treasure"
+  },
+  "garrick[proud]: Now Brogath owned a great treasure. A HUGE treasure. Buried, on an island. And one day he went to dig it up.",
+  "garrick[proud]: He dug for three whole minutes. And Brogath, mighty as he was, became tired.",
+  "pete: ...Three minutes.",
+  "garrick[businesslike]: Exhausting, Pete. Ancient soil.",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_brogath_blast"
+  },
+  "garrick[proud]: And so Brogath stood over the hole... and forgot to be shy. And let out the MIGHTIEST BLAST of his life.",
+  {
+   "sfx": "rumble_low",
+   "volume": 0.4
+  },
+  "garrick[proud]: And up went the dirt, and up went the clay, and up went the treasure, all of it, straight into a passing storm full of sharks.",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_brogath_blingus"
+  },
+  "garrick[proud]: And the sharks became WEALTHY. And the biggest shark of all put on all of the jewels at once, and called himself... BLINGUS.",
+  "bob: ...Blingus.",
+  "garrick[proud]: The first Bling King.",
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_brogath_lesson"
+  },
+  "garrick[proud]: And the lesson of Brogath the Bashful, children, which every Grand Stenchmaster learns at his mother's knee, is this: ALWAYS... HIRE... A GRAND SHARKMASTER.",
+  {
+   "music": null
+  },
+  "The music stops dead, because Pete has sat up.",
+  "pete[annoyed]: That happened to US. That happened to us THIS AFTERNOON.",
+  "garrick[proud]: History repeats, Pete. It's an ancient prophecy.",
+  "pete[annoyed]: It's an ancient prophecy about LUNCHTIME.",
+  "gristle: He's put us in it. He's put the megalodon in it. He's put the TREASURE in it. He's put in the three minutes.",
+  "captain[tired]: He invented him five minutes ago.",
+  "jim: He invented the whole thing after dinner. I watched him. He was writing it on the back of a bean label.",
+  "garrick[offended]: Brogath the Bashful is a figure of great antiquity.",
+  "ned: How great?",
+  "garrick[businesslike]: ...Some.",
+  {
+   "vistaEnd": true,
+   "fade": 500
+  },
+  {
+   "setValue": "brogath_status",
+   "value": "alleged"
+  },
+  {
+   "setFlag": "brogath_legend_heard"
+  },
+  {
+   "setFlag": "brogath_unverified"
+  },
+  {
+   "logbook": "garrick_legends",
+   "entry": "brogath"
+  },
+  {
+   "completeQuest": "brogath_the_bashful"
+  },
+  {
+   "call": "p10c13.begin"
+  }
+ ],
+ "p10c13.begin": [
+  {
+   "setFlag": "p10_ch83_started"
+  },
+  {
+   "banner": "CHAPTER 83",
+   "sub": "Sweet Dreams"
+  },
+  "Lights out. The lamp burns a hair lower than it should. The pot goes BLORP. Somebody's already asleep, because somebody's snoring, and it's not the one you'd think.",
+  {
+   "sfx": "token_clack",
+   "volume": 0.7
+  },
+  "Then: tok.",
+  {
+   "sfx": "token_clack",
+   "volume": 0.8
+  },
+  "Tok. Tok-tok.",
+  {
+   "token": "token_rosette",
+   "x": 13,
+   "y": 5
+  },
+  {
+   "token": "token_card",
+   "x": 10,
+   "y": 5
+  },
+  {
+   "token": "token_trophy",
+   "x": 14,
+   "y": 7
+  },
+  "Something is coming down the hatch. Small hard things, bouncing down the ladder, clacking across the floor, glittering in the lamplight. Plastic.",
+  {
+   "setFlag": "p10_bedtime_tokens"
+  },
+  {
+   "startQuest": "sweet_dreams"
+  },
+  {
+   "tutorial": "See what's coming down the hatch (the things on the floor by the ladder).",
+   "title": "Sweet Dreams"
+  }
+ ],
+ "p10c13.token_1": [
+  {
+   "insert": "token_sweet_dreams",
+   "caption": "SWEET DREAMS! WE KEPT THE GOOD PILLOWS!"
+  },
+  "From the hammock above, a contented sigh, and the communal pillow is hugged a little tighter.",
+  {
+   "setFlag": "p10_btok_1"
+  },
+  {
+   "event": "p10_bedtime_token"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p10_btok_1"
+     },
+     {
+      "flag": "p10_btok_2"
+     },
+     {
+      "flag": "p10_btok_3"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p10c13.under"
+    }
+   ]
+  }
+ ],
+ "p10c13.token_2": [
+  {
+   "insert": "token_rest_easy",
+   "caption": "REST EASY! YOUR GOLD IS COMFORTABLE!"
+  },
+  "captain[angry]: (whispering) It's not THEIR gold to be comfortable.",
+  {
+   "setFlag": "p10_btok_2"
+  },
+  {
+   "event": "p10_bedtime_token"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p10_btok_1"
+     },
+     {
+      "flag": "p10_btok_2"
+     },
+     {
+      "flag": "p10_btok_3"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p10c13.under"
+    }
+   ]
+  }
+ ],
+ "p10c13.token_3": [
+  {
+   "insert": "token_enjoy_floor",
+   "caption": "ENJOY THE FLOOR! SHARK SUITES ARE SOLD OUT!"
+  },
+  "bob: (from his sacks, not asleep) They're right, though. It is the floor.",
+  {
+   "setFlag": "p10_btok_3"
+  },
+  {
+   "event": "p10_bedtime_token"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p10_btok_1"
+     },
+     {
+      "flag": "p10_btok_2"
+     },
+     {
+      "flag": "p10_btok_3"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p10c13.under"
+    }
+   ]
+  }
+ ],
+ "p10c13.under": [
+  {
+   "sfx": "token_whistle",
+   "volume": 0.6
+  },
+  "One more comes down the hatch. It doesn't bounce on the ladder. It comes straight across the galley like it's been aimed, and lands on your chest.",
+  {
+   "sfx": "token_clack",
+   "volume": 1.0
+  },
+  "There's a picture on it. A hammock, with somebody large in a crown in it. And under the hammock, flat on the floor, a captain.",
+  {
+   "insert": "token_captain_under",
+   "caption": "(A picture: a hammock, a crown, and under it, a captain.)"
+  },
+  "squawks: (reading, from the basket) ...Captain under fart suit.",
+  "captain[angry]: ...",
+  {
+   "sfx": "wood_crack",
+   "volume": 0.8
+  },
+  "You break it in half. Then the halves in half. It's plastic. It doesn't put up much of a fight.",
+  "garrick: ...hm... Grand Stenchmaster suit...",
+  {
+   "sfx": "token_whistle",
+   "volume": 0.5
+  },
+  {
+   "sfx": "medal_rattle",
+   "volume": 0.7
+  },
+  "And then, last, slowly, as if lowered: a RIBBON. Enormous. A rosette as big as a dinner plate, three tails, far too much glitter, and it lands on your chest where the token was and STICKS.",
+  {
+   "insert": "grand_award_ribbon",
+   "caption": "THE GRAND AWARD RIBBON."
+  },
+  "squawks[smug]: Grand prize.",
+  "captain[angry]: For finding treasure for SOMEBODY ELSE.",
+  "squawks: Special mention.",
+  "captain[angry]: For MANAGING ONE GRAND STENCHMASTER. SORT OF.",
+  {
+   "giveItem": "grand_award_ribbon"
+  },
+  {
+   "setFlag": "bedtime_ribbon_received"
+  },
+  "You can't get it off. It's on there with something the sharks know about and you don't.",
+  "You get up.",
+  {
+   "tutorial": "Go up and have a word with that storm (up the ladder, on deck).",
+   "title": "Sweet Dreams"
+  }
+ ],
+ "p10c13.deck": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "On deck it's night and the wind is warm and wet off the storm, standing off astern, lit up from inside by its own gold.",
+  "Under the spare sail on the quarterdeck, Hale's lot are asleep in a row, and on the sail, round them, in drifts: tokens. Medals. A trophy. A card. It's been coming down all night.",
+  "You go to the stern rail with the ribbon on your chest and you look at it.",
+  "captain[angry]: YOU HEAR ME?",
+  {
+   "sfx": "vortex_roar",
+   "volume": 0.5
+  },
+  "captain[angry]: I KNOW YOU HEAR ME. THAT'S MY GOLD. THAT'S MY CROWN. THAT'S MY TIARA, TWICE.",
+  "captain[angry]: I AM COMING FOR IT. ALL OF IT. AND WHEN I GET IT BACK I AM GOING TO MAKE A NECKLACE OUT OF YOUR TEETH.",
+  {
+   "sfx": "chain_jangle",
+   "volume": 0.9
+  },
+  {
+   "sfx": "shark_whoosh",
+   "volume": 1.0
+  },
+  {
+   "sprite": "p10_bbk_night",
+   "frame": "flying_bbk_0",
+   "x": 24,
+   "y": 1,
+   "depth": 79200
+  },
+  {
+   "moveSprite": "p10_bbk_night",
+   "x": -6,
+   "y": 4,
+   "duration": 1400,
+   "async": false
+  },
+  {
+   "removeSprite": "p10_bbk_night"
+  },
+  "Something enormous goes over the stern, low, slow, unbothered, a chain swinging, and as it goes, its jaw works once.",
+  {
+   "sfx": "token_whistle",
+   "volume": 0.6
+  },
+  {
+   "token": "token_medal",
+   "x": 10,
+   "y": 4
+  },
+  "Tok. A medal lands at your feet. You don't pick it up. You don't need to read it. It says something nice. That's the worst part.",
+  "hale: (from under the sail, not opening his eyes) Get some sleep, Captain.",
+  {
+   "setFlag": "p10_storm_confronted"
+  },
+  {
+   "completeQuest": "sweet_dreams"
+  },
+  {
+   "tutorial": "Go back below (the galley). Maybe the Grand Stenchmaster's awake. Maybe that's good, for once.",
+   "title": "Sweet Dreams"
+  }
+ ]
+}

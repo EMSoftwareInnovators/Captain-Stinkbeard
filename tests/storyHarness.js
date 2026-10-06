@@ -83,16 +83,18 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
       course: async () => {},
       // Phase 5: the television close-up (records each look; sets the "opened" flag).
       // Phase 6: the knob panel is worked to the end (OFF MAYBE, enough times).
-      tv: async (id, { mode = 'normal' } = {}) => {
-        tvs.push(mode === 'normal' ? id : `${id}:${mode}`);
+      // Phase 10: a set can have more than one panel ("knobPanels"); the script names which.
+      tv: async (id, { mode = 'normal', panel = null } = {}) => {
+        tvs.push(mode === 'normal' ? id : `${id}:${mode}${panel ? `:${panel}` : ''}`);
         const def = tvDef(content, id);
         if (def?.flags?.open && !session.story.has(def.flags.open)) session.story.set(def.flags.open);
         if (mode === 'knobs') {
+          const knobs = (panel && def.knobPanels?.[panel]) || def.knobs;
           // Phase 7: a panel that ends by finding a channel ("tune") leaves the set on, on that channel.
-          const tune = def.knobs?.list?.find((k) => k.effect === 'tune');
+          const tune = knobs?.list?.find((k) => k.effect === 'tune');
           setPower(def, session, !!tune);
           if (tune?.channel) setChannel(def, session, tune.channel);
-          if (def.knobs?.doneFlag) session.story.set(def.knobs.doneFlag);
+          if (knobs?.doneFlag) session.story.set(knobs.doneFlag);
         }
       },
     },

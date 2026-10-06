@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { currentChapter, resolveVariant } from '../src/systems/story/progress.js';
 import { logEntries } from '../src/systems/logs/logbook.js';
+import { isShared, sharedText } from './laterPhases.js';
 import { makeStory } from './storyHarness.js';
 
 /**
@@ -221,16 +222,8 @@ describe('Story Phase 3 stays inside its brief', () => {
   const text = files.flatMap((f) => {
     const p = path.resolve(f);
     const list = fs.statSync(p).isDirectory() ? fs.readdirSync(p).map((n) => path.join(p, n)) : [p];
-    return list.map((x) => {
-      if (!x.includes(`${path.sep}logs${path.sep}`)) return fs.readFileSync(x, 'utf8');
-      // The logbooks are shared: leave out the entries a later phase unlocks.
-      const logs = JSON.parse(fs.readFileSync(x, 'utf8'));
-      for (const [id, log] of Object.entries(logs)) {
-    if (later.has(log?.if?.flag)) delete logs[id];
-    else if (log?.entries) log.entries = log.entries.filter((e) => !later.has(e.if?.flag));
-  }
-      return JSON.stringify(logs);
-    });
+    // The logbooks are shared: leave out what a later phase unlocks.
+    return list.map((x) => (isShared(x) ? sharedText(x, later) : fs.readFileSync(x, 'utf8')));
   }).join('\n');
 
   it('never uses borrowed characters or later-phase mythology', () => {

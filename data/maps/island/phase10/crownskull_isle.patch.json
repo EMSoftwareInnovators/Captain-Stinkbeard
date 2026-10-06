@@ -1,0 +1,932 @@
+{
+ "id": "crownskull_isle_phase10",
+ "patch": "crownskull_isle",
+ "//": "Story Phase 10 on Crownskull Isle: the crater's rim (Pete, chapter 71; the eight glints of the saddest salvage, 72), the trail back to the beach (a pearl-necked bull shark over the statue, a jewelled belt and a great white in chains over the broken tooth, a shark landing on the path at the ford, the tiara falling on the trail and stolen again), and the boats. The storm takes the megalodon out of the lagoon. Once the crew are back aboard the island is behind them.",
+ "objects": [
+  {
+   "id": "p10_salv_1",
+   "type": "inspect",
+   "x": 25,
+   "y": 27,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "saddest_salvage.first"
+     },
+     {
+      "notFlag": "p10_salv_1"
+     }
+    ]
+   },
+   "script": "p10c2.salv_1"
+  },
+  {
+   "id": "p10_salv_2",
+   "type": "inspect",
+   "x": 29,
+   "y": 27,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "saddest_salvage.first"
+     },
+     {
+      "notFlag": "p10_salv_2"
+     }
+    ]
+   },
+   "script": "p10c2.salv_2"
+  },
+  {
+   "id": "p10_salv_3",
+   "type": "inspect",
+   "x": 33,
+   "y": 26,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "saddest_salvage.first"
+     },
+     {
+      "notFlag": "p10_salv_3"
+     }
+    ]
+   },
+   "script": "p10c2.salv_3"
+  },
+  {
+   "id": "p10_salv_4",
+   "type": "inspect",
+   "x": 34,
+   "y": 23,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "saddest_salvage.first"
+     },
+     {
+      "notFlag": "p10_salv_4"
+     }
+    ]
+   },
+   "script": "p10c2.salv_4"
+  },
+  {
+   "id": "p10_salv_5",
+   "type": "inspect",
+   "x": 33,
+   "y": 22,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "saddest_salvage.rest"
+     },
+     {
+      "notFlag": "p10_salv_5"
+     }
+    ]
+   },
+   "script": "p10c2.salv_5"
+  },
+  {
+   "id": "p10_salv_6",
+   "type": "inspect",
+   "x": 21,
+   "y": 25,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "saddest_salvage.rest"
+     },
+     {
+      "notFlag": "p10_salv_6"
+     }
+    ]
+   },
+   "script": "p10c2.salv_6"
+  },
+  {
+   "id": "p10_salv_7",
+   "type": "inspect",
+   "x": 24,
+   "y": 22,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "saddest_salvage.rest"
+     },
+     {
+      "notFlag": "p10_salv_7"
+     }
+    ]
+   },
+   "script": "p10c2.salv_7"
+  },
+  {
+   "id": "p10_salv_8",
+   "type": "inspect",
+   "x": 23,
+   "y": 24,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "saddest_salvage.rest"
+     },
+     {
+      "notFlag": "p10_salv_8"
+     }
+    ]
+   },
+   "script": "p10c2.salv_8"
+  },
+  {
+   "id": "p10_trig_statue",
+   "type": "trigger",
+   "x": 27,
+   "y": 31,
+   "w": 5,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "crater_salvage_complete"
+       },
+       {
+        "notFlag": "p10_aboard"
+       }
+      ]
+     },
+     {
+      "notFlag": "p10_fly_pearls"
+     }
+    ]
+   },
+   "script": "p10c3.fly_pearls"
+  },
+  {
+   "id": "p10_trig_fork",
+   "type": "trigger",
+   "x": 27,
+   "y": 36,
+   "w": 6,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "crater_salvage_complete"
+       },
+       {
+        "notFlag": "p10_aboard"
+       }
+      ]
+     },
+     {
+      "notFlag": "p10_fly_belt"
+     }
+    ]
+   },
+   "script": "p10c3.fly_belt"
+  },
+  {
+   "id": "p10_trig_ford",
+   "type": "trigger",
+   "x": 26,
+   "y": 43,
+   "w": 5,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "crater_salvage_complete"
+       },
+       {
+        "notFlag": "p10_aboard"
+       }
+      ]
+     },
+     {
+      "notFlag": "p10_shark_landed"
+     }
+    ]
+   },
+   "script": "p10c3.landing"
+  },
+  {
+   "id": "p10_trig_tiara",
+   "type": "trigger",
+   "x": 27,
+   "y": 51,
+   "w": 5,
+   "h": 2,
+   "if": {
+    "objectiveActive": "wealthy_sharks.tiara"
+   },
+   "script": "p10c3.tiara_snatch"
+  },
+  {
+   "id": "p10_tiara_look",
+   "type": "inspect",
+   "x": 29,
+   "y": 53,
+   "if": {
+    "objectiveActive": "wealthy_sharks.tiara"
+   },
+   "script": "p10c3.tiara_snatch"
+  },
+  {
+   "id": "p10_boats",
+   "type": "inspect",
+   "x": 25,
+   "y": 62,
+   "w": 3,
+   "if": {
+    "objectiveActive": "wealthy_sharks.boats"
+   },
+   "script": "p10c3.row"
+  },
+  {
+   "id": "p10_boats_b",
+   "type": "inspect",
+   "x": 34,
+   "y": 62,
+   "w": 3,
+   "if": {
+    "objectiveActive": "wealthy_sharks.boats"
+   },
+   "script": "p10c3.row"
+  },
+  {
+   "id": "p10_boats_wait",
+   "type": "inspect",
+   "x": 25,
+   "y": 62,
+   "w": 3,
+   "if": {
+    "all": [
+     {
+      "flag": "p10_started"
+     },
+     {
+      "notFlag": "p10_aboard"
+     }
+    ]
+   },
+   "script": "p10.isle.boats_wait"
+  },
+  {
+   "id": "p10_boats_wait_b",
+   "type": "inspect",
+   "x": 34,
+   "y": 62,
+   "w": 3,
+   "if": {
+    "all": [
+     {
+      "flag": "p10_started"
+     },
+     {
+      "notFlag": "p10_aboard"
+     }
+    ]
+   },
+   "script": "p10.isle.boats_wait"
+  },
+  {
+   "id": "p10i_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p10_aboard"
+   }
+  },
+  {
+   "id": "p10i_pete_1",
+   "type": "npc",
+   "npc": "pete",
+   "x": 27,
+   "y": 60,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "crater_salvage_complete"
+     },
+     {
+      "notFlag": "p10_aboard"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10i_pete_2",
+   "type": "npc",
+   "npc": "pete",
+   "x": 26,
+   "y": 28,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p10_ch72_started"
+     },
+     {
+      "notFlag": "crater_salvage_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p10i_pete_3",
+   "type": "npc",
+   "npc": "pete",
+   "x": 24,
+   "y": 26,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p10_started"
+     },
+     {
+      "notFlag": "p10_ch72_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10i_bob_0",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p10_aboard"
+   }
+  },
+  {
+   "id": "p10i_bob_1",
+   "type": "npc",
+   "npc": "bob",
+   "x": 32,
+   "y": 61,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "crater_salvage_complete"
+     },
+     {
+      "notFlag": "p10_aboard"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10i_bob_2",
+   "type": "npc",
+   "npc": "bob",
+   "x": 32,
+   "y": 28,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p10_ch72_started"
+     },
+     {
+      "notFlag": "crater_salvage_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10i_bob_3",
+   "type": "npc",
+   "npc": "bob",
+   "x": 22,
+   "y": 26,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p10_started"
+     },
+     {
+      "notFlag": "p10_ch72_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10i_gristle_0",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p10_aboard"
+   }
+  },
+  {
+   "id": "p10i_gristle_1",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 34,
+   "y": 60,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "crater_salvage_complete"
+     },
+     {
+      "notFlag": "p10_aboard"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10i_gristle_2",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 35,
+   "y": 26,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p10_ch72_started"
+     },
+     {
+      "notFlag": "crater_salvage_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10i_gristle_3",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 33,
+   "y": 27,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p10_started"
+     },
+     {
+      "notFlag": "p10_ch72_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10i_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p10_aboard"
+   }
+  },
+  {
+   "id": "p10i_jim_1",
+   "type": "npc",
+   "npc": "jim",
+   "x": 36,
+   "y": 60,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "crater_salvage_complete"
+     },
+     {
+      "notFlag": "p10_aboard"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10i_jim_2",
+   "type": "npc",
+   "npc": "jim",
+   "x": 34,
+   "y": 25,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p10_ch72_started"
+     },
+     {
+      "notFlag": "crater_salvage_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10i_jim_3",
+   "type": "npc",
+   "npc": "jim",
+   "x": 34,
+   "y": 24,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p10_started"
+     },
+     {
+      "notFlag": "p10_ch72_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10i_ned_0",
+   "type": "npc",
+   "npc": "ned",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p10_aboard"
+   }
+  },
+  {
+   "id": "p10i_ned_1",
+   "type": "npc",
+   "npc": "ned",
+   "x": 29,
+   "y": 59,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "crater_salvage_complete"
+     },
+     {
+      "notFlag": "p10_aboard"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10i_ned_2",
+   "type": "npc",
+   "npc": "ned",
+   "x": 30,
+   "y": 29,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p10_ch72_started"
+     },
+     {
+      "notFlag": "crater_salvage_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand",
+    "lookAround": true
+   }
+  },
+  {
+   "id": "p10i_ned_3",
+   "type": "npc",
+   "npc": "ned",
+   "x": 30,
+   "y": 28,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p10_started"
+     },
+     {
+      "notFlag": "p10_ch72_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10i_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p10_aboard"
+   }
+  },
+  {
+   "id": "p10i_garrick_1",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 24,
+   "y": 59,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "crater_salvage_complete"
+     },
+     {
+      "notFlag": "p10_aboard"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10i_garrick_2",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 31,
+   "y": 27,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p10_ch72_started"
+     },
+     {
+      "notFlag": "crater_salvage_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10i_garrick_3",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 21,
+   "y": 26,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p10_started"
+     },
+     {
+      "notFlag": "p10_ch72_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p10i_squawks_0",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p10_started"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "salvage_glint",
+   "x": 25,
+   "y": 27,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "saddest_salvage.first"
+     },
+     {
+      "notFlag": "p10_salv_1"
+     }
+    ]
+   },
+   "id": "p10_glint_1"
+  },
+  {
+   "prop": "salvage_glint",
+   "x": 29,
+   "y": 27,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "saddest_salvage.first"
+     },
+     {
+      "notFlag": "p10_salv_2"
+     }
+    ]
+   },
+   "id": "p10_glint_2"
+  },
+  {
+   "prop": "salvage_glint",
+   "x": 33,
+   "y": 26,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "saddest_salvage.first"
+     },
+     {
+      "notFlag": "p10_salv_3"
+     }
+    ]
+   },
+   "id": "p10_glint_3"
+  },
+  {
+   "prop": "salvage_glint",
+   "x": 34,
+   "y": 23,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "saddest_salvage.first"
+     },
+     {
+      "notFlag": "p10_salv_4"
+     }
+    ]
+   },
+   "id": "p10_glint_4"
+  },
+  {
+   "prop": "salvage_glint",
+   "x": 33,
+   "y": 22,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "saddest_salvage.rest"
+     },
+     {
+      "notFlag": "p10_salv_5"
+     }
+    ]
+   },
+   "id": "p10_glint_5"
+  },
+  {
+   "prop": "salvage_glint",
+   "x": 21,
+   "y": 25,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "saddest_salvage.rest"
+     },
+     {
+      "notFlag": "p10_salv_6"
+     }
+    ]
+   },
+   "id": "p10_glint_6"
+  },
+  {
+   "prop": "salvage_glint",
+   "x": 24,
+   "y": 22,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "saddest_salvage.rest"
+     },
+     {
+      "notFlag": "p10_salv_7"
+     }
+    ]
+   },
+   "id": "p10_glint_7"
+  },
+  {
+   "prop": "salvage_glint",
+   "x": 23,
+   "y": 24,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "saddest_salvage.rest"
+     },
+     {
+      "notFlag": "p10_salv_8"
+     }
+    ]
+   },
+   "id": "p10_glint_8"
+  },
+  {
+   "prop": "tiara_floor",
+   "x": 29,
+   "y": 53,
+   "if": {
+    "all": [
+     {
+      "flag": "p10_tiara_fallen"
+     },
+     {
+      "notFlag": "p10_tiara_taken"
+     }
+    ]
+   },
+   "id": "p10_tiara"
+  }
+ ],
+ "propConditions": [
+  {
+   "id": "p9_megalodon_crowned",
+   "if": {
+    "notFlag": "megalodon_left_lagoon"
+   }
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "crater_salvage_complete"
+     },
+     {
+      "notFlag": "p10_aboard"
+     }
+    ]
+   },
+   "music": "treasure_glitter",
+   "ambience": "island_after"
+  },
+  {
+   "if": {
+    "flag": "p10_started"
+   },
+   "music": "ruined_treasure",
+   "ambience": "island_after"
+  }
+ ]
+}
