@@ -1,0 +1,53 @@
+{
+ "id": "brogath_command_crisis",
+ "title": "The Brogath Command Crisis",
+ "//": "Story Phase 13: the helm, three gusts, a campaign nobody called, and a challenge for command nobody made. An absurdly heroic naval duel in G minor: driving bass, brass and squeezebox trading phrases (the captain and 'Brogath'), toms on the gusts. Original.",
+ "bpm": 132,
+ "stepsPerBeat": 4,
+ "reverb": 0.22,
+ "channels": {
+  "lead": {
+   "instrument": "brass",
+   "volume": 0.24
+  },
+  "answer": {
+   "instrument": "concertina",
+   "volume": 0.16,
+   "pan": 0.3
+  },
+  "pad": {
+   "instrument": "pad",
+   "volume": 0.12,
+   "pan": -0.2
+  },
+  "bass": {
+   "instrument": "fm_bass",
+   "volume": 0.42
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.22
+  }
+ },
+ "patterns": {
+  "A": {
+   "lead": "G4:2 Bb4:2 D5:4 C5:2 Bb4:2 A4:4 | r:16 | Bb4:2 D5:2 G5:4 F5:2 Eb5:2 D5:4 | r:16",
+   "answer": "r:16 | D5:2 C5:2 Bb4:4 A4:2 Bb4:2 G4:4 | r:16 | F5:2 Eb5:2 D5:4 C5:2 A4:2 D5:4",
+   "pad": "[G3 Bb3 D4]:16 | [Eb3 G3 Bb3]:16 | [G3 Bb3 D4]:16 | [D3 F#3 A3]:16",
+   "bass": "G1:2 G2:2 G1:2 G2:2 G1:2 G2:2 G1:2 G2:2 | Eb2:2 Eb1:2 Eb2:2 Eb1:2 Eb2:2 Eb1:2 Eb2:2 Eb1:2 | G1:2 G2:2 G1:2 G2:2 G1:2 G2:2 G1:2 G2:2 | D2:2 D1:2 D2:2 D1:2 D2:2 D1:2 F#2:2 D2:2",
+   "drums": "k.h.s.h.k.k.s.h. k.h.s.h.k.k.s.h. k.h.s.h.k.k.s.h. k.h.s.h.k.k.s.h."
+  },
+  "B": {
+   "lead": "D5:4 Eb5:4 F5:4 G5:4 | A5:8 F#5:8 | G5:4 F5:4 Eb5:4 D5:4 | D5:8 G4:8",
+   "answer": "Bb4:16 | C5:8 A4:8 | Bb4:8 C5:8 | Bb4:8 D5:8",
+   "pad": "[Bb2 D3 F3]:16 | [D3 F#3 A3]:16 | [Eb3 G3 Bb3]:16 | [G3 Bb3 D4]:16",
+   "bass": "Bb1:2 Bb2:2 Bb1:2 Bb2:2 Bb1:2 Bb2:2 Bb1:2 Bb2:2 | D2:2 D1:2 D2:2 D1:2 D2:2 D1:2 D2:2 D1:2 | Eb2:2 Eb1:2 Eb2:2 Eb1:2 C2:2 C1:2 D2:2 D1:2 | G1:4 G1:4 G1:2 G1:2 G1:4",
+   "drums": "k.h.s.h.k.k.s.h. k.h.s.h.k.k.s.h. TTTTk.s.TTTTk.s. k.s.k.s.ssssc..."
+  }
+ },
+ "sequence": [
+  "A",
+  "B",
+  "A"
+ ]
+}

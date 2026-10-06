@@ -42,6 +42,12 @@ export const REPAIR_KINDS = {
   trim: { title: 'TRIM THE SAILS', hint: 'Haul on the green!', stat: 'speed', hit: 'rope_haul', miss: 'sail_snap', done: 'sail_puff', speed: 135 },
   buckle: { title: 'MAKE IT FAST', hint: 'Cinch on the green!', stat: 'speed', hit: 'buckle_click', miss: 'hammer_miss', done: 'buckle_snap', speed: 130 },
   grip: { title: 'HOLD ON!', hint: 'Grip on the green!', stat: 'defense', hit: 'rail_grip', miss: 'slip', done: 'repair_done', speed: 145 },
+  // Story Phases 11-13
+  reach: { title: 'EASE IT OUT', hint: 'Gently, on the green!', stat: 'speed', hit: 'reach_ease', miss: 'reach_bump', done: 'page_flip_tiny', speed: 105 },
+  crack: { title: 'CRACK THE EGGS', hint: 'Tap on the green!', stat: 'speed', hit: 'egg_crack', miss: 'pot_slop', done: 'pan_sizzle', speed: 130 },
+  slice: { title: 'SLICE IT', hint: 'Cut on the green!', stat: 'speed', hit: 'knife_chop', miss: 'plate_wobble', done: 'plate_tink', speed: 140 },
+  pour: { title: 'POUR THE TEA', hint: 'Tip on the green!', stat: 'defense', hit: 'tea_pour', miss: 'grog_spill', done: 'tea_sip', speed: 110 },
+  solder: { title: 'SOLDER IT', hint: 'Touch on the green!', stat: 'speed', hit: 'solder_hiss', miss: 'mk2_zzzt', done: 'mk2_tube_ping', speed: 125 },
 };
 
 /** The sounds each kind plays (the validator checks they exist). */

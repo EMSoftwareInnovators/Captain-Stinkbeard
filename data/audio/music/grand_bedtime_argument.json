@@ -1,0 +1,53 @@
+{
+ "id": "grand_bedtime_argument",
+ "title": "The Grand Bedtime Argument",
+ "//": "Story Phase 11: bedtime inside the Great Sharkstorm, the lamp, the hammocks, the book, the arguing. A lullaby waltz in G (a music-box bell over a pad) that a kazoo keeps interrupting. Original.",
+ "bpm": 88,
+ "stepsPerBeat": 4,
+ "reverb": 0.3,
+ "channels": {
+  "lead": {
+   "instrument": "bell",
+   "volume": 0.18
+  },
+  "kazoo": {
+   "instrument": "kazoo",
+   "volume": 0.1,
+   "pan": 0.3
+  },
+  "pad": {
+   "instrument": "pad",
+   "volume": 0.14,
+   "pan": -0.2
+  },
+  "bass": {
+   "instrument": "tri_bass",
+   "volume": 0.3
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.07
+  }
+ },
+ "patterns": {
+  "A": {
+   "lead": "D5:4 B4:4 G4:4 | A4:4 C5:4 A4:4 | B4:4 G4:4 D4:4 | F#4:8 A4:4 | D5:4 B4:4 G4:4 | E5:4 C5:4 A4:4 | B4:4 A4:4 F#4:4 | G4:12",
+   "kazoo": "r:12 | r:12 | r:12 | r:8 E4:2 D4:2 | r:12 | r:12 | r:8 C5:2 B4:2 | r:12",
+   "pad": "[G3 B3 D4]:12 | [A3 C4 E4]:12 | [G3 B3 D4]:12 | [D3 F#3 A3]:12 | [G3 B3 D4]:12 | [C3 E3 A3]:12 | [D3 F#3 A3]:12 | [G3 B3 D4]:12",
+   "bass": "G2:12 | A2:12 | G2:12 | D2:12 | G2:12 | C2:12 | D2:12 | G2:12",
+   "drums": "k...h...h... k...h...h... k...h...h... k...h...h... k...h...h... k...h...h... k...h...h... k...h...h..."
+  },
+  "B": {
+   "lead": "E5:4 D5:4 C5:4 | B4:8 r:4 | C5:4 B4:4 A4:4 | G4:8 r:4 | A4:4 B4:4 C5:4 | D5:4 E5:4 F#5:4 | G5:4 F#5:4 E5:4 | D5:12",
+   "kazoo": "r:12 | r:4 D4:2 G4:2 D4:4 | r:12 | r:4 C4:2 F4:2 C4:4 | r:12 | r:12 | r:12 | A4:2 F#4:2 D4:8",
+   "pad": "[C3 E3 G3]:12 | [G3 B3 D4]:12 | [A3 C4 E4]:12 | [E3 G3 B3]:12 | [D3 F#3 A3]:12 | [D3 F#3 A3]:12 | [E3 G3 B3]:12 | [D3 F#3 A3]:12",
+   "bass": "C2:12 | G1:12 | A1:12 | E2:12 | D2:12 | D2:12 | E2:12 | D2:12",
+   "drums": "k...h...h... k...h...h... k...h...h... k...h...h... k...h...h... k...h...h... k...h...h... k...k...TTTT"
+  }
+ },
+ "sequence": [
+  "A",
+  "B",
+  "A"
+ ]
+}

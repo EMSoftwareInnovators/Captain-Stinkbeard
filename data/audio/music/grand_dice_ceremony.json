@@ -1,0 +1,52 @@
+{
+ "id": "grand_dice_ceremony",
+ "title": "The Grand Dice of Grandness",
+ "//": "Story Phase 12: the Grand Dice ceremony on the long table (the witness, the roll, the bounces, the beans). A pompous processional in F, brass over an organ-like pad, timpani, entirely too much ceremony for a foam cube. Original.",
+ "bpm": 84,
+ "stepsPerBeat": 4,
+ "reverb": 0.3,
+ "channels": {
+  "lead": {
+   "instrument": "brass",
+   "volume": 0.26
+  },
+  "bell": {
+   "instrument": "bell",
+   "volume": 0.1,
+   "pan": 0.3
+  },
+  "pad": {
+   "instrument": "pad",
+   "volume": 0.16,
+   "pan": -0.2
+  },
+  "bass": {
+   "instrument": "tri_bass",
+   "volume": 0.36
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.2
+  }
+ },
+ "patterns": {
+  "A": {
+   "lead": "F4:6 G4:2 A4:8 | Bb4:6 A4:2 G4:8 | A4:4 C5:4 F5:4 E5:4 | D5:8 C5:8",
+   "bell": "r:16 | r:16 | r:12 C6:4 | r:8 F6:8",
+   "pad": "[F3 A3 C4]:16 | [Bb2 D3 F3]:16 | [F3 A3 C4]:16 | [Bb2 D3 G3]:8 [C3 E3 G3]:8",
+   "bass": "F2:8 C2:8 | Bb1:8 F2:8 | F2:8 A1:8 | Bb1:8 C2:8",
+   "drums": "t.......t....... t.......t....... t.......t...t... TTTTTTTTTTTTc..."
+  },
+  "B": {
+   "lead": "C5:4 D5:4 C5:4 Bb4:4 | A4:8 F4:8 | G4:4 A4:4 Bb4:4 C5:4 | F4:16",
+   "bell": "r:16 | F6:4 r:12 | r:16 | F6:2 A6:2 C7:4 F7:8",
+   "pad": "[F3 A3 C4]:16 | [D3 F3 A3]:16 | [C3 E3 G3]:16 | [F3 A3 C4]:16",
+   "bass": "F2:8 F2:8 | D2:8 D2:8 | C2:8 C2:8 | F1:16",
+   "drums": "t.......t....... t.......t....... t...t...t...t... TTTTTTTTTTTTc..."
+  }
+ },
+ "sequence": [
+  "A",
+  "B"
+ ]
+}

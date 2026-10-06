@@ -1,0 +1,52 @@
+{
+ "id": "beard_delirium",
+ "title": "The Beard Betrays Him",
+ "//": "Story Phase 13: the captain's limit, the biggest breath of his life, and the room going purple at the edges. Woozy and slow: a warble lead wandering a whole-tone scale over a pad that won't settle, a heartbeat kick. Original.",
+ "bpm": 66,
+ "stepsPerBeat": 4,
+ "reverb": 0.42,
+ "channels": {
+  "lead": {
+   "instrument": "warble",
+   "volume": 0.14
+  },
+  "bell": {
+   "instrument": "bell",
+   "volume": 0.08,
+   "pan": 0.3
+  },
+  "pad": {
+   "instrument": "pad",
+   "volume": 0.18,
+   "pan": -0.2
+  },
+  "bass": {
+   "instrument": "tri_bass",
+   "volume": 0.3
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.12
+  }
+ },
+ "patterns": {
+  "A": {
+   "lead": "C5:6 D5:2 E5:8 | F#5:8 E5:4 D5:4 | G#5:6 F#5:2 E5:8 | D5:16",
+   "bell": "r:8 A#6:8 | r:16 | r:8 C7:8 | r:16",
+   "pad": "[C3 E3 G#3]:16 | [D3 F#3 A#3]:16 | [E3 G#3 C4]:16 | [D3 F#3 A#3]:16",
+   "bass": "C2:16 | D2:16 | E2:16 | D2:16",
+   "drums": "k..k............ k..k............ k..k............ k..k............"
+  },
+  "B": {
+   "lead": "A#4:8 C5:8 | D5:4 E5:4 F#5:8 | G#5:8 A#5:8 | C6:16",
+   "bell": "r:16 | D7:4 r:12 | r:16 | C7:4 E7:4 G#7:8",
+   "pad": "[A#2 D3 F#3]:16 | [C3 E3 G#3]:16 | [D3 F#3 A#3]:16 | [C3 E3 G#3]:16",
+   "bass": "A#1:16 | C2:16 | D2:16 | C2:16",
+   "drums": "k..k............ k..k............ k..k............ k..k....k..k...."
+  }
+ },
+ "sequence": [
+  "A",
+  "B"
+ ]
+}

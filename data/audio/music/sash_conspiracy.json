@@ -1,0 +1,53 @@
+{
+ "id": "sash_conspiracy",
+ "title": "The Sash Conspiracy",
+ "//": "Story Phase 11: borrowing the pocket edition off a sleeping chest, the plan on the back of a box, the secret meeting. Tiptoeing pizzicato in A minor, a flute sneaking in over it, a bass that stops whenever someone might be listening. Original.",
+ "bpm": 104,
+ "stepsPerBeat": 4,
+ "reverb": 0.22,
+ "channels": {
+  "lead": {
+   "instrument": "flute",
+   "volume": 0.18
+  },
+  "pizz": {
+   "instrument": "pluck",
+   "volume": 0.2,
+   "pan": -0.2
+  },
+  "pad": {
+   "instrument": "pad",
+   "volume": 0.08,
+   "pan": 0.2
+  },
+  "bass": {
+   "instrument": "pluck_bass",
+   "volume": 0.34
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.1
+  }
+ },
+ "patterns": {
+  "A": {
+   "lead": "r:16 | r:8 E5:2 r:2 C5:2 r:2 | r:16 | r:8 D5:2 r:2 B4:2 r:2",
+   "pizz": "A4:2 r:2 C5:2 r:2 E5:2 r:2 C5:2 r:2 | A4:2 r:2 C5:2 r:2 E5:2 r:2 C5:2 r:2 | G#4:2 r:2 B4:2 r:2 E5:2 r:2 B4:2 r:2 | G#4:2 r:2 B4:2 r:2 E5:4 r:4",
+   "pad": "[A3 C4 E4]:16 | [A3 C4 E4]:16 | [G#3 B3 E4]:16 | [G#3 B3 E4]:16",
+   "bass": "A2:2 r:6 E2:2 r:6 | A2:2 r:6 E2:2 r:6 | E2:2 r:6 B1:2 r:6 | E2:2 r:6 r:8",
+   "drums": "....h.......h... ....h.......h... ....h.......h... ....h.......h..."
+  },
+  "B": {
+   "lead": "C5:2 D5:2 E5:4 F5:2 E5:2 D5:4 | C5:2 B4:2 A4:8 r:4 | B4:2 C5:2 D5:4 E5:2 D5:2 C5:4 | B4:2 G#4:2 E4:8 r:4",
+   "pizz": "F4:2 r:2 A4:2 r:2 C5:2 r:2 A4:2 r:2 | A4:2 r:2 C5:2 r:2 E5:2 r:2 C5:2 r:2 | D4:2 r:2 F4:2 r:2 A4:2 r:2 F4:2 r:2 | E4:2 r:2 G#4:2 r:2 B4:2 r:2 E5:2 r:2",
+   "pad": "[F3 A3 C4]:16 | [A3 C4 E4]:16 | [D3 F3 A3]:16 | [E3 G#3 B3]:16",
+   "bass": "F2:2 r:6 C2:2 r:6 | A2:2 r:6 E2:2 r:6 | D2:2 r:6 A1:2 r:6 | E2:2 r:2 E2:2 r:2 E2:2 r:6",
+   "drums": "....h.......h... ....h.......h... ....h.......h... ....h...h.h.h.h."
+  }
+ },
+ "sequence": [
+  "A",
+  "B",
+  "A"
+ ]
+}
