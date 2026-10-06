@@ -529,7 +529,8 @@ function telescopeMask() {
 
 export function buildVistaAtlas() {
   // 2048 wide since Story Phase 8 (the bedtime story's pictures): at 1024 the stack grew past 4096 tall.
-  const atlas = new ShelfAtlas(2048, 1);
+  // 4096 wide since Story Phase 11 (the television and the dice): at 2048 it grew past 4096 tall again.
+  const atlas = new ShelfAtlas(4096, 1);
   for (const name of Object.keys(SKIES)) {
     atlas.add(`sky_${name}`, paintSky(name));
     atlas.add(`sea_${name}_0`, paintSea(name, 0));
