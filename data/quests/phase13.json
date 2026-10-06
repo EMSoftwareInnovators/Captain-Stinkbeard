@@ -1,0 +1,577 @@
+[
+ {
+  "id": "finger_breakdown",
+  "title": "The Finger-Pulling Breakdown",
+  "category": "main",
+  "giver": "pete",
+  "summary": "Nineteen hours. He's found loopholes.",
+  "description": "Garrick has spent the morning reading his own rules for a way out. He has five. Hear them out. Then say no.",
+  "objectives": [
+   {
+    "id": "loopholes",
+    "text": "Hear his loopholes (him)",
+    "type": "event",
+    "target": "p13_loophole",
+    "count": 5
+   }
+  ],
+  "rewards": {
+   "xp": 50
+  }
+ },
+ {
+  "id": "sash_in_the_trash",
+  "title": "Don't Throw My Sash in the Trash",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "Your wardrobe smells from the deck.",
+  "description": "Do something about the sash in your wardrobe. Something drastic.",
+  "objectives": [
+   {
+    "id": "wardrobe",
+    "text": "Get rid of the sash (your wardrobe, in your cabin)",
+    "type": "flag",
+    "target": "p13_wardrobe_opened"
+   },
+   {
+    "id": "watch",
+    "text": "See what's on (the Mark II, in the galley)",
+    "type": "flag",
+    "target": "sash_trash_song_seen",
+    "after": [
+     "wardrobe"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 50
+  }
+ },
+ {
+  "id": "quarters_alive",
+  "title": "The Sleeping Quarters Are Alive",
+  "category": "main",
+  "giver": "gristle",
+  "summary": "It's the bedding. Not the boards.",
+  "description": "Open up the condemned quarters and see what's left in there. Something in there growls. One pillow, in particular, roars (pathetically). Throw it into the storm.",
+  "objectives": [
+   {
+    "id": "unboard",
+    "text": "Open up the old quarters (the boarded door, at the bottom of the galley)",
+    "type": "flag",
+    "target": "crew_quarters_reopened"
+   },
+   {
+    "id": "inside",
+    "text": "Go in (the old quarters)",
+    "type": "flag",
+    "target": "growling_bedding_found",
+    "after": [
+     "unboard"
+    ]
+   },
+   {
+    "id": "pillow",
+    "text": "Take the pillow that roars (the cot by the starboard wall)",
+    "type": "flag",
+    "target": "kitten_pillow_taken",
+    "after": [
+     "inside"
+    ]
+   },
+   {
+    "id": "throw",
+    "text": "Throw it into the Great Sharkstorm (up the ladder, the port rail)",
+    "type": "flag",
+    "target": "pillow_thrown_once",
+    "after": [
+     "pillow"
+    ]
+   },
+   {
+    "id": "again",
+    "text": "Pick it up and throw it AGAIN (the deck, then the rail)",
+    "type": "flag",
+    "target": "pillow_returned_with_tag",
+    "after": [
+     "throw"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "condemn_bedding",
+  "title": "Condemn the Bedding",
+  "category": "main",
+  "giver": "gristle",
+  "summary": "Judge it. Pile it. Lock it away.",
+  "description": "Every sheet, blanket, pillow, pillowcase, mattress cover and scrap of hammock cloth in the old quarters has the release in it. Judge them, pile them, get rid of them; and when that doesn't work, lock them up.",
+  "objectives": [
+   {
+    "id": "judge",
+    "text": "Judge the bedding: sheets, blankets, pillows, pillowcases, mattress covers, hammock cloth (all over the quarters)",
+    "type": "event",
+    "target": "p13_judged",
+    "count": 6
+   },
+   {
+    "id": "discard",
+    "text": "Get the pile up on deck and over the side (the pile)",
+    "type": "flag",
+    "target": "bedding_returned_by_storm",
+    "after": [
+     "judge"
+    ]
+   },
+   {
+    "id": "stuff",
+    "text": "Lock it in the linen locker (the north wall)",
+    "type": "flag",
+    "target": "textiles_in_locker",
+    "after": [
+     "discard"
+    ]
+   },
+   {
+    "id": "nail",
+    "text": "Nail it shut (the linen locker)",
+    "type": "flag",
+    "target": "textiles_sealed",
+    "after": [
+     "stuff"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "grand_bedding",
+  "title": "Grand Stenchmaster Bedding",
+  "category": "main",
+  "giver": "jim",
+  "summary": "The only clean cloth on the ship is two hundred and ninety toy sashes.",
+  "description": "Remake the old quarters' bedding out of Cheap-O-Rama toy sashes.",
+  "objectives": [
+   {
+    "id": "bedding",
+    "text": "Make sash bedding: the hammocks, the cot pads, the pillows, the blankets, the corners (round the quarters)",
+    "type": "event",
+    "target": "p13_bedding",
+    "count": 5
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "fan_megapack",
+  "title": "The Fan Mega-Pack",
+  "category": "main",
+  "giver": "ned",
+  "summary": "It's back. It's lowering something into the QUARTERS.",
+  "description": "The Bling Bling King has sent the Grand Stenchmaster Fan Mega-Pack. Open it. Put the cardboard Ancient Stenchmasters up wherever you like.",
+  "objectives": [
+   {
+    "id": "open",
+    "text": "Open the Mega-Pack (the box, in the middle of the quarters)",
+    "type": "flag",
+    "target": "megapack_opened"
+   },
+   {
+    "id": "place",
+    "text": "Place the cardboard Stenchmasters (the Mega-Pack)",
+    "type": "event",
+    "target": "p13_standee",
+    "count": 5,
+    "after": [
+     "open"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "build_your_own_ses",
+  "title": "Build-Your-Own S.E.S.",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "Ages eight and up. Adult supervision strongly recommended.",
+  "description": "Some parts not included. Find them, and build Garrick's bedroom television before he builds it himself.",
+  "objectives": [
+   {
+    "id": "parts",
+    "text": "Find the parts: forks (galley), horseshoe (hold stairs), coils (hold salvage crate), transformer (under the Mark II)",
+    "type": "event",
+    "target": "p13_part",
+    "count": 4
+   },
+   {
+    "id": "build",
+    "text": "Build it (the barrel table, in the quarters)",
+    "type": "flag",
+    "target": "second_ses_built",
+    "after": [
+     "parts"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 80
+  }
+ },
+ {
+  "id": "wire_the_systems",
+  "title": "Wire the Two Systems Together",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "Ten feet, through the door? No. Up, round, and down.",
+  "description": "Run Garrick's cable from the bedroom set to the Mark II, the way he insists: via cardboard Brogath, up through the deck, round a cannon, down the main hatch, and taped down so nobody trips.",
+  "objectives": [
+   {
+    "id": "brogath",
+    "text": "Tie the cable off at cardboard Brogath (wherever you put him)",
+    "type": "flag",
+    "target": "cable_seg_1"
+   },
+   {
+    "id": "deck",
+    "text": "Clear a path for it on deck (the crates by the fore hatch)",
+    "type": "flag",
+    "target": "cable_seg_2",
+    "after": [
+     "brogath"
+    ]
+   },
+   {
+    "id": "cannon",
+    "text": "Three turns round the starboard cannon",
+    "type": "flag",
+    "target": "cable_seg_3",
+    "after": [
+     "deck"
+    ]
+   },
+   {
+    "id": "tape",
+    "text": "Tack it down across the galley floor (by the ladder)",
+    "type": "flag",
+    "target": "cable_seg_4",
+    "after": [
+     "cannon"
+    ]
+   },
+   {
+    "id": "connect",
+    "text": "Connect it to the Mark II",
+    "type": "flag",
+    "target": "cable_seg_5",
+    "after": [
+     "tape"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 90
+  }
+ },
+ {
+  "id": "stenchmaster_channel",
+  "title": "The Stenchmaster Channel",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "Twenty-four hours of Ancient Stenchmaster history.",
+  "description": "The bedroom set has a channel. Watch it.",
+  "objectives": [
+   {
+    "id": "watch",
+    "text": "Watch it (the bedroom set)",
+    "type": "flag",
+    "target": "stenchalina_programme_seen"
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "stench_o_vision",
+  "title": "Stench-O-Vision",
+  "category": "main",
+  "giver": "pete",
+  "summary": "The television smells.",
+  "description": "The bedroom set has a smell vent, and it's open. Shut it.",
+  "objectives": [
+   {
+    "id": "vent",
+    "text": "Turn off the Stench-O-Vision (the bedroom set's knobs)",
+    "type": "flag",
+    "target": "stench_o_vision_disabled"
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "brogath_special",
+  "title": "Poor in Gold, Rich in Gas",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "Four o'clock. The Brogath special.",
+  "description": "The Stenchmaster Channel's Brogath special is on.",
+  "objectives": [
+   {
+    "id": "watch",
+    "text": "Watch it (the bedroom set)",
+    "type": "flag",
+    "target": "brogath_programme_seen"
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "the_limit",
+  "title": "The Limit",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "All of it.",
+  "description": "Say it. Point at everything.",
+  "objectives": [
+   {
+    "id": "rant",
+    "text": "Say it, at everything: the cardboard Stenchmasters, the sash bedding, the bedroom set, the locker, the Mega-Pack",
+    "type": "event",
+    "target": "p13_rant",
+    "count": 5
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "ancient_stenchmasters",
+  "title": "Every Ancient Stenchmaster Is Here",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "They're ALL here.",
+  "description": "Every Ancient Grand Stenchmaster in history is in this room, wearing your crew. Find out what they're planning.",
+  "objectives": [
+   {
+    "id": "brogath",
+    "text": "Prevent Brogath from becoming bashful (talk to Pete)",
+    "type": "flag",
+    "target": "p13_met_pete"
+   },
+   {
+    "id": "rumpold",
+    "text": "Stop Rumpold meeting wind with wind (talk to Gristle)",
+    "type": "flag",
+    "target": "p13_met_gristle"
+   },
+   {
+    "id": "rumpus",
+    "text": "Halt Sir Rumpus's legal validation (talk to Bob)",
+    "type": "flag",
+    "target": "p13_met_bob"
+   },
+   {
+    "id": "gustavio",
+    "text": "Console Lord Gustavio (talk to Jim)",
+    "type": "flag",
+    "target": "p13_met_jim"
+   },
+   {
+    "id": "stenchalina",
+    "text": "Calm the Princess (talk to Squawks)",
+    "type": "flag",
+    "target": "p13_met_squawks"
+   },
+   {
+    "id": "prime",
+    "text": "Assess the Prime (talk to Garrick)",
+    "type": "flag",
+    "target": "p13_met_garrick"
+   }
+  ],
+  "rewards": {
+   "xp": 80
+  }
+ },
+ {
+  "id": "disarm_stenchmasters",
+  "title": "DISARM THE ANCIENT STENCHMASTERS",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "Make the room SAFE.",
+  "description": "Take away everything an Ancient Stenchmaster could use.",
+  "objectives": [
+   {
+    "id": "beans",
+    "text": "Remove the beans (the sack by the door)",
+    "type": "flag",
+    "target": "p13_dis_beans"
+   },
+   {
+    "id": "grog",
+    "text": "Seal the Frog Grog (the cask)",
+    "type": "flag",
+    "target": "p13_dis_grog"
+   },
+   {
+    "id": "sauce",
+    "text": "Hide the Spicy Stench Sauce (the shelf)",
+    "type": "flag",
+    "target": "p13_dis_sauce"
+   },
+   {
+    "id": "fingers",
+    "text": "Stop the raised fingers (talk to Bob)",
+    "type": "flag",
+    "target": "p13_dis_fingers"
+   },
+   {
+    "id": "fabric",
+    "text": "Stabilise the sash fabric (a sash hammock)",
+    "type": "flag",
+    "target": "p13_dis_fabric"
+   },
+   {
+    "id": "still",
+    "text": "Keep the Prime still (talk to Garrick)",
+    "type": "flag",
+    "target": "p13_dis_still"
+   },
+   {
+    "id": "rear",
+    "text": "Nobody rear-first to the weather (talk to Gristle)",
+    "type": "flag",
+    "target": "p13_dis_rear"
+   }
+  ],
+  "rewards": {
+   "xp": 90
+  }
+ },
+ {
+  "id": "stenchmaster_apocalypse",
+  "title": "Ancient Stenchmaster Apocalypse",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "ALL HANDS.",
+  "description": "Get the ship ready for the apocalypse. Real orders. Important caveats.",
+  "objectives": [
+   {
+    "id": "sail",
+    "text": "Trim the mainsail: DO NOT FART AT IT (the mainmast sheets)",
+    "type": "flag",
+    "target": "p13_ord_sail"
+   },
+   {
+    "id": "hull",
+    "text": "Check the hull: KEEP FINGER DOWN (the starboard rail)",
+    "type": "flag",
+    "target": "p13_ord_hull"
+   },
+   {
+    "id": "cannons",
+    "text": "Secure the cannons: NO SASH FLUTTER (the port cannon)",
+    "type": "flag",
+    "target": "p13_ord_cannons"
+   },
+   {
+    "id": "helm",
+    "text": "Five degrees to port: REPORT STOMACH NOISES (the helm)",
+    "type": "flag",
+    "target": "p13_ord_helm"
+   },
+   {
+    "id": "beans",
+    "text": "Clear the deck: ESPECIALLY BEANS (by the main hatch)",
+    "type": "flag",
+    "target": "p13_ord_beans"
+   }
+  ],
+  "rewards": {
+   "xp": 90
+  }
+ },
+ {
+  "id": "two_brogaths",
+  "title": "Two Brogaths",
+  "category": "main",
+  "giver": "pete",
+  "summary": "This is Brogath. This is Pete.",
+  "description": "Pete has brought cardboard Brogath up on deck to prove a point. Look at them both.",
+  "objectives": [
+   {
+    "id": "look",
+    "text": "Look at them both (cardboard Brogath, and Pete)",
+    "type": "event",
+    "target": "p13_brogaths",
+    "count": 2
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "treasure_room_brogath",
+  "title": "Brogath in the Treasure Room",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "GRRRRRRRRRRR. From below.",
+  "description": "Something is growling in the treasure room. Get down there.",
+  "objectives": [
+   {
+    "id": "door",
+    "text": "Get to the treasure room (below: the galley, then the hold)",
+    "type": "flag",
+    "target": "p13_door_tried"
+   },
+   {
+    "id": "pete",
+    "text": "Hear what Brogath... what Pete has to say (Pete)",
+    "type": "flag",
+    "target": "treasure_room_brogath_believed",
+    "after": [
+     "door"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 80
+  }
+ },
+ {
+  "id": "command_crisis",
+  "title": "The Brogath Command Crisis",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "He touched the helm.",
+  "description": "Prove who's captain: hold her steady through the storm.",
+  "objectives": [
+   {
+    "id": "helm",
+    "text": "Keep Brogath away from the helm: hold her steady through three gusts (the helm)",
+    "type": "event",
+    "target": "p13_helm",
+    "count": 3
+   }
+  ],
+  "rewards": {
+   "xp": 100
+  }
+ }
+]

@@ -1,0 +1,1783 @@
+[
+ {
+  "extend": "garrick",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p12_complete"
+      },
+      {
+       "notFlag": "p13_started"
+      }
+     ]
+    },
+    "script": "p13c1.begin"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "finger_breakdown.loopholes"
+      },
+      {
+       "notFlag": "p13_lh_1"
+      }
+     ]
+    },
+    "script": "p13c1.loophole_1"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "finger_breakdown.loopholes"
+      },
+      {
+       "flag": "p13_lh_1"
+      },
+      {
+       "notFlag": "p13_lh_2"
+      }
+     ]
+    },
+    "script": "p13c1.loophole_2"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "finger_breakdown.loopholes"
+      },
+      {
+       "flag": "p13_lh_1"
+      },
+      {
+       "flag": "p13_lh_2"
+      },
+      {
+       "notFlag": "p13_lh_3"
+      }
+     ]
+    },
+    "script": "p13c1.loophole_3"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "finger_breakdown.loopholes"
+      },
+      {
+       "flag": "p13_lh_1"
+      },
+      {
+       "flag": "p13_lh_2"
+      },
+      {
+       "flag": "p13_lh_3"
+      },
+      {
+       "notFlag": "p13_lh_4"
+      }
+     ]
+    },
+    "script": "p13c1.loophole_4"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "finger_breakdown.loopholes"
+      },
+      {
+       "flag": "p13_lh_1"
+      },
+      {
+       "flag": "p13_lh_2"
+      },
+      {
+       "flag": "p13_lh_3"
+      },
+      {
+       "flag": "p13_lh_4"
+      },
+      {
+       "notFlag": "p13_lh_5"
+      }
+     ]
+    },
+    "script": "p13c1.loophole_5"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "ancient_stenchmasters.prime"
+      },
+      {
+       "notFlag": "p13_met_garrick"
+      }
+     ]
+    },
+    "script": "p13c14.garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "disarm_stenchmasters.still"
+    },
+    "script": "p13c15.still"
+   },
+   {
+    "if": {
+     "flag": "p13_ch145_started"
+    },
+    "cycle": [
+     "garrick.p13_crisis_1",
+     "garrick.p13_crisis_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch144_started"
+      },
+      {
+       "notFlag": "p13_ch145_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p13_treasure_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch142_started"
+      },
+      {
+       "notFlag": "p13_ch144_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p13_apocalypse_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch139_started"
+      },
+      {
+       "notFlag": "p13_ch142_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p13_delirium_1",
+     "garrick.p13_delirium_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch138_started"
+      },
+      {
+       "notFlag": "p13_ch139_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p13_limit_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch135_started"
+      },
+      {
+       "notFlag": "p13_ch138_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p13_channel_1",
+     "garrick.p13_channel_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch132_started"
+      },
+      {
+       "notFlag": "p13_ch135_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p13_merch_1",
+     "garrick.p13_merch_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch131_started"
+      },
+      {
+       "notFlag": "p13_ch132_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p13_bedding_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch129_started"
+      },
+      {
+       "notFlag": "p13_ch131_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p13_quarters_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch128_started"
+      },
+      {
+       "notFlag": "p13_ch129_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p13_song_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_started"
+      },
+      {
+       "notFlag": "p13_ch128_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p13_breakdown_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "squawks",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "ancient_stenchmasters.stenchalina"
+      },
+      {
+       "notFlag": "p13_met_squawks"
+      }
+     ]
+    },
+    "script": "p13c14.squawks"
+   },
+   {
+    "if": {
+     "flag": "p13_ch145_started"
+    },
+    "cycle": [
+     "squawks.p13_crisis_1",
+     "squawks.p13_crisis_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch144_started"
+      },
+      {
+       "notFlag": "p13_ch145_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p13_treasure_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch142_started"
+      },
+      {
+       "notFlag": "p13_ch144_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p13_apocalypse_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch139_started"
+      },
+      {
+       "notFlag": "p13_ch142_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p13_delirium_1",
+     "squawks.p13_delirium_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch135_started"
+      },
+      {
+       "notFlag": "p13_ch138_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p13_channel_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch132_started"
+      },
+      {
+       "notFlag": "p13_ch135_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p13_merch_1",
+     "squawks.p13_merch_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch131_started"
+      },
+      {
+       "notFlag": "p13_ch132_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p13_bedding_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch129_started"
+      },
+      {
+       "notFlag": "p13_ch131_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p13_quarters_1",
+     "squawks.p13_quarters_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch128_started"
+      },
+      {
+       "notFlag": "p13_ch129_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p13_song_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_started"
+      },
+      {
+       "notFlag": "p13_ch128_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p13_breakdown_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "pete",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "ancient_stenchmasters.brogath"
+      },
+      {
+       "notFlag": "p13_met_pete"
+      }
+     ]
+    },
+    "script": "p13c14.pete"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "two_brogaths.look"
+      },
+      {
+       "notFlag": "p13_looked_pete"
+      }
+     ]
+    },
+    "script": "p13c17.look_pete"
+   },
+   {
+    "if": {
+     "objectiveActive": "treasure_room_brogath.pete"
+    },
+    "script": "p13c18.pete"
+   },
+   {
+    "if": {
+     "flag": "p13_ch145_started"
+    },
+    "cycle": [
+     "pete.p13_crisis_1",
+     "pete.p13_crisis_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch144_started"
+      },
+      {
+       "notFlag": "p13_ch145_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p13_treasure_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch142_started"
+      },
+      {
+       "notFlag": "p13_ch144_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p13_apocalypse_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch139_started"
+      },
+      {
+       "notFlag": "p13_ch142_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p13_delirium_1",
+     "pete.p13_delirium_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch138_started"
+      },
+      {
+       "notFlag": "p13_ch139_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p13_limit_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch135_started"
+      },
+      {
+       "notFlag": "p13_ch138_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p13_channel_1",
+     "pete.p13_channel_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch132_started"
+      },
+      {
+       "notFlag": "p13_ch135_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p13_merch_1",
+     "pete.p13_merch_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch131_started"
+      },
+      {
+       "notFlag": "p13_ch132_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p13_bedding_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch129_started"
+      },
+      {
+       "notFlag": "p13_ch131_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p13_quarters_1",
+     "pete.p13_quarters_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch128_started"
+      },
+      {
+       "notFlag": "p13_ch129_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p13_song_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_started"
+      },
+      {
+       "notFlag": "p13_ch128_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p13_breakdown_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "bob",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "ancient_stenchmasters.rumpus"
+      },
+      {
+       "notFlag": "p13_met_bob"
+      }
+     ]
+    },
+    "script": "p13c14.bob"
+   },
+   {
+    "if": {
+     "objectiveActive": "disarm_stenchmasters.fingers"
+    },
+    "script": "p13c15.fingers"
+   },
+   {
+    "if": {
+     "flag": "p13_ch145_started"
+    },
+    "cycle": [
+     "bob.p13_crisis_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch144_started"
+      },
+      {
+       "notFlag": "p13_ch145_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p13_treasure_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch142_started"
+      },
+      {
+       "notFlag": "p13_ch144_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p13_apocalypse_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch139_started"
+      },
+      {
+       "notFlag": "p13_ch142_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p13_delirium_1",
+     "bob.p13_delirium_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch138_started"
+      },
+      {
+       "notFlag": "p13_ch139_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p13_limit_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch135_started"
+      },
+      {
+       "notFlag": "p13_ch138_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p13_channel_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch132_started"
+      },
+      {
+       "notFlag": "p13_ch135_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p13_merch_1",
+     "bob.p13_merch_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch131_started"
+      },
+      {
+       "notFlag": "p13_ch132_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p13_bedding_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch129_started"
+      },
+      {
+       "notFlag": "p13_ch131_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p13_quarters_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch128_started"
+      },
+      {
+       "notFlag": "p13_ch129_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p13_song_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_started"
+      },
+      {
+       "notFlag": "p13_ch128_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p13_breakdown_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "gristle",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "ancient_stenchmasters.rumpold"
+      },
+      {
+       "notFlag": "p13_met_gristle"
+      }
+     ]
+    },
+    "script": "p13c14.gristle"
+   },
+   {
+    "if": {
+     "objectiveActive": "disarm_stenchmasters.rear"
+    },
+    "script": "p13c15.rear"
+   },
+   {
+    "if": {
+     "flag": "p13_ch145_started"
+    },
+    "cycle": [
+     "gristle.p13_crisis_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch144_started"
+      },
+      {
+       "notFlag": "p13_ch145_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p13_treasure_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch142_started"
+      },
+      {
+       "notFlag": "p13_ch144_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p13_apocalypse_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch139_started"
+      },
+      {
+       "notFlag": "p13_ch142_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p13_delirium_1",
+     "gristle.p13_delirium_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch138_started"
+      },
+      {
+       "notFlag": "p13_ch139_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p13_limit_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch135_started"
+      },
+      {
+       "notFlag": "p13_ch138_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p13_channel_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch132_started"
+      },
+      {
+       "notFlag": "p13_ch135_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p13_merch_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch131_started"
+      },
+      {
+       "notFlag": "p13_ch132_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p13_bedding_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch129_started"
+      },
+      {
+       "notFlag": "p13_ch131_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p13_quarters_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch128_started"
+      },
+      {
+       "notFlag": "p13_ch129_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p13_song_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_started"
+      },
+      {
+       "notFlag": "p13_ch128_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p13_breakdown_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "jim",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "ancient_stenchmasters.gustavio"
+      },
+      {
+       "notFlag": "p13_met_jim"
+      }
+     ]
+    },
+    "script": "p13c14.jim"
+   },
+   {
+    "if": {
+     "flag": "p13_ch145_started"
+    },
+    "cycle": [
+     "jim.p13_crisis_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch144_started"
+      },
+      {
+       "notFlag": "p13_ch145_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p13_treasure_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch142_started"
+      },
+      {
+       "notFlag": "p13_ch144_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p13_apocalypse_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch139_started"
+      },
+      {
+       "notFlag": "p13_ch142_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p13_delirium_1",
+     "jim.p13_delirium_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch138_started"
+      },
+      {
+       "notFlag": "p13_ch139_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p13_limit_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch135_started"
+      },
+      {
+       "notFlag": "p13_ch138_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p13_channel_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch132_started"
+      },
+      {
+       "notFlag": "p13_ch135_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p13_merch_1",
+     "jim.p13_merch_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch131_started"
+      },
+      {
+       "notFlag": "p13_ch132_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p13_bedding_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch129_started"
+      },
+      {
+       "notFlag": "p13_ch131_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p13_quarters_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch128_started"
+      },
+      {
+       "notFlag": "p13_ch129_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p13_song_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_started"
+      },
+      {
+       "notFlag": "p13_ch128_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p13_breakdown_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "ned",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p13_ch145_started"
+    },
+    "cycle": [
+     "ned.p13_crisis_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch144_started"
+      },
+      {
+       "notFlag": "p13_ch145_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p13_treasure_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch142_started"
+      },
+      {
+       "notFlag": "p13_ch144_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p13_apocalypse_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch139_started"
+      },
+      {
+       "notFlag": "p13_ch142_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p13_delirium_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch135_started"
+      },
+      {
+       "notFlag": "p13_ch138_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p13_channel_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch132_started"
+      },
+      {
+       "notFlag": "p13_ch135_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p13_merch_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch131_started"
+      },
+      {
+       "notFlag": "p13_ch132_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p13_bedding_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch129_started"
+      },
+      {
+       "notFlag": "p13_ch131_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p13_quarters_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch128_started"
+      },
+      {
+       "notFlag": "p13_ch129_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p13_song_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_started"
+      },
+      {
+       "notFlag": "p13_ch128_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p13_breakdown_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "rusty_tom",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch139_started"
+      },
+      {
+       "notFlag": "p13_ch142_started"
+      }
+     ]
+    },
+    "cycle": [
+     "rusty_tom.p13_delirium_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch135_started"
+      },
+      {
+       "notFlag": "p13_ch138_started"
+      }
+     ]
+    },
+    "cycle": [
+     "rusty_tom.p13_channel_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch132_started"
+      },
+      {
+       "notFlag": "p13_ch135_started"
+      }
+     ]
+    },
+    "cycle": [
+     "rusty_tom.p13_merch_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch129_started"
+      },
+      {
+       "notFlag": "p13_ch131_started"
+      }
+     ]
+    },
+    "cycle": [
+     "rusty_tom.p13_quarters_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch128_started"
+      },
+      {
+       "notFlag": "p13_ch129_started"
+      }
+     ]
+    },
+    "cycle": [
+     "rusty_tom.p13_song_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_started"
+      },
+      {
+       "notFlag": "p13_ch128_started"
+      }
+     ]
+    },
+    "cycle": [
+     "rusty_tom.p13_breakdown_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "barnacle_bill",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch139_started"
+      },
+      {
+       "notFlag": "p13_ch142_started"
+      }
+     ]
+    },
+    "cycle": [
+     "barnacle_bill.p13_delirium_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch135_started"
+      },
+      {
+       "notFlag": "p13_ch138_started"
+      }
+     ]
+    },
+    "cycle": [
+     "barnacle_bill.p13_channel_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch132_started"
+      },
+      {
+       "notFlag": "p13_ch135_started"
+      }
+     ]
+    },
+    "cycle": [
+     "barnacle_bill.p13_merch_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch129_started"
+      },
+      {
+       "notFlag": "p13_ch131_started"
+      }
+     ]
+    },
+    "cycle": [
+     "barnacle_bill.p13_quarters_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch128_started"
+      },
+      {
+       "notFlag": "p13_ch129_started"
+      }
+     ]
+    },
+    "cycle": [
+     "barnacle_bill.p13_song_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_started"
+      },
+      {
+       "notFlag": "p13_ch128_started"
+      }
+     ]
+    },
+    "cycle": [
+     "barnacle_bill.p13_breakdown_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "hale",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p13_ch145_started"
+    },
+    "cycle": [
+     "hale.p13_crisis_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch142_started"
+      },
+      {
+       "notFlag": "p13_ch144_started"
+      }
+     ]
+    },
+    "cycle": [
+     "hale.p13_apocalypse_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch139_started"
+      },
+      {
+       "notFlag": "p13_ch142_started"
+      }
+     ]
+    },
+    "cycle": [
+     "hale.p13_delirium_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch135_started"
+      },
+      {
+       "notFlag": "p13_ch138_started"
+      }
+     ]
+    },
+    "cycle": [
+     "hale.p13_channel_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch132_started"
+      },
+      {
+       "notFlag": "p13_ch135_started"
+      }
+     ]
+    },
+    "cycle": [
+     "hale.p13_merch_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch129_started"
+      },
+      {
+       "notFlag": "p13_ch131_started"
+      }
+     ]
+    },
+    "cycle": [
+     "hale.p13_quarters_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_ch128_started"
+      },
+      {
+       "notFlag": "p13_ch129_started"
+      }
+     ]
+    },
+    "cycle": [
+     "hale.p13_song_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p13_started"
+      },
+      {
+       "notFlag": "p13_ch128_started"
+      }
+     ]
+    },
+    "cycle": [
+     "hale.p13_breakdown_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "nell",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p13_started"
+    },
+    "script": "nell.p13"
+   }
+  ]
+ },
+ {
+  "extend": "sully",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p13_started"
+    },
+    "script": "sully.p13"
+   }
+  ]
+ },
+ {
+  "extend": "fennimore",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p13_started"
+    },
+    "script": "fennimore.p13"
+   }
+  ]
+ },
+ {
+  "extend": "wick",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p13_started"
+    },
+    "script": "wick.p13"
+   }
+  ]
+ },
+ {
+  "extend": "rook",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p13_started"
+    },
+    "script": "rook.p13"
+   }
+  ]
+ },
+ {
+  "extend": "brask",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p13_started"
+    },
+    "script": "brask.p13"
+   }
+  ]
+ },
+ {
+  "extend": "jory",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p13_started"
+    },
+    "script": "jory.p13"
+   }
+  ]
+ },
+ {
+  "extend": "finch",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p13_started"
+    },
+    "script": "finch.p13"
+   }
+  ]
+ },
+ {
+  "extend": "mags",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p13_started"
+    },
+    "script": "mags.p13"
+   }
+  ]
+ },
+ {
+  "extend": "quill",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p13_started"
+    },
+    "script": "quill.p13"
+   }
+  ]
+ },
+ {
+  "extend": "penhallow",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p13_started"
+    },
+    "script": "penhallow.p13"
+   }
+  ]
+ }
+]

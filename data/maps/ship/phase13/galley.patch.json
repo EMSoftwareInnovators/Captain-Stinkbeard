@@ -1,0 +1,591 @@
+{
+ "id": "galley_phase13",
+ "patch": "galley",
+ "//": "Story Phase 13 in the galley. Garrick on the bench end (127), then at the long table; the crew round it. The trash song on the Mark II (16,7: watched from 15,7). The boarded door to the old quarters (8,12: the boards come off in 129; the warp opens for good). Jim's forks on the prep table (5,4); the spare transformer under the Mark II's crate (16,7). The cable tacked across the floor at the foot of the ladder (14,5), and connected to the Mark II.",
+ "objects": [
+  {
+   "id": "p13_to_crew",
+   "type": "warp",
+   "x": 8,
+   "y": 12,
+   "to": {
+    "map": "crew_quarters",
+    "spawn": "north_door"
+   },
+   "sfx": "door",
+   "when": {
+    "flag": "crew_quarters_condemned"
+   },
+   "if": {
+    "flag": "crew_quarters_reopened"
+   },
+   "locked": "p13.quarters_door"
+  },
+  {
+   "id": "p13_unboard",
+   "type": "inspect",
+   "x": 8,
+   "y": 12,
+   "if": {
+    "objectiveActive": "quarters_alive.unboard"
+   },
+   "script": "p13c3.unboard"
+  },
+  {
+   "id": "p13_door_look",
+   "type": "inspect",
+   "x": 8,
+   "y": 12,
+   "if": {
+    "flag": "crew_quarters_reopened"
+   },
+   "script": "p13.inspect.quarters_door"
+  },
+  {
+   "id": "p13_trash_watch",
+   "type": "inspect",
+   "x": 16,
+   "y": 7,
+   "if": {
+    "objectiveActive": "sash_in_the_trash.watch"
+   },
+   "script": "p13c2.watch"
+  },
+  {
+   "id": "p13_forks",
+   "type": "inspect",
+   "x": 5,
+   "y": 4,
+   "w": 2,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "build_your_own_ses.parts"
+     },
+     {
+      "notFlag": "ses_part_forks"
+     }
+    ]
+   },
+   "script": "p13c7.forks"
+  },
+  {
+   "id": "p13_transformer",
+   "type": "inspect",
+   "x": 16,
+   "y": 7,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "build_your_own_ses.parts"
+     },
+     {
+      "notFlag": "ses_part_transformer"
+     }
+    ]
+   },
+   "script": "p13c7.transformer"
+  },
+  {
+   "id": "p13_tape",
+   "type": "inspect",
+   "x": 14,
+   "y": 5,
+   "if": {
+    "objectiveActive": "wire_the_systems.tape"
+   },
+   "script": "p13c8.tape"
+  },
+  {
+   "id": "p13_connect",
+   "type": "inspect",
+   "x": 16,
+   "y": 7,
+   "if": {
+    "objectiveActive": "wire_the_systems.connect"
+   },
+   "script": "p13c8.connect"
+  },
+  {
+   "id": "p13_cable_look",
+   "type": "inspect",
+   "x": 14,
+   "y": 5,
+   "if": {
+    "flag": "cable_seg_4"
+   },
+   "script": "p13.inspect.cable_galley"
+  },
+  {
+   "id": "p13g_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p13_started"
+     },
+     {
+      "flag": "crew_quarters_reopened"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p13g_pete_1",
+   "type": "npc",
+   "npc": "pete",
+   "x": 9,
+   "y": 10,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p13_ch129_started"
+     },
+     {
+      "notFlag": "p13_ch131_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13g_pete_2",
+   "type": "npc",
+   "npc": "pete",
+   "x": 7,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p13_started"
+     },
+     {
+      "notFlag": "p13_ch132_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13g_gristle_0",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p13_started"
+     },
+     {
+      "flag": "crew_quarters_reopened"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p13g_gristle_1",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 7,
+   "y": 10,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p13_ch129_started"
+     },
+     {
+      "notFlag": "p13_ch131_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13g_gristle_2",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 6,
+   "y": 7,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p13_started"
+     },
+     {
+      "notFlag": "p13_ch132_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13g_bob_0",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p13_started"
+     },
+     {
+      "flag": "crew_quarters_reopened"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p13g_bob_1",
+   "type": "npc",
+   "npc": "bob",
+   "x": 10,
+   "y": 11,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p13_ch129_started"
+     },
+     {
+      "notFlag": "p13_ch131_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13g_bob_2",
+   "type": "npc",
+   "npc": "bob",
+   "x": 9,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p13_started"
+     },
+     {
+      "notFlag": "p13_ch132_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13g_ned_0",
+   "type": "npc",
+   "npc": "ned",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p13_ch132_started"
+   }
+  },
+  {
+   "id": "p13g_ned_1",
+   "type": "npc",
+   "npc": "ned",
+   "x": 10,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p13_started"
+     },
+     {
+      "notFlag": "p13_ch132_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13g_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p13_ch139_started"
+   }
+  },
+  {
+   "id": "p13g_jim_1",
+   "type": "npc",
+   "npc": "jim",
+   "x": 4,
+   "y": 5,
+   "facing": "left",
+   "if": {
+    "flag": "p13_started"
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "work"
+   }
+  },
+  {
+   "id": "p13g_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p13_started"
+     },
+     {
+      "flag": "crew_quarters_reopened"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p13g_garrick_1",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 10,
+   "y": 8,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p13_ch128_started"
+     },
+     {
+      "notFlag": "p13_ch129_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13g_garrick_2",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 10,
+   "y": 8,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p13_ch129_started"
+     },
+     {
+      "notFlag": "p13_ch131_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13g_garrick_3",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 10,
+   "y": 9,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p13_started"
+     },
+     {
+      "notFlag": "p13_ch128_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p13g_rusty_tom_0",
+   "type": "npc",
+   "npc": "rusty_tom",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p13_ch142_started"
+   }
+  },
+  {
+   "id": "p13g_rusty_tom_1",
+   "type": "npc",
+   "npc": "rusty_tom",
+   "x": 1,
+   "y": 10,
+   "facing": "right",
+   "if": {
+    "flag": "p13_started"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p13g_barnacle_bill_0",
+   "type": "npc",
+   "npc": "barnacle_bill",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p13_ch142_started"
+   }
+  },
+  {
+   "id": "p13g_barnacle_bill_1",
+   "type": "npc",
+   "npc": "barnacle_bill",
+   "x": 2,
+   "y": 10,
+   "facing": "right",
+   "if": {
+    "flag": "p13_started"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p13g_squawks_0",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p13_ch129_started"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "wire_run",
+   "x": 14,
+   "y": 5,
+   "if": {
+    "flag": "cable_seg_4"
+   },
+   "id": "p13_cable_g1"
+  },
+  {
+   "prop": "wire_run",
+   "x": 15,
+   "y": 6,
+   "if": {
+    "flag": "cable_seg_4"
+   },
+   "id": "p13_cable_g2"
+  }
+ ],
+ "propConditions": [
+  {
+   "id": "p8_boards",
+   "if": {
+    "notFlag": "crew_quarters_reopened"
+   }
+  },
+  {
+   "id": "p8_sign",
+   "if": {
+    "notFlag": "crew_quarters_reopened"
+   }
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "flag": "p13_ch139_started"
+   },
+   "music": "beard_delirium",
+   "musicFilter": "muffled",
+   "ambience": "inside_storm_galley"
+  },
+  {
+   "if": {
+    "objectiveActive": "sash_in_the_trash.watch"
+   },
+   "music": "late_night_bling",
+   "ambience": "inside_storm_galley"
+  },
+  {
+   "if": {
+    "flag": "p13_started"
+   },
+   "music": "one_day_suspension",
+   "ambience": "inside_storm_galley"
+  }
+ ],
+ "ambient": [
+  {
+   "kind": "voice",
+   "x": 10,
+   "y": 9,
+   "every": [
+    8000,
+    14000
+   ],
+   "shout": false,
+   "lines": [
+    "<k>grrrnk...</>",
+    "<k>...gloorp.</>",
+    "<k>(a long, sad gurgle)</>"
+   ],
+   "sfx": "stomach_grnk",
+   "volume": 0.35,
+   "delay": 3000,
+   "if": {
+    "all": [
+     {
+      "flag": "p13_started"
+     },
+     {
+      "notFlag": "p13_ch128_started"
+     }
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,225 @@
+{
+ "//": "Story Phase 13: the Build-Your-Own Stenchmaster Entertainment System Kit (ages eight and up), built on the barrel table in the old quarters out of the kit, three of Jim's forks, a horseshoe, a copper coil and a transformer. It shares the Mark II's dials (the two sets are connected by a cable that goes the long way round, via cardboard Brogath, the deck and a cannon) and its sauce-can aerial. It came with a smell vent nobody asked for: Stench-O-Vision. Like every set on this ship, it is impossible, and nobody opens it.",
+ "ses_kit": {
+  "name": "The Build-Your-Own S.E.S. (bedroom edition)",
+  "bezel": "kit_bezel",
+  "back": "kit_back",
+  "powerFrame": "kit_power",
+  "channelVar": "ses_mk2_channel",
+  "powerVar": "ses_mk2_power",
+  "stateValue": "ses_kit_state",
+  "flags": {
+   "open": "ses_kit_examined"
+  },
+  "vent": {
+   "tiles": {
+    "crew_quarters": [
+     10,
+     6
+    ]
+   },
+   "sfx": "stench_vent",
+   "if": {
+    "all": [
+     {
+      "flag": "stench_o_vision_on"
+     },
+     {
+      "notFlag": "stench_o_vision_disabled"
+     }
+    ]
+   }
+  },
+  "offComments": [
+   [
+    "captain: Off. The little grille on the side is still warm.",
+    "garrick[proud]: It's thinking about smells, Captain."
+   ],
+   [
+    "captain: A miniature television on a barrel. Forks on top. A horseshoe on the forks."
+   ]
+  ],
+  "channels": [
+   {
+    "id": 1,
+    "title": "Static",
+    "frames": [
+     "tv_static_0",
+     "tv_static_1",
+     "tv_static_2",
+     "tv_static_3"
+    ],
+    "frameMs": 70,
+    "glow": "#c8d0d8",
+    "hum": "mk2_static",
+    "comments": [
+     [
+      "captain: Snow. Smaller snow.",
+      "garrick[proud]: Bedroom snow, Captain."
+     ]
+    ]
+   },
+   {
+    "id": 9,
+    "title": "The Stenchmaster Channel",
+    "program": "stenchmaster_channel",
+    "frames": [
+     "sc_logo_0",
+     "sc_logo_1"
+    ],
+    "frameMs": 500,
+    "glow": "#c890e0",
+    "hum": "mk2_hum",
+    "if": {
+     "flag": "stenchmaster_channel_unlocked"
+    },
+    "comments": [
+     [
+      "captain: The Stenchmaster Channel.",
+      "garrick[delighted]: Twenty-four hours, Captain. It says so in the corner."
+     ],
+     [
+      "captain: It's the baby again.",
+      "pete[annoyed]: It's ALWAYS the baby."
+     ],
+     [
+      "captain: ...Is it still going? The Disaster?",
+      "garrick[proud]: History never stops, Captain."
+     ]
+    ]
+   }
+  ],
+  "wiring": [
+   [
+    "captain: The back. INSERT ANTENNA HERE (FORKS NOT INCLUDED). Three of Jim's forks.",
+    "garrick[proud]: Included NOW."
+   ]
+  ],
+  "powerSource": [
+   [
+    "captain: The transformer from under the Mark II's crate. It hums. Everything in this room hums now."
+   ]
+  ],
+  "states": {
+   "no_signal": {
+    "//": "Built, no aerial: snow whatever the channel, until the cable reaches the Mark II.",
+    "frames": [
+     "tv_static_0",
+     "tv_static_1",
+     "tv_static_2",
+     "tv_static_3"
+    ],
+    "frameMs": 80,
+    "osd": "NO SIGNAL",
+    "lookComments": [
+     [
+      "captain: Snow. It needs the aerial. The aerial's in the galley.",
+      "garrick[businesslike]: Cable, Captain. A LONG one."
+     ]
+    ]
+   }
+  },
+  "knobPanels": {
+   "vent": {
+    "//": "Story Phase 13 (chapter 136): Stench-O-Vision. The knobs on the side of the bedroom set. Every wrong one does something to the picture or the smell; after three tries the VENT SHUT lever turns up behind the horseshoe, and it works. Choose which to try first; no wrong answer is a dead end. The programme carries on throughout, and keeps puffing until the vent is shut.",
+    "doneFlag": "stench_o_vision_disabled",
+    "closeAfter": 3200,
+    "openLines": [
+     [
+      "captain: Knobs. MORE, NOSE, PINE?, UPSIDE. Nothing that says SHUT.",
+      "garrick[proud]: It's a very immersive kit, Captain."
+     ]
+    ],
+    "list": [
+     {
+      "id": "more",
+      "label": "MORE",
+      "effect": "louder",
+      "amount": 1,
+      "sfx": "stench_vent",
+      "lines": [
+       [
+        "phhhHHHHHH. The grille breathes harder. The smell of the programme gets more programme.",
+        "bob[disgusted]: It's ONIONS. It's FULL onions."
+       ],
+       [
+        "MORE again. The onion goes past onion into something else.",
+        "pete[annoyed]: STOP TURNING THAT ONE!"
+       ]
+      ]
+     },
+     {
+      "id": "nose",
+      "label": "NOSE",
+      "effect": "glimpse",
+      "frames": [
+       "sc_nose_test_0",
+       "sc_nose_test_1"
+      ],
+      "ms": 1400,
+      "frameMs": 400,
+      "sfx": "mk2_switch",
+      "lines": [
+       [
+        "For a second: a test card. A big painted nose, and the words SMELL TEST. Then back to the programme.",
+        "ned: It's testing US."
+       ]
+      ]
+     },
+     {
+      "id": "pine",
+      "label": "PINE?",
+      "effect": "tint",
+      "sfx": "mk2_rattle",
+      "lines": [
+       [
+        "The picture goes purple. The smell does not go pine. It goes onion, with a hint of pine.",
+        "jim[disgusted]: That's worse. Pine makes it WORSE."
+       ],
+       [
+        "Green. Onion, with a hint of green."
+       ],
+       [
+        "Back to normal colours. Normal onion."
+       ]
+      ]
+     },
+     {
+      "id": "upside",
+      "label": "UPSIDE",
+      "effect": "flip",
+      "sfx": "mk2_switch",
+      "lines": [
+       [
+        "The picture turns upside down. The smell, somehow, also smells upside down.",
+        "gristle: How does a smell go upside down?"
+       ],
+       [
+        "Right way up. The smell rights itself too."
+       ]
+      ]
+     },
+     {
+      "id": "shut",
+      "label": "VENT SHUT",
+      "effect": "tune",
+      "channel": 9,
+      "after": 3,
+      "tries": 1,
+      "sfx": "big_switch",
+      "lines": [
+       [
+        "Behind the horseshoe, a little brass lever you hadn't seen: VENT SHUT."
+       ]
+      ],
+      "doneLines": [
+       [
+        "CLICK. The grille closes. The picture stays. The smell stops coming."
+       ]
+      ]
+     }
+    ]
+   }
+  }
+ }
+}

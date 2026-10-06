@@ -622,10 +622,11 @@ export class WorldScene extends BaseScene {
     this.tweens.add({ targets: ghost, x: sp.x + dir * (fx.wobble ?? 1) * 5, alpha: 0, duration: 650, ease: 'Sine.Out', onComplete: () => ghost.destroy() });
   }
 
-  /** A television's smell vent (Stench-O-Vision) breathes out, if the set is in this room. */
+  /** A television's smell vent (Stench-O-Vision) breathes out, if the set is in this room and the vent is open. */
   ventPuff(tvId) {
-    const at = this.content.tv?.get?.(tvId)?.vent?.tiles?.[this.model.id];
-    if (!at) return;
+    const vent = this.content.tv?.get?.(tvId)?.vent;
+    const at = vent?.tiles?.[this.model.id];
+    if (!at || (vent.if && !evaluateCondition(vent.if, this.session))) return;
     const x = at[0] * TILE_SIZE + TILE_SIZE / 2;
     const y = at[1] * TILE_SIZE;
     this.fx.burst('fume', x, y, { count: 4, depth: 56000, alpha: 0.6 });
@@ -1231,8 +1232,14 @@ export class WorldScene extends BaseScene {
     return warp.locked ?? null;
   }
 
+  /**
+   * The doorway on a tile: the first warp there that applies. A warp's "if"
+   * is its lock; its "when" (Story Phase 13) says whether it applies at all,
+   * so a later chapter can put a door of its own over an old one (sealed,
+   * condemned, reopened) without shadowing it in the chapters before.
+   */
   warpAt(x, y) {
-    return this.objects.find((o) => o.type === 'warp' && this.inRect(o, x, y)) || null;
+    return this.objects.find((o) => o.type === 'warp' && this.inRect(o, x, y) && (!o.when || evaluateCondition(o.when, this.session))) || null;
   }
 
   // ---------------------------------------------------------------------------

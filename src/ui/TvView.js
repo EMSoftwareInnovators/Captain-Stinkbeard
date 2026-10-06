@@ -3,6 +3,7 @@ import { addText, setText, UI_COLORS } from './text.js';
 import { ListMenu } from './ListMenu.js';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
 import { SES_BEZEL, SES_SCREEN } from '../art/vista/sesArt.js';
+import { evaluateCondition } from '../systems/conditions/conditions.js';
 import { tvState, setPower, setChannel, stepChannel, nextLines, tvCondition, programDef, programEpisode } from '../systems/tv/tv.js';
 import { parseLine } from '../systems/script/parseLine.js';
 import { resolveSpeaker } from '../systems/story/aliases.js';
@@ -244,8 +245,9 @@ export class TvView {
       this.showLines([l]);
     }
     // Story Phase 13: Stench-O-Vision. A beat with "aroma" puffs out of the set's
-    // vent, here and in the room (the world puts a low-severity fume source there).
-    if (b.aroma && this.def.vent) {
+    // vent, here and in the room (the world puts a low-severity fume source there),
+    // while the vent is open (its "if").
+    if (b.aroma && this.def.vent && (!this.def.vent.if || evaluateCondition(this.def.vent.if, this.session))) {
       this.smoke();
       if (!muted) this.app.audio.sfx(this.def.vent.sfx ?? 'stench_vent', { volume: 0.6 });
       this.app.bus?.emit('tv:aroma', { tv: this.def.id });

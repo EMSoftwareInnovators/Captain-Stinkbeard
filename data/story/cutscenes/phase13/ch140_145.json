@@ -1,0 +1,789 @@
+{
+ "//": "Story Phase 13, chapters 140-145: every Ancient Stenchmaster; disarm them; the deck; two Brogaths; the treasure-room Brogath; the Brogath command crisis. The captain's delirium is an alias layer over the real crew (data/story/aliases/phase13.json); nothing about anybody actually changes.",
+ "p13c14.begin": [
+  {
+   "setFlag": "p13_ch140_started"
+  },
+  {
+   "banner": "CHAPTER 140",
+   "sub": "Every Ancient Stenchmaster Is Here"
+  },
+  {
+   "music": "ancient_stenchmasters_everywhere",
+   "fade": 600
+  },
+  "You look round the red room. Slowly. And you see them. All of them.",
+  "Not the cardboard ones. The cardboard ones are still there, flat and printed, where you put them. The REAL ones. Standing among your crew. Wearing your crew.",
+  {
+   "startQuest": "ancient_stenchmasters"
+  },
+  {
+   "tutorial": "They're all here. Every Ancient Stenchmaster. Find out what they're up to. (Talk to the crew: Pete, Gristle, Bob, Jim, Squawks, Garrick.)",
+   "title": "Every Ancient Stenchmaster Is Here"
+  }
+ ],
+ "p13c14.pete": [
+  "pete: Captain, it's PETE. Please. I've got a peg leg. Did Brogath have a peg leg?",
+  {
+   "sfx": "sash_flap_small",
+   "volume": 0.7
+  },
+  "The sash blanket over his shoulder flutters, just a little, in the draught from the ladder.",
+  "captain: His sash. It FLUTTERED. Brogath is BASHFUL. Brogath is becoming BASHFUL. Everybody stand back, he's going to...",
+  "pete: It's a BLANKET.",
+  {
+   "setFlag": "p13_met_pete"
+  },
+  {
+   "event": "p13_met"
+  }
+ ],
+ "p13c14.gristle": [
+  "Gristle, at the porthole, looking out at the storm with his hands behind his back. With his BACK to you. His REAR to the WEATHER.",
+  "captain: Rumpold. RUMPOLD WINDBREAKER. Facing the storm. Rear-first. He's going to meet wind with WIND.",
+  "gristle: (not turning round) I'm checking the weather, Captain.",
+  "captain: THAT'S WHAT HE SAID LAST TIME.",
+  {
+   "setFlag": "p13_met_gristle"
+  },
+  {
+   "event": "p13_met"
+  }
+ ],
+ "p13c14.bob": [
+  "bob: Captain, I've got a question...",
+  "He puts up his hand to ask it. One finger raised.",
+  "captain: The raised finger. Sir Rumpus. He's opening the COURT. Bob... SIR RUMPUS... is initiating legal VALIDATION.",
+  "bob: (looking at his finger) ...Am I?",
+  "captain: Put it DOWN.",
+  "bob: (putting it down) Sorry, Your Honour. I mean Captain. I mean... what do I mean?",
+  {
+   "setFlag": "p13_met_bob"
+  },
+  {
+   "event": "p13_met"
+  }
+ ],
+ "p13c14.jim": [
+  "Jim, making up his sash hammock, shaking out the sash blanket. It flutters as he shakes it.",
+  "captain: Gustavio. Lord Gustavio Bottomsworth. His sash fluttered. He's HUMILIATED. He's going to hold it for THREE WEEKS.",
+  "jim: I'm making my BED, Captain.",
+  "captain: That's what Gustavio would SAY.",
+  {
+   "setFlag": "p13_met_jim"
+  },
+  {
+   "event": "p13_met"
+  }
+ ],
+ "p13c14.squawks": [
+  "A tiny crowned princess in a sash looks up at you from the footlocker with her fist raised.",
+  "captain: Princess Stenchalina.",
+  "squawks[furious]: BIRD.",
+  "captain: She's ANGRY. The Princess is angry.",
+  "squawks[furious]: BIRD. BIRD. I AM A BIRD.",
+  {
+   "setFlag": "p13_met_squawks"
+  },
+  {
+   "event": "p13_met"
+  }
+ ],
+ "p13c14.garrick": [
+  {
+   "sfx": "stomach_grnk",
+   "volume": 0.8
+  },
+  "Garrick, by the mast post, enormous, shining, robed, crowned with a crown made of crowns, and his stomach is going grrrrrnnnk.",
+  "captain: The PRIME. The Grand Stenchmaster PRIME.",
+  "garrick[worried]: Captain, it's Garrick. Regular Garrick. I'm SUSPENDED, remember? You suspended me. I've got no crown on. Look. No crown.",
+  {
+   "sfx": "stomach_growl_big",
+   "volume": 0.9
+  },
+  "GRRRRRRRNNNNNK.",
+  "captain: THE PRIME IS CHARGING.",
+  {
+   "setFlag": "p13_met_garrick"
+  },
+  {
+   "event": "p13_met"
+  }
+ ],
+ "p13c14.done": [
+  {
+   "setFlag": "p13_met_said"
+  },
+  "You stand in the middle of the room with your back to the mast, surrounded by every Ancient Grand Stenchmaster in history, and five more in cardboard.",
+  "captain[determined]: Right. RIGHT. Listen to me. All of you. Your Majesties. Your Lordships. Your HONOUR. Brogath.",
+  "pete: Pete.",
+  "captain[determined]: We are going to make this room SAFE.",
+  {
+   "call": "p13c15.begin"
+  }
+ ],
+ "p13c15.begin": [
+  {
+   "setFlag": "p13_ch141_started"
+  },
+  {
+   "banner": "CHAPTER 141",
+   "sub": "Disarm the Ancient Stenchmasters"
+  },
+  {
+   "startQuest": "disarm_stenchmasters"
+  },
+  {
+   "tutorial": "DISARM THE ANCIENT STENCHMASTERS. Remove the beans, seal the Frog Grog, hide the Spicy Stench Sauce, stop the raised fingers (Bob), stabilise the sash fabric (a hammock), keep the Prime still (Garrick), and nobody rear-first to the weather (Gristle).",
+   "title": "Disarm the Ancient Stenchmasters"
+  }
+ ],
+ "p13c15.beans": [
+  "A sack of beans somebody brought down for the night. You drag it to the door and throw it out into the galley.",
+  "jim: (from somewhere) MY BEANS.",
+  "captain[determined]: Lord Gustavio does NOT get beans.",
+  {
+   "setFlag": "p13_dis_beans"
+  },
+  {
+   "event": "p13_disarm"
+  }
+ ],
+ "p13c15.grog": [
+  "A cask of Frog Grog. You hammer the bung in with your fist.",
+  {
+   "repair": "nail",
+   "strikes": 3,
+   "title": "SEAL IT"
+  },
+  "captain[determined]: SEALED. No Ancient Stenchmaster is drinking Frog Grog on MY watch.",
+  {
+   "setFlag": "p13_dis_grog"
+  },
+  {
+   "event": "p13_disarm"
+  }
+ ],
+ "p13c15.sauce": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "A can of Spicy Stench Sauce on the shelf. You put it in the bookshelf, behind a book called KNOTS, where nobody will ever look.",
+  "captain[determined]: Hidden.",
+  {
+   "setFlag": "p13_dis_sauce"
+  },
+  {
+   "event": "p13_disarm"
+  }
+ ],
+ "p13c15.fingers": [
+  "bob: (finger up) Can I ask a...",
+  "You put his finger down. Gently. With both hands.",
+  "captain[determined]: No fingers. No COURT. No VALIDATION.",
+  "bob: (sitting on his hands) ...Yes, Your... Captain.",
+  {
+   "setFlag": "p13_dis_fingers"
+  },
+  {
+   "event": "p13_disarm"
+  }
+ ],
+ "p13c15.fabric": [
+  "A sash hammock, swaying. You tie down its loose ends with string, tight, so it can't flutter.",
+  {
+   "repair": "knot",
+   "strikes": 3,
+   "title": "STABILISE IT"
+  },
+  "captain[determined]: No fluttering. NOBODY is bashful. NOBODY is humiliated.",
+  {
+   "setFlag": "p13_dis_fabric"
+  },
+  {
+   "event": "p13_disarm"
+  }
+ ],
+ "p13c15.still": [
+  "garrick[worried]: Captain, should I sit down? I feel I should sit down.",
+  "captain[determined]: Don't move. The Prime does NOT move. The Prime stays VERY STILL.",
+  "garrick[worried]: (freezing, terrified) ...How still?",
+  "captain[determined]: STATUE still.",
+  {
+   "setFlag": "p13_dis_still"
+  },
+  {
+   "event": "p13_disarm"
+  }
+ ],
+ "p13c15.rear": [
+  "gristle: (at the porthole) It's a porthole, Captain. I'm looking out of a porthole.",
+  "You turn him round by the shoulders so he's facing the room.",
+  "captain[determined]: NOBODY rear-first to the weather.",
+  "gristle: (facing the room) ...Right you are, Captain.",
+  {
+   "setFlag": "p13_dis_rear"
+  },
+  {
+   "event": "p13_disarm"
+  }
+ ],
+ "p13c15.done": [
+  {
+   "setFlag": "p13_disarm_said"
+  },
+  "You stand back. Beans: out. Grog: sealed. Sauce: hidden. Fingers: down. Fabric: tied. The Prime: still. Rumpold: facing the room.",
+  "captain[surprised]: ...Safe. It's SAFE.",
+  {
+   "sfx": "wind_suck",
+   "volume": 0.9
+  },
+  "And then, down the ladder hatch, the Great Sharkstorm breathes in.",
+  {
+   "shake": 1,
+   "duration": 800
+  },
+  {
+   "sfx": "sash_flutter_big",
+   "volume": 1.0
+  },
+  "Every sash in the room lifts. Every hammock. Every blanket. Every pillow's little sash corner. Every HOLD MY SASH flag. The cardboard Stenchmasters' printed sashes don't move, but somehow, in your eyes, they do too.",
+  "FLUTTER. All of them. At once.",
+  "captain: ...Every Stenchmaster. Humiliated. At ONCE.",
+  "captain: They'll ALL hold it in. For three WEEKS. ALL OF THEM. And then...",
+  "captain: (backing toward the ladder) ...and then it all comes out at once.",
+  "pete: Captain...",
+  "captain: IT'S THE ANCIENT STENCHMASTER APOCALYPSE.",
+  "And you run. Up the ladder. For the deck.",
+  {
+   "completeQuest": "disarm_stenchmasters"
+  },
+  {
+   "transition": "main_deck",
+   "spawn": "fore_hatch",
+   "then": "p13c16.begin"
+  }
+ ],
+ "p13c16.begin": [
+  {
+   "setFlag": "p13_ch142_started"
+  },
+  {
+   "sharkstorm": "command_crisis"
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "banner": "CHAPTER 142",
+   "sub": "Ancient Stenchmaster Apocalypse"
+  },
+  {
+   "music": "ancient_stenchmasters_everywhere",
+   "fade": 400
+  },
+  "On deck, the storm goes round. Behind you, up the ladder, come the crew, every one of them (in your eyes) an Ancient Grand Stenchmaster.",
+  "Fine. FINE. If the apocalypse is coming, the Revenge will be READY for it. You are still the captain. You still know how to run a ship.",
+  "captain[determined]: ALL HANDS. Here are your ORDERS.",
+  {
+   "startQuest": "stenchmaster_apocalypse"
+  },
+  {
+   "tutorial": "Give the orders and see them done: trim the mainsail (the mainmast sheets), check the hull (the starboard rail), secure the cannons (the port cannon), five degrees to port (the helm), clear the deck (the beans by the hatch). Watch for the marks: things are coming down.",
+   "title": "Ancient Stenchmaster Apocalypse"
+  }
+ ],
+ "p13c16.sail": [
+  "captain[determined]: Trim the mainsail! And whatever you do, DO NOT FART AT IT.",
+  {
+   "repair": "trim",
+   "strikes": 3,
+   "title": "TRIM THE MAINSAIL"
+  },
+  "pete: (hauling, beside you) Nobody was going to fart at it, Captain.",
+  "captain[determined]: Not YET, Brogath.",
+  {
+   "setFlag": "p13_ord_sail"
+  },
+  {
+   "event": "p13_order"
+  }
+ ],
+ "p13c16.hull": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "captain[determined]: Check the hull! And KEEP YOUR FINGER DOWN.",
+  {
+   "repair": "grip",
+   "strikes": 3,
+   "title": "CHECK THE HULL"
+  },
+  "bob: (leaning over the rail beside you, both hands on it) Both hands, Captain! Both hands on the rail! No fingers!",
+  "captain[determined]: Good. GOOD, Sir Rumpus.",
+  {
+   "setFlag": "p13_ord_hull"
+  },
+  {
+   "event": "p13_order"
+  }
+ ],
+ "p13c16.cannons": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "captain[determined]: Secure the cannons! NO SASH FLUTTER.",
+  {
+   "repair": "lash",
+   "strikes": 3,
+   "title": "SECURE THE CANNONS"
+  },
+  "jim: (lashing) My sash isn't on, Captain. I'm not wearing a sash. Nobody's wearing a sash.",
+  "captain[determined]: That's what Gustavio would WANT me to think.",
+  {
+   "setFlag": "p13_ord_cannons"
+  },
+  {
+   "event": "p13_order"
+  }
+ ],
+ "p13c16.helm": [
+  "captain[determined]: Five degrees to port! And REPORT ALL STOMACH NOISES.",
+  {
+   "repair": "helm",
+   "strikes": 3,
+   "title": "FIVE DEGREES PORT"
+  },
+  {
+   "sfx": "stomach_grnk",
+   "volume": 0.8
+  },
+  "garrick[worried]: (from the mast) That was me, Captain. Reporting.",
+  "captain[determined]: THANK you, Prime.",
+  {
+   "setFlag": "p13_ord_helm"
+  },
+  {
+   "event": "p13_order"
+  }
+ ],
+ "p13c16.beans": [
+  "A spill of Crying Beans by the hatch, where the sack burst on the way up.",
+  "captain[determined]: Clear the deck! ESPECIALLY THE BEANS.",
+  {
+   "repair": "sweep",
+   "strikes": 3,
+   "title": "CLEAR THE BEANS"
+  },
+  "gristle: (sweeping beside you) Especially the beans, aye.",
+  {
+   "setFlag": "p13_ord_beans"
+  },
+  {
+   "event": "p13_order"
+  }
+ ],
+ "p13c16.done": [
+  {
+   "setFlag": "p13_orders_said"
+  },
+  "The sail's trimmed. The hull's sound. The cannons are lashed. She's five degrees to port. The deck is clear of beans.",
+  "It's actually, you notice, a very well-run ship right now. The crew did everything you said. Arguing the whole time about who they were. But they did it.",
+  "pete: (to Gristle, low) He's never been more organised.",
+  "gristle: (low) He's never been more MAD.",
+  {
+   "call": "p13c17.begin"
+  }
+ ],
+ "p13c17.begin": [
+  {
+   "setFlag": "p13_ch143_started"
+  },
+  {
+   "banner": "CHAPTER 143",
+   "sub": "Two Brogaths"
+  },
+  "Pete comes up the fore ladder with something flat and life-size under his arm.",
+  "pete: Captain. Captain, look. LOOK. This is Brogath.",
+  "He stands it up on the deck next to the helm: cardboard Brogath, blushing, with Garrick's cable still round his neck.",
+  "pete: THIS is Brogath. He's cardboard. He's printed. And THIS...",
+  "He points at himself.",
+  "pete: ...is Pete. Two different things. One Brogath. One Pete.",
+  {
+   "setFlag": "cardboard_brogath_on_deck"
+  },
+  {
+   "setValue": "standee_brogath",
+   "value": "deck"
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "startQuest": "two_brogaths"
+  },
+  {
+   "tutorial": "Look at them both (cardboard Brogath, and Pete).",
+   "title": "Two Brogaths"
+  }
+ ],
+ "p13c17.look_cardboard": [
+  "Cardboard Brogath. Flat. Printed. A fold-out stand. CHEAP-O-RAMA on the back. Evidence: cardboard.",
+  {
+   "setFlag": "p13_looked_cardboard"
+  },
+  {
+   "event": "p13_brogaths"
+  }
+ ],
+ "p13c17.look_pete": [
+  "Pete. In a sash, in your eyes. And a crown. Blushing.",
+  "pete: Pete.",
+  {
+   "setFlag": "p13_looked_pete"
+  },
+  {
+   "event": "p13_brogaths"
+  }
+ ],
+ "p13c17.logic": [
+  {
+   "setFlag": "p13_brogath_logic_said"
+  },
+  "You look from one to the other. You think about it very hard. You get there.",
+  "captain[determined]: ...So.",
+  "captain[determined]: This one (you point at the cardboard) is Pete.",
+  "pete: No...",
+  "captain[determined]: And THIS one (you point at Pete) is BROGATH.",
+  "pete: NO...",
+  "captain[determined]: Pete has been made of cardboard all along. And Brogath has been HIDING in the crew. As you. That's why he's BASHFUL. It all makes SENSE.",
+  "pete[annoyed]: It makes the OPPOSITE of sense!",
+  "captain: TWO BROGATHS.",
+  "pete[annoyed]: ONE. BROGATH. And he's CARDBOARD.",
+  "squawks[smug]: Two Brogaths.",
+  "pete[annoyed]: SQUAWKS.",
+  "Pete throws up his hands and, to calm down, puts them on the wheel. Just resting on it. Just for a moment.",
+  "captain: ...He's touching the HELM.",
+  "pete: I'm leaning on it.",
+  "captain: BROGATH IS TAKING COMMAND.",
+  {
+   "setFlag": "pete_touched_helm"
+  },
+  {
+   "completeQuest": "two_brogaths"
+  },
+  {
+   "call": "p13c18.begin"
+  }
+ ],
+ "p13c18.begin": [
+  {
+   "setFlag": "p13_ch144_started"
+  },
+  {
+   "banner": "CHAPTER 144",
+   "sub": "Brogath in the Treasure Room"
+  },
+  {
+   "sfx": "treasure_growl",
+   "volume": 1.0
+  },
+  {
+   "shake": 2,
+   "duration": 900
+  },
+  "And from below, from deep in the ship, through the planks, a growl. Long. Low. Old.",
+  "GRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR.",
+  "Everybody stops. Even Pete takes his hands off the wheel.",
+  "captain: ...The treasure room.",
+  "captain: There's ANOTHER ONE. There's a Brogath in the TREASURE ROOM. He's going to blast it AWAY. He's going to blast the rest of my treasure into the STORM.",
+  "And you run. Down the main hatch. Through the galley. Down the stairs. For the treasure-room door.",
+  {
+   "startQuest": "treasure_room_brogath"
+  },
+  {
+   "tutorial": "Get to the treasure room! (Below: the galley, then down the stairs to the hold.)",
+   "title": "Brogath in the Treasure Room"
+  }
+ ],
+ "p13c18.door": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "restage": "cut"
+  },
+  "The treasure-room door. Gristle's DO NOT OPEN, nailed across it. Under it, newer: YES, SERIOUSLY. And under that, in Squawks' clawprint on a bit of crate: BAD CLOUD.",
+  {
+   "sfx": "treasure_growl",
+   "volume": 1.0
+  },
+  {
+   "shake": 2,
+   "duration": 900
+  },
+  "It growls. Right through the door.",
+  "captain[determined]: I'm going in. I'm going to STOP him.",
+  "You get your hand on the handle...",
+  {
+   "setFlag": "p13_crew_chase"
+  },
+  {
+   "restage": "walk"
+  },
+  "gristle: (thundering down the stairs behind you) CAPTAIN, NO.",
+  "...and Gristle has your arm, and Bob has your belt, and Jim has your coat, and Ned has your other arm, and they pull, and you pull, and the door doesn't move, and you don't move.",
+  {
+   "repair": "heave",
+   "strikes": 3,
+   "title": "OPEN IT!"
+  },
+  "You heave. They heave. The door stays shut. Four of them is more than one of you.",
+  {
+   "setFlag": "p13_door_tried"
+  }
+ ],
+ "p13c18.pete": [
+  "Pete comes down the stairs last. He looks at you, straining at the door. He looks at the crew, straining at you.",
+  "He tries one more time. You can see him decide to.",
+  "pete: Captain. There's nobody in there. It's the old cloud. From the first night. It's been in there all along. That's what's growling.",
+  "captain[determined]: It's BROGATH.",
+  "pete[tired]: ...",
+  "He gives up. You see that too. He changes his face. He goes very serious.",
+  "pete: ...Yes. You're right, Captain. Brogath is trapped in there.",
+  "pete: And as long as this door stays SHUT, he can't get out. And he can't blast the treasure away. The door is what's keeping him in. You see?",
+  "You stop pulling.",
+  "captain: ...The door keeps him in.",
+  "pete: The door keeps him in.",
+  "captain[surprised]: Then... nobody opens the door.",
+  "pete: Nobody opens the door. EVER.",
+  "Everybody lets go of you, very slowly. You stand back from the door. You straighten your coat. It's working. It's actually working.",
+  "Then you frown.",
+  "captain: ...Which Brogath?",
+  "pete: What?",
+  "captain: There's one in there. And there's one on deck, cardboard. And there's YOU. Which Brogath is in the treasure room, Pete?",
+  "Pete opens his mouth. Pete closes it. Pete looks at Gristle. Gristle shakes his head, slowly. It's multiplying.",
+  {
+   "setFlag": "treasure_room_brogath_believed"
+  },
+  {
+   "setValue": "treasure_room_state",
+   "value": "sealed_brogath_alleged"
+  },
+  {
+   "completeQuest": "treasure_room_brogath"
+  },
+  {
+   "transition": "main_deck",
+   "spawn": "main_hatch",
+   "then": "p13c19.begin"
+  }
+ ],
+ "p13c19.begin": [
+  {
+   "setFlag": "p13_ch145_started"
+  },
+  {
+   "setVar": "suspension_hours_left",
+   "value": 9
+  },
+  {
+   "banner": "CHAPTER 145",
+   "sub": "The Brogath Command Crisis"
+  },
+  {
+   "music": "brogath_command_crisis",
+   "fade": 600
+  },
+  "Back on deck. The storm going round. You march straight to the helm, where Pete (where BROGATH) was leaning.",
+  "captain[determined]: Brogath.",
+  "pete[tired]: Pete.",
+  "captain[determined]: You laid hands on my helm. That's a challenge for command. I accept. We settle it the way captains settle it.",
+  "pete[tired]: How's that?",
+  "captain[determined]: NAVIGATION. Keep her steady through the storm. Whoever holds the best course is captain.",
+  "pete[tired]: Captain. Steering's literally already your job. You're the captain. Nobody's challenging anything. I just LEANED.",
+  "captain[determined]: Then you won't mind watching me do it, will you, Brogath.",
+  {
+   "startQuest": "command_crisis"
+  },
+  {
+   "tutorial": "Take the helm and hold her steady through the storm (the helm). Three hard gusts. Whatever falls on the deck, it's not your problem.",
+   "title": "The Brogath Command Crisis"
+  }
+ ],
+ "p13c19.helm_1": [
+  {
+   "course": "show",
+   "heading": 0,
+   "target": 0,
+   "label": "HOLD HER STEADY"
+  },
+  {
+   "course": "drift",
+   "to": 14,
+   "duration": 1200
+  },
+  "A gust takes her. She swings off.",
+  {
+   "repair": "helm",
+   "strikes": 3,
+   "title": "BRING HER BACK"
+  },
+  {
+   "course": "drift",
+   "to": 0,
+   "duration": 900
+  },
+  "pete: (behind you, to Gristle) He's good at this.",
+  "captain[determined]: (not turning round) Brogath is taking NOTES.",
+  {
+   "sfx": "token_whistle",
+   "volume": 0.8
+  },
+  "Tok. A token comes down on the binnacle, and another on the deck.",
+  {
+   "insert": "token_vote_brogath",
+   "caption": "VOTE CAPTAIN BROGATH FOR CAPTAIN! MORE SHARK TREASURE FOR EVERYONE! (TREASURE NOT GUARANTEED.)"
+  },
+  "captain[angry]: It's CAMPAIGNING.",
+  {
+   "setFlag": "p13_helm_1"
+  },
+  {
+   "event": "p13_helm"
+  }
+ ],
+ "p13c19.helm_2": [
+  {
+   "course": "drift",
+   "to": -18,
+   "duration": 1200
+  },
+  "Another gust, from the other side.",
+  {
+   "repair": "helm",
+   "strikes": 3,
+   "title": "BRING HER BACK"
+  },
+  {
+   "course": "drift",
+   "to": 0,
+   "duration": 900
+  },
+  {
+   "sfx": "token_whistle",
+   "volume": 0.8
+  },
+  {
+   "insert": "token_vote_stinkbeard",
+   "caption": "STINKBEARD FOR CAPTAIN! NO FARTS! NO BROGATHS! NO FUN!"
+  },
+  "captain[determined]: ...I'd vote for that.",
+  "jim: You'd vote for 'no fun'?",
+  "captain[determined]: I'd vote for no BROGATHS.",
+  {
+   "setFlag": "p13_helm_2"
+  },
+  {
+   "event": "p13_helm"
+  }
+ ],
+ "p13c19.helm_3": [
+  {
+   "course": "drift",
+   "to": 22,
+   "duration": 1200
+  },
+  "The biggest yet. The whole ship heels.",
+  {
+   "repair": "helm",
+   "strikes": 3,
+   "title": "HOLD HER!"
+  },
+  {
+   "course": "drift",
+   "to": 0,
+   "duration": 900
+  },
+  {
+   "sfx": "token_whistle",
+   "volume": 0.8
+  },
+  {
+   "insert": "token_hold_my_sash",
+   "caption": "HOLD MY SASH: A HOSTILE TAKEOVER. TONIGHT: THE GREAT BROGATH DEBATE, ON THE BLING BLING KING SHOW!"
+  },
+  "bob: A DEBATE? On the television?",
+  "pete[tired]: There's no election. There's never been an election. You don't ELECT a captain at sea in a storm.",
+  "squawks[smug]: Do now.",
+  {
+   "course": "hide"
+  },
+  {
+   "setFlag": "p13_helm_3"
+  },
+  {
+   "event": "p13_helm"
+  }
+ ],
+ "p13c19.end": [
+  {
+   "setFlag": "p13_end_said"
+  },
+  {
+   "sfx": "treasure_growl",
+   "volume": 1.0
+  },
+  {
+   "shake": 2,
+   "duration": 900
+  },
+  "And from below, one more time, the treasure-room growl. Long, low, old, through every plank of the ship.",
+  "GRRRRRRRRRRRRRRRRRRRRRRRR.",
+  "captain: THE THIRD BROGATH.",
+  "garrick: (coming up the ladder, quietly, hands up) Captain. Captain, listen to me. That one's not Brogath.",
+  "garrick: That growl is mine. From the treasure room. The very first night. That's MY old fart, Captain. It's been in there ever since. It's been growling down there for a month. It's... it's a sort of a pet now.",
+  "Silence on deck.",
+  "You look at him. Garrick. Just Garrick, in a burgundy suit, with flat hair, telling you the truth.",
+  "For one moment, the purple goes out of the edges of things. The deck is the deck. The storm is the storm. Garrick is Garrick.",
+  "captain: ...Your old fart.",
+  "garrick: My old fart.",
+  "captain: ...In the treasure room. Not Brogath.",
+  "garrick: Not Brogath.",
+  "captain[surprised]: ...Right. Right. That makes sense. That makes SENSE.",
+  "Everybody breathes out. Pete actually sits down on the deck.",
+  "captain: (nodding slowly) Your old fart. In the treasure room.",
+  "captain[determined]: But Pete is still Brogath.",
+  "pete[annoyed]: (from the deck, to the sky) WHY DO WE KEEP LOSING PROGRESS?",
+  {
+   "sfx": "token_whistle",
+   "volume": 0.8
+  },
+  "Tok. One more token lands at his feet. He doesn't pick it up. Squawks does.",
+  {
+   "insert": "token_debate",
+   "caption": "TONIGHT: THE GREAT BROGATH DEBATE. CAPTAIN v. BROGATH v. BROGATH v. BROGATH. SPONSORED BY CHEAP-O-RAMA."
+  },
+  "squawks[smug]: Tonight.",
+  {
+   "setFlag": "brogath_command_crisis"
+  },
+  {
+   "setFlag": "p13_complete"
+  },
+  {
+   "completeQuest": "command_crisis"
+  },
+  {
+   "wait": 500
+  },
+  {
+   "tutorial": "The Revenge is still inside the Great Sharkstorm. Garrick is still suspended (about nine hours to go). The sash is in your wardrobe. The treasure room is sealed. And Pete, in your eyes, is still Brogath. (Story Phase 13 is complete.)",
+   "title": "The Brogath Command Crisis"
+  }
+ ]
+}

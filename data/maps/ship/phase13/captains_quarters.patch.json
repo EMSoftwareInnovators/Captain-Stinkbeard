@@ -1,0 +1,29 @@
+{
+ "id": "captains_quarters_phase13",
+ "patch": "captains_quarters",
+ "//": "Story Phase 13 in the captain's cabin: the wardrobe (3,4), opened once (128). The sash stays in it, behind the good coat; the coats are changing colour at the hems.",
+ "objects": [
+  {
+   "id": "p13_wardrobe",
+   "type": "inspect",
+   "x": 3,
+   "y": 4,
+   "w": 2,
+   "if": {
+    "objectiveActive": "sash_in_the_trash.wardrobe"
+   },
+   "script": "p13c2.wardrobe"
+  },
+  {
+   "id": "p13_wardrobe_look",
+   "type": "inspect",
+   "x": 3,
+   "y": 4,
+   "w": 2,
+   "if": {
+    "flag": "p13_wardrobe_opened"
+   },
+   "script": "p13.inspect.wardrobe"
+  }
+ ]
+}

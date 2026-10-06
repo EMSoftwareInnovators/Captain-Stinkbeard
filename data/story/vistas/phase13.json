@@ -1,0 +1,67 @@
+{
+ "//": "Story Phase 13 vistas: the bedroom set on its barrel table in the red sash quarters, seen over the crew's shoulders (sash hammocks, pennants, a cardboard Stenchmaster or two at the edge of the light).",
+ "quarters_watch": {
+  "sky": "inside",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "bg",
+    "frame": "quarters_red_0",
+    "x": 160,
+    "y": 224,
+    "depth": 2,
+    "frames": [
+     "quarters_red_0",
+     "quarters_red_1"
+    ],
+    "frameMs": 900
+   },
+   {
+    "id": "screen",
+    "frame": "sc_logo_0",
+    "x": 160,
+    "y": 132,
+    "depth": 10,
+    "scale": 0.5,
+    "frames": [
+     "sc_logo_0",
+     "sc_logo_1"
+    ],
+    "frameMs": 500
+   },
+   {
+    "id": "scan",
+    "frame": "tv_scan",
+    "x": 160,
+    "y": 132,
+    "depth": 11,
+    "alpha": 0.5,
+    "scale": 0.5
+   },
+   {
+    "id": "glare",
+    "frame": "tv_glare",
+    "x": 160,
+    "y": 132,
+    "depth": 12,
+    "scale": 0.5
+   },
+   {
+    "id": "set",
+    "frame": "kit_bezel",
+    "x": 160,
+    "y": 154,
+    "depth": 13,
+    "scale": 0.5
+   },
+   {
+    "id": "crew",
+    "frame": "crew_backs_sash",
+    "x": 160,
+    "y": 240,
+    "depth": 18
+   }
+  ]
+ }
+}

@@ -1,0 +1,311 @@
+{
+ "stenchmaster_channel": {
+  "title": "The Stenchmaster Channel",
+  "//": "Story Phase 13: a channel that came with a kit for ages eight and up. Twenty-four hours of 'history', narrated with total seriousness: everything on it is Garrick's legends, dramatised, sponsored and somehow worse. Being on television makes none of it true. Beats with 'aroma' come out of the bedroom set's smell vent (Stench-O-Vision) while it's open.",
+  "laugh": "ftm_laugh",
+  "episodes": [
+   {
+    "id": "stenchalina_disaster",
+    "if": {
+     "flag": "stenchmaster_channel_unlocked"
+    },
+    "//": "Chapter 135: Princess Stenchalina's First Grand Disaster (the castle of onions, the First Royal Waft, the ribbon that fluttered), with a runtime clock that never stops.",
+    "beats": [
+     {
+      "frames": [
+       "sc_logo_0",
+       "sc_logo_1"
+      ],
+      "line": "channel_narrator: THE STENCHMASTER CHANNEL. Twenty-four hours of Ancient Stenchmaster history. Tonight: a Grand Disaster.",
+      "ms": 3400,
+      "sfx": "sc_sting",
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "sc_cradle_0",
+       "sc_cradle_1"
+      ],
+      "line": "channel_narrator: Long ago, in a castle made entirely of onions, a princess was born.",
+      "ms": 3200,
+      "frameMs": 700
+     },
+     {
+      "frames": [
+       "sc_cradle_0",
+       "sc_cradle_1"
+      ],
+      "line": "channel_narrator: Princess Stenchalina. The very first Grand Stenchmaster. Aged eleven months.",
+      "ms": 3200,
+      "frameMs": 700
+     },
+     {
+      "frames": [
+       "sc_castle_0",
+       "sc_castle_1"
+      ],
+      "line": "channel_narrator: Onion walls. Onion towers. An onion moat. Historians agree it was a terrible idea.",
+      "ms": 3600,
+      "frameMs": 800,
+      "aroma": true
+     },
+     {
+      "frames": [
+       "sc_castle_0",
+       "sc_castle_1"
+      ],
+      "line": "channel_narrator: Garlic gardens. Cheese cellars. A royal nursery that nobody entered without a hat.",
+      "ms": 3400,
+      "frameMs": 800,
+      "aroma": true
+     },
+     {
+      "frames": [
+       "sc_cradle_0",
+       "sc_cradle_1"
+      ],
+      "line": "channel_narrator: At her christening the whole court came to watch. She wore the royal ribbon. She raised her tiny fist.",
+      "ms": 3600,
+      "frameMs": 700
+     },
+     {
+      "frames": [
+       "sc_waft_0",
+       "sc_waft_1"
+      ],
+      "line": "channel_narrator: And then... THE FIRST ROYAL WAFT.",
+      "ms": 2800,
+      "sfx": "sc_rumble",
+      "frameMs": 200,
+      "aroma": true
+     },
+     {
+      "frames": [
+       "sc_waft_0",
+       "sc_waft_1"
+      ],
+      "line": "channel_narrator: The palace shook. The royal trousers left by the nursery window. The servants ran. The onion towers wilted.",
+      "ms": 3800,
+      "frameMs": 300,
+      "aroma": true
+     },
+     {
+      "frames": [
+       "sc_flutter_0",
+       "sc_flutter_1"
+      ],
+      "line": "channel_narrator: And the ribbon... FLUTTERED.",
+      "ms": 2800,
+      "sfx": "sash_flap_small",
+      "frameMs": 250
+     },
+     {
+      "frames": [
+       "sc_flutter_0",
+       "sc_flutter_1"
+      ],
+      "line": "channel_narrator: The court gasped. A courtier fainted into the moat. It was an onion moat. He was never the same.",
+      "ms": 4000,
+      "laugh": true,
+      "frameMs": 300,
+      "aroma": true
+     },
+     {
+      "frames": [
+       "sc_runtime_0",
+       "sc_runtime_1"
+      ],
+      "line": "channel_narrator: Historians record that the Disaster continued for some time.",
+      "ms": 3000,
+      "frameMs": 500,
+      "aroma": true
+     },
+     {
+      "frames": [
+       "sc_runtime_0",
+       "sc_runtime_1"
+      ],
+      "line": "channel_narrator: Some say it is still going on today, somewhere, very quietly.",
+      "ms": 3200,
+      "frameMs": 500,
+      "aroma": true
+     },
+     {
+      "frames": [
+       "sc_logo_0",
+       "sc_logo_1"
+      ],
+      "line": "channel_narrator: Coming up at four: BROGATH. Poor in Gold, Rich in Gas. Stay tuned. You can't change the channel anyway.",
+      "ms": 3600,
+      "sfx": "sc_sting",
+      "frameMs": 500
+     }
+    ]
+   },
+   {
+    "id": "brogath_special",
+    "if": {
+     "flag": "p13_ch137_started"
+    },
+    "//": "Chapter 137: the Brogath special. The treasure, three minutes of digging, no sash holders (too bashful to ask), one blast, a storm of sharks wearing it, and a sponsor. It is exactly what happened to the Revenge, and it is sponsored by the shark that has the treasure.",
+    "beats": [
+     {
+      "frames": [
+       "sc_logo_0",
+       "sc_logo_1"
+      ],
+      "line": "channel_narrator: THE STENCHMASTER CHANNEL PRESENTS: a special.",
+      "ms": 2800,
+      "sfx": "sc_sting",
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "sc_brogath_0",
+       "sc_brogath_1"
+      ],
+      "line": "channel_narrator: BROGATH THE BASHFUL. Poor in Gold. Rich in Gas.",
+      "ms": 3000,
+      "frameMs": 700
+     },
+     {
+      "frames": [
+       "sc_treasure_0",
+       "sc_treasure_1"
+      ],
+      "line": "channel_narrator: He had a treasure. The biggest there ever was. Chests. Crowns. A golden statue of himself, blushing.",
+      "ms": 3600,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "sc_dig_0",
+       "sc_dig_1"
+      ],
+      "line": "channel_narrator: Buried deep. Absurdly deep. So he dug.",
+      "ms": 2800,
+      "sfx": "dig_thud",
+      "frameMs": 400
+     },
+     {
+      "frames": [
+       "sc_dig_0",
+       "sc_dig_1"
+      ],
+      "line": "channel_narrator: He dug for one minute. Two minutes. THREE minutes.",
+      "ms": 3000,
+      "frameMs": 400
+     },
+     {
+      "frames": [
+       "sc_dig_0",
+       "sc_dig_1"
+      ],
+      "line": "channel_narrator: And then he was very, very tired.",
+      "ms": 2800,
+      "laugh": true,
+      "frameMs": 900
+     },
+     {
+      "frames": [
+       "sc_brogath_sash_0",
+       "sc_brogath_sash_1"
+      ],
+      "line": "channel_narrator: So he turned to the ancient method. Stenchmaster Excavation. Sash out. Rear to the hole.",
+      "ms": 3400,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "sc_brogath_sash_0",
+       "sc_brogath_sash_1"
+      ],
+      "line": "channel_narrator: But he had no sash holders. He was far too bashful to ASK anybody.",
+      "ms": 3200,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "sc_brogath_0",
+       "sc_brogath_1"
+      ],
+      "line": "channel_narrator: So he held both ends himself. Blushing.",
+      "ms": 3000,
+      "laugh": true,
+      "frameMs": 700
+     },
+     {
+      "frames": [
+       "sc_blast_0",
+       "sc_blast_1"
+      ],
+      "line": "channel_narrator: One mighty blast.",
+      "ms": 2600,
+      "sfx": "sc_rumble",
+      "frameMs": 200,
+      "aroma": true
+     },
+     {
+      "frames": [
+       "sc_blast_0",
+       "sc_blast_1"
+      ],
+      "line": "channel_narrator: Up went the treasure. Up, into a storm. A storm made of SHARKS.",
+      "ms": 3200,
+      "frameMs": 300,
+      "aroma": true
+     },
+     {
+      "frames": [
+       "sc_sharks_0",
+       "sc_sharks_1"
+      ],
+      "line": "channel_narrator: The sharks wore the treasure. The biggest shark wore the crown. On a chain.",
+      "ms": 3400,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "sc_sob_0",
+       "sc_sob_1"
+      ],
+      "line": "channel_narrator: And Brogath sat in his hole, with his sash.",
+      "ms": 2800,
+      "frameMs": 800
+     },
+     {
+      "frames": [
+       "sc_sob_0",
+       "sc_sob_1"
+      ],
+      "line": "channel_narrator: POOR. IN. GOLD. RICH. IN. GAS.",
+      "ms": 2800,
+      "sfx": "sc_sting",
+      "frameMs": 800,
+      "aroma": true
+     },
+     {
+      "frames": [
+       "sc_sponsor_0",
+       "sc_sponsor_1"
+      ],
+      "line": "channel_narrator: This programme was brought to you by THE BLING BLING KING. Wear it well.",
+      "ms": 3400,
+      "sfx": "bling_chime",
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "sc_sponsor_0",
+       "sc_sponsor_1"
+      ],
+      "line": "channel_narrator: Cheap-O-Rama Discount Emporium: proud supplier of Brogath merchandise. While stocks last.",
+      "ms": 3400,
+      "sfx": "cheapo_jingle",
+      "frameMs": 500
+     }
+    ]
+   }
+  ]
+ }
+}

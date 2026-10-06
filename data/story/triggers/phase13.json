@@ -1,0 +1,234 @@
+[
+ {
+  "id": "p13_ready",
+  "//": "Phase 13 begins after Phase 12: a one-time hint (go and see Garrick).",
+  "if": {
+   "all": [
+    {
+     "flag": "p12_complete"
+    },
+    {
+     "notFlag": "p13_ready_hint"
+    },
+    {
+     "notFlag": "p13_started"
+    }
+   ]
+  },
+  "script": "p13.ready_hint",
+  "once": false
+ },
+ {
+  "id": "p13_loopholes",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "finger_breakdown.loopholes"
+    },
+    {
+     "notFlag": "loopholes_refused"
+    }
+   ]
+  },
+  "script": "p13c1.done",
+  "once": false
+ },
+ {
+  "id": "p13_judged",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "condemn_bedding.judge"
+    },
+    {
+     "notFlag": "bedding_piled"
+    }
+   ]
+  },
+  "script": "p13c4.pile",
+  "once": false
+ },
+ {
+  "id": "p13_bedding",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "grand_bedding.bedding"
+    },
+    {
+     "notFlag": "sash_bedding_built"
+    }
+   ]
+  },
+  "script": "p13c5.done",
+  "once": false
+ },
+ {
+  "id": "p13_standees",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "fan_megapack.place"
+    },
+    {
+     "notFlag": "p13_standees_said"
+    }
+   ]
+  },
+  "script": "p13c6.placed",
+  "once": false
+ },
+ {
+  "id": "p13_parts",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "build_your_own_ses.parts"
+    },
+    {
+     "notFlag": "p13_parts_said"
+    }
+   ]
+  },
+  "script": "p13c7.parts",
+  "once": false
+ },
+ {
+  "id": "p13_rant",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "the_limit.rant"
+    },
+    {
+     "notFlag": "p13_rant_said"
+    }
+   ]
+  },
+  "script": "p13c12.done",
+  "once": false
+ },
+ {
+  "id": "p13_met",
+  "//": "Chapter 140: every Ancient Stenchmaster met.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "ancient_stenchmasters.brogath"
+    },
+    {
+     "objectiveDone": "ancient_stenchmasters.rumpold"
+    },
+    {
+     "objectiveDone": "ancient_stenchmasters.rumpus"
+    },
+    {
+     "objectiveDone": "ancient_stenchmasters.gustavio"
+    },
+    {
+     "objectiveDone": "ancient_stenchmasters.stenchalina"
+    },
+    {
+     "objectiveDone": "ancient_stenchmasters.prime"
+    },
+    {
+     "notFlag": "p13_met_said"
+    }
+   ]
+  },
+  "script": "p13c14.done",
+  "once": false
+ },
+ {
+  "id": "p13_disarmed",
+  "//": "Chapter 141: everything disarmed; then every sash flutters.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "disarm_stenchmasters.beans"
+    },
+    {
+     "objectiveDone": "disarm_stenchmasters.grog"
+    },
+    {
+     "objectiveDone": "disarm_stenchmasters.sauce"
+    },
+    {
+     "objectiveDone": "disarm_stenchmasters.fingers"
+    },
+    {
+     "objectiveDone": "disarm_stenchmasters.fabric"
+    },
+    {
+     "objectiveDone": "disarm_stenchmasters.still"
+    },
+    {
+     "objectiveDone": "disarm_stenchmasters.rear"
+    },
+    {
+     "notFlag": "p13_disarm_said"
+    }
+   ]
+  },
+  "script": "p13c15.done",
+  "once": false
+ },
+ {
+  "id": "p13_orders",
+  "//": "Chapter 142: every order done.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "stenchmaster_apocalypse.sail"
+    },
+    {
+     "objectiveDone": "stenchmaster_apocalypse.hull"
+    },
+    {
+     "objectiveDone": "stenchmaster_apocalypse.cannons"
+    },
+    {
+     "objectiveDone": "stenchmaster_apocalypse.helm"
+    },
+    {
+     "objectiveDone": "stenchmaster_apocalypse.beans"
+    },
+    {
+     "notFlag": "p13_orders_said"
+    }
+   ]
+  },
+  "script": "p13c16.done",
+  "once": false
+ },
+ {
+  "id": "p13_brogaths",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "two_brogaths.look"
+    },
+    {
+     "notFlag": "p13_brogath_logic_said"
+    }
+   ]
+  },
+  "script": "p13c17.logic",
+  "once": false
+ },
+ {
+  "id": "p13_helm",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "command_crisis.helm"
+    },
+    {
+     "notFlag": "p13_end_said"
+    }
+   ]
+  },
+  "script": "p13c19.end",
+  "once": false
+ }
+]

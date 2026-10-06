@@ -1,0 +1,186 @@
+{
+ "//": "Story Phase 13: more sources, no more truth. Reliability: somehow worse.",
+ "garrick_legends_p13": {
+  "extend": "garrick_legends",
+  "severities": {
+   "Somehow worse": "r"
+  },
+  "entries": [
+   {
+    "id": "brogath",
+    "variants": [
+     {
+      "if": {
+       "flag": "stinkbeard_delirium"
+      },
+      "source": "Garrick; the Cheap-O-Rama pocket booklet; the Stenchmaster Channel (sponsored by the Bling Bling King)",
+      "evidence": "None. Three sources, and every one of them is him, one way or another",
+      "verified": "None",
+      "reliability": "Somehow worse",
+      "note": "He's HERE. He's been on my ship all along, pretending to be Pete. (Captain.) / He has NOT. It's me. PETE. I've got a peg leg. Brogath didn't have a peg leg. (Pete, in the margin.)"
+     },
+     {
+      "if": {
+       "flag": "brogath_programme_seen"
+      },
+      "source": "Garrick; the Cheap-O-Rama pocket booklet; the Stenchmaster Channel (sponsored by the Bling Bling King)",
+      "evidence": "None. Now on television. With a sponsor",
+      "verified": "None",
+      "reliability": "Somehow worse",
+      "note": "A special. Three minutes of digging, no sash holders, one blast, a storm of sharks wearing it. Brought to you by the shark that has OUR treasure. Being on television doesn't make it true. It makes it worse."
+     }
+    ]
+   },
+   {
+    "id": "channel",
+    "title": "The Stenchmaster Channel",
+    "if": {
+     "flag": "stenchmaster_channel_unlocked"
+    },
+    "claim": "Twenty-four hours a day of Ancient Stenchmaster history, narrated, now in Stench-O-Vision. Princess Stenchalina's First Grand Disaster (still running). Brogath: Poor in Gold, Rich in Gas.",
+    "source": "A Build-Your-Own S.E.S. kit (ages eight and up), a cable that goes round a cannon, and the Mark II's sauce can",
+    "evidence": "A television built out of a kit, three of Jim's forks, Sully's horseshoe, a copper coil and a transformer that hums",
+    "verified": "It's on television. That isn't the same thing",
+    "reliability": "Somehow worse",
+    "note": "The set has a smell vent. Nobody asked for a smell vent. I shut it. The smell that was already out stayed."
+   }
+  ]
+ },
+ "garrick_history_p13": {
+  "extend": "garrick_history",
+  "entries": [
+   {
+    "id": "stenchalina",
+    "variants": [
+     {
+      "if": {
+       "flag": "stenchalina_programme_seen"
+      },
+      "evidence": "A television programme, narrated, in Stench-O-Vision: the castle of onions, the First Royal Waft, the ribbon. A runtime clock in the corner that never stopped",
+      "note": "It's on the Channel now. The castle was made of ONIONS. Ned has been saying so for weeks. Nobody listened to Ned. The Disaster is still running, apparently. Somewhere. Very quietly."
+     }
+    ]
+   }
+  ]
+ },
+ "bbk_trash_p13": {
+  "extend": "bbk_trash",
+  "entries": [
+   {
+    "id": "pillow_tag",
+    "title": "The Returned Pillow",
+    "if": {
+     "flag": "pillow_returned_with_tag"
+    },
+    "insert": "pillow_tag",
+    "caption": "NO THANKS. RETURN TO SENDER. TOO STINKY.",
+    "printed": "NO THANKS. RETURN TO SENDER. TOO STINKY. (On a participation medal, pinned through a pillow.)",
+    "arrived": "Thrown back over the port rail, twice: the second time precisely, at my feet",
+    "value": "One pillow (mrrrow)",
+    "verdict": "Rejected. By weather."
+   },
+   {
+    "id": "smell",
+    "title": "The Smell Complaint",
+    "if": {
+     "flag": "p13_smell_tokens_down"
+    },
+    "insert": "token_smell",
+    "caption": "SMELL COMPLAINT: WHATEVER THAT IS, TURN IT OFF.",
+    "printed": "SMELL COMPLAINT: WHATEVER THAT IS, TURN IT OFF. - YOUR NEIGHBOURS (THE STORM). / NOISE COMPLAINT (AGAIN): THE HUMMING.",
+    "arrived": "Down the old quarters' ladder hatch, the moment the bedroom set started to smell",
+    "value": "None",
+    "verdict": "Even the weather has standards. It's right, which is the worst part."
+   },
+   {
+    "id": "campaign",
+    "title": "The Campaign",
+    "if": {
+     "flag": "p13_helm_1"
+    },
+    "insert": "token_vote_brogath",
+    "caption": "VOTE CAPTAIN BROGATH FOR CAPTAIN!",
+    "printed": "VOTE CAPTAIN BROGATH FOR CAPTAIN! MORE SHARK TREASURE FOR EVERYONE! (TREASURE NOT GUARANTEED.) / STINKBEARD FOR CAPTAIN! NO FARTS! NO BROGATHS! NO FUN! / HOLD MY SASH: A HOSTILE TAKEOVER. / TONIGHT: THE GREAT BROGATH DEBATE. SPONSORED BY CHEAP-O-RAMA.",
+    "arrived": "On the binnacle and the deck, one per gust, while I held her steady",
+    "value": "None",
+    "verdict": "There is no election. You don't elect a captain at sea, in a storm. (Pete.) It's campaigning anyway."
+   }
+  ]
+ },
+ "captains_journal_p13": {
+  "extend": "captains_journal",
+  "severities": {
+   "SUSPENDED": "o",
+   "REBUILT (IN SASHES)": "y",
+   "UNCONFIRMED": "o"
+  },
+  "entries": [
+   {
+    "id": "suspension",
+    "variants": [
+     {
+      "if": {
+       "flag": "p13_complete"
+      },
+      "notes": "About nine hours left. He hasn't let a single one go. Five loopholes, all no. He came up the ladder in a burgundy suit and told me the truth about the treasure-room growl. I believed him, for a moment. The sash is still in my wardrobe. So is the song."
+     }
+    ]
+   },
+   {
+    "id": "quarters",
+    "title": "The Old Quarters",
+    "if": {
+     "flag": "sash_bedding_built"
+    },
+    "status": "REBUILT (IN SASHES)",
+    "where": "Below the galley, through the old door (and the fore hatch)",
+    "holder": "The crew, in sash hammocks",
+    "notes": "Opened. It growled. Judged, piled, thrown into the storm, sent back FOLDED. Locked in the linen locker and nailed shut: DO NOT OPEN. IT GROWLS. Remade in two hundred and ninety toy sashes. It looks like the inside of his head. Everybody sleeps better. I hate it.",
+    "variants": [
+     {
+      "if": {
+       "flag": "standees_placed"
+      },
+      "notes": "Remade in toy sashes, and now a gift shop: pennants, mugs, a Bean Bailiff badge, and five cardboard Ancient Stenchmasters where I put them. A second television on the barrel table. It smells. (Not any more. I shut it.)"
+     }
+    ]
+   },
+   {
+    "id": "brogath",
+    "title": "Brogath (Sightings)",
+    "if": {
+     "flag": "stinkbeard_delirium"
+    },
+    "status": "UNCONFIRMED",
+    "where": "In the old quarters. Wearing Pete.",
+    "holder": "Unknown (allegedly: Pete)",
+    "notes": "I breathed it. Through my beard. All of it. Then I looked at Pete and Pete wasn't Pete. (Pete, in the margin: I AM PETE.)",
+    "variants": [
+     {
+      "if": {
+       "flag": "brogath_command_crisis"
+      },
+      "where": "On deck (Pete). On deck (cardboard). In the treasure room (alleged, behind the door).",
+      "holder": "Unknown. Possibly several.",
+      "notes": "He touched the helm. I held her steady through three gusts and a campaign. The treasure-room growl, Garrick says, is his OLD fart, from the first night. I understood that. For a moment. Pete is still Brogath. (Pete, in the margin, very large: WHY DO WE KEEP LOSING PROGRESS?)"
+     },
+     {
+      "if": {
+       "flag": "treasure_room_brogath_believed"
+      },
+      "where": "On deck (Pete). On deck (cardboard). In the treasure room (behind the door).",
+      "holder": "Unknown. Possibly several.",
+      "notes": "There's one in the treasure room. Pete agrees: as long as the door stays shut, he can't blast the treasure away. But WHICH Brogath? (Pete, in the margin: there's NONE.)"
+     },
+     {
+      "if": {
+       "flag": "cardboard_brogath_on_deck"
+      },
+      "where": "On deck. Two of them.",
+      "notes": "Pete brought the cardboard one up to prove a point. So: the cardboard one is Pete, and Pete is Brogath. It makes sense. (Pete, in the margin: it makes the OPPOSITE of sense.)"
+     }
+    ]
+   }
+  ]
+ }
+}

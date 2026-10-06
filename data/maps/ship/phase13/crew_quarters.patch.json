@@ -1,0 +1,2329 @@
+{
+ "id": "crew_quarters_phase13",
+ "patch": "crew_quarters",
+ "//": "Story Phase 13: the old sleeping quarters, reopened (chapter 129). The bedding as the crew left it, yellowed and growling (the kitten-roar pillow on the starboard cot, 16,6); judged, piled (11,8), thrown into the storm and sent back folded; stuffed into the linen locker in the north wall (11,3) and nailed shut (DO NOT OPEN. IT GROWLS.). Then remade in toy sashes (131). The Fan Mega-Pack (12,8, 132) and five cardboard Ancient Stenchmasters on decor slots (the player chooses each one's spot; saved as story values). The Build-Your-Own S.E.S. on the barrel table (10,6, 133): the cable runs from it to the ladder; Stench-O-Vision's vent makes a small, mild fume source round it (9-11, 5-7) while it's open. The rant (138); the delirium (139-141): a sack of beans by the door (9,5), a cask of Frog Grog (16,12), the sauce on the shelf (5,3). The haze and the Phase 8 cloud lift once the bedding's out; the locker keeps growling.",
+ "objects": [
+  {
+   "id": "p13_pillow",
+   "type": "inspect",
+   "x": 16,
+   "y": 6,
+   "h": 2,
+   "if": {
+    "objectiveActive": "quarters_alive.pillow"
+   },
+   "script": "p13c3.pillow"
+  },
+  {
+   "id": "p13_judge_sheets",
+   "type": "inspect",
+   "x": 16,
+   "y": 9,
+   "h": 2,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "condemn_bedding.judge"
+     },
+     {
+      "notFlag": "p13_judged_sheets"
+     }
+    ]
+   },
+   "script": "p13c4.judge_sheets"
+  },
+  {
+   "id": "p13_judge_blankets",
+   "type": "inspect",
+   "x": 16,
+   "y": 6,
+   "h": 2,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "condemn_bedding.judge"
+     },
+     {
+      "notFlag": "p13_judged_blankets"
+     }
+    ]
+   },
+   "script": "p13c4.judge_blankets"
+  },
+  {
+   "id": "p13_judge_pillows",
+   "type": "inspect",
+   "x": 5,
+   "y": 10,
+   "w": 3,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "condemn_bedding.judge"
+     },
+     {
+      "notFlag": "p13_judged_pillows"
+     }
+    ]
+   },
+   "script": "p13c4.judge_pillows"
+  },
+  {
+   "id": "p13_judge_pillowcases",
+   "type": "inspect",
+   "x": 4,
+   "y": 8,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "condemn_bedding.judge"
+     },
+     {
+      "notFlag": "p13_judged_pillowcases"
+     }
+    ]
+   },
+   "script": "p13c4.judge_pillowcases"
+  },
+  {
+   "id": "p13_judge_mattress",
+   "type": "inspect",
+   "x": 5,
+   "y": 6,
+   "w": 3,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "condemn_bedding.judge"
+     },
+     {
+      "notFlag": "p13_judged_mattress"
+     }
+    ]
+   },
+   "script": "p13c4.judge_mattress"
+  },
+  {
+   "id": "p13_judge_hammock",
+   "type": "inspect",
+   "x": 1,
+   "y": 11,
+   "w": 3,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "condemn_bedding.judge"
+     },
+     {
+      "notFlag": "p13_judged_hammock"
+     }
+    ]
+   },
+   "script": "p13c4.judge_hammock"
+  },
+  {
+   "id": "p13_pile",
+   "type": "inspect",
+   "x": 11,
+   "y": 8,
+   "w": 2,
+   "if": {
+    "objectiveActive": "condemn_bedding.discard"
+   },
+   "script": "p13c4.discard"
+  },
+  {
+   "id": "p13_locker_stuff",
+   "type": "inspect",
+   "x": 11,
+   "y": 3,
+   "if": {
+    "objectiveActive": "condemn_bedding.stuff"
+   },
+   "script": "p13c4.stuff"
+  },
+  {
+   "id": "p13_locker_nail",
+   "type": "inspect",
+   "x": 11,
+   "y": 3,
+   "if": {
+    "objectiveActive": "condemn_bedding.nail"
+   },
+   "script": "p13c4.nail"
+  },
+  {
+   "id": "p13_bed_hammocks",
+   "type": "inspect",
+   "x": 1,
+   "y": 11,
+   "w": 3,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "grand_bedding.bedding"
+     },
+     {
+      "notFlag": "p13_bedding_hammocks"
+     }
+    ]
+   },
+   "script": "p13c5.hammocks"
+  },
+  {
+   "id": "p13_bed_pads",
+   "type": "inspect",
+   "x": 16,
+   "y": 9,
+   "h": 2,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "grand_bedding.bedding"
+     },
+     {
+      "notFlag": "p13_bedding_pads"
+     }
+    ]
+   },
+   "script": "p13c5.pads"
+  },
+  {
+   "id": "p13_bed_pillows",
+   "type": "inspect",
+   "x": 5,
+   "y": 10,
+   "w": 3,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "grand_bedding.bedding"
+     },
+     {
+      "notFlag": "p13_bedding_pillows"
+     }
+    ]
+   },
+   "script": "p13c5.pillows"
+  },
+  {
+   "id": "p13_bed_blankets",
+   "type": "inspect",
+   "x": 5,
+   "y": 6,
+   "w": 3,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "grand_bedding.bedding"
+     },
+     {
+      "notFlag": "p13_bedding_blankets"
+     }
+    ]
+   },
+   "script": "p13c5.blankets"
+  },
+  {
+   "id": "p13_bed_corners",
+   "type": "inspect",
+   "x": 1,
+   "y": 8,
+   "w": 3,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "grand_bedding.bedding"
+     },
+     {
+      "notFlag": "p13_bedding_corners"
+     }
+    ]
+   },
+   "script": "p13c5.corners"
+  },
+  {
+   "id": "p13_megapack_open",
+   "type": "inspect",
+   "x": 12,
+   "y": 8,
+   "w": 2,
+   "if": {
+    "objectiveActive": "fan_megapack.open"
+   },
+   "script": "p13c6.open"
+  },
+  {
+   "id": "p13_megapack_place",
+   "type": "inspect",
+   "x": 12,
+   "y": 8,
+   "w": 2,
+   "if": {
+    "objectiveActive": "fan_megapack.place"
+   },
+   "script": "p13c6.place"
+  },
+  {
+   "id": "p13_kit_build",
+   "type": "inspect",
+   "x": 10,
+   "y": 6,
+   "if": {
+    "objectiveActive": "build_your_own_ses.build"
+   },
+   "script": "p13c7.build"
+  },
+  {
+   "id": "p13_channel_watch",
+   "type": "inspect",
+   "x": 10,
+   "y": 6,
+   "if": {
+    "objectiveActive": "stenchmaster_channel.watch"
+   },
+   "script": "p13c9.watch"
+  },
+  {
+   "id": "p13_vent_knobs",
+   "type": "inspect",
+   "x": 10,
+   "y": 6,
+   "if": {
+    "objectiveActive": "stench_o_vision.vent"
+   },
+   "script": "p13c10.knobs"
+  },
+  {
+   "id": "p13_special_watch",
+   "type": "inspect",
+   "x": 10,
+   "y": 6,
+   "if": {
+    "objectiveActive": "brogath_special.watch"
+   },
+   "script": "p13c11.watch"
+  },
+  {
+   "id": "p13_cable_brogath_port",
+   "type": "inspect",
+   "x": 1,
+   "y": 4,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "wire_the_systems.brogath"
+     },
+     {
+      "value": {
+       "name": "standee_brogath",
+       "eq": "port"
+      }
+     }
+    ]
+   },
+   "script": "p13c8.brogath"
+  },
+  {
+   "id": "p13_cable_brogath_starboard",
+   "type": "inspect",
+   "x": 14,
+   "y": 4,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "wire_the_systems.brogath"
+     },
+     {
+      "value": {
+       "name": "standee_brogath",
+       "eq": "starboard"
+      }
+     }
+    ]
+   },
+   "script": "p13c8.brogath"
+  },
+  {
+   "id": "p13_rant_stenchalina_cots",
+   "type": "inspect",
+   "x": 14,
+   "y": 9,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_limit.rant"
+     },
+     {
+      "notFlag": "p13_rant_standees"
+     },
+     {
+      "value": {
+       "name": "standee_stenchalina",
+       "eq": "cots"
+      }
+     }
+    ]
+   },
+   "script": "p13c12.rant_standees"
+  },
+  {
+   "id": "p13_rant_stenchalina_hammocks",
+   "type": "inspect",
+   "x": 2,
+   "y": 9,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_limit.rant"
+     },
+     {
+      "notFlag": "p13_rant_standees"
+     },
+     {
+      "value": {
+       "name": "standee_stenchalina",
+       "eq": "hammocks"
+      }
+     }
+    ]
+   },
+   "script": "p13c12.rant_standees"
+  },
+  {
+   "id": "p13_rant_brogath_port",
+   "type": "inspect",
+   "x": 1,
+   "y": 4,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_limit.rant"
+     },
+     {
+      "notFlag": "p13_rant_standees"
+     },
+     {
+      "value": {
+       "name": "standee_brogath",
+       "eq": "port"
+      }
+     }
+    ]
+   },
+   "script": "p13c12.rant_standees"
+  },
+  {
+   "id": "p13_rant_brogath_starboard",
+   "type": "inspect",
+   "x": 14,
+   "y": 4,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_limit.rant"
+     },
+     {
+      "notFlag": "p13_rant_standees"
+     },
+     {
+      "value": {
+       "name": "standee_brogath",
+       "eq": "starboard"
+      }
+     }
+    ]
+   },
+   "script": "p13c12.rant_standees"
+  },
+  {
+   "id": "p13_rant_rumpold_hatch",
+   "type": "inspect",
+   "x": 12,
+   "y": 5,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_limit.rant"
+     },
+     {
+      "notFlag": "p13_rant_standees"
+     },
+     {
+      "value": {
+       "name": "standee_rumpold",
+       "eq": "hatch"
+      }
+     }
+    ]
+   },
+   "script": "p13c12.rant_standees"
+  },
+  {
+   "id": "p13_rant_rumpold_port",
+   "type": "inspect",
+   "x": 2,
+   "y": 6,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_limit.rant"
+     },
+     {
+      "notFlag": "p13_rant_standees"
+     },
+     {
+      "value": {
+       "name": "standee_rumpold",
+       "eq": "port"
+      }
+     }
+    ]
+   },
+   "script": "p13c12.rant_standees"
+  },
+  {
+   "id": "p13_rant_rumpus_table",
+   "type": "inspect",
+   "x": 13,
+   "y": 10,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_limit.rant"
+     },
+     {
+      "notFlag": "p13_rant_standees"
+     },
+     {
+      "value": {
+       "name": "standee_rumpus",
+       "eq": "table"
+      }
+     }
+    ]
+   },
+   "script": "p13c12.rant_standees"
+  },
+  {
+   "id": "p13_rant_rumpus_door",
+   "type": "inspect",
+   "x": 9,
+   "y": 4,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_limit.rant"
+     },
+     {
+      "notFlag": "p13_rant_standees"
+     },
+     {
+      "value": {
+       "name": "standee_rumpus",
+       "eq": "door"
+      }
+     }
+    ]
+   },
+   "script": "p13c12.rant_standees"
+  },
+  {
+   "id": "p13_rant_gustavio_hammocks",
+   "type": "inspect",
+   "x": 6,
+   "y": 9,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_limit.rant"
+     },
+     {
+      "notFlag": "p13_rant_standees"
+     },
+     {
+      "value": {
+       "name": "standee_gustavio",
+       "eq": "hammocks"
+      }
+     }
+    ]
+   },
+   "script": "p13c12.rant_standees"
+  },
+  {
+   "id": "p13_rant_gustavio_cots",
+   "type": "inspect",
+   "x": 15,
+   "y": 8,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_limit.rant"
+     },
+     {
+      "notFlag": "p13_rant_standees"
+     },
+     {
+      "value": {
+       "name": "standee_gustavio",
+       "eq": "cots"
+      }
+     }
+    ]
+   },
+   "script": "p13c12.rant_standees"
+  },
+  {
+   "id": "p13_rant_bedding",
+   "type": "inspect",
+   "x": 5,
+   "y": 6,
+   "w": 3,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_limit.rant"
+     },
+     {
+      "notFlag": "p13_rant_bedding"
+     }
+    ]
+   },
+   "script": "p13c12.rant_bedding"
+  },
+  {
+   "id": "p13_rant_tv",
+   "type": "inspect",
+   "x": 10,
+   "y": 6,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_limit.rant"
+     },
+     {
+      "notFlag": "p13_rant_tv"
+     }
+    ]
+   },
+   "script": "p13c12.rant_tv"
+  },
+  {
+   "id": "p13_rant_locker",
+   "type": "inspect",
+   "x": 11,
+   "y": 3,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_limit.rant"
+     },
+     {
+      "notFlag": "p13_rant_locker"
+     }
+    ]
+   },
+   "script": "p13c12.rant_locker"
+  },
+  {
+   "id": "p13_rant_megapack",
+   "type": "inspect",
+   "x": 12,
+   "y": 8,
+   "w": 2,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_limit.rant"
+     },
+     {
+      "notFlag": "p13_rant_megapack"
+     }
+    ]
+   },
+   "script": "p13c12.rant_megapack"
+  },
+  {
+   "id": "p13_dis_beans",
+   "type": "inspect",
+   "x": 9,
+   "y": 5,
+   "if": {
+    "objectiveActive": "disarm_stenchmasters.beans"
+   },
+   "script": "p13c15.beans"
+  },
+  {
+   "id": "p13_dis_grog",
+   "type": "inspect",
+   "x": 16,
+   "y": 12,
+   "if": {
+    "objectiveActive": "disarm_stenchmasters.grog"
+   },
+   "script": "p13c15.grog"
+  },
+  {
+   "id": "p13_dis_sauce",
+   "type": "inspect",
+   "x": 5,
+   "y": 3,
+   "if": {
+    "objectiveActive": "disarm_stenchmasters.sauce"
+   },
+   "script": "p13c15.sauce"
+  },
+  {
+   "id": "p13_dis_fabric",
+   "type": "inspect",
+   "x": 5,
+   "y": 6,
+   "w": 3,
+   "if": {
+    "objectiveActive": "disarm_stenchmasters.fabric"
+   },
+   "script": "p13c15.fabric"
+  },
+  {
+   "id": "p13_kit_look",
+   "type": "inspect",
+   "x": 10,
+   "y": 6,
+   "if": {
+    "flag": "second_ses_built"
+   },
+   "script": "p13.inspect.bedroom_set"
+  },
+  {
+   "id": "p13_locker_look",
+   "type": "inspect",
+   "x": 11,
+   "y": 3,
+   "if": {
+    "flag": "textiles_sealed"
+   },
+   "script": "p13.inspect.locker"
+  },
+  {
+   "id": "p13_megapack_look",
+   "type": "inspect",
+   "x": 12,
+   "y": 8,
+   "w": 2,
+   "if": {
+    "flag": "standees_placed"
+   },
+   "script": "p13.inspect.megapack"
+  },
+  {
+   "id": "p13_shelf_look",
+   "type": "inspect",
+   "x": 5,
+   "y": 3,
+   "if": {
+    "flag": "crew_quarters_reopened"
+   },
+   "script": "p13.inspect.shelf"
+  },
+  {
+   "id": "p13_bunks_look",
+   "type": "inspect",
+   "x": 1,
+   "y": 5,
+   "w": 3,
+   "if": {
+    "flag": "sash_bedding_built"
+   },
+   "script": "p13.inspect.sash_bunk"
+  },
+  {
+   "id": "p13q_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 9,
+   "y": 9,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p13_ch139_started"
+     },
+     {
+      "notFlag": "p13_ch142_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13q_pete_1",
+   "type": "npc",
+   "npc": "pete",
+   "x": 9,
+   "y": 9,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "crew_quarters_reopened"
+     },
+     {
+      "notFlag": "p13_ch142_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13q_pete_2",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p13_started"
+   }
+  },
+  {
+   "id": "p13q_bob_0",
+   "type": "npc",
+   "npc": "bob",
+   "x": 10,
+   "y": 9,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p13_ch139_started"
+     },
+     {
+      "notFlag": "p13_ch142_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13q_bob_1",
+   "type": "npc",
+   "npc": "bob",
+   "x": 10,
+   "y": 9,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "crew_quarters_reopened"
+     },
+     {
+      "notFlag": "p13_ch142_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13q_bob_2",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p13_started"
+   }
+  },
+  {
+   "id": "p13q_gristle_0",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 6,
+   "y": 4,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p13_ch139_started"
+       },
+       {
+        "notFlag": "p13_ch142_started"
+       }
+      ]
+     },
+     {
+      "flag": "p13_dis_rear"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13q_gristle_1",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 6,
+   "y": 4,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p13_ch139_started"
+     },
+     {
+      "notFlag": "p13_ch142_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13q_gristle_2",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 11,
+   "y": 9,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "crew_quarters_reopened"
+     },
+     {
+      "notFlag": "p13_ch142_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13q_gristle_3",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p13_started"
+   }
+  },
+  {
+   "id": "p13q_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 2,
+   "y": 12,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p13_ch139_started"
+     },
+     {
+      "notFlag": "p13_ch142_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13q_jim_1",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p13_started"
+   }
+  },
+  {
+   "id": "p13q_squawks_0",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 7,
+   "y": 7,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p13_ch139_started"
+     },
+     {
+      "notFlag": "p13_ch142_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13q_squawks_1",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p13_started"
+   }
+  },
+  {
+   "id": "p13q_ned_0",
+   "type": "npc",
+   "npc": "ned",
+   "x": 13,
+   "y": 7,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p13_ch139_started"
+     },
+     {
+      "notFlag": "p13_ch142_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13q_ned_1",
+   "type": "npc",
+   "npc": "ned",
+   "x": 13,
+   "y": 7,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "crew_quarters_reopened"
+       },
+       {
+        "notFlag": "p13_ch142_started"
+       }
+      ]
+     },
+     {
+      "flag": "p13_ch132_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13q_ned_2",
+   "type": "npc",
+   "npc": "ned",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p13_started"
+   }
+  },
+  {
+   "id": "p13q_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 10,
+   "y": 13,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p13_ch139_started"
+     },
+     {
+      "notFlag": "p13_ch142_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13q_garrick_1",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 15,
+   "y": 7,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p13_ch138_started"
+     },
+     {
+      "notFlag": "p13_ch139_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p13q_garrick_2",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 11,
+   "y": 7,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p13_ch132_started"
+     },
+     {
+      "notFlag": "p13_ch138_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13q_garrick_3",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 7,
+   "y": 4,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "crew_quarters_reopened"
+       },
+       {
+        "notFlag": "p13_ch142_started"
+       }
+      ]
+     },
+     {
+      "notFlag": "p13_ch132_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13q_garrick_4",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p13_started"
+   }
+  },
+  {
+   "id": "p13q_dunstan_0",
+   "type": "npc",
+   "npc": "dunstan",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p13_started"
+   }
+  },
+  {
+   "id": "p13q_penhallow_0",
+   "type": "npc",
+   "npc": "penhallow",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p13_started"
+   }
+  },
+  {
+   "id": "p13q_fennimore_0",
+   "type": "npc",
+   "npc": "fennimore",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p13_started"
+   }
+  },
+  {
+   "id": "p13q_finch_0",
+   "type": "npc",
+   "npc": "finch",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p13_started"
+   }
+  },
+  {
+   "id": "p13q_jory_0",
+   "type": "npc",
+   "npc": "jory",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p13_started"
+   }
+  },
+  {
+   "id": "p13q_brask_0",
+   "type": "npc",
+   "npc": "brask",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p13_started"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "hammock_grimy",
+   "x": 1,
+   "y": 5,
+   "if": {
+    "all": [
+     {
+      "flag": "crew_quarters_reopened"
+     },
+     {
+      "notFlag": "bedding_piled"
+     }
+    ]
+   },
+   "id": "p13_hammock_grimy_a"
+  },
+  {
+   "prop": "hammock_grimy",
+   "x": 1,
+   "y": 8,
+   "if": {
+    "all": [
+     {
+      "flag": "crew_quarters_reopened"
+     },
+     {
+      "notFlag": "bedding_piled"
+     }
+    ]
+   },
+   "id": "p13_hammock_grimy_b"
+  },
+  {
+   "prop": "hammock_grimy",
+   "x": 1,
+   "y": 11,
+   "if": {
+    "all": [
+     {
+      "flag": "crew_quarters_reopened"
+     },
+     {
+      "notFlag": "bedding_piled"
+     }
+    ]
+   },
+   "id": "p13_hammock_grimy_c"
+  },
+  {
+   "prop": "hammock_grimy",
+   "x": 5,
+   "y": 6,
+   "if": {
+    "all": [
+     {
+      "flag": "crew_quarters_reopened"
+     },
+     {
+      "notFlag": "bedding_piled"
+     }
+    ]
+   },
+   "id": "p13_hammock_grimy_d"
+  },
+  {
+   "prop": "hammock_grimy",
+   "x": 5,
+   "y": 10,
+   "if": {
+    "all": [
+     {
+      "flag": "crew_quarters_reopened"
+     },
+     {
+      "notFlag": "bedding_piled"
+     }
+    ]
+   },
+   "id": "p13_hammock_grimy_e"
+  },
+  {
+   "prop": "hammock_stripped",
+   "x": 1,
+   "y": 5,
+   "if": {
+    "all": [
+     {
+      "flag": "bedding_piled"
+     },
+     {
+      "notFlag": "p13_bedding_hammocks"
+     }
+    ]
+   },
+   "id": "p13_hammock_bare_a"
+  },
+  {
+   "prop": "hammock_stripped",
+   "x": 1,
+   "y": 8,
+   "if": {
+    "all": [
+     {
+      "flag": "bedding_piled"
+     },
+     {
+      "notFlag": "p13_bedding_hammocks"
+     }
+    ]
+   },
+   "id": "p13_hammock_bare_b"
+  },
+  {
+   "prop": "hammock_stripped",
+   "x": 1,
+   "y": 11,
+   "if": {
+    "all": [
+     {
+      "flag": "bedding_piled"
+     },
+     {
+      "notFlag": "p13_bedding_hammocks"
+     }
+    ]
+   },
+   "id": "p13_hammock_bare_c"
+  },
+  {
+   "prop": "hammock_stripped",
+   "x": 5,
+   "y": 6,
+   "if": {
+    "all": [
+     {
+      "flag": "bedding_piled"
+     },
+     {
+      "notFlag": "p13_bedding_hammocks"
+     }
+    ]
+   },
+   "id": "p13_hammock_bare_d"
+  },
+  {
+   "prop": "hammock_stripped",
+   "x": 5,
+   "y": 10,
+   "if": {
+    "all": [
+     {
+      "flag": "bedding_piled"
+     },
+     {
+      "notFlag": "p13_bedding_hammocks"
+     }
+    ]
+   },
+   "id": "p13_hammock_bare_e"
+  },
+  {
+   "prop": "hammock_sash_bunk",
+   "x": 1,
+   "y": 5,
+   "if": {
+    "flag": "p13_bedding_hammocks"
+   },
+   "id": "p13_hammock_sash_a"
+  },
+  {
+   "prop": "hammock_sash_bunk",
+   "x": 1,
+   "y": 8,
+   "if": {
+    "flag": "p13_bedding_hammocks"
+   },
+   "id": "p13_hammock_sash_b"
+  },
+  {
+   "prop": "hammock_sash_bunk",
+   "x": 1,
+   "y": 11,
+   "if": {
+    "flag": "p13_bedding_hammocks"
+   },
+   "id": "p13_hammock_sash_c"
+  },
+  {
+   "prop": "hammock_sash_bunk",
+   "x": 5,
+   "y": 6,
+   "if": {
+    "flag": "p13_bedding_hammocks"
+   },
+   "id": "p13_hammock_sash_d"
+  },
+  {
+   "prop": "hammock_sash_bunk",
+   "x": 5,
+   "y": 10,
+   "if": {
+    "flag": "p13_bedding_hammocks"
+   },
+   "id": "p13_hammock_sash_e"
+  },
+  {
+   "prop": "cot_grimy",
+   "x": 16,
+   "y": 6,
+   "if": {
+    "all": [
+     {
+      "flag": "crew_quarters_reopened"
+     },
+     {
+      "notFlag": "bedding_piled"
+     }
+    ]
+   },
+   "id": "p13_cot_grimy_a"
+  },
+  {
+   "prop": "cot_grimy",
+   "x": 16,
+   "y": 9,
+   "if": {
+    "all": [
+     {
+      "flag": "crew_quarters_reopened"
+     },
+     {
+      "notFlag": "bedding_piled"
+     }
+    ]
+   },
+   "id": "p13_cot_grimy_b"
+  },
+  {
+   "prop": "cot_stripped",
+   "x": 16,
+   "y": 6,
+   "if": {
+    "all": [
+     {
+      "flag": "bedding_piled"
+     },
+     {
+      "notFlag": "p13_bedding_pads"
+     }
+    ]
+   },
+   "id": "p13_cot_bare_a"
+  },
+  {
+   "prop": "cot_stripped",
+   "x": 16,
+   "y": 9,
+   "if": {
+    "all": [
+     {
+      "flag": "bedding_piled"
+     },
+     {
+      "notFlag": "p13_bedding_pads"
+     }
+    ]
+   },
+   "id": "p13_cot_bare_b"
+  },
+  {
+   "prop": "cot_sash",
+   "x": 16,
+   "y": 6,
+   "if": {
+    "flag": "p13_bedding_pads"
+   },
+   "id": "p13_cot_sash_a"
+  },
+  {
+   "prop": "cot_sash",
+   "x": 16,
+   "y": 9,
+   "if": {
+    "flag": "p13_bedding_pads"
+   },
+   "id": "p13_cot_sash_b"
+  },
+  {
+   "prop": "grand_hammock_sash",
+   "x": 12,
+   "y": 12,
+   "if": {
+    "flag": "sash_bedding_built"
+   },
+   "id": "p13_grand_hammock_sash",
+   "depthOffset": -4
+  },
+  {
+   "prop": "kitten_pillow",
+   "x": 16,
+   "y": 6,
+   "if": {
+    "all": [
+     {
+      "flag": "crew_quarters_reopened"
+     },
+     {
+      "notFlag": "kitten_pillow_taken"
+     }
+    ]
+   },
+   "id": "p13_kitten_pillow"
+  },
+  {
+   "prop": "bedding_pile",
+   "x": 11,
+   "y": 8,
+   "if": {
+    "all": [
+     {
+      "flag": "bedding_piled"
+     },
+     {
+      "notFlag": "textiles_in_locker"
+     }
+    ]
+   },
+   "id": "p13_pile"
+  },
+  {
+   "prop": "linen_locker",
+   "x": 11,
+   "y": 3,
+   "if": {
+    "all": [
+     {
+      "flag": "crew_quarters_reopened"
+     },
+     {
+      "notFlag": "textiles_in_locker"
+     }
+    ]
+   },
+   "id": "p13_locker"
+  },
+  {
+   "prop": "linen_locker_stuffed",
+   "x": 11,
+   "y": 3,
+   "if": {
+    "all": [
+     {
+      "flag": "textiles_in_locker"
+     },
+     {
+      "notFlag": "textiles_sealed"
+     }
+    ]
+   },
+   "id": "p13_locker_stuffed"
+  },
+  {
+   "prop": "linen_locker_sealed",
+   "x": 11,
+   "y": 3,
+   "if": {
+    "flag": "textiles_sealed"
+   },
+   "id": "p13_locker_sealed"
+  },
+  {
+   "prop": "megapack_box",
+   "x": 12,
+   "y": 8,
+   "if": {
+    "all": [
+     {
+      "flag": "p13_ch132_started"
+     },
+     {
+      "notFlag": "megapack_opened"
+     }
+    ]
+   },
+   "id": "p13_megapack"
+  },
+  {
+   "prop": "megapack_open",
+   "x": 12,
+   "y": 8,
+   "if": {
+    "flag": "megapack_opened"
+   },
+   "id": "p13_megapack_open"
+  },
+  {
+   "prop": "merch_bunting",
+   "x": 9,
+   "y": 4,
+   "if": {
+    "flag": "standees_placed"
+   },
+   "id": "p13_bunting_n"
+  },
+  {
+   "prop": "merch_bunting",
+   "x": 3,
+   "y": 9,
+   "if": {
+    "flag": "standees_placed"
+   },
+   "id": "p13_bunting_w"
+  },
+  {
+   "prop": "merch_clutter",
+   "x": 14,
+   "y": 12,
+   "if": {
+    "flag": "merch_aboard"
+   },
+   "id": "p13_merch_a"
+  },
+  {
+   "prop": "merch_clutter",
+   "x": 2,
+   "y": 10,
+   "if": {
+    "flag": "merch_aboard"
+   },
+   "id": "p13_merch_b"
+  },
+  {
+   "prop": "ses_kit_box",
+   "x": 10,
+   "y": 6,
+   "if": {
+    "all": [
+     {
+      "flag": "p13_ch133_started"
+     },
+     {
+      "notFlag": "second_ses_built"
+     }
+    ]
+   },
+   "id": "p13_kit_box",
+   "depthOffset": 4
+  },
+  {
+   "prop": "ses_kit_static",
+   "x": 10,
+   "y": 6,
+   "if": {
+    "all": [
+     {
+      "flag": "second_ses_built"
+     },
+     {
+      "notFlag": "tv_systems_connected"
+     }
+    ]
+   },
+   "id": "p13_kit_static",
+   "depthOffset": 4
+  },
+  {
+   "prop": "ses_kit_on",
+   "x": 10,
+   "y": 6,
+   "if": {
+    "all": [
+     {
+      "flag": "tv_systems_connected"
+     },
+     {
+      "any": [
+       {
+        "notFlag": "stench_o_vision_on"
+       },
+       {
+        "flag": "stench_o_vision_disabled"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "p13_kit_on",
+   "depthOffset": 4
+  },
+  {
+   "prop": "ses_kit_vent",
+   "x": 10,
+   "y": 6,
+   "if": {
+    "all": [
+     {
+      "flag": "stench_o_vision_on"
+     },
+     {
+      "notFlag": "stench_o_vision_disabled"
+     }
+    ]
+   },
+   "id": "p13_kit_vent",
+   "depthOffset": 4
+  },
+  {
+   "prop": "wire_run",
+   "x": 12,
+   "y": 5,
+   "if": {
+    "flag": "cable_seg_1"
+   },
+   "id": "p13_cable_q1"
+  },
+  {
+   "prop": "wire_run",
+   "x": 13,
+   "y": 4,
+   "if": {
+    "flag": "cable_seg_1"
+   },
+   "id": "p13_cable_q2"
+  },
+  {
+   "prop": "quarters_shelf_sauce",
+   "x": 5,
+   "y": 3,
+   "if": {
+    "all": [
+     {
+      "flag": "crew_quarters_reopened"
+     },
+     {
+      "notFlag": "p13_dis_sauce"
+     }
+    ]
+   },
+   "id": "p13_shelf_sauce"
+  },
+  {
+   "prop": "quarters_shelf",
+   "x": 5,
+   "y": 3,
+   "if": {
+    "flag": "p13_dis_sauce"
+   },
+   "id": "p13_shelf"
+  },
+  {
+   "prop": "supply_sack",
+   "x": 9,
+   "y": 5,
+   "if": {
+    "all": [
+     {
+      "flag": "p13_ch139_started"
+     },
+     {
+      "notFlag": "p13_dis_beans"
+     }
+    ]
+   },
+   "id": "p13_bean_sack"
+  },
+  {
+   "prop": "frog_grog_cask",
+   "x": 16,
+   "y": 12,
+   "if": {
+    "all": [
+     {
+      "flag": "p13_ch139_started"
+     },
+     {
+      "notFlag": "p13_dis_grog"
+     }
+    ]
+   },
+   "id": "p13_grog"
+  },
+  {
+   "prop": "grog_barrel_sealed",
+   "x": 16,
+   "y": 12,
+   "if": {
+    "flag": "p13_dis_grog"
+   },
+   "id": "p13_grog_sealed"
+  }
+ ],
+ "decor": [
+  {
+   "value": "standee_stenchalina",
+   "prop": "standee_stenchalina",
+   "if": {
+    "flag": "standee_stenchalina_placed"
+   },
+   "inspect": "p13.inspect.standee_stenchalina",
+   "default": null,
+   "spots": {
+    "cots": [
+     14,
+     9
+    ],
+    "hammocks": [
+     2,
+     9
+    ]
+   }
+  },
+  {
+   "value": "standee_brogath",
+   "prop": "standee_brogath",
+   "if": {
+    "flag": "standee_brogath_placed"
+   },
+   "inspect": "p13.inspect.standee_brogath",
+   "default": null,
+   "spots": {
+    "port": [
+     1,
+     4
+    ],
+    "starboard": [
+     14,
+     4
+    ]
+   }
+  },
+  {
+   "value": "standee_rumpold",
+   "prop": "standee_rumpold",
+   "if": {
+    "flag": "standee_rumpold_placed"
+   },
+   "inspect": "p13.inspect.standee_rumpold",
+   "default": null,
+   "spots": {
+    "hatch": [
+     12,
+     5
+    ],
+    "port": [
+     2,
+     6
+    ]
+   }
+  },
+  {
+   "value": "standee_rumpus",
+   "prop": "standee_rumpus",
+   "if": {
+    "flag": "standee_rumpus_placed"
+   },
+   "inspect": "p13.inspect.standee_rumpus",
+   "default": null,
+   "spots": {
+    "table": [
+     13,
+     10
+    ],
+    "door": [
+     9,
+     4
+    ]
+   }
+  },
+  {
+   "value": "standee_gustavio",
+   "prop": "standee_gustavio",
+   "if": {
+    "flag": "standee_gustavio_placed"
+   },
+   "inspect": "p13.inspect.standee_gustavio",
+   "default": null,
+   "spots": {
+    "hammocks": [
+     6,
+     9
+    ],
+    "cots": {
+     "x": 15,
+     "y": 8,
+     "flip": true
+    }
+   }
+  }
+ ],
+ "propConditions": [
+  {
+   "id": "q_hammock_a",
+   "if": {
+    "notFlag": "crew_quarters_reopened"
+   }
+  },
+  {
+   "id": "q_hammock_b",
+   "if": {
+    "notFlag": "crew_quarters_reopened"
+   }
+  },
+  {
+   "id": "q_hammock_c",
+   "if": {
+    "notFlag": "crew_quarters_reopened"
+   }
+  },
+  {
+   "id": "q_hammock_d",
+   "if": {
+    "notFlag": "crew_quarters_reopened"
+   }
+  },
+  {
+   "id": "q_hammock_e",
+   "if": {
+    "notFlag": "crew_quarters_reopened"
+   }
+  },
+  {
+   "id": "q_cot_a",
+   "if": {
+    "notFlag": "crew_quarters_reopened"
+   }
+  },
+  {
+   "id": "q_cot_b",
+   "if": {
+    "notFlag": "crew_quarters_reopened"
+   }
+  },
+  {
+   "id": "grand_hammock",
+   "if": {
+    "notFlag": "bedding_piled"
+   }
+  }
+ ],
+ "fumeConditions": [
+  {
+   "id": "p8_condemned",
+   "if": {
+    "notFlag": "crew_quarters_reopened"
+   }
+  }
+ ],
+ "ambientConditions": [
+  {
+   "id": "p3_hammock_sighs",
+   "if": {
+    "notFlag": "crew_quarters_reopened"
+   }
+  },
+  {
+   "id": "p8_condemned_smoke_1",
+   "if": {
+    "notFlag": "crew_quarters_reopened"
+   }
+  },
+  {
+   "id": "p8_condemned_smoke_2",
+   "if": {
+    "notFlag": "crew_quarters_reopened"
+   }
+  }
+ ],
+ "haze": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "crew_quarters_reopened"
+     },
+     {
+      "notFlag": "textiles_sealed"
+     }
+    ]
+   },
+   "level": "light"
+  },
+  {
+   "if": {
+    "flag": "textiles_sealed"
+   },
+   "level": "faint"
+  }
+ ],
+ "fumes": [
+  {
+   "id": "p13_bedding_fumes",
+   "level": "light",
+   "x": 1,
+   "y": 4,
+   "w": 16,
+   "h": 11,
+   "if": {
+    "all": [
+     {
+      "flag": "crew_quarters_reopened"
+     },
+     {
+      "notFlag": "textiles_sealed"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p13_stench_o_vision",
+   "level": "dense",
+   "severity": 0.35,
+   "x": 9,
+   "y": 5,
+   "w": 3,
+   "h": 3,
+   "if": {
+    "all": [
+     {
+      "flag": "stench_o_vision_on"
+     },
+     {
+      "notFlag": "stench_o_vision_disabled"
+     }
+    ]
+   }
+  }
+ ],
+ "onEnter": [
+  {
+   "if": {
+    "objectiveActive": "quarters_alive.inside"
+   },
+   "script": "p13c3.inside"
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "flag": "p13_ch139_started"
+   },
+   "music": "ancient_stenchmasters_everywhere",
+   "ambience": "inside_storm_galley"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p13_ch138_started"
+     },
+     {
+      "notFlag": "p13_ch139_started"
+     }
+    ]
+   },
+   "music": "beard_delirium",
+   "ambience": "inside_storm_galley"
+  },
+  {
+   "if": {
+    "flag": "p13_ch131_started"
+   },
+   "music": "grand_merchandise_makeover",
+   "ambience": "inside_storm_galley"
+  },
+  {
+   "if": {
+    "flag": "crew_quarters_reopened"
+   },
+   "music": null,
+   "ambience": "lower_hull"
+  }
+ ],
+ "ambient": [
+  {
+   "kind": "fumeProp",
+   "x": 16,
+   "y": 6,
+   "prop": "kitten_pillow",
+   "every": [
+    5000,
+    9000
+   ],
+   "volume": 0.4,
+   "sounds": [
+    {
+     "sfx": "pillow_mrrrow",
+     "text": "<k>mrrrow.</>"
+    },
+    {
+     "sfx": "pillow_mrrrow",
+     "text": "<k>...mrrrrow?</>"
+    }
+   ],
+   "if": {
+    "all": [
+     {
+      "flag": "crew_quarters_reopened"
+     },
+     {
+      "notFlag": "kitten_pillow_taken"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "fumeProp",
+   "x": 2,
+   "y": 5,
+   "prop": "hammock_grimy",
+   "every": [
+    7000,
+    13000
+   ],
+   "volume": 0.35,
+   "sounds": [
+    {
+     "sfx": "fume_growl_small",
+     "text": "<k>grrr...</>"
+    },
+    {
+     "sfx": "fume_whimper",
+     "text": "<k>(a whimper)</>"
+    },
+    {
+     "sfx": "fume_growl_small",
+     "text": "<k>hrrrmph.</>"
+    }
+   ],
+   "if": {
+    "all": [
+     {
+      "flag": "crew_quarters_reopened"
+     },
+     {
+      "notFlag": "bedding_piled"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "fumeProp",
+   "x": 2,
+   "y": 11,
+   "prop": "hammock_grimy",
+   "every": [
+    7000,
+    13000
+   ],
+   "volume": 0.35,
+   "sounds": [
+    {
+     "sfx": "fume_growl_small",
+     "text": "<k>grrr...</>"
+    },
+    {
+     "sfx": "fume_whimper",
+     "text": "<k>(a whimper)</>"
+    },
+    {
+     "sfx": "fume_growl_small",
+     "text": "<k>hrrrmph.</>"
+    }
+   ],
+   "if": {
+    "all": [
+     {
+      "flag": "crew_quarters_reopened"
+     },
+     {
+      "notFlag": "bedding_piled"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "fumeProp",
+   "x": 6,
+   "y": 10,
+   "prop": "hammock_grimy",
+   "every": [
+    7000,
+    13000
+   ],
+   "volume": 0.35,
+   "sounds": [
+    {
+     "sfx": "fume_growl_small",
+     "text": "<k>grrr...</>"
+    },
+    {
+     "sfx": "fume_whimper",
+     "text": "<k>(a whimper)</>"
+    },
+    {
+     "sfx": "fume_growl_small",
+     "text": "<k>hrrrmph.</>"
+    }
+   ],
+   "if": {
+    "all": [
+     {
+      "flag": "crew_quarters_reopened"
+     },
+     {
+      "notFlag": "bedding_piled"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "fumeProp",
+   "x": 11,
+   "y": 8,
+   "prop": "bedding_pile",
+   "every": [
+    4000,
+    7000
+   ],
+   "volume": 0.45,
+   "sounds": [
+    {
+     "sfx": "fume_growl_small",
+     "text": "<k>grrrrrrr.</>"
+    },
+    {
+     "sfx": "fume_whimper",
+     "text": "<k>(a lot of small whimpers)</>"
+    }
+   ],
+   "if": {
+    "all": [
+     {
+      "flag": "bedding_piled"
+     },
+     {
+      "notFlag": "textiles_in_locker"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "fumeProp",
+   "x": 11,
+   "y": 3,
+   "every": [
+    9000,
+    16000
+   ],
+   "volume": 0.4,
+   "puff": false,
+   "sounds": [
+    {
+     "sfx": "fume_growl_small",
+     "text": "<k>grrr.</>"
+    },
+    {
+     "sfx": "fume_growl_small",
+     "text": "<k>...GRRR.</>"
+    },
+    {
+     "sfx": "fume_whimper",
+     "text": "<k>(the locker whimpers)</>"
+    }
+   ],
+   "if": {
+    "flag": "textiles_in_locker"
+   }
+  },
+  {
+   "kind": "smoke",
+   "x": 6,
+   "y": 9,
+   "rise": 3,
+   "every": 2200,
+   "alpha": 0.4,
+   "tint": "#d8c850",
+   "if": {
+    "all": [
+     {
+      "flag": "crew_quarters_reopened"
+     },
+     {
+      "notFlag": "textiles_sealed"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "smoke",
+   "x": 10,
+   "y": 6,
+   "rise": 3,
+   "every": 1600,
+   "alpha": 0.45,
+   "tint": "#c890e0",
+   "if": {
+    "all": [
+     {
+      "flag": "stench_o_vision_on"
+     },
+     {
+      "notFlag": "stench_o_vision_disabled"
+     }
+    ]
+   }
+  }
+ ]
+}

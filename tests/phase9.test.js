@@ -243,7 +243,7 @@ describe('no one-way doors', () => {
     const m = compiled(mapId);
     const solidNow = (x, y) => m.solid[y * m.width + x] === 1
       || m.dynamicSolids.some((d) => x >= d.x && x < d.x + d.w && y >= d.y && y < d.y + d.h && evaluateCondition(d.if, s));
-    const warps = m.objects.filter((o) => o.type === 'warp');
+    const warps = m.objects.filter((o) => o.type === 'warp' && (!o.when || evaluateCondition(o.when, s)));
     const out = new Set();
     for (const w of warps) {
       for (let y = w.y; y < w.y + (w.h || 1); y++) {

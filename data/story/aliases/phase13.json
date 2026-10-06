@@ -1,0 +1,53 @@
+{
+ "stinkbeard_delirium": {
+  "//": "Story Phase 13 (chapter 139 on): the captain breathed through his beard once too often and now sees the Ancient Grand Stenchmasters of Garrick's legends in his crew. A presentation layer only: the dialogue box shows the alias's name and portrait, flickering now and then to the real ones; the world draws the alias's look, with a ghost of it now and then. Ids, saves, quests and dialogue all stay the real crew's. Pete is Pete. Brogath is not confirmed.",
+  "if": {
+   "flag": "stinkbeard_delirium"
+  },
+  "overlay": {
+   "tint": "#e0c8ff",
+   "wobble": 1,
+   "every": [
+    3500,
+    7000
+   ]
+  },
+  "actors": {
+   "pete": {
+    "name": "BROGATH (?)",
+    "portrait": "delirium_brogath",
+    "appearance": "pete_brogath",
+    "flicker": true
+   },
+   "gristle": {
+    "name": "RUMPOLD (?)",
+    "portrait": "delirium_rumpold",
+    "appearance": "gristle_rumpold",
+    "flicker": true
+   },
+   "bob": {
+    "name": "SIR RUMPUS (?)",
+    "portrait": "delirium_rumpus",
+    "appearance": "bob_rumpus",
+    "flicker": true
+   },
+   "jim": {
+    "name": "LORD GUSTAVIO (?)",
+    "portrait": "delirium_gustavio",
+    "appearance": "jim_gustavio",
+    "flicker": true
+   },
+   "squawks": {
+    "name": "PRINCESS STENCHALINA (?)",
+    "portrait": "delirium_stenchalina",
+    "flicker": true
+   },
+   "garrick": {
+    "name": "THE GRAND STENCHMASTER PRIME (?)",
+    "portrait": "delirium_prime",
+    "appearance": "garrick_prime",
+    "flicker": true
+   }
+  }
+ }
+}

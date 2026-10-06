@@ -58,7 +58,7 @@ for (const o of model.objects) {
     if (placed.has(o.npc) || !ok(o.if)) continue;
     placed.add(o.npc);
     if (!o.absent && grid[o.y]?.[o.x]) grid[o.y][o.x] = 'N';
-  } else if (['inspect', 'trigger', 'warp'].includes(o.type) && ok(o.if)) {
+  } else if (['inspect', 'trigger', 'warp'].includes(o.type) && ok(o.if) && (!o.when || ok(o.when))) {
     for (let j = 0; j < (o.h ?? 1); j++) for (let i = 0; i < (o.w ?? 1); i++) if (grid[o.y + j]?.[o.x + i] === '.') grid[o.y + j][o.x + i] = 'o';
   }
 }

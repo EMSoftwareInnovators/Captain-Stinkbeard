@@ -1,0 +1,377 @@
+{
+ "//": "Story Phase 13: inspect scripts and doors. The treasure room is never opened.",
+ "p13.quarters_door": [
+  {
+   "if": {
+    "objectiveActive": "quarters_alive.unboard"
+   },
+   "then": [
+    {
+     "call": "p13c3.unboard"
+    }
+   ],
+   "else": [
+    {
+     "call": "p8.condemned_door"
+    }
+   ]
+  }
+ ],
+ "p13.treasure_door": [
+  {
+   "if": {
+    "objectiveActive": "treasure_room_brogath.door"
+   },
+   "then": [
+    {
+     "call": "p13c18.door"
+    }
+   ],
+   "else": [
+    {
+     "face": "player",
+     "dir": "up"
+    },
+    "The treasure-room door. DO NOT OPEN, in Gristle's big shaky letters. Under it, newer: YES, SERIOUSLY. Under that, in Squawks' clawprint on a bit of crate: BAD CLOUD.",
+    {
+     "if": {
+      "flag": "treasure_room_brogath_believed"
+     },
+     "then": [
+      "Brogath is in there. (Allegedly.) As long as the door stays shut, he can't blast the treasure away. (Pete says.)",
+      "Which Brogath, though."
+     ],
+     "else": [
+      "Behind it is everything the first release left. It's still in there. Now and then it growls."
+     ]
+    }
+   ]
+  }
+ ],
+ "p13.inspect.quarters_door": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "The old quarters' door, open again. The boards are stacked against the wall, nails and all, in case.",
+  {
+   "if": {
+    "flag": "sash_bedding_built"
+   },
+   "then": [
+    "From inside, a faint crackle of toy sashes as somebody turns over."
+   ],
+   "else": [
+    "From inside, a faint growl."
+   ]
+  }
+ ],
+ "p13.inspect.cable_galley": [
+  "Garrick's cable, tacked across the galley floor under a strip of sash-box cardboard: TRIP HAZARD. (NOT A JOKE.)",
+  "jim: (from the stove, not turning round) Mind the cable."
+ ],
+ "p13.inspect.cable_cannon": [
+  "Three turns of television cable round the starboard cannon. 'For grounding.' Nobody is to fire this cannon. There's a note on it now, in Gristle's hand: DON'T."
+ ],
+ "p13.inspect.bedroom_set": [
+  {
+   "if": {
+    "flag": "tv_systems_connected"
+   },
+   "then": [
+    {
+     "if": {
+      "all": [
+       {
+        "flag": "stench_o_vision_on"
+       },
+       {
+        "notFlag": "stench_o_vision_disabled"
+       }
+      ]
+     },
+     "then": [
+      "The bedroom set, on the barrel table, the grille on its side open and breathing out the programme. NOW IN STENCH-O-VISION!"
+     ],
+     "else": [
+      "The bedroom set, on the barrel table: the Stenchmaster Channel logo, a crown, a sash and a nose. The grille on the side is shut. Mostly."
+     ]
+    },
+    {
+     "tv": "ses_kit"
+    }
+   ],
+   "else": [
+    "The bedroom set: a miniature television on a barrel. Three of Jim's forks on top for an aerial. Snow. NO SIGNAL.",
+    {
+     "tv": "ses_kit"
+    }
+   ]
+  }
+ ],
+ "p13.inspect.locker": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The linen locker, boarded over. DO NOT OPEN. IT GROWLS.",
+  {
+   "sfx": "fume_growl_small",
+   "volume": 0.6
+  },
+  "It growls.",
+  {
+   "if": {
+    "flag": "stinkbeard_delirium"
+   },
+   "then": [
+    "captain: (to the locker) I KNOW what you are. I KNOW."
+   ],
+   "else": []
+  }
+ ],
+ "p13.inspect.megapack": [
+  "The Grand Stenchmaster Fan Mega-Pack box, empty now except for straw and a leaflet: COLLECT THEM ALL! (YOU HAVE.)"
+ ],
+ "p13.inspect.shelf": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "if": {
+    "flag": "p13_dis_sauce"
+   },
+   "then": [
+    "The little shelf. A candle stub. A book called KNOTS. Behind KNOTS, where nobody will ever look: the Spicy Stench Sauce."
+   ],
+   "else": [
+    "The little shelf: a candle stub, a book called KNOTS, and a can of Spicy Stench Sauce somebody brought down for later."
+   ]
+  }
+ ],
+ "p13.inspect.sash_bunk": [
+  "Sash hammocks, red and gold. Sash pillows with little noses on. Sash blankets with AGES SIX AND UP round the edge.",
+  "It's the most comfortable the crew have been in a month. You will never, ever say so."
+ ],
+ "p13.inspect.wardrobe": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "Your wardrobe. The sash is in there, behind your good coat. The good coat is a slightly different colour at the hem than it was this morning.",
+  "♪ Don't throw my sash in the trash... ♪ It's in your head. It's in your HEAD."
+ ],
+ "p13.inspect.standee_stenchalina": [
+  {
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_limit.rant"
+     },
+     {
+      "notFlag": "p13_rant_standees"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p13c12.rant_standees"
+    }
+   ],
+   "else": [
+    {
+     "if": {
+      "flag": "stinkbeard_delirium"
+     },
+     "then": [
+      "The cardboard princess turns her head. Slowly. To look at YOU. (It's cardboard. It doesn't. It DID.)"
+     ],
+     "else": [
+      "Princess Stenchalina, in cardboard: a baby in a crown with her fist raised, staring at somebody's bunk with great intensity."
+     ]
+    }
+   ]
+  }
+ ],
+ "p13.inspect.standee_brogath": [
+  {
+   "if": {
+    "objectiveActive": "wire_the_systems.brogath"
+   },
+   "then": [
+    {
+     "call": "p13c8.brogath"
+    }
+   ],
+   "else": [
+    {
+     "if": {
+      "all": [
+       {
+        "objectiveActive": "two_brogaths.look"
+       },
+       {
+        "notFlag": "p13_looked_cardboard"
+       }
+      ]
+     },
+     "then": [
+      {
+       "call": "p13c17.look_cardboard"
+      }
+     ],
+     "else": [
+      {
+       "if": {
+        "all": [
+         {
+          "objectiveActive": "the_limit.rant"
+         },
+         {
+          "notFlag": "p13_rant_standees"
+         }
+        ]
+       },
+       "then": [
+        {
+         "call": "p13c12.rant_standees"
+        }
+       ],
+       "else": [
+        {
+         "if": {
+          "flag": "cable_seg_1"
+         },
+         "then": [
+          {
+           "if": {
+            "flag": "stinkbeard_delirium"
+           },
+           "then": [
+            "Brogath. Cardboard Brogath. He's blushing. He's always blushing. What has he got to blush ABOUT? (He's cardboard.)"
+           ],
+           "else": [
+            "Brogath the Bashful, life-size, cardboard, blushing behind his own sash. CHEAP-O-RAMA on the back."
+           ]
+          },
+          "Garrick's cable is still round his neck, over his shoulder and under his arm."
+         ],
+         "else": [
+          {
+           "if": {
+            "flag": "stinkbeard_delirium"
+           },
+           "then": [
+            "Brogath. Cardboard Brogath. He's blushing. He's always blushing. What has he got to blush ABOUT? (He's cardboard.)"
+           ],
+           "else": [
+            "Brogath the Bashful, life-size, cardboard, blushing behind his own sash. CHEAP-O-RAMA on the back."
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "p13.inspect.standee_rumpold": [
+  {
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_limit.rant"
+     },
+     {
+      "notFlag": "p13_rant_standees"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p13c12.rant_standees"
+    }
+   ],
+   "else": [
+    {
+     "if": {
+      "flag": "stinkbeard_delirium"
+     },
+     "then": [
+      "Rumpold's printed rear is pointing at the weather. It is, you're almost certain, getting READY."
+     ],
+     "else": [
+      "Rumpold Windbreaker the Resolute, printed from behind. Rear to the weather. As is traditional."
+     ]
+    }
+   ]
+  }
+ ],
+ "p13.inspect.standee_rumpus": [
+  {
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_limit.rant"
+     },
+     {
+      "notFlag": "p13_rant_standees"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p13c12.rant_standees"
+    }
+   ],
+   "else": [
+    {
+     "if": {
+      "flag": "stinkbeard_delirium"
+     },
+     "then": [
+      "Sir Rumpus's finger is up. It's been up all day. Is the Court in SESSION?"
+     ],
+     "else": [
+      "Sir Rumpus Windbottom in his great wig, one finger raised. A speech bubble: THE GRAND WAFT IS VALID."
+     ]
+    }
+   ]
+  }
+ ],
+ "p13.inspect.standee_gustavio": [
+  {
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_limit.rant"
+     },
+     {
+      "notFlag": "p13_rant_standees"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p13c12.rant_standees"
+    }
+   ],
+   "else": [
+    {
+     "if": {
+      "flag": "stinkbeard_delirium"
+     },
+     "then": [
+      "Lord Gustavio is horrified. You look where he's looking. You're horrified too."
+     ],
+     "else": [
+      "Lord Gustavio Bottomsworth, in a sash, looking at a sash in absolute horror. Whatever he faces, he's horrified by it."
+     ]
+    }
+   ]
+  }
+ ]
+}

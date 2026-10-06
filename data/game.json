@@ -996,6 +996,146 @@
       "if": {
         "flag": "p12_complete"
       }
+    },
+    {
+      "id": "p13c1",
+      "name": "Chapter 127: The Finger-Pulling Breakdown",
+      "if": {
+        "flag": "p13_started"
+      }
+    },
+    {
+      "id": "p13c2",
+      "name": "Chapter 128: Don't Throw My Sash in the Trash",
+      "if": {
+        "flag": "p13_ch128_started"
+      }
+    },
+    {
+      "id": "p13c3",
+      "name": "Chapter 129: The Sleeping Quarters Are Alive",
+      "if": {
+        "flag": "p13_ch129_started"
+      }
+    },
+    {
+      "id": "p13c4",
+      "name": "Chapter 130: Condemn the Bedding",
+      "if": {
+        "flag": "p13_ch130_started"
+      }
+    },
+    {
+      "id": "p13c5",
+      "name": "Chapter 131: Grand Stenchmaster Bedding",
+      "if": {
+        "flag": "p13_ch131_started"
+      }
+    },
+    {
+      "id": "p13c6",
+      "name": "Chapter 132: The Fan Mega-Pack",
+      "if": {
+        "flag": "p13_ch132_started"
+      }
+    },
+    {
+      "id": "p13c7",
+      "name": "Chapter 133: Build-Your-Own S.E.S.",
+      "if": {
+        "flag": "p13_ch133_started"
+      }
+    },
+    {
+      "id": "p13c8",
+      "name": "Chapter 134: Wire the Two Systems Together",
+      "if": {
+        "flag": "p13_ch134_started"
+      }
+    },
+    {
+      "id": "p13c9",
+      "name": "Chapter 135: The Stenchmaster Channel",
+      "if": {
+        "flag": "p13_ch135_started"
+      }
+    },
+    {
+      "id": "p13c10",
+      "name": "Chapter 136: Stench-O-Vision",
+      "if": {
+        "flag": "p13_ch136_started"
+      }
+    },
+    {
+      "id": "p13c11",
+      "name": "Chapter 137: Poor in Gold, Rich in Gas",
+      "if": {
+        "flag": "p13_ch137_started"
+      }
+    },
+    {
+      "id": "p13c12",
+      "name": "Chapter 138: Captain Stinkbeard Finally Reaches His Limit",
+      "if": {
+        "flag": "p13_ch138_started"
+      }
+    },
+    {
+      "id": "p13c13",
+      "name": "Chapter 139: The Beard Betrays Him",
+      "if": {
+        "flag": "p13_ch139_started"
+      }
+    },
+    {
+      "id": "p13c14",
+      "name": "Chapter 140: Every Ancient Stenchmaster Is Here",
+      "if": {
+        "flag": "p13_ch140_started"
+      }
+    },
+    {
+      "id": "p13c15",
+      "name": "Chapter 141: Disarm the Ancient Stenchmasters",
+      "if": {
+        "flag": "p13_ch141_started"
+      }
+    },
+    {
+      "id": "p13c16",
+      "name": "Chapter 142: Ancient Stenchmaster Apocalypse",
+      "if": {
+        "flag": "p13_ch142_started"
+      }
+    },
+    {
+      "id": "p13c17",
+      "name": "Chapter 143: Two Brogaths",
+      "if": {
+        "flag": "p13_ch143_started"
+      }
+    },
+    {
+      "id": "p13c18",
+      "name": "Chapter 144: Brogath in the Treasure Room",
+      "if": {
+        "flag": "p13_ch144_started"
+      }
+    },
+    {
+      "id": "p13c19",
+      "name": "Chapter 145: The Brogath Command Crisis",
+      "if": {
+        "flag": "p13_ch145_started"
+      }
+    },
+    {
+      "id": "phase13_end",
+      "name": "The Brogath Command Crisis",
+      "if": {
+        "flag": "p13_complete"
+      }
     }
   ],
   "timeOfDay": [
@@ -1374,6 +1514,17 @@
       }
     },
     {
+      "id": "p12_storm_morning",
+      "grade": "#d8e2d0",
+      "interior": 0.34,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 28
+        }
+      }
+    },
+    {
       "id": "p11_storm_night",
       "grade": "#6e6aa8",
       "interior": 0.6,
@@ -1385,13 +1536,24 @@
       }
     },
     {
-      "id": "p12_storm_morning",
-      "grade": "#d8e2d0",
-      "interior": 0.34,
+      "id": "p13_storm_afternoon",
+      "grade": "#e2d8c0",
+      "interior": 0.36,
       "if": {
         "var": {
           "name": "p4_tod",
-          "eq": 28
+          "eq": 29
+        }
+      }
+    },
+    {
+      "id": "p13_delirium",
+      "grade": "#c4a8e4",
+      "interior": 0.55,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 30
         }
       }
     }

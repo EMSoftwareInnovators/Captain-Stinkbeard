@@ -13,6 +13,9 @@
     "spawn": "door"
    },
    "sfx": "heavy_door",
+   "when": {
+    "flag": "treasure_room_sealed"
+   },
    "if": {
     "notFlag": "treasure_room_sealed"
    },

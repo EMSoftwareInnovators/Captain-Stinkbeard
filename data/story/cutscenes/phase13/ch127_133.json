@@ -1,0 +1,1295 @@
+{
+ "//": "Story Phase 13, chapters 127-133: the finger-pulling breakdown; DON'T THROW MY SASH IN THE TRASH; the sleeping quarters are alive; the bedding condemned and locked away; sash bedding; the Fan Mega-Pack and its cardboard Ancient Stenchmasters; the Build-Your-Own S.E.S. kit.",
+ "p13.ready_hint": [
+  {
+   "setFlag": "p13_ready_hint"
+  },
+  {
+   "tutorial": "Twenty hours of suspension to go, and Garrick is not coping. Go and see how he's getting on (him, in the galley).",
+   "title": "Regular Garrick"
+  }
+ ],
+ "p13c1.begin": [
+  {
+   "setFlag": "p13_started"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 29
+  },
+  {
+   "setVar": "suspension_hours_left",
+   "value": 19
+  },
+  {
+   "sharkstorm": "inside_morning"
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "banner": "PART 1",
+   "sub": "The Ancient Stenchmaster Delirium"
+  },
+  {
+   "banner": "CHAPTER 127",
+   "sub": "The Finger-Pulling Breakdown"
+  },
+  {
+   "music": "one_day_suspension",
+   "fade": 1000
+  },
+  "Nineteen hours to go. Garrick is sitting on the end of the bench with his arms round his stomach, rocking very slightly, and every so often it says something.",
+  {
+   "sfx": "stomach_grnk",
+   "volume": 0.8
+  },
+  "gloooorp.",
+  "garrick[gastro]: Captain. I've been thinking.",
+  "captain: No.",
+  "garrick[gastro]: About the RULES. The rules say no releases. But what IS a release, Captain? Legally? Has anyone ever DEFINED it?",
+  {
+   "startQuest": "finger_breakdown"
+  },
+  {
+   "tutorial": "Hear his loopholes, one by one (him). There are five. All of them are no.",
+   "title": "The Finger-Pulling Breakdown"
+  }
+ ],
+ "p13c1.loophole_1": [
+  "garrick[gastro]: A TINY toot, Captain. Barely a toot. A tootlet. Surely a tootlet isn't a RELEASE.",
+  "pete: (from across the galley) No.",
+  "garrick[gastro]: I didn't ask YOU, Pete.",
+  "pete: It's still no.",
+  {
+   "setFlag": "p13_lh_1"
+  },
+  {
+   "event": "p13_loophole"
+  }
+ ],
+ "p13c1.loophole_2": [
+  "garrick[gastro]: A REGULAR toot. Not a Grand one. The rules say no GRAND releases. They don't say anything about regular...",
+  "captain: 'No releases. No toots. No exceptions.'",
+  "garrick[gastro]: ...It says toots, doesn't it.",
+  "captain[smug]: It says toots.",
+  {
+   "setFlag": "p13_lh_2"
+  },
+  {
+   "event": "p13_loophole"
+  }
+ ],
+ "p13c1.loophole_3": [
+  "garrick[gastro]: Then a NON-Grand toot. I'm not Grand today. You SAID so. So anything I do today is, by definition, non-Grand...",
+  "jim: (from the stove, not turning round) No.",
+  "garrick[gastro]: That's a very good argument, Jim, it deserves more than NO.",
+  {
+   "setFlag": "p13_lh_3"
+  },
+  {
+   "event": "p13_loophole"
+  }
+ ],
+ "p13c1.loophole_4": [
+  "garrick[gastro]: A SUSPENSION-COMPLIANT toot. Very quiet. Facing the sea. Filed in advance. With a FORM.",
+  "gristle: Who'd sign the form?",
+  "garrick[gastro]: The highest-ranking officer present.",
+  "Everybody looks at you.",
+  "captain: No.",
+  {
+   "setFlag": "p13_lh_4"
+  },
+  {
+   "event": "p13_loophole"
+  }
+ ],
+ "p13c1.loophole_5": [
+  "garrick[gastro]: (holding out the finger) Then, purely for MEDICAL reasons... Finger-Puller-assisted pressure relief. It's not a release if someone ELSE pulls it. That's the whole point of the office.",
+  "bob: The office was voted down, Garrick.",
+  "garrick[gastro]: (sadly) It's still on the chart, Bob.",
+  {
+   "setFlag": "p13_lh_5"
+  },
+  {
+   "event": "p13_loophole"
+  }
+ ],
+ "p13c1.done": [
+  {
+   "sfx": "stomach_grnk",
+   "volume": 0.8
+  },
+  "He puts his finger away. He puts his head down on the long table. His stomach says something long and sad.",
+  "garrick[worried]: (into the table) Nineteen hours.",
+  "captain[smug]: Eighteen and three-quarters.",
+  {
+   "setFlag": "loopholes_refused"
+  },
+  {
+   "completeQuest": "finger_breakdown"
+  },
+  {
+   "call": "p13c2.begin"
+  }
+ ],
+ "p13c2.begin": [
+  {
+   "setFlag": "p13_ch128_started"
+  },
+  {
+   "banner": "CHAPTER 128",
+   "sub": "Don't Throw My Sash in the Trash"
+  },
+  "Meanwhile, every time you go anywhere near your cabin, you can smell your wardrobe from the deck.",
+  "Your good coat. Your second-best coat. Your SHIRTS.",
+  {
+   "startQuest": "sash_in_the_trash"
+  },
+  {
+   "tutorial": "Do something about the sash in your wardrobe (your cabin).",
+   "title": "Don't Throw My Sash in the Trash"
+  }
+ ],
+ "p13c2.wardrobe": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You open the wardrobe. The smell comes out to meet you like a dog that's been waiting by the door.",
+  {
+   "sfx": "wardrobe_open",
+   "volume": 0.7
+  },
+  {
+   "sfx": "fume_growl_small",
+   "volume": 0.6
+  },
+  "Your coats have changed colour. Slightly. At the hems.",
+  "captain[angry]: That's IT. It's going in the TRASH. It's going over the SIDE. It's going...",
+  {
+   "sfx": "tv_power_on",
+   "volume": 0.6
+  },
+  "And from below, faint but unmistakable, through the deck, through the galley hatch: the Mark II, switching itself on. And music.",
+  "pete: (shouting up from the hatch) Captain? CAPTAIN. You'll want to see this.",
+  {
+   "setFlag": "p13_wardrobe_opened"
+  },
+  {
+   "tutorial": "Go and see what's on (the Mark II, in the galley).",
+   "title": "Don't Throw My Sash in the Trash"
+  }
+ ],
+ "p13c2.watch": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "tvSet": "ses_mk2",
+   "power": true,
+   "channel": 8
+  },
+  {
+   "vista": "galley_storm_watch",
+   "fade": 500
+  },
+  {
+   "music": "late_night_bling",
+   "fade": 300
+  },
+  {
+   "tvProgram": "bling_late_night",
+   "episode": "sash_trash_song",
+   "layer": "screen",
+   "from": 0,
+   "to": 1
+  },
+  "pete: ...It's a song. It's doing a SONG.",
+  {
+   "tvProgram": "bling_late_night",
+   "episode": "sash_trash_song",
+   "layer": "screen",
+   "from": 2,
+   "to": 4
+  },
+  "captain[angry]: I haven't even DONE that yet. I was going to do that. I was THINKING about doing that.",
+  {
+   "tvProgram": "bling_late_night",
+   "episode": "sash_trash_song",
+   "layer": "screen",
+   "from": 5,
+   "to": 7
+  },
+  "gristle: The anchor won't work. It's right, the anchor won't work. I've thought about the anchor.",
+  {
+   "tvProgram": "bling_late_night",
+   "episode": "sash_trash_song",
+   "layer": "screen",
+   "from": 8,
+   "to": 10
+  },
+  "jim: It's sending it back. The STORM. In the song. It's sending it back.",
+  {
+   "tvProgram": "bling_late_night",
+   "episode": "sash_trash_song",
+   "layer": "screen",
+   "from": 11,
+   "to": 13
+  },
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  "The Mark II switches itself off. The galley is very quiet.",
+  "bob: (humming) Don't throw my sash in the trash...",
+  "EVERYONE: BOB.",
+  "bob: Sorry. It's catchy.",
+  {
+   "setFlag": "sash_trash_song_seen"
+  },
+  {
+   "setValue": "stenchmaster_sash_custody",
+   "value": "captains_wardrobe"
+  },
+  {
+   "completeQuest": "sash_in_the_trash"
+  },
+  {
+   "call": "p13c3.begin"
+  }
+ ],
+ "p13c3.begin": [
+  {
+   "setFlag": "p13_ch129_started"
+  },
+  {
+   "banner": "CHAPTER 129",
+   "sub": "The Sleeping Quarters Are Alive"
+  },
+  "gristle: Captain. While he's suspended. While it's quiet in him. We should do the old quarters.",
+  "captain: They're condemned.",
+  "gristle: They're condemned because of what's IN them. The release moved into the bedding, Captain. Not the boards. The SHEETS. If we take the bedding out...",
+  "pete: ...we get our beds back?",
+  "gristle: We get our ROOM back. Then we see about beds.",
+  "Everybody looks at the boarded door at the bottom of the galley, the CONDEMNED sign, the yellow that still comes out under it.",
+  {
+   "startQuest": "quarters_alive"
+  },
+  {
+   "tutorial": "Open up the old quarters (the boarded door, at the bottom of the galley).",
+   "title": "The Sleeping Quarters Are Alive"
+  }
+ ],
+ "p13c3.unboard": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "The boards over the old quarters' door. Your nails. Your sign.",
+  {
+   "repair": "pry",
+   "strikes": 3,
+   "title": "PRY THE BOARDS OFF"
+  },
+  {
+   "sfx": "door_creak",
+   "volume": 0.8
+  },
+  "The last board comes away. You open the door, a crack.",
+  {
+   "sfx": "fume_growl_small",
+   "volume": 0.8
+  },
+  "...grrr.",
+  "Something in there growled.",
+  "pete: (very quietly) Did the room just GROWL?",
+  "gristle: It's the bedding. It's been in there with that release since the night of the condemning. Soaking. It's... settled in.",
+  "gristle: I'll knock the nails out of the fore hatch too, from up top. Let some air through.",
+  {
+   "setFlag": "crew_quarters_reopened"
+  },
+  {
+   "setValue": "crew_quarters_state",
+   "value": "reopened_bedding_condemned"
+  },
+  {
+   "tutorial": "Go in. Have a look. Breathe through the wet cloth.",
+   "title": "The Sleeping Quarters Are Alive"
+  }
+ ],
+ "p13c3.inside": [
+  {
+   "restage": "cut"
+  },
+  "The old quarters. Your crew's beds, the way they left them the night they ran: hammocks still slung, blankets still tumbled, a sock on the card table. All of it faintly yellow.",
+  {
+   "sfx": "fume_growl_small",
+   "volume": 0.6
+  },
+  "And from the hammocks, from the cots, from the pillows: little noises. A grrr. A whimper. A sort of hrrrmph from a blanket, as if it's turning over.",
+  "bob: (hiding behind Pete) Is it ALIVE?",
+  "gristle: It's not alive, Bob. It's fumes. Stuck in the cloth. When the ship moves, they move, and they come out... sounding.",
+  "bob: Sounding like WHAT?",
+  {
+   "sfx": "pillow_mrrrow",
+   "volume": 0.8
+  },
+  "From a pillow on the nearest cot: a tiny, pathetic, high little 'mrrrow'. Like a kitten trying to roar.",
+  "Everybody looks at the pillow. The pillow, as far as a pillow can, looks back.",
+  "captain[determined]: That one's going in the storm. First.",
+  {
+   "setFlag": "growling_bedding_found"
+  },
+  {
+   "tutorial": "Take the pillow that roars (the cot by the starboard wall). Throw it into the Great Sharkstorm (up the ladder, the port rail).",
+   "title": "The Sleeping Quarters Are Alive"
+  }
+ ],
+ "p13c3.pillow": [
+  {
+   "sfx": "pillow_mrrrow",
+   "volume": 0.9
+  },
+  "You pick it up. It goes mrrrow. Quietly. Into your hand.",
+  {
+   "giveItem": "kitten_roar_pillow"
+  },
+  {
+   "setFlag": "kitten_pillow_taken"
+  }
+ ],
+ "p13c3.throw_1": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "The port rail. The storm, going round, as close as the other side of a road. You wind up.",
+  {
+   "repair": "throw",
+   "strikes": 3,
+   "title": "THROW IT!"
+  },
+  {
+   "takeItem": "kitten_roar_pillow",
+   "silent": true
+  },
+  {
+   "sfx": "pillow_whoosh",
+   "volume": 0.8
+  },
+  "It goes. Up and out, turning over and over, mrrrowing all the way, into the wall of the storm. Gone.",
+  {
+   "wait": 800
+  },
+  {
+   "sfx": "pillow_whoosh",
+   "volume": 0.8
+  },
+  "...and back. The storm throws it straight back over the rail, and it lands on the deck behind you with a soft fwump.",
+  {
+   "sfx": "pillow_mrrrow",
+   "volume": 0.6
+  },
+  "mrrrow.",
+  {
+   "setFlag": "pillow_thrown_once"
+  },
+  {
+   "tutorial": "Pick it up (on the deck behind you) and throw it again. Harder.",
+   "title": "The Sleeping Quarters Are Alive"
+  }
+ ],
+ "p13c3.pickup": [
+  "The pillow. It looks smug, for a pillow.",
+  {
+   "giveItem": "kitten_roar_pillow"
+  },
+  {
+   "setFlag": "pillow_picked_up"
+  }
+ ],
+ "p13c3.throw_2": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "You wind up properly this time. All your shoulder.",
+  {
+   "repair": "throw",
+   "strikes": 3,
+   "title": "HARDER!"
+  },
+  {
+   "takeItem": "kitten_roar_pillow",
+   "silent": true
+  },
+  {
+   "sfx": "pillow_whoosh",
+   "volume": 1.0
+  },
+  "It goes a LONG way. It goes into the storm and round, and round, and you watch it go round once, twice, past a shark in pearls...",
+  {
+   "wait": 900
+  },
+  {
+   "sfx": "token_whistle",
+   "volume": 0.8
+  },
+  {
+   "sfx": "pillow_whoosh",
+   "volume": 0.8
+  },
+  "...and it comes back. Thrown. Precisely. It lands at your feet. And there's something pinned to it now.",
+  {
+   "insert": "pillow_tag",
+   "caption": "NO THANKS. RETURN TO SENDER. TOO STINKY. (A participation medal, pinned on.)"
+  },
+  "A participation medal. On a ribbon. Pinned through the pillow.",
+  "squawks[smug]: (from your shoulder) Rejected.",
+  "captain[angry]: By WEATHER.",
+  {
+   "giveItem": "kitten_roar_pillow"
+  },
+  {
+   "setFlag": "pillow_returned_with_tag"
+  },
+  {
+   "completeQuest": "quarters_alive"
+  },
+  {
+   "call": "p13c4.begin"
+  }
+ ],
+ "p13c4.begin": [
+  {
+   "setFlag": "p13_ch130_started"
+  },
+  {
+   "banner": "CHAPTER 130",
+   "sub": "Condemn the Bedding"
+  },
+  "gristle: If the storm won't have one pillow, it won't have the rest. We'll have to deal with it ourselves.",
+  "captain: Deal with it HOW?",
+  "gristle: Judge it. Every bit. Pile it. Lock it away. Somewhere it can't get out.",
+  {
+   "startQuest": "condemn_bedding"
+  },
+  {
+   "tutorial": "Judge the bedding, every kind (in the old quarters: the sheets, the blankets, the pillows, the pillowcases, the mattress covers, the hammock cloth). Pile it up.",
+   "title": "Condemn the Bedding"
+  }
+ ],
+ "p13c4.judge_sheets": [
+  "The cot's sheets. You lift one corner. It lifts the rest of itself, all together, stiff, like a board.",
+  {
+   "sfx": "fume_growl_small",
+   "volume": 0.6
+  },
+  "Contaminated.",
+  {
+   "setFlag": "p13_judged_sheets"
+  },
+  {
+   "event": "p13_judged"
+  }
+ ],
+ "p13c4.judge_blankets": [
+  "A blanket. Wool, once. It whimpers when you fold it.",
+  {
+   "sfx": "fume_growl_small",
+   "volume": 0.6
+  },
+  "Contaminated.",
+  {
+   "setFlag": "p13_judged_blankets"
+  },
+  {
+   "event": "p13_judged"
+  }
+ ],
+ "p13c4.judge_pillows": [
+  "Pillows. Four of them. All of them making small noises. One of them is snoring.",
+  {
+   "sfx": "fume_growl_small",
+   "volume": 0.6
+  },
+  "Contaminated.",
+  {
+   "setFlag": "p13_judged_pillows"
+  },
+  {
+   "event": "p13_judged"
+  }
+ ],
+ "p13c4.judge_pillowcases": [
+  "Pillowcases, in the footlocker. You open the lid. A pillowcase sighs at you.",
+  {
+   "sfx": "fume_growl_small",
+   "volume": 0.6
+  },
+  "Contaminated.",
+  {
+   "setFlag": "p13_judged_pillowcases"
+  },
+  {
+   "event": "p13_judged"
+  }
+ ],
+ "p13c4.judge_mattress": [
+  "The mattress covers off the hammock bottoms. Grey-green. Damp. Warm. You don't want to know why they're warm.",
+  {
+   "sfx": "fume_growl_small",
+   "volume": 0.6
+  },
+  "Contaminated.",
+  {
+   "setFlag": "p13_judged_mattress"
+  },
+  {
+   "event": "p13_judged"
+  }
+ ],
+ "p13c4.judge_hammock": [
+  "The hammock cloth itself. You touch it. It grrrs. Very quietly. You take your hand back.",
+  {
+   "sfx": "fume_growl_small",
+   "volume": 0.6
+  },
+  "Contaminated.",
+  {
+   "setFlag": "p13_judged_hammock"
+  },
+  {
+   "event": "p13_judged"
+  }
+ ],
+ "p13c4.pile": [
+  "A pile in the middle of the quarters, as high as your waist: sheets, blankets, pillows, pillowcases, mattress covers, hammock cloth, and on top, the kitten-roar pillow with its medal.",
+  {
+   "takeItem": "kitten_roar_pillow",
+   "silent": true
+  },
+  "It growls. Not loud. All together. Like a crowd in the next street.",
+  "pete: We throw it in the storm. All of it. One go.",
+  "gristle: The storm sent the pillow BACK, Pete.",
+  "pete: It sent ONE pillow back. It can't send back a whole PILE.",
+  {
+   "setFlag": "bedding_piled"
+  },
+  {
+   "tutorial": "Get the whole pile up on deck and over the side (the pile).",
+   "title": "Condemn the Bedding"
+  }
+ ],
+ "p13c4.discard": [
+  "You and Pete and Bob and Gristle take a corner each, and carry the whole growling heap up the ladder and over to the rail, and on three...",
+  {
+   "repair": "heave",
+   "strikes": 3,
+   "title": "HEAVE!"
+  },
+  {
+   "sfx": "pillow_whoosh",
+   "volume": 1.0
+  },
+  "...it goes. All of it. Into the storm, unfolding as it goes, sheets and blankets spreading out like a flock.",
+  {
+   "wait": 900
+  },
+  {
+   "sfx": "token_whistle",
+   "volume": 0.8
+  },
+  {
+   "shake": 1,
+   "duration": 500
+  },
+  "And then it comes back. All of it. Neatly. Folded. In a pile, on the deck, exactly where it was a moment ago, with a token on top.",
+  {
+   "insert": "token_return",
+   "caption": "NO THANKS (AGAIN). THE MANAGEMENT."
+  },
+  "pete[annoyed]: It FOLDED it.",
+  "gristle: (resigned) Locker, then. The linen locker in the quarters. And nails.",
+  "You carry it back down again. It growls the whole way.",
+  {
+   "setFlag": "bedding_returned_by_storm"
+  }
+ ],
+ "p13c4.stuff": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The linen locker in the quarters' north wall. Empty: everything that was in it is in the pile.",
+  "You stuff the pile in. It takes all four of you. The door won't shut. Bob sits against it. It shuts.",
+  {
+   "sfx": "wardrobe_shut",
+   "volume": 0.9
+  },
+  {
+   "sfx": "fume_growl_small",
+   "volume": 0.6
+  },
+  {
+   "setFlag": "textiles_in_locker"
+  },
+  "garrick[gastro]: (from the doorway, sadly) That was my favourite blanket in there. I mean, it was BOB's blanket. But I'd been on it.",
+  {
+   "tutorial": "Nail it shut (the linen locker).",
+   "title": "Condemn the Bedding"
+  }
+ ],
+ "p13c4.nail": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "repair": "nail",
+   "strikes": 3,
+   "title": "NAIL IT SHUT"
+  },
+  "Six nails. Two boards. Then, because it's traditional now, a sign.",
+  {
+   "insert": "sign_it_growls",
+   "caption": "DO NOT OPEN. IT GROWLS."
+  },
+  "The locker growls, once, behind the boards, as if it's read it.",
+  "And the quarters, with the bedding gone, smell... not good. Not good at all. But like a ROOM, and not like a release.",
+  {
+   "setFlag": "textiles_sealed"
+  },
+  {
+   "setValue": "crew_quarters_state",
+   "value": "reopened_bedding_sealed"
+  },
+  {
+   "setValue": "textile_closet_state",
+   "value": "sealed_growls"
+  },
+  {
+   "completeQuest": "condemn_bedding"
+  },
+  {
+   "call": "p13c5.begin"
+  }
+ ],
+ "p13c5.begin": [
+  {
+   "setFlag": "p13_ch131_started"
+  },
+  {
+   "setVar": "suspension_hours_left",
+   "value": 16
+  },
+  {
+   "banner": "CHAPTER 131",
+   "sub": "Grand Stenchmaster Bedding"
+  },
+  "An empty room. Hooks with nothing on them. Cots with nothing on them. Nothing to sleep in.",
+  "jim: There's no clean cloth on this ship. None. Not a sheet.",
+  "Everybody thinks about it at the same time. Everybody looks the same way: up the stairs, toward the galley, where a Cheap-O-Rama crate still has two hundred and ninety-something toy sashes in it.",
+  "garrick[delighted]: (perking up, for the first time in hours) OH.",
+  {
+   "startQuest": "grand_bedding"
+  },
+  {
+   "tutorial": "Make bedding out of toy sashes, in the old quarters: tie sashes into the hammocks, make mattress pads (the cots), fold pillows, make blankets, and secure the corners.",
+   "title": "Grand Stenchmaster Bedding"
+  }
+ ],
+ "p13c5.hammocks": [
+  "Five hammocks. Twelve sashes each. Tied end to end and doubled, and laced to the old rings with the old knots.",
+  {
+   "repair": "knot",
+   "strikes": 3,
+   "title": "TIE THE SASHES"
+  },
+  {
+   "setFlag": "p13_bedding_hammocks"
+  },
+  {
+   "event": "p13_bedding"
+  }
+ ],
+ "p13c5.pads": [
+  "Mattress pads for the cots: sash boxes, flattened, in a sleeve of sashes. Crackly. Thick. Surprisingly comfortable, Gristle says, lying on one, surprised.",
+  {
+   "repair": "knot",
+   "strikes": 3,
+   "title": "STUFF THE PADS"
+  },
+  {
+   "setFlag": "p13_bedding_pads"
+  },
+  {
+   "event": "p13_bedding"
+  }
+ ],
+ "p13c5.pillows": [
+  "Pillows: sashes folded and folded and folded until they're the size of a loaf. Each one has a little embroidered nose on top.",
+  {
+   "repair": "plate",
+   "strikes": 3,
+   "title": "FOLD THE PILLOWS"
+  },
+  {
+   "setFlag": "p13_bedding_pillows"
+  },
+  {
+   "event": "p13_bedding"
+  }
+ ],
+ "p13c5.blankets": [
+  "Blankets, woven out of sashes, red and gold, with AGES SIX AND UP running round the edge like a border.",
+  {
+   "repair": "knot",
+   "strikes": 3,
+   "title": "WEAVE THE BLANKETS"
+  },
+  {
+   "setFlag": "p13_bedding_blankets"
+  },
+  {
+   "event": "p13_bedding"
+  }
+ ],
+ "p13c5.corners": [
+  "And the corners, tacked down, so that when the ship goes round the bedding stays where it's put.",
+  {
+   "repair": "nail",
+   "strikes": 3,
+   "title": "SECURE THE CORNERS"
+  },
+  {
+   "setFlag": "p13_bedding_corners"
+  },
+  {
+   "event": "p13_bedding"
+  }
+ ],
+ "p13c5.done": [
+  {
+   "restage": "cut"
+  },
+  "You stand back.",
+  "The old quarters are red. All of it. Red sash hammocks, red sash blankets, red sash pillows with little noses on, red sash pads on the cots, and the printed boxes the sashes came in tacked up over the holes in the walls: GRAND STENCHMASTER CEREMONIAL SASH PLAYSET. GRAND STENCHMASTER CEREMONIAL SASH PLAYSET. GRAND STENCHMASTER...",
+  "It looks like the inside of his head.",
+  "captain[angry]: I hate it.",
+  "garrick[delighted]: (in the doorway, hands clasped, eyes shining) It's BEAUTIFUL.",
+  "pete: (lying down in his new hammock) ...It's actually very comfortable.",
+  "captain[angry]: I KNOW. I HATE THAT TOO.",
+  "garrick[delighted]: (to himself, misty) And to think I nearly let them throw my sash in the trash.",
+  "He stops. He hears what he just said. He goes pale.",
+  "garrick: ...Oh no. That's the SHARK's line.",
+  "squawks[smug]: Catchy.",
+  {
+   "setFlag": "sash_bedding_built"
+  },
+  {
+   "setFlag": "garrick_adopted_catchphrase"
+  },
+  {
+   "setValue": "crew_quarters_state",
+   "value": "sash_bedding"
+  },
+  {
+   "completeQuest": "grand_bedding"
+  },
+  {
+   "call": "p13c6.begin"
+  }
+ ],
+ "p13c6.begin": [
+  {
+   "setFlag": "p13_ch132_started"
+  },
+  {
+   "banner": "CHAPTER 132",
+   "sub": "The Fan Mega-Pack"
+  },
+  {
+   "sfx": "helicopter_rotor",
+   "volume": 0.9
+  },
+  "Thud-thud-thud-thud. Overhead. The flying machine.",
+  "ned: (from the ladder) It's back! It's lowering something! Down the FORE hatch this time! Into the QUARTERS!",
+  {
+   "sfx": "winch_whirr",
+   "volume": 0.8
+  },
+  "It comes down the ladder hatch on a rope: a box the size of a wardrobe, printed all over in red and gold. It lands in the middle of the new red room.",
+  {
+   "insert": "megapack_box",
+   "caption": "GRAND STENCHMASTER FAN MEGA-PACK! COLLECT THEM ALL! (ALL INCLUDED.)"
+  },
+  "garrick[delighted]: (actually weeping) A FAN Mega-Pack. I have FANS.",
+  {
+   "startQuest": "fan_megapack"
+  },
+  {
+   "tutorial": "Open the Mega-Pack (the box, in the middle of the quarters).",
+   "title": "The Fan Mega-Pack"
+  }
+ ],
+ "p13c6.open": [
+  {
+   "sfx": "package_crinkle",
+   "volume": 1.0
+  },
+  "You open it. It's mostly cardboard. Some of the cardboard is people.",
+  "Life-size, flat-packed, with fold-out stands: the Ancient Grand Stenchmasters. Princess Stenchalina. Brogath the Bashful. Rumpold Windbreaker. Sir Rumpus Windbottom. Lord Gustavio Bottomsworth.",
+  "And under them, a heap of rubbish: pennants, cheap crowns, saucepan medals, a Bean Bailiff badge, a Grand Finger-Puller certification card, Grand Court stickers, HOLD MY SASH flags, a GRAND NAP pillowcase, foam dice, mugs, shirts.",
+  "garrick[delighted]: Put them UP, Captain. Put them all up. Where they can SEE.",
+  "captain: They're cardboard.",
+  "garrick[delighted]: They're LEGENDS, Captain. In cardboard.",
+  {
+   "setFlag": "megapack_opened"
+  },
+  {
+   "setFlag": "merch_aboard"
+  },
+  {
+   "tutorial": "Place the five cardboard Stenchmasters around the quarters (the Mega-Pack). You choose where. The jokes come with them.",
+   "title": "The Fan Mega-Pack"
+  }
+ ],
+ "p13c6.place": {
+  "start": [
+   {
+    "goto": "menu"
+   }
+  ],
+  "menu": [
+   {
+    "prompt": "Which one?",
+    "choice": [
+     {
+      "text": "Princess Stenchalina",
+      "if": {
+       "notFlag": "standee_stenchalina_placed"
+      },
+      "then": [
+       {
+        "goto": "stenchalina"
+       }
+      ]
+     },
+     {
+      "text": "Brogath the Bashful",
+      "if": {
+       "notFlag": "standee_brogath_placed"
+      },
+      "then": [
+       {
+        "goto": "brogath"
+       }
+      ]
+     },
+     {
+      "text": "Rumpold Windbreaker",
+      "if": {
+       "notFlag": "standee_rumpold_placed"
+      },
+      "then": [
+       {
+        "goto": "rumpold"
+       }
+      ]
+     },
+     {
+      "text": "Sir Rumpus Windbottom",
+      "if": {
+       "notFlag": "standee_rumpus_placed"
+      },
+      "then": [
+       {
+        "goto": "rumpus"
+       }
+      ]
+     },
+     {
+      "text": "Lord Gustavio Bottomsworth",
+      "if": {
+       "notFlag": "standee_gustavio_placed"
+      },
+      "then": [
+       {
+        "goto": "gustavio"
+       }
+      ]
+     },
+     {
+      "text": "Leave the rest in the box for now"
+     }
+    ]
+   }
+  ],
+  "stenchalina": [
+   "Princess Stenchalina, in cardboard: a baby in a crown with her fist raised, staring with great intensity at somebody's bed.",
+   {
+    "prompt": "Where?",
+    "choice": [
+     {
+      "text": "By the cots (staring at Gristle's bunk)",
+      "then": [
+       {
+        "setValue": "standee_stenchalina",
+        "value": "cots"
+       }
+      ]
+     },
+     {
+      "text": "By the hammocks (staring at Pete's)",
+      "then": [
+       {
+        "setValue": "standee_stenchalina",
+        "value": "hammocks"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "setFlag": "standee_stenchalina_placed"
+   },
+   {
+    "event": "p13_standee"
+   },
+   {
+    "sfx": "cardboard_thwap",
+    "volume": 0.8
+   },
+   {
+    "goto": "menu"
+   }
+  ],
+  "brogath": [
+   "Brogath the Bashful, life-size, cardboard, blushing, half-hidden behind his own sash, gazing out of the porthole at a treasure he no longer has.",
+   {
+    "prompt": "Where?",
+    "choice": [
+     {
+      "text": "By the port porthole",
+      "then": [
+       {
+        "setValue": "standee_brogath",
+        "value": "port"
+       }
+      ]
+     },
+     {
+      "text": "By the starboard porthole",
+      "then": [
+       {
+        "setValue": "standee_brogath",
+        "value": "starboard"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "setFlag": "standee_brogath_placed"
+   },
+   {
+    "event": "p13_standee"
+   },
+   {
+    "sfx": "cardboard_thwap",
+    "volume": 0.8
+   },
+   {
+    "goto": "menu"
+   }
+  ],
+  "rumpold": [
+   "Rumpold Windbreaker the Resolute: printed from BEHIND. Rear-first. Toward the weather. As is traditional.",
+   {
+    "prompt": "Where?",
+    "choice": [
+     {
+      "text": "Rear-first to the ladder hatch (the weather)",
+      "then": [
+       {
+        "setValue": "standee_rumpold",
+        "value": "hatch"
+       }
+      ]
+     },
+     {
+      "text": "Rear-first to the port porthole (also weather)",
+      "then": [
+       {
+        "setValue": "standee_rumpold",
+        "value": "port"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "setFlag": "standee_rumpold_placed"
+   },
+   {
+    "event": "p13_standee"
+   },
+   {
+    "sfx": "cardboard_thwap",
+    "volume": 0.8
+   },
+   {
+    "goto": "menu"
+   }
+  ],
+  "rumpus": [
+   "Sir Rumpus Windbottom in his wig, one finger raised. The Grand Waft is valid. He's been printed saying it.",
+   {
+    "prompt": "Where?",
+    "choice": [
+     {
+      "text": "By the card table (presiding)",
+      "then": [
+       {
+        "setValue": "standee_rumpus",
+        "value": "table"
+       }
+      ]
+     },
+     {
+      "text": "By the galley door (greeting visitors)",
+      "then": [
+       {
+        "setValue": "standee_rumpus",
+        "value": "door"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "setFlag": "standee_rumpus_placed"
+   },
+   {
+    "event": "p13_standee"
+   },
+   {
+    "sfx": "cardboard_thwap",
+    "volume": 0.8
+   },
+   {
+    "goto": "menu"
+   }
+  ],
+  "gustavio": [
+   "Lord Gustavio Bottomsworth, in cardboard, in a sash, looking at a sash in absolute horror. Whatever you put him in front of, he's horrified by it.",
+   {
+    "prompt": "Where?",
+    "choice": [
+     {
+      "text": "Facing the sash hammocks",
+      "then": [
+       {
+        "setValue": "standee_gustavio",
+        "value": "hammocks"
+       }
+      ]
+     },
+     {
+      "text": "Facing the sash cots",
+      "then": [
+       {
+        "setValue": "standee_gustavio",
+        "value": "cots"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "setFlag": "standee_gustavio_placed"
+   },
+   {
+    "event": "p13_standee"
+   },
+   {
+    "sfx": "cardboard_thwap",
+    "volume": 0.8
+   },
+   {
+    "goto": "menu"
+   }
+  ]
+ },
+ "p13c6.placed": [
+  {
+   "setFlag": "p13_standees_said"
+  },
+  {
+   "restage": "cut"
+  },
+  "You step back. Five cardboard Ancient Stenchmasters stand round the red room, each exactly where you put them, every one of them doing what they were printed doing.",
+  "Stenchalina is staring at someone's bunk. Brogath is gazing out of a porthole at money he hasn't got. Rumpold is pointing his rear at the weather. Sir Rumpus has a finger up. Gustavio is horrified.",
+  "And the merchandise: pennants over the hammocks, crowns on the hooks, HOLD MY SASH flags on every post, Grand Court stickers on the footlockers, a GRAND NAP pillowcase on Garrick's pillow.",
+  "pete: (looking round) It's a museum.",
+  "gristle: It's a gift shop.",
+  "captain[angry]: It's my SHIP.",
+  "garrick[delighted]: It's HOME.",
+  {
+   "setFlag": "standees_placed"
+  },
+  {
+   "setValue": "crew_quarters_state",
+   "value": "sash_bedding_merch"
+  },
+  {
+   "completeQuest": "fan_megapack"
+  },
+  {
+   "call": "p13c7.begin"
+  }
+ ],
+ "p13c7.begin": [
+  {
+   "setFlag": "p13_ch133_started"
+  },
+  {
+   "banner": "CHAPTER 133",
+   "sub": "Build-Your-Own S.E.S."
+  },
+  "At the very bottom of the Mega-Pack, in its own box: BUILD-YOUR-OWN STENCHMASTER ENTERTAINMENT SYSTEM KIT.",
+  {
+   "insert": "ses_kit_box",
+   "caption": "BUILD-YOUR-OWN STENCHMASTER ENTERTAINMENT SYSTEM KIT. AGES EIGHT AND UP. ADULT SUPERVISION STRONGLY RECOMMENDED."
+  },
+  "garrick[delighted]: A SECOND television. For the BEDROOM.",
+  "pete: 'Adult supervision strongly recommended.'",
+  "garrick[proud]: I'm an adult.",
+  "pete: That's the problem.",
+  "He's already got the instructions open and is ignoring the first line (it says READ ALL INSTRUCTIONS FIRST).",
+  "You could leave him to it. But if you leave him alone with a soldering iron, a horseshoe and a kit for ages eight and up, you know exactly what happens next. So you help.",
+  "garrick[businesslike]: Some parts not included, it says. Forks. A horseshoe. Coils. A transformer.",
+  {
+   "startQuest": "build_your_own_ses"
+  },
+  {
+   "tutorial": "Find the parts that aren't in the box: forks (the prep table, in the galley), a horseshoe (over the stairs, in the hold), copper coils (by the salvage crate, in the hold), and a transformer (under the Mark II's crate, in the galley).",
+   "title": "Build-Your-Own S.E.S."
+  }
+ ],
+ "p13c7.forks": [
+  "Jim's forks. Three of them. You take them while he's looking at the stove.",
+  "jim: (not turning round) I KNOW you've got my forks.",
+  "captain: It's for the television.",
+  "jim: (still not turning round) Of course it is.",
+  {
+   "giveItem": "ses_parts"
+  },
+  {
+   "setFlag": "ses_part_forks"
+  },
+  {
+   "event": "p13_part"
+  }
+ ],
+ "p13c7.horseshoe": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The lucky horseshoe nailed up over the hold stairs. It's been lucky for nobody. You prise it off.",
+  "sully: (from his hammock) That was holding the luck in, Captain.",
+  "captain: What luck?",
+  "sully: ...Fair.",
+  {
+   "giveItem": "ses_parts"
+  },
+  {
+   "setFlag": "ses_part_horseshoe"
+  },
+  {
+   "event": "p13_part"
+  }
+ ],
+ "p13c7.coils": [
+  "A coil of copper wire from the salvage pile, green at the edges, sproinging when you pick it up.",
+  {
+   "giveItem": "ses_parts"
+  },
+  {
+   "setFlag": "ses_part_coils"
+  },
+  {
+   "event": "p13_part"
+  }
+ ],
+ "p13c7.transformer": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "Under the Mark II's crate: a lump of iron and wire Garrick calls 'the spare transformer' and everybody else calls 'that thing'. It hums when you pick it up.",
+  {
+   "giveItem": "ses_parts"
+  },
+  {
+   "setFlag": "ses_part_transformer"
+  },
+  {
+   "event": "p13_part"
+  }
+ ],
+ "p13c7.parts": [
+  {
+   "setFlag": "p13_parts_said"
+  },
+  {
+   "tutorial": "Take it all back to the quarters and build it (the barrel table, where Garrick's set up).",
+   "title": "Build-Your-Own S.E.S."
+  }
+ ],
+ "p13c7.build": [
+  "On the barrel table in the red quarters: a miniature CRT, a tray of vacuum tubes, a bag of knobs, three of Jim's forks, a horseshoe, a coil of copper, a transformer, and an envelope marked MISC. IMPORTANT ELECTRICAL PARTS that rattles.",
+  "garrick[businesslike]: You hold. I'll solder.",
+  "captain: No. You hold. I'LL solder.",
+  {
+   "repair": "solder",
+   "strikes": 3,
+   "title": "SOLDER IT"
+  },
+  {
+   "sfx": "mk2_tube_ping",
+   "volume": 0.8
+  },
+  "Tubes in. Knobs on. Forks where the instructions say 'insert antenna here (forks not included)'. The horseshoe on top for 'reception'. And a little grille on the side, with a dial over it, that isn't in the instructions at all.",
+  "captain: What's that grille?",
+  "garrick[proud]: That's in the kit, Captain. It came pre-installed. I don't know what it does. I'm very excited.",
+  {
+   "tvSet": "ses_kit",
+   "state": "no_signal"
+  },
+  {
+   "takeItem": "ses_parts",
+   "count": 4,
+   "silent": true
+  },
+  "It switches on. It gets snow. Nothing but snow: it hasn't got an aerial. The aerial is the sauce can, on the Mark II, in the galley, on the other side of a door.",
+  "garrick[businesslike]: We'll have to run a cable.",
+  {
+   "setFlag": "second_ses_built"
+  },
+  {
+   "setValue": "ses_kit_state",
+   "value": "no_signal"
+  },
+  {
+   "completeQuest": "build_your_own_ses"
+  },
+  {
+   "call": "p13c8.begin"
+  }
+ ]
+}

@@ -1,0 +1,656 @@
+{
+ "//": "Story Phase 13, chapters 134-139: the cable; the Stenchmaster Channel; Stench-O-Vision; the Brogath special; the rant; the beard.",
+ "p13c8.begin": [
+  {
+   "setFlag": "p13_ch134_started"
+  },
+  {
+   "banner": "CHAPTER 134",
+   "sub": "Wire the Two Systems Together"
+  },
+  "Garrick has a coil of cable over his shoulder the size of a cartwheel. Where he got it, nobody asks.",
+  "garrick[businesslike]: From the bedroom set to the Mark II. Then they share the sauce can. Two sets, one aerial, total coverage.",
+  "captain: The galley's through that door. Ten feet.",
+  "garrick[proud]: Ten feet is no good, Captain. The signal needs to go UP. Through the sky. Round something iron. Then down. Like the old masters ran their cables.",
+  "pete: The old masters didn't have CABLES.",
+  "garrick[proud]: Then they'd have run them like this.",
+  {
+   "startQuest": "wire_the_systems"
+  },
+  {
+   "tutorial": "Run the cable: tie it off at cardboard Brogath (he's holding it up), up the ladder and through the deck, round the starboard cannon, down the main hatch, taped down in the galley, and into the Mark II.",
+   "title": "Wire the Two Systems Together"
+  }
+ ],
+ "p13c8.brogath": [
+  "Garrick hooks the cable over cardboard Brogath's shoulder, round his neck, and under his arm.",
+  "captain: Cardboard is not load-bearing.",
+  "garrick[proud]: Brogath is HISTORICALLY load-bearing, Captain.",
+  {
+   "repair": "knot",
+   "strikes": 3,
+   "title": "TIE IT OFF"
+  },
+  "Brogath leans. Brogath holds. Brogath blushes, as printed.",
+  {
+   "setFlag": "cable_seg_1"
+  },
+  {
+   "event": "p13_cable"
+  }
+ ],
+ "p13c8.deck_path": [
+  "Up the ladder, on deck, the cable snakes out of the fore hatch... and straight into a stack of crates and a coil of rope.",
+  "gristle: Not over the rope. NEVER over the rope.",
+  {
+   "repair": "carry",
+   "strikes": 3,
+   "title": "CLEAR A PATH"
+  },
+  "You shift the crates. The cable goes round the rope, not over it, the way Gristle likes.",
+  {
+   "setFlag": "cable_seg_2"
+  },
+  {
+   "event": "p13_cable"
+  }
+ ],
+ "p13c8.cannon": [
+  "The starboard cannon. Garrick insists. 'For grounding.'",
+  "captain: It's a CANNON.",
+  "garrick[businesslike]: It's iron, Captain. Iron is very grounding. Three turns.",
+  {
+   "repair": "knot",
+   "strikes": 3,
+   "title": "ROUND THE CANNON"
+  },
+  "Three turns round the cannon's barrel. If anyone fires it now, the television goes with the ball.",
+  {
+   "setFlag": "cable_seg_3"
+  },
+  {
+   "event": "p13_cable"
+  }
+ ],
+ "p13c8.tape": [
+  "Down the main hatch and across the galley floor, right where everyone walks, right at ankle height.",
+  "jim: Somebody's going to go flying over that.",
+  {
+   "repair": "nail",
+   "strikes": 3,
+   "title": "TACK IT DOWN"
+  },
+  "You tack it to the deck all along, under a strip of sash-box cardboard. TRIP HAZARD, Jim writes on it. Then, underneath: (NOT A JOKE).",
+  {
+   "setFlag": "cable_seg_4"
+  },
+  {
+   "event": "p13_cable"
+  }
+ ],
+ "p13c8.connect": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "The end of the cable, into the back of the Mark II, where Garrick says 'the signal likes it'.",
+  {
+   "repair": "solder",
+   "strikes": 3,
+   "title": "CONNECT IT"
+  },
+  {
+   "sfx": "mk2_tube_ping",
+   "volume": 0.9
+  },
+  {
+   "sfx": "crt_warmup",
+   "volume": 0.8
+  },
+  "The Mark II hums. Far away, through the deck, through the cable, round the cannon and over Brogath's shoulder, you hear the bedroom set hum back.",
+  {
+   "tvSet": "ses_kit",
+   "state": "working"
+  },
+  {
+   "setValue": "ses_kit_state",
+   "value": "working"
+  },
+  {
+   "setFlag": "cable_seg_5"
+  },
+  {
+   "setFlag": "tv_cable_routed"
+  },
+  {
+   "setFlag": "tv_systems_connected"
+  },
+  {
+   "completeQuest": "wire_the_systems"
+  },
+  {
+   "call": "p13c9.begin"
+  }
+ ],
+ "p13c9.begin": [
+  {
+   "setFlag": "p13_ch135_started"
+  },
+  {
+   "setVar": "suspension_hours_left",
+   "value": 13
+  },
+  {
+   "banner": "CHAPTER 135",
+   "sub": "The Stenchmaster Channel"
+  },
+  "Back in the red quarters, the bedroom set has a picture. Not the frog. Not the shark. A logo: a crown, a sash, and a nose.",
+  {
+   "tvSet": "ses_kit",
+   "power": true,
+   "channel": 9
+  },
+  "garrick[delighted]: ...THE STENCHMASTER CHANNEL.",
+  "pete: There's a CHANNEL?",
+  "garrick[delighted]: Twenty-four hours a day of Ancient Stenchmaster history! It says so in the corner!",
+  {
+   "setFlag": "stenchmaster_channel_unlocked"
+  },
+  {
+   "startQuest": "stenchmaster_channel"
+  },
+  {
+   "tutorial": "Watch it (the bedroom set, on the barrel table). You were always going to.",
+   "title": "The Stenchmaster Channel"
+  }
+ ],
+ "p13c9.watch": [
+  {
+   "vista": "quarters_watch",
+   "fade": 500
+  },
+  {
+   "music": "stenchmaster_channel",
+   "fade": 400
+  },
+  {
+   "tvProgram": "stenchmaster_channel",
+   "episode": "stenchalina_disaster",
+   "layer": "screen",
+   "from": 0,
+   "to": 2,
+   "tv": "ses_kit"
+  },
+  "bob: That's the BABY one!",
+  "jim: We SAID not the baby one.",
+  {
+   "tvProgram": "stenchmaster_channel",
+   "episode": "stenchalina_disaster",
+   "layer": "screen",
+   "from": 3,
+   "to": 5,
+   "tv": "ses_kit"
+  },
+  "ned: The castle's made of ONIONS?",
+  "garrick[proud]: Historically accurate, Ned.",
+  {
+   "tvProgram": "stenchmaster_channel",
+   "episode": "stenchalina_disaster",
+   "layer": "screen",
+   "from": 6,
+   "to": 7,
+   "tv": "ses_kit"
+  },
+  "In the corner of the screen, a little clock has started: RUNTIME OF THE GRAND DISASTER: 0:00:01.",
+  "pete: How long does it go on?",
+  {
+   "tvProgram": "stenchmaster_channel",
+   "episode": "stenchalina_disaster",
+   "layer": "screen",
+   "from": 8,
+   "to": 9,
+   "tv": "ses_kit"
+  },
+  "RUNTIME OF THE GRAND DISASTER: 0:47:12.",
+  "gristle: It's still going.",
+  {
+   "tvProgram": "stenchmaster_channel",
+   "episode": "stenchalina_disaster",
+   "layer": "screen",
+   "from": 10,
+   "to": 11,
+   "tv": "ses_kit"
+  },
+  "RUNTIME OF THE GRAND DISASTER: 3:41:09. The baby on the screen has her fist raised, triumphant, and the sash behind her is fluttering, and the noise, which the set plays as a long low hum, has not stopped once.",
+  "captain: Is it ALL like this?",
+  "garrick[delighted]: (enraptured) There's a Brogath special at four.",
+  {
+   "tvProgram": "stenchmaster_channel",
+   "episode": "stenchalina_disaster",
+   "layer": "screen",
+   "from": 12,
+   "to": 12,
+   "tv": "ses_kit"
+  },
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "setFlag": "stenchalina_programme_seen"
+  },
+  {
+   "completeQuest": "stenchmaster_channel"
+  },
+  {
+   "call": "p13c10.begin"
+  }
+ ],
+ "p13c10.begin": [
+  {
+   "setFlag": "p13_ch136_started"
+  },
+  {
+   "banner": "CHAPTER 136",
+   "sub": "Stench-O-Vision"
+  },
+  "And then the little grille on the side of the bedroom set opens.",
+  {
+   "sfx": "stench_vent",
+   "volume": 0.9
+  },
+  "phhhhhhhhh.",
+  {
+   "setFlag": "stench_o_vision_on"
+  },
+  {
+   "setValue": "stench_o_vision",
+   "value": "on"
+  },
+  "A smell comes out of the television. The smell of the programme. Onions. Garlic. Castle. Baby.",
+  "On the screen, in the corner, small letters: NOW IN STENCH-O-VISION!",
+  "garrick[delighted]: (breathing it in) IMMERSIVE.",
+  "pete[disgusted]: The television SMELLS?",
+  "jim[disgusted]: It smells like the PROGRAMME.",
+  {
+   "sfx": "token_whistle",
+   "volume": 0.8
+  },
+  "Down the ladder hatch, one after another, clattering on the boards: tokens.",
+  {
+   "token": "token_card",
+   "x": 12,
+   "y": 5,
+   "id": "p13_sc1",
+   "async": true
+  },
+  {
+   "wait": 250
+  },
+  {
+   "token": "token_card",
+   "x": 14,
+   "y": 7,
+   "id": "p13_sc2",
+   "async": true
+  },
+  {
+   "wait": 400
+  },
+  {
+   "setFlag": "p13_smell_tokens_down"
+  },
+  "Even the storm has noticed. Squawks hops over and reads them out.",
+  {
+   "insert": "token_smell",
+   "caption": "SMELL COMPLAINT: WHATEVER THAT IS, TURN IT OFF. - YOUR NEIGHBOURS (THE STORM)"
+  },
+  "squawks[smug]: Neighbours.",
+  {
+   "insert": "token_noise_2",
+   "caption": "NOISE COMPLAINT (AGAIN): THE HUMMING. WE CAN HEAR THE HUMMING."
+  },
+  {
+   "removeSprite": "p13_sc1"
+  },
+  {
+   "removeSprite": "p13_sc2"
+  },
+  {
+   "startQuest": "stench_o_vision"
+  },
+  {
+   "tutorial": "Turn off the Stench-O-Vision (the bedroom set's knobs). Mind the fumes by it: they're mild, but they're fumes.",
+   "title": "Stench-O-Vision"
+  }
+ ],
+ "p13c10.knobs": [
+  {
+   "tv": "ses_kit",
+   "mode": "knobs",
+   "panel": "vent"
+  },
+  {
+   "if": {
+    "flag": "stench_o_vision_disabled"
+   },
+   "then": [
+    {
+     "setValue": "stench_o_vision",
+     "value": "off"
+    },
+    "The grille shuts with a click. The smell stops coming. The smell that's already out stays, but it stays where it is, and it's not getting any bigger.",
+    "garrick[worried]: (sadly) It was IMMERSIVE.",
+    "captain[angry]: It was a SMELL VENT. On a TELEVISION.",
+    {
+     "completeQuest": "stench_o_vision"
+    },
+    {
+     "call": "p13c11.begin"
+    }
+   ],
+   "else": [
+    "phhhhhh. Still smelling."
+   ]
+  }
+ ],
+ "p13c11.begin": [
+  {
+   "setFlag": "p13_ch137_started"
+  },
+  {
+   "banner": "CHAPTER 137",
+   "sub": "Poor in Gold, Rich in Gas"
+  },
+  {
+   "sfx": "tv_power_on",
+   "volume": 0.7
+  },
+  "Four o'clock. The bedroom set switches itself on. In the galley, so does the Mark II. They're connected, after all.",
+  {
+   "tvSet": "ses_kit",
+   "power": true,
+   "channel": 9
+  },
+  "garrick[delighted]: The BROGATH SPECIAL!",
+  {
+   "startQuest": "brogath_special"
+  },
+  {
+   "tutorial": "Watch the Brogath special (the bedroom set). You won't want to. You'll do it anyway.",
+   "title": "Poor in Gold, Rich in Gas"
+  }
+ ],
+ "p13c11.watch": [
+  {
+   "vista": "quarters_watch",
+   "fade": 500
+  },
+  {
+   "music": "stenchmaster_channel",
+   "fade": 400
+  },
+  {
+   "tvProgram": "stenchmaster_channel",
+   "episode": "brogath_special",
+   "layer": "screen",
+   "from": 0,
+   "to": 2,
+   "tv": "ses_kit"
+  },
+  "captain: The TREASURE. They've done the treasure.",
+  {
+   "tvProgram": "stenchmaster_channel",
+   "episode": "brogath_special",
+   "layer": "screen",
+   "from": 3,
+   "to": 5,
+   "tv": "ses_kit"
+  },
+  "pete: Three minutes of digging.",
+  "bob: He looks very tired.",
+  {
+   "tvProgram": "stenchmaster_channel",
+   "episode": "brogath_special",
+   "layer": "screen",
+   "from": 6,
+   "to": 8,
+   "tv": "ses_kit"
+  },
+  "ned: Where are his sash holders?",
+  "garrick[worried]: He was too bashful to ASK, Ned. That's the TRAGEDY of it.",
+  {
+   "tvProgram": "stenchmaster_channel",
+   "episode": "brogath_special",
+   "layer": "screen",
+   "from": 9,
+   "to": 11,
+   "tv": "ses_kit"
+  },
+  "captain[angry]: Up into a storm. Made of sharks. And the sharks WEAR it.",
+  {
+   "tvProgram": "stenchmaster_channel",
+   "episode": "brogath_special",
+   "layer": "screen",
+   "from": 12,
+   "to": 13,
+   "tv": "ses_kit"
+  },
+  "Poor in gold. Rich in gas. The cartoon Brogath, in his hole, sobbing into his sash.",
+  {
+   "tvProgram": "stenchmaster_channel",
+   "episode": "brogath_special",
+   "layer": "screen",
+   "from": 14,
+   "to": 15,
+   "tv": "ses_kit"
+  },
+  "gristle: 'This programme was brought to you by the Bling Bling King'?",
+  "captain[angry]: IT'S SPONSORING IT. IT'S SPONSORING THE STORY OF WHAT IT DID TO US.",
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "setFlag": "brogath_programme_seen"
+  },
+  {
+   "setValue": "brogath_status",
+   "value": "alleged_still_none"
+  },
+  {
+   "logbook": "garrick_legends",
+   "entry": "brogath"
+  },
+  {
+   "completeQuest": "brogath_special"
+  },
+  {
+   "call": "p13c12.begin"
+  }
+ ],
+ "p13c12.begin": [
+  {
+   "setFlag": "p13_ch138_started"
+  },
+  {
+   "setVar": "suspension_hours_left",
+   "value": 12
+  },
+  {
+   "banner": "CHAPTER 138",
+   "sub": "Captain Stinkbeard Finally Reaches His Limit"
+  },
+  {
+   "music": "beard_delirium",
+   "fade": 600
+  },
+  "You stand up. In the middle of the red room. Under the pennants. In front of the Stenchmaster Channel. Between a cardboard baby and a cardboard man showing you his rear.",
+  "Something in you, which has been holding on for a month, lets go.",
+  "captain[angry]: No. NO. Everybody stay where you are. Nobody move. Nobody SAY anything.",
+  "Nobody says anything. Nobody moves. Garrick, very slowly, sits down on a sash cot.",
+  {
+   "startQuest": "the_limit"
+  },
+  {
+   "tutorial": "Say it. All of it. Walk the room and point at everything (the cardboard Stenchmasters, the sash bedding, the bedroom set, the locker, the Mega-Pack).",
+   "title": "The Limit"
+  }
+ ],
+ "p13c12.rant_standees": [
+  "You point at the cardboard. All of it.",
+  "captain[angry]: He joined this ship as ONE PIRATE. One. A businessman. With a monocle. He said he was an appraiser.",
+  "captain[angry]: He went in my treasure room. He did the first one. The DEAD CENTER. Squawks lost his FEATHERS.",
+  "squawks[worried]: (quietly) All of them.",
+  "captain[angry]: Then he PROMOTED himself. Grand Stenchmaster. Then a suit. Then a crown. Then a SASH. And now there's FIVE of him in CARDBOARD.",
+  {
+   "setFlag": "p13_rant_standees"
+  },
+  {
+   "event": "p13_rant"
+  }
+ ],
+ "p13c12.rant_bedding": [
+  "You point at the red hammocks. The red blankets. The pillows with little noses on.",
+  "captain[angry]: Grand Naps. Bean cuisine. Crying Beans. The Grand Feast. The bureaucracy. A Grand STEWARD. An ASSISTANT Grand Steward. A Grand COURT. A FINGER-PULLER.",
+  "captain[angry]: And now I sleep in his REGALIA. We ALL sleep in his regalia. It says AGES SIX AND UP on my BLANKET.",
+  "pete: (quietly) It's very comfortable though.",
+  "captain[angry]: PETE.",
+  {
+   "setFlag": "p13_rant_bedding"
+  },
+  {
+   "event": "p13_rant"
+  }
+ ],
+ "p13c12.rant_tv": [
+  "You point at the bedroom set. It's showing the Stenchmaster Channel logo. It hums at you.",
+  "captain[angry]: The SHARKS. He attracted the sharks. Then the Great SHARKSTORM. Then he made Pete GRAND SHARKMASTER.",
+  "pete[tired]: (very quietly) Thank you.",
+  "captain[angry]: Then he blew my TREASURE into the STORM. My fortune. My CROWN. And now a SHARK has it, and a CHAIN, and a TELEVISION SHOW. And PARTICIPATION TROPHIES. And a LATE-NIGHT SLOT.",
+  {
+   "setFlag": "p13_rant_tv"
+  },
+  {
+   "event": "p13_rant"
+  }
+ ],
+ "p13c12.rant_locker": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You point at the locker. DO NOT OPEN. IT GROWLS. It growls.",
+  "captain[angry]: I held his sash. For THIRTY SECONDS. While he... while it... I WAS BEHIND HIM.",
+  "captain[angry]: And it WORKED. It fluttered. Three months. THREE MONTHS. For several beautiful seconds.",
+  "captain[angry]: And then BEANS. Jumping BEANS. ONE DAY. And the sash is in my WARDROBE, and my coats are DEAD.",
+  {
+   "setFlag": "p13_rant_locker"
+  },
+  {
+   "event": "p13_rant"
+  }
+ ],
+ "p13c12.rant_megapack": [
+  "You point at the Mega-Pack box, and the HOLD MY SASH flags, and the mugs.",
+  "captain[angry]: And now MERCHANDISE. A FAN Mega-Pack. A second television. That SMELLS. Stench-O-VISION.",
+  "captain[angry]: This is MY ship. The Queen Anne's REVENGE. I was BLACKBEARD. Ports surrendered. And now it's a GIFT SHOP inside a STORM made of SHARKS.",
+  {
+   "setFlag": "p13_rant_megapack"
+  },
+  {
+   "event": "p13_rant"
+  }
+ ],
+ "p13c12.done": [
+  {
+   "setFlag": "p13_rant_said"
+  },
+  {
+   "camera": "pan",
+   "x": 8,
+   "y": 8,
+   "duration": 700
+  },
+  "You stop. You're breathing very hard. In. Out. In, deep, through the...",
+  "pete[alarmed]: Captain. Captain, your BEARD.",
+  {
+   "call": "p13c13.begin"
+  }
+ ],
+ "p13c13.begin": [
+  {
+   "setFlag": "p13_ch139_started"
+  },
+  {
+   "banner": "CHAPTER 139",
+   "sub": "The Beard Betrays Him"
+  },
+  "pete[alarmed]: You're breathing too hard, Captain. Through the... you took the wrap OFF this morning, the wrap's off, it's RIGHT THERE...",
+  "Too late.",
+  "With all the ranting and the pointing your beard has come up, right up, under your nose, the whole black mass of it, and everything it has been holding for a month (the treasure room, the Dead Center, every Grand Feast, the wrong-way launch, thirty seconds directly behind him) is right there.",
+  "And you breathe in. The biggest breath of your life.",
+  {
+   "sfx": "sniff",
+   "volume": 1.0
+  },
+  {
+   "wait": 300
+  },
+  {
+   "sfx": "delirium_cue",
+   "volume": 1.0
+  },
+  {
+   "flash": "#d8b8f0",
+   "duration": 400
+  },
+  {
+   "shake": 2,
+   "duration": 900
+  },
+  {
+   "music": "beard_delirium",
+   "fade": 200
+  },
+  {
+   "tint": "player",
+   "color": "#c8a8e8",
+   "duration": 900
+  },
+  "...",
+  "The room goes muffled. The red goes purple at the edges. Everybody has two of themselves for a second, and then one, and then two.",
+  {
+   "setVar": "p4_tod",
+   "value": 30
+  },
+  "You blink. You look at Pete.",
+  {
+   "setFlag": "stinkbeard_delirium"
+  },
+  {
+   "setValue": "stinkbeard_state",
+   "value": "ancient_stenchmaster_delirium"
+  },
+  {
+   "restage": "cut"
+  },
+  "Pete is not Pete.",
+  "Pete is standing exactly where Pete was, in Pete's nightcap, with Pete's peg leg, but somehow, unmistakably, terribly, he is wearing a SASH. And a crown. And he's BLUSHING.",
+  "captain: ...Brogath.",
+  "pete: What?",
+  "captain: BROGATH THE BASHFUL.",
+  "pete: What? WHAT?",
+  "captain: He's REAL. He's been here the WHOLE TIME. He's been on my ship pretending to be PETE.",
+  "pete: I AM Pete. Captain. It's me. Look at me. It's Pete.",
+  "pete: (to the room) What's wrong with him? What's wrong with his EYES?",
+  "garrick[worried]: (getting up, really worried now, for the first time) Captain? Captain, how many fingers am I holding up?",
+  "captain: (backing away) DON'T. RAISE. A FINGER.",
+  {
+   "completeQuest": "the_limit"
+  },
+  {
+   "call": "p13c14.begin"
+  }
+ ]
+}

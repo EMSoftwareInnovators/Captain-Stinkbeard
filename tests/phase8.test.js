@@ -210,11 +210,14 @@ describe('the lower hull, the barracks and the condemned quarters', () => {
     const galley = content.maps.require('galley');
     const door = galley.objects.find((o) => o.id === 'p8_to_crew');
     expect(door).toMatchObject({ x: 8, y: 12, locked: 'p8.condemned_door' });
-    const warps = galley.objects.filter((o) => o.type === 'warp' && o.x === 8 && o.y === 12);
+    // (A later chapter's own door, with a "when", only applies once the room is condemned.)
+    const warps = galley.objects.filter((o) => o.type === 'warp' && o.x === 8 && o.y === 12 && !o.when);
     expect(warps[0].id, 'the Phase 8 lock comes first').toBe('p8_to_crew');
     const quarters = content.maps.require('crew_quarters');
     const zone = quarters.fumes.find((z) => z.id === 'p8_condemned');
-    expect(zone).toMatchObject({ level: 'dense', if: { flag: 'crew_quarters_condemned' } });
+    // (Story Phase 13 lifts it again when the quarters are reopened: its condition gains that.)
+    expect(zone).toMatchObject({ level: 'dense' });
+    expect(JSON.stringify(zone.if)).toContain('{"flag":"crew_quarters_condemned"}');
     // Its own flag, nothing to do with where the Dead Center is.
     expect(JSON.stringify(zone.if)).not.toMatch(/dead_center/);
   });

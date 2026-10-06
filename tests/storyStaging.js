@@ -96,8 +96,9 @@ export class StagingTracker {
     return out;
   }
 
+  /** The warps that apply now (a warp's "when"; its "if" is the lock). */
   warps(map) {
-    return this.model(map).objects.filter((o) => o.type === 'warp');
+    return this.model(map).objects.filter((o) => o.type === 'warp' && (!o.when || evaluateCondition(o.when, this.session)));
   }
 
   /** Who stands on a tile (someone asleep up in a hammock doesn't: people walk underneath). */

@@ -845,6 +845,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
           else if (target && !to.spawn && (to.x === undefined || to.y === undefined)) oc.error('warp needs to.spawn or to.x/to.y');
           if (obj.sfx) oc.sfx(obj.sfx);
           if (obj.locked) oc.script(obj.locked);
+          if ('when' in obj) oc.condition(obj.when);
           break;
         }
         case 'npc':
@@ -1047,6 +1048,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     if (tv.vent) {
       const vc = c.at('vent');
       if (tv.vent.sfx && !db.sfx.has(tv.vent.sfx)) vc.error(`unknown sfx "${tv.vent.sfx}"`);
+      if ('if' in tv.vent) vc.condition(tv.vent.if);
       for (const [m, at] of Object.entries(tv.vent.tiles ?? {})) {
         vc.map(m);
         if (!Array.isArray(at) || at.length !== 2) vc.error(`vent.tiles.${m} must be [x, y]`);

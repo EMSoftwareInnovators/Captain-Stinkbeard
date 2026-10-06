@@ -121,7 +121,7 @@ describe('Story Phase 10 ends where the brief says: inside the Great Sharkstorm,
     expect(resolveVariant(s.content.npcs.require('garrick'), s.session).appearance).not.toMatch(/charged|sash_held/);
     // The galley's old door: boarded up again, the old quarters never a place to sleep.
     const galley = s.content.maps.require('galley');
-    const door = galley.objects.find((o) => o.type === 'warp' && o.x === 8 && o.y === 12);
+    const door = galley.objects.find((o) => o.type === 'warp' && o.x === 8 && o.y === 12 && (!o.when || evaluateCondition(o.when, s.session)));
     expect(evaluateCondition(door.if, s.session), 'the old quarters stay shut').toBe(false);
   });
 

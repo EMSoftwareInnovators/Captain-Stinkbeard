@@ -54,11 +54,36 @@
   "props": [
     "fiddle 4 2",
     "wall_hooks 9 2",
-    "hammock 1 5",
-    "hammock_sleeper 1 8",
-    "hammock 1 11",
-    "hammock 5 6",
-    "hammock_sleeper 5 10",
+    {
+      "prop": "hammock",
+      "x": 1,
+      "y": 5,
+      "id": "q_hammock_a"
+    },
+    {
+      "prop": "hammock_sleeper",
+      "x": 1,
+      "y": 8,
+      "id": "q_hammock_b"
+    },
+    {
+      "prop": "hammock",
+      "x": 1,
+      "y": 11,
+      "id": "q_hammock_c"
+    },
+    {
+      "prop": "hammock",
+      "x": 5,
+      "y": 6,
+      "id": "q_hammock_d"
+    },
+    {
+      "prop": "hammock_sleeper",
+      "x": 5,
+      "y": 10,
+      "id": "q_hammock_e"
+    },
     "footlocker 4 5",
     "footlocker_b 4 8",
     "footlocker_c 4 11",
@@ -69,8 +94,18 @@
     "stool 9 10",
     "stool 12 10",
     "medicine_cabinet 15 4",
-    "cot 16 6",
-    "cot 16 9",
+    {
+      "prop": "cot",
+      "x": 16,
+      "y": 6,
+      "id": "q_cot_a"
+    },
+    {
+      "prop": "cot",
+      "x": 16,
+      "y": 9,
+      "id": "q_cot_b"
+    },
     "mast_pillar 8 13",
     "clothesline 5 4",
     "lantern_hanging 7 8",
@@ -119,7 +154,10 @@
       "x": 1,
       "y": 8,
       "w": 3,
-      "script": "inspect.dunstan"
+      "script": "inspect.dunstan",
+      "if": {
+        "notFlag": "crew_quarters_reopened"
+      }
     },
     {
       "id": "dunstan2",
@@ -129,7 +167,10 @@
       "w": 3,
       "text": [
         "A sailor from the middle watch, dead asleep with one boot on. You let him be. This time."
-      ]
+      ],
+      "if": {
+        "notFlag": "crew_quarters_reopened"
+      }
     },
     {
       "id": "finch_chest",

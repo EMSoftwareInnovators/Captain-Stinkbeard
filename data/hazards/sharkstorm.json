@@ -936,6 +936,103 @@
      ],
      "shake": 0.0015
     }
+   },
+   "command_crisis": {
+    "//": "Story Phase 13 (chapters 142-145): the same storm, in the afternoon, a little rougher (gusts the helm has to answer; still never a spin; off with screen shake off). The Bling Bling King's campaign tokens come down on the deck now and then (never more than three, never in a scene).",
+    "intensity": 3,
+    "distance": "inside",
+    "maps": [
+     "main_deck"
+    ],
+    "flying": {
+     "passEvery": [
+      1600,
+      3200
+     ],
+     "variants": [
+      "flying_shark_pearls",
+      "flying_shark_chain",
+      "flying_shark_tiara",
+      "flying_shark_rings",
+      "flying_shark_belt",
+      "flying_shark_bigchain",
+      "flying_shark",
+      "flying_hammer",
+      "pillow_flying",
+      "flying_bbk"
+     ],
+     "swirl": true
+    },
+    "glints": {
+     "every": [
+      1800,
+      3600
+     ],
+     "sfx": "coin_glint"
+    },
+    "tokens": {
+     "every": [
+      34000,
+      58000
+     ],
+     "frames": [
+      "token_card",
+      "token_rosette",
+      "token_medal"
+     ],
+     "max": 3,
+     "maps": [
+      "main_deck"
+     ],
+     "areas": {
+      "main_deck": [
+       4,
+       3,
+       15,
+       23
+      ]
+     }
+    },
+    "sway": {
+     "maps": [
+      "main_deck",
+      "galley",
+      "cargo_hold",
+      "treasure_hold",
+      "crew_quarters",
+      "washroom",
+      "captains_quarters"
+     ],
+     "drift": 2.6,
+     "period": 4600
+    },
+    "rumble": {
+     "every": [
+      9000,
+      16000
+     ],
+     "sfx": "vortex_roar"
+    },
+    "below": {
+     "maps": [
+      "galley",
+      "cargo_hold",
+      "treasure_hold",
+      "crew_quarters",
+      "washroom",
+      "captains_quarters"
+     ],
+     "every": [
+      14000,
+      26000
+     ],
+     "sfx": [
+      "hull_thud",
+      "token_clack",
+      "deck_scrape"
+     ],
+     "shake": 0.0015
+    }
    }
   }
  }

@@ -62,8 +62,11 @@ describe('content loads in phase order', () => {
   });
 
   it('in the game: Phase 10\'s lines and placements come before Phase 9\'s', () => {
-    const pete = content.npcs.require('pete');
-    expect(pete.dialogue[0].script).toBe('p10c1.begin');
+    // (Later phases' lines go on top of both.)
+    const pete = content.npcs.require('pete').dialogue.map((d) => d.script ?? d.cycle?.[0] ?? '');
+    const firstP10Line = pete.findIndex((id) => /^p10|\.p10_/.test(id));
+    expect(pete[firstP10Line]).toBe('p10c1.begin');
+    expect(firstP10Line).toBeLessThan(pete.findIndex((id) => /^p9|\.p9_/.test(id)));
     const isle = content.maps.require('crownskull_isle').objects;
     const firstP10 = isle.findIndex((o) => o.id.startsWith('p10'));
     expect(firstP10).toBeGreaterThanOrEqual(0);
@@ -105,7 +108,8 @@ describe('the Great Sharkstorm in Phase 10 (it follows, it lets you close, it ta
 
   it('has four new states, after treasure_laden, in story order', () => {
     const ids = Object.keys(states);
-    expect(ids.slice(ids.indexOf('treasure_laden'))).toEqual(['treasure_laden', 'p10_trailing', 'close_approach', 'entering', 'inside_ship']);
+    // (Later phases add their own states after these.)
+    expect(ids.slice(ids.indexOf('treasure_laden'), ids.indexOf('treasure_laden') + 5)).toEqual(['treasure_laden', 'p10_trailing', 'close_approach', 'entering', 'inside_ship']);
     // Never destroyed, never resolved.
     expect(ids).not.toContain('destroyed');
     expect(ids).not.toContain('collapsed');

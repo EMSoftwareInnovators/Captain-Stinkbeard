@@ -1,0 +1,295 @@
+{
+ "id": "cargo_hold_phase13",
+ "patch": "cargo_hold",
+ "//": "Story Phase 13 in the hold: the lucky horseshoe over the stairs (13,3), the copper coil in the salvage crate (15,13). The treasure-room door (4,3), SEALED: Gristle's DO NOT OPEN, YES, SERIOUSLY under it, and BAD CLOUD in Squawks' clawprint; it growls now and then (the first night's release, still in there). Chapter 144: the captain at the door (4,4), the crew holding him back round it (3,4; 3,5; 4,5; 5,5), Pete a step behind them (7,4). The door is never opened.",
+ "objects": [
+  {
+   "id": "p13_treasure_sealed",
+   "type": "warp",
+   "x": 4,
+   "y": 3,
+   "to": {
+    "map": "treasure_hold",
+    "spawn": "door"
+   },
+   "sfx": "heavy_door",
+   "when": {
+    "flag": "treasure_room_sealed"
+   },
+   "if": {
+    "notFlag": "treasure_room_sealed"
+   },
+   "locked": "p13.treasure_door"
+  },
+  {
+   "id": "p13_treasure_door",
+   "type": "inspect",
+   "x": 4,
+   "y": 3,
+   "if": {
+    "objectiveActive": "treasure_room_brogath.door"
+   },
+   "script": "p13c18.door"
+  },
+  {
+   "id": "p13_horseshoe",
+   "type": "inspect",
+   "x": 13,
+   "y": 3,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "build_your_own_ses.parts"
+     },
+     {
+      "notFlag": "ses_part_horseshoe"
+     }
+    ]
+   },
+   "script": "p13c7.horseshoe"
+  },
+  {
+   "id": "p13_coils",
+   "type": "inspect",
+   "x": 15,
+   "y": 13,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "build_your_own_ses.parts"
+     },
+     {
+      "notFlag": "ses_part_coils"
+     }
+    ]
+   },
+   "script": "p13c7.coils"
+  },
+  {
+   "id": "p13h_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 7,
+   "y": 4,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p13_ch144_started"
+       },
+       {
+        "notFlag": "p13_ch145_started"
+       }
+      ]
+     },
+     {
+      "flag": "p13_door_tried"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13h_gristle_0",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 3,
+   "y": 4,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p13_ch144_started"
+       },
+       {
+        "notFlag": "p13_ch145_started"
+       }
+      ]
+     },
+     {
+      "flag": "p13_crew_chase"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13h_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 3,
+   "y": 5,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p13_ch144_started"
+       },
+       {
+        "notFlag": "p13_ch145_started"
+       }
+      ]
+     },
+     {
+      "flag": "p13_crew_chase"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13h_bob_0",
+   "type": "npc",
+   "npc": "bob",
+   "x": 4,
+   "y": 5,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p13_ch144_started"
+       },
+       {
+        "notFlag": "p13_ch145_started"
+       }
+      ]
+     },
+     {
+      "flag": "p13_crew_chase"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p13h_ned_0",
+   "type": "npc",
+   "npc": "ned",
+   "x": 5,
+   "y": 5,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p13_ch144_started"
+       },
+       {
+        "notFlag": "p13_ch145_started"
+       }
+      ]
+     },
+     {
+      "flag": "p13_crew_chase"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "horseshoe_nailed",
+   "x": 13,
+   "y": 3,
+   "if": {
+    "all": [
+     {
+      "flag": "p13_started"
+     },
+     {
+      "notFlag": "ses_part_horseshoe"
+     }
+    ]
+   },
+   "id": "p13_horseshoe"
+  },
+  {
+   "prop": "horseshoe_gone",
+   "x": 13,
+   "y": 3,
+   "if": {
+    "flag": "ses_part_horseshoe"
+   },
+   "id": "p13_horseshoe_gone"
+  },
+  {
+   "prop": "treasure_signs_three",
+   "x": 4,
+   "y": 3,
+   "if": {
+    "flag": "p13_started"
+   },
+   "id": "p13_treasure_signs"
+  }
+ ],
+ "propConditions": [
+  {
+   "id": "p11_treasure_sign",
+   "if": {
+    "notFlag": "p13_started"
+   }
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p13_ch144_started"
+     },
+     {
+      "notFlag": "p13_ch145_started"
+     }
+    ]
+   },
+   "music": "ancient_stenchmasters_everywhere",
+   "ambience": "hold"
+  }
+ ],
+ "ambient": [
+  {
+   "kind": "fumeProp",
+   "x": 4,
+   "y": 3,
+   "every": [
+    14000,
+    24000
+   ],
+   "volume": 0.5,
+   "puff": false,
+   "sounds": [
+    {
+     "sfx": "treasure_growl",
+     "text": "<k>GRRRRRRRR...</>"
+    },
+    {
+     "sfx": "treasure_growl",
+     "text": "<k>(from behind the door, long and low)</>"
+    }
+   ],
+   "if": {
+    "flag": "p13_started"
+   }
+  }
+ ]
+}
