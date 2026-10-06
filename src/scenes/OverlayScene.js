@@ -8,6 +8,8 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
 import { alarmLevel, alarmColor } from '../systems/hazards/alarms.js';
 import { TvView } from '../ui/TvView.js';
 import { REPAIR_KINDS } from '../systems/repairKinds.js';
+import { SashTensionView } from '../ui/SashTensionView.js';
+import { DiceView } from '../ui/DiceView.js';
 
 
 /**
@@ -117,7 +119,7 @@ export class OverlayScene extends BaseScene {
   }
 
   get busy() {
-    return this.dialogue.busy || !!this.tutorialOpen || !!this.repairOpen || !!this.tvOpen;
+    return this.dialogue.busy || !!this.tutorialOpen || !!this.repairOpen || !!this.tvOpen || !!this.tensionOpen;
   }
 
   update(time, delta) {
@@ -130,6 +132,10 @@ export class OverlayScene extends BaseScene {
     }
     if (this.tvOpen) {
       this.tvOpen.update(delta, input);
+      return;
+    }
+    if (this.tensionOpen) {
+      this.tensionOpen.update(delta, input);
       return;
     }
     if (this.tutorialOpen) {
@@ -161,6 +167,44 @@ export class OverlayScene extends BaseScene {
         },
       });
     });
+  }
+
+  /**
+   * Story Phase 12: the Sash Tension interaction (ui/SashTensionView.js; rules
+   * in systems/tension.js). Resolves with { slips, released } once let go.
+   */
+  sashTension(def) {
+    return new Promise((resolve) => {
+      this.app.audio.ui('menu_open');
+      this.tensionOpen = new SashTensionView(this, def, {
+        onDone: (result) => {
+          this.tensionOpen = null;
+          resolve(result);
+        },
+      });
+    });
+  }
+
+  /**
+   * Story Phase 12: a large die for the story (ui/DiceView.js). The die stays
+   * up between commands until "hide". Resolves when its animation is over.
+   */
+  async dice(op, { def = null, result = null, bounces = 3, to = null, hops = 4, seconds = 10, face = null } = {}) {
+    if (op === 'hide') {
+      const v = this.diceView;
+      this.diceView = null;
+      return v?.hide();
+    }
+    if (!this.diceView || (def && this.diceView.def !== def)) {
+      this.diceView?.destroy();
+      this.diceView = new DiceView(this, def ?? {});
+    }
+    const v = this.diceView;
+    if (op === 'show') return v.show(face ?? v.face);
+    if (op === 'roll') return v.roll(result, bounces);
+    if (op === 'hop') return v.hop(to, hops);
+    if (op === 'hold') return v.hold(seconds);
+    return null;
   }
 
   /** Parchment tip box; resolves when dismissed. */
@@ -726,6 +770,10 @@ export class OverlayScene extends BaseScene {
       this.tutorialOpen.parts.forEach((p) => p.destroy());
       this.tutorialOpen = null;
     }
+    this.tensionOpen?.destroy();
+    this.tensionOpen = null;
+    this.diceView?.destroy();
+    this.diceView = null;
     if (this.repairOpen) {
       this.repairOpen.parts.forEach((p) => p.destroy());
       this.repairOpen = null;

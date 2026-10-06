@@ -82,6 +82,10 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
   });
   const alarms = [];
   const tvs = [];
+  // Story Phase 12: the sash tension (a clean hold unless a test says otherwise) and the dice (recorded).
+  const dice = [];
+  let tensionResult = { slips: 0, released: 'pressed' };
+  const tensions = [];
   const services = {
     dialogue: {
       say: async (line) => log.push(`${line.speaker ?? '-'}: ${line.text}`),
@@ -105,6 +109,13 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
       // Phase 5: the television close-up (records each look; sets the "opened" flag).
       // Phase 6: the knob panel is worked to the end (OFF MAYBE, enough times).
       // Phase 10: a set can have more than one panel ("knobPanels"); the script names which.
+      sashTension: async (def) => {
+        tensions.push(def.id);
+        return tensionResult;
+      },
+      dice: async (op, opts = {}) => {
+        dice.push({ op, result: opts.result ?? null, to: opts.to ?? null, at: staging.context });
+      },
       tv: async (id, { mode = 'normal', panel = null } = {}) => {
         tvs.push(mode === 'normal' ? id : `${id}:${mode}${panel ? `:${panel}` : ''}`);
         const def = tvDef(content, id);
@@ -141,6 +152,12 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
     flagAt,
     alarms,
     tvs,
+    dice,
+    tensions,
+    /** What the next sash tension reports ({ slips, released: 'pressed' | 'slipped' }). */
+    setTensionResult(r) {
+      tensionResult = r;
+    },
     /** Sets how many clean strikes the next repair timing game scores. */
     setRepairScore(n) {
       repairScore = n;

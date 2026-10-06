@@ -12,6 +12,7 @@ import { WorldState } from '../systems/world/WorldState.js';
 import { FumeField, Exposure, fumeConfig, hazeFor } from '../systems/hazards/fumes.js';
 import { sharkConfig, sharkLevelFor } from '../systems/hazards/sharks.js';
 import { resolveVariant, currentTimeOfDay, dueStoryTriggers, triggerKey } from '../systems/story/progress.js';
+import { resolveActorLook, aliasOverlay, actorAlias } from '../systems/story/aliases.js';
 import { takeNewEntries } from '../systems/logs/logbook.js';
 import { FxPool } from '../world/FxPool.js';
 import { Barks } from '../world/Barks.js';
@@ -145,6 +146,8 @@ export class WorldScene extends BaseScene {
       this.app.bus.on('quest:objectiveCompleted', markStory),
       this.app.bus.on('quest:completed', markStory),
       this.app.bus.on('settings:changed', () => this.applyReducedEffects()),
+      // Story Phase 13: Stench-O-Vision puffs out of a set's vent, in this room if the set is here.
+      this.app.bus.on('tv:aroma', ({ tv }) => this.ventPuff(tv)),
     ];
     this.events.once('shutdown', () => this.cleanup());
     this.events.on('resume', () => this.onResume());
@@ -298,7 +301,8 @@ export class WorldScene extends BaseScene {
 
   spawnNpc(npcId, { x, y, facing = 'down', behavior = null, actorId = npcId }) {
     const def = this.content.npcs.require(npcId);
-    const look = resolveVariant(def, this.session);
+    // Story Phase 13: an alias (systems/story/aliases.js) can dress someone as somebody else, for a while.
+    const look = resolveActorLook(this.content, this.session, def);
     const actor = new Actor(this, { id: actorId, texture: `char_${look.appearance ?? def.id}`, x, y, facing, kind: 'npc', shadow: look.shadow ?? 'shadow_m' });
     actor.npc = def;
     this.registerActor(actor);
@@ -582,6 +586,7 @@ export class WorldScene extends BaseScene {
     this.sharkstorm.update(dt, busy || this.leaving);
     this.updateDebugDraw();
     this.ambient.update(dt, this.player);
+    this.updateAliasFx(dt);
     this.updateCamera(dt);
     if (this.triggersDirty && !busy && !this.leaving && !this.collapsing && this.sys.isActive()) {
       this.triggersDirty = false;
@@ -592,6 +597,38 @@ export class WorldScene extends BaseScene {
     // The captain has control, so the camera follows him: a pan or follow a
     // scene left behind (no camera reset at its end) glides back.
     if (this.cameraFocus && !this.cameraReturning && !this.isBusy() && !this.leaving) this.releaseCamera();
+  }
+
+  /**
+   * Story Phase 13: while an alias set with an "overlay" is live (the
+   * captain's delirium), now and then someone wearing an alias doubles for a
+   * moment: a tinted ghost of them slides off and fades. Calmer effects: none.
+   */
+  updateAliasFx(dt) {
+    const fx = this.aliasFx;
+    if (!fx || this.app.settings.reducedEffects()) return;
+    this.aliasGhostT = (this.aliasGhostT ?? 2500) - dt;
+    if (this.aliasGhostT > 0) return;
+    this.aliasGhostT = (fx.every?.[0] ?? 3500) + Math.random() * ((fx.every?.[1] ?? 7000) - (fx.every?.[0] ?? 3500));
+    const who = [...this.actors.values()].filter((a) => a.npc && a.sprite?.visible && actorAlias(this.content, this.session, a.npc.id));
+    const a = who[Math.floor(Math.random() * who.length)];
+    if (!a) return;
+    const sp = a.sprite;
+    const ghost = this.add.image(sp.x, sp.y, sp.texture.key, sp.frame.name).setOrigin(sp.originX, sp.originY)
+      .setDepth(sp.depth - 1).setAlpha(0.45);
+    const c = unpack(rgba(fx.tint ?? '#e0c0ff'));
+    ghost.setTint((c.r << 16) | (c.g << 8) | c.b);
+    const dir = Math.random() < 0.5 ? -1 : 1;
+    this.tweens.add({ targets: ghost, x: sp.x + dir * (fx.wobble ?? 1) * 5, alpha: 0, duration: 650, ease: 'Sine.Out', onComplete: () => ghost.destroy() });
+  }
+
+  /** A television's smell vent (Stench-O-Vision) breathes out, if the set is in this room. */
+  ventPuff(tvId) {
+    const at = this.content.tv?.get?.(tvId)?.vent?.tiles?.[this.model.id];
+    if (!at) return;
+    const x = at[0] * TILE_SIZE + TILE_SIZE / 2;
+    const y = at[1] * TILE_SIZE;
+    this.fx.burst('fume', x, y, { count: 4, depth: 56000, alpha: 0.6 });
   }
 
   /** Glides a held camera back to the captain, who can already move. */
@@ -628,9 +665,10 @@ export class WorldScene extends BaseScene {
     this.refreshLighting();
     // Characters whose look depends on the story (a parrot losing feathers).
     for (const a of this.actors.values()) {
-      if (a.npc) a.setTexture(`char_${resolveVariant(a.npc, session).appearance ?? a.npc.id}`);
+      if (a.npc) a.setTexture(`char_${resolveActorLook(this.content, session, a.npc).appearance ?? a.npc.id}`);
     }
     this.player?.setTexture(`char_${this.playerAppearance()}`);
+    this.aliasFx = aliasOverlay(this.content, session);
     this.fumeLayer.setZones(this.fumeField.refresh(session, this.fumeClock, { immediate }));
     this.fumeLayer.setHaze(hazeFor(this.model.meta.haze, session));
     this.sharks.setLevel(sharkLevelFor(this.model.meta, session), { immediate });
@@ -907,6 +945,9 @@ export class WorldScene extends BaseScene {
       // The wet cloth from the rescue slows the fumes; so does the Gentle
       // option, and a swig of Frog Grog for a while (its "fume ward").
       let scale = this.app.settings.fumeScale() * (this.session.story.has('rescue_gear_on') ? 0.7 : 1);
+      // Story Phase 13: a low-severity zone (Stench-O-Vision's vent) builds exposure slowly.
+      const p = this.player;
+      scale *= this.fumeField.severityAt(Math.floor(p.px / TILE_SIZE), Math.floor((p.py - 1) / TILE_SIZE), this.fumeClock);
       const ward = this.session.transient.fumeWard;
       if (ward?.ms > 0) {
         scale *= ward.scale;

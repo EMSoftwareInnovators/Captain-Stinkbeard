@@ -5,7 +5,7 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
 import { SES_BEZEL, SES_SCREEN } from '../art/vista/sesArt.js';
 import { tvState, setPower, setChannel, stepChannel, nextLines, tvCondition, programDef, programEpisode } from '../systems/tv/tv.js';
 import { parseLine } from '../systems/script/parseLine.js';
-import { resolveVariant } from '../systems/story/progress.js';
+import { resolveSpeaker } from '../systems/story/aliases.js';
 
 /**
  * The television close-up you operate (Story Phase 5: the Stenchmaster
@@ -36,6 +36,10 @@ import { resolveVariant } from '../systems/story/progress.js';
  *     with no business coming out of a television) and "tune" (after enough
  *     tries, it finds a channel: the panel's way of ending in a programme
  *     rather than in darkness).
+ *
+ * Story Phase 11 adds the knob effects "stretch" (wide and squat) and "mute"
+ * (silence for "ms"); Story Phase 13 a set's smell "vent" (Stench-O-Vision):
+ * a programme beat with "aroma" puffs out of it and tells the world.
  *
  * Story Phase 10 adds more than one knob panel per set ("knobPanels", the tv
  * command's "panel"), knobs that only turn up after N other tries ("after":
@@ -229,12 +233,22 @@ export class TvView {
     const k = this.knobState;
     const volume = Math.min(1, 0.5 + k.vol * 0.25);
     const rate = k.slow ? 0.5 : 1;
-    if (b.sfx) this.app.audio.sfx(b.sfx, { volume, rate });
-    if (b.laugh) this.app.audio.sfx(this.program.laugh ?? 'ftm_laugh', { volume: volume * 0.8, rate });
+    const muted = k.muteMs > 0;
+    if (b.sfx && !muted) this.app.audio.sfx(b.sfx, { volume, rate });
+    if (b.laugh && !muted) this.app.audio.sfx(this.program.laugh ?? 'ftm_laugh', { volume: volume * 0.8, rate });
     if (b.line) {
       const l = parseLine(b.line);
       if (k.slow) l.text = l.text.toUpperCase().split(' ').join('... ');
+      // Story Phase 11: muted, they're only mouthing it.
+      if (muted) l.text = '( ...mouthing... )';
       this.showLines([l]);
+    }
+    // Story Phase 13: Stench-O-Vision. A beat with "aroma" puffs out of the set's
+    // vent, here and in the room (the world puts a low-severity fume source there).
+    if (b.aroma && this.def.vent) {
+      this.smoke();
+      if (!muted) this.app.audio.sfx(this.def.vent.sfx ?? 'stench_vent', { volume: 0.6 });
+      this.app.bus?.emit('tv:aroma', { tv: this.def.id });
     }
     const f = this.currentFrames()[0];
     if (f) this.screen.setFrame(f);
@@ -267,6 +281,18 @@ export class TvView {
         break;
       case 'slow':
         k.slow = !k.slow;
+        break;
+      case 'stretch':
+        // Story Phase 11: the picture goes wide and squat (and back).
+        k.stretch = !k.stretch;
+        this.screen.setScale(k.stretch ? 1.4 : 1, k.stretch ? 0.7 : 1);
+        this.screen.setPosition(this.sx - (k.stretch ? SES_SCREEN.w * 0.2 : 0), this.sy + (k.stretch ? SES_SCREEN.h * 0.15 : 0));
+        break;
+      case 'mute':
+        // Story Phase 11: silence, for a few seconds (then it all comes back).
+        k.muteMs = knob.ms ?? 3500;
+        setText(this.osd, 'MUTE');
+        this.osdT = k.muteMs;
         break;
       case 'shrink':
         k.shrink = !k.shrink;
@@ -465,8 +491,8 @@ export class TvView {
   }
 
   speakerName(id) {
-    const sp = this.app.content.speaker(id);
-    return (sp && resolveVariant(sp, this.session)?.name) ?? id;
+    // Story Phase 13: an alias shows here too (the delirious captain's television).
+    return resolveSpeaker(this.app.content, this.session, id)?.name ?? id;
   }
 
   flag(f) {
@@ -494,6 +520,7 @@ export class TvView {
       this.updatePuffs(delta);
       return;
     }
+    if (this.knobState.muteMs > 0) this.knobState.muteMs -= delta;
     // A programme moves on beat by beat.
     if (this.beat) {
       this.beatT += delta;
@@ -527,7 +554,7 @@ export class TvView {
     this.humTimer -= delta;
     if (this.humTimer <= 0) {
       this.humTimer = rand(1400, 2200);
-      this.app.audio.sfx(this.channel.hum ?? 'tv_hum', { volume: 0.35 });
+      if (!(this.knobState.muteMs > 0)) this.app.audio.sfx(this.channel.hum ?? 'tv_hum', { volume: 0.35 });
     }
     this.updateFailure(delta);
     this.updatePuffs(delta);

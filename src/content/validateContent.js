@@ -349,6 +349,19 @@ function validateStep(step, check, sctx) {
   }
   if (name === 'tint' && !/^#[0-9a-fA-F]{6}$/.test(step.color ?? '')) check.error('tint color must be "#rrggbb"');
   if (name === 'repair' && !REPAIR_KINDS[step.repair]) check.error(`unknown timing-bar kind "${step.repair}" (see src/systems/repairKinds.js)`);
+  // Story Phases 11-13: the sash tension, the dice, fragile items.
+  if (name === 'sashTension' && !check.ctx.db.tension?.has?.(step.sashTension)) check.error(`unknown sash tension "${step.sashTension}" (data/story/tension)`);
+  if (name === 'dice') {
+    if (!['show', 'roll', 'hop', 'hold', 'hide'].includes(step.dice)) check.error(`dice must be show, roll, hop, hold or hide (got "${step.dice}")`);
+    if (!check.ctx.db.dice?.has?.(step.die ?? 'grand_dice')) check.error(`unknown die "${step.die ?? 'grand_dice'}" (data/story/dice)`);
+    if (step.dice === 'roll' && !(Number.isInteger(step.result) && step.result >= 1 && step.result <= 6)) check.error('a dice roll needs "result": 1-6 (the story decides; it is never random)');
+    if (step.dice === 'hop' && !(Number.isInteger(step.to) && step.to >= 1 && step.to <= 6)) check.error('a dice hop needs "to": 1-6');
+  }
+  if (name === 'wear') {
+    const item = check.ctx.db.items.get(step.wear);
+    if (item && !item.wear) check.error(`item "${step.wear}" has no "wear" stages`);
+    if (item?.wear && step.to && !item.wear.stages.includes(step.to)) check.error(`"${step.to}" is not one of ${step.wear}'s wear stages`);
+  }
   if (name === 'repair' && step.strikes !== undefined && (step.strikes < 1 || step.strikes > 8)) check.error('repair strikes must be 1..8');
   if (name === 'swapItem' && step.swapItem === step.to) check.error('swapItem needs two different items');
 }
@@ -412,7 +425,7 @@ function validateEffects(effects, check) {
 }
 
 const TARGET_TYPES = ['self', 'ally', 'allies', 'enemy', 'enemies', 'allyAny'];
-const AMBIENT_KINDS = ['wake', 'gulls', 'smoke', 'perchedGull', 'sailShadow', 'glitter', 'voice', 'rain', 'sailPuff', 'ratPeek', 'odorTrail', 'fins'];
+const AMBIENT_KINDS = ['wake', 'gulls', 'smoke', 'perchedGull', 'sailShadow', 'glitter', 'voice', 'rain', 'sailPuff', 'ratPeek', 'odorTrail', 'fins', 'fumeProp'];
 const OBJECT_TYPES = ['spawn', 'warp', 'npc', 'enemy', 'inspect', 'chest', 'trigger', 'block'];
 
 function validateBehavior(b, check, model) {
@@ -474,6 +487,7 @@ function validateFumeZones(model, c) {
     if (!FUME_LEVELS.includes(z.level)) zc.error(`fume level must be one of ${FUME_LEVELS.join(', ')}`);
     for (const k of ['x', 'y', 'w', 'h']) if (typeof z[k] !== 'number') zc.error(`fume zone needs numeric ${k}`);
     if ('if' in z) zc.condition(z.if);
+    if (z.severity !== undefined && !(typeof z.severity === 'number' && z.severity > 0 && z.severity <= 1)) zc.error('fume zone severity must be a number in (0, 1]');
     if (z.path !== undefined) {
       if (!Array.isArray(z.path) || z.path.length < 2 || !z.path.every((pt) => Array.isArray(pt) && pt.length === 2)) zc.error('fume path must be a list of [x, y] points');
     }
@@ -550,6 +564,59 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       if (!EQUIPMENT_SLOTS.includes(item.slot)) c.error(`equipment slot must be one of ${EQUIPMENT_SLOTS.join(', ')}`);
       validateStats(item.stats || {}, c, { required: false });
       (item.equipBy || []).forEach((id) => c.character(id));
+    }
+    // Story Phase 11: a fragile item wears through stages (a story value) and reads differently at each.
+    if (item.wear) {
+      if (typeof item.wear.value !== 'string' || !Array.isArray(item.wear.stages) || item.wear.stages.length < 2) c.error('"wear" needs { value, stages: [two or more] }');
+    }
+    (item.variants || []).forEach((v, i) => {
+      const vc = c.at(`variants[${i}]`);
+      vc.condition(v.if);
+      if (v.icon && !art.icons.has(v.icon)) vc.error(`unknown icon "${v.icon}"`);
+      for (const k of Object.keys(v)) if (!['if', 'name', 'description', 'icon'].includes(k) && !isCommentKey(k)) vc.error(`unknown item variant field "${k}"`);
+    });
+  }
+
+  // Story Phase 12: sash tension definitions (data/story/tension)
+  for (const [id, t] of db.tension?.map ?? []) {
+    const c = C(`${db.tension.sourceOf(id)} (${id})`);
+    if (!(t.seconds > 0)) c.error('"seconds" must be a positive number');
+    const band = t.band ?? [38, 68];
+    if (!Array.isArray(band) || band.length !== 2 || !(band[0] >= 0 && band[0] < band[1] && band[1] <= 100)) c.error('"band" must be [lo, hi] with 0 <= lo < hi <= 100');
+    (t.milestones ?? []).forEach((m, i) => {
+      const mc = c.at(`milestones[${i}]`);
+      if (!(m.at >= 0 && m.at <= t.seconds)) mc.error('"at" must be within the seconds');
+      if (m.sfx) mc.sfx(m.sfx);
+      if (m.text) validateText(m.text, mc);
+      if (m.band && !(m.band[0] < m.band[1])) mc.error('a milestone "band" must be [lo, hi]');
+    });
+    for (const k of ['tightSfx', 'slackSfx', 'surgeSfx', 'gustSfx', 'caughtSfx']) if (t[k]) c.sfx(t[k]);
+    if (t.count?.sfx) c.sfx(t.count.sfx);
+    if (t.release?.sfx) c.sfx(t.release.sfx);
+    if (t.release?.cueSfx) c.sfx(t.release.cueSfx);
+    if (!(t.release?.auto > 0)) c.error('"release.auto" (ms before the hands slip by themselves) is required: the trial must always end');
+  }
+
+  // Story Phase 12: dice (data/story/dice)
+  for (const [id, d] of db.dice?.map ?? []) {
+    const c = C(`${db.dice.sourceOf(id)} (${id})`);
+    const a = d.art ?? 'gdie';
+    for (const f of [1, 2, 3, 4, 5, 6].map((n) => `${a}_${n}`).concat([0, 1, 2, 3].map((n) => `${a}_tumble_${n}`), [`${a}_shadow`])) if (!art.vista.has(f)) c.error(`no vista art "${f}"`);
+    for (const n of ['1', '2', '3', '4', '5', '6']) if (typeof d.faces?.[n] !== 'string') c.error(`face ${n} needs a label ("faces")`);
+    for (const snd of Object.values(d.sfx ?? {})) c.sfx(snd);
+  }
+
+  // Story Phase 13: alias sets (data/story/aliases)
+  for (const [id, set] of db.aliases?.map ?? []) {
+    const c = C(`${db.aliases.sourceOf(id)} (${id})`);
+    c.condition(set.if);
+    if (set.overlay?.tint && !/^#[0-9a-fA-F]{6}$/.test(set.overlay.tint)) c.error('overlay.tint must be "#rrggbb"');
+    for (const [who, a] of Object.entries(set.actors ?? {})) {
+      const ac = c.at(`actors.${who}`);
+      if (!db.speaker(who)) ac.error(`"${who}" is not a speaker`);
+      if (typeof a.name !== 'string' || !a.name) ac.error('an alias needs a "name"');
+      if (a.portrait) ac.portrait(a.portrait);
+      if (a.appearance) ac.appearance(a.appearance);
     }
   }
 
@@ -717,6 +784,14 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       if ('if' in a) ac.condition(a.if);
       if (a.sfx) ac.sfx(a.sfx);
       if (a.kind === 'voice') (a.lines || []).forEach((l) => validateText(l, ac));
+      if (a.kind === 'fumeProp') {
+        if (!Array.isArray(a.sounds) || !a.sounds.length) ac.error('a fumeProp needs "sounds": [{ sfx, text }]');
+        for (const snd of a.sounds ?? []) {
+          if (snd.sfx) ac.sfx(snd.sfx);
+          if (snd.text) validateText(snd.text, ac);
+        }
+        if (a.prop && !model.props.some((p) => p.uid === a.prop || p.prop === a.prop)) ac.error(`fumeProp names prop "${a.prop}", which this map does not have`);
+      }
       if (a.kind === 'sailPuff' && !model.props.some((p) => p.uid === a.prop || p.prop === a.prop)) ac.error(`sailPuff names prop "${a.prop}", which this map does not have`);
       if (a.kind === 'odorTrail' && a.actor && a.actor !== 'player' && !db.npcs.has(a.actor)) ac.error(`odorTrail actor "${a.actor}" is not an NPC`);
       if (a.kind === 'odorTrail' && a.fx && !PARTICLE_BURSTS.includes(a.fx)) ac.error(`odorTrail fx "${a.fx}" is not a particle kind (${PARTICLE_BURSTS.join(', ')})`);
@@ -968,6 +1043,15 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     (tv.channels || []).forEach((ch, i) => {
       if (ch.program && !db.tvPrograms?.has?.(ch.program)) c.at(`channels[${i}]`).error(`unknown programme "${ch.program}"`);
     });
+    // Story Phase 13: Stench-O-Vision. The vent's tiles name real maps; its sound exists.
+    if (tv.vent) {
+      const vc = c.at('vent');
+      if (tv.vent.sfx && !db.sfx.has(tv.vent.sfx)) vc.error(`unknown sfx "${tv.vent.sfx}"`);
+      for (const [m, at] of Object.entries(tv.vent.tiles ?? {})) {
+        vc.map(m);
+        if (!Array.isArray(at) || at.length !== 2) vc.error(`vent.tiles.${m} must be [x, y]`);
+      }
+    }
     // Story Phase 6: conditions, the knob panel
     for (const [sid, st] of Object.entries(tv.states ?? {})) {
       const sc = c.at(`states.${sid}`);
@@ -980,7 +1064,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     // The knob panel, and (Story Phase 10) any further named panels ("knobPanels").
     const panels = [...(tv.knobs ? [['knobs', tv.knobs]] : []), ...Object.entries(tv.knobPanels ?? {}).map(([pid, kp]) => [`knobPanels.${pid}`, kp])];
     for (const [where, knobs] of panels) {
-      const EFFECTS = ['louder', 'flip', 'tint', 'slow', 'shrink', 'frog', 'noop', 'off', 'roll', 'shriek', 'tune', 'glimpse'];
+      const EFFECTS = ['louder', 'flip', 'tint', 'slow', 'shrink', 'frog', 'noop', 'off', 'roll', 'shriek', 'tune', 'glimpse', 'stretch', 'mute'];
       const list = knobs.list ?? [];
       // An ending knob that waits ("after") is still reachable if some knob is there from the start (knobs turn as often as you like).
       const ends = list.filter((k) => k.effect === 'off' || k.effect === 'tune');

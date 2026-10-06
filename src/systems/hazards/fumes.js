@@ -129,6 +129,16 @@ export class FumeField {
 
   /** Strongest level covering the tile (x, y) at time t, or null. Tile centres are tested. */
   levelAt(x, y, t = 0) {
+    return this.zoneAt(x, y, t)?.level ?? null;
+  }
+
+  /**
+   * The strongest zone covering the tile (x, y) at time t, or null. Story
+   * Phase 13: a zone can carry a "severity" (0..1, default 1), a multiplier
+   * on the exposure it builds: a small low-severity source (a television's
+   * smell vent) is unpleasant without being the Dead Center.
+   */
+  zoneAt(x, y, t = 0) {
     let best = null;
     let bestRank = 0;
     const cx = x + 0.5;
@@ -137,12 +147,17 @@ export class FumeField {
       const r = zoneRect(z, t);
       if (cx < r.x || cy < r.y || cx >= r.x + r.w || cy >= r.y + r.h) continue;
       const rank = fumeRank(z.level, this.config);
-      if (rank > bestRank) {
+      if (rank > bestRank || (rank === bestRank && (z.severity ?? 1) > (best?.severity ?? 1))) {
         bestRank = rank;
-        best = z.level;
+        best = z;
       }
     }
     return best;
+  }
+
+  /** Exposure multiplier where the captain stands (a zone's "severity"; 1 elsewhere). */
+  severityAt(x, y, t = 0) {
+    return this.zoneAt(x, y, t)?.severity ?? 1;
   }
 
   /** True when no zone of `level` or stronger covers (x, y) at time t. */

@@ -38,6 +38,9 @@ const FOLDER_RULES = [
   { prefix: 'battle/backdrops', kind: 'backdrops', shape: 'list' },
   { prefix: 'story/vistas/', kind: 'vistas', shape: 'map' },
   { prefix: 'story/triggers/', kind: 'storyTriggers', shape: 'list' },
+  { prefix: 'story/tension/', kind: 'tension', shape: 'map' },
+  { prefix: 'story/dice/', kind: 'dice', shape: 'map' },
+  { prefix: 'story/aliases/', kind: 'aliases', shape: 'map' },
   { prefix: 'hazards/', kind: 'hazards', shape: 'map' },
   { prefix: 'debug/', kind: 'debugPresets', shape: 'list' },
   { prefix: 'logs/', kind: 'logs', shape: 'map' },
@@ -55,7 +58,41 @@ const FOLDER_RULES = [
  *     selectors ahead of the original ones and adds look variants.
  */
 const MAP_PATCH_PREPEND = ['objects', 'musicVariants', 'lightingVariants', 'nameVariants', 'backgroundVariants', 'haze', 'sharks', 'sharkDuty'];
-const MAP_PATCH_APPEND = ['props', 'onEnter', 'regions', 'ambient', 'fumes', 'collision'];
+const MAP_PATCH_APPEND = ['props', 'onEnter', 'regions', 'ambient', 'fumes', 'collision', 'decor'];
+/** A later chapter can retire an earlier chapter's prop, fume zone or ambient entry by id (its "if" gains the extra one). */
+const MAP_PATCH_CONDITIONS = [['propConditions', 'props', 'prop'], ['fumeConditions', 'fumes', 'fume zone'], ['ambientConditions', 'ambient', 'ambient entry']];
+
+/**
+ * Story Phase 13: decor slots. A map (or patch) lists { value, prop, spots }:
+ * the story value names which spot the piece stands in (the player chose
+ * it, so it's saved like any other value), and each spot becomes an ordinary
+ * conditional prop, with an inspect object on it when the slot has a
+ * script. Unset: the first spot, unless the slot says "default": null.
+ *
+ *   "decor": [{ "value": "standee_brogath", "prop": "standee_brogath", "if": { "flag": "standees_out" },
+ *               "inspect": "p13.inspect.standee_brogath",
+ *               "spots": { "porthole": [3, 4], "door": { "x": 9, "y": 4, "flip": true } } }]
+ */
+export function expandDecor(decor = []) {
+  const props = [];
+  const objects = [];
+  for (const slot of decor) {
+    const spots = Object.entries(slot.spots ?? {});
+    const fallback = slot.default === undefined ? spots[0]?.[0] : slot.default;
+    for (const [spot, at] of spots) {
+      const [x, y] = Array.isArray(at) ? at : [at.x, at.y];
+      const chosen = { value: { name: slot.value, eq: spot } };
+      const here = spot === fallback ? { any: [chosen, { value: { name: slot.value, set: false } }] } : chosen;
+      const cond = slot.if ? { all: [slot.if, here] } : here;
+      const prop = { prop: slot.prop, x, y, if: cond, id: `decor_${slot.value}_${spot}` };
+      if (!Array.isArray(at) && at.flip) prop.flip = true;
+      if (!Array.isArray(at) && at.frame) prop.frame = at.frame;
+      props.push(prop);
+      if (slot.inspect) objects.push({ id: `decor_${slot.value}_${spot}`, type: 'inspect', x, y, if: cond, script: slot.inspect });
+    }
+  }
+  return { props, objects };
+}
 
 const SINGLE_FILES = {
   'game.json': 'game',
@@ -66,7 +103,7 @@ export const REGISTRY_KINDS = [
   'characters', 'extraSpeakers', 'npcs', 'enemies', 'abilities', 'statuses', 'items', 'shops', 'quests',
   'encounters', 'props', 'appearances', 'portraits', 'scripts', 'flags', 'maps', 'tilesets', 'music',
   'sfx', 'instruments', 'ambience', 'timing', 'backdrops', 'vistas', 'storyTriggers', 'hazards', 'debugPresets',
-  'mapPatches', 'logs', 'tv', 'tvPrograms',
+  'mapPatches', 'logs', 'tv', 'tvPrograms', 'tension', 'dice', 'aliases',
 ];
 
 /** Content paths in load order: numbers compare as numbers ("phase9" before "phase10"). */
@@ -228,23 +265,32 @@ export class ContentDB {
       for (const key of MAP_PATCH_APPEND) if (patch[key]) merged[key] = [...(base[key] ?? []), ...patch[key]];
       if (patch.lights) merged.lighting = { ...(base.lighting ?? {}), lights: [...(base.lighting?.lights ?? []), ...patch.lights] };
       for (const key of ['fumeCollapse', 'fumeSafeSpawn']) if (patch[key]) merged[key] = patch[key];
-      // A later chapter can retire an earlier chapter's prop without editing
-      // it: its condition gains the extra "if" (both must hold).
-      for (const pc of patch.propConditions ?? []) {
-        const i = (merged.props ?? []).findIndex((p) => p && typeof p === 'object' && p.id === pc.id);
-        if (i < 0) {
-          this.loadErrors.push(`${source}: propConditions names prop id "${pc.id}", which ${patch.patch} does not have`);
-          continue;
+      // A later chapter can retire an earlier chapter's prop (Story Phase 13:
+      // or fume zone, or ambient entry) without editing it: its condition
+      // gains the extra "if" (both must hold).
+      for (const [key, list, what] of MAP_PATCH_CONDITIONS) {
+        for (const pc of patch[key] ?? []) {
+          const i = (merged[list] ?? []).findIndex((p) => p && typeof p === 'object' && p.id === pc.id);
+          if (i < 0) {
+            this.loadErrors.push(`${source}: ${key} names ${what} id "${pc.id}", which ${patch.patch} does not have`);
+            continue;
+          }
+          const item = merged[list][i];
+          merged[list] = [...merged[list]];
+          merged[list][i] = { ...item, if: item.if ? { all: [item.if, pc.if] } : pc.if };
         }
-        const prop = merged.props[i];
-        merged.props = [...merged.props];
-        merged.props[i] = { ...prop, if: prop.if ? { all: [prop.if, pc.if] } : pc.if };
       }
-      const allowed = new Set(['id', 'patch', 'lights', 'fumeCollapse', 'fumeSafeSpawn', 'propConditions', ...MAP_PATCH_PREPEND, ...MAP_PATCH_APPEND]);
+      const allowed = new Set(['id', 'patch', 'lights', 'fumeCollapse', 'fumeSafeSpawn', ...MAP_PATCH_CONDITIONS.map(([k]) => k), ...MAP_PATCH_PREPEND, ...MAP_PATCH_APPEND]);
       for (const key of Object.keys(patch)) {
         if (!allowed.has(key) && !key.startsWith('//')) this.loadErrors.push(`${source}: a map patch cannot change "${key}"`);
       }
       this.maps.map.set(base.id, merged);
+    }
+    // Story Phase 13: decor slots become conditional props (and inspect objects).
+    for (const map of this.maps.list()) {
+      if (!map.decor?.length) continue;
+      const { props, objects } = expandDecor(map.decor);
+      this.maps.map.set(map.id, { ...map, props: [...(map.props ?? []), ...props], objects: [...objects, ...(map.objects ?? [])] });
     }
   }
 

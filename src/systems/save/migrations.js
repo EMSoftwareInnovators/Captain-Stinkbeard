@@ -237,6 +237,59 @@ export const MIGRATIONS = {
   },
 };
 
+/**
+ * Fills the layout's containers without touching what's in them (the later
+ * phases add flags, variables and story values only, all of which start
+ * unset). Used by the 10 -> 11, 11 -> 12 and 12 -> 13 steps.
+ */
+function fillLayout(state) {
+  return {
+    ...state,
+    story: {
+      ...state.story,
+      flags: Array.isArray(state.story?.flags) ? state.story.flags : [],
+      vars: state.story?.vars && typeof state.story.vars === 'object' ? state.story.vars : {},
+      values: state.story?.values && typeof state.story.values === 'object' ? state.story.values : {},
+    },
+    world: {
+      ...state.world,
+      objects: state.world?.objects ?? {},
+      visited: state.world?.visited ?? [],
+      counters: state.world?.counters ?? {},
+    },
+    inventory: state.inventory && typeof state.inventory === 'object' ? state.inventory : { gold: 0, items: {} },
+  };
+}
+
+Object.assign(MIGRATIONS, {
+  /**
+   * 10 -> 11 (Story Phase 11: the Grand Bedtime Argument). The layout is
+   * unchanged. What the phase adds (the six-rope lamp, the lost book, the
+   * Cheap-O-Rama sashes, the pocket booklet's condition, the sash-flutter
+   * weakness, the conspiracy) is flags and story values that start unset, so
+   * a finished Phase 10 save wakes inside the Great Sharkstorm at bedtime.
+   * The booklet's condition reads as "new" until the story sets it.
+   */
+  10: (state) => fillLayout(state),
+  /**
+   * 11 -> 12 (Story Phase 12: the Thirty-Second Sash Trial). Unchanged layout.
+   * The trial, the Grand Dice (always scripted, never rolled at random), the
+   * suspension (`stenchmaster_suspension_active`, its duration and the hours
+   * left), the sash's custody and the breakfast are flags, variables and
+   * values that start unset: no suspension, sash where Garrick left it.
+   */
+  11: (state) => fillLayout(state),
+  /**
+   * 12 -> 13 (Story Phase 13: the Ancient Stenchmaster Delirium). Unchanged
+   * layout. The quarters' new bedding, the sealed textile locker, the
+   * standees (each a story value naming the spot the player chose; unset
+   * means the first spot), the second S.E.S., its cable, the Stenchmaster
+   * Channel, Stench-O-Vision and the captain's delirium are flags and
+   * values. Delirium aliases are never saved: they follow the flags.
+   */
+  12: (state) => fillLayout(state),
+});
+
 export function migrateState(state, fromVersion, toVersion, migrations = MIGRATIONS) {
   let current = state;
   for (let v = fromVersion; v < toVersion; v++) {

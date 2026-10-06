@@ -115,11 +115,16 @@ export const COMMAND_SCHEMAS = {
   sharkDuty: { sharkDuty: 'string' },
   tv: { tv: 'tv', mode: 'string?', panel: 'string?' },
   tvSet: { tvSet: 'tv', channel: 'number?', power: 'boolean?', state: 'string?' },
-  tvProgram: { tvProgram: 'string', episode: 'string?', layer: 'string?', from: 'number?', to: 'number?' },
+  tvProgram: { tvProgram: 'string', episode: 'string?', layer: 'string?', from: 'number?', to: 'number?', tv: 'tv?' },
+
+  // --- Story Phases 11-13 ------------------------------------------------------
+  sashTension: { sashTension: 'string', var: 'string?', releasedVar: 'string?' },
+  dice: { dice: 'string', die: 'string?', result: 'number?', bounces: 'number?', to: 'number?', hops: 'number?', seconds: 'number?', face: 'number?', async: 'boolean?' },
+  wear: { wear: 'item', to: 'string?' },
 };
 
 /** Commands that may carry "async": true (start and continue without waiting). */
-export const ASYNC_COMMANDS = new Set(['token', 'move', 'fly', 'hop', 'propFx', 'roll', 'moveSprite', 'fumeCloud', 'vistaMove', 'shake', 'emote', 'tint', 'sharkEvent', 'course', 'restage']);
+export const ASYNC_COMMANDS = new Set(['token', 'move', 'fly', 'hop', 'propFx', 'roll', 'moveSprite', 'fumeCloud', 'vistaMove', 'shake', 'emote', 'tint', 'sharkEvent', 'course', 'restage', 'dice']);
 
 export const PARTICLE_BURSTS = ['coins', 'gems', 'splinters', 'feathers', 'sparkle', 'fume', 'odor', 'splash', 'dust', 'dishes', 'falldust', 'suitpuff', 'beans', 'confetti'];
 export const PROP_FX = ['jiggle', 'swing', 'fall', 'frame'];

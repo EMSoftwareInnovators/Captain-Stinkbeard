@@ -144,6 +144,7 @@ export class Ambient {
         case 'ratPeek': if (!busy) this.updateRat(e, delta); break;
         case 'odorTrail': this.updateOdor(e, delta); break;
         case 'fins': this.updateFins(e, delta); break;
+        case 'fumeProp': if (!busy) this.updateFumeProp(e, delta); break;
         default: break;
       }
     }
@@ -249,6 +250,41 @@ export class Ambient {
   }
 
   /** A sail swells on its own ("stored stink"): the rigging above puffs out. */
+  /**
+   * Story Phase 13: a residual fume object. Something soaked in a release
+   * long enough starts making noises of its own: a tiny growl, a whimper, a
+   * pathetic "mrrrow", a puff. Not a creature and not an enemy: nothing
+   * moves or blocks, nothing follows the captain. Now and then the prop on
+   * the tile ("prop", or whatever stands there) gives a shiver, a wisp comes
+   * off it, and one of its sounds plays (quietly, panned):
+   *   { kind: 'fumeProp', x, y, prop?, every: [min, max],
+   *     sounds: [{ sfx: 'fume_growl_small', text: '<k>grrr...</>' }, ...], puff: true }
+   */
+  updateFumeProp(e, delta) {
+    const s = this.scene;
+    const a = e.def;
+    e.t -= delta;
+    if (e.t > 0) return;
+    e.t = this.nextDelay(a, [7000, 13000]);
+    const sounds = a.sounds ?? [];
+    const pick = sounds.length ? sounds[(e.i++) % sounds.length] : null;
+    const x = a.x * TILE_SIZE + TILE_SIZE / 2;
+    const y = a.y * TILE_SIZE + TILE_SIZE / 2;
+    const target = (s.props ?? []).find((p) => p.visible && (a.prop ? p.uid === a.prop || p.prop === a.prop : true)
+      && Math.abs(p.x - x) < TILE_SIZE * 1.5 && Math.abs(p.y - (y + TILE_SIZE / 2)) < TILE_SIZE * 2);
+    if (target && !s.tweens.isTweening(target)) {
+      const x0 = target.x;
+      s.tweens.add({ targets: target, x: x0 + 1, duration: 60, yoyo: true, repeat: 3, onComplete: () => { target.x = x0; } });
+    }
+    if (a.puff !== false) s.fx.burst('fume', x, y - 4, { count: 2, depth: 56000, alpha: 0.5 });
+    if (pick?.text) s.barks?.show({ x, y: y - 6 }, pick.text, { duration: 1600, shout: false });
+    if (pick?.sfx) {
+      const cam = s.cameras.main;
+      const pan = Math.max(-1, Math.min(1, (x - (cam.scrollX + 160)) / 200));
+      s.game.app.audio.sfx(pick.sfx, { volume: a.volume ?? 0.4, pan, rate: 0.95 + Math.random() * 0.1 });
+    }
+  }
+
   updateSailPuff(e, delta) {
     const s = this.scene;
     const a = e.def;

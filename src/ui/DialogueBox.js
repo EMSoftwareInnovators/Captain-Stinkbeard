@@ -3,7 +3,7 @@ import { addText, setText, parseMarkup, formatTokens, wrap, paginate, applySpans
 import { ListMenu } from './ListMenu.js';
 import { SCREEN_WIDTH } from '../config/constants.js';
 import { TEXT_SPEED_MS } from '../systems/settings/Settings.js';
-import { resolveVariant } from '../systems/story/progress.js';
+import { resolveSpeaker } from '../systems/story/aliases.js';
 
 const BOX = { x: 4, w: 312, h: 62 };
 /** Where the window sits: along the bottom, or along the top when the action is low on screen. */
@@ -94,23 +94,49 @@ export class DialogueBox {
   setSpeaker(line) {
     // A speaker's portrait and name can follow the story (see "variants").
     this.pickDock(line);
-    const sp = line.speaker ? resolveVariant(this.app.content.speaker(line.speaker), this.app.session) : null;
+    // Story Phase 13: a speaker can be wearing an alias (systems/story/aliases.js): the alias's name and
+    // portrait, and with "flicker" the real ones for a blink now and then (calmer effects: both names, no blink).
+    const sp = line.speaker ? resolveSpeaker(this.app.content, this.app.session, line.speaker) : null;
     if (line.speaker && !sp) console.warn(`Unknown speaker ${line.speaker}`);
-    const name = line.name ?? sp?.name ?? null;
+    const calm = this.app.settings?.reducedEffects?.();
+    let name = line.name ?? sp?.name ?? null;
+    if (sp?.alias && calm && !line.name && sp.realName) name = `${sp.name} (${sp.realName})`;
     const portraitId = sp?.portrait ?? null;
     this.ensureBox(!!portraitId);
-    if (portraitId) {
-      const expr = line.expression ?? 'neutral';
-      const frame = `${portraitId}_${expr}`;
-      this.portrait.setFrame(this.scene.textures.get('portraits').has(frame) ? frame : `${portraitId}_neutral`);
-    }
+    this.expr = line.expression ?? 'neutral';
+    if (portraitId) this.showPortrait(portraitId);
     this.destroyName();
-    if (name) {
-      const w = measure(this.app.fontMetrics.main, name) + 16;
-      this.namePanel = addPanel(this.scene, 8, this.boxY - 13, w, 16, { depth: DEPTH + 4 });
-      this.nameText = addText(this.scene, 16, this.boxY - 9, name, { color: UI_COLORS.name, depth: DEPTH + 5 });
-    }
+    if (name) this.showName(name);
+    this.flicker = sp?.alias && sp.flicker && !calm && !line.name
+      ? { t: 0, on: false, alias: { name, portrait: portraitId }, real: { name: sp.realName ?? name, portrait: sp.realPortrait ?? portraitId } }
+      : null;
     this.voice = sp?.voice?.pitch ?? 1;
+  }
+
+  showPortrait(portraitId) {
+    if (!this.portrait) return;
+    const frame = `${portraitId}_${this.expr ?? 'neutral'}`;
+    this.portrait.setFrame(this.scene.textures.get('portraits').has(frame) ? frame : `${portraitId}_neutral`);
+  }
+
+  showName(name) {
+    this.destroyName();
+    const w = measure(this.app.fontMetrics.main, name) + 16;
+    this.namePanel = addPanel(this.scene, 8, this.boxY - 13, w, 16, { depth: DEPTH + 4 });
+    this.nameText = addText(this.scene, 16, this.boxY - 9, name, { color: UI_COLORS.name, depth: DEPTH + 5 });
+  }
+
+  /** An alias blinks to the real name and face now and then (BROGATH(?)... Pete... BROGATH(?)). */
+  updateFlicker(delta) {
+    const f = this.flicker;
+    if (!f || !this.open) return;
+    f.t += delta;
+    if (f.t < (f.on ? 160 : 1700)) return;
+    f.t = 0;
+    f.on = !f.on;
+    const show = f.on ? f.real : f.alias;
+    if (show.portrait && this.hasPortrait) this.showPortrait(show.portrait);
+    if (show.name) this.showName(show.name);
   }
 
   /** Shows one line (possibly several pages). Resolves when the player dismisses it. */
@@ -162,6 +188,7 @@ export class DialogueBox {
   }
 
   update(delta, input) {
+    this.updateFlicker(delta);
     if (this.choiceMenu) {
       this.choiceMenu.update(input);
       return;

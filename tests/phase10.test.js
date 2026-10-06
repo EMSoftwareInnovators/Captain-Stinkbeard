@@ -191,7 +191,7 @@ describe('the timing games', () => {
 
 describe('Phase 10 saves', () => {
   it('is version 10, and a finished Phase 9 save migrates and waits for Pete', () => {
-    expect(SAVE_VERSION).toBe(10);
+    expect(SAVE_VERSION).toBeGreaterThanOrEqual(10); // 13 since Story Phases 11-13 (tests/phase11.test.js)
     const v9 = JSON.parse(JSON.stringify(atPreset('p9_complete').serialize()));
     const v10 = migrateState(v9, 9, 10);
     const loaded = GameSession.fromState({ content, bus: new EventBus(), state: v10 });

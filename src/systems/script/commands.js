@@ -126,6 +126,8 @@ export function createCommandImplementations() {
         if (b.frames?.length) service(ctx, 'cinema', 'tvProgram').frames(layer, b.frames, b.frameMs ?? 300);
         if (b.sfx) service(ctx, 'audio', 'tvProgram').sfx(b.sfx);
         if (b.laugh) service(ctx, 'audio', 'tvProgram').sfx(prog.laugh ?? 'ftm_laugh', { volume: 0.8 });
+        // Story Phase 13: Stench-O-Vision (the set named by "tv" puffs out of its vent).
+        if (b.aroma && step.tv) ctx.bus?.emit('tv:aroma', { tv: step.tv });
         if (b.line) await service(ctx, 'dialogue', 'say').say(parseLine(b.line));
         else await ctx.wait(b.ms ?? 1200);
       }
@@ -354,6 +356,46 @@ export function createCommandImplementations() {
     repair: async (step, ctx) => {
       const clean = await service(ctx, 'ui', 'repair').repair({ kind: step.repair, strikes: step.strikes ?? 3, title: step.title ?? null, speed: step.speed ?? 1, zone: step.zone ?? 26 });
       if (step.var) ctx.session.story.setVar(step.var, clean ?? 0);
+    },
+    // --- Story Phases 11-13 ---------------------------------------------------------
+    /**
+     * The Sash Tension interaction (data/story/tension): hold the band for the
+     * def's seconds, then let go. Never fails; "var" keeps how many times it was
+     * caught out of the band, "releasedVar" 1 if the release was pressed (0 if the
+     * hands slipped).
+     */
+    sashTension: async (step, ctx) => {
+      const content = ctx.session.content ?? ctx.content;
+      const def = content.tension?.get?.(step.sashTension);
+      if (!def) throw new Error(`No sash tension definition "${step.sashTension}"`);
+      const r = await service(ctx, 'ui', 'sashTension').sashTension({ id: step.sashTension, ...def });
+      if (step.var) ctx.session.story.setVar(step.var, r?.slips ?? 0);
+      if (step.releasedVar) ctx.session.story.setVar(step.releasedVar, r?.released === 'slipped' ? 0 : 1);
+    },
+    /** A large die, rolled for the story (data/story/dice). The result is always the script's. */
+    dice: (step, ctx) => {
+      const content = ctx.session.content ?? ctx.content;
+      const id = step.die ?? 'grand_dice';
+      const def = content.dice?.get?.(id);
+      if (!def) throw new Error(`No die "${id}"`);
+      const p = service(ctx, 'ui', 'dice').dice(step.dice, { def: { id, ...def }, result: step.result, bounces: step.bounces, to: step.to, hops: step.hops, seconds: step.seconds, face: step.face });
+      return step.async ? null : p;
+    },
+    /**
+     * A fragile item wears (data/items: "wear": { value, stages }): its story
+     * value moves on one stage (or "to" a named one), never past the last and
+     * never backwards. The item itself is never taken.
+     */
+    wear: (step, ctx) => {
+      const content = ctx.session.content ?? ctx.content;
+      const item = content.items.get(step.wear);
+      const w = item?.wear;
+      if (!w) throw new Error(`Item "${step.wear}" has no "wear"`);
+      const cur = ctx.session.story.getValue(w.value) ?? w.stages[0];
+      const at = Math.max(0, w.stages.indexOf(cur));
+      const want = step.to ? w.stages.indexOf(step.to) : at + 1;
+      const next = Math.min(w.stages.length - 1, Math.max(at, want));
+      ctx.session.story.setValue(w.value, w.stages[next]);
     },
     battle: async (step, ctx, frame) => {
       const result = await service(ctx, 'battle', 'battle').start(step.battle);

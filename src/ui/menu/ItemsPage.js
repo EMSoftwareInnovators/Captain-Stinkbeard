@@ -4,6 +4,7 @@ import { ListMenu } from '../ListMenu.js';
 import { UiLayer } from './UiLayer.js';
 import { TabBar } from './TabBar.js';
 import { applyEffects, wouldAffect, itemUsableIn } from '../../systems/effects/effects.js';
+import { resolveVariant } from '../../systems/story/progress.js';
 
 const TABS = [
   { id: 'consumable', label: 'Supplies' },
@@ -35,7 +36,8 @@ export class ItemsPage {
 
   entries() {
     const type = TABS[this.tabIndex].id;
-    return this.session.inventory.entries({ type });
+    // Story Phase 11: an item can read differently as the story goes ("variants": a fragile booklet wearing out).
+    return this.session.inventory.entries({ type }).map((e) => (e.def?.variants ? { ...e, def: resolveVariant(e.def, this.session) } : e));
   }
 
   render() {
