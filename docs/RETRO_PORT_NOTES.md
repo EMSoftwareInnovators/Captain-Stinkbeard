@@ -149,7 +149,9 @@ frame is required. Button prompt glyphs are per device (`PROMPT_GLYPHS`).
 
 ## Save schema
 
-`src/systems/save/SaveManager.js`, current `SAVE_VERSION = 5` (Story Phase 5):
+`src/systems/save/SaveManager.js`, current `SAVE_VERSION = 10` (Story Phase 10;
+versions 5 to 10 keep this layout, their migrations only rename or fill in;
+the example shows a version 5 record):
 
 ```json
 {
