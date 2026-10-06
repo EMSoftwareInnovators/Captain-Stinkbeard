@@ -109,6 +109,25 @@ describe('content validation fails loudly', () => {
   });
 });
 
+describe('vista layer commands', () => {
+  // The cinema throws on a layer the vista hasn't got, so the validator follows each scene's vista.
+  it('catch a layer or frame the vista up at the time does not have', () => {
+    const errors = validateWith((f) => {
+      f['/data/story/cutscenes/phase12/ch112_118.json']['p12c5.surge'].splice(2, 0, { vistaFrame: 'cloud', frame: 'no_such_frame' });
+    });
+    expect(errors).toMatch(/p12c5\.surge, from p12c5\.begin with vista "sash_flutter" up.*has no layer "cloud"/);
+    expect(errors).toMatch(/no vista art "no_such_frame"/);
+  });
+
+  it('catch a debug preset dropping into a scene without putting its vista up', () => {
+    const errors = validateWith((f) => {
+      const presets = f['/data/debug/presets.json'];
+      presets.push({ id: 'zz_mid_flutter', name: 'Mid flutter', after: 'p10_complete', map: 'main_deck', x: 9, y: 15, script: 'p12c5.surge' });
+    });
+    expect(errors).toMatch(/debug preset "zz_mid_flutter" with no vista up.*vistaFrame "blast"/);
+  });
+});
+
 describe('map regions', () => {
   it('are validated and usable as visit targets', () => {
     const ok = validateWith((f) => {

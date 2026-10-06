@@ -783,6 +783,35 @@ function crownBig(c, x, y) {
   c.hline(x, x + 28, y + 13, '#9a6a10');
 }
 
+/**
+ * The blast at the mast, from behind, fanning down at whoever holds the sash: a steady plume during the trial,
+ * and the surge (the humiliation, doubled: wider, brighter, the deck planks lost in it).
+ */
+function blastPlume(surge) {
+  const w = surge ? 320 : 200;
+  const h = surge ? 72 : 46;
+  const c = new PixelCanvas(w, h);
+  const r = rng(surge ? 912 : 911);
+  const cx = Math.round(w / 2);
+  // Puffs down a widening cone: dark round the edge, pale and hot down the middle.
+  for (const [tone, shrink] of [['#5e7e28', 1], ['#8aa83a', 0.78], [surge ? '#c8dc6a' : '#a8c050', 0.5], [surge ? '#eef4a0' : '#c8d870', 0.24]]) {
+    for (let i = 0; i < (surge ? 70 : 44); i++) {
+      const t = r();
+      const y = Math.round(4 + t * (h - 6));
+      const half = (6 + t * (w / 2 - 14)) * shrink;
+      const x = Math.round(cx + (r() * 2 - 1) * half);
+      const rad = Math.max(2, Math.round((3 + t * (surge ? 12 : 8)) * (0.6 + shrink * 0.5)));
+      c.ellipse(x, y, rad + 2, rad, tone);
+    }
+  }
+  for (let i = 0; i < (surge ? 22 : 10); i++) {
+    const y = Math.floor(4 + r() * (h - 6));
+    const x = Math.round(cx + (r() - 0.5) * (6 + (y / h) * (w - 30)));
+    c.hline(x - 4, x + 4, y, surge ? '#f8fcd0' : '#e4ee9c'); // streaks
+  }
+  return c;
+}
+
 /** The sash at his shoulders: hanging, a lift, two flaps, and FULL FLUTTER (out sideways, like a flag). */
 function sashFlap(stage) {
   const c = new PixelCanvas(160, 80);
@@ -834,6 +863,7 @@ const SINGLE = {
   gdie_shadow: gdieShadow,
   cheapo_label: cheapoLabel,
   flutter_garrick: flutterGarrick,
+  flutter_blast: () => blastPlume(false), blast_surge: () => blastPlume(true),
   sash_flap_0: () => sashFlap(0), sash_flap_1: () => sashFlap(1), sash_flap_2: () => sashFlap(2), sash_flap_full: () => sashFlap(3),
   ...Object.fromEntries([1, 2, 3, 4, 5, 6].map((n) => [`gdie_${n}`, () => gdie(n)])),
   ...Object.fromEntries([0, 1, 2, 3].map((k) => [`gdie_tumble_${k}`, () => gdieTumble(k)])),

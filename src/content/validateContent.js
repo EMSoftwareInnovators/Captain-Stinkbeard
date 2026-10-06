@@ -1009,6 +1009,8 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     });
   }
 
+  checkVistaCommands(db, art, C);
+
   // Televisions (the Stenchmaster Entertainment System)
   for (const [id, tv] of db.tv?.map ?? []) {
     const c = C(`${db.tv.sourceOf(id)} (${id})`);
@@ -1213,4 +1215,64 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
   }
 
   return { errors: ctx.errors, warnings: ctx.warnings };
+}
+
+/**
+ * Vista layer commands (vistaMove, vistaFrame, vistaShow, vistaSpin, and a
+ * programme played onto a vista's screen) must name a layer of the vista
+ * that is up: the cinema throws on a missing one. Each script is followed
+ * from its first step with the vista its own "vista" commands put up (and
+ * into the scripts it calls); where no vista is known yet (a script called
+ * from elsewhere), the layer must at least exist in some vista. A debug
+ * preset's script starts with nothing up (a preset that drops into the middle
+ * of a scene puts its vista back up first). vistaFrame's frame must be vista
+ * art.
+ */
+function checkVistaCommands(db, art, C) {
+  const layersOf = new Map([...db.vistas.map].map(([id, v]) => [id, new Set((v.layers || []).map((l) => l.id))]));
+  const anyLayer = new Set([...layersOf.values()].flatMap((ids) => [...ids]));
+  const NONE = '(none)';
+  const seen = new Set();
+  const checkLayer = (layer, vista, cmd, c) => {
+    if (vista === NONE) c.error(`${cmd} "${layer}" with no vista up`);
+    else if (vista) {
+      if (!layersOf.get(vista)?.has(layer)) c.error(`${cmd}: vista "${vista}" has no layer "${layer}"`);
+    } else if (!anyLayer.has(layer)) c.error(`${cmd}: no vista has a layer "${layer}"`);
+  };
+  const run = (steps, vista, c, sid) => {
+    if (!Array.isArray(steps)) return vista;
+    steps.forEach((step, i) => {
+      if (!isPlainObject(step)) return;
+      const sc = c.at(`#${i}`);
+      if (typeof step.vista === 'string') vista = step.vista;
+      if (step.vistaEnd) vista = NONE;
+      for (const cmd of ['vistaMove', 'vistaFrame', 'vistaShow', 'vistaSpin']) if (typeof step[cmd] === 'string') checkLayer(step[cmd], vista, cmd, sc);
+      if (typeof step.tvProgram === 'string' && vista && vista !== NONE) checkLayer(step.layer ?? 'screen', vista, 'tvProgram', sc);
+      if (typeof step.vistaFrame === 'string' && typeof step.frame === 'string' && !art.vista.has(step.frame)) sc.error(`no vista art "${step.frame}"`);
+      if (typeof step.call === 'string') walk(step.call, vista, sid);
+      // A branch that puts a vista up (or takes it down) leaves it unknown afterwards.
+      const after = [];
+      for (const k of ['then', 'else', 'steps']) if (Array.isArray(step[k])) after.push(run(step[k], vista, sc.at(k), sid));
+      if (Array.isArray(step.parallel)) step.parallel.forEach((b, j) => after.push(run(b, vista, sc.at(`parallel[${j}]`), sid)));
+      if (Array.isArray(step.choice)) step.choice.forEach((o, j) => after.push(run(o?.then, vista, sc.at(`choice[${j}]`), sid)));
+      if (after.some((v) => v !== vista)) vista = null;
+    });
+    return vista;
+  };
+  const walk = (sid, vista, from = null) => {
+    const key = `${sid}@${vista ?? ''}`;
+    if (seen.has(key) || !db.scripts.has(sid)) return;
+    seen.add(key);
+    let nodes;
+    try {
+      nodes = normalizeScript(db.scripts.get(sid));
+    } catch {
+      return;
+    }
+    const up = vista === NONE ? 'no vista up' : `vista "${vista}" up`;
+    const c = C(`${db.scripts.sourceOf?.(sid) ?? 'scripts'} (${sid}${vista ? `, from ${from} with ${up}` : ''})`);
+    for (const [label, steps] of Object.entries(nodes)) run(steps, vista, c.at(label), sid);
+  };
+  for (const id of db.scripts.map.keys()) walk(id, null);
+  for (const pr of db.debugPresets.list()) if (typeof pr.script === 'string') walk(pr.script, NONE, `debug preset "${pr.id}"`);
 }
