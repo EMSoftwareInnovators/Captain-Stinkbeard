@@ -1112,6 +1112,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       else if (!['active', 'completed'].includes(st)) c.error(`quest state for "${q}" must be "active", "completed" or { done: [...] }`);
     }
     (pr.items || []).forEach((it) => c.item(typeof it === 'string' ? it : it.id));
+    (pr.takeItems || []).forEach((it) => c.item(it));
     c.map(pr.map);
     const m = compiled.get(pr.map);
     if (m && pr.spawn && !m.spawns[pr.spawn]) c.error(`map "${pr.map}" has no spawn "${pr.spawn}"`);

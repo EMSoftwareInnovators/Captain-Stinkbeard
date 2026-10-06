@@ -3512,5 +3512,1016 @@
     "x": 30,
     "y": 58,
     "facing": "up"
+  },
+  {
+    "id": "p10_start",
+    "name": "Phase 10 Start",
+    "description": "The Shark Shanty's over. Pete's hovering by the crater with his hands up: talk to him.",
+    "after": "p9_complete",
+    "flags": [
+      "p10_ready_hint"
+    ],
+    "map": "crownskull_isle",
+    "x": 24,
+    "y": 27,
+    "facing": "up"
+  },
+  {
+    "id": "p10_blame",
+    "name": "Grand Sharkmaster Blame Scene",
+    "description": "Not Pete's fault. (He'd like that noted.) Then: I used to be Blackbeard. Starts chapter 71.",
+    "after": "p10_start",
+    "map": "crownskull_isle",
+    "x": 24,
+    "y": 27,
+    "facing": "up",
+    "script": "p10c1.begin"
+  },
+  {
+    "id": "p10_crater_salvage",
+    "name": "Crater Salvage",
+    "description": "Search the rim for whatever came down again (the glints, south and east first).",
+    "after": "p10_blame",
+    "flags": [
+      "blackbeard_identity_crisis",
+      "p10_ch72_started",
+      "p10_started",
+      "pete_blame_cleared"
+    ],
+    "quests": {
+      "saddest_salvage": "active"
+    },
+    "map": "crownskull_isle",
+    "x": 27,
+    "y": 28,
+    "facing": "up"
+  },
+  {
+    "id": "p10_return_trail",
+    "name": "Wealthy Shark Return Trail",
+    "description": "Gristle's counted it. Down the jungle trail to the boats, under the wealthy sharks.",
+    "after": "p10_crater_salvage",
+    "flags": [
+      "contaminated_salvage_obtained",
+      "crater_salvage_complete",
+      "megalodon_left_lagoon",
+      "p10_appraisal",
+      "p10_ch73_started",
+      "p10_half_said",
+      "p10_rest_said",
+      "p10_salv_1",
+      "p10_salv_2",
+      "p10_salv_3",
+      "p10_salv_4",
+      "p10_salv_5",
+      "p10_salv_6",
+      "p10_salv_7",
+      "p10_salv_8",
+      "p10_salv_said_smell"
+    ],
+    "vars": {
+      "crimson_fortune_recovered_percent": 3
+    },
+    "values": {
+      "crimson_salvage_contamination": "grand_stenchmaster_direct_blast"
+    },
+    "quests": {
+      "saddest_salvage": "completed",
+      "wealthy_sharks": "active"
+    },
+    "items": [
+      "crater_salvage"
+    ],
+    "takeItems": [
+      "reeking_doubloons"
+    ],
+    "map": "crownskull_isle",
+    "x": 29,
+    "y": 31,
+    "facing": "down"
+  },
+  {
+    "id": "p10_back_aboard",
+    "name": "Back Aboard Ship",
+    "description": "The tiara's gone again. The boats: row back to the Revenge. She looks terrible.",
+    "after": "p10_return_trail",
+    "flags": [
+      "p10_fly_belt",
+      "p10_fly_pearls",
+      "p10_shark_landed",
+      "p10_tiara_fallen",
+      "p10_tiara_stolen",
+      "p10_tiara_taken"
+    ],
+    "quests": {
+      "wealthy_sharks": {
+        "done": [
+          "down",
+          "tiara"
+        ]
+      }
+    },
+    "map": "crownskull_isle",
+    "x": 26,
+    "y": 61,
+    "facing": "down",
+    "script": "p10c3.row"
+  },
+  {
+    "id": "p10_bbk_reveal",
+    "name": "Bling Bling King Reveal",
+    "description": "Aboard. A shadow under the bow. Something comes up in a chain.",
+    "after": "p10_back_aboard",
+    "flags": [
+      "crew_returned_to_ship"
+    ],
+    "map": "main_deck",
+    "x": 6,
+    "y": 13,
+    "facing": "down",
+    "script": "p10c4.begin"
+  },
+  {
+    "id": "p10_participation_coin",
+    "name": "Participation Coin",
+    "description": "It spat something on the deck. Pick it up. Read it. Both sides.",
+    "after": "p10_bbk_reveal",
+    "flags": [
+      "bling_bling_king_revealed",
+      "megalodon_bling_chain",
+      "p10_aboard",
+      "p10_ch74_started",
+      "p10_coin_spat",
+      "p10_garrick_brushed"
+    ],
+    "clearFlags": [
+      "garrick_dusty"
+    ],
+    "vars": {
+      "p4_tod": 21
+    },
+    "values": {
+      "great_sharkstorm": "p10_trailing",
+      "megalodon_alias": "Bling Bling King"
+    },
+    "quests": {
+      "wealthy_sharks": "completed",
+      "participation_prize": "active"
+    },
+    "map": "main_deck",
+    "x": 8,
+    "y": 14,
+    "facing": "up"
+  },
+  {
+    "id": "p10_beans_pantry",
+    "name": "Beans Pantry",
+    "description": "A celebration (allegedly). Jim's in the hold, by his pantry. Whatever you're imagining, it's beans.",
+    "after": "p10_participation_coin",
+    "flags": [
+      "bbk_mockery_unlocked",
+      "p10_ch75_started",
+      "p10_first_coin",
+      "participation_coin_obtained"
+    ],
+    "quests": {
+      "participation_prize": "completed",
+      "treasure_feast": "active"
+    },
+    "items": [
+      "participation_coin"
+    ],
+    "map": "cargo_hold",
+    "x": 14,
+    "y": 5,
+    "facing": "down"
+  },
+  {
+    "id": "p10_crying_beans_dinner",
+    "name": "Crying Beans Dinner",
+    "description": "Beans and Frog Grog. Up to the galley to cook: Crying Beans, the pot, the sauce. Stop him.",
+    "after": "p10_beans_pantry",
+    "flags": [
+      "bean_pantry_revealed",
+      "frog_grog_drinks"
+    ],
+    "quests": {
+      "treasure_feast": {
+        "done": [
+          "pantry",
+          "casks"
+        ]
+      }
+    },
+    "map": "galley",
+    "x": 14,
+    "y": 4,
+    "facing": "down",
+    "script": "p10c6.begin"
+  },
+  {
+    "id": "p10_luxury_seafood",
+    "name": "Luxury Shark Seafood",
+    "description": "Dinner was terrible. Up on deck: the sharks have ordered catering.",
+    "after": "p10_crying_beans_dinner",
+    "flags": [
+      "crying_beans_introduced",
+      "p10_ch76_started",
+      "p10_dinner_cooked",
+      "p10_pot_heated",
+      "p10_too_much_sauce",
+      "spicy_sauce_introduced"
+    ],
+    "quests": {
+      "treasure_feast": "completed",
+      "grand_galley": "completed"
+    },
+    "map": "main_deck",
+    "x": 7,
+    "y": 19,
+    "facing": "down",
+    "script": "p10c7.begin"
+  },
+  {
+    "id": "p10_shark_leftovers",
+    "name": "Shark Leftovers",
+    "description": "They paid with your crown and threw the rubbish on your deck. Sweep the three heaps over the side.",
+    "after": "p10_luxury_seafood",
+    "flags": [
+      "luxury_seafood_seen",
+      "p10_ch77_started",
+      "p10_leftovers_dumped",
+      "shark_leftovers_seen"
+    ],
+    "vars": {
+      "p4_tod": 22
+    },
+    "quests": {
+      "shark_catering": "active"
+    },
+    "map": "main_deck",
+    "x": 7,
+    "y": 19,
+    "facing": "down"
+  },
+  {
+    "id": "p10_quarters_test",
+    "name": "Sleeping Quarters Test",
+    "description": "A vat vented in the hold. Rusty Tom volunteers to check the old quarters (the boarded door in the galley).",
+    "after": "p10_shark_leftovers",
+    "flags": [
+      "barnacle_bill_introduced",
+      "hold_barracks_sauced",
+      "p10_ch78_started",
+      "p10_hold_vented_seen",
+      "p10_sleep_discussed",
+      "p10_swept_1",
+      "p10_swept_2",
+      "p10_swept_3",
+      "rusty_tom_introduced"
+    ],
+    "vars": {
+      "p4_tod": 23
+    },
+    "quests": {
+      "shark_catering": "completed",
+      "release_moved_in": {
+        "done": [
+          "hold",
+          "where"
+        ]
+      }
+    },
+    "map": "galley",
+    "x": 9,
+    "y": 11,
+    "facing": "left"
+  },
+  {
+    "id": "p10_luxury_bedding",
+    "name": "Luxury Bedding",
+    "description": "Still condemned. Ned's seen something on deck: the barge is back, with bedding.",
+    "after": "p10_quarters_test",
+    "flags": [
+      "p10_ch79_started",
+      "p10_quarters_open",
+      "quarters_reconfirmed_condemned",
+      "rusty_tom_quarters_test"
+    ],
+    "values": {
+      "crew_quarters_state": "condemned_reconfirmed"
+    },
+    "quests": {
+      "release_moved_in": "completed",
+      "shark_suites": "active"
+    },
+    "map": "main_deck",
+    "x": 12,
+    "y": 5,
+    "facing": "up"
+  },
+  {
+    "id": "p10_galley_barracks",
+    "name": "Galley Barracks",
+    "description": "One pillow, communal. The galley is a bedroom tonight: sacks, Squawks' basket, your spot.",
+    "after": "p10_luxury_bedding",
+    "flags": [
+      "luxury_bedding_seen",
+      "p10_pillow_1",
+      "p10_pillow_2",
+      "single_pillow_recovered"
+    ],
+    "quests": {
+      "shark_suites": "completed"
+    },
+    "map": "galley",
+    "x": 14,
+    "y": 4,
+    "facing": "down",
+    "script": "p10c10.begin"
+  },
+  {
+    "id": "p10_brogath",
+    "name": "Brogath Alleged Legend",
+    "description": "The Frog Tax Man's done; the lamp's down. A bedtime story (the Grand Stenchmaster's hammock).",
+    "after": "p10_galley_barracks",
+    "flags": [
+      "galley_hammock_strung",
+      "galley_night_barracks",
+      "p10_ch80_started",
+      "p10_ch81_started",
+      "p10_ch82_started",
+      "p10_ftm_bedtime_seen",
+      "p10_lamp_lit",
+      "p10_lamp_lowered",
+      "p10_mk2_moved",
+      "p10_sack_1",
+      "p10_sack_2",
+      "p10_sack_3",
+      "p10_squawks_bed"
+    ],
+    "quests": {
+      "bad_hotel": "completed",
+      "bedtime_television": "completed",
+      "brogath_the_bashful": "active"
+    },
+    "map": "galley",
+    "x": 15,
+    "y": 5,
+    "facing": "down"
+  },
+  {
+    "id": "p10_bedtime_mockery",
+    "name": "Bedtime Mockery",
+    "description": "Brogath the Bashful (alleged). Something's coming down the hatch. It's plastic.",
+    "after": "p10_brogath",
+    "flags": [
+      "brogath_legend_heard",
+      "brogath_unverified",
+      "p10_bedtime_tokens",
+      "p10_ch83_started"
+    ],
+    "values": {
+      "brogath_status": "alleged"
+    },
+    "quests": {
+      "brogath_the_bashful": "completed",
+      "sweet_dreams": "active"
+    },
+    "map": "galley",
+    "x": 11,
+    "y": 7,
+    "facing": "down"
+  },
+  {
+    "id": "p10_rumpold",
+    "name": "Rumpold Legend",
+    "description": "A word with the storm, done. Back below: ask him about weather (his hammock).",
+    "after": "p10_bedtime_mockery",
+    "flags": [
+      "bedtime_ribbon_received",
+      "p10_btok_1",
+      "p10_btok_2",
+      "p10_btok_3",
+      "p10_ch84_started",
+      "p10_storm_confronted"
+    ],
+    "quests": {
+      "sweet_dreams": "completed",
+      "meet_wind_with_wind": "active"
+    },
+    "items": [
+      "grand_award_ribbon"
+    ],
+    "map": "galley",
+    "x": 14,
+    "y": 5,
+    "facing": "down"
+  },
+  {
+    "id": "p10_research",
+    "name": "Stinkbeard Research",
+    "description": "The book's yours, for the night. Read the Rumpold chapter properly (the long table).",
+    "after": "p10_rumpold",
+    "flags": [
+      "leadership_trophy_received",
+      "p10_ch85_started",
+      "p10_ch86_started",
+      "p10_fifty_three_heard",
+      "p10_leadership_trophy",
+      "rumpold_legend_heard",
+      "stinkbeard_read_book",
+      "tornado_counter_concept"
+    ],
+    "values": {
+      "rumpold_status": "alleged"
+    },
+    "quests": {
+      "meet_wind_with_wind": "completed",
+      "fart_man": "completed",
+      "fart_literature": {
+        "done": [
+          "book"
+        ]
+      }
+    },
+    "items": [
+      "lost_fart_book"
+    ],
+    "map": "galley",
+    "x": 11,
+    "y": 7,
+    "facing": "down"
+  },
+  {
+    "id": "p10_fifty_three",
+    "name": "53x Warning",
+    "description": "All of it read. Write it up, consequences and all (the long table).",
+    "after": "p10_research",
+    "flags": [
+      "p10_phr_collapse",
+      "p10_phr_eye",
+      "p10_phr_rear",
+      "p10_phr_rotation",
+      "p10_phr_wind"
+    ],
+    "quests": {
+      "fart_literature": {
+        "done": [
+          "book",
+          "research"
+        ]
+      }
+    },
+    "map": "galley",
+    "x": 7,
+    "y": 6,
+    "facing": "down"
+  },
+  {
+    "id": "p10_briefing",
+    "name": "Counter-Sharkstorm Briefing",
+    "description": "ALL HANDS ON DECK. Brief the crew (the board, by the mainmast).",
+    "after": "p10_fifty_three",
+    "flags": [
+      "fifty_three_clause_written",
+      "p10_ch87_started",
+      "p10_plan_written"
+    ],
+    "vars": {
+      "p4_tod": 24
+    },
+    "quests": {
+      "fart_literature": "completed",
+      "counter_sharkstorm": "active"
+    },
+    "items": [
+      "counter_plan_notes"
+    ],
+    "map": "main_deck",
+    "x": 12,
+    "y": 22,
+    "facing": "down"
+  },
+  {
+    "id": "p10_pete_reversal",
+    "name": "Pete Bureaucracy Reversal",
+    "description": "Approved. He needs sash holders. Find volunteers (Pete has a list of duties).",
+    "after": "p10_briefing",
+    "flags": [
+      "counter_plan_approved",
+      "p10_alt_bob",
+      "p10_alt_gristle",
+      "p10_alt_hale",
+      "p10_alt_jim",
+      "p10_alt_ned",
+      "p10_alt_pete",
+      "p10_alts_said",
+      "p10_briefing",
+      "p10_ch88_started",
+      "p10_holders_needed"
+    ],
+    "quests": {
+      "counter_sharkstorm": "completed",
+      "sash_holders": {
+        "done": [
+          "condition"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 13,
+    "y": 18,
+    "facing": "down"
+  },
+  {
+    "id": "p10_sash_holders",
+    "name": "Sash Holder Selection",
+    "description": "Fake job duties for everyone. Draw lots (the board).",
+    "after": "p10_pete_reversal",
+    "flags": [
+      "pete_bureaucracy_reversal"
+    ],
+    "quests": {
+      "sash_holders": {
+        "done": [
+          "condition",
+          "volunteers"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 13,
+    "y": 21,
+    "facing": "down"
+  },
+  {
+    "id": "p10_feast_start",
+    "name": "Charging Feast Start",
+    "description": "Rusty Tom and Barnacle Bill (not related). He needs charging: the Grand Feast. Starts chapter 89.",
+    "after": "p10_sash_holders",
+    "flags": [
+      "barnacle_bill_sash_holder",
+      "rusty_tom_sash_holder",
+      "sash_holders_chosen"
+    ],
+    "values": {
+      "sash_holder_left": "rusty_tom",
+      "sash_holder_right": "barnacle_bill"
+    },
+    "quests": {
+      "sash_holders": "completed"
+    },
+    "map": "main_deck",
+    "x": 11,
+    "y": 23,
+    "facing": "up",
+    "script": "p10c19.begin"
+  },
+  {
+    "id": "p10_bean_smoothie",
+    "name": "Bean Smoothie",
+    "description": "Three courses done. The blender on the long table. It has a fork in it.",
+    "after": "p10_feast_start",
+    "flags": [
+      "p10_ch89_started",
+      "p10_feast_baked",
+      "p10_feast_burnt",
+      "p10_feast_crying"
+    ],
+    "quests": {
+      "grand_feast": {
+        "done": [
+          "crying",
+          "baked",
+          "burnt"
+        ]
+      }
+    },
+    "map": "galley",
+    "x": 1,
+    "y": 6,
+    "facing": "down"
+  },
+  {
+    "id": "p10_one_bite",
+    "name": "One-Bite Feast",
+    "description": "Plated, formally. Serve the Grand Stenchmaster.",
+    "after": "p10_bean_smoothie",
+    "flags": [
+      "bean_smoothie_made",
+      "charging_feast_prepared",
+      "p10_feast_parts_said",
+      "p10_feast_sauce"
+    ],
+    "quests": {
+      "grand_feast": {
+        "done": [
+          "crying",
+          "baked",
+          "burnt",
+          "smoothie",
+          "sauce",
+          "plate"
+        ]
+      }
+    },
+    "map": "galley",
+    "x": 7,
+    "y": 6,
+    "facing": "down"
+  },
+  {
+    "id": "p10_garrick_charged",
+    "name": "Garrick Fully Charged",
+    "description": "He ate it all in one bite. <k>gloooorp</>. Up on deck: the storm's close.",
+    "after": "p10_one_bite",
+    "flags": [
+      "garrick_charged"
+    ],
+    "values": {
+      "garrick_charge": "full"
+    },
+    "quests": {
+      "grand_feast": "completed"
+    },
+    "map": "galley",
+    "x": 8,
+    "y": 9,
+    "facing": "down",
+    "script": "p10c20.begin"
+  },
+  {
+    "id": "p10_approach",
+    "name": "Great Sharkstorm Approach",
+    "description": "Get her ready: sheets, cargo, ropes, the helm, the galley, the sash holders. Watch for the marks.",
+    "after": "p10_garrick_charged",
+    "flags": [
+      "close_approach_started",
+      "p10_ch90_started"
+    ],
+    "vars": {
+      "p4_tod": 25
+    },
+    "values": {
+      "great_sharkstorm": "close_approach",
+      "dead_center": null
+    },
+    "quests": {
+      "the_approach": "active"
+    },
+    "map": "main_deck",
+    "x": 12,
+    "y": 13,
+    "facing": "down"
+  },
+  {
+    "id": "p10_cowardice",
+    "name": "Cowardice Crisis",
+    "description": "'Many sharks. They look angry.' THIS IS THE ONE TIME. Get him to the stern (him).",
+    "after": "p10_approach",
+    "flags": [
+      "p10_approach_done_said",
+      "p10_cargo_lashed",
+      "p10_ch91_started",
+      "p10_close_approach_done",
+      "p10_galley_secured",
+      "p10_helm_set",
+      "p10_holders_positioned",
+      "p10_pete_report",
+      "p10_ropes_checked",
+      "p10_sail_port",
+      "p10_sail_starboard"
+    ],
+    "quests": {
+      "the_approach": "completed",
+      "the_one_time": "active"
+    },
+    "map": "main_deck",
+    "x": 11,
+    "y": 3,
+    "facing": "down"
+  },
+  {
+    "id": "p10_cowardice_award",
+    "name": "Cowardice Award",
+    "description": "Three arguments at the bow. Something's coming down for him.",
+    "after": "p10_cowardice",
+    "flags": [
+      "p10_arg_beg",
+      "p10_arg_force",
+      "p10_arg_ocean",
+      "p10_balked",
+      "p10_firing_position",
+      "sash_holders_on"
+    ],
+    "quests": {
+      "the_one_time": {
+        "done": [
+          "position",
+          "persuade"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 35,
+    "facing": "down",
+    "script": "p10c21.award"
+  },
+  {
+    "id": "p10_final_alignment",
+    "name": "Final Alignment",
+    "description": "Back at the stern (the sash fluttered). Bring her stern round to the centre (the helm).",
+    "after": "p10_cowardice_award",
+    "flags": [
+      "cowardice_award_received",
+      "p10_ch92_started",
+      "p10_cowardice_done",
+      "sash_insult_motivation"
+    ],
+    "values": {
+      "cowardice_award": "received"
+    },
+    "quests": {
+      "the_one_time": "completed",
+      "wrong_way": "active"
+    },
+    "map": "main_deck",
+    "x": 12,
+    "y": 7,
+    "facing": "down"
+  },
+  {
+    "id": "p10_wrong_way",
+    "name": "Wrong-Way Release",
+    "description": "...nope. STENCHMASTER LAUNCH. NOT INTO THE OCEAN!",
+    "after": "p10_final_alignment",
+    "flags": [
+      "final_alignment_reached",
+      "p10_aligned"
+    ],
+    "quests": {
+      "wrong_way": {
+        "done": [
+          "align"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 34,
+    "facing": "down",
+    "script": "p10c22.blast"
+  },
+  {
+    "id": "p10_ocean",
+    "name": "Ocean Contamination",
+    "description": "The sea in front of the bow goes UP. Why is it green?",
+    "after": "p10_wrong_way",
+    "map": "main_deck",
+    "x": 9,
+    "y": 34,
+    "facing": "down",
+    "script": "p10c22.from_sea"
+  },
+  {
+    "id": "p10_propulsion",
+    "name": "Fart Propulsion",
+    "description": "BEANS. And then the ship starts to move. Backwards.",
+    "after": "p10_ocean",
+    "flags": [
+      "fired_wrong_direction",
+      "great_sharkstorm_sea_contamination"
+    ],
+    "values": {
+      "garrick_charge": "spent",
+      "local_sea_state": "contaminated"
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 34,
+    "facing": "down",
+    "script": "p10c22.from_propel"
+  },
+  {
+    "id": "p10_entry",
+    "name": "Great Sharkstorm Entry",
+    "description": "Straight into the Great Sharkstorm. HOLD ON (the rail). Then Squawks. Then below.",
+    "after": "p10_propulsion",
+    "flags": [
+      "qar_propelled_into_storm"
+    ],
+    "values": {
+      "great_sharkstorm": "entering"
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 34,
+    "facing": "down"
+  },
+  {
+    "id": "p10_inside",
+    "name": "Inside Great Sharkstorm",
+    "description": "Down the hatch, everybody. The galley tips. She's going ROUND. Starts chapter 93.",
+    "after": "p10_entry",
+    "flags": [
+      "great_sharkstorm_entry_complete",
+      "p10_entry_below",
+      "p10_entry_rail",
+      "p10_entry_squawks"
+    ],
+    "quests": {
+      "wrong_way": "completed"
+    },
+    "map": "galley",
+    "x": 14,
+    "y": 4,
+    "facing": "down",
+    "script": "p10c23.begin"
+  },
+  {
+    "id": "p10_galley_bunker",
+    "name": "Galley Bunker",
+    "description": "Inside. Tokens, prepared in advance. Back down the ladder: he feels FANTASTIC.",
+    "after": "p10_inside",
+    "flags": [
+      "great_sharkstorm_ship_captured",
+      "p10_ch93_started",
+      "qar_inside_storm"
+    ],
+    "vars": {
+      "p4_tod": 26
+    },
+    "values": {
+      "great_sharkstorm": "inside_ship",
+      "queen_annes_revenge_location": "inside_great_sharkstorm"
+    },
+    "map": "galley",
+    "x": 14,
+    "y": 4,
+    "facing": "down",
+    "script": "p10c23.bunker"
+  },
+  {
+    "id": "p10_signal_failure",
+    "name": "S.E.S. Signal Failure",
+    "description": "NO AFTERSHOCKS. The galley tips; he saves the television. Snow.",
+    "after": "p10_galley_bunker",
+    "flags": [
+      "garrick_pressure_reset"
+    ],
+    "clearFlags": [
+      "sash_holders_on"
+    ],
+    "values": {
+      "garrick_charge": "calm"
+    },
+    "map": "galley",
+    "x": 14,
+    "y": 4,
+    "facing": "down",
+    "script": "p10c23.signal"
+  },
+  {
+    "id": "p10_sauce_antenna",
+    "name": "Spicy Sauce Antenna",
+    "description": "No signal. Fiddle with the aerial (the Mark II, by the stores).",
+    "after": "p10_signal_failure",
+    "flags": [
+      "ses_signal_failure"
+    ],
+    "values": {
+      "ses_mk2_state": "storm_static"
+    },
+    "quests": {
+      "inside_the_spout": "active"
+    },
+    "map": "galley",
+    "x": 15,
+    "y": 7,
+    "facing": "right"
+  },
+  {
+    "id": "p10_ftm_audit",
+    "name": "Frog Tax Man Storm Audit",
+    "description": "A picture, via a can of sauce. Franklin's on. Watch (the Mark II).",
+    "after": "p10_sauce_antenna",
+    "flags": [
+      "p10_antenna_fixed",
+      "p10_ch94_started",
+      "sauce_antenna_installed",
+      "ses_mk2_examined"
+    ],
+    "values": {
+      "ses_mark2_antenna": "spicy_stench_sauce_can",
+      "ses_mk2_state": "sauce_antenna"
+    },
+    "quests": {
+      "inside_the_spout": "completed",
+      "the_impossible_audit": "active"
+    },
+    "map": "galley",
+    "x": 15,
+    "y": 7,
+    "facing": "down"
+  },
+  {
+    "id": "p10_bbk_tv",
+    "name": "Bling Bling King TV Interview",
+    "description": "The storm's largest account holder joins Franklin. It talks.",
+    "after": "p10_ftm_audit",
+    "map": "galley",
+    "x": 15,
+    "y": 7,
+    "facing": "right",
+    "script": "p10c24.from_interview"
+  },
+  {
+    "id": "p10_doctrine",
+    "name": "Fake Transfer Doctrine",
+    "description": "'Eats, sleeps, watches television.' Now it's quoting his book. Chapter Forty-Seven.",
+    "after": "p10_bbk_tv",
+    "flags": [
+      "bbk_tv_seen"
+    ],
+    "map": "galley",
+    "x": 15,
+    "y": 7,
+    "facing": "right",
+    "script": "p10c24.from_doctrine"
+  },
+  {
+    "id": "p10_tax",
+    "name": "Bling Bling King Tax Payment",
+    "description": "That's made up! Do you take pirate crowns?",
+    "after": "p10_doctrine",
+    "flags": [
+      "transfer_doctrine_heard"
+    ],
+    "map": "galley",
+    "x": 15,
+    "y": 7,
+    "facing": "right",
+    "script": "p10c24.from_tax"
+  },
+  {
+    "id": "p10_commercial",
+    "name": "Bling Bling King Commercial",
+    "description": "PAID. And now a word from Bling Bling King Treasure Solutions.",
+    "after": "p10_tax",
+    "flags": [
+      "ftm_tax_seen"
+    ],
+    "values": {
+      "bbk_tax_status": "paid_with_captains_crown"
+    },
+    "map": "galley",
+    "x": 15,
+    "y": 7,
+    "facing": "right",
+    "script": "p10c24.from_ad"
+  },
+  {
+    "id": "p10_breakdown",
+    "name": "Blackbeard Breakdown",
+    "description": "There is a SHARK. On the TELEVISION. Starts chapter 95.",
+    "after": "p10_commercial",
+    "flags": [
+      "anomalous_ftm_watched",
+      "bbk_commercial_seen",
+      "ftm_impossible_broadcast",
+      "p10_audit_seen"
+    ],
+    "quests": {
+      "the_impossible_audit": "completed"
+    },
+    "map": "galley",
+    "x": 12,
+    "y": 9,
+    "facing": "up",
+    "script": "p10c25.begin"
+  },
+  {
+    "id": "p10_complete",
+    "name": "Phase 10 Complete",
+    "description": "Good night, Fart Man. The Revenge is inside the Great Sharkstorm, still trapped. The nap can wait.",
+    "after": "p10_breakdown",
+    "flags": [
+      "blackbeard_breakdown_seen",
+      "p10_ch95_started",
+      "p10_complete"
+    ],
+    "vars": {
+      "ses_mk2_power": 0
+    },
+    "quests": {
+      "blackbeard": "completed",
+      "inside_great_sharkstorm": "active"
+    },
+    "map": "galley",
+    "x": 12,
+    "y": 9,
+    "facing": "up"
   }
 ]
