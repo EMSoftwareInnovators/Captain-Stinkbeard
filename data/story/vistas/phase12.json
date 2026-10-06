@@ -1,0 +1,36 @@
+{
+ "//": "Story Phase 12 vistas: the trial at the mainmast inside the Great Sharkstorm. The Grand Stenchmaster from behind, braced; the crew pointing from a respectful (large) distance; and the sash at his shoulders, which the scene lifts a stage at a time (sash_flap_1, sash_flap_2) to FULL FLUTTER (sash_flap_full).",
+ "sash_flutter": {
+  "sky": "inside",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "bg",
+    "frame": "flutter_deck_0",
+    "x": 160,
+    "y": 224,
+    "depth": 2,
+    "frames": [
+     "flutter_deck_0",
+     "flutter_deck_1"
+    ],
+    "frameMs": 260
+   },
+   {
+    "id": "garrick",
+    "frame": "flutter_garrick",
+    "x": 160,
+    "y": 196,
+    "depth": 10
+   },
+   {
+    "id": "sash",
+    "frame": "sash_flap_0",
+    "x": 160,
+    "y": 186,
+    "depth": 12
+   }
+  ]
+ }
+}

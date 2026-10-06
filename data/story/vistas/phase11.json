@@ -1,0 +1,52 @@
+{
+ "//": "Story Phase 11 vistas: the Cheap-O-Rama flying machine coming down through the wall of the Great Sharkstorm with a crate on a winch, and the crate's shipping label (shown when the scene reaches it); a long shape in a gold chain going by in the storm.",
+ "cheap_o_rama_drop": {
+  "sky": "inside",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "spout",
+    "frame": "spout_wall_0",
+    "x": 160,
+    "y": 224,
+    "depth": 4,
+    "frames": [
+     "spout_wall_0",
+     "spout_wall_1",
+     "spout_wall_2"
+    ],
+    "frameMs": 200
+   },
+   {
+    "id": "shadow",
+    "frame": "megalodon_shadow",
+    "x": 70,
+    "y": 80,
+    "depth": 6,
+    "alpha": 0.35
+   },
+   {
+    "id": "copter",
+    "frame": "cheapo_copter_0",
+    "x": 160,
+    "y": 170,
+    "depth": 12,
+    "frames": [
+     "cheapo_copter_0",
+     "cheapo_copter_1"
+    ],
+    "frameMs": 110,
+    "bob": 2
+   },
+   {
+    "id": "label",
+    "frame": "cheapo_label",
+    "x": 240,
+    "y": 210,
+    "depth": 20,
+    "hidden": true
+   }
+  ]
+ }
+}

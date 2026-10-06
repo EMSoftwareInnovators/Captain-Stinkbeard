@@ -147,7 +147,7 @@ function bakedBeans() {
 // --- the storm's prizes ----------------------------------------------------------------
 
 /** A token: plastic coin, a ribbon across it, the message printed slightly crooked. */
-function token(text, { picture = null } = {}) {
+export function token(text, { picture = null } = {}) {
   const parts = text.split('|');
   const tw = Math.max(...parts.map((t) => textWidth(t)));
   const W = Math.max(150, tw + 40);

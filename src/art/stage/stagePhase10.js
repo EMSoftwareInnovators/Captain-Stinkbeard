@@ -347,8 +347,25 @@ const TOKENS = {
 
 export const JEWELED = ['belt', 'bigchain'];
 
+/**
+ * Story Phase 11: Garrick's book (the homemade one: ledger paper, string,
+ * stains) sliding across the galley floor on its back, pages fanning.
+ */
+function bookSliding() {
+  const c = new PixelCanvas(16, 12);
+  c.rect(1, 4, 13, 7, '#5a3a1a'); // the cover
+  c.rect(2, 3, 12, 6, '#efe4c4'); // pages, fanned
+  for (const x of [4, 7, 10]) c.vline(x, 3, 8, '#d8ccac');
+  c.hline(3, 12, 5, '#8a5426'); // a crayon line, showing
+  c.set(12, 7, '#d8c060');
+  c.hline(0, 2, 9, '#c8c0a080'); // a smear behind it, sliding
+  c.outline(PAL.ink);
+  return c;
+}
+
 export function addPhase10StageFrames(atlas) {
   for (const [name, paint] of Object.entries(TOKENS)) atlas.add(name, paint());
+  atlas.add('book_sliding', bookSliding());
   atlas.add('pillow_luxury', pillow(0));
   atlas.add('pillow_flying_0', pillow(0));
   atlas.add('pillow_flying_1', pillow(1));
@@ -357,7 +374,7 @@ export function addPhase10StageFrames(atlas) {
 }
 
 export const PHASE10_STAGE_FRAMES = [
-  ...Object.keys(TOKENS),
+  ...Object.keys(TOKENS), 'book_sliding',
   'pillow_luxury', 'pillow_flying_0', 'pillow_flying_1',
   ...JEWELED.flatMap((k) => [`flying_shark_${k}_0`, `flying_shark_${k}_1`]),
   'flying_bbk_0', 'flying_bbk_1',
