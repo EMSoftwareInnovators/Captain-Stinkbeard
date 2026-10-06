@@ -1196,8 +1196,14 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     for (const [q, st] of Object.entries(pr.quests || {})) {
       c.quest(q);
       const quest = db.quests.get(q);
-      if (typeof st === 'object' && quest) (st.done || []).forEach((o) => c.objective(`${q}.${o}`));
-      else if (!['active', 'completed'].includes(st)) c.error(`quest state for "${q}" must be "active", "completed" or { done: [...] }`);
+      if (typeof st === 'object' && quest) {
+        (st.done || []).forEach((o) => c.objective(`${q}.${o}`));
+        for (const [o, n] of Object.entries(st.progress || {})) {
+          c.objective(`${q}.${o}`);
+          const count = quest.objectives?.find((x) => x.id === o)?.count ?? 1;
+          if (!Number.isInteger(n) || n < 1 || n >= count) c.error(`progress for "${q}.${o}" must be a whole number from 1 to ${count - 1}`);
+        }
+      } else if (!['active', 'completed'].includes(st)) c.error(`quest state for "${q}" must be "active", "completed" or { done: [...], progress: {...} }`);
     }
     (pr.items || []).forEach((it) => c.item(typeof it === 'string' ? it : it.id));
     (pr.takeItems || []).forEach((it) => c.item(it));

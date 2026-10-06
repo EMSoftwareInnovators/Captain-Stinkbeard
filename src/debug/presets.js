@@ -7,7 +7,7 @@ import { asArray } from '../core/util.js';
  *   { "id", "name", "after": "<preset>",          // builds on another preset
  *     "flags": [...], "clearFlags": [...], "vars": { name: value },
  *     "values": { name: "text" | null },           // e.g. where the Dead Center is
- *     "quests": { "<quest>": "active" | "completed" | { "done": [objective, ...] } },
+ *     "quests": { "<quest>": "active" | "completed" | { "done": [objective, ...], "progress": { objective: n } } },
  *     "items": ["id" | { "id", "count" }],
  *     "takeItems": ["id"],                          // gone by then (handed over in a scene)
  *     "map", "spawn" | "x"/"y"/"facing", "script" }
@@ -65,6 +65,11 @@ export function applyPresetPlan(session, plan) {
     } else {
       if (q.status(quest) === 'inactive') q.start(quest);
       for (const o of asArray(state.done)) q.completeObjective(quest, o, { force: true });
+      // Story Phase 11: part of a counted objective (four of the five passages read).
+      for (const [o, n] of Object.entries(state.progress ?? {})) {
+        const have = q.objState(quest, o).progress;
+        if (n > have) q.advanceObjective(quest, o, n - have);
+      }
     }
   }
   // Quest rewards may set flags a later chapter clears again.

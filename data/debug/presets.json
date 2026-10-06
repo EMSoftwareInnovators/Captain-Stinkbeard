@@ -4524,5 +4524,1502 @@
     "x": 12,
     "y": 9,
     "facing": "up"
+  },
+  {
+    "id": "p11_start",
+    "name": "Phase 11 Start",
+    "description": "Good night, Fart Man. Bedtime, inside the Great Sharkstorm: your bed (the galley, by the stores).",
+    "after": "p10_complete",
+    "flags": [
+      "p11_ready_hint"
+    ],
+    "map": "galley",
+    "x": 12,
+    "y": 9,
+    "facing": "up"
+  },
+  {
+    "id": "p11_bedtime_argument",
+    "name": "Grand Bedtime Argument",
+    "description": "Lights out, nearly. The Grand Stenchmaster has a book and opinions about hammocks. Starts chapter 96.",
+    "after": "p11_start",
+    "map": "galley",
+    "x": 12,
+    "y": 7,
+    "facing": "down",
+    "script": "p11c1.begin"
+  },
+  {
+    "id": "p11_lamp_engineering",
+    "name": "Lamp Engineering",
+    "description": "Too dark to read by. Hang the kerosene lamp properly: rope, leather, the rig, then six ropes. Starts chapter 97.",
+    "after": "p11_bedtime_argument",
+    "flags": [
+      "garrick_book_returned",
+      "p11_lay_down",
+      "p11_started",
+      "sailcloth_hammocks_strung"
+    ],
+    "vars": {
+      "p11_breaths": 1,
+      "p4_tod": 27
+    },
+    "values": {
+      "great_sharkstorm": "inside_bedtime",
+      "great_sharkstorm_distance": "inside"
+    },
+    "quests": {
+      "bedtime_in_the_storm": "completed"
+    },
+    "takeItems": [
+      "lost_fart_book"
+    ],
+    "map": "galley",
+    "x": 12,
+    "y": 7,
+    "facing": "down",
+    "script": "p11c2.begin"
+  },
+  {
+    "id": "p11_brogath_legend",
+    "name": "Brogath Bedtime Legend",
+    "description": "The lamp holds (it really works). A bedtime story: Brogath the Bashful and his treasure. Starts chapter 98.",
+    "after": "p11_lamp_engineering",
+    "flags": [
+      "lamp_six_rope_installed",
+      "lamp_test_failed",
+      "lamp_two_ropes",
+      "p11_ch97_started",
+      "p11_tie_leather",
+      "p11_tie_rope"
+    ],
+    "values": {
+      "galley_lamp_state": "six_rope_suspension"
+    },
+    "quests": {
+      "grand_illumination": "completed"
+    },
+    "map": "galley",
+    "x": 15,
+    "y": 5,
+    "facing": "down",
+    "script": "p11c3.begin"
+  },
+  {
+    "id": "p11_finger_puller",
+    "name": "Finger-Puller Revelation",
+    "description": "Every sash incident on record, reviewed. Now: the Grand Finger-Puller, and a vote. Starts chapter 100.",
+    "after": "p11_brogath_legend",
+    "flags": [
+      "brogath_treasure_story_heard",
+      "p11_ch98_started",
+      "p11_ch99_started",
+      "p11_sash_ex_book",
+      "p11_sash_ex_chart",
+      "p11_sash_ex_holders",
+      "p11_sash_ex_peg",
+      "sash_incidents_reviewed"
+    ],
+    "values": {
+      "brogath_status": "alleged_poor_in_gold"
+    },
+    "quests": {
+      "poor_in_gold": "completed",
+      "every_sash_incident": "completed"
+    },
+    "map": "galley",
+    "x": 11,
+    "y": 7,
+    "facing": "down",
+    "script": "p11c5.begin"
+  },
+  {
+    "id": "p11_token_downpour",
+    "name": "Token Downpour",
+    "description": "Elected (unwillingly). The storm has been listening, and it has tokens. Starts chapter 101.",
+    "after": "p11_finger_puller",
+    "flags": [
+      "grand_finger_puller_introduced",
+      "p11_ch100_started",
+      "p11_vote_bob",
+      "p11_vote_gristle",
+      "p11_vote_jim",
+      "p11_vote_pete"
+    ],
+    "values": {
+      "grand_finger_puller": "vacant"
+    },
+    "quests": {
+      "grand_finger_puller": "completed"
+    },
+    "map": "galley",
+    "x": 1,
+    "y": 8,
+    "facing": "down",
+    "script": "p11c6.begin"
+  },
+  {
+    "id": "p11_hammock_failure",
+    "name": "Hammock Failure",
+    "description": "THE DESIGNATED FART MAN, says the storm. Then the hammocks start to go. Starts chapter 102.",
+    "after": "p11_token_downpour",
+    "flags": [
+      "bbk_mocked_fart_man",
+      "p11_ch101_started",
+      "p11_tok_1",
+      "p11_tok_2",
+      "p11_tok_3",
+      "p11_tok_4",
+      "p11_tokens_down",
+      "p11_tokens_read"
+    ],
+    "quests": {
+      "storm_listening": "completed"
+    },
+    "map": "galley",
+    "x": 9,
+    "y": 10,
+    "facing": "down",
+    "script": "p11c7.begin"
+  },
+  {
+    "id": "p11_lost_book",
+    "name": "Lost Book",
+    "description": "Everybody's on the floor. Where's his book? Starts chapter 103.",
+    "after": "p11_hammock_failure",
+    "flags": [
+      "hammock_cloth_too_weak",
+      "p11_ch102_started",
+      "p11_table_braced",
+      "p11_up_bob",
+      "p11_up_jim",
+      "p11_up_pete",
+      "sailcloth_hammocks_snapped",
+      "treasure_door_sign_1",
+      "treasure_room_sealed"
+    ],
+    "quests": {
+      "hammocks_die": "completed"
+    },
+    "map": "galley",
+    "x": 7,
+    "y": 8,
+    "facing": "down",
+    "script": "p11c8.begin"
+  },
+  {
+    "id": "p11_cheap_o_rama",
+    "name": "Cheap-O-Rama Sashes",
+    "description": "The book's gone into the storm. Something is coming down through it instead. Starts chapter 104.",
+    "after": "p11_lost_book",
+    "flags": [
+      "garrick_book_lost",
+      "p11_ch103_started",
+      "p11_garrick_consoled"
+    ],
+    "values": {
+      "garrick_book_location": "great_sharkstorm"
+    },
+    "quests": {
+      "the_lost_book": "completed"
+    },
+    "map": "galley",
+    "x": 6,
+    "y": 6,
+    "facing": "down",
+    "script": "p11c9.begin"
+  },
+  {
+    "id": "p11_bed_sashes",
+    "name": "Bed Sash Repairs",
+    "description": "Three hundred sashes and a pocket edition. The hammocks need mending: with sashes. Starts chapter 106.",
+    "after": "p11_cheap_o_rama",
+    "flags": [
+      "cheap_o_rama_crate_below",
+      "cheap_o_rama_crate_landed",
+      "cheap_o_rama_sashes_arrived",
+      "p11_ch104_started",
+      "p11_ch105_started",
+      "p11_pt_gristle",
+      "p11_pt_ned",
+      "p11_pt_pete",
+      "pocket_book_corroboration_mocked",
+      "pocket_book_found"
+    ],
+    "values": {
+      "cheap_o_rama_crate": "galley",
+      "pocket_legend_book_condition": "bent"
+    },
+    "quests": {
+      "cheap_o_rama_delivery": "completed",
+      "pocket_sacred_text": "completed"
+    },
+    "map": "galley",
+    "x": 12,
+    "y": 5,
+    "facing": "down",
+    "script": "p11c11.begin"
+  },
+  {
+    "id": "p11_grand_nap",
+    "name": "Grand Nap Resumption",
+    "description": "Every bed is a sash bed. The Grand Nap resumes, grandly. Starts chapter 107.",
+    "after": "p11_bed_sashes",
+    "flags": [
+      "bed_sashes_installed",
+      "captain_uses_bed_sash",
+      "p11_ch106_started",
+      "p11_hung_bob",
+      "p11_hung_jim",
+      "p11_hung_pete",
+      "p11_hung_said",
+      "p11_sashes_taken"
+    ],
+    "quests": {
+      "bed_sashes": "completed"
+    },
+    "map": "galley",
+    "x": 12,
+    "y": 7,
+    "facing": "down",
+    "script": "p11c12.begin"
+  },
+  {
+    "id": "p11_sir_rumpus",
+    "name": "Sir Rumpus Legend",
+    "description": "One more story, about the law: Sir Rumpus Windbottom and the Grand Court. Starts chapter 108.",
+    "after": "p11_grand_nap",
+    "flags": [
+      "p11_ch107_started"
+    ],
+    "quests": {
+      "grand_resumption": "active"
+    },
+    "map": "galley",
+    "x": 11,
+    "y": 7,
+    "facing": "down",
+    "script": "p11c13.story"
+  },
+  {
+    "id": "p11_bling_late_night",
+    "name": "Bling Late-Night Show",
+    "description": "Fart validity, settled (allegedly). The Mark II comes on by itself. Late. Starts chapter 109.",
+    "after": "p11_sir_rumpus",
+    "flags": [
+      "p11_ch108_started",
+      "rumpus_legend_heard"
+    ],
+    "values": {
+      "grand_court_status": "alleged"
+    },
+    "quests": {
+      "grand_resumption": "completed"
+    },
+    "map": "galley",
+    "x": 11,
+    "y": 7,
+    "facing": "down",
+    "script": "p11c14.begin"
+  },
+  {
+    "id": "p11_first_flutter",
+    "name": "First Great Sash Flutter",
+    "description": "The set's off. One last legend: the First Great Sash Flutter. Starts chapter 110.",
+    "after": "p11_bling_late_night",
+    "flags": [
+      "bbk_late_night_seen",
+      "p11_ch109_started",
+      "p11_late_night_off"
+    ],
+    "vars": {
+      "ses_mk2_channel": 8
+    },
+    "quests": {
+      "late_night_bling": "completed"
+    },
+    "map": "galley",
+    "x": 15,
+    "y": 7,
+    "facing": "down",
+    "script": "p11c15.begin"
+  },
+  {
+    "id": "p11_secret_borrow",
+    "name": "Secret Book Borrow",
+    "description": "Three weeks of silence, for a flutter. He's asleep, and the pocket edition is in his hammock. Starts chapter 111.",
+    "after": "p11_first_flutter",
+    "flags": [
+      "gustavio_legend_heard",
+      "p11_ch110_started",
+      "sash_flutter_weakness_discovered"
+    ],
+    "quests": {
+      "first_great_flutter": "completed"
+    },
+    "map": "galley",
+    "x": 11,
+    "y": 7,
+    "facing": "down",
+    "script": "p11c16.begin"
+  },
+  {
+    "id": "p11_grand_dice_discovery",
+    "name": "Grand Dice Discovery",
+    "description": "Four passages read by lamplight. The very last page: two tables, and the Grand Dice of Grandness.",
+    "after": "p11_secret_borrow",
+    "flags": [
+      "p11_ch111_started",
+      "p11_psg_clause",
+      "p11_psg_gustavio",
+      "p11_psg_silence",
+      "p11_psg_thirty",
+      "pocket_book_borrowed"
+    ],
+    "vars": {
+      "p11_reach_clean": 3
+    },
+    "values": {
+      "pocket_legend_book_condition": "torn_corner"
+    },
+    "quests": {
+      "anti_dice_conspiracy": {
+        "done": [
+          "borrow"
+        ],
+        "progress": {
+          "read": 4
+        }
+      }
+    },
+    "items": [
+      "pocket_legend_book"
+    ],
+    "map": "galley",
+    "x": 15,
+    "y": 5,
+    "facing": "down",
+    "script": "p11c16.psg_dice"
+  },
+  {
+    "id": "p11_anti_dice",
+    "name": "Anti-Dice Conspiracy",
+    "description": "The plan's written and the booklet's back in his hammock. Wake the crew, quietly, one at a time.",
+    "after": "p11_grand_dice_discovery",
+    "flags": [
+      "anti_dice_plan_written",
+      "grand_dice_known",
+      "p11_psg_dice",
+      "pocket_book_returned"
+    ],
+    "values": {
+      "pocket_legend_book_condition": "page_tear"
+    },
+    "quests": {
+      "anti_dice_conspiracy": {
+        "done": [
+          "borrow",
+          "read",
+          "plan",
+          "return"
+        ]
+      }
+    },
+    "items": [
+      "anti_dice_plan"
+    ],
+    "takeItems": [
+      "pocket_legend_book"
+    ],
+    "map": "galley",
+    "x": 12,
+    "y": 7,
+    "facing": "down"
+  },
+  {
+    "id": "p11_complete",
+    "name": "Phase 11 Complete",
+    "description": "Sworn: hold the sash thirty seconds, let it flutter, and no dice. Ever. Morning comes next (your bed).",
+    "after": "p11_anti_dice",
+    "flags": [
+      "anti_dice_meeting_held",
+      "conspiracy_ready",
+      "garrick_stomach_rumbling",
+      "p11_complete",
+      "p11_woken_bob",
+      "p11_woken_gristle",
+      "p11_woken_jim",
+      "p11_woken_pete",
+      "p11_woken_said",
+      "p12_ready_hint"
+    ],
+    "values": {
+      "anti_dice_pitch": "sacred_twenty_one_days",
+      "anti_dice_strategy": "destroy"
+    },
+    "quests": {
+      "anti_dice_conspiracy": "completed"
+    },
+    "map": "galley",
+    "x": 7,
+    "y": 8,
+    "facing": "down"
+  },
+  {
+    "id": "p12_start",
+    "name": "Phase 12 Start",
+    "description": "Morning, inside the Great Sharkstorm. Get up (your bed, the galley).",
+    "after": "p11_complete",
+    "map": "galley",
+    "x": 12,
+    "y": 7,
+    "facing": "down"
+  },
+  {
+    "id": "p12_garrick_loaded",
+    "name": "Garrick Loaded",
+    "description": "He woke up loaded. Enormous pressure. Starts chapter 112.",
+    "after": "p12_start",
+    "map": "galley",
+    "x": 12,
+    "y": 7,
+    "facing": "down",
+    "script": "p12c1.begin"
+  },
+  {
+    "id": "p12_protective_gear",
+    "name": "Protective Gear",
+    "description": "Gather protection: wet cloth (Jim's bucket), goggles (the hold), rope (the stores), beard wrap (your wardrobe).",
+    "after": "p12_garrick_loaded",
+    "flags": [
+      "p12_started"
+    ],
+    "vars": {
+      "p4_tod": 28
+    },
+    "values": {
+      "great_sharkstorm": "inside_morning"
+    },
+    "quests": {
+      "he_woke_up_loaded": "active"
+    },
+    "map": "galley",
+    "x": 12,
+    "y": 7,
+    "facing": "down"
+  },
+  {
+    "id": "p12_sash_volunteer",
+    "name": "Sash Volunteer",
+    "description": "Geared up. Up on deck, somebody has to hold the sash. Starts chapter 113.",
+    "after": "p12_protective_gear",
+    "flags": [
+      "gear_beard_wrap",
+      "gear_goggles",
+      "gear_waist_rope",
+      "gear_wet_cloth",
+      "trial_gear_on"
+    ],
+    "quests": {
+      "he_woke_up_loaded": "completed"
+    },
+    "items": [
+      "beard_wrap",
+      "bottle_goggles",
+      "waist_rope",
+      "wet_cloth"
+    ],
+    "map": "captains_quarters",
+    "x": 3,
+    "y": 5,
+    "facing": "down",
+    "script": "p12c2.begin"
+  },
+  {
+    "id": "p12_pre_waft",
+    "name": "Pre-Waft",
+    "description": "You volunteered. The old sash smells worse than your beard. And then the pre-waft. Starts chapter 114.",
+    "after": "p12_sash_volunteer",
+    "flags": [
+      "old_sash_worse_than_beard",
+      "p12_ch113_started",
+      "p12_on_deck",
+      "sash_taken",
+      "stinkbeard_volunteered"
+    ],
+    "quests": {
+      "volunteer": "completed"
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 15,
+    "facing": "down",
+    "script": "p12c3.begin"
+  },
+  {
+    "id": "p12_trial",
+    "name": "Thirty-Second Trial",
+    "description": "Hold the sash. Thirty seconds. Pete counts. Starts chapter 115.",
+    "after": "p12_pre_waft",
+    "flags": [
+      "p12_ch114_started"
+    ],
+    "values": {
+      "trial_encouragement": "three_weeks"
+    },
+    "quests": {
+      "the_trial": "active"
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 15,
+    "facing": "down",
+    "script": "p12c4.trial"
+  },
+  {
+    "id": "p12_flutter",
+    "name": "Flutter Moment",
+    "description": "THIRTY. Open your hands. The storm finds the loose sash. Starts chapter 116.",
+    "after": "p12_trial",
+    "flags": [
+      "p12_ch115_started",
+      "thirty_seconds_held"
+    ],
+    "vars": {
+      "trial_released": 1,
+      "trial_slips": 0
+    },
+    "quests": {
+      "the_trial": "completed"
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 15,
+    "facing": "down",
+    "script": "p12c5.begin"
+  },
+  {
+    "id": "p12_humiliation_blast",
+    "name": "Runaway Humiliation Blast",
+    "description": "FULL FLUTTER, in front of everybody. And the shame makes it... worse.",
+    "after": "p12_flutter",
+    "flags": [
+      "p12_ch116_started",
+      "sash_fluttered"
+    ],
+    "map": "main_deck",
+    "x": 9,
+    "y": 15,
+    "facing": "down",
+    "script": "p12c5.from_surge"
+  },
+  {
+    "id": "p12_three_weeks",
+    "name": "Three Weeks Claimed",
+    "description": "Witnessed, gasped at, complained about by the weather. THREE WEEKS. Starts chapter 117.",
+    "after": "p12_humiliation_blast",
+    "flags": [
+      "p12_complaint_1",
+      "p12_complaint_2",
+      "p12_complaint_3",
+      "p12_complaint_4",
+      "p12_complaints_down",
+      "sash_flutter_humiliation_valid"
+    ],
+    "values": {
+      "sash_flutter_humiliation": "valid"
+    },
+    "quests": {
+      "the_flutter": "completed"
+    },
+    "map": "main_deck",
+    "x": 13,
+    "y": 15,
+    "facing": "down",
+    "script": "p12c6.begin"
+  },
+  {
+    "id": "p12_dice_search",
+    "name": "Dice Search",
+    "description": "He's invoked the Grand Dice. Follow him below: drawers, beans, the table, the packages. Starts chapter 118.",
+    "after": "p12_three_weeks",
+    "flags": [
+      "dice_clause_invoked",
+      "p12_ch117_started",
+      "trial_gear_off"
+    ],
+    "map": "main_deck",
+    "x": 13,
+    "y": 15,
+    "facing": "down",
+    "script": "p12c7.begin"
+  },
+  {
+    "id": "p12_real_dice",
+    "name": "Real Grand Dice Found",
+    "description": "A normal die rolled a six (it doesn't count). The Cheap-O-Rama crate: something purple, and foam.",
+    "after": "p12_dice_search",
+    "flags": [
+      "normal_die_six",
+      "p12_ch118_started",
+      "p12_rs_1",
+      "p12_rs_2",
+      "p12_rs_3",
+      "p12_rs_4"
+    ],
+    "quests": {
+      "find_the_dice": {
+        "done": [
+          "follow"
+        ]
+      }
+    },
+    "map": "galley",
+    "x": 13,
+    "y": 5,
+    "facing": "down",
+    "script": "p12c7.crate"
+  },
+  {
+    "id": "p12_dice_shipment",
+    "name": "Grand Dice Shipment",
+    "description": "No escape in the rules. And the Bling Bling King has sent six sets. Starts chapter 120.",
+    "after": "p12_real_dice",
+    "flags": [
+      "fine_print_read",
+      "grand_dice_found",
+      "p12_ch119_started",
+      "p12_clause_chairs",
+      "p12_clause_destroy",
+      "p12_clause_emergency",
+      "p12_clause_holders",
+      "p12_clause_lost",
+      "p12_clause_mandatory",
+      "p12_clause_rerolls",
+      "p12_clause_witness"
+    ],
+    "values": {
+      "pocket_legend_book_condition": "loose_staple"
+    },
+    "quests": {
+      "find_the_dice": "completed",
+      "no_escape": "completed"
+    },
+    "map": "galley",
+    "x": 7,
+    "y": 8,
+    "facing": "down",
+    "script": "p12c9.begin"
+  },
+  {
+    "id": "p12_dice_ceremony",
+    "name": "Grand Dice Ceremony",
+    "description": "Six Grand Dice. Inspect one, witness it, and let him roll. Starts chapter 121.",
+    "after": "p12_dice_shipment",
+    "flags": [
+      "grand_dice_shipment_received",
+      "p12_ch120_started"
+    ],
+    "values": {
+      "grand_dice_count": "seven"
+    },
+    "quests": {
+      "six_dice": "completed"
+    },
+    "map": "galley",
+    "x": 15,
+    "y": 5,
+    "facing": "down",
+    "script": "p12c10.begin"
+  },
+  {
+    "id": "p12_three_months",
+    "name": "Apparent Three Months",
+    "description": "Inspected and witnessed. He throws it. Low, low, low...",
+    "after": "p12_dice_ceremony",
+    "flags": [
+      "p12_ch121_started",
+      "p12_die_inspected",
+      "p12_witness_chosen"
+    ],
+    "values": {
+      "dice_witness": "squawks"
+    },
+    "quests": {
+      "grand_dice_ceremony": {
+        "done": [
+          "inspect",
+          "witness"
+        ]
+      }
+    },
+    "map": "galley",
+    "x": 10,
+    "y": 9,
+    "facing": "down",
+    "script": "p12c10.roll"
+  },
+  {
+    "id": "p12_jumping_beans",
+    "name": "Jumping Bean Betrayal",
+    "description": "THREE MONTHS! Everybody's celebrating. The die is... moving. Starts chapter 122.",
+    "after": "p12_three_months",
+    "flags": [
+      "apparent_three_months",
+      "p12_cheer_bob",
+      "p12_cheer_jim",
+      "p12_cheer_pete"
+    ],
+    "values": {
+      "grand_dice_apparent_result": "six_three_months"
+    },
+    "quests": {
+      "grand_dice_ceremony": "completed"
+    },
+    "map": "galley",
+    "x": 9,
+    "y": 5,
+    "facing": "down",
+    "script": "p12c11.begin"
+  },
+  {
+    "id": "p12_one_day",
+    "name": "One-Day Suspension",
+    "description": "Three. ONE DAY. Read him the suspension rules: no title, no decrees, regalia off.",
+    "after": "p12_jumping_beans",
+    "flags": [
+      "one_day_betrayal",
+      "p12_ch122_started",
+      "p12_ch123_started",
+      "p12_hop_1",
+      "p12_hop_2",
+      "stenchmaster_suspension_active"
+    ],
+    "vars": {
+      "suspension_hours_left": 24
+    },
+    "values": {
+      "grand_dice_final_result": "three_one_day",
+      "stenchmaster_suspension_duration": "one_day"
+    },
+    "quests": {
+      "jumping_beans": "completed",
+      "not_grand": "active"
+    },
+    "map": "galley",
+    "x": 10,
+    "y": 8,
+    "facing": "down",
+    "script": "p12c12.rules"
+  },
+  {
+    "id": "p12_authenticity_whiff",
+    "name": "Authenticity Whiff",
+    "description": "Just Garrick, for a day. The sash has to be authenticated. By the highest-ranking nose. Starts chapter 124.",
+    "after": "p12_one_day",
+    "flags": [
+      "garrick_not_grand",
+      "regalia_removed"
+    ],
+    "values": {
+      "garrick_title_state": "suspended"
+    },
+    "quests": {
+      "not_grand": "completed",
+      "the_suspension": "active"
+    },
+    "map": "galley",
+    "x": 10,
+    "y": 8,
+    "facing": "down",
+    "script": "p12c13.begin"
+  },
+  {
+    "id": "p12_sash_wardrobe",
+    "name": "Sash Wardrobe",
+    "description": "Authentic. It's in your custody for the whole Silence: in your wardrobe, with your coats.",
+    "after": "p12_authenticity_whiff",
+    "flags": [
+      "authenticity_whiff_done",
+      "p12_ch124_started",
+      "p12_custody_said",
+      "p12_exam_fabric",
+      "p12_exam_fringe",
+      "p12_exam_look"
+    ],
+    "quests": {
+      "authenticity_whiff": {
+        "done": [
+          "exam",
+          "whiff"
+        ]
+      }
+    },
+    "items": [
+      "stenchmaster_sash"
+    ],
+    "map": "captains_quarters",
+    "x": 3,
+    "y": 5,
+    "facing": "up"
+  },
+  {
+    "id": "p12_breakfast",
+    "name": "Normal Breakfast",
+    "description": "The sash is in with your coats. Breakfast: a normal one, for once. Starts chapter 125.",
+    "after": "p12_sash_wardrobe",
+    "flags": [
+      "sash_in_wardrobe"
+    ],
+    "values": {
+      "stenchmaster_sash_custody": "captains_wardrobe"
+    },
+    "quests": {
+      "authenticity_whiff": "completed"
+    },
+    "takeItems": [
+      "stenchmaster_sash"
+    ],
+    "map": "captains_quarters",
+    "x": 3,
+    "y": 5,
+    "facing": "down",
+    "script": "p12c14.begin"
+  },
+  {
+    "id": "p12_finger_crisis",
+    "name": "Finger-Pulling Crisis",
+    "description": "A whole normal breakfast. And now he's holding out his finger. Starts chapter 126.",
+    "after": "p12_breakfast",
+    "flags": [
+      "normal_breakfast_eaten",
+      "p12_bf_bacon",
+      "p12_bf_eggs",
+      "p12_bf_fruit",
+      "p12_bf_potatoes",
+      "p12_bf_said",
+      "p12_bf_tea",
+      "p12_bf_toast",
+      "p12_ch125_started"
+    ],
+    "vars": {
+      "suspension_hours_left": 22
+    },
+    "quests": {
+      "normal_breakfast": "completed"
+    },
+    "map": "galley",
+    "x": 7,
+    "y": 8,
+    "facing": "down",
+    "script": "p12c15.begin"
+  },
+  {
+    "id": "p12_complete",
+    "name": "Phase 12 Complete",
+    "description": "Nobody pulled it. One day is apparently unbearable. Garrick, by the stove, has a few things to say.",
+    "after": "p12_finger_crisis",
+    "flags": [
+      "bbk_daytime_seen",
+      "finger_crisis_seen",
+      "p12_ch126_started",
+      "p12_complete",
+      "p12_fg_bob",
+      "p12_fg_gristle",
+      "p12_fg_jim",
+      "p12_fg_pete",
+      "p12_fg_tom",
+      "p13_ready_hint"
+    ],
+    "vars": {
+      "suspension_hours_left": 20
+    },
+    "quests": {
+      "pull_my_finger": "completed"
+    },
+    "map": "galley",
+    "x": 1,
+    "y": 8,
+    "facing": "down"
+  },
+  {
+    "id": "p13_start",
+    "name": "Phase 13 Start",
+    "description": "The suspension is going badly (for him). Talk to Garrick (the galley).",
+    "after": "p12_complete",
+    "map": "galley",
+    "x": 10,
+    "y": 9,
+    "facing": "up"
+  },
+  {
+    "id": "p13_sash_trash",
+    "name": "Sash Trash Comedy",
+    "description": "Five loopholes, all refused. The sash in your wardrobe is next. Starts chapter 128.",
+    "after": "p13_start",
+    "flags": [
+      "loopholes_refused",
+      "p13_lh_1",
+      "p13_lh_2",
+      "p13_lh_3",
+      "p13_lh_4",
+      "p13_lh_5",
+      "p13_started"
+    ],
+    "vars": {
+      "p4_tod": 29,
+      "suspension_hours_left": 19
+    },
+    "quests": {
+      "finger_breakdown": "completed"
+    },
+    "map": "galley",
+    "x": 10,
+    "y": 8,
+    "facing": "down",
+    "script": "p13c2.begin"
+  },
+  {
+    "id": "p13_growling_bedding",
+    "name": "Growling Bedding",
+    "description": "Don't throw his sash in the trash (there's a song). Something in the old quarters is growling. Starts chapter 129.",
+    "after": "p13_sash_trash",
+    "flags": [
+      "p13_ch128_started",
+      "p13_wardrobe_opened",
+      "sash_trash_song_seen"
+    ],
+    "vars": {
+      "ses_mk2_power": 1
+    },
+    "quests": {
+      "sash_in_the_trash": "completed"
+    },
+    "map": "galley",
+    "x": 15,
+    "y": 7,
+    "facing": "down",
+    "script": "p13c3.begin"
+  },
+  {
+    "id": "p13_returned_pillow",
+    "name": "Returned Pillow",
+    "description": "The quarters are open, and the pillow growls. Throw it into the storm (the port rail).",
+    "after": "p13_growling_bedding",
+    "flags": [
+      "crew_quarters_reopened",
+      "growling_bedding_found",
+      "kitten_pillow_taken",
+      "p13_ch129_started"
+    ],
+    "values": {
+      "crew_quarters_state": "reopened_bedding_condemned"
+    },
+    "quests": {
+      "quarters_alive": {
+        "done": [
+          "unboard",
+          "inside",
+          "pillow"
+        ]
+      }
+    },
+    "items": [
+      "kitten_roar_pillow"
+    ],
+    "map": "main_deck",
+    "x": 4,
+    "y": 32,
+    "facing": "down",
+    "script": "p13c3.throw_1"
+  },
+  {
+    "id": "p13_textile_closet",
+    "name": "Textile Closet",
+    "description": "All the bedding judged and condemned. Stuff the pile into the linen locker, then nail it shut.",
+    "after": "p13_returned_pillow",
+    "flags": [
+      "bedding_piled",
+      "bedding_returned_by_storm",
+      "p13_ch130_started",
+      "p13_judged_blankets",
+      "p13_judged_hammock",
+      "p13_judged_mattress",
+      "p13_judged_pillowcases",
+      "p13_judged_pillows",
+      "p13_judged_sheets",
+      "pillow_picked_up",
+      "pillow_returned_with_tag",
+      "pillow_thrown_once"
+    ],
+    "quests": {
+      "quarters_alive": "completed",
+      "condemn_bedding": {
+        "done": [
+          "judge",
+          "discard"
+        ]
+      }
+    },
+    "takeItems": [
+      "kitten_roar_pillow"
+    ],
+    "map": "crew_quarters",
+    "x": 11,
+    "y": 7,
+    "facing": "down"
+  },
+  {
+    "id": "p13_sash_bedding",
+    "name": "Sash Bedding",
+    "description": "The locker's nailed. New bedding: the Cheap-O-Rama sashes. Starts chapter 131.",
+    "after": "p13_textile_closet",
+    "flags": [
+      "textiles_in_locker",
+      "textiles_sealed"
+    ],
+    "values": {
+      "crew_quarters_state": "reopened_bedding_sealed",
+      "textile_closet_state": "sealed_growls"
+    },
+    "quests": {
+      "condemn_bedding": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 11,
+    "y": 4,
+    "facing": "down",
+    "script": "p13c5.begin"
+  },
+  {
+    "id": "p13_megapack",
+    "name": "Mega-Pack",
+    "description": "The quarters, made up in sashes. And another delivery: the Grand Stenchmaster Fan Mega-Pack. Starts chapter 132.",
+    "after": "p13_sash_bedding",
+    "flags": [
+      "garrick_adopted_catchphrase",
+      "p13_bedding_blankets",
+      "p13_bedding_corners",
+      "p13_bedding_hammocks",
+      "p13_bedding_pads",
+      "p13_bedding_pillows",
+      "p13_ch131_started",
+      "sash_bedding_built"
+    ],
+    "vars": {
+      "suspension_hours_left": 16
+    },
+    "values": {
+      "crew_quarters_state": "sash_bedding"
+    },
+    "quests": {
+      "grand_bedding": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 1,
+    "y": 7,
+    "facing": "down",
+    "script": "p13c6.begin"
+  },
+  {
+    "id": "p13_cardboard_legends",
+    "name": "Cardboard Legends",
+    "description": "Five life-size cardboard Ancient Stenchmasters. Put them up (you choose where).",
+    "after": "p13_megapack",
+    "flags": [
+      "megapack_opened",
+      "merch_aboard",
+      "p13_ch132_started"
+    ],
+    "quests": {
+      "fan_megapack": {
+        "done": [
+          "open"
+        ]
+      }
+    },
+    "map": "crew_quarters",
+    "x": 12,
+    "y": 7,
+    "facing": "down"
+  },
+  {
+    "id": "p13_ses_build",
+    "name": "Bedroom S.E.S. Build",
+    "description": "The legends are up. A Build-Your-Own S.E.S. kit: find the parts. Starts chapter 133.",
+    "after": "p13_cardboard_legends",
+    "flags": [
+      "p13_standees_said",
+      "standee_brogath_placed",
+      "standee_gustavio_placed",
+      "standee_rumpold_placed",
+      "standee_rumpus_placed",
+      "standee_stenchalina_placed",
+      "standees_placed"
+    ],
+    "values": {
+      "crew_quarters_state": "sash_bedding_merch",
+      "standee_brogath": "port",
+      "standee_gustavio": "hammocks",
+      "standee_rumpold": "hatch",
+      "standee_rumpus": "table",
+      "standee_stenchalina": "cots"
+    },
+    "quests": {
+      "fan_megapack": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 12,
+    "y": 7,
+    "facing": "down",
+    "script": "p13c7.begin"
+  },
+  {
+    "id": "p13_antenna",
+    "name": "Antenna Routing",
+    "description": "A second set. Wire the two together: behind Brogath, across the deck, the cannon, tape. Starts chapter 134.",
+    "after": "p13_ses_build",
+    "flags": [
+      "p13_ch133_started",
+      "p13_parts_said",
+      "second_ses_built",
+      "ses_part_coils",
+      "ses_part_forks",
+      "ses_part_horseshoe",
+      "ses_part_transformer"
+    ],
+    "values": {
+      "ses_kit_state": "no_signal"
+    },
+    "quests": {
+      "build_your_own_ses": "completed"
+    },
+    "items": [
+      "ses_parts"
+    ],
+    "map": "crew_quarters",
+    "x": 10,
+    "y": 5,
+    "facing": "down",
+    "script": "p13c8.begin"
+  },
+  {
+    "id": "p13_channel",
+    "name": "Stenchmaster Channel",
+    "description": "Connected. One channel. Starts chapter 135.",
+    "after": "p13_antenna",
+    "flags": [
+      "cable_seg_1",
+      "cable_seg_2",
+      "cable_seg_3",
+      "cable_seg_4",
+      "cable_seg_5",
+      "p13_ch134_started",
+      "tv_cable_routed",
+      "tv_systems_connected"
+    ],
+    "values": {
+      "ses_kit_state": "working"
+    },
+    "quests": {
+      "wire_the_systems": "completed"
+    },
+    "map": "galley",
+    "x": 15,
+    "y": 7,
+    "facing": "down",
+    "script": "p13c9.begin"
+  },
+  {
+    "id": "p13_stenchalina",
+    "name": "Stenchalina Programme",
+    "description": "The Stenchmaster Channel. Tonight: Princess Stenchalina. Watch (the kit set).",
+    "after": "p13_channel",
+    "flags": [
+      "p13_ch135_started",
+      "stenchmaster_channel_unlocked"
+    ],
+    "vars": {
+      "ses_mk2_channel": 9,
+      "suspension_hours_left": 13
+    },
+    "quests": {
+      "stenchmaster_channel": "active"
+    },
+    "map": "crew_quarters",
+    "x": 10,
+    "y": 5,
+    "facing": "down",
+    "script": "p13c9.watch"
+  },
+  {
+    "id": "p13_stench_o_vision",
+    "name": "Stench-O-Vision",
+    "description": "Three hours, forty-one minutes of baby. Then the set starts to smell. Starts chapter 136.",
+    "after": "p13_stenchalina",
+    "flags": [
+      "stenchalina_programme_seen"
+    ],
+    "quests": {
+      "stenchmaster_channel": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 10,
+    "y": 5,
+    "facing": "down",
+    "script": "p13c10.begin"
+  },
+  {
+    "id": "p13_brogath_programme",
+    "name": "Brogath Programme",
+    "description": "Stench-O-Vision, adjusted. The Brogath special: Poor in Gold, Rich in Gas. Starts chapter 137.",
+    "after": "p13_stench_o_vision",
+    "flags": [
+      "p13_ch136_started",
+      "p13_smell_tokens_down",
+      "ses_kit_examined",
+      "stench_o_vision_disabled",
+      "stench_o_vision_on"
+    ],
+    "values": {
+      "stench_o_vision": "off"
+    },
+    "quests": {
+      "stench_o_vision": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 10,
+    "y": 5,
+    "facing": "down",
+    "script": "p13c11.begin"
+  },
+  {
+    "id": "p13_captain_rant",
+    "name": "Captain Rant",
+    "description": "Enough. The standees, the bedding, the set, the locker, the Mega-Pack: ALL of it. Starts chapter 138.",
+    "after": "p13_brogath_programme",
+    "flags": [
+      "brogath_programme_seen",
+      "p13_ch137_started"
+    ],
+    "values": {
+      "brogath_status": "alleged_still_none"
+    },
+    "quests": {
+      "brogath_special": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 10,
+    "y": 5,
+    "facing": "down",
+    "script": "p13c12.begin"
+  },
+  {
+    "id": "p13_beard_delirium",
+    "name": "Beard Delirium",
+    "description": "The rant's over. You breathe in. Through the beard. Deeply. Starts chapter 139.",
+    "after": "p13_captain_rant",
+    "flags": [
+      "p13_ch138_started",
+      "p13_rant_bedding",
+      "p13_rant_locker",
+      "p13_rant_megapack",
+      "p13_rant_said",
+      "p13_rant_standees",
+      "p13_rant_tv"
+    ],
+    "vars": {
+      "suspension_hours_left": 12
+    },
+    "quests": {
+      "the_limit": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 12,
+    "y": 7,
+    "facing": "down",
+    "script": "p13c13.begin"
+  },
+  {
+    "id": "p13_ancient_stenchmasters",
+    "name": "Ancient Stenchmasters",
+    "description": "Every Ancient Stenchmaster is here (they are the crew). Meet them. Starts chapter 140.",
+    "after": "p13_beard_delirium",
+    "flags": [
+      "p13_ch139_started",
+      "stinkbeard_delirium"
+    ],
+    "vars": {
+      "p4_tod": 30
+    },
+    "values": {
+      "stinkbeard_state": "ancient_stenchmaster_delirium"
+    },
+    "map": "crew_quarters",
+    "x": 12,
+    "y": 7,
+    "facing": "down",
+    "script": "p13c14.begin"
+  },
+  {
+    "id": "p13_disarm",
+    "name": "Disarm Stenchmasters",
+    "description": "Brogath, Rumpold, Rumpus, Gustavio, Stenchalina, Stenchmaster Prime. Disarm them. Starts chapter 141.",
+    "after": "p13_ancient_stenchmasters",
+    "flags": [
+      "p13_ch140_started",
+      "p13_met_bob",
+      "p13_met_garrick",
+      "p13_met_gristle",
+      "p13_met_jim",
+      "p13_met_pete",
+      "p13_met_said",
+      "p13_met_squawks"
+    ],
+    "quests": {
+      "ancient_stenchmasters": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 10,
+    "y": 12,
+    "facing": "down",
+    "script": "p13c15.begin"
+  },
+  {
+    "id": "p13_deck_delirium",
+    "name": "Deck Delirium",
+    "description": "Every sash flutters at once. Up on deck: orders, before the apocalypse. Starts chapter 142.",
+    "after": "p13_disarm",
+    "flags": [
+      "p13_ch141_started",
+      "p13_dis_beans",
+      "p13_dis_fabric",
+      "p13_dis_fingers",
+      "p13_dis_grog",
+      "p13_dis_rear",
+      "p13_dis_sauce",
+      "p13_dis_still",
+      "p13_disarm_said"
+    ],
+    "quests": {
+      "disarm_stenchmasters": "completed"
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 32,
+    "facing": "down",
+    "script": "p13c16.begin"
+  },
+  {
+    "id": "p13_two_brogaths",
+    "name": "Two Brogaths",
+    "description": "Orders given. And there are two Brogaths. Starts chapter 143.",
+    "after": "p13_deck_delirium",
+    "flags": [
+      "p13_ch142_started",
+      "p13_ord_beans",
+      "p13_ord_cannons",
+      "p13_ord_helm",
+      "p13_ord_hull",
+      "p13_ord_sail",
+      "p13_orders_said"
+    ],
+    "values": {
+      "great_sharkstorm": "command_crisis"
+    },
+    "quests": {
+      "stenchmaster_apocalypse": "completed"
+    },
+    "map": "main_deck",
+    "x": 11,
+    "y": 24,
+    "facing": "down",
+    "script": "p13c17.begin"
+  },
+  {
+    "id": "p13_treasure_brogath",
+    "name": "Treasure-Room Brogath",
+    "description": "The real one touched the wheel. And something is growling in the treasure room. Starts chapter 144.",
+    "after": "p13_two_brogaths",
+    "flags": [
+      "cardboard_brogath_on_deck",
+      "p13_brogath_logic_said",
+      "p13_ch143_started",
+      "p13_looked_cardboard",
+      "p13_looked_pete",
+      "pete_touched_helm"
+    ],
+    "values": {
+      "standee_brogath": "deck"
+    },
+    "quests": {
+      "two_brogaths": "completed"
+    },
+    "map": "main_deck",
+    "x": 13,
+    "y": 7,
+    "facing": "down",
+    "script": "p13c18.begin"
+  },
+  {
+    "id": "p13_captain_brogath",
+    "name": "Captain Brogath",
+    "description": "Which Brogath? Back on deck: Pete leaned on the helm, and that is a challenge for command. Starts chapter 145.",
+    "after": "p13_treasure_brogath",
+    "flags": [
+      "p13_ch144_started",
+      "p13_crew_chase",
+      "p13_door_tried",
+      "treasure_room_brogath_believed"
+    ],
+    "values": {
+      "treasure_room_state": "sealed_brogath_alleged"
+    },
+    "quests": {
+      "treasure_room_brogath": "completed"
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 23,
+    "facing": "down",
+    "script": "p13c19.begin"
+  },
+  {
+    "id": "p13_command_crisis",
+    "name": "Brogath Command Crisis",
+    "description": "Three gusts held, three campaign tokens. Then the growl from below, one more time.",
+    "after": "p13_captain_brogath",
+    "flags": [
+      "p13_ch145_started",
+      "p13_helm_1",
+      "p13_helm_2",
+      "p13_helm_3"
+    ],
+    "vars": {
+      "suspension_hours_left": 9
+    },
+    "quests": {
+      "command_crisis": "completed"
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 5,
+    "facing": "down",
+    "script": "p13c19.end"
+  },
+  {
+    "id": "p13_complete",
+    "name": "Phase 13 Complete",
+    "description": "Still inside the Great Sharkstorm. Garrick suspended, the sash in your wardrobe, the treasure room sealed, and Pete is Brogath.",
+    "after": "p13_command_crisis",
+    "flags": [
+      "brogath_command_crisis",
+      "p13_complete",
+      "p13_end_said"
+    ],
+    "map": "main_deck",
+    "x": 9,
+    "y": 5,
+    "facing": "down"
   }
 ]
