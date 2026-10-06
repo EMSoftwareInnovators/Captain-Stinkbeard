@@ -63,7 +63,7 @@ function tokenTrophy() {
 }
 
 /** A ribbon rosette: pink and teal, a fake-gold button in the middle, two tails. */
-function tokenRosette() {
+export function tokenRosette() {
   const c = new PixelCanvas(12, 16);
   c.poly([[3, 9], [1, 15], [4, 13], [5, 9]], PINK.m);
   c.poly([[7, 9], [8, 13], [11, 15], [9, 9]], TEAL.m);
@@ -79,7 +79,7 @@ function tokenRosette() {
 }
 
 /** A medal on a short ribbon, the gold already flaking. */
-function tokenMedal() {
+export function tokenMedal() {
   const c = new PixelCanvas(9, 13);
   c.rect(2, 0, 2, 5, TEAL.m);
   c.rect(5, 0, 2, 5, PINK.m);
@@ -91,7 +91,7 @@ function tokenMedal() {
 }
 
 /** A little printed card, a certificate of something. */
-function tokenCard() {
+export function tokenCard() {
   const c = new PixelCanvas(12, 8);
   c.rect(0, 0, 12, 8, '#f4ecd8');
   c.rect(1, 1, 10, 1, PLASTIC.m);

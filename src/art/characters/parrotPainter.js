@@ -573,6 +573,27 @@ export function paintParrotPortrait(portrait, expression = 'neutral') {
     c.line(40, 8, 43, 12, L.bald ? L.crest.m : L.body.l);
     c.set(41, 9, L.body.d);
   }
+  // Story Phase 13: the captain's delirium (a princess, crowned and sashed). Only ever in his eyes.
+  if (portrait.royalSash) {
+    for (let i = 0; i < 13; i++) {
+      const x = 34 - i * 2;
+      const y = 37 + i;
+      c.rect(x, y, 3, 2, i % 3 === 0 ? '#f4dc6c' : '#c8242c');
+      c.set(x + 3, y + 1, '#7a1418');
+    }
+  }
+  if (portrait.crown) {
+    const cx = hx + 1;
+    const cy = hy - 15;
+    c.rect(cx - 6, cy, 13, 4, '#e8c850');
+    c.hline(cx - 6, cx + 6, cy + 3, '#a8841c');
+    for (const dx of [-6, 0, 6]) {
+      c.rect(cx + dx - 1, cy - 4, 3, 4, '#e8c850');
+      c.set(cx + dx, cy - 5, '#f8f0a0');
+    }
+    c.set(cx - 3, cy + 1, '#d8403a');
+    c.set(cx + 3, cy + 1, '#2c58a8');
+  }
   c.outline(INK);
   return c;
 }

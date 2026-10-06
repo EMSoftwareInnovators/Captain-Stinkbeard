@@ -32,6 +32,8 @@ const OUTLINE = PAL.ink;
 export const SASH = { d: '#9a6e14', m: '#c8982a', l: '#ecc450', edge: '#5e1624', gold: '#f4dc6c', badge: '#6a9a2c', ink: '#2a1a0e' };
 /** Story Phase 9: the other half of the two-pack, sky blue, GRAND SHARKMASTER painted on it in white (badly). */
 export const BLUE_SASH = { d: '#2a5a9a', m: '#4a86c8', l: '#7ab0e8', edge: '#16284a', gold: '#f0f4f8', badge: '#f0f4f8', ink: '#16284a' };
+/** Story Phase 11: a Cheap-O-Rama toy sash (ages six and up): bright red, gold-ish edging, a little embroidered nose. */
+export const TOY_SASH = { d: '#8a141c', m: '#c8242c', l: '#e8545a', edge: '#5a0a10', gold: '#f4dc6c', badge: '#f0c0a0', ink: '#3a0a0a' };
 
 export const BUILDS = {
   small: { shoulder: 12, waist: 10, torsoH: 9, legH: 9, legW: 4, legGap: 0, armW: 3, bootH: 3 },
@@ -74,7 +76,7 @@ export function resolveLook(app) {
     barefoot: !!outfit.barefoot,
     extras: new Set(app.extras || []),
     extraColor: clothRamp(app.extraColor || 'red'),
-    sashColors: (app.extras ?? []).includes('bluesash') ? BLUE_SASH : SASH,
+    sashColors: (app.extras ?? []).includes('bluesash') ? BLUE_SASH : (app.extras ?? []).includes('toysash') ? TOY_SASH : SASH,
     // Story Phase 3: an improvised ceremonial cloak (a torn curtain) and
     // whether it has since been through an hour with sharks.
     cloak: app.cloak ? clothRamp(app.cloak) : null,
@@ -282,7 +284,7 @@ function torsoFront(c, L, top, bottom, { back = false } = {}) {
     }
     c.set(CX - 1, top + Math.floor(H / 2), L.trim[2]);
   }
-  if (L.extras.has('stenchsash') || L.extras.has('bluesash')) stenchSashFront(c, L, top, H, back);
+  if (L.extras.has('stenchsash') || L.extras.has('bluesash') || L.extras.has('toysash')) stenchSashFront(c, L, top, H, back);
   if (L.extras.has('patches') && (L.style === 'coat' || L.style === 'longcoat')) {
     // Sun-faded repairs on a battered coat.
     const w = b.shoulder;
@@ -914,6 +916,39 @@ function headCanvas(L, dir, face) {
       c.hline(8, 11, 11, cloth[0]);
     }
   }
+  // Story Phase 12: the trial gear. Bottle-bottom goggles; a clean cloth wrapped round the beard.
+  if (L.extras.has('goggles') && dir !== 'up') {
+    const glass = ['#2a6a3a', '#6ac868', '#e8fff0'];
+    if (dir === 'down') {
+      c.hline(1, 14, 8, PAL.lea2);
+      for (const ex of [5, 10]) {
+        c.rect(ex - 2, 7, 4, 4, glass[0]);
+        c.rect(ex - 1, 8, 2, 2, glass[1]);
+        c.set(ex - 1, 8, glass[2]);
+      }
+    } else {
+      c.hline(3, 9, 8, PAL.lea2);
+      c.rect(0, 7, 4, 4, glass[0]);
+      c.rect(1, 8, 2, 2, glass[1]);
+      c.set(1, 8, glass[2]);
+    }
+  }
+  if (L.extras.has('beardwrap') && dir !== 'up') {
+    const wrap = ['#a8b0b8', '#d8dee4', '#f4f8fa'];
+    if (dir === 'down') {
+      for (let y = 15; y <= 18; y++) for (let x = 4; x <= 11; x++) c.set(x, y, y === 15 ? wrap[2] : (x + y) % 3 === 0 ? wrap[0] : wrap[1]);
+      c.set(12, 16, wrap[0]);
+    } else {
+      for (let y = 15; y <= 18; y++) for (let x = 0; x <= 6; x++) c.set(x, y, y === 15 ? wrap[2] : (x + y) % 3 === 0 ? wrap[0] : wrap[1]);
+    }
+  }
+  // Story Phase 13: the captain's delirium (blushing, like Brogath; a crown made of crowns, like the Prime).
+  if (L.extras.has('blush') && dir !== 'up') {
+    const pink = '#f08a9a';
+    if (dir === 'down') {
+      c.set(3, 11, pink); c.set(4, 11, pink); c.set(11, 11, pink); c.set(12, 11, pink);
+    } else c.set(2, 11, pink);
+  }
   if (L.extras.has('sockmask') && dir !== 'up') {
     // A wet sock tied over the nose, striped, toe flopping to one side.
     if (dir === 'down') {
@@ -1053,9 +1088,27 @@ export function paintCharacterFrame(L, dir, pose = {}, { outline = true } = {}) 
   if (L.extras.has('charged')) charged(c, L, dir, torsoTop, torsoBottom);
   if (L.extras.has('sashtaut')) sashTaut(c, L, dir, torsoTop);
   if (L.extras.has('parrotpouch')) parrotPouchOver(c, L, dir, torsoTop);
+  if (L.extras.has('crownstack')) crownStack(c, dir, torsoTop + (pose.headDy || 0) - 15);
   if (outline) c.outline(OUTLINE);
   c.torsoTop = torsoTop;
   return c;
+}
+
+/**
+ * Story Phase 13: a crown made of crowns, stacked on the Grand Crown (the
+ * Grand Stenchmaster Prime, as the captain sees him). `headTop` is the head's
+ * top row in the frame.
+ */
+function crownStack(c, dir, headTop) {
+  const cx = dir === 'left' ? CX - 1 : CX;
+  for (const [dy, w] of [[-3, 8], [-6, 6], [-8, 4]]) {
+    const x0 = cx - w / 2;
+    const y = headTop + dy;
+    c.rect(x0, y, w, 3, PAL.gold3);
+    c.hline(x0, x0 + w - 1, y + 2, PAL.gold1);
+    c.set(x0 + 1, y + 1, dy === -6 ? PAL.red3 : PAL.gold4);
+  }
+  c.set(cx, headTop - 9, PAL.gold4);
 }
 
 /**
@@ -1262,7 +1315,7 @@ function torsoSide(c, L, top, bottom) {
     c.set(x + 2, bottom + 3, PAL.iron4);
     c.set(x + 3, bottom + 4, PAL.iron3);
   }
-  if (L.extras.has('stenchsash') || L.extras.has('bluesash')) stenchSashSide(c, L, top, bottom);
+  if (L.extras.has('stenchsash') || L.extras.has('bluesash') || L.extras.has('toysash')) stenchSashSide(c, L, top, bottom);
 }
 
 // ---------------------------------------------------------------------------

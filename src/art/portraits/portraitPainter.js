@@ -1,6 +1,6 @@
 import { PixelCanvas } from '../PixelCanvas.js';
 import { PAL, rgba } from '../palette.js';
-import { resolveLook, SASH, BLUE_SASH, REGALIA } from '../characters/characterPainter.js';
+import { resolveLook, SASH, BLUE_SASH, TOY_SASH, REGALIA } from '../characters/characterPainter.js';
 
 /**
  * 48x48 dialogue portraits built from the same appearance data as the field
@@ -150,6 +150,20 @@ function drawBust(c, L) {
     c.rect(CX + 5, 40, 3, 3, SASH.badge);
     c.set(CX + 7, 42, '#8aba40');
     c.set(CX + 5, 42, SASH.ink);
+  }
+  if (L.extras.has('toysash')) {
+    // Story Phase 11: a Cheap-O-Rama toy sash, bright red, a little embroidered nose on it.
+    for (let i = 0; i < 12; i++) {
+      const x = CX + 9 - i;
+      const y = 37 + i;
+      c.set(x - 1, y, TOY_SASH.edge);
+      c.set(x, y, i % 3 === 0 ? TOY_SASH.gold : TOY_SASH.m);
+      c.set(x + 1, y, TOY_SASH.l);
+      c.set(x + 2, y, TOY_SASH.m);
+      c.set(x + 3, y, TOY_SASH.d);
+      c.set(x + 4, y, TOY_SASH.edge);
+    }
+    c.rect(CX + 5, 40, 3, 2, TOY_SASH.badge);
   }
   if (L.extras.has('bluesash')) {
     // Story Phase 9: the other half of the two-pack. Sky blue, GRAND
@@ -865,6 +879,33 @@ function accessories(c, L, face, expression) {
     c.set(CX + 11, 26, PAL.gold2);
     c.line(CX + 11, 27, CX + 13, 40, PAL.gold3);
     c.line(CX + 13, 40, CX + 10, 46, PAL.gold2);
+  }
+  if (L.extras.has('goggles')) {
+    // Story Phase 12: bottle-bottom goggles on a leather strap.
+    c.hline(CX - 16, CX + 15, 22, PAL.lea2);
+    for (const gx of [CX - 7, CX + 7]) {
+      c.ellipse(gx, 23, 5, 5, '#2a6a3a');
+      c.ellipse(gx, 23, 3.5, 3.5, '#6ac868');
+      c.set(gx - 2, 21, '#e8fff0');
+      c.set(gx - 1, 21, '#e8fff0');
+    }
+  }
+  if (L.extras.has('beardwrap')) {
+    // Story Phase 12: a clean cloth wrapped round the beard (so it can't come up under the nose).
+    for (let y = 35; y <= 44; y++) for (let x = CX - 10; x <= CX + 9; x++) if (c.alphaAt(x, y)) c.set(x, y, y % 4 === 0 ? '#a8b0b8' : (x + y) % 5 === 0 ? '#f4f8fa' : '#d8dee4');
+  }
+  if (L.extras.has('blush')) {
+    // Story Phase 13: blushing (Brogath the Bashful, in the captain's eyes).
+    c.rect(CX - 13, 27, 4, 2, '#f08a9a');
+    c.rect(CX + 9, 27, 4, 2, '#f08a9a');
+  }
+  if (L.extras.has('crownstack')) {
+    // Story Phase 13: a crown made of crowns (the Grand Stenchmaster Prime, in the captain's eyes).
+    for (const [y, w] of [[2, 18], [-2, 14], [-5, 10]]) {
+      c.rect(CX - w / 2, y, w, 4, PAL.gold3);
+      c.hline(CX - w / 2, CX + w / 2 - 1, y + 3, PAL.gold1);
+      for (let x = CX - w / 2; x < CX + w / 2; x += 3) c.set(x, y - 1, PAL.gold4);
+    }
   }
   if (L.extras.has('facecloth')) {
     for (let y = 27; y <= 36; y++) for (let x = CX - 11; x <= CX + 10; x++) c.set(x, y, y === 27 ? '#c8d6dc' : x > CX + 5 ? '#6a7c86' : '#9aaab2');
