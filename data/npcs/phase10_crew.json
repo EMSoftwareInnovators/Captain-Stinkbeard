@@ -352,6 +352,24 @@
    },
    {
     "if": {
+     "objectiveActive": "brogath_the_bashful.story"
+    },
+    "script": "p10c12.story"
+   },
+   {
+    "if": {
+     "objectiveActive": "meet_wind_with_wind.rumpold"
+    },
+    "script": "p10c14.story"
+   },
+   {
+    "if": {
+     "objectiveActive": "fart_literature.book"
+    },
+    "script": "p10c16.book"
+   },
+   {
+    "if": {
      "objectiveActive": "sash_holders.condition"
     },
     "script": "p10c18.condition"
@@ -538,6 +556,12 @@
  {
   "extend": "squawks",
   "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "bad_hotel.squawks"
+    },
+    "script": "p10c10.squawks"
+   },
    {
     "if": {
      "objectiveActive": "wrong_way.squawks"

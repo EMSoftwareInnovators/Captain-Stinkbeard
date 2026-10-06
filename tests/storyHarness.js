@@ -244,6 +244,13 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
     /** Inspects a map object (its live `if` must hold). */
     async inspect(id) {
       const obj = story.object(id);
+      // In the game, someone standing (or lying) in front of you is talked to first: an object
+      // with a person on every tile of it can't be looked at (Story Phase 10).
+      const tiles = [];
+      for (let j = 0; j < (obj.h ?? 1); j++) for (let i = 0; i < (obj.w ?? 1); i++) tiles.push([obj.x + i, obj.y + j]);
+      const on = tiles.map(([x, y]) => [...staging.actors].find(([, at]) => at[0] === x && at[1] === y)?.[0]);
+      const says = (who) => (content.npcs.get(staging.npcOf.get(who) ?? who)?.dialogue ?? []).find((e) => evaluateCondition(e.if, session))?.script;
+      if (on.every(Boolean) && !on.every((who) => says(who) === obj.script)) staging.issue(`can't look at "${id}" on ${story.map}: ${[...new Set(on)].join(', ')} ${on.length > 1 ? 'are' : 'is'} standing on it (talking comes first)`);
       staging.approach(obj.x, obj.y, obj.w ?? 1, obj.h ?? 1);
       if (obj.if && !evaluateCondition(obj.if, session)) throw new Error(`"${id}" can't be inspected right now`);
       let script = obj.script;
