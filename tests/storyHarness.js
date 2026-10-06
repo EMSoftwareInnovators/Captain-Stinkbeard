@@ -182,6 +182,13 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
       // Where the captain arrives: the transition's spot, else a preset's (same room).
       const prev = session.location;
       staging.enter(map, at.spawn || Number.isInteger(at.x) ? at : prev?.map === map ? prev : {});
+      // Arriving on someone's spot shoves them aside wherever there's room, which may be a corner
+      // the captain can't get to (Story Phase 10's muster at the board).
+      if (staging.player) {
+        const [px, py] = staging.player;
+        const on = [...staging.actors].find(([, p]) => p[0] === px && p[1] === py);
+        if (on) staging.issue(`the captain arrives on ${map} at ${px},${py}, where ${on[0]} is placed`);
+      }
       session.location = { map, x: 1, y: 1, facing: 'down' };
       session.world.visit(map);
       bus.emit('map:entered', { map });
