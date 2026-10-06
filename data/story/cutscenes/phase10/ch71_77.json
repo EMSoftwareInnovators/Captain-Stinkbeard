@@ -242,7 +242,7 @@
    },
    "then": [],
    "else": [
-    "squawks: Bad gold.",
+    "squawks: Smells like HIM.",
     {
      "setFlag": "p10_salv_said_smell"
     }
@@ -1118,6 +1118,9 @@
   "garrick[businesslike]: It comes with a hat.",
   "jim[angry]: I've GOT a hat. I'm the cook. I was the cook before you had a sash. I'll be the cook after you've had six.",
   "garrick[offended]: The title remains available.",
+  {
+   "setFlag": "jim_grand_galley_title_refused"
+  },
   "jim: Tonight's dinner is Crying Beans. In Spicy Stench Sauce. It's all there is that's not in a sack. Captain, you'll have to help me, I've only got the two hands and one of them's shaking.",
   {
    "startQuest": "grand_galley"
