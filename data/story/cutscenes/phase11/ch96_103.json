@@ -1,0 +1,1261 @@
+{
+ "//": "Story Phase 11, chapters 96-103: bedtime inside the Great Sharkstorm; the six-rope lamp; Brogath's treasure; every sash incident; the Grand Finger-Puller; the storm's tokens; the hammocks die; the lost book.",
+ "p11.ready_hint": [
+  {
+   "setFlag": "p11_ready_hint"
+  },
+  {
+   "tutorial": "It's the middle of the night, inside a storm made of sharks. Go to bed: your bean sacks in the galley, under his hammock.",
+   "title": "Bedtime"
+  }
+ ],
+ "p11.breathe": [
+  {
+   "choice": [
+    {
+     "text": "Breathe deeply.",
+     "then": [
+      {
+       "choice": [
+        {
+         "text": "Breathe deeply. Through the nose.",
+         "then": [
+          "Your beard is directly under your nose. It has been directly under your nose for a month. You know exactly what is in it.",
+          {
+           "choice": [
+            {
+             "text": "BREATHE DEEPLY.",
+             "then": [
+              {
+               "call": "p11.breathe_whiff"
+              }
+             ]
+            },
+            {
+             "text": "...Breathe through the mouth.",
+             "then": [
+              "You breathe through the mouth. It's not calming. It is, however, survivable."
+             ]
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "text": "Don't.",
+         "then": [
+          "Wise."
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "text": "Don't.",
+     "then": [
+      "You don't. Your beard rustles, disappointed."
+     ]
+    }
+   ]
+  }
+ ],
+ "p11.breathe_whiff": [
+  {
+   "addVar": "p11_breaths",
+   "value": 1
+  },
+  {
+   "sfx": "sniff",
+   "volume": 0.7
+  },
+  "You close your eyes, lift your chin and take one long, slow, calming breath in through the nose...",
+  {
+   "sfx": "gag",
+   "volume": 0.6
+  },
+  {
+   "flash": "#c8d870",
+   "duration": 160
+  },
+  {
+   "emote": "player",
+   "icon": "sweat"
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p11_breaths",
+     "eq": 1
+    }
+   },
+   "then": [
+    "...through the beard.",
+    "It arrives all at once: the treasure room, the Dead Center, the Grand Feast, the wrong-way launch, three helpings of Crying Beans and something you can't name that might be a Tuesday.",
+    "captain[queasy]: ...Why. Why do I keep DOING that."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p11_breaths",
+     "eq": 2
+    }
+   },
+   "then": [
+    "...and the beard delivers. It's like opening a cupboard and the whole cupboard falls on you.",
+    "captain[queasy]: Root-deep. Root. DEEP."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p11_breaths",
+     "eq": 3
+    }
+   },
+   "then": [
+    "Your beard, which has been waiting for this, gives you everything it's got. Your eyes water. A small part of your soul files a complaint.",
+    "squawks[smug]: (from the basket, without opening his eyes) Again?"
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p11_breaths",
+     "gte": 4
+    }
+   },
+   "then": [
+    "It's exactly as bad as last time. Your beard is nothing if not consistent.",
+    "captain[queasy]: ...Note to self. Stop breathing.",
+    "squawks[smug]: Can't. Tried."
+   ]
+  }
+ ],
+ "p11c1.begin": [
+  {
+   "setFlag": "p11_started"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 27
+  },
+  {
+   "sharkstorm": "inside_bedtime"
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "banner": "PART 1",
+   "sub": "The Grand Bedtime Argument"
+  },
+  {
+   "banner": "CHAPTER 96",
+   "sub": "Bedtime Inside the Great Sharkstorm"
+  },
+  {
+   "music": "grand_bedtime_argument",
+   "fade": 1200
+  },
+  {
+   "ambience": "inside_storm_galley"
+  },
+  "You lie down on your bean sacks. The galley is dark except for the kerosene lamp and the Mark II's crate, still faintly warm.",
+  "Over your head, the Grand Stenchmaster's hammock swings with the storm. Outside the hatch, the Great Sharkstorm goes round, full of sharks wearing your treasure.",
+  {
+   "sfx": "timber_creak",
+   "volume": 0.7
+  },
+  {
+   "sfx": "dish_rattle",
+   "volume": 0.5
+  },
+  "Then the ship tips the long way, and your sacks go with it.",
+  {
+   "sfx": "sack_slide",
+   "volume": 0.8
+  },
+  {
+   "shake": 1,
+   "duration": 500
+  },
+  "So do Pete's. So do Bob's. So do Jim's. All four of you slide, quite slowly, with great dignity, the length of the galley, bump the far wall together, and stop.",
+  "pete[tired]: ...Evening, Captain.",
+  "captain[tired]: Pete.",
+  "bob: Is this the bedroom or the slide?",
+  "The ship tips back. You slide back. Nobody tries to stop it.",
+  "gristle: (sitting up) Right. That's it. Sacks on a deck that won't hold still. Hammocks. Sailcloth off the spare roll, strung off the beams. Three of 'em. Pete, Bob, Jim, you're the low side.",
+  "garrick[smug]: (from above) Hammocks. Finally. The crew is coming round to the Grand Stenchmaster's way of thinking.",
+  "gristle: The crew is coming round the GALLEY, Garrick. On sacks.",
+  "garrick[businesslike]: And while everybody's up, Captain, I'll have my book back.",
+  "captain: Your book.",
+  "garrick[businesslike]: The Grand Expedition for the Lost Fart. You 'borrowed' it. Two nights ago. While I was asleep. There's crayon on your beard.",
+  "You check. There is crayon on your beard.",
+  {
+   "startQuest": "bedtime_in_the_storm"
+  },
+  {
+   "tutorial": "Give the Grand Stenchmaster his book back (him, in the hammock), and help Gristle string the hammocks (Gristle). Then go to bed.",
+   "title": "Bedtime Inside the Great Sharkstorm"
+  }
+ ],
+ "p11c1.book": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You hold the book up to the hammock. A hand comes down out of it and takes it.",
+  {
+   "takeItem": "lost_fart_book"
+  },
+  "garrick[delighted]: Thank you, Captain. Was it good?",
+  {
+   "choice": [
+    {
+     "text": "\"It was rubbish.\"",
+     "then": [
+      "garrick[offended]: It's HISTORY.",
+      "captain: It's CRAYON."
+     ]
+    },
+    {
+     "text": "\"It was useful.\"",
+     "then": [
+      "garrick[delighted]: (very pleased) It IS useful. I always say it's useful.",
+      "captain: Not like that."
+     ]
+    },
+    {
+     "text": "\"No comment.\"",
+     "then": [
+      "garrick[smug]: A no comment from you, Captain, is a five-star review."
+     ]
+    }
+   ]
+  },
+  "He opens it on his chest. The hammock sways. Somewhere out there, a shark goes past wearing a candlestick.",
+  {
+   "setFlag": "garrick_book_returned"
+  }
+ ],
+ "p11c1.hammocks": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "gristle: Hold that end. Pull when I say. Not before.",
+  {
+   "repair": "knot",
+   "strikes": 3,
+   "title": "STRING THE HAMMOCKS"
+  },
+  {
+   "sfx": "hammock_creak",
+   "volume": 0.7
+  },
+  "Three hammocks of grey sailcloth go up across the beams: one over the long table's end for Pete, one by the hold stairs for Bob, one in the corner by the stove for Jim.",
+  {
+   "setFlag": "sailcloth_hammocks_strung"
+  },
+  "bob: (climbing in) Ooh. It's like being a sandwich.",
+  "jim: (climbing in) It's like being a sandwich in a SHIP.",
+  "pete: (climbing in) It's like being a sandwich in a ship in a STORM, and I'd like to point out that nobody asked the sandwich."
+ ],
+ "p11c1.bed": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "Your bed. Three bean sacks, now wedged in place with two crates and a sack of onions, under his hammock.",
+  "You lie down. You look up at the canvas sagging over your face. You can feel yourself getting angry about the hammock again, and you decide, very firmly, to be calm.",
+  "Calm. Deep breaths.",
+  {
+   "call": "p11.breathe"
+  },
+  {
+   "setFlag": "p11_lay_down"
+  },
+  {
+   "completeQuest": "bedtime_in_the_storm"
+  },
+  {
+   "call": "p11c2.begin"
+  }
+ ],
+ "p11c2.begin": [
+  {
+   "setFlag": "p11_ch97_started"
+  },
+  {
+   "banner": "CHAPTER 97",
+   "sub": "Grand Bedside Illumination System"
+  },
+  {
+   "sfx": "timber_creak",
+   "volume": 0.7
+  },
+  {
+   "sfx": "dish_rattle",
+   "volume": 0.5
+  },
+  "The ship tips. The kerosene lamp on the crate tips with her, slides to the edge, wobbles there, and comes back.",
+  "Everybody watches it. It's the only fire on the ship, and it's sitting on a crate next to a television made of a turnip box, in a room full of hammocks, inside a storm.",
+  "captain[alarmed]: That lamp is going to set the galley alight.",
+  "garrick[proud]: (sitting up) Not if it's ENGINEERED, Captain.",
+  "captain: No.",
+  "garrick[proud]: The Grand Bedside Illumination System. A suspended lamp. Anchor points. Proper ones. It won't swing, it won't fall, and I can read by it.",
+  "captain[angry]: It's an open flame. Under SAILCLOTH. You're not engineering anything.",
+  "garrick[businesslike]: Then you do it, Captain. I'll supervise. I'm very good at supervising.",
+  "gristle: ...He's not wrong that it needs tying down.",
+  "captain[tired]: Fine. FINE. Ties. Rope. Where's rope.",
+  {
+   "startQuest": "grand_illumination"
+  },
+  {
+   "tutorial": "Fetch something to tie the lamp with: rope from the stores (the sacks by the wall) and leather ties (Jim's hooks, by the stove).",
+   "title": "Grand Bedside Illumination System"
+  }
+ ],
+ "p11c2.tie_rope": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "A coil of good line from under the sacks. Gristle nods at it, which from Gristle is a standing ovation.",
+  {
+   "setFlag": "p11_tie_rope"
+  },
+  {
+   "event": "p11_tie"
+  }
+ ],
+ "p11c2.tie_leather": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "Jim's apron ties, his spare belt, and two bootlaces he swears he's never seen before.",
+  "jim: (from the hammock) Those are MY bootlaces.",
+  "captain: You said you'd never seen them before.",
+  "jim: I've never seen them NOT in my boots.",
+  {
+   "setFlag": "p11_tie_leather"
+  },
+  {
+   "event": "p11_tie"
+  }
+ ],
+ "p11c2.rig": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You take the lamp off the crate and tie it to the beam over it, with a good knot, the way a captain ties things.",
+  {
+   "repair": "knot",
+   "strikes": 3,
+   "title": "TIE IT TO THE BEAM"
+  },
+  "garrick[businesslike]: (supervising) Good. Now another one. To the other beam. For balance.",
+  "captain: It's tied.",
+  "garrick[businesslike]: It's tied to ONE thing, Captain. Everything tied to one thing falls down eventually. That's history. Two anchors. Then a test.",
+  "You tie it to the other beam. You don't know why. He's watching.",
+  {
+   "setFlag": "lamp_two_ropes"
+  }
+ ],
+ "p11c2.test": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You give the lamp a push. Gently.",
+  {
+   "sfx": "lamp_swing",
+   "volume": 0.8
+  },
+  "It swings. Then the ship tips, and it swings MUCH further, out over the long table, back past the Mark II, out over the hammocks, and the flame inside the glass leans over sideways and licks at the top of it.",
+  {
+   "sfx": "timber_groan",
+   "volume": 0.9
+  },
+  {
+   "sfx": "dish_rattle",
+   "volume": 0.9
+  },
+  {
+   "shake": 2,
+   "duration": 700
+  },
+  "Pete's hammock is about a foot from it at the top of the swing.",
+  "pete[alarmed]: CAPTAIN.",
+  "You grab it. It's hot. You hold it anyway until the ship comes back.",
+  "captain[angry]: OPEN. FLAME.",
+  "garrick[businesslike]: (taking notes in the margin of his book) Two anchors: insufficient. Noted. We need stabilizers. Four more.",
+  "captain: SIX ropes? For a LAMP?",
+  "garrick[proud]: For the Grand Bedside Illumination System, Captain. Six is the minimum. Brogath had eight.",
+  "captain: Brogath isn't REAL.",
+  "garrick[smug]: Then he didn't need any, did he.",
+  {
+   "setFlag": "lamp_test_failed"
+  }
+ ],
+ "p11c2.six": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "Four more ropes: two to the deck beams fore and aft, one to the hook over the crate, one, at his insistence, to the ring on the end of his own hammock 'for feedback'.",
+  {
+   "repair": "knot",
+   "strikes": 3,
+   "title": "SIX ROPES"
+  },
+  {
+   "sfx": "lamp_twang",
+   "volume": 0.9
+  },
+  "TWANG. The last one goes taut and the whole thing hums like a harp.",
+  "You let go.",
+  {
+   "sfx": "timber_creak",
+   "volume": 0.7
+  },
+  {
+   "sfx": "dish_rattle",
+   "volume": 0.5
+  },
+  "The ship tips. The lamp... stays. The ship tips back. The lamp stays. It hangs in the middle of six ropes like a spider in a web, dead level, the flame straight up, while the whole galley tips round it.",
+  "Nobody says anything.",
+  "gristle: ...That's a good piece of rigging, that is.",
+  "garrick[delighted]: The GRAND BEDSIDE ILLUMINATION SYSTEM.",
+  "It works. It is one of his stupid ideas, and it works, and it's going to keep working, right over your head, every night, for the rest of your life.",
+  "captain[angry]: ...I hate that.",
+  "garrick[proud]: You're welcome, Captain.",
+  {
+   "setFlag": "lamp_six_rope_installed"
+  },
+  {
+   "setValue": "galley_lamp_state",
+   "value": "six_rope_suspension"
+  },
+  {
+   "completeQuest": "grand_illumination"
+  },
+  {
+   "call": "p11c3.begin"
+  }
+ ],
+ "p11c3.begin": [
+  {
+   "setFlag": "p11_ch98_started"
+  },
+  {
+   "banner": "CHAPTER 98",
+   "sub": "Brogath's Treasure Story"
+  },
+  "Under the new lamp, the Grand Stenchmaster settles back in his hammock with his book and opens it to the middle.",
+  "garrick[delighted]: Now. A bedtime story.",
+  "The galley groans. All of it, at once.",
+  "bob: Not the baby one.",
+  "jim: Not the BABY one.",
+  "ned: If it's Princess Stenchalina in the castle with the onions again I'm sleeping on deck.",
+  "garrick[offended]: The Stenchalina legend is a CLASSIC. But no. Tonight: Brogath. Properly. The whole of chapter three.",
+  "pete[tired]: We've HAD Brogath.",
+  "garrick[proud]: You've had the SHORT Brogath, Pete. The bedtime Brogath. This is the expanded Brogath. With the treasure.",
+  {
+   "startQuest": "poor_in_gold"
+  },
+  {
+   "tutorial": "Hear the story (the Grand Stenchmaster's hammock). You don't have to like it.",
+   "title": "Brogath's Treasure Story"
+  }
+ ],
+ "p11c3.story": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "vista": "galley_legend",
+   "fade": 600
+  },
+  "garrick[proud]: Long ago, in the age of the Ancient Stenchmasters, there lived Brogath the Bashful. The shyest Grand Stenchmaster who ever lived. Wouldn't release in company. Wouldn't release in the same COUNTY.",
+  "garrick[proud]: One day Brogath found a treasure. Gold, Captain. Crowns. Chains. Buried deep. Absurdly deep. So deep the map had a second page for the hole.",
+  "garrick[businesslike]: He dug for three minutes.",
+  "captain: Three minutes.",
+  "garrick[businesslike]: He was very tired. He was a Stenchmaster, not a miner. So he did what any Grand Stenchmaster would do.",
+  "pete[tired]: Oh no.",
+  "garrick[proud]: Stenchmaster Excavation. Rear to the hole. The ceremonial sash held out on both sides by his loyal supporters, to keep it from fluttering, for dignity.",
+  {
+   "choice": [
+    {
+     "text": "\"His loyal WHAT?\"",
+     "then": [
+      "garrick[businesslike]: Sash supporters, Captain. Historically attested. It's in the margin."
+     ]
+    },
+    {
+     "text": "\"This is a story about a hole.\"",
+     "then": [
+      "garrick[offended]: It's a story about COURAGE, Captain. Set near a hole."
+     ]
+    },
+    {
+     "text": "Say nothing. Endure.",
+     "then": [
+      "You say nothing. You stare at the lamp. The lamp does not move. It's the only thing in your life that doesn't."
+     ]
+    }
+   ]
+  },
+  {
+   "sfx": "legend_whoomp",
+   "volume": 0.8
+  },
+  "garrick[proud]: And Brogath released. A great release. The greatest of his career. The earth went up. The rocks went up. And the treasure...",
+  "garrick[worried]: ...the treasure went up too. Higher than the rocks. Up and up, into a storm. A storm made of SHARKS.",
+  "Silence in the galley.",
+  "garrick[worried]: And the sharks caught it. Every coin. And they wore it, Captain. Chains and crowns and rings. The biggest of them wore the crown. And they went round and round in the storm, rich. Very rich sharks.",
+  "garrick[worried]: And Brogath was left in the hole. Poor in gold.",
+  "He pauses for effect.",
+  "garrick[proud]: But WEALTHY in gas.",
+  {
+   "vistaEnd": true,
+   "fade": 500
+  },
+  "Nobody says anything for a long time. Outside the hatch, something large and silent goes past in a gold chain.",
+  "captain[angry]: ...That happened TODAY.",
+  "garrick[businesslike]: It's an ancient legend, Captain.",
+  "captain[angry]: It happened TODAY. To US. The hole, the release, the TREASURE INTO A STORM, the SHARKS WEARING IT, the BIG ONE IN THE CROWN.",
+  "garrick[proud]: History repeats itself, Captain. That's what makes it history.",
+  "pete: When did you write chapter three?",
+  "garrick[nervous]: ...Recently. It's a recent copy of a very old chapter.",
+  "squawks[smug]: Crayon still wet.",
+  {
+   "setFlag": "brogath_treasure_story_heard"
+  },
+  {
+   "setValue": "brogath_status",
+   "value": "alleged_poor_in_gold"
+  },
+  {
+   "logbook": "garrick_legends",
+   "entry": "brogath"
+  },
+  {
+   "completeQuest": "poor_in_gold"
+  },
+  {
+   "call": "p11c4.begin"
+  }
+ ],
+ "p11c4.begin": [
+  {
+   "setFlag": "p11_ch99_started"
+  },
+  {
+   "banner": "CHAPTER 99",
+   "sub": "Every Sash Incident"
+  },
+  "You can't sleep. You lie on your sacks and look up at the hammock and the lamp, and you start, without meaning to, to go over it all. From the beginning.",
+  "Then you get up, because you can't go over all of it lying down.",
+  "captain[determined]: Garrick.",
+  "garrick: (from the hammock) Hnnh.",
+  "captain[determined]: The sash.",
+  "garrick[alarmed]: (instantly awake) What about the sash?",
+  {
+   "startQuest": "every_sash_incident"
+  },
+  {
+   "tutorial": "Go over every sash incident: the sash on its peg (by the hatch), his org chart (on the wall by the stove), the sash holders (Rusty Tom), and the book (him).",
+   "title": "Every Sash Incident"
+  }
+ ],
+ "p11c4.peg": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The Grand Stenchmaster's ceremonial sash, hung on a peg for the night. Mustard, with burgundy edges, fake-gold trim and an embroidered nose under a crown.",
+  {
+   "insert": "sash_clearance_tag",
+   "caption": "SASH, CEREMONIAL. NOVELTY ITEM. CLEARANCE. FINAL SALE."
+  },
+  "captain: Item one. You bought it. At a discount shop. In the clearance bin.",
+  "garrick[offended]: It CAME FROM a discount shop, Captain. Where it had been mislaid. It's been in my family for generations.",
+  "captain: It's got a price tag on it.",
+  "garrick[businesslike]: A historical price tag.",
+  "captain: It says FINAL SALE.",
+  "garrick[proud]: And it was. They never sold another one. Because it's SACRED.",
+  "jim: (from his hammock) Can we sleep?",
+  "captain: NO.",
+  {
+   "setFlag": "p11_sash_ex_peg"
+  },
+  {
+   "event": "p11_sash_ex"
+  }
+ ],
+ "p11c4.chart": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "Pinned on the wall by the stove, in crayon, on the back of a Frog Grog label: THE GRAND STENCHMASTER'S OFFICE. A family tree of jobs, all of them pointing at one man.",
+  {
+   "insert": "stenchmaster_org_chart",
+   "caption": "GRAND STENCHMASTER. Below him: GRAND STEWARD. ASSISTANT STEWARD. SASH HOLDER (LEFT). SASH HOLDER (RIGHT). FLUTTER OBSERVERS (ROTATING)."
+  },
+  "captain: Item two. A Grand Steward. An ASSISTANT Steward. Two sash holders. And flutter observers. Rotating.",
+  "garrick[businesslike]: Every great institution has a structure, Captain.",
+  "captain: What does a flutter observer DO?",
+  "garrick[businesslike]: Observes. For flutter.",
+  "pete[tired]: (from his hammock) He tried to make ME a flutter observer. During a meal.",
+  "garrick[offended]: You were ALREADY looking, Pete. I was only making it official.",
+  {
+   "setFlag": "p11_sash_ex_chart"
+  },
+  {
+   "event": "p11_sash_ex"
+  }
+ ],
+ "p11c4.holders": [
+  "Rusty Tom and Barnacle Bill, the sash holders, asleep back to back on their sacks with their arms still slightly out, as if they're holding something.",
+  "captain: Item three. Every time. Every SINGLE time. Somebody has to stand behind him holding cloth.",
+  "rusty_tom[coughing]: (without opening his eyes) Not again. Please.",
+  "barnacle_bill: (without opening his eyes) We didn't let go. We never let go.",
+  "captain: I know you didn't. That's the PROBLEM.",
+  {
+   "setFlag": "p11_sash_ex_holders"
+  },
+  {
+   "event": "p11_sash_ex"
+  }
+ ],
+ "p11c4.book": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "captain: Item four. The book. Every time we try to stop him holding a ceremony, there's a chapter about a ceremony.",
+  "garrick[proud]: There's a lot of history, Captain.",
+  "captain: Every time we refuse to hold the sash, there's a legend about someone who held the sash. Every time we say it's made up, there's BROGATH.",
+  "garrick[proud]: Brogath had eight holders.",
+  "captain[angry]: Brogath had eight holders because you needed EIGHT HOLDERS.",
+  {
+   "setFlag": "p11_sash_ex_book"
+  },
+  {
+   "event": "p11_sash_ex"
+  }
+ ],
+ "p11c4.done": [
+  "You stand in the middle of the galley under the six-rope lamp. Everyone's awake now. Nobody is pleased about it.",
+  "captain[determined]: Here's what I've worked out.",
+  "captain[determined]: The discount shop. The 'sacred' status. The Grand Steward. The Assistant Steward. The flutter observers. Brogath. The book. ALL of it.",
+  "captain[angry]: Every single thing in your alleged history turns into somebody standing behind you holding your sash while you fart.",
+  "Silence.",
+  "garrick: ...Well, when you put it like that, it sounds like a pattern.",
+  "captain[angry]: IT IS A PATTERN.",
+  "garrick[proud]: A TRADITION, Captain. A pattern is when it happens twice. A tradition is when it happens every time.",
+  "squawks[smug]: Every time.",
+  {
+   "setFlag": "sash_incidents_reviewed"
+  },
+  {
+   "completeQuest": "every_sash_incident"
+  },
+  {
+   "call": "p11c5.begin"
+  }
+ ],
+ "p11c5.begin": [
+  {
+   "setFlag": "p11_ch100_started"
+  },
+  {
+   "banner": "CHAPTER 100",
+   "sub": "The Grand Finger-Puller"
+  },
+  "garrick[businesslike]: And since we're discussing the structure of the office...",
+  "pete[tired]: We're not.",
+  "garrick[businesslike]: ...there is one position on the chart that's never been filled. An ancient office. Very senior.",
+  "He turns the page of his book and holds it up into the lamplight. A drawing of a hand. One finger out.",
+  "garrick[proud]: The Grand Stenchmaster's GRAND FINGER-PULLER.",
+  "Nobody moves. In the whole galley, the only sound is the storm and Jim very slowly pulling his blanket over his head.",
+  "bob: ...What does it do?",
+  "garrick[businesslike]: Pulls the finger, Bob. When the Grand Stenchmaster extends it. It's the most trusted job in the office. Historically.",
+  "pete[annoyed]: No.",
+  "garrick[smug]: I didn't say it was you, Pete.",
+  "pete[annoyed]: You were LOOKING at me. You were looking at me with the FINGER.",
+  "garrick[businesslike]: Then let's be fair about it. Let's VOTE. Everybody gets a say.",
+  "captain: This is a pirate ship.",
+  "garrick[delighted]: EXACTLY, Captain. Pirates vote. It's the most democratic thing about you.",
+  "You open your mouth. You close it. He's... right. Pirates do vote. It's in the articles. You wrote the articles.",
+  "captain[tired]: ...Fine. A vote. I'll count.",
+  {
+   "startQuest": "grand_finger_puller"
+  },
+  {
+   "tutorial": "Count the votes: Pete, Bob, Jim and Gristle (in their hammocks and on their sacks).",
+   "title": "The Grand Finger-Puller"
+  }
+ ],
+ "p11c5.vote_pete": [
+  "pete[annoyed]: NO. Put me down for no. Put me down for no TWICE.",
+  "captain: You only get one.",
+  "pete[annoyed]: Then make it a LOUD one.",
+  {
+   "setFlag": "p11_vote_pete"
+  },
+  {
+   "event": "p11_vote"
+  }
+ ],
+ "p11c5.vote_bob": [
+  "bob[concerned]: Does it pay?",
+  "captain: No.",
+  "bob[concerned]: Is there a hat?",
+  "garrick[delighted]: (from the hammock) There COULD be a hat, Bob.",
+  "bob: ...No. Even with the hat, no.",
+  {
+   "setFlag": "p11_vote_bob"
+  },
+  {
+   "event": "p11_vote"
+  }
+ ],
+ "p11c5.vote_jim": [
+  "jim[annoyed]: (from under the blanket) I cook for this man. I've seen what goes IN. I am not going anywhere near what comes OUT. No.",
+  {
+   "setFlag": "p11_vote_jim"
+  },
+  {
+   "event": "p11_vote"
+  }
+ ],
+ "p11c5.vote_gristle": [
+  "gristle: No. And I want it in the log that I said no without having to think about it.",
+  {
+   "setFlag": "p11_vote_gristle"
+  },
+  {
+   "event": "p11_vote"
+  }
+ ],
+ "p11c5.result": [
+  "captain[smug]: The vote. On the creation of the post of Grand Finger-Puller.",
+  "captain[smug]: For: one. Against: everybody.",
+  "squawks[smug]: Abstain.",
+  "captain: You can't abstain, you're a parrot.",
+  "squawks[smug]: Abstain HARDER.",
+  "garrick[offended]: The office remains... vacant. FOR NOW. It stays on the chart, Captain. You can't vote history off a chart.",
+  "He takes out a crayon and writes, on the org chart, under SASH HOLDER (RIGHT): GRAND FINGER-PULLER (VACANT, TEMPORARILY).",
+  {
+   "setFlag": "grand_finger_puller_introduced"
+  },
+  {
+   "setValue": "grand_finger_puller",
+   "value": "vacant"
+  },
+  {
+   "logbook": "garrick_legends",
+   "entry": "bureaucracy"
+  },
+  {
+   "completeQuest": "grand_finger_puller"
+  },
+  {
+   "call": "p11c6.begin"
+  }
+ ],
+ "p11c6.begin": [
+  {
+   "setFlag": "p11_ch101_started"
+  },
+  {
+   "banner": "CHAPTER 101",
+   "sub": "The Storm Starts Listening"
+  },
+  {
+   "sfx": "token_whistle",
+   "volume": 0.8
+  },
+  "Tok.",
+  "Something comes down the ladder from the hatch, bounces twice and rolls across the galley floor. Then another one. Then another.",
+  {
+   "token": "token_coin",
+   "x": 13,
+   "y": 5,
+   "id": "p11_t1",
+   "async": true
+  },
+  {
+   "wait": 300
+  },
+  {
+   "token": "token_card",
+   "x": 10,
+   "y": 5,
+   "id": "p11_t2",
+   "async": true
+  },
+  {
+   "wait": 300
+  },
+  {
+   "token": "token_rosette",
+   "x": 14,
+   "y": 9,
+   "id": "p11_t3",
+   "async": true
+  },
+  {
+   "wait": 300
+  },
+  {
+   "token": "token_medal",
+   "x": 9,
+   "y": 10,
+   "id": "p11_t4",
+   "async": true
+  },
+  {
+   "wait": 500
+  },
+  {
+   "setFlag": "p11_tokens_down"
+  },
+  "Plastic. Bright, cheap, warm from the air. Participation tokens.",
+  "ned: They're listening. Up there. The sharks are LISTENING.",
+  "pete: They can't hear us in here.",
+  "ned: Then why have they started throwing things the moment we had a VOTE?",
+  {
+   "startQuest": "storm_listening"
+  },
+  {
+   "tutorial": "See what came down the ladder this time (four tokens, on the floor).",
+   "title": "The Storm Starts Listening"
+  }
+ ],
+ "p11c6.t1": [
+  {
+   "removeSprite": "p11_t1"
+  },
+  {
+   "insert": "token_fart_man",
+   "caption": "WHY DOES A PIRATE SHIP HAVE A DESIGNATED FART MAN?"
+  },
+  "garrick[offended]: DESIGNATED. I was APPOINTED.",
+  "captain: By who?",
+  "garrick[businesslike]: ...By me. Officially.",
+  {
+   "setFlag": "p11_tok_1"
+  },
+  {
+   "event": "p11_tok"
+  }
+ ],
+ "p11c6.t2": [
+  {
+   "removeSprite": "p11_t2"
+  },
+  {
+   "insert": "token_budget",
+   "caption": "STENCHMASTER DEPARTMENT BUDGET: 100%. EVERYTHING ELSE: 0%."
+  },
+  "gristle: That's about right, that is.",
+  {
+   "setFlag": "p11_tok_2"
+  },
+  {
+   "event": "p11_tok"
+  }
+ ],
+ "p11c6.t3": [
+  {
+   "removeSprite": "p11_t3"
+  },
+  {
+   "insert": "token_titles",
+   "caption": "UNNECESSARY JOB TITLES OF THE MONTH! WHY DOES A PIRATE CREW NEED THIS JOB?"
+  },
+  "pete[annoyed]: Grand Sharkmaster's on the back.",
+  "captain: What does it say?",
+  "pete[annoyed]: ...It says 'see above'.",
+  {
+   "setFlag": "p11_tok_3"
+  },
+  {
+   "event": "p11_tok"
+  }
+ ],
+ "p11c6.t4": [
+  {
+   "removeSprite": "p11_t4"
+  },
+  {
+   "insert": "token_butts",
+   "caption": "WHY HIRE A FART MAN WHEN THE CREW ALREADY HAS BUTTS?"
+  },
+  "Bob reads it over your shoulder and laughs so hard he falls out of his hammock.",
+  "bob: (from the floor) It's a good point though!",
+  "garrick[offended]: It is NOT a good point. It's a STRUCTURAL MISUNDERSTANDING of the office.",
+  {
+   "setFlag": "p11_tok_4"
+  },
+  {
+   "event": "p11_tok"
+  }
+ ],
+ "p11c6.done": [
+  {
+   "sfx": "token_whistle",
+   "volume": 0.8
+  },
+  "One more comes down. A card, laminated. You catch it before it lands.",
+  {
+   "insert": "token_finger_puller",
+   "caption": "NOW HIRING: GRAND FINGER-PULLER. NO EXPERIENCE NECESSARY. ZERO ACCOUNTABILITY. ASK YOUR CAPTAIN!"
+  },
+  "captain[alarmed]: How do they know about the FINGER-PULLER?",
+  "garrick[proud]: The office is famous, Captain.",
+  "captain[angry]: We voted on it TEN MINUTES AGO.",
+  "On the back, in smaller print: CAPTAIN MANAGEMENT TIP: IF YOUR FART MAN WON'T FART, TRY ASKING NICELY. — THE BLING BLING KING.",
+  "Outside the hatch, round and round, the storm goes by. Nobody up there says a word. Nobody up there ever does.",
+  {
+   "setFlag": "p11_tokens_read"
+  },
+  {
+   "setFlag": "bbk_mocked_fart_man"
+  },
+  {
+   "logbook": "bbk_trash"
+  },
+  {
+   "completeQuest": "storm_listening"
+  },
+  {
+   "call": "p11c7.begin"
+  }
+ ],
+ "p11c7.begin": [
+  {
+   "setFlag": "p11_ch102_started"
+  },
+  {
+   "banner": "CHAPTER 102",
+   "sub": "Hammocks Begin to Die"
+  },
+  "The storm goes quiet. Very quiet. For long enough that you start to think it might be over.",
+  "Then the whole ship drops, sideways, like a cart going off a kerb.",
+  {
+   "sfx": "timber_groan",
+   "volume": 0.9
+  },
+  {
+   "sfx": "dish_rattle",
+   "volume": 0.9
+  },
+  {
+   "shake": 2,
+   "duration": 700
+  },
+  {
+   "sfx": "hammock_snap",
+   "volume": 0.9
+  },
+  "SNAP.",
+  {
+   "sfx": "cloth_rip",
+   "volume": 0.8
+  },
+  "RRRRIP.",
+  {
+   "sfx": "hammock_snap",
+   "volume": 0.9
+  },
+  {
+   "wait": 200
+  },
+  {
+   "sfx": "thud_heavy",
+   "volume": 0.7
+  },
+  "SNAP. Thud. Thud. Thud.",
+  {
+   "setFlag": "sailcloth_hammocks_snapped"
+  },
+  {
+   "restage": "cut"
+  },
+  "When the galley stops spinning, the three new hammocks are hanging in rags off the beams, and Pete, Bob and Jim are on the floor underneath them. The long table's on the move, sliding for the hold stairs.",
+  "Over your head, the Grand Stenchmaster's hammock (the old one, the patched one) swings gently, perfectly intact.",
+  "garrick[smug]: Quality, Captain.",
+  {
+   "startQuest": "hammocks_die"
+  },
+  {
+   "tutorial": "Help Pete, Bob and Jim up (on the floor), stop the long table sliding (the long table), and look at what's left of the hammocks (the rags on the beams).",
+   "title": "Hammocks Begin to Die"
+  }
+ ],
+ "p11c7.up_pete": [
+  "You haul Pete up by the arm.",
+  "pete[tired]: The sandwich has left the bread, Captain.",
+  {
+   "setFlag": "p11_up_pete"
+  },
+  {
+   "event": "p11_up"
+  }
+ ],
+ "p11c7.up_bob": [
+  "You haul Bob up. He's laughing.",
+  "bob[happy]: Again! Can we do that again?",
+  "captain: NO.",
+  {
+   "setFlag": "p11_up_bob"
+  },
+  {
+   "event": "p11_up"
+  }
+ ],
+ "p11c7.up_jim": [
+  "You haul Jim up. He checks the stove before he checks himself.",
+  "jim: Stove's fine. I'm fine. Stove first.",
+  {
+   "setFlag": "p11_up_jim"
+  },
+  {
+   "event": "p11_up"
+  }
+ ],
+ "p11c7.table": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "The long table, sliding the length of the galley with every roll, scraping a groove in the deck.",
+  {
+   "repair": "brace",
+   "strikes": 3,
+   "title": "STOP THE TABLE"
+  },
+  "You get your shoulder against it and your boots against a beam and you hold it while Gristle wedges the legs with two bean cans and a frying pan.",
+  "gristle: That'll hold. Probably.",
+  {
+   "setFlag": "p11_table_braced"
+  }
+ ],
+ "p11c7.rags": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "What's left of the sailcloth hammocks: grey rags, still knotted to the beams, hanging down. You take a piece and pull it. It comes apart in your hands like wet bread.",
+  "gristle: Rotten. The whole roll. It's been in the hold next to the sauce vats. Look at it. It's gone soft.",
+  "captain: Then we use something stronger.",
+  "gristle: What stronger? That's all the cloth we've got. The rest is in the condemned quarters, and NOBODY's going in there.",
+  {
+   "setFlag": "hammock_cloth_too_weak"
+  }
+ ],
+ "p11c7.done": [
+  "garrick[businesslike]: (leaning out of his hammock) If I might make a proposal...",
+  "captain: No.",
+  "garrick[businesslike]: The problem is tension. A controlled release, under each hammock, at the right moment, would provide an upward...",
+  "EVERYONE: NO.",
+  "garrick[offended]: You didn't let me get to the bit about the sash.",
+  "EVERYONE: NO.",
+  "bob: We could sleep in the treasure room. There's loads of room in the treasure room.",
+  "Every head in the galley turns to Bob.",
+  "pete: It's got a CLOUD in it, Bob.",
+  "bob: A small one.",
+  "gristle: (getting up) I'm putting a sign on that door. Right now. Before anybody else has an idea.",
+  "He goes down the stairs to the hold with a hammer and a bit of crate. You hear him hammering. When he comes back up, he doesn't say anything. He doesn't need to.",
+  {
+   "setFlag": "treasure_door_sign_1"
+  },
+  {
+   "setFlag": "treasure_room_sealed"
+  },
+  {
+   "completeQuest": "hammocks_die"
+  },
+  {
+   "call": "p11c8.begin"
+  }
+ ],
+ "p11c8.begin": [
+  {
+   "setFlag": "p11_ch103_started"
+  },
+  {
+   "banner": "CHAPTER 103",
+   "sub": "The Lost Book"
+  },
+  {
+   "restage": "cut"
+  },
+  "Nobody can sleep now. Pete, Bob and Jim are sitting on the floor in a row with their backs against the long table. The Grand Stenchmaster has come down out of his hammock 'to read to the morale', and is sitting at the end of the long table under the lamp with his book open.",
+  "garrick[delighted]: Chapter Five. Rumpold Windbreaker and the Second Tornado...",
+  "pete[tired]: There's a SECOND tornado?",
+  "garrick[proud]: There's always a second tornado, Pete. That's how you know the first one meant it.",
+  {
+   "sfx": "timber_creak",
+   "volume": 0.7
+  },
+  {
+   "sfx": "dish_rattle",
+   "volume": 0.5
+  },
+  "The ship tips. You feel it, deep, the way you feel a big wave coming before you see it.",
+  "gristle: (very quietly) Brace.",
+  {
+   "startQuest": "the_lost_book"
+  },
+  {
+   "tutorial": "BRACE! (the long table)",
+   "title": "The Lost Book"
+  }
+ ],
+ "p11c8.brace": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  {
+   "sfx": "timber_groan",
+   "volume": 0.9
+  },
+  {
+   "sfx": "dish_rattle",
+   "volume": 0.9
+  },
+  {
+   "shake": 2,
+   "duration": 700
+  },
+  "The galley goes up on its side. Everything slides. The book slides off the end of the table, out of the Grand Stenchmaster's hands, and away across the floor.",
+  {
+   "sprite": "p11_book",
+   "frame": "book_sliding",
+   "x": 9,
+   "y": 7
+  },
+  {
+   "moveSprite": "p11_book",
+   "x": 12,
+   "y": 6,
+   "duration": 500,
+   "async": true
+  },
+  "garrick: THE BOOK!",
+  {
+   "repair": "grab",
+   "strikes": 3,
+   "title": "GRAB THE BOOK!"
+  },
+  "You dive. Your fingers close on the cover...",
+  {
+   "moveSprite": "p11_book",
+   "x": 14,
+   "y": 5,
+   "duration": 400,
+   "async": true
+  },
+  "...and the ship tips back, and the book goes the other way under your hand, and Bob dives, and Pete dives, and Jim dives, and they all land on each other, and the book slides out from under all of them...",
+  {
+   "sfx": "porthole_bang",
+   "volume": 0.9
+  },
+  "...and up on the wall, the porthole by the ladder bangs open on its broken latch.",
+  {
+   "sfx": "wind_suck",
+   "volume": 0.9
+  },
+  "The storm reaches in. It's like the whole sky breathing in.",
+  {
+   "moveSprite": "p11_book",
+   "x": 13,
+   "y": 2,
+   "duration": 600
+  },
+  {
+   "removeSprite": "p11_book"
+  },
+  "The book goes up the wall, through the porthole, and is gone.",
+  {
+   "sfx": "porthole_bang",
+   "volume": 0.6
+  },
+  "The porthole bangs shut.",
+  "Out there, round and round, in a storm made of sharks and treasure and somebody's quilt, goes The Grand Expedition for the Lost Fart: Complete Grand Stenchmaster Legends - Volume One of Probably Many.",
+  {
+   "setFlag": "garrick_book_lost"
+  },
+  {
+   "setValue": "garrick_book_location",
+   "value": "great_sharkstorm"
+  },
+  {
+   "restage": "cut"
+  },
+  "The Grand Stenchmaster stands up very slowly. He looks at the porthole. He looks at his empty hands.",
+  "garrick[alarmed]: ...My book.",
+  "garrick[alarmed]: Thirty years of research. Every legend. Every Stenchmaster. Brogath. Rumpold. The chapter with the drawings.",
+  "jim: You wrote it last week.",
+  "garrick[alarmed]: (not hearing him) The only copy.",
+  "He sits down on the floor. He's actually crying. Big, slow, sincere tears, into his muttonchops.",
+  "Nobody knows what to do. Nobody has ever seen him like this. Even Squawks has opened one eye."
+ ],
+ "p11c8.console": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "The Grand Stenchmaster, on the floor, holding the empty space where the book was.",
+  {
+   "choice": [
+    {
+     "text": "\"It was crayon, Garrick.\"",
+     "then": [
+      "garrick[alarmed]: It was MY crayon.",
+      "Somehow, that's worse."
+     ]
+    },
+    {
+     "text": "\"You'll write another one.\"",
+     "then": [
+      "garrick[worried]: (sniffing) It won't be the SAME. You can't write the same legend twice, Captain. That's what makes them legends.",
+      "captain: You wrote Brogath twice tonight."
+     ]
+    },
+    {
+     "text": "Pat him on the shoulder. Once.",
+     "then": [
+      "You pat him on the shoulder, once, awkwardly, the way you'd pat a damp dog. He leans into it.",
+      "garrick[worried]: Thank you, Captain.",
+      "Your hand smells of him now. You knew it would. You did it anyway."
+     ]
+    }
+   ]
+  },
+  "squawks: (quietly) Sorry about the book.",
+  "garrick[worried]: (sniffing) Thank you, Squawks.",
+  "squawks[smug]: ...Not very.",
+  {
+   "setFlag": "p11_garrick_consoled"
+  },
+  {
+   "completeQuest": "the_lost_book"
+  },
+  {
+   "call": "p11c9.begin"
+  }
+ ]
+}

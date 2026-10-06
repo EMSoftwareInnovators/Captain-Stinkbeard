@@ -1,0 +1,129 @@
+{
+ "//": "Story Phase 11: inspect scripts in the galley and the hold, and the treasure-room door's lock.",
+ "p11.inspect.bed": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  {
+   "if": {
+    "flag": "captain_uses_bed_sash"
+   },
+   "then": [
+    "Your bed: three bean sacks, two crates, a sack of onions, and a folded toy sash where your head goes. It crackles. It smells of cardboard. It's the best thing you own."
+   ],
+   "else": [
+    "Your bed: three bean sacks, wedged with two crates and a sack of onions. Over it, his hammock."
+   ]
+  },
+  {
+   "choice": [
+    {
+     "text": "Lie down for a bit.",
+     "then": [
+      "You lie down. The hammock sways over your face. You get up again."
+     ]
+    },
+    {
+     "text": "Breathe deeply. (Not advised.)",
+     "then": [
+      {
+       "call": "p11.breathe"
+      }
+     ]
+    },
+    {
+     "text": "Leave it."
+    }
+   ]
+  }
+ ],
+ "p11.inspect.lamp": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "if": {
+    "flag": "lamp_six_rope_installed"
+   },
+   "then": [
+    "The Grand Bedside Illumination System: one kerosene lamp, held dead level in the middle of six ropes, while the whole galley tips round it. The flame doesn't even lean.",
+    "It works. It is his. You hate it. You read by it."
+   ],
+   "else": [
+    "The kerosene lamp, tied to the beams with two ropes. It still swings. You watch it swing."
+   ]
+  }
+ ],
+ "p11.inspect.peg": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The Grand Stenchmaster's ceremonial sash, on its peg for the night. The CLEARANCE tag is still on it. It says FINAL SALE.",
+  {
+   "if": {
+    "flag": "sash_flutter_weakness_discovered"
+   },
+   "then": [
+    "It hangs very still. You look at it for a long time. You've never liked it so much."
+   ]
+  }
+ ],
+ "p11.inspect.chart": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "insert": "stenchmaster_org_chart",
+   "caption": "THE GRAND STENCHMASTER'S OFFICE."
+  },
+  {
+   "if": {
+    "flag": "grand_finger_puller_introduced"
+   },
+   "then": [
+    "Under SASH HOLDER (RIGHT), newer crayon: GRAND FINGER-PULLER (VACANT, TEMPORARILY)."
+   ]
+  }
+ ],
+ "p11.inspect.porthole": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The porthole over the long table, its latch bent, tied shut now with one of Jim's bootlaces.",
+  "Out there, somewhere, going round: The Grand Expedition for the Lost Fart. Volume One of Probably Many."
+ ],
+ "p11.inspect.crate": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "sfx": "package_crinkle",
+   "volume": 0.5
+  },
+  "The Cheap-O-Rama crate. Two hundred and ninety-something boxes left. A sash in every one, two smiling cardboard sash holders, a pull tab, and a pocket edition.",
+  "Bob has made a little fort out of the empty boxes. He's in it."
+ ],
+ "p11.inspect.sash_hammock": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "A hammock made of Cheap-O-Rama toy sashes, doubled and laced. Red, shiny, crackly. Little embroidered noses all along it.",
+  "It won't tear. It's the strongest thing on the ship. It says AGES SIX AND UP on the edge."
+ ],
+ "p11.treasure_door_sealed": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The treasure-room door. Gristle's sign is nailed across it, in big shaky letters: DO NOT OPEN.",
+  "Behind it is everything the first release left behind. It's been in there since the beginning. It's not getting out.",
+  "You don't open it."
+ ]
+}

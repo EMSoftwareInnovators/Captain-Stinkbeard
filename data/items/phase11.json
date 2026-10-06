@@ -1,0 +1,85 @@
+[
+ {
+  "id": "pocket_legend_book",
+  "name": "Pocket Edition",
+  "type": "key",
+  "icon": "book",
+  "value": 0,
+  "//": "Story Phase 11: the Cheap-O-Rama pocket edition of the legends. It wears out as the arc goes on (pocket_legend_book_condition); the description follows it. It never disappears for good.",
+  "description": "COMPLETE GRAND STENCHMASTER LEGENDS - CHEAP-O-RAMA POCKET EDITION. Free with every sash. Microscopic print. Suspiciously familiar.",
+  "wear": {
+   "value": "pocket_legend_book_condition",
+   "stages": [
+    "new",
+    "bent",
+    "torn_corner",
+    "page_tear",
+    "loose_staple",
+    "barely_surviving"
+   ]
+  },
+  "variants": [
+   {
+    "if": {
+     "value": {
+      "name": "pocket_legend_book_condition",
+      "eq": "barely_surviving"
+     }
+    },
+    "description": "What's left of the pocket edition: a cover, most of the pages, one staple, and an unshakeable belief that it's history."
+   },
+   {
+    "if": {
+     "value": {
+      "name": "pocket_legend_book_condition",
+      "eq": "loose_staple"
+     }
+    },
+    "description": "The pocket edition, hanging on by one crooked staple. The fine print has been read aloud by five desperate pirates."
+   },
+   {
+    "if": {
+     "value": {
+      "name": "pocket_legend_book_condition",
+      "eq": "page_tear"
+     }
+    },
+    "description": "The pocket edition. Bent, torn, and the last page half out at the staple: the table. Table A says see Table A."
+   },
+   {
+    "if": {
+     "value": {
+      "name": "pocket_legend_book_condition",
+      "eq": "torn_corner"
+     }
+    },
+    "description": "The pocket edition, cover bent, a corner torn off (your thumb). The table at the back is still there. Unfortunately."
+   },
+   {
+    "if": {
+     "value": {
+      "name": "pocket_legend_book_condition",
+      "eq": "bent"
+     }
+    },
+    "description": "The pocket edition, cover bent where he hugged it. Brogath, Rumpold, the Grand Court, Gustavio. Free with every sash."
+   }
+  ]
+ },
+ {
+  "id": "toy_sash",
+  "name": "Toy Sash",
+  "type": "key",
+  "icon": "sash",
+  "value": 0,
+  "description": "GRAND STENCHMASTER CEREMONIAL SASH PLAYSET. Red, shiny, synthetic. Ages six and up. It won't tear. Clean. For now."
+ },
+ {
+  "id": "anti_dice_plan",
+  "name": "The Plan",
+  "type": "key",
+  "icon": "ledger",
+  "value": 0,
+  "description": "On the back of a Cheap-O-Rama box: HOLD SASH 30 SECONDS (ME). LET IT FLUTTER. HE MUST NOTICE. CREW GASP AND POINT. 21 DAYS. NO DICE. NO DICE. NO DICE."
+ }
+]

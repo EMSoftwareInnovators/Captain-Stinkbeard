@@ -1,0 +1,44 @@
+{
+ "id": "main_deck_phase11",
+ "patch": "main_deck",
+ "//": "Story Phase 11 on deck: the Cheap-O-Rama crate winched down midships (9,15) in chapter 104, carried below.",
+ "objects": [
+  {
+   "id": "p11_crate_deck",
+   "type": "inspect",
+   "x": 9,
+   "y": 15,
+   "w": 2,
+   "if": {
+    "objectiveActive": "cheap_o_rama_delivery.carry"
+   },
+   "script": "p11c9.carry"
+  }
+ ],
+ "props": [
+  {
+   "prop": "cheap_o_rama_crate",
+   "x": 9,
+   "y": 15,
+   "if": {
+    "all": [
+     {
+      "flag": "cheap_o_rama_crate_landed"
+     },
+     {
+      "notFlag": "cheap_o_rama_crate_below"
+     }
+    ]
+   },
+   "id": "p11_crate_deck"
+  }
+ ],
+ "onEnter": [
+  {
+   "if": {
+    "objectiveActive": "cheap_o_rama_delivery.deck"
+   },
+   "script": "p11c9.deck"
+  }
+ ]
+}

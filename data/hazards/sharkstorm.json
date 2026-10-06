@@ -306,6 +306,44 @@
      "sfx": ["hull_thud", "token_clack", "deck_scrape"],
      "shake": 0.0015
     }
+   },
+   "inside_bedtime": {
+    "//": "Story Phase 11: the first night inside. The same storm, rougher at night: the rooms below drift a little further (still never a spin; off with screen shake off) and now and then one of the Bling Bling King's cheap prizes clatters down the galley ladder (never more than three, never in a scene).",
+    "intensity": 3,
+    "distance": "inside",
+    "maps": ["main_deck"],
+    "flying": {
+     "passEvery": [1600, 3200],
+     "variants": [
+      "flying_shark_pearls",
+      "flying_shark_chain",
+      "flying_shark_tiara",
+      "flying_shark_rings",
+      "flying_shark_belt",
+      "flying_shark_bigchain",
+      "flying_shark",
+      "flying_hammer",
+      "pillow_flying",
+      "flying_bbk"
+     ],
+     "swirl": true
+    },
+    "glints": { "every": [1800, 3600], "sfx": "coin_glint" },
+    "tokens": {
+     "every": [38000, 64000],
+     "frames": ["token_coin", "token_card", "token_rosette", "token_medal"],
+     "max": 3,
+     "maps": ["main_deck", "galley"],
+     "areas": { "main_deck": [4, 3, 15, 23], "galley": [3, 5, 14, 6] }
+    },
+    "sway": { "maps": ["main_deck", "galley", "cargo_hold", "treasure_hold", "crew_quarters", "washroom", "captains_quarters"], "drift": 2.4, "period": 4400 },
+    "rumble": { "every": [9000, 16000], "sfx": "vortex_roar" },
+    "below": {
+     "maps": ["galley", "cargo_hold", "treasure_hold", "crew_quarters", "washroom", "captains_quarters"],
+     "every": [14000, 26000],
+     "sfx": ["hull_thud", "token_clack", "deck_scrape"],
+     "shake": 0.0015
+    }
    }
   }
  }

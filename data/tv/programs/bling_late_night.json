@@ -1,0 +1,211 @@
+{
+ "bling_late_night": {
+  "title": "Bling Bling King, Late",
+  "//": "Story Phase 11: a late-night comedy programme hosted, from behind a desk, by the Bling Bling King (on television it talks; in person it never has). It knows things it can't know: the hammock over the captain, the Finger-Puller vote, the toy sashes. Nobody explains how. Original jokes; the cast are extra speakers.",
+  "laugh": "ftm_laugh",
+  "episodes": [
+   {
+    "id": "late_night_part_one",
+    "if": {
+     "all": [
+      {
+       "flag": "p11_ch109_started"
+      },
+      {
+       "notFlag": "bbk_late_night_seen"
+      }
+     ]
+    },
+    "//": "Watched in the galley (chapter 109): the designated fart man, the benefits package, fartocracy, sleeping above the captain.",
+    "beats": [
+     {
+      "frames": [
+       "bbk_late_title_0",
+       "bbk_late_title_1"
+      ],
+      "line": "announcer: IT'S LATE! IT'S LIVE! IT'S... THE BLING BLING KING, LATE!",
+      "ms": 3000,
+      "sfx": "late_sting",
+      "frameMs": 400
+     },
+     {
+      "frames": [
+       "bbk_late_0",
+       "bbk_late_1"
+      ],
+      "line": "bling_king_tv: Thank you. Thank you. Lovely crowd. Lovely STORM out there tonight.",
+      "ms": 2800,
+      "laugh": true,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "bbk_late_0",
+       "bbk_late_1"
+      ],
+      "line": "bling_king_tv: So I've been asking myself, folks. Why does a pirate ship have a designated FART MAN?",
+      "ms": 3200,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "bbk_late_0",
+       "bbk_late_1"
+      ],
+      "line": "bling_king_tv: Every other ship's got a cook. A carpenter. A surgeon. This one's got a man whose whole job is the one thing EVERYBODY can already do.",
+      "ms": 4000,
+      "laugh": true,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "bbk_late_chart_0",
+       "bbk_late_chart_1"
+      ],
+      "line": "bling_king_tv: And the BENEFITS package. Free beans. Nap authority. A crown. A sash.",
+      "ms": 3200,
+      "frameMs": 700
+     },
+     {
+      "frames": [
+       "bbk_late_chart_0",
+       "bbk_late_chart_1"
+      ],
+      "line": "bling_king_tv: A pension. For when he retires. From what, folks? From WHAT?",
+      "ms": 3000,
+      "laugh": true,
+      "frameMs": 700
+     },
+     {
+      "frames": [
+       "bbk_late_0",
+       "bbk_late_1"
+      ],
+      "line": "bling_king_tv: They call it an office. I call it a FARTOCRACY.",
+      "ms": 2800,
+      "laugh": true,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "bbk_late_hammock_0",
+       "bbk_late_hammock_1"
+      ],
+      "line": "bling_king_tv: And where does he sleep? In a hammock. Directly. Over. The CAPTAIN.",
+      "ms": 3400,
+      "sfx": "ftm_drama",
+      "frameMs": 700
+     },
+     {
+      "frames": [
+       "bbk_late_hammock_0",
+       "bbk_late_hammock_1"
+      ],
+      "line": "bling_king_tv: That's not a chain of command, folks. That's a weather system.",
+      "ms": 3000,
+      "laugh": true,
+      "frameMs": 700
+     }
+    ]
+   },
+   {
+    "id": "late_night_part_two",
+    "if": {
+     "flag": "bbk_late_night_seen"
+    },
+    "//": "On while the captain fights the knobs (and on the channel after): the Grand Court, the Finger-Puller, Hold My Sash, and an advertisement for the Cheap-O-Rama playset.",
+    "beats": [
+     {
+      "frames": [
+       "bbk_court_0",
+       "bbk_court_1"
+      ],
+      "line": "bling_king_tv: Now. The Grand Court. A COURT, folks. For farts. With a JUDGE.",
+      "ms": 3200,
+      "laugh": true,
+      "frameMs": 700
+     },
+     {
+      "frames": [
+       "bbk_court_0",
+       "bbk_court_1"
+      ],
+      "line": "bling_king_tv: 'The Grand Waft is valid.' Who's checking? Who's out there in a wig checking VALIDITY?",
+      "ms": 3400,
+      "laugh": true,
+      "frameMs": 700
+     },
+     {
+      "frames": [
+       "bbk_late_0",
+       "bbk_late_1"
+      ],
+      "line": "bling_king_tv: And they're HIRING. Grand Finger-Puller. No experience. Zero accountability. Sounds like management.",
+      "ms": 3600,
+      "laugh": true,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "hold_my_sash_0",
+       "hold_my_sash_1"
+      ],
+      "line": "announcer: And now, a sketch. HOLD MY SASH!",
+      "ms": 2600,
+      "sfx": "late_sting",
+      "frameMs": 400
+     },
+     {
+      "frames": [
+       "hold_my_sash_0",
+       "hold_my_sash_1"
+      ],
+      "line": "bling_king_tv: (in a little cartoon sash) Hold my sash, boys. I'm going IN.",
+      "ms": 3000,
+      "laugh": true,
+      "frameMs": 400
+     },
+     {
+      "frames": [
+       "cheapo_ad_0",
+       "cheapo_ad_1"
+      ],
+      "line": "cheapo_voice: Kids! Is your Grand Waft IMAGINARY? Then you need the GRAND STENCHMASTER CEREMONIAL SASH PLAYSET!",
+      "ms": 3800,
+      "sfx": "cheapo_jingle",
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "cheapo_ad_0",
+       "cheapo_ad_1"
+      ],
+      "line": "cheapo_voice: Two smiling sash holders! Pretend fart noises! Flutter instructions! No real flatulence required!",
+      "ms": 3800,
+      "sfx": "tab_prrbt",
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "cheapo_logo_0",
+       "cheapo_logo_1"
+      ],
+      "line": "cheapo_voice: CHEAP-O-RAMA DISCOUNT EMPORIUM. We deliver ANYWHERE.",
+      "ms": 3000,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "bbk_late_0",
+       "bbk_late_1"
+      ],
+      "line": "bling_king_tv: We'll be right back. Don't touch that dial. I MEAN it.",
+      "ms": 2800,
+      "laugh": true,
+      "frameMs": 600
+     }
+    ]
+   }
+  ]
+ }
+}

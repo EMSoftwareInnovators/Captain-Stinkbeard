@@ -765,6 +765,125 @@
       "if": {
         "flag": "p10_complete"
       }
+    },
+    {
+      "id": "p11c1",
+      "name": "Chapter 96: Bedtime Inside the Great Sharkstorm",
+      "if": {
+        "flag": "p11_started"
+      }
+    },
+    {
+      "id": "p11c2",
+      "name": "Chapter 97: Grand Bedside Illumination System",
+      "if": {
+        "flag": "p11_ch97_started"
+      }
+    },
+    {
+      "id": "p11c3",
+      "name": "Chapter 98: Brogath's Treasure Story",
+      "if": {
+        "flag": "p11_ch98_started"
+      }
+    },
+    {
+      "id": "p11c4",
+      "name": "Chapter 99: Every Sash Incident",
+      "if": {
+        "flag": "p11_ch99_started"
+      }
+    },
+    {
+      "id": "p11c5",
+      "name": "Chapter 100: The Grand Finger-Puller",
+      "if": {
+        "flag": "p11_ch100_started"
+      }
+    },
+    {
+      "id": "p11c6",
+      "name": "Chapter 101: The Storm Starts Listening",
+      "if": {
+        "flag": "p11_ch101_started"
+      }
+    },
+    {
+      "id": "p11c7",
+      "name": "Chapter 102: Hammocks Begin to Die",
+      "if": {
+        "flag": "p11_ch102_started"
+      }
+    },
+    {
+      "id": "p11c8",
+      "name": "Chapter 103: The Lost Book",
+      "if": {
+        "flag": "p11_ch103_started"
+      }
+    },
+    {
+      "id": "p11c9",
+      "name": "Chapter 104: Cheap-O-Rama Emergency Delivery",
+      "if": {
+        "flag": "p11_ch104_started"
+      }
+    },
+    {
+      "id": "p11c10",
+      "name": "Chapter 105: The Pocket Sacred Text",
+      "if": {
+        "flag": "p11_ch105_started"
+      }
+    },
+    {
+      "id": "p11c11",
+      "name": "Chapter 106: Bed Sashes",
+      "if": {
+        "flag": "p11_ch106_started"
+      }
+    },
+    {
+      "id": "p11c12",
+      "name": "Chapter 107: The Grand Nap's Grand Resumption",
+      "if": {
+        "flag": "p11_ch107_started"
+      }
+    },
+    {
+      "id": "p11c13",
+      "name": "Chapter 108: Sir Rumpus and Fart Validity",
+      "if": {
+        "flag": "p11_ch108_started"
+      }
+    },
+    {
+      "id": "p11c14",
+      "name": "Chapter 109: Late-Night Bling Bling King",
+      "if": {
+        "flag": "p11_ch109_started"
+      }
+    },
+    {
+      "id": "p11c15",
+      "name": "Chapter 110: The First Great Sash Flutter",
+      "if": {
+        "flag": "p11_ch110_started"
+      }
+    },
+    {
+      "id": "p11c16",
+      "name": "Chapter 111: Secret Research and the Anti-Dice Conspiracy",
+      "if": {
+        "flag": "p11_ch111_started"
+      }
+    },
+    {
+      "id": "phase11_end",
+      "name": "The Conspiracy",
+      "if": {
+        "flag": "p11_complete"
+      }
     }
   ],
   "timeOfDay": [
@@ -1139,6 +1258,17 @@
         "var": {
           "name": "p4_tod",
           "eq": 26
+        }
+      }
+    },
+    {
+      "id": "p11_storm_night",
+      "grade": "#6e6aa8",
+      "interior": 0.6,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 27
         }
       }
     }

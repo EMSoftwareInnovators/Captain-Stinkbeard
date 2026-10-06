@@ -126,6 +126,32 @@
       "garrick[proud]: Shh."
      ]
     ]
+   },
+   {
+    "id": 8,
+    "title": "Bling Bling King, Late",
+    "program": "bling_late_night",
+    "if": {
+     "flag": "p11_ch109_started"
+    },
+    "//": "Story Phase 11: a channel nobody tuned. It turned up by itself the night of the Finger-Puller vote.",
+    "frames": [
+     "bbk_late_0",
+     "bbk_late_1"
+    ],
+    "frameMs": 600,
+    "glow": "#e8c860",
+    "hum": "mk2_hum",
+    "comments": [
+     [
+      "captain: The shark. At a desk.",
+      "pete[annoyed]: Where does a shark GET a desk?"
+     ],
+     [
+      "captain: It's still on.",
+      "garrick[offended]: It's very one-sided, Captain. There's never anyone on to speak for the OFFICE."
+     ]
+    ]
    }
   ],
   "wiring": [
@@ -482,6 +508,97 @@
         "The snow parts like a curtain. A frog in a tie, perfectly clear.",
         "pete[annoyed]: ...I hate that it worked.",
         "captain: I am not acknowledging that."
+       ]
+      ]
+     }
+    ]
+   },
+   "late_night": {
+    "//": "Story Phase 11 (chapter 109): the Mark II switched itself on, and won't go off. Every knob does something to the picture or the sound, and the programme carries on regardless; after four other tries the MASTER SWITCH turns up under the crate lid, and it works. No wrong answer is a dead end.",
+    "doneFlag": "p11_late_night_off",
+    "closeAfter": 2800,
+    "openLines": [
+     [
+      "captain: Knobs. FLIP, STRETCH, WORSE SOUND, MUTE. No OFF.",
+      "garrick[businesslike]: There's no OFF, Captain. Off is a state of mind."
+     ]
+    ],
+    "list": [
+     {
+      "id": "flip",
+      "label": "FLIP",
+      "effect": "flip",
+      "sfx": "mk2_switch",
+      "lines": [
+       [
+        "The picture turns upside down. The shark at its desk is upside down. It is still smug upside down.",
+        "bob[surprised]: It's STILL talking."
+       ],
+       [
+        "Right way up again. Unfortunately."
+       ]
+      ]
+     },
+     {
+      "id": "stretch",
+      "label": "STRETCH",
+      "effect": "stretch",
+      "sfx": "mk2_rattle",
+      "lines": [
+       [
+        "The picture goes wide and squat. The shark is now as wide as the desk. The desk is as wide as the galley.",
+        "ned: That's worse. That's worse in a way I can't explain."
+       ],
+       [
+        "Back to the right shape. The shark adjusts its tie."
+       ]
+      ]
+     },
+     {
+      "id": "worse",
+      "label": "WORSE SOUND",
+      "effect": "slow",
+      "sfx": "mk2_antenna_buzz",
+      "lines": [
+       [
+        "The sound goes low and slow and drags. The laugh track sounds like whales.",
+        "jim: It sounds like it's talking from the bottom of a well.",
+        "pete: I'd prefer that."
+       ],
+       [
+        "Normal speed again. The whales go."
+       ]
+      ]
+     },
+     {
+      "id": "mute",
+      "label": "MUTE",
+      "effect": "mute",
+      "ms": 4000,
+      "sfx": "mk2_switch",
+      "lines": [
+       [
+        "Silence! Blessed... the shark keeps talking. Silently. You can read its lips. You wish you couldn't.",
+        "garrick[offended]: Turn it back UP, Captain, I'm missing the Court bit!"
+       ]
+      ]
+     },
+     {
+      "id": "master",
+      "label": "MASTER SWITCH",
+      "effect": "off",
+      "after": 4,
+      "tries": 1,
+      "sfx": "big_switch",
+      "lines": [
+       [
+        "Under the crate's lid, behind the horseshoe, a big brass switch you've never noticed: MASTER."
+       ]
+      ],
+      "doneLines": [
+       [
+        "CLUNK.",
+        "The picture folds down to a dot. The dot goes out."
        ]
       ]
      }

@@ -1,0 +1,450 @@
+[
+ {
+  "id": "bedtime_in_the_storm",
+  "title": "Bedtime Inside the Great Sharkstorm",
+  "category": "main",
+  "giver": "squawks",
+  "summary": "It's the middle of the night, inside a storm made of sharks. Go to bed.",
+  "description": "The bean sacks won't stay put while the ship goes round. Help Gristle string some hammocks, give the Grand Stenchmaster back the book you 'borrowed', and go to bed. Try to stay calm. Try not to breathe through your beard.",
+  "objectives": [
+   {
+    "id": "book",
+    "text": "Give the Grand Stenchmaster his book back (him, in the hammock)",
+    "type": "flag",
+    "target": "garrick_book_returned"
+   },
+   {
+    "id": "hammocks",
+    "text": "Help Gristle string the hammocks (Gristle)",
+    "type": "flag",
+    "target": "sailcloth_hammocks_strung"
+   },
+   {
+    "id": "bed",
+    "text": "Go to bed (your bean sacks, under his hammock)",
+    "type": "flag",
+    "target": "p11_lay_down",
+    "after": [
+     "book",
+     "hammocks"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 50
+  }
+ },
+ {
+  "id": "grand_illumination",
+  "title": "Grand Bedside Illumination System",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "The lamp keeps sliding. He wants to ENGINEER it.",
+  "description": "The kerosene lamp is the only flame on the ship and it won't stay on its crate. Fetch something to tie it with and hang it from the beams. He'll supervise. He's very good at supervising.",
+  "objectives": [
+   {
+    "id": "ties",
+    "text": "Fetch ties: rope from the stores (the sacks by the wall), leather ties (Jim's hooks, by the stove)",
+    "type": "event",
+    "target": "p11_tie",
+    "count": 2
+   },
+   {
+    "id": "rig",
+    "text": "Tie the lamp to the beam (the lamp)",
+    "type": "flag",
+    "target": "lamp_two_ropes",
+    "after": [
+     "ties"
+    ]
+   },
+   {
+    "id": "test",
+    "text": "Test it (the lamp)",
+    "type": "flag",
+    "target": "lamp_test_failed",
+    "after": [
+     "rig"
+    ]
+   },
+   {
+    "id": "six",
+    "text": "Six ropes. SIX. (the lamp)",
+    "type": "flag",
+    "target": "lamp_six_rope_installed",
+    "after": [
+     "test"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "poor_in_gold",
+  "title": "Poor in Gold",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "Another bedtime story. Brogath, properly. With the treasure.",
+  "description": "The Grand Stenchmaster has a longer version of Brogath the Bashful. It has a treasure in it. You may recognise it.",
+  "objectives": [
+   {
+    "id": "story",
+    "text": "Hear the story (the Grand Stenchmaster, in his hammock)",
+    "type": "flag",
+    "target": "brogath_treasure_story_heard"
+   }
+  ],
+  "rewards": {
+   "xp": 50
+  }
+ },
+ {
+  "id": "every_sash_incident",
+  "title": "Every Sash Incident",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "You can't sleep. You're going to go over all of it.",
+  "description": "Go over every sash incident, from the discount shop onward, and work out what they all have in common.",
+  "objectives": [
+   {
+    "id": "review",
+    "text": "Go over it: the sash on its peg (by the hatch), his org chart (by the stove), the sash holders (Rusty Tom), the book (him)",
+    "type": "event",
+    "target": "p11_sash_ex",
+    "count": 4
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "grand_finger_puller",
+  "title": "The Grand Finger-Puller",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "An ancient office. Very senior. Nobody wants it.",
+  "description": "The Grand Stenchmaster wants a Grand Finger-Puller. This is a pirate ship, so it goes to a vote. Count it.",
+  "objectives": [
+   {
+    "id": "vote",
+    "text": "Count the votes: Pete, Bob, Jim and Gristle",
+    "type": "event",
+    "target": "p11_vote",
+    "count": 4
+   }
+  ],
+  "rewards": {
+   "xp": 50
+  }
+ },
+ {
+  "id": "storm_listening",
+  "title": "The Storm Starts Listening",
+  "category": "main",
+  "giver": "squawks",
+  "summary": "Tok. Tok. Tok-tok.",
+  "description": "Something's coming down the ladder from the hatch again. Read it. All of it.",
+  "objectives": [
+   {
+    "id": "tokens",
+    "text": "See what came down the ladder (four tokens, on the floor)",
+    "type": "event",
+    "target": "p11_tok",
+    "count": 4
+   }
+  ],
+  "rewards": {
+   "xp": 50
+  }
+ },
+ {
+  "id": "hammocks_die",
+  "title": "Hammocks Begin to Die",
+  "category": "main",
+  "giver": "gristle",
+  "summary": "SNAP.",
+  "description": "The new hammocks didn't last. Get everyone up, stop the long table going for the stairs, and find out why the cloth gave.",
+  "objectives": [
+   {
+    "id": "up",
+    "text": "Help Pete, Bob and Jim up (on the floor)",
+    "type": "event",
+    "target": "p11_up",
+    "count": 3
+   },
+   {
+    "id": "table",
+    "text": "Stop the long table sliding (the long table)",
+    "type": "flag",
+    "target": "p11_table_braced"
+   },
+   {
+    "id": "rags",
+    "text": "Look at what's left of the hammocks (the rags on the beams)",
+    "type": "flag",
+    "target": "hammock_cloth_too_weak"
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "the_lost_book",
+  "title": "The Lost Book",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "Brace.",
+  "description": "He's reading at the long table. The ship's about to roll.",
+  "objectives": [
+   {
+    "id": "brace",
+    "text": "BRACE! (the long table)",
+    "type": "flag",
+    "target": "garrick_book_lost"
+   },
+   {
+    "id": "console",
+    "text": "Say something to him (him)",
+    "type": "flag",
+    "target": "p11_garrick_consoled",
+    "after": [
+     "brace"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "cheap_o_rama_delivery",
+  "title": "Cheap-O-Rama Emergency Delivery",
+  "category": "main",
+  "giver": "pete",
+  "summary": "That noise isn't weather.",
+  "description": "Something is coming down through the storm, thudding. Go up and see what it is.",
+  "objectives": [
+   {
+    "id": "deck",
+    "text": "See what that noise is (up the ladder, on deck)",
+    "type": "flag",
+    "target": "cheap_o_rama_crate_landed"
+   },
+   {
+    "id": "carry",
+    "text": "Get the crate below (the crate, on deck)",
+    "type": "flag",
+    "target": "cheap_o_rama_crate_below",
+    "after": [
+     "deck"
+    ]
+   },
+   {
+    "id": "open",
+    "text": "Open it (the crate, in the galley)",
+    "type": "flag",
+    "target": "cheap_o_rama_sashes_arrived",
+    "after": [
+     "carry"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "pocket_sacred_text",
+  "title": "The Pocket Sacred Text",
+  "category": "main",
+  "giver": "bob",
+  "summary": "There's something else in every box.",
+  "description": "See what else Cheap-O-Rama packed with the sashes, and what the crew make of the Grand Stenchmaster's 'independent corroboration'.",
+  "objectives": [
+   {
+    "id": "find",
+    "text": "See what else is in the box (the crate)",
+    "type": "flag",
+    "target": "pocket_book_found"
+   },
+   {
+    "id": "crew",
+    "text": "Hear what the crew think of it (Ned, Gristle and Pete)",
+    "type": "event",
+    "target": "p11_pt",
+    "count": 3,
+    "after": [
+     "find"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 50
+  }
+ },
+ {
+  "id": "bed_sashes",
+  "title": "Bed Sashes",
+  "category": "main",
+  "giver": "gristle",
+  "summary": "They won't tear.",
+  "description": "The toy sashes are stronger than the sailcloth ever was. Take some from the crate and re-hang the hammocks with them. Then, if you can bring yourself to, your own bed.",
+  "objectives": [
+   {
+    "id": "take",
+    "text": "Take sashes from the crate",
+    "type": "flag",
+    "target": "p11_sashes_taken"
+   },
+   {
+    "id": "hang",
+    "text": "Re-hang the hammocks with sashes (the rags on the beams: Pete's, Bob's, Jim's)",
+    "type": "event",
+    "target": "p11_hung",
+    "count": 3,
+    "after": [
+     "take"
+    ]
+   },
+   {
+    "id": "own",
+    "text": "And your own bed (the bean sacks under his hammock)",
+    "type": "flag",
+    "target": "captain_uses_bed_sash",
+    "after": [
+     "hang"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "grand_resumption",
+  "title": "The Grand Nap's Grand Resumption",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "None of the sleep so far counts. Apparently.",
+  "description": "The Grand Nap has been formally resumed. It needs a story. This one's about the law.",
+  "objectives": [
+   {
+    "id": "story",
+    "text": "Hear one more story (the Grand Stenchmaster, in his hammock)",
+    "type": "flag",
+    "target": "rumpus_legend_heard"
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "late_night_bling",
+  "title": "Late-Night Bling Bling King",
+  "category": "main",
+  "giver": "ned",
+  "summary": "Nobody turned it on.",
+  "description": "The Mark II has switched itself on, to a late-night programme hosted by a shark at a desk. Turn it off. It has knobs.",
+  "objectives": [
+   {
+    "id": "off",
+    "text": "Turn it OFF (the Mark II)",
+    "type": "flag",
+    "target": "p11_late_night_off"
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "first_great_flutter",
+  "title": "The First Great Sash Flutter",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "One more story. To get the taste of the television out.",
+  "description": "The Grand Stenchmaster needs a good legend before he can sleep. The most important one. The first.",
+  "objectives": [
+   {
+    "id": "story",
+    "text": "Hear the last story of the night (the Grand Stenchmaster, in his hammock)",
+    "type": "flag",
+    "target": "sash_flutter_weakness_discovered"
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "anti_dice_conspiracy",
+  "title": "The Anti-Dice Conspiracy",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "Three weeks.",
+  "description": "Read the booklet properly, every rule, tonight, while he sleeps. Write the plan. Put the booklet back. Then wake the crew, quietly, and agree what to do about the dice.",
+  "objectives": [
+   {
+    "id": "borrow",
+    "text": "Borrow the booklet off his chest (his hammock, from your bed)",
+    "type": "flag",
+    "target": "pocket_book_borrowed"
+   },
+   {
+    "id": "read",
+    "text": "Read it properly under the six-rope lamp (by the Mark II)",
+    "type": "event",
+    "target": "p11_passage",
+    "count": 5,
+    "after": [
+     "borrow"
+    ]
+   },
+   {
+    "id": "plan",
+    "text": "Write the plan (the long table)",
+    "type": "flag",
+    "target": "anti_dice_plan_written",
+    "after": [
+     "read"
+    ]
+   },
+   {
+    "id": "return",
+    "text": "Put the booklet back (his hammock, from your bed)",
+    "type": "flag",
+    "target": "pocket_book_returned",
+    "after": [
+     "plan"
+    ]
+   },
+   {
+    "id": "wake",
+    "text": "Wake the crew, quietly: Pete, Gristle, Bob and Jim",
+    "type": "event",
+    "target": "p11_woken",
+    "count": 4,
+    "after": [
+     "return"
+    ]
+   },
+   {
+    "id": "meet",
+    "text": "Hold the meeting (the long table)",
+    "type": "flag",
+    "target": "conspiracy_ready",
+    "after": [
+     "wake"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 90
+  }
+ }
+]

@@ -1,0 +1,1321 @@
+{
+ "//": "Story Phase 11, chapters 104-111: the Cheap-O-Rama delivery; the pocket edition; bed sashes; the Grand Nap's Grand Resumption; Sir Rumpus and the Grand Court (alleged); the Bling Bling King's late-night show; the First Great Sash Flutter; the secret research and the anti-dice conspiracy.",
+ "p11c9.begin": [
+  {
+   "setFlag": "p11_ch104_started"
+  },
+  {
+   "banner": "CHAPTER 104",
+   "sub": "Cheap-O-Rama Emergency Delivery"
+  },
+  {
+   "sfx": "helicopter_rotor",
+   "volume": 0.9
+  },
+  "Then, over the storm, a new noise. Thudding. Regular. Getting closer. It doesn't sound like a shark. It doesn't sound like anything the sea makes.",
+  "gristle: What in the...",
+  "ned: That's not weather.",
+  "garrick[worried]: (still on the floor) If it's a shark with another trophy, I don't want it.",
+  {
+   "startQuest": "cheap_o_rama_delivery"
+  },
+  {
+   "tutorial": "See what that noise is (up the ladder, on deck).",
+   "title": "Cheap-O-Rama Emergency Delivery"
+  }
+ ],
+ "p11c9.deck": [
+  {
+   "restage": "cut"
+  },
+  {
+   "vista": "cheap_o_rama_drop",
+   "fade": 700
+  },
+  {
+   "sfx": "helicopter_rotor",
+   "volume": 0.9
+  },
+  "Coming down through the wall of the storm, round and round with it, lights blinking, a flying machine. A box with a whirling blade on top, painted orange and white, and down the side in letters as tall as a man:",
+  "CHEAP-O-RAMA DISCOUNT EMPORIUM. WE DELIVER ANYWHERE.",
+  "pete: (behind you) ...Anywhere.",
+  "It hangs over the Revenge, thudding. A crate on a winch comes down out of its belly, swinging, and lands on your deck with a crunch. The winch hook lets go by itself.",
+  {
+   "vistaShow": "label",
+   "visible": true
+  },
+  "A shipping label on the side flaps in the wind. DELIVER TO: THE FART MAN, C/O THE STORM. ORDERED BY: THE BLING BLING KING. PRIORITY: EMERGENCY.",
+  "Then the machine tips its nose, rises, and goes up into the storm, round and round, and is gone.",
+  "Somewhere in the wall of the storm, a long silent shape in a gold chain goes by. It doesn't look at you. It doesn't have to.",
+  {
+   "vistaEnd": true,
+   "fade": 600
+  },
+  {
+   "setFlag": "cheap_o_rama_crate_landed"
+  }
+ ],
+ "p11c9.carry": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "The crate. Cardboard over thin pine, CHEAP-O-RAMA on every side, and a sticker: THIS WAY UP (it isn't).",
+  "pete: Do we open it up here?",
+  "captain: In a STORM? No. Below.",
+  {
+   "repair": "carry",
+   "strikes": 3,
+   "title": "GET IT BELOW"
+  },
+  {
+   "sfx": "thud_heavy",
+   "volume": 0.7
+  },
+  {
+   "setFlag": "cheap_o_rama_crate_below"
+  },
+  {
+   "transition": "galley",
+   "spawn": "ladder",
+   "then": "p11c9.below"
+  }
+ ],
+ "p11c9.below": [
+  "You and Pete get it down the ladder between you, and set it down on the floor at the foot of it. The whole galley gathers round. Even the Grand Stenchmaster gets up off the floor."
+ ],
+ "p11c9.open": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "sfx": "package_crinkle",
+   "volume": 0.9
+  },
+  "You get the lid off. Inside, in rows, packed in shredded paper: boxes. Hundreds of boxes. Flat, bright, cardboard, each with a window in the front.",
+  "In every window: a sash. Red, shiny, synthetic, with gold printed trim and a little embroidered nose under a crown.",
+  {
+   "insert": "toy_sash_box",
+   "caption": "GRAND STENCHMASTER CEREMONIAL SASH PLAYSET! Ages six and up."
+  },
+  "bob: (reading) 'Ages six and up.'",
+  "jim: (reading) 'Includes one ceremonial sash, two smiling sash holders (cardboard), and a press-out Grand Waft.'",
+  "ned: (reading) 'Imaginary Grand Waft. No real flatulence required.'",
+  "pete: (reading) 'Pull the tab for pretend fart noises!'",
+  "He pulls the tab. The box goes PRRRRBBT.",
+  "gristle: (reading) 'Sash flutter instructions on reverse. Do not let your sash flutter! (Ask a grown-up why.)'",
+  "Everybody turns, slowly, to the Grand Stenchmaster, who is wearing a sash that is, give or take the price tag, exactly the same.",
+  "captain[smug]: It's a TOY.",
+  "garrick[offended]: It's an EDUCATIONAL REPRODUCTION.",
+  "captain[smug]: Your sacred regalia is a children's toy. In a box. With a pull tab.",
+  "garrick[businesslike]: (with great dignity) Reproductions of sacred equipment are made for the young, Captain, so that they may learn the traditions. Mine is the ORIGINAL. These are COPIES.",
+  "jim: Yours came from a discount shop.",
+  "garrick[businesslike]: And now we know where the discount shop got the IDEA.",
+  {
+   "setFlag": "cheap_o_rama_sashes_arrived"
+  },
+  {
+   "setValue": "cheap_o_rama_crate",
+   "value": "galley"
+  },
+  {
+   "completeQuest": "cheap_o_rama_delivery"
+  },
+  {
+   "call": "p11c10.begin"
+  }
+ ],
+ "p11c10.begin": [
+  {
+   "setFlag": "p11_ch105_started"
+  },
+  {
+   "banner": "CHAPTER 105",
+   "sub": "The Pocket Sacred Text"
+  },
+  "bob: There's something else in here. Under the sash. In every box.",
+  {
+   "startQuest": "pocket_sacred_text"
+  },
+  {
+   "tutorial": "See what else is in the box (the crate).",
+   "title": "The Pocket Sacred Text"
+  }
+ ],
+ "p11c10.find": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "Tucked behind the cardboard sash holders: a tiny booklet. Stapled. Smaller than your hand.",
+  {
+   "giveItem": "pocket_legend_book"
+  },
+  {
+   "setValue": "pocket_legend_book_condition",
+   "value": "new"
+  },
+  {
+   "insert": "pocket_book_new",
+   "caption": "COMPLETE GRAND STENCHMASTER LEGENDS - CHEAP-O-RAMA POCKET EDITION. FREE WITH EVERY SASH!"
+  },
+  "You open it. The print is tiny. The legends are...",
+  "captain: ...Brogath.",
+  "captain: Brogath the Bashful. Rumpold Windbreaker. Princess Stenchalina. The Grand Court. It's the BOOK, Garrick. It's YOUR book.",
+  "garrick[delighted]: (snatching it out of your hand) INDEPENDENT CORROBORATION!",
+  {
+   "takeItem": "pocket_legend_book",
+   "silent": true
+  },
+  "garrick[delighted]: Do you SEE, Captain? An entirely separate source. Printed. PRINTED! Nobody prints a legend unless it's TRUE.",
+  "captain[angry]: It's the same stories. Did you copy them out of THIS? Or did they copy YOU?",
+  "garrick[proud]: Neither, Captain. We both copied HISTORY.",
+  "pete: The television had your book last night. On the frog programme. The shark was HOLDING it.",
+  "Everybody thinks about that. Nobody likes where it goes.",
+  "garrick[proud]: (hugging the booklet to his chest) It doesn't matter how. It's come BACK to me. The legends came back. Out of the storm.",
+  {
+   "wear": "pocket_legend_book"
+  },
+  "He hugs it so hard the cover bends.",
+  {
+   "setFlag": "pocket_book_found"
+  },
+  {
+   "tutorial": "Hear what the crew think of the 'independent corroboration' (Ned, Gristle and Pete).",
+   "title": "The Pocket Sacred Text"
+  }
+ ],
+ "p11c10.ned": [
+  "ned: (holding a second booklet up to the lamp) I can see the lamp through it. The paper. It's so thin you can read the next page through this one.",
+  "garrick[businesslike]: Ancient paper, Ned.",
+  "ned: It came out of a box ten minutes ago.",
+  {
+   "setFlag": "p11_pt_ned"
+  },
+  {
+   "event": "p11_pt"
+  }
+ ],
+ "p11c10.gristle": [
+  "gristle: (squinting at another one) The staples are crooked. Both of 'em. And the print. Look at this. That's not print. That's a RUMOUR of print.",
+  {
+   "setFlag": "p11_pt_gristle"
+  },
+  {
+   "event": "p11_pt"
+  }
+ ],
+ "p11c10.pete": [
+  "pete: (holding up four more) Rare, is it? Sacred? There's one in every box, Garrick. There are three hundred boxes. It's FREE. It says FREE on the front.",
+  "garrick[proud]: (clutching his) Sacred things should be AVAILABLE, Pete.",
+  {
+   "setFlag": "p11_pt_pete"
+  },
+  {
+   "event": "p11_pt"
+  }
+ ],
+ "p11c10.done": [
+  "bob: Can I have one?",
+  "garrick[delighted]: EVERYONE should have one, Bob.",
+  "So now everyone has one. Bob reads his by the lamp with his lips moving. Jim uses his to wedge the stove door. Squawks eats the corner off his.",
+  "squawks[smug]: Bland.",
+  {
+   "setFlag": "pocket_book_corroboration_mocked"
+  },
+  {
+   "completeQuest": "pocket_sacred_text"
+  },
+  {
+   "call": "p11c11.begin"
+  }
+ ],
+ "p11c11.begin": [
+  {
+   "setFlag": "p11_ch106_started"
+  },
+  {
+   "banner": "CHAPTER 106",
+   "sub": "Bed Sashes"
+  },
+  "Gristle has a toy sash out of its box and is pulling on it, end to end, with all his weight.",
+  "gristle: ...Huh.",
+  "captain: What.",
+  "gristle: It won't tear. It's cheap, it's shiny, it's horrible, and it won't TEAR. It's stronger than the sailcloth. Much.",
+  "He looks up at the rags on the beams. You look up at the rags on the beams. Everybody, slowly, looks at the crate with three hundred sashes in it.",
+  "garrick[alarmed]: No.",
+  "gristle: Hammocks.",
+  "garrick: Those are CEREMONIAL.",
+  "gristle: They're ages six and up. We're all over six.",
+  {
+   "startQuest": "bed_sashes"
+  },
+  {
+   "tutorial": "Take sashes from the crate, then re-hang the hammocks with them (the rags on the beams: Pete's, Bob's, Jim's).",
+   "title": "Bed Sashes"
+  }
+ ],
+ "p11c11.take": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "sfx": "package_crinkle",
+   "volume": 0.8
+  },
+  "You tear open four boxes. Four sashes. Four pairs of cardboard sash holders, smiling at you. You put them face down.",
+  {
+   "giveItem": "toy_sash",
+   "count": 4
+  },
+  {
+   "setFlag": "p11_sashes_taken"
+  }
+ ],
+ "p11c11.hang_pete": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "takeItem": "toy_sash"
+  },
+  "You tie a toy sash across the beams where Pete's hammock was, doubled, and another under it, and lace them together with the old knots.",
+  {
+   "repair": "knot",
+   "strikes": 3,
+   "title": "TIE IT TIGHT"
+  },
+  {
+   "sfx": "hammock_creak",
+   "volume": 0.7
+  },
+  "pete: (climbing in, warily) ...It's a bed sash. I'm sleeping in a bed sash. I want that noted somewhere.",
+  {
+   "setFlag": "p11_hung_pete"
+  },
+  {
+   "event": "p11_hung"
+  }
+ ],
+ "p11c11.hang_bob": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "takeItem": "toy_sash"
+  },
+  "You tie a toy sash across the beams where Bob's hammock was, doubled, and another under it, and lace them together with the old knots.",
+  {
+   "repair": "knot",
+   "strikes": 3,
+   "title": "TIE IT TIGHT"
+  },
+  {
+   "sfx": "hammock_creak",
+   "volume": 0.7
+  },
+  "bob: (climbing in) A HAMMOCK SASH. It smells like a new shoe. I love it.",
+  {
+   "setFlag": "p11_hung_bob"
+  },
+  {
+   "event": "p11_hung"
+  }
+ ],
+ "p11c11.hang_jim": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "takeItem": "toy_sash"
+  },
+  "You tie a toy sash across the beams where Jim's hammock was, doubled, and another under it, and lace them together with the old knots.",
+  {
+   "repair": "knot",
+   "strikes": 3,
+   "title": "TIE IT TIGHT"
+  },
+  {
+   "sfx": "hammock_creak",
+   "volume": 0.7
+  },
+  "jim: (climbing in) Repair sash. That's what it is. A REPAIR sash. Don't let him tell you different.",
+  {
+   "setFlag": "p11_hung_jim"
+  },
+  {
+   "event": "p11_hung"
+  }
+ ],
+ "p11c11.hung": [
+  {
+   "setFlag": "p11_hung_said"
+  },
+  "garrick[offended]: (watching from the floor) Bed sash. Hammock sash. REPAIR sash. Do you know what you're DOING? You're desecrating the regalia.",
+  "gristle: We're sleeping in it.",
+  "garrick[offended]: That's what I SAID.",
+  {
+   "tutorial": "And your own bed (the bean sacks under his hammock): there's one sash left.",
+   "title": "Bed Sashes"
+  }
+ ],
+ "p11c11.own": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "Your bed. Three bean sacks. You have one toy sash left, red and shiny and, as far as you know, never been near him.",
+  "You hold it up to your nose. Carefully. Away from the beard. You sniff it.",
+  {
+   "sfx": "sniff",
+   "volume": 0.5
+  },
+  {
+   "choice": [
+    {
+     "text": "It smells of cardboard. That's all.",
+     "then": [
+      "Cardboard. Glue. A faint factory sweetness. It is the cleanest thing you've smelled in a month."
+     ]
+    },
+    {
+     "text": "It smells... clean.",
+     "then": [
+      "Clean. For now.",
+      "You nearly cry."
+     ]
+    }
+   ]
+  },
+  {
+   "takeItem": "toy_sash"
+  },
+  "You fold it in four, lay it over the sacks where your head goes, and lie down on it. It crackles. It's horrible. It's wonderful.",
+  "garrick: (from above) CAPTAIN. YOU TOO?",
+  "captain[smug]: Bed sash.",
+  {
+   "setFlag": "captain_uses_bed_sash"
+  },
+  {
+   "setFlag": "bed_sashes_installed"
+  },
+  {
+   "completeQuest": "bed_sashes"
+  },
+  {
+   "call": "p11c12.begin"
+  }
+ ],
+ "p11c12.begin": [
+  {
+   "setFlag": "p11_ch107_started"
+  },
+  {
+   "banner": "CHAPTER 107",
+   "sub": "The Grand Nap's Grand Resumption"
+  },
+  "The Grand Stenchmaster climbs back up into his hammock, with his pocket edition, and arranges himself.",
+  "garrick[businesslike]: Right. Now. Since this evening's Grand Nap was interrupted by a hammock collapse, a shark delivery and a vote, none of the sleep so far counts.",
+  "pete[tired]: Sleep... doesn't count?",
+  "garrick[businesslike]: Not as a GRAND Nap, Pete. So, by the authority of the office, I hereby declare...",
+  "garrick[proud]: ...the Grand Stenchmaster's Grand Nap's GRAND RESUMPTION.",
+  "bob: (counting on his fingers) ...How many Grands was that?",
+  {
+   "choice": [
+    {
+     "text": "\"Three.\"",
+     "then": [
+      "bob: I got four.",
+      "jim: Five, with the one he whispered."
+     ]
+    },
+    {
+     "text": "\"Four.\"",
+     "then": [
+      "bob: That's what I got!",
+      "jim: Five, with the one he whispered."
+     ]
+    },
+    {
+     "text": "\"Too many.\"",
+     "then": [
+      "bob: That's not a number, Captain.",
+      "captain: It is tonight."
+     ]
+    }
+   ]
+  },
+  "garrick[proud]: And to resume a Grand Nap properly, one needs a Grand Story.",
+  "EVERYONE: NO.",
+  "garrick[proud]: One about the LAW.",
+  {
+   "startQuest": "grand_resumption"
+  },
+  {
+   "tutorial": "Hear one more story (the Grand Stenchmaster's hammock). It's about the law. Allegedly.",
+   "title": "The Grand Nap's Grand Resumption"
+  }
+ ],
+ "p11c13.story": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "setFlag": "p11_ch108_started"
+  },
+  {
+   "banner": "CHAPTER 108",
+   "sub": "Sir Rumpus and Fart Validity"
+  },
+  "garrick[proud]: (reading from the pocket edition, very close to his face) In the age of the Ancient Stenchmasters, a terrible question divided the land. When a Grand Stenchmaster released... was it VALID?",
+  "pete: Valid.",
+  "garrick[businesslike]: Legally valid, Pete. Recognised. Binding. Because if a Grand Waft wasn't valid, what was it?",
+  "jim: A fart.",
+  "garrick[offended]: Just a FART, Jim. Exactly. Chaos. So the great judge Sir Rumpus Windbottom founded the GRAND COURT.",
+  {
+   "choice": [
+    {
+     "text": "\"Who appointed him?\"",
+     "then": [
+      "garrick[businesslike]: The Court did.",
+      "captain: The Court he founded.",
+      "garrick[businesslike]: That's how courts start, Captain."
+     ]
+    },
+    {
+     "text": "\"What did it judge?\"",
+     "then": [
+      "garrick[proud]: Farts, Captain. Every one. Nothing else. A very busy court."
+     ]
+    },
+    {
+     "text": "\"I'm not listening.\"",
+     "then": [
+      "garrick[smug]: You ARE, though. You're frowning. You frown when you listen."
+     ]
+    }
+   ]
+  },
+  "garrick[proud]: The Grand Judge of Wind sat in the middle, in the great wig. Beside him, the Deputy Sash Magistrates. The Nap Clerk took the minutes. The Bean Bailiff kept order...",
+  "bob: What's a Bean Bailiff do?",
+  "garrick[businesslike]: Bails beans, Bob.",
+  "bob: ...That makes sense.",
+  "pete: It doesn't.",
+  "garrick[proud]: Every release before the Court required witnesses. Fart witnesses. Rotating, so nobody had to witness more than their fair share. And when all was ready, the licensed Finger-Puller...",
+  "pete[annoyed]: THAT AGAIN.",
+  "garrick[proud]: ...the LICENSED Finger-Puller, Pete, stepped forward. The Grand Judge raised his finger. The ceremonial raised finger. The Finger-Puller pulled. And when it was done, the whole Court rose, and Sir Rumpus Windbottom spoke the words.",
+  "He raises one finger, solemnly, into the lamplight.",
+  "garrick[proud]: 'The Grand Waft is valid.'",
+  "Long silence.",
+  "captain: Who decided it wasn't valid before?",
+  "garrick[businesslike]: Nobody. That's why they needed a Court.",
+  "pete: If nobody ever said one wasn't valid, there wasn't a QUESTION.",
+  "garrick[businesslike]: There was the POSSIBILITY of a question, Pete. Sir Rumpus was a visionary.",
+  "captain: What happened if one WASN'T valid?",
+  "garrick: ...I don't think that's ever come up.",
+  "squawks[smug]: Suspicious.",
+  {
+   "setFlag": "rumpus_legend_heard"
+  },
+  {
+   "setValue": "grand_court_status",
+   "value": "alleged"
+  },
+  {
+   "logbook": "garrick_legends",
+   "entry": "rumpus"
+  },
+  {
+   "completeQuest": "grand_resumption"
+  },
+  {
+   "call": "p11c14.begin"
+  }
+ ],
+ "p11c14.begin": [
+  {
+   "setFlag": "p11_ch109_started"
+  },
+  {
+   "banner": "CHAPTER 109",
+   "sub": "Late-Night Bling Bling King"
+  },
+  {
+   "sfx": "tv_power_on",
+   "volume": 0.8
+  },
+  {
+   "sfx": "crt_warmup",
+   "volume": 0.8
+  },
+  "In the corner, by itself, the Mark II comes on.",
+  "Nobody touched it. Nobody's near it. The sauce can on the aerial gives a little hiss, and the screen warms up, and there's music. Brass. Smooth.",
+  {
+   "tvSet": "ses_mk2",
+   "power": true,
+   "channel": 8
+  },
+  "jim: Who turned that on?",
+  "garrick[delighted]: (sitting up) It's LATE-NIGHT. They do late-night now?",
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "vista": "galley_storm_watch",
+   "fade": 500
+  },
+  {
+   "music": "late_night_bling",
+   "fade": 400
+  },
+  {
+   "tvProgram": "bling_late_night",
+   "episode": "late_night_part_one",
+   "layer": "screen",
+   "from": 0,
+   "to": 1
+  },
+  "pete: ...That's it. That's the shark. In a suit. Behind a DESK.",
+  "ned: Where does a shark get a desk?",
+  {
+   "tvProgram": "bling_late_night",
+   "episode": "late_night_part_one",
+   "layer": "screen",
+   "from": 2,
+   "to": 3
+  },
+  "bob: (laughing) It's YOU, Garrick. It's about you.",
+  "garrick[offended]: It is NOT about me. It's about a designated... it's about A man. A hypothetical man.",
+  {
+   "tvProgram": "bling_late_night",
+   "episode": "late_night_part_one",
+   "layer": "screen",
+   "from": 4,
+   "to": 6
+  },
+  "gristle: A pension. For WHAT?",
+  {
+   "tvProgram": "bling_late_night",
+   "episode": "late_night_part_one",
+   "layer": "screen",
+   "from": 7,
+   "to": 8
+  },
+  "captain[angry]: Sleeping ABOVE THE CAPTAIN. How does it KNOW about the HAMMOCK?",
+  "Nobody answers. Everybody looks at the porthole. Outside, going round, the storm. Inside it, somewhere, a desk.",
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "setFlag": "bbk_late_night_seen"
+  },
+  {
+   "startQuest": "late_night_bling"
+  },
+  {
+   "tutorial": "Turn it OFF (the Mark II). It has knobs. Some of them might even do that.",
+   "title": "Late-Night Bling Bling King"
+  }
+ ],
+ "p11c14.knobs": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "tv": "ses_mk2",
+   "mode": "knobs",
+   "panel": "late_night"
+  },
+  {
+   "if": {
+    "flag": "p11_late_night_off"
+   },
+   "then": [
+    {
+     "tvSet": "ses_mk2",
+     "power": false
+    },
+    "The picture folds down to a dot. The dot thinks about it. The dot goes out.",
+    "Silence. Real silence. Just the storm, going round.",
+    "pete[tired]: ...It had a SWITCH. All this time. The Mark II had a switch.",
+    "garrick[businesslike]: It's always had a switch, Pete. It just didn't always WORK.",
+    {
+     "completeQuest": "late_night_bling"
+    },
+    {
+     "call": "p11c15.begin"
+    }
+   ],
+   "else": [
+    "It's still on. Somewhere behind the snow, a studio audience laughs at you."
+   ]
+  }
+ ],
+ "p11c15.begin": [
+  {
+   "setFlag": "p11_ch110_started"
+  },
+  {
+   "banner": "CHAPTER 110",
+   "sub": "The First Great Sash Flutter"
+  },
+  "In the dark, the Grand Stenchmaster's voice, from the hammock. A little hurt.",
+  "garrick[worried]: ...That show was very unfair. To the office.",
+  "captain: Go to sleep.",
+  "garrick[worried]: I can't sleep on that. I need a GOOD one. A proper one. To get the taste of it out.",
+  "pete: Please, no.",
+  "garrick[annoyed]: The most important legend of them all. The reason there are sash holders. The FIRST.",
+  {
+   "startQuest": "first_great_flutter"
+  },
+  {
+   "tutorial": "Hear the last story of the night (the Grand Stenchmaster's hammock).",
+   "title": "The First Great Sash Flutter"
+  }
+ ],
+ "p11c15.story": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "vista": "galley_legend",
+   "fade": 600
+  },
+  "garrick[proud]: Long, long ago, before the Grand Court, before Brogath, before ANY of it, there lived Lord Gustavio Bottomsworth. The first Grand Stenchmaster to wear the sash.",
+  "garrick[proud]: In those days, there were no sash holders. The sash simply hung. Like a sash.",
+  "garrick[proud]: One day, before the whole court, Lord Gustavio performed the ceremonial release. Magnificent. Dignified. And as it went out of him...",
+  "He lowers his voice.",
+  "garrick: ...the sash LIFTED.",
+  "garrick: Only a few inches. And it fluttered. Twice. Flap... flap.",
+  "Everybody's listening now. Even Jim's come out from under his blanket.",
+  "garrick: In front of EVERYONE. The whole court SAW it. Somebody pointed. Somebody gasped. And Lord Gustavio Bottomsworth was so ashamed, so utterly mortified...",
+  "garrick[alarmed]: ...that he refused to release again. For THREE WEEKS.",
+  "garrick[alarmed]: Twenty-one days, Captain. Not a toot. The court thought he'd die. And THAT is why, ever after, there have been sash holders. To hold it down. So that it never... ever... flutters.",
+  {
+   "vistaEnd": true,
+   "fade": 500
+  },
+  "Silence.",
+  "Then, slowly, in the dark, every head in the galley turns. Toward the hammock. And then toward you.",
+  "Three weeks.",
+  "If the sash flutters, he stops. For three weeks.",
+  "You find you're sitting up. You find something is happening to your face that hasn't happened in a month. It takes you a moment to recognise it.",
+  "You're smiling.",
+  "captain[laugh]: ...Three weeks.",
+  "pete[happy]: (very quietly) Three WEEKS.",
+  "bob: Three weeks of what?",
+  "jim[happy]: Of NOTHING, Bob.",
+  "garrick[nervous]: (slowly realising) ...Now, that's a HISTORICAL anecdote. It's not a... it doesn't APPLY. It's not a weakness. It's... culture.",
+  "captain[laugh]: Goodnight, Garrick.",
+  "garrick[nervous]: Captain? Captain, why are you smiling like that? Captain?",
+  "captain[laugh]: Sleep well.",
+  "garrick[nervous]: ...I don't like it when you say sleep well.",
+  {
+   "setFlag": "gustavio_legend_heard"
+  },
+  {
+   "setFlag": "sash_flutter_weakness_discovered"
+  },
+  {
+   "logbook": "garrick_legends",
+   "entry": "gustavio"
+  },
+  {
+   "completeQuest": "first_great_flutter"
+  },
+  {
+   "call": "p11c16.begin"
+  }
+ ],
+ "p11c16.begin": [
+  {
+   "setFlag": "p11_ch111_started"
+  },
+  {
+   "banner": "CHAPTER 111",
+   "sub": "Secret Research"
+  },
+  {
+   "music": "sash_conspiracy",
+   "fade": 1200
+  },
+  "Much later. The lamp is low. Everyone is asleep, or pretending to be. Above you, the Grand Stenchmaster snores, with the pocket edition open on his chest, going up and down.",
+  "You need to read that book. Tonight. Properly. Every word.",
+  "And to read it, you're going to have to take it off his chest, without waking him, in a ship that won't stop moving.",
+  {
+   "startQuest": "anti_dice_conspiracy"
+  },
+  {
+   "tutorial": "Borrow the booklet off his chest (the hammock, from your bed). Wait for the ship to swing your way, and go gently.",
+   "title": "Secret Research"
+  }
+ ],
+ "p11c16.borrow": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You get up on one knee on the sacks. His hammock swings over you, out, back, out. The booklet slides a little on his chest each time.",
+  "Wait for it to come your way...",
+  {
+   "repair": "reach",
+   "strikes": 3,
+   "title": "REACH... GENTLY",
+   "var": "p11_reach_clean"
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p11_reach_clean",
+     "lt": 2
+    }
+   },
+   "then": [
+    {
+     "sfx": "hammock_creak",
+     "volume": 0.9
+    },
+    "Your fingers are on it... and the hammock swings back and he SHIFTS, and the Suit lets out a long, low, appalling FWOoOoF.",
+    {
+     "sfx": "suit_fwoof",
+     "volume": 0.9
+    },
+    {
+     "burst": "suitpuff",
+     "x": 11,
+     "y": 8,
+     "count": 4
+    },
+    "You freeze. Arm up. Not breathing (you've learned that much).",
+    "garrick: (in his sleep) ...the Grand Waft is valid...",
+    "He settles. The booklet is still on his chest. You're still alive. Again. Slower.",
+    {
+     "setFlag": "p11_reach_shifted"
+    },
+    {
+     "repair": "reach",
+     "strikes": 3,
+     "title": "REACH... SLOWER"
+    }
+   ]
+  },
+  "Two fingers. A thumb. The swing comes your way and you go with it, slow as a sunrise, and the booklet comes up off his chest...",
+  {
+   "sfx": "page_flip_tiny",
+   "volume": 0.6
+  },
+  "...and it's yours.",
+  {
+   "giveItem": "pocket_legend_book"
+  },
+  "Up in the hammock, he snores on, one hand patting his chest every so often, where the book was.",
+  {
+   "setFlag": "pocket_book_borrowed"
+  },
+  {
+   "tutorial": "Read it properly under the lamp (stand under the six-rope lamp, by the Mark II).",
+   "title": "Secret Research"
+  }
+ ],
+ "p11c16.read": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You stand under the Grand Bedside Illumination System, which is the only steady light on the ship, which is his, which you hate, and you open the booklet. The print is microscopic. You hold it close.",
+  {
+   "choice": [
+    {
+     "text": "Lord Gustavio Bottomsworth (page 4)",
+     "if": {
+      "notFlag": "p11_psg_gustavio"
+     },
+     "then": [
+      {
+       "call": "p11c16.psg_gustavio"
+      }
+     ]
+    },
+    {
+     "text": "The Thirty Seconds (page 7)",
+     "if": {
+      "notFlag": "p11_psg_thirty"
+     },
+     "then": [
+      {
+       "call": "p11c16.psg_thirty"
+      }
+     ]
+    },
+    {
+     "text": "The Flutter Clause (page 8)",
+     "if": {
+      "notFlag": "p11_psg_clause"
+     },
+     "then": [
+      {
+       "call": "p11c16.psg_clause"
+      }
+     ]
+    },
+    {
+     "text": "The Stench Silence (page 9)",
+     "if": {
+      "notFlag": "p11_psg_silence"
+     },
+     "then": [
+      {
+       "call": "p11c16.psg_silence"
+      }
+     ]
+    },
+    {
+     "text": "The tables at the back",
+     "if": {
+      "notFlag": "p11_psg_dice"
+     },
+     "then": [
+      {
+       "call": "p11c16.psg_dice"
+      }
+     ]
+    },
+    {
+     "text": "Close it for now",
+     "then": [
+      "You close it on your finger and listen to him snore."
+     ]
+    }
+   ]
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p11_psg_gustavio"
+     },
+     {
+      "flag": "p11_psg_thirty"
+     },
+     {
+      "flag": "p11_psg_clause"
+     },
+     {
+      "flag": "p11_psg_silence"
+     },
+     {
+      "flag": "p11_psg_dice"
+     }
+    ]
+   },
+   "then": [
+    {
+     "tutorial": "That's all of it that matters. Write the plan (the long table).",
+     "title": "Secret Research"
+    }
+   ]
+  }
+ ],
+ "p11c16.psg_gustavio": [
+  {
+   "sfx": "page_flip_tiny",
+   "volume": 0.6
+  },
+  {
+   "insert": "pocket_page_gustavio",
+   "caption": "THE FIRST GREAT SASH FLUTTER. Lord Gustavio Bottomsworth. Flap. Flap. Three weeks."
+  },
+  "The same story. Word for word, nearly. With a drawing: a man in a sash, the sash in the air, and a crowd pointing. Somebody in the crowd is laughing. You like that person.",
+  {
+   "setFlag": "p11_psg_gustavio"
+  },
+  {
+   "event": "p11_passage"
+  }
+ ],
+ "p11c16.psg_thirty": [
+  {
+   "sfx": "page_flip_tiny",
+   "volume": 0.6
+  },
+  {
+   "insert": "pocket_page_thirty",
+   "caption": "THE SASH MUST FIRST BE PROPERLY HELD FOR THIRTY (30) SECONDS BY THE HIGHEST-RANKING OFFICER PRESENT."
+  },
+  "You read it twice.",
+  "Thirty seconds. Held properly. By the highest-ranking officer present.",
+  "You look round the galley for the highest-ranking officer present. There's only ever been one.",
+  "captain[queasy]: ...Me.",
+  "Thirty seconds. Behind him. Holding the sash. While he...",
+  "You read it a third time in case it's changed. It hasn't.",
+  {
+   "setFlag": "p11_psg_thirty"
+  },
+  {
+   "event": "p11_passage"
+  }
+ ],
+ "p11c16.psg_clause": [
+  {
+   "sfx": "page_flip_tiny",
+   "volume": 0.6
+  },
+  {
+   "insert": "pocket_page_clause",
+   "caption": "AFTER THIRTY SECONDS, THE HIGHEST OFFICER MAY INTENTIONALLY ALLOW THE SASH TO FLUTTER. THE STENCHMASTER MUST HEAR OR NOTICE IT. OBSERVERS MAY GASP OR POINT."
+  },
+  "'May intentionally allow.' It's allowed. It's in the RULES. Hold it for thirty seconds, then let go, on purpose, and make sure he notices.",
+  "'Observers may gasp or point.' You think about the crew gasping and pointing. You think about it for quite a long time.",
+  {
+   "setFlag": "p11_psg_clause"
+  },
+  {
+   "event": "p11_passage"
+  }
+ ],
+ "p11c16.psg_silence": [
+  {
+   "sfx": "page_flip_tiny",
+   "volume": 0.6
+  },
+  {
+   "insert": "pocket_page_silence",
+   "caption": "PENALTY: THE TRADITIONAL STENCH SILENCE OF TWENTY-ONE (21) DAYS. NO RELEASES. NO TOOTS. NO EXCEPTIONS."
+  },
+  "Twenty-one days. No releases. No toots. No exceptions.",
+  "Three weeks of a ship that smells of the sea.",
+  "Your eyes are wet. It's the lamp. It's definitely the lamp.",
+  {
+   "wear": "pocket_legend_book",
+   "to": "torn_corner"
+  },
+  "Your thumb, gripping it, puts a little tear in the corner.",
+  {
+   "setFlag": "p11_psg_silence"
+  },
+  {
+   "event": "p11_passage"
+  }
+ ],
+ "p11c16.psg_dice": [
+  {
+   "sfx": "page_flip_tiny",
+   "volume": 0.6
+  },
+  "At the back, on the very last page, there's a table. Two tables.",
+  {
+   "insert": "pocket_page_table_a",
+   "caption": "OR, AT THE STENCHMASTER'S REQUEST: ROLL THE GRAND DICE OF GRANDNESS. 1: ONE GRAND WEEK. 2: TWO GRAND WEEKS. 3-5: SEE TABLE B. 6: SEE TABLE A."
+  },
+  "captain: Table A says see Table A.",
+  {
+   "insert": "pocket_page_table_b",
+   "caption": "TABLE B (REVISED). 1: 30 MINUTES. 2: 1 HOUR. 3: 6 HOURS. 4: 3 DAYS. 5: 1 WEEK. 6: 3 MONTHS."
+  },
+  "THE GRAND DICE OF GRANDNESS. At the Stenchmaster's request.",
+  "Instead of twenty-one days, he can ROLL. And most of what he can roll is shorter. Thirty minutes. An hour.",
+  "captain[angry]: He'll roll. Of course he'll roll. He'll roll every time.",
+  "You read the small print under the table, which is so small it might be dust.",
+  "'GRAND DICE SOLD SEPARATELY.'",
+  "You look at the crate. Three hundred boxes. A sash in every one. No dice.",
+  "captain[determined]: ...Then he never sees a dice. Ever.",
+  {
+   "wear": "pocket_legend_book",
+   "to": "page_tear"
+  },
+  "A page comes half out at the staple. You smooth it back. It stays, mostly.",
+  {
+   "setFlag": "p11_psg_dice"
+  },
+  {
+   "setFlag": "grand_dice_known"
+  },
+  {
+   "event": "p11_passage"
+  }
+ ],
+ "p11c16.plan": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "At the long table, by the last of the lamplight, on the back of a Cheap-O-Rama box, you write it out.",
+  {
+   "insert": "anti_dice_plan",
+   "caption": "THE PLAN. 1. HOLD SASH 30 SECONDS (ME). 2. LET IT FLUTTER. 3. HE MUST NOTICE. 4. CREW GASP AND POINT. 5. 21 DAYS. 6. NO DICE. NO DICE. NO DICE."
+  },
+  {
+   "giveItem": "anti_dice_plan"
+  },
+  "You underline NO DICE three times. The crayon (his crayon, the only one on the ship) breaks on the third.",
+  {
+   "setFlag": "anti_dice_plan_written"
+  },
+  {
+   "tutorial": "Put the booklet back where you found it (his hammock). Gently.",
+   "title": "Secret Research"
+  }
+ ],
+ "p11c16.return": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "Back up on one knee. The hammock swings. The booklet has to go back exactly where it was, on his chest, the right way up, while he breathes.",
+  {
+   "repair": "reach",
+   "strikes": 3,
+   "title": "PUT IT BACK"
+  },
+  {
+   "takeItem": "pocket_legend_book",
+   "silent": true
+  },
+  "It goes down onto his chest. He breathes in. He breathes out. He pats it, in his sleep, and smiles.",
+  "garrick: ...mine...",
+  {
+   "setFlag": "pocket_book_returned"
+  },
+  {
+   "tutorial": "Now wake the crew. Quietly. Pete, Gristle, Bob and Jim. Don't wake HIM.",
+   "title": "The Anti-Dice Conspiracy"
+  }
+ ],
+ "p11c16.wake_pete": [
+  "You shake Pete's hammock, once. His eyes open. You put a finger to your lips and point at the long table.",
+  "pete: (whispering) ...Is this about the three weeks?",
+  "You nod. He's out of the hammock before you've finished nodding.",
+  {
+   "setFlag": "p11_woken_pete"
+  },
+  {
+   "event": "p11_woken"
+  }
+ ],
+ "p11c16.wake_gristle": [
+  "You touch Gristle's shoulder. He's awake at once, the way old sailors are, and already looking for the leak.",
+  "gristle: (whispering) Where's it coming in?",
+  "captain: (whispering) It isn't. Long table. Meeting.",
+  "gristle: (whispering) ...Right.",
+  {
+   "setFlag": "p11_woken_gristle"
+  },
+  {
+   "event": "p11_woken"
+  }
+ ],
+ "p11c16.wake_bob": [
+  "You shake Bob. Bob says, quite loudly, 'IS IT BREAKFAST?'",
+  "Everybody freezes. Up in the hammock, the Grand Stenchmaster snorts... and settles.",
+  "bob: (whispering, much too late) ...is it breakfast?",
+  "captain: (whispering) Long. Table.",
+  {
+   "setFlag": "p11_woken_bob"
+  },
+  {
+   "event": "p11_woken"
+  }
+ ],
+ "p11c16.wake_jim": [
+  "Jim's awake already. He's been awake since the three weeks. He's been lying there smiling at the ceiling.",
+  "jim: (whispering) Three weeks of cooking FOOD.",
+  "captain: (whispering) Long table.",
+  {
+   "setFlag": "p11_woken_jim"
+  },
+  {
+   "event": "p11_woken"
+  }
+ ],
+ "p11c16.woken": [
+  {
+   "setFlag": "p11_woken_said"
+  },
+  {
+   "tutorial": "Hold the meeting at the long table.",
+   "title": "The Anti-Dice Conspiracy"
+  }
+ ],
+ "p11c16.meeting": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "music": "sash_conspiracy",
+   "fade": 600
+  },
+  "Five pirates round a table in the dark, under a lamp held up by six ropes, whispering, while the man they're whispering about snores six feet away.",
+  "captain: (whispering) The sash. If it flutters, he stops. Twenty-one days. It's in his own book.",
+  "captain: (whispering) But first somebody has to hold it. For thirty seconds. Properly. The highest-ranking officer.",
+  "Everybody looks at you.",
+  "pete: (whispering) ...You'd do that?",
+  "captain[determined]: (whispering) For three weeks? I'd hold that sash with my TEETH.",
+  "Nobody says anything. Gristle very slowly takes his hat off.",
+  "captain: (whispering) The problem's the dice. 'Or, at the Stenchmaster's request.' He'll ask to roll. He always asks. So.",
+  "captain: (whispering) What do we do about the dice?",
+  {
+   "choice": [
+    {
+     "text": "Destroy every Grand Dice on the ship.",
+     "then": [
+      {
+       "setValue": "anti_dice_strategy",
+       "value": "destroy"
+      },
+      "gristle: (whispering) There aren't any. Sold separately. Can't destroy what isn't here.",
+      "captain: (whispering) Then we keep it that way."
+     ]
+    },
+    {
+     "text": "Declare the dice invalid.",
+     "then": [
+      {
+       "setValue": "anti_dice_strategy",
+       "value": "invalid"
+      },
+      "pete: (whispering) On whose authority?",
+      "captain: (whispering) ...The Grand Court's?",
+      "pete: (whispering) The Grand Court is ALSO MADE UP, Captain."
+     ]
+    },
+    {
+     "text": "Fake some paperwork.",
+     "then": [
+      {
+       "setValue": "anti_dice_strategy",
+       "value": "paperwork"
+      },
+      "jim: (whispering) He loves paperwork. He'd never question paperwork.",
+      "pete: (whispering) He'd question it by ADDING more paperwork."
+     ]
+    },
+    {
+     "text": "Alter the book.",
+     "then": [
+      {
+       "setValue": "anti_dice_strategy",
+       "value": "alter"
+      },
+      "bob: (whispering) There's three hundred copies, Captain.",
+      "captain: (whispering) ...Then we'd have to alter three hundred books."
+     ]
+    },
+    {
+     "text": "Rebrand the punishment.",
+     "then": [
+      {
+       "setValue": "anti_dice_strategy",
+       "value": "rebrand"
+      },
+      "pete: (whispering) Make it sound like a prize?",
+      "captain: (whispering) Make it sound like the GRAND option."
+     ]
+    },
+    {
+     "text": "Weaponise his ego.",
+     "then": [
+      {
+       "setValue": "anti_dice_strategy",
+       "value": "ego"
+      },
+      "gristle: (whispering) Now you're talking."
+     ]
+    }
+   ]
+  },
+  "And slowly, round the table, every idea comes back to the same place.",
+  "pete: (whispering) He doesn't want the dice because they're SHORTER. He wants them because they're a ceremony. So we give him a BETTER ceremony.",
+  "captain[determined]: (whispering) We make twenty-one days sound GRANDER than a toy cube.",
+  "jim: (whispering) 'The Sacred Twenty-One Days of Stenchless Honour.'",
+  "gristle: (whispering) 'The Ancient Silence of the Sash.'",
+  "bob: (whispering) 'Dice are the beginner's option.' 'Dice are for little Stenchmasters.'",
+  "pete: (whispering) 'Brogath would have taken the full twenty-one.'",
+  "captain[smug]: (whispering) 'Princess Stenchalina never needed a toy cube.'",
+  "Five grins in the dark.",
+  {
+   "setFlag": "anti_dice_meeting_held"
+  },
+  {
+   "setValue": "anti_dice_pitch",
+   "value": "sacred_twenty_one_days"
+  },
+  {
+   "call": "p11c16.leak"
+  }
+ ],
+ "p11c16.leak": [
+  {
+   "sfx": "token_whistle",
+   "volume": 0.8
+  },
+  "Tok.",
+  "Something comes down the ladder, very gently, and rolls to a stop in the middle of the long table. Right between the five of you.",
+  {
+   "token": "token_card",
+   "x": 8,
+   "y": 7,
+   "id": "p11_meeting_token"
+  },
+  "Nobody moves. Then you pick it up.",
+  {
+   "removeSprite": "p11_meeting_token"
+  },
+  {
+   "insert": "token_meeting",
+   "caption": "WE KNOW ABOUT YOUR LITTLE MEETING. GOOD LUCK, CAPTAIN! (YOU'LL NEED IT.)"
+  },
+  "Everybody looks at the hatch. Up there, round and round, the storm. Nobody up there says a word.",
+  "pete: (whispering) ...How.",
+  "captain: (whispering) Don't. Don't ask how. Never ask how.",
+  {
+   "sfx": "stomach_grnk",
+   "volume": 0.9
+  },
+  "And then, from the hammock, deep and long and very, very loud...",
+  {
+   "sfx": "stomach_growl_big",
+   "volume": 1.0
+  },
+  {
+   "shake": 1,
+   "duration": 600
+  },
+  "GRRRRRRRNNNNNNNNNNK.",
+  "Five pirates go very still.",
+  "In his sleep, the Grand Stenchmaster smiles, pats his stomach, and says, quite clearly:",
+  "garrick: ...tomorrow.",
+  {
+   "setFlag": "conspiracy_ready"
+  },
+  {
+   "setFlag": "garrick_stomach_rumbling"
+  },
+  {
+   "completeQuest": "anti_dice_conspiracy"
+  },
+  {
+   "setFlag": "p11_complete"
+  },
+  {
+   "wait": 400
+  },
+  {
+   "tutorial": "The plan is made, the crew is in on it, and something in the Grand Stenchmaster is getting ready for the morning. (Story Phase 11 is complete.)",
+   "title": "The Anti-Dice Conspiracy"
+  }
+ ]
+}

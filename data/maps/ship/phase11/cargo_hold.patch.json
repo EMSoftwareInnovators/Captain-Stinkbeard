@@ -1,0 +1,33 @@
+{
+ "id": "cargo_hold_phase11",
+ "patch": "cargo_hold",
+ "//": "Story Phase 11 in the hold: Gristle's sign on the treasure-room door (chapter 102: somebody suggested sleeping in there). Sealed from then on: the room still holds what the first release left, and nobody is to open it.",
+ "objects": [
+  {
+   "id": "p11_treasure_sealed",
+   "type": "warp",
+   "x": 4,
+   "y": 3,
+   "to": {
+    "map": "treasure_hold",
+    "spawn": "door"
+   },
+   "sfx": "heavy_door",
+   "if": {
+    "notFlag": "treasure_room_sealed"
+   },
+   "locked": "p11.treasure_door_sealed"
+  }
+ ],
+ "props": [
+  {
+   "prop": "treasure_sign_do_not_open",
+   "x": 4,
+   "y": 3,
+   "if": {
+    "flag": "treasure_door_sign_1"
+   },
+   "id": "p11_treasure_sign"
+  }
+ ]
+}

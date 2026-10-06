@@ -1,0 +1,139 @@
+[
+ {
+  "id": "p11_ready",
+  "//": "Phase 11 begins after Phase 10: a one-time hint (go to bed).",
+  "if": {
+   "all": [
+    {
+     "flag": "p10_complete"
+    },
+    {
+     "notFlag": "p11_ready_hint"
+    },
+    {
+     "notFlag": "p11_started"
+    }
+   ]
+  },
+  "script": "p11.ready_hint",
+  "once": false
+ },
+ {
+  "id": "p11_sash_review",
+  "//": "Chapter 99: every exhibit gone over.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "every_sash_incident.review"
+    },
+    {
+     "notFlag": "sash_incidents_reviewed"
+    }
+   ]
+  },
+  "script": "p11c4.done",
+  "once": false
+ },
+ {
+  "id": "p11_votes",
+  "//": "Chapter 100: every vote counted.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "grand_finger_puller.vote"
+    },
+    {
+     "notFlag": "grand_finger_puller_introduced"
+    }
+   ]
+  },
+  "script": "p11c5.result",
+  "once": false
+ },
+ {
+  "id": "p11_tokens",
+  "//": "Chapter 101: every token read.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "storm_listening.tokens"
+    },
+    {
+     "notFlag": "p11_tokens_read"
+    }
+   ]
+  },
+  "script": "p11c6.done",
+  "once": false
+ },
+ {
+  "id": "p11_hammocks",
+  "//": "Chapter 102: everyone up, the table braced, the rags looked at.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "hammocks_die.up"
+    },
+    {
+     "objectiveDone": "hammocks_die.table"
+    },
+    {
+     "objectiveDone": "hammocks_die.rags"
+    },
+    {
+     "notFlag": "treasure_door_sign_1"
+    }
+   ]
+  },
+  "script": "p11c7.done",
+  "once": false
+ },
+ {
+  "id": "p11_pocket_crew",
+  "//": "Chapter 105: the crew have had their say.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "pocket_sacred_text.crew"
+    },
+    {
+     "notFlag": "pocket_book_corroboration_mocked"
+    }
+   ]
+  },
+  "script": "p11c10.done",
+  "once": false
+ },
+ {
+  "id": "p11_hung",
+  "//": "Chapter 106: the three hammocks re-hung.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "bed_sashes.hang"
+    },
+    {
+     "notFlag": "p11_hung_said"
+    }
+   ]
+  },
+  "script": "p11c11.hung",
+  "once": false
+ },
+ {
+  "id": "p11_woken",
+  "//": "Chapter 111: the crew are awake.",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "anti_dice_conspiracy.wake"
+    },
+    {
+     "notFlag": "p11_woken_said"
+    }
+   ]
+  },
+  "script": "p11c16.woken",
+  "once": false
+ }
+]

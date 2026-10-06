@@ -1,0 +1,1235 @@
+[
+ {
+  "extend": "garrick",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "bedtime_in_the_storm.book"
+    },
+    "script": "p11c1.book"
+   },
+   {
+    "if": {
+     "objectiveActive": "poor_in_gold.story"
+    },
+    "script": "p11c3.story"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "every_sash_incident.review"
+      },
+      {
+       "notFlag": "p11_sash_ex_book"
+      }
+     ]
+    },
+    "script": "p11c4.book"
+   },
+   {
+    "if": {
+     "objectiveActive": "the_lost_book.console"
+    },
+    "script": "p11c8.console"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_resumption.story"
+    },
+    "script": "p11c13.story"
+   },
+   {
+    "if": {
+     "objectiveActive": "first_great_flutter.story"
+    },
+    "script": "p11c15.story"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "conspiracy_ready"
+      },
+      {
+       "notFlag": "p12_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p11_ready_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_ch111_started"
+      },
+      {
+       "notFlag": "conspiracy_ready"
+      }
+     ]
+    },
+    "script": "garrick.p11_asleep"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sash_flutter_weakness_discovered"
+      },
+      {
+       "notFlag": "conspiracy_ready"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p11_weakness_1",
+     "garrick.p11_weakness_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "cheap_o_rama_sashes_arrived"
+      },
+      {
+       "notFlag": "sash_flutter_weakness_discovered"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p11_sashes_1",
+     "garrick.p11_sashes_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_started"
+      },
+      {
+       "notFlag": "cheap_o_rama_sashes_arrived"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p11_bedtime_1",
+     "garrick.p11_bedtime_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "squawks",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "conspiracy_ready"
+      },
+      {
+       "notFlag": "p12_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p11_ready_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_ch111_started"
+      },
+      {
+       "notFlag": "conspiracy_ready"
+      }
+     ]
+    },
+    "script": "squawks.p11_asleep"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sash_flutter_weakness_discovered"
+      },
+      {
+       "notFlag": "conspiracy_ready"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p11_weakness_1",
+     "squawks.p11_weakness_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "cheap_o_rama_sashes_arrived"
+      },
+      {
+       "notFlag": "sash_flutter_weakness_discovered"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p11_sashes_1",
+     "squawks.p11_sashes_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_started"
+      },
+      {
+       "notFlag": "cheap_o_rama_sashes_arrived"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p11_bedtime_1",
+     "squawks.p11_bedtime_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "pete",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "grand_finger_puller.vote"
+      },
+      {
+       "notFlag": "p11_vote_pete"
+      }
+     ]
+    },
+    "script": "p11c5.vote_pete"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "hammocks_die.up"
+      },
+      {
+       "notFlag": "p11_up_pete"
+      }
+     ]
+    },
+    "script": "p11c7.up_pete"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "pocket_sacred_text.crew"
+      },
+      {
+       "notFlag": "p11_pt_pete"
+      }
+     ]
+    },
+    "script": "p11c10.pete"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "anti_dice_conspiracy.wake"
+      },
+      {
+       "notFlag": "p11_woken_pete"
+      }
+     ]
+    },
+    "script": "p11c16.wake_pete"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "conspiracy_ready"
+      },
+      {
+       "notFlag": "p12_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p11_ready_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_ch111_started"
+      },
+      {
+       "notFlag": "conspiracy_ready"
+      }
+     ]
+    },
+    "script": "pete.p11_asleep"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sash_flutter_weakness_discovered"
+      },
+      {
+       "notFlag": "conspiracy_ready"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p11_weakness_1",
+     "pete.p11_weakness_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "cheap_o_rama_sashes_arrived"
+      },
+      {
+       "notFlag": "sash_flutter_weakness_discovered"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p11_sashes_1",
+     "pete.p11_sashes_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_started"
+      },
+      {
+       "notFlag": "cheap_o_rama_sashes_arrived"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p11_bedtime_1",
+     "pete.p11_bedtime_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "bob",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "grand_finger_puller.vote"
+      },
+      {
+       "notFlag": "p11_vote_bob"
+      }
+     ]
+    },
+    "script": "p11c5.vote_bob"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "hammocks_die.up"
+      },
+      {
+       "notFlag": "p11_up_bob"
+      }
+     ]
+    },
+    "script": "p11c7.up_bob"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "anti_dice_conspiracy.wake"
+      },
+      {
+       "notFlag": "p11_woken_bob"
+      }
+     ]
+    },
+    "script": "p11c16.wake_bob"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "conspiracy_ready"
+      },
+      {
+       "notFlag": "p12_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p11_ready_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_ch111_started"
+      },
+      {
+       "notFlag": "conspiracy_ready"
+      }
+     ]
+    },
+    "script": "bob.p11_asleep"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sash_flutter_weakness_discovered"
+      },
+      {
+       "notFlag": "conspiracy_ready"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p11_weakness_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "cheap_o_rama_sashes_arrived"
+      },
+      {
+       "notFlag": "sash_flutter_weakness_discovered"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p11_sashes_1",
+     "bob.p11_sashes_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_started"
+      },
+      {
+       "notFlag": "cheap_o_rama_sashes_arrived"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p11_bedtime_1",
+     "bob.p11_bedtime_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "gristle",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "bedtime_in_the_storm.hammocks"
+    },
+    "script": "p11c1.hammocks"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "grand_finger_puller.vote"
+      },
+      {
+       "notFlag": "p11_vote_gristle"
+      }
+     ]
+    },
+    "script": "p11c5.vote_gristle"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "pocket_sacred_text.crew"
+      },
+      {
+       "notFlag": "p11_pt_gristle"
+      }
+     ]
+    },
+    "script": "p11c10.gristle"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "anti_dice_conspiracy.wake"
+      },
+      {
+       "notFlag": "p11_woken_gristle"
+      }
+     ]
+    },
+    "script": "p11c16.wake_gristle"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "conspiracy_ready"
+      },
+      {
+       "notFlag": "p12_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p11_ready_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_ch111_started"
+      },
+      {
+       "notFlag": "conspiracy_ready"
+      }
+     ]
+    },
+    "script": "gristle.p11_asleep"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sash_flutter_weakness_discovered"
+      },
+      {
+       "notFlag": "conspiracy_ready"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p11_weakness_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "cheap_o_rama_sashes_arrived"
+      },
+      {
+       "notFlag": "sash_flutter_weakness_discovered"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p11_sashes_1",
+     "gristle.p11_sashes_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_started"
+      },
+      {
+       "notFlag": "cheap_o_rama_sashes_arrived"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p11_bedtime_1",
+     "gristle.p11_bedtime_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "jim",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "grand_finger_puller.vote"
+      },
+      {
+       "notFlag": "p11_vote_jim"
+      }
+     ]
+    },
+    "script": "p11c5.vote_jim"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "hammocks_die.up"
+      },
+      {
+       "notFlag": "p11_up_jim"
+      }
+     ]
+    },
+    "script": "p11c7.up_jim"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "anti_dice_conspiracy.wake"
+      },
+      {
+       "notFlag": "p11_woken_jim"
+      }
+     ]
+    },
+    "script": "p11c16.wake_jim"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "conspiracy_ready"
+      },
+      {
+       "notFlag": "p12_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p11_ready_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_ch111_started"
+      },
+      {
+       "notFlag": "conspiracy_ready"
+      }
+     ]
+    },
+    "script": "jim.p11_asleep"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sash_flutter_weakness_discovered"
+      },
+      {
+       "notFlag": "conspiracy_ready"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p11_weakness_1",
+     "jim.p11_weakness_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "cheap_o_rama_sashes_arrived"
+      },
+      {
+       "notFlag": "sash_flutter_weakness_discovered"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p11_sashes_1",
+     "jim.p11_sashes_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_started"
+      },
+      {
+       "notFlag": "cheap_o_rama_sashes_arrived"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p11_bedtime_1",
+     "jim.p11_bedtime_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "ned",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "pocket_sacred_text.crew"
+      },
+      {
+       "notFlag": "p11_pt_ned"
+      }
+     ]
+    },
+    "script": "p11c10.ned"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "conspiracy_ready"
+      },
+      {
+       "notFlag": "p12_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p11_ready_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_ch111_started"
+      },
+      {
+       "notFlag": "conspiracy_ready"
+      }
+     ]
+    },
+    "script": "ned.p11_asleep"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sash_flutter_weakness_discovered"
+      },
+      {
+       "notFlag": "conspiracy_ready"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p11_weakness_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "cheap_o_rama_sashes_arrived"
+      },
+      {
+       "notFlag": "sash_flutter_weakness_discovered"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p11_sashes_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_started"
+      },
+      {
+       "notFlag": "cheap_o_rama_sashes_arrived"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p11_bedtime_1",
+     "ned.p11_bedtime_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "rusty_tom",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "every_sash_incident.review"
+      },
+      {
+       "notFlag": "p11_sash_ex_holders"
+      }
+     ]
+    },
+    "script": "p11c4.holders"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "conspiracy_ready"
+      },
+      {
+       "notFlag": "p12_started"
+      }
+     ]
+    },
+    "cycle": [
+     "rusty_tom.p11_ready_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_ch111_started"
+      },
+      {
+       "notFlag": "conspiracy_ready"
+      }
+     ]
+    },
+    "script": "rusty_tom.p11_asleep"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sash_flutter_weakness_discovered"
+      },
+      {
+       "notFlag": "conspiracy_ready"
+      }
+     ]
+    },
+    "cycle": [
+     "rusty_tom.p11_weakness_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "cheap_o_rama_sashes_arrived"
+      },
+      {
+       "notFlag": "sash_flutter_weakness_discovered"
+      }
+     ]
+    },
+    "cycle": [
+     "rusty_tom.p11_sashes_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_started"
+      },
+      {
+       "notFlag": "cheap_o_rama_sashes_arrived"
+      }
+     ]
+    },
+    "cycle": [
+     "rusty_tom.p11_bedtime_1",
+     "rusty_tom.p11_bedtime_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "barnacle_bill",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "every_sash_incident.review"
+      },
+      {
+       "notFlag": "p11_sash_ex_holders"
+      }
+     ]
+    },
+    "script": "p11c4.holders"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "conspiracy_ready"
+      },
+      {
+       "notFlag": "p12_started"
+      }
+     ]
+    },
+    "cycle": [
+     "barnacle_bill.p11_ready_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_ch111_started"
+      },
+      {
+       "notFlag": "conspiracy_ready"
+      }
+     ]
+    },
+    "script": "barnacle_bill.p11_asleep"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sash_flutter_weakness_discovered"
+      },
+      {
+       "notFlag": "conspiracy_ready"
+      }
+     ]
+    },
+    "cycle": [
+     "barnacle_bill.p11_weakness_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "cheap_o_rama_sashes_arrived"
+      },
+      {
+       "notFlag": "sash_flutter_weakness_discovered"
+      }
+     ]
+    },
+    "cycle": [
+     "barnacle_bill.p11_sashes_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_started"
+      },
+      {
+       "notFlag": "cheap_o_rama_sashes_arrived"
+      }
+     ]
+    },
+    "cycle": [
+     "barnacle_bill.p11_bedtime_1",
+     "barnacle_bill.p11_bedtime_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "hale",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "conspiracy_ready"
+      },
+      {
+       "notFlag": "p12_started"
+      }
+     ]
+    },
+    "script": "hale.p11_ready"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "sash_flutter_weakness_discovered"
+      },
+      {
+       "notFlag": "conspiracy_ready"
+      }
+     ]
+    },
+    "script": "hale.p11_weakness"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "cheap_o_rama_sashes_arrived"
+      },
+      {
+       "notFlag": "sash_flutter_weakness_discovered"
+      }
+     ]
+    },
+    "script": "hale.p11_sashes"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_started"
+      },
+      {
+       "notFlag": "cheap_o_rama_sashes_arrived"
+      }
+     ]
+    },
+    "script": "hale.p11_bedtime"
+   }
+  ]
+ },
+ {
+  "extend": "nell",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_started"
+      },
+      {
+       "notFlag": "p12_started"
+      }
+     ]
+    },
+    "script": "nell.p11"
+   }
+  ]
+ },
+ {
+  "extend": "sully",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_started"
+      },
+      {
+       "notFlag": "p12_started"
+      }
+     ]
+    },
+    "script": "sully.p11"
+   }
+  ]
+ },
+ {
+  "extend": "fennimore",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_started"
+      },
+      {
+       "notFlag": "p12_started"
+      }
+     ]
+    },
+    "script": "fennimore.p11"
+   }
+  ]
+ },
+ {
+  "extend": "wick",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_started"
+      },
+      {
+       "notFlag": "p12_started"
+      }
+     ]
+    },
+    "script": "wick.p11"
+   }
+  ]
+ },
+ {
+  "extend": "rook",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_started"
+      },
+      {
+       "notFlag": "p12_started"
+      }
+     ]
+    },
+    "script": "rook.p11"
+   }
+  ]
+ },
+ {
+  "extend": "brask",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_started"
+      },
+      {
+       "notFlag": "p12_started"
+      }
+     ]
+    },
+    "script": "brask.p11"
+   }
+  ]
+ },
+ {
+  "extend": "jory",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_started"
+      },
+      {
+       "notFlag": "p12_started"
+      }
+     ]
+    },
+    "script": "jory.p11"
+   }
+  ]
+ },
+ {
+  "extend": "finch",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_started"
+      },
+      {
+       "notFlag": "p12_started"
+      }
+     ]
+    },
+    "script": "finch.p11"
+   }
+  ]
+ },
+ {
+  "extend": "mags",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_started"
+      },
+      {
+       "notFlag": "p12_started"
+      }
+     ]
+    },
+    "script": "mags.p11"
+   }
+  ]
+ },
+ {
+  "extend": "quill",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_started"
+      },
+      {
+       "notFlag": "p12_started"
+      }
+     ]
+    },
+    "script": "quill.p11"
+   }
+  ]
+ },
+ {
+  "extend": "penhallow",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p11_started"
+      },
+      {
+       "notFlag": "p12_started"
+      }
+     ]
+    },
+    "script": "penhallow.p11"
+   }
+  ]
+ }
+]

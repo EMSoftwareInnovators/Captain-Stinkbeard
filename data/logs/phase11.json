@@ -1,0 +1,159 @@
+{
+ "//": "Story Phase 11: everything Garrick claims stays ALLEGED. Brogath is updated (newer variants first), never verified.",
+ "garrick_legends_p11": {
+  "extend": "garrick_legends",
+  "entries": [
+   {
+    "id": "brogath",
+    "variants": [
+     {
+      "if": {
+       "flag": "brogath_treasure_story_heard"
+      },
+      "claim": "An ancient Grand Stenchmaster, terribly shy. Found a treasure buried absurdly deep. Dug for three minutes, got tired, and tried Stenchmaster Excavation, the sash held out on both sides by 'loyal sash supporters'. The blast sent the treasure up into a storm of sharks; the sharks wore it; the biggest wore the crown. Brogath was left POOR IN GOLD, BUT WEALTHY IN GAS.",
+      "source": "Garrick's bedtime story, chapter three, the 'expanded' version (galley, under the six-rope lamp)",
+      "evidence": "None",
+      "verified": "None",
+      "reliability": "Highly Questionable",
+      "note": "It is exactly what happened to us TODAY. The hole, the blast, the treasure into the storm, the sharks wearing it, the big one in the crown. He says history repeats itself. Pete asked when he wrote chapter three. 'Recently.' Squawks: 'Crayon still wet.'"
+     }
+    ]
+   },
+   {
+    "id": "bureaucracy",
+    "title": "The Office of the Grand Stenchmaster",
+    "if": {
+     "flag": "grand_finger_puller_introduced"
+    },
+    "insert": "stenchmaster_org_chart",
+    "caption": "THE GRAND STENCHMASTER'S OFFICE (crayon, on a Frog Grog label).",
+    "claim": "Every Grand Stenchmaster has a structure under him: a Grand Steward, an Assistant Steward, two Sash Holders (left and right), Flutter Observers (rotating), and the most senior, most trusted post of all: the GRAND FINGER-PULLER.",
+    "source": "Garrick's org chart, pinned up by the stove; the book (a drawing of a hand, one finger out)",
+    "evidence": "A crayon chart on the back of a Frog Grog label",
+    "verified": "None",
+    "reliability": "Made up",
+    "note": "Put to a vote (this is a pirate ship, and pirates vote). Grand Finger-Puller: for, one; against, everybody; Squawks abstained HARDER. The office stays on the chart, 'VACANT, TEMPORARILY'. Everything on that chart is a way to get somebody to stand behind him holding cloth."
+   },
+   {
+    "id": "rumpus",
+    "title": "Sir Rumpus Windbottom and the Grand Court",
+    "if": {
+     "flag": "rumpus_legend_heard"
+    },
+    "claim": "Sir Rumpus Windbottom founded the Grand Court to rule on whether a Grand Waft was legally VALID. The Grand Judge of Wind in the great wig; Deputy Sash Magistrates; the Nap Clerk (minutes); the Bean Bailiff (order); rotating fart witnesses; the LICENSED Finger-Puller; the ceremonial raised finger. When it was done the whole Court rose and the Judge said: 'The Grand Waft is valid.'",
+    "source": "The pocket edition, read aloud by Garrick, very close to his face, during the Grand Nap's Grand Resumption",
+    "evidence": "None",
+    "verified": "None",
+    "reliability": "Made up",
+    "note": "Who decided one wasn't valid before? Nobody. What happened if one wasn't? 'I don't think that's ever come up.' A court with exactly one kind of case and one verdict. Squawks: 'Suspicious.'"
+   },
+   {
+    "id": "gustavio",
+    "title": "Lord Gustavio Bottomsworth and the First Great Sash Flutter",
+    "if": {
+     "flag": "gustavio_legend_heard"
+    },
+    "insert": "pocket_page_gustavio",
+    "caption": "Lord Gustavio Bottomsworth. Flap. Flap. Three weeks.",
+    "claim": "The first Grand Stenchmaster to wear the sash, before there were sash holders. During a ceremonial release before the whole court the sash LIFTED a few inches and FLUTTERED, twice. Somebody pointed. Somebody gasped. He was so humiliated that he refused to release for THREE WEEKS. That is why there are sash holders.",
+    "source": "Garrick, last legend of the night; the pocket edition, page 4 (the same story, with a drawing)",
+    "evidence": "None",
+    "verified": "None",
+    "reliability": "Highly Questionable",
+    "note": "The first useful thing in any of his stories. If the sash flutters, he STOPS. For three weeks. He says it's an anecdote and doesn't apply. He's been very quiet up there since."
+   },
+   {
+    "id": "pocket_edition",
+    "title": "Complete Grand Stenchmaster Legends - Cheap-O-Rama Pocket Edition",
+    "if": {
+     "flag": "pocket_book_found"
+    },
+    "insert": "pocket_book_new",
+    "caption": "COMPLETE GRAND STENCHMASTER LEGENDS - CHEAP-O-RAMA POCKET EDITION. FREE WITH EVERY SASH!",
+    "claim": "A tiny stapled booklet, free in every Cheap-O-Rama sash playset, telling the same legends as Garrick's own book: Brogath, Rumpold, Stenchalina, the Grand Court, Gustavio. Garrick: INDEPENDENT CORROBORATION.",
+    "source": "Cheap-O-Rama Discount Emporium (one in every box; three hundred boxes)",
+    "evidence": "Microscopic print. Paper you can read the next page through. Two crooked staples. FREE on the front.",
+    "verified": "None",
+    "reliability": "Highly Questionable",
+    "note": "Did he copy it? Did they copy him? Did the shark have it written overnight? Nobody knows. Garrick says it proves the legends are true. It proves somebody owns a printing press. His own book is in the storm now (the porthole, chapter five)."
+   },
+   {
+    "id": "dice_rule",
+    "title": "The Thirty Seconds, and the Grand Dice of Grandness",
+    "if": {
+     "flag": "grand_dice_known"
+    },
+    "insert": "pocket_page_table_b",
+    "caption": "TABLE B (REVISED).",
+    "claim": "The sash must first be held properly for thirty seconds by the highest-ranking officer present. After thirty seconds that officer may intentionally let it flutter; the Stenchmaster must notice; observers may gasp or point. Penalty: the traditional Stench Silence of twenty-one days. OR, at the Stenchmaster's request, roll the Grand Dice of Grandness (Table B: 1, 30 minutes; 2, 1 hour; 3, 6 hours; 4, 3 days; 5, 1 week; 6, 3 months).",
+    "source": "The pocket edition, pages 7 to 9 and the back page, read by lamplight while he slept",
+    "evidence": "None. Table A says see Table A.",
+    "verified": "None",
+    "reliability": "Highly Questionable",
+    "note": "The highest-ranking officer is me. GRAND DICE SOLD SEPARATELY. There are no dice on this ship. Keep it that way."
+   }
+  ]
+ },
+ "bbk_trash_p11": {
+  "extend": "bbk_trash",
+  "entries": [
+   {
+    "id": "fart_man_tokens",
+    "title": "The Fart Man Tokens",
+    "if": {
+     "flag": "p11_tokens_read"
+    },
+    "insert": "token_fart_man",
+    "caption": "WHY DOES A PIRATE SHIP HAVE A DESIGNATED FART MAN?",
+    "printed": "WHY DOES A PIRATE SHIP HAVE A DESIGNATED FART MAN? / STENCHMASTER DEPARTMENT BUDGET: 100%. EVERYTHING ELSE: 0%. / UNNECESSARY JOB TITLES OF THE MONTH! WHY DOES A PIRATE CREW NEED THIS JOB? / WHY HIRE A FART MAN WHEN THE CREW ALREADY HAS BUTTS?",
+    "arrived": "Down the galley ladder, four at once, the night we voted on the Finger-Puller",
+    "value": "None",
+    "verdict": "Bob fell out of his hammock laughing at the last one. It is, unfortunately, a good point."
+   },
+   {
+    "id": "hiring_card",
+    "title": "NOW HIRING",
+    "if": {
+     "flag": "p11_tokens_read"
+    },
+    "insert": "token_finger_puller",
+    "caption": "NOW HIRING: GRAND FINGER-PULLER. NO EXPERIENCE NECESSARY. ZERO ACCOUNTABILITY.",
+    "printed": "NOW HIRING: GRAND FINGER-PULLER. NO EXPERIENCE NECESSARY. ZERO ACCOUNTABILITY. ASK YOUR CAPTAIN! / (on the back) CAPTAIN MANAGEMENT TIP: IF YOUR FART MAN WON'T FART, TRY ASKING NICELY.",
+    "arrived": "Ten minutes after we voted on it. Laminated.",
+    "value": "None",
+    "verdict": "How did they know about the Finger-Puller? We voted on it ten minutes before. Don't ask how. Never ask how."
+   },
+   {
+    "id": "meeting_token",
+    "title": "Good Luck, Captain",
+    "if": {
+     "flag": "conspiracy_ready"
+    },
+    "insert": "token_meeting",
+    "caption": "WE KNOW ABOUT YOUR LITTLE MEETING.",
+    "printed": "WE KNOW ABOUT YOUR LITTLE MEETING. GOOD LUCK, CAPTAIN! (YOU'LL NEED IT.)",
+    "arrived": "Down the ladder, gently, onto the middle of the long table, in the middle of a secret meeting",
+    "value": "None",
+    "verdict": "It KNOWS. It's a shark in a storm and it knows about a meeting we held in WHISPERS."
+   }
+  ]
+ },
+ "captains_journal_p11": {
+  "extend": "captains_journal",
+  "entries": [
+   {
+    "id": "storm",
+    "variants": [
+     {
+      "if": {
+       "flag": "p11_started"
+      },
+      "status": "INSIDE IT",
+      "where": "All round us. Still.",
+      "notes": "Still going round. At night the sacks slide, the hammocks snap and things come down the ladder with writing on. Now a FLYING MACHINE comes and goes through the wall of it with deliveries. It's the same storm. It's just getting more organised."
+     }
+    ]
+   }
+  ]
+ }
+}
