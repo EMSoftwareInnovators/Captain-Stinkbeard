@@ -8,8 +8,8 @@ import { defineConfig } from '@playwright/test';
  *   npm run e2e           everything (about 100 minutes)
  *   npm run e2e:smoke     @smoke: a few minutes, run after any change
  *   npm run e2e:quick     everything but the long @story playthroughs
- *   npm run e2e:story     the @story playthroughs (prologue, Phases 2 to 7)
- *   npm run e2e -- --grep @phase3     one area (@phase2 to @phase7 @prologue
+ *   npm run e2e:story     the @story playthroughs (prologue, Phases 2 to 10)
+ *   npm run e2e -- --grep @phase3     one area (@phase2 to @phase10 @prologue
  *                                     @input @saves @world @scenes @ui)
  *   npm run e2e -- --shard=1/3        split across machines
  * E2E_WORKERS=2 runs tests side by side (each gets its own browser and

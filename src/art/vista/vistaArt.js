@@ -62,7 +62,9 @@ function paintSky(name) {
     const t = y / (SKY_H - 1);
     for (let x = 0; x < W; x++) {
       // posterised gradient in 6 bands with ordered dither at the edges
-      const band = Math.min(5, Math.floor(t * 6 + BAYER[y & 3][x & 3] / 16 - 0.5 / 16));
+      // (never below the first band: on the top row the dither could ask for band -1, which
+      // mixed past the top colour and wrapped to near-white dots on dark skies)
+      const band = Math.max(0, Math.min(5, Math.floor(t * 6 + BAYER[y & 3][x & 3] / 16 - 0.5 / 16)));
       c.set(x, y, mix(s.top, s.bottom, band / 5));
     }
   }

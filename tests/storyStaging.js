@@ -38,6 +38,7 @@ export class StagingTracker {
     this.gates = new Set(); // people placed as deliberate gates in the current room
     this.chosen = new Map(); // the current room's placement picks (see restage)
     this.touched = new Set(); // actors the current scene positioned by script
+    this.aloft = new Set(); // flown up out of the way: still in the room (the game keeps them), just not in anyone's path
     this.npcOf = new Map(); // actor id -> npc id, for extras spawned under another id
     this.restageLog = []; // what live restaging did after each scene
     this.context = '';
@@ -119,6 +120,7 @@ export class StagingTracker {
     this.actors = this.placements(map, this.gates);
     this.chosen = placementChoices(this.model(map).objects, this.session);
     this.touched.clear();
+    this.aloft.clear();
     this.npcOf.clear();
     const sp = spawn ? this.model(map).spawns[spawn] : null;
     this.player = sp ? [sp.x, sp.y] : Number.isInteger(x) && Number.isInteger(y) ? [x, y] : null;
@@ -160,11 +162,12 @@ export class StagingTracker {
    * spawns them.
    */
   checkScripted(id, what) {
-    if (this.map && id !== 'player' && id !== 'captain' && !this.actors.has(id)) this.issue(`${what} ${id}, who isn't on ${this.map}`);
+    if (this.map && id !== 'player' && id !== 'captain' && !this.actors.has(id) && !this.aloft.has(id)) this.issue(`${what} ${id}, who isn't on ${this.map}`);
   }
 
   despawn(id) {
     this.actors.delete(id);
+    this.aloft.delete(id);
     this.touched.add(id);
   }
 
@@ -173,7 +176,10 @@ export class StagingTracker {
     // Landing on furniture is fair staging (on a barrel, into the gold); being
     // left there when the scene ends is not (checkStanding).
     if (land) this.setPos(id, [...to]);
-    else if (id !== 'player' && id !== 'captain') this.despawn(id); // in the air: not in anyone's way
+    else if (id !== 'player' && id !== 'captain') {
+      this.despawn(id); // in the air: not in anyone's way
+      this.aloft.add(id);
+    }
   }
 
   move(id, { path, to } = {}) {

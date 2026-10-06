@@ -43,14 +43,35 @@ export function makeStory({ pick = 'first', preset = 'prologue_done' } = {}) {
   bus.on('story:flagSet', ({ flag }) => { flagAt[flag] ??= log.length; });
   // Who stands where, scene by scene (see tests/storyStaging.js).
   const staging = new StagingTracker(content, session);
+  // The game throws when a scene turns, poses, emotes or bursts at someone who isn't in the room (Story Phase 10).
+  const DIRS = new Set(['up', 'down', 'left', 'right', 'player', 'captain']);
   const tracked = {
     spawn: (npc, opts) => staging.spawn(npc, opts),
     place: (id, x, y) => staging.place(id, x, y),
-    despawn: (id) => staging.despawn(id),
+    despawn: (id) => {
+      staging.checkScripted(id, 'despawns');
+      staging.despawn(id);
+    },
+    face: (id, dir) => {
+      staging.checkScripted(id, 'turns');
+      if (dir && !DIRS.has(dir)) staging.checkScripted(dir, 'turns someone to face');
+    },
+    emote: (id) => staging.checkScripted(id, 'emotes over'),
+    anim: (id) => staging.checkScripted(id, 'poses'),
+    hop: (id) => staging.checkScripted(id, 'hops'),
+    tint: (id) => staging.checkScripted(id, 'tints'),
+    bark: (id) => id && staging.checkScripted(id, 'barks for'),
+    burst: (kind, opts) => opts?.actor && staging.checkScripted(opts.actor, 'bursts at'),
+    effect: (name, opts) => opts?.actor && staging.checkScripted(opts.actor, 'plays an effect on'),
     move: (id, opts) => staging.move(id, opts),
     fly: (id, opts) => staging.fly(id, { ...opts, land: opts?.land !== false }),
     setObjectVisible: (id, visible) => (visible ? staging.show(id) : staging.hide(id)),
-    restage: () => staging.restage(),
+    // A restage that isn't a cut walks people out: they're still in the room until they're gone.
+    restage: (mode) => {
+      const before = [...staging.actors.keys()];
+      staging.restage();
+      if (mode !== 'cut') for (const id of before) if (!staging.actors.has(id)) staging.aloft.add(id);
+    },
   };
   const world = new Proxy({}, {
     get: (_t, name) => {

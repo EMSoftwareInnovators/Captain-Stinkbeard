@@ -611,11 +611,16 @@ wall. Inspect objects and triggers check `if` live. `ambient` entries take
 
 A file with `"patch": "<mapId>"` (for example
 `data/maps/ship/phase2/galley.patch.json`) extends that map without editing
-it. `objects`, `musicVariants`, `lightingVariants` and `haze` are placed
-**before** the base map's (so a conditional placement overrides an older
-one); `props`, `onEnter`, `regions`, `ambient`, `fumes` and `collision` are
-appended; `lights` add to the lighting; `fumeCollapse` and `fumeSafeSpawn`
-replace. Anything else is an error.
+it. `objects`, `musicVariants`, `lightingVariants`, `nameVariants`,
+`backgroundVariants`, `haze`, `sharks` and `sharkDuty` are placed **before**
+the base map's (so a conditional placement overrides an older one); `props`,
+`onEnter`, `regions`, `ambient`, `fumes` and `collision` are appended;
+`lights` add to the lighting; `fumeCollapse` and `fumeSafeSpawn` replace;
+`propConditions` add an `if` to a base prop. Anything else is an error.
+
+Patches (and NPC, character and logbook extensions) apply in **file path
+order, numbers compared as numbers**: `phase9/…` before `phase10/…`. A later
+phase's patch therefore goes on top of an earlier one's.
 
 ### Extending NPCs and characters, look variants
 
@@ -686,7 +691,9 @@ above. Collapsing runs the map's `fumeCollapse` script (default
 ```
 
 `after` chains presets (flags accumulate, quests apply in order). They appear
-in the F2 *Story* tab and in `tools/play.mjs` (`preset <id>`).
+in the F2 *Story* tab and in `tools/play.mjs` (`preset <id>`). `"takeItems":
+["id"]` removes an item the story has taken back by then (Story Phase 10:
+Gristle folds the Reeking Doubloons into the Crater Salvage).
 
 ## Story Phase 3 formats
 
@@ -1239,6 +1246,71 @@ objectives a later phase will finish. The completeness checks skip it.
 - **Looks:** `garrick_stenchmaster_dusty`, `pete_grand_sharkmaster` (the `bluesash` extra) and `blackbeard_pouch` (Squawks in a padded pouch) are in `data/appearances/phase9.json` and `data/portraits/phase9.json`.
 - **Speakers:** `garrick_far` (shouting from a distance), and the imaginary `shark_chorus` and `hammerhead`.
 - **Vista captions:** a vista's `caption` sits along the top, or along the bottom when the vista has `"dock": "top"` (the dialogue window is up there).
+
+## Story Phase 10 formats
+
+### What's outside the rails (`backgroundVariants`)
+
+```json
+"backgroundVariants": [{ "if": { "flag": "p10_ch93_started" }, "background": "stormsky" }]
+```
+
+On a map or a patch: the first matching variant picks the backdrop (`void`,
+`ocean`, `stormsky`), live, falling back to the map's `background`.
+`stormsky` is a scrolling wall of cloud and spray: the ship is inside the
+Great Sharkstorm.
+
+### The storm's prizes, its drift, a slant (`data/hazards/sharkstorm.json`)
+
+```json
+"p10_trailing": { "…": "…",
+  "tokens": { "frames": ["token_coin", "token_trophy", "lobster_shell"], "maps": ["main_deck"],
+              "area": [4, 3, 15, 23], "every": [30000, 55000], "max": 3 } },
+"inside_ship": { "…": "…", "flying": { "swirl": true, "…": "…" },
+  "sway": { "maps": ["main_deck", "galley", "cargo_hold"], "drift": 1.5, "period": 5600 } }
+```
+
+- `tokens` drops a decorative prize now and then (never during a scene) on the listed maps, inside `area`, never more than `max` lying about. The validator wants `max` from 1 to 8 and `every` at least 3 seconds. Scenes drop their own with `{ "token": "token_coin", "x": 8, "y": 13 }` and sweep them with `{ "clearTokens": true }`.
+- `sway` drifts the view a few pixels with the ship (`drift` at most 3, `period` at least 3000 ms). It is scaled by the screen-shake setting and never rotates the camera.
+- `flying.swirl` sends the passing sharks across at a slant.
+
+### Knob panels by name, knobs that turn up late, glimpses (`data/tv/`)
+
+```json
+"knobPanels": { "antenna": { "doneFlag": "p10_antenna_fixed", "closeAfter": 3200, "list": [
+  { "id": "bend", "label": "BEND IT BACK", "effect": "glimpse", "frames": ["tv_weather_0", "tv_weather_1"], "ms": 1400, "frameMs": 400, "lines": [["…"]] },
+  { "id": "sauce", "label": "THE SAUCE CAN", "effect": "tune", "after": 3, "channel": 7, "lines": [["…"]], "doneLines": [["…"]] } ] } }
+```
+
+A script opens one with `{ "tv": "ses_mk2", "mode": "knobs", "panel": "antenna" }`
+(without `panel`, the set's `knobs`). A knob with `after` only appears once
+that many other tries have been made; `glimpse` shows its frames for `ms` and
+lets go. A set's condition (a `states` entry) may carry its own `frames`,
+`frameMs` and `osd` text: `storm_static` is snow with a frog in it for a
+frame, and NO SIGNAL.
+
+### Extending a logbook
+
+```json
+"captains_journal_p10": { "extend": "captains_journal",
+  "severities": { "THE BLING BLING KING": "r" },
+  "entries": [
+    { "id": "megalodon", "variants": [{ "if": { "flag": "bling_bling_king_revealed" }, "status": "THE BLING BLING KING" }] },
+    { "id": "sea", "title": "The Local Sea", "if": { "flag": "great_sharkstorm_sea_contamination" }, "status": "Contaminated" } ] }
+```
+
+A record with `extend` names an existing logbook. New `entries` are added; an
+entry whose id the logbook already has may only add `variants`, which go
+ahead of the old ones (the newest state wins). `severities` add labels for
+scaled fields. Nothing is ever removed, so a later phase can update an entry
+(Brogath, Rumpold) instead of deleting it.
+
+### Timing bars, looks, particles
+
+- **Timing bars** are listed in `src/systems/repairKinds.js`: Phase 10 adds `can`, `stir`, `shake`, `scorch`, `crank`, `plate`, `grab`, `sweep`, `trim`, `buckle` and `grip`. The validator checks the kind a script names and that its three sounds exist.
+- **Looks:** an appearance may tweak its build with `"buildTweak": { … }` (merged over the named `build`); the extras `charged` (Garrick full of beans) and `sashTaut` (the sash held at both ends) are in `data/appearances/phase10.json`, with Rusty Tom and Barnacle Bill.
+- **Particles:** `{ "burst": "beans", … }` and `{ "burst": "confetti", … }`.
+- **Speakers:** `bling_king_tv` (the Bling Bling King on television; in person it never speaks).
 
 ## Tilesets and props
 

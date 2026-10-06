@@ -97,7 +97,10 @@ a save loads, so doing things before the quest asks still counts.
 2. `ContentDB` sorts files into registries by **folder** (`FOLDER_RULES`):
    `data/npcs/*.json` → `npcs`, `data/dialogue/**` and
    `data/story/cutscenes/**` → `scripts`, etc. A new chapter is new files in
-   the same folders; no registration code.
+   the same folders; no registration code. Files load in **numeric-aware
+   path order** (`phase9` before `phase10`), then extensions and map patches
+   are applied in that order, so a later phase's patches, NPC/character
+   extensions and logbook extensions go on top of an earlier phase's.
 3. `validateContent()` cross-checks everything: ids unique, references resolve
    (items, NPCs, speakers and expressions, scripts, script labels, quests and
    objectives, encounters, enemies, abilities, statuses, maps, warps and spawn
@@ -494,6 +497,36 @@ engine pieces are small:
   `guzzlegut_gust` flag to `grumblegut_gust`, fills missing maps and never
   removes anything.
 
+## Inside the Great Sharkstorm (Phase 10)
+
+Story Phase 10 (see [STORY_PHASE10.md](STORY_PHASE10.md)) plays on the maps
+the story already has, through patches; the engine pieces are:
+
+- **Load order.** `ContentDB` sorts paths numerically (above). Before this,
+  `phase10` sorted ahead of `phase2`, so its patches would have been
+  applied under every older phase's.
+- **Backdrops by story state.** A map's `backgroundVariants`
+  (`src/maps/mapBackground.js`) picks what is outside the rails; `stormsky`
+  is a scrolling wall of cloud for a ship inside the storm.
+- **The storm's prizes and drift.** `SharkstormLayer` reads a state's
+  `tokens` (decorative prizes: capped, rare, never in a scene; scenes drop
+  their own with `token`/`clearTokens`), `sway` (a few pixels of camera
+  drift, scaled by the shake setting, never a spin) and `flying.swirl`
+  (sharks across at a slant).
+- **Knob panels.** A television may have several (`knobPanels`, named by the
+  `tv` command's `panel`); knobs can appear only `after` N tries; `glimpse`
+  knobs flash other frames. A set's condition may carry its own frames.
+- **Timing-bar kinds** live in `src/systems/repairKinds.js` (eleven new ones).
+- **Logbook extensions** (`"extend"` on a logbook record) add entries,
+  newer variants and severities without touching the original file.
+- **Presets** may `takeItems` (an item a scene handed over).
+- **The headless harness** reports a scene that turns, poses, emotes, hops,
+  barks or bursts at someone who isn't in the room (the game throws), keeps
+  people walking out of a non-cut restage and people flown off-screen in the
+  room, and understands named knob panels.
+- **Save version 10** keeps the layout; the 9 → 10 migration re-runs the
+  Grumblegut rename on flags and story values and fills missing maps.
+
 ## Battle
 
 `BattleEngine` (`src/systems/battle/`) owns the rules and is fully
@@ -602,8 +635,8 @@ handles fullscreen, so pixels stay square and sharp.
 See the README and [RETRO_PORT_NOTES.md](RETRO_PORT_NOTES.md#save-schema).
 Autosave on map entry and after battles, three manual slots from the pause
 menu, checksum + version per record, migrations table for future formats.
-The schema is at version 9 (Story Phase 4 added story values: where the
-Dead Center is; Phases 5 to 9 keep the layout); a save from any earlier phase
+The schema is at version 10 (Story Phase 4 added story values: where the
+Dead Center is; Phases 5 to 10 keep the layout); a save from any earlier phase
 upgrades on load and walks into the next chapter.
 
 ## Testing
@@ -639,9 +672,9 @@ upgrades on load and walks into the next chapter.
 
   | Tag | What |
   | --- | --- |
-  | `@smoke` | a few minutes: menus, movement, a pad, Phase 2 presets, being walled in, the Dead Center's sealed door, the Forecast Board, the S.E.S., the Mark II knob panel, the discount-store reveal, the reef passage |
-  | `@story` | the long playthroughs (prologue, Phase 2, Phase 3, chapters 12 to 14, Phase 4, chapters 18 and 19, Phase 5, chapters 23 and 24, Phase 6, Phase 7, chapters 39 to 41, Phase 8, chapters 51 to 54, Phase 9, chapters 62 to 70) |
-  | `@prologue` `@phase2` `@phase3` `@phase4` `@phase5` `@phase6` `@phase7` `@phase8` `@phase9` | by part of the story |
+  | `@smoke` | a few minutes: menus, movement, a pad, Phase 2 presets, being walled in, the Dead Center's sealed door, the Forecast Board, the S.E.S., the Mark II knob panel, the discount-store reveal, the reef passage, the wrong-way entry, the sauce-can aerial |
+  | `@story` | the long playthroughs (prologue, Phase 2, Phase 3, chapters 12 to 14, Phase 4, chapters 18 and 19, Phase 5, chapters 23 and 24, Phase 6, Phase 7, chapters 39 to 41, Phase 8, chapters 51 to 54, Phase 9, chapters 62 to 70, Phase 10, chapters 90 to 95) |
+  | `@prologue` `@phase2` `@phase3` `@phase4` `@phase5` `@phase6` `@phase7` `@phase8` `@phase9` `@phase10` | by part of the story |
   | `@input` `@saves` `@world` `@scenes` `@ui` | by system |
 
   `npm run e2e:smoke`, `npm run e2e:quick` (all but `@story`),
@@ -657,8 +690,9 @@ upgrades on load and walks into the next chapter.
     - anyone left standing on furniture;
     - a captain boxed in when a scene ends;
     - a room whose doorways are cut off by people from some arrival point;
-    - talking to someone who isn't in the room.
-- `tests/phase2_story.test.js` to `tests/phase9_story.test.js` play the Story Phases headlessly with the real
+    - talking to, turning, posing, emoting, barking or bursting at someone
+      who isn't in the room (the game throws on those).
+- `tests/phase2_story.test.js` to `tests/phase10_story.test.js` play the Story Phases headlessly with the real
   scripts, quests and triggers and mock services, twice (always the first
   choice, always the last), and fails on any dead end, loop or script error.
   `tests/phase2.test.js` covers the fume model, variants, chapters and time of
@@ -685,7 +719,14 @@ upgrades on load and walks into the next chapter.
   sharks come down, the rowboat's two layers, the island's named places,
   the boats both ways, the open quest, the new looks, props, pictures,
   music and sounds, and save migration 8 → 9 with round-trips at every
-  Phase 9 checkpoint.
+  Phase 9 checkpoint. `tests/phase10.test.js` covers the load order, logbook
+  extensions, `takeItems`, the storm's four new states (capped prizes,
+  marked landings, the drift), the Mark II's aerial panel and conditions,
+  the Frog Tax Man episodes, the timing games, the logbooks, the art and
+  sound, and save migration 9 → 10 with round-trips at every Phase 10
+  checkpoint (inside the storm included). The older phases' "stays inside
+  its brief" scans read the shared logbooks and programmes through
+  `tests/laterPhases.js`, without what a later phase unlocks.
 
 ## Adding Chapter 8 (or anything else)
 
