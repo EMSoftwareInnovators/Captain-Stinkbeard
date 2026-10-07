@@ -531,6 +531,61 @@ the story already has, through patches; the engine pieces are:
 - **Save version 10** keeps the layout; the 9 → 10 migration re-runs the
   Grumblegut rename on flags and story values and fills missing maps.
 
+## Reusable interaction and presentation systems (Phases 11 to 13)
+
+Story Phases 11 to 13 ([11](STORY_PHASE11.md), [12](STORY_PHASE12.md),
+[13](STORY_PHASE13.md)) added no maps; these are the parts any later content
+can use:
+
+- **Sash tension** (a hold-and-ease timing game). Rules in
+  `src/systems/tension.js` (engine-agnostic: `createTension`, `stepTension`,
+  `tensionZone`, `autoHold`), drawn by `src/ui/SashTensionView.js`, opened by
+  the `sashTension` command with a definition from `data/story/tension/`. Keep
+  a needle in a band for a fixed number of real seconds while sway, surges,
+  gusts and milestones (text, sound, haze, shake, a narrower band) push it
+  about; then one deliberate press at the cue. It cannot fail: too long out
+  of the band and the moment is caught (a slip) and the clock runs on; no
+  press at the end and the hands slip by themselves. The command stores the
+  slips and the kind of release in story variables. Shake follows the shake
+  setting, haze is capped with reduced effects, and the debug "auto timed
+  hits" holds it perfectly.
+- **Actor aliases** (who somebody appears to be). `src/systems/story/aliases.js`:
+  alias sets in `data/story/aliases/` are live while their `if` holds and map
+  real ids to a name, portrait, appearance and `flicker`, plus an optional
+  world overlay (tint, wobble). `resolveSpeaker` is what the dialogue box
+  shows (with a blink to the real name and face now and then, or both names
+  with reduced effects); `resolveActorLook` is what the world draws. Nothing
+  is stored: ids, quests, dialogue selectors, the log and saves keep the real
+  actors, and an alias goes when its condition does.
+- **Stench-O-Vision** (a television that smells). A set's
+  `vent: { tiles: { <map>: [x, y] }, sfx, if }` and a programme beat's
+  `aroma`: while the vent's condition holds, an aroma beat (in the close-up,
+  or played on a vista with `tvProgram`'s `tv`) puffs out of the set in the
+  world (`tv:aroma` → `WorldScene.ventPuff`). The smell is an ordinary fume
+  zone in the room with a `severity` (0 to 1) multiplying the exposure it
+  builds, so the Fume Hazard option scales it like any other zone (Off: seen,
+  never builds up). There is no separate hazard.
+- **A scripted die sequence.** The `dice` command (`show`, `roll`, `hop`,
+  `hold`, `hide`) and `src/ui/DiceView.js`; dice are data in
+  `data/story/dice/` (art prefix, the text on each face, sounds). Never
+  random: `roll` must name its `result` and `hop` its `to`, and the validator
+  refuses one that doesn't. The die stays up between commands so a scene can
+  talk over it.
+- **Persistent decor** (where the player put things). A map's `decor` slots
+  (`expandDecor` in `src/content/ContentDB.js`): a story value names which
+  spot a piece stands in, and each spot becomes an ordinary conditional prop
+  (`decor_<value>_<spot>`, plus an inspect object when the slot has a
+  script). Because the choice is a story value it saves, migrates and
+  presets like any other.
+- **Smaller pieces.** A warp's `when` picks which door a tile is at a given
+  point in the story (`WorldScene.warpAt`; the `if` stays the lock). A
+  fragile item's `wear` stages and the `wear` command (never backwards). A
+  later chapter can retire an earlier patch's prop, fume zone or ambient entry
+  by id (`propConditions`, `fumeConditions`, `ambientConditions`). Ambient
+  `fumeProp` entries make furniture grumble. Presets can carry part of a
+  counted objective (`progress`). The validator follows each scene's vista
+  through its calls and branches and checks every vista layer command.
+
 ## Battle
 
 `BattleEngine` (`src/systems/battle/`) owns the rules and is fully
@@ -639,9 +694,10 @@ handles fullscreen, so pixels stay square and sharp.
 See the README and [RETRO_PORT_NOTES.md](RETRO_PORT_NOTES.md#save-schema).
 Autosave on map entry and after battles, three manual slots from the pause
 menu, checksum + version per record, migrations table for future formats.
-The schema is at version 10 (Story Phase 4 added story values: where the
-Dead Center is; Phases 5 to 10 keep the layout); a save from any earlier phase
-upgrades on load and walks into the next chapter.
+The schema is at version 13 (Story Phase 4 added story values: where the
+Dead Center is; Phases 5 to 13 keep the layout, and Phases 11 to 13 add only
+flags, variables and values); a save from any earlier phase upgrades on load
+and walks into the next chapter. Aliases are never saved.
 
 ## Testing
 
@@ -676,9 +732,9 @@ upgrades on load and walks into the next chapter.
 
   | Tag | What |
   | --- | --- |
-  | `@smoke` | a few minutes: menus, movement, a pad, Phase 2 presets, being walled in, the Dead Center's sealed door, the Forecast Board, the S.E.S., the Mark II knob panel, the discount-store reveal, the reef passage, the wrong-way entry, the sauce-can aerial |
-  | `@story` | the long playthroughs (prologue, Phase 2, Phase 3, chapters 12 to 14, Phase 4, chapters 18 and 19, Phase 5, chapters 23 and 24, Phase 6, Phase 7, chapters 39 to 41, Phase 8, chapters 51 to 54, Phase 9, chapters 62 to 70, Phase 10, chapters 90 to 95) |
-  | `@prologue` `@phase2` `@phase3` `@phase4` `@phase5` `@phase6` `@phase7` `@phase8` `@phase9` `@phase10` | by part of the story |
+  | `@smoke` | a few minutes: menus, movement, a pad, Phase 2 presets, being walled in, the Dead Center's sealed door, the Forecast Board, the S.E.S., the Mark II knob panel, the discount-store reveal, the reef passage, the wrong-way entry, the sauce-can aerial, the six-rope lamp, the late-night knobs, the sealed treasure door, the thirty-second trial (held with real key presses), the Grand Dice, Garrick suspended, Stench-O-Vision with the hazard off, the delirium, the standees across a save |
+  | `@story` | the long playthroughs (prologue, Phase 2, Phase 3, chapters 12 to 14, Phase 4, chapters 18 and 19, Phase 5, chapters 23 and 24, Phase 6, Phase 7, chapters 39 to 41, Phase 8, chapters 51 to 54, Phase 9, chapters 62 to 70, Phase 10, chapters 90 to 95, Phase 11, chapters 104 to 111, Phase 12, chapters 121 to 126, Phase 13, chapters 139 to 145) |
+  | `@prologue` `@phase2` `@phase3` `@phase4` `@phase5` `@phase6` `@phase7` `@phase8` `@phase9` `@phase10` `@phase11` `@phase12` `@phase13` | by part of the story |
   | `@input` `@saves` `@world` `@scenes` `@ui` | by system |
 
   `npm run e2e:smoke`, `npm run e2e:quick` (all but `@story`),
@@ -699,7 +755,7 @@ upgrades on load and walks into the next chapter.
     - an objective's object covered by someone standing on it (talking
       comes first) whose dialogue doesn't start the same scene;
     - the captain arriving on someone's placed tile.
-- `tests/phase2_story.test.js` to `tests/phase10_story.test.js` play the Story Phases headlessly with the real
+- `tests/phase2_story.test.js` to `tests/phase13_story.test.js` play the Story Phases headlessly with the real
   scripts, quests and triggers and mock services, twice (always the first
   choice, always the last), and fails on any dead end, loop or script error.
   `tests/phase2.test.js` covers the fume model, variants, chapters and time of
@@ -731,9 +787,16 @@ upgrades on load and walks into the next chapter.
   marked landings, the drift), the Mark II's aerial panel and conditions,
   the Frog Tax Man episodes, the timing games, the logbooks, the art and
   sound, and save migration 9 → 10 with round-trips at every Phase 10
-  checkpoint (inside the storm included). The older phases' "stays inside
-  its brief" scans read the shared logbooks and programmes through
-  `tests/laterPhases.js`, without what a later phase unlocks.
+  checkpoint (inside the storm included). `tests/phase11.test.js` covers the
+  systems of Phases 11 to 13 (decor slots, the validator's rules for warps'
+  `when`, vents, dice, wear, tension, aliases and preset progress), saves
+  10 → 13 with round-trips at every Phase 11 to 13 checkpoint, the timing
+  kinds, the art and sound, and a scan of every file name, file and save
+  for the banned names (kept encoded in `tests/bannedNames.js`). The Phase 11
+  to 13 story tests also save mid-phase through the real `SaveManager` and
+  play on from the load (`reloadStory` in the harness). The older phases'
+  "stays inside its brief" scans read the shared logbooks and programmes
+  through `tests/laterPhases.js`, without what a later phase unlocks.
 
 ## Adding Chapter 8 (or anything else)
 

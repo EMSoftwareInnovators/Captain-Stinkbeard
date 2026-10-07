@@ -74,7 +74,7 @@ export class GameDriver {
     await this.wait(700);
   }
 
-  /** Current UI state: tutorial | choice | line | typing | insert | repair | book | tv | idle | busy | battle. */
+  /** Current UI state: tutorial | choice | line | typing | insert | repair | tension | book | tv | idle | busy | battle. */
   uiState() {
     return this.eval(() => {
       const g = window.__GAME__;
@@ -83,6 +83,7 @@ export class GameDriver {
       if (g.game.scene.isActive('Menu') && menu?.bookMode) return 'book';
       const o = g.app.overlay;
       const d = o.dialogue;
+      if (o.tensionOpen) return 'tension';
       if (o.tutorialOpen) return 'tutorial';
       if (o.repairOpen) return 'repair';
       if (o.tvOpen) return 'tv';
@@ -127,6 +128,10 @@ export class GameDriver {
         await this.repairTick();
         continue;
       }
+      if (st === 'tension') {
+        await this.holdTension();
+        continue;
+      }
       if (st === 'tv') {
         // A television close-up (the S.E.S.): step away from it.
         await this.tap('KeyX', 45, 250);
@@ -162,6 +167,45 @@ export class GameDriver {
       const tv = window.__GAME__.app.overlay.tvOpen;
       return tv ? { view: tv.view, frame: tv.screen.frame.name, text: tv.bodyText.text ?? '' } : null;
     });
+  }
+
+  /**
+   * The sash tension (Story Phase 12): holds Confirm down while the needle is
+   * below the middle of the band and lets go above it, with real key presses,
+   * for the whole of the count; then, at the cue, one deliberate press (or,
+   * with `release: false`, waits for the captain's hands to slip). Returns
+   * { slips, released, seconds } as the trial ends.
+   */
+  async holdTension({ release = true } = {}) {
+    let down = false;
+    let last = null;
+    const started = Date.now();
+    for (let guard = 0; guard < 6000; guard++) {
+      const st = await this.eval(() => {
+        const t = window.__GAME__.app.overlay.tensionOpen?.st;
+        return t ? { phase: t.phase, value: t.value, band: t.band, slips: t.slips, released: t.released } : null;
+      });
+      if (!st) break;
+      last = st;
+      if (st.phase === 'hold') {
+        const want = st.value < (st.band[0] + st.band[1]) / 2;
+        if (want !== down) {
+          if (want) await this.page.keyboard.down('KeyZ');
+          else await this.page.keyboard.up('KeyZ');
+          down = want;
+        }
+        await this.wait(25);
+        continue;
+      }
+      if (down) {
+        await this.page.keyboard.up('KeyZ');
+        down = false;
+      }
+      if (st.phase === 'release' && release) await this.tap('KeyZ', 45, 120);
+      else await this.wait(100);
+    }
+    if (down) await this.page.keyboard.up('KeyZ');
+    return { ...last, seconds: (Date.now() - started) / 1000 };
   }
 
   /** One tick of the repair timing game: strike when the marker is in the green. */

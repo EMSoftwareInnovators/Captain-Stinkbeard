@@ -258,3 +258,34 @@ describe('the banned names appear nowhere: data, code, docs, tests, presets, fil
   });
 });
 
+describe('the game provides every service a script command calls', () => {
+  // The headless harness mocks the services, so a command calling a method the game's own
+  // services (src/world/worldServices.js) don't have would only fail in a browser. (The sash
+  // tension and the dice did, once.)
+  it('every service(ctx, <service>, ...).<method> in the commands is defined for that service', () => {
+    const commands = fs.readFileSync(path.resolve('src/systems/script/commands.js'), 'utf8');
+    const services = fs.readFileSync(path.resolve('src/world/worldServices.js'), 'utf8');
+    const calls = new Set([...commands.matchAll(/service\(ctx, '([a-z]+)', '[a-zA-Z]+'\)\.([a-zA-Z]+)/g)].map((m) => `${m[1]}.${m[2]}`));
+    expect(calls.size).toBeGreaterThan(40);
+    // Each service's block, from its opening line to the closing brace at the same depth.
+    const block = (opener) => {
+      const start = services.indexOf(opener);
+      if (start < 0) return null;
+      let depth = 0;
+      for (let i = services.indexOf('{', start); i < services.length; i++) {
+        if (services[i] === '{') depth++;
+        else if (services[i] === '}' && --depth === 0) return services.slice(start, i);
+      }
+      return null;
+    };
+    const blocks = { world: block('const world = {'), dialogue: block('    dialogue: {'), ui: block('    ui: {'), audio: block('    audio: {'), battle: block('    battle: {'), saves: block('    saves: {'), cinema: block('    cinema: {') };
+    const missing = [];
+    for (const call of calls) {
+      const [svc, method] = call.split('.');
+      const b = blocks[svc];
+      if (!b || !new RegExp(`\\n\\s*(async )?${method}\\s*[:(]`).test(b)) missing.push(call);
+    }
+    expect(missing).toEqual([]);
+  });
+});
+

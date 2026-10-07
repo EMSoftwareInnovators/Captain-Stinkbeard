@@ -536,6 +536,12 @@ export function createWorldServices(scene) {
         };
         return overlay.tv(def, { present, mode, panel });
       },
+      // Story Phase 12: the thirty-second hold, and a large die the cast can talk over (it stays up between commands).
+      sashTension: async (def) => {
+        await overlay.dialogue.close();
+        return overlay.sashTension(def);
+      },
+      dice: (op, opts) => overlay.dice(op, opts),
     },
     audio: {
       sfx: (id, opts) => app.audio.sfx(id, opts),
