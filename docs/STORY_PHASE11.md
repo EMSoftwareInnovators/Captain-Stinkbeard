@@ -108,10 +108,10 @@ sashes arrive, the weakness is found, and nothing is attempted yet.
 - **Where:** map objects; `WorldScene.warpAt`, `tests/storyStaging.js`, `tools/mapgrid.mjs`, the validator.
 - **Notes:** A warp can carry `"when": <condition>`. `warpAt` returns the first warp on the tile whose `when` holds; its `if` is still the lock, and `locked` names the script that plays when it is locked. Later patches come first, so a later phase can put a different door on the same tile from a given point in the story without touching the earlier one. Phase 11's sealed treasure-room door uses it (and Phase 13's, from Phase 13 on).
 
-**Talking to someone in the hammock overhead**
+**Someone in a hammock: face them, or walk in under them**
 
-- **Where:** `WorldScene.interactionTarget`.
-- **Notes:** A hammock doesn't stop the captain walking in under it, and from there he faces past the person in it. Confirm now talks to whoever is in the hammock right above him, before anything in front of him except a job for an open objective (in front of him or under his feet), as it would from beside it. Phase 11 is full of conversations with people in hammocks; the browser playthrough found it.
+- **Where:** `WorldScene.stepPlayer` and `interactionTarget`.
+- **Notes:** A hammock over a tile doesn't block it (the captain sleeps under Garrick's). From a standstill, a tap toward someone in a hammock now only turns the captain to face them, so Confirm talks to them; holding the direction for a moment walks in under (walking on through doesn't pause). And if he is under someone with nothing in front of him, Confirm talks to them too. Phase 11 is full of conversations with people in hammocks; the browser playthrough found it.
 
 **Fragile items (`wear`)**
 

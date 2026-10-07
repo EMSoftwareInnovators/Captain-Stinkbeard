@@ -39,6 +39,8 @@ const WALK_MS = FRAME_MS * 8;
 const RUN_MS = (FRAME_MS * 16) / 3;
 /** How long the captain leans on someone standing in his way before squeezing past. */
 const SQUEEZE_PAST_MS = 280;
+/** Story Phase 11: how long a direction is held toward someone in a hammock before the captain walks in under them. */
+const HAMMOCK_TURN_MS = 180;
 
 /**
  * Exploration. Loads one map, spawns the player, NPCs, props and visible
@@ -1065,6 +1067,7 @@ export class WorldScene extends BaseScene {
     const dir = input.heldDirection();
     if (!dir) {
       this.pushing = null;
+      this.turnToward = null;
       if (this.wasMoving || p.pose === 'walk') p.stopWalking();
       this.wasMoving = false;
       return;
@@ -1089,6 +1092,12 @@ export class WorldScene extends BaseScene {
     const nx = p.tx + v.x;
     const ny = p.ty + v.y;
     p.face(dir);
+    // Story Phase 11: someone in a hammock over the next tile doesn't block it, so from a standstill a tap
+    // toward them only turns the captain to face them (to talk); keep holding and he walks in under.
+    if (!this.wasMoving && this.aloftAt(nx, ny)?.npc) {
+      if (this.turnToward?.dir !== dir) this.turnToward = { dir, since: this.time.now };
+      if (this.time.now - this.turnToward.since < HAMMOCK_TURN_MS) return;
+    }
     const occ = this.occupantAt(nx, ny);
     if (occ && occ.kind === 'enemy') {
       const enemy = this.enemies.find((e) => e.actor === occ);
@@ -1263,22 +1272,11 @@ export class WorldScene extends BaseScene {
     if (duty) return { kind: 'duty', incident: duty, x, y };
     const occ = this.occupantAt(x, y) ?? this.aloftAt(x, y);
     if (occ && occ.kind === 'npc' && occ.npc) return { kind: 'npc', actor: occ, x, y };
-    // Story Phase 11: someone in the hammock right over the captain's head (a hammock doesn't stop him
-    // walking in under it, facing past them). They come before anything in front of him except a job
-    // for an open objective (in front, or under his feet); nobody has to back out from under a
-    // hammock to talk to its sleeper.
-    const up = this.aloftAt(this.player.tx, this.player.ty);
-    const above = up?.kind === 'npc' && up.npc ? { kind: 'npc', actor: up, x: this.player.tx, y: this.player.ty } : null;
     for (const obj of this.objects) {
       if ((obj.type === 'inspect' || obj.type === 'chest') && this.inRect(obj, x, y)) {
         if (obj.type === 'inspect' && obj.if && !evaluateCondition(obj.if, this.session)) continue;
-        if (above && !isObjectiveJob(obj)) break;
         return { kind: obj.type, obj, x, y };
       }
-    }
-    if (above) {
-      const job = this.jobUnderfoot();
-      return job ? { kind: 'inspect', obj: job, x: this.player.tx, y: this.player.ty, underfoot: true } : above;
     }
     const prop = this.propAt.get(this.key(x, y));
     if (prop?.def?.inspect) return { kind: 'prop', prop, x, y };
@@ -1289,6 +1287,10 @@ export class WorldScene extends BaseScene {
     // they've been sent to and press the button.
     const here = this.jobUnderfoot();
     if (here) return { kind: 'inspect', obj: here, x: this.player.tx, y: this.player.ty, underfoot: true };
+    // Story Phase 11: nothing in front, and someone in the hammock right over the captain's head (he
+    // walked in under it): the button talks to them, as it would from beside it.
+    const up = this.aloftAt(this.player.tx, this.player.ty);
+    if (up?.kind === 'npc' && up.npc) return { kind: 'npc', actor: up, x: this.player.tx, y: this.player.ty };
     return null;
   }
 
