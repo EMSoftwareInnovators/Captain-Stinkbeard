@@ -75,7 +75,7 @@ to 13 script sets any of those, and that no story trigger starts anything after
 - **127 The Finger-Pulling Breakdown** (the galley). Hear his five loopholes.
 - **128 Don't Throw My Sash in the Trash.** The wardrobe (your cabin); see what's on (the Mark II).
 - **129 The Sleeping Quarters Are Alive.** Unboard the door at the bottom of the galley; go in; take the pillow that roars; throw it into the storm (the port rail); pick it up and throw it again.
-- **130 Condemn the Bedding** (the quarters). Judge six kinds; the pile up and over the side; stuff it into the linen locker; nail it shut.
+- **130 Condemn the Bedding** (the quarters). Judge six kinds: the sheets and blankets on the two cots, the pillows, mattress covers and hammock cloth on the hammocks (every hammock counts for one), and the pillowcases in the middle port footlocker, one sticking out from under the lid; the pile up and over the side; stuff it into the linen locker; nail it shut.
 - **131 Grand Stenchmaster Bedding.** Five kinds of sash bedding round the room.
 - **132 The Fan Mega-Pack.** Open it; place the five cardboard Stenchmasters (each has two spots in the quarters; or leave them in the box for now).
 - **133 Build-Your-Own S.E.S.** The parts (Jim's forks in the galley, the horseshoe over the hold stairs, a coil in the hold's salvage crate, the transformer under the Mark II); build it on the barrel table.

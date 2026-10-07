@@ -1,7 +1,7 @@
 {
  "id": "crew_quarters_phase13",
  "patch": "crew_quarters",
- "//": "Story Phase 13: the old sleeping quarters, reopened (chapter 129). The bedding as the crew left it, yellowed and growling (the kitten-roar pillow on the starboard cot, 16,6); judged, piled (11,8), thrown into the storm and sent back folded; stuffed into the linen locker in the north wall (11,3) and nailed shut (DO NOT OPEN. IT GROWLS.). Then remade in toy sashes (131). The Fan Mega-Pack (12,8, 132) and five cardboard Ancient Stenchmasters on decor slots (the player chooses each one's spot; saved as story values). The Build-Your-Own S.E.S. on the barrel table (10,6, 133): the cable runs from it to the ladder; Stench-O-Vision's vent makes a small, mild fume source round it (9-11, 5-7) while it's open. The rant (138); the delirium (139-141): a sack of beans by the door (9,5), a cask of Frog Grog (16,12), the sauce on the shelf (5,3). The haze and the Phase 8 cloud lift once the bedding's out; the locker keeps growling.",
+ "//": "Story Phase 13: the old sleeping quarters, reopened (chapter 129). The bedding as the crew left it, yellowed and growling (the kitten-roar pillow on the starboard cot, 16,6); judged (the cots, the hammocks, and the middle port footlocker, 4,8, with a pillowcase sticking out of it), piled (11,8), thrown into the storm and sent back folded; stuffed into the linen locker in the north wall (11,3) and nailed shut (DO NOT OPEN. IT GROWLS.). Then remade in toy sashes (131). The Fan Mega-Pack (12,8, 132) and five cardboard Ancient Stenchmasters on decor slots (the player chooses each one's spot; saved as story values). The Build-Your-Own S.E.S. on the barrel table (10,6, 133): the cable runs from it to the ladder; Stench-O-Vision's vent makes a small, mild fume source round it (9-11, 5-7) while it's open. The rant (138); the delirium (139-141): a sack of beans by the door (9,5), a cask of Frog Grog (16,12), the sauce on the shelf (5,3). The haze and the Phase 8 cloud lift once the bedding's out; the locker keeps growling.",
  "objects": [
   {
    "id": "p13_pillow",
@@ -108,6 +108,42 @@
    "type": "inspect",
    "x": 1,
    "y": 11,
+   "w": 3,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "condemn_bedding.judge"
+     },
+     {
+      "notFlag": "p13_judged_hammock"
+     }
+    ]
+   },
+   "script": "p13c4.judge_hammock"
+  },
+  {
+   "id": "p13_judge_hammock_a",
+   "type": "inspect",
+   "x": 1,
+   "y": 5,
+   "w": 3,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "condemn_bedding.judge"
+     },
+     {
+      "notFlag": "p13_judged_hammock"
+     }
+    ]
+   },
+   "script": "p13c4.judge_hammock"
+  },
+  {
+   "id": "p13_judge_hammock_b",
+   "type": "inspect",
+   "x": 1,
+   "y": 8,
    "w": 3,
    "if": {
     "all": [
@@ -1531,6 +1567,26 @@
     ]
    },
    "id": "p13_kitten_pillow"
+  },
+  {
+   "prop": "footlocker_pillowcase",
+   "x": 4,
+   "y": 8,
+   "if": {
+    "all": [
+     {
+      "flag": "crew_quarters_reopened"
+     },
+     {
+      "notFlag": "p13_judged_pillowcases"
+     },
+     {
+      "notFlag": "bedding_piled"
+     }
+    ]
+   },
+   "id": "p13_pillowcase_corner",
+   "depthOffset": 1
   },
   {
    "prop": "bedding_pile",

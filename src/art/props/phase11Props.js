@@ -175,6 +175,27 @@ function kittenPillow({ floor = false } = {}) {
   return { frames: [make(0), make(1), make(0), make(0)], ms: 500 };
 }
 
+/**
+ * A yellowed pillowcase caught under the lid of a footlocker (the quarters' middle port one), hanging down
+ * its front: drawn over the footlocker, on the same 16x16 frame, so the one with bedding in it stands out.
+ */
+function footlockerPillowcase() {
+  const c = canvas(16, 16);
+  const PALE = '#f0e6b8';
+  c.rect(3, 4, 9, 3, PALE); // bunched up under the lid
+  c.hline(3, 11, 4, '#fff8dc');
+  c.rect(4, 7, 7, 2, PALE); // and hanging down the front
+  c.rect(5, 9, 5, 2, PALE);
+  c.rect(6, 11, 3, 2, GRIME.l);
+  c.set(7, 13, GRIME.m);
+  c.set(10, 8, GRIME.l);
+  c.set(6, 8, GRIME.y); // stains
+  c.set(8, 10, GRIME.y);
+  c.set(2, 5, GRIME.d); // a corner tuft
+  c.outline(INK);
+  return c;
+}
+
 /** Every bit of the old bedding in one heap, growling all together. */
 function beddingPile() {
   const make = (f) => {
@@ -715,6 +736,7 @@ export const PHASE11_PROPS = {
   grand_hammock_sash: grandHammockSash,
   kitten_pillow: () => kittenPillow(),
   kitten_pillow_floor: () => kittenPillow({ floor: true }),
+  footlocker_pillowcase: footlockerPillowcase,
   bedding_pile: beddingPile,
   linen_locker: () => linenLocker('plain'),
   linen_locker_stuffed: () => linenLocker('stuffed'),

@@ -153,6 +153,37 @@ describe('The quarters change for good, and keep the player\'s choices', () => {
   });
 });
 
+describe('Condemning the bedding: all six kinds can be found', () => {
+  it('every bed is a place to judge, and the footlocker with the pillowcases in it shows one sticking out', async () => {
+    const s = makeStory({ preset: 'p13_returned_pillow' });
+    await s.enter(s.map, resolvePreset(s.content, 'p13_returned_pillow').script);
+    const open = (ref) => s.session.quests.isObjectiveAvailable(...ref.split('.'));
+    for (let n = 0; n < 20 && !open('condemn_bedding.judge'); n++) await STEPS13.find(([ref]) => open(ref))[1](s);
+    expect(open('condemn_bedding.judge')).toBe(true);
+    if (s.map !== 'crew_quarters') await s.enter('crew_quarters', null, { spawn: s.map === 'galley' ? 'north_door' : 'ladder' });
+    const q = quarters(s);
+    const live = (o) => !o.if || evaluateCondition(o.if, s.session);
+    const covers = (o, x, y) => x >= o.x && x < o.x + (o.w ?? 1) && y >= o.y && y < o.y + (o.h ?? 1);
+    const judges = q.objects.filter((o) => o.type === 'inspect' && o.id.startsWith('p13_judge_') && live(o));
+    expect(new Set(judges.map((o) => o.script)).size).toBe(6);
+    // Every grimy hammock and cot counts for something...
+    const beds = q.props.filter((p) => live(p) && ['hammock_grimy', 'cot_grimy'].includes(p.prop));
+    expect(beds).toHaveLength(7);
+    for (const b of beds) expect(judges.some((o) => covers(o, b.x, b.y)), `${b.id} is a place to judge`).toBe(true);
+    // ...and every place to judge has something on it to see: a bed, or the pillowcase hanging out of the footlocker.
+    const seen = (o) => q.props.some((p) => live(p) && ['hammock_grimy', 'cot_grimy', 'footlocker_pillowcase'].includes(p.prop) && covers(o, p.x, p.y));
+    for (const o of judges) expect(seen(o), `${o.id} has something to see`).toBe(true);
+    const corner = q.props.find((p) => p.id === 'p13_pillowcase_corner');
+    expect(judges.find((o) => o.id === 'p13_judge_pillowcases')).toMatchObject({ x: corner.x, y: corner.y });
+    await s.inspect('p13_judge_pillowcases');
+    expect(live(corner)).toBe(false);
+    // The hammock cloth is on every port hammock; whichever is judged first, it counts once.
+    await s.inspect('p13_judge_hammock_a');
+    expect(['p13_judge_hammock', 'p13_judge_hammock_a', 'p13_judge_hammock_b'].map((id) => live(q.objects.find((o) => o.id === id)))).toEqual([false, false, false]);
+    expect(s.session.quests.objState('condemn_bedding', 'judge').progress).toBe(2);
+  });
+});
+
 describe('Two televisions, wired together; the Stenchmaster Channel; Stench-O-Vision', () => {
   it('the bedroom set gets one channel, two programmes, in order', async () => {
     const s = makeStory({ preset: 'p13_stenchalina' });
