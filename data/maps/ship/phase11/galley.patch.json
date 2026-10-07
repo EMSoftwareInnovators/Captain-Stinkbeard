@@ -35,8 +35,8 @@
   {
    "id": "p11_tie_rope",
    "type": "inspect",
-   "x": 16,
-   "y": 8,
+   "x": 15,
+   "y": 9,
    "if": {
     "all": [
      {
@@ -1625,6 +1625,22 @@
     "flag": "captain_uses_bed_sash"
    },
    "id": "p11_bed_captain"
+  },
+  {
+   "prop": "rope_coil",
+   "x": 15,
+   "y": 9,
+   "if": {
+    "all": [
+     {
+      "flag": "p11_ch97_started"
+     },
+     {
+      "notFlag": "p11_tie_rope"
+     }
+    ]
+   },
+   "id": "p11_rope_coil"
   },
   {
    "prop": "lamp_two_rope",

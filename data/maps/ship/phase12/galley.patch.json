@@ -1,7 +1,7 @@
 {
  "id": "galley_phase12",
  "patch": "galley",
- "//": "Story Phase 12 in the galley, the morning after. The gear: Jim's bucket (3,6), the stores' rope (16,8). The ransack (118): the drawers (prep table), the beans (the stores), the long table, the crate; Bob's die. The Grand Dice on the long table (8,7) with its six siblings in their crate by the ladder (16,5). The hops (122): the floor by the hammock (10,9), by the stove (3,5), under the long table's edge (8,8), where it stays on three. The regalia laid aside on the bench end (9,8); the sash on the long table until it goes to the wardrobe. Breakfast at the stove, the prep table and the long table. The finger: Garrick goes from Pete to Bob to Gristle to Jim to Rusty Tom (who runs for the bow).",
+ "//": "Story Phase 12 in the galley, the morning after. The gear: Jim's bucket (3,6), the rope coil by the Frog Grog cask (15,9). The ransack (118): the drawers (prep table), the beans (the stores), the long table, the crate; Bob's die. The Grand Dice on the long table (8,7) with its six siblings in their crate by the ladder (16,5). The hops (122): the floor by the hammock (10,9), by the stove (3,5), under the long table's edge (8,8), where it stays on three. The regalia laid aside on the bench end (9,8); the sash on the long table until it goes to the wardrobe. Breakfast at the stove, the prep table and the long table. The finger: Garrick goes from Pete to Bob to Gristle to Jim to Rusty Tom (who runs for the bow).",
  "objects": [
   {
    "id": "p12_start_bed",
@@ -41,8 +41,8 @@
   {
    "id": "p12_rope",
    "type": "inspect",
-   "x": 16,
-   "y": 8,
+   "x": 15,
+   "y": 9,
    "if": {
     "all": [
      {
@@ -1892,6 +1892,22 @@
     ]
    },
    "id": "p12_bucket"
+  },
+  {
+   "prop": "rope_coil",
+   "x": 15,
+   "y": 9,
+   "if": {
+    "all": [
+     {
+      "flag": "p12_started"
+     },
+     {
+      "notFlag": "gear_waist_rope"
+     }
+    ]
+   },
+   "id": "p12_rope_coil"
   },
   {
    "prop": "grand_dice_table",
