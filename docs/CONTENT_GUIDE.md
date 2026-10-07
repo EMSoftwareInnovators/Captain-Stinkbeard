@@ -616,7 +616,10 @@ it. `objects`, `musicVariants`, `lightingVariants`, `nameVariants`,
 the base map's (so a conditional placement overrides an older one); `props`,
 `onEnter`, `regions`, `ambient`, `fumes` and `collision` are appended;
 `lights` add to the lighting; `fumeCollapse` and `fumeSafeSpawn` replace;
-`propConditions` add an `if` to a base prop. Anything else is an error.
+`propConditions` add an `if` to a base prop (and `fumeConditions` and
+`ambientConditions` to an earlier fume zone or ambient entry, by id); `decor`
+slots are appended and become props and inspect objects (Story Phase 13).
+Anything else is an error.
 
 Patches (and NPC, character and logbook extensions) apply in **file path
 order, numbers compared as numbers**: `phase9/…` before `phase10/…`. A later
@@ -1311,6 +1314,146 @@ scaled fields. Nothing is ever removed, so a later phase can update an entry
 - **Looks:** an appearance may tweak its build with `"buildTweak": { … }` (merged over the named `build`); the extras `charged` (Garrick full of beans) and `sashTaut` (the sash held at both ends) are in `data/appearances/phase10.json`, with Rusty Tom and Barnacle Bill.
 - **Particles:** `{ "burst": "beans", … }` and `{ "burst": "confetti", … }`.
 - **Speakers:** `bling_king_tv` (the Bling Bling King on television; in person it never speaks).
+
+## Story Phase 11 to 13 formats
+
+### Which door a tile is (a warp's `when`)
+
+```json
+{ "id": "p11_treasure_sealed", "type": "warp", "x": 4, "y": 3, "to": { "map": "treasure_hold", "spawn": "door" },
+  "when": { "flag": "treasure_room_sealed" }, "if": { "notFlag": "treasure_room_sealed" }, "locked": "p11.treasure_door_sealed" }
+```
+
+Of the warps on a tile, the first whose `when` holds is the door (later
+patches come first). `if` is still its lock and `locked` the script that
+plays when it is locked. Use it to put a different door on a tile from some
+point in the story without touching the older one.
+
+### Retiring an earlier chapter's prop, fume zone or ambient entry
+
+```json
+"propConditions": [{ "id": "q_hammock_a", "if": { "notFlag": "crew_quarters_reopened" } }],
+"fumeConditions": [{ "id": "p8_condemned", "if": { "notFlag": "crew_quarters_reopened" } }],
+"ambientConditions": [{ "id": "p3_hammock_sighs", "if": { "notFlag": "crew_quarters_reopened" } }]
+```
+
+The entry (which needs an `id`) gains the extra condition.
+
+### A fragile item (`wear`)
+
+```json
+{ "id": "pocket_legend_book", "name": "Pocket Edition", "type": "key", "…": "…",
+  "wear": { "value": "pocket_legend_book_condition", "stages": ["new", "bent", "torn_corner", "page_tear", "loose_staple", "barely_surviving"] },
+  "variants": [{ "if": { "value": { "name": "pocket_legend_book_condition", "eq": "page_tear" } }, "description": "…" }] }
+```
+
+`{ "wear": "pocket_legend_book" }` moves its story value on a stage;
+`{ "wear": "pocket_legend_book", "to": "page_tear" }` moves it to a named one.
+Never backwards, never past the last, and the item is never taken. Item
+`variants` give the description at each stage.
+
+### The sash tension (`data/story/tension/*.json`)
+
+```json
+"thirty_second_trial": {
+  "title": "THE THIRTY-SECOND TRIAL", "seconds": 30, "band": [36, 70], "pull": 58, "slack": 42,
+  "sway": { "amp": 12, "period": 4.8 }, "grace": 1.8,
+  "count": { "name": "PETE", "sfx": "count_tick" },
+  "surges": [{ "at": 20, "kick": -30 }],
+  "milestones": [{ "at": 5, "text": "<y>PETE:</> FIVE!", "sfx": "fart_growl", "haze": 0.14, "shake": 0.003 },
+                 { "at": 25, "band": [43, 64], "sway": 1.6, "gusts": true }],
+  "release": { "cue": "LET IT FLUTTER!", "auto": 4000, "sfx": "sash_release" } }
+```
+
+A script runs it with `{ "sashTension": "thirty_second_trial", "var":
+"trial_slips", "releasedVar": "trial_released" }`: hold Confirm to pull, let
+go to ease, keep the needle in the band for `seconds` real seconds. Out of
+the band for `grace` seconds is a slip (caught, never a failure). At the end,
+one press releases (`releasedVar` = 1); no press and the hands slip after
+`release.auto` ms (0). Milestones can change the band, the sway and gusts,
+and show text, play a sound, raise the haze and shake the screen.
+
+### A die (`data/story/dice/*.json`) and the `dice` command
+
+```json
+"grand_dice": { "name": "The Grand Dice of Grandness", "art": "gdie",
+  "faces": { "1": "30 MINUTES", "2": "1 HOUR", "3": "ONE DAY", "4": "3 DAYS", "5": "1 WEEK", "6": "3 MONTHS" },
+  "sfx": { "throw": "foam_squeak", "bounce": "die_bounce", "land": "die_land", "beans": "bean_tick" } }
+```
+
+```json
+{ "dice": "roll", "result": 6, "bounces": 3 }
+{ "dice": "hop", "to": 3, "hops": 3 }
+{ "dice": "show", "face": 6 }   { "dice": "hold", "seconds": 10 }   { "dice": "hide" }
+```
+
+`art` names the frames (`gdie_1`..`gdie_6`, `gdie_tumble_0`..`3`,
+`gdie_shadow`). A roll must name its `result` and a hop its `to`: the story
+decides, never chance. `die` picks another die (default `grand_dice`).
+
+### Aliases (`data/story/aliases/*.json`)
+
+```json
+"stinkbeard_delirium": {
+  "if": { "flag": "stinkbeard_delirium" },
+  "overlay": { "tint": "#e0c8ff", "wobble": 1, "every": [3500, 7000] },
+  "actors": {
+    "pete": { "name": "BROGATH (?)", "portrait": "delirium_brogath", "appearance": "pete_brogath", "flicker": true },
+    "squawks": { "name": "PRINCESS STENCHALINA (?)", "portrait": "delirium_stenchalina", "flicker": true } } }
+```
+
+While `if` holds, the dialogue box shows each actor's alias name and portrait
+(with `flicker`, the real ones for a blink now and then) and the world draws
+the alias's appearance. Ids never change: dialogue, quests, selectors and
+saves still say `pete`. Every actor must be a speaker; portraits and
+appearances must exist.
+
+### Decor slots (`decor`, maps and patches)
+
+```json
+"decor": [{ "value": "standee_brogath", "prop": "standee_brogath", "if": { "flag": "standee_brogath_placed" },
+            "inspect": "p13.inspect.standee_brogath", "default": null,
+            "spots": { "port": [1, 4], "starboard": { "x": 14, "y": 4, "flip": true } } }]
+```
+
+The story value `standee_brogath` names the spot. Each spot becomes a prop
+(id `decor_standee_brogath_port` and so on) shown when the value is that
+spot (and `if` holds), with an inspect object when `inspect` is given. Unset
+means the first spot, or nowhere with `"default": null`. Set the value from a
+choice (`setValue`), and it saves with the game.
+
+### A television that smells (`vent`, `aroma`) and a mild fume zone (`severity`)
+
+```json
+"vent": { "tiles": { "crew_quarters": [10, 6] }, "sfx": "stench_vent",
+          "if": { "all": [{ "flag": "stench_o_vision_on" }, { "notFlag": "stench_o_vision_disabled" }] } }
+```
+
+On a set (`data/tv/`). A programme beat with `"aroma": true` puffs out of the
+vent tile (on whichever listed map the captain is on) while `if` holds; a
+`tvProgram` step names the set with `"tv": "ses_kit"`. Pair it with a fume
+zone in the room: `{ "id": "p13_stench_o_vision", "level": "dense",
+"severity": 0.35, "x": 9, "y": 5, "w": 3, "h": 3, "if": { … } }`. `severity`
+(0 to 1) scales the exposure the zone builds, and the Fume Hazard option
+scales it again (Gentle halves it, Off stops it; the cloud still shows).
+
+### Furniture that grumbles (`ambient`, kind `fumeProp`)
+
+```json
+{ "kind": "fumeProp", "x": 16, "y": 6, "prop": "kitten_pillow", "every": [5000, 9000], "volume": 0.4,
+  "sounds": [{ "sfx": "pillow_mrrrow", "text": "<k>mrrrow.</>" }], "if": { "flag": "crew_quarters_reopened" } }
+```
+
+Now and then the prop shivers, a wisp comes off it, and one of the sounds
+plays. Nothing moves or blocks.
+
+### Knob effects, presets, timing bars, looks
+
+- **Knob effects** (`knobPanels`): `louder`, `flip`, `tint`, `slow`, `stretch`, `mute` (`ms`), `shrink`, `glimpse`, `frog`, `roll`, `shriek`, `tune` (sets `doneFlag`, keeps the set on, optionally at `channel`) and `off`.
+- **Presets** can land part-way through a counted objective: `"quests": { "anti_dice_conspiracy": { "done": ["borrow"], "progress": { "read": 4 } } }` (1 up to the count less one).
+- **Timing bars:** `reach`, `crack`, `slice`, `pour`, `solder`.
+- **Looks:** painter extras `toysash`, `goggles`, `beardwrap`, `blush`, `crownstack`; appearances and portraits for Garrick suspended, the trial gear and the delirium's legends are in `data/appearances/phase11.json` and `data/portraits/phase11.json`. A parrot portrait can wear `crown` and `royalSash`.
+- **Vista commands** are checked against the vista that is up: `vistaFrame`, `vistaMove`, `vistaShow` and `vistaSpin` must name one of its layers, and a debug preset that starts mid-scene must put its vista up first (`p12c5.from_surge`).
 
 ## Tilesets and props
 
