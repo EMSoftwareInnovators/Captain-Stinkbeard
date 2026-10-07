@@ -129,7 +129,7 @@ one day, and the sash goes in the wardrobe.
 
 | Map | What changes |
 | --- | --- |
-| Galley (`data/maps/ship/phase12/galley.patch.json`) | The gear (Jim's bucket, the stores' rope). The ransack: the drawers, the beans, the long table, the crate, Bob's die. The Grand Dice on the long table, its six siblings by the ladder; where it hops (by the hammock, by the stove, under the table's edge, where it stays on three). The regalia laid aside on the bench end. Breakfast at the stove, the prep table and the long table. The finger crisis round the room. |
+| Galley (`data/maps/ship/phase12/galley.patch.json`) | The gear (Jim's bucket, the stores' rope). The ransack: the drawers, the beans, the long table, the crate, Bob's die. The Grand Dice on the long table, its six siblings in a shut crate at the foot of the ladder; where it hops (by the hammock, by the stove, under the table's edge, where it stays on three). The regalia laid aside on the bench end. Breakfast at the stove, the prep table and the long table. The finger crisis round the room. |
 | Main deck (`phase12/main_deck.patch.json`) | The trial at the mainmast: Garrick facing the bow, the captain behind him, the crew in a half-circle at a respectful (large) distance, the two holders behind the mast. The four complaints, all over the deck. |
 | Cargo hold (`phase12/cargo_hold.patch.json`) | The salvage crate, with a pair of bottle-bottom goggles in it (Phase 12 only). |
 | Captain's cabin (`phase12/captains_quarters.patch.json`) | The wardrobe: a clean neckerchief for the trial; then the sash, behind the good coat, a faint yellow curl leaking out underneath. |

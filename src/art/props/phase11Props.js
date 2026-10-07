@@ -405,15 +405,24 @@ function grandDie(pips, { table = false } = {}) {
   return c;
 }
 
-function diceSixPack() {
+function diceSixPack({ shut = false } = {}) {
   const c = canvas(16, 18);
   groundShadow(c, 8, 16, 7, 1.5);
   box(c, 1, 5, 14, 3, 9, { d: CARD.d, m: CARD.m, b: CARD.l, l: CARD.h, h: '#f4e0b8' });
-  for (const [x, y] of [[2, 2], [6, 1], [10, 2]]) {
-    c.rect(x, y, 4, 4, '#a874d8');
-    c.set(x + 1, y + 1, '#f4ecf8');
+  if (shut) {
+    // still shut, as it came down the hatch: a purple die stencilled on the front, string tied round it
+    c.rect(5, 10, 6, 5, '#a874d8');
+    for (const [x, y] of [[6, 11], [9, 11], [6, 13], [9, 13]]) c.set(x, y, '#f4ecf8');
+    c.vline(8, 5, 16, ROPE.m);
+    c.hline(1, 14, 6, ROPE.m);
+    c.rect(7, 4, 3, 2, ROPE.l); // the knot
+  } else {
+    for (const [x, y] of [[2, 2], [6, 1], [10, 2]]) {
+      c.rect(x, y, 4, 4, '#a874d8');
+      c.set(x + 1, y + 1, '#f4ecf8');
+    }
+    c.rect(3, 6, 10, 2, '#e8dcc0'); // shredded paper
   }
-  c.rect(3, 6, 10, 2, '#e8dcc0'); // shredded paper
   c.outline(INK);
   return c;
 }
@@ -689,7 +698,8 @@ export const PHASE11_PROPS = {
   grand_dice_floor_3: () => grandDie(3),
   grand_dice_floor_4: () => grandDie(4),
   grand_dice_floor_5: () => grandDie(5),
-  dice_six_pack: diceSixPack,
+  dice_six_pack: () => diceSixPack(),
+  dice_shipment_crate: () => diceSixPack({ shut: true }),
   regalia_heap: regaliaHeap,
   old_sash_table: oldSashTable,
   breakfast_normal: breakfastNormal,

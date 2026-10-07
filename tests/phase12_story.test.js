@@ -207,6 +207,26 @@ describe('The Grand Dice: an apparent six, then the beans, then three. Always th
   });
 });
 
+describe('The Grand Dice Shipment is a crate you can see, at the foot of the ladder', () => {
+  it('comes down shut beside the ladder\'s foot, on the tile you open it from; once opened, the six stay there', async () => {
+    const s = makeStory({ preset: 'p12_dice_shipment' });
+    await s.run('p12c9.begin');
+    const galley = s.content.maps.require('galley');
+    const live = (list) => list.filter((o) => evaluateCondition(o.if, s.session));
+    const open = galley.objects.find((o) => o.id === 'p12_shipment');
+    expect(live([open])).toHaveLength(1);
+    const here = (p) => p.x === open.x && p.y === open.y;
+    expect(live(galley.props).filter(here).map((p) => p.prop)).toEqual(['dice_shipment_crate']);
+    // The foot of the ladder: the tile you land on coming down the hatch, and the crate right beside it.
+    const foot = galley.objects.find((o) => o.id === 'ladder');
+    expect(Math.abs(open.x - foot.x) + Math.abs(open.y - foot.y)).toBe(1);
+    await s.inspect('p12_shipment');
+    expect(s.has('grand_dice_shipment_received')).toBe(true);
+    expect(live(galley.props).filter(here).map((p) => p.prop)).toEqual(['dice_six_pack']);
+    expect(live(galley.objects).find((o) => o.type === 'inspect' && here(o))?.id).toBe('p12_six_look');
+  });
+});
+
 describe('The suspension: Garrick is just Garrick for one day', () => {
   it('is active, one day long, and counting down', async () => {
     const { s } = await playPhase12('first');

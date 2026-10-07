@@ -1,7 +1,7 @@
 {
  "id": "galley_phase12",
  "patch": "galley",
- "//": "Story Phase 12 in the galley, the morning after. The gear: Jim's bucket (3,6), the rope coil by the Frog Grog cask (15,9). The ransack (118): the drawers (prep table), the beans (the stores), the long table, the crate; Bob's die. The Grand Dice on the long table (8,7) with its six siblings in their crate by the ladder (16,5). The hops (122): the floor by the hammock (10,9), by the stove (3,5), under the long table's edge (8,8), where it stays on three. The regalia laid aside on the bench end (9,8); the sash on the long table until it goes to the wardrobe. Breakfast at the stove, the prep table and the long table. The finger: Garrick goes from Pete to Bob to Gristle to Jim to Rusty Tom (who runs for the bow).",
+ "//": "Story Phase 12 in the galley, the morning after. The gear: Jim's bucket (3,6), the rope coil by the Frog Grog cask (15,9). The ransack (118): the drawers (prep table), the beans (the stores), the long table, the crate; Bob's die. The Grand Dice on the long table (8,7) with its six siblings in their crate at the foot of the ladder (13,4), left of where you come down: shut until it's opened. The hops (122): the floor by the hammock (10,9), by the stove (3,5), under the long table's edge (8,8), where it stays on three. The regalia laid aside on the bench end (9,8); the sash on the long table until it goes to the wardrobe. Breakfast at the stove, the prep table and the long table. The finger: Garrick goes from Pete to Bob to Gristle to Jim to Rusty Tom (who runs for the bow).",
  "objects": [
   {
    "id": "p12_start_bed",
@@ -97,8 +97,8 @@
   {
    "id": "p12_shipment",
    "type": "inspect",
-   "x": 16,
-   "y": 5,
+   "x": 13,
+   "y": 4,
    "if": {
     "objectiveActive": "six_dice.open"
    },
@@ -357,8 +357,8 @@
   {
    "id": "p12_six_look",
    "type": "inspect",
-   "x": 16,
-   "y": 5,
+   "x": 13,
+   "y": 4,
    "if": {
     "flag": "grand_dice_shipment_received"
    },
@@ -1992,9 +1992,25 @@
    "id": "p12_die_final"
   },
   {
+   "prop": "dice_shipment_crate",
+   "x": 13,
+   "y": 4,
+   "if": {
+    "all": [
+     {
+      "flag": "p12_ch120_started"
+     },
+     {
+      "notFlag": "grand_dice_shipment_received"
+     }
+    ]
+   },
+   "id": "p12_six_shut"
+  },
+  {
    "prop": "dice_six_pack",
-   "x": 16,
-   "y": 5,
+   "x": 13,
+   "y": 4,
    "if": {
     "flag": "grand_dice_shipment_received"
    },
