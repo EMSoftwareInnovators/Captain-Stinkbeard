@@ -289,3 +289,38 @@ describe('the game provides every service a script command calls', () => {
   });
 });
 
+describe('a token a scene throws lands where it is read', () => {
+  // A scene drops a token sprite ({ token, x, y, id }) and the inspect that reads it removes that sprite:
+  // the two must be the same tile, or the player finds a card that does nothing and can't find the real one.
+  it('every thrown token sits inside the inspect object whose script picks it up', () => {
+    const steps = (o, fn) => {
+      if (Array.isArray(o)) o.forEach((x) => steps(x, fn));
+      else if (o && typeof o === 'object') { fn(o); Object.values(o).forEach((x) => steps(x, fn)); }
+    };
+    const drops = new Map();
+    const pickedUpBy = new Map();
+    for (const [id, script] of content.scripts.map) {
+      steps(script, (st) => {
+        if (typeof st.token === 'string' && st.id) drops.set(st.id, { x: st.x, y: st.y, script: id });
+        if (typeof st.removeSprite === 'string') pickedUpBy.set(id, [...(pickedUpBy.get(id) ?? []), st.removeSprite]);
+      });
+    }
+    const wrong = [];
+    let checked = 0;
+    for (const map of content.maps.list()) {
+      for (const o of map.objects ?? []) {
+        if (o.type !== 'inspect' || !o.script) continue;
+        for (const sprite of pickedUpBy.get(o.script) ?? []) {
+          const d = drops.get(sprite);
+          if (!d) continue;
+          checked++;
+          const inside = d.x >= o.x && d.x < o.x + (o.w ?? 1) && d.y >= o.y && d.y < o.y + (o.h ?? 1);
+          if (!inside) wrong.push(`${sprite}: thrown at ${d.x},${d.y} (${d.script}), read at ${o.x},${o.y} (${map.id} ${o.id})`);
+        }
+      }
+    }
+    expect(checked).toBeGreaterThan(8);
+    expect(wrong).toEqual([]);
+  });
+});
+
