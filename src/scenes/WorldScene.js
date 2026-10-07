@@ -45,6 +45,11 @@ const SQUEEZE_PAST_MS = 280;
  * enemies, and runs scripts (dialogue, inspections, cutscenes) through the
  * shared ScriptRunner with world services (move/face/camera/...).
  */
+/** An inspect spot that exists for an open objective (its condition names one). */
+function isObjectiveJob(obj) {
+  return obj.type === 'inspect' && !!obj.if && JSON.stringify(obj.if).includes('objectiveActive');
+}
+
 export class WorldScene extends BaseScene {
   constructor() {
     super('World');
@@ -1258,11 +1263,22 @@ export class WorldScene extends BaseScene {
     if (duty) return { kind: 'duty', incident: duty, x, y };
     const occ = this.occupantAt(x, y) ?? this.aloftAt(x, y);
     if (occ && occ.kind === 'npc' && occ.npc) return { kind: 'npc', actor: occ, x, y };
+    // Story Phase 11: someone in the hammock right over the captain's head (a hammock doesn't stop him
+    // walking in under it, facing past them). They come before anything in front of him except a job
+    // for an open objective (in front, or under his feet); nobody has to back out from under a
+    // hammock to talk to its sleeper.
+    const up = this.aloftAt(this.player.tx, this.player.ty);
+    const above = up?.kind === 'npc' && up.npc ? { kind: 'npc', actor: up, x: this.player.tx, y: this.player.ty } : null;
     for (const obj of this.objects) {
       if ((obj.type === 'inspect' || obj.type === 'chest') && this.inRect(obj, x, y)) {
         if (obj.type === 'inspect' && obj.if && !evaluateCondition(obj.if, this.session)) continue;
+        if (above && !isObjectiveJob(obj)) break;
         return { kind: obj.type, obj, x, y };
       }
+    }
+    if (above) {
+      const job = this.jobUnderfoot();
+      return job ? { kind: 'inspect', obj: job, x: this.player.tx, y: this.player.ty, underfoot: true } : above;
     }
     const prop = this.propAt.get(this.key(x, y));
     if (prop?.def?.inspect) return { kind: 'prop', prop, x, y };
@@ -1280,7 +1296,7 @@ export class WorldScene extends BaseScene {
   jobUnderfoot() {
     const { tx, ty } = this.player;
     return this.objects.find((o) => o.type === 'inspect' && o.if && this.inRect(o, tx, ty)
-      && JSON.stringify(o.if).includes('objectiveActive') && evaluateCondition(o.if, this.session)) ?? null;
+      && isObjectiveJob(o) && evaluateCondition(o.if, this.session)) ?? null;
   }
 
   interact() {
