@@ -3,7 +3,7 @@ import { DIR_VECTORS } from '../config/constants.js';
 import { startPreset } from './startPreset.js';
 import { resolveVariant } from '../systems/story/progress.js';
 import { logAvailable, logEntries } from '../systems/logs/logbook.js';
-import { placementChoices } from '../world/placements.js';
+import { placementChoices, roomGuard } from '../world/placements.js';
 
 /**
  * Development-only helpers used by automated end-to-end tests
@@ -59,7 +59,7 @@ export function installTestHooks(app, game) {
      */
     placements() {
       const w = world();
-      return [...placementChoices(w.model.objects, app.session)].map(([npc, o]) => {
+      return [...placementChoices(w.model.objects, app.session, roomGuard(app.content.npcs, w.model.id))].map(([npc, o]) => {
         const a = w.actors.get(npc);
         const roams = ['wander', 'routine'].includes(a?.brain?.behavior?.type);
         return { npc, want: o ? [o.x, o.y] : null, at: a ? [a.tx, a.ty] : null, roams, relocating: !!a?.brain?.relocation || !!a?.moving };

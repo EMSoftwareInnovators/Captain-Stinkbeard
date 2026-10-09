@@ -23,7 +23,7 @@ import { mix, unpack, rgba } from '../art/palette.js';
 import { TILE_SIZE, DIR_VECTORS, OPPOSITE_DIR, DIRECTIONS, SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
 import { hash32 } from '../core/Rng.js';
 import { asArray } from '../core/util.js';
-import { placementChoices, placementChanges } from '../world/placements.js';
+import { placementChoices, placementChanges, roomGuard } from '../world/placements.js';
 import { deadCenterZonesFor, deadCenterSeals } from '../systems/hazards/deadCenter.js';
 import { panicShouts } from '../systems/hazards/alarms.js';
 import { SharkDuty } from '../world/SharkDuty.js';
@@ -259,7 +259,7 @@ export class WorldScene extends BaseScene {
     const session = this.session;
     this.objects = [];
     // Who is here: the placement the story picks for each character (see restage).
-    this.placementPicks = placementChoices(this.model.objects, session);
+    this.placementPicks = placementChoices(this.model.objects, session, roomGuard(this.content.npcs, this.model.id));
     this.staged = new Set();
     for (const obj of this.model.objects) {
       // A warp's `if` is a lock, checked live when the captain steps on it
@@ -750,7 +750,7 @@ export class WorldScene extends BaseScene {
    */
   restage({ instant = false, inScene = false } = {}) {
     this.restageDirty = false;
-    const now = placementChoices(this.model.objects, this.session);
+    const now = placementChoices(this.model.objects, this.session, roomGuard(this.content.npcs, this.model.id));
     const picked = this.placementPicks ?? new Map();
     const ids = new Set([...placementChanges(picked, now).map((c) => c.npc), ...this.staged]);
     this.staged.clear();

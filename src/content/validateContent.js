@@ -861,6 +861,11 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     validateDialogueSelectors(npc.dialogue, c);
     validateBehavior(npc.behavior, c.at('behavior'), null);
     validateVariants(npc.variants, c);
+    // Story Phase 14: the only rooms a character is ever placed in (Brogath: never the hold).
+    if (npc.rooms !== undefined) {
+      if (!Array.isArray(npc.rooms) || !npc.rooms.length) c.error('"rooms" must be a non-empty list of map ids');
+      else for (const m of npc.rooms) if (!db.maps.has(m)) c.error(`"rooms" names unknown map "${m}"`);
+    }
   }
 
   // Maps (compile each, then check objects/warps against compiled targets).
@@ -975,9 +980,11 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
           if ('when' in obj) oc.condition(obj.when);
           break;
         }
-        case 'npc':
+        case 'npc': {
           oc.npc(obj.npc);
           if (obj.absent) break;
+          const rooms = db.npcs.get(obj.npc)?.rooms;
+          if (Array.isArray(rooms) && !rooms.includes(id)) oc.error(`${obj.npc} may only be placed in ${rooms.join(', ')} (its "rooms"), not ${id}`);
           // Asleep in a hammock or a bedroll: on one of its tiles (a hammock may be over a crate), and keeping still.
           if (BED_POSES.includes(obj.pose)) {
             if (!bedsAt(model, obj.x, obj.y).length) oc.error(`npc posed "${obj.pose}" needs a bed under it (a prop with "bed": true at ${obj.x},${obj.y})`);
@@ -988,6 +995,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
           if (obj.behavior) validateBehavior(obj.behavior, oc.at('behavior'), model);
           else validateBehavior(db.npcs.get(obj.npc)?.behavior, oc.at('behavior'), model);
           break;
+        }
         case 'enemy':
           oc.encounter(obj.encounter);
           if (!walkable) oc.error('enemy placed on a solid tile');

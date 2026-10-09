@@ -93,6 +93,9 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
   const dice = [];
   let tensionResult = { slips: 0, released: 'pressed' };
   const tensions = [];
+  // Story Phase 14: the Grand Bank's teller window (a clean deposit unless a test says otherwise; recorded).
+  let tellerResult = { grades: ['perfect'], slips: 0 };
+  const tellers = [];
   const services = {
     dialogue: {
       say: async (line) => log.push(`${line.speaker ?? '-'}: ${line.text}`),
@@ -119,6 +122,10 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
       sashTension: async (def) => {
         tensions.push(def.id);
         return tensionResult;
+      },
+      teller: async (customer) => {
+        tellers.push(customer.id);
+        return tellerResult;
       },
       dice: async (op, opts = {}) => {
         dice.push({ op, result: opts.result ?? null, to: opts.to ?? null, at: staging.context });
@@ -162,6 +169,11 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
     tvs,
     dice,
     tensions,
+    tellers,
+    /** What the next teller window reports ({ grades: ['perfect' | 'good' | 'miss', ...], slips }). */
+    setTellerResult(r) {
+      tellerResult = r;
+    },
     /** What the next sash tension reports ({ slips, released: 'pressed' | 'slipped' }). */
     setTensionResult(r) {
       tensionResult = r;

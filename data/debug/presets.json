@@ -6021,5 +6021,779 @@
     "x": 9,
     "y": 5,
     "facing": "down"
+  },
+  {
+    "id": "p14_start",
+    "name": "Phase 14 Start",
+    "description": "The night of the command crisis, inside the Great Sharkstorm, with ten real doubloons (and more) in your purse. Talk to Pete (the deck).",
+    "after": "p13_complete",
+    "gold": 125,
+    "map": "main_deck",
+    "x": 9,
+    "y": 5,
+    "facing": "down"
+  },
+  {
+    "id": "p14_the_plume",
+    "name": "The Plume",
+    "description": "The treasure-room door, opened a crack. Something got out. Starts chapter 147.",
+    "after": "p14_start",
+    "flags": [
+      "p14_ch146_started",
+      "p14_door_cracked",
+      "p14_door_resealed",
+      "p14_plank_1",
+      "p14_plank_2",
+      "p14_signs_read",
+      "p14_sneaked_below",
+      "p14_standee_below",
+      "p14_started"
+    ],
+    "vars": {
+      "p4_tod": 27
+    },
+    "values": {
+      "great_sharkstorm": "rough_turbulence",
+      "standee_brogath": "below"
+    },
+    "quests": {
+      "the_door_opens": "completed"
+    },
+    "map": "cargo_hold",
+    "x": 4,
+    "y": 6,
+    "facing": "down",
+    "script": "p14c2.begin"
+  },
+  {
+    "id": "p14_brogath_returns",
+    "name": "Brogath Returns",
+    "description": "The plume went into the cardboard Brogath in the quarters. Starts chapter 148.",
+    "after": "p14_the_plume",
+    "flags": [
+      "p14_ch147_started",
+      "p14_plume_galley"
+    ],
+    "quests": {
+      "follow_the_plume": {
+        "done": [
+          "galley",
+          "quarters"
+        ]
+      }
+    },
+    "map": "crew_quarters",
+    "x": 8,
+    "y": 4,
+    "facing": "down",
+    "script": "p14c3.begin"
+  },
+  {
+    "id": "p14_containment",
+    "name": "Containment Corner",
+    "description": "Brogath the Bashful is aboard, and very polite. The barricade, the first rules, Garrick. Starts chapter 149.",
+    "after": "p14_brogath_returns",
+    "flags": [
+      "brogath_reincarnated",
+      "p14_ch148_started",
+      "p14_first_eruption",
+      "p14_first_words",
+      "p14_hat_lost",
+      "p14_plume_quarters",
+      "p14_quarters_scorched"
+    ],
+    "clearFlags": [
+      "stinkbeard_delirium"
+    ],
+    "vars": {
+      "brogath_pressure": 20,
+      "brogath_reassure_turn": 1
+    },
+    "values": {
+      "brogath_state": "BASHFUL",
+      "brogath_status": "reincarnated_cardboard",
+      "stinkbeard_state": "brogath_confirmed"
+    },
+    "quests": {
+      "follow_the_plume": "completed",
+      "return_of_brogath": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 9,
+    "y": 4,
+    "facing": "down",
+    "script": "p14c4.begin"
+  },
+  {
+    "id": "p14_flutter_lessons",
+    "name": "Keep Brogath Confident",
+    "description": "Flutter incidents: a shirt-tail, a label, a napkin, a page, a parrot, a flag. Starts chapter 150.",
+    "after": "p14_containment",
+    "flags": [
+      "brogath_rule_cardboard",
+      "brogath_rule_no_laughing",
+      "brogath_rule_print_quality",
+      "brogath_rule_sad_memories",
+      "p14_bar_blankets",
+      "p14_bar_cask",
+      "p14_bar_shield",
+      "p14_bar_table",
+      "p14_barricade_said",
+      "p14_ch149_started",
+      "p14_garrick_checked",
+      "p14_hat_back",
+      "p14_rules_begun"
+    ],
+    "vars": {
+      "brogath_rules": 4
+    },
+    "quests": {
+      "containment_corner": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 8,
+    "y": 9,
+    "facing": "down",
+    "script": "p14c5.begin"
+  },
+  {
+    "id": "p14_apology_eruption",
+    "name": "Apology Eruption",
+    "description": "He apologises, and the apology flutters. Brace the quarters. Starts chapter 151.",
+    "after": "p14_flutter_lessons",
+    "flags": [
+      "brogath_rule_no_sighing",
+      "brogath_rule_nothing_flutters",
+      "brogath_rule_squawks_walks",
+      "p14_ch150_started",
+      "p14_fl_flag_done",
+      "p14_fl_flag_secured",
+      "p14_fl_flag_started",
+      "p14_fl_label_done",
+      "p14_fl_label_secured",
+      "p14_fl_label_started",
+      "p14_fl_napkin_done",
+      "p14_fl_napkin_secured",
+      "p14_fl_napkin_started",
+      "p14_fl_page_done",
+      "p14_fl_page_secured",
+      "p14_fl_page_started",
+      "p14_fl_shirt_done",
+      "p14_fl_shirt_secured",
+      "p14_fl_shirt_started",
+      "p14_fl_squawks_done",
+      "p14_fl_squawks_secured",
+      "p14_fl_squawks_started",
+      "p14_flutter_rules",
+      "p14_flutters_said",
+      "p14_pete_theory"
+    ],
+    "vars": {
+      "brogath_pressure": 15,
+      "brogath_reassure_turn": 11,
+      "brogath_rules": 7,
+      "p14_fl_erupts": 0
+    },
+    "values": {
+      "p14_flutter_current": "flag"
+    },
+    "quests": {
+      "keep_brogath_confident": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 9,
+    "y": 11,
+    "facing": "down",
+    "script": "p14c6.begin"
+  },
+  {
+    "id": "p14_back_in_office",
+    "name": "Back in Office",
+    "description": "Garrick's suspension ends: the sash, out of your wardrobe with the fire tongs. Starts chapter 152.",
+    "after": "p14_apology_eruption",
+    "flags": [
+      "brogath_rule_no_apologising",
+      "brogath_rule_toot",
+      "p14_ae_brace",
+      "p14_ae_lantern",
+      "p14_ae_obj_pack",
+      "p14_ae_obj_set",
+      "p14_ae_reached",
+      "p14_ae_ready_said",
+      "p14_ae_sash_a",
+      "p14_ae_sash_b",
+      "p14_ae_sash_c",
+      "p14_ch151_started"
+    ],
+    "vars": {
+      "brogath_pressure": 5,
+      "brogath_reassure_turn": 12,
+      "brogath_rules": 9
+    },
+    "values": {
+      "brogath_state": "CALM"
+    },
+    "quests": {
+      "apology_eruption": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 9,
+    "y": 7,
+    "facing": "down",
+    "script": "p14c7.begin"
+  },
+  {
+    "id": "p14_two_stenchmasters",
+    "name": "Two Grand Stenchmasters",
+    "description": "Supremacy, in the galley. (The Grand Waft Trials are mentioned, never held.) Starts chapter 153.",
+    "after": "p14_back_in_office",
+    "flags": [
+      "brogath_rule_sashes_tucked",
+      "garrick_regalia_restored",
+      "p14_ch152_started",
+      "p14_decrees_done",
+      "p14_gs_done",
+      "p14_gs_secured",
+      "p14_gs_started",
+      "p14_regalia_demanded",
+      "p14_sash_retrieved",
+      "p14_tongs_taken",
+      "stenchmaster_suspension_over"
+    ],
+    "clearFlags": [
+      "regalia_removed",
+      "sash_in_wardrobe",
+      "stenchmaster_suspension_active"
+    ],
+    "vars": {
+      "brogath_pressure": 25,
+      "brogath_reassure_turn": 17,
+      "brogath_rules": 10,
+      "p14_decree_limit": 1,
+      "p4_tod": 31,
+      "suspension_hours_left": 0
+    },
+    "values": {
+      "brogath_state": "BASHFUL"
+    },
+    "quests": {
+      "the_suspension": "completed",
+      "back_in_office": "completed"
+    },
+    "map": "galley",
+    "x": 9,
+    "y": 10,
+    "facing": "down",
+    "script": "p14c8.begin"
+  },
+  {
+    "id": "p14_bean_breakfast",
+    "name": "Beans of Ancient Precedent",
+    "description": "Compliments by turns, then breakfast. Starts chapter 154.",
+    "after": "p14_two_stenchmasters",
+    "flags": [
+      "brogath_rule_no_grand_waft_trials",
+      "p14_ch153_started",
+      "p14_trials_mentioned"
+    ],
+    "vars": {
+      "brogath_pressure": -20,
+      "brogath_rules": 11,
+      "p14_rounds": 4
+    },
+    "values": {
+      "brogath_state": "PLEASED"
+    },
+    "quests": {
+      "two_grand_stenchmasters": "completed",
+      "grand_waft_trials": "active"
+    },
+    "map": "galley",
+    "x": 10,
+    "y": 8,
+    "facing": "down",
+    "script": "p14c9.begin"
+  },
+  {
+    "id": "p14_fart_free_zone",
+    "name": "Fart-Free Zone",
+    "description": "The little door under the hold stairs becomes the crew's refuge. Starts chapter 155.",
+    "after": "p14_bean_breakfast",
+    "flags": [
+      "brogath_loaded",
+      "brogath_rule_compliment_rota",
+      "garrick_loaded",
+      "p14_breakfast_eaten",
+      "p14_ch154_started",
+      "p14_compliments_said",
+      "p14_dish_beans",
+      "p14_dish_cabbage",
+      "p14_dish_garlic",
+      "p14_dish_grog",
+      "p14_dish_onions",
+      "p14_dish_sauce",
+      "p14_nook_found",
+      "p14_nook_known"
+    ],
+    "vars": {
+      "brogath_rules": 12,
+      "p14_comp_turn": 0,
+      "p14_compliments": 4,
+      "p4_tod": 28
+    },
+    "quests": {
+      "beans_of_precedent": "completed"
+    },
+    "map": "fart_free_zone",
+    "x": 5,
+    "y": 6,
+    "facing": "down",
+    "script": "p14c10.begin"
+  },
+  {
+    "id": "p14_getting_rid",
+    "name": "Getting Rid of Brogath",
+    "description": "Proposals, in the zone. Starts chapter 156.",
+    "after": "p14_fart_free_zone",
+    "flags": [
+      "fart_free_zone_declared",
+      "fart_free_zone_established",
+      "fart_free_zone_reinforced",
+      "p14_cards_thrown",
+      "p14_ch155_started",
+      "p14_ffz_barrels",
+      "p14_ffz_blankets",
+      "p14_ffz_cards",
+      "p14_ffz_grog",
+      "p14_ffz_hardtack",
+      "p14_ffz_mattress",
+      "p14_ffz_pillows",
+      "p14_ffz_rags",
+      "p14_ffz_reinforced",
+      "p14_ffz_sashes"
+    ],
+    "quests": {
+      "fart_free_zone": "completed"
+    },
+    "map": "fart_free_zone",
+    "x": 5,
+    "y": 5,
+    "facing": "down",
+    "script": "p14c11.begin"
+  },
+  {
+    "id": "p14_beyond_broke",
+    "name": "Beyond Broke",
+    "description": "The second treasure catastrophe, in the pocket edition. Starts chapter 157.",
+    "after": "p14_getting_rid",
+    "flags": [
+      "brogath_hard_to_remove",
+      "p14_ch156_started",
+      "p14_mission_overheard",
+      "p14_prop_burn",
+      "p14_prop_confident",
+      "p14_prop_storm",
+      "p14_prop_treasure",
+      "p14_proposals_said"
+    ],
+    "vars": {
+      "p4_tod": 29
+    },
+    "quests": {
+      "getting_rid_of_brogath": "completed"
+    },
+    "map": "fart_free_zone",
+    "x": 4,
+    "y": 5,
+    "facing": "down",
+    "script": "p14c12.begin"
+  },
+  {
+    "id": "p14_grand_economy",
+    "name": "Grand Economy",
+    "description": "Gust Pieces, Wind Crowns, Atmospheric Doubloons. Starts chapter 158.",
+    "after": "p14_beyond_broke",
+    "flags": [
+      "brogath_rule_no_treasure",
+      "brogath_rule_treasure_room",
+      "brogath_treasure_excluded",
+      "p14_ch157_started",
+      "p14_ingredients",
+      "p14_psg_said",
+      "treasure_exclusion_posted"
+    ],
+    "vars": {
+      "brogath_rules": 14,
+      "p14_psg_read": 4,
+      "p4_tod": 27
+    },
+    "quests": {
+      "beyond_broke": "completed"
+    },
+    "map": "cargo_hold",
+    "x": 15,
+    "y": 4,
+    "facing": "down",
+    "script": "p14c13.begin"
+  },
+  {
+    "id": "p14_bad_money",
+    "name": "Bad Money",
+    "description": "Brogath has bought something with your money. Check your purse. Starts chapter 159.",
+    "after": "p14_grand_economy",
+    "flags": [
+      "p14_ch158_started",
+      "p14_econ_said",
+      "p14_slept_after_reading"
+    ],
+    "vars": {
+      "p14_econ_read": 4
+    },
+    "quests": {
+      "grand_economy": "completed"
+    },
+    "map": "fart_free_zone",
+    "x": 1,
+    "y": 5,
+    "facing": "down",
+    "script": "p14c14.begin"
+  },
+  {
+    "id": "p14_oat_security",
+    "name": "Oat Security",
+    "description": "Twenty thousand Grand Tokens (not gold) and ten doubloons fewer. Give Brogath a job. Starts chapter 160.",
+    "after": "p14_bad_money",
+    "flags": [
+      "grand_currency_acquired",
+      "grand_currency_crate_below",
+      "grand_currency_crate_opened",
+      "grand_tokens_loose",
+      "p14_ch159_started",
+      "p14_purse_checked",
+      "p14_shopping_seen"
+    ],
+    "vars": {
+      "grand_currency_gold_paid": 10,
+      "grand_currency_tokens": 20000,
+      "p4_tod": 28
+    },
+    "quests": {
+      "bad_money": "completed"
+    },
+    "items": [
+      "grand_currency"
+    ],
+    "gold": 115,
+    "map": "galley",
+    "x": 13,
+    "y": 8,
+    "facing": "down",
+    "script": "p14c15.begin"
+  },
+  {
+    "id": "p14_television_duty",
+    "name": "Television Duty",
+    "description": "Brogath watches the Frog Tax Man. Starts chapter 161.",
+    "after": "p14_oat_security",
+    "flags": [
+      "brogath_rule_oats",
+      "oats_everywhere",
+      "p14_ch160_started",
+      "p14_oat_disaster",
+      "p14_oat_job_given",
+      "p14_oat_sack_a",
+      "p14_oat_sack_b",
+      "p14_oat_sack_c",
+      "p14_oats_posted",
+      "p14_oats_swept"
+    ],
+    "vars": {
+      "brogath_pressure": 25,
+      "brogath_rules": 15,
+      "p4_tod": 29
+    },
+    "values": {
+      "brogath_state": "BASHFUL"
+    },
+    "quests": {
+      "oat_security": "completed"
+    },
+    "map": "galley",
+    "x": 5,
+    "y": 5,
+    "facing": "down",
+    "script": "p14c16.begin"
+  },
+  {
+    "id": "p14_sash_commercial",
+    "name": "Sash Commercial",
+    "description": "The Bling Bling King buys advertising. Starts chapter 162.",
+    "after": "p14_television_duty",
+    "flags": [
+      "brogath_rule_no_machinery",
+      "brogath_tv_duty",
+      "p14_ch161_started",
+      "p14_ftm_found",
+      "p14_knob_off",
+      "p14_tv_duty_assigned"
+    ],
+    "vars": {
+      "brogath_pressure": 6,
+      "brogath_rules": 16,
+      "p4_tod": 32,
+      "ses_mk2_channel": 7
+    },
+    "values": {
+      "brogath_state": "CALM"
+    },
+    "quests": {
+      "television_duty": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 9,
+    "y": 7,
+    "facing": "down",
+    "script": "p14c17.begin"
+  },
+  {
+    "id": "p14_grand_bank",
+    "name": "The Grand Bank",
+    "description": "Seven questions, the Anger Waft, and a bank on the deck. Starts chapter 163.",
+    "after": "p14_sash_commercial",
+    "flags": [
+      "brogath_rule_cover_eyes",
+      "p14_ad_channel",
+      "p14_ad_door_a",
+      "p14_ad_door_b",
+      "p14_ad_eyes",
+      "p14_ad_ready_said",
+      "p14_ad_resolved",
+      "p14_ad_sash_a",
+      "p14_ad_sash_b",
+      "p14_ch162_started"
+    ],
+    "vars": {
+      "brogath_pressure": 10,
+      "brogath_reassure_turn": 18,
+      "brogath_rules": 17
+    },
+    "values": {
+      "ses_kit_state": null
+    },
+    "quests": {
+      "sash_commercial": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 10,
+    "y": 8,
+    "facing": "down",
+    "script": "p14c18.begin"
+  },
+  {
+    "id": "p14_teller_shift",
+    "name": "Teller Shift",
+    "description": "Your Gas Is Our Business: serve the queue at the counter. Starts chapter 164.",
+    "after": "p14_grand_bank",
+    "flags": [
+      "anger_waft_seen",
+      "brogath_rule_no_banking",
+      "grand_bank_open",
+      "p14_ch163_started",
+      "teller_badge_given"
+    ],
+    "vars": {
+      "brogath_pressure": 20,
+      "brogath_rules": 18,
+      "p14_bank_q": 7,
+      "p4_tod": 28
+    },
+    "values": {
+      "brogath_state": "BASHFUL"
+    },
+    "quests": {
+      "the_grand_bank": "completed"
+    },
+    "items": [
+      "teller_badge"
+    ],
+    "map": "main_deck",
+    "x": 11,
+    "y": 25,
+    "facing": "down",
+    "script": "p14c19.begin"
+  },
+  {
+    "id": "p14_gustilda",
+    "name": "Legendary Depositors",
+    "description": "The legends, and Grandmother Gustilda. Starts chapter 165.",
+    "after": "p14_teller_shift",
+    "flags": [
+      "p14_ch164_started"
+    ],
+    "vars": {
+      "bank_last_grade": 2,
+      "bank_last_slips": 0,
+      "bank_ledger_right": 1,
+      "bank_served": 16
+    },
+    "quests": {
+      "teller_shift": "completed"
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 26,
+    "facing": "down",
+    "script": "p14c20.begin"
+  },
+  {
+    "id": "p14_branch_concludes",
+    "name": "Branch Concludes",
+    "description": "The bank starts to go. Redeem the tokens (try). Starts chapter 166.",
+    "after": "p14_gustilda",
+    "flags": [
+      "p14_ch165_started"
+    ],
+    "vars": {
+      "bank_legends_served": 3
+    },
+    "quests": {
+      "legendary_depositors": "completed"
+    },
+    "map": "main_deck",
+    "x": 9,
+    "y": 26,
+    "facing": "down",
+    "script": "p14c21.begin"
+  },
+  {
+    "id": "p14_catastrophe",
+    "name": "Distinguishedly Furious",
+    "description": "Ten minutes and forty-seven seconds. Console him. Starts chapter 167.",
+    "after": "p14_branch_concludes",
+    "flags": [
+      "garrick_wears_ornament",
+      "grand_bank_concluded",
+      "grand_bank_dissolved",
+      "holiday_ornament_made",
+      "p14_ch166_started",
+      "p14_redeem_failed",
+      "p14_wealthy_answer"
+    ],
+    "clearFlags": [
+      "grand_bank_open"
+    ],
+    "quests": {
+      "branch_concludes": "completed"
+    },
+    "items": [
+      "holiday_branch_ornament"
+    ],
+    "map": "main_deck",
+    "x": 11,
+    "y": 25,
+    "facing": "down",
+    "script": "p14c22.begin"
+  },
+  {
+    "id": "p14_brogath_problem",
+    "name": "The Brogath Problem",
+    "description": "Disposal research in the zone, and the warning on the last page. Starts chapter 168.",
+    "after": "p14_catastrophe",
+    "flags": [
+      "brogath_rule_idiot_distinguished",
+      "brogath_unloaded",
+      "p14_ch167_started",
+      "p14_consoled"
+    ],
+    "vars": {
+      "brogath_pressure": 0,
+      "brogath_reassure_turn": 23,
+      "brogath_rules": 19,
+      "p14_console_k": 5,
+      "p14_console_ok": 1,
+      "p4_tod": 27
+    },
+    "values": {
+      "brogath_state": "CALM"
+    },
+    "quests": {
+      "distinguishedly_furious": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 9,
+    "y": 7,
+    "facing": "down",
+    "script": "p14c23.begin"
+  },
+  {
+    "id": "p14_history_night",
+    "name": "History Night",
+    "description": "Bedtime in the zone, and the Mark II upstairs. Starts chapter 169.",
+    "after": "p14_brogath_problem",
+    "flags": [
+      "armor_warning_known",
+      "brogath_consultant",
+      "brogath_permanent",
+      "brogath_rule_no_armor",
+      "p14_ch168_started",
+      "p14_research_said",
+      "p14_sums_done",
+      "steel_brogath_known"
+    ],
+    "vars": {
+      "brogath_pressure": -20,
+      "brogath_rules": 20,
+      "p14_research_read": 4
+    },
+    "values": {
+      "brogath_state": "PLEASED"
+    },
+    "quests": {
+      "brogath_problem": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 9,
+    "y": 7,
+    "facing": "down",
+    "script": "p14c24.begin"
+  },
+  {
+    "id": "p14_complete",
+    "name": "Phase 14 Complete",
+    "description": "He lives here now: Ancient Historical Consultant. Licensed sashes on the Stenchmaster Channel. Still inside the Great Sharkstorm; the treasure room sealed.",
+    "after": "p14_history_night",
+    "flags": [
+      "brogath_lives_here",
+      "brogath_rule_professional_sashes",
+      "p14_beggar_watched",
+      "p14_ch169_started",
+      "p14_complete",
+      "p14_night_jobs_said",
+      "p14_nj_channel",
+      "p14_nj_eyes",
+      "p14_nj_sash",
+      "p14_set_found_on",
+      "p14_unplug_tried",
+      "p14_zone_sleep",
+      "tv_safety_protocol"
+    ],
+    "vars": {
+      "brogath_pressure": 5,
+      "brogath_reassure_turn": 24,
+      "brogath_rules": 21,
+      "p14_license_ok": 1,
+      "ses_mk2_channel": 9
+    },
+    "values": {
+      "brogath_state": "CALM",
+      "ses_mk2_state": "possessed"
+    },
+    "quests": {
+      "history_night": "completed"
+    },
+    "map": "galley",
+    "x": 14,
+    "y": 8,
+    "facing": "down"
   }
 ]

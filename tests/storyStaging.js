@@ -1,7 +1,7 @@
 import { compileMap, bedsAt, BED_POSES, ALOFT_POSES } from '../src/maps/compileMap.js';
 import { findPath } from '../src/maps/pathfinding.js';
 import { evaluateCondition } from '../src/systems/conditions/conditions.js';
-import { placementChoices, placementChanges } from '../src/world/placements.js';
+import { placementChoices, placementChanges, roomGuard } from '../src/world/placements.js';
 
 /**
  * The story-aware half of the staging checks (the static half is
@@ -88,7 +88,7 @@ export class StagingTracker {
   /** Who a room shows right now: the first matching placement per NPC ("absent" = elsewhere). */
   placements(map, gates = null) {
     const out = new Map();
-    for (const [npc, o] of placementChoices(this.model(map).objects, this.session)) {
+    for (const [npc, o] of placementChoices(this.model(map).objects, this.session, roomGuard(this.content.npcs, map))) {
       if (!o) continue;
       out.set(npc, [o.x, o.y, o.pose ?? null]);
       if (o.blocks) gates?.add(npc);
@@ -119,7 +119,7 @@ export class StagingTracker {
     this.hidden.clear();
     this.gates = new Set();
     this.actors = this.placements(map, this.gates);
-    this.chosen = placementChoices(this.model(map).objects, this.session);
+    this.chosen = placementChoices(this.model(map).objects, this.session, roomGuard(this.content.npcs, map));
     this.touched.clear();
     this.aloft.clear();
     this.npcOf.clear();
@@ -223,8 +223,32 @@ export class StagingTracker {
     const around = [];
     for (let i = 0; i < w; i++) around.push([x + i, y - 1], [x + i, y + h]);
     for (let j = 0; j < h; j++) around.push([x - 1, y + j], [x + w, y + j]);
-    const free = around.find(([ax, ay]) => !this.solid(this.map, ax, ay) && !this.occupied(ax, ay));
+    const open = around.filter(([ax, ay]) => !this.solid(this.map, ax, ay) && !this.occupied(ax, ay));
+    // A side he can walk round to beats one walled off behind other props (Story Phase 14's barrels).
+    const reach = this.player ? this.reachable() : null;
+    const free = open.find(([ax, ay]) => reach?.has(`${ax},${ay}`)) ?? open[0];
     if (free) this.player = free;
+  }
+
+  /** Every tile the captain can walk to from where he stands, past people, props and doors. */
+  reachable() {
+    const warps = this.warps(this.map);
+    const onWarp = (x, y) => warps.some((w) => x >= w.x && x < w.x + (w.w || 1) && y >= w.y && y < w.y + (w.h || 1));
+    const [px, py] = this.player;
+    const reached = new Set([`${px},${py}`]);
+    const queue = [[px, py]];
+    while (queue.length) {
+      const [x, y] = queue.shift();
+      for (const [dx, dy] of Object.values(DIRS)) {
+        const nx = x + dx;
+        const ny = y + dy;
+        const k = `${nx},${ny}`;
+        if (reached.has(k) || onWarp(nx, ny) || this.solid(this.map, nx, ny) || this.occupied(nx, ny)) continue;
+        reached.add(k);
+        queue.push([nx, ny]);
+      }
+    }
+    return reached;
   }
 
   /** The captain steps onto a trigger: somewhere walkable inside it. */
@@ -254,7 +278,7 @@ export class StagingTracker {
    */
   restage() {
     if (!this.map) return;
-    const now = placementChoices(this.model(this.map).objects, this.session);
+    const now = placementChoices(this.model(this.map).objects, this.session, roomGuard(this.content.npcs, this.map));
     const ids = new Set([...placementChanges(this.chosen, now).map((c) => c.npc), ...this.touched]);
     this.chosen = now;
     this.touched.clear();
@@ -362,22 +386,7 @@ export class StagingTracker {
     const targets = m.objects.filter((o) => (o.type === 'inspect' || o.type === 'trigger')
       && JSON.stringify(o.if ?? null).includes('objectiveActive') && evaluateCondition(o.if, this.session));
     if (!targets.length) return;
-    const warps = this.warps(this.map);
-    const onWarp = (x, y) => warps.some((w) => x >= w.x && x < w.x + (w.w || 1) && y >= w.y && y < w.y + (w.h || 1));
-    const [px, py] = this.player;
-    const reached = new Set([`${px},${py}`]);
-    const queue = [[px, py]];
-    while (queue.length) {
-      const [x, y] = queue.shift();
-      for (const [dx, dy] of Object.values(DIRS)) {
-        const nx = x + dx;
-        const ny = y + dy;
-        const k = `${nx},${ny}`;
-        if (reached.has(k) || onWarp(nx, ny) || this.solid(this.map, nx, ny) || this.occupied(nx, ny)) continue;
-        reached.add(k);
-        queue.push([nx, ny]);
-      }
-    }
+    const reached = this.reachable();
     for (const o of targets) {
       const tiles = [];
       for (let j = 0; j < (o.h || 1); j++) for (let i = 0; i < (o.w || 1); i++) tiles.push([o.x + i, o.y + j]);

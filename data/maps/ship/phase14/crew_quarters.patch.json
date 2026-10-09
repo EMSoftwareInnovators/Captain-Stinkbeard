@@ -911,7 +911,7 @@
    "id": "p14q_pete_19",
    "type": "npc",
    "npc": "pete",
-   "x": 11,
+   "x": 12,
    "y": 13,
    "facing": "up",
    "if": {
@@ -933,7 +933,7 @@
    "id": "p14q_pete_20",
    "type": "npc",
    "npc": "pete",
-   "x": 11,
+   "x": 12,
    "y": 13,
    "facing": "up",
    "if": {
@@ -1412,7 +1412,7 @@
    "id": "p14q_gristle_20",
    "type": "npc",
    "npc": "gristle",
-   "x": 12,
+   "x": 14,
    "y": 13,
    "facing": "up",
    "if": {
@@ -1434,7 +1434,7 @@
    "id": "p14q_gristle_21",
    "type": "npc",
    "npc": "gristle",
-   "x": 12,
+   "x": 14,
    "y": 13,
    "facing": "up",
    "if": {
@@ -2828,7 +2828,7 @@
    "id": "p14q_ned_18",
    "type": "npc",
    "npc": "ned",
-   "x": 14,
+   "x": 13,
    "y": 13,
    "facing": "up",
    "if": {
@@ -2850,7 +2850,7 @@
    "id": "p14q_ned_19",
    "type": "npc",
    "npc": "ned",
-   "x": 14,
+   "x": 13,
    "y": 13,
    "facing": "up",
    "if": {
@@ -3300,8 +3300,8 @@
    "id": "p14q_squawks_19",
    "type": "npc",
    "npc": "squawks",
-   "x": 10,
-   "y": 14,
+   "x": 15,
+   "y": 13,
    "facing": "up",
    "if": {
     "all": [
@@ -3322,8 +3322,8 @@
    "id": "p14q_squawks_20",
    "type": "npc",
    "npc": "squawks",
-   "x": 10,
-   "y": 14,
+   "x": 15,
+   "y": 13,
    "facing": "up",
    "if": {
     "all": [
@@ -4654,6 +4654,14 @@
    "if": {
     "notFlag": "p14_started"
    }
+  }
+ ],
+ "onEnter": [
+  {
+   "if": {
+    "objectiveActive": "follow_the_plume.quarters"
+   },
+   "script": "p14c3.begin"
   }
  ],
  "fumes": [

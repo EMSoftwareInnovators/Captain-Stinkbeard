@@ -12,15 +12,17 @@ import { evaluateCondition } from '../systems/conditions/conditions.js';
  */
 
 /**
+ * @param {(npc: string) => boolean} [allowed] whether a character may be in
+ *   this room at all (see roomGuard)
  * @returns {Map<string, object|null>} npc id -> the placement the story picks
  *   now, or null when the character isn't in this room
  */
-export function placementChoices(objects, session) {
+export function placementChoices(objects, session, allowed = null) {
   const out = new Map();
   for (const o of objects ?? []) {
     if (o.type !== 'npc' || out.has(o.npc)) continue;
     if (o.if && !evaluateCondition(o.if, session)) continue;
-    out.set(o.npc, o.absent ? null : o);
+    out.set(o.npc, o.absent || (allowed && !allowed(o.npc)) ? null : o);
   }
   for (const o of objects ?? []) if (o.type === 'npc' && !out.has(o.npc)) out.set(o.npc, null);
   return out;
@@ -38,4 +40,17 @@ export function placementChanges(before, after) {
     if (from !== to) out.push({ npc, from, to });
   }
   return out;
+}
+
+/**
+ * Story Phase 14: a character whose data lists "rooms" is never placed in any
+ * other room, whatever a placement says (Brogath and the hold: he never goes
+ * near the treasure room). The validator rejects such a placement too.
+ * @returns {(npc: string) => boolean}
+ */
+export function roomGuard(npcs, map) {
+  return (id) => {
+    const rooms = npcs?.get?.(id)?.rooms;
+    return !rooms || rooms.includes(map);
+  };
 }

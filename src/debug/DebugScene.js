@@ -9,6 +9,7 @@ import { startPreset } from './startPreset.js';
 import { readStability, writePressure } from '../systems/stability.js';
 import { stabilitySubject, bankDef } from '../systems/script/commands.js';
 import { DEBUG_BROGATH } from './brogathDebug.js';
+import { roomGuard } from '../world/placements.js';
 
 const TABS = ['Info', 'Story', 'Warp', 'Flags', 'Quests', 'Items', 'Party', 'Battle', 'Brogath', 'Tools'];
 const GAMEPLAY_SCENES = ['Title', 'World', 'Battle', 'Menu', 'GameOver', 'Overlay'];
@@ -349,7 +350,12 @@ export class DebugScene extends BaseScene {
       s.story.setValue(def.meterValue, null);
       setP(def.settleTo);
     } });
-    out.push({ label: 'Brogath: spawn here', action: () => this.runInWorld([{ spawn: 'brogath', x: this.world?.player?.tx ?? 1, y: (this.world?.player?.ty ?? 1) + 1, facing: 'up' }]) });
+    // Only in his rooms (data: npcs "rooms"): never the hold, the treasure room or the Fart-Free Zone.
+    out.push({ label: 'Brogath: spawn here', action: () => {
+      const map = this.world?.model?.id;
+      if (map && !roomGuard(content.npcs, map)('brogath')) return this.flash(`Brogath never goes in ${map}.`);
+      return this.runInWorld([{ spawn: 'brogath', x: this.world?.player?.tx ?? 1, y: (this.world?.player?.ty ?? 1) + 1, facing: 'up' }]);
+    } });
     out.push({ label: 'Brogath: permanent', right: s.story.has('brogath_permanent') ? '<g>yes</>' : 'no', action: () => { s.story.toggle('brogath_permanent'); this.rerender(); } });
     for (const [label, steps] of DEBUG_BROGATH.scenes) out.push({ label, action: () => this.runInWorld(steps) });
     // The Grand Bank.
