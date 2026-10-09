@@ -799,6 +799,10 @@ and walks into the next chapter. Aliases are never saved.
     - an objective's object covered by someone standing on it (talking
       comes first) whose dialogue doesn't start the same scene;
     - the captain arriving on someone's placed tile.
+    - an open objective's object that a player can't get at (out of reach,
+      or under another object on every tile: Confirm reaches an open
+      objective's spot before scenery, `src/world/inspectTarget.js`);
+    - talking to someone the captain can't walk up to.
 - `tests/phase2_story.test.js` to `tests/phase14_story.test.js` play the Story Phases headlessly with the real
   scripts, quests and triggers and mock services, twice (always the first
   choice, always the last), and fails on any dead end, loop or script error.

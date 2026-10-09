@@ -1550,6 +1550,7 @@ must never wander somewhere (Brogath and the hold).
 ### Presets with a purse, and the rest
 
 - **Presets** can set the purse: `"gold": 125` (the last preset in the chain that says wins).
+- **Two inspect objects on one tile:** Confirm reaches the first live one in the room's order, except that a spot for an open objective (its `if` names `objectiveActive`) beats scenery on the same tile (a decor slot's look-at, say).
 - **Logbooks** can grow with the story: give each entry an `if` on its own flag and keep a counter variable for props that show the list getting longer (the Brogath Rules: `brogath_rules`, `brogath_rule_<id>`).
 - **Cardboard looks:** an appearance with `"painter": "cardboard"` is painted by `src/art/characters/cardboardPainter.js` (a printed cut-out on a stand, with `blush`, `loaded`, `worn` and the like); its portrait expressions are print changes.
 
