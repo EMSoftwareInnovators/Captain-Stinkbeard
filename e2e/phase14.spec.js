@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { open, go, touch, untilTv, walk, everyPreset, onMap, value, variable, has, firstMissing, D, G, H, C, Q } from './storyKit.js';
+import { open, go, touch, untilTv, everyPreset, onMap, value, variable, has, firstMissing, D, G, H, C, Q } from './storyKit.js';
 
 /**
  * Story Phase 14 (RETURN OF BROGATH, chapters 146-169) in a real browser
@@ -63,16 +63,57 @@ async function play(g) {
   throw new Error('the scene never finished');
 }
 
+/** The kit's walk between rooms, waiting out people who are still walking off a doorway (the crew leaving the hold stairs). */
+async function goWait(g, map) {
+  for (let tries = 0; ; tries++) {
+    try {
+      await go(g, map);
+      return;
+    } catch (err) {
+      if (tries >= 10 || !/no way from/.test(err.message)) throw err;
+      await g.wait(800);
+    }
+  }
+}
+
 /** Rooms, with the Fart-Free Zone (through the little door under the hold stairs). */
 async function go14(g, map) {
   const here = await onMap(g);
   if (here === map) return;
-  if (here === Z) await go(g, H);
+  if (here === Z) await goWait(g, H);
   if (map === Z) {
-    await go(g, H);
-    await go(g, Z);
-  } else await go(g, map);
+    await goWait(g, H);
+    await goWait(g, Z);
+  } else await goWait(g, map);
   await play(g);
+}
+
+/**
+ * The kit's objective walk, but a step may come round many times on purpose
+ * (sixteen depositors at the bell): stuck means nothing in the story changed.
+ */
+async function walk14(g, steps, label) {
+  let last = null;
+  let same = 0;
+  const snapshot = () => g.eval(() => {
+    const st = window.__GAME__.app.session.story.serialize();
+    return JSON.stringify([st.flags.length, st.vars, st.values]);
+  });
+  for (let n = 0; n < 600 && !(await done(g)); n++) {
+    const ref = await g.eval((list) => list.find((r) => {
+      const [q, o] = r.split('.');
+      return window.__GAME__.app.session.quests.isObjectiveAvailable(q, o);
+    }), steps.map(([r]) => r));
+    if (!ref) throw new Error(`stuck on ${await onMap(g)}: no open ${label} objective the player can act on`);
+    const before = await snapshot();
+    await steps.find(([r]) => r === ref)[1](g);
+    same = ref === last && (await snapshot()) === before ? same + 1 : 0;
+    last = ref;
+    if (same >= 6) {
+      const st = await g.state();
+      throw new Error(`${ref} never gets done (on ${st.map} at ${st.x},${st.y}, facing ${st.facing})`);
+    }
+  }
 }
 
 async function look(g, id) {
@@ -247,7 +288,7 @@ test('Story Phase 14 plays from the treasure-room door to "He lives here now"', 
   await speak(g, 'pete');
   expect(await has(g, 'p14_started')).toBe(true);
   const rooms = new Set();
-  await walk(g, STEPS.map(([r, f]) => [r, async (x) => { await f(x); rooms.add(await onMap(x)); }]), done, 'Phase 14');
+  await walk14(g, STEPS.map(([r, f]) => [r, async (x) => { await f(x); rooms.add(await onMap(x)); }]), 'Phase 14');
   await expectCanonicalEnd(g);
   expect((await g.state()).gold).toBe(gold - 10);
   expect(rooms.has('treasure_hold')).toBe(false);
@@ -260,7 +301,7 @@ test('Phase 14 from the Grand Bank to the end plays from its preset', { tag: ['@
   await g.preset('p14_grand_bank');
   await autoTiming(g);
   await play(g);
-  await walk(g, STEPS, done, 'Phase 14');
+  await walk14(g, STEPS, 'Phase 14');
   await expectCanonicalEnd(g);
   expect(errors).toEqual([]);
 });
