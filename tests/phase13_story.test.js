@@ -424,7 +424,13 @@ describe('Story Phase 13 stays inside its brief', () => {
     expect(scripts).not.toMatch(/"clearFlag":"stinkbeard_delirium"/);
     // The debate is only ever announced (a token), never held.
     expect(scripts).not.toMatch(/p13c20|CHAPTER 146/);
-    expect(s.content.game.chapters.map((c) => c.id).slice(-1)).toEqual(['phase13_end']);
+    // Nothing of Phase 13's own comes after its end; any later chapter is a later phase's, behind its own flags.
+    const chapters = s.content.game.chapters;
+    const after = chapters.slice(chapters.findIndex((c) => c.id === 'phase13_end') + 1);
+    for (const c of after) {
+      expect(c.id).not.toMatch(/^p13/);
+      expect(JSON.stringify(c.if)).toMatch(/"flag":"p1[4-9]_/);
+    }
     const later = s.content.storyTriggers.list().filter((t) => JSON.stringify(t.if).includes('p13_complete') && !JSON.stringify(t.if).includes('notFlag'));
     expect(later).toEqual([]);
   });

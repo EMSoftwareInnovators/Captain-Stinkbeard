@@ -21,26 +21,7 @@
   },
   "script": "p14.ready_hint",
   "once": false,
-  "//": "Phase 14 begins after Phase 13, on deck (a one-time hint if you're somewhere else)."
- },
- {
-  "id": "p14_begin",
-  "if": {
-   "all": [
-    {
-     "flag": "p13_complete"
-    },
-    {
-     "notFlag": "p14_started"
-    },
-    {
-     "onMap": "main_deck"
-    }
-   ]
-  },
-  "script": "p14c1.begin",
-  "once": false,
-  "//": "Chapter 146: the crew on deck in the turbulence; the captain sneaks below."
+  "//": "Phase 14 begins after Phase 13 when the captain talks to Pete on deck (a one-time hint if you're somewhere else)."
  },
  {
   "id": "p14_barricade",

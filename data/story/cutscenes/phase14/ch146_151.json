@@ -6,7 +6,7 @@
   },
   "Up on deck, the storm has changed its note. You can hear the crew shouting, and something heavy sliding about.",
   {
-   "tutorial": "Go up on deck.",
+   "tutorial": "Go up on deck and see what Pete's shouting about.",
    "title": "The Return of Brogath"
   }
  ],
@@ -19,7 +19,7 @@
    "value": 27
   },
   {
-   "sharkstorm": "brogath_turbulence"
+   "sharkstorm": "rough_turbulence"
   },
   {
    "banner": "CAPTAIN STINKBEARD",
@@ -36,6 +36,7 @@
    "music": "brogath_night",
    "fade": 600
   },
+  "pete[alarmed]: (shouting over the wind) Captain! It's speeding UP!",
   "Still night. The Great Sharkstorm, which has been going round the Revenge for a day and a half, has started going round FASTER.",
   {
    "sfx": "storm_wind",
@@ -1254,12 +1255,6 @@
   },
   "Jim comes in with a tray of biscuits, as a peace offering. A napkin on top.",
   "The napkin slides off. It FLOATS. Down, slowly, swaying, the way napkins do.",
-  {
-   "token": "napkin_floor",
-   "x": 11,
-   "y": 9,
-   "id": "p14_napkin"
-  },
   "Every single member of the crew drops flat behind the barricade.",
   {
    "stability": "incident",
@@ -1277,9 +1272,6 @@
   }
  ],
  "p14c5.fl_napkin_secure": [
-  {
-   "removeSprite": "p14_napkin"
-  },
   "You pick the napkin up and fold it into a very small square and put it in your coat, slowly, like a lit fuse.",
   {
    "stability": "secure"

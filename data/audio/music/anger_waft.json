@@ -1,0 +1,45 @@
+{
+ "id": "anger_waft",
+ "title": "When Brogath Ceaseth to Be Bashful",
+ "//": "Story Phase 14: Grand Stenchmaster Wrath. Short, hot and furious, in E minor: a driving pulse lead, a kazoo of pure fury answering, a bass hammering octaves, toms like a door being kicked. Original.",
+ "bpm": 148,
+ "stepsPerBeat": 4,
+ "reverb": 0.16,
+ "channels": {
+  "lead": {
+   "instrument": "lead_pulse",
+   "volume": 0.2
+  },
+  "kazoo": {
+   "instrument": "kazoo",
+   "volume": 0.12,
+   "pan": 0.3
+  },
+  "pad": {
+   "instrument": "pad",
+   "volume": 0.1,
+   "pan": -0.2
+  },
+  "bass": {
+   "instrument": "fm_bass",
+   "volume": 0.42
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.24
+  }
+ },
+ "patterns": {
+  "A": {
+   "lead": "E5:2 E5:2 G5:2 E5:2 B5:4 A5:4 | G5:2 F#5:2 E5:2 D5:2 E5:8 | C5:2 C5:2 E5:2 C5:2 G5:4 F#5:4 | B4:16",
+   "kazoo": "r:16 | r:8 B4:2 A4:2 G4:4 | r:16 | r:8 D#5:2 F#5:2 B5:4",
+   "pad": "[E3 G3 B3]:16 | [E3 G3 B3]:16 | [C3 E3 G3]:16 | [B2 D#3 F#3]:16",
+   "bass": "E1:2 E2:2 E1:2 E2:2 E1:2 E2:2 E1:2 E2:2 | E1:2 E2:2 E1:2 E2:2 D2:2 D1:2 D2:2 D1:2 | C2:2 C1:2 C2:2 C1:2 C2:2 C1:2 C2:2 C1:2 | B1:2 B2:2 B1:2 B2:2 B1:2 B2:2 B1:2 B2:2",
+   "drums": "k.s.k.s.k.s.TTTT k.s.k.s.k.s.TTTT k.s.k.s.k.s.TTTT TTTTTTTTk.k.c..."
+  }
+ },
+ "sequence": [
+  "A",
+  "A"
+ ]
+}

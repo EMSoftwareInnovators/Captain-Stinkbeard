@@ -1,0 +1,53 @@
+{
+ "id": "brogath_night",
+ "title": "Nobody Is Watching",
+ "//": "Story Phase 14: the night of the turbulence, slipping below while nobody's watching; later, the evening the storm picks him up. A minor: tiptoeing bass, a pad, a warbling lead that keeps looking over its shoulder, toms for the wind. Original.",
+ "bpm": 98,
+ "stepsPerBeat": 4,
+ "reverb": 0.3,
+ "channels": {
+  "lead": {
+   "instrument": "warble",
+   "volume": 0.14
+  },
+  "pad": {
+   "instrument": "pad",
+   "volume": 0.1,
+   "pan": -0.2
+  },
+  "pizz": {
+   "instrument": "pluck",
+   "volume": 0.16,
+   "pan": 0.2
+  },
+  "bass": {
+   "instrument": "pluck_bass",
+   "volume": 0.34
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.12
+  }
+ },
+ "patterns": {
+  "A": {
+   "lead": "r:8 E5:4 C5:4 | B4:8 r:8 | r:8 D5:4 B4:4 | A4:8 r:8",
+   "pad": "[A2 C3 E3]:16 | [E2 G#2 B2]:16 | [D3 F3 A3]:16 | [A2 C3 E3]:16",
+   "pizz": "A3:2 r:2 C4:2 r:2 E4:2 r:2 C4:2 r:2 | G#3:2 r:2 B3:2 r:2 E4:2 r:2 B3:2 r:2 | F3:2 r:2 A3:2 r:2 D4:2 r:2 A3:2 r:2 | E3:2 r:2 A3:2 r:2 C4:2 r:2 A3:2 r:2",
+   "bass": "A1:4 r:4 E2:4 r:4 | E1:4 r:4 B1:4 r:4 | D2:4 r:4 A1:4 r:4 | A1:4 r:4 E1:4 r:4",
+   "drums": "k.....h.....t.h. k.....h.....tTh. k.....h.....t.h. k.....h...TTTTh."
+  },
+  "B": {
+   "lead": "C5:4 D5:4 E5:4 G5:4 | F5:8 E5:8 | D5:4 C5:4 B4:4 G#4:4 | A4:16",
+   "pad": "[C3 E3 G3]:16 | [F2 A2 C3]:16 | [E2 G#2 B2]:16 | [A2 C3 E3]:16",
+   "pizz": "C4:2 r:2 E4:2 r:2 G4:2 r:2 E4:2 r:2 | F3:2 r:2 A3:2 r:2 C4:2 r:2 A3:2 r:2 | E3:2 r:2 G#3:2 r:2 B3:2 r:2 E4:2 r:2 | A3:2 r:14",
+   "bass": "C2:4 r:4 G1:4 r:4 | F1:4 r:4 C2:4 r:4 | E1:4 r:4 B1:4 r:4 | A1:8 r:8",
+   "drums": "k.....h.....t.h. k.....h.....tTh. k.....h.....t.h. k...TTTTk...c..."
+  }
+ },
+ "sequence": [
+  "A",
+  "B",
+  "A"
+ ]
+}

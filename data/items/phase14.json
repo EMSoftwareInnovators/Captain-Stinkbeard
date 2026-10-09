@@ -14,13 +14,13 @@
   "icon": "gtoken",
   "value": 0,
   "//": "Story Phase 14: the Grand Currency is its own counter (story variable grand_currency_tokens), never gold. It buys nothing anywhere.",
-  "description": "GRAND STENCHMASTER GRAND TOKENS OF GRAND CURRENCY: {num:grand_currency_tokens} of them, in a crate in the galley (and everywhere else). Cheap plastic. NOT LEGAL TENDER, it says on every one. Squawks says: bad money.",
+  "description": "GRAND STENCHMASTER GRAND TOKENS OF GRAND CURRENCY: {num:grand_currency_tokens}. Cheap plastic. NOT LEGAL TENDER, on every one. Squawks says: bad money.",
   "variants": [
    {
     "if": {
      "flag": "p14_wealthy_answer"
     },
-    "description": "GRAND STENCHMASTER GRAND TOKENS OF GRAND CURRENCY: {num:grand_currency_tokens}. NOT LEGAL TENDER. Not redeemable at any branch, the only branch having concluded business. What they're for, according to Brogath: being wealthy."
+    "description": "{num:grand_currency_tokens} Grand Tokens. NOT LEGAL TENDER. The only branch has concluded business. What they're for, says Brogath: being wealthy."
    }
   ]
  },
@@ -38,13 +38,13 @@
   "type": "key",
   "icon": "ornament",
   "value": 0,
-  "description": "A miniature Christmas ornament shaped like THE GRAND STENCHMASTER'S GRAND BANK AND GRAND TRUST. HOLIDAY BRANCH: NO TELLER REQUIRED! It cannot redeem currency, contains no money, cannot be entered and performs no banking.",
+  "description": "A tiny Christmas ornament shaped like the Grand Bank. HOLIDAY BRANCH: NO TELLER REQUIRED! It holds no money, can't be entered and performs no banking.",
   "variants": [
    {
     "if": {
      "flag": "garrick_wears_ornament"
     },
-    "description": "The HOLIDAY BRANCH (NO TELLER REQUIRED!), on loan to the Grand Stenchmaster, who has hung it from a point of his Grand Crown. He says it completes the regalia. It performs no banking."
+    "description": "The HOLIDAY BRANCH (NO TELLER REQUIRED!), on loan to Garrick's Grand Crown. He says it completes the regalia. It performs no banking."
    }
   ]
  }

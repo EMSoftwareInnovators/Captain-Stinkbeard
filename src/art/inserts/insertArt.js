@@ -10,6 +10,7 @@ import { addPhase8Inserts, PHASE8_INSERT_NAMES } from './phase8Inserts.js';
 import { addPhase9Inserts, PHASE9_INSERT_NAMES } from './phase9Inserts.js';
 import { addPhase10Inserts, PHASE10_INSERT_NAMES } from './phase10Inserts.js';
 import { addPhase11Inserts, PHASE11_INSERT_NAMES } from './phase11Inserts.js';
+import { addPhase14Inserts, PHASE14_INSERT_NAMES } from './phase14Inserts.js';
 
 /**
  * Close-up "inserts" shown full-size in a frame (CinemaScene.insert): a
@@ -175,7 +176,8 @@ export function buildInsertAtlas() {
   addPhase9Inserts(atlas);
   addPhase10Inserts(atlas);
   addPhase11Inserts(atlas);
+  addPhase14Inserts(atlas);
   return atlas.build();
 }
 
-export const INSERT_NAMES = ['eel_jar_label', 'toll_sign_close', 'probation_rules', 'charge_sheet', 'amendment_notice', 'ship_names', ...FORECAST_INSERT_NAMES, ...PHASE5_INSERT_NAMES, ...PHASE6_INSERT_NAMES, ...PHASE7_INSERT_NAMES, ...PHASE8_INSERT_NAMES, ...PHASE9_INSERT_NAMES, ...PHASE10_INSERT_NAMES, ...PHASE11_INSERT_NAMES];
+export const INSERT_NAMES = ['eel_jar_label', 'toll_sign_close', 'probation_rules', 'charge_sheet', 'amendment_notice', 'ship_names', ...FORECAST_INSERT_NAMES, ...PHASE5_INSERT_NAMES, ...PHASE6_INSERT_NAMES, ...PHASE7_INSERT_NAMES, ...PHASE8_INSERT_NAMES, ...PHASE9_INSERT_NAMES, ...PHASE10_INSERT_NAMES, ...PHASE11_INSERT_NAMES, ...PHASE14_INSERT_NAMES];

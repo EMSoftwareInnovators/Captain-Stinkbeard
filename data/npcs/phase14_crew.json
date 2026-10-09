@@ -851,6 +851,19 @@
   "dialogue": [
    {
     "if": {
+     "all": [
+      {
+       "flag": "p13_complete"
+      },
+      {
+       "notFlag": "p14_started"
+      }
+     ]
+    },
+    "script": "p14c1.begin"
+   },
+   {
+    "if": {
      "objectiveActive": "keep_brogath_confident.theory"
     },
     "script": "p14c5.theory"

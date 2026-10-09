@@ -22,16 +22,16 @@ import { sharkHoldsNose } from '../vista/vistaPhase11.js';
  */
 const INK = PAL.ink;
 const CARD = { d: '#8a6a3a', m: '#b89058', l: '#d8b47a', h: '#ecd0a0' };
-const CHEAP = { red: '#c8242c', redD: '#8a141c', gold: '#f4dc6c', paper: '#f4ecd8', paperD: '#d8ccb0', ink: '#3a2a1a' };
+export const CHEAP = { red: '#c8242c', redD: '#8a141c', gold: '#f4dc6c', paper: '#f4ecd8', paperD: '#d8ccb0', ink: '#3a2a1a' };
 const CRAY = { paper: '#efe4c4', brown: '#8a5426', red: '#d8322a', blue: '#2f64d0', green: '#3a9a3a', burg: '#7a1826' };
 
-function lines(c, list, x, y, color, { gap = 10, center = true, shadow = null } = {}) {
+export function lines(c, list, x, y, color, { gap = 10, center = true, shadow = null } = {}) {
   list.forEach((t, i) => drawText(c, t, x, y + i * gap, color, { center, shadow }));
 }
-const widest = (list) => Math.max(...list.map((t) => textWidth(t)));
+export const widest = (list) => Math.max(...list.map((t) => textWidth(t)));
 
 /** A cheap printed page from the pocket edition: thin paper, a staple, ink a bit off register. */
-function pocketPage(text, { title = null, drawing = null, torn = false } = {}) {
+export function pocketPage(text, { title = null, drawing = null, torn = false } = {}) {
   const rows = text.split('|');
   const W = Math.max(180, widest(rows) + 30);
   const H = 40 + rows.length * 10 + (drawing ? 56 : 0);
@@ -49,7 +49,7 @@ function pocketPage(text, { title = null, drawing = null, torn = false } = {}) {
 }
 
 /** A printed figure in a sash, the sash lifting: flap, flap. */
-function flapDrawing(c, cx, y) {
+export function flapDrawing(c, cx, y) {
   c.ellipse(cx, y + 10, 8, 8, '#e8b48a');
   c.set(cx - 3, y + 9, CHEAP.ink);
   c.set(cx + 3, y + 9, CHEAP.ink);
@@ -160,7 +160,7 @@ function antiDicePlan() {
   return c;
 }
 
-function noteCard(rows, { crown = true, w = 0 } = {}) {
+export function noteCard(rows, { crown = true, w = 0 } = {}) {
   const W = Math.max(w, widest(rows) + 30);
   const H = 30 + rows.length * 11 + (crown ? 22 : 0);
   const c = new PixelCanvas(W, H);
@@ -230,7 +230,7 @@ function oldSashFoul() {
   return c;
 }
 
-function sign(rows, { crate = false } = {}) {
+export function sign(rows, { crate = false } = {}) {
   const W = widest(rows) + 34;
   const H = 30 + rows.length * 14;
   const c = new PixelCanvas(W, H);
@@ -242,7 +242,7 @@ function sign(rows, { crate = false } = {}) {
   return c;
 }
 
-function bigBox(rows, { color = CHEAP.red, dark = CHEAP.redD, logo = null } = {}) {
+export function bigBox(rows, { color = CHEAP.red, dark = CHEAP.redD, logo = null } = {}) {
   const W = Math.max(220, widest(rows) + 40);
   const H = 64 + rows.length * 11;
   const c = new PixelCanvas(W, H);

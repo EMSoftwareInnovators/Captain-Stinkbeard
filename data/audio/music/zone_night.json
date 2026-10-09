@@ -1,0 +1,47 @@
+{
+ "id": "zone_night",
+ "title": "Under the Stairs, at Night",
+ "//": "Story Phase 14: nights in the Fart-Free Zone (the pocket edition by candlelight; eleven whole minutes of normal). The zone's shanty slowed to a lullaby waltz: a music-box bell over a pad, a soft bass. Original.",
+ "bpm": 76,
+ "stepsPerBeat": 4,
+ "reverb": 0.34,
+ "channels": {
+  "lead": {
+   "instrument": "bell",
+   "volume": 0.16
+  },
+  "pad": {
+   "instrument": "pad",
+   "volume": 0.12,
+   "pan": -0.2
+  },
+  "bass": {
+   "instrument": "tri_bass",
+   "volume": 0.26
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.04
+  }
+ },
+ "patterns": {
+  "A": {
+   "lead": "E5:4 G5:4 C6:4 | B5:8 A5:4 | G5:4 E5:4 C5:4 | D5:12",
+   "pad": "[C3 E3 G3]:12 | [G2 B2 D3]:12 | [A2 C3 E3]:12 | [G2 B2 D3]:12",
+   "bass": "C2:12 | G1:12 | A1:12 | G1:12",
+   "drums": "k...h...h... k...h...h... k...h...h... k...h...h..."
+  },
+  "B": {
+   "lead": "F5:4 A5:4 F5:4 | E5:4 G5:4 E5:4 | D5:4 F5:4 B4:4 | C5:12",
+   "pad": "[F2 A2 C3]:12 | [C3 E3 G3]:12 | [G2 B2 D3]:12 | [C3 E3 G3]:12",
+   "bass": "F1:12 | C2:12 | G1:12 | C2:12",
+   "drums": "k...h...h... k...h...h... k...h...h... k...h...h..."
+  }
+ },
+ "sequence": [
+  "A",
+  "B",
+  "A",
+  "B"
+ ]
+}

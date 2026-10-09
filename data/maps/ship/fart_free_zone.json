@@ -36,7 +36,7 @@
    "x": 8,
    "y": 4,
    "if": {
-    "notFlag": "p14_ffz_hardtack"
+    "notFlag": "fart_free_zone_declared"
    },
    "id": "p14z_zone_mops_8_4"
   },
@@ -45,7 +45,7 @@
    "x": 9,
    "y": 5,
    "if": {
-    "notFlag": "p14_ffz_barrels"
+    "notFlag": "fart_free_zone_declared"
    },
    "id": "p14z_zone_bucket_9_5"
   },
@@ -232,7 +232,9 @@
    "y": 7,
    "to": {
     "map": "cargo_hold",
-    "spawn": "nook_door"
+    "x": 13,
+    "y": 4,
+    "facing": "down"
    },
    "sfx": "door_small"
   },

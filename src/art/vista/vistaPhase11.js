@@ -74,7 +74,7 @@ function deskFront(c, y = 58) {
   c.ellipse(76, y - 12, 3, 3, CRT[6]);
 }
 
-function rays(c, cx, cy, n, col, f) {
+export function rays(c, cx, cy, n, col, f) {
   for (let k = 0; k < n; k++) {
     const a = (k / n) * Math.PI * 2 + f * 0.1;
     c.line(cx, cy, Math.round(cx + Math.cos(a) * 80), Math.round(cy + Math.sin(a) * 80), col);
@@ -82,7 +82,7 @@ function rays(c, cx, cy, n, col, f) {
 }
 
 /** A tiny cartoon sash, `pts` its path. */
-function tvSash(c, x, y, len, { col = CRT[6], angle = 0.5, wave = 0, f = 0 } = {}) {
+export function tvSash(c, x, y, len, { col = CRT[6], angle = 0.5, wave = 0, f = 0 } = {}) {
   for (let k = 0; k < len; k++) {
     const px = Math.round(x + k * Math.cos(angle));
     const py = Math.round(y + k * Math.sin(angle) + Math.sin(k * 0.6 + f * 2) * wave);
@@ -99,7 +99,7 @@ function notes(c, f) {
   }
 }
 
-function crown(c, x, y, s = 1, col = CRT[6]) {
+export function crown(c, x, y, s = 1, col = CRT[6]) {
   c.poly([[x, y + 6 * s], [x, y], [x + 3 * s, y + 3 * s], [x + 6 * s, y - 2 * s], [x + 9 * s, y + 3 * s], [x + 12 * s, y], [x + 12 * s, y + 6 * s]], col);
 }
 
@@ -442,7 +442,7 @@ function scRuntime(f) {
 }
 
 /** Brogath, as the Channel draws him: a big shy man in a crown, half behind his own sash, blushing. */
-function brogath(c, x, y, { blush = true, sash = 'hide' } = {}) {
+export function brogath(c, x, y, { blush = true, sash = 'hide' } = {}) {
   c.ellipse(x, y + 26, 16, 16, CRT[4]); // body
   c.ellipse(x, y, 10, 10, CRT[6]); // head
   crown(c, x - 6, y - 16, 1, CRT[7]);
