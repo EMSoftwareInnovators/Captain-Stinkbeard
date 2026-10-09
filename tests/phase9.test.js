@@ -273,7 +273,7 @@ describe('no one-way doors', () => {
         expect(reach(room, s).has(start), `${id}: from ${start} into ${room}, and no way back`).toBe(true);
       }
     }
-  });
+  }, 30000); // every preset of every phase (nearly 300 of them)
 
   it('the hatches open again when the crew go up on deck, and the condemned quarters stay shut from the deck', () => {
     const s = atPreset('p9_lee_side');

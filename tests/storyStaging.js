@@ -266,7 +266,14 @@ export class StagingTracker {
 
   approachActor(id) {
     const p = this.actors.get(id);
-    if (p) this.approach(p[0], p[1]);
+    if (!p) return;
+    // Talking needs a free tile beside them the captain can walk to (Story Phase 14: Squawks behind the barricade).
+    if (this.player && !ALOFT_POSES.includes(p[2])) {
+      const reach = this.reachable();
+      const beside = Object.values(DIRS).some(([dx, dy]) => reach.has(`${p[0] + dx},${p[1] + dy}`));
+      if (!beside) this.issue(`the captain can't get to ${id} (${p[0]},${p[1]}) on ${this.map} to talk to them`);
+    }
+    this.approach(p[0], p[1]);
   }
 
   /**
