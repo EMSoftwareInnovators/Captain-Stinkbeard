@@ -1,0 +1,379 @@
+{
+ "//": "Story Phase 14 logbooks: the Brogath Rules (one per incident that taught it), the pocket edition's entries on Brogath (in Garrick's legends: one or two of them VERIFIED now), the captain's journal. The Grand Bank Ledger is data/logs/phase14_bank.json.",
+ "brogath_rules": {
+  "title": "The Brogath Rules",
+  "menuLabel": "Brogath Rules",
+  "keeper": "pete",
+  "byline": "<k>Written by</> Pete, on parchment, on the barricade. <k>Learned</> the hard way.",
+  "icon": "book",
+  "if": {
+   "flag": "p14_rules_begun"
+  },
+  "fields": [
+   {
+    "id": "rule",
+    "label": "Rule"
+   },
+   {
+    "id": "because",
+    "label": "Because",
+    "quote": true
+   },
+   {
+    "id": "chapter",
+    "label": "Added"
+   }
+  ],
+  "entries": [
+   {
+    "id": "no_laughing",
+    "title": "Rule 1",
+    "if": {
+     "flag": "brogath_rule_no_laughing"
+    },
+    "rule": "NO ONE LAUGHS AT BROGATH.",
+    "because": "Jim laughed. The first eruption. 'Sorry. Little toot.'",
+    "chapter": "Chapter 149"
+   },
+   {
+    "id": "cardboard",
+    "title": "Rule 2",
+    "if": {
+     "flag": "brogath_rule_cardboard"
+    },
+    "rule": "DO NOT REMIND BROGATH HE IS CARDBOARD. (UNLESS NECESSARY.)",
+    "because": "Bob told him. AGES EIGHT AND UP, on his back.",
+    "chapter": "Chapter 149"
+   },
+   {
+    "id": "sad_memories",
+    "title": "Rule 3",
+    "if": {
+     "flag": "brogath_rule_sad_memories"
+    },
+    "rule": "NO SAD MEMORIES. (DYING COUNTS.)",
+    "because": "Gristle told him he'd been dead four hundred years.",
+    "chapter": "Chapter 149"
+   },
+   {
+    "id": "print_quality",
+    "title": "Rule 4",
+    "if": {
+     "flag": "brogath_rule_print_quality"
+    },
+    "rule": "DO NOT INSULT BROGATH'S PRINT QUALITY.",
+    "because": "Bob said his face was smudged. (It is.)",
+    "chapter": "Chapter 149"
+   },
+   {
+    "id": "no_sighing",
+    "title": "Rule 5",
+    "if": {
+     "flag": "brogath_rule_no_sighing"
+    },
+    "rule": "NO SIGHING.",
+    "because": "Garrick sighed at a page of his own book.",
+    "chapter": "Chapter 150"
+   },
+   {
+    "id": "squawks_walks",
+    "title": "Rule 6",
+    "if": {
+     "flag": "brogath_rule_squawks_walks"
+    },
+    "rule": "SQUAWKS WALKS. (NO FLYING NEAR BROGATH.)",
+    "because": "Squawks spread his wings. Squawks now walks. Squawks hates it.",
+    "chapter": "Chapter 150"
+   },
+   {
+    "id": "nothing_flutters",
+    "title": "Rule 7",
+    "if": {
+     "flag": "brogath_rule_nothing_flutters"
+    },
+    "rule": "NOTHING. MAY. FLUTTER.",
+    "because": "A shirt-tail, a label, a napkin, a page, a parrot, a flag. Underlined three times.",
+    "chapter": "Chapter 150"
+   },
+   {
+    "id": "no_apologising",
+    "title": "Rule 8",
+    "if": {
+     "flag": "brogath_rule_no_apologising"
+    },
+    "rule": "BROGATH MAY NOT APOLOGISE.",
+    "because": "The Apology Eruption. The flutter from his own apology made it worse.",
+    "chapter": "Chapter 151"
+   },
+   {
+    "id": "toot",
+    "title": "Rule 9",
+    "if": {
+     "flag": "brogath_rule_toot"
+    },
+    "rule": "IF BROGATH CALLS IT A TOOT, AGREE.",
+    "because": "It moved the table. It moved the SHIP. It was a toot. Agreed.",
+    "chapter": "Chapter 151"
+   },
+   {
+    "id": "sashes_tucked",
+    "title": "Rule 10",
+    "if": {
+     "flag": "brogath_rule_sashes_tucked"
+    },
+    "rule": "ALL SASHES TUCKED IN. EVEN GRAND ONES.",
+    "because": "Garrick put his sash back on with a flourish.",
+    "chapter": "Chapter 152"
+   },
+   {
+    "id": "no_grand_waft_trials",
+    "title": "Rule 11",
+    "if": {
+     "flag": "brogath_rule_no_grand_waft_trials"
+    },
+    "rule": "NO ONE MENTIONS THE GRAND WAFT TRIALS.",
+    "because": "Seven days. Seven events. A mountain range, a little to the left.",
+    "chapter": "Chapter 153"
+   },
+   {
+    "id": "compliment_rota",
+    "title": "Rule 12",
+    "if": {
+     "flag": "brogath_rule_compliment_rota"
+    },
+    "rule": "COMPLIMENTS BY TURNS. NEVER TWO IN A ROW FOR THE SAME GRAND STENCHMASTER.",
+    "because": "Garrick sulks. Brogath notices Garrick sulking. Then Brogath goes pink.",
+    "chapter": "Chapter 154"
+   },
+   {
+    "id": "treasure_room",
+    "title": "Rule 13",
+    "if": {
+     "flag": "brogath_rule_treasure_room"
+    },
+    "rule": "BROGATH NEVER GOES NEAR THE TREASURE ROOM.",
+    "because": "Brogath. Treasure. Sharkstorm. Beans. Flutter. All five.",
+    "chapter": "Chapter 157"
+   },
+   {
+    "id": "no_treasure",
+    "title": "Rule 14",
+    "if": {
+     "flag": "brogath_rule_no_treasure"
+    },
+    "rule": "NO TREASURE DISCUSSIONS.",
+    "because": "He doesn't talk about the second time. Neither do we.",
+    "chapter": "Chapter 157"
+   },
+   {
+    "id": "oats",
+    "title": "Rule 15",
+    "if": {
+     "flag": "brogath_rule_oats"
+    },
+    "rule": "BROGATH MAY NOT GUARD OATS.",
+    "because": "One oat. Three sacks. One in the Sharkstorm.",
+    "chapter": "Chapter 160"
+   },
+   {
+    "id": "no_machinery",
+    "title": "Rule 16",
+    "if": {
+     "flag": "brogath_rule_no_machinery"
+    },
+    "rule": "BROGATH MUST NOT ATTEMPT COMPLICATED MACHINERY.",
+    "because": "The fine-tuning wheel. It came off in his hand.",
+    "chapter": "Chapter 161"
+   },
+   {
+    "id": "cover_eyes",
+    "title": "Rule 17",
+    "if": {
+     "flag": "brogath_rule_cover_eyes"
+    },
+    "rule": "DURING COMMERCIALS, COVER BROGATH'S EYES.",
+    "because": "The Bling Bling King bought advertising.",
+    "chapter": "Chapter 162"
+   },
+   {
+    "id": "no_banking",
+    "title": "Rule 18",
+    "if": {
+     "flag": "brogath_rule_no_banking"
+    },
+    "rule": "NO QUESTIONS ABOUT THE BANK.",
+    "because": "Seven of them. The Anger Waft. A BANK, on the DECK.",
+    "chapter": "Chapter 163"
+   },
+   {
+    "id": "idiot_distinguished",
+    "title": "Rule 19",
+    "if": {
+     "flag": "brogath_rule_idiot_distinguished"
+    },
+    "rule": "BROGATH MAY ONLY BE CALLED AN IDIOT IF 'DISTINGUISHED' IS IMMEDIATELY INCLUDED.",
+    "because": "Ten minutes and forty-seven seconds.",
+    "chapter": "Chapter 167"
+   },
+   {
+    "id": "no_armor",
+    "title": "Rule 20",
+    "if": {
+     "flag": "brogath_rule_no_armor"
+    },
+    "rule": "NO ONE MENTIONS THE ARMOUR.",
+    "because": "UNDER NO CIRCUMSTANCES SHOULD A GRAND STENCHMASTER UNDERGOING DISPERSAL BE PERMITTED ACCESS TO A SUIT OF ARMOR.",
+    "chapter": "Chapter 168"
+   },
+   {
+    "id": "professional_sashes",
+    "title": "Rule 21",
+    "if": {
+     "flag": "brogath_rule_professional_sashes"
+    },
+    "rule": "ALL ADVERTISING SASHES ARE PROFESSIONAL. TRAINED. LICENSED. FOR CONTROLLED COMMERCIAL FLUTTER.",
+    "because": "Mandatory History Night. It shouldn't have worked. It worked.",
+    "chapter": "Chapter 169"
+   }
+  ]
+ },
+ "garrick_legends_p14": {
+  "extend": "garrick_legends",
+  "severities": {
+   "VERIFIED (he's upstairs)": "g",
+   "Verified, unfortunately": "g",
+   "PLEASE let it be alleged": "r"
+  },
+  "entries": [
+   {
+    "id": "brogath_returned",
+    "title": "Brogath the Bashful (Returned)",
+    "if": {
+     "flag": "brogath_reincarnated"
+    },
+    "claim": "Brogath the Bashful, Ancient Grand Stenchmaster, is aboard. In a cardboard cut-out from the Fan Mega-Pack, by way of the old cloud in the treasure room.",
+    "source": "Him",
+    "evidence": "Him. In the old quarters. Very politely.",
+    "verified": "Yes. For the first time, yes.",
+    "reliability": "VERIFIED (he's upstairs)",
+    "note": "Every legend Garrick ever told us, and the one that was true is the one that moved in. (Pete, in the margin: he's very nice, though.)"
+   },
+   {
+    "id": "second_catastrophe",
+    "title": "The Second Treasure Catastrophe",
+    "if": {
+     "flag": "p14_psg_said"
+    },
+    "claim": "Brogath lost a SECOND treasure: a sash caught on a nail, a cabin boy said 'flappy', he tripped, slipped on a doubloon, hit his head, apologised to a beam, sneezed, and blasted forty ships' worth of gold into the Great Sharkstorm of that age.",
+    "source": "The pocket edition, page 77 (he asked them not to write it down)",
+    "evidence": "Every ingredient is on this ship right now",
+    "verified": "Not yet. Please, not yet.",
+    "reliability": "Verified, unfortunately",
+    "note": "BROGATH. TREASURE. SHARKSTORM. BEANS. FLUTTER. That's why there's a sign at the foot of the hold stairs."
+   },
+   {
+    "id": "grand_economy",
+    "title": "The Grand Economy of Farts",
+    "if": {
+     "flag": "p14_econ_said"
+    },
+    "claim": "Ten Gust Pieces to the Wind Crown. Twelve Wind Crowns to the Atmospheric Doubloon. The Grand Gust: priceless, not for sale. Backed by the Internal Atmospheric Reserves (the Bean Treasury: Brogath).",
+    "source": "The pocket edition; Brogath's own ledger (buried with him)",
+    "evidence": "A bakery, a cloth merchant, a rope merchant's bucket, an undertaker. They all gave him things to make him leave.",
+    "verified": "He believes it. Every word.",
+    "reliability": "Alleged",
+    "note": "It worked because people kept giving him things after he farted at them. That isn't an economy. It's a hostage situation with receipts."
+   },
+   {
+    "id": "ceaseth",
+    "title": "When Brogath Ceaseth to Be Bashful",
+    "if": {
+     "flag": "anger_waft_seen"
+    },
+    "claim": "The Wrath of a bashful man is the Wrath of all the years he did not have it. The Anger Waft: hot, peppery, red, and strong enough to put things where there weren't any.",
+    "source": "The pocket edition, page 90 (no pictures: they didn't dare)",
+    "evidence": "A bank. On the deck. With a vault, and a queue, and Gary.",
+    "verified": "Yes. It made a BANK.",
+    "reliability": "Verified, unfortunately",
+    "note": "Never ask him seven questions about anything."
+   },
+   {
+    "id": "trials",
+    "title": "The Grand Waft Trials",
+    "if": {
+     "flag": "p14_trials_mentioned"
+    },
+    "claim": "When there were two Grand Stenchmasters in one place, they held the Trials: seven days, seven events (the Long Waft, the Silent Waft, the Waft Over Water...). The last one moved a mountain range a little to the left.",
+    "source": "Brogath, at breakfast",
+    "evidence": "Garrick has written something on his cuff",
+    "verified": "No. Never. Not on this ship.",
+    "reliability": "PLEASE let it be alleged",
+    "note": "Not held. Not going to be held. Rule eleven."
+   },
+   {
+    "id": "dispersal",
+    "title": "On the Dispersal of a Cardboard Stenchmaster",
+    "if": {
+     "flag": "steel_brogath_known"
+    },
+    "claim": "Soak the card; spread the fragments; fan the essence for months. No powerful active Grand Stenchmaster fart near the fragments the whole time, or he comes back. In whatever's nearest: wood, stone, iron, STEEL.",
+    "source": "The pocket edition, the very last page",
+    "evidence": "A crew that knows Garrick",
+    "verified": "We did the sums.",
+    "reliability": "Verified, unfortunately",
+    "note": "STEEL BROGATH. Holds pressure like a boiler. Nobody mentions the armour. Months, with Garrick: zero chance. He stays."
+   }
+  ]
+ },
+ "captains_journal_p14": {
+  "extend": "captains_journal",
+  "severities": {
+   "Aboard. Permanently.": "o",
+   "Concluded business": "r",
+   "Sealed (cracked once)": "o"
+  },
+  "entries": [
+   {
+    "id": "brogath_aboard",
+    "title": "Brogath the Bashful",
+    "if": {
+     "flag": "brogath_reincarnated"
+    },
+    "status": "Aboard. Permanently.",
+    "where": "The old quarters (never near the treasure room)",
+    "holder": "Himself. In cardboard.",
+    "notes": "I was right. I was RIGHT. I have never wanted less to be right about anything.",
+    "variants": [
+     {
+      "if": {
+       "flag": "brogath_permanent"
+      },
+      "notes": "Ancient Historical Consultant. His duty: to remain confident. He remembers almost no useful history. He is the safest he can be exactly where he is, and that's on my ship. I used to rob merchant vessels."
+     }
+    ]
+   },
+   {
+    "id": "treasure_room_p14",
+    "title": "The Treasure Room",
+    "if": {
+     "flag": "p14_door_resealed"
+    },
+    "status": "Sealed (cracked once)",
+    "where": "The hold, behind five signs and four planks",
+    "holder": "The old cloud (less one plume)",
+    "notes": "I opened it a crack. A plume got out. The plume went into a cut-out. The cut-out is now a member of my crew. The door stays SHUT."
+   },
+   {
+    "id": "grand_bank",
+    "title": "The Grand Stenchmaster's Grand Bank and Grand Trust",
+    "if": {
+     "flag": "grand_bank_concluded"
+    },
+    "status": "Concluded business",
+    "where": "The main deck, for one morning",
+    "holder": "The Grand Trust (elsewhere)",
+    "notes": "Nineteen depositors. One teller (me). Gary. Grandmother Gustilda: 10+, ABSOLUTELY NOT. I tried to redeem twenty thousand tokens and my hand went through the vault. What are they for? Being wealthy."
+   }
+  ]
+ }
+}

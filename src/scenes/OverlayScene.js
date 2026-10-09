@@ -10,6 +10,7 @@ import { TvView } from '../ui/TvView.js';
 import { REPAIR_KINDS } from '../systems/repairKinds.js';
 import { SashTensionView } from '../ui/SashTensionView.js';
 import { DiceView } from '../ui/DiceView.js';
+import { TellerView } from '../ui/TellerView.js';
 
 
 /**
@@ -119,7 +120,7 @@ export class OverlayScene extends BaseScene {
   }
 
   get busy() {
-    return this.dialogue.busy || !!this.tutorialOpen || !!this.repairOpen || !!this.tvOpen || !!this.tensionOpen;
+    return this.dialogue.busy || !!this.tutorialOpen || !!this.repairOpen || !!this.tvOpen || !!this.tensionOpen || !!this.tellerOpen;
   }
 
   update(time, delta) {
@@ -136,6 +137,10 @@ export class OverlayScene extends BaseScene {
     }
     if (this.tensionOpen) {
       this.tensionOpen.update(delta, input);
+      return;
+    }
+    if (this.tellerOpen) {
+      this.tellerOpen.update(delta, input);
       return;
     }
     if (this.tutorialOpen) {
@@ -179,6 +184,24 @@ export class OverlayScene extends BaseScene {
       this.tensionOpen = new SashTensionView(this, def, {
         onDone: (result) => {
           this.tensionOpen = null;
+          resolve(result);
+        },
+      });
+    });
+  }
+
+  /**
+   * Story Phase 14: the teller's window at the Grand Bank (ui/TellerView.js;
+   * rules in systems/bank.js). Resolves with { grades, slips }; `onWave` is
+   * told as each deposit lands, so the world can react at that moment.
+   */
+  teller(customer, bank, { onWave } = {}) {
+    return new Promise((resolve) => {
+      this.app.audio.ui('menu_open');
+      this.tellerOpen = new TellerView(this, customer, bank, {
+        onWave,
+        onDone: (result) => {
+          this.tellerOpen = null;
           resolve(result);
         },
       });
@@ -641,7 +664,7 @@ export class OverlayScene extends BaseScene {
    */
   clearBelowHud(pad, x0, x1) {
     let top = this.topClear(pad);
-    for (const h of [this.meter, this.courseDial, this.dutyBoard]) {
+    for (const h of [this.meter, this.courseDial, this.dutyBoard, this.stabilityMeter]) {
       const r = h?.rect;
       // (one fading out still counts until it's gone)
       if (!r || r.x >= x1 || r.x + r.w <= x0) continue;
@@ -734,6 +757,76 @@ export class OverlayScene extends BaseScene {
     m.bar.setAlpha(pulse);
   }
 
+  /**
+   * Story Phase 14: the BASHFULNESS meter (top right; WRATH when he's angry).
+   * `state` is { pressure, max, state, stage, stages, label } or null to hide
+   * it. It shows only when Brogath's pressure matters (world/StabilityRunner),
+   * with his state in words, the bar in the state's colour, ticks at the
+   * warning stages and the stage reached written under it (never sound
+   * alone). At CRITICAL the panel trembles (not with Reduced effects).
+   */
+  setStability(state) {
+    if (!state) {
+      if (this.stabilityMeter && !this.stabilityMeter.hiding) {
+        const m = this.stabilityMeter;
+        m.hiding = true;
+        this.tweens.add({ targets: m.parts, alpha: 0, duration: 300, onComplete: () => {
+          m.parts.forEach((p) => p.destroy());
+          if (this.stabilityMeter === m) this.stabilityMeter = null;
+        } });
+      }
+      return;
+    }
+    const w = 122;
+    const h = 36;
+    if (!this.stabilityMeter || this.stabilityMeter.hiding) {
+      this.stabilityMeter?.parts.forEach((p) => p.destroy());
+      const x = SCREEN_WIDTH - w - 5;
+      const y = 5;
+      const panel = addPanel(this, x, y, w, h, { depth: 420 });
+      const label = addText(this, x + 7, y + 4, '', { font: 'bold', color: 0xf0a8c8, depth: 421 });
+      const word = addText(this, 0, y + 5, '', { depth: 421 });
+      const barBack = this.add.rectangle(x + 8, y + 17, w - 16, 5, 0x1a1320).setOrigin(0).setDepth(421);
+      const bar = this.add.rectangle(x + 8, y + 17, 1, 5, 0x7cb45a).setOrigin(0).setDepth(422);
+      const ticks = (state.stages ?? []).map((st) => this.add.rectangle(x + 8 + Math.round(((w - 16) * Math.max(0, st.at)) / (state.max ?? 100)), y + 15, 1, 9, 0x6a5a70).setOrigin(0.5, 0).setDepth(423));
+      const stage = addText(this, x + 8, y + 24, '', { depth: 421 });
+      const parts = [panel, label, word, barBack, bar, ...ticks, stage];
+      parts.forEach((p) => p.setAlpha(0));
+      this.tweens.add({ targets: parts, alpha: 1, duration: 200 });
+      this.stabilityMeter = { parts, label, word, bar, ticks, stage, barW: w - 16, x, y, t: 0, key: null, rect: { x, y, w, h } };
+    }
+    const m = this.stabilityMeter;
+    const COLORS = { PLEASED: 0x9ad0ff, CALM: 0x7cb45a, BASHFUL: 0xf0c0d0, EMBARRASSED: 0xf08aa0, PRESSURIZED: 0xe07a28, CRITICAL: 0xe43c3a, ANGRY: 0xff5a1a };
+    const MARK = { PLEASED: '<c>', CALM: '<g>', BASHFUL: '<w>', EMBARRASSED: '<y>', PRESSURIZED: '<o>', CRITICAL: '<r>', ANGRY: '<r>' };
+    const v = Math.max(0, Math.min(1, state.pressure / (state.max ?? 100)));
+    m.bar.width = Math.max(1, Math.round(m.barW * v));
+    m.bar.setFillStyle(COLORS[state.state] ?? 0xe0ad38);
+    const st = state.stages?.[state.stage];
+    const key = `${state.label}|${state.state}|${state.stage}`;
+    if (m.key !== key) {
+      m.key = key;
+      setText(m.label, state.label ?? 'BASHFULNESS');
+      m.label.setTint?.(state.state === 'ANGRY' ? 0xff7a4a : 0xf0a8c8);
+      setText(m.word, `${MARK[state.state] ?? ''}${state.state}</>`);
+      m.word.x = m.x + 122 - 7 - m.word.textWidth;
+      setText(m.stage, st ? `${state.stage >= 3 ? '<r>' : state.stage >= 1 ? '<y>' : '<k>'}${st.label}</>` : '');
+    }
+    // Trembles at the top (and when angry), pulses while it's critical.
+    m.t += 16;
+    const shaking = (state.state === 'CRITICAL' || state.state === 'ANGRY') && !this.app.settings.reducedEffects?.();
+    const dx = shaking ? Math.round(Math.sin(m.t / 31) * 1.2) : 0;
+    const dy = shaking ? Math.round(Math.cos(m.t / 47)) : 0;
+    if (dx !== m.dx || dy !== m.dy) {
+      for (const p of m.parts) {
+        p.x += dx - (m.dx ?? 0);
+        p.y += dy - (m.dy ?? 0);
+      }
+      m.dx = dx;
+      m.dy = dy;
+    }
+    m.bar.setAlpha(state.state === 'CRITICAL' ? 0.55 + 0.45 * Math.abs(Math.sin(m.t / 120)) : 1);
+  }
+
   refreshHint() {
     const text = this.hintText;
     this.hintText = null;
@@ -765,6 +858,7 @@ export class OverlayScene extends BaseScene {
     this.toasts.clear();
     this.setHint(null);
     this.setExposure(null);
+    this.setStability(null);
     this.app.cinema?.reset();
     if (this.tutorialOpen) {
       this.tutorialOpen.parts.forEach((p) => p.destroy());
@@ -772,6 +866,8 @@ export class OverlayScene extends BaseScene {
     }
     this.tensionOpen?.destroy();
     this.tensionOpen = null;
+    this.tellerOpen?.destroy();
+    this.tellerOpen = null;
     this.diceView?.destroy();
     this.diceView = null;
     if (this.repairOpen) {

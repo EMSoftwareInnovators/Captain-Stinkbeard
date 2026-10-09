@@ -1,0 +1,1733 @@
+{
+ "//": "Story Phase 14: the Grand Bank's depositors arrive (out of the haze at the starboard end of the queue), state their titles, deposit, react, and dissolve. Rated by the teller after.",
+ "p14.bank.windabella.intro": [
+  {
+   "place": "player",
+   "x": 9,
+   "y": 26,
+   "facing": "down"
+  },
+  {
+   "spawn": "windabella",
+   "x": 13,
+   "y": 28,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 13,
+   "y": 28,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "windabella",
+   "to": [
+    9,
+    28
+   ]
+  },
+  {
+   "face": "windabella",
+   "dir": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "bank_voice: NEXT. HER GRACE THE GRAND DUCHESS WINDABELLA THE IMPERIOUS, GRAND DUCHESS OF THE UPPER BREEZES, KEEPER OF THE CRIMSON SASH, PATRON OF THE ROYAL DRAUGHT.",
+  "windabella: (not looking at you) A deposit. One. Royal. You may take the sash.",
+  "<k>A slow, imperious swell.</>"
+ ],
+ "p14.bank.windabella.after": [
+  "The table by the mast goes four feet to the left. The Duchess does not look at it.",
+  "windabella: Satisfactory.",
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the deck. Your forms are in the rigging. Your beard is somewhere behind you.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "pete",
+     "text": "Clean!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 28,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "windabella"
+  }
+ ],
+ "p14.bank.gassius.intro": [
+  {
+   "place": "player",
+   "x": 9,
+   "y": 26,
+   "facing": "down"
+  },
+  {
+   "spawn": "gassius",
+   "x": 13,
+   "y": 28,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 13,
+   "y": 28,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "gassius",
+   "to": [
+    9,
+    28
+   ]
+  },
+  {
+   "face": "gassius",
+   "dir": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "bank_voice: NEXT. SIR GASSIUS THUNDERBOTTOM, KNIGHT OF THE CEREMONIAL BEAN, THUNDERBOTTOM OF THUNDERBOTTOM HALL.",
+  "gassius: (clanking to attention) Burnt pepper, teller. The Thunderbottoms have eaten nothing else since the Siege of Gristlewick.",
+  "captain[resigned]: ...Of course they haven't.",
+  "<k>Burnt pepper. A family recipe.</>"
+ ],
+ "p14.bank.gassius.after": [
+  "A crack runs up the mainmast, thinks about it, and stops.",
+  "gassius: STRUCTURAL! As Father would have wished.",
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the deck. Your forms are in the rigging. Your beard is somewhere behind you.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "pete",
+     "text": "Clean!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 28,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "gassius"
+  }
+ ],
+ "p14.bank.rumblewaft.intro": [
+  {
+   "place": "player",
+   "x": 9,
+   "y": 26,
+   "facing": "down"
+  },
+  {
+   "spawn": "rumblewaft",
+   "x": 13,
+   "y": 28,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 13,
+   "y": 28,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "rumblewaft",
+   "to": [
+    9,
+    28
+   ]
+  },
+  {
+   "face": "rumblewaft",
+   "dir": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "bank_voice: NEXT. LADY RUMBLEWAFT THE RESOLUTE, HOLDER OF THE LONG WAFT, PATIENCE OF THE SOUTHERN SHORE.",
+  "rumblewaft: (settling herself) Do make yourself comfortable, dear. I'm a little... sustained.",
+  "<k>Not strong. LONG.</>"
+ ],
+ "p14.bank.rumblewaft.after": [
+  "It ends. Eventually. Somebody has made tea in the middle of it, and drunk it, and made more.",
+  "rumblewaft: Thank you, dear. That was the short one.",
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the deck. Your forms are in the rigging. Your beard is somewhere behind you.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "pete",
+     "text": "Clean!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 28,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "rumblewaft"
+  }
+ ],
+ "p14.bank.puffington.intro": [
+  {
+   "place": "player",
+   "x": 9,
+   "y": 26,
+   "facing": "down"
+  },
+  {
+   "spawn": "puffington",
+   "x": 13,
+   "y": 28,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 13,
+   "y": 28,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "puffington",
+   "to": [
+    9,
+    28
+   ]
+  },
+  {
+   "face": "puffington",
+   "dir": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "bank_voice: NEXT. THE RIGHT HONOURABLE LORD PUFFINGTON THE ENDURING, NINETY-SEVEN YEARS OF AGE.",
+  "puffington: (very slowly, leaning on a stick) Good morning, young man. Just a little one. At my age, you know.",
+  "captain[surprised]: (to Pete) Finally. A gentle one.",
+  "<k>Very old. Very frail. Seems quite harmless.</>"
+ ],
+ "p14.bank.puffington.after": [
+  "The starboard cannon rolls the length of the deck and stops against the bowsprit. Out at sea, a whale surfaces to see what's happened.",
+  "puffington: (doffing his hat) Fibre. Every morning. Never missed a day.",
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the deck. Your forms are in the rigging. Your beard is somewhere behind you.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "pete",
+     "text": "Clean!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 28,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "puffington"
+  }
+ ],
+ "p14.bank.breezella.intro": [
+  {
+   "place": "player",
+   "x": 9,
+   "y": 26,
+   "facing": "down"
+  },
+  {
+   "spawn": "breezella",
+   "x": 13,
+   "y": 28,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 13,
+   "y": 28,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "breezella",
+   "to": [
+    9,
+    28
+   ]
+  },
+  {
+   "face": "breezella",
+   "dir": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "bank_voice: NEXT. GRAND STENCHMISTRESS BREEZELLA THE BOLD, YOUNGEST EVER CERTIFIED, RECORD HOLDER, NOUGHT TO STRUCTURAL.",
+  "breezella: (bouncing on her toes) Ready? Ready? Are you READY? I'm SO ready.",
+  "<k>Fast. Then, a moment later: FAST.</>"
+ ],
+ "p14.bank.breezella.after": [
+  "The pressure wave arrives a full second after she's finished, and folds the velvet rope in half.",
+  "breezella: WOO!",
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the deck. Your forms are in the rigging. Your beard is somewhere behind you.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "pete",
+     "text": "Clean!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 28,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "breezella"
+  }
+ ],
+ "p14.bank.gustavius.intro": [
+  {
+   "place": "player",
+   "x": 9,
+   "y": 26,
+   "facing": "down"
+  },
+  {
+   "spawn": "gustavius",
+   "x": 13,
+   "y": 28,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 13,
+   "y": 28,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "gustavius",
+   "to": [
+    9,
+    28
+   ]
+  },
+  {
+   "face": "gustavius",
+   "dir": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "bank_voice: NEXT. LITTLE GRAND GUSTAVIUS, APPRENTICE GRAND STENCHMASTER, JUNIOR DIVISION, AGED SEVEN AND THREE QUARTERS.",
+  "gustavius: (very seriously) I'd like to make a deposit, please.",
+  "<k>A small boy in an enormous sash.</>"
+ ],
+ "p14.bank.gustavius.after": [
+  "The foremast's top yard swings right round and back. A gull that was sitting on it is now sitting on a different ship.",
+  "gustavius: (beaming) The secret is BEANS.",
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the deck. Your forms are in the rigging. Your beard is somewhere behind you.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "pete",
+     "text": "Clean!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 28,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "gustavius"
+  }
+ ],
+ "p14.bank.puffalina.intro": [
+  {
+   "place": "player",
+   "x": 9,
+   "y": 26,
+   "facing": "down"
+  },
+  {
+   "spawn": "puffalina",
+   "x": 13,
+   "y": 28,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 13,
+   "y": 28,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "puffalina",
+   "to": [
+    9,
+    28
+   ]
+  },
+  {
+   "face": "puffalina",
+   "dir": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "bank_voice: NEXT. HER LITTLE GRACE THE GRAND TODDLER PUFFALINA, HEIRESS TO THE LITTLE BREEZE, AGED TWO.",
+  "puffalina: (holding a stuffed skunk) Dep'sit.",
+  "captain[surprised]: (melting slightly) Aww. Course you can, sweetheart.",
+  "<k>She's TWO.</>"
+ ],
+ "p14.bank.puffalina.after": [
+  "The second one takes the bell off the counter, the forms out of their racks, and Bob's eyebrows.",
+  "puffalina: (delighted, clapping) AGAIN!",
+  "captain: NO.",
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the deck. Your forms are in the rigging. Your beard is somewhere behind you.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "pete",
+     "text": "Clean!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 28,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "puffalina"
+  }
+ ],
+ "p14.bank.ventworth.intro": [
+  {
+   "place": "player",
+   "x": 9,
+   "y": 26,
+   "facing": "down"
+  },
+  {
+   "spawn": "ventworth",
+   "x": 13,
+   "y": 28,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 13,
+   "y": 28,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "ventworth",
+   "to": [
+    9,
+    28
+   ]
+  },
+  {
+   "face": "ventworth",
+   "dir": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "bank_voice: NEXT. DOCTOR FLATULON VENTWORTH, PROFESSOR OF APPLIED ATMOSPHERICS, FELLOW OF THE GRAND SOCIETY, AUTHOR OF 'ON THE RESONANCE OF THE LOWER WIND'.",
+  "ventworth: (adjusting his spectacles) Do note the frequency, teller. Two hundred and twelve cycles. I'm VERY consistent.",
+  "<k>Unnervingly consistent.</>"
+ ],
+ "p14.bank.ventworth.after": [
+  "The whole ship hums at two hundred and twelve cycles for a full minute after. Every cup in the galley sings.",
+  "ventworth: Exactly two-twelve. Lovely. Do write that down.",
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the deck. Your forms are in the rigging. Your beard is somewhere behind you.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "pete",
+     "text": "Clean!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 28,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "ventworth"
+  }
+ ],
+ "p14.bank.windledger.intro": [
+  {
+   "place": "player",
+   "x": 9,
+   "y": 26,
+   "facing": "down"
+  },
+  {
+   "spawn": "windledger",
+   "x": 13,
+   "y": 28,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 13,
+   "y": 28,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "windledger",
+   "to": [
+    9,
+    28
+   ]
+  },
+  {
+   "face": "windledger",
+   "dir": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "bank_voice: NEXT. MADAME WINDLEDGER, GRAND AUDITOR OF THE GRAND TRUST.",
+  "windledger: (peering at the ledger) Is that your handwriting? That's your handwriting. That's a FIVE? That looks like an S.",
+  "captain[annoyed]: It's a five.",
+  "windledger: It looks like an S.",
+  "<k>She is looking at your handwriting.</>"
+ ],
+ "p14.bank.windledger.after": [
+  "The teller counter, with you behind it, slides a full yard backwards across the deck.",
+  "windledger: (making a note) Counter: not secured. Handwriting: deplorable.",
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the deck. Your forms are in the rigging. Your beard is somewhere behind you.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "pete",
+     "text": "Clean!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 28,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "windledger"
+  }
+ ],
+ "p14.bank.gasbeth.intro": [
+  {
+   "place": "player",
+   "x": 9,
+   "y": 26,
+   "facing": "down"
+  },
+  {
+   "spawn": "gasbeth",
+   "x": 13,
+   "y": 28,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 13,
+   "y": 28,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "gasbeth",
+   "to": [
+    9,
+    28
+   ]
+  },
+  {
+   "face": "gasbeth",
+   "dir": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "bank_voice: NEXT. CAPTAIN GASBETH, PIRATE GRAND STENCHMASTER, TERROR OF THE WINDWARD ISLES.",
+  "gasbeth: (grinning) Nice ship. Shame about the smell. Oh, wait. That's ME.",
+  "<k>Another captain. She's eyeing your cannons.</>"
+ ],
+ "p14.bank.gasbeth.after": [
+  "The port cannons roll back on their tackles, and the aft one goes off, by itself, at nothing.",
+  "gasbeth: (tipping her hat) Fire in the hole, Captain.",
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the deck. Your forms are in the rigging. Your beard is somewhere behind you.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "pete",
+     "text": "Clean!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 28,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "gasbeth"
+  }
+ ],
+ "p14.bank.thundergut.intro": [
+  {
+   "place": "player",
+   "x": 9,
+   "y": 26,
+   "facing": "down"
+  },
+  {
+   "spawn": "thundergut",
+   "x": 13,
+   "y": 28,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 13,
+   "y": 28,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "thundergut",
+   "to": [
+    9,
+    28
+   ]
+  },
+  {
+   "face": "thundergut",
+   "dir": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "bank_voice: NEXT. THE BARON THUNDERGUT, TRIPLE-SASH CERTIFIED.",
+  "thundergut: (holding out three sashes, each as long as a sail) All three, teller. Regulations.",
+  "pete: (taking hold of your belt) We've got you, Captain.",
+  "<k>Huge. Three sashes. You have to hold all three.</>"
+ ],
+ "p14.bank.thundergut.after": [
+  "The human chain holds. Just. Six pirates in a line, heels dug into the deck, and the Baron's deposit going over their heads like weather.",
+  "thundergut: (gathering his sashes) Good grip, that one.",
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the deck. Your forms are in the rigging. Your beard is somewhere behind you.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "pete",
+     "text": "Clean!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 28,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "thundergut"
+  }
+ ],
+ "p14.bank.duke_puff.intro": [
+  {
+   "place": "player",
+   "x": 9,
+   "y": 26,
+   "facing": "down"
+  },
+  {
+   "spawn": "duke_puff",
+   "x": 13,
+   "y": 28,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 13,
+   "y": 28,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "duke_puff",
+   "to": [
+    9,
+    28
+   ]
+  },
+  {
+   "face": "duke_puff",
+   "dir": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "bank_voice: NEXT. HIS GRACE THE GRAND MINIATURE DUKE PUFF, MASTER OF CONCENTRATED OUTPUT.",
+  "duke_puff: (on tiptoe, to see over the counter) Concentration is everything, teller. Everything.",
+  "<k>Tiny. Very, very focused.</>"
+ ],
+ "p14.bank.duke_puff.after": [
+  "Across the deck, the ship's bell, which he was nowhere near, splits neatly in two.",
+  "duke_puff: Concentration.",
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the deck. Your forms are in the rigging. Your beard is somewhere behind you.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "pete",
+     "text": "Clean!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 28,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "duke_puff"
+  }
+ ],
+ "p14.bank.wind_twins.intro": [
+  {
+   "place": "player",
+   "x": 9,
+   "y": 26,
+   "facing": "down"
+  },
+  {
+   "spawn": "wind_twins",
+   "x": 13,
+   "y": 28,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 13,
+   "y": 28,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "wind_twins",
+   "to": [
+    9,
+    28
+   ]
+  },
+  {
+   "face": "wind_twins",
+   "dir": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "bank_voice: NEXT. THE GRAND WIND TWINS, JOINT ACCOUNT, THE SYNCHRONISED SASHES OF BREEZEMOUTH.",
+  "wind_twins: (in perfect unison) A JOINT deposit.",
+  "<k>Two of them. Stereo.</>"
+ ],
+ "p14.bank.wind_twins.after": [
+  "The two pressure waves meet exactly where you're standing. Your beard goes straight up.",
+  "wind_twins: (in unison) STEREO.",
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the deck. Your forms are in the rigging. Your beard is somewhere behind you.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "pete",
+     "text": "Clean!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 28,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "wind_twins"
+  }
+ ],
+ "p14.bank.rumpington.intro": [
+  {
+   "place": "player",
+   "x": 9,
+   "y": 26,
+   "facing": "down"
+  },
+  {
+   "spawn": "rumpington",
+   "x": 13,
+   "y": 28,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 13,
+   "y": 28,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "rumpington",
+   "to": [
+    9,
+    28
+   ]
+  },
+  {
+   "face": "rumpington",
+   "dir": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "bank_voice: NEXT. HIS GRACE THE GRAND DUKE RUMPINGTON OF THE LOWER RUMPS, HEREDITARY BENCH-WARMER.",
+  "rumpington: (settling his velvet) One does like a branch with a VIEW.",
+  "<k>A great deal of velvet. A great deal of man.</>"
+ ],
+ "p14.bank.rumpington.after": [
+  "The bench by the rail goes over backwards, and so does Ned, who was on it.",
+  "rumpington: (inspecting his gloves) Hereditary.",
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the deck. Your forms are in the rigging. Your beard is somewhere behind you.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "pete",
+     "text": "Clean!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 28,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "rumpington"
+  }
+ ],
+ "p14.bank.beatrice.intro": [
+  {
+   "place": "player",
+   "x": 9,
+   "y": 26,
+   "facing": "down"
+  },
+  {
+   "spawn": "beatrice",
+   "x": 13,
+   "y": 28,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 13,
+   "y": 28,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "beatrice",
+   "to": [
+    9,
+    28
+   ]
+  },
+  {
+   "face": "beatrice",
+   "dir": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "bank_voice: NEXT. BEATRICE OF THE VIOLET SASH.",
+  "beatrice: (pleasantly) Lovely morning for it.",
+  "<k>A violet sash. A very nice violet sash.</>"
+ ],
+ "p14.bank.beatrice.after": [
+  "The rope coils by the mast lift, turn over, and settle the other way up. Neater, if anything.",
+  "beatrice: Lovely.",
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the deck. Your forms are in the rigging. Your beard is somewhere behind you.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "pete",
+     "text": "Clean!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 28,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "beatrice"
+  }
+ ],
+ "p14.bank.gary.intro": [
+  {
+   "place": "player",
+   "x": 9,
+   "y": 26,
+   "facing": "down"
+  },
+  {
+   "spawn": "gary",
+   "x": 13,
+   "y": 28,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 13,
+   "y": 28,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "gary",
+   "to": [
+    9,
+    28
+   ]
+  },
+  {
+   "face": "gary",
+   "dir": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "bank_voice: NEXT. THE GRAND HIGH EXALTED AMBASSADOR OF THE TEMPESTUOUS BOTTOM, VISCOUNT OF THE SEVENTH GUST, KEEPER OF THE ETERNAL BEAN, FIRST OF HIS NAME...",
+  "captain[annoyed]: Gary.",
+  "gary: ...Yes?",
+  "captain[annoyed]: You're Gary.",
+  "gary: (sheepishly) ...Yeah. Gary.",
+  "<k>Gary.</>"
+ ],
+ "p14.bank.gary.after": [
+  "It's the loudest thing that's happened all day. Including the Baron. Out at sea, three separate sharks put their fins over their ears.",
+  "gary: (quietly) ...Sorry. Bit of a build-up.",
+  "captain: (writing it down, underlining it, underlining it again) GARY.",
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the deck. Your forms are in the rigging. Your beard is somewhere behind you.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "pete",
+     "text": "Clean!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 28,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "gary"
+  }
+ ],
+ "p14.bank.zephyrella.intro": [
+  {
+   "place": "player",
+   "x": 9,
+   "y": 26,
+   "facing": "down"
+  },
+  {
+   "spawn": "zephyrella",
+   "x": 13,
+   "y": 28,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 13,
+   "y": 28,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "zephyrella",
+   "to": [
+    9,
+    28
+   ]
+  },
+  {
+   "face": "zephyrella",
+   "dir": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "The haze at the end of the queue goes dark, and then gold. The other depositors, the summoned ones still hanging about, kneel.",
+  "bank_voice: NEXT. HER IMPERIAL MAJESTY GRAND EMPRESS ZEPHYRELLA THE UNCONTAINABLE, GRAND EMPRESS OF THE FOUR WINDS, MOVER OF THE MOUNT OF OOMPH.",
+  "brogath[delighted]: (to you, starstruck) She MOVED a MOUNTAIN, Captain. Moved it. Six feet. They had to redraw the MAPS.",
+  "zephyrella: (regally) Teller.",
+  "<k>The record is a MOUNTAIN.</>"
+ ],
+ "p14.bank.zephyrella.after": [
+  "The sky goes dark gold. The Sharkstorm stops going round, for a full breath, and then remembers and starts again.",
+  "zephyrella: (leaving) Six feet. People always say six. It was SEVEN.",
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the deck. Your forms are in the rigging. Your beard is somewhere behind you.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "pete",
+     "text": "Clean!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 28,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "zephyrella"
+  }
+ ],
+ "p14.bank.rumbleseptimus.intro": [
+  {
+   "place": "player",
+   "x": 9,
+   "y": 26,
+   "facing": "down"
+  },
+  {
+   "spawn": "rumbleseptimus",
+   "x": 13,
+   "y": 28,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 13,
+   "y": 28,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "rumbleseptimus",
+   "to": [
+    9,
+    28
+   ]
+  },
+  {
+   "face": "rumbleseptimus",
+   "dir": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "bank_voice: NEXT. THE GRAND PATRIARCH RUMBLESEPTIMUS THE WORLD-WEARY, GRAND PATRIARCH OF THE FIRST RUMBLE, CONTINENTAL CLASS, RETIRED.",
+  "rumbleseptimus: (very, very slowly) I was old when your mountains were young, teller. Let's get this over with.",
+  "<k>Prehistoric. Continental-class. Tired.</>"
+ ],
+ "p14.bank.rumbleseptimus.after": [
+  "Somewhere far to the east, a continent shifts in its sleep. The Revenge rides up the swell it makes, and down.",
+  "rumbleseptimus: (wearily) That used to be easier.",
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the deck. Your forms are in the rigging. Your beard is somewhere behind you.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "pete",
+     "text": "Clean!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 28,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "rumbleseptimus"
+  }
+ ],
+ "p14.bank.gustilda.intro": [
+  {
+   "place": "player",
+   "x": 9,
+   "y": 26,
+   "facing": "down"
+  },
+  {
+   "spawn": "gustilda",
+   "x": 13,
+   "y": 28,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 13,
+   "y": 28,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "gustilda",
+   "to": [
+    9,
+    28
+   ]
+  },
+  {
+   "face": "gustilda",
+   "dir": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "The last one. The haze at the end of the queue clears, and there's no fanfare. No glow. No kneeling.",
+  "Just a little old woman in a cardigan, with a knitted sash and a handbag.",
+  "bank_voice: NEXT.",
+  "A pause. The bank voice waits for a title. There isn't one.",
+  "gustilda: (kindly) I am Grandmother Gustilda.",
+  "captain[surprised]: (breathing out for the first time in an hour) Oh, thank goodness. Just a grandmother.",
+  "Behind you, very quietly, Brogath has gone white. All the way to the edges of the card.",
+  "brogath[alarmed]: (whispering) Captain. Captain, don't...",
+  "<k>Just a grandmother.</>"
+ ],
+ "p14.bank.gustilda.after": [
+  "The bank counter goes up, with you on it. The whole crew go up with you, hanging off your legs. In the Sharkstorm, every shark turns round to look.",
+  "Far below, through two decks and a sealed door, the old cloud in the treasure room GROWLS back at her.",
+  "And then it's over, and the counter comes down, and you come down on top of it, and the crew come down on top of you.",
+  "gustilda: (patting her hair) There we are.",
+  {
+   "insert": "bank_rating_gustilda",
+   "caption": "VALUE: UNMEASURABLE. INTENSITY: 10+ — ABSOLUTELY NOT."
+  },
+  "gustilda: (sweetly) Receipt, please.",
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the deck. Your forms are in the rigging. Your beard is somewhere behind you.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "bank_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "pete",
+     "text": "Clean!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 28,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "gustilda"
+  }
+ ],
+ "p14.bank_vault": [
+  {
+   "sfx": "vault_growl",
+   "volume": 0.7
+  },
+  {
+   "burst": "fume",
+   "x": 13,
+   "y": 26,
+   "count": 6
+  },
+  "The deposit goes into the vault. The vault growls, satisfied. Somewhere inside it, something rattles its chains."
+ ]
+}

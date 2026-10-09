@@ -1,0 +1,2319 @@
+{
+ "//": "Story Phase 14, chapters 146-151: the door, the plume, Brogath returns, the containment corner, keep Brogath confident (six flutters), the Apology Eruption. Brogath's stability is data (data/story/stability/brogath.json); the 'stability' and 'reassure' commands move it.",
+ "p14.ready_hint": [
+  {
+   "setFlag": "p14_ready_hint"
+  },
+  "Up on deck, the storm has changed its note. You can hear the crew shouting, and something heavy sliding about.",
+  {
+   "tutorial": "Go up on deck.",
+   "title": "The Return of Brogath"
+  }
+ ],
+ "p14c1.begin": [
+  {
+   "setFlag": "p14_started"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 27
+  },
+  {
+   "sharkstorm": "brogath_turbulence"
+  },
+  {
+   "banner": "CAPTAIN STINKBEARD",
+   "sub": "and the Return of Brogath the Bashful"
+  },
+  {
+   "setFlag": "p14_ch146_started"
+  },
+  {
+   "banner": "CHAPTER 146",
+   "sub": "The Door Opens"
+  },
+  {
+   "music": "brogath_night",
+   "fade": 600
+  },
+  "Still night. The Great Sharkstorm, which has been going round the Revenge for a day and a half, has started going round FASTER.",
+  {
+   "sfx": "storm_wind",
+   "volume": 0.9
+  },
+  {
+   "roll": 4,
+   "duration": 1400,
+   "async": true
+  },
+  {
+   "shake": 2,
+   "duration": 900
+  },
+  "The deck pitches. A crate slides. Somewhere forward a HOLD MY SASH flag tears loose and goes up into the dark, flapping.",
+  "gristle: (from the mainmast) ALL HANDS! LASH EVERYTHING! IF IT'S NOT TIED DOWN, IT'S GOING ROUND WITH THE SHARKS!",
+  {
+   "bark": "bob",
+   "text": "Lashing! LASHING!",
+   "duration": 1600
+  },
+  {
+   "bark": "jim",
+   "text": "My POTS!",
+   "duration": 1600
+  },
+  "Pete comes past the helm bent double, with cardboard Brogath under one arm.",
+  "pete: He'll go over the side in this. I'm putting him below. With the others.",
+  "captain[alarmed]: Brogath is carrying BROGATH.",
+  "pete[tired]: Pete is carrying cardboard, Captain. Please.",
+  {
+   "move": "pete",
+   "to": [
+    10,
+    13
+   ],
+   "speed": "run"
+  },
+  {
+   "despawn": "pete"
+  },
+  {
+   "setFlag": "p14_standee_below"
+  },
+  {
+   "setValue": "standee_brogath",
+   "value": "below"
+  },
+  "And then they're all busy. Every one of them. Lines, lashings, and the storm.",
+  "Nobody is watching the treasure room.",
+  "Nobody is watching YOU.",
+  "captain[determined]: (very quietly) ...The third Brogath.",
+  {
+   "startQuest": "the_door_opens"
+  },
+  {
+   "tutorial": "While the crew are busy with the storm, slip below: the main hatch, the galley, then down the stairs to the hold, and the treasure-room door. Quietly.",
+   "title": "The Door Opens"
+  }
+ ],
+ "p14c1.below": [
+  {
+   "setFlag": "p14_sneaked_below"
+  },
+  "The hold. Dark. The old crew asleep in their hammocks, swinging with the ship. Somebody is snoring in a sort of tune.",
+  "Nobody stirs. At the far end, by the bulkhead, the treasure-room door."
+ ],
+ "p14c1.signs": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The treasure-room door. Planked across, twice. And the signs.",
+  {
+   "insert": "sign_do_not_open",
+   "caption": "DO NOT OPEN."
+  },
+  "Gristle's DO NOT OPEN. Under it, newer: YES, SERIOUSLY. Squawks' clawprint on a bit of crate: BAD CLOUD.",
+  "And two you haven't seen. They must have gone up this afternoon.",
+  {
+   "insert": "sign_dangerous_cloud",
+   "caption": "DANGEROUS CLOUD INSIDE."
+  },
+  {
+   "insert": "sign_this_means_you",
+   "caption": "CAPTAIN: THIS MEANS YOU."
+  },
+  "captain[determined]: ...They KNOW. They know he's in there. That's why they keep putting up SIGNS.",
+  {
+   "sfx": "treasure_growl",
+   "volume": 0.9
+  },
+  {
+   "shake": 2,
+   "duration": 700
+  },
+  "Behind the door, very low, something growls.",
+  {
+   "setFlag": "p14_signs_read"
+  }
+ ],
+ "p14c1.plank": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "if": {
+    "notFlag": "p14_plank_1"
+   },
+   "then": [
+    "The top plank. Two nails. You get your fingers under it.",
+    {
+     "repair": "pry",
+     "strikes": 3,
+     "title": "THE FIRST PLANK"
+    },
+    {
+     "sfx": "wood_crack",
+     "volume": 0.8
+    },
+    "It comes away with a shriek of nails. You lay it down. Gently. Very gently.",
+    {
+     "sfx": "treasure_growl",
+     "volume": 0.9
+    },
+    {
+     "shake": 2,
+     "duration": 700
+    },
+    "The growl comes again. Longer. The door shivers in its frame.",
+    {
+     "setFlag": "p14_plank_1"
+    },
+    {
+     "event": "p14_plank"
+    }
+   ],
+   "else": [
+    "The second plank. Four nails, these. Gristle doesn't do anything by halves.",
+    {
+     "repair": "pry",
+     "strikes": 4,
+     "title": "THE SECOND PLANK"
+    },
+    {
+     "sfx": "wood_crack",
+     "volume": 0.9
+    },
+    {
+     "sfx": "pressure_whine",
+     "volume": 0.6
+    },
+    "It comes away. Behind the door, a sound like a very large animal breathing in.",
+    {
+     "sfx": "treasure_growl",
+     "volume": 1.0
+    },
+    {
+     "shake": 3,
+     "duration": 1200
+    },
+    "GRRRRRRRRRRRRRRRRRRRMMMMM.",
+    "captain[determined]: ...I KNOW, Brogath. I'm coming.",
+    {
+     "setFlag": "p14_plank_2"
+    },
+    {
+     "event": "p14_plank"
+    }
+   ]
+  }
+ ],
+ "p14c1.crack": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You put your hand on the handle. The door is cold. It's vibrating.",
+  "captain[determined]: Brogath. I know you're in there.",
+  "You turn the handle. You pull. Just a crack.",
+  {
+   "sfx": "door_creak",
+   "volume": 0.9
+  },
+  {
+   "sfx": "fume_release",
+   "volume": 0.8
+  },
+  {
+   "burst": "fume",
+   "x": 4,
+   "y": 3,
+   "count": 10
+  },
+  {
+   "fumeCloud": "p14_crack",
+   "level": "dense",
+   "x": 3,
+   "y": 3,
+   "w": 3,
+   "h": 2,
+   "grow": 500
+  },
+  {
+   "sprite": "plume",
+   "frame": "plume_0",
+   "x": 4.5,
+   "y": 4.3,
+   "anim": "plume",
+   "alpha": 0.85,
+   "depth": 56000
+  },
+  "Something comes out through the gap. A plume. Yellow-brown, and old. It smells of the first night, of gold, and of something much, much older than either.",
+  "captain[queasy]: (eyes streaming) ...Brogath?",
+  {
+   "sfx": "stairs",
+   "volume": 0.8
+  },
+  {
+   "sfx": "stomp_run",
+   "volume": 0.8
+  },
+  {
+   "spawn": "gristle",
+   "x": 14,
+   "y": 4,
+   "facing": "down"
+  },
+  {
+   "spawn": "pete",
+   "x": 15,
+   "y": 4,
+   "facing": "down"
+  },
+  {
+   "spawn": "bob",
+   "x": 14,
+   "y": 5,
+   "facing": "down"
+  },
+  {
+   "spawn": "jim",
+   "x": 15,
+   "y": 5,
+   "facing": "down"
+  },
+  "gristle: (from the stairs) CAPTAIN!",
+  "pete[alarmed]: HE'S OPENED IT!",
+  {
+   "parallel": [
+    [
+     {
+      "move": "gristle",
+      "to": [
+       5,
+       4
+      ],
+      "speed": "run"
+     }
+    ],
+    [
+     {
+      "move": "pete",
+      "to": [
+       6,
+       5
+      ],
+      "speed": "run"
+     }
+    ],
+    [
+     {
+      "move": "bob",
+      "to": [
+       5,
+       6
+      ],
+      "speed": "run"
+     }
+    ],
+    [
+     {
+      "move": "jim",
+      "to": [
+       6,
+       6
+      ],
+      "speed": "run"
+     }
+    ]
+   ]
+  },
+  "They hit you all at once. Bob takes your legs. Jim takes your coat. Gristle takes the handle and SLAMS it.",
+  {
+   "fly": "player",
+   "to": [
+    4,
+    6
+   ],
+   "duration": 380,
+   "arc": 6
+  },
+  {
+   "sfx": "thud_heavy",
+   "volume": 0.9
+  },
+  {
+   "sfx": "heavy_door",
+   "volume": 1.0
+  },
+  {
+   "shake": 3,
+   "duration": 500
+  },
+  "gristle: (hammering) Planks. PLANKS.",
+  {
+   "sfx": "hammer_hit",
+   "volume": 0.8
+  },
+  {
+   "wait": 250
+  },
+  {
+   "sfx": "hammer_hit",
+   "volume": 0.8
+  },
+  {
+   "wait": 250
+  },
+  {
+   "sfx": "hammer_hit",
+   "volume": 0.8
+  },
+  "The planks go back up. Jim slaps DO NOT OPEN back on, upside down. Nobody fixes it.",
+  {
+   "setFlag": "p14_door_resealed"
+  },
+  {
+   "fumeCloud": "p14_crack",
+   "remove": true
+  },
+  "pete[annoyed]: WHAT were you THINKING?",
+  "captain[determined]: He's IN there, Pete. I've SEEN...",
+  "Bob is pointing. Everybody looks.",
+  "The plume hasn't gone. It hangs in the air in the middle of the hold. It isn't spreading out, the way a smell does. It's holding itself together.",
+  "And then it moves. Not drifting. MOVING. Between the hammocks, toward the stairs.",
+  {
+   "moveSprite": "plume",
+   "x": 9,
+   "y": 5,
+   "duration": 1800
+  },
+  {
+   "moveSprite": "plume",
+   "x": 14.5,
+   "y": 4.5,
+   "duration": 1800
+  },
+  "jim: ...Smells don't do that.",
+  "gristle: That one does.",
+  {
+   "moveSprite": "plume",
+   "x": 14.5,
+   "y": 2.5,
+   "duration": 1100,
+   "alpha": 0.2
+  },
+  {
+   "removeSprite": "plume"
+  },
+  "It goes up the stairs. Toward the galley.",
+  {
+   "setFlag": "p14_door_cracked"
+  },
+  {
+   "completeQuest": "the_door_opens"
+  },
+  {
+   "call": "p14c2.begin"
+  }
+ ],
+ "p14c2.begin": [
+  {
+   "setFlag": "p14_ch147_started"
+  },
+  {
+   "banner": "CHAPTER 147",
+   "sub": "The Plume"
+  },
+  "pete: Where's it GOING?",
+  "captain[determined]: FOLLOW IT.",
+  {
+   "startQuest": "follow_the_plume"
+  },
+  {
+   "tutorial": "Follow the plume: up the stairs into the galley.",
+   "title": "The Plume"
+  }
+ ],
+ "p14c2.galley": [
+  {
+   "sprite": "plume",
+   "frame": "plume_0",
+   "x": 12.5,
+   "y": 10.5,
+   "anim": "plume",
+   "alpha": 0.85,
+   "depth": 56000
+  },
+  "It's here. Up out of the stairs, a yard off the floor, keeping itself together.",
+  "ned: (frozen by the Mark II) Captain. Something just came up the stairs WITHOUT A BODY.",
+  {
+   "moveSprite": "plume",
+   "x": 10,
+   "y": 11,
+   "duration": 1500
+  },
+  {
+   "moveSprite": "plume",
+   "x": 8.5,
+   "y": 11.6,
+   "duration": 1200
+  },
+  "It crosses the galley floor without hurrying, round the long table, and goes out through the door at the bottom. Into the old quarters.",
+  {
+   "moveSprite": "plume",
+   "x": 8.5,
+   "y": 12.6,
+   "duration": 900,
+   "alpha": 0.1
+  },
+  {
+   "removeSprite": "plume"
+  },
+  "jim: (behind you) The QUARTERS. Pete put Brogath in the quarters.",
+  "pete: ...I put CARDBOARD Brogath in the quarters.",
+  {
+   "setFlag": "p14_plume_galley"
+  }
+ ],
+ "p14c3.begin": [
+  {
+   "setFlag": "p14_plume_quarters"
+  },
+  {
+   "completeQuest": "follow_the_plume"
+  },
+  {
+   "setFlag": "p14_ch148_started"
+  },
+  {
+   "banner": "CHAPTER 148",
+   "sub": "Brogath Returns"
+  },
+  {
+   "music": "brogath_returns",
+   "fade": 600
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "sprite": "plume",
+   "frame": "plume_0",
+   "x": 8.5,
+   "y": 4.6,
+   "anim": "plume",
+   "alpha": 0.85,
+   "depth": 56000
+  },
+  "The plume comes through the door at the top of the room, drifts down between the sash bunks, and stops in front of cardboard Brogath, where Pete stood him: in the middle of the room, out of the wind.",
+  {
+   "moveSprite": "plume",
+   "x": 10.4,
+   "y": 8.0,
+   "duration": 700
+  },
+  {
+   "moveSprite": "plume",
+   "x": 9.5,
+   "y": 9.4,
+   "duration": 700
+  },
+  {
+   "moveSprite": "plume",
+   "x": 8.4,
+   "y": 8.0,
+   "duration": 700
+  },
+  {
+   "moveSprite": "plume",
+   "x": 9.5,
+   "y": 7.4,
+   "duration": 700
+  },
+  "It goes round him. Once. Twice. As if it's looking.",
+  "pete: (behind you) Why's it doing that?",
+  {
+   "sfx": "wind_suck",
+   "volume": 0.9
+  },
+  {
+   "moveSprite": "plume",
+   "x": 9.5,
+   "y": 8.6,
+   "duration": 800,
+   "alpha": 0,
+   "scale": 0.2
+  },
+  {
+   "removeSprite": "plume"
+  },
+  {
+   "flash": "#e8e0a0",
+   "duration": 220
+  },
+  "Then it goes INTO him. Into the card. Through the printed robe, the printed sash, the printed face. All of it.",
+  {
+   "propFx": "jiggle",
+   "prop": "standee_brogath",
+   "duration": 900,
+   "intensity": 1.5
+  },
+  "Silence.",
+  {
+   "setFlag": "brogath_reincarnated"
+  },
+  {
+   "setValue": "brogath_status",
+   "value": "reincarnated_cardboard"
+  },
+  {
+   "spawn": "brogath",
+   "x": 9,
+   "y": 8,
+   "facing": "down"
+  },
+  {
+   "anim": "brogath",
+   "name": "stiff"
+  },
+  {
+   "wait": 700
+  },
+  {
+   "sfx": "cardboard_creak",
+   "volume": 0.8
+  },
+  {
+   "anim": "brogath",
+   "name": "idle"
+  },
+  "The printed eyes move. Left. Right. At YOU.",
+  {
+   "sfx": "cardboard_creak",
+   "volume": 0.9
+  },
+  "The head creaks round. Card isn't meant to do that. It does it anyway.",
+  {
+   "sfx": "cardboard_rip",
+   "volume": 0.9
+  },
+  {
+   "anim": "brogath",
+   "name": "tear"
+  },
+  "One flat arm tears free of its printed pose, with the sound of somebody opening a very cheap present.",
+  {
+   "move": "brogath",
+   "to": [
+    9,
+    9
+   ]
+  },
+  {
+   "sfx": "cardboard_step",
+   "volume": 0.8
+  },
+  "One stiff step.",
+  "Another.",
+  {
+   "face": "brogath",
+   "dir": "up"
+  },
+  "brogath[confused]: Where... am I?",
+  {
+   "clearFlag": "stinkbeard_delirium"
+  },
+  {
+   "setValue": "stinkbeard_state",
+   "value": "brogath_confirmed"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 27
+  },
+  {
+   "sfx": "delirium_cue",
+   "volume": 0.7
+  },
+  "And the purple goes out of everything, like a lamp turned down. The legends go out of your crew. Pete is Pete. Gristle is Gristle. There is only one Brogath in the room.",
+  "He's cardboard. And he's REAL.",
+  "captain[laugh]: HA! (pointing) HA! I KNEW IT! I SAID! Didn't I SAY? BROGATH! IN THE TREASURE ROOM!",
+  "pete[alarmed]: ...Captain.",
+  "captain[alarmed]: (the triumph draining out of you all at once) ...He's real. He's REAL. I was RIGHT.",
+  "captain[alarmed]: Why would I want to be RIGHT?",
+  "brogath[confused]: I am... Brogath. Brogath the Bashful. Grand Stenchmaster of... of the...",
+  "He looks down at himself. At the flat purple robe. At the printed sash. At the fold-out stand.",
+  "brogath[embarrassed]: ...Why am I FLAT?",
+  {
+   "stability": "meter",
+   "show": "show"
+  },
+  {
+   "stability": "set",
+   "pressure": 35
+  },
+  {
+   "tutorial": "That's Brogath's BASHFULNESS. Embarrassment builds pressure in him; confidence lets it down. When it's high, steady him: talk to him, and say the right thing.",
+   "title": "Bashfulness"
+  },
+  "jim: (a nervous laugh) He's cardboard. Ha. Sorry. HA. Sorry.",
+  {
+   "stability": "trigger",
+   "id": "laughed_at"
+  },
+  "bob: You're a CUT-OUT. From the Mega-Pack. It says AGES EIGHT AND UP on your back.",
+  {
+   "stability": "trigger",
+   "id": "reminded_cardboard"
+  },
+  {
+   "startQuest": "return_of_brogath"
+  },
+  {
+   "tutorial": "Say something to him. Something steadying. (Talk to Brogath.)",
+   "title": "Brogath Returns"
+  }
+ ],
+ "p14c3.speak": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "captain[concerned]: Brogath. Er. Your... Grand... Ancientness.",
+  {
+   "reassure": "general"
+  },
+  "For a moment, the printed cheeks go a little less red.",
+  "Then Gristle, being helpful, leans in.",
+  "gristle: You've been dead four hundred years, mate. You know that? DEAD.",
+  {
+   "stability": "trigger",
+   "id": "reminded_dead"
+  },
+  {
+   "sfx": "wing_flap",
+   "volume": 0.9
+  },
+  {
+   "anim": "squawks",
+   "name": "fly"
+  },
+  "Squawks hops onto the top of a bunk to see better, flapping.",
+  {
+   "stability": "trigger",
+   "id": "squawks_flap"
+  },
+  "bob: (squinting) And your face is SMUDGED. Look. Under the eye. It's a printing error.",
+  {
+   "stability": "trigger",
+   "id": "print_quality"
+  },
+  {
+   "stability": "set",
+   "pressure": 100
+  },
+  {
+   "call": "p14c3.erupt"
+  }
+ ],
+ "p14c3.erupt": [
+  {
+   "sfx": "pressure_build",
+   "volume": 1.0
+  },
+  {
+   "shake": 2,
+   "duration": 900
+  },
+  "The card bows out. The printed cheeks go crimson. The cardboard HUMS.",
+  "pete[alarmed]: Everybody DOWN.",
+  {
+   "sfx": "brogath_eruption",
+   "volume": 1.0
+  },
+  {
+   "flash": "#f0e0a0",
+   "duration": 300
+  },
+  {
+   "shake": 7,
+   "duration": 2200,
+   "async": true
+  },
+  {
+   "fumeCloud": "p14_first",
+   "level": "dense",
+   "x": 3,
+   "y": 4,
+   "w": 13,
+   "h": 9,
+   "grow": 900
+  },
+  {
+   "parallel": [
+    [
+     {
+      "fly": "pete",
+      "to": [
+       7,
+       4
+      ],
+      "duration": 520,
+      "arc": 10
+     }
+    ],
+    [
+     {
+      "fly": "gristle",
+      "to": [
+       13,
+       6
+      ],
+      "duration": 520,
+      "arc": 10
+     }
+    ],
+    [
+     {
+      "fly": "bob",
+      "to": [
+       5,
+       9
+      ],
+      "duration": 520,
+      "arc": 10
+     }
+    ],
+    [
+     {
+      "fly": "jim",
+      "to": [
+       14,
+       9
+      ],
+      "duration": 520,
+      "arc": 10
+     }
+    ],
+    [
+     {
+      "fly": "player",
+      "to": [
+       9,
+       4
+      ],
+      "duration": 520,
+      "arc": 10
+     }
+    ],
+    [
+     {
+      "propFx": "swing",
+      "area": [
+       1,
+       4,
+       7,
+       9
+      ],
+      "duration": 1800,
+      "intensity": 2
+     }
+    ],
+    [
+     {
+      "propFx": "fall",
+      "prop": "standee_rumpold",
+      "duration": 700,
+      "dx": 1,
+      "dy": 0
+     }
+    ],
+    [
+     {
+      "propFx": "fall",
+      "prop": "standee_gustavio",
+      "duration": 700,
+      "dx": -1,
+      "dy": 0
+     }
+    ],
+    [
+     {
+      "propFx": "fall",
+      "prop": "standee_stenchalina",
+      "duration": 700,
+      "dx": 1,
+      "dy": 0
+     }
+    ],
+    [
+     {
+      "propFx": "jiggle",
+      "prop": "ses_kit_on",
+      "duration": 1600,
+      "intensity": 3
+     }
+    ]
+   ]
+  },
+  {
+   "burst": "papers",
+   "x": 9,
+   "y": 8,
+   "count": 12
+  },
+  {
+   "burst": "splinters",
+   "x": 9,
+   "y": 8,
+   "count": 10
+  },
+  {
+   "burst": "feathers",
+   "x": 12,
+   "y": 6,
+   "count": 6
+  },
+  {
+   "sprite": "captain_hat",
+   "frame": "hat_tricorn",
+   "x": 9.5,
+   "y": 4.2,
+   "depth": 80000
+  },
+  {
+   "setFlag": "p14_hat_lost"
+  },
+  {
+   "moveSprite": "captain_hat",
+   "x": 2.5,
+   "y": 7.0,
+   "duration": 900,
+   "angle": 540
+  },
+  "The room goes sideways. Sashes snap out flat, like flags in a gale. The cardboard Stenchmasters go over, one, two, three. The bedroom set slides along its barrel. Your hat leaves your head and keeps going.",
+  "And then a cloud, darker than anything in the treasure room, very old, fills the quarters to the beams.",
+  {
+   "wait": 800
+  },
+  {
+   "removeSprite": "captain_hat"
+  },
+  {
+   "fumeCloud": "p14_first",
+   "remove": true
+  },
+  {
+   "setFlag": "p14_first_eruption"
+  },
+  {
+   "setFlag": "p14_quarters_scorched"
+  },
+  {
+   "stability": "settle",
+   "pressure": 20
+  },
+  "When it clears, the room is a slightly different room. Scorched in a ring round where he stands. A porthole cracked. Bunting down.",
+  "Nobody says anything for a long time.",
+  {
+   "face": "brogath",
+   "dir": "down"
+  },
+  "brogath[sorry]: (quietly) ...Sorry. Little toot.",
+  "jim: (from under a hammock) ...LITTLE?",
+  "gristle: (peeling himself off the wall) That moved the SHIP.",
+  "squawks[horrified]: Bad cloud.",
+  "pete: (to you, very quietly) Captain. That was him being EMBARRASSED.",
+  "captain[queasy]: (sitting on the floor, hatless) ...Embarrassed.",
+  "pete: Imagine if he got ANGRY.",
+  {
+   "setFlag": "p14_first_words"
+  },
+  {
+   "completeQuest": "return_of_brogath"
+  },
+  {
+   "call": "p14c4.begin"
+  }
+ ],
+ "p14c4.begin": [
+  {
+   "setFlag": "p14_ch149_started"
+  },
+  {
+   "banner": "CHAPTER 149",
+   "sub": "The Containment Corner"
+  },
+  {
+   "restage": "walk"
+  },
+  "gristle: Right. RIGHT. Nobody touches him. Nobody MOVES him.",
+  "bob: So where do we put him?",
+  "pete: We don't put HIM anywhere. We put US somewhere.",
+  "Everybody looks at the far corner, behind the mast post, as far from a cardboard Grand Stenchmaster as the quarters go.",
+  "gristle: Barricade. Table. Cask. Blankets. Anything.",
+  {
+   "startQuest": "containment_corner"
+  },
+  {
+   "tutorial": "Build the barricade across the far corner: tip the card table over, roll the sealed Grog cask across, hang sash blankets from the hammocks, and stand cardboard Sir Rumpus up as a shield.",
+   "title": "The Containment Corner"
+  }
+ ],
+ "p14c4.table": [
+  "The card table. Cards, dice, a mug. You sweep them off.",
+  {
+   "repair": "heave",
+   "strikes": 3,
+   "title": "TIP IT OVER"
+  },
+  {
+   "sfx": "thud_heavy",
+   "volume": 0.8
+  },
+  "It goes over with a bang, legs out toward Brogath. You drag it across the corner.",
+  "brogath[bashful]: (from the middle of the room) Oh. Are you... building something? Can I help?",
+  "crew: NO.",
+  {
+   "setFlag": "p14_bar_table"
+  },
+  {
+   "event": "p14_barricade"
+  }
+ ],
+ "p14c4.cask": [
+  "The Frog Grog cask: the one you sealed. Sealed, and heavy, and on the floor where nobody can be blamed for it.",
+  {
+   "repair": "barrel",
+   "strikes": 3,
+   "title": "ROLL IT"
+  },
+  {
+   "sfx": "barrel_roll",
+   "volume": 0.8
+  },
+  "You roll it across and wedge it in beside the table. It sloshes. It's on your side now.",
+  {
+   "setFlag": "p14_bar_cask"
+  },
+  {
+   "event": "p14_barricade"
+  }
+ ],
+ "p14c4.blankets": [
+  "Sash blankets off the bunks. Red, crackly, AGES SIX AND UP.",
+  {
+   "repair": "hang",
+   "strikes": 3,
+   "title": "HANG THEM"
+  },
+  "You hang them from Garrick's grand hammock down to the floor, like a curtain. A curtain is not a wall. It's a feeling of a wall.",
+  {
+   "setFlag": "p14_bar_blankets"
+  },
+  {
+   "event": "p14_barricade"
+  }
+ ],
+ "p14c4.shield": [
+  "Cardboard Sir Rumpus, Grand Court of Ancient Stenchmasters, one finger raised.",
+  "You carry him to the corner and stand him up at the end of the barricade, facing out.",
+  "pete: A shield. Made of cardboard. Against a man made of cardboard.",
+  "gristle: It's the thought.",
+  "brogath[bashful]: (waving) Hello, Rumpus! He doesn't say much, does he.",
+  {
+   "setFlag": "p14_bar_shield"
+  },
+  {
+   "event": "p14_barricade"
+  }
+ ],
+ "p14c4.barricade_done": [
+  {
+   "setFlag": "p14_barricade_said"
+  },
+  {
+   "restage": "walk"
+  },
+  "The barricade: a tipped table, a sealed cask, a sash curtain and a cardboard knight. Behind it, in the corner, the entire crew of the Queen Anne's Revenge, crouching.",
+  "Out in the middle of the room, alone, one cardboard Grand Stenchmaster. And Garrick.",
+  "garrick[worried]: (from beside Brogath) Er. Why am I out HERE?",
+  "gristle: You understand Grand Stenchmaster phenomena.",
+  "pete: Better than us.",
+  "bob: You're the EXPERT.",
+  "garrick[nervous]: I'm SUSPENDED.",
+  "jim: (handing you your hat, which he found in Bob's hammock) Captain.",
+  {
+   "setFlag": "p14_hat_back"
+  },
+  "pete: (pulling a bit of parchment off the Cheap-O-Rama crate and a stub of pencil out of his ear) Right. Rules. Everything that set him off. We write it ALL down.",
+  {
+   "tutorial": "Help Pete start the Brogath Rules (the board on the barricade), and check on Garrick, who's out there with him.",
+   "title": "The Containment Corner"
+  }
+ ],
+ "p14c4.rules": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "Pete pins the parchment to the underside of the table. You both look at it.",
+  "pete: What set him off. In order.",
+  "captain[determined]: Jim laughed.",
+  {
+   "setFlag": "brogath_rule_no_laughing"
+  },
+  {
+   "addVar": "brogath_rules",
+   "value": 1
+  },
+  "pete: (writing) NO ONE LAUGHS AT BROGATH.",
+  "captain[determined]: Bob told him he's cardboard.",
+  {
+   "setFlag": "brogath_rule_cardboard"
+  },
+  {
+   "addVar": "brogath_rules",
+   "value": 1
+  },
+  "pete: (writing) DO NOT REMIND BROGATH HE IS CARDBOARD. (pause) UNLESS NECESSARY.",
+  "captain[determined]: Gristle told him he's dead.",
+  {
+   "setFlag": "brogath_rule_sad_memories"
+  },
+  {
+   "addVar": "brogath_rules",
+   "value": 1
+  },
+  "pete: NO SAD MEMORIES. Dying counts.",
+  "captain[determined]: And Bob said his face was smudged.",
+  {
+   "setFlag": "brogath_rule_print_quality"
+  },
+  {
+   "addVar": "brogath_rules",
+   "value": 1
+  },
+  "pete: DO NOT INSULT BROGATH'S PRINT QUALITY.",
+  "bob: (small) It IS smudged though.",
+  "pete: BOB.",
+  {
+   "logbook": "brogath_rules"
+  },
+  {
+   "setFlag": "p14_rules_begun"
+  }
+ ],
+ "p14c4.garrick": [
+  "garrick[nervous]: (not taking his eyes off Brogath) Captain. Captain, this is... this is unprecedented.",
+  "garrick[proud]: No. No, wait. It ISN'T. He's the PRECEDENT. He's a walking precedent. Every legend in the book, and here he is, in my...",
+  "brogath[bashful]: (shyly, to Garrick) Are you a Stenchmaster too? You have the look.",
+  "garrick[nervous]: I'm... (glancing at you) ...between engagements.",
+  "brogath[pleased]: Oh, how lovely.",
+  "garrick: (to you, through his teeth) He smells AMAZING, Captain. Like the old days. The OLD old days.",
+  {
+   "setFlag": "p14_garrick_checked"
+  }
+ ],
+ "p14c5.begin": [
+  {
+   "setFlag": "p14_ch150_started"
+  },
+  {
+   "banner": "CHAPTER 150",
+   "sub": "Keep Brogath Confident"
+  },
+  {
+   "startQuest": "keep_brogath_confident"
+  },
+  {
+   "tutorial": "Pete has a theory. Hear it (Pete, in the corner).",
+   "title": "Keep Brogath Confident"
+  }
+ ],
+ "p14c5.theory": [
+  "pete: (low) I've been watching him, Captain. When he goes, it's always when he's EMBARRASSED.",
+  "pete: And the thing that embarrasses him most... it's things moving. Fluttering. His sash, the bird, anything.",
+  "captain[annoyed]: Why does FLUTTER matter?",
+  "pete: It's in the legends. Flutter's the most embarrassing thing there is, for a Stenchmaster. Everybody can SEE it.",
+  "captain[annoyed]: That is the stupidest thing I have ever heard.",
+  {
+   "sfx": "flutter_tiny",
+   "volume": 0.7
+  },
+  "Across the room, Bob's shirt-tail lifts in the draught from the ladder. Just a little. Flapping.",
+  "Brogath's printed eyes slide sideways toward it.",
+  "pete: ...Watch.",
+  {
+   "setFlag": "p14_pete_theory"
+  },
+  {
+   "tutorial": "When something flutters, his pressure rises until it stops: SECURE IT (go to whatever's fluttering), then STEADY HIM (talk to Brogath, say the right thing). Left too long, he goes off. Not fatal. Not pleasant.",
+   "title": "Flutter"
+  },
+  {
+   "call": "p14c5.fl_shirt"
+  }
+ ],
+ "p14c5.fl_shirt": [
+  {
+   "setFlag": "p14_fl_shirt_started"
+  },
+  {
+   "setValue": "p14_flutter_current",
+   "value": "shirt"
+  },
+  {
+   "setVar": "p14_fl_erupts",
+   "value": 0
+  },
+  {
+   "stability": "incident",
+   "id": "fl_shirt"
+  },
+  {
+   "stability": "trigger",
+   "id": "flutter",
+   "quiet": true
+  },
+  {
+   "bark": "brogath",
+   "text": "Oh! It... it MOVED.",
+   "duration": 1600
+  },
+  {
+   "tutorial": "Bob's shirt-tail is flapping in the draught. Tuck it in (Bob), then steady Brogath.",
+   "title": "Flutter: a Shirt-Tail"
+  }
+ ],
+ "p14c5.fl_shirt_secure": [
+  "bob: (looking down) What? My SHIRT?",
+  "You stuff it into his belt. Hard.",
+  "bob: Ow.",
+  {
+   "stability": "secure"
+  },
+  {
+   "setFlag": "p14_fl_shirt_secured"
+  }
+ ],
+ "p14c5.fl_label": [
+  {
+   "setFlag": "p14_fl_label_started"
+  },
+  {
+   "setValue": "p14_flutter_current",
+   "value": "label"
+  },
+  {
+   "setVar": "p14_fl_erupts",
+   "value": 0
+  },
+  {
+   "sfx": "flutter_tiny",
+   "volume": 0.7
+  },
+  "On the Mega-Pack box, the shipping label has come half unstuck. It's lifting. It's going flip. Flip. Flip.",
+  {
+   "stability": "incident",
+   "id": "fl_label"
+  },
+  {
+   "stability": "trigger",
+   "id": "flutter",
+   "quiet": true
+  },
+  "gristle: (from the corner) The LABEL. Somebody get the LABEL.",
+  {
+   "tutorial": "The Mega-Pack's label is flapping. Flatten it (the Mega-Pack), then steady Brogath.",
+   "title": "Flutter: a Label"
+  }
+ ],
+ "p14c5.fl_label_secure": [
+  "You slap the label down. It comes up. You slap it down. You put a pot on it.",
+  {
+   "stability": "secure"
+  },
+  {
+   "setFlag": "p14_fl_label_secured"
+  }
+ ],
+ "p14c5.fl_napkin": [
+  {
+   "setFlag": "p14_fl_napkin_started"
+  },
+  {
+   "setValue": "p14_flutter_current",
+   "value": "napkin"
+  },
+  {
+   "setVar": "p14_fl_erupts",
+   "value": 0
+  },
+  "Jim comes in with a tray of biscuits, as a peace offering. A napkin on top.",
+  "The napkin slides off. It FLOATS. Down, slowly, swaying, the way napkins do.",
+  {
+   "token": "napkin_floor",
+   "x": 11,
+   "y": 9,
+   "id": "p14_napkin"
+  },
+  "Every single member of the crew drops flat behind the barricade.",
+  {
+   "stability": "incident",
+   "id": "fl_napkin"
+  },
+  {
+   "stability": "trigger",
+   "id": "flutter",
+   "quiet": true
+  },
+  "jim: (face down) NAPKIN. NAPKIN DOWN.",
+  {
+   "tutorial": "A napkin is on the floor, and it's lifting at the corners. Get it (the napkin), then steady Brogath.",
+   "title": "Flutter: a Napkin"
+  }
+ ],
+ "p14c5.fl_napkin_secure": [
+  {
+   "removeSprite": "p14_napkin"
+  },
+  "You pick the napkin up and fold it into a very small square and put it in your coat, slowly, like a lit fuse.",
+  {
+   "stability": "secure"
+  },
+  {
+   "setFlag": "p14_fl_napkin_secured"
+  }
+ ],
+ "p14c5.fl_page": [
+  {
+   "setFlag": "p14_fl_page_started"
+  },
+  {
+   "setValue": "p14_flutter_current",
+   "value": "page"
+  },
+  {
+   "setVar": "p14_fl_erupts",
+   "value": 0
+  },
+  "Garrick, to calm himself, has started reading his pocket edition. A page corner lifts in the draught. Riffles.",
+  {
+   "stability": "incident",
+   "id": "fl_page"
+  },
+  {
+   "stability": "trigger",
+   "id": "flutter",
+   "quiet": true
+  },
+  "garrick[nervous]: (sighing heavily at it) Hhhhhhhh.",
+  {
+   "stability": "trigger",
+   "id": "sighing"
+  },
+  {
+   "tutorial": "A page of Garrick's book is riffling (and he sighed). Hold it down (Garrick), then steady Brogath.",
+   "title": "Flutter: a Page"
+  }
+ ],
+ "p14c5.fl_page_secure": [
+  "captain[annoyed]: Close the BOOK.",
+  "garrick[offended]: It's the good part.",
+  "You close it for him and put your hand on it until he lets go.",
+  {
+   "setFlag": "brogath_rule_no_sighing"
+  },
+  {
+   "addVar": "brogath_rules",
+   "value": 1
+  },
+  "pete: (writing) NO. SIGHING.",
+  {
+   "stability": "secure"
+  },
+  {
+   "setFlag": "p14_fl_page_secured"
+  }
+ ],
+ "p14c5.fl_squawks": [
+  {
+   "setFlag": "p14_fl_squawks_started"
+  },
+  {
+   "setValue": "p14_flutter_current",
+   "value": "squawks"
+  },
+  {
+   "setVar": "p14_fl_erupts",
+   "value": 0
+  },
+  "Squawks has had enough of the corner. He spreads his wings to fly up to the beams.",
+  {
+   "sfx": "wing_flap",
+   "volume": 0.9
+  },
+  {
+   "stability": "incident",
+   "id": "fl_squawks"
+  },
+  {
+   "stability": "trigger",
+   "id": "squawks_flap",
+   "quiet": true
+  },
+  "pete: SQUAWKS. NO.",
+  {
+   "tutorial": "Squawks is flapping. Stop him (Squawks), then steady Brogath.",
+   "title": "Flutter: a Parrot"
+  }
+ ],
+ "p14c5.fl_squawks_secure": [
+  "captain[determined]: Squawks. No flying. Not near him.",
+  "squawks[outraged]: Bird.",
+  "captain[determined]: Walk.",
+  "squawks[outraged]: ...Walk?",
+  "captain[determined]: WALK.",
+  "Squawks folds his wings with enormous dignity and stalks off across the floor. On foot. Glaring.",
+  {
+   "setFlag": "brogath_rule_squawks_walks"
+  },
+  {
+   "addVar": "brogath_rules",
+   "value": 1
+  },
+  {
+   "stability": "secure"
+  },
+  {
+   "setFlag": "p14_fl_squawks_secured"
+  }
+ ],
+ "p14c5.fl_flag": [
+  {
+   "setFlag": "p14_fl_flag_started"
+  },
+  {
+   "setValue": "p14_flutter_current",
+   "value": "flag"
+  },
+  {
+   "setVar": "p14_fl_erupts",
+   "value": 0
+  },
+  {
+   "sfx": "sash_flap",
+   "volume": 0.8
+  },
+  "The porthole on the north wall has cracked, and the storm is whistling in. The HOLD MY SASH bunting under it is going like a flag on a mast.",
+  {
+   "stability": "incident",
+   "id": "fl_flag"
+  },
+  {
+   "stability": "trigger",
+   "id": "flutter_big",
+   "quiet": true
+  },
+  "bob: (whimpering) It's a FLAG. It's a whole FLAG.",
+  {
+   "tutorial": "The bunting under the porthole is going like a flag. Take it down (the bunting), then steady Brogath.",
+   "title": "Flutter: a Flag"
+  }
+ ],
+ "p14c5.fl_flag_secure": [
+  "You rip the bunting down and stuff a sash pillow in the cracked porthole.",
+  {
+   "stability": "secure"
+  },
+  {
+   "setFlag": "p14_fl_flag_secured"
+  }
+ ],
+ "p14c5.steady": [
+  {
+   "reassure": "flutter"
+  },
+  {
+   "if": {
+    "var": {
+     "name": "brogath_pressure",
+     "gte": 30
+    }
+   },
+   "then": [
+    "He's still trembling at the edges.",
+    {
+     "bark": "pete",
+     "text": "More. Say MORE.",
+     "duration": 1200
+    }
+   ],
+   "else": [
+    {
+     "call": "p14c5.steady_check"
+    }
+   ]
+  }
+ ],
+ "p14c5.steady_check": [
+  {
+   "if": {
+    "all": [
+     {
+      "value": {
+       "name": "p14_flutter_current",
+       "eq": "shirt"
+      }
+     },
+     {
+      "flag": "p14_fl_shirt_secured"
+     },
+     {
+      "notFlag": "p14_fl_shirt_done"
+     }
+    ]
+   },
+   "then": [
+    {
+     "setFlag": "p14_fl_shirt_done"
+    },
+    {
+     "event": "p14_flutter"
+    },
+    "The pink goes out of his printed cheeks. The hum stops.",
+    {
+     "stability": "meter",
+     "show": "auto"
+    }
+   ]
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "value": {
+       "name": "p14_flutter_current",
+       "eq": "label"
+      }
+     },
+     {
+      "flag": "p14_fl_label_secured"
+     },
+     {
+      "notFlag": "p14_fl_label_done"
+     }
+    ]
+   },
+   "then": [
+    {
+     "setFlag": "p14_fl_label_done"
+    },
+    {
+     "event": "p14_flutter"
+    },
+    "The pink goes out of his printed cheeks. The hum stops.",
+    {
+     "stability": "meter",
+     "show": "auto"
+    }
+   ]
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "value": {
+       "name": "p14_flutter_current",
+       "eq": "napkin"
+      }
+     },
+     {
+      "flag": "p14_fl_napkin_secured"
+     },
+     {
+      "notFlag": "p14_fl_napkin_done"
+     }
+    ]
+   },
+   "then": [
+    {
+     "setFlag": "p14_fl_napkin_done"
+    },
+    {
+     "event": "p14_flutter"
+    },
+    "The pink goes out of his printed cheeks. The hum stops.",
+    {
+     "stability": "meter",
+     "show": "auto"
+    }
+   ]
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "value": {
+       "name": "p14_flutter_current",
+       "eq": "page"
+      }
+     },
+     {
+      "flag": "p14_fl_page_secured"
+     },
+     {
+      "notFlag": "p14_fl_page_done"
+     }
+    ]
+   },
+   "then": [
+    {
+     "setFlag": "p14_fl_page_done"
+    },
+    {
+     "event": "p14_flutter"
+    },
+    "The pink goes out of his printed cheeks. The hum stops.",
+    {
+     "stability": "meter",
+     "show": "auto"
+    }
+   ]
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "value": {
+       "name": "p14_flutter_current",
+       "eq": "squawks"
+      }
+     },
+     {
+      "flag": "p14_fl_squawks_secured"
+     },
+     {
+      "notFlag": "p14_fl_squawks_done"
+     }
+    ]
+   },
+   "then": [
+    {
+     "setFlag": "p14_fl_squawks_done"
+    },
+    {
+     "event": "p14_flutter"
+    },
+    "The pink goes out of his printed cheeks. The hum stops.",
+    {
+     "stability": "meter",
+     "show": "auto"
+    }
+   ]
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "value": {
+       "name": "p14_flutter_current",
+       "eq": "flag"
+      }
+     },
+     {
+      "flag": "p14_fl_flag_secured"
+     },
+     {
+      "notFlag": "p14_fl_flag_done"
+     }
+    ]
+   },
+   "then": [
+    {
+     "setFlag": "p14_fl_flag_done"
+    },
+    {
+     "event": "p14_flutter"
+    },
+    "The pink goes out of his printed cheeks. The hum stops.",
+    {
+     "stability": "meter",
+     "show": "auto"
+    }
+   ]
+  },
+  {
+   "if": {
+    "not": {
+     "any": [
+      {
+       "all": [
+        {
+         "value": {
+          "name": "p14_flutter_current",
+          "eq": "shirt"
+         }
+        },
+        {
+         "flag": "p14_fl_shirt_done"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "value": {
+          "name": "p14_flutter_current",
+          "eq": "label"
+         }
+        },
+        {
+         "flag": "p14_fl_label_done"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "value": {
+          "name": "p14_flutter_current",
+          "eq": "napkin"
+         }
+        },
+        {
+         "flag": "p14_fl_napkin_done"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "value": {
+          "name": "p14_flutter_current",
+          "eq": "page"
+         }
+        },
+        {
+         "flag": "p14_fl_page_done"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "value": {
+          "name": "p14_flutter_current",
+          "eq": "squawks"
+         }
+        },
+        {
+         "flag": "p14_fl_squawks_done"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "value": {
+          "name": "p14_flutter_current",
+          "eq": "flag"
+         }
+        },
+        {
+         "flag": "p14_fl_flag_done"
+        }
+       ]
+      }
+     ]
+    }
+   },
+   "then": [
+    "brogath[bashful]: (eyes still sliding off toward it) It's still... it's still MOVING, though. Isn't it.",
+    {
+     "bark": "gristle",
+     "text": "SECURE IT FIRST!",
+     "duration": 1400
+    }
+   ]
+  }
+ ],
+ "p14c5.fl_erupt": [
+  {
+   "addVar": "p14_fl_erupts",
+   "value": 1
+  },
+  {
+   "call": "p14.eruption_small"
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p14_fl_erupts",
+     "gte": 2
+    }
+   },
+   "then": [
+    "pete: (scrambling out over the barricade) I'VE GOT IT. I'VE GOT IT.",
+    {
+     "if": {
+      "all": [
+       {
+        "value": {
+         "name": "p14_flutter_current",
+         "eq": "shirt"
+        }
+       },
+       {
+        "notFlag": "p14_fl_shirt_secured"
+       }
+      ]
+     },
+     "then": [
+      {
+       "call": "p14c5.fl_shirt_secure"
+      }
+     ]
+    },
+    {
+     "if": {
+      "all": [
+       {
+        "value": {
+         "name": "p14_flutter_current",
+         "eq": "label"
+        }
+       },
+       {
+        "notFlag": "p14_fl_label_secured"
+       }
+      ]
+     },
+     "then": [
+      {
+       "call": "p14c5.fl_label_secure"
+      }
+     ]
+    },
+    {
+     "if": {
+      "all": [
+       {
+        "value": {
+         "name": "p14_flutter_current",
+         "eq": "napkin"
+        }
+       },
+       {
+        "notFlag": "p14_fl_napkin_secured"
+       }
+      ]
+     },
+     "then": [
+      {
+       "call": "p14c5.fl_napkin_secure"
+      }
+     ]
+    },
+    {
+     "if": {
+      "all": [
+       {
+        "value": {
+         "name": "p14_flutter_current",
+         "eq": "page"
+        }
+       },
+       {
+        "notFlag": "p14_fl_page_secured"
+       }
+      ]
+     },
+     "then": [
+      {
+       "call": "p14c5.fl_page_secure"
+      }
+     ]
+    },
+    {
+     "if": {
+      "all": [
+       {
+        "value": {
+         "name": "p14_flutter_current",
+         "eq": "squawks"
+        }
+       },
+       {
+        "notFlag": "p14_fl_squawks_secured"
+       }
+      ]
+     },
+     "then": [
+      {
+       "call": "p14c5.fl_squawks_secure"
+      }
+     ]
+    },
+    {
+     "if": {
+      "all": [
+       {
+        "value": {
+         "name": "p14_flutter_current",
+         "eq": "flag"
+        }
+       },
+       {
+        "notFlag": "p14_fl_flag_secured"
+       }
+      ]
+     },
+     "then": [
+      {
+       "call": "p14c5.fl_flag_secure"
+      }
+     ]
+    },
+    "pete: NOW talk to him."
+   ]
+  }
+ ],
+ "p14c5.flutters_done": [
+  {
+   "setFlag": "p14_flutters_said"
+  },
+  "Six flutters. A shirt, a label, a napkin, a page, a parrot, a flag.",
+  "Behind the barricade, the whole crew are lying flat, breathing through their mouths, watching a dropped feather as if it were a lit fuse.",
+  "gristle: (very quietly) Feather.",
+  "jim: (very quietly) I see it.",
+  "Nobody moves until it settles.",
+  "captain[resigned]: ...I used to rob merchant vessels.",
+  {
+   "tutorial": "Add what you've learned to the rules (the board on the barricade).",
+   "title": "Keep Brogath Confident"
+  }
+ ],
+ "p14c5.rules": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "pete: (pencil out) Big one first.",
+  {
+   "setFlag": "brogath_rule_nothing_flutters"
+  },
+  {
+   "addVar": "brogath_rules",
+   "value": 1
+  },
+  "pete: (writing, underlining it three times) NOTHING. MAY. FLUTTER.",
+  "squawks[outraged]: Walk.",
+  "pete: It's already on, Squawks.",
+  {
+   "logbook": "brogath_rules"
+  },
+  {
+   "setFlag": "p14_flutter_rules"
+  },
+  {
+   "completeQuest": "keep_brogath_confident"
+  },
+  {
+   "call": "p14c6.begin"
+  }
+ ],
+ "p14c6.begin": [
+  {
+   "setFlag": "p14_ch151_started"
+  },
+  {
+   "banner": "CHAPTER 151",
+   "sub": "The Apology Eruption"
+  },
+  "It's quiet. It's been quiet for nearly a quarter of an hour. And that's when Gristle, of all people, makes conversation.",
+  "gristle: (to Brogath, over the barricade) That first one, though. Earlier. That was something.",
+  "brogath[bashful]: Oh, that? That was just a little toot.",
+  "jim: (unable to stop himself) A TOOT? It moved the TABLE.",
+  "gristle: It moved the SHIP.",
+  "bob: It took the Captain's HAT.",
+  "brogath[confused]: ...Did it?",
+  "pete[alarmed]: (hissing) Stop TELLING him.",
+  "captain[annoyed]: (standing up behind the barricade) Brogath. With respect. That was not a toot. That was an explosion. You scorched the FLOOR.",
+  {
+   "stability": "trigger",
+   "id": "criticized"
+  },
+  "brogath[sorry]: Oh. Oh, no. I'm sorry. I'm SO sorry. I'm terribly, terribly sorry...",
+  {
+   "stability": "trigger",
+   "id": "apologized"
+  },
+  "brogath[mortified]: ...and now I'm apologising, and that's embarrassing, I'm sorry, I'm sorry for...",
+  {
+   "stability": "set",
+   "pressure": 90
+  },
+  {
+   "sfx": "pressure_build",
+   "volume": 1.0
+  },
+  {
+   "shake": 3,
+   "duration": 900
+  },
+  "pete: (flattening himself) HE'S APOLOGISING.",
+  {
+   "sfx": "brogath_eruption",
+   "volume": 1.0
+  },
+  {
+   "flash": "#f0e0a0",
+   "duration": 250
+  },
+  {
+   "setFlag": "p14_apology_active"
+  },
+  {
+   "fumeCloud": "p14_apology",
+   "level": "dense",
+   "x": 7,
+   "y": 6,
+   "w": 5,
+   "h": 5,
+   "grow": 600
+  },
+  "It starts. And it doesn't stop.",
+  "The sashes lift. The blankets lift. Every loose thing in the room streams out flat in the wind of it, fluttering. And Brogath sees them flutter, and goes redder, and it gets WORSE.",
+  "gristle: (holding his hat on) It's FEEDING ITSELF! The flutter's embarrassing him, and the embarrassment's making more FLUTTER!",
+  {
+   "startQuest": "apology_eruption"
+  },
+  {
+   "stability": "incident",
+   "id": "apology"
+  },
+  {
+   "tutorial": "Break the loop. BRACE (the mast post), secure the loose sashes (three sash hammocks), stop what's sliding (the bedroom set and the Mega-Pack), catch the swinging lantern; then get to him through the cloud and talk him down.",
+   "title": "The Apology Eruption"
+  }
+ ],
+ "p14c6.brace": [
+  "You get your back against the mast post and your boots against the floor.",
+  {
+   "repair": "brace",
+   "strikes": 3,
+   "title": "BRACE!"
+  },
+  "It shoves. You stay.",
+  {
+   "setFlag": "p14_ae_brace"
+  }
+ ],
+ "p14c6.sash_a": [
+  "A sash hammock, streaming out flat like a pennant. You haul the end in and knot it down.",
+  {
+   "repair": "knot",
+   "strikes": 3,
+   "title": "TIE IT DOWN"
+  },
+  {
+   "stability": "calm",
+   "id": "secured",
+   "quiet": true
+  },
+  "One less thing fluttering. You hear him notice: the roar drops, just slightly.",
+  {
+   "setFlag": "p14_ae_sash_a"
+  },
+  {
+   "event": "p14_ae_sash"
+  }
+ ],
+ "p14c6.sash_b": [
+  "A sash hammock, streaming out flat like a pennant. You haul the end in and knot it down.",
+  {
+   "repair": "knot",
+   "strikes": 3,
+   "title": "TIE IT DOWN"
+  },
+  {
+   "stability": "calm",
+   "id": "secured",
+   "quiet": true
+  },
+  "One less thing fluttering. You hear him notice: the roar drops, just slightly.",
+  {
+   "setFlag": "p14_ae_sash_b"
+  },
+  {
+   "event": "p14_ae_sash"
+  }
+ ],
+ "p14c6.sash_c": [
+  "A sash hammock, streaming out flat like a pennant. You haul the end in and knot it down.",
+  {
+   "repair": "knot",
+   "strikes": 3,
+   "title": "TIE IT DOWN"
+  },
+  {
+   "stability": "calm",
+   "id": "secured",
+   "quiet": true
+  },
+  "One less thing fluttering. You hear him notice: the roar drops, just slightly.",
+  {
+   "setFlag": "p14_ae_sash_c"
+  },
+  {
+   "event": "p14_ae_sash"
+  }
+ ],
+ "p14c6.object_set": [
+  "The bedroom set is walking off its barrel table, a jolt at a time, its forks rattling.",
+  {
+   "repair": "grab",
+   "strikes": 3,
+   "title": "HOLD IT"
+  },
+  "You get both arms round it and sit on the barrel. It hums at you, offended.",
+  {
+   "stability": "calm",
+   "id": "secured",
+   "quiet": true
+  },
+  {
+   "setFlag": "p14_ae_obj_set"
+  },
+  {
+   "event": "p14_ae_object"
+  }
+ ],
+ "p14c6.object_pack": [
+  "The Fan Mega-Pack is sliding toward the wall, a foot at a time, shedding mugs. You throw yourself on it.",
+  {
+   "repair": "grab",
+   "strikes": 3,
+   "title": "HOLD IT"
+  },
+  {
+   "stability": "calm",
+   "id": "secured",
+   "quiet": true
+  },
+  {
+   "setFlag": "p14_ae_obj_pack"
+  },
+  {
+   "event": "p14_ae_object"
+  }
+ ],
+ "p14c6.lantern": [
+  "The lantern is swinging so hard it's nearly horizontal. If it goes, it goes into the bunks.",
+  {
+   "repair": "grab",
+   "strikes": 3,
+   "title": "CATCH IT"
+  },
+  "You catch it on the upswing and hook it off the beam. Hot. Still lit. Safe.",
+  {
+   "stability": "calm",
+   "id": "secured",
+   "quiet": true
+  },
+  {
+   "setFlag": "p14_ae_lantern"
+  }
+ ],
+ "p14c6.ready": [
+  {
+   "setFlag": "p14_ae_ready_said"
+  },
+  "Everything that can be tied down is tied down. It's still going. It's going steadier.",
+  "pete: (shouting over it) Now HIM. Get to him! Tell him it was GOOD!",
+  {
+   "tutorial": "Get to him through the cloud and talk him down (Brogath).",
+   "title": "The Apology Eruption"
+  }
+ ],
+ "p14c6.reach": [
+  {
+   "if": {
+    "notFlag": "p14_ae_ready_said"
+   },
+   "then": [
+    "You can't get close. Not with everything in the room still flapping at him. Tie it all down first.",
+    {
+     "end": true
+    }
+   ]
+  },
+  "You get to him. Just. Bent double, eyes streaming, one hand over your face.",
+  "brogath[mortified]: (the card bowed right out) I'm sorry. I'm sorry. I'm SO...",
+  {
+   "reassure": "apology"
+  },
+  {
+   "if": {
+    "var": {
+     "name": "brogath_pressure",
+     "gte": 40
+    }
+   },
+   "then": [
+    "He's still going.",
+    {
+     "reassure": "apology"
+    },
+    {
+     "if": {
+      "var": {
+       "name": "brogath_pressure",
+       "gte": 40
+      }
+     },
+     "then": [
+      {
+       "reassure": "apology"
+      }
+     ]
+    },
+    {
+     "if": {
+      "var": {
+       "name": "brogath_pressure",
+       "gte": 40
+      }
+     },
+     "then": [
+      {
+       "stability": "calm",
+       "id": "magnificent",
+       "quiet": true
+      },
+      "pete: (somewhere behind you) TELL HIM IT WAS MAGNIFICENT."
+     ]
+    }
+   ]
+  },
+  {
+   "call": "p14c6.done"
+  }
+ ],
+ "p14c6.gust": [
+  {
+   "sfx": "brogath_rumble_big",
+   "volume": 0.9
+  },
+  {
+   "shake": 4,
+   "duration": 800
+  },
+  "A gust off him knocks you flat on your back. You get up. It's still going.",
+  {
+   "bark": "gristle",
+   "text": "KEEP AT IT!",
+   "duration": 1200
+  }
+ ],
+ "p14c6.done": [
+  {
+   "stability": "secure"
+  },
+  "The roar falls off. The sashes come down. The cloud thins, and stops being a wind, and is just a smell. A very old smell.",
+  "brogath[thoughtful]: (looking round at the room, which is mostly still there) ...It was, wasn't it. Rather magnificent.",
+  "captain[queasy]: (on your knees) Rather.",
+  "brogath[proud]: A rather magnificent Stenchmaster FART.",
+  "captain[queasy]: A rather magnificent... Stenchmaster... fart.",
+  "brogath[pleased]: Thank you, Captain. I feel much better.",
+  {
+   "fumeCloud": "p14_apology",
+   "remove": true
+  },
+  {
+   "clearFlag": "p14_apology_active"
+  },
+  {
+   "stability": "settle",
+   "pressure": 5
+  },
+  "gristle: (climbing out from under the cask) THAT'S why. That's why he's worse than Garrick. Garrick knows how big his are.",
+  "garrick[offended]: (from the floor) I do. I do know.",
+  "pete: (writing on the parchment, which survived, somehow) BROGATH. MAY NOT. APOLOGISE.",
+  {
+   "setFlag": "brogath_rule_no_apologising"
+  },
+  {
+   "addVar": "brogath_rules",
+   "value": 1
+  },
+  "pete: And: IF BROGATH CALLS IT A TOOT...",
+  "crew: (all together) AGREE.",
+  {
+   "setFlag": "brogath_rule_toot"
+  },
+  {
+   "addVar": "brogath_rules",
+   "value": 1
+  },
+  "Confidence. Not truth. Confidence. It's the only thing that works on him, and the crew of the Revenge have learned it the hard way.",
+  {
+   "setFlag": "p14_ae_reached"
+  },
+  {
+   "completeQuest": "apology_eruption"
+  },
+  {
+   "call": "p14c7.begin"
+  }
+ ],
+ "p14.eruption_small": [
+  {
+   "sfx": "brogath_eruption_small",
+   "volume": 0.9
+  },
+  {
+   "shake": 3,
+   "duration": 700
+  },
+  {
+   "flash": "#e8e0a0",
+   "duration": 160
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 8,
+   "count": 6
+  },
+  "BRRRRMMP.",
+  "Everybody in the room is suddenly one step further away from him than they were.",
+  "brogath[sorry]: ...Little toot.",
+  {
+   "if": {
+    "flag": "brogath_rule_toot"
+   },
+   "then": [
+    "crew: (in unison, flat) Agreed. Little toot."
+   ]
+  },
+  {
+   "stability": "set",
+   "pressure": 55
+  }
+ ],
+ "p14.eruption_apology": [
+  {
+   "call": "p14c6.begin"
+  }
+ ],
+ "p14.eruption_catastrophe": [
+  {
+   "call": "p14c22.catastrophe"
+  }
+ ]
+}

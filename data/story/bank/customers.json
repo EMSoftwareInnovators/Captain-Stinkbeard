@@ -1,0 +1,817 @@
+{
+ "//": "Story Phase 14: the Grand Bank's depositors, summoned by the branch out of Stenchmaster haze. Data first: adding one is an entry here and two little scripts (intro, after). intensity is the bank's scale (1-10, or '10+'); classify is what the ledger offers; pattern is the teller's window (take the sash, hold it in the band, wait, a harmless puff, BRACE when the rings meet).",
+ "windabella": {
+  "bank": "grand_bank",
+  "npc": "windabella",
+  "name": "Grand Duchess Windabella the Imperious",
+  "short": "The Duchess",
+  "title": "Grand Duchess of the Upper Breezes, Keeper of the Crimson Sash",
+  "intensity": 4,
+  "classify": [
+   3,
+   4,
+   5
+  ],
+  "telegraph": "A slow, imperious swell.",
+  "pattern": [
+   {
+    "take": true,
+    "text": "She holds out a crimson sash the size of a tablecloth, and waits for you to take it, because she has never in her life had to wait."
+   },
+   {
+    "hold": 4,
+    "text": "Hold it. She is not to be hurried.",
+    "band": [
+     34,
+     70
+    ]
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1100,
+    "window": 170
+   }
+  ],
+  "intro": "p14.bank.windabella.intro",
+  "after": "p14.bank.windabella.after",
+  "notes": "Furniture-moving. Table moved four feet. Did not apologise. Did not look."
+ },
+ "gassius": {
+  "bank": "grand_bank",
+  "npc": "gassius",
+  "name": "Sir Gassius Thunderbottom",
+  "short": "Sir Gassius",
+  "title": "Knight of the Ceremonial Bean, Thunderbottom of Thunderbottom Hall",
+  "intensity": 5,
+  "classify": [
+   4,
+   5,
+   6
+  ],
+  "telegraph": "Burnt pepper. A family recipe.",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "hold": 3.5,
+    "text": "A family diet of burnt pepper. Three hundred years of it.",
+    "surges": [
+     {
+      "at": 1.6,
+      "kick": 18
+     }
+    ]
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "intro": "p14.bank.gassius.intro",
+  "after": "p14.bank.gassius.after",
+  "notes": "Structural. Crack in mainmast (small). Smelled of pepper for an hour."
+ },
+ "rumblewaft": {
+  "bank": "grand_bank",
+  "npc": "rumblewaft",
+  "name": "Lady Rumblewaft the Resolute",
+  "short": "Lady Rumblewaft",
+  "title": "Holder of the Long Waft, Patience of the Southern Shore",
+  "intensity": 3,
+  "classify": [
+   2,
+   3,
+   4
+  ],
+  "telegraph": "Not strong. LONG.",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "hold": 12,
+    "text": "It isn't strong. It just doesn't stop.",
+    "band": [
+     30,
+     72
+    ],
+    "pull": 50,
+    "slack": 36,
+    "milestones": [
+     {
+      "at": 4,
+      "text": "Still going. Your arms have started to ache."
+     },
+     {
+      "at": 7,
+      "text": "STILL going. Jim brings you a stool. You can't sit on it. You're holding a sash."
+     },
+     {
+      "at": 10,
+      "text": "Gristle has started a second watch."
+     }
+    ]
+   },
+   {
+    "brace": "NEARLY...",
+    "ring": 1200,
+    "window": 220
+   }
+  ],
+  "intro": "p14.bank.rumblewaft.intro",
+  "after": "p14.bank.rumblewaft.after",
+  "notes": "Furniture-aware. Duration: 1 hour 14 min (estimated). Arms gone. Tea made twice."
+ },
+ "puffington": {
+  "bank": "grand_bank",
+  "npc": "puffington",
+  "name": "Lord Puffington the Enduring",
+  "short": "Lord Puffington",
+  "title": "Lord Puffington the Enduring, Ninety-Seven, Eater of Fibre",
+  "intensity": 6,
+  "classify": [
+   5,
+   6,
+   7
+  ],
+  "telegraph": "Very old. Very frail. Seems quite harmless.",
+  "pattern": [
+   {
+    "take": true,
+    "text": "His hand shakes, passing it over. Such a nice old man."
+   },
+   {
+    "hold": 2,
+    "text": "Gentle. Hardly anything. Poor old soul.",
+    "band": [
+     26,
+     78
+    ],
+    "pull": 42,
+    "slack": 36
+   },
+   {
+    "wait": 900,
+    "text": "...",
+    "label": "..."
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 800,
+    "window": 150,
+    "power": 6,
+    "text": "...oh no."
+   }
+  ],
+  "intro": "p14.bank.puffington.intro",
+  "after": "p14.bank.puffington.after",
+  "notes": "MARITIME. HE IS NINETY-SEVEN. Fibre. (Do not trust the old ones.)"
+ },
+ "breezella": {
+  "bank": "grand_bank",
+  "npc": "breezella",
+  "name": "Grand Stenchmistress Breezella the Bold",
+  "short": "Breezella",
+  "title": "Grand Stenchmistress of Acceleration, Youngest Ever Certified",
+  "intensity": 5,
+  "classify": [
+   4,
+   5,
+   6
+  ],
+  "telegraph": "Fast. Then, a moment later: FAST.",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "puff": true,
+    "label": "FWIP!",
+    "ms": 700,
+    "sfx": "puff_sharp",
+    "text": "A short, sharp one. Is that it? That's it."
+   },
+   {
+    "wait": 1400,
+    "text": "...nothing...",
+    "label": "..."
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 700,
+    "window": 140,
+    "text": "And here comes the rest of it."
+   }
+  ],
+  "intro": "p14.bank.breezella.intro",
+  "after": "p14.bank.breezella.after",
+  "notes": "Structural, delayed. The wave comes LATER. Watch for the wave."
+ },
+ "gustavius": {
+  "bank": "grand_bank",
+  "npc": "gustavius",
+  "name": "Little Grand Gustavius",
+  "short": "Gustavius",
+  "title": "Apprentice Grand Stenchmaster (Junior Division)",
+  "intensity": 6,
+  "classify": [
+   5,
+   6,
+   7
+  ],
+  "telegraph": "A small boy in an enormous sash.",
+  "pattern": [
+   {
+    "take": true,
+    "text": "The sash trails three yards behind him. He has a paper crown."
+   },
+   {
+    "hold": 2.5,
+    "text": "Easy. He's only little.",
+    "band": [
+     30,
+     74
+    ]
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 900,
+    "window": 170,
+    "power": 6
+   }
+  ],
+  "intro": "p14.bank.gustavius.intro",
+  "after": "p14.bank.gustavius.after",
+  "notes": "Maritime. Aged seven and three quarters. 'The secret is beans.' (It is.)"
+ },
+ "puffalina": {
+  "bank": "grand_bank",
+  "npc": "puffalina",
+  "name": "Grand Toddler Puffalina",
+  "short": "Puffalina",
+  "title": "Grand Toddler, Heiress to the Little Breeze",
+  "intensity": 7,
+  "classify": [
+   6,
+   7,
+   8
+  ],
+  "telegraph": "She's TWO.",
+  "pattern": [
+   {
+    "take": true,
+    "text": "She holds out a tiny sash. And a stuffed skunk. You take the sash."
+   },
+   {
+    "puff": true,
+    "label": "pt.",
+    "ms": 900,
+    "sfx": "puff_tiny",
+    "text": "A tiny little puff. Aww."
+   },
+   {
+    "wait": 1600,
+    "text": "She's very pleased with herself. Too pleased.",
+    "label": "..."
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 650,
+    "window": 150,
+    "power": 7,
+    "text": "WAIT."
+   }
+  ],
+  "intro": "p14.bank.puffalina.intro",
+  "after": "p14.bank.puffalina.after",
+  "notes": "MUNICIPAL. AGED TWO. The second one. ALWAYS the second one."
+ },
+ "ventworth": {
+  "bank": "grand_bank",
+  "npc": "ventworth",
+  "name": "Dr. Flatulon Ventworth",
+  "short": "Dr. Ventworth",
+  "title": "Professor of Applied Atmospherics, Fellow of the Grand Society",
+  "intensity": 5,
+  "classify": [
+   4,
+   5,
+   6
+  ],
+  "telegraph": "Unnervingly consistent.",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "hold": 5,
+    "text": "Perfectly even. Perfectly steady. The same note, held.",
+    "band": [
+     38,
+     66
+    ],
+    "sway": {
+     "amp": 4,
+     "period": 5
+    },
+    "milestones": [
+     {
+      "at": 2.5,
+      "text": "The ship has started to HUM. At his frequency."
+     }
+    ]
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "intro": "p14.bank.ventworth.intro",
+  "after": "p14.bank.ventworth.after",
+  "notes": "NERD"
+ },
+ "windledger": {
+  "bank": "grand_bank",
+  "npc": "windledger",
+  "name": "Madame Windledger",
+  "short": "Madame Windledger",
+  "title": "Grand Auditor of the Grand Trust",
+  "intensity": 5,
+  "classify": [
+   4,
+   5,
+   6
+  ],
+  "telegraph": "She is looking at your handwriting.",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "hold": 3,
+    "text": "She is reading the ledger upside down while you hold it.",
+    "surges": [
+     {
+      "at": 1.4,
+      "kick": 16
+     }
+    ]
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "intro": "p14.bank.windledger.intro",
+  "after": "p14.bank.windledger.after",
+  "notes": "Structural. Moved the COUNTER. With me behind it. My fives are FINE."
+ },
+ "gasbeth": {
+  "bank": "grand_bank",
+  "npc": "gasbeth",
+  "name": "Captain Gasbeth",
+  "short": "Captain Gasbeth",
+  "title": "Pirate Grand Stenchmaster, Terror of the Windward Isles",
+  "intensity": 6,
+  "classify": [
+   5,
+   6,
+   7
+  ],
+  "telegraph": "Another captain. She's eyeing your cannons.",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "hold": 3,
+    "text": "She grins at you over the sash, one captain to another.",
+    "surges": [
+     {
+      "at": 2.0,
+      "kick": 20
+     }
+    ]
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 900,
+    "window": 170,
+    "power": 6
+   }
+  ],
+  "intro": "p14.bank.gasbeth.intro",
+  "after": "p14.bank.gasbeth.after",
+  "notes": "Maritime. Fired a cannon. One captain to another: respect."
+ },
+ "thundergut": {
+  "bank": "grand_bank",
+  "npc": "thundergut",
+  "name": "Baron Thundergut",
+  "short": "The Baron",
+  "title": "Baron Thundergut, Triple-Sash Certified",
+  "intensity": 7,
+  "classify": [
+   6,
+   7,
+   8
+  ],
+  "telegraph": "Huge. Three sashes. You have to hold all three.",
+  "pattern": [
+   {
+    "take": true,
+    "text": "One sash."
+   },
+   {
+    "take": true,
+    "text": "Two sashes."
+   },
+   {
+    "take": true,
+    "text": "THREE sashes. Your arms are full of sash."
+   },
+   {
+    "hold": 4,
+    "text": "Pete has your belt. Gristle has Pete. Bob has Gristle. A human chain.",
+    "pull": 66,
+    "slack": 38,
+    "surges": [
+     {
+      "at": 1.2,
+      "kick": 20
+     },
+     {
+      "at": 2.8,
+      "kick": 24
+     }
+    ]
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170,
+    "power": 7
+   }
+  ],
+  "intro": "p14.bank.thundergut.intro",
+  "after": "p14.bank.thundergut.after",
+  "notes": "Municipal. Three sashes. Human chain: Pete, Gristle, Bob, Jim, Ned. (Squawks supervised.)"
+ },
+ "duke_puff": {
+  "bank": "grand_bank",
+  "npc": "duke_puff",
+  "name": "Grand Miniature Duke Puff",
+  "short": "Duke Puff",
+  "title": "Grand Miniature Duke, Master of Concentrated Output",
+  "intensity": 6,
+  "classify": [
+   5,
+   6,
+   7
+  ],
+  "telegraph": "Tiny. Very, very focused.",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "puff": true,
+    "label": "PT.",
+    "ms": 700,
+    "sfx": "puff_tiny",
+    "text": "A tiny 'PT.' That's all. That's..."
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 600,
+    "window": 130,
+    "power": 6,
+    "text": "...FOCUSED."
+   }
+  ],
+  "intro": "p14.bank.duke_puff.intro",
+  "after": "p14.bank.duke_puff.after",
+  "notes": "Maritime. 'PT.' Then the BELL. Split in two. From across the DECK."
+ },
+ "wind_twins": {
+  "bank": "grand_bank",
+  "npc": "wind_twins",
+  "name": "The Grand Wind Twins",
+  "short": "The Twins",
+  "title": "Joint Account Holders, the Synchronised Sashes of Breezemouth",
+  "intensity": 6,
+  "classify": [
+   5,
+   6,
+   7
+  ],
+  "telegraph": "Two of them. Stereo.",
+  "pattern": [
+   {
+    "take": true,
+    "text": "The left twin's sash."
+   },
+   {
+    "take": true,
+    "text": "The right twin's sash."
+   },
+   {
+    "hold": 3,
+    "text": "Two sashes, pulling two ways.",
+    "sway": {
+     "amp": 16,
+     "period": 2.4
+    }
+   },
+   {
+    "brace": "LEFT!",
+    "ring": 900,
+    "window": 170
+   },
+   {
+    "brace": "RIGHT!",
+    "ring": 500,
+    "window": 140,
+    "text": "Both at once. They meet in the middle. The middle is you."
+   }
+  ],
+  "intro": "p14.bank.wind_twins.intro",
+  "after": "p14.bank.wind_twins.after",
+  "notes": "Maritime. Two waves. They met in me. Beard: vertical (temporarily)."
+ },
+ "rumpington": {
+  "bank": "grand_bank",
+  "npc": "rumpington",
+  "name": "Grand Duke Rumpington",
+  "short": "The Grand Duke",
+  "title": "Grand Duke Rumpington of the Lower Rumps, Hereditary Bench-Warmer",
+  "intensity": 5,
+  "classify": [
+   4,
+   5,
+   6
+  ],
+  "telegraph": "A great deal of velvet. A great deal of man.",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "hold": 3.5,
+    "text": "He sighs, theatrically, the whole time."
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "intro": "p14.bank.rumpington.intro",
+  "after": "p14.bank.rumpington.after",
+  "notes": "Structural. Ned on his back. Ned fine."
+ },
+ "beatrice": {
+  "bank": "grand_bank",
+  "npc": "beatrice",
+  "name": "Beatrice of the Violet Sash",
+  "short": "Beatrice",
+  "title": "Beatrice of the Violet Sash",
+  "intensity": 4,
+  "classify": [
+   3,
+   4,
+   5
+  ],
+  "telegraph": "A violet sash. A very nice violet sash.",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "hold": 3,
+    "text": "She hums while you hold it. Quite a nice tune."
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "intro": "p14.bank.beatrice.intro",
+  "after": "p14.bank.beatrice.after",
+  "notes": "Furniture-moving. Pleasant. Coils neater after. (The only nice one.)"
+ },
+ "gary": {
+  "bank": "grand_bank",
+  "npc": "gary",
+  "name": "Gary",
+  "short": "Gary",
+  "title": "Grand High Exalted Ambassador of the Tempestuous Bottom, Viscount of the Seventh Gust, Keeper of the Eternal Bean",
+  "intensity": 8,
+  "classify": [
+   7,
+   8,
+   9
+  ],
+  "telegraph": "Gary.",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "wait": 600,
+    "text": "He looks completely ordinary.",
+    "label": "..."
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 900,
+    "window": 170,
+    "power": 8,
+    "text": "GARY."
+   }
+  ],
+  "intro": "p14.bank.gary.intro",
+  "after": "p14.bank.gary.after",
+  "notes": "GARY. (underlined) (underlined) (underlined) Regional."
+ },
+ "zephyrella": {
+  "bank": "grand_bank",
+  "npc": "zephyrella",
+  "name": "Grand Empress Zephyrella the Uncontainable",
+  "short": "The Empress",
+  "title": "Grand Empress of the Four Winds, Mover of the Mount of Oomph",
+  "intensity": 9,
+  "classify": [
+   8,
+   9,
+   10
+  ],
+  "telegraph": "The record is a MOUNTAIN.",
+  "pattern": [
+   {
+    "take": true,
+    "text": "Her sash comes down out of the haze like a curtain."
+   },
+   {
+    "hold": 5,
+    "text": "The sky dims. The storm leans in to watch.",
+    "pull": 64,
+    "surges": [
+     {
+      "at": 1.5,
+      "kick": 22
+     },
+     {
+      "at": 3.5,
+      "kick": 26
+     }
+    ]
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170,
+    "power": 9
+   },
+   {
+    "brace": "AGAIN!",
+    "ring": 800,
+    "window": 170,
+    "power": 9
+   }
+  ],
+  "intro": "p14.bank.zephyrella.intro",
+  "after": "p14.bank.zephyrella.after",
+  "notes": "HISTORIC. The storm STOPPED. (One breath.) Mountain: seven feet, apparently."
+ },
+ "rumbleseptimus": {
+  "bank": "grand_bank",
+  "npc": "rumbleseptimus",
+  "name": "Grand Patriarch Rumbleseptimus the World-Weary",
+  "short": "The Patriarch",
+  "title": "Grand Patriarch of the First Rumble, Continental Class (Retired)",
+  "intensity": 10,
+  "classify": [
+   8,
+   9,
+   10
+  ],
+  "telegraph": "Prehistoric. Continental-class. Tired.",
+  "pattern": [
+   {
+    "take": true,
+    "text": "His sash is made of something that might be moss."
+   },
+   {
+    "hold": 6,
+    "text": "He sighs. The sea sighs with him.",
+    "pull": 58,
+    "slack": 34,
+    "sway": {
+     "amp": 18,
+     "period": 6
+    }
+   },
+   {
+    "wait": 1200,
+    "text": "He's gathering himself. It takes a geological age.",
+    "label": "..."
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1300,
+    "window": 200,
+    "power": 10
+   }
+  ],
+  "intro": "p14.bank.rumbleseptimus.intro",
+  "after": "p14.bank.rumbleseptimus.after",
+  "notes": "PLEASE NOTIFY AUTHORITIES. A continent moved. He was BORED."
+ },
+ "gustilda": {
+  "bank": "grand_bank",
+  "npc": "gustilda",
+  "name": "Grandmother Gustilda",
+  "short": "Grandmother Gustilda",
+  "title": "(no title)",
+  "intensity": "10+",
+  "classify": [
+   9,
+   10,
+   "10+"
+  ],
+  "telegraph": "Just a grandmother.",
+  "pattern": [
+   {
+    "take": true,
+    "text": "A little old woman in a cardigan. A plain grey sash, knitted. She hands it over kindly."
+   },
+   {
+    "wait": 800,
+    "text": "She's smiling at you.",
+    "label": "..."
+   },
+   {
+    "puff": true,
+    "label": "hm.",
+    "ms": 700,
+    "sfx": "puff_tiny",
+    "text": "A little sigh, settling in."
+   },
+   {
+    "hold": 5,
+    "text": "And then it STARTS.",
+    "pull": 72,
+    "slack": 30,
+    "surges": [
+     {
+      "at": 1.0,
+      "kick": 26
+     },
+     {
+      "at": 2.4,
+      "kick": 28
+     },
+     {
+      "at": 3.8,
+      "kick": 30
+     }
+    ],
+    "milestones": [
+     {
+      "at": 1.5,
+      "text": "The counter's LIFTING. Off the deck."
+     },
+     {
+      "at": 3.0,
+      "text": "You're lifting with it. Your boots are off the deck."
+     },
+     {
+      "at": 4.2,
+      "text": "Every pirate on the ship has hold of your legs."
+     }
+    ]
+   },
+   {
+    "brace": "ABSOLUTELY NOT",
+    "ring": 1000,
+    "window": 200,
+    "power": "10+"
+   },
+   {
+    "brace": "HOLD ON!",
+    "ring": 700,
+    "window": 180,
+    "power": "10+"
+   }
+  ],
+  "intro": "p14.bank.gustilda.intro",
+  "after": "p14.bank.gustilda.after",
+  "notes": "VALUE: UNMEASURABLE. 10+. ABSOLUTELY NOT. She wanted a RECEIPT."
+ }
+}

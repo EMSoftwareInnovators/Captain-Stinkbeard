@@ -6,8 +6,11 @@ import { currentChapter, resolveVariant } from '../systems/story/progress.js';
 import { logEntries } from '../systems/logs/logbook.js';
 import { deadCenterLocation } from '../systems/hazards/deadCenter.js';
 import { startPreset } from './startPreset.js';
+import { readStability, writePressure } from '../systems/stability.js';
+import { stabilitySubject, bankDef } from '../systems/script/commands.js';
+import { DEBUG_BROGATH } from './brogathDebug.js';
 
-const TABS = ['Info', 'Story', 'Warp', 'Flags', 'Quests', 'Items', 'Party', 'Battle', 'Tools'];
+const TABS = ['Info', 'Story', 'Warp', 'Flags', 'Quests', 'Items', 'Party', 'Battle', 'Brogath', 'Tools'];
 const GAMEPLAY_SCENES = ['Title', 'World', 'Battle', 'Menu', 'GameOver', 'Overlay'];
 
 /**
@@ -302,6 +305,87 @@ export class DebugScene extends BaseScene {
         return null;
       },
     }));
+  }
+
+  /**
+   * Story Phase 14: Brogath. Jumps (presets), his stability (state, pressure,
+   * anger, an incident), the set-pieces (chapter scripts run in the room),
+   * the Grand Bank (open it, serve from any depositor, skip, Gustilda, close
+   * it), the Grand Currency (its own counter; never gold) and his permanence.
+   * Development builds only (this whole scene is).
+   */
+  itemsBrogath() {
+    const s = this.app.session;
+    const content = this.app.content;
+    if (!content.stability?.has?.('brogath')) return [{ label: '<k>No Brogath content</>' }];
+    const out = [];
+    const presets = content.debugPresets;
+    for (const [label, id] of DEBUG_BROGATH.jumps) {
+      out.push({ label: `Jump: ${label}`, right: presets.has(id) ? id : '<r>missing</>', action: () => {
+        if (!presets.has(id)) return this.flash(`No preset ${id}`);
+        this.close();
+        startPreset(this.game, id);
+        return null;
+      } });
+    }
+    if (!s) return [...out, { label: '<k>Start a game for the rest</>' }];
+    const def = stabilitySubject(content, 'brogath');
+    const st = readStability(def, s);
+    const setP = (p) => { writePressure(def, s, p); this.rerender(); };
+    out.push({ label: 'Brogath: state', right: `${st.state} ${st.pressure}${st.incident ? ` (${st.incident})` : ''}`, action: () => this.openSub(
+      def.bands.map((b, i) => ({ label: b.state, action: () => { this.closeSub(); setP(Math.max(def.min, Math.min(def.max, i === 0 ? def.min / 2 : Math.round(((def.bands[i - 1].below) + Math.min(def.max, b.below)) / 2)))); } })),
+    ) });
+    out.push({ label: 'Brogath: pressure +10', action: () => setP(st.pressure + 10) });
+    out.push({ label: 'Brogath: pressure -10', action: () => setP(st.pressure - 10) });
+    out.push({ label: 'Brogath: anger', right: st.angry ? '<r>ANGRY</>' : 'off', action: () => {
+      if (st.angry) s.story.clear(def.angerFlag);
+      else s.story.set(def.angerFlag);
+      writePressure(def, s, st.pressure);
+      this.rerender();
+    } });
+    out.push({ label: 'Brogath: settle (calm, no incident)', action: () => {
+      s.story.clear(def.angerFlag);
+      s.story.setValue(def.incidentValue, null);
+      s.story.setValue(def.meterValue, null);
+      setP(def.settleTo);
+    } });
+    out.push({ label: 'Brogath: spawn here', action: () => this.runInWorld([{ spawn: 'brogath', x: this.world?.player?.tx ?? 1, y: (this.world?.player?.ty ?? 1) + 1, facing: 'up' }]) });
+    out.push({ label: 'Brogath: permanent', right: s.story.has('brogath_permanent') ? '<g>yes</>' : 'no', action: () => { s.story.toggle('brogath_permanent'); this.rerender(); } });
+    for (const [label, steps] of DEBUG_BROGATH.scenes) out.push({ label, action: () => this.runInWorld(steps) });
+    // The Grand Bank.
+    const bank = content.banks?.has?.('grand_bank') ? bankDef(content, 'grand_bank') : null;
+    if (bank) {
+      const all = Object.entries(bank.queues ?? {}).flatMap(([qid, q]) => q.customers.map((cid, i) => ({ qid, q, cid, i })));
+      out.push({ label: 'Bank: serve from...', right: `${all.length}`, action: () => this.openSub(all.map(({ q, cid, i }) => ({
+        label: content.bankCustomers.get(cid)?.short ?? cid,
+        action: () => {
+          this.closeSub();
+          s.story.set(bank.openFlag);
+          s.story.setVar(q.servedVar, i);
+          this.runInWorld([{ bankDeposit: cid }]);
+        },
+      }))) });
+      out.push({ label: 'Bank: skip a depositor', action: () => {
+        const q = Object.values(bank.queues).find((qq) => s.story.getVar(qq.servedVar, 0) < qq.customers.length);
+        if (q) s.story.addVar(q.servedVar, 1);
+        this.rerender();
+      } });
+    }
+    const cur = bank?.currency;
+    if (cur) {
+      out.push({ label: 'Grand Currency +20,000', right: `${s.story.getVar(cur.var, 0)}`, action: () => { s.story.addVar(cur.var, cur.amount); this.rerender(); } });
+      out.push({ label: 'Grand Currency: remove all', action: () => { s.story.setVar(cur.var, 0); this.rerender(); } });
+    }
+    return out;
+  }
+
+  /** Runs a few script steps in the room (the world must be loaded and idle). */
+  runInWorld(steps) {
+    const w = this.world;
+    if (!w || w.isBusy()) return this.flash('Needs the world map, not busy.');
+    this.close();
+    w.runScript(steps);
+    return null;
   }
 
   itemsTools() {

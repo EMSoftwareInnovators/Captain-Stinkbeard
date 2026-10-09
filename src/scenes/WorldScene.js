@@ -27,6 +27,8 @@ import { placementChoices, placementChanges } from '../world/placements.js';
 import { deadCenterZonesFor, deadCenterSeals } from '../systems/hazards/deadCenter.js';
 import { panicShouts } from '../systems/hazards/alarms.js';
 import { SharkDuty } from '../world/SharkDuty.js';
+import { intensityValue } from '../systems/bank.js';
+import { StabilityRunner } from '../world/StabilityRunner.js';
 import { SharkstormLayer } from '../world/SharkstormLayer.js';
 import { mapDisplayName } from '../maps/mapName.js';
 import { mapBackground } from '../maps/mapBackground.js';
@@ -127,6 +129,8 @@ export class WorldScene extends BaseScene {
     this.sharks = new SharkLayer(this, sharkConfig(this.content));
     this.sharkDuty = new SharkDuty(this);
     this.sharkstorm = new SharkstormLayer(this);
+    // Story Phase 14: Brogath Stability (incidents, the BASHFULNESS meter, the cardboard's shivers).
+    this.stability = new StabilityRunner(this);
     this.grade = this.add.rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0xffffff).setOrigin(0).setScrollFactor(0).setDepth(75000).setBlendMode('MULTIPLY');
     this.applyReducedEffects();
     this.refreshStory({ immediate: true });
@@ -169,6 +173,7 @@ export class WorldScene extends BaseScene {
     if (this.app.overlay?.dialogue) this.app.overlay.dialogue.dockResolver = null;
     this.app.overlay?.setHint(null);
     this.app.overlay?.setExposure(null);
+    this.stability?.destroy();
     this.fx?.destroy();
     this.barks?.clear();
     this.stage?.clear();
@@ -591,6 +596,7 @@ export class WorldScene extends BaseScene {
     this.sharks.update(dt, { busy, player: this.player });
     this.sharkDuty.update(dt, busy || this.leaving);
     this.sharkstorm.update(dt, busy || this.leaving);
+    this.stability.update(dt, busy);
     this.updateDebugDraw();
     this.ambient.update(dt, this.player);
     this.updateAliasFx(dt);
@@ -637,6 +643,37 @@ export class WorldScene extends BaseScene {
     const x = at[0] * TILE_SIZE + TILE_SIZE / 2;
     const y = at[1] * TILE_SIZE;
     this.fx.burst('fume', x, y, { count: 4, depth: 56000, alpha: 0.6 });
+  }
+
+  /**
+   * Story Phase 14: a deposit lands at the Grand Bank (TellerView reports each
+   * wave). The bank shakes by the depositor's class (with the Screen Shake
+   * option; gentler with Reduced effects), papers fly off the counter, the
+   * furniture rattles, and a missed brace puts the captain on his back for a
+   * moment, a step back from the counter if there's room. Never anything worse.
+   */
+  bankWave({ beat, grade, customer }) {
+    const bank = this.content.banks?.get?.(customer.bank ?? 'grand_bank');
+    const counter = bank?.counter?.[this.model.id];
+    const i = intensityValue(beat?.power ?? customer.intensity);
+    const calm = this.app.settings.reducedEffects();
+    const cx = (counter ? counter[0] : this.player.tx) * TILE_SIZE + TILE_SIZE / 2;
+    const cy = (counter ? counter[1] : this.player.ty) * TILE_SIZE;
+    if (grade === 'puff') {
+      this.fx.burst('fume', cx, cy, { count: 2, depth: 56000, alpha: 0.5 });
+      return;
+    }
+    const k = this.app.settings.shakeScale?.() ?? 1;
+    if (k > 0) this.cameras.main.shake(220 + i * 45, Math.min(0.018, 0.0016 + i * 0.0013) * k * (calm ? 0.5 : 1));
+    this.fx.burst('papers', cx, cy, { count: Math.min(18, 2 + i * 2) });
+    this.fx.burst('fume', cx, cy - 8, { count: Math.min(8, 1 + Math.round(i / 2)), depth: 56000, alpha: 0.55 });
+    if (bank?.area?.[this.model.id]) this.services.world.propFx('jiggle', { area: bank.area[this.model.id], duration: 300 + i * 60, intensity: Math.min(3, 0.6 + i / 4) });
+    const p = this.player;
+    if (grade === 'miss') {
+      this.app.audio.sfx('teller_thump', { volume: 0.7 });
+      p.playPose('fallen');
+      this.time.delayedCall(850, () => p.pose === 'fallen' && p.playPose('idle'));
+    } else if (grade === 'good') this.services.world.hop('player', { height: 4, duration: 200 });
   }
 
   /** Glides a held camera back to the captain, who can already move. */

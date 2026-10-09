@@ -1,0 +1,569 @@
+{
+ "brogath": {
+  "//": "Story Phase 14: Brogath the Bashful, an Ancient Grand Stenchmaster inside a cardboard cut-out. He becomes dangerous by being EMBARRASSED (flutter, being reminded he's cardboard or dead, apologising, failing at machinery, being laughed at, smelling); confidence calms him (praise, reframing an accident as intentional, 'distinguished', agreeing it was a toot, 'ceremonial', a harmless important job, safe television). ANGRY is a separate, scripted state (the Anger Waft). The meter is BASHFULNESS (WRATH when angry).",
+  "name": "BROGATH",
+  "label": "BASHFULNESS",
+  "angryLabel": "WRATH",
+  "actor": "brogath",
+  "pressureVar": "brogath_pressure",
+  "stateValue": "brogath_state",
+  "angerFlag": "brogath_angry",
+  "meterValue": "brogath_meter",
+  "incidentValue": "brogath_incident",
+  "turnVar": "brogath_reassure_turn",
+  "min": -20,
+  "max": 100,
+  "reveal": 30,
+  "afterErupt": 55,
+  "settleTo": 10,
+  "creak": "cardboard_creak",
+  "bands": [
+   {
+    "state": "PLEASED",
+    "below": 0
+   },
+   {
+    "state": "CALM",
+    "below": 15
+   },
+   {
+    "state": "BASHFUL",
+    "below": 40
+   },
+   {
+    "state": "EMBARRASSED",
+    "below": 65
+   },
+   {
+    "state": "PRESSURIZED",
+    "below": 85
+   },
+   {
+    "state": "CRITICAL"
+   }
+  ],
+  "stages": [
+   {
+    "at": 15,
+    "id": "rumble",
+    "label": "small rumble",
+    "sfx": "brogath_rumble_small",
+    "bark": "<k>...rrmbl.</>",
+    "cooldownMs": 9000,
+    "volume": 0.5
+   },
+   {
+    "at": 40,
+    "id": "concern",
+    "label": "visible concern",
+    "sfx": "cardboard_creak",
+    "bark": "<k>(his printed cheeks go pink)</>",
+    "cooldownMs": 9000
+   },
+   {
+    "at": 65,
+    "id": "rumble_big",
+    "label": "stronger rumble",
+    "sfx": "brogath_rumble_big",
+    "bark": "<y>RRRMMMBL.</>",
+    "cooldownMs": 7000,
+    "shake": 0.002
+   },
+   {
+    "at": 85,
+    "id": "vibrating",
+    "label": "vibrating cardboard",
+    "sfx": "cardboard_vibrate",
+    "bark": "<o>(the cardboard is humming)</>",
+    "cooldownMs": 5000,
+    "shake": 0.003
+   },
+   {
+    "at": 97,
+    "id": "imminent",
+    "label": "IMMINENT ERUPTION",
+    "sfx": "pressure_build",
+    "bark": "<r>...!</>",
+    "cooldownMs": 4000,
+    "shake": 0.004
+   }
+  ],
+  "triggers": {
+   "flutter": {
+    "pressure": 15,
+    "sfx": "flutter_tiny",
+    "line": "brogath[bashful]: Oh. It... moved. Did anyone else see it move? Don't look. Nobody look."
+   },
+   "flutter_big": {
+    "pressure": 25,
+    "sfx": "sash_flutter_big",
+    "line": "brogath[embarrassed]: It's FLUTTERING. In front of EVERYONE."
+   },
+   "squawks_flap": {
+    "pressure": 18,
+    "sfx": "wing_flap",
+    "line": "brogath[embarrassed]: The bird is... flapping. At me. Is he flapping AT me?"
+   },
+   "tripped": {
+    "pressure": 15,
+    "sfx": "cardboard_thwap",
+    "line": "brogath[embarrassed]: I tripped. I have no knees and I TRIPPED."
+   },
+   "fell_over": {
+    "pressure": 22,
+    "sfx": "cardboard_thwap",
+    "line": "brogath[mortified]: I am on the floor. Face down. A Grand Stenchmaster. On the FLOOR."
+   },
+   "sideways": {
+    "pressure": 12,
+    "line": "brogath[embarrassed]: Can you... see me? I've gone sideways. People say I vanish when I go sideways."
+   },
+   "reminded_cardboard": {
+    "pressure": 20,
+    "line": "brogath[mortified]: ...Cardboard. Yes. Thank you. I had nearly forgotten."
+   },
+   "reminded_dead": {
+    "pressure": 22,
+    "line": "brogath[mortified]: Dead. I was dead. For CENTURIES. And then I came back as THIS."
+   },
+   "apologized": {
+    "pressure": 15,
+    "line": "brogath[sorry]: Sorry. Sorry! Now I'm apologising for apologising. Sorry."
+   },
+   "misunderstood": {
+    "pressure": 12,
+    "line": "brogath[confused]: Oh. That's not what that meant, was it. Oh, dear."
+   },
+   "machinery": {
+    "pressure": 18,
+    "sfx": "ses_bonk",
+    "line": "brogath[mortified]: It came off in my hand. The little wheel. It just came OFF."
+   },
+   "laughed_at": {
+    "pressure": 25,
+    "line": "brogath[mortified]: You're LAUGHING."
+   },
+   "criticized": {
+    "pressure": 18,
+    "line": "brogath[sorry]: You're right. You're quite right. I'm terribly sorry."
+   },
+   "smells": {
+    "pressure": 25,
+    "line": "brogath[mortified]: I SMELL? I can't smell myself. I have no NOSE. It's PRINTED."
+   },
+   "stupid_idea": {
+    "pressure": 15,
+    "line": "brogath[embarrassed]: That was a stupid idea. Wasn't it. I can hear that it was."
+   },
+   "embarrassed_again": {
+    "pressure": 10,
+    "line": "brogath[mortified]: And now I'm embarrassed about BEING embarrassed."
+   },
+   "tv_humiliation": {
+    "pressure": 22,
+    "line": "brogath[mortified]: That's ME. On the television. Being POOR."
+   },
+   "honesty": {
+    "pressure": 15,
+    "line": "brogath[embarrassed]: Oh. Oh, I see. Just a... yes. Of course."
+   },
+   "sighing": {
+    "pressure": 8,
+    "line": "brogath[embarrassed]: Was that a sigh? At me?"
+   },
+   "treasure": {
+    "pressure": 20,
+    "line": "brogath[mortified]: Treasure. Don't. Please. We don't talk about my treasure."
+   },
+   "sad_memory": {
+    "pressure": 18,
+    "line": "brogath[devastated]: I remember my funeral. Nobody stayed for the end. Well. Nobody COULD stay."
+   },
+   "print_quality": {
+    "pressure": 20,
+    "line": "brogath[mortified]: My face is SMUDGED? Where? WHERE?"
+   },
+   "insulted": {
+    "pressure": 45,
+    "line": "brogath[devastated]: ..."
+   },
+   "jealous_garrick": {
+    "pressure": 8,
+    "line": "brogath[bashful]: Is he cross with me? He looks cross with me."
+   },
+   "banking": {
+    "pressure": 0
+   }
+  },
+  "calms": {
+   "praise": {
+    "pressure": -20,
+    "line": "brogath[pleased]: Oh! Well. Thank you. Thank you very much."
+   },
+   "reframe": {
+    "pressure": -28,
+    "line": "brogath[pleased]: Intentional. Yes. It WAS rather intentional, wasn't it."
+   },
+   "confidence": {
+    "pressure": -18,
+    "line": "brogath[thoughtful]: Confidently. Grand thoughts. Grand... yes. I'm having one."
+   },
+   "dignified": {
+    "pressure": -22,
+    "line": "brogath[proud]: Dignified. I have always tried to be dignified."
+   },
+   "distinguished": {
+    "pressure": -25,
+    "line": "brogath[proud]: Distinguished. Do you know, I think I am."
+   },
+   "agree_toot": {
+    "pressure": -15,
+    "line": "brogath[pleased]: A toot. Just a little one. Exactly."
+   },
+   "impressive": {
+    "pressure": -20,
+    "line": "brogath[delighted]: Impressive? Was it? Oh, it was, wasn't it."
+   },
+   "ceremonial": {
+    "pressure": -25,
+    "line": "brogath[proud]: A ceremonial flutter. Of course. It's a ceremony. They're SUPPOSED to flutter."
+   },
+   "print_compliment": {
+    "pressure": -18,
+    "line": "brogath[bashful]: Crisp? Do you think so? It is good card. Heavy-duty."
+   },
+   "distraction": {
+    "pressure": -12,
+    "line": "brogath[confused]: Oh, look at that. I've forgotten what I was worried about."
+   },
+   "television": {
+    "pressure": -15,
+    "line": "brogath[pleased]: Mm. Television."
+   },
+   "important_job": {
+    "pressure": -22,
+    "line": "brogath[proud]: A JOB. An important one. I won't let you down."
+   },
+   "secured": {
+    "pressure": -12
+   },
+   "covered_eyes": {
+    "pressure": -20,
+    "line": "brogath[confused]: It's gone dark. Has the flutter stopped? Has it STOPPED?"
+   },
+   "consensual": {
+    "pressure": -35,
+    "line": "brogath[thoughtful]: Consensual. Controlled. Commercial. Well. If they AGREED to it..."
+   },
+   "professional_sashes": {
+    "pressure": -40,
+    "line": "brogath[proud]: Trained. And LICENSED. Then it's their JOB to flutter. Good for them."
+   },
+   "historical": {
+    "pressure": -20,
+    "line": "brogath[thoughtful]: Historical..."
+   },
+   "ancient": {
+    "pressure": -20,
+    "line": "brogath[thoughtful]: Ancient. Yes. I am, rather."
+   },
+   "authentic": {
+    "pressure": -25,
+    "line": "brogath[proud]: Authentic. An authentic Grand Stenchmaster event."
+   },
+   "magnificent": {
+    "pressure": -40,
+    "line": "brogath[proud]: A rather magnificent Stenchmaster fart. Yes. Yes, it WAS."
+   }
+  },
+  "prompts": {
+   "general": {
+    "show": 3,
+    "options": [
+     {
+      "text": "That was entirely intentional. Very dignified.",
+      "calm": "reframe"
+     },
+     {
+      "text": "You look extremely distinguished today.",
+      "calm": "distinguished"
+     },
+     {
+      "text": "Think confidently. Grand thoughts.",
+      "calm": "confidence"
+     },
+     {
+      "text": "Excellent print quality. Very crisp.",
+      "calm": "print_compliment"
+     },
+     {
+      "text": "It's fine. You're only cardboard.",
+      "trigger": "reminded_cardboard"
+     },
+     {
+      "text": "Everybody saw. Don't worry about it.",
+      "trigger": "laughed_at",
+      "reply": "brogath[mortified]: EVERYBODY? Everybody SAW?"
+     },
+     {
+      "text": "Please stop apologising.",
+      "trigger": "apologized"
+     },
+     {
+      "text": "(sigh)",
+      "trigger": "sighing",
+      "say": "(You sigh. Deeply.)"
+     }
+    ]
+   },
+   "flutter": {
+    "show": 3,
+    "options": [
+     {
+      "text": "That was a ceremonial flutter. Very traditional.",
+      "calm": "ceremonial"
+     },
+     {
+      "text": "Nobody saw a thing. You were magnificent.",
+      "calm": "praise"
+     },
+     {
+      "text": "Look over there! A... a beam!",
+      "calm": "distraction"
+     },
+     {
+      "text": "It's just a bit of cloth, Brogath.",
+      "trigger": "honesty"
+     },
+     {
+      "text": "Everybody saw it move.",
+      "trigger": "laughed_at",
+      "reply": "brogath[mortified]: EVERYBODY?"
+     },
+     {
+      "text": "Don't be embarrassed. It's embarrassing.",
+      "trigger": "embarrassed_again"
+     }
+    ]
+   },
+   "apology": {
+    "show": 3,
+    "options": [
+     {
+      "text": "That was a rather magnificent Stenchmaster fart.",
+      "calm": "magnificent"
+     },
+     {
+      "text": "A toot. Yes. A little toot. Agreed.",
+      "calm": "agree_toot"
+     },
+     {
+      "text": "It was HISTORIC.",
+      "calm": "historical"
+     },
+     {
+      "text": "Stop apologising!",
+      "trigger": "apologized"
+     },
+     {
+      "text": "It was not a toot. It moved the TABLE.",
+      "trigger": "criticized",
+      "reply": "brogath[mortified]: The TABLE? I'm so sorry. I'm SO..."
+     },
+     {
+      "text": "Nobody's hurt. Much.",
+      "trigger": "honesty"
+     }
+    ]
+   },
+   "advert": {
+    "show": 3,
+    "options": [
+     {
+      "text": "Those are... consenting sashes. Consensual, controlled, commercial flutter.",
+      "calm": "consensual"
+     },
+     {
+      "text": "Look at me, not the set. Distinguished face. Yours.",
+      "calm": "distinguished"
+     },
+     {
+      "text": "It's only an advert.",
+      "trigger": "honesty"
+     },
+     {
+      "text": "They're fluttering for YOU, Brogath.",
+      "trigger": "flutter"
+     }
+    ]
+   },
+   "advert_licensed": {
+    "show": 3,
+    "options": [
+     {
+      "text": "They're PROFESSIONAL advertising sashes. Trained. And LICENSED for controlled commercial flutter.",
+      "calm": "professional_sashes"
+     },
+     {
+      "text": "It's television. None of it's real.",
+      "trigger": "honesty"
+     },
+     {
+      "text": "Just close your eyes for six hours.",
+      "trigger": "stupid_idea"
+     }
+    ]
+   },
+   "console_1": {
+    "show": 3,
+    "options": [
+     {
+      "text": "It was... historical.",
+      "calm": "historical"
+     },
+     {
+      "text": "It was... loud.",
+      "trigger": "criticized"
+     },
+     {
+      "text": "It was... over. Mostly.",
+      "trigger": "honesty"
+     }
+    ]
+   },
+   "console_2": {
+    "show": 3,
+    "options": [
+     {
+      "text": "Distinguished. A distinguished event.",
+      "calm": "distinguished"
+     },
+     {
+      "text": "Big. A big one.",
+      "trigger": "criticized"
+     },
+     {
+      "text": "Smelly. Very smelly. (urk)",
+      "trigger": "smells",
+      "say": "Smelly. Very smelly. (Your stomach turns over.)"
+     }
+    ]
+   },
+   "console_3": {
+    "show": 3,
+    "options": [
+     {
+      "text": "Ceremonial. Like a... a ceremony.",
+      "calm": "ceremonial"
+     },
+     {
+      "text": "Long. Ten minutes long.",
+      "trigger": "criticized"
+     },
+     {
+      "text": "Unnecessary.",
+      "trigger": "criticized"
+     }
+    ]
+   },
+   "console_4": {
+    "show": 3,
+    "options": [
+     {
+      "text": "Ancient. Proper, ancient technique.",
+      "calm": "ancient"
+     },
+     {
+      "text": "Old. Like you.",
+      "trigger": "reminded_dead"
+     },
+     {
+      "text": "Cardboardy.",
+      "trigger": "reminded_cardboard"
+     }
+    ]
+   },
+   "console_5": {
+    "show": 3,
+    "options": [
+     {
+      "text": "AUTHENTIC. An authentic Grand Stenchmaster event.",
+      "calm": "authentic"
+     },
+     {
+      "text": "Survivable. Probably.",
+      "trigger": "honesty"
+     },
+     {
+      "text": "Over? Is it over?",
+      "trigger": "stupid_idea"
+     }
+    ]
+   }
+  },
+  "incidents": {
+   "debug_flutter": {
+    "start": 30,
+    "rate": 4,
+    "erupt": "p14.eruption_small"
+   },
+   "fl_shirt": {
+    "start": 30,
+    "rate": 2.0,
+    "erupt": "p14c5.fl_erupt"
+   },
+   "fl_label": {
+    "start": 32,
+    "rate": 2.4,
+    "erupt": "p14c5.fl_erupt"
+   },
+   "fl_napkin": {
+    "start": 34,
+    "rate": 2.8,
+    "erupt": "p14c5.fl_erupt"
+   },
+   "fl_page": {
+    "start": 36,
+    "rate": 3.2,
+    "erupt": "p14c5.fl_erupt"
+   },
+   "fl_squawks": {
+    "start": 38,
+    "rate": 3.6,
+    "erupt": "p14c5.fl_erupt"
+   },
+   "fl_flag": {
+    "start": 40,
+    "rate": 4.0,
+    "erupt": "p14c5.fl_erupt"
+   },
+   "apology": {
+    "start": 88,
+    "rate": 0.8,
+    "erupt": "p14c6.gust",
+    "afterErupt": 90
+   },
+   "garrick_sash": {
+    "start": 40,
+    "rate": 3.0,
+    "erupt": "p14.eruption_small"
+   },
+   "advert": {
+    "start": 35,
+    "rate": 1.6,
+    "erupt": "p14c17.ad_erupt"
+   },
+   "advert_night": {
+    "start": 40,
+    "rate": 1.8,
+    "erupt": "p14c24.ad_erupt"
+   },
+   "devastated": {
+    "start": 92,
+    "rate": 0.5,
+    "erupt": "p14c22.surge",
+    "afterErupt": 90
+   }
+  }
+ }
+}

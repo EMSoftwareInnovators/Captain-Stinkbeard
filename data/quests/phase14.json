@@ -1,0 +1,892 @@
+[
+ {
+  "id": "the_door_opens",
+  "title": "The Door Opens",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "The third Brogath is in the treasure room. You are sure of it.",
+  "description": "The crew are up on deck fighting the storm. The treasure room is down below, sealed, signed and planked. Nobody is watching it. Nobody is watching YOU.",
+  "objectives": [
+   {
+    "id": "below",
+    "text": "Slip below while they're busy (the main hatch, the galley, then down the stairs to the hold)",
+    "type": "flag",
+    "target": "p14_sneaked_below"
+   },
+   {
+    "id": "signs",
+    "text": "See what they've nailed to it (the treasure-room door)",
+    "type": "flag",
+    "target": "p14_signs_read",
+    "after": [
+     "below"
+    ]
+   },
+   {
+    "id": "planks",
+    "text": "Take the barricade down, plank by plank (the door)",
+    "type": "event",
+    "target": "p14_plank",
+    "count": 2,
+    "after": [
+     "signs"
+    ]
+   },
+   {
+    "id": "crack",
+    "text": "Open it. Just a crack. (the door)",
+    "type": "flag",
+    "target": "p14_door_cracked",
+    "after": [
+     "planks"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 60
+  }
+ },
+ {
+  "id": "follow_the_plume",
+  "title": "The Plume",
+  "category": "main",
+  "giver": "pete",
+  "summary": "It isn't dispersing. It's going somewhere.",
+  "description": "A plume of the old treasure-room cloud got out, and it isn't spreading out like a smell should. It's moving. On purpose. Follow it.",
+  "objectives": [
+   {
+    "id": "galley",
+    "text": "Follow the plume (up the stairs, into the galley)",
+    "type": "flag",
+    "target": "p14_plume_galley"
+   },
+   {
+    "id": "quarters",
+    "text": "Follow it (through the door at the bottom of the galley)",
+    "type": "flag",
+    "target": "p14_plume_quarters",
+    "after": [
+     "galley"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 50
+  }
+ },
+ {
+  "id": "return_of_brogath",
+  "title": "Brogath Returns",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "Where... am I?",
+  "description": "The plume went into cardboard Brogath. Cardboard Brogath has just asked where he is.",
+  "objectives": [
+   {
+    "id": "speak",
+    "text": "Say something to him (Brogath)",
+    "type": "flag",
+    "target": "p14_first_words"
+   }
+  ],
+  "rewards": {
+   "xp": 80
+  }
+ },
+ {
+  "id": "containment_corner",
+  "title": "The Containment Corner",
+  "category": "main",
+  "giver": "gristle",
+  "summary": "We're not moving him. We're moving US.",
+  "description": "Nobody is going to try and move Brogath. The crew are building themselves a corner instead, and somebody has to write some rules.",
+  "objectives": [
+   {
+    "id": "barricade",
+    "text": "Build the barricade: tip the card table, roll the Grog cask over, hang the sash blankets, stand cardboard Sir Rumpus up as a shield",
+    "type": "event",
+    "target": "p14_barricade",
+    "count": 4
+   },
+   {
+    "id": "rules",
+    "text": "Help Pete start the rules (the barricade)",
+    "type": "flag",
+    "target": "p14_rules_begun",
+    "after": [
+     "barricade"
+    ]
+   },
+   {
+    "id": "garrick",
+    "text": "Check on Garrick (out there with him)",
+    "type": "flag",
+    "target": "p14_garrick_checked",
+    "after": [
+     "barricade"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "keep_brogath_confident",
+  "title": "Keep Brogath Confident",
+  "category": "main",
+  "giver": "pete",
+  "summary": "Confidence is the only thing that works.",
+  "description": "Pete has noticed something. Brogath goes off when he's embarrassed, and the worst thing for embarrassment is anything that FLUTTERS. Handle it. Whatever it is.",
+  "objectives": [
+   {
+    "id": "theory",
+    "text": "Hear Pete's theory (Pete)",
+    "type": "flag",
+    "target": "p14_pete_theory"
+   },
+   {
+    "id": "flutters",
+    "text": "Handle whatever flutters: secure it, then steady him (talk to Brogath)",
+    "type": "event",
+    "target": "p14_flutter",
+    "count": 6,
+    "after": [
+     "theory"
+    ]
+   },
+   {
+    "id": "rules",
+    "text": "Add to the rules (the barricade)",
+    "type": "flag",
+    "target": "p14_flutter_rules",
+    "after": [
+     "flutters"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 90
+  }
+ },
+ {
+  "id": "apology_eruption",
+  "title": "The Apology Eruption",
+  "category": "main",
+  "giver": "gristle",
+  "summary": "He apologised. And now it's getting WORSE.",
+  "description": "The flutter from his own eruption is embarrassing him, which makes the eruption bigger, which makes more flutter. Break the loop: brace, secure everything loose, and get to him.",
+  "objectives": [
+   {
+    "id": "brace",
+    "text": "BRACE! (the mast post)",
+    "type": "flag",
+    "target": "p14_ae_brace"
+   },
+   {
+    "id": "sashes",
+    "text": "Secure the loose sashes (the sash hammocks)",
+    "type": "event",
+    "target": "p14_ae_sash",
+    "count": 3
+   },
+   {
+    "id": "objects",
+    "text": "Stop what's sliding (the bedroom set, the Mega-Pack)",
+    "type": "event",
+    "target": "p14_ae_object",
+    "count": 2
+   },
+   {
+    "id": "lantern",
+    "text": "Catch the lantern (the swinging one)",
+    "type": "flag",
+    "target": "p14_ae_lantern"
+   },
+   {
+    "id": "reach",
+    "text": "Get to him through the cloud and talk him down (Brogath)",
+    "type": "flag",
+    "target": "p14_ae_reached",
+    "after": [
+     "brace",
+     "sashes",
+     "objects",
+     "lantern"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 110
+  }
+ },
+ {
+  "id": "back_in_office",
+  "title": "Back in Office",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "One day. To the minute.",
+  "description": "The suspension is over. The Grand Stenchmaster would like his regalia back, starting with the sash in your wardrobe. You are not touching that sash with your hands.",
+  "objectives": [
+   {
+    "id": "tongs",
+    "text": "Get something long (the fire tongs, by the galley stove)",
+    "type": "flag",
+    "target": "p14_tongs_taken"
+   },
+   {
+    "id": "sash",
+    "text": "Get the sash out of your wardrobe (your cabin), with the tongs",
+    "type": "flag",
+    "target": "p14_sash_retrieved",
+    "after": [
+     "tongs"
+    ]
+   },
+   {
+    "id": "return",
+    "text": "Give it back (Garrick, the galley)",
+    "type": "flag",
+    "target": "garrick_regalia_restored",
+    "after": [
+     "sash"
+    ]
+   },
+   {
+    "id": "decrees",
+    "text": "Hear his Grand Decrees (Garrick)",
+    "type": "flag",
+    "target": "p14_decrees_done",
+    "after": [
+     "return"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 80
+  }
+ },
+ {
+  "id": "two_grand_stenchmasters",
+  "title": "Two Grand Stenchmasters",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "Which one's the GRAND one?",
+  "description": "Garrick is the current Grand Stenchmaster. Brogath is an ancient one. Neither of them can see why that should make the other one superior. Keep it from turning into a contest.",
+  "objectives": [
+   {
+    "id": "rounds",
+    "text": "Keep it from becoming a contest (Garrick, Brogath)",
+    "type": "event",
+    "target": "p14_round",
+    "count": 5
+   }
+  ],
+  "rewards": {
+   "xp": 90
+  }
+ },
+ {
+  "id": "grand_waft_trials",
+  "title": "The Grand Waft Trials",
+  "category": "main",
+  "giver": "brogath",
+  "summary": "An ancient competition. Postponed. Indefinitely. Please.",
+  "description": "Brogath mentioned the Grand Waft Trials, the ancient way two Grand Stenchmasters settled who was grander. Garrick heard. Make sure they never happen.",
+  "objectives": [
+   {
+    "id": "never",
+    "text": "Make sure the Grand Waft Trials never happen",
+    "type": "flag",
+    "target": "grand_waft_trials_held"
+   }
+  ],
+  "rewards": {
+   "xp": 0
+  },
+  "open": true
+ },
+ {
+  "id": "beans_of_precedent",
+  "title": "Beans of Ancient Precedent",
+  "category": "main",
+  "giver": "jim",
+  "summary": "Two Grand Stenchmasters. One breakfast. Beans.",
+  "description": "Both Grand Stenchmasters must be kept content: compliments, in turns, so neither gets jealous. Then breakfast, by decree. Overlapping modern and ancient Grand authority. Beans.",
+  "objectives": [
+   {
+    "id": "compliments",
+    "text": "Keep them both content: a compliment each, by turns (Garrick, Brogath)",
+    "type": "event",
+    "target": "p14_compliment",
+    "count": 4
+   },
+   {
+    "id": "dishes",
+    "text": "Serve breakfast: beans and onions (the stove), garlic (the jar on the table), pickled cabbage (the brine crock), Frog Grog (the cask), Spicy Stench Sauce (the crate by the Mark II)",
+    "type": "event",
+    "target": "p14_dish",
+    "count": 6,
+    "after": [
+     "compliments"
+    ]
+   },
+   {
+    "id": "meeting",
+    "text": "EMERGENCY MEETING! (the little door under the hold stairs)",
+    "type": "flag",
+    "target": "p14_nook_found",
+    "after": [
+     "dishes"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 90
+  }
+ },
+ {
+  "id": "fart_free_zone",
+  "title": "The Fart-Free Zone",
+  "category": "main",
+  "giver": "pete",
+  "summary": "It's small. It's under the stairs. It's ours.",
+  "description": "The nook under the hold stairs is the only room on the ship nobody has ever farted in. Make it a Fart-Free Zone, and make it safe.",
+  "objectives": [
+   {
+    "id": "declare",
+    "text": "Hold the meeting (Pete)",
+    "type": "flag",
+    "target": "fart_free_zone_declared"
+   },
+   {
+    "id": "supplies",
+    "text": "Make it safe: blankets, pillows, mattress, clean sashes, barrels, rags, hardtack, cards, Frog Grog (round the ship)",
+    "type": "event",
+    "target": "p14_ffz",
+    "count": 9,
+    "after": [
+     "declare"
+    ]
+   },
+   {
+    "id": "cards",
+    "text": "Be pirates for a minute (the cards)",
+    "type": "flag",
+    "target": "p14_cards_thrown",
+    "after": [
+     "supplies"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 90
+  }
+ },
+ {
+  "id": "getting_rid_of_brogath",
+  "title": "Getting Rid of Brogath",
+  "category": "main",
+  "giver": "gristle",
+  "summary": "He has to go. How?",
+  "description": "Brogath has to leave the ship. Everyone has a plan. Hear them all.",
+  "objectives": [
+   {
+    "id": "proposals",
+    "text": "Hear the plans (Jim, Gristle, Bob, Ned)",
+    "type": "event",
+    "target": "p14_proposal",
+    "count": 4
+   },
+   {
+    "id": "mission",
+    "text": "Hear Pete's (Pete)",
+    "type": "flag",
+    "target": "p14_mission_overheard",
+    "after": [
+     "proposals"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "beyond_broke",
+  "title": "Beyond Broke",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "He lost his treasure twice.",
+  "description": "A quiet night. The Grand Stenchmaster is asleep, and so is his pocket edition. Read what it says about Brogath's OTHER treasure.",
+  "objectives": [
+   {
+    "id": "read",
+    "text": "Read it, by lamplight (the pocket edition, in the zone)",
+    "type": "event",
+    "target": "p14_psg",
+    "count": 4
+   },
+   {
+    "id": "ingredients",
+    "text": "Write it down (the slate)",
+    "type": "flag",
+    "target": "p14_ingredients",
+    "after": [
+     "read"
+    ]
+   },
+   {
+    "id": "sign",
+    "text": "Put up a warning (the foot of the hold stairs)",
+    "type": "flag",
+    "target": "treasure_exclusion_posted",
+    "after": [
+     "ingredients"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 80
+  }
+ },
+ {
+  "id": "grand_economy",
+  "title": "The Grand Economy of Farts",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "He never admitted he was poor.",
+  "description": "After he was beyond broke, Brogath invented money. Read on.",
+  "objectives": [
+   {
+    "id": "read",
+    "text": "Read on (the pocket edition)",
+    "type": "event",
+    "target": "p14_econ",
+    "count": 4
+   },
+   {
+    "id": "sleep",
+    "text": "Get some sleep (the mattress)",
+    "type": "flag",
+    "target": "p14_slept_after_reading",
+    "after": [
+     "read"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "bad_money",
+  "title": "Bad Money",
+  "category": "main",
+  "giver": "squawks",
+  "summary": "Bad money.",
+  "description": "Brogath is very pleased with himself about something. Something involving the Bling Bling King, a catalogue, and your purse.",
+  "objectives": [
+   {
+    "id": "see",
+    "text": "See what's got Brogath so pleased (the old quarters)",
+    "type": "flag",
+    "target": "p14_shopping_seen"
+   },
+   {
+    "id": "purse",
+    "text": "Check your purse (the desk, your cabin)",
+    "type": "flag",
+    "target": "p14_purse_checked",
+    "after": [
+     "see"
+    ]
+   },
+   {
+    "id": "crate",
+    "text": "Get the delivery below (on deck, by the forward hatch)",
+    "type": "flag",
+    "target": "grand_currency_crate_below",
+    "after": [
+     "see"
+    ]
+   },
+   {
+    "id": "open",
+    "text": "Open it (the crate, in the galley)",
+    "type": "flag",
+    "target": "grand_currency_crate_opened",
+    "after": [
+     "crate",
+     "purse"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 80
+  }
+ },
+ {
+  "id": "oat_security",
+  "title": "Grand Temporary Ancient Oat Security Officer",
+  "category": "main",
+  "giver": "pete",
+  "summary": "A harmless, important job.",
+  "description": "The plan: keep Brogath busy with harmless, important-sounding jobs. The first: guarding the oats.",
+  "objectives": [
+   {
+    "id": "job",
+    "text": "Give Brogath an important job (Brogath)",
+    "type": "flag",
+    "target": "p14_oat_job_given"
+   },
+   {
+    "id": "sacks",
+    "text": "Fetch the oats (three sacks: the galley stores)",
+    "type": "event",
+    "target": "p14_oat_sack",
+    "count": 3,
+    "after": [
+     "job"
+    ]
+   },
+   {
+    "id": "check",
+    "text": "Check on him (the galley)",
+    "type": "flag",
+    "target": "p14_oat_disaster",
+    "after": [
+     "sacks"
+    ]
+   },
+   {
+    "id": "sweep",
+    "text": "Sweep up (the galley floor)",
+    "type": "flag",
+    "target": "p14_oats_swept",
+    "after": [
+     "check"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 80
+  }
+ },
+ {
+  "id": "television_duty",
+  "title": "Important Television Duty",
+  "category": "main",
+  "giver": "pete",
+  "summary": "He sits still for television.",
+  "description": "Brogath can't guard oats. But there's one thing he might be able to do without moving at all.",
+  "objectives": [
+   {
+    "id": "machinery",
+    "text": "Find him something he'll sit still for (the bedroom set)",
+    "type": "flag",
+    "target": "p14_knob_off"
+   },
+   {
+    "id": "channel",
+    "text": "Find the right channel (the bedroom set)",
+    "type": "flag",
+    "target": "p14_ftm_found",
+    "after": [
+     "machinery"
+    ]
+   },
+   {
+    "id": "watch",
+    "text": "Watch it with him (Brogath)",
+    "type": "flag",
+    "target": "p14_tv_duty_assigned",
+    "after": [
+     "channel"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 70
+  }
+ },
+ {
+  "id": "sash_commercial",
+  "title": "The Sash Flutter Commercial",
+  "category": "main",
+  "giver": "pete",
+  "summary": "The Bling Bling King has bought advertising.",
+  "description": "A commercial break. A sash, fluttering, in slow motion. Then two. Then six. Brogath is watching all of them.",
+  "objectives": [
+   {
+    "id": "eyes",
+    "text": "Cover his eyes (Brogath)",
+    "type": "flag",
+    "target": "p14_ad_eyes"
+   },
+   {
+    "id": "channel",
+    "text": "Change the channel (the bedroom set)",
+    "type": "flag",
+    "target": "p14_ad_channel"
+   },
+   {
+    "id": "sashes",
+    "text": "Tie down the sashes nearby (the sash hammocks)",
+    "type": "event",
+    "target": "p14_ad_sash",
+    "count": 2
+   },
+   {
+    "id": "doors",
+    "text": "Shut the doors (the galley door, the deck hatch)",
+    "type": "event",
+    "target": "p14_ad_door",
+    "count": 2
+   },
+   {
+    "id": "talk",
+    "text": "Talk him through it (Brogath)",
+    "type": "flag",
+    "target": "p14_ad_resolved",
+    "after": [
+     "eyes",
+     "channel",
+     "sashes",
+     "doors"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 90
+  }
+ },
+ {
+  "id": "the_grand_bank",
+  "title": "The Grand Bank",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "Where is the BRANCH?",
+  "description": "Twenty thousand tokens of Grand Currency, and not one of them is worth anything. Ask Brogath about this bank of his. All of it.",
+  "objectives": [
+   {
+    "id": "questions",
+    "text": "Ask him about the bank (Brogath)",
+    "type": "event",
+    "target": "p14_question",
+    "count": 7
+   },
+   {
+    "id": "badge",
+    "text": "Take your badge (Brogath)",
+    "type": "flag",
+    "target": "teller_badge_given",
+    "after": [
+     "questions"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 90
+  }
+ },
+ {
+  "id": "teller_shift",
+  "title": "Your Gas Is Our Business",
+  "category": "main",
+  "giver": "brogath",
+  "summary": "The branch is open. You are the teller.",
+  "description": "THE GRAND STENCHMASTER'S GRAND BANK AND GRAND TRUST is open for deposits. Take each depositor's sash, brace, and record what kind of deposit it was.",
+  "objectives": [
+   {
+    "id": "serve",
+    "text": "Serve the depositors (ring the teller bell, behind the counter)",
+    "type": "event",
+    "target": "p14_deposit",
+    "count": 16
+   }
+  ],
+  "rewards": {
+   "xp": 160
+  }
+ },
+ {
+  "id": "legendary_depositors",
+  "title": "Legendary Depositors",
+  "category": "main",
+  "giver": "brogath",
+  "summary": "The legends bank here too.",
+  "description": "Word has got round the afterlife. Three more. Legendary ones.",
+  "objectives": [
+   {
+    "id": "serve",
+    "text": "Serve the legends (the teller bell)",
+    "type": "event",
+    "target": "p14_legend",
+    "count": 3
+   }
+  ],
+  "rewards": {
+   "xp": 120
+  }
+ },
+ {
+  "id": "branch_concludes",
+  "title": "The Branch Concludes Business",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "The tokens. REDEEM THE TOKENS.",
+  "description": "The bank is dissolving. You have twenty thousand tokens and about a minute.",
+  "objectives": [
+   {
+    "id": "redeem",
+    "text": "REDEEM THE TOKENS (the vault, quick!)",
+    "type": "flag",
+    "target": "p14_redeem_failed"
+   },
+   {
+    "id": "ask",
+    "text": "Ask him what they're for (Brogath)",
+    "type": "flag",
+    "target": "p14_wealthy_answer",
+    "after": [
+     "redeem"
+    ]
+   },
+   {
+    "id": "ornament",
+    "text": "Ask for the bank back, without you in it (Brogath)",
+    "type": "flag",
+    "target": "holiday_ornament_made",
+    "after": [
+     "ask"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 80
+  }
+ },
+ {
+  "id": "distinguishedly_furious",
+  "title": "Distinguishedly Furious",
+  "category": "main",
+  "giver": "pete",
+  "summary": "You started it. Console him.",
+  "description": "You said everything stinks. You said Brogath reeks. He took it very badly. It has been going on for ten minutes. Go into the plume and console him.",
+  "objectives": [
+   {
+    "id": "console",
+    "text": "Go into the plume and console him (the old quarters)",
+    "type": "flag",
+    "target": "p14_consoled"
+   }
+  ],
+  "rewards": {
+   "xp": 110
+  }
+ },
+ {
+  "id": "brogath_problem",
+  "title": "The Brogath Problem",
+  "category": "main",
+  "giver": "gristle",
+  "summary": "How do you get rid of a reincarnated Grand Stenchmaster?",
+  "description": "In the Fart-Free Zone, with the pocket edition: find out how to get rid of Brogath. Properly. Safely. For good.",
+  "objectives": [
+   {
+    "id": "research",
+    "text": "Read up on dispersing him (the pocket edition, in the zone)",
+    "type": "event",
+    "target": "p14_research",
+    "count": 4
+   },
+   {
+    "id": "sums",
+    "text": "Do the sums (the slate)",
+    "type": "flag",
+    "target": "p14_sums_done",
+    "after": [
+     "research"
+    ]
+   },
+   {
+    "id": "tell",
+    "text": "Tell him (Brogath, the old quarters)",
+    "type": "flag",
+    "target": "brogath_permanent",
+    "after": [
+     "sums"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 100
+  }
+ },
+ {
+  "id": "history_night",
+  "title": "Mandatory History Night",
+  "category": "main",
+  "giver": "squawks",
+  "summary": "Zone. Sleep. Please.",
+  "description": "A night in the Fart-Free Zone. Nobody touched the television.",
+  "objectives": [
+   {
+    "id": "sleep",
+    "text": "Get some sleep (the mattress, in the zone)",
+    "type": "flag",
+    "target": "p14_zone_sleep"
+   },
+   {
+    "id": "investigate",
+    "text": "See what's on (the Mark II, in the galley)",
+    "type": "flag",
+    "target": "p14_set_found_on",
+    "after": [
+     "sleep"
+    ]
+   },
+   {
+    "id": "unplug",
+    "text": "Turn it off. Somehow. (the Mark II)",
+    "type": "flag",
+    "target": "p14_unplug_tried",
+    "after": [
+     "investigate"
+    ]
+   },
+   {
+    "id": "watch",
+    "text": "Watch it, apparently (Brogath)",
+    "type": "flag",
+    "target": "p14_beggar_watched",
+    "after": [
+     "unplug"
+    ]
+   },
+   {
+    "id": "ads",
+    "text": "Commercial break! Cover his eyes, tie the sashes down, change the channel",
+    "type": "event",
+    "target": "p14_night_job",
+    "count": 3,
+    "after": [
+     "watch"
+    ]
+   },
+   {
+    "id": "license",
+    "text": "Explain the sashes (Brogath)",
+    "type": "flag",
+    "target": "tv_safety_protocol",
+    "after": [
+     "ads"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 110
+  }
+ }
+]

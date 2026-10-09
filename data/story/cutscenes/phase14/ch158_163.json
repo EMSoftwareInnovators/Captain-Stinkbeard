@@ -1,0 +1,1553 @@
+{
+ "//": "Story Phase 14, chapters 158-163: the Grand Economy of Farts (four vignettes), Bad Money (the Grand Currency purchase: ten real doubloons out exactly once, 20,000 tokens in, never gold; the crate), oat security, television duty (The Frog Tax Man, ribbit), the sash commercial (consensual, controlled, commercial flutter), the Grand Bank (seven questions, the Anger Waft, the branch on deck, the badge).",
+ "p14c13.begin": [
+  {
+   "setFlag": "p14_ch158_started"
+  },
+  {
+   "banner": "CHAPTER 158",
+   "sub": "The Grand Economy of Farts"
+  },
+  "You can't put it down. Overleaf: THE GRAND ECONOMY OF FARTS.",
+  {
+   "startQuest": "grand_economy"
+  },
+  {
+   "tutorial": "Read on (the pocket edition).",
+   "title": "The Grand Economy of Farts"
+  }
+ ],
+ "p14c13.read": [
+  {
+   "if": {
+    "var": {
+     "name": "p14_econ_read",
+     "eq": 0
+    }
+   },
+   "then": [
+    {
+     "insert": "codex_economy",
+     "caption": "THE GRAND ECONOMY OF FARTS. (Exchange table.)"
+    },
+    "codex: Beyond broke, Brogath the Bashful would not admit that his crew were poor. Instead he announced that they were RICH, in a new kind of money: stored digestive potential.",
+    "codex: TEN GUST PIECES TO THE WIND CROWN. TWELVE WIND CROWNS TO THE ATMOSPHERIC DOUBLOON. The GRAND GUST: priceless, and not for sale.",
+    "codex: All of it backed by the Internal Atmospheric Reserves, held in the Bean Treasury. Brogath was the Bean Treasury.",
+    "captain[annoyed]: (under your breath) Fart-backed assets."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p14_econ_read",
+     "eq": 1
+    }
+   },
+   "then": [
+    {
+     "insert": "codex_bakery",
+     "caption": "BROGATH ATTEMPTS TO BUY BREAD."
+    },
+    "codex: His first purchase was a loaf. He offered the baker four Gust Pieces. The baker asked what a Gust Piece was.",
+    "codex: Brogath was so embarrassed that he blasted the bakery. Not on purpose. Out of the front window, the ovens, and the baker's hat.",
+    "codex: The baker gave him the bread, and three more loaves, and asked him please to leave.",
+    "codex: Brogath recorded this in his ledger as A SUCCESSFUL TRANSACTION."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p14_econ_read",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "insert": "codex_rope_bucket",
+     "caption": "THE FIRST FORMALLY RECOGNISED ATMOSPHERIC TRANSACTION."
+    },
+    "codex: At a cloth merchant's, the same. The merchant laughed; Brogath blushed; the bolts of cloth went up the chimney; the merchant paid HIM.",
+    "codex: But a rope merchant, a practical woman, made him an offer. One coil of rope, for one fart strong enough to move a bucket.",
+    "codex: Brogath was so pleased to be taken seriously that he put everything into it. The bucket went through the window. And the next window. And the lighthouse.",
+    "codex: She gave him three coils of rope and told him to leave. Brogath called it the first formally recognised atmospheric transaction, and had it framed."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p14_econ_read",
+     "eq": 3
+    }
+   },
+   "then": [
+    {
+     "insert": "codex_undertaker",
+     "caption": "PAID IN FULL."
+    },
+    "codex: In his old age, Brogath went to the undertaker and arranged his own funeral, to be paid for with his final fart at the moment of his death.",
+    "codex: The undertaker refused. Brogath died some years later, owing for the funeral.",
+    "codex: The final fart happened anyway. At the funeral. Halfway through.",
+    "codex: The undertaker declared the debt PAID IN FULL, on the spot, because he wanted Brogath in the ground immediately. Brogath's ledger, buried with him, records it as his greatest deal.",
+    "captain[resigned]: (closing the book very slowly) ...People kept GIVING him things. After he farted at them. So it WORKED."
+   ]
+  },
+  {
+   "addVar": "p14_econ_read",
+   "value": 1
+  },
+  {
+   "event": "p14_econ"
+  }
+ ],
+ "p14c13.read_done": [
+  {
+   "setFlag": "p14_econ_said"
+  },
+  {
+   "logbook": "garrick_legends"
+  },
+  "He believes it. Every word. And why wouldn't he? Every time he farted at somebody, they gave him something.",
+  "captain[resigned]: (blowing the candle out) I hate ancient history.",
+  {
+   "tutorial": "Get some sleep (the mattress).",
+   "title": "The Grand Economy of Farts"
+  }
+ ],
+ "p14c13.sleep": [
+  "You lie down on the mattress, between Gristle's boots and Bob's elbow. It smells of wood, and candle, and nothing.",
+  {
+   "fade": "out",
+   "duration": 1200
+  },
+  {
+   "sfx": "snore",
+   "volume": 0.4
+  },
+  {
+   "wait": 900
+  },
+  {
+   "setFlag": "p14_slept_after_reading"
+  },
+  {
+   "completeQuest": "grand_economy"
+  },
+  {
+   "call": "p14c14.begin"
+  }
+ ],
+ "p14c14.begin": [
+  {
+   "setFlag": "p14_ch159_started"
+  },
+  {
+   "banner": "CHAPTER 159",
+   "sub": "Bad Money"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 28
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "fade": "in",
+   "duration": 1000
+  },
+  {
+   "music": "brogath_morning",
+   "fade": 800
+  },
+  "Morning. Squawks is sitting on your chest.",
+  "squawks[smug]: Bad money.",
+  "captain: ...What?",
+  {
+   "sfx": "thud_heavy",
+   "volume": 0.6
+  },
+  {
+   "shake": 1,
+   "duration": 400
+  },
+  "Something heavy lands on the deck, a long way up. Then Pete's head comes round the zone door.",
+  "pete[worried]: Captain. Brogath's been... shopping.",
+  {
+   "startQuest": "bad_money"
+  },
+  {
+   "tutorial": "See what's got Brogath so pleased (the old quarters).",
+   "title": "Bad Money"
+  }
+ ],
+ "p14c14.shopping": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "brogath[delighted]: Captain! Good morning! I've been SHOPPING.",
+  "captain: Shopping. In a storm. In the middle of the sea.",
+  "brogath[delighted]: The shark king! Through the porthole! He came round in the night with a little catalogue. Such a helpful creature.",
+  {
+   "insert": "bbk_catalogue",
+   "caption": "GRAND CURRENCY! BE WEALTHY TODAY!"
+  },
+  "brogath[proud]: I've bought us some MONEY. Proper money. Grand money. TWENTY THOUSAND GRAND STENCHMASTER GRAND TOKENS OF GRAND CURRENCY.",
+  "captain: ...What did you pay with?",
+  "brogath[proud]: One premium Stenchmaster fart. My best. He seemed to like it. His whole storm went round a bit faster.",
+  "brogath[pleased]: And ten of these. They were in your desk.",
+  "He holds up an empty purse. Your purse.",
+  {
+   "grandCurrency": "purchase"
+  },
+  "captain: ...Those were DOUBLOONS. Those were REAL, GOLD DOUBLOONS.",
+  "brogath[confused]: Yes! He wanted those ones especially.",
+  {
+   "choice": [
+    {
+     "text": "That was REAL money, you cardboard IDIOT.",
+     "then": [
+      {
+       "stability": "trigger",
+       "id": "misunderstood"
+      },
+      "brogath[mortified]: Oh. Was it? Oh, no. Oh, I'm so...",
+      "pete: (diving in) He's not sorry! He's NOT sorry! Brogath, don't be sorry!",
+      {
+       "stability": "calm",
+       "id": "confidence",
+       "quiet": true
+      }
+     ]
+    },
+    {
+     "text": "...Very shrewd. Very... Grand.",
+     "then": [
+      {
+       "stability": "calm",
+       "id": "praise"
+      }
+     ]
+    },
+    {
+     "text": "(Say nothing. Count to ten. In doubloons.)",
+     "then": [
+      "You count to ten. It doesn't help. You haven't got ten any more."
+     ]
+    }
+   ]
+  },
+  {
+   "setFlag": "p14_shopping_seen"
+  },
+  {
+   "tutorial": "Check your purse (the desk, your cabin). Then get the delivery below (on deck, by the forward hatch).",
+   "title": "Bad Money"
+  }
+ ],
+ "p14c14.purse": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "Your desk. The drawer where the purse lives. The purse doesn't live there any more.",
+  "In its place, a slip of paper, in an elegant, ancient, and very pleased hand.",
+  {
+   "insert": "receipt_brogath",
+   "caption": "RECEIVED WITH THANKS: TEN (10) SMALL GOLD COINS AND ONE (1) PREMIUM FART. PAID IN FULL."
+  },
+  "captain[resigned]: (very quietly) I used to steal REAL gold.",
+  {
+   "setFlag": "p14_purse_checked"
+  }
+ ],
+ "p14c14.crate": [
+  "On deck, by the forward hatch, a crate. Plastic-wrapped. Stamped all over with a crown and a nose: GRAND STENCHMASTER GRAND TOKENS OF GRAND CURRENCY. THIS WAY UP. NOT LEGAL TENDER.",
+  "gristle: (coming over) Came down out of the storm at dawn. Nearly took the bowsprit off.",
+  "It's heavy. Of course it's heavy.",
+  {
+   "repair": "carry",
+   "strikes": 3,
+   "title": "LIFT!"
+  },
+  "Between you, you get it down the forward hatch and along to the galley.",
+  {
+   "setFlag": "grand_currency_crate_below"
+  }
+ ],
+ "p14c14.open": [
+  "The crate. In the galley. Everybody gathers round.",
+  {
+   "repair": "pry",
+   "strikes": 3,
+   "title": "PRY IT OPEN"
+  },
+  {
+   "sfx": "tokens_pour",
+   "volume": 0.9
+  },
+  {
+   "burst": "tokens",
+   "x": 15,
+   "y": 8,
+   "count": 14
+  },
+  "The lid comes off, and so does the side, and so do some of the tokens.",
+  "Plastic coins. Gold-coloured, the way a toy is gold-coloured. A crown on one side, a nose on the other. Twenty thousand of them.",
+  {
+   "insert": "grand_token",
+   "caption": "ONE (1) GRAND TOKEN. NOT LEGAL TENDER. NOT FOR CHILDREN UNDER THREE."
+  },
+  {
+   "giveItem": "grand_currency"
+  },
+  "squawks[smug]: (biting one) BAD money.",
+  "jim: (picking one out of the beans) In the BEANS. They're in the beans already.",
+  "ned: What do we DO with twenty thousand of them?",
+  "brogath[proud]: (from the door) Be WEALTHY!",
+  {
+   "setFlag": "grand_currency_crate_opened"
+  },
+  {
+   "setFlag": "grand_tokens_loose"
+  },
+  {
+   "completeQuest": "bad_money"
+  },
+  {
+   "tutorial": "The 20,000 Grand Tokens are their own thing: not gold, not spendable, not legal tender. (See your items.)",
+   "title": "Bad Money"
+  },
+  {
+   "call": "p14c15.begin"
+  }
+ ],
+ "p14c15.begin": [
+  {
+   "setFlag": "p14_ch160_started"
+  },
+  {
+   "banner": "CHAPTER 160",
+   "sub": "Grand Temporary Ancient Oat Security Officer"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 29
+  },
+  "pete: (low, in the galley) He needs something to DO. He's bored, he's rich, and he's full of beans.",
+  "gristle: A job. Something important-sounding. That can't go wrong.",
+  "jim: Something nobody cares about.",
+  "Everybody thinks.",
+  "jim: ...The oats. Nobody cares about the oats. I don't even know why we've got oats.",
+  {
+   "startQuest": "oat_security"
+  },
+  {
+   "tutorial": "Give Brogath an important job (Brogath).",
+   "title": "Grand Temporary Ancient Oat Security Officer"
+  }
+ ],
+ "p14c15.job": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "captain[determined]: Brogath. I have a task for you. A grave one. An ANCIENT one.",
+  "brogath[delighted]: Yes?",
+  "captain[determined]: The ship's oats. Three sacks. They must be guarded. Day and night. By someone of the highest... granularity.",
+  {
+   "stability": "calm",
+   "id": "important_job"
+  },
+  "captain[determined]: I hereby appoint you... GRAND TEMPORARY ANCIENT OAT SECURITY OFFICER.",
+  "brogath[proud]: (standing as straight as card can stand) GRAND TEMPORARY ANCIENT OAT SECURITY OFFICER.",
+  "brogath[proud]: Nobody gets near those oats. NOBODY.",
+  {
+   "setFlag": "p14_oat_job_given"
+  },
+  {
+   "tutorial": "Fetch the oats: three sacks from the galley stores (the flour sacks, the sacks by the stores).",
+   "title": "Grand Temporary Ancient Oat Security Officer"
+  }
+ ],
+ "p14c15.sack": [
+  {
+   "if": {
+    "notFlag": "p14_oat_sack_a"
+   },
+   "then": [
+    "A sack of oats, behind the flour.",
+    {
+     "repair": "carry",
+     "strikes": 3,
+     "title": "LIFT!"
+    },
+    {
+     "setFlag": "p14_oat_sack_a"
+    },
+    {
+     "event": "p14_oat_sack"
+    },
+    {
+     "end": true
+    }
+   ]
+  },
+  {
+   "if": {
+    "notFlag": "p14_oat_sack_b"
+   },
+   "then": [
+    "Another sack. OATS, it says, in Jim's writing. And underneath: WHY?",
+    {
+     "repair": "carry",
+     "strikes": 3,
+     "title": "LIFT!"
+    },
+    {
+     "setFlag": "p14_oat_sack_b"
+    },
+    {
+     "event": "p14_oat_sack"
+    },
+    {
+     "end": true
+    }
+   ]
+  },
+  {
+   "if": {
+    "notFlag": "p14_oat_sack_c"
+   },
+   "then": [
+    "The last sack of oats.",
+    {
+     "repair": "carry",
+     "strikes": 3,
+     "title": "LIFT!"
+    },
+    {
+     "setFlag": "p14_oat_sack_c"
+    },
+    {
+     "event": "p14_oat_sack"
+    },
+    {
+     "end": true
+    }
+   ]
+  },
+  "That's all the oats there are."
+ ],
+ "p14c15.posted": [
+  {
+   "setFlag": "p14_oats_posted"
+  },
+  {
+   "restage": "walk"
+  },
+  "Three sacks of oats in a row beside the stove. In front of them, at attention, Brogath the Bashful, Grand Temporary Ancient Oat Security Officer.",
+  "brogath[proud]: HALT. Who goes there?",
+  "jim: It's me. I live here. I'm the cook.",
+  "brogath[proud]: Pass, cook.",
+  "It works. It actually works. He stands there, perfectly still, guarding the oats, and an hour goes by, and nothing happens, and the crew start to relax for the first time since the treasure-room door.",
+  "gristle: (sitting down, very carefully) ...Look at that.",
+  "pete: Don't say it.",
+  "gristle: It's WORKING.",
+  "pete: You said it.",
+  {
+   "tutorial": "Leave him to it, and check on him in a little while (the galley, by the oats).",
+   "title": "Grand Temporary Ancient Oat Security Officer"
+  }
+ ],
+ "p14c15.check": [
+  {
+   "face": "brogath",
+   "dir": "down"
+  },
+  "You come back to check on him. He's still at his post. But he's not looking at you. He's looking at the floor.",
+  "brogath[embarrassed]: (whispering) Captain. There's an oat.",
+  "One oat. On the floor. In front of the middle sack.",
+  "brogath[embarrassed]: On MY watch.",
+  {
+   "choice": [
+    {
+     "text": "Leave it, Brogath.",
+     "then": [
+      "brogath[proud]: I CAN'T leave it. I'm SECURITY."
+     ]
+    },
+    {
+     "text": "I'll get it.",
+     "then": [
+      "brogath[proud]: No, no. My oat. My responsibility."
+     ]
+    },
+    {
+     "text": "It's just one oat.",
+     "then": [
+      "brogath[embarrassed]: One oat TODAY."
+     ]
+    }
+   ]
+  },
+  "He bends down to get it. Cardboard doesn't bend down. He bends anyway.",
+  {
+   "anim": "brogath",
+   "name": "bend"
+  },
+  {
+   "sfx": "cardboard_creak",
+   "volume": 0.9
+  },
+  "His bent edge catches the middle sack. It tips.",
+  {
+   "propFx": "fall",
+   "prop": "oat_sack",
+   "duration": 600,
+   "dx": 0,
+   "dy": 1
+  },
+  {
+   "burst": "oats",
+   "x": 6,
+   "y": 5,
+   "count": 10
+  },
+  {
+   "sfx": "oats_pour",
+   "volume": 0.8
+  },
+  "brogath[embarrassed]: Oh. Oh, more oats.",
+  "He reaches the wrong way to stop it, and knocks the left one.",
+  {
+   "burst": "oats",
+   "x": 5,
+   "y": 5,
+   "count": 10
+  },
+  {
+   "sfx": "oats_pour",
+   "volume": 0.8
+  },
+  {
+   "stability": "trigger",
+   "id": "tripped",
+   "quiet": true
+  },
+  "His elbow (he has no elbow, it's a fold) gets caught in the string of the right one, and he pulls it over too.",
+  {
+   "burst": "oats",
+   "x": 7,
+   "y": 5,
+   "count": 12
+  },
+  {
+   "sfx": "oats_pour",
+   "volume": 0.9
+  },
+  "He steps back. Onto the oat. The original oat.",
+  {
+   "fly": "brogath",
+   "to": [
+    6,
+    7
+   ],
+   "duration": 300,
+   "arc": 4
+  },
+  {
+   "sfx": "slip_whoosh",
+   "volume": 0.8
+  },
+  {
+   "stability": "trigger",
+   "id": "fell_over",
+   "quiet": true
+  },
+  "He goes over. He lands on his edge.",
+  {
+   "anim": "brogath",
+   "name": "sideways"
+  },
+  "And from where you're standing, edge-on, he vanishes. There's nothing there. A line. A crease in the air.",
+  {
+   "stability": "trigger",
+   "id": "sideways"
+  },
+  "brogath[mortified]: (from the crease) Can anybody see me? I've gone SIDEWAYS. Oh, this is the WORST...",
+  {
+   "stability": "trigger",
+   "id": "embarrassed_again",
+   "quiet": true
+  },
+  {
+   "stability": "set",
+   "pressure": 100
+  },
+  {
+   "sfx": "pressure_build",
+   "volume": 1.0
+  },
+  {
+   "shake": 2,
+   "duration": 700
+  },
+  "pete: (from the doorway) OATS. DOWN!",
+  {
+   "sfx": "brogath_eruption",
+   "volume": 1.0
+  },
+  {
+   "flash": "#f0e0a0",
+   "duration": 250
+  },
+  {
+   "shake": 6,
+   "duration": 1600,
+   "async": true
+  },
+  {
+   "burst": "oats",
+   "x": 6,
+   "y": 6,
+   "count": 24
+  },
+  {
+   "burst": "oats",
+   "x": 3,
+   "y": 8,
+   "count": 18
+  },
+  {
+   "burst": "oats",
+   "x": 11,
+   "y": 7,
+   "count": 18
+  },
+  {
+   "burst": "oats",
+   "x": 14,
+   "y": 9,
+   "count": 14
+  },
+  {
+   "burst": "fume",
+   "x": 6,
+   "y": 6,
+   "count": 10
+  },
+  {
+   "sprite": "oat_sack_fly",
+   "frame": "oat_sack_item",
+   "x": 6.5,
+   "y": 5.5,
+   "depth": 60000
+  },
+  {
+   "moveSprite": "oat_sack_fly",
+   "x": 9.5,
+   "y": 2.2,
+   "duration": 600,
+   "angle": 360
+  },
+  {
+   "sfx": "glass_crack",
+   "volume": 0.6
+  },
+  {
+   "removeSprite": "oat_sack_fly"
+  },
+  "The oats go EVERYWHERE. Into the stove. Into the beans. Into Jim. Into the pot, the pans, the hammocks, the cracks in the floor, the cracks in the ceiling.",
+  "And the last sack goes up, out through the porthole, and away into the Sharkstorm, trailing oats, going round.",
+  {
+   "wait": 500
+  },
+  {
+   "stability": "settle",
+   "pressure": 25
+  },
+  {
+   "anim": "brogath",
+   "name": "idle"
+  },
+  "Silence. Oats patter down. A long way off, out in the storm, a shark says something to another shark about oats.",
+  "brogath[sorry]: (sitting up, covered in oats) ...Little toot.",
+  "crew: (from under the table, in unison) Agreed.",
+  "jim: (oats in his hair, in his apron, in his mouth) ...He cannot guard oats.",
+  {
+   "setFlag": "brogath_rule_oats"
+  },
+  {
+   "addVar": "brogath_rules",
+   "value": 1
+  },
+  "pete: (writing) BROGATH. MAY NOT. GUARD. OATS.",
+  {
+   "setFlag": "p14_oat_disaster"
+  },
+  {
+   "setFlag": "oats_everywhere"
+  },
+  {
+   "tutorial": "Sweep up (the galley floor).",
+   "title": "Grand Temporary Ancient Oat Security Officer"
+  }
+ ],
+ "p14c15.sweep": [
+  "A broom. A very long time.",
+  {
+   "repair": "sweep",
+   "strikes": 4,
+   "title": "SWEEP IT UP"
+  },
+  "You get most of them. You will be finding the rest for the rest of your life: in the floorboards, in your boots, in the cannon.",
+  {
+   "setFlag": "p14_oats_swept"
+  },
+  {
+   "completeQuest": "oat_security"
+  },
+  {
+   "call": "p14c16.begin"
+  }
+ ],
+ "p14c16.begin": [
+  {
+   "setFlag": "p14_ch161_started"
+  },
+  {
+   "banner": "CHAPTER 161",
+   "sub": "Important Television Duty"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 32
+  },
+  "Evening. Brogath is back in the old quarters, sitting in the middle of the floor in a little ring of oats, waiting to be given something else to do.",
+  "brogath[bashful]: (to everybody who passes) Is there anything I can guard? I've got a lot of guarding in me.",
+  "pete: (to you) We need something he'll sit still for. Really still. For HOURS.",
+  "gristle: He sat still all night next to Garrick. Listening.",
+  "pete: Something BORING. The most boring thing on the ship.",
+  "Everybody's eyes go to the bedroom set on its barrel table.",
+  {
+   "startQuest": "television_duty"
+  },
+  {
+   "tutorial": "Find him something he'll sit still for (the bedroom set).",
+   "title": "Important Television Duty"
+  }
+ ],
+ "p14c16.machinery": [
+  "brogath[delighted]: (getting there first) Oh! The little theatre! May I? I'd LOVE to work it.",
+  "Before anybody can stop him, he's turning the knobs. All of them. At once.",
+  {
+   "sfx": "mk2_rattle",
+   "volume": 0.8
+  },
+  "brogath[confused]: How do you... which one makes the little people come?",
+  {
+   "sfx": "wood_crack",
+   "volume": 0.5
+  },
+  "Something comes off in his hand. A little wheel. The fine-tuning wheel.",
+  {
+   "stability": "trigger",
+   "id": "machinery"
+  },
+  "pete: (taking the wheel off him, gently, like a knife off a child) ...Thank you, Your Ancientness.",
+  {
+   "setFlag": "brogath_rule_no_machinery"
+  },
+  {
+   "addVar": "brogath_rules",
+   "value": 1
+  },
+  "pete: (writing) BROGATH MUST NOT ATTEMPT COMPLICATED MACHINERY.",
+  "brogath[bashful]: Is a little theatre complicated machinery?",
+  "crew: YES.",
+  "pete: (handing you the wheel) You do it, Captain. Find something boring.",
+  {
+   "setFlag": "p14_knob_off"
+  },
+  {
+   "tutorial": "Find the right channel (the bedroom set). Something boring. The most boring thing there is.",
+   "title": "Important Television Duty"
+  }
+ ],
+ "p14c16.channel": [
+  {
+   "tv": "ses_kit"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "var": {
+       "name": "ses_mk2_channel",
+       "eq": 7
+      }
+     },
+     {
+      "var": {
+       "name": "ses_mk2_power",
+       "eq": 1
+      }
+     }
+    ]
+   },
+   "then": [
+    "Channel seven. A frog in a tie. An auditor in a visor. A ledger.",
+    "The Frog Tax Man.",
+    "pete: (in a whisper) ...Perfect.",
+    {
+     "setFlag": "p14_ftm_found"
+    },
+    {
+     "tutorial": "Watch it with him (Brogath).",
+     "title": "Important Television Duty"
+    }
+   ],
+   "else": [
+    "Not that. Something more boring than that. (Somewhere there's a frog doing his taxes.)"
+   ]
+  }
+ ],
+ "p14c16.watch": [
+  {
+   "vista": "quarters_watch",
+   "fade": 500
+  },
+  {
+   "music": "frog_tax_man_theme",
+   "fade": 400
+  },
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "ribbit",
+   "layer": "screen",
+   "from": 0,
+   "to": 2,
+   "tv": "ses_kit"
+  },
+  "brogath[confused]: (sitting down in front of it, slowly) ...What's he done?",
+  "pete: (whispering) Taxes.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "ribbit",
+   "layer": "screen",
+   "from": 3,
+   "to": 5,
+   "tv": "ses_kit"
+  },
+  "brogath[thoughtful]: ...He's not saying anything. He's just saying 'ribbit'.",
+  "garrick[businesslike]: (from his hammock) He's been advised by counsel, Brogath. Only 'ribbit'. Never anything else. It's the only safe answer to an auditor.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "ribbit",
+   "layer": "screen",
+   "from": 6,
+   "to": 8,
+   "tv": "ses_kit"
+  },
+  {
+   "stability": "calm",
+   "id": "television",
+   "quiet": true
+  },
+  "Brogath doesn't answer. He's leaning forward. He's absolutely still. His printed eyes don't move.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "ribbit",
+   "layer": "screen",
+   "from": 9,
+   "to": 11,
+   "tv": "ses_kit"
+  },
+  "brogath[pleased]: (in a hushed, awed voice) ...He's very brave, isn't he.",
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "ribbit",
+   "layer": "screen",
+   "from": 12,
+   "to": 13,
+   "tv": "ses_kit"
+  },
+  {
+   "vistaEnd": true,
+   "fade": 500
+  },
+  "He hasn't moved. He doesn't move for an hour. Then another one. The cardboard stops creaking. The little fume round his edges settles.",
+  "pete: (very quietly) It's working.",
+  "gristle: (very quietly) Nobody say it's working.",
+  {
+   "stability": "calm",
+   "id": "important_job",
+   "quiet": true
+  },
+  "captain[determined]: (very quietly, so as not to break it) Brogath. From now on: Television Duty. It's an important job. Somebody has to watch the frog.",
+  "brogath[proud]: (not taking his eyes off Franklin) I'll watch him. I'll watch him ALL the time.",
+  {
+   "setFlag": "p14_tv_duty_assigned"
+  },
+  {
+   "setFlag": "brogath_tv_duty"
+  },
+  {
+   "completeQuest": "television_duty"
+  },
+  {
+   "call": "p14c17.begin"
+  }
+ ],
+ "p14c17.begin": [
+  {
+   "setFlag": "p14_ch162_started"
+  },
+  {
+   "banner": "CHAPTER 162",
+   "sub": "The Sash Flutter Commercial"
+  },
+  "An hour in. Peace. Franklin has said 'ribbit' a hundred and twelve times. Brogath has not moved a muscle, partly because he hasn't got any.",
+  {
+   "vista": "quarters_watch",
+   "fade": 400
+  },
+  {
+   "tvProgram": "frog_tax_man",
+   "episode": "ribbit",
+   "layer": "screen",
+   "from": 13,
+   "to": 13,
+   "tv": "ses_kit"
+  },
+  {
+   "tvProgram": "bbk_sash_ads",
+   "episode": "one_sash",
+   "layer": "screen",
+   "from": 0,
+   "to": 1,
+   "tv": "ses_kit"
+  },
+  "And then the picture changes.",
+  {
+   "tvProgram": "bbk_sash_ads",
+   "episode": "one_sash",
+   "layer": "screen",
+   "from": 2,
+   "to": 4,
+   "tv": "ses_kit"
+  },
+  "A clean white backdrop. Soft music. And a single Stenchmaster sash, hanging in the air, lifting, in slow motion, in a breeze from nowhere. Fluttering.",
+  "Gloriously. Shamelessly. FLUTTERING.",
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "setValue": "ses_kit_state",
+   "value": "sash_ad"
+  },
+  {
+   "stability": "incident",
+   "id": "advert"
+  },
+  {
+   "stability": "trigger",
+   "id": "flutter",
+   "quiet": true
+  },
+  "brogath[embarrassed]: (very quietly) ...Oh.",
+  "pete: (the colour draining out of him) He's bought ADVERTISING. The shark's bought ADVERTISING.",
+  {
+   "startQuest": "sash_commercial"
+  },
+  {
+   "tutorial": "The Bling Bling King's commercial is on, and it's a fluttering sash. Cover Brogath's eyes (Brogath), change the channel (the bedroom set), tie down the sashes nearby (the sash hammocks), shut the doors (the north door, the ladder hatch). Then talk him through it.",
+   "title": "The Sash Flutter Commercial"
+  }
+ ],
+ "p14c17.eyes": [
+  "You put your hands over his printed eyes. They're flat. It's like covering up a poster.",
+  {
+   "stability": "calm",
+   "id": "covered_eyes"
+  },
+  "brogath[confused]: Is it still going? It's still going. I can HEAR it fluttering.",
+  "On the screen, a second sash joins the first. Two. Fluttering together. The music swells.",
+  {
+   "sfx": "sash_flap_small",
+   "volume": 0.6
+  },
+  {
+   "setFlag": "p14_ad_eyes"
+  }
+ ],
+ "p14c17.channel": [
+  {
+   "tv": "ses_kit",
+   "mode": "knobs",
+   "panel": "advert"
+  },
+  {
+   "if": {
+    "flag": "p14_ad_channel"
+   },
+   "then": [
+    "Every channel. The same sashes. It isn't a programme. It's an OCCUPATION."
+   ],
+   "else": [
+    "Sashes. Still sashes."
+   ]
+  }
+ ],
+ "p14c17.sash_a": [
+  "A sash hammock, swaying in sympathy with the television. You knot it down tight, so it can't so much as stir.",
+  {
+   "repair": "knot",
+   "strikes": 3,
+   "title": "TIE IT DOWN"
+  },
+  {
+   "stability": "calm",
+   "id": "secured",
+   "quiet": true
+  },
+  {
+   "setFlag": "p14_ad_sash_a"
+  },
+  {
+   "event": "p14_ad_sash"
+  }
+ ],
+ "p14c17.sash_b": [
+  "A sash hammock, swaying in sympathy with the television. You knot it down tight, so it can't so much as stir.",
+  {
+   "repair": "knot",
+   "strikes": 3,
+   "title": "TIE IT DOWN"
+  },
+  {
+   "stability": "calm",
+   "id": "secured",
+   "quiet": true
+  },
+  {
+   "setFlag": "p14_ad_sash_b"
+  },
+  {
+   "event": "p14_ad_sash"
+  }
+ ],
+ "p14c17.door_a": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The galley door, letting in a draught, letting the draught get at the cloth. You shut it, and wedge it with a boot.",
+  {
+   "sfx": "door_close",
+   "volume": 0.7
+  },
+  {
+   "stability": "calm",
+   "id": "secured",
+   "quiet": true
+  },
+  {
+   "setFlag": "p14_ad_door_a"
+  },
+  {
+   "event": "p14_ad_door"
+  }
+ ],
+ "p14c17.door_b": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "The deck hatch, letting in a draught, letting the draught get at the cloth. You shut it, and wedge it with a boot.",
+  {
+   "sfx": "door_close",
+   "volume": 0.7
+  },
+  {
+   "stability": "calm",
+   "id": "secured",
+   "quiet": true
+  },
+  {
+   "setFlag": "p14_ad_door_b"
+  },
+  {
+   "event": "p14_ad_door"
+  }
+ ],
+ "p14c17.ready": [
+  {
+   "setFlag": "p14_ad_ready_said"
+  },
+  "Eyes covered. Doors shut. Sashes knotted. Every channel on the set, and every channel is fluttering. SIX sashes now. The voice-over is promising more.",
+  "pete: (desperate) TALK to him, Captain. Explain it. Something. ANYTHING.",
+  {
+   "tutorial": "Talk him through it (Brogath).",
+   "title": "The Sash Flutter Commercial"
+  }
+ ],
+ "p14c17.talk": [
+  {
+   "if": {
+    "notFlag": "p14_ad_ready_said"
+   },
+   "then": [
+    "brogath[embarrassed]: (eyes slid sideways at the set) It's still MOVING.",
+    {
+     "bark": "pete",
+     "text": "Eyes, channel, sashes, doors!",
+     "duration": 1500
+    },
+    {
+     "end": true
+    }
+   ]
+  },
+  "captain[determined]: Brogath. Listen to me. Those sashes. On the television.",
+  {
+   "reassure": "advert"
+  },
+  {
+   "if": {
+    "var": {
+     "name": "brogath_pressure",
+     "gte": 30
+    }
+   },
+   "then": [
+    "captain[determined]: They... they WANT to flutter. It's their job. They signed something.",
+    {
+     "reassure": "advert"
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "brogath_pressure",
+     "gte": 30
+    }
+   },
+   "then": [
+    {
+     "stability": "calm",
+     "id": "consensual",
+     "quiet": true
+    },
+    "brogath[thoughtful]: ...They signed something?"
+   ]
+  },
+  "brogath[thoughtful]: (slowly) Consensual. Controlled. Commercial. Flutter.",
+  "brogath[pleased]: Well, then. If they AGREED to it. It's not embarrassing if they agreed to it.",
+  {
+   "stability": "secure"
+  },
+  {
+   "setValue": "ses_kit_state",
+   "value": null
+  },
+  {
+   "stability": "settle",
+   "pressure": 10
+  },
+  "On the set, the sashes finish fluttering. A logo: THE BLING BLING KING. WEAR IT WELL. And back to Franklin.",
+  "franklin: Ribbit.",
+  "brogath[pleased]: (settling back) Ribbit.",
+  {
+   "setFlag": "brogath_rule_cover_eyes"
+  },
+  {
+   "addVar": "brogath_rules",
+   "value": 1
+  },
+  "pete: (writing) DURING COMMERCIALS, COVER BROGATH'S EYES.",
+  {
+   "setFlag": "p14_ad_resolved"
+  },
+  {
+   "completeQuest": "sash_commercial"
+  },
+  {
+   "call": "p14c18.begin"
+  }
+ ],
+ "p14c17.ad_erupt": [
+  {
+   "sfx": "brogath_eruption_small",
+   "volume": 0.9
+  },
+  {
+   "shake": 3,
+   "duration": 700
+  },
+  {
+   "flash": "#e8e0a0",
+   "duration": 160
+  },
+  {
+   "burst": "fume",
+   "x": 10,
+   "y": 7,
+   "count": 8
+  },
+  {
+   "propFx": "jiggle",
+   "prop": "ses_kit_on",
+   "duration": 700,
+   "intensity": 2
+  },
+  "BRRRMP. The bedroom set rocks on its barrel. The picture doesn't even flicker. Four sashes now.",
+  "brogath[sorry]: ...Little toot.",
+  {
+   "if": {
+    "flag": "brogath_rule_toot"
+   },
+   "then": [
+    "crew: (flat) Agreed."
+   ]
+  }
+ ],
+ "p14c18.begin": [
+  {
+   "setFlag": "p14_ch163_started"
+  },
+  {
+   "banner": "CHAPTER 163",
+   "sub": "The Grand Bank"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 28
+  },
+  {
+   "transition": "fart_free_zone",
+   "spawn": "bed",
+   "then": "p14c18.wake"
+  }
+ ],
+ "p14c18.wake": [
+  "Morning again. You wake up in the zone, and you put your boots on, and there are Grand Tokens in them.",
+  "Both boots. Four in the left. Seven in the right.",
+  "squawks[smug]: Bad money.",
+  "You find one in your beard. You find one in the beans. You find one in the TEA.",
+  "And something in the back of your head, which has been holding very still since the purse, finally goes.",
+  "captain[angry]: (getting up, hitting your head on the stairs, not even noticing) RIGHT.",
+  "pete[alarmed]: Captain? Captain, where are you going?",
+  "captain[angry]: To the BANK.",
+  {
+   "startQuest": "the_grand_bank"
+  },
+  {
+   "tutorial": "Ask Brogath about the bank (he's up on deck, at the rail). Every question you've got.",
+   "title": "The Grand Bank"
+  }
+ ],
+ "p14c18.question": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p14_bank_q",
+     "eq": 0
+    }
+   },
+   "then": [
+    "captain[annoyed]: Where. Is. The BRANCH?",
+    "brogath[bashful]: The branch? Oh. Well. It's... it's more of a concept, really. A Grand concept."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p14_bank_q",
+     "eq": 1
+    }
+   },
+   "then": [
+    "captain[annoyed]: Where is the TELLER?",
+    "brogath[confused]: The... teller. Well, in principle, anybody could be the teller. In principle."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p14_bank_q",
+     "eq": 2
+    }
+   },
+   "then": [
+    "captain[angry]: Where is the VAULT?",
+    "brogath: (flatly) The vault is secure."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p14_bank_q",
+     "eq": 3
+    }
+   },
+   "then": [
+    "captain[angry]: Can I REDEEM them? Can I walk in somewhere and hand over twenty thousand of these and get my ten doubloons BACK?",
+    "brogath: (very flatly) Redemption is at the discretion of the Grand Trust.",
+    {
+     "stability": "trigger",
+     "id": "banking",
+     "quiet": true
+    },
+    {
+     "stability": "set",
+     "pressure": 60
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p14_bank_q",
+     "eq": 4
+    }
+   },
+   "then": [
+    "captain[angry]: Does it have CHECKING?",
+    "brogath: (not blushing. Not blushing at all.) ...",
+    {
+     "stability": "meter",
+     "show": "show"
+    },
+    "pete: (behind you, very low) Captain. Captain, look at his face. He's not BLUSHING.",
+    "garrick[worried]: (pocket edition already open) Captain. Captain, there's a page on this. Page ninety.",
+    {
+     "insert": "codex_ceaseth",
+     "caption": "WHEN BROGATH CEASETH TO BE BASHFUL."
+    },
+    "codex: WHEN BROGATH CEASETH TO BE BASHFUL, let all present stand well back. For the Wrath of a bashful man is the Wrath of all the years he did not have it.",
+    "garrick[worried]: It's the only page in the book with no pictures, Captain. They didn't dare."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p14_bank_q",
+     "eq": 5
+    }
+   },
+   "then": [
+    "captain[angry]: SAVINGS?",
+    "brogath: (the print of his cheeks is going a colour that isn't pink) ...Captain."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p14_bank_q",
+     "eq": 6
+    }
+   },
+   "then": [
+    "captain[angry]: CERTIFICATES OF DEPOSIT?",
+    "brogath: ..."
+   ]
+  },
+  {
+   "addVar": "p14_bank_q",
+   "value": 1
+  },
+  {
+   "event": "p14_question"
+  }
+ ],
+ "p14c18.wrath": [
+  {
+   "setFlag": "anger_waft_seen"
+  },
+  "brogath: (very quietly) ...You want to see the BRANCH, Captain?",
+  {
+   "stability": "anger",
+   "on": true
+  },
+  {
+   "stability": "meter",
+   "show": "show"
+  },
+  {
+   "sfx": "anger_rumble",
+   "volume": 1.0
+  },
+  {
+   "shake": 3,
+   "duration": 1200
+  },
+  "The print on his face changes. The brows come down. The pink goes to red, then to a deep, hot, wet-ember orange. The fume round his edges goes from yellow-green to yellow-RED.",
+  "brogath[furious]: You want the TELLER. The VAULT. CHECKING. SAVINGS. CERTIFICATES. OF. DEPOSIT.",
+  "gristle: (backing away) EVERYBODY OFF THE DECK...",
+  {
+   "music": "anger_waft",
+   "fade": 200
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 34
+  },
+  "brogath[furious]: THEN BEHOLD THE GRAND STENCHMASTER'S GRAND BANK... AND GRAND... TRUST.",
+  {
+   "sfx": "anger_waft",
+   "volume": 1.0
+  },
+  {
+   "flash": "#ff6020",
+   "duration": 400
+  },
+  {
+   "shake": 7,
+   "duration": 2600,
+   "async": true
+  },
+  {
+   "fumeCloud": "p14_anger",
+   "level": "dense",
+   "x": 4,
+   "y": 22,
+   "w": 12,
+   "h": 10,
+   "grow": 900
+  },
+  {
+   "burst": "embers",
+   "x": 9,
+   "y": 26,
+   "count": 20
+  },
+  {
+   "burst": "embers",
+   "x": 6,
+   "y": 24,
+   "count": 12
+  },
+  {
+   "burst": "embers",
+   "x": 13,
+   "y": 28,
+   "count": 12
+  },
+  "It isn't a fart. It's a heat. A peppery, dry, furious heat, like standing too close to an oven full of chillies. Your eyes stream. Your BEARD steams.",
+  {
+   "burst": "embers",
+   "x": 7,
+   "y": 27,
+   "count": 6
+  },
+  {
+   "burst": "embers",
+   "x": 12,
+   "y": 25,
+   "count": 6
+  },
+  "Gristle's nostrils are on fire. Little ones. Little cartoon flames. Bob's too. Jim pats his out with a spoon.",
+  {
+   "roll": -6,
+   "duration": 900,
+   "async": true
+  },
+  {
+   "sfx": "reality_warp",
+   "volume": 1.0
+  },
+  "And the air on the deck folds. Bends. Something is being PUT there.",
+  {
+   "flash": "#fff0c0",
+   "duration": 300
+  },
+  {
+   "sfx": "bank_materialise",
+   "volume": 1.0
+  },
+  {
+   "setFlag": "grand_bank_open"
+  },
+  {
+   "wait": 700
+  },
+  {
+   "roll": 0,
+   "duration": 900,
+   "async": true
+  },
+  "A counter. Brass bars. A velvet rope on little brass posts. A bell. Forms in racks: GRAND DEPOSIT. GRAND WITHDRAWAL. ATMOSPHERIC ASSET TRANSFER. A sign, gold leaf on green: THE GRAND STENCHMASTER'S GRAND BANK AND GRAND TRUST. YOUR GAS IS OUR BUSINESS!",
+  "And at the end, set into thin air, the round steel door of a vault, which growls.",
+  {
+   "sfx": "vault_growl",
+   "volume": 0.8
+  },
+  {
+   "fumeCloud": "p14_anger",
+   "remove": true
+  },
+  "Brogath looks at it. The red goes out of him. The pink comes back.",
+  {
+   "stability": "anger",
+   "on": false
+  },
+  {
+   "stability": "settle",
+   "pressure": 20
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 28
+  },
+  {
+   "music": "grand_bank",
+   "fade": 800
+  },
+  "brogath[bashful]: (very small) ...Oh. Oh, dear. I did a bank.",
+  "captain: (staring at it) There's a BANK. On my DECK.",
+  "brogath[bashful]: It's a branch. Only a little one. The main office is... (vaguely) ...elsewhere.",
+  "brogath[bashful]: You asked who the teller was. (holding something out, shyly) Well...",
+  {
+   "tutorial": "Take your badge (Brogath).",
+   "title": "The Grand Bank"
+  }
+ ],
+ "p14c18.badge": [
+  "A brass badge. A green visor. A nameplate, engraved, in ancient and slightly cross letters.",
+  {
+   "insert": "teller_badge",
+   "caption": "CAPTAIN STINKBEARD. ACTING GRAND TELLER OF GRAND ATMOSPHERIC ASSETS."
+  },
+  {
+   "giveItem": "teller_badge"
+  },
+  "captain: ...ACTING Grand Teller.",
+  "brogath[pleased]: The bank opens at once. There's a QUEUE.",
+  "And there is. Out of the haze off the starboard rail, figures are forming. In robes. In sashes. In very large hats. Waiting.",
+  {
+   "setFlag": "brogath_rule_no_banking"
+  },
+  {
+   "addVar": "brogath_rules",
+   "value": 1
+  },
+  "pete: (very quietly, writing) NO. QUESTIONS. ABOUT. THE BANK.",
+  {
+   "setFlag": "teller_badge_given"
+  },
+  {
+   "completeQuest": "the_grand_bank"
+  },
+  {
+   "call": "p14c19.begin"
+  }
+ ]
+}

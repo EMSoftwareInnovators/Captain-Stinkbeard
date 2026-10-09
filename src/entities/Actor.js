@@ -138,7 +138,8 @@ export class Actor {
           .setAlpha(this.sprite.alpha).setVisible(this.sprite.visible);
       }
     } else {
-      this.sprite.setPosition(x, y - lift);
+      // Story Phase 14: cardboard under pressure shivers (StabilityRunner sets `shiver`, a pixel or two).
+      this.sprite.setPosition(x + (this.shiver || 0), y - lift);
       this.sprite.setDepth(this.flight?.depth ?? y + (this.kind === 'player' ? 0.5 : 0));
     }
     if (this.vehicle) {

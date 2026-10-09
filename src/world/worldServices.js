@@ -542,6 +542,11 @@ export function createWorldServices(scene) {
         return overlay.sashTension(def);
       },
       dice: (op, opts) => overlay.dice(op, opts),
+      // Story Phase 14: the teller's window; each deposit, as it lands, shakes the bank (WorldScene.bankWave).
+      teller: async (customer, bank) => {
+        await overlay.dialogue.close();
+        return overlay.teller(customer, bank, { onWave: (w) => scene.bankWave?.(w) });
+      },
     },
     audio: {
       sfx: (id, opts) => app.audio.sfx(id, opts),

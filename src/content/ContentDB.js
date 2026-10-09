@@ -41,6 +41,10 @@ const FOLDER_RULES = [
   { prefix: 'story/tension/', kind: 'tension', shape: 'map' },
   { prefix: 'story/dice/', kind: 'dice', shape: 'map' },
   { prefix: 'story/aliases/', kind: 'aliases', shape: 'map' },
+  // Story Phase 14: Brogath's stability (and any later subject's), the Grand Bank and its depositors.
+  { prefix: 'story/stability/', kind: 'stability', shape: 'map' },
+  { prefix: 'story/bank/customers', kind: 'bankCustomers', shape: 'map' },
+  { prefix: 'story/bank/', kind: 'banks', shape: 'map' },
   { prefix: 'hazards/', kind: 'hazards', shape: 'map' },
   { prefix: 'debug/', kind: 'debugPresets', shape: 'list' },
   { prefix: 'logs/', kind: 'logs', shape: 'map' },
@@ -103,7 +107,7 @@ export const REGISTRY_KINDS = [
   'characters', 'extraSpeakers', 'npcs', 'enemies', 'abilities', 'statuses', 'items', 'shops', 'quests',
   'encounters', 'props', 'appearances', 'portraits', 'scripts', 'flags', 'maps', 'tilesets', 'music',
   'sfx', 'instruments', 'ambience', 'timing', 'backdrops', 'vistas', 'storyTriggers', 'hazards', 'debugPresets',
-  'mapPatches', 'logs', 'tv', 'tvPrograms', 'tension', 'dice', 'aliases',
+  'mapPatches', 'logs', 'tv', 'tvPrograms', 'tension', 'dice', 'aliases', 'stability', 'bankCustomers', 'banks',
 ];
 
 /** Content paths in load order: numbers compare as numbers ("phase9" before "phase10"). */
@@ -270,12 +274,23 @@ export class ContentDB {
       // gains the extra "if" (both must hold).
       for (const [key, list, what] of MAP_PATCH_CONDITIONS) {
         for (const pc of patch[key] ?? []) {
-          const i = (merged[list] ?? []).findIndex((p) => p && typeof p === 'object' && p.id === pc.id);
+          // Story Phase 14: a base map's plain prop ("card_table 10 10", no id) can be named by its string too.
+          const norm = (str) => str.trim().split(/\s+/).join(' ');
+          const i = (merged[list] ?? []).findIndex((p) => (p && typeof p === 'object' && p.id === pc.id) || (list === 'props' && typeof p === 'string' && norm(p) === norm(pc.id)));
           if (i < 0) {
+            // Story Phase 14: a decor slot's prop (decor_<value>_<spot>) doesn't exist until the slots expand (below).
+            if (list === 'props' && expandDecor(merged.decor ?? []).props.some((p) => p.id === pc.id)) {
+              merged.decorConditions = [...(merged.decorConditions ?? []), pc];
+              continue;
+            }
             this.loadErrors.push(`${source}: ${key} names ${what} id "${pc.id}", which ${patch.patch} does not have`);
             continue;
           }
-          const item = merged[list][i];
+          let item = merged[list][i];
+          if (typeof item === 'string') {
+            const [prop, x, y, ...rest] = norm(item).split(' ');
+            item = { prop, x: Number(x), y: Number(y), ...(rest.includes('flip') ? { flip: true } : {}) };
+          }
           merged[list] = [...merged[list]];
           merged[list][i] = { ...item, if: item.if ? { all: [item.if, pc.if] } : pc.if };
         }
@@ -290,6 +305,13 @@ export class ContentDB {
     for (const map of this.maps.list()) {
       if (!map.decor?.length) continue;
       const { props, objects } = expandDecor(map.decor);
+      // A later chapter's propConditions on a decor prop (Story Phase 14: the standees taken down) apply now.
+      for (const pc of map.decorConditions ?? []) {
+        for (const list of [props, objects]) {
+          const k = list.findIndex((p) => p.id === pc.id);
+          if (k >= 0) list[k] = { ...list[k], if: list[k].if ? { all: [list[k].if, pc.if] } : pc.if };
+        }
+      }
       this.maps.map.set(map.id, { ...map, props: [...(map.props ?? []), ...props], objects: [...objects, ...(map.objects ?? [])] });
     }
   }

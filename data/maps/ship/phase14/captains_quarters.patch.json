@@ -1,0 +1,119 @@
+{
+ "id": "captains_quarters_phase14",
+ "patch": "captains_quarters",
+ "//": "Story Phase 14 in the cabin: the sash comes out of the wardrobe on the end of the fire tongs (152); the purse is gone from the desk drawer (159), a receipt in its place.",
+ "objects": [
+  {
+   "id": "p14_wardrobe",
+   "type": "inspect",
+   "x": 3,
+   "y": 4,
+   "w": 2,
+   "if": {
+    "objectiveActive": "back_in_office.sash"
+   },
+   "script": "p14c7.sash"
+  },
+  {
+   "id": "p14_purse",
+   "type": "inspect",
+   "x": 7,
+   "y": 6,
+   "w": 3,
+   "h": 2,
+   "if": {
+    "objectiveActive": "bad_money.purse"
+   },
+   "script": "p14c14.purse"
+  },
+  {
+   "id": "p14c_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p14_started"
+   }
+  },
+  {
+   "id": "p14c_gristle_0",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p14_started"
+   }
+  },
+  {
+   "id": "p14c_bob_0",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p14_started"
+   }
+  },
+  {
+   "id": "p14c_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p14_started"
+   }
+  },
+  {
+   "id": "p14c_ned_0",
+   "type": "npc",
+   "npc": "ned",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p14_started"
+   }
+  },
+  {
+   "id": "p14c_squawks_0",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p14_started"
+   }
+  },
+  {
+   "id": "p14c_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p14_started"
+   }
+  },
+  {
+   "id": "p14c_brogath_0",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p14_started"
+   }
+  }
+ ],
+ "propConditions": []
+}

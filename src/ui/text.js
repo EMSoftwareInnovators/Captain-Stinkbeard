@@ -77,6 +77,8 @@ export function formatTokens(str, { app = null, session = null } = {}) {
     if (kind === 'btn') return app?.input?.glyph(arg) ?? '';
     if (kind === 'item') return app?.content?.items.get(arg)?.name ?? arg;
     if (kind === 'var') return String(session?.story.getVar(arg) ?? 0);
+    // Story Phase 14: a variable as a counted number ("20,000": the Grand Currency).
+    if (kind === 'num') return Number(session?.story.getVar(arg) ?? 0).toLocaleString('en-US');
     if (kind === 'player' || kind === 'leader') return session?.party.leader()?.name ?? 'Captain';
     // "Captain Stinkbeard" (title and name as the story has them now).
     if (kind === 'captain') return session?.party.leader()?.fullName ?? 'Captain';

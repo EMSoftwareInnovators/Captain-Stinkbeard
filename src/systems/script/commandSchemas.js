@@ -121,12 +121,23 @@ export const COMMAND_SCHEMAS = {
   sashTension: { sashTension: 'string', var: 'string?', releasedVar: 'string?' },
   dice: { dice: 'string', die: 'string?', result: 'number?', bounces: 'number?', to: 'number?', hops: 'number?', seconds: 'number?', face: 'number?', async: 'boolean?' },
   wear: { wear: 'item', to: 'string?' },
+
+  // --- Story Phase 14 ---------------------------------------------------------------
+  // Brogath Stability (data/story/stability): trigger | calm | set | add | anger | meter | incident | secure | settle.
+  stability: { stability: 'string', subject: 'string?', id: 'string?', pressure: 'number?', on: 'boolean?', show: 'string?', quiet: 'boolean?' },
+  // A reassurance prompt: the captain picks what to say from the subject's prompt set.
+  reassure: { reassure: 'string', subject: 'string?', var: 'string?', prompt: 'line?' },
+  // The Grand Bank: serve the next depositor in a queue, or a named one.
+  bank: { bank: 'string', queue: 'string?', bankId: 'string?' },
+  bankDeposit: { bankDeposit: 'string' },
+  // The Grand Currency purchase (exactly once: ten real doubloons out, twenty thousand tokens in; never gold).
+  grandCurrency: { grandCurrency: 'string', bankId: 'string?', silent: 'boolean?' },
 };
 
 /** Commands that may carry "async": true (start and continue without waiting). */
 export const ASYNC_COMMANDS = new Set(['token', 'move', 'fly', 'hop', 'propFx', 'roll', 'moveSprite', 'fumeCloud', 'vistaMove', 'shake', 'emote', 'tint', 'sharkEvent', 'course', 'restage', 'dice']);
 
-export const PARTICLE_BURSTS = ['coins', 'gems', 'splinters', 'feathers', 'sparkle', 'fume', 'odor', 'splash', 'dust', 'dishes', 'falldust', 'suitpuff', 'beans', 'confetti'];
+export const PARTICLE_BURSTS = ['coins', 'gems', 'splinters', 'feathers', 'sparkle', 'fume', 'odor', 'splash', 'dust', 'dishes', 'falldust', 'suitpuff', 'beans', 'confetti', 'papers', 'cards', 'oats', 'tokens', 'embers'];
 export const PROP_FX = ['jiggle', 'swing', 'fall', 'frame'];
 
 /** Keys that may appear on any step without being a command. */

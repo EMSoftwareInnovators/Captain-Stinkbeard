@@ -293,6 +293,44 @@
       "captain: I'm not acknowledging it."
      ]
     ]
+   },
+   "possessed": {
+    "//": "Story Phase 14 (chapter 169): the Mark II, on by itself, not plugged in, and every channel is the Stenchmaster Channel.",
+    "frames": [
+     "beg_title_0",
+     "beg_title_1",
+     "beg_sign_0",
+     "beg_sign_1",
+     "beg_exchange_0",
+     "beg_exchange_1"
+    ],
+    "frameMs": 650,
+    "osd": "CH 9",
+    "lookComments": [
+     [
+      "captain: It's on. Nobody touched it.",
+      "jim: Nobody TOUCHED it."
+     ]
+    ]
+   },
+   "sash_ad": {
+    "//": "Story Phase 14 (chapter 169): the night campaign, on every channel.",
+    "frames": [
+     "ad_sash6_0",
+     "ad_sash6_1",
+     "ad_sash2_0",
+     "ad_sash2_1",
+     "ad_sash1_0",
+     "ad_sash1_1"
+    ],
+    "frameMs": 420,
+    "osd": "A WORD FROM OUR SPONSOR",
+    "lookComments": [
+     [
+      "captain: Sashes. Every channel.",
+      "pete: Cover his EYES!"
+     ]
+    ]
    }
   },
   "knobs": {
@@ -625,6 +663,98 @@
        [
         "CLUNK.",
         "The picture folds down to a dot. The dot goes out."
+       ]
+      ]
+     }
+    ]
+   },
+   "possessed": {
+    "//": "Story Phase 14 (chapter 169): trying to turn the Mark II off. It isn't plugged in. The channels all show the same thing. The MASTER switch (Phase 11) turns up after three tries, and finds channel 9.",
+    "doneFlag": "p14_unplug_tried",
+    "closeAfter": 3000,
+    "openLines": [
+     [
+      "captain: OFF. Unplug it. Channel. Something.",
+      "jim: (holding up the plug) It's not plugged IN, Captain."
+     ]
+    ],
+    "list": [
+     {
+      "id": "off",
+      "label": "OFF",
+      "effect": "glimpse",
+      "frames": [
+       "tv_off"
+      ],
+      "ms": 900,
+      "sfx": "tv_power_off",
+      "lines": [
+       [
+        "The picture goes to a dot. The dot thinks about it. The dot comes back, and grows, and it's Brogath."
+       ]
+      ]
+     },
+     {
+      "id": "plug",
+      "label": "UNPLUG",
+      "effect": "roll",
+      "sfx": "mk2_rattle",
+      "lines": [
+       [
+        "It isn't plugged in. You check. You unplug it again anyway. It rolls the picture at you, offended."
+       ]
+      ]
+     },
+     {
+      "id": "ch3",
+      "label": "CHANNEL 3",
+      "effect": "glimpse",
+      "frames": [
+       "beg_market_0",
+       "beg_market_1"
+      ],
+      "ms": 1400,
+      "frameMs": 400,
+      "sfx": "tv_click",
+      "lines": [
+       [
+        "Channel three. Potatoes, usually. Tonight: Brogath, at a market."
+       ]
+      ]
+     },
+     {
+      "id": "ch4",
+      "label": "CHANNEL 4",
+      "effect": "glimpse",
+      "frames": [
+       "beg_sign_0",
+       "beg_sign_1"
+      ],
+      "ms": 1400,
+      "frameMs": 400,
+      "sfx": "tv_click",
+      "lines": [
+       [
+        "Channel four. A fish, usually. Tonight: Brogath, with a sign."
+       ]
+      ]
+     },
+     {
+      "id": "master",
+      "label": "MASTER",
+      "effect": "tune",
+      "channel": 9,
+      "after": 3,
+      "tries": 1,
+      "sfx": "big_switch",
+      "lines": [
+       [
+        "The MASTER switch."
+       ]
+      ],
+      "doneLines": [
+       [
+        "CLICK. The MASTER switch. The picture stays. Channel nine. The Stenchmaster Channel. It's not on any more. It's just ON."
        ]
       ]
      }

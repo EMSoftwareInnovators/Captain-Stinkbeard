@@ -1,0 +1,267 @@
+{
+ "//": "Story Phase 14 world scripts: the Brogath Rules board, the Fart-Free Zone (rest, sign, table), inspections of everything the phase leaves behind, Brogath's wandering in the end state.",
+ "p14.rules_board": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  {
+   "if": {
+    "var": {
+     "name": "brogath_rules",
+     "lt": 7
+    }
+   },
+   "then": [
+    "The Brogath Rules. A sheet of parchment pinned to the underside of the tipped card table, in Pete's capitals."
+   ]
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "var": {
+       "name": "brogath_rules",
+       "gte": 7
+      }
+     },
+     {
+      "var": {
+       "name": "brogath_rules",
+       "lt": 12
+      }
+     }
+    ]
+   },
+   "then": [
+    "The Brogath Rules. Two sheets now, nailed one under the other. Pete has started numbering them."
+   ]
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "var": {
+       "name": "brogath_rules",
+       "gte": 12
+      }
+     },
+     {
+      "var": {
+       "name": "brogath_rules",
+       "lt": 17
+      }
+     }
+    ]
+   },
+   "then": [
+    "The Brogath Rules. Three sheets, and a fourth started. Somebody has added a little drawing of a napkin, crossed out."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "brogath_rules",
+     "gte": 17
+    }
+   },
+   "then": [
+    "The Brogath Rules. Four sheets, down to the floor, with a ribbon at the bottom to stop the last one curling. The ribbon is nailed down. It isn't allowed to flutter."
+   ]
+  },
+  {
+   "logbook": "brogath_rules"
+  }
+ ],
+ "p14.zone_rest": [
+  "The mattress. Folded in half, against the back wall, under the stairs. It smells of nothing at all.",
+  {
+   "choice": [
+    {
+     "text": "Rest a while",
+     "then": [
+      {
+       "fade": "out",
+       "duration": 700
+      },
+      {
+       "heal": "party"
+      },
+      {
+       "sfx": "snore",
+       "volume": 0.4
+      },
+      {
+       "wait": 700
+      },
+      {
+       "fade": "in",
+       "duration": 700
+      },
+      "You lie down for a while. Nobody farts. It's the best sleep you've had since the treasure room.",
+      {
+       "save": "auto"
+      }
+     ]
+    },
+    {
+     "text": "Not now"
+    }
+   ]
+  }
+ ],
+ "p14.inspect.zone_sign": [
+  "The sign on the inside of the door, in Bob's paint: FART-FREE ZONE. Underneath: THIS MEANS GARRICK. Underneath that, smaller: AND HIM.",
+  {
+   "if": {
+    "flag": "tv_safety_protocol"
+   },
+   "then": [
+    "And underneath that, in Pete's hand, newer: NO TELEVISIONS."
+   ]
+  }
+ ],
+ "p14.inspect.zone_table": [
+  {
+   "if": {
+    "flag": "p14_cards_thrown"
+   },
+   "then": [
+    "The candle, the cards, a jug of Frog Grog with a plate over it. This is the only table on the ship where the cards are allowed to flutter. Somebody always throws them, when they come in."
+   ],
+   "else": [
+    "The little table. One candle. Enough light for a pocket edition, if you hold it close."
+   ]
+  }
+ ],
+ "p14.inspect.zone_mops": [
+  "Mops. Buckets. A broom with no bristles. Nobody has been in this cupboard for years. Nobody has farted in it, either. Ever."
+ ],
+ "p14.inspect.slate": [
+  {
+   "insert": "slate_ingredients",
+   "caption": "BROGATH. TREASURE. SHARKSTORM. BEANS. FLUTTER."
+  },
+  {
+   "if": {
+    "flag": "p14_sums_done"
+   },
+   "then": [
+    "And under it, Pete's sums. MONTHS: 3-6. GARRICK FARTS ALLOWED: 0. GARRICK'S RECORD: 1 DAY. And yours, underneath: THE SAFE DISPOSAL PLAN IS IMPOSSIBLE."
+   ]
+  },
+  "Nobody's rubbed it off. Nobody's going to."
+ ],
+ "p14.inspect.treasure_door": [
+  "The treasure-room door. Planked again, twice over, and the planks nailed down by Gristle with more nails than wood.",
+  "DO NOT OPEN. YES, SERIOUSLY. BAD CLOUD. DANGEROUS CLOUD INSIDE. CAPTAIN: THIS MEANS YOU. (That one is underlined now.)",
+  {
+   "sfx": "treasure_growl",
+   "volume": 0.5
+  },
+  "Behind it, the old cloud growls. It's lost a plume. It doesn't sound as if it's missed it."
+ ],
+ "p14.inspect.exclusion_sign": [
+  {
+   "insert": "sign_brogath_never",
+   "caption": "BROGATH NEVER GOES NEAR THE TREASURE ROOM."
+  },
+  "BROGATH NEVER GOES NEAR THE TREASURE ROOM. (THIS IS FOR HIS OWN GOOD.)",
+  {
+   "if": {
+    "flag": "brogath_permanent"
+   },
+   "then": [
+    "Somebody has added, in an elegant, ancient and slightly hurt hand: I WOULDN'T ANYWAY."
+   ]
+  }
+ ],
+ "p14.inspect.nook_cupboard": [
+  "A little door in the planking under the stairs, half your height. The mop cupboard. You've walked past it a thousand times."
+ ],
+ "p14.inspect.crate": [
+  "The Grand Currency crate. GRAND STENCHMASTER GRAND TOKENS OF GRAND CURRENCY. NOT LEGAL TENDER. THIS WAY UP. It isn't this way up any more.",
+  "captain[resigned]: ({num:grand_currency_tokens} of them. Minus the ones in my boots.)",
+  {
+   "if": {
+    "flag": "p14_wealthy_answer"
+   },
+   "then": [
+    "Squawks has made a nest in the top of it. Bad money. Comfortable, though."
+   ]
+  }
+ ],
+ "p14.inspect.tokens_deck": [
+  "A Grand Token, in the scuppers. Another one, wedged in the deck seam. NOT LEGAL TENDER. They're coming from the crate. They're coming from EVERYWHERE."
+ ],
+ "p14.inspect.tokens_galley": [
+  "Grand Tokens, under the bench. Jim found one in the soup this morning, and one in the bread, and one in Gristle."
+ ],
+ "p14.inspect.tokens_quarters": [
+  "A little heap of Grand Tokens in the corner. Brogath has been 'saving'. He calls it his reserve."
+ ],
+ "p14.inspect.oats_galley": [
+  "Oats. In the cracks between the floorboards. Weeks after. You'll be finding oats in this galley for the rest of your life.",
+  {
+   "if": {
+    "flag": "p14_complete"
+   },
+   "then": [
+    "(One sack went into the Sharkstorm. It has not come back. Everything comes back. It has not come back. Nobody likes to think about why.)"
+   ]
+  }
+ ],
+ "p14.inspect.scorch": [
+  "A scorched ring on the floorboards, round where he stood the night he came back. 'Little toot,' he said."
+ ],
+ "p14.inspect.porthole": [
+  "The porthole cracked in the first eruption, stuffed with a sash pillow ever since. When the wind gets up, the pillow whistles. It isn't allowed to flutter. It whistles."
+ ],
+ "p14.inspect.vault": [
+  "The vault door. Round. Steel. Set into thin air. It growls, now and then, satisfied. There is no handle on this side.",
+  {
+   "sfx": "vault_growl",
+   "volume": 0.5
+  }
+ ],
+ "p14.inspect.bank_forms": [
+  "Forms in racks. GRAND DEPOSIT. GRAND WITHDRAWAL. ATMOSPHERIC ASSET TRANSFER. And a long one in very small print: DISCLOSURE OF FART-BACKED HOLDINGS (THE GRAND TRUST ACCEPTS NO LIABILITY FOR WINDAGE)."
+ ],
+ "p14.inspect.bank_sign": [
+  "THE GRAND STENCHMASTER'S GRAND BANK AND GRAND TRUST. YOUR GAS IS OUR BUSINESS! In gold leaf, on green, hanging from nothing at all."
+ ],
+ "p14.inspect.bank_gone": [
+  "Where the counter was, there's a row of little scorch marks on the deck, and one form that didn't dissolve: GRAND WITHDRAWAL. It's blank. It will always be blank."
+ ],
+ "p14.brogath_wander": [
+  {
+   "addVar": "brogath_spot",
+   "value": 1
+  },
+  {
+   "if": {
+    "var": {
+     "name": "brogath_spot",
+     "gte": 3
+    }
+   },
+   "then": [
+    {
+     "setVar": "brogath_spot",
+     "value": 0
+    }
+   ]
+  }
+ ],
+ "p14.eruption_flutter_debug": [
+  {
+   "stability": "incident",
+   "id": "debug_flutter"
+  },
+  {
+   "bark": "brogath",
+   "text": "Oh! Something... MOVED.",
+   "duration": 1600
+  }
+ ]
+}

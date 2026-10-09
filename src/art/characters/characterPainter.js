@@ -903,6 +903,15 @@ function headCanvas(L, dir, face) {
   const hat = HAT_STYLES[L.hatStyle] || HAT_STYLES.none;
   c.stamp(hat[dir] || [], 0, 0, { a: L.hat[1], A: L.hat[2], q: L.hat[0], T: L.hatTrim[2], t: L.hatTrim[0], s: '#f0e8d8' });
   if (L.extras.has('torn') && L.hatStyle === 'stenchhat') crookedHat(c, L, dir);
+  // Story Phase 14: the Grand Bank's HOLIDAY BRANCH ornament, hung from a point of the Grand Crown (a little gold bank on a thread).
+  if (L.extras.has('ornament') && L.hatStyle === 'grandcrown') {
+    const ox = dir === 'down' ? 13 : dir === 'left' ? 12 : 2;
+    c.vline(ox, 3, 5, '#f4e8c0');
+    c.rect(ox - 1, 6, 3, 2, '#e8c040');
+    c.set(ox, 5, '#e8c040');
+    c.set(ox - 1, 7, '#a8801c');
+    c.set(ox, 6, '#c83a4a');
+  }
   if (L.extras.has('facecloth') && dir !== 'up') {
     // A wet cloth tied over nose and mouth.
     const cloth = ['#6a7c86', '#9aaab2', '#c8d6dc'];

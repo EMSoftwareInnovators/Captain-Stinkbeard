@@ -1033,6 +1033,80 @@
      ],
      "shake": 0.0015
     }
+   },
+   "brogath_turbulence": {
+    "//": "Story Phase 14 (chapters 146, 167): the same storm going round faster: rougher gusts, things sliding, no spin (off with screen shake off). No tokens while a scene is on, and never more than three.",
+    "intensity": 3,
+    "distance": "inside",
+    "maps": [
+     "main_deck"
+    ],
+    "flying": {
+     "passEvery": [
+      1600,
+      3200
+     ],
+     "variants": [
+      "flying_shark_pearls",
+      "flying_shark_chain",
+      "flying_shark_tiara",
+      "flying_shark_rings",
+      "flying_shark_belt",
+      "flying_shark_bigchain",
+      "flying_shark",
+      "flying_hammer",
+      "pillow_flying",
+      "flying_bbk"
+     ],
+     "swirl": true
+    },
+    "glints": {
+     "every": [
+      1800,
+      3600
+     ],
+     "sfx": "coin_glint"
+    },
+    "sway": {
+     "maps": [
+      "main_deck",
+      "galley",
+      "cargo_hold",
+      "treasure_hold",
+      "crew_quarters",
+      "washroom",
+      "captains_quarters"
+     ],
+     "drift": 2.9,
+     "period": 3800
+    },
+    "rumble": {
+     "every": [
+      9000,
+      16000
+     ],
+     "sfx": "vortex_roar"
+    },
+    "below": {
+     "maps": [
+      "galley",
+      "cargo_hold",
+      "treasure_hold",
+      "crew_quarters",
+      "washroom",
+      "captains_quarters"
+     ],
+     "every": [
+      14000,
+      26000
+     ],
+     "sfx": [
+      "hull_thud",
+      "token_clack",
+      "deck_scrape"
+     ],
+     "shake": 0.0015
+    }
    }
   }
  }

@@ -25,6 +25,12 @@ export const PARTICLE_KINDS = {
   beans: { frames: ['bean_0', 'bean_1', 'bean_2'], count: 14, speed: [30, 110], up: 120, gravity: 380, life: [600, 1100], spin: 6, bounce: 0.25, fade: 0.3, pick: true },
   confetti: { frames: ['confetti_0', 'confetti_1', 'confetti_2', 'confetti_3'], count: 14, speed: [20, 70], up: 60, gravity: 40, drag: 1.4, life: [1200, 2200], sway: 14, spin: 4, fade: 0.4, pick: true, depth: 80002 },
   dishes: { frames: ['dish_0', 'dish_1', 'fork'], count: 4, speed: [30, 80], up: 100, gravity: 400, life: [500, 800], spin: 8, bounce: 0.2, fade: 0.2, pick: true },
+  // Story Phase 14: the Grand Bank's forms after a deposit, cards thrown up in the Fart-Free Zone, oats, plastic tokens, peppery embers.
+  papers: { frames: ['paper_0', 'paper_1', 'paper_2'], count: 8, speed: [30, 90], up: 70, gravity: 50, drag: 1.5, life: [1200, 2000], sway: 16, spin: 3, fade: 0.4, pick: true, depth: 80002 },
+  cards: { frames: ['card_0', 'card_1', 'card_2'], count: 12, speed: [20, 70], up: 110, gravity: 45, drag: 1.4, life: [1600, 2600], sway: 18, spin: 4, fade: 0.35, pick: true, depth: 80002 },
+  oats: { frames: ['oat_0', 'oat_1', 'oat_2'], count: 18, speed: [30, 120], up: 110, gravity: 380, life: [600, 1100], spin: 6, bounce: 0.25, fade: 0.3, pick: true },
+  tokens: { frames: ['gtoken_0', 'gtoken_1', 'gtoken_2'], count: 12, speed: [40, 120], up: 100, gravity: 380, life: [700, 1200], bounce: 0.4, fade: 0.25, pick: true, depthOffset: 4 },
+  embers: { frames: ['ember_0', 'ember_1'], count: 4, speed: [4, 16], up: 22, gravity: -16, drag: 1, life: [500, 900], fade: 0.5, pick: true, spread: 3, depth: 80003 },
 };
 
 const rand = (a, b) => a + Math.random() * (b - a);

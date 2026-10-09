@@ -1,0 +1,51 @@
+[
+ {
+  "id": "fire_tongs",
+  "name": "Fire Tongs",
+  "type": "key",
+  "icon": "tongs",
+  "value": 0,
+  "description": "Jim's fire tongs, from beside the stove. Long. For coals. And, today, a sash."
+ },
+ {
+  "id": "grand_currency",
+  "name": "Grand Currency",
+  "type": "key",
+  "icon": "gtoken",
+  "value": 0,
+  "//": "Story Phase 14: the Grand Currency is its own counter (story variable grand_currency_tokens), never gold. It buys nothing anywhere.",
+  "description": "GRAND STENCHMASTER GRAND TOKENS OF GRAND CURRENCY: {num:grand_currency_tokens} of them, in a crate in the galley (and everywhere else). Cheap plastic. NOT LEGAL TENDER, it says on every one. Squawks says: bad money.",
+  "variants": [
+   {
+    "if": {
+     "flag": "p14_wealthy_answer"
+    },
+    "description": "GRAND STENCHMASTER GRAND TOKENS OF GRAND CURRENCY: {num:grand_currency_tokens}. NOT LEGAL TENDER. Not redeemable at any branch, the only branch having concluded business. What they're for, according to Brogath: being wealthy."
+   }
+  ]
+ },
+ {
+  "id": "teller_badge",
+  "name": "Teller's Badge",
+  "type": "key",
+  "icon": "badge",
+  "value": 0,
+  "description": "CAPTAIN STINKBEARD. ACTING GRAND TELLER OF GRAND ATMOSPHERIC ASSETS. YOUR GAS IS OUR BUSINESS! Brass, nearly. The pin is bent. A souvenir of a bank that no longer exists."
+ },
+ {
+  "id": "holiday_branch_ornament",
+  "name": "Holiday Branch",
+  "type": "key",
+  "icon": "ornament",
+  "value": 0,
+  "description": "A miniature Christmas ornament shaped like THE GRAND STENCHMASTER'S GRAND BANK AND GRAND TRUST. HOLIDAY BRANCH: NO TELLER REQUIRED! It cannot redeem currency, contains no money, cannot be entered and performs no banking.",
+  "variants": [
+   {
+    "if": {
+     "flag": "garrick_wears_ornament"
+    },
+    "description": "The HOLIDAY BRANCH (NO TELLER REQUIRED!), on loan to the Grand Stenchmaster, who has hung it from a point of his Grand Crown. He says it completes the regalia. It performs no banking."
+   }
+  ]
+ }
+]

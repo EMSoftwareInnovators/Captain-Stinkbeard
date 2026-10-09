@@ -1,0 +1,417 @@
+[
+ {
+  "id": "p14_ready",
+  "if": {
+   "all": [
+    {
+     "flag": "p13_complete"
+    },
+    {
+     "notFlag": "p14_ready_hint"
+    },
+    {
+     "notFlag": "p14_started"
+    },
+    {
+     "not": {
+      "onMap": "main_deck"
+     }
+    }
+   ]
+  },
+  "script": "p14.ready_hint",
+  "once": false,
+  "//": "Phase 14 begins after Phase 13, on deck (a one-time hint if you're somewhere else)."
+ },
+ {
+  "id": "p14_begin",
+  "if": {
+   "all": [
+    {
+     "flag": "p13_complete"
+    },
+    {
+     "notFlag": "p14_started"
+    },
+    {
+     "onMap": "main_deck"
+    }
+   ]
+  },
+  "script": "p14c1.begin",
+  "once": false,
+  "//": "Chapter 146: the crew on deck in the turbulence; the captain sneaks below."
+ },
+ {
+  "id": "p14_barricade",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "containment_corner.barricade"
+    },
+    {
+     "notFlag": "p14_barricade_said"
+    }
+   ]
+  },
+  "script": "p14c4.barricade_done",
+  "once": false
+ },
+ {
+  "id": "p14_corner_done",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "containment_corner.rules"
+    },
+    {
+     "objectiveDone": "containment_corner.garrick"
+    },
+    {
+     "notFlag": "p14_ch150_started"
+    }
+   ]
+  },
+  "script": "p14c5.begin",
+  "once": false
+ },
+ {
+  "id": "p14_fl_label",
+  "if": {
+   "all": [
+    {
+     "objectiveActive": "keep_brogath_confident.flutters"
+    },
+    {
+     "flag": "p14_fl_shirt_done"
+    },
+    {
+     "notFlag": "p14_fl_label_started"
+    }
+   ]
+  },
+  "script": "p14c5.fl_label",
+  "once": false
+ },
+ {
+  "id": "p14_fl_napkin",
+  "if": {
+   "all": [
+    {
+     "objectiveActive": "keep_brogath_confident.flutters"
+    },
+    {
+     "flag": "p14_fl_label_done"
+    },
+    {
+     "notFlag": "p14_fl_napkin_started"
+    }
+   ]
+  },
+  "script": "p14c5.fl_napkin",
+  "once": false
+ },
+ {
+  "id": "p14_fl_page",
+  "if": {
+   "all": [
+    {
+     "objectiveActive": "keep_brogath_confident.flutters"
+    },
+    {
+     "flag": "p14_fl_napkin_done"
+    },
+    {
+     "notFlag": "p14_fl_page_started"
+    }
+   ]
+  },
+  "script": "p14c5.fl_page",
+  "once": false
+ },
+ {
+  "id": "p14_fl_squawks",
+  "if": {
+   "all": [
+    {
+     "objectiveActive": "keep_brogath_confident.flutters"
+    },
+    {
+     "flag": "p14_fl_page_done"
+    },
+    {
+     "notFlag": "p14_fl_squawks_started"
+    }
+   ]
+  },
+  "script": "p14c5.fl_squawks",
+  "once": false
+ },
+ {
+  "id": "p14_fl_flag",
+  "if": {
+   "all": [
+    {
+     "objectiveActive": "keep_brogath_confident.flutters"
+    },
+    {
+     "flag": "p14_fl_squawks_done"
+    },
+    {
+     "notFlag": "p14_fl_flag_started"
+    }
+   ]
+  },
+  "script": "p14c5.fl_flag",
+  "once": false
+ },
+ {
+  "id": "p14_flutters",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "keep_brogath_confident.flutters"
+    },
+    {
+     "notFlag": "p14_flutters_said"
+    }
+   ]
+  },
+  "script": "p14c5.flutters_done",
+  "once": false
+ },
+ {
+  "id": "p14_ae_ready",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "apology_eruption.brace"
+    },
+    {
+     "objectiveDone": "apology_eruption.sashes"
+    },
+    {
+     "objectiveDone": "apology_eruption.objects"
+    },
+    {
+     "objectiveDone": "apology_eruption.lantern"
+    },
+    {
+     "notFlag": "p14_ae_ready_said"
+    }
+   ]
+  },
+  "script": "p14c6.ready",
+  "once": false
+ },
+ {
+  "id": "p14_compliments",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "beans_of_precedent.compliments"
+    },
+    {
+     "notFlag": "p14_compliments_said"
+    }
+   ]
+  },
+  "script": "p14c9.breakfast",
+  "once": false
+ },
+ {
+  "id": "p14_dishes",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "beans_of_precedent.dishes"
+    },
+    {
+     "notFlag": "brogath_loaded"
+    }
+   ]
+  },
+  "script": "p14c9.eat",
+  "once": false
+ },
+ {
+  "id": "p14_ffz",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "fart_free_zone.supplies"
+    },
+    {
+     "notFlag": "p14_ffz_reinforced"
+    },
+    {
+     "onMap": "fart_free_zone"
+    }
+   ]
+  },
+  "script": "p14c10.reinforced",
+  "once": false,
+  "//": "When everything is in the zone (and the captain is too)."
+ },
+ {
+  "id": "p14_proposals",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "getting_rid_of_brogath.proposals"
+    },
+    {
+     "notFlag": "p14_proposals_said"
+    }
+   ]
+  },
+  "script": "p14c11.proposals_done",
+  "once": false
+ },
+ {
+  "id": "p14_psg",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "beyond_broke.read"
+    },
+    {
+     "notFlag": "p14_psg_said"
+    }
+   ]
+  },
+  "script": "p14c12.read_done",
+  "once": false
+ },
+ {
+  "id": "p14_econ",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "grand_economy.read"
+    },
+    {
+     "notFlag": "p14_econ_said"
+    }
+   ]
+  },
+  "script": "p14c13.read_done",
+  "once": false
+ },
+ {
+  "id": "p14_oat_sacks",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "oat_security.sacks"
+    },
+    {
+     "notFlag": "p14_oats_posted"
+    }
+   ]
+  },
+  "script": "p14c15.posted",
+  "once": false
+ },
+ {
+  "id": "p14_ad_ready",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "sash_commercial.eyes"
+    },
+    {
+     "objectiveDone": "sash_commercial.channel"
+    },
+    {
+     "objectiveDone": "sash_commercial.sashes"
+    },
+    {
+     "objectiveDone": "sash_commercial.doors"
+    },
+    {
+     "notFlag": "p14_ad_ready_said"
+    }
+   ]
+  },
+  "script": "p14c17.ready",
+  "once": false
+ },
+ {
+  "id": "p14_questions",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "the_grand_bank.questions"
+    },
+    {
+     "notFlag": "anger_waft_seen"
+    }
+   ]
+  },
+  "script": "p14c18.wrath",
+  "once": false
+ },
+ {
+  "id": "p14_deposits",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "teller_shift.serve"
+    },
+    {
+     "notFlag": "p14_ch165_started"
+    }
+   ]
+  },
+  "script": "p14c20.begin",
+  "once": false,
+  "//": "Chapter 165: the legends."
+ },
+ {
+  "id": "p14_legends",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "legendary_depositors.serve"
+    },
+    {
+     "notFlag": "p14_ch166_started"
+    }
+   ]
+  },
+  "script": "p14c21.begin",
+  "once": false,
+  "//": "Chapter 166: the branch concludes business."
+ },
+ {
+  "id": "p14_research",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "brogath_problem.research"
+    },
+    {
+     "notFlag": "p14_research_said"
+    }
+   ]
+  },
+  "script": "p14c23.research_done",
+  "once": false
+ },
+ {
+  "id": "p14_night_jobs",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "history_night.ads"
+    },
+    {
+     "notFlag": "p14_night_jobs_said"
+    }
+   ]
+  },
+  "script": "p14c24.jobs_done",
+  "once": false
+ }
+]

@@ -1,0 +1,22 @@
+[
+ {
+  "extend": "blackbeard",
+  "//": "Story Phase 14: Brogath's first eruption takes the captain's hat; Jim fetches it back.",
+  "variants": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_hat_lost"
+      },
+      {
+       "notFlag": "p14_hat_back"
+      }
+     ]
+    },
+    "appearance": "blackbeard_hatless",
+    "portrait": "blackbeard_hatless"
+   }
+  ]
+ }
+]

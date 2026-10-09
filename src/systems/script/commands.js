@@ -4,6 +4,68 @@ import { parseLine } from './parseLine.js';
 import { tvDef, setPower, setChannel, setTvCondition, programDef, programEpisode } from '../tv/tv.js';
 import { setDeadCenterLocation } from '../hazards/deadCenter.js';
 import { setSharkstormState } from '../hazards/sharkstorm.js';
+import { stabilityDef, readStability, writePressure, addPressure, effectOf, promptOptions, incidentDef } from '../stability.js';
+import { nextCustomer, scaleLabel, tellerScore } from '../bank.js';
+
+/** Story Phase 14: a stability subject (data/story/stability) with its defaults. */
+export function stabilitySubject(content, id = 'brogath') {
+  const raw = content.stability?.get?.(id);
+  if (!raw) throw new Error(`No stability subject "${id}" (data/story/stability)`);
+  return stabilityDef({ id, ...raw });
+}
+
+/** Story Phase 14: a bank (data/story/bank) by id. */
+export function bankDef(content, id = 'grand_bank') {
+  const b = content.banks?.get?.(id);
+  if (!b) throw new Error(`No bank "${id}" (data/story/bank)`);
+  return { id, ...b };
+}
+
+const fill = (str, vars) => String(str ?? '').replace(/\{(\w+)\}/g, (m, k) => (k in vars ? vars[k] : m));
+
+/**
+ * Story Phase 14: serves one depositor at the Grand Bank, from arrival to the
+ * vault: their arrival script, the teller's window (take the sash, hold it,
+ * brace), what happened (the grade goes in the bank's gradeVar), their after
+ * script, the ledger (the teller picks a class; right or wrong, it's stamped),
+ * then the queue moves on. Nothing can be failed.
+ */
+async function serveCustomer(ctx, id, queueId = null) {
+  const content = ctx.session.content ?? ctx.content;
+  const c = content.bankCustomers?.get?.(id);
+  if (!c) throw new Error(`No bank customer "${id}"`);
+  const bank = bankDef(content, c.bank ?? 'grand_bank');
+  const story = ctx.session.story;
+  if (c.intro) await ctx.runner.run(c.intro, ctx);
+  const r = await service(ctx, 'ui', 'teller').teller({ id, ...c }, bank);
+  const score = tellerScore(r?.grades ?? []);
+  if (bank.gradeVar) story.setVar(bank.gradeVar, score);
+  if (bank.slipsVar) story.setVar(bank.slipsVar, r?.slips ?? 0);
+  ctx.bus?.emit('bank:deposited', { customer: id, score, grades: r?.grades ?? [] });
+  if (c.after) await ctx.runner.run(c.after, ctx);
+  // The ledger: what class was that?
+  const opts = c.classify ?? [c.intensity];
+  const dialogue = service(ctx, 'dialogue', 'bankDeposit');
+  const picked = await dialogue.choose({
+    prompt: bank.classifyPrompt ? parseLine(fill(bank.classifyPrompt, { name: c.short ?? c.name })) : null,
+    options: opts.map((n) => ({ text: scaleLabel(bank, n) })),
+    cancelIndex: null,
+  });
+  const right = String(opts[picked] ?? opts[0]) === String(c.intensity);
+  if (right && bank.ledgerVar) story.addVar(bank.ledgerVar, 1);
+  const line = right ? bank.classifyRight : bank.classifyWrong;
+  if (line) await dialogue.say(parseLine(fill(line, { name: c.short ?? c.name, class: scaleLabel(bank, c.intensity) })));
+  if (c.vault) await ctx.runner.run(c.vault, ctx);
+  else if (bank.vault) await ctx.runner.run(bank.vault, ctx);
+  // The queue moves on.
+  const qid = queueId ?? Object.keys(bank.queues ?? {}).find((k) => bank.queues[k].customers.includes(id));
+  const q = qid ? bank.queues[qid] : null;
+  if (q) {
+    const at = q.customers.indexOf(id);
+    if (story.getVar(q.servedVar, 0) <= at) story.setVar(q.servedVar, at + 1);
+    if (q.event) ctx.bus?.emit('script:event', { name: q.event });
+  }
+}
 
 /**
  * Implementations of every script command.
@@ -396,6 +458,125 @@ export function createCommandImplementations() {
       const want = step.to ? w.stages.indexOf(step.to) : at + 1;
       const next = Math.min(w.stages.length - 1, Math.max(at, want));
       ctx.session.story.setValue(w.value, w.stages[next]);
+    },
+    // --- Story Phase 14 ---------------------------------------------------------
+    /**
+     * Brogath Stability (systems/stability.js). trigger/calm apply a data
+     * entry (its line is said unless "quiet"); set/add move the pressure;
+     * anger turns the scripted ANGRY state on or off; meter shows, hides or
+     * hands the meter back to the world ("auto"); incident starts a rising
+     * incident (the world raises it while the captain has control), secure
+     * stops the rise, settle puts everything back after a scripted
+     * catastrophe (no anger, no incident, settled pressure, meter auto).
+     */
+    stability: async (step, ctx) => {
+      const content = ctx.session.content ?? ctx.content;
+      const def = stabilitySubject(content, step.subject);
+      const s = ctx.session;
+      const story = s.story;
+      // A live incident keeps its rising pressure in the world: write it back first.
+      ctx.bus?.emit('stability:sync', { subject: def.id });
+      const emit = (r, kind) => ctx.bus?.emit('stability:changed', { subject: def.id, kind, ...r });
+      const op = step.stability;
+      if (op === 'trigger' || op === 'calm') {
+        const e = effectOf(def, op, step.id);
+        const r = addPressure(def, s, e.pressure ?? 0);
+        emit(r, op);
+        if (e.sfx) ctx.services.audio?.sfx(e.sfx, { volume: e.volume ?? 0.7 });
+        if (e.line && !step.quiet) await service(ctx, 'dialogue', 'stability').say(parseLine(e.line));
+        return null;
+      }
+      if (op === 'set') emit(writePressure(def, s, step.pressure ?? def.settleTo), op);
+      else if (op === 'add') emit(addPressure(def, s, step.pressure ?? 0), op);
+      else if (op === 'anger') {
+        if (!def.angerFlag) throw new Error(`Stability subject "${def.id}" has no angerFlag`);
+        if (step.on === false) story.clear(def.angerFlag);
+        else story.set(def.angerFlag);
+        emit(writePressure(def, s, readStability(def, s).pressure), op);
+      } else if (op === 'meter') {
+        if (def.meterValue) story.setValue(def.meterValue, step.show === 'auto' || !step.show ? null : step.show);
+        ctx.bus?.emit('stability:changed', { subject: def.id, kind: op });
+      } else if (op === 'incident') {
+        const inc = incidentDef(def, step.id);
+        story.setValue(def.incidentValue, step.id);
+        const cur = readStability(def, s).pressure;
+        emit(writePressure(def, s, inc.start != null ? Math.max(cur, inc.start) : cur), op);
+      } else if (op === 'secure') {
+        if (def.incidentValue) story.setValue(def.incidentValue, null);
+        ctx.bus?.emit('stability:changed', { subject: def.id, kind: op });
+      } else if (op === 'settle') {
+        if (def.angerFlag) story.clear(def.angerFlag);
+        if (def.incidentValue) story.setValue(def.incidentValue, null);
+        if (def.meterValue) story.setValue(def.meterValue, null);
+        emit(writePressure(def, s, step.pressure ?? def.settleTo), op);
+      } else throw new Error(`Unknown stability op "${op}"`);
+      return null;
+    },
+    /**
+     * A reassurance prompt: the subject's prompt set offers a few things to
+     * say (always at least one that calms); the captain says it, it calms or
+     * triggers by the data, and the reply follows. "var" is 1 if it calmed.
+     */
+    reassure: async (step, ctx) => {
+      const content = ctx.session.content ?? ctx.content;
+      const def = stabilitySubject(content, step.subject);
+      const story = ctx.session.story;
+      ctx.bus?.emit('stability:sync', { subject: def.id });
+      const turnVar = def.turnVar ?? `${def.id}_reassure_turn`;
+      const opts = promptOptions(def, step.reassure, story.getVar(turnVar, 0));
+      story.addVar(turnVar, 1);
+      const dialogue = service(ctx, 'dialogue', 'reassure');
+      const index = await dialogue.choose({ prompt: step.prompt ? parseLine(step.prompt) : null, options: opts.map((o) => ({ text: o.text })), cancelIndex: null });
+      const o = opts[index] ?? opts[0];
+      const set = def.prompts[step.reassure];
+      if (set.echo !== false) await dialogue.say(parseLine(`${set.speaker ?? 'captain'}: ${o.say ?? o.text}`));
+      const kind = o.calm ? 'calm' : 'trigger';
+      const e = effectOf(def, kind, o.calm ?? o.trigger);
+      const r = addPressure(def, ctx.session, e.pressure ?? 0);
+      ctx.bus?.emit('stability:changed', { subject: def.id, kind, ...r });
+      if (e.sfx) ctx.services.audio?.sfx(e.sfx, { volume: e.volume ?? 0.7 });
+      const reply = o.reply ?? e.line;
+      if (reply) await dialogue.say(parseLine(reply));
+      if (step.var) story.setVar(step.var, o.calm ? 1 : 0);
+      return null;
+    },
+    /** The Grand Bank: "next" serves the next depositor in a queue (nothing when it's empty). */
+    bank: async (step, ctx) => {
+      const content = ctx.session.content ?? ctx.content;
+      const bank = bankDef(content, step.bankId);
+      if (step.bank !== 'next') throw new Error(`Unknown bank op "${step.bank}"`);
+      const queue = step.queue ?? Object.keys(bank.queues ?? {})[0];
+      const id = nextCustomer(bank, queue, ctx.session);
+      if (id) await serveCustomer(ctx, id, queue);
+      return null;
+    },
+    bankDeposit: async (step, ctx) => {
+      await serveCustomer(ctx, step.bankDeposit);
+      return null;
+    },
+    /**
+     * Story Phase 14: the Grand Currency purchase. Exactly once (the bank's
+     * currency flag): the real doubloons come out of the captain's purse (all
+     * he has, if he has fewer), and the tokens go into their own variable,
+     * never the purse. Running it again does nothing.
+     */
+    grandCurrency: async (step, ctx) => {
+      const content = ctx.session.content ?? ctx.content;
+      const cur = bankDef(content, step.bankId).currency;
+      if (!cur) throw new Error('This bank has no "currency"');
+      if (step.grandCurrency !== 'purchase') throw new Error(`Unknown grandCurrency op "${step.grandCurrency}"`);
+      const s = ctx.session;
+      if (s.story.has(cur.flag)) return null;
+      const paid = Math.min(cur.gold ?? 0, s.inventory.gold);
+      if (paid > 0) s.inventory.spendGold(paid);
+      if (cur.paidVar) s.story.setVar(cur.paidVar, paid);
+      s.story.setVar(cur.var, s.story.getVar(cur.var, 0) + cur.amount);
+      s.story.set(cur.flag);
+      if (!step.silent) {
+        if (paid > 0) await ctx.services.ui?.notify({ kind: 'goldLost', amount: paid });
+        if (cur.notify) await ctx.services.ui?.notify({ kind: 'text', text: cur.notify });
+      }
+      return null;
     },
     battle: async (step, ctx, frame) => {
       const result = await service(ctx, 'battle', 'battle').start(step.battle);

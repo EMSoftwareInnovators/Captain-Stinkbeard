@@ -288,6 +288,18 @@ Object.assign(MIGRATIONS, {
    * values. Delirium aliases are never saved: they follow the flags.
    */
   12: (state) => fillLayout(state),
+  /**
+   * 13 -> 14 (Story Phase 14: the Return of Brogath). Unchanged layout. Brogath
+   * (reincarnated, permanent), his stability (`brogath_pressure`, a variable;
+   * `brogath_state`, a value derived from it), the Brogath Rules, the
+   * Fart-Free Zone, the oats, the television safety protocol, the Grand Bank
+   * (open only while its flag is set) and the Grand Currency are flags,
+   * variables and values that start unset. The Grand Currency is its own
+   * variable (`grand_currency_tokens`) and never touches the purse; the ten
+   * real doubloons come out exactly once, behind `grand_currency_acquired`.
+   * A finished Phase 13 save walks into chapter 146 on load.
+   */
+  13: (state) => fillLayout(state),
 });
 
 export function migrateState(state, fromVersion, toVersion, migrations = MIGRATIONS) {

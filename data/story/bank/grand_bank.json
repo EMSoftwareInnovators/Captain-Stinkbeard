@@ -1,0 +1,116 @@
+{
+ "//": "Story Phase 14: the branch Brogath's Anger Waft put on the main deck (chapter 163), open only while grand_bank_open is set; it concludes business in chapter 166. The scale is the bank's own. Queues are served in order; the served count is saved, so a save between depositors resumes at the next one.",
+ "grand_bank": {
+  "name": "THE GRAND STENCHMASTER'S GRAND BANK AND GRAND TRUST",
+  "slogan": "YOUR GAS IS OUR BUSINESS!",
+  "openFlag": "grand_bank_open",
+  "ledgerVar": "bank_ledger_right",
+  "gradeVar": "bank_last_grade",
+  "slipsVar": "bank_last_slips",
+  "scale": [
+   {
+    "n": 1,
+    "name": "Gentle"
+   },
+   {
+    "n": 2,
+    "name": "Firm"
+   },
+   {
+    "n": 3,
+    "name": "Furniture-Aware"
+   },
+   {
+    "n": 4,
+    "name": "Furniture-Moving"
+   },
+   {
+    "n": 5,
+    "name": "Structural"
+   },
+   {
+    "n": 6,
+    "name": "Maritime"
+   },
+   {
+    "n": 7,
+    "name": "Municipal"
+   },
+   {
+    "n": 8,
+    "name": "Regional"
+   },
+   {
+    "n": 9,
+    "name": "Historic"
+   },
+   {
+    "n": 10,
+    "name": "Please Notify Authorities"
+   }
+  ],
+  "beyond": {
+   "n": "10+",
+   "name": "ABSOLUTELY NOT"
+  },
+  "queues": {
+   "regular": {
+    "customers": [
+     "windabella",
+     "gassius",
+     "rumblewaft",
+     "puffington",
+     "breezella",
+     "gustavius",
+     "puffalina",
+     "ventworth",
+     "windledger",
+     "gasbeth",
+     "thundergut",
+     "duke_puff",
+     "wind_twins",
+     "rumpington",
+     "beatrice",
+     "gary"
+    ],
+    "servedVar": "bank_served",
+    "event": "p14_deposit"
+   },
+   "legendary": {
+    "customers": [
+     "zephyrella",
+     "rumbleseptimus",
+     "gustilda"
+    ],
+    "servedVar": "bank_legends_served",
+    "event": "p14_legend"
+   }
+  },
+  "classifyPrompt": "captain: (the ledger) {name}. Class of deposit?",
+  "classifyRight": "Into the ledger: {class}. The ledger gives a little satisfied rustle.",
+  "classifyWrong": "bank_voice: CORRECTION: {class}. THE GRAND TRUST THANKS YOU FOR YOUR ESTIMATE.",
+  "vault": "p14.bank_vault",
+  "currency": {
+   "flag": "grand_currency_acquired",
+   "var": "grand_currency_tokens",
+   "amount": 20000,
+   "gold": 10,
+   "paidVar": "grand_currency_gold_paid",
+   "notify": "+20,000 GRAND TOKENS (NOT LEGAL TENDER)"
+  },
+  "counter": {
+   "main_deck": [
+    9,
+    27
+   ]
+  },
+  "area": {
+   "main_deck": [
+    5,
+    25,
+    11,
+    4
+   ]
+  }
+ }
+}

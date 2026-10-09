@@ -1,0 +1,96 @@
+[
+ {
+  "id": "brogath",
+  "name": "Brogath the Bashful",
+  "title": "Ancient Grand Stenchmaster",
+  "//": "Story Phase 14: Brogath the Bashful, Ancient Grand Stenchmaster, returned (chapter 148) inside the Fan Mega-Pack's cardboard cut-out of himself, by way of the old cloud in the treasure room. Polite, earnest, bashful, confused by everything, proud of every ancient tradition, and completely unable to understand how powerful he is. Never malicious. His look follows his stability (data/story/stability/brogath.json): the print blushes, bows out under pressure, and goes red and hot in Grand Stenchmaster Wrath. He never goes near the treasure room.",
+  "appearance": "brogath",
+  "portrait": "brogath",
+  "voice": {
+   "pitch": 1.12
+  },
+  "behavior": {
+   "type": "stand",
+   "lookAround": true
+  },
+  "shadow": "shadow_xs",
+  "variants": [
+   {
+    "if": {
+     "flag": "brogath_angry"
+    },
+    "appearance": "brogath_angry",
+    "portrait": "brogath_angry"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "brogath_loaded"
+      },
+      {
+       "notFlag": "brogath_unloaded"
+      }
+     ]
+    },
+    "appearance": "brogath_loaded"
+   },
+   {
+    "if": {
+     "value": {
+      "name": "brogath_state",
+      "eq": "PLEASED"
+     }
+    },
+    "appearance": "brogath_pleased"
+   },
+   {
+    "if": {
+     "value": {
+      "name": "brogath_state",
+      "eq": "BASHFUL"
+     }
+    },
+    "appearance": "brogath_bashful"
+   },
+   {
+    "if": {
+     "value": {
+      "name": "brogath_state",
+      "eq": "EMBARRASSED"
+     }
+    },
+    "appearance": "brogath_embarrassed"
+   },
+   {
+    "if": {
+     "value": {
+      "name": "brogath_state",
+      "eq": "PRESSURIZED"
+     }
+    },
+    "appearance": "brogath_pressurized"
+   },
+   {
+    "if": {
+     "value": {
+      "name": "brogath_state",
+      "eq": "CRITICAL"
+     }
+    },
+    "appearance": "brogath_critical"
+   },
+   {
+    "if": {
+     "flag": "brogath_consultant"
+    },
+    "title": "Ancient Historical Consultant"
+   }
+  ],
+  "dialogue": [
+   {
+    "script": "brogath.idle"
+   }
+  ]
+ }
+]

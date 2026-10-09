@@ -1,0 +1,1429 @@
+{
+ "//": "Story Phase 14, chapters 152-157: back in office (tongs, sash, Garrick's sash flutters, three Grand Decrees), two Grand Stenchmasters (five rounds; the Grand Waft Trials mentioned, never held), beans of ancient precedent (the compliment rota, six dishes, both loaded, the nook), the Fart-Free Zone (nine supplies; cards in the air), getting rid of Brogath (four plans and a mission, all rejected), beyond broke (the second treasure catastrophe; the five ingredients; the treasure-room exclusion).",
+ "p14c7.begin": [
+  {
+   "setFlag": "p14_ch152_started"
+  },
+  {
+   "banner": "CHAPTER 152",
+   "sub": "Back in Office"
+  },
+  {
+   "fade": "out",
+   "duration": 700
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 31
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "fade": "in",
+   "duration": 900
+  },
+  {
+   "music": "brogath_morning",
+   "fade": 800
+  },
+  "Dawn. Behind the barricade, the crew of the Revenge are asleep in a heap, the way people sleep after a war.",
+  "Out in the middle of the room, Garrick has spent the whole night sitting perfectly still next to Brogath, being interesting.",
+  "brogath[pleased]: (bashfully) ...and that was the Siege of the Bean Granary. Your turn.",
+  "garrick[worried]: (who hasn't blinked since midnight) Ned. NED. What time is it?",
+  "ned: (waking up against the cask, finding his crayon) ...That's the last line, Mister Garrick. That's twenty-four. One whole day.",
+  "Garrick stands up. Slowly. His knees crack. Something in his face changes.",
+  "garrick[proud]: The suspension... is OVER.",
+  {
+   "setFlag": "stenchmaster_suspension_over"
+  },
+  {
+   "clearFlag": "stenchmaster_suspension_active"
+  },
+  {
+   "setVar": "suspension_hours_left",
+   "value": 0
+  },
+  {
+   "completeQuest": "the_suspension"
+  },
+  {
+   "sfx": "garrick_fanfare",
+   "volume": 0.8
+  },
+  "garrick[proud]: I am the GRAND STENCHMASTER. Again. Officially. In OFFICE.",
+  "garrick[businesslike]: Captain. My crown. My robe. My regalia. And my SASH.",
+  "captain[laugh]: (with real joy) Your sash. Of course. It's in my wardrobe, where it has been growling since Tuesday. You can HAVE it.",
+  "captain[determined]: I'll fetch it myself. With something LONG.",
+  "garrick[proud]: I'll be in the galley. With the rest of my REGALIA.",
+  {
+   "move": "garrick",
+   "to": [
+    8,
+    4
+   ]
+  },
+  {
+   "despawn": "garrick"
+  },
+  {
+   "setFlag": "p14_regalia_demanded"
+  },
+  "brogath[confused]: (to Pete, in a whisper) What's a suspension?",
+  "pete: Go back to sleep, Your Ancientness.",
+  {
+   "startQuest": "back_in_office"
+  },
+  {
+   "tutorial": "Get the fire tongs from beside the galley stove, then get the sash out of your wardrobe (your cabin). Do NOT use your hands.",
+   "title": "Back in Office"
+  }
+ ],
+ "p14c7.tongs": [
+  "The fire tongs. Long, black, iron, and the only thing on the ship you'd trust with it.",
+  {
+   "giveItem": "fire_tongs"
+  },
+  "jim: (from the stove, not looking round) Bring them BACK. And wash them. Twice.",
+  {
+   "setFlag": "p14_tongs_taken"
+  }
+ ],
+ "p14c7.sash": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "Your wardrobe. A faint growl from inside it. A yellow stain spreading out from under the door, slowly, like a map of somewhere bad.",
+  {
+   "insert": "old_sash_foul",
+   "caption": "Garrick's sash. Held out at the full length of the tongs."
+  },
+  {
+   "sfx": "sash_growl",
+   "volume": 0.7
+  },
+  {
+   "sfx": "door_creak",
+   "volume": 0.6
+  },
+  "You open the door with your foot. You go in with the tongs at arm's length, eyes shut, and come out with the sash, clamped, dangling, gently steaming.",
+  "captain[queasy]: (holding it as far out as the tongs go) ...Grand Stenchmaster. Your regalia.",
+  {
+   "clearFlag": "sash_in_wardrobe"
+  },
+  {
+   "setFlag": "p14_sash_retrieved"
+  },
+  {
+   "tutorial": "Take it to Garrick (the galley, where his regalia's been heaped since the suspension).",
+   "title": "Back in Office"
+  }
+ ],
+ "p14c7.return": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "garrick[delighted]: MY SASH.",
+  "You hand it over on the end of the tongs. He takes it in both hands, like a man being given back his own child.",
+  "He pulls on the robe from the heap. The crown. The gloves. And then, with a big theatrical sweep, the sash.",
+  {
+   "clearFlag": "regalia_removed"
+  },
+  {
+   "setFlag": "garrick_regalia_restored"
+  },
+  {
+   "takeItem": "fire_tongs",
+   "silent": true
+  },
+  {
+   "sfx": "sash_flap",
+   "volume": 0.9
+  },
+  "It goes out in a great swirling arc and FLAPS.",
+  "In the doorway to the quarters, where he's come up to see what all the fuss is, Brogath sees it flap.",
+  {
+   "face": "brogath",
+   "dir": "garrick"
+  },
+  "brogath[embarrassed]: Oh. Oh, it... FLUTTERED.",
+  {
+   "stability": "incident",
+   "id": "garrick_sash"
+  },
+  {
+   "stability": "trigger",
+   "id": "flutter",
+   "quiet": true
+  },
+  {
+   "setFlag": "p14_gs_started"
+  },
+  "pete: (running in) Not the SASH. Not the SASH, Mister Garrick.",
+  {
+   "tutorial": "Garrick's sash is still flapping. Tuck it in (Garrick), then steady Brogath (talk to him).",
+   "title": "Flutter: a Grand Sash"
+  }
+ ],
+ "p14c7.gs_secure": [
+  "captain[determined]: Tuck. It. IN.",
+  "garrick[offended]: It's REGALIA. It's meant to be SEEN.",
+  "captain[determined]: It's meant to be TUCKED.",
+  "You stuff the end of it into his belt. Then the other end. He looks like a parcel.",
+  {
+   "setFlag": "brogath_rule_sashes_tucked"
+  },
+  {
+   "addVar": "brogath_rules",
+   "value": 1
+  },
+  "pete: (writing, on the parchment he's carried up from the quarters) ALL SASHES TUCKED IN. EVEN GRAND ONES.",
+  {
+   "stability": "secure"
+  },
+  {
+   "setFlag": "p14_gs_secured"
+  }
+ ],
+ "p14c7.steady": [
+  {
+   "reassure": "flutter"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p14_gs_secured"
+     },
+     {
+      "var": {
+       "name": "brogath_pressure",
+       "lt": 30
+      }
+     }
+    ]
+   },
+   "then": [
+    "The pink drains out of his printed cheeks. He gives a little bow to the room, for no reason.",
+    {
+     "setFlag": "p14_gs_done"
+    },
+    {
+     "stability": "meter",
+     "show": "auto"
+    },
+    {
+     "tutorial": "Hear his Grand Decrees (Garrick).",
+     "title": "Back in Office"
+    }
+   ],
+   "else": [
+    {
+     "if": {
+      "notFlag": "p14_gs_secured"
+     },
+     "then": [
+      "brogath[bashful]: It's still... is it still going? Under there?",
+      {
+       "bark": "pete",
+       "text": "TUCK IT IN!",
+       "duration": 1300
+      }
+     ],
+     "else": [
+      "He's still trembling at the edges.",
+      {
+       "bark": "pete",
+       "text": "More. Say MORE.",
+       "duration": 1200
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "p14c7.gs_erupt": [
+  {
+   "call": "p14.eruption_small"
+  }
+ ],
+ "p14c7.decrees": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "garrick[proud]: (striking a pose, sash tucked) As my first act back in office... a GRAND DECREE.",
+  "captain[annoyed]: How many of these have you got?",
+  "garrick[businesslike]: Forty-one. I've had a day to think.",
+  {
+   "choice": [
+    {
+     "text": "You get ONE.",
+     "then": [
+      {
+       "setVar": "p14_decree_limit",
+       "value": 1
+      },
+      "garrick[offended]: ONE? A Grand Stenchmaster gets ONE?",
+      "captain[determined]: ...Three. THREE. Final offer."
+     ]
+    },
+    {
+     "text": "You get three.",
+     "then": [
+      {
+       "setVar": "p14_decree_limit",
+       "value": 3
+      },
+      "garrick[businesslike]: Three. I can work with three. I'll have to consolidate."
+     ]
+    },
+    {
+     "text": "As many as you like.",
+     "then": [
+      {
+       "setVar": "p14_decree_limit",
+       "value": 41
+      },
+      "garrick[delighted]: GRAND DECREE THE FIRST: beans! The second: the Grand Nap! The third: first choice of bunk! The fourth: a GRAND CONSTITUTION, in eleven volumes, the fifth...",
+      "captain[annoyed]: THREE. I meant three. I've changed my mind. I'm the captain."
+     ]
+    }
+   ]
+  },
+  "garrick[proud]: GRAND DECREE THE FIRST. Beans. For breakfast. Every breakfast.",
+  "jim: (from the stove) That's already true. That's been true for a month.",
+  "garrick[proud]: Now it's LAW. GRAND DECREE THE SECOND. The Grand Nap. After breakfast. Compulsory.",
+  "gristle: ...I'll allow it.",
+  "garrick[proud]: GRAND DECREE THE THIRD. The Grand Stenchmaster has first choice of bunk. Anywhere on the ship.",
+  "captain[annoyed]: Not my cabin.",
+  "garrick[businesslike]: Anywhere on the ship EXCEPT the captain's cabin. Amended. GRAND DECREE THE FOURTH...",
+  "captain[determined]: That's three.",
+  "garrick[businesslike]: The fourth is just a small one. A Grand Constitution. Purely to define what a decree IS, so that...",
+  "captain[determined]: THREE.",
+  "garrick[offended]: (folding his arms) ...Fine. I'll draft it in my head.",
+  {
+   "setFlag": "p14_decrees_done"
+  },
+  {
+   "completeQuest": "back_in_office"
+  },
+  {
+   "call": "p14c8.begin"
+  }
+ ],
+ "p14c8.begin": [
+  {
+   "setFlag": "p14_ch153_started"
+  },
+  {
+   "banner": "CHAPTER 153",
+   "sub": "Two Grand Stenchmasters"
+  },
+  "Brogath has been listening from the doorway with his mouth open. His printed mouth. Which isn't meant to open.",
+  "brogath[delighted]: You can... DECREE things? Grand Stenchmasters can DECREE things?",
+  "garrick[proud]: Well. I can.",
+  "brogath[pleased]: Oh, how wonderful. I used to decree things all the time. I decreed a WHOLE MONTH once. February. It was much longer before me.",
+  "garrick: ...YOU decreed things?",
+  "brogath[bashful]: Well. I was a Grand Stenchmaster.",
+  "garrick: I'M the Grand Stenchmaster.",
+  "brogath[confused]: Oh. But so am I.",
+  "garrick[offended]: You're an ANCIENT one.",
+  "brogath[pleased]: Thank you!",
+  "garrick[offended]: That wasn't a compliment, that was a CATEGORY. I'm the CURRENT one.",
+  "brogath[confused]: (genuinely puzzled) Is that better?",
+  "A long, dangerous silence. Two Grand Stenchmasters in one galley. You can feel the pressure in the room change.",
+  "pete: (very quietly, to you) Captain. Don't let this turn into a contest.",
+  {
+   "startQuest": "two_grand_stenchmasters"
+  },
+  {
+   "tutorial": "Talk to them (Garrick, Brogath). Every boast needs answering before it turns into a contest; say what keeps them both content.",
+   "title": "Two Grand Stenchmasters"
+  }
+ ],
+ "p14c8.round": [
+  {
+   "if": {
+    "var": {
+     "name": "p14_rounds",
+     "eq": 0
+    }
+   },
+   "then": [
+    {
+     "call": "p14c8.r1"
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p14_rounds",
+     "eq": 1
+    }
+   },
+   "then": [
+    {
+     "call": "p14c8.r2"
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p14_rounds",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "call": "p14c8.r3"
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p14_rounds",
+     "eq": 3
+    }
+   },
+   "then": [
+    {
+     "call": "p14c8.r4"
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p14_rounds",
+     "eq": 4
+    }
+   },
+   "then": [
+    {
+     "call": "p14c8.r5"
+    }
+   ]
+  }
+ ],
+ "p14c8.r1": [
+  "garrick[proud]: I'll have you know that I created the SHARKSTORM. The GREAT Sharkstorm. It's outside. Right now. Go and LOOK at it.",
+  "brogath[pleased]: Oh, how lovely! I had one too. Only a small one. They named a sea after it.",
+  "garrick: ...A SEA?",
+  "brogath[bashful]: The Sea of Pardon Me. It's on the old maps. In a corner.",
+  {
+   "call": "p14c8.defuse"
+  }
+ ],
+ "p14c8.r2": [
+  "garrick[proud]: I gassed an entire TREASURE ROOM. The very first night I was on this ship. It's still sealed. It still GROWLS.",
+  "brogath[pleased]: Oh, I lost treasure too! At an excavation. Very famous. It's in all the books.",
+  "brogath[bashful]: (quieter) There was a second time. We don't... I don't talk about the second time.",
+  "garrick[smug]: Lost it. LOST it. I didn't lose mine, mine's still in there. Somewhere. Under it.",
+  {
+   "call": "p14c8.defuse"
+  }
+ ],
+ "p14c8.r3": [
+  "garrick[proud]: I have evacuated this ship's lower deck. TWICE. And the galley. And the old quarters. For a MONTH.",
+  "brogath[pleased]: They evacuated a village for me once.",
+  "garrick[smug]: A village.",
+  "brogath[bashful]: Well. Three villages. And a harbour. They moved the harbour, in the end. Further up the coast. Out of range.",
+  "garrick[offended]: They MOVED the HARBOUR?",
+  {
+   "call": "p14c8.defuse"
+  }
+ ],
+ "p14c8.r4": [
+  "garrick[proud]: I have made rooms UNINHABITABLE. I have frightened SHARKS. Sharks, Brogath. Apex predators. Holding their noses.",
+  "brogath[pleased]: Oh, sharks. Yes. There's a lighthouse they still won't go in. And a herd of goats on the Grumbling Cliffs that still won't face west.",
+  "brogath[bashful]: It's been four hundred years. They're different goats. They STILL won't.",
+  {
+   "call": "p14c8.defuse"
+  }
+ ],
+ "p14c8.r5": [
+  "garrick[businesslike]: MODERN technique, Brogath. Sash certification. Thirty-second holds. The Grand Dice of Grandness. The Stench-O-Vision. I have my own CHANNEL.",
+  "garrick[proud]: Volume. Potency. Duration. CONTROL. Measured. Logged. In a BOOK.",
+  "brogath[confused]: Oh, we never had any of that. Books. Dice.",
+  "garrick[smug]: (relaxing) No. No, you wouldn't have.",
+  "brogath[pleased]: We just had the Trials.",
+  "A pause.",
+  "garrick: ...The what?",
+  "brogath[delighted]: The Grand Waft Trials! Didn't you ever have them? When there were two Grand Stenchmasters in one place, they'd hold the Trials, to settle who was the grander. Seven days. Seven events. The Long Waft. The Silent Waft. The Waft Over Water...",
+  "garrick[delighted]: (very slowly) ...Seven... EVENTS.",
+  {
+   "sfx": "sting_dread",
+   "volume": 0.8
+  },
+  "captain: NO.",
+  "brogath[bashful]: The last one moved a mountain range a little to the left. They still argue about whether it counts.",
+  "captain: NO. NO TRIALS. Nobody is holding ANY TRIALS. On my SHIP. In my STORM.",
+  "garrick[smug]: (writing something down on his cuff) Hm.",
+  "captain[determined]: WHAT are you writing?",
+  "garrick: Nothing. A recipe.",
+  {
+   "setFlag": "brogath_rule_no_grand_waft_trials"
+  },
+  {
+   "addVar": "brogath_rules",
+   "value": 1
+  },
+  "pete: (writing, very hard) NO. ONE. MENTIONS. THE TRIALS.",
+  {
+   "call": "p14c8.done"
+  }
+ ],
+ "p14c8.defuse": [
+  {
+   "choice": [
+    {
+     "text": "Both of you. Very impressive. EQUALLY impressive.",
+     "then": [
+      "captain[determined]: Both. Equally. Exactly the same amount of impressive. Lovely. Next.",
+      {
+       "stability": "calm",
+       "id": "praise",
+       "quiet": true
+      },
+      "garrick[smug]: (mollified) ...Equally. Fine.",
+      "brogath[pleased]: Oh, thank you."
+     ]
+    },
+    {
+     "text": "Garrick, he's being POLITE.",
+     "then": [
+      "garrick[offended]: He's being polite AT me. That's worse.",
+      {
+       "stability": "trigger",
+       "id": "jealous_garrick"
+      }
+     ]
+    },
+    {
+     "text": "Brogath, you've been dead for four hundred years. It doesn't count.",
+     "then": [
+      {
+       "stability": "trigger",
+       "id": "reminded_dead"
+      },
+      "pete: (hissing) CAPTAIN."
+     ]
+    }
+   ]
+  },
+  {
+   "addVar": "p14_rounds",
+   "value": 1
+  },
+  {
+   "event": "p14_round"
+  }
+ ],
+ "p14c8.done": [
+  {
+   "setFlag": "p14_trials_mentioned"
+  },
+  {
+   "completeQuest": "two_grand_stenchmasters"
+  },
+  {
+   "startQuest": "grand_waft_trials"
+  },
+  {
+   "tutorial": "Make sure the Grand Waft Trials never happen. (This one doesn't end.)",
+   "title": "The Grand Waft Trials"
+  },
+  {
+   "call": "p14c9.begin"
+  }
+ ],
+ "p14c9.begin": [
+  {
+   "setFlag": "p14_ch154_started"
+  },
+  {
+   "banner": "CHAPTER 154",
+   "sub": "Beans of Ancient Precedent"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 28
+  },
+  "pete: (to the crew, in a huddle by the stove) Right. Two of them now. Both Grand. Both touchy.",
+  "gristle: Keep them content.",
+  "pete: Both of them. Compliments. Turn and turn about. Never two in a row for the same one, or the other one sulks.",
+  "bob: Who's doing the compliments?",
+  "Everybody looks at you.",
+  "captain[resigned]: ...I used to rob merchant vessels.",
+  {
+   "setVar": "p14_comp_turn",
+   "value": 0
+  },
+  {
+   "setFlag": "brogath_rule_compliment_rota"
+  },
+  {
+   "addVar": "brogath_rules",
+   "value": 1
+  },
+  "pete: (writing it on the parchment, which he has brought up from the quarters under his arm) COMPLIMENTS BY TURNS.",
+  {
+   "startQuest": "beans_of_precedent"
+  },
+  {
+   "tutorial": "Pay them a compliment each, by turns: Garrick first, then Brogath, then Garrick, then Brogath.",
+   "title": "The Compliment Rota"
+  }
+ ],
+ "p14c9.comp_garrick": [
+  {
+   "if": {
+    "var": {
+     "name": "p14_comp_turn",
+     "eq": 0
+    }
+   },
+   "then": [
+    {
+     "if": {
+      "var": {
+       "name": "p14_compliments",
+       "eq": 0
+      }
+     },
+     "then": [
+      "captain[determined]: Garrick. Lovely regalia. Very... grand.",
+      "garrick[smug]: It IS, isn't it."
+     ],
+     "else": [
+      "captain[determined]: Garrick. That's a very... well-tucked sash.",
+      "garrick[proud]: Tucked by DECREE."
+     ]
+    },
+    {
+     "setVar": "p14_comp_turn",
+     "value": 1
+    },
+    {
+     "addVar": "p14_compliments",
+     "value": 1
+    },
+    {
+     "event": "p14_compliment"
+    }
+   ],
+   "else": [
+    "captain: Garrick, you look...",
+    "garrick[offended]: (arms folded) Oh, NOW it's me. Now it's my turn. After HIM.",
+    "pete: (hissing) BROGATH'S turn, Captain. Brogath's turn."
+   ]
+  }
+ ],
+ "p14c9.comp_brogath": [
+  {
+   "if": {
+    "var": {
+     "name": "p14_comp_turn",
+     "eq": 1
+    }
+   },
+   "then": [
+    {
+     "if": {
+      "var": {
+       "name": "p14_compliments",
+       "lt": 2
+      }
+     },
+     "then": [
+      "captain[determined]: Brogath. You look very... crisp. This morning.",
+      {
+       "stability": "calm",
+       "id": "print_compliment"
+      }
+     ],
+     "else": [
+      "captain[determined]: Brogath. Very distinguished. Very... upright.",
+      {
+       "stability": "calm",
+       "id": "distinguished"
+      }
+     ]
+    },
+    {
+     "setVar": "p14_comp_turn",
+     "value": 0
+    },
+    {
+     "addVar": "p14_compliments",
+     "value": 1
+    },
+    {
+     "event": "p14_compliment"
+    },
+    {
+     "bark": "garrick",
+     "text": "(muttering) Crisp.",
+     "duration": 1400
+    }
+   ],
+   "else": [
+    "captain: Brogath, you're looking...",
+    {
+     "stability": "trigger",
+     "id": "jealous_garrick",
+     "quiet": true
+    },
+    "garrick[offended]: (from across the galley, very loudly) HE GOT ONE LAST TIME.",
+    "brogath[bashful]: Oh, no, it's his turn, I don't mind, I don't mind at all...",
+    "pete: (hissing) GARRICK'S turn."
+   ]
+  }
+ ],
+ "p14c9.breakfast": [
+  {
+   "setFlag": "p14_compliments_said"
+  },
+  "And then it's breakfast. By Grand Decree.",
+  "garrick[proud]: BEANS.",
+  "brogath[confused]: (leaning over the pot) What are those? Little brown... are they BEANS? Modern beans?",
+  "jim: They're just beans.",
+  "brogath[delighted]: In MY day we had to dig them up ourselves. With a spoon. Out of a bog. You have them in TINS.",
+  "garrick[proud]: By ancient precedent. And modern decree.",
+  "brogath[proud]: By modern decree. And ancient precedent.",
+  "Two Grand Stenchmasters look at each other with deep mutual respect.",
+  "garrick[proud]: (together) BRING EVERYTHING.",
+  "brogath[proud]: (together) BRING EVERYTHING.",
+  "jim: (very tired) ...Everything.",
+  {
+   "tutorial": "Serve breakfast: beans and onions (the stove), garlic (the jar on the table), pickled cabbage (the brine crock), Frog Grog (the cask), Spicy Stench Sauce (the crate by the Mark II).",
+   "title": "Beans of Ancient Precedent"
+  }
+ ],
+ "p14c9.stove": [
+  {
+   "if": {
+    "notFlag": "p14_dish_beans"
+   },
+   "then": [
+    "Beans. Black beans, brown beans, red beans, BARON beans, a bean nobody can identify that Jim says came out of the Bling Bling King's catering. A full pot.",
+    {
+     "sfx": "pot_bubble",
+     "volume": 0.7
+    },
+    {
+     "setFlag": "p14_dish_beans"
+    },
+    {
+     "event": "p14_dish"
+    }
+   ],
+   "else": [
+    {
+     "if": {
+      "notFlag": "p14_dish_onions"
+     },
+     "then": [
+      "Onions. A whole string of them, fried until they surrender.",
+      {
+       "sfx": "sizzle",
+       "volume": 0.7
+      },
+      {
+       "setFlag": "p14_dish_onions"
+      },
+      {
+       "event": "p14_dish"
+      }
+     ],
+     "else": [
+      "The stove's done all it can. The stove would like a lie down."
+     ]
+    }
+   ]
+  }
+ ],
+ "p14c9.garlic": [
+  "The garlic jar. All of it.",
+  "garrick[proud]: ALL of it.",
+  {
+   "setFlag": "p14_dish_garlic"
+  },
+  {
+   "event": "p14_dish"
+  }
+ ],
+ "p14c9.cabbage": [
+  "Pickled cabbage, out of the brine crock. It's been fermenting since the first week in the storm. It has a sort of fizz.",
+  "jim: (holding it at arm's length) It's ALIVE. Partly.",
+  {
+   "setFlag": "p14_dish_cabbage"
+  },
+  {
+   "event": "p14_dish"
+  }
+ ],
+ "p14c9.grog": [
+  "Frog Grog. A jug. It goes on the table and starts very slowly eating its way into the wood.",
+  "brogath[delighted]: Is that GREEN? A green drink!",
+  {
+   "setFlag": "p14_dish_grog"
+  },
+  {
+   "event": "p14_dish"
+  }
+ ],
+ "p14c9.sauce": [
+  "Spicy Stench Sauce. The last case from the Bling Bling King's catering. The tin says EXTRA. The tin is warm.",
+  {
+   "setFlag": "p14_dish_sauce"
+  },
+  {
+   "event": "p14_dish"
+  }
+ ],
+ "p14c9.eat": [
+  {
+   "setFlag": "brogath_loaded"
+  },
+  {
+   "setFlag": "garrick_loaded"
+  },
+  {
+   "restage": "walk"
+  },
+  "The table. Beans in heaps. Garlic. Onions. Cabbage. Frog Grog contaminating the beans. Spicy Stench Sauce on all of it.",
+  "Garrick eats like a Grand Stenchmaster on his first morning back in office: thoroughly, and for the cameras.",
+  "Brogath picks up a spoon of beans. He looks at it. He pushes it against his printed mouth.",
+  {
+   "sfx": "wind_suck",
+   "volume": 0.6
+  },
+  {
+   "anim": "brogath",
+   "name": "eat"
+  },
+  "The beans vanish. Into the card. Into the yellow-green fume that holds him together.",
+  "brogath[delighted]: OH. Oh, that's MARVELLOUS. Is that what eating's like? I'd forgotten.",
+  "He does it again. And again. Beans. Garlic. A whole onion. Cabbage. Sauce. The jug of Frog Grog, all at once.",
+  {
+   "sfx": "cardboard_creak",
+   "volume": 0.9
+  },
+  "And his flat cardboard stomach, which is printed on, and is card, and has no inside, starts to BOW. Outwards.",
+  "bob: (very small) ...Is he getting FATTER?",
+  "gristle: He's cardboard. He can't get fatter.",
+  {
+   "sfx": "cardboard_creak",
+   "volume": 1.0
+  },
+  "gristle: ...He's getting fatter.",
+  "garrick[gastro]: (sitting back, loaded, with a hand on his stomach) ...Mmmf.",
+  {
+   "sfx": "stomach_grnk",
+   "volume": 0.8
+  },
+  {
+   "wait": 500
+  },
+  {
+   "sfx": "brogath_rumble_small",
+   "volume": 0.8
+  },
+  "brogath[loaded]: (cheerfully) Mmmf.",
+  "Two threatening noises, from two Grand Stenchmasters, in a duet.",
+  "pete: (already backing toward the stairs) Emergency meeting.",
+  "gristle: Where?",
+  "pete: Somewhere SMALL. Somewhere with a DOOR.",
+  "jim: (pointing down the stairs, at the hold) There's the cupboard. Under the stairs. Where I keep the mops.",
+  {
+   "setFlag": "p14_breakfast_eaten"
+  },
+  {
+   "tutorial": "EMERGENCY MEETING: the little door under the hold stairs (the hold, at the foot of the stairs).",
+   "title": "Beans of Ancient Precedent"
+  }
+ ],
+ "p14c9.nook": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "A little door, half your height, in the planking under the hold stairs. You've walked past it a thousand times. Mops. Buckets. A broom.",
+  "Seven of you go into it at once.",
+  {
+   "sfx": "door_small",
+   "volume": 0.8
+  },
+  {
+   "setFlag": "p14_nook_found"
+  },
+  {
+   "setFlag": "p14_nook_known"
+  },
+  {
+   "completeQuest": "beans_of_precedent"
+  },
+  {
+   "transition": "fart_free_zone",
+   "spawn": "door",
+   "then": "p14c10.begin"
+  }
+ ],
+ "p14c10.begin": [
+  {
+   "setFlag": "p14_ch155_started"
+  },
+  {
+   "banner": "CHAPTER 155",
+   "sub": "The Fart-Free Zone"
+  },
+  {
+   "music": "zone_quiet",
+   "fade": 600
+  },
+  "The cupboard under the stairs. Low ceiling. Mops. One candle. Seven pirates and a parrot, knee to knee.",
+  "Above your heads, the stairs creak. Somebody up in the galley is snoring in two voices.",
+  "pete: (in a whisper) Right. Emergency meeting. First item.",
+  "gristle: Nobody farts in here.",
+  "pete: That's the first item.",
+  "bob: That's the BEST item.",
+  "squawks[smug]: Zone.",
+  "jim: (looking round at the mops) Nobody. Farts. In here. Ever. This is the one place on the ship.",
+  {
+   "startQuest": "fart_free_zone"
+  },
+  {
+   "tutorial": "Hold the meeting (Pete).",
+   "title": "The Fart-Free Zone"
+  }
+ ],
+ "p14c10.declare": [
+  "pete: (standing up, banging his head on the stairs, sitting down) I hereby declare this cupboard...",
+  "pete: ...a FART-FREE ZONE.",
+  "A silence. And then, for the first time in a month, the crew of the Revenge give three cheers. Quietly.",
+  {
+   "setFlag": "fart_free_zone_declared"
+  },
+  "bob: (with a pot of paint he's had in his pocket all along) I'll do a sign.",
+  "gristle: It needs walls. Proper ones. Padding. Everything that'll stop a smell, round the door, in the gaps.",
+  "pete: Blankets. Pillows. A mattress. Barrels for the door. Rags in the cracks. Food. Something to DO. Something to drink.",
+  "jim: (very quietly) And the clean sashes. The ones nobody's worn. Two hundred and ninety of them. Best insulation on the ship.",
+  "captain[resigned]: I'll fetch them.",
+  {
+   "tutorial": "Make the zone safe. Fetch: sash blankets (the old quarters' bunks), pillows (the sash cots), a mattress (the double bunk in the hold), clean sashes (the Cheap-O-Rama crate, the galley), barrels (the hold), rags (the medicine cabinet, the old quarters), hardtack (the biscuit crate, the hold), playing cards (under the tipped table) and Frog Grog (the galley cask). Then bring it all back here.",
+   "title": "The Fart-Free Zone"
+  }
+ ],
+ "p14c10.blankets": [
+  "Sash blankets, off the bunks. You roll up an armful.",
+  "brogath[loaded]: (from the middle of the room, digesting) Are you MOVING OUT?",
+  "captain[determined]: Laundry.",
+  {
+   "setFlag": "p14_ffz_blankets"
+  },
+  {
+   "event": "p14_ffz"
+  }
+ ],
+ "p14c10.pillows": [
+  "Sash pillows. AGES SIX AND UP. Embroidered noses.",
+  {
+   "setFlag": "p14_ffz_pillows"
+  },
+  {
+   "event": "p14_ffz"
+  }
+ ],
+ "p14c10.mattress": [
+  "The old double bunk's mattress. You fold it in half and drag it.",
+  {
+   "repair": "heave",
+   "strikes": 3,
+   "title": "DRAG IT"
+  },
+  {
+   "setFlag": "p14_ffz_mattress"
+  },
+  {
+   "event": "p14_ffz"
+  }
+ ],
+ "p14c10.sashes": [
+  "A box of clean Stenchmaster sashes from the Cheap-O-Rama crate, never worn, still in their plastic. The softest, thickest, cleanest cloth on the ship. Insulation.",
+  {
+   "setFlag": "p14_ffz_sashes"
+  },
+  {
+   "event": "p14_ffz"
+  }
+ ],
+ "p14c10.barrels": [
+  "Two empty barrels for the door. You roll them over, one at a time.",
+  {
+   "repair": "barrel",
+   "strikes": 3,
+   "title": "ROLL IT"
+  },
+  {
+   "setFlag": "p14_ffz_barrels"
+  },
+  {
+   "event": "p14_ffz"
+  }
+ ],
+ "p14c10.rags": [
+  "Rags. Old bandages. Every bit of soft cloth from the medicine cabinet, to stuff in the cracks between the planks.",
+  {
+   "setFlag": "p14_ffz_rags"
+  },
+  {
+   "event": "p14_ffz"
+  }
+ ],
+ "p14c10.hardtack": [
+  "A sack of hardtack from the biscuit crate. Emergency rations. Siege rations.",
+  {
+   "setFlag": "p14_ffz_hardtack"
+  },
+  {
+   "event": "p14_ffz"
+  }
+ ],
+ "p14c10.cards": [
+  "Under the tipped card table: the playing cards. Ordinary ones. Paper. Fifty-two of them, and the two jokers.",
+  "You put them in your coat, very slowly, and walk out past Brogath without letting a single one so much as rustle.",
+  {
+   "setFlag": "p14_ffz_cards"
+  },
+  {
+   "event": "p14_ffz"
+  }
+ ],
+ "p14c10.grog": [
+  "A jug of Frog Grog. For the zone. For emergencies. Which is now.",
+  {
+   "setFlag": "p14_ffz_grog"
+  },
+  {
+   "event": "p14_ffz"
+  }
+ ],
+ "p14c10.reinforced": [
+  {
+   "setFlag": "p14_ffz_reinforced"
+  },
+  {
+   "setFlag": "fart_free_zone_reinforced"
+  },
+  "Blankets on the walls. Pillows on the floor. The mattress folded into the back. The clean sashes nailed up round the door frame, three deep. Rags in every crack. Barrels against the door.",
+  "Bob's sign, on the inside of the door: FART-FREE ZONE. Under it, smaller: THIS MEANS GARRICK. Under that, smaller: AND HIM.",
+  "pete: (breathing in through his nose, carefully) ...Nothing.",
+  "gristle: (breathing in) Nothing.",
+  "jim: (breathing in, eyes shut) ...Wood. Candle. Mops.",
+  "bob: (in a whisper) It smells like a CUPBOARD.",
+  "It smells like a cupboard. It's the most beautiful thing any of you have smelled in a month.",
+  {
+   "tutorial": "Be pirates for a minute (the cards).",
+   "title": "The Fart-Free Zone"
+  }
+ ],
+ "p14c10.cards_play": [
+  "Gristle deals. Jim pours the Frog Grog. For one hand of cards, the crew of the Queen Anne's Revenge are pirates again.",
+  "gristle: (squinting at his cards) Remember the Merry Widow? Off the Spanish Main? Forty barrels of rum and a parrot that swore in Portuguese.",
+  "squawks: Bird.",
+  "jim: The cinnamon ship. I still dream about the cinnamon ship.",
+  "bob: The one with the gold teeth in the strongbox!",
+  "captain[laugh]: (and you're smiling, and you can't remember the last time) Real gold. We used to steal REAL GOLD.",
+  "And then Bob, who has a bad hand, does what Bob does with a bad hand: he throws it in the air.",
+  {
+   "sfx": "cards_shuffle",
+   "volume": 0.9
+  },
+  {
+   "burst": "cards",
+   "x": 5,
+   "y": 5,
+   "count": 14
+  },
+  "The cards go up. Fifty-four bits of paper, spinning, fluttering, coming down all over the cupboard.",
+  "Everybody freezes.",
+  "And then everybody remembers where they are.",
+  "pete: (very slowly) ...They can flutter in here.",
+  "gristle: Paper can flutter in here.",
+  "jim: Everything can flutter in here.",
+  "And all at once, all seven of you are throwing cards in the air. Again. And again. Laughing like idiots. Fluttering, as hard as you can. Because you CAN.",
+  {
+   "sfx": "cards_shuffle",
+   "volume": 1.0
+  },
+  {
+   "burst": "cards",
+   "x": 3,
+   "y": 5,
+   "count": 14
+  },
+  {
+   "burst": "cards",
+   "x": 7,
+   "y": 5,
+   "count": 14
+  },
+  {
+   "sfx": "crew_laugh",
+   "volume": 0.8
+  },
+  "squawks[smug]: (flapping round the ceiling, just because) BIRD!",
+  {
+   "setFlag": "p14_cards_thrown"
+  },
+  {
+   "setFlag": "fart_free_zone_established"
+  },
+  {
+   "completeQuest": "fart_free_zone"
+  },
+  {
+   "save": "auto"
+  },
+  {
+   "tutorial": "The Fart-Free Zone is yours: a refuge, under the hold stairs. Rest on the mattress in there whenever you like.",
+   "title": "The Fart-Free Zone"
+  },
+  {
+   "call": "p14c11.begin"
+  }
+ ],
+ "p14c11.begin": [
+  {
+   "setFlag": "p14_ch156_started"
+  },
+  {
+   "banner": "CHAPTER 156",
+   "sub": "Getting Rid of Brogath"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 29
+  },
+  "Later. Still in the zone, because nobody wants to leave. Pete gets the slate out.",
+  "pete: We have to talk about it.",
+  "gristle: About him.",
+  "pete: He can't stay. Not on a ship. Not with the beans. Not with Garrick. Something's going to go, sooner or later, and it'll be the hull.",
+  "pete: Ideas. Anybody.",
+  {
+   "startQuest": "getting_rid_of_brogath"
+  },
+  {
+   "tutorial": "Hear everybody's plan (Jim, Gristle, Bob, Ned).",
+   "title": "Getting Rid of Brogath"
+  }
+ ],
+ "p14c11.jim": [
+  "jim: Easy. Throw him in the Sharkstorm. Over the rail, gone.",
+  "gristle: The Bling Bling King sends everything back.",
+  "pete: Folded.",
+  "bob: He sent the pillow back with a MEDAL.",
+  "captain[resigned]: He'd send Brogath back. Upgraded. Laminated. With a little HAT.",
+  "jim: (crossing it off) ...Laminated.",
+  {
+   "setFlag": "p14_prop_storm"
+  },
+  {
+   "event": "p14_proposal"
+  }
+ ],
+ "p14c11.gristle": [
+  "gristle: Burn him. He's cardboard. It'd take a minute.",
+  "pete: And then what? The cloud's still in him. It came out of a DOOR and went into a CUT-OUT. It'd just go into something else.",
+  "gristle: Like what?",
+  "Everybody slowly looks round at the zone. The barrels. The mattress. The mops.",
+  "bob: (holding a mop protectively) Not Mopsy.",
+  "gristle: ...No burning.",
+  {
+   "setFlag": "p14_prop_burn"
+  },
+  {
+   "event": "p14_proposal"
+  }
+ ],
+ "p14c11.bob": [
+  "bob: Put him back in the treasure room! That's where he came out of!",
+  "captain[annoyed]: That means opening the treasure-room door.",
+  "bob: Oh.",
+  "gristle: Last time you opened it a crack, he came OUT, Captain.",
+  "captain[resigned]: (looking at the floor) ...Yes. Thank you, Gristle.",
+  {
+   "setFlag": "p14_prop_treasure"
+  },
+  {
+   "event": "p14_proposal"
+  }
+ ],
+ "p14c11.ned": [
+  "ned: What if we made him so confident he wasn't embarrassed of ANYTHING? Ever. Then he'd never go off.",
+  "pete: ...That's not bad.",
+  "gristle: A Grand Stenchmaster. Totally confident. Not embarrassed of anything. Upstairs. With GARRICK.",
+  "A pause, while everybody pictures it.",
+  "jim: They'd have the Trials by lunchtime.",
+  "ned: (rubbing it off the slate) ...Never mind.",
+  {
+   "setFlag": "p14_prop_confident"
+  },
+  {
+   "event": "p14_proposal"
+  }
+ ],
+ "p14c11.proposals_done": [
+  {
+   "setFlag": "p14_proposals_said"
+  },
+  "pete: (slowly) ...Right. So. No storm. No fire. No door. No confidence.",
+  "captain[annoyed]: Pete. You've got a face on. You've got a plan.",
+  {
+   "tutorial": "Hear Pete's plan (Pete).",
+   "title": "Getting Rid of Brogath"
+  }
+ ],
+ "p14c11.pete": [
+  "pete: (low) We send him somewhere. On a mission. An IMPORTANT one. Something grand. Far away. Something only an Ancient Grand Stenchmaster could do...",
+  "gristle: (nodding slowly) An important mission.",
+  "jim: Very important.",
+  "pete: The MOST important. Top secret. Nobody else could possibly be trusted with it...",
+  {
+   "sfx": "stairs_creak",
+   "volume": 0.8
+  },
+  "Above your heads, through the gaps in the stair treads, two voices.",
+  "brogath[delighted]: (from up in the galley) A MISSION? Am I going on a MISSION?",
+  "garrick[offended]: (from up in the galley) A TOP SECRET mission? Why does HE get a top secret mission? I'm the CURRENT one!",
+  "brogath[delighted]: Oh, we could go TOGETHER!",
+  "garrick[proud]: A JOINT mission! Two Grand Stenchmasters!",
+  "brogath[delighted]: Like the old days! We could have the Trials on the way!",
+  "Silence in the zone. Seven faces, turned up to the stairs.",
+  "pete: (quietly) ...They can hear us through the stairs.",
+  "gristle: (quietly) That's going on the list.",
+  "captain[resigned]: (to the slate) No mission. No storm. No fire. No door. No confidence. Nowhere to send him.",
+  "pete: Captain. He's not going anywhere.",
+  "It's the first time anybody's said it out loud.",
+  {
+   "setFlag": "p14_mission_overheard"
+  },
+  {
+   "setFlag": "brogath_hard_to_remove"
+  },
+  {
+   "completeQuest": "getting_rid_of_brogath"
+  },
+  {
+   "call": "p14c12.begin"
+  }
+ ],
+ "p14c12.begin": [
+  {
+   "setFlag": "p14_ch157_started"
+  },
+  {
+   "banner": "CHAPTER 157",
+   "sub": "Beyond Broke"
+  },
+  {
+   "fade": "out",
+   "duration": 900
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 27
+  },
+  {
+   "restage": "cut"
+  },
+  {
+   "fade": "in",
+   "duration": 900
+  },
+  {
+   "music": "zone_night",
+   "fade": 800
+  },
+  "Night. A quiet one, at last. The crew are asleep in the zone, packed in like herring.",
+  "You can't sleep. Something Brogath said keeps going round in your head. 'There was a second time. I don't talk about the second time.'",
+  "The pocket edition is in your coat. COMPLETE GRAND STENCHMASTER LEGENDS. Cheap-O-Rama. You get it out, and the candle, very quietly.",
+  {
+   "startQuest": "beyond_broke"
+  },
+  {
+   "tutorial": "Read it by the candle (the pocket edition, at the little table).",
+   "title": "Beyond Broke"
+  }
+ ],
+ "p14c12.read": [
+  {
+   "if": {
+    "var": {
+     "name": "p14_psg_read",
+     "eq": 0
+    }
+   },
+   "then": [
+    {
+     "insert": "codex_second_catastrophe",
+     "caption": "THE SECOND TREASURE CATASTROPHE OF BROGATH THE BASHFUL"
+    },
+    "codex: Not the Excavation. A second, quieter disaster, which Brogath himself asked the chroniclers not to write down. They wrote it down.",
+    "codex: Brogath had a treasure. A huge one. A haul from forty ships, heaped to the beams of his flagship's hold, and he stood among it in his best sash.",
+    "codex: And his sash caught on a nail. And it FLUTTERED.",
+    "codex: And a cabin boy, meaning nothing by it, said: 'Ooh. Flappy.'"
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p14_psg_read",
+     "eq": 1
+    }
+   },
+   "then": [
+    {
+     "insert": "codex_coins_beam",
+     "caption": "HE APOLOGISED TO THE BEAM."
+    },
+    "codex: He was embarrassed. He stepped back. He tripped. He was more embarrassed.",
+    "codex: He slipped on a doubloon. More embarrassed. He hit his head on a beam.",
+    "codex: He apologised to the beam.",
+    "codex: And then he was embarrassed that he had apologised to a beam."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p14_psg_read",
+     "eq": 2
+    }
+   },
+   "then": [
+    "codex: The pressure that built in Brogath the Bashful in the next minute has never been equalled, though it has been estimated, by a committee, with alarm.",
+    "codex: The crew could see it. The cabin boy could see it. The beam, it is said, could see it.",
+    "codex: And then a speck of gold dust went up his nose.",
+    "codex: And he SNEEZED."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p14_psg_read",
+     "eq": 3
+    }
+   },
+   "then": [
+    {
+     "insert": "codex_annihilation",
+     "caption": "THE TREASURE-ANNIHILATION FART."
+    },
+    "codex: What followed is recorded as the Treasure-Annihilation Fart. The treasure was smashed. Scattered. Blasted through three decks and the side of the hull, and out into the Great Sharkstorm of that age, where it is presumably still going round.",
+    "codex: When it was over, the crew of Brogath the Bashful were left with nothing. Not poor. Not broke.",
+    "codex: BEYOND BROKE.",
+    "codex: And it was then that Brogath, rather than admit his crew were poor, redefined wealth. (See: THE GRAND ECONOMY OF FARTS, overleaf.)"
+   ]
+  },
+  {
+   "addVar": "p14_psg_read",
+   "value": 1
+  },
+  {
+   "event": "p14_psg"
+  }
+ ],
+ "p14c12.read_done": [
+  {
+   "setFlag": "p14_psg_said"
+  },
+  "You close the book. You sit very still in the dark, with a candle, under the stairs, thinking.",
+  "A huge treasure. A sash that flutters. A Sharkstorm. A Grand Stenchmaster who's embarrassed by everything.",
+  "captain: (very quietly) ...Oh, no.",
+  {
+   "tutorial": "Write it down (the slate).",
+   "title": "Beyond Broke"
+  }
+ ],
+ "p14c12.slate": [
+  "You take Pete's slate and the chalk and write it down. All of it. What it took.",
+  {
+   "insert": "slate_ingredients",
+   "caption": "BROGATH. TREASURE. SHARKSTORM. BEANS. FLUTTER."
+  },
+  "BROGATH. Upstairs, with a bean-full stomach.",
+  "TREASURE. In the treasure room. Thirty feet from where you're sitting.",
+  "SHARKSTORM. All round the ship.",
+  "BEANS. By Grand Decree. Every breakfast.",
+  "FLUTTER. Everywhere. Everything.",
+  "captain: (staring at it) ...All five.",
+  "pete: (waking up, squinting at the slate) Captain? What's... (reading it) ...Oh. OH.",
+  {
+   "setFlag": "p14_ingredients"
+  },
+  {
+   "tutorial": "Put up a warning at the foot of the hold stairs. Where he'd have to pass it.",
+   "title": "Beyond Broke"
+  }
+ ],
+ "p14c12.sign": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "A board, a nail, and the paint Bob left in the zone.",
+  {
+   "sfx": "hammer_hit",
+   "volume": 0.7
+  },
+  {
+   "wait": 200
+  },
+  {
+   "sfx": "hammer_hit",
+   "volume": 0.7
+  },
+  {
+   "insert": "sign_brogath_never",
+   "caption": "BROGATH NEVER GOES NEAR THE TREASURE ROOM."
+  },
+  "BROGATH NEVER GOES NEAR THE TREASURE ROOM. Underneath, smaller, because Pete insisted: (THIS IS FOR HIS OWN GOOD.)",
+  "Then you go and add it to the parchment, by candlelight, in the old quarters, while he snores in the middle of the floor like a cardboard accordion.",
+  {
+   "setFlag": "brogath_rule_treasure_room"
+  },
+  {
+   "addVar": "brogath_rules",
+   "value": 1
+  },
+  {
+   "setFlag": "brogath_rule_no_treasure"
+  },
+  {
+   "addVar": "brogath_rules",
+   "value": 1
+  },
+  {
+   "logbook": "brogath_rules"
+  },
+  {
+   "setFlag": "treasure_exclusion_posted"
+  },
+  {
+   "setFlag": "brogath_treasure_excluded"
+  },
+  {
+   "completeQuest": "beyond_broke"
+  },
+  {
+   "call": "p14c13.begin"
+  }
+ ]
+}

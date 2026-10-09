@@ -17,6 +17,7 @@ import { ACTIONS } from '../platform/input/bindings.js';
 import { ART_REGISTRY } from '../art/registry.js';
 import { ENGINE_FLAGS } from '../config/engineFlags.js';
 import { REPAIR_KINDS, REPAIR_SOUND_KEYS } from '../systems/repairKinds.js';
+import { STABILITY_STATES } from '../systems/stability.js';
 
 /**
  * Cross-reference validation for all content. Returns { errors, warnings }.
@@ -139,7 +140,7 @@ function validateText(text, check) {
       if (check.ctx.db.game?.constants && kind in check.ctx.db.game.constants) continue;
       check.error(`unknown text token "{${token}}"`);
     } else if (kind === 'item') check.item(arg);
-    else if (kind === 'var') continue;
+    else if (kind === 'var' || kind === 'num') continue;
     else if (kind === 'btn') {
       if (![...ACTIONS, 'move', 'start', 'enter'].includes(arg)) check.error(`unknown button "{btn:${arg}}"`);
     } else check.error(`unknown text token "{${token}}"`);
@@ -363,6 +364,42 @@ function validateStep(step, check, sctx) {
     if (item?.wear && step.to && !item.wear.stages.includes(step.to)) check.error(`"${step.to}" is not one of ${step.wear}'s wear stages`);
   }
   if (name === 'repair' && step.strikes !== undefined && (step.strikes < 1 || step.strikes > 8)) check.error('repair strikes must be 1..8');
+  // Story Phase 14: stability, reassurance, the Grand Bank, the Grand Currency.
+  if (name === 'stability' || name === 'reassure') {
+    const sid = step.subject ?? 'brogath';
+    const subj = check.ctx.db.stability?.get?.(sid);
+    if (!subj) check.error(`unknown stability subject "${sid}" (data/story/stability)`);
+    else if (name === 'reassure') {
+      if (!subj.prompts?.[step.reassure]) check.error(`stability subject "${sid}" has no prompt set "${step.reassure}"`);
+    } else {
+      const op = step.stability;
+      const ops = ['trigger', 'calm', 'set', 'add', 'anger', 'meter', 'incident', 'secure', 'settle'];
+      if (!ops.includes(op)) check.error(`stability must be one of ${ops.join(', ')} (got "${op}")`);
+      if (op === 'trigger' && !subj.triggers?.[step.id]) check.error(`stability subject "${sid}" has no trigger "${step.id}"`);
+      if (op === 'calm' && !subj.calms?.[step.id]) check.error(`stability subject "${sid}" has no calm "${step.id}"`);
+      if (op === 'incident' && !subj.incidents?.[step.id]) check.error(`stability subject "${sid}" has no incident "${step.id}"`);
+      if ((op === 'set' || op === 'add') && typeof step.pressure !== 'number') check.error(`stability "${op}" needs a number "pressure"`);
+      if (op === 'meter' && !['show', 'hide', 'auto'].includes(step.show)) check.error('stability "meter" needs "show": show, hide or auto');
+      if (op === 'anger' && !subj.angerFlag) check.error(`stability subject "${sid}" has no angerFlag`);
+    }
+  }
+  if (name === 'bank' || name === 'bankDeposit' || name === 'grandCurrency') {
+    const bid = step.bankId ?? 'grand_bank';
+    if (name === 'bankDeposit') {
+      const cust = check.ctx.db.bankCustomers?.get?.(step.bankDeposit);
+      if (!cust) check.error(`unknown bank customer "${step.bankDeposit}" (data/story/bank)`);
+    } else {
+      const bank = check.ctx.db.banks?.get?.(bid);
+      if (!bank) check.error(`unknown bank "${bid}" (data/story/bank)`);
+      else if (name === 'bank') {
+        if (step.bank !== 'next') check.error('bank must be "next"');
+        if (step.queue && !bank.queues?.[step.queue]) check.error(`bank "${bid}" has no queue "${step.queue}"`);
+      } else {
+        if (step.grandCurrency !== 'purchase') check.error('grandCurrency must be "purchase"');
+        if (!bank.currency) check.error(`bank "${bid}" has no "currency"`);
+      }
+    }
+  }
   if (name === 'swapItem' && step.swapItem === step.to) check.error('swapItem needs two different items');
 }
 
@@ -604,6 +641,96 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     for (const f of [1, 2, 3, 4, 5, 6].map((n) => `${a}_${n}`).concat([0, 1, 2, 3].map((n) => `${a}_tumble_${n}`), [`${a}_shadow`])) if (!art.vista.has(f)) c.error(`no vista art "${f}"`);
     for (const n of ['1', '2', '3', '4', '5', '6']) if (typeof d.faces?.[n] !== 'string') c.error(`face ${n} needs a label ("faces")`);
     for (const snd of Object.values(d.sfx ?? {})) c.sfx(snd);
+  }
+
+  // Story Phase 14: stability subjects (data/story/stability)
+  for (const [id, d] of db.stability?.map ?? []) {
+    const c = C(`${db.stability.sourceOf(id)} (${id})`);
+    for (const k of ['pressureVar', 'stateValue']) if (typeof d[k] !== 'string') c.error(`"${k}" is required`);
+    if (d.angerFlag) c.flag(d.angerFlag);
+    (d.bands ?? []).forEach((b, i) => {
+      if (!STABILITY_STATES.includes(b.state)) c.at(`bands[${i}]`).error(`unknown state "${b.state}"`);
+    });
+    (d.stages ?? []).forEach((st, i) => {
+      const sc = c.at(`stages[${i}]`);
+      if (typeof st.at !== 'number') sc.error('a stage needs "at"');
+      if (st.sfx) sc.sfx(st.sfx);
+    });
+    for (const kind of ['triggers', 'calms']) {
+      for (const [eid, e] of Object.entries(d[kind] ?? {})) {
+        const ec = c.at(`${kind}.${eid}`);
+        if (typeof e.pressure !== 'number') ec.error('needs a number "pressure"');
+        else if (kind === 'calms' && e.pressure > 0) ec.error('a calm must not raise the pressure');
+        else if (kind === 'triggers' && e.pressure < 0) ec.error('a trigger must not lower the pressure');
+        if (e.sfx) ec.sfx(e.sfx);
+        if (e.line) validateLine(e.line, ec);
+      }
+    }
+    for (const [pid, set] of Object.entries(d.prompts ?? {})) {
+      const pc = c.at(`prompts.${pid}`);
+      if (!(set.options ?? []).some((o) => o.calm)) pc.error('a prompt set needs at least one option that calms');
+      (set.options ?? []).forEach((o, i) => {
+        const oc = pc.at(`options[${i}]`);
+        if (typeof o.text !== 'string') oc.error('an option needs "text"');
+        if (!!o.calm === !!o.trigger) oc.error('an option names exactly one of "calm" or "trigger"');
+        if (o.calm && !d.calms?.[o.calm]) oc.error(`no calm "${o.calm}"`);
+        if (o.trigger && !d.triggers?.[o.trigger]) oc.error(`no trigger "${o.trigger}"`);
+        if (o.reply) validateLine(o.reply, oc);
+      });
+    }
+    for (const [iid, inc] of Object.entries(d.incidents ?? {})) {
+      const ic = c.at(`incidents.${iid}`);
+      if (!(inc.rate > 0)) ic.error('an incident needs a positive "rate"');
+      if (!inc.erupt) ic.error('an incident needs an "erupt" script (what happens if it is left too long: it must be safe)');
+      else ic.script(inc.erupt);
+    }
+  }
+
+  // Story Phase 14: banks and their depositors (data/story/bank)
+  for (const [id, b] of db.banks?.map ?? []) {
+    const c = C(`${db.banks.sourceOf(id)} (${id})`);
+    if (b.openFlag) c.flag(b.openFlag);
+    const scale = b.scale ?? [];
+    if (scale.length !== 10 || scale.some((e, i) => e.n !== i + 1 || typeof e.name !== 'string')) c.error('"scale" must be ten entries, n 1..10, each with a name');
+    for (const [qid, q] of Object.entries(b.queues ?? {})) {
+      const qc = c.at(`queues.${qid}`);
+      if (typeof q.servedVar !== 'string') qc.error('a queue needs "servedVar"');
+      (q.customers ?? []).forEach((cid) => {
+        const cust = db.bankCustomers?.get?.(cid);
+        if (!cust) qc.error(`unknown customer "${cid}"`);
+        else if ((cust.bank ?? 'grand_bank') !== id) qc.error(`customer "${cid}" banks with "${cust.bank}"`);
+      });
+    }
+    for (const k of ['classifyRight', 'classifyWrong']) if (b[k]) validateLine(b[k].replace(/\{(name|class)\}/g, 'x'), c.at(k));
+    if (b.vault) c.script(b.vault);
+    if (b.currency) {
+      const cc = c.at('currency');
+      cc.flag(b.currency.flag);
+      if (typeof b.currency.var !== 'string' || !(b.currency.amount > 0)) cc.error('currency needs "var" and a positive "amount"');
+      if (!(b.currency.gold >= 0)) cc.error('currency needs "gold" (real doubloons paid)');
+    }
+  }
+  for (const [id, cu] of db.bankCustomers?.map ?? []) {
+    const c = C(`${db.bankCustomers.sourceOf(id)} (${id})`);
+    const bank = db.banks?.get?.(cu.bank ?? 'grand_bank');
+    if (!bank) c.error(`unknown bank "${cu.bank ?? 'grand_bank'}"`);
+    if (cu.npc) c.npc(cu.npc);
+    if (typeof cu.name !== 'string') c.error('a depositor needs a "name"');
+    const valid = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, '10+'];
+    if (!valid.includes(cu.intensity)) c.error('"intensity" must be 1..10 or "10+"');
+    if (cu.classify && !cu.classify.some((n) => String(n) === String(cu.intensity))) c.error('"classify" must include the right intensity');
+    (cu.classify ?? []).forEach((n) => { if (!valid.includes(n)) c.error(`classify option ${n} is not on the scale`); });
+    (cu.pattern ?? []).forEach((beat, i) => {
+      const bc = c.at(`pattern[${i}]`);
+      const kinds = ['take', 'hold', 'wait', 'brace', 'puff'].filter((k) => k in beat);
+      if (kinds.length !== 1) bc.error('a beat is exactly one of take, hold, wait, brace, puff');
+      if ('hold' in beat && !(beat.hold > 0)) bc.error('"hold" is seconds (> 0)');
+      if ('wait' in beat && !(beat.wait > 0)) bc.error('"wait" is milliseconds (> 0)');
+      if (beat.text) validateText(beat.text, bc);
+      if (beat.sfx) bc.sfx(beat.sfx);
+    });
+    if (!(cu.pattern ?? []).some((beat) => 'brace' in beat)) c.warn('no "brace" beat: one is added at the end');
+    for (const k of ['intro', 'after', 'vault']) if (cu[k]) c.script(cu[k]);
   }
 
   // Story Phase 13: alias sets (data/story/aliases)
@@ -1207,6 +1334,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     }
     (pr.items || []).forEach((it) => c.item(typeof it === 'string' ? it : it.id));
     (pr.takeItems || []).forEach((it) => c.item(it));
+    if (pr.gold !== undefined && !(Number.isInteger(pr.gold) && pr.gold >= 0)) c.error('"gold" must be a whole number of doubloons');
     c.map(pr.map);
     const m = compiled.get(pr.map);
     if (m && pr.spawn && !m.spawns[pr.spawn]) c.error(`map "${pr.map}" has no spawn "${pr.spawn}"`);

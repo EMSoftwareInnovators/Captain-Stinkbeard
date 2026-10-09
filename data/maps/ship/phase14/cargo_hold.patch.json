@@ -1,0 +1,416 @@
+{
+ "id": "cargo_hold_phase14",
+ "patch": "cargo_hold",
+ "//": "Story Phase 14 in the hold: the treasure-room door (4,3): the signs, two planks, the crack (146), sealed again for good with five signs on it. The little door under the hold stairs (13,3): a mop cupboard until the emergency meeting (154), then the Fart-Free Zone. The sign at the foot of the stairs (15,3): BROGATH NEVER GOES NEAR THE TREASURE ROOM (157). Supplies for the zone: the double bunk's mattress (15,16), barrels (17,5), the biscuit crate (16,4). Brogath is never placed here.",
+ "objects": [
+  {
+   "id": "p14_signs",
+   "type": "inspect",
+   "x": 4,
+   "y": 3,
+   "if": {
+    "objectiveActive": "the_door_opens.signs"
+   },
+   "script": "p14c1.signs"
+  },
+  {
+   "id": "p14_planks",
+   "type": "inspect",
+   "x": 4,
+   "y": 3,
+   "if": {
+    "objectiveActive": "the_door_opens.planks"
+   },
+   "script": "p14c1.plank"
+  },
+  {
+   "id": "p14_crack",
+   "type": "inspect",
+   "x": 4,
+   "y": 3,
+   "if": {
+    "objectiveActive": "the_door_opens.crack"
+   },
+   "script": "p14c1.crack"
+  },
+  {
+   "id": "p14_door_look",
+   "type": "inspect",
+   "x": 4,
+   "y": 3,
+   "if": {
+    "flag": "p14_door_resealed"
+   },
+   "script": "p14.inspect.treasure_door"
+  },
+  {
+   "id": "p14_nook_block",
+   "type": "block",
+   "x": 13,
+   "y": 3,
+   "if": {
+    "notFlag": "p14_nook_known"
+   }
+  },
+  {
+   "id": "p14_nook",
+   "type": "inspect",
+   "x": 13,
+   "y": 3,
+   "if": {
+    "objectiveActive": "beans_of_precedent.meeting"
+   },
+   "script": "p14c9.nook"
+  },
+  {
+   "id": "p14_nook_look",
+   "type": "inspect",
+   "x": 13,
+   "y": 3,
+   "if": {
+    "notFlag": "p14_nook_known"
+   },
+   "script": "p14.inspect.nook_cupboard"
+  },
+  {
+   "id": "p14_to_zone",
+   "type": "warp",
+   "x": 13,
+   "y": 3,
+   "to": {
+    "map": "fart_free_zone",
+    "spawn": "door"
+   },
+   "sfx": "door_small",
+   "if": {
+    "flag": "p14_nook_known"
+   }
+  },
+  {
+   "id": "nook_door",
+   "type": "spawn",
+   "x": 13,
+   "y": 4,
+   "facing": "down"
+  },
+  {
+   "id": "p14_exclusion_sign",
+   "type": "inspect",
+   "x": 15,
+   "y": 3,
+   "if": {
+    "objectiveActive": "beyond_broke.sign"
+   },
+   "script": "p14c12.sign"
+  },
+  {
+   "id": "p14_exclusion_look",
+   "type": "inspect",
+   "x": 15,
+   "y": 3,
+   "if": {
+    "flag": "treasure_exclusion_posted"
+   },
+   "script": "p14.inspect.exclusion_sign"
+  },
+  {
+   "id": "p14_ffz_mattress",
+   "type": "inspect",
+   "x": 15,
+   "y": 16,
+   "w": 2,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "fart_free_zone.supplies"
+     },
+     {
+      "notFlag": "p14_ffz_mattress"
+     }
+    ]
+   },
+   "script": "p14c10.mattress"
+  },
+  {
+   "id": "p14_ffz_barrels",
+   "type": "inspect",
+   "x": 17,
+   "y": 5,
+   "w": 2,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "fart_free_zone.supplies"
+     },
+     {
+      "notFlag": "p14_ffz_barrels"
+     }
+    ]
+   },
+   "script": "p14c10.barrels"
+  },
+  {
+   "id": "p14_ffz_hardtack",
+   "type": "inspect",
+   "x": 16,
+   "y": 4,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "fart_free_zone.supplies"
+     },
+     {
+      "notFlag": "p14_ffz_hardtack"
+     }
+    ]
+   },
+   "script": "p14c10.hardtack"
+  },
+  {
+   "id": "p14_below",
+   "type": "trigger",
+   "x": 13,
+   "y": 4,
+   "w": 3,
+   "h": 2,
+   "if": {
+    "objectiveActive": "the_door_opens.below"
+   },
+   "script": "p14c1.below"
+  },
+  {
+   "id": "p14h_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p14_started"
+   }
+  },
+  {
+   "id": "p14h_gristle_0",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p14_started"
+   }
+  },
+  {
+   "id": "p14h_bob_0",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p14_started"
+   }
+  },
+  {
+   "id": "p14h_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p14_started"
+   }
+  },
+  {
+   "id": "p14h_ned_0",
+   "type": "npc",
+   "npc": "ned",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p14_started"
+   }
+  },
+  {
+   "id": "p14h_squawks_0",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p14_started"
+   }
+  },
+  {
+   "id": "p14h_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p14_started"
+   }
+  },
+  {
+   "id": "p14h_brogath_0",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p14_started"
+   }
+  }
+ ],
+ "collision": [
+  {
+   "x": 13,
+   "y": 3,
+   "solid": false
+  }
+ ],
+ "props": [
+  {
+   "prop": "nook_door",
+   "x": 13,
+   "y": 3,
+   "if": {
+    "flag": "p14_started"
+   },
+   "id": "p14_nook_door"
+  },
+  {
+   "prop": "treasure_signs_five",
+   "x": 4,
+   "y": 3,
+   "if": {
+    "all": [
+     {
+      "flag": "p14_started"
+     },
+     {
+      "any": [
+       {
+        "notFlag": "p14_plank_1"
+       },
+       {
+        "flag": "p14_door_resealed"
+       }
+      ]
+     }
+    ]
+   },
+   "id": "p14_treasure_signs"
+  },
+  {
+   "prop": "treasure_planks_one_off",
+   "x": 4,
+   "y": 3,
+   "if": {
+    "all": [
+     {
+      "flag": "p14_plank_1"
+     },
+     {
+      "notFlag": "p14_plank_2"
+     },
+     {
+      "notFlag": "p14_door_resealed"
+     }
+    ]
+   },
+   "id": "p14_planks_one_off"
+  },
+  {
+   "prop": "treasure_planks_off",
+   "x": 4,
+   "y": 3,
+   "if": {
+    "all": [
+     {
+      "flag": "p14_plank_2"
+     },
+     {
+      "notFlag": "p14_door_resealed"
+     }
+    ]
+   },
+   "id": "p14_planks_off"
+  },
+  {
+   "prop": "sign_brogath_never",
+   "x": 15,
+   "y": 3,
+   "if": {
+    "flag": "treasure_exclusion_posted"
+   },
+   "id": "p14_exclusion_sign"
+  },
+  {
+   "prop": "gtoken_spill",
+   "x": 9,
+   "y": 14,
+   "if": {
+    "flag": "grand_tokens_loose"
+   },
+   "id": "p14_tokens_hold"
+  },
+  {
+   "prop": "oat_remnants",
+   "x": 3,
+   "y": 12,
+   "if": {
+    "flag": "oats_everywhere"
+   },
+   "id": "p14_oats_hold"
+  }
+ ],
+ "propConditions": [
+  {
+   "id": "p13_horseshoe_gone",
+   "if": {
+    "notFlag": "p14_started"
+   }
+  },
+  {
+   "id": "p13_horseshoe",
+   "if": {
+    "notFlag": "p14_started"
+   }
+  },
+  {
+   "id": "p13_treasure_signs",
+   "if": {
+    "notFlag": "p14_started"
+   }
+  }
+ ],
+ "fumes": [
+  {
+   "id": "p14_catastrophe_hold",
+   "level": "light",
+   "x": 1,
+   "y": 4,
+   "w": 18,
+   "h": 13,
+   "if": {
+    "flag": "brogath_catastrophe"
+   }
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "objectiveActive": "the_door_opens.planks"
+   },
+   "music": "brogath_night",
+   "musicFilter": "muffled",
+   "ambience": "below"
+  }
+ ]
+}

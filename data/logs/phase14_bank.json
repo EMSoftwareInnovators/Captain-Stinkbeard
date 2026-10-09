@@ -1,0 +1,299 @@
+{
+ "//": "Story Phase 14: the Grand Bank Ledger, in the Acting Grand Teller's own (deplorable) handwriting. One entry per depositor, as they're served. The bank is gone; the ledger stayed.",
+ "bank_ledger": {
+  "title": "The Grand Bank Ledger",
+  "menuLabel": "Grand Bank Ledger",
+  "byline": "<k>Kept by</> Captain Stinkbeard, Acting Grand Teller of Grand Atmospheric Assets. <k>Audited by</> Madame Windledger (deplorable).",
+  "icon": "book",
+  "if": {
+   "flag": "teller_badge_given"
+  },
+  "fields": [
+   {
+    "id": "depositor",
+    "label": "Title"
+   },
+   {
+    "id": "intensity",
+    "label": "Class"
+   },
+   {
+    "id": "telegraph",
+    "label": "Telegraph"
+   },
+   {
+    "id": "notes",
+    "label": "Teller's notes",
+    "quote": true
+   }
+  ],
+  "entries": [
+   {
+    "id": "windabella",
+    "title": "Grand Duchess Windabella the Imperious",
+    "if": {
+     "var": {
+      "name": "bank_served",
+      "gte": 1
+     }
+    },
+    "depositor": "Grand Duchess of the Upper Breezes, Keeper of the Crimson Sash",
+    "intensity": "4 — FURNITURE-MOVING",
+    "telegraph": "A slow, imperious swell.",
+    "notes": "Furniture-moving. Table moved four feet. Did not apologise. Did not look."
+   },
+   {
+    "id": "gassius",
+    "title": "Sir Gassius Thunderbottom",
+    "if": {
+     "var": {
+      "name": "bank_served",
+      "gte": 2
+     }
+    },
+    "depositor": "Knight of the Ceremonial Bean, Thunderbottom of Thunderbottom Hall",
+    "intensity": "5 — STRUCTURAL",
+    "telegraph": "Burnt pepper. A family recipe.",
+    "notes": "Structural. Crack in mainmast (small). Smelled of pepper for an hour."
+   },
+   {
+    "id": "rumblewaft",
+    "title": "Lady Rumblewaft the Resolute",
+    "if": {
+     "var": {
+      "name": "bank_served",
+      "gte": 3
+     }
+    },
+    "depositor": "Holder of the Long Waft, Patience of the Southern Shore",
+    "intensity": "3 — FURNITURE-AWARE",
+    "telegraph": "Not strong. LONG.",
+    "notes": "Furniture-aware. Duration: 1 hour 14 min (estimated). Arms gone. Tea made twice."
+   },
+   {
+    "id": "puffington",
+    "title": "Lord Puffington the Enduring",
+    "if": {
+     "var": {
+      "name": "bank_served",
+      "gte": 4
+     }
+    },
+    "depositor": "Lord Puffington the Enduring, Ninety-Seven, Eater of Fibre",
+    "intensity": "6 — MARITIME",
+    "telegraph": "Very old. Very frail. Seems quite harmless.",
+    "notes": "MARITIME. HE IS NINETY-SEVEN. Fibre. (Do not trust the old ones.)"
+   },
+   {
+    "id": "breezella",
+    "title": "Grand Stenchmistress Breezella the Bold",
+    "if": {
+     "var": {
+      "name": "bank_served",
+      "gte": 5
+     }
+    },
+    "depositor": "Grand Stenchmistress of Acceleration, Youngest Ever Certified",
+    "intensity": "5 — STRUCTURAL",
+    "telegraph": "Fast. Then, a moment later: FAST.",
+    "notes": "Structural, delayed. The wave comes LATER. Watch for the wave."
+   },
+   {
+    "id": "gustavius",
+    "title": "Little Grand Gustavius",
+    "if": {
+     "var": {
+      "name": "bank_served",
+      "gte": 6
+     }
+    },
+    "depositor": "Apprentice Grand Stenchmaster (Junior Division)",
+    "intensity": "6 — MARITIME",
+    "telegraph": "A small boy in an enormous sash.",
+    "notes": "Maritime. Aged seven and three quarters. 'The secret is beans.' (It is.)"
+   },
+   {
+    "id": "puffalina",
+    "title": "Grand Toddler Puffalina",
+    "if": {
+     "var": {
+      "name": "bank_served",
+      "gte": 7
+     }
+    },
+    "depositor": "Grand Toddler, Heiress to the Little Breeze",
+    "intensity": "7 — MUNICIPAL",
+    "telegraph": "She's TWO.",
+    "notes": "MUNICIPAL. AGED TWO. The second one. ALWAYS the second one."
+   },
+   {
+    "id": "ventworth",
+    "title": "Dr. Flatulon Ventworth",
+    "if": {
+     "var": {
+      "name": "bank_served",
+      "gte": 8
+     }
+    },
+    "depositor": "Professor of Applied Atmospherics, Fellow of the Grand Society",
+    "intensity": "5 — STRUCTURAL",
+    "telegraph": "Unnervingly consistent.",
+    "notes": "NERD"
+   },
+   {
+    "id": "windledger",
+    "title": "Madame Windledger",
+    "if": {
+     "var": {
+      "name": "bank_served",
+      "gte": 9
+     }
+    },
+    "depositor": "Grand Auditor of the Grand Trust",
+    "intensity": "5 — STRUCTURAL",
+    "telegraph": "She is looking at your handwriting.",
+    "notes": "Structural. Moved the COUNTER. With me behind it. My fives are FINE."
+   },
+   {
+    "id": "gasbeth",
+    "title": "Captain Gasbeth",
+    "if": {
+     "var": {
+      "name": "bank_served",
+      "gte": 10
+     }
+    },
+    "depositor": "Pirate Grand Stenchmaster, Terror of the Windward Isles",
+    "intensity": "6 — MARITIME",
+    "telegraph": "Another captain. She's eyeing your cannons.",
+    "notes": "Maritime. Fired a cannon. One captain to another: respect."
+   },
+   {
+    "id": "thundergut",
+    "title": "Baron Thundergut",
+    "if": {
+     "var": {
+      "name": "bank_served",
+      "gte": 11
+     }
+    },
+    "depositor": "Baron Thundergut, Triple-Sash Certified",
+    "intensity": "7 — MUNICIPAL",
+    "telegraph": "Huge. Three sashes. You have to hold all three.",
+    "notes": "Municipal. Three sashes. Human chain: Pete, Gristle, Bob, Jim, Ned. (Squawks supervised.)"
+   },
+   {
+    "id": "duke_puff",
+    "title": "Grand Miniature Duke Puff",
+    "if": {
+     "var": {
+      "name": "bank_served",
+      "gte": 12
+     }
+    },
+    "depositor": "Grand Miniature Duke, Master of Concentrated Output",
+    "intensity": "6 — MARITIME",
+    "telegraph": "Tiny. Very, very focused.",
+    "notes": "Maritime. 'PT.' Then the BELL. Split in two. From across the DECK."
+   },
+   {
+    "id": "wind_twins",
+    "title": "The Grand Wind Twins",
+    "if": {
+     "var": {
+      "name": "bank_served",
+      "gte": 13
+     }
+    },
+    "depositor": "Joint Account Holders, the Synchronised Sashes of Breezemouth",
+    "intensity": "6 — MARITIME",
+    "telegraph": "Two of them. Stereo.",
+    "notes": "Maritime. Two waves. They met in me. Beard: vertical (temporarily)."
+   },
+   {
+    "id": "rumpington",
+    "title": "Grand Duke Rumpington",
+    "if": {
+     "var": {
+      "name": "bank_served",
+      "gte": 14
+     }
+    },
+    "depositor": "Grand Duke Rumpington of the Lower Rumps, Hereditary Bench-Warmer",
+    "intensity": "5 — STRUCTURAL",
+    "telegraph": "A great deal of velvet. A great deal of man.",
+    "notes": "Structural. Ned on his back. Ned fine."
+   },
+   {
+    "id": "beatrice",
+    "title": "Beatrice of the Violet Sash",
+    "if": {
+     "var": {
+      "name": "bank_served",
+      "gte": 15
+     }
+    },
+    "depositor": "Beatrice of the Violet Sash",
+    "intensity": "4 — FURNITURE-MOVING",
+    "telegraph": "A violet sash. A very nice violet sash.",
+    "notes": "Furniture-moving. Pleasant. Coils neater after. (The only nice one.)"
+   },
+   {
+    "id": "gary",
+    "title": "Gary",
+    "if": {
+     "var": {
+      "name": "bank_served",
+      "gte": 16
+     }
+    },
+    "depositor": "Grand High Exalted Ambassador of the Tempestuous Bottom, Viscount of the Seventh Gust, Keeper of the Eternal Bean",
+    "intensity": "8 — REGIONAL",
+    "telegraph": "Gary.",
+    "notes": "GARY. (underlined) (underlined) (underlined) Regional."
+   },
+   {
+    "id": "zephyrella",
+    "title": "Grand Empress Zephyrella the Uncontainable",
+    "if": {
+     "var": {
+      "name": "bank_legends_served",
+      "gte": 1
+     }
+    },
+    "depositor": "Grand Empress of the Four Winds, Mover of the Mount of Oomph",
+    "intensity": "9 — HISTORIC",
+    "telegraph": "The record is a MOUNTAIN.",
+    "notes": "HISTORIC. The storm STOPPED. (One breath.) Mountain: seven feet, apparently."
+   },
+   {
+    "id": "rumbleseptimus",
+    "title": "Grand Patriarch Rumbleseptimus the World-Weary",
+    "if": {
+     "var": {
+      "name": "bank_legends_served",
+      "gte": 2
+     }
+    },
+    "depositor": "Grand Patriarch of the First Rumble, Continental Class (Retired)",
+    "intensity": "10 — PLEASE NOTIFY AUTHORITIES",
+    "telegraph": "Prehistoric. Continental-class. Tired.",
+    "notes": "PLEASE NOTIFY AUTHORITIES. A continent moved. He was BORED."
+   },
+   {
+    "id": "gustilda",
+    "title": "Grandmother Gustilda",
+    "if": {
+     "var": {
+      "name": "bank_legends_served",
+      "gte": 3
+     }
+    },
+    "depositor": "(no title)",
+    "intensity": "10+ — ABSOLUTELY NOT",
+    "telegraph": "Just a grandmother.",
+    "notes": "VALUE: UNMEASURABLE. 10+. ABSOLUTELY NOT. She wanted a RECEIPT."
+   }
+  ]
+ }
+}

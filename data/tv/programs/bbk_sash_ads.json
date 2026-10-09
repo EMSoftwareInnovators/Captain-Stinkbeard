@@ -1,0 +1,161 @@
+{
+ "bbk_sash_ads": {
+  "title": "A Word From Our Sponsor",
+  "//": "Story Phase 14 (chapters 162, 169): the Bling Bling King buys advertising. A Stenchmaster sash fluttering in slow motion against a clean white backdrop, to soft music. Then two. Then six. Then a promise. It is the most embarrassing thing Brogath has ever seen, and it is on every channel.",
+  "episodes": [
+   {
+    "id": "one_sash",
+    "if": {
+     "flag": "p14_ch162_started"
+    },
+    "beats": [
+     {
+      "frames": [
+       "ad_logo_0",
+       "ad_logo_1"
+      ],
+      "line": "announcer: And now, a word from our sponsor.",
+      "ms": 2200,
+      "sfx": "ad_chime",
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "ad_white_0",
+       "ad_white_1"
+      ],
+      "ms": 1400,
+      "frameMs": 700
+     },
+     {
+      "frames": [
+       "ad_sash1_0",
+       "ad_sash1_1"
+      ],
+      "line": "announcer: (softly) Introducing... the sash.",
+      "ms": 2800,
+      "sfx": "sash_flap_small",
+      "frameMs": 520
+     },
+     {
+      "frames": [
+       "ad_sash1_0",
+       "ad_sash1_1"
+      ],
+      "line": "announcer: (more softly) Feel the flutter.",
+      "ms": 2600,
+      "sfx": "ad_music",
+      "frameMs": 520
+     },
+     {
+      "frames": [
+       "ad_sash1_0",
+       "ad_sash1_1"
+      ],
+      "line": "announcer: Stenchmaster Sashes. By the Bling Bling King. Wear it well.",
+      "ms": 3000,
+      "frameMs": 520
+     },
+     {
+      "frames": [
+       "ad_sash2_0",
+       "ad_sash2_1"
+      ],
+      "line": "announcer: Now with TWO.",
+      "ms": 2400,
+      "sfx": "sash_flap_small",
+      "frameMs": 480
+     },
+     {
+      "frames": [
+       "ad_sash6_0",
+       "ad_sash6_1"
+      ],
+      "line": "announcer: SIX sashes. Six times the flutter.",
+      "ms": 2800,
+      "sfx": "sash_flap",
+      "frameMs": 420
+     },
+     {
+      "frames": [
+       "ad_sash_many_0",
+       "ad_sash_many_1"
+      ],
+      "line": "announcer: Coming soon: ONE THOUSAND SASHES. In slow motion. Every night.",
+      "ms": 3400,
+      "sfx": "ad_music",
+      "frameMs": 360
+     },
+     {
+      "frames": [
+       "ad_logo_0",
+       "ad_logo_1"
+      ],
+      "line": "announcer: THE BLING BLING KING. Wear it well.",
+      "ms": 2600,
+      "sfx": "bling_chime",
+      "frameMs": 600
+     }
+    ]
+   },
+   {
+    "id": "night_campaign",
+    "if": {
+     "flag": "p14_ch169_started"
+    },
+    "beats": [
+     {
+      "frames": [
+       "ad_logo_0",
+       "ad_logo_1"
+      ],
+      "line": "announcer: We'll be right back. But first...",
+      "ms": 2200,
+      "sfx": "ad_chime",
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "ad_sash1_0",
+       "ad_sash1_1"
+      ],
+      "line": "announcer: (softly) The sash.",
+      "ms": 2400,
+      "sfx": "sash_flap_small",
+      "frameMs": 520
+     },
+     {
+      "frames": [
+       "ad_sash2_0",
+       "ad_sash2_1"
+      ],
+      "line": "announcer: Two sashes.",
+      "ms": 2200,
+      "sfx": "sash_flap_small",
+      "frameMs": 480
+     },
+     {
+      "frames": [
+       "ad_sash6_0",
+       "ad_sash6_1"
+      ],
+      "line": "announcer: Six sashes.",
+      "ms": 2200,
+      "sfx": "sash_flap",
+      "frameMs": 420
+     },
+     {
+      "frames": [
+       "ad_sash_many_0",
+       "ad_sash_many_1"
+      ],
+      "line": "announcer: Twelve sashes. All night. Every channel. Wear it well.",
+      "ms": 3200,
+      "sfx": "ad_music",
+      "frameMs": 360
+     }
+    ]
+   }
+  ]
+ }
+}

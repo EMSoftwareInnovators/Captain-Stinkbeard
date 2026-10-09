@@ -1136,6 +1136,181 @@
       "if": {
         "flag": "p13_complete"
       }
+    },
+    {
+      "id": "p14c1",
+      "name": "Chapter 146: The Door Opens",
+      "if": {
+        "flag": "p14_started"
+      }
+    },
+    {
+      "id": "p14c2",
+      "name": "Chapter 147: The Plume",
+      "if": {
+        "flag": "p14_ch147_started"
+      }
+    },
+    {
+      "id": "p14c3",
+      "name": "Chapter 148: Brogath Returns",
+      "if": {
+        "flag": "p14_ch148_started"
+      }
+    },
+    {
+      "id": "p14c4",
+      "name": "Chapter 149: The Containment Corner",
+      "if": {
+        "flag": "p14_ch149_started"
+      }
+    },
+    {
+      "id": "p14c5",
+      "name": "Chapter 150: Keep Brogath Confident",
+      "if": {
+        "flag": "p14_ch150_started"
+      }
+    },
+    {
+      "id": "p14c6",
+      "name": "Chapter 151: The Apology Eruption",
+      "if": {
+        "flag": "p14_ch151_started"
+      }
+    },
+    {
+      "id": "p14c7",
+      "name": "Chapter 152: Back in Office",
+      "if": {
+        "flag": "p14_ch152_started"
+      }
+    },
+    {
+      "id": "p14c8",
+      "name": "Chapter 153: Two Grand Stenchmasters",
+      "if": {
+        "flag": "p14_ch153_started"
+      }
+    },
+    {
+      "id": "p14c9",
+      "name": "Chapter 154: Beans of Ancient Precedent",
+      "if": {
+        "flag": "p14_ch154_started"
+      }
+    },
+    {
+      "id": "p14c10",
+      "name": "Chapter 155: The Fart-Free Zone",
+      "if": {
+        "flag": "p14_ch155_started"
+      }
+    },
+    {
+      "id": "p14c11",
+      "name": "Chapter 156: Getting Rid of Brogath",
+      "if": {
+        "flag": "p14_ch156_started"
+      }
+    },
+    {
+      "id": "p14c12",
+      "name": "Chapter 157: Beyond Broke",
+      "if": {
+        "flag": "p14_ch157_started"
+      }
+    },
+    {
+      "id": "p14c13",
+      "name": "Chapter 158: The Grand Economy of Farts",
+      "if": {
+        "flag": "p14_ch158_started"
+      }
+    },
+    {
+      "id": "p14c14",
+      "name": "Chapter 159: Bad Money",
+      "if": {
+        "flag": "p14_ch159_started"
+      }
+    },
+    {
+      "id": "p14c15",
+      "name": "Chapter 160: Grand Temporary Ancient Oat Security Officer",
+      "if": {
+        "flag": "p14_ch160_started"
+      }
+    },
+    {
+      "id": "p14c16",
+      "name": "Chapter 161: Important Television Duty",
+      "if": {
+        "flag": "p14_ch161_started"
+      }
+    },
+    {
+      "id": "p14c17",
+      "name": "Chapter 162: The Sash Flutter Commercial",
+      "if": {
+        "flag": "p14_ch162_started"
+      }
+    },
+    {
+      "id": "p14c18",
+      "name": "Chapter 163: The Grand Bank",
+      "if": {
+        "flag": "p14_ch163_started"
+      }
+    },
+    {
+      "id": "p14c19",
+      "name": "Chapter 164: Your Gas Is Our Business",
+      "if": {
+        "flag": "p14_ch164_started"
+      }
+    },
+    {
+      "id": "p14c20",
+      "name": "Chapter 165: Legendary Depositors",
+      "if": {
+        "flag": "p14_ch165_started"
+      }
+    },
+    {
+      "id": "p14c21",
+      "name": "Chapter 166: The Branch Concludes Business",
+      "if": {
+        "flag": "p14_ch166_started"
+      }
+    },
+    {
+      "id": "p14c22",
+      "name": "Chapter 167: Distinguishedly Furious",
+      "if": {
+        "flag": "p14_ch167_started"
+      }
+    },
+    {
+      "id": "p14c23",
+      "name": "Chapter 168: The Brogath Problem",
+      "if": {
+        "flag": "p14_ch168_started"
+      }
+    },
+    {
+      "id": "p14c24",
+      "name": "Chapter 169: Mandatory History Night",
+      "if": {
+        "flag": "p14_ch169_started"
+      }
+    },
+    {
+      "id": "phase14_end",
+      "name": "He Lives Here Now",
+      "if": {
+        "flag": "p14_complete"
+      }
     }
   ],
   "timeOfDay": [
@@ -1554,6 +1729,50 @@
         "var": {
           "name": "p4_tod",
           "eq": 30
+        }
+      }
+    },
+    {
+      "id": "p14_dawn",
+      "grade": "#d6c4d8",
+      "interior": 0.42,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 31
+        }
+      }
+    },
+    {
+      "id": "p14_evening",
+      "grade": "#d0a890",
+      "interior": 0.46,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 32
+        }
+      }
+    },
+    {
+      "id": "p14_catastrophe",
+      "grade": "#b0a468",
+      "interior": 0.5,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 33
+        }
+      }
+    },
+    {
+      "id": "p14_anger_waft",
+      "grade": "#eca07a",
+      "interior": 0.4,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 34
         }
       }
     }

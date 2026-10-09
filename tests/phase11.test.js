@@ -134,8 +134,8 @@ describe('the validator knows the new systems', () => {
 });
 
 describe('Phase 11-13 saves', () => {
-  it('are version 13; a finished Phase 10 save migrates through 11, 12 and 13 without losing anything', () => {
-    expect(SAVE_VERSION).toBe(13);
+  it('are version 13 (14 since Story Phase 14); a finished Phase 10 save migrates through 11, 12 and 13 without losing anything', () => {
+    expect(SAVE_VERSION).toBeGreaterThanOrEqual(13);
     const s = atPreset('p10_complete');
     const state = s.serialize();
     const up = migrateState(structuredClone(state), 10, 13);

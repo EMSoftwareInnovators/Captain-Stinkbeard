@@ -13,6 +13,7 @@ import { buildCharacterSheet, buildBattleSheet } from './characters/buildSheets.
 import { ENEMY_PAINTERS, ENEMY_BATTLE_FRAMES } from './enemies/enemyPainters.js';
 import { paintPortrait } from './portraits/portraitPainter.js';
 import { paintParrotPortrait } from './characters/parrotPainter.js';
+import { paintCardboardPortrait } from './characters/cardboardPainter.js';
 import { paintBackdrop, BACKDROP_PAINTERS } from './backdrops/backdrops.js';
 import { paintTitleSky, paintTitleSea, paintTitleShip, paintLogo } from './title/titleArt.js';
 import { FIELD_DIRS } from './characters/characterPainter.js';
@@ -126,6 +127,10 @@ export function portraitAtlas(content) {
   for (const p of content.portraits.list()) {
     if (p.painter === 'parrot') {
       for (const expr of p.expressions) atlas.add(`${p.id}_${expr}`, paintParrotPortrait(p, expr));
+      continue;
+    }
+    if (p.painter === 'cardboard') {
+      for (const expr of p.expressions) atlas.add(`${p.id}_${expr}`, paintCardboardPortrait(p, expr));
       continue;
     }
     const appearance = content.appearances.get(p.appearance ?? p.id);

@@ -10,6 +10,7 @@ import { asArray } from '../core/util.js';
  *     "quests": { "<quest>": "active" | "completed" | { "done": [objective, ...], "progress": { objective: n } } },
  *     "items": ["id" | { "id", "count" }],
  *     "takeItems": ["id"],                          // gone by then (handed over in a scene)
+ *     "gold": n,                                    // at least this much in the purse (Story Phase 14: real doubloons)
  *     "map", "spawn" | "x"/"y"/"facing", "script" }
  *
  * Engine-agnostic: the debug overlay, the E2E hooks and unit tests share it.
@@ -27,7 +28,7 @@ export function resolvePreset(content, id) {
     chain.unshift(cur);
     cur = cur.after ? content.debugPresets.get(cur.after) : null;
   }
-  const plan = { id, name: chain[chain.length - 1].name, flags: [], clearFlags: [], vars: {}, values: {}, quests: [], items: [], takeItems: [], location: null, script: null };
+  const plan = { id, name: chain[chain.length - 1].name, flags: [], clearFlags: [], vars: {}, values: {}, quests: [], items: [], takeItems: [], gold: null, location: null, script: null };
   for (const p of chain) {
     for (const f of p.flags ?? []) if (!plan.flags.includes(f)) plan.flags.push(f);
     for (const f of p.clearFlags ?? []) {
@@ -44,6 +45,7 @@ export function resolvePreset(content, id) {
       plan.items = plan.items.filter((it) => it.id !== id);
       if (!plan.takeItems.includes(id)) plan.takeItems.push(id);
     }
+    if (p.gold !== undefined) plan.gold = p.gold;
     if (p.map) plan.location = { map: p.map, spawn: p.spawn ?? null, x: p.x, y: p.y, facing: p.facing ?? 'down' };
     plan.script = p.script ?? null;
   }
@@ -54,6 +56,8 @@ export function resolvePreset(content, id) {
 export function applyPresetPlan(session, plan) {
   for (const it of plan.items) if (session.inventory.count(it.id) < it.count) session.inventory.add(it.id, it.count - session.inventory.count(it.id));
   for (const id of plan.takeItems ?? []) if (session.inventory.count(id)) session.inventory.remove(id, session.inventory.count(id));
+  // Story Phase 14: the purse (the latest preset in the chain that says).
+  if (plan.gold !== null && plan.gold !== undefined) session.inventory.addGold(plan.gold - session.inventory.gold);
   for (const [name, value] of Object.entries(plan.vars)) session.story.setVar(name, value);
   for (const [name, value] of Object.entries(plan.values ?? {})) session.story.setValue(name, value);
   for (const f of plan.flags) session.story.set(f);

@@ -60,6 +60,32 @@
     ]
    },
    {
+    "id": 7,
+    "title": "The Frog Tax Man",
+    "program": "frog_tax_man",
+    "frames": [
+     "ftm_title_0",
+     "ftm_title_1"
+    ],
+    "frameMs": 420,
+    "glow": "#8ad870",
+    "hum": "mk2_hum",
+    "if": {
+     "flag": "p14_knob_off"
+    },
+    "//": "Story Phase 14: with the fine-tuning wheel off (Brogath took it off), the bedroom set finds channel 7 for the first time.",
+    "comments": [
+     [
+      "captain: The Frog Tax Man. The most boring programme on the ship.",
+      "pete: (whispering) Perfect."
+     ],
+     [
+      "captain: Franklin. Saying ribbit.",
+      "brogath[pleased]: (from the floor) He's very brave."
+     ]
+    ]
+   },
+   {
     "id": 9,
     "title": "The Stenchmaster Channel",
     "program": "stenchmaster_channel",
@@ -115,6 +141,25 @@
      [
       "captain: Snow. It needs the aerial. The aerial's in the galley.",
       "garrick[businesslike]: Cable, Captain. A LONG one."
+     ]
+    ]
+   },
+   "sash_ad": {
+    "//": "Story Phase 14 (chapter 162): the Bling Bling King's commercial, on every channel at once.",
+    "frames": [
+     "ad_sash6_0",
+     "ad_sash6_1",
+     "ad_sash2_0",
+     "ad_sash2_1",
+     "ad_sash1_0",
+     "ad_sash1_1"
+    ],
+    "frameMs": 420,
+    "osd": "A WORD FROM OUR SPONSOR",
+    "lookComments": [
+     [
+      "captain: Sashes. On every channel. Fluttering.",
+      "pete: DON'T let him see!"
      ]
     ]
    }
@@ -215,6 +260,91 @@
       "doneLines": [
        [
         "CLICK. The grille closes. The picture stays. The smell stops coming."
+       ]
+      ]
+     }
+    ]
+   },
+   "advert": {
+    "//": "Story Phase 14 (chapter 162): getting rid of the commercial. Nothing works the way it should: OFF shrinks it and brings it back; pulling the plug changes nothing; taking a valve out SHARPENS the picture; the smell knob gives you the smell of fresh linen, fluttering; every channel has the same advert. After three tries the panel tunes to the Frog Tax Man, and the advert's still there.",
+    "doneFlag": "p14_ad_channel",
+    "closeAfter": 3000,
+    "openLines": [
+     [
+      "captain: Knobs. OFF. A plug. Valves. The smell knob. Channel.",
+      "pete: ANYTHING, Captain!"
+     ]
+    ],
+    "list": [
+     {
+      "id": "off",
+      "label": "OFF",
+      "effect": "glimpse",
+      "frames": [
+       "tv_off"
+      ],
+      "ms": 900,
+      "sfx": "tv_power_off",
+      "lines": [
+       [
+        "The picture folds to a dot. Thinks about it. Comes back. Sashes.",
+        "bob: It's not OFF."
+       ]
+      ]
+     },
+     {
+      "id": "plug",
+      "label": "PULL THE PLUG",
+      "effect": "roll",
+      "sfx": "mk2_rattle",
+      "lines": [
+       [
+        "You pull the plug out of the wall. You hold it up. The set doesn't notice.",
+        "gristle: It's not plugged in. It's STILL ON."
+       ]
+      ]
+     },
+     {
+      "id": "valve",
+      "label": "TAKE A VALVE OUT",
+      "effect": "stretch",
+      "sfx": "tube_pop",
+      "lines": [
+       [
+        "You pull out a valve, hot, glowing. The picture gets SHARPER. You can see every thread of the sash.",
+        "pete: You've made it BETTER?"
+       ]
+      ]
+     },
+     {
+      "id": "smell",
+      "label": "SMELL",
+      "effect": "louder",
+      "amount": 1,
+      "sfx": "stench_vent",
+      "lines": [
+       [
+        "The vent puffs. A smell of fresh linen. FLUTTERING linen, somehow. You can smell it flapping.",
+        "jim: How does a SMELL flutter?"
+       ]
+      ]
+     },
+     {
+      "id": "channel",
+      "label": "CHANNEL",
+      "effect": "tune",
+      "channel": 7,
+      "after": 3,
+      "tries": 1,
+      "sfx": "tv_click",
+      "lines": [
+       [
+        "Channel."
+       ]
+      ],
+      "doneLines": [
+       [
+        "Channel seven. The Frog Tax Man's channel. And on it: a sash. Fluttering. Six of them now."
        ]
       ]
      }

@@ -1,0 +1,2528 @@
+[
+ {
+  "extend": "garrick",
+  "variants": [
+   {
+    "if": {
+     "flag": "garrick_wears_ornament"
+    },
+    "appearance": "garrick_ornament",
+    "portrait": "garrick_ornament"
+   }
+  ],
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "containment_corner.garrick"
+    },
+    "script": "p14c4.garrick"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "value": {
+        "name": "brogath_incident",
+        "eq": "fl_page"
+       }
+      },
+      {
+       "notFlag": "p14_fl_page_secured"
+      }
+     ]
+    },
+    "script": "p14c5.fl_page_secure"
+   },
+   {
+    "if": {
+     "objectiveActive": "back_in_office.return"
+    },
+    "script": "p14c7.return"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "back_in_office.decrees"
+      },
+      {
+       "flag": "p14_gs_started"
+      },
+      {
+       "notFlag": "p14_gs_secured"
+      }
+     ]
+    },
+    "script": "p14c7.gs_secure"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "back_in_office.decrees"
+      },
+      {
+       "flag": "p14_gs_done"
+      }
+     ]
+    },
+    "script": "p14c7.decrees"
+   },
+   {
+    "if": {
+     "objectiveActive": "two_grand_stenchmasters.rounds"
+    },
+    "script": "p14c8.round"
+   },
+   {
+    "if": {
+     "objectiveActive": "beans_of_precedent.compliments"
+    },
+    "script": "p14c9.comp_garrick"
+   },
+   {
+    "if": {
+     "flag": "p14_complete"
+    },
+    "cycle": [
+     "garrick.p14_after_1",
+     "garrick.p14_after_2",
+     "garrick.p14_after_3"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch169_started"
+      },
+      {
+       "notFlag": "p14_complete"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p14_history_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch168_started"
+      },
+      {
+       "notFlag": "p14_ch169_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p14_problem_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch167_started"
+      },
+      {
+       "notFlag": "p14_ch168_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p14_furious_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch163_started"
+      },
+      {
+       "notFlag": "p14_ch167_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p14_bank_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch161_started"
+      },
+      {
+       "notFlag": "p14_ch163_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p14_tv_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch160_started"
+      },
+      {
+       "notFlag": "p14_ch161_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p14_oats_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch159_started"
+      },
+      {
+       "notFlag": "p14_ch160_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p14_money_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch157_started"
+      },
+      {
+       "notFlag": "p14_ch159_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p14_broke_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch155_started"
+      },
+      {
+       "notFlag": "p14_ch157_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p14_zone_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch154_started"
+      },
+      {
+       "notFlag": "p14_ch155_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p14_beans_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch153_started"
+      },
+      {
+       "notFlag": "p14_ch154_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p14_rivalry_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch152_started"
+      },
+      {
+       "notFlag": "p14_ch153_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p14_office_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch149_started"
+      },
+      {
+       "notFlag": "p14_ch152_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p14_corner_1",
+     "garrick.p14_corner_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch148_started"
+      },
+      {
+       "notFlag": "p14_ch149_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p14_returns_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_started"
+      },
+      {
+       "notFlag": "p14_ch148_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p14_door_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "brogath",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "return_of_brogath.speak"
+    },
+    "script": "p14c3.speak"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "keep_brogath_confident.flutters"
+      },
+      {
+       "value": {
+        "name": "p14_flutter_current",
+        "set": true
+       }
+      },
+      {
+       "value": {
+        "name": "brogath_incident",
+        "set": true
+       }
+      }
+     ]
+    },
+    "script": "p14c5.steady"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "keep_brogath_confident.flutters"
+      },
+      {
+       "flag": "p14_fl_flag_secured"
+      },
+      {
+       "notFlag": "p14_fl_flag_done"
+      }
+     ]
+    },
+    "script": "p14c5.steady"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "keep_brogath_confident.flutters"
+      },
+      {
+       "flag": "p14_fl_shirt_secured"
+      },
+      {
+       "notFlag": "p14_fl_shirt_done"
+      }
+     ]
+    },
+    "script": "p14c5.steady"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "keep_brogath_confident.flutters"
+      },
+      {
+       "flag": "p14_fl_label_secured"
+      },
+      {
+       "notFlag": "p14_fl_label_done"
+      }
+     ]
+    },
+    "script": "p14c5.steady"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "keep_brogath_confident.flutters"
+      },
+      {
+       "flag": "p14_fl_napkin_secured"
+      },
+      {
+       "notFlag": "p14_fl_napkin_done"
+      }
+     ]
+    },
+    "script": "p14c5.steady"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "keep_brogath_confident.flutters"
+      },
+      {
+       "flag": "p14_fl_page_secured"
+      },
+      {
+       "notFlag": "p14_fl_page_done"
+      }
+     ]
+    },
+    "script": "p14c5.steady"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "keep_brogath_confident.flutters"
+      },
+      {
+       "flag": "p14_fl_squawks_secured"
+      },
+      {
+       "notFlag": "p14_fl_squawks_done"
+      }
+     ]
+    },
+    "script": "p14c5.steady"
+   },
+   {
+    "if": {
+     "objectiveActive": "apology_eruption.reach"
+    },
+    "script": "p14c6.reach"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "apology_eruption.brace"
+      }
+     ]
+    },
+    "script": "p14.brogath_wait_ae"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "back_in_office.decrees"
+      },
+      {
+       "flag": "p14_gs_started"
+      },
+      {
+       "notFlag": "p14_gs_done"
+      }
+     ]
+    },
+    "script": "p14c7.steady"
+   },
+   {
+    "if": {
+     "objectiveActive": "two_grand_stenchmasters.rounds"
+    },
+    "script": "p14c8.round"
+   },
+   {
+    "if": {
+     "objectiveActive": "beans_of_precedent.compliments"
+    },
+    "script": "p14c9.comp_brogath"
+   },
+   {
+    "if": {
+     "objectiveActive": "bad_money.see"
+    },
+    "script": "p14c14.shopping"
+   },
+   {
+    "if": {
+     "objectiveActive": "oat_security.job"
+    },
+    "script": "p14c15.job"
+   },
+   {
+    "if": {
+     "objectiveActive": "oat_security.check"
+    },
+    "script": "p14c15.check"
+   },
+   {
+    "if": {
+     "objectiveActive": "television_duty.watch"
+    },
+    "script": "p14c16.watch"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "sash_commercial.eyes"
+      }
+     ]
+    },
+    "script": "p14c17.eyes"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_commercial.talk"
+    },
+    "script": "p14c17.talk"
+   },
+   {
+    "if": {
+     "objectiveActive": "the_grand_bank.questions"
+    },
+    "script": "p14c18.question"
+   },
+   {
+    "if": {
+     "objectiveActive": "the_grand_bank.badge"
+    },
+    "script": "p14c18.badge"
+   },
+   {
+    "if": {
+     "objectiveActive": "branch_concludes.ask"
+    },
+    "script": "p14c21.ask"
+   },
+   {
+    "if": {
+     "objectiveActive": "branch_concludes.ornament"
+    },
+    "script": "p14c21.ornament"
+   },
+   {
+    "if": {
+     "objectiveActive": "distinguishedly_furious.console"
+    },
+    "script": "p14c22.console"
+   },
+   {
+    "if": {
+     "objectiveActive": "brogath_problem.tell"
+    },
+    "script": "p14c23.tell"
+   },
+   {
+    "if": {
+     "objectiveActive": "history_night.watch"
+    },
+    "script": "p14c24.watch"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "history_night.ads"
+      },
+      {
+       "notFlag": "p14_nj_eyes"
+      }
+     ]
+    },
+    "script": "p14c24.eyes"
+   },
+   {
+    "if": {
+     "objectiveActive": "history_night.license"
+    },
+    "script": "p14c24.license"
+   },
+   {
+    "if": {
+     "value": {
+      "name": "brogath_incident",
+      "set": true
+     }
+    },
+    "script": "p14.brogath_steady"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "brogath_reincarnated"
+      },
+      {
+       "value": {
+        "name": "brogath_state",
+        "in": [
+         "EMBARRASSED",
+         "PRESSURIZED",
+         "CRITICAL"
+        ]
+       }
+      }
+     ]
+    },
+    "script": "p14.brogath_steady"
+   },
+   {
+    "if": {
+     "flag": "p14_complete"
+    },
+    "cycle": [
+     "brogath.p14_after_1",
+     "brogath.p14_after_2",
+     "brogath.p14_after_3",
+     "brogath.p14_after_4",
+     "brogath.p14_after_5"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch169_started"
+      },
+      {
+       "notFlag": "p14_complete"
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p14_history_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch168_started"
+      },
+      {
+       "notFlag": "p14_ch169_started"
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p14_problem_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch167_started"
+      },
+      {
+       "notFlag": "p14_ch168_started"
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p14_furious_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch163_started"
+      },
+      {
+       "notFlag": "p14_ch167_started"
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p14_bank_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch161_started"
+      },
+      {
+       "notFlag": "p14_ch163_started"
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p14_tv_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch160_started"
+      },
+      {
+       "notFlag": "p14_ch161_started"
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p14_oats_1",
+     "brogath.p14_oats_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch159_started"
+      },
+      {
+       "notFlag": "p14_ch160_started"
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p14_money_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch157_started"
+      },
+      {
+       "notFlag": "p14_ch159_started"
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p14_broke_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch155_started"
+      },
+      {
+       "notFlag": "p14_ch157_started"
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p14_zone_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch154_started"
+      },
+      {
+       "notFlag": "p14_ch155_started"
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p14_beans_1",
+     "brogath.p14_beans_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch153_started"
+      },
+      {
+       "notFlag": "p14_ch154_started"
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p14_rivalry_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch152_started"
+      },
+      {
+       "notFlag": "p14_ch153_started"
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p14_office_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch149_started"
+      },
+      {
+       "notFlag": "p14_ch152_started"
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p14_corner_1",
+     "brogath.p14_corner_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch148_started"
+      },
+      {
+       "notFlag": "p14_ch149_started"
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p14_returns_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "pete",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "keep_brogath_confident.theory"
+    },
+    "script": "p14c5.theory"
+   },
+   {
+    "if": {
+     "objectiveActive": "fart_free_zone.declare"
+    },
+    "script": "p14c10.declare"
+   },
+   {
+    "if": {
+     "objectiveActive": "getting_rid_of_brogath.mission"
+    },
+    "script": "p14c11.pete"
+   },
+   {
+    "if": {
+     "flag": "p14_complete"
+    },
+    "cycle": [
+     "pete.p14_after_1",
+     "pete.p14_after_2",
+     "pete.p14_after_3"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch169_started"
+      },
+      {
+       "notFlag": "p14_complete"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p14_history_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch168_started"
+      },
+      {
+       "notFlag": "p14_ch169_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p14_problem_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch167_started"
+      },
+      {
+       "notFlag": "p14_ch168_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p14_furious_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch163_started"
+      },
+      {
+       "notFlag": "p14_ch167_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p14_bank_1",
+     "pete.p14_bank_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch161_started"
+      },
+      {
+       "notFlag": "p14_ch163_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p14_tv_1",
+     "pete.p14_tv_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch160_started"
+      },
+      {
+       "notFlag": "p14_ch161_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p14_oats_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch159_started"
+      },
+      {
+       "notFlag": "p14_ch160_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p14_money_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch157_started"
+      },
+      {
+       "notFlag": "p14_ch159_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p14_broke_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch155_started"
+      },
+      {
+       "notFlag": "p14_ch157_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p14_zone_1",
+     "pete.p14_zone_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch154_started"
+      },
+      {
+       "notFlag": "p14_ch155_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p14_beans_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch153_started"
+      },
+      {
+       "notFlag": "p14_ch154_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p14_rivalry_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch152_started"
+      },
+      {
+       "notFlag": "p14_ch153_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p14_office_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch149_started"
+      },
+      {
+       "notFlag": "p14_ch152_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p14_corner_1",
+     "pete.p14_corner_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch148_started"
+      },
+      {
+       "notFlag": "p14_ch149_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p14_returns_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_started"
+      },
+      {
+       "notFlag": "p14_ch148_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p14_door_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "gristle",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "getting_rid_of_brogath.proposals"
+      },
+      {
+       "notFlag": "p14_prop_burn"
+      }
+     ]
+    },
+    "script": "p14c11.gristle"
+   },
+   {
+    "if": {
+     "flag": "p14_complete"
+    },
+    "cycle": [
+     "gristle.p14_after_1",
+     "gristle.p14_after_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch169_started"
+      },
+      {
+       "notFlag": "p14_complete"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p14_history_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch168_started"
+      },
+      {
+       "notFlag": "p14_ch169_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p14_problem_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch167_started"
+      },
+      {
+       "notFlag": "p14_ch168_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p14_furious_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch163_started"
+      },
+      {
+       "notFlag": "p14_ch167_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p14_bank_1",
+     "gristle.p14_bank_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch161_started"
+      },
+      {
+       "notFlag": "p14_ch163_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p14_tv_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch160_started"
+      },
+      {
+       "notFlag": "p14_ch161_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p14_oats_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch159_started"
+      },
+      {
+       "notFlag": "p14_ch160_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p14_money_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch157_started"
+      },
+      {
+       "notFlag": "p14_ch159_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p14_broke_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch155_started"
+      },
+      {
+       "notFlag": "p14_ch157_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p14_zone_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch154_started"
+      },
+      {
+       "notFlag": "p14_ch155_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p14_beans_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch153_started"
+      },
+      {
+       "notFlag": "p14_ch154_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p14_rivalry_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch152_started"
+      },
+      {
+       "notFlag": "p14_ch153_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p14_office_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch149_started"
+      },
+      {
+       "notFlag": "p14_ch152_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p14_corner_1",
+     "gristle.p14_corner_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch148_started"
+      },
+      {
+       "notFlag": "p14_ch149_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p14_returns_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_started"
+      },
+      {
+       "notFlag": "p14_ch148_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p14_door_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "bob",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "value": {
+        "name": "brogath_incident",
+        "eq": "fl_shirt"
+       }
+      },
+      {
+       "notFlag": "p14_fl_shirt_secured"
+      }
+     ]
+    },
+    "script": "p14c5.fl_shirt_secure"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "getting_rid_of_brogath.proposals"
+      },
+      {
+       "notFlag": "p14_prop_treasure"
+      }
+     ]
+    },
+    "script": "p14c11.bob"
+   },
+   {
+    "if": {
+     "flag": "p14_complete"
+    },
+    "cycle": [
+     "bob.p14_after_1",
+     "bob.p14_after_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch169_started"
+      },
+      {
+       "notFlag": "p14_complete"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p14_history_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch168_started"
+      },
+      {
+       "notFlag": "p14_ch169_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p14_problem_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch167_started"
+      },
+      {
+       "notFlag": "p14_ch168_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p14_furious_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch163_started"
+      },
+      {
+       "notFlag": "p14_ch167_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p14_bank_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch161_started"
+      },
+      {
+       "notFlag": "p14_ch163_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p14_tv_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch160_started"
+      },
+      {
+       "notFlag": "p14_ch161_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p14_oats_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch159_started"
+      },
+      {
+       "notFlag": "p14_ch160_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p14_money_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch157_started"
+      },
+      {
+       "notFlag": "p14_ch159_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p14_broke_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch155_started"
+      },
+      {
+       "notFlag": "p14_ch157_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p14_zone_1",
+     "bob.p14_zone_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch154_started"
+      },
+      {
+       "notFlag": "p14_ch155_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p14_beans_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch153_started"
+      },
+      {
+       "notFlag": "p14_ch154_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p14_rivalry_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch152_started"
+      },
+      {
+       "notFlag": "p14_ch153_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p14_office_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch149_started"
+      },
+      {
+       "notFlag": "p14_ch152_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p14_corner_1",
+     "bob.p14_corner_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch148_started"
+      },
+      {
+       "notFlag": "p14_ch149_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p14_returns_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_started"
+      },
+      {
+       "notFlag": "p14_ch148_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p14_door_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "jim",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "getting_rid_of_brogath.proposals"
+      },
+      {
+       "notFlag": "p14_prop_storm"
+      }
+     ]
+    },
+    "script": "p14c11.jim"
+   },
+   {
+    "if": {
+     "flag": "p14_complete"
+    },
+    "cycle": [
+     "jim.p14_after_1",
+     "jim.p14_after_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch169_started"
+      },
+      {
+       "notFlag": "p14_complete"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p14_history_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch168_started"
+      },
+      {
+       "notFlag": "p14_ch169_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p14_problem_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch167_started"
+      },
+      {
+       "notFlag": "p14_ch168_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p14_furious_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch163_started"
+      },
+      {
+       "notFlag": "p14_ch167_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p14_bank_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch161_started"
+      },
+      {
+       "notFlag": "p14_ch163_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p14_tv_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch160_started"
+      },
+      {
+       "notFlag": "p14_ch161_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p14_oats_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch159_started"
+      },
+      {
+       "notFlag": "p14_ch160_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p14_money_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch157_started"
+      },
+      {
+       "notFlag": "p14_ch159_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p14_broke_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch155_started"
+      },
+      {
+       "notFlag": "p14_ch157_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p14_zone_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch154_started"
+      },
+      {
+       "notFlag": "p14_ch155_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p14_beans_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch153_started"
+      },
+      {
+       "notFlag": "p14_ch154_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p14_rivalry_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch152_started"
+      },
+      {
+       "notFlag": "p14_ch153_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p14_office_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch149_started"
+      },
+      {
+       "notFlag": "p14_ch152_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p14_corner_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch148_started"
+      },
+      {
+       "notFlag": "p14_ch149_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p14_returns_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_started"
+      },
+      {
+       "notFlag": "p14_ch148_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p14_door_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "ned",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "getting_rid_of_brogath.proposals"
+      },
+      {
+       "notFlag": "p14_prop_confident"
+      }
+     ]
+    },
+    "script": "p14c11.ned"
+   },
+   {
+    "if": {
+     "flag": "p14_complete"
+    },
+    "cycle": [
+     "ned.p14_after_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch169_started"
+      },
+      {
+       "notFlag": "p14_complete"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p14_history_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch168_started"
+      },
+      {
+       "notFlag": "p14_ch169_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p14_problem_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch167_started"
+      },
+      {
+       "notFlag": "p14_ch168_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p14_furious_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch163_started"
+      },
+      {
+       "notFlag": "p14_ch167_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p14_bank_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch161_started"
+      },
+      {
+       "notFlag": "p14_ch163_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p14_tv_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch160_started"
+      },
+      {
+       "notFlag": "p14_ch161_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p14_oats_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch159_started"
+      },
+      {
+       "notFlag": "p14_ch160_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p14_money_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch155_started"
+      },
+      {
+       "notFlag": "p14_ch157_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p14_zone_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch154_started"
+      },
+      {
+       "notFlag": "p14_ch155_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p14_beans_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch153_started"
+      },
+      {
+       "notFlag": "p14_ch154_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p14_rivalry_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch152_started"
+      },
+      {
+       "notFlag": "p14_ch153_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p14_office_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch149_started"
+      },
+      {
+       "notFlag": "p14_ch152_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p14_corner_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_started"
+      },
+      {
+       "notFlag": "p14_ch148_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p14_door_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "squawks",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "value": {
+        "name": "brogath_incident",
+        "eq": "fl_squawks"
+       }
+      },
+      {
+       "notFlag": "p14_fl_squawks_secured"
+      }
+     ]
+    },
+    "script": "p14c5.fl_squawks_secure"
+   },
+   {
+    "if": {
+     "flag": "p14_complete"
+    },
+    "cycle": [
+     "squawks.p14_after_1",
+     "squawks.p14_after_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch169_started"
+      },
+      {
+       "notFlag": "p14_complete"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p14_history_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch168_started"
+      },
+      {
+       "notFlag": "p14_ch169_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p14_problem_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch167_started"
+      },
+      {
+       "notFlag": "p14_ch168_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p14_furious_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch163_started"
+      },
+      {
+       "notFlag": "p14_ch167_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p14_bank_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch161_started"
+      },
+      {
+       "notFlag": "p14_ch163_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p14_tv_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch160_started"
+      },
+      {
+       "notFlag": "p14_ch161_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p14_oats_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch159_started"
+      },
+      {
+       "notFlag": "p14_ch160_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p14_money_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch155_started"
+      },
+      {
+       "notFlag": "p14_ch157_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p14_zone_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch154_started"
+      },
+      {
+       "notFlag": "p14_ch155_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p14_beans_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch153_started"
+      },
+      {
+       "notFlag": "p14_ch154_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p14_rivalry_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch152_started"
+      },
+      {
+       "notFlag": "p14_ch153_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p14_office_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch149_started"
+      },
+      {
+       "notFlag": "p14_ch152_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p14_corner_1",
+     "squawks.p14_corner_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch148_started"
+      },
+      {
+       "notFlag": "p14_ch149_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p14_returns_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_started"
+      },
+      {
+       "notFlag": "p14_ch148_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p14_door_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "hale",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p14_complete"
+    },
+    "cycle": [
+     "hale.p14_after_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch167_started"
+      },
+      {
+       "notFlag": "p14_ch168_started"
+      }
+     ]
+    },
+    "cycle": [
+     "hale.p14_furious_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_ch163_started"
+      },
+      {
+       "notFlag": "p14_ch167_started"
+      }
+     ]
+    },
+    "cycle": [
+     "hale.p14_bank_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p14_started"
+      },
+      {
+       "notFlag": "p14_ch148_started"
+      }
+     ]
+    },
+    "cycle": [
+     "hale.p14_door_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "nell",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p14_started"
+    },
+    "script": "nell.p14"
+   }
+  ]
+ },
+ {
+  "extend": "sully",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p14_started"
+    },
+    "script": "sully.p14"
+   }
+  ]
+ },
+ {
+  "extend": "fennimore",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p14_started"
+    },
+    "script": "fennimore.p14"
+   }
+  ]
+ },
+ {
+  "extend": "wick",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p14_started"
+    },
+    "script": "wick.p14"
+   }
+  ]
+ },
+ {
+  "extend": "rook",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p14_started"
+    },
+    "script": "rook.p14"
+   }
+  ]
+ },
+ {
+  "extend": "brask",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p14_started"
+    },
+    "script": "brask.p14"
+   }
+  ]
+ },
+ {
+  "extend": "jory",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p14_started"
+    },
+    "script": "jory.p14"
+   }
+  ]
+ },
+ {
+  "extend": "finch",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p14_started"
+    },
+    "script": "finch.p14"
+   }
+  ]
+ },
+ {
+  "extend": "mags",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p14_started"
+    },
+    "script": "mags.p14"
+   }
+  ]
+ },
+ {
+  "extend": "quill",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p14_started"
+    },
+    "script": "quill.p14"
+   }
+  ]
+ },
+ {
+  "extend": "penhallow",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p14_started"
+    },
+    "script": "penhallow.p14"
+   }
+  ]
+ }
+]
