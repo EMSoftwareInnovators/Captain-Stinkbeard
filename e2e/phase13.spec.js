@@ -149,7 +149,8 @@ test('the delirium: the dialogue box says BROGATH (?) (Pete blinks through), the
   expect(await onMap(g)).toBe(D);
   expect(await g.eval(() => window.__GAME__.game.scene.getScene('World').actors.get('pete')?.textureKey)).toBe('char_pete_brogath');
   await g.approach('pete');
-  await g.tap('KeyZ', 50, 200);
+  // At the end of Phase 13, talking to Pete starts Phase 14 (chapter 146): play his Phase 13 line itself.
+  await g.eval(() => { window.__GAME__.game.scene.getScene('World').runScript('pete.p13_crisis_1'); });
   const names = new Set();
   for (let i = 0; i < 30; i++) {
     const n = await g.eval(() => window.__GAME__.app.overlay.dialogue.nameText?.text ?? null);

@@ -76,6 +76,18 @@ async function goWait(g, map) {
   }
 }
 
+/** Through the little door under the hold stairs (the kit's route from the hold always heads for the galley). */
+async function intoZone(g) {
+  const at = await g.eval((z) => {
+    const w = window.__GAME__.game.scene.getScene('World');
+    const door = w.model.objects.find((o) => o.type === 'warp' && o.to?.map === z && w.warpAt(o.x, o.y) === o);
+    return door ? [door.x, door.y] : null;
+  }, Z);
+  if (!at) throw new Error('the little door under the hold stairs is not open');
+  await g.travel(at[0], at[1], Z);
+  await play(g);
+}
+
 /** Rooms, with the Fart-Free Zone (through the little door under the hold stairs). */
 async function go14(g, map) {
   const here = await onMap(g);
@@ -83,7 +95,7 @@ async function go14(g, map) {
   if (here === Z) await goWait(g, H);
   if (map === Z) {
     await goWait(g, H);
-    await goWait(g, Z);
+    await intoZone(g);
   } else await goWait(g, map);
   await play(g);
 }
@@ -92,14 +104,14 @@ async function go14(g, map) {
  * The kit's objective walk, but a step may come round many times on purpose
  * (sixteen depositors at the bell): stuck means nothing in the story changed.
  */
-async function walk14(g, steps, label) {
+async function walk14(g, steps, label, stop = done) {
   let last = null;
   let same = 0;
   const snapshot = () => g.eval(() => {
     const st = window.__GAME__.app.session.story.serialize();
     return JSON.stringify([st.flags.length, st.vars, st.values]);
   });
-  for (let n = 0; n < 600 && !(await done(g)); n++) {
+  for (let n = 0; n < 600 && !(await stop(g)); n++) {
     const ref = await g.eval((list) => list.find((r) => {
       const [q, o] = r.split('.');
       return window.__GAME__.app.session.quests.isObjectiveAvailable(q, o);
@@ -296,6 +308,20 @@ test('Story Phase 14 plays from the treasure-room door to "He lives here now"', 
   await expectCanonicalEnd(g);
   expect((await g.state()).gold).toBe(gold - 10);
   expect(rooms.has('treasure_hold')).toBe(false);
+  expect(errors).toEqual([]);
+});
+
+test('Phase 14 from the Fart-Free Zone to the Grand Bank plays from its preset', { tag: ['@phase14', '@story'] }, async ({ page }) => {
+  test.setTimeout(75 * 60 * 1000);
+  const { g, errors } = await open(page);
+  await g.preset('p14_fart_free_zone');
+  await autoTiming(g);
+  await play(g);
+  const atBank = (x) => x.eval(() => window.__GAME__.app.session.quests.isObjectiveAvailable('the_grand_bank', 'questions'));
+  await walk14(g, STEPS, 'Phase 14', atBank);
+  expect(await has(g, 'grand_currency_acquired')).toBe(true);
+  expect(await variable(g, 'grand_currency_gold_paid')).toBe(10);
+  expect(await has(g, 'fart_free_zone_reinforced')).toBe(true);
   expect(errors).toEqual([]);
 });
 
