@@ -24,6 +24,7 @@ import { TILE_SIZE, DIR_VECTORS, OPPOSITE_DIR, DIRECTIONS, SCREEN_WIDTH, SCREEN_
 import { hash32 } from '../core/Rng.js';
 import { asArray } from '../core/util.js';
 import { placementChoices, placementChanges, roomGuard } from '../world/placements.js';
+import { inspectAt, isObjectiveJob } from '../world/inspectTarget.js';
 import { deadCenterZonesFor, deadCenterSeals } from '../systems/hazards/deadCenter.js';
 import { panicShouts } from '../systems/hazards/alarms.js';
 import { SharkDuty } from '../world/SharkDuty.js';
@@ -49,11 +50,6 @@ const HAMMOCK_TURN_MS = 180;
  * enemies, and runs scripts (dialogue, inspections, cutscenes) through the
  * shared ScriptRunner with world services (move/face/camera/...).
  */
-/** An inspect spot that exists for an open objective (its condition names one). */
-function isObjectiveJob(obj) {
-  return obj.type === 'inspect' && !!obj.if && JSON.stringify(obj.if).includes('objectiveActive');
-}
-
 export class WorldScene extends BaseScene {
   constructor() {
     super('World');
@@ -1309,12 +1305,9 @@ export class WorldScene extends BaseScene {
     if (duty) return { kind: 'duty', incident: duty, x, y };
     const occ = this.occupantAt(x, y) ?? this.aloftAt(x, y);
     if (occ && occ.kind === 'npc' && occ.npc) return { kind: 'npc', actor: occ, x, y };
-    for (const obj of this.objects) {
-      if ((obj.type === 'inspect' || obj.type === 'chest') && this.inRect(obj, x, y)) {
-        if (obj.type === 'inspect' && obj.if && !evaluateCondition(obj.if, this.session)) continue;
-        return { kind: obj.type, obj, x, y };
-      }
-    }
+    // An open objective's spot beats scenery on the same tile (src/world/inspectTarget.js).
+    const obj = inspectAt(this.objects, x, y, this.session);
+    if (obj) return { kind: obj.type, obj, x, y };
     const prop = this.propAt.get(this.key(x, y));
     if (prop?.def?.inspect) return { kind: 'prop', prop, x, y };
     const warp = this.warpAt(x, y);

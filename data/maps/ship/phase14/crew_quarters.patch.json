@@ -68,6 +68,37 @@
      },
      {
       "notFlag": "p14_bar_shield"
+     },
+     {
+      "not": {
+       "value": {
+        "name": "standee_rumpus",
+        "eq": "door"
+       }
+      }
+     }
+    ]
+   },
+   "script": "p14c4.shield"
+  },
+  {
+   "id": "p14_bar_shield_door",
+   "type": "inspect",
+   "x": 9,
+   "y": 4,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "containment_corner.barricade"
+     },
+     {
+      "notFlag": "p14_bar_shield"
+     },
+     {
+      "value": {
+       "name": "standee_rumpus",
+       "eq": "door"
+      }
      }
     ]
    },

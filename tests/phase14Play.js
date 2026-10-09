@@ -90,7 +90,9 @@ export const STEPS14 = [
   ['return_of_brogath.speak', async (s) => { await go(s, Q); await talkSteady(s, 'brogath', 'general'); }],
   ['containment_corner.barricade', async (s) => {
     await go(s, Q);
-    const ids = { table: 'p14_bar_table', cask: 'p14_bar_cask', blankets: 'p14_bar_blankets', shield: 'p14_bar_shield' };
+    // The shield is cardboard Sir Rumpus, wherever he was stood in Phase 13.
+    const shield = value(s, 'standee_rumpus') === 'door' ? 'p14_bar_shield_door' : 'p14_bar_shield';
+    const ids = { table: 'p14_bar_table', cask: 'p14_bar_cask', blankets: 'p14_bar_blankets', shield };
     await s.inspect(ids[firstMissing(s, order(s, Object.keys(ids)), 'p14_bar_')]);
   }],
   ['containment_corner.rules', async (s) => { await go(s, Q); await s.inspect('p14_rules_first'); }],

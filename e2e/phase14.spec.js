@@ -166,7 +166,11 @@ const STEPS = [
   ['follow_the_plume.galley', async (g) => { await go14(g, G); }],
   ['follow_the_plume.quarters', async (g) => { await go14(g, Q); }],
   ['return_of_brogath.speak', async (g) => { await go14(g, Q); await speak(g, 'brogath'); }],
-  ['containment_corner.barricade', async (g) => { await go14(g, Q); await look(g, BARRICADE[await firstMissing(g, Object.keys(BARRICADE), 'p14_bar_')]); }],
+  ['containment_corner.barricade', async (g) => {
+    await go14(g, Q);
+    const next = await firstMissing(g, Object.keys(BARRICADE), 'p14_bar_');
+    await look(g, next === 'shield' && (await value(g, 'standee_rumpus')) === 'door' ? 'p14_bar_shield_door' : BARRICADE[next]);
+  }],
   ['containment_corner.rules', async (g) => { await go14(g, Q); await look(g, 'p14_rules_first'); }],
   ['containment_corner.garrick', async (g) => { await go14(g, Q); await speak(g, 'garrick'); }],
   ['keep_brogath_confident.theory', async (g) => { await go14(g, Q); await speak(g, 'pete'); }],

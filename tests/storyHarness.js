@@ -9,6 +9,7 @@ import { dueStoryTriggers, triggerKey } from '../src/systems/story/progress.js';
 import { resolvePreset, applyPresetPlan } from '../src/debug/presets.js';
 import { WorldState } from '../src/systems/world/WorldState.js';
 import { StagingTracker } from './storyStaging.js';
+import { inspectAt } from '../src/world/inspectTarget.js';
 import { deadCenterSeals } from '../src/systems/hazards/deadCenter.js';
 import { SaveManager } from '../src/systems/save/SaveManager.js';
 import { MemoryStorage } from '../src/platform/storage.js';
@@ -297,6 +298,15 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
       if (on.every(Boolean) && !on.every((who) => says(who) === obj.script)) staging.issue(`can't look at "${id}" on ${story.map}: ${[...new Set(on)].join(', ')} ${on.length > 1 ? 'are' : 'is'} standing on it (talking comes first)`);
       staging.approach(obj.x, obj.y, obj.w ?? 1, obj.h ?? 1);
       if (obj.if && !evaluateCondition(obj.if, session)) throw new Error(`"${id}" can't be inspected right now`);
+      // In the game, Confirm reaches one object per tile (src/world/inspectTarget.js): another one
+      // on top of every tile of this one means a player can't get at it (Story Phase 14's shield).
+      const all = content.maps.require(story.map).objects ?? [];
+      // (Spots for the same objective stacked on one tile are one job in any order: Phase 12's breakfast.)
+      const job = (o) => JSON.stringify(o?.if ?? null).match(/"objectiveActive":"([^"]+)"/)?.[1] ?? null;
+      const tops = tiles.map(([x, y]) => inspectAt(all, x, y, session));
+      if (!tops.some((top) => top === obj || (job(obj) && job(top) === job(obj)))) {
+        staging.issue(`can't look at "${id}" on ${story.map}: "${tops[0]?.id}" is on top of it`);
+      }
       let script = obj.script;
       if (!script && obj.dialogue) script = obj.dialogue.find((d) => evaluateCondition(d.if, session))?.script;
       if (script) await story.run(script);

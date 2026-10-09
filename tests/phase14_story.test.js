@@ -12,6 +12,7 @@ import { MemoryStorage } from '../src/platform/storage.js';
 import { makeStory, reloadStory } from './storyHarness.js';
 import { PHASE14_QUESTS, STEPS14, go, playPhase14, playToEndP14 } from './phase14Play.js';
 import { BANNED_LIST } from './bannedNames.js';
+import { STANDEE_SPOTS } from './phase13Play.js';
 
 /**
  * Story Phase 14, RETURN OF BROGATH (chapters 146-169), played headless from
@@ -88,6 +89,23 @@ describe('Story Phase 14 staging', () => {
   it('the same, choosing the last option everywhere', async () => {
     const { s } = await playPhase14('last');
     expect(s.stagingIssues.join('\n')).toBe('');
+  });
+
+  it('the barricade\'s shield is cardboard Sir Rumpus wherever he was stood in Phase 13 (and every standee in its other spot is walked round)', async () => {
+    const s = makeStory({ preset: 'p13_complete' });
+    for (const [id, spots] of Object.entries(STANDEE_SPOTS)) {
+      if (id === 'brogath') continue;
+      const now = s.session.story.getValue(`standee_${id}`) ?? spots[0];
+      s.session.story.setValue(`standee_${id}`, spots.find((x) => x !== now));
+    }
+    s.session.story.setValue('standee_rumpus', 'door');
+    const { s: t } = await playPhase14('first', { from: s });
+    expect(t.has('p14_bar_shield')).toBe(true);
+    expect(t.stagingIssues.join('\n')).toBe('');
+    const q = t.content.maps.require('crew_quarters');
+    const at = (id) => { const o = q.objects.find((x) => x.id === id); return [o.x, o.y]; };
+    expect(at('p14_bar_shield_door')).toEqual(at('decor_standee_rumpus_door'));
+    expect(at('p14_bar_shield')).toEqual(at('decor_standee_rumpus_table'));
   });
 });
 
