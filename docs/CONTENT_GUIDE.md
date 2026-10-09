@@ -1455,6 +1455,104 @@ plays. Nothing moves or blocks.
 - **Looks:** painter extras `toysash`, `goggles`, `beardwrap`, `blush`, `crownstack`; appearances and portraits for Garrick suspended, the trial gear and the delirium's legends are in `data/appearances/phase11.json` and `data/portraits/phase11.json`. A parrot portrait can wear `crown` and `royalSash`.
 - **Vista commands** are checked against the vista that is up: `vistaFrame`, `vistaMove`, `vistaShow` and `vistaSpin` must name one of its layers, and a debug preset that starts mid-scene must put its vista up first (`p12c5.from_surge`).
 
+## Story Phase 14 formats
+
+### A character's stability (`data/story/stability/*.json`)
+
+```json
+"brogath": {
+  "name": "BROGATH", "label": "BASHFULNESS", "angryLabel": "WRATH", "actor": "brogath",
+  "pressureVar": "brogath_pressure", "stateValue": "brogath_state", "angerFlag": "brogath_angry",
+  "meterValue": "brogath_meter", "incidentValue": "brogath_incident", "turnVar": "brogath_reassure_turn",
+  "min": -20, "max": 100, "reveal": 30, "afterErupt": 55, "settleTo": 10, "creak": "cardboard_creak",
+  "bands": [{ "state": "PLEASED", "below": 0 }, { "state": "CALM", "below": 15 }, { "state": "BASHFUL", "below": 40 },
+            { "state": "EMBARRASSED", "below": 65 }, { "state": "PRESSURIZED", "below": 85 }, { "state": "CRITICAL" }],
+  "stages": [{ "at": 15, "id": "rumble", "label": "small rumble", "sfx": "brogath_rumble_small", "bark": "<k>...rrmbl.</>", "cooldownMs": 9000 }],
+  "triggers": { "flutter": { "pressure": 15, "sfx": "flutter_tiny", "line": "brogath[bashful]: Oh. It... moved." } },
+  "calms": { "distinguished": { "pressure": -25, "line": "brogath[proud]: Distinguished. Do you know, I think I am." } },
+  "prompts": { "general": { "show": 3, "options": [
+    { "text": "You look extremely distinguished today.", "calm": "distinguished" },
+    { "text": "Everybody saw. Don't worry about it.", "trigger": "laughed_at", "reply": "brogath[mortified]: EVERYBODY?" }] } },
+  "incidents": { "fl_napkin": { "start": 30, "rate": 2, "erupt": "p14c5.fl_erupt" } } }
+```
+
+The pressure is a story variable and the state a story value (so `"value":
+{ "name": "brogath_state", "eq": "EMBARRASSED" }` works in any condition).
+Triggers raise it and calms lower it by their `pressure`; nothing is random.
+ANGRY is never reached by pressure: only `{ "stability": "anger" }` sets it.
+The meter shows past `reveal`, during an incident, when angry, or when
+`meterValue` is `show`. Each stage plays its sound (and bark) once per
+`cooldownMs`.
+
+Script steps (`subject` defaults to `brogath`):
+
+```json
+{ "stability": "trigger", "id": "flutter" }            { "stability": "calm", "id": "praise", "quiet": true }
+{ "stability": "set", "pressure": 10 }                 { "stability": "add", "pressure": -5 }
+{ "stability": "anger" }   { "stability": "anger", "on": false }
+{ "stability": "meter", "show": "show" | "hide" | "auto" }
+{ "stability": "incident", "id": "fl_napkin" }         { "stability": "secure" }
+{ "stability": "settle", "pressure": 0 }
+{ "reassure": "general", "prompt": "brogath[bashful]: Did anyone see?", "var": "p14_calmed" }
+```
+
+`reassure` offers `show` options from the set, always with one that calms;
+which, and where in the list, follow the turn variable, so the same moment
+offers the same choice. The captain says the option (`say` overrides the
+words; `"echo": false` on the set says nothing), its calm or trigger applies,
+and `reply` (or the effect's line) answers. `var` is 1 if it calmed. An
+incident's `erupt` script must be comic and safe: it plays at the top, the
+pressure drops to `afterErupt`, and the incident runs on until a script
+secures it. After a catastrophe, `settle` clears anger, incident and meter.
+
+### A bank and its depositors (`data/story/bank/*.json`)
+
+```json
+"grand_bank": {
+  "name": "THE GRAND STENCHMASTER'S GRAND BANK AND GRAND TRUST", "openFlag": "grand_bank_open",
+  "ledgerVar": "bank_ledger_right", "gradeVar": "bank_last_grade", "slipsVar": "bank_last_slips",
+  "scale": [{ "n": 1, "name": "Gentle" }, { "n": 10, "name": "Please Notify Authorities" }],
+  "beyond": { "n": "10+", "name": "ABSOLUTELY NOT" },
+  "queues": { "regular": { "customers": ["windabella", "gary"], "servedVar": "bank_served", "event": "p14_deposit" } },
+  "classifyPrompt": "What class was {name}?", "classifyRight": "...", "classifyWrong": "...", "vault": "p14.bank_vault",
+  "currency": { "flag": "grand_currency_acquired", "var": "grand_currency_tokens", "amount": 20000, "gold": 10,
+                "paidVar": "grand_currency_gold_paid", "notify": "+20,000 GRAND TOKENS (NOT LEGAL TENDER)" } }
+```
+
+```json
+"gary": { "bank": "grand_bank", "npc": "gary", "name": "Gary", "short": "Gary", "intensity": 8, "classify": [7, 8, 9],
+  "telegraph": "Gary.",
+  "pattern": [{ "take": true }, { "wait": 600, "text": "He looks completely ordinary." },
+              { "hold": 5, "band": [34, 70], "pull": 58, "slack": 40, "sway": { "amp": 10, "period": 3 } },
+              { "brace": "BRACE!", "ring": 900, "window": 170, "power": 8, "text": "GARY." }],
+  "intro": "p14.bank.gary.intro", "after": "p14.bank.gary.after" }
+```
+
+`{ "bankDeposit": "gary" }` runs one depositor: `intro`, the teller's window
+(`take` the sash, `hold` the needle in the band, `wait`, a harmless `puff`,
+`brace` on the ring), `after`, the ledger's question (`classify`, which must
+include the right `intensity`; 1 to 10 or `"10+"`), the vault script, and the
+queue moving on (`servedVar`, `event`). `{ "bank": "next", "queue": "regular" }`
+serves whoever is next. A missed brace is graded 0 (blown back), never a
+failure. `{ "grandCurrency": "purchase" }` buys the currency once: up to
+`gold` out of the purse, `amount` into `var`, never gold.
+
+### Rooms a character may be in (`rooms`, NPCs)
+
+```json
+{ "id": "brogath", "name": "Brogath the Bashful", "rooms": ["crew_quarters", "galley", "main_deck"] }
+```
+
+A placement of that character on any other map is a validation error, and
+the world treats it as absent anyway (`roomGuard`). Use it for anyone who
+must never wander somewhere (Brogath and the hold).
+
+### Presets with a purse, and the rest
+
+- **Presets** can set the purse: `"gold": 125` (the last preset in the chain that says wins).
+- **Logbooks** can grow with the story: give each entry an `if` on its own flag and keep a counter variable for props that show the list getting longer (the Brogath Rules: `brogath_rules`, `brogath_rule_<id>`).
+- **Cardboard looks:** an appearance with `"painter": "cardboard"` is painted by `src/art/characters/cardboardPainter.js` (a printed cut-out on a stand, with `blush`, `loaded`, `worn` and the like); its portrait expressions are print changes.
+
 ## Tilesets and props
 
 **Tilesets** (`data/tilesets/`) list `frames` (painted by name in

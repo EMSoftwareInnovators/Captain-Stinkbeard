@@ -74,7 +74,7 @@ export class GameDriver {
     await this.wait(700);
   }
 
-  /** Current UI state: tutorial | choice | line | typing | insert | repair | tension | book | tv | idle | busy | battle. */
+  /** Current UI state: tutorial | choice | line | typing | insert | repair | tension | book | tv | teller | idle | busy | battle. */
   uiState() {
     return this.eval(() => {
       const g = window.__GAME__;
@@ -87,6 +87,7 @@ export class GameDriver {
       if (o.tutorialOpen) return 'tutorial';
       if (o.repairOpen) return 'repair';
       if (o.tvOpen) return 'tv';
+      if (o.tellerOpen) return 'teller';
       if (d.choiceMenu) return 'choice';
       if (d.resolveLine && !d.typing) return 'line';
       if (d.resolveLine && d.typing) return 'typing';
@@ -135,6 +136,11 @@ export class GameDriver {
       if (st === 'tv') {
         // A television close-up (the S.E.S.): step away from it.
         await this.tap('KeyX', 45, 250);
+        continue;
+      }
+      if (st === 'teller') {
+        // The Grand Bank's teller window (Story Phase 14) plays itself with the debug auto timing on.
+        await this.wait(200);
         continue;
       }
       if (st === 'line' || st === 'tutorial' || st === 'choice' || st === 'insert') await this.tap('KeyZ', 45, 60);

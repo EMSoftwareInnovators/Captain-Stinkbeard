@@ -499,6 +499,39 @@ The Ancient Stenchmaster Delirium. The rest of the day.
 
 See [docs/STORY_PHASE13.md](docs/STORY_PHASE13.md).
 
+## What's in Story Phase 14
+
+Return of Brogath. The night of the command crisis, and the days after.
+
+- **Twenty-four chapters** (146 to 169) and **twenty-five quests**, one left
+  open on purpose (the Grand Waft Trials never happen).
+- **The treasure-room door**, opened a crack. One plume gets out, follows its
+  nose through the galley, and goes into the cardboard cut-out of **Brogath
+  the Bashful**. He's back: polite, earnest, bashful, and dangerous only when
+  embarrassed.
+- **Brogath Stability**: a learnable pressure meter (BASHFULNESS), from
+  PLEASED to CRITICAL, with ANGRY apart. Flutter, apologies, machinery and
+  laughter raise it; praise, "distinguished" and agreeing it was a toot calm
+  it. Nothing is random, every prompt has a calming answer, and the worst
+  that happens is a comic, safe eruption. **The Brogath Rules** grow on a
+  parchment, one incident at a time.
+- **Garrick back in office** (the sash, by fire tongs), two Grand
+  Stenchmasters at one breakfast, and the **Fart-Free Zone** under the hold
+  stairs: a refuge for good.
+- **The Grand Currency**: ten real doubloons out of the purse, exactly once,
+  for twenty thousand plastic tokens that are not gold and buy nothing.
+- **The Grand Bank**, raised by the Anger Waft: the captain at the **teller's
+  window** (hold the band, brace on the ring; nothing can be failed), nineteen
+  depositors, and Grandmother Gustilda (10+: ABSOLUTELY NOT). Then the branch
+  concludes business, and the bank is gone.
+- **Ten minutes and forty-seven seconds**, the Steel Brogath warning, and
+  **Mandatory History Night**: he stays, as the Ancient Historical Consultant.
+  The Revenge is still inside the Great Sharkstorm.
+- Nine new tracks and 38 sound effects, synthesised in code; Brogath drawn as
+  a cardboard cut-out whose print blushes with his stability.
+
+See [docs/STORY_PHASE14.md](docs/STORY_PHASE14.md).
+
 ## Project layout
 
 ```
@@ -576,9 +609,10 @@ checksum of the state and a display summary. Corrupt, tampered or
 newer-version saves are reported in the slot list instead of crashing; older
 versions pass through the migration table in `src/systems/save/migrations.js`.
 The game autosaves on entering a map and after battles. The schema is at
-version 13: Phases 11 to 13 add only flags, variables and story values (the
-standees' spots, the suspension's hours, the pocket edition's wear), and the
-delirium's aliases are never saved, so an older save loads where it was. If storage is
+version 14: Phases 11 to 14 add only flags, variables and story values (the
+standees' spots, the suspension's hours, the pocket edition's wear, Brogath's
+pressure, the bank's queue, the Grand Tokens), and the delirium's aliases are
+never saved, so an older save loads where it was. If storage is
 unavailable (private browsing), the game runs with in-memory saves.
 
 ## Debug tools (development builds)
@@ -601,14 +635,19 @@ Press **F2** in `npm run dev`:
   Phase 8 points from Phase 8 Start to Phase 8 Complete, the
   thirty-nine Phase 9 points from Phase 9 Start to Phase 9 Complete, the
   forty-five Phase 10 points from Phase 10 Start to Phase 10 Complete, the
-  eighteen Phase 11 points, the twenty-one Phase 12 points and the
-  twenty-four Phase 13 points, each from Start to Complete)
+  eighteen Phase 11 points, the twenty-one Phase 12 points, the
+  twenty-four Phase 13 points and the twenty-five Phase 14 points, each from
+  Start to Complete)
 - **Warp** — teleport to any spawn point on any map
 - **Flags** — view and toggle every declared story flag
 - **Quests** — start, advance, complete or reset any quest
 - **Items** — give any item or +100 gold
 - **Party** — heal, set HP to 1, level up, grant XP, reset level
 - **Battle** — start any encounter (including test encounters)
+- **Brogath** — jump to any Phase 14 chapter; Brogath's state, pressure,
+  anger, settle and spawn (only in his rooms); replay a flutter incident, an
+  eruption, the Apology Eruption or the catastrophe; open or close the Grand
+  Bank and serve any depositor; Grand Tokens
 - **Tools** — collision view, trigger/warp view, noclip, fume immunity, clear
   fume exposure, automatic perfect timed hits, info HUD, reload the current
   map, autosave now
@@ -639,5 +678,6 @@ plays Shark Duty until a condition holds).
 - [docs/STORY_PHASE11.md](docs/STORY_PHASE11.md) — Story Phase 11 flow, flags, systems
 - [docs/STORY_PHASE12.md](docs/STORY_PHASE12.md) — Story Phase 12 flow, flags, systems
 - [docs/STORY_PHASE13.md](docs/STORY_PHASE13.md) — Story Phase 13 flow, flags, systems
+- [docs/STORY_PHASE14.md](docs/STORY_PHASE14.md) — Story Phase 14 flow, flags, systems
 - [docs/RETRO_PORT_NOTES.md](docs/RETRO_PORT_NOTES.md) — formats, math and
   assumptions for future 16-bit ports

@@ -586,6 +586,50 @@ can use:
   counted objective (`progress`). The validator follows each scene's vista
   through its calls and branches and checks every vista layer command.
 
+## A character's stability, a teller's window, and rooms (Phase 14)
+
+Story Phase 14 ([14](STORY_PHASE14.md)) added one room (the Fart-Free Zone)
+and these reusable parts:
+
+- **Stability** (a learnable pressure meter for a character). Rules in
+  `src/systems/stability.js` (engine-agnostic: `stabilityDef`, `stateFor`,
+  `readStability`, `writePressure`, `addPressure`, `promptOptions`,
+  `incidentDef`, `stepIncident`); a subject is data in
+  `data/story/stability/` (bands, warning stages, triggers, calms, prompt
+  sets, incidents). The pressure is a saved story variable and the state a
+  derived story value, so dialogue, looks and placements can read it. The
+  `stability` command applies a trigger or calm, sets or adds pressure,
+  turns the scripted ANGRY state on or off, shows or hides the meter, starts
+  or secures an incident, and settles everything after a catastrophe; the
+  `reassure` command offers a prompt set's options (always one that calms,
+  chosen by a turn counter, so the same moment always offers the same
+  choice). `src/world/StabilityRunner.js` is the part with a clock: a running
+  incident raises the pressure only while the captain has control, writes it
+  back at each warning stage (each with a sound on a cooldown), and at the
+  top plays the incident's eruption script; it drives the meter
+  (`OverlayScene.setStability`: hidden until it matters, the state in words,
+  never sound alone) and the cardboard's shiver (none with reduced effects).
+  Nothing in it is random.
+- **The teller's window** (a hold-and-brace timing game). Rules in
+  `src/systems/bank.js` (`createTeller`, `stepTeller`, `tellerScore`,
+  `autoTeller`, the scale), drawn by `src/ui/TellerView.js`; a bank and its
+  depositors are data in `data/story/bank/`. The `bankDeposit` command runs
+  one depositor (intro, window, the ledger's question, the vault script, the
+  queue moving on) and `bank` serves the next in a queue. A depositor is a
+  pattern of beats (take, hold, wait, puff, brace). It cannot be failed: a
+  missed brace is graded 0 and the shift goes on; pressing early only locks
+  the button for a moment. The debug auto timing plays it.
+- **A second currency** that never touches gold. `grandCurrency: "purchase"`
+  takes up to the bank's `gold` from the purse, exactly once (behind its
+  flag), and adds the amount to its own story variable.
+- **Rooms.** An NPC's `rooms` lists the only maps it may be placed in.
+  `roomGuard` (`src/world/placements.js`) makes `placementChoices` treat any
+  other placement as absent (the world, the test hooks and the staging
+  check all pass it), and the validator rejects one.
+- **Cardboard characters.** `src/art/characters/cardboardPainter.js` paints a
+  printed cut-out on a stand (sheets and portraits); expressions are print
+  changes, and the NPC's variants pick the look from the stability state.
+
 ## Battle
 
 `BattleEngine` (`src/systems/battle/`) owns the rules and is fully
@@ -732,9 +776,9 @@ and walks into the next chapter. Aliases are never saved.
 
   | Tag | What |
   | --- | --- |
-  | `@smoke` | a few minutes: menus, movement, a pad, Phase 2 presets, being walled in, the Dead Center's sealed door, the Forecast Board, the S.E.S., the Mark II knob panel, the discount-store reveal, the reef passage, the wrong-way entry, the sauce-can aerial, the six-rope lamp, the late-night knobs, the sealed treasure door, the thirty-second trial (held with real key presses), the Grand Dice, Garrick suspended, Stench-O-Vision with the hazard off, the delirium, the standees across a save |
-  | `@story` | the long playthroughs (prologue, Phase 2, Phase 3, chapters 12 to 14, Phase 4, chapters 18 and 19, Phase 5, chapters 23 and 24, Phase 6, Phase 7, chapters 39 to 41, Phase 8, chapters 51 to 54, Phase 9, chapters 62 to 70, Phase 10, chapters 90 to 95, Phase 11, chapters 104 to 111, Phase 12, chapters 121 to 126, Phase 13, chapters 139 to 145) |
-  | `@prologue` `@phase2` `@phase3` `@phase4` `@phase5` `@phase6` `@phase7` `@phase8` `@phase9` `@phase10` `@phase11` `@phase12` `@phase13` | by part of the story |
+  | `@smoke` | a few minutes: menus, movement, a pad, Phase 2 presets, being walled in, the Dead Center's sealed door, the Forecast Board, the S.E.S., the Mark II knob panel, the discount-store reveal, the reef passage, the wrong-way entry, the sauce-can aerial, the six-rope lamp, the late-night knobs, the sealed treasure door, the thirty-second trial (held with real key presses), the Grand Dice, Garrick suspended, Stench-O-Vision with the hazard off, the delirium, the standees across a save, the BASHFULNESS meter, the teller's window, the Grand Bank across a save |
+  | `@story` | the long playthroughs (prologue, Phase 2, Phase 3, chapters 12 to 14, Phase 4, chapters 18 and 19, Phase 5, chapters 23 and 24, Phase 6, Phase 7, chapters 39 to 41, Phase 8, chapters 51 to 54, Phase 9, chapters 62 to 70, Phase 10, chapters 90 to 95, Phase 11, chapters 104 to 111, Phase 12, chapters 121 to 126, Phase 13, chapters 139 to 145, Phase 14, chapters 163 to 169) |
+  | `@prologue` `@phase2` `@phase3` `@phase4` `@phase5` `@phase6` `@phase7` `@phase8` `@phase9` `@phase10` `@phase11` `@phase12` `@phase13` `@phase14` | by part of the story |
   | `@input` `@saves` `@world` `@scenes` `@ui` | by system |
 
   `npm run e2e:smoke`, `npm run e2e:quick` (all but `@story`),
@@ -755,7 +799,7 @@ and walks into the next chapter. Aliases are never saved.
     - an objective's object covered by someone standing on it (talking
       comes first) whose dialogue doesn't start the same scene;
     - the captain arriving on someone's placed tile.
-- `tests/phase2_story.test.js` to `tests/phase13_story.test.js` play the Story Phases headlessly with the real
+- `tests/phase2_story.test.js` to `tests/phase14_story.test.js` play the Story Phases headlessly with the real
   scripts, quests and triggers and mock services, twice (always the first
   choice, always the last), and fails on any dead end, loop or script error.
   `tests/phase2.test.js` covers the fume model, variants, chapters and time of
@@ -796,7 +840,15 @@ and walks into the next chapter. Aliases are never saved.
   to 13 story tests also save mid-phase through the real `SaveManager` and
   play on from the load (`reloadStory` in the harness). The older phases'
   "stays inside its brief" scans read the shared logbooks and programmes
-  through `tests/laterPhases.js`, without what a later phase unlocks.
+  through `tests/laterPhases.js`, without what a later phase unlocks. `tests/phase14.test.js` covers stability (states,
+  triggers and calms, prompts, incidents, anger and settling), the teller's
+  window, the Grand Currency (ten doubloons once, never gold), the rooms
+  guard, the debug tab, and saves 13 → 14; the Phase 14 story test also
+  checks one reincarnation, the bank gone after it concludes, a save in the
+  middle of the teller's shift, and stability put back after each
+  catastrophe. `tests/storyStaging.js` also checks that whatever an open
+  objective needs is reachable from where the captain stands, and walks him
+  up to an object from a side he can reach.
 
 ## Adding Chapter 8 (or anything else)
 
