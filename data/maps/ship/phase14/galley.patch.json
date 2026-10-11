@@ -266,6 +266,24 @@
    "script": "p14c24.sash"
   },
   {
+   "id": "p14_nj_sash_b",
+   "type": "inspect",
+   "x": 9,
+   "y": 10,
+   "w": 3,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "history_night.ads"
+     },
+     {
+      "notFlag": "p14_nj_sash"
+     }
+    ]
+   },
+   "script": "p14c24.sash"
+  },
+  {
    "id": "p14_tokens_galley",
    "type": "inspect",
    "x": 3,

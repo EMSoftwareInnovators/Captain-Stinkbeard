@@ -210,7 +210,8 @@ export const STEPS14 = [
   ['history_night.ads', async (s) => {
     await go(s, G);
     if (!s.has('p14_nj_eyes')) await s.talk('brogath');
-    else if (!s.has('p14_nj_sash')) await s.inspect('p14_nj_sash');
+    // Either of the galley's sash hammocks will do (the last-option walk ties the other one).
+    else if (!s.has('p14_nj_sash')) await s.inspect(s.pickLast ? 'p14_nj_sash_b' : 'p14_nj_sash');
     else await s.inspect('p14_mk2_channel');
   }],
   ['history_night.license', async (s) => {

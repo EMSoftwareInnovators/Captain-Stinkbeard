@@ -101,7 +101,7 @@ script sets any of those, and that no story trigger starts anything after `p14_c
 - **166 The Branch Concludes Business.** REDEEM THE TOKENS (the vault); what they're for; the bank back, without you in it.
 - **167 Distinguishedly Furious.** Console him (five rounds of the right thing to say).
 - **168 The Brogath Problem** (the zone). Read up on dispersing him; the sums (the slate, on the back wall); tell him.
-- **169 Mandatory History Night.** Sleep in the zone; the Mark II on by itself (the galley); turn it off (it isn't plugged in); watch it with him; a commercial break (eyes, sashes, channel); explain the sashes.
+- **169 Mandatory History Night.** Sleep in the zone; the Mark II on by itself (the galley); turn it off (it isn't plugged in); watch it with him; a commercial break, all in the galley (his eyes; either sash hammock by the long table; the Mark II's channel); explain the sashes.
 
 What branches: what the captain says to Brogath (every prompt has a calming answer; others
 raise his pressure, and at the top a small, safe eruption plays and he settles back), the
