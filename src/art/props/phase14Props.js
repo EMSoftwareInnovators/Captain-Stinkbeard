@@ -383,11 +383,16 @@ function zoneTable() {
   c.outline(INK);
   return c;
 }
-function zoneSlate() {
+/** The slate on the zone's back wall: blank (a smudge, a stub of chalk on the frame) until the ingredients go on it. */
+function zoneSlate({ blank = false } = {}) {
   const c = canvas(16, 20);
   c.rect(1, 2, 14, 11, '#2a2e32');
   c.strokeRect(1, 2, 14, 11, WOOD.l);
-  for (let i = 0; i < 4; i++) c.hline(3, 9 + (i % 2) * 3, 4 + i * 2, '#e8e8e0');
+  if (blank) {
+    c.hline(4, 9, 6, '#3e4448');
+    c.hline(5, 11, 9, '#3a4044');
+    c.rect(10, 12, 3, 1, '#f0f0e8');
+  } else for (let i = 0; i < 4; i++) c.hline(3, 9 + (i % 2) * 3, 4 + i * 2, '#e8e8e0');
   c.outline(INK);
   return c;
 }
@@ -490,7 +495,8 @@ export const PHASE14_PROPS = {
   zone_mattress: () => zoneMattress(),
   zone_mattress_bare: () => zoneMattress({ bare: true }),
   zone_table: zoneTable,
-  zone_slate: zoneSlate,
+  zone_slate: () => zoneSlate(),
+  zone_slate_blank: () => zoneSlate({ blank: true }),
   zone_blankets: () => zoneWall('blankets'),
   zone_sashes: () => zoneWall('sashes'),
   zone_rags: () => zoneWall('rags'),

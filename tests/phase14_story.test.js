@@ -7,6 +7,7 @@ import { readStability } from '../src/systems/stability.js';
 import { stabilitySubject } from '../src/systems/script/commands.js';
 import { resolvePreset } from '../src/debug/presets.js';
 import { evaluateCondition } from '../src/systems/conditions/conditions.js';
+import { isObjectiveJob } from '../src/world/inspectTarget.js';
 import { SaveManager } from '../src/systems/save/SaveManager.js';
 import { MemoryStorage } from '../src/platform/storage.js';
 import { makeStory, reloadStory } from './storyHarness.js';
@@ -106,6 +107,32 @@ describe('Story Phase 14 staging', () => {
     const at = (id) => { const o = q.objects.find((x) => x.id === id); return [o.x, o.y]; };
     expect(at('p14_bar_shield_door')).toEqual(at('decor_standee_rumpus_door'));
     expect(at('p14_bar_shield')).toEqual(at('decor_standee_rumpus_table'));
+  });
+});
+
+describe('Every spot the captain is sent to look at has something there to see', () => {
+  it('a prop on it, or a door, stairs or the like in the room itself (Beyond Broke\'s slate hangs on the zone\'s back wall, blank, before anything is written on it)', async () => {
+    const s = makeStory({ pick: 'first', preset: 'p13_complete' });
+    const bare = [];
+    const inspect = s.inspect.bind(s);
+    s.inspect = async (id) => {
+      const obj = s.object(id);
+      if (isObjectiveJob(obj)) {
+        const map = s.content.maps.require(s.map);
+        const tiles = [];
+        for (let j = 0; j < (obj.h ?? 1); j++) for (let i = 0; i < (obj.w ?? 1); i++) tiles.push([obj.x + i, obj.y + j]);
+        const props = (map.props ?? []).map((p) => (typeof p === 'string' ? { prop: p.split(' ')[0], x: Number(p.split(' ')[1]), y: Number(p.split(' ')[2]) } : p));
+        const drawn = tiles.some(([x, y]) => props.some((p) => {
+          if (p.if && !evaluateCondition(p.if, s.session)) return false;
+          const [fw, fh] = s.content.props.get(p.prop)?.footprint ?? [1, 1];
+          return x >= p.x && x < p.x + fw && y >= p.y && y < p.y + fh;
+        }) || !['.', 'W', 'H', ' '].includes(map.tiles[y]?.[x]));
+        if (!drawn) bare.push(`${s.map}: ${id} (${obj.x},${obj.y})`);
+      }
+      return inspect(id);
+    };
+    await playPhase14('first', { from: s });
+    expect(bare).toEqual([]);
   });
 });
 

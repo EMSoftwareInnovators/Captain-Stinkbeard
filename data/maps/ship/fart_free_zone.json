@@ -86,6 +86,22 @@
    "id": "p14z_zone_slate_3_3"
   },
   {
+   "prop": "zone_slate_blank",
+   "x": 3,
+   "y": 3,
+   "if": {
+    "all": [
+     {
+      "flag": "p14_ch156_started"
+     },
+     {
+      "notFlag": "p14_ingredients"
+     }
+    ]
+   },
+   "id": "p14z_zone_slate_blank_3_3"
+  },
+  {
    "prop": "zone_blankets",
    "x": 1,
    "y": 3,

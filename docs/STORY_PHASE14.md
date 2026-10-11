@@ -89,7 +89,7 @@ script sets any of those, and that no story trigger starts anything after `p14_c
 - **154 Beans of Ancient Precedent.** A compliment each, by turns; serve breakfast (six dishes); EMERGENCY MEETING (the little door under the hold stairs).
 - **155 The Fart-Free Zone.** Hold the meeting (Pete); nine supplies round the ship; the cards.
 - **156 Getting Rid of Brogath.** Four plans (Jim, Gristle, Bob, Ned), then Pete's.
-- **157 Beyond Broke.** Read the pocket edition; the slate; the warning at the foot of the hold stairs.
+- **157 Beyond Broke.** Read the pocket edition (the table in the zone); write it down on the slate (on the zone's back wall, blank until then); the warning at the foot of the hold stairs.
 - **158 The Grand Economy of Farts.** Read on; sleep.
 - **159 Bad Money.** What's got him so pleased; your purse (your cabin); the delivery on deck; open it (the galley).
 - **160 Grand Temporary Ancient Oat Security Officer.** The job; three sacks; check on him; sweep up.
@@ -100,7 +100,7 @@ script sets any of those, and that no story trigger starts anything after `p14_c
 - **165 Legendary Depositors.** Three legends, the last of them Grandmother Gustilda.
 - **166 The Branch Concludes Business.** REDEEM THE TOKENS (the vault); what they're for; the bank back, without you in it.
 - **167 Distinguishedly Furious.** Console him (five rounds of the right thing to say).
-- **168 The Brogath Problem** (the zone). Read up on dispersing him; the sums; tell him.
+- **168 The Brogath Problem** (the zone). Read up on dispersing him; the sums (the slate, on the back wall); tell him.
 - **169 Mandatory History Night.** Sleep in the zone; the Mark II on by itself (the galley); turn it off (it isn't plugged in); watch it with him; a commercial break (eyes, sashes, channel); explain the sashes.
 
 What branches: what the captain says to Brogath (every prompt has a calming answer; others
