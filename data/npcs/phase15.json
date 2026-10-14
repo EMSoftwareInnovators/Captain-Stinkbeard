@@ -1,0 +1,140 @@
+[
+ {
+  "id": "visitor_one",
+  "name": "Stoner #1",
+  "title": "Visitor (out of the Sharkstorm)",
+  "appearance": "visitor_one",
+  "portrait": "visitor_one",
+  "voice": {
+   "pitch": 0.82
+  },
+  "behavior": {
+   "type": "stand",
+   "lookAround": true
+  },
+  "rooms": [
+   "main_deck",
+   "galley",
+   "crew_quarters",
+   "fart_free_zone"
+  ],
+  "//": "Story Phase 15: one of two very relaxed grown men the Sharkstorm spat onto the deck in their little boat (chapter 175). Slow, philosophical, kind; thinks it's all a hallucination and respects it anyway. Still aboard at the end of the phase.",
+  "dialogue": [
+   {
+    "script": "visitor_one.idle"
+   }
+  ]
+ },
+ {
+  "id": "visitor_two",
+  "name": "Stoner #2",
+  "title": "Visitor (out of the Sharkstorm)",
+  "appearance": "visitor_two",
+  "portrait": "visitor_two",
+  "voice": {
+   "pitch": 1.15
+  },
+  "behavior": {
+   "type": "stand",
+   "lookAround": true
+  },
+  "rooms": [
+   "main_deck",
+   "galley",
+   "crew_quarters",
+   "fart_free_zone"
+  ],
+  "//": "Story Phase 15: the other visitor. Excitable, literal, delighted by everything ('Bro.'). It was his birthday.",
+  "dialogue": [
+   {
+    "script": "visitor_two.idle"
+   }
+  ]
+ },
+ {
+  "id": "agnes_second",
+  "name": "Agnes the Second",
+  "title": "Chicken",
+  "appearance": "agnes_second",
+  "portrait": "agnes_second",
+  "voice": {
+   "pitch": 1.7
+  },
+  "behavior": {
+   "type": "wander",
+   "radius": 2
+  },
+  "shadow": "shadow_xs",
+  "rooms": [
+   "crew_quarters",
+   "galley",
+   "main_deck"
+  ],
+  "//": "Story Phase 15: a small brown hen who came down out of the Sharkstorm on a parachute (chapter 181). Brogath named her for the Agnes of Lower Wafting. She wanders a little round wherever she's put (never far: radius 2), pecks, and sits on Brogath's foot. Blown back into the Sharkstorm by Vindicta (chapter 185): agnes_second_missing_in_sharkstorm.",
+  "dialogue": [
+   {
+    "script": "agnes_second.idle"
+   }
+  ]
+ },
+ {
+  "id": "branch_teller",
+  "name": "The Branch Teller",
+  "title": "Bashfulness Branch",
+  "appearance": "branch_teller",
+  "portrait": "branch_teller",
+  "voice": {
+   "pitch": 0.95
+  },
+  "behavior": {
+   "type": "stand"
+  },
+  "rooms": [
+   "crew_quarters"
+  ],
+  "//": "Story Phase 15: the Bashfulness Branch's own teller, made of haze. Serves the night depositors; clocks out in chapter 183 (forty years, no tea break) and makes the captain RELIEF GRAND TELLER.",
+  "dialogue": [
+   {
+    "script": "branch_teller.idle"
+   }
+  ]
+ },
+ {
+  "id": "vindicta",
+  "name": "Vindicta Thunderwaft",
+  "title": "Grand Stenchmistress (Unserved)",
+  "appearance": "vindicta",
+  "portrait": "vindicta",
+  "voice": {
+   "pitch": 0.9
+  },
+  "behavior": {
+   "type": "stand"
+  },
+  "rooms": [
+   "main_deck"
+  ],
+  "//": "Story Phase 15: Grand Stenchmistress Vindicta Thunderwaft the Unserved, the last customer, who refuses to dissolve properly (chapter 185). Her blast clears the Great Mellowing out of the ship. Still trying to re-form at the end.",
+  "dialogue": [
+   {
+    "script": "vindicta.idle"
+   }
+  ]
+ },
+ {
+  "id": "spectral_customer",
+  "name": "A Customer",
+  "title": "Bashfulness Branch",
+  "appearance": "spectral_customer",
+  "voice": {
+   "pitch": 1.05
+  },
+  "behavior": {
+   "type": "stand"
+  },
+  "rooms": [
+   "crew_quarters"
+  ],
+  "//": "Story Phase 15: the last-second customers at the closing branch (chapter 184), who can't remember their names, why they came, or which sash is theirs."
+ }
+]

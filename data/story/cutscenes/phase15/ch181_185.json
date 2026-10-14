@@ -1,0 +1,1655 @@
+{
+ "//": "Story Phase 15, chapters 181-185: Agnes the Second and the Great Mellowing, the Untold Stories (everybody's jobs), the Relief Grand Teller shift, the Sash-Backed Loan Emergency and the branch closing, and the One Fart He Actually Misses (peace, munchies, Vindicta, normality, Agnes gone, trying again, the policy, not today).",
+ "p15c12.begin": [
+  {
+   "setFlag": "p15_ch181_started"
+  },
+  {
+   "banner": "CHAPTER 181",
+   "sub": "The Great Mellowing"
+  },
+  {
+   "music": "brogath_morning",
+   "fade": 800
+  },
+  "hale: (shouting down the hatch) CAPTAIN! Something coming DOWN!",
+  {
+   "startQuest": "great_mellowing"
+  },
+  {
+   "tutorial": "See what's coming down out of the Sharkstorm (the deck).",
+   "title": "The Great Mellowing"
+  }
+ ],
+ "p15c12.see": [
+  {
+   "setFlag": "p15_parachute_seen"
+  },
+  "You come up on deck. Everybody's at the rail, looking up.",
+  "Out of the middle of the Sharkstorm, swinging gently from side to side, comes a little red-and-white parachute.",
+  {
+   "sfx": "wind_gust",
+   "volume": 0.5
+  },
+  "Under it, in a harness that appears to be made of string and somebody's sock, there is a chicken.",
+  "A small brown hen. Looking round at the sharks with an expression of mild interest.",
+  "gristle: ...Is that a CHICKEN?",
+  "squawks: Chicken?",
+  "It lands on the deck amidships. Bump. The parachute folds down over it. The parachute starts walking about.",
+  {
+   "sfx": "hen_cluck",
+   "volume": 0.9
+  },
+  "visitor_two: (gripping his friend's arm) Bro. BRO. That's the chicken. From the TV.",
+  "visitor_one: (very slowly) It's... AGNES.",
+  {
+   "tutorial": "Catch it (the chicken).",
+   "title": "The Great Mellowing"
+  }
+ ],
+ "p15c12.catch": [
+  {
+   "if": {
+    "flag": "agnes_second_on_ship"
+   },
+   "then": [
+    "Agnes. Pecking at the deck. Perfectly happy.",
+    {
+     "end": true
+    }
+   ]
+  },
+  "The parachute heads for the rail. You head it off. It doubles back. You dive.",
+  {
+   "repair": "grab",
+   "strikes": 3,
+   "title": "CATCH HER"
+  },
+  {
+   "sfx": "hen_cluck",
+   "volume": 1.0
+  },
+  "You come up with an armful of parachute, sock, string and hen. She looks at you. She settles in, as if she's been carried by pirates all her life.",
+  {
+   "setFlag": "agnes_second_on_ship"
+  },
+  {
+   "addVar": "agnes_second_arrivals",
+   "value": 1
+  },
+  "captain: (to the hen) Right. Don't do anything. Don't do ANYTHING.",
+  "pete: (very quietly, at your shoulder) Captain. You know who's going to want to see her.",
+  {
+   "tutorial": "Take her to Brogath (the old quarters).",
+   "title": "The Great Mellowing"
+  }
+ ],
+ "p15c12.brogath": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "brogath[confused]: (looking up from the bedroom set) Captain? What have you got?",
+  "She puts her head out of the parachute.",
+  "brogath[alarmed]: (very still) ...Oh.",
+  "brogath[thoughtful]: (whispering) Agnes?",
+  "She isn't. She can't be. Four hundred years. But she's brown, and small, and she looks at him exactly the way a chicken looks at a man, and Brogath's printed eyes go very bright.",
+  "visitor_one: (in the doorway, breathless) Do the green one. Dude, do the GREEN one...",
+  "captain[determined]: NOBODY is doing ANY one.",
+  "You put her down. Just to free your arms. Just for a second.",
+  {
+   "sfx": "hen_cluck",
+   "volume": 0.8
+  },
+  "She walks straight over to Brogath, steps up onto his printed boot, and settles on it. On his FOOT. Like the old Agnes did.",
+  "brogath[bashful]: (very pink) Oh. Oh, she's on my foot.",
+  "She looks up at the gold tab of his printed sash, the bit that hangs down. And pecks it.",
+  {
+   "sfx": "flutter_tiny",
+   "volume": 0.7
+  },
+  "The tab flutters.",
+  "brogath[embarrassed]: (pinker) Oh. Oh, she's... the sash... it's MOVING...",
+  "The card creaks. The visitors stop breathing. Pete grabs your arm. Agnes looks up at Brogath with mild interest.",
+  "And it comes. Not loud. Not hot. A long, soft, wobbling note, and a slow wave of green.",
+  {
+   "sfx": "skunk_waft_big",
+   "volume": 1.0
+  },
+  {
+   "shake": 4,
+   "duration": 2600
+  },
+  {
+   "flash": "#c8e0a0",
+   "duration": 400
+  },
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 8,
+   "count": 22
+  },
+  {
+   "atmosphere": "MELLOW_HAZE"
+  },
+  {
+   "sharkstorm": "mellow_clambake"
+  },
+  {
+   "setFlag": "great_mellowing"
+  },
+  {
+   "music": "great_mellowing",
+   "fade": 1200
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 36
+  },
+  "It fills the quarters, and rolls up the ladder, and along the corridor, and into the galley, and out across the deck, and up the rigging to the crow's nest, and over the rail, and out into the Sharkstorm.",
+  "The Sharkstorm goes green at the edges. It slows down. You can see the sharks going round with their fins down, and then on their backs, and one of them, distinctly, yawns.",
+  "The sea goes flat and lazy. The sky goes the colour of an old pear.",
+  "And everybody on the ship lets go of something they've been holding since the treasure room.",
+  "pete: (sitting down slowly on the floor, smiling) ...Oh, that's nice.",
+  "gristle: (from the ladder, lying down on it) Huh.",
+  "visitor_two: (on his back, arms out) THE CLAMBAKE. It's the CLAMBAKE, man.",
+  "brogath: (looking down at Agnes) Agnes. Agnes the Second.",
+  "Agnes the Second settles on his foot and shuts her eyes.",
+  {
+   "sfx": "bbk_tink",
+   "volume": 0.6
+  },
+  {
+   "sfx": "bbk_tink",
+   "volume": 0.8
+  },
+  {
+   "insert": "bbk_dude"
+  },
+  "From the King, at about half his usual speed: DUDE. HOLD MY SASH. BUT LIKE... LATER.",
+  "You stand in the middle of it. Green haze. A mellow crew. A mellow storm. A mellow chicken.",
+  "And you feel... exactly the same. Exhausted. Sober. Itchy. Like the only man awake at a very long party.",
+  {
+   "setFlag": "p15_mellowing_seen"
+  },
+  {
+   "save": "auto"
+  },
+  {
+   "tutorial": "Walk the ship. Everybody's... different. (Garrick, Pete, Gristle, Bob, Jim, the visitors.)",
+   "title": "The Great Mellowing"
+  }
+ ],
+ "p15c12.mellow_garrick": [
+  "garrick: (sitting on the galley floor, holding a wooden spoon up to the light) Captain. Have you ever really LOOKED at a spoon?",
+  "captain: Any decrees today, Garrick?",
+  "garrick: (turning it slowly) Decrees... (long pause) Nah.",
+  "He hasn't issued one since breakfast. It's the longest he has ever gone.",
+  {
+   "setFlag": "p15_mellow_garrick"
+  },
+  {
+   "event": "p15_mellow"
+  }
+ ],
+ "p15c12.mellow_pete": [
+  "pete: (lying on the floor, smiling at the ceiling) Hey, Captain.",
+  "captain: Pete, is Brogath all right? Is anyone watching his...",
+  "pete: (waving a hand vaguely) He's fine. Everybody's fine. Have a cracker.",
+  "Pete, the man who has noticed every blush since Brogath came back, is not watching for blushes. Pete is eating a cracker. Very slowly.",
+  {
+   "setFlag": "p15_mellow_pete"
+  },
+  {
+   "event": "p15_mellow"
+  }
+ ],
+ "p15c12.mellow_gristle": [
+  "gristle: (on deck, lying by the rail, watching the sharks go round) Look at 'em, Captain. On their backs. Not a tooth in the hull all morning.",
+  "gristle: (contentedly) I've hated them for twenty years. I don't hate 'em today.",
+  {
+   "setFlag": "p15_mellow_gristle"
+  },
+  {
+   "event": "p15_mellow"
+  }
+ ],
+ "p15c12.mellow_bob": [
+  "bob: (sitting with a paperweight in each hand, not holding anything down) I've let go of the napkin, Captain.",
+  "bob: It was never about the napkin.",
+  {
+   "setFlag": "p15_mellow_bob"
+  },
+  {
+   "event": "p15_mellow"
+  }
+ ],
+ "p15c12.mellow_jim": [
+  "jim: (in front of the open stores, eating cheese) Hungry, Captain? I'm hungry. I'm SO hungry. I've had four breakfasts.",
+  "jim: (holding up a pickle, with wonder) Have you ever... TASTED a pickle?",
+  {
+   "setFlag": "p15_mellow_jim"
+  },
+  {
+   "event": "p15_mellow"
+  }
+ ],
+ "p15c12.mellow_visitors": [
+  "visitor_one: (lying on the deck, staring up into the green) This is the best boat I've ever been on, man.",
+  "visitor_two: (beside him) It's the ONLY boat I've ever been on that a chicken parachuted onto.",
+  "visitor_one: (nodding slowly) That's what I'm saying.",
+  {
+   "setFlag": "p15_mellow_visitors"
+  },
+  {
+   "event": "p15_mellow"
+  }
+ ],
+ "p15c12.walk_done": [
+  {
+   "setFlag": "p15_walk_said"
+  },
+  "Everybody. Every last one of them. Mellow. Even Squawks is sitting in his basket with his eyes half shut, making a small contented noise.",
+  "Everybody except you.",
+  {
+   "tutorial": "Work out why you're the only one who isn't (Pete).",
+   "title": "The Great Mellowing"
+  }
+ ],
+ "p15c12.sober": [
+  {
+   "if": {
+    "notFlag": "p15_walk_said"
+   },
+   "then": [
+    "pete: (smiling at nothing) Go and see everybody, Captain. Everybody's lovely today.",
+    {
+     "end": true
+    }
+   ]
+  },
+  "pete: (squinting up at you, from the floor) Captain. Why aren't YOU... you know?",
+  "You think about it. You breathe in, through your nose. Through the beard.",
+  "And you smell it. Not the green. The green can't get in. Under your nose there's a year's worth of everything: Garrick, Frog Grog, garlic, onions, the treasure-room cloud, the bank, Gary, the visitors' smoke. It's FULL. There's no room.",
+  "captain[disgusted]: It's my beard. My beard won't let it in.",
+  "pete: (thoughtfully) Your beard is... rejecting it?",
+  "captain[disgusted]: My beard is so full of old stink that the new stink can't GET in. I am the only sober man on this ship because my beard is DISGUSTING.",
+  "pete: (smiling vaguely) That's disgusting, Captain.",
+  "captain[disgusted]: I KNOW.",
+  "pete: (lying back down) Somebody has to run the ship, though. Good thing it's you.",
+  {
+   "setFlag": "p15_only_sober"
+  },
+  {
+   "completeQuest": "great_mellowing"
+  },
+  {
+   "call": "p15c13.begin"
+  }
+ ],
+ "p15c13.begin": [
+  {
+   "setFlag": "p15_ch182_started"
+  },
+  {
+   "banner": "CHAPTER 182",
+   "sub": "The Untold Stories"
+  },
+  {
+   "sfx": "tube_warmup",
+   "volume": 0.6
+  },
+  {
+   "wait": 400
+  },
+  {
+   "sfx": "ad_chime",
+   "volume": 0.7
+  },
+  "From the galley: a jingle. And then, softly, the sound of a sash, fluttering.",
+  {
+   "setValue": "ses_mk2_state",
+   "value": "mellow_ad"
+  },
+  "You get to the galley. The Mark II is showing a sash advert. In slow motion. Brogath is sitting in the front row, watching it, going slowly pink.",
+  "And at their stations: nobody. Gristle is lying on the blanket. Bob has let go of the napkin. Jim is eating the curtain's tie-back. Squawks is asleep in his basket. Pete is on the floor.",
+  "pete: (vaguely) It's fine, Captain. It's... licensed. It's li... it's something. Something with an L.",
+  {
+   "stability": "incident",
+   "id": "mellow_ad"
+  },
+  {
+   "stability": "meter",
+   "show": "show"
+  },
+  {
+   "startQuest": "untold_stories"
+  },
+  {
+   "tutorial": "Do everybody's job: the screen (Gristle's blanket), the sash hammock by the long table, steady Brogath, stop Garrick touching the set, and BRACE when the ship lurches (the long table).",
+   "title": "The Untold Stories"
+  }
+ ],
+ "p15c13.screen": [
+  "You pull the blanket out from under Gristle, who doesn't notice, and throw it over the Mark II. The sashes keep fluttering, faintly, through the wool.",
+  {
+   "stability": "calm",
+   "id": "covered_eyes",
+   "quiet": true
+  },
+  "gristle: (on the floor) Nice throw.",
+  {
+   "setFlag": "p15_job_screen"
+  },
+  {
+   "event": "p15_job"
+  }
+ ],
+ "p15c13.sash": [
+  "The sash hammock by the long table is swaying, and it's a SASH. You knot it down. Jim watches you do it, chewing.",
+  {
+   "repair": "knot",
+   "strikes": 3,
+   "title": "TIE IT DOWN"
+  },
+  {
+   "stability": "calm",
+   "id": "secured",
+   "quiet": true
+  },
+  {
+   "setFlag": "p15_job_sash"
+  },
+  {
+   "event": "p15_job"
+  }
+ ],
+ "p15c13.brogath": [
+  {
+   "if": {
+    "flag": "p15_job_brogath"
+   },
+   "then": [
+    "brogath: (dreamily) It's licensed. You said. I like that."
+   ],
+   "else": [
+    "brogath[embarrassed]: (slowly, pinkly) It's... fluttering, Captain. I don't MIND. I just... I'm going a bit pink. Is that... allowed?",
+    "pete: (from the floor, trying) It's li... it's licen...",
+    {
+     "reassure": "mellow_ad",
+     "var": "p15_mellow_ok"
+    },
+    {
+     "if": {
+      "var": {
+       "name": "p15_mellow_ok",
+       "eq": 0
+      }
+     },
+     "then": [
+      {
+       "reassure": "mellow_ad",
+       "var": "p15_mellow_ok"
+      }
+     ]
+    },
+    "pete: (pointing at you, delighted) THAT. That's the one.",
+    {
+     "setFlag": "p15_job_brogath"
+    },
+    {
+     "event": "p15_job"
+    }
+   ]
+  }
+ ],
+ "p15c13.garrick": [
+  "garrick: (on his knees at the set, one finger out, about to touch the screen) It's so SMOOTH, Captain. It's like a... like a window. Into a sash.",
+  "captain: (taking his finger and putting it back in his lap) Don't touch the set.",
+  "garrick: (looking at his finger) ...That's a good finger.",
+  {
+   "setFlag": "p15_job_garrick"
+  },
+  {
+   "event": "p15_job"
+  }
+ ],
+ "p15c13.brace": [
+  {
+   "sfx": "vortex_roar",
+   "volume": 0.5
+  },
+  {
+   "shake": 3,
+   "duration": 900
+  },
+  {
+   "roll": 5,
+   "duration": 1200,
+   "async": true
+  },
+  "The Sharkstorm, mellowly, leans on the ship, the way a sleepy dog leans on your leg. The galley tilts. The Mark II starts to slide.",
+  {
+   "repair": "brace",
+   "strikes": 3,
+   "title": "BRACE!"
+  },
+  "You get your back against the long table and your boot against the Mark II's crate, and hold it until the ship comes back.",
+  {
+   "setFlag": "p15_job_brace"
+  },
+  {
+   "event": "p15_job"
+  }
+ ],
+ "p15c13.jobs_done": [
+  {
+   "setFlag": "p15_jobs_said"
+  },
+  {
+   "stability": "secure"
+  },
+  {
+   "stability": "settle",
+   "pressure": 8
+  },
+  {
+   "stability": "meter",
+   "show": "hide"
+  },
+  {
+   "setValue": "ses_mk2_state",
+   "value": "possessed"
+  },
+  "Blanket, sash, Brogath, Garrick, crate. Five jobs. Everybody's job. You did all of them.",
+  "Nobody thanks you. Pete gives you a thumbs-up from the floor, and then looks at his thumb for quite a long time.",
+  "And on the set, under the blanket, the advert ends, and a title card comes up.",
+  "channel_narrator: (muffled, through the wool) ...THE UNTOLD STORIES OF BROGATH THE BASHFUL.",
+  "brogath: (lifting the corner of the blanket) Ooh. Untold ones.",
+  {
+   "tutorial": "Watch the Untold Stories (Brogath).",
+   "title": "The Untold Stories"
+  }
+ ],
+ "p15c13.watch": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "vista": "galley_watch",
+   "fade": 400
+  },
+  {
+   "channelEpisode": "untold_stories",
+   "tv": "ses_mk2"
+  },
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "setFlag": "p15_untold_watched"
+  },
+  {
+   "completeQuest": "untold_stories"
+  },
+  {
+   "call": "p15c14.begin"
+  }
+ ],
+ "p15c13.react_cannon": [
+  "brogath: (fondly) I did, too. It was a SMALL cannon. People always make it a big one.",
+  {
+   "sfx": "teller_bell",
+   "volume": 0.5
+  },
+  "From the old quarters, faintly, through the floor: DING."
+ ],
+ "p15c13.react_well": [
+  "brogath: (nodding) Still waiting on that statement.",
+  {
+   "sfx": "teller_bell",
+   "volume": 0.6
+  },
+  "DING. DING.",
+  "captain[annoyed]: (to the floor) We're CLOSED."
+ ],
+ "p15c13.react_coop": [
+  "brogath: The hens spent them on CORN. Billiam traced every coin. It's in the third ledger.",
+  {
+   "sfx": "teller_bell",
+   "volume": 0.7
+  },
+  "DING. DING. DING.",
+  "The bell is getting more insistent. And then, from the quarters, the branch teller's voice, carrying beautifully.",
+  "branch_teller: (distantly) CAPTAIN? A word? At your convenience. Which is NOW."
+ ],
+ "p15c13.ad_erupt": [
+  {
+   "sfx": "brogath_eruption_small",
+   "volume": 0.6
+  },
+  {
+   "burst": "fume",
+   "x": 14,
+   "y": 7,
+   "count": 6
+  },
+  "PFFT. A very small, very mellow one. It smells faintly of pears.",
+  "brogath: (unbothered) Little toot.",
+  "Nobody agrees. Nobody's listening.",
+  {
+   "stability": "set",
+   "pressure": 20
+  }
+ ],
+ "p15c14.begin": [
+  {
+   "setFlag": "p15_ch183_started"
+  },
+  {
+   "banner": "CHAPTER 183",
+   "sub": "Relief Grand Teller"
+  },
+  {
+   "transition": "crew_quarters",
+   "x": 12,
+   "y": 11,
+   "facing": "down"
+  },
+  "The branch. Gleaming. The bell, gleaming. A queue: spectral customers, out of the haze, all the way to the barricade and round it.",
+  "And the teller, coming out from behind the counter with his hat on and his coat over his arm.",
+  "branch_teller: (pinning something to your chest) There we are, sir. Shift's over. I'm off.",
+  "captain[alarmed]: Off WHERE?",
+  "branch_teller: Tea, sir. Forty years. Never had a break. (patting the badge) You'll be fine.",
+  {
+   "giveItem": "relief_teller_badge"
+  },
+  {
+   "insert": "relief_badge"
+  },
+  "RELIEF GRAND TELLER.",
+  "captain: No. NO. I did this. I did this ONCE. There was a GRANDMOTHER.",
+  "branch_teller: (fading pleasantly into the haze) The bell's behind the counter, sir. Same as before. Do mind the long sashes.",
+  {
+   "despawn": "branch_teller"
+  },
+  {
+   "setFlag": "branch_teller_clocked_out"
+  },
+  {
+   "save": "auto"
+  },
+  "pete: (from the floor, mellow) I'll help, Captain.",
+  "He doesn't get up.",
+  {
+   "startQuest": "relief_grand_teller"
+  },
+  {
+   "tutorial": "THE BASHFULNESS BRANCH: you know the window. Take the sash, hold it, BRACE when the rings meet, and record the class. New complications: forgotten titles, backwards forms, whistles, two at once, long sashes, mellow assistants, a desk that slides, the television, and Brogath watching. (Ring the bell, behind the counter.)",
+   "title": "Relief Grand Teller"
+  }
+ ],
+ "p15c14.bell": [
+  {
+   "if": {
+    "var": {
+     "name": "branch_relief_served",
+     "gte": 10
+    }
+   },
+   "then": [
+    "The queue's gone. The bell is quiet. For now.",
+    {
+     "end": true
+    }
+   ]
+  },
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.9
+  },
+  {
+   "bank": "next",
+   "bankId": "bashfulness_branch",
+   "queue": "relief"
+  }
+ ],
+ "p15c14.halfway": [
+  {
+   "setFlag": "p15_relief_half_said"
+  },
+  {
+   "save": "auto"
+  },
+  "Halfway. The queue is shorter. The bell is just as loud.",
+  "brogath: (from his spot, with Agnes on his foot) You're doing ever so well, Captain."
+ ],
+ "p15c14.serve_done": [
+  {
+   "setFlag": "p15_relief_said"
+  },
+  "The last of them dissolves into the haze. Your arms have gone. Your beard is full of other people's deposits. Somewhere in the room, Agnes clucks.",
+  "From the little brass window, a slip of paper slides out. Then another.",
+  {
+   "tutorial": "Collect your rating (the branch window).",
+   "title": "Relief Grand Teller"
+  }
+ ],
+ "p15c14.rating": [
+  {
+   "insert": "teller_rating"
+  },
+  "THE BASHFULNESS BRANCH. RELIEF TELLER: CAPTAIN STINKBEARD. CUSTOMER RATING: 2.3 / 5. CUSTOMERS FOUND TELLER HOSTILE.",
+  "captain[angry]: HOSTILE? I held Gary's SASH.",
+  {
+   "setVar": "teller_rating_x10",
+   "value": 23
+  },
+  {
+   "setFlag": "p15_teller_rated"
+  },
+  {
+   "sfx": "bank_materialise",
+   "volume": 0.6
+  },
+  "And then, beside the window, a second, smaller window lights up, with a little sign over it.",
+  {
+   "insert": "branch_express_window"
+  },
+  "AFTER-HOURS EXPRESS WINDOW.",
+  "captain: (very quietly) It's not over.",
+  {
+   "setFlag": "branch_express_window"
+  },
+  {
+   "completeQuest": "relief_grand_teller"
+  },
+  {
+   "call": "p15c15.begin"
+  }
+ ],
+ "p15c15.begin": [
+  {
+   "setFlag": "p15_ch184_started"
+  },
+  {
+   "banner": "CHAPTER 184",
+   "sub": "The Sash-Backed Loan Emergency"
+  },
+  {
+   "spawn": "whifflebottom",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "whifflebottom",
+   "to": [
+    12,
+    13
+   ],
+   "speed": "run"
+  },
+  {
+   "face": "whifflebottom",
+   "dir": "down"
+  },
+  "A spectral lady comes out of the haze at a run, clutching a very long sash and a bundle of papers, and throws herself at the express window.",
+  "whifflebottom: (breathless) EMERGENCY. Emergency LOAN. Please. PLEASE.",
+  {
+   "startQuest": "sash_backed_loan"
+  },
+  {
+   "tutorial": "Hear her out (the branch window: ring the bell).",
+   "title": "The Sash-Backed Loan Emergency"
+  }
+ ],
+ "p15c15.hear": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "whifflebottom: I am GRAND LADY WHIFFLEBOTTOM THE FINANCIALLY CORNERED, Baroness of the Lesser Gusts, Warden of the Western Wind-Gate, Holder of the Eleven Ceremonial Spoons, Patroness of the...",
+  "captain[tired]: How much?",
+  "whifflebottom: (stopping) Forty-seven silver.",
+  "captain[tired]: What for?",
+  "whifflebottom: (unrolling a list that reaches the floor) Expenses.",
+  {
+   "insert": "loan_expenses"
+  },
+  "Ceremonial socks. Emergency sash-fringe detangling. An unauthorised goat-parking citation. Damages to a pudding cart. A replacement weather vane. Ceremonial spoons. A conventional tax penalty for claiming atmospheric assets. And a new door, because the old door became a window.",
+  "captain: Where did you park the goat?",
+  "whifflebottom: (quietly) In the cathedral.",
+  "captain: And the spoons?",
+  "whifflebottom: (more quietly) Ten of the spoons are accounted for.",
+  "captain: And the eleventh?",
+  "whifflebottom: (very quietly) ...The goat.",
+  "You don't ask. You decide, right then, that you will never ask.",
+  "whifflebottom: (brightly) I'd like a SASH-BACKED LOAN, please. My sash is my collateral. I know the procedure. I've done the reading.",
+  {
+   "setFlag": "p15_loan_heard"
+  },
+  {
+   "tutorial": "Process the application: forms 1A to 97Q (the branch counter).",
+   "title": "The Sash-Backed Loan Emergency"
+  }
+ ],
+ "p15c15.form": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "addVar": "p15_form_n",
+   "value": 1
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p15_form_n",
+     "eq": 1
+    }
+   },
+   "then": [
+    {
+     "insert": "form_1a"
+    },
+    "FORM 1A: TITLE COMPLETENESS. 'State your full title.' She has filled in the box, the margins, the back, and a second sheet stapled to the back.",
+    {
+     "choice": [
+      {
+       "text": "STAMP: COMPLETE.",
+       "then": [
+        {
+         "sfx": "stamp",
+         "volume": 0.8
+        },
+        "THUNK. Complete. Very complete."
+       ]
+      },
+      {
+       "text": "STAMP: TOO COMPLETE.",
+       "then": [
+        {
+         "sfx": "stamp",
+         "volume": 0.8
+        },
+        "THUNK. There's a box for that. There's ALWAYS a box for that."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p15_form_n",
+     "eq": 2
+    }
+   },
+   "then": [
+    "Forms 1B through 12B go by in a blur. You stamp them. You don't read them. They don't seem to mind.",
+    {
+     "insert": "form_12c"
+    },
+    "FORM 12C: SASH INTEGRITY AND ATMOSPHERIC CREDIT HISTORY. 'Has the sash ever been involved in a structural incident?' She has ticked YES, and then, underneath, in very small writing: 'several'.",
+    {
+     "choice": [
+      {
+       "text": "STAMP: ACCEPTABLE.",
+       "then": [
+        {
+         "sfx": "stamp",
+         "volume": 0.8
+        },
+        "THUNK. Acceptable. Probably."
+       ]
+      },
+      {
+       "text": "CHECK: 'SEVERAL'.",
+       "then": [
+        {
+         "sfx": "pen_scratch",
+         "volume": 0.6
+        },
+        "You put a tick next to 'several'. Then another tick, to be safe. THUNK."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p15_form_n",
+     "eq": 3
+    }
+   },
+   "then": [
+    "Forms 12D through 61K. Debt obligations. Prior structural incidents. FART-BACKED COLLATERAL, in triplicate. Your stamping arm develops a rhythm. The rhythm develops a cramp.",
+    {
+     "insert": "form_61l"
+    },
+    "FORM 61L: FART-BACKED COLLATERAL. 'Will the collateral be activated by a Grand Stenchmaster release?' YES. 'Does the borrower understand the risks?' YES. 'Does the TELLER?' ...",
+    {
+     "choice": [
+      {
+       "text": "STAMP: APPROVED.",
+       "then": [
+        {
+         "sfx": "stamp",
+         "volume": 0.8
+        },
+        "THUNK. Approved. You did not tick the teller box."
+       ]
+      },
+      {
+       "text": "TICK: 'THE TELLER DOES NOT'.",
+       "then": [
+        {
+         "sfx": "pen_scratch",
+         "volume": 0.6
+        },
+        "You tick it. Hard. It goes through the paper. THUNK."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p15_form_n",
+     "eq": 4
+    }
+   },
+   "then": [
+    "Forms 61M through 97P. And then, at the bottom of the stack, the last one.",
+    {
+     "insert": "form_97q"
+    },
+    "FORM 97Q: GOAT-RELATED LIABILITIES. 'List all goats.' She has drawn one. 'Location of goat.' CATHEDRAL. 'Contents of goat.' One (1) spoon, ceremonial.",
+    {
+     "choice": [
+      {
+       "text": "STAMP: APPROVED.",
+       "then": [
+        {
+         "sfx": "stamp",
+         "volume": 0.8
+        },
+        "THUNK."
+       ]
+      },
+      {
+       "text": "STAMP: I DON'T WANT TO KNOW.",
+       "then": [
+        {
+         "sfx": "stamp",
+         "volume": 0.8
+        },
+        "THUNK. There's a box for that, too. It's been used before. Recently."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "event": "p15_form"
+  }
+ ],
+ "p15c15.forms_done": [
+  {
+   "setFlag": "p15_forms_said"
+  },
+  "Ninety-seven forms. All stamped. She looks at the pile with shining eyes.",
+  "whifflebottom: (holding out the end of her sash) And now: the COLLATERAL ACTIVATION CEREMONY.",
+  "She hands you her sash. It's very long. It's very old. It's the only thing she owns that isn't on the expense list.",
+  "whifflebottom: (backing up to the window, solemnly) Both hands, please, teller. It's in the procedure.",
+  {
+   "tutorial": "The collateral activation ceremony: ring the bell, hold her sash with both hands, and BRACE.",
+   "title": "The Sash-Backed Loan Emergency"
+  }
+ ],
+ "p15c15.collateral": [
+  {
+   "if": {
+    "notFlag": "p15_forms_said"
+   },
+   "then": [
+    "whifflebottom: (waving a form) Forms first, teller! It's all in the PROCEDURE.",
+    {
+     "end": true
+    }
+   ]
+  },
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.9
+  },
+  {
+   "bankDeposit": "whifflebottom"
+  },
+  {
+   "setFlag": "sash_loan_resolved"
+  },
+  {
+   "giveItem": "loan_fee_receipt",
+   "silent": true
+  },
+  "captain: (holding up the two halves of a sash) So... the loan?",
+  "whifflebottom: (reading a slip that's come out of the window) 'COLLATERAL DESTROYED. LOAN AUTOMATICALLY CANCELLED.'",
+  "captain: And the fees?",
+  "whifflebottom: (turning the slip over) 'NONREFUNDABLE.'",
+  "captain[angry]: It destroyed the collateral AND denied the loan? At the SAME TIME?",
+  "whifflebottom: (folding up the slip, entirely satisfied) That's banking, dear.",
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "whifflebottom"
+  },
+  "And she dissolves, happily, into the haze, forty-seven silver poorer than she wasn't.",
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.8
+  },
+  {
+   "setValue": "bashfulness_branch_state",
+   "value": "closing"
+  },
+  "Above the counter, the sign flickers. OPEN. OPE . And settles on a new word.",
+  {
+   "insert": "branch_sign_closing"
+  },
+  "CLOSING.",
+  "The queue sees it. The queue panics.",
+  {
+   "tutorial": "CLOSE THE LINE: the last customers are at the window, and none of them can remember why. (The bell.)",
+   "title": "The Sash-Backed Loan Emergency"
+  }
+ ],
+ "p15c15.last": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "addVar": "p15_last_n",
+   "value": 1
+  },
+  {
+   "spawn": "spectral_customer",
+   "x": 12,
+   "y": 13,
+   "facing": "down"
+  },
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 6
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.6
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p15_last_n",
+     "eq": 1
+    }
+   },
+   "then": [
+    "spectral_customer: (urgently) I'd like to make a... I'd like to... (mellowly) ...What's my name?",
+    "captain[determined]: CLOSED.",
+    "spectral_customer: (wandering off, delighted) I'll think of it."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p15_last_n",
+     "eq": 2
+    }
+   },
+   "then": [
+    "spectral_customer: (urgently) I've come to... I came all the way from... (looking round) Why did I come?",
+    "captain[determined]: You came to LEAVE. CLOSED."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p15_last_n",
+     "eq": 3
+    }
+   },
+   "then": [
+    "spectral_customer: (holding up two sashes) Which one's mine? And am I depositing or withdrawing?",
+    "captain[determined]: NEITHER. We're CLOSED. Take BOTH.",
+    "spectral_customer: (taking both, thrilled) Free sash."
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 6
+  },
+  {
+   "despawn": "spectral_customer"
+  },
+  {
+   "event": "p15_last"
+  }
+ ],
+ "p15c15.branch_closes": [
+  "You lean on the counter. The queue has stopped. The bell is quiet.",
+  "Brogath is in the middle of the room, watching a loose thread on his printed sash go up and down in the draught. He isn't pink. He isn't anything. He's smiling at it.",
+  "brogath: (to nobody) Lovely.",
+  "And that's it. That's all it takes. He isn't bashful. Not even a little bit.",
+  {
+   "sfx": "haze_dissolve",
+   "volume": 1.0
+  },
+  {
+   "shake": 1,
+   "duration": 900
+  },
+  "The sign goes OPEN SO LONG AS BROGATH REMAINS... and the rest of it isn't there any more. The bell rings once, very quietly, to itself. The counter sinks back into the floorboards like a man getting into a bath.",
+  {
+   "setValue": "bashfulness_branch_state",
+   "value": "closed"
+  },
+  {
+   "setFlag": "bashfulness_branch_closed_for_good"
+  },
+  {
+   "atmosphere": "MELLOW_HAZE"
+  },
+  "Gone. Six little scorch marks on the floor, and a dent where the counter was, and the smell of coins.",
+  "pete: (from the floor, not opening his eyes) Did it close?",
+  "captain[surprised]: It closed.",
+  "pete: For good?",
+  "brogath: (still watching his thread) I don't see why not. I don't feel bashful at all. I feel... lovely.",
+  {
+   "save": "auto"
+  },
+  {
+   "completeQuest": "sash_backed_loan"
+  },
+  {
+   "call": "p15c16.begin"
+  }
+ ],
+ "p15c16.begin": [
+  {
+   "setFlag": "p15_ch185_started"
+  },
+  {
+   "banner": "CHAPTER 185",
+   "sub": "The One Fart He Actually Misses"
+  },
+  {
+   "music": "great_mellowing",
+   "fade": 800
+  },
+  "It's quiet.",
+  "Not the treasure-room kind of quiet, or the before-an-eruption kind. Just... quiet.",
+  {
+   "startQuest": "the_fart_he_misses"
+  },
+  {
+   "tutorial": "Enjoy it. (Garrick, Brogath, Agnes.) And check the stores (the galley).",
+   "title": "The One Fart He Actually Misses"
+  }
+ ],
+ "p15c16.peace_garrick": [
+  "garrick: (on the galley floor, admiring a cup) Captain. Captain. This cup. It holds things.",
+  "captain: Any committees, Garrick?",
+  "garrick: (thoughtfully) ...What's a committee?",
+  "Not one decree in a day and a half. Not one Grand anything.",
+  {
+   "setFlag": "p15_peace_garrick"
+  },
+  {
+   "event": "p15_peace"
+  }
+ ],
+ "p15c16.peace_brogath": [
+  "brogath: (watching the loose thread on his sash) Look, Captain. It's going up. And now it's going down.",
+  "captain: And that doesn't...?",
+  "brogath: (beaming) It's lovely.",
+  "A flutter. Right in front of him. And he's smiling at it.",
+  {
+   "setFlag": "p15_peace_brogath"
+  },
+  {
+   "event": "p15_peace"
+  }
+ ],
+ "p15c16.peace_agnes": [
+  {
+   "sfx": "hen_cluck",
+   "volume": 0.7
+  },
+  "Agnes the Second, pecking contentedly at the floor. Squawks is sitting a yard away from her, staring, with his head on one side.",
+  "squawks: Chicken?",
+  "Agnes looks at him. Squawks looks at Agnes. Squawks, very slowly, sits down next to her.",
+  "squawks[smug]: (quietly) Good chicken.",
+  {
+   "setFlag": "p15_peace_agnes"
+  },
+  {
+   "event": "p15_peace"
+  }
+ ],
+ "p15c16.pantry": [
+  "The stores. Or where the stores were.",
+  "Crackers: gone. Cheese: gone. The dried fruit, the salt pork, the pickles (the barrel is upside down and licked clean), the potatoes (raw, apparently), the hardtack. GONE. There's a bowl on the table with a mixture of oats and Frog Grog in it that somebody has called 'cereal'.",
+  {
+   "setValue": "ship_pantry",
+   "value": "raided"
+  },
+  "garrick: (passing behind you, chewing thoughtfully on something long and wooden) Lovely jerky, this.",
+  "captain: That's a spoon.",
+  "garrick: (looking at it) ...So it is. (keeps chewing)",
+  "You look at the empty shelves. You think about the bank, and the decrees, and the flutter alarms, and the eruptions.",
+  "captain[resigned]: (shutting the stores door, quietly) Worth it.",
+  {
+   "setFlag": "p15_pantry_seen"
+  }
+ ],
+ "p15c16.peace_done": [
+  {
+   "setFlag": "p15_peace_said"
+  },
+  "You stand at the rail, and look at it all. The green haze, thinning a little now. The sharks on their backs. The crew asleep in heaps. Garrick, with no decree. Brogath, unafraid of a thread.",
+  "And you realise.",
+  "captain: (very quietly) This is magnificent.",
+  "Not the smell. The smell is DREADFUL. The SILENCE. No Grand bureaucracy. No Brogath disasters. No banks. Nobody fighting. Nothing going over.",
+  "captain[laugh]: (to the sea) I could get used to this.",
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  {
+   "wait": 500
+  },
+  "DING.",
+  "Out of nowhere. Out of the haze, on the deck, somewhere amidships.",
+  {
+   "setFlag": "p15_vindicta_here"
+  },
+  {
+   "burst": "fume",
+   "x": 11,
+   "y": 21,
+   "count": 10
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.9
+  },
+  "vindicta: (forming, furious) I am GRAND STENCHMISTRESS VINDICTA THUNDERWAFT THE...",
+  "captain[annoyed]: We're CLOSED.",
+  "vindicta: ...THE UNSERVED! I have been in that QUEUE since...",
+  {
+   "tutorial": "Get rid of her (the spectral customer on deck). She keeps coming back.",
+   "title": "The One Fart He Actually Misses"
+  }
+ ],
+ "p15c16.vindicta": [
+  {
+   "addVar": "p15_vindicta_n",
+   "value": 1
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p15_vindicta_n",
+     "eq": 1
+    }
+   },
+   "then": [
+    "vindicta: (drawing herself up) I am GRAND STENCHMISTRESS VINDICTA THUNDERWAFT THE UNSERVED, Duchess of the...",
+    "captain: The branch is gone. There's no bank. Shoo.",
+    {
+     "burst": "fume",
+     "x": 11,
+     "y": 21,
+     "count": 8
+    },
+    {
+     "sfx": "haze_dissolve",
+     "volume": 0.7
+    },
+    "She dissolves. Indignantly.",
+    "A second later, she forms again, a yard to the left.",
+    "vindicta: (forming) ...Duchess of the ROARING FLATS, Keeper of the..."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p15_vindicta_n",
+     "eq": 2
+    }
+   },
+   "then": [
+    "captain[annoyed]: (flapping your hat at her) CLOSED. Go AWAY.",
+    {
+     "burst": "fume",
+     "x": 11,
+     "y": 21,
+     "count": 8
+    },
+    {
+     "sfx": "haze_dissolve",
+     "volume": 0.7
+    },
+    "She dissolves. She forms again. She is getting redder each time.",
+    "vindicta: (forming) ...KEEPER OF THE SEVENTH BELLOWS, and I WILL BE SERVED."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p15_vindicta_n",
+     "eq": 3
+    }
+   },
+   "then": [
+    "captain[angry]: There is NO BANK. There is NO TELLER. There is NO WINDOW. Go HOME.",
+    "vindicta: (going very still) ...No window?",
+    "vindicta: (rising up, three feet off the deck) NO. WINDOW?"
+   ]
+  },
+  {
+   "event": "p15_vindicta"
+  }
+ ],
+ "p15c16.blast": [
+  {
+   "sfx": "pressure_build",
+   "volume": 1.0
+  },
+  {
+   "shake": 3,
+   "duration": 1000
+  },
+  "vindicta: THEN I SHALL MAKE A DEPOSIT ANYWAY.",
+  {
+   "sfx": "anger_waft",
+   "volume": 1.0
+  },
+  {
+   "sfx": "wind_gust",
+   "volume": 1.0
+  },
+  {
+   "shake": 7,
+   "duration": 2400
+  },
+  {
+   "flash": "#f0f0e0",
+   "duration": 300
+  },
+  {
+   "burst": "fume",
+   "x": 11,
+   "y": 21,
+   "count": 20
+  },
+  "It's the angriest, loudest, most furious atmospheric blast you have ever witnessed, and you were there for the Anger Waft.",
+  "It goes off in every direction at once. It blows the sails out. It blows your hat off. It blows Vindicta herself to tatters, which she seems to find satisfying.",
+  "And it blows the haze away.",
+  {
+   "atmosphere": "CLEARING"
+  },
+  "All of it. The green goes out over the rail in one great rolling sheet, out of the ship, out of the rigging, out of the galley hatch and the quarters' ladder, out across the sea, and away.",
+  "The air is clear. Ordinary. Salt, tar, sharks.",
+  {
+   "sharkstorm": "rough_turbulence"
+  },
+  {
+   "music": "brogath_night",
+   "fade": 600
+  },
+  "The Sharkstorm, as if someone had snapped their fingers, rolls back over onto its front and picks up speed. A shark bites the hull, experimentally. Then another.",
+  "garrick: (sitting up in the galley hatch, spoon in hand, blinking) ...Why am I holding a SPOON?",
+  "garrick[businesslike]: (on his feet, at once, crown straight) Captain. GRAND DECREE. The stores are EMPTY. I am forming a COMMITTEE.",
+  "brogath[alarmed]: (from below, sharp) Captain? CAPTAIN? Something on my sash is MOVING.",
+  "pete[worried]: (scrambling up, crackers everywhere) Who's on blush? WHO'S ON BLUSH?",
+  {
+   "atmosphere": "ORDINARY_STENCH"
+  },
+  {
+   "setFlag": "p15_haze_cleared"
+  },
+  {
+   "setFlag": "great_mellowing_cleared"
+  },
+  {
+   "save": "auto"
+  },
+  "Within a minute, it's all back. The decrees. The panic. The flutter alarm. The sharks.",
+  "Normality.",
+  "It's TERRIBLE.",
+  "brogath[alarmed]: (coming up the ladder, looking round, very fast) Captain. Where's Agnes?",
+  {
+   "tutorial": "Find Agnes the Second (her perch in the old quarters, the deck, the rail).",
+   "title": "The One Fart He Actually Misses"
+  }
+ ],
+ "p15c16.search_perch": [
+  "Her perch in the old quarters: the top of the barrel table, with a sash folded on it for her. Empty. A single brown feather. Warm.",
+  {
+   "setFlag": "p15_search_perch"
+  },
+  {
+   "event": "p15_agnes_search"
+  }
+ ],
+ "p15c16.search_deck": [
+  "The deck, amidships, where she landed. Three brown feathers, in a line, going towards the rail. Going FAST.",
+  {
+   "setFlag": "p15_search_deck"
+  },
+  {
+   "event": "p15_agnes_search"
+  }
+ ],
+ "p15c16.search_rail": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "The rail. A brown feather, caught on a splinter, fluttering. You take it.",
+  {
+   "giveItem": "agnes_feather",
+   "silent": true
+  },
+  "And out there, in the Sharkstorm, a long way off, going round with the sharks, a small brown shape. Sitting perfectly still, on top of a growling pillow. Going round. Looking about her, with mild interest.",
+  {
+   "setFlag": "p15_search_rail"
+  },
+  {
+   "event": "p15_agnes_search"
+  }
+ ],
+ "p15c16.agnes_gone": [
+  {
+   "setFlag": "agnes_second_missing_in_sharkstorm"
+  },
+  {
+   "clearFlag": "agnes_second_on_ship"
+  },
+  "Vindicta's blast took the haze out of the ship. It took a small brown hen with it.",
+  "brogath[devastated]: (at the rail, beside you) She's in the STORM.",
+  "captain: (quietly) She's sitting on the pillow. She looks... fine. She looks like she's having a nice time.",
+  "brogath[devastated]: She was ON MY FOOT.",
+  "And you feel it, unexpectedly, under your ribs. You liked the hen. She was a good hen. She sat on Brogath's foot and pecked his sash and made the whole ship sit down and be quiet for a day and a half.",
+  "She was the only thing that ever made him do the green one.",
+  "You look out at the storm. You can't go in after her. Not now. Not in THAT. Not today.",
+  "captain: (gently) She'll come round again, Brogath. Everything comes out of that storm eventually.",
+  {
+   "stability": "calm",
+   "id": "agnes",
+   "quiet": true
+  },
+  "brogath: (very quietly) Agnes the Second.",
+  {
+   "tutorial": "Ask Brogath to do it again (Brogath). The green one.",
+   "title": "The One Fart He Actually Misses"
+  }
+ ],
+ "p15c16.again": [
+  {
+   "if": {
+    "notFlag": "agnes_second_missing_in_sharkstorm"
+   },
+   "then": [
+    "brogath[alarmed]: Where's Agnes, Captain? Have you SEEN her?",
+    {
+     "end": true
+    }
+   ]
+  },
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "captain: Brogath. I want you to do something for me.",
+  "brogath[confused]: Anything, Captain.",
+  "captain: (taking a breath) The green one. Do it again.",
+  "Every pirate in earshot turns round and stares at you. Pete drops a cracker.",
+  "pete[alarmed]: You want him to... ON PURPOSE?",
+  "captain[determined]: On purpose. One more. Just the green one.",
+  "brogath[confused]: But, Captain. You wrote it down. On the rules. I can't CHOOSE one.",
+  "captain[determined]: Then we'll make the conditions. Jim. A sash.",
+  {
+   "stability": "meter",
+   "show": "show"
+  },
+  {
+   "stability": "set",
+   "pressure": 40
+  },
+  "jim: (waving a Cheap-O-Rama sash gently in front of Brogath, like a man trying to calm a horse) Flutter... flutter... controlled... flutter...",
+  "brogath[embarrassed]: (going pink) Oh. Oh, it's fluttering. At ME...",
+  {
+   "stability": "trigger",
+   "id": "ordinary_stink",
+   "quiet": true
+  },
+  {
+   "sfx": "brogath_eruption_small",
+   "volume": 0.6
+  },
+  {
+   "shake": 2,
+   "duration": 500
+  },
+  {
+   "burst": "fume",
+   "x": 10,
+   "y": 8,
+   "count": 6
+  },
+  "BRRMP.",
+  "The ordinary one. Beans and parchment and old garlic. Nothing green about it at all.",
+  "brogath[sorry]: ...Little toot.",
+  "captain[resigned]: That's not the green one.",
+  "captain[determined]: The goat. Remember the goat.",
+  "From the galley, helpfully, the Mark II switches itself on.",
+  {
+   "channelEpisode": "goat_incident",
+   "tv": "ses_mk2"
+  },
+  "brogath[mortified]: (watching the goat go over, through the hatch) The GOAT...",
+  {
+   "stability": "trigger",
+   "id": "ordinary_stink",
+   "quiet": true
+  },
+  {
+   "sfx": "brogath_eruption_small",
+   "volume": 0.6
+  },
+  {
+   "shake": 2,
+   "duration": 500
+  },
+  {
+   "burst": "fume",
+   "x": 10,
+   "y": 8,
+   "count": 6
+  },
+  "PFFFRRT.",
+  "Ordinary. Terrible. A little bit oniony.",
+  "captain[resigned]: (sniffing, hopelessly) Not green.",
+  "pete: (stepping up, reluctantly, the pocket edition open) Historical embarrassment, then. Your Ancientness. The Wedding. Chapter nine. The cake.",
+  "pete: 'And lo, the sash did enter the cake. Twice.'",
+  "brogath[mortified]: (scarlet) Not the CAKE...",
+  {
+   "stability": "trigger",
+   "id": "ordinary_stink",
+   "quiet": true
+  },
+  {
+   "sfx": "brogath_eruption_small",
+   "volume": 0.6
+  },
+  {
+   "shake": 2,
+   "duration": 500
+  },
+  {
+   "burst": "fume",
+   "x": 10,
+   "y": 8,
+   "count": 6
+  },
+  "FWUMP.",
+  "Ordinary. Dreadful. Faintly of icing.",
+  {
+   "stability": "settle",
+   "pressure": 8
+  },
+  {
+   "stability": "meter",
+   "show": "hide"
+  },
+  "You stand there in the ordinary terrible stink, with the crew watching you.",
+  "You have spent the best part of a year learning to STOP Brogath farting. Rules. Compliments. Blankets. Stations. A whole PROTOCOL. And you have just spent ten minutes trying to MAKE him, and failed.",
+  "captain[resigned]: (very quietly) It's not selectable. Is it.",
+  "brogath[sorry]: (gently) It never was, Captain. I'm sorry. I'd do it for you if I could.",
+  "captain[resigned]: I know you would.",
+  {
+   "setFlag": "p15_tried_again"
+  },
+  {
+   "tutorial": "Write the captain's new rules (the Brogath Rules board, the old quarters).",
+   "title": "The One Fart He Actually Misses"
+  }
+ ],
+ "p15c16.policy": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "The Brogath Rules. Pete's sheets, then yours. You take the pencil.",
+  "And you think about the cargo on deck. Thirty-nine lots of bargain-bin Skunk Weed. Stems, mostly.",
+  "captain[determined]: (writing) THE CAPTAIN'S RULES, continued.",
+  {
+   "insert": "captains_rules"
+  },
+  "NO BEARD JOINTS. NO GRAND BANK. NO EXPERIMENTAL ANGER WAFTS. NO DELIBERATE STENCHMASTER FART TESTING.",
+  "And underneath, in capitals, underlined twice: IF GARRICK STARTS FORMING COMMITTEES, OR BROGATH STARTS PANICKING ABOUT SASH FLUTTER, THE CAPTAIN MAY AUTHORISE THE EMERGENCY MELLOWING SUPPLY.",
+  "pete: (reading it over your shoulder) ...Grown-ups only, Captain.",
+  "captain[determined]: (adding it) GROWN-UPS ONLY.",
+  "garrick[offended]: (from the doorway) Captain, I am ALREADY forming a committee. About the committee.",
+  "captain[determined]: (not looking round) Noted.",
+  {
+   "setFlag": "brogath_rule_emergency_mellowing"
+  },
+  {
+   "addVar": "brogath_rules",
+   "value": 1
+  },
+  {
+   "setFlag": "emergency_mellowing_policy"
+  },
+  {
+   "logbook": "brogath_rules"
+  },
+  {
+   "tutorial": "Not today. (The rail, on deck.)",
+   "title": "The One Fart He Actually Misses"
+  }
+ ],
+ "p15c16.end": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "Evening. The rail. The Sharkstorm going round, rough and ordinary. Two pillows in it, still growling at each other. A hen on one of them, somewhere.",
+  "Behind you, the ship is back to normal. Garrick's committee is in session. Pete is on blush duty. The visitors are in their folding chairs in the safe corner, saying 'whoa' at the sharks. Brogath is watching the Mark II with a blanket ready, just in case.",
+  "And you have learned something awful.",
+  "The thing that smelled worst, and caused more trouble than anything since the treasure room, was the best disaster-management tool you have ever had.",
+  "You miss it. You actually miss it. A Brogath fart.",
+  "One. Specific. Brogath fart.",
+  "Far out, at the edge of the haze, something starts to form. A shape. A very tall, very angry shape, drawing itself up to announce a very long title.",
+  "vindicta: (faint, far off) I am GRAND STENCHMISTRESS VINDICTA...",
+  "You pick up a pillow from the pile by the rail. An ordinary one. HOLD MY SASH!",
+  {
+   "sfx": "whoosh",
+   "volume": 0.7
+  },
+  "You throw it. It goes a long way. It goes right through her.",
+  "captain[determined]: Not today.",
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 6
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.5
+  },
+  {
+   "setFlag": "p15_complete"
+  },
+  {
+   "completeQuest": "the_fart_he_misses"
+  },
+  {
+   "wait": 600
+  },
+  {
+   "banner": "CAPTAIN STINKBEARD",
+   "sub": "The One Fart He Actually Misses"
+  },
+  {
+   "tutorial": "The Great Mellowing is over. The Skunk Weed is the ship's Emergency Mellowing Supply (the captain's rules); the Grand Tokens and the reserve are gone; the Bashfulness Branch is closed for good; the visitors are still aboard; Agnes the Second is somewhere in the Sharkstorm, on a pillow; and Brogath's crew are only stories, for now. (The story continues in a later phase.)",
+   "title": "Not Today"
+  }
+ ]
+}

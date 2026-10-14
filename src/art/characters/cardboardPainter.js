@@ -24,7 +24,8 @@ import { FRAME_W, FRAME_H } from './characterPainter.js';
  * Appearance data: { "id": "brogath", "painter": "cardboard",
  *   "blush": 0..3, "bow": 0..2 (pressure bowing him out), "angry": bool,
  *   "loaded": bool (a stomach where cardboard has no business having one),
- *   "ornament": bool, "worn": 0..2 (dents, a taped corner) }
+ *   "ornament": bool, "worn": 0..2 (dents, a taped corner),
+ *   "mellow": bool (Story Phase 15: the Great Mellowing; his fume goes green) }
  */
 const INK = PAL.ink;
 const GROUND = 45;
@@ -46,7 +47,7 @@ export function cardboardLook(app) {
     loaded: !!app.loaded,
     ornament: !!app.ornament,
     worn: Math.max(0, Math.min(2, app.worn ?? 0)),
-    fume: app.angry ? ['#f0a040a0', '#e8602880', '#ffd06060'] : ['#c8d878a0', '#a8c85880', '#e0e8a060'],
+    fume: app.angry ? ['#f0a040a0', '#e8602880', '#ffd06060'] : app.mellow ? ['#9cc070a0', '#7aa85080', '#c0dc9060'] : ['#c8d878a0', '#a8c85880', '#e0e8a060'],
   };
 }
 
@@ -351,7 +352,7 @@ export function paintCardboardSheet(appearance) {
 // ---------------------------------------------------------------------------
 // Portraits (48x48): the printed bust, with its cut edge
 
-export const CARDBOARD_EXPRESSIONS = ['neutral', 'bashful', 'embarrassed', 'mortified', 'pleased', 'proud', 'confused', 'sorry', 'furious', 'alarmed', 'delighted', 'devastated', 'thoughtful', 'loaded'];
+export const CARDBOARD_EXPRESSIONS = ['neutral', 'bashful', 'embarrassed', 'mortified', 'pleased', 'proud', 'confused', 'sorry', 'furious', 'alarmed', 'delighted', 'devastated', 'thoughtful', 'loaded', 'sad', 'mellow'];
 
 const EXPR = {
   neutral: { blush: 1, mouth: 'smile', eyes: 'look', brows: 'worried' },
@@ -368,6 +369,9 @@ const EXPR = {
   devastated: { blush: 3, mouth: 'wobble', eyes: 'down', brows: 'worried', tears: true },
   thoughtful: { blush: 0, mouth: 'flat', eyes: 'up', brows: 'flat' },
   loaded: { blush: 2, mouth: 'flat', eyes: 'look', brows: 'worried', sweat: true, bow: true },
+  // Story Phase 15
+  sad: { blush: 0, mouth: 'frown', eyes: 'down', brows: 'worried' },
+  mellow: { blush: 0, mouth: 'smile', eyes: 'lidded', brows: 'flat', mellow: true },
 };
 
 export function paintCardboardPortrait(portrait, expression = 'neutral') {
@@ -410,6 +414,13 @@ export function paintCardboardPortrait(portrait, expression = 'neutral') {
     if (e.eyes === 'happy') {
       fig.line(x - 2, hy - 1, x, hy - 3, INK);
       fig.line(x, hy - 3, x + 2, hy - 1, INK);
+      continue;
+    }
+    if (e.eyes === 'lidded') {
+      // half shut, perfectly content
+      fig.rect(x - 2, hy - 1, 4, 2, '#fbf6ec');
+      fig.hline(x - 2, x + 1, hy - 1, SKIN.d);
+      fig.rect(x - 1, hy, 2, 1, INK);
       continue;
     }
     const h = e.eyes === 'wide' ? 4 : e.eyes === 'narrow' ? 2 : 3;
@@ -455,7 +466,7 @@ export function paintCardboardPortrait(portrait, expression = 'neutral') {
   c.outline(INK);
   for (let x = 4; x < 12; x++) c.set(x, 45 + (x % 2), x % 2 ? CARD.flute : CARD.l);
   // the fume that holds him together
-  const fm = angry ? ['#f0a040c0', '#e86028a0'] : ['#c8d878c0', '#a8c858a0'];
+  const fm = angry ? ['#f0a040c0', '#e86028a0'] : e.mellow || portrait.mellow ? ['#9cc070c0', '#7aa850a0'] : ['#c8d878c0', '#a8c858a0'];
   for (const [x, y] of [[6, 30], [41, 26], [9, 18], [40, 38]]) if (!c.alphaAt(x, y)) c.set(x, y, fm[(x + y) % 2]);
   return c;
 }

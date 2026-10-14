@@ -1,0 +1,1009 @@
+{
+ "//": "Story Phase 15, chapters 173-176: the Grand Economic Recovery (the reserve, the crate, standing clear, Garrick's controlled productivity exercise, the Economic Anger Waft), creative conversion (the cargo, the reserve, sorting, the report, the Bling Bling King), Stinkbeard's Select Scent of Skunk (the visitors, the sale, the safe corner, the tour, the explanation), the Chicken Incident (the Mark II returns, Agnes, the clambake idea, not selectable).",
+ "p15c4.begin": [
+  {
+   "fade": "out",
+   "duration": 700
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 31
+  },
+  {
+   "wait": 400
+  },
+  {
+   "fade": "in",
+   "duration": 700
+  },
+  {
+   "setFlag": "p15_ch173_started"
+  },
+  {
+   "banner": "CHAPTER 173",
+   "sub": "The Grand Economic Recovery"
+  },
+  {
+   "music": "brogath_morning",
+   "fade": 800
+  },
+  "The next morning, Brogath goes for a walk round the ship. Pete goes with him, at a careful distance. So do you.",
+  "He stops at the treasure-room door. Planked. Signed. Growling. 'Lost treasure,' he says, to nobody.",
+  "He stops in the galley, and looks at the oats in the floorboards. 'Oats.' At the scorch ring in the quarters. At the place on deck where the bank was.",
+  "And at the crate. Twenty thousand Grand Tokens of Grand Currency, NOT LEGAL TENDER, which you have been finding in your boots for a month.",
+  "brogath: (sitting down on the crate) I'm useless, Captain.",
+  "brogath: The treasure. The oats. The bank. The money that isn't money. Every time I try to help, something goes over. Usually a goat.",
+  {
+   "stability": "trigger",
+   "id": "useless",
+   "quiet": true
+  },
+  "pete: (quickly) That's not true, Your Ancientness. You're... you're the Ancient Historical Consultant. You consult. You're very... consultative.",
+  "brogath[thoughtful]: (not listening, looking down at the crate under him) ...Money that isn't money.",
+  "He lifts the lid. Picks up a token. Turns it over in his flat printed fingers.",
+  "brogath[thoughtful]: It can't be money. No. But it could be something people would TRADE money for.",
+  "brogath[delighted]: (standing up) Captain. I've had A GRAND STENCHMASTER'S GRAND IDEA.",
+  "Every pirate in earshot stops moving. Jim, in the galley, puts down a ladle very slowly, the way you put down something that might go off.",
+  "brogath[proud]: My Anger Waft made a BANK, Captain. Out of nothing. If a little wrath made a whole bank, a focused one, a really GOOD one, could make these into something else. Something with value. Something people want!",
+  "captain[alarmed]: Like WHAT?",
+  "brogath[proud]: (beaming) Skunk Weed!",
+  "pete: ...What?",
+  "brogath[proud]: It was the most traded thing in the old harbour towns. The tinkers sold it. It smelled terrible and everybody wanted it. It isn't even a real herb, the pocket edition says, it's a STORY herb. That's the beauty of it!",
+  "brogath[thoughtful]: Of course, I'd need to be properly ANGRY. Genuinely furious. And I'm not very good at that by myself.",
+  "garrick[delighted]: (arriving at speed, in full regalia) I'll do it.",
+  "captain: You will NOT.",
+  "garrick[businesslike]: A controlled productivity exercise, Captain. I make him furious, in a professional capacity. He converts our worthless asset into a liquid one. Everybody wins.",
+  "captain: Last time he got angry there was a BANK on my DECK.",
+  "garrick[businesslike]: (spreading his hands) And this time it'll be on purpose.",
+  "You look at the tokens. Twenty thousand of them. Worth nothing. In your boots.",
+  "captain[resigned]: ...On deck. Away from everything. And NOBODY goes near my cabin.",
+  {
+   "startQuest": "grand_economic_recovery"
+  },
+  {
+   "tutorial": "Before anything Grand happens: check the emergency reserve (the loose floorboard beside your bed, in your cabin). Then the crate goes up on deck.",
+   "title": "The Grand Economic Recovery"
+  }
+ ],
+ "p15c4.reserve": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "if": {
+    "notFlag": "captain_reserve_counted"
+   },
+   "then": [
+    "The loose board beside your bed. You lift it with your knife. Under it, wrapped in oilcloth, a little iron box.",
+    "Your emergency reserve. SEVEN real doubloons. Gold. Heavy. Honest. The last real gold on this ship that isn't behind the treasure-room door, since the Bling Bling King's catalogue had your purse.",
+    {
+     "setVar": "captain_emergency_reserve",
+     "value": 7
+    },
+    {
+     "setFlag": "captain_reserve_counted"
+    },
+    "You count them twice. You put them back. You put the board back. You stand on the board.",
+    "captain[determined]: (to the board) Nothing Grand is getting in here."
+   ],
+   "else": [
+    "The loose board. Under it, the little iron box: seven doubloons. You don't need to look. You look."
+   ]
+  }
+ ],
+ "p15c4.crate": [
+  "The Grand Currency crate. Bob takes one end. Jim takes the other. You take the middle, which is the heavy bit.",
+  "It goes up the ladder a rung at a time, shedding tokens down the back of your shirt, and out onto the deck, to the clear patch where the bank used to be.",
+  {
+   "sfx": "thud_heavy",
+   "volume": 0.7
+  },
+  "bob: (straightening up) Twenty thousand. You'd think it'd weigh more. For twenty thousand of anything.",
+  {
+   "setFlag": "p15_crate_on_deck"
+  }
+ ],
+ "p15c4.clear": [
+  {
+   "if": {
+    "any": [
+     {
+      "notFlag": "captain_reserve_counted"
+     },
+     {
+      "notFlag": "p15_crate_on_deck"
+     }
+    ]
+   },
+   "then": [
+    "pete: Not yet, Captain. The reserve. The crate. THEN we stand clear.",
+    {
+     "end": true
+    }
+   ]
+  },
+  "pete: (taking charge, in the voice he uses for storms) Right. EVERYBODY. Back to the rail. Further. FURTHER. Squawks, in the rigging. Ned, the cabin door, keep it SHUT.",
+  "ned: (at the door to your cabin) Shut, Captain.",
+  "Brogath stands by the crate in the middle of the deck, looking very pleased and very nervous. Garrick walks round him once, slowly, like a man warming up for a race.",
+  "garrick[businesslike]: (rolling his shoulders) Ready when you are, Your Ancientness.",
+  "brogath[bashful]: Do your worst. No. Do your BEST. Do your best worst.",
+  {
+   "setFlag": "p15_stand_clear"
+  },
+  {
+   "save": "auto"
+  },
+  {
+   "tutorial": "Let Garrick make him angry (Garrick). It's a controlled productivity exercise, apparently.",
+   "title": "The Grand Economic Recovery"
+  }
+ ],
+ "p15c4.provoke": [
+  {
+   "if": {
+    "notFlag": "p15_stand_clear"
+   },
+   "then": [
+    "garrick[businesslike]: When everyone's clear, Captain. Health and safety.",
+    {
+     "end": true
+    }
+   ]
+  },
+  "garrick[businesslike]: (clearing his throat) Right. Brogath. Your accountant.",
+  "brogath[confused]: Billiam?",
+  "garrick[smug]: A CLERK. A clerk with a SPARE ledger. Who couldn't count to three without writing it down twice.",
+  "brogath[confused]: (blinking) He... he was very thorough.",
+  {
+   "stability": "meter",
+   "show": "show"
+  },
+  {
+   "stability": "anger",
+   "on": true
+  },
+  {
+   "stability": "set",
+   "pressure": 30
+  },
+  {
+   "sfx": "anger_rumble",
+   "volume": 0.6
+  },
+  "garrick[smug]: And that sash. Look at it. It's practically a NAPKIN. Printed. On CARD.",
+  "brogath[furious]: (the card going red at the edges) ...It is a CEREMONIAL sash.",
+  {
+   "choice": [
+    {
+     "text": "Garrick. STOP.",
+     "then": [
+      "captain[alarmed]: Garrick. STOP.",
+      "garrick[businesslike]: (not looking round) Can't stop now, Captain. Loses the momentum. It's in the literature."
+     ]
+    },
+    {
+     "text": "(Watch through your fingers.)",
+     "then": [
+      "You watch through your fingers. It doesn't help. You can still hear it."
+     ]
+    }
+   ]
+  },
+  "garrick[smug]: And atmospheric economics? The Grand Gust Exchange? The FINANCIAL PROOF? It's STUPID. It was always stupid. Farts are not MONEY.",
+  {
+   "stability": "set",
+   "pressure": 60
+  },
+  {
+   "sfx": "anger_rumble",
+   "volume": 0.8
+  },
+  {
+   "shake": 2,
+   "duration": 900
+  },
+  "brogath[furious]: (slowly) Farts. Are. Not...",
+  "And Garrick, looking him right in the printed eye, puts out one foot, and steps on a Grand Token. Deliberately. Crunch.",
+  {
+   "sfx": "glass_crack",
+   "volume": 0.6
+  },
+  "garrick[smug]: And your CREW, Brogath? A bunch of half-wits who got lost in their own CORRIDORS.",
+  {
+   "stability": "set",
+   "pressure": 100
+  },
+  "The deck goes quiet.",
+  "brogath[furious]: (in a voice like a cellar door) ...You do not. Talk. About. My CREW.",
+  "pete: (from the rail, faintly) That was the one.",
+  {
+   "sfx": "anger_waft",
+   "volume": 1.0
+  },
+  {
+   "sfx": "reality_warp",
+   "volume": 0.8
+  },
+  {
+   "shake": 6,
+   "duration": 2400
+  },
+  {
+   "flash": "#f0c080",
+   "duration": 300
+  },
+  {
+   "burst": "fume",
+   "x": 8,
+   "y": 26,
+   "count": 18
+  },
+  "It isn't a fart. It's WEATHER. Red-gold, peppery, roaring, with something of the old treasure-room growl underneath it, and it comes out of Brogath in a single long BLAST that flattens Garrick, lifts the crate's lid off and sends it spinning into the Sharkstorm.",
+  "The cloud goes into the crate. Round the crate. Through the crate. The tokens inside it start to... change.",
+  {
+   "convert": "economic_anger_waft"
+  },
+  "Plastic goes soft. Goes green. Goes brown. Puts out stems.",
+  "And the cloud keeps going: down the deck, low and heavy and with a mind of its own, straight to the cabin door, where Ned is standing with his back to it.",
+  "ned[alarmed]: (as it goes UNDER the door) Captain, it's going UNDER the...",
+  "captain: NOT THE CABIN.",
+  {
+   "sfx": "whoosh",
+   "volume": 0.7
+  },
+  "And then it's over. The wind drops. Garrick is lying flat on the deck with his crown over one eye. Brogath is standing, glowing faintly, red going back to pink.",
+  "And in the middle of the deck, where the crate was, there is a MOUNTAIN.",
+  {
+   "stability": "anger",
+   "on": false
+  },
+  {
+   "stability": "settle",
+   "pressure": 10
+  },
+  {
+   "stability": "meter",
+   "show": "hide"
+  },
+  {
+   "atmosphere": "BROGATH_SKUNK_HAZE"
+  },
+  {
+   "setFlag": "skunk_weed_cargo"
+  },
+  {
+   "setFlag": "p15_economic_waft"
+  },
+  {
+   "save": "auto"
+  },
+  {
+   "completeQuest": "grand_economic_recovery"
+  },
+  {
+   "call": "p15c5.begin"
+  }
+ ],
+ "p15c5.begin": [
+  {
+   "setFlag": "p15_ch174_started"
+  },
+  {
+   "banner": "CHAPTER 174",
+   "sub": "Creative Conversion"
+  },
+  "It's taller than you. Green and brown and dusty, mostly stems, with seeds trickling down the sides like sand, and a smell coming off it that would make a skunk apologise. Under the skunk, faintly, Brogath.",
+  "Somewhere under the mountain, a muffled voice.",
+  "brogath[delighted]: (climbing out of it, covered) It WORKED! Captain! It WORKED!",
+  "garrick: (from the deck, not getting up yet) ...Productive.",
+  {
+   "startQuest": "creative_conversion"
+  },
+  {
+   "tutorial": "See what the tokens became (the mountain), and check the reserve (your cabin). Please.",
+   "title": "Creative Conversion"
+  }
+ ],
+ "p15c5.look": [
+  "You walk round it. You poke it. A stalk comes away in your hand. It's a stalk.",
+  "Skunk Weed: the herb from the old harbour towns, the pocket edition's story herb, the stuff the tinkers sold. Except this lot is bargain bin. Excessive stems. Seeds. Dust. Leaves, now and then, very small, looking embarrassed about it.",
+  "And not a single Grand Token. Not one. Twenty thousand pieces of worthless plastic, gone, and in their place...",
+  "captain[resigned]: (holding up the stalk) ...this.",
+  "squawks[smug]: (landing on top of it) Bad weed.",
+  {
+   "setFlag": "p15_cargo_seen"
+  }
+ ],
+ "p15c5.reserve": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "The cabin smells of skunk. The loose board beside the bed is sitting up, a little, as if something underneath it has been breathing.",
+  "You lift it. The oilcloth. The iron box. You open the box.",
+  "Inside: a twist of green stems, and a few seeds, and a faint smell of Brogath.",
+  "Seven real doubloons. Gold. Heavy. Honest.",
+  "Gone.",
+  "captain[devastated]: (sitting down on the floor, very slowly) It went under the DOOR.",
+  "pete: (in the doorway) Captain?",
+  "captain[devastated]: (holding up the box) Seven, Pete. SEVEN.",
+  "pete: (gently) ...They'd have gone on something, Captain.",
+  "captain[devastated]: They'd have gone on SOMETHING. That was the POINT.",
+  {
+   "setFlag": "p15_reserve_gone"
+  }
+ ],
+ "p15c5.sort_stems": [
+  "Stems. A whole armful of them, from the bottom of the mountain. Bob ties them up in a bundle labelled STEMS. Then another. The stems go on for quite a while.",
+  {
+   "setFlag": "p15_sort_stems"
+  },
+  {
+   "event": "p15_sort"
+  }
+ ],
+ "p15c5.sort_seeds": [
+  "Seeds. Running out of the sides of the pile like an hourglass. Jim sweeps them into a sack. Squawks eats three, considers, and spits them out, carefully, at Garrick.",
+  {
+   "setFlag": "p15_sort_seeds"
+  },
+  {
+   "event": "p15_sort"
+  }
+ ],
+ "p15c5.sort_leaf": [
+  "Leaf. Actual leaves. You find five. Pete gives them a crate of their own, with straw in it, like eggs.",
+  {
+   "setFlag": "p15_sort_leaf"
+  },
+  {
+   "event": "p15_sort"
+  }
+ ],
+ "p15c5.sort_dust": [
+  "Dust. Green dust, which gets into everything and makes Gristle sneeze, and every time he sneezes, more of it gets into everything.",
+  {
+   "setFlag": "p15_sort_dust"
+  },
+  {
+   "event": "p15_sort"
+  }
+ ],
+ "p15c5.sort_skunky": [
+  "And one crate that Pete has quietly set aside, all on its own, with a lid nailed on: ESPECIALLY SKUNKY. Even with the lid on, your eyes water. Brogath is very proud of this one.",
+  {
+   "setFlag": "p15_sort_skunky"
+  },
+  {
+   "event": "p15_sort"
+  }
+ ],
+ "p15c5.sort_done": [
+  {
+   "setFlag": "p15_sort_said"
+  },
+  "Sorted. Stems, seeds, leaf, dust, and one crate that nobody stands downwind of. Forty lots of it, in Pete's hand, on a manifest.",
+  "And Brogath, coming over with a rolled-up scroll under his arm and the face of a man about to present.",
+  {
+   "tutorial": "Hear the Economic Recovery Report (Brogath).",
+   "title": "Creative Conversion"
+  }
+ ],
+ "p15c5.report": [
+  {
+   "if": {
+    "notFlag": "p15_sort_said"
+   },
+   "then": [
+    "brogath[proud]: My report isn't QUITE ready. Sort the stock first, Captain! A good report needs good stock.",
+    {
+     "end": true
+    }
+   ]
+  },
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "brogath[proud]: (unrolling it) THE GRAND STENCHMASTER'S GRAND ECONOMIC RECOVERY REPORT. By Brogath the Bashful, Ancient Historical Consultant, Grand Economist.",
+  {
+   "insert": "recovery_report"
+  },
+  "brogath[proud]: Assets, before: twenty thousand tokens. Worth: nothing. Assets, after: FORTY LOTS. Worth: SOMETHING.",
+  "brogath[bashful]: (lowering it, suddenly shy) It's... it's good, isn't it? Captain? Be honest.",
+  "Pete, beside you, very slightly shakes his head.",
+  {
+   "stability": "meter",
+   "show": "show"
+  },
+  {
+   "stability": "set",
+   "pressure": 45
+  },
+  {
+   "reassure": "report",
+   "var": "p15_report_ok"
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p15_report_ok",
+     "eq": 0
+    }
+   },
+   "then": [
+    {
+     "bark": "pete",
+     "text": "CREATIVE, Captain!",
+     "duration": 1300
+    },
+    {
+     "reassure": "report",
+     "var": "p15_report_ok"
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p15_report_ok",
+     "eq": 0
+    }
+   },
+   "then": [
+    {
+     "reassure": "report",
+     "var": "p15_report_ok"
+    }
+   ]
+  },
+  "brogath[proud]: A creative conversion. I'm going to have that on the cover.",
+  "captain[resigned]: (very quietly) Creative.",
+  {
+   "stability": "meter",
+   "show": "hide"
+  },
+  {
+   "stability": "settle",
+   "pressure": 8
+  },
+  {
+   "setFlag": "p15_report_heard"
+  },
+  {
+   "sfx": "bbk_tink",
+   "volume": 0.8
+  },
+  "TINK. Something small and shiny comes spinning out of the Sharkstorm and lands on the deck, by the hatch.",
+  {
+   "tutorial": "Something's come out of the Sharkstorm (the deck, by the hatch).",
+   "title": "Creative Conversion"
+  }
+ ],
+ "p15c5.king": [
+  "A token. Not a Grand one: a real one, heavy, gold, with a crown stamped on it. The Bling Bling King's. There's a message rolled up inside it.",
+  {
+   "sfx": "bbk_tink",
+   "volume": 0.8
+  },
+  {
+   "insert": "bbk_acquisition"
+  },
+  "POTENTIAL CUSTOMER ACQUISITION IN PROGRESS. The smell, it seems, has got out of the ship. It has got as far as the King.",
+  {
+   "sfx": "bbk_tink",
+   "volume": 0.8
+  },
+  "TINK. Another one, right behind it.",
+  {
+   "sfx": "bbk_tink",
+   "volume": 0.8
+  },
+  {
+   "insert": "bbk_no_farts"
+  },
+  "THE BLING BLING KING IS INTERESTED IN WHOLESALE. THE BLING BLING KING ACCEPTS GOLD. THE BLING BLING KING DOES NOT ACCEPT FARTS.",
+  "brogath[confused]: (reading it over your shoulder) Doesn't ACCEPT them? What does he DO with them?",
+  "garrick[offended]: An unbanked market, Captain. Medieval.",
+  "brogath[confused]: But that's... where does he think money COMES from?",
+  "You look at the message. You look at the mountain. You look at your empty iron box.",
+  "Wholesale. Gold.",
+  "captain[determined]: (slowly) Pete. This pile of weeds might actually be worth something.",
+  "pete: (cautiously) Real money, Captain?",
+  "captain[determined]: REAL money.",
+  {
+   "setFlag": "p15_bbk_wholesale"
+  },
+  {
+   "completeQuest": "creative_conversion"
+  },
+  {
+   "call": "p15c6.begin"
+  }
+ ],
+ "p15c6.begin": [
+  {
+   "setFlag": "p15_ch175_started"
+  },
+  {
+   "banner": "CHAPTER 175",
+   "sub": "Stinkbeard's Select Scent of Skunk"
+  },
+  {
+   "sfx": "vortex_roar",
+   "volume": 0.9
+  },
+  {
+   "shake": 3,
+   "duration": 1400
+  },
+  "The Sharkstorm changes its note. Out on its edge, something small and white is going round with the sharks: a little boat, with a canvas canopy and two folding chairs.",
+  "hale: (at the wheel) Captain! There's a BOAT in the... it's got a... is that a COOL BOX?",
+  "The storm swallows it. Chews on it, thoughtfully. And spits it out.",
+  {
+   "sfx": "whoosh",
+   "volume": 0.9
+  },
+  {
+   "wait": 500
+  },
+  {
+   "sfx": "thud_heavy",
+   "volume": 1.0
+  },
+  {
+   "shake": 5,
+   "duration": 900
+  },
+  {
+   "flash": "#ffffff",
+   "duration": 120
+  },
+  "THUMP.",
+  "Onto your deck. Right side up, more or less. One of the folding chairs is still standing.",
+  {
+   "setFlag": "p15_boat_landed"
+  },
+  {
+   "setFlag": "modern_visitors_aboard"
+  },
+  {
+   "spawn": "visitor_one",
+   "x": 12,
+   "y": 31,
+   "facing": "up"
+  },
+  {
+   "spawn": "visitor_two",
+   "x": 13,
+   "y": 31,
+   "facing": "up"
+  },
+  "In it, blinking, are two grown men in shorts and sandals and very faded shirts. One has a beard and a woolly hat. One has sunglasses on his head and another pair on his face.",
+  {
+   "startQuest": "stinkbeards_select"
+  },
+  {
+   "tutorial": "See what the Sharkstorm spat out (the deck).",
+   "title": "Stinkbeard's Select Scent of Skunk"
+  }
+ ],
+ "p15c6.boat": [
+  "A little modern leisure boat: white, with a canopy, two folding chairs, a cool box, and an engine that's never going to work again. Painted on the side: SECOND THOUGHTS.",
+  "In the cool box: ice, and nothing else. There was something else. The Sharkstorm had it.",
+  {
+   "setFlag": "p15_boat_seen"
+  }
+ ],
+ "p15c6.meet_one": [
+  "visitor_one: (very slowly, looking up at the masts, the storm, the sharks going round) Whoa.",
+  "visitor_one: Dude. Is this... a pirate ship?",
+  "captain: It's THE pirate ship. I'm Captain Stinkbeard. The Revenge.",
+  "visitor_one: (nodding, deeply) Yeah. Yeah. Okay. That tracks.",
+  "visitor_one: (closing his eyes) I'm gonna be honest with you, Captain. I don't think you're real. But I respect you.",
+  {
+   "setFlag": "p15_met_one"
+  },
+  {
+   "event": "p15_meet"
+  }
+ ],
+ "p15c6.meet_two": [
+  "visitor_two: (pointing, delighted) Bro. BRO. There's a CARDBOARD GUY. And he WAVED.",
+  "brogath[delighted]: (waving again) Hello!",
+  "visitor_two: (waving back) HELLO! (to you) This is the best day of my life and I'm pretty sure none of it is happening.",
+  "visitor_two: We were just out fishing, man. It's my birthday. Thirty-four. I didn't catch anything. Then the sky went sharks.",
+  {
+   "setFlag": "p15_met_two"
+  },
+  {
+   "event": "p15_meet"
+  }
+ ],
+ "p15c6.pitch": [
+  {
+   "if": {
+    "notFlag": "p15_met_two"
+   },
+   "then": [
+    "visitor_one: (dreamily) Your friend with the sunglasses is... somewhere. Say hi to him.",
+    {
+     "end": true
+    }
+   ]
+  },
+  "captain: (clearing your throat) So. Er. Gentlemen. Would you be at all interested in... purchasing... a quantity of... a sort of... herb.",
+  "visitor_one: (opening one eye) ...Go on.",
+  "garrick[delighted]: (sweeping in, crown and all) May I present: STINKBEARD'S SELECT SCENT OF SKUNK!",
+  "brogath[proud]: (holding up a hand-lettered sign) GRANDLY SKUNKY!",
+  "garrick[delighted]: With a MYSTERIOUS PIRATE AFTERTASTE!",
+  {
+   "insert": "select_label"
+  },
+  "captain: I did NOT approve that.",
+  "visitor_two: (reverently) Dude, that's a BRAND.",
+  "visitor_one: (fishing in his shorts) We can pay. We found some coins in the gutter thing, by the side.",
+  "He holds out a handful of Grand Tokens from the scuppers. NOT LEGAL TENDER.",
+  "captain[angry]: NO. NO! Not THOSE. Not on THIS ship. Get those OUT of my sight!",
+  "visitor_one: (putting them away, unbothered) Cool, cool. Cash, then?",
+  "He holds out some flat green paper. Folded. Soft. Printed with a man in a wig.",
+  "captain: (turning it over) What IS that? It's PAPER. Where's the gold?",
+  "visitor_two: It's forty bucks, man.",
+  "captain: Forty WHAT?",
+  "pete: (at your elbow, quietly) Captain. It's money. Somewhere. Real money, from wherever they're from. And we need real money, after this morning.",
+  "captain[resigned]: (taking it, holding it up to the light) ...It's not even HEAVY.",
+  {
+   "addVar": "modern_cash",
+   "value": 40
+  },
+  {
+   "addVar": "skunk_weed_lots",
+   "value": -1
+  },
+  {
+   "giveItem": "modern_cash",
+   "silent": true
+  },
+  {
+   "setFlag": "p15_first_sale"
+  },
+  "One lot of Stinkbeard's Select Scent of Skunk changes hands. It's the first honest sale this ship has made since the Grand Gust Exchange, and that wasn't honest either.",
+  "visitor_one: (sniffing the bundle, slowly) Whoa. That is... GRANDLY skunky.",
+  "garrick[proud]: (to you) Branding.",
+  "And then, from his pocket, a little lighter. Flick.",
+  "gristle: (from across the deck, in a voice like a cannon) NOT. NEAR. HIM.",
+  {
+   "tutorial": "Open flame, a cardboard Grand Stenchmaster and a ship full of old fumes. Make them a safe corner, a long way off: a sand bucket, a water barrel, and a sign (on deck, at the bow).",
+   "title": "Stinkbeard's Select Scent of Skunk"
+  }
+ ],
+ "p15c6.corner_sand": [
+  "A bucket of sand from beside the bell. Gristle points at the bow, as far from everything Grand as the ship goes. You put it there.",
+  {
+   "sfx": "thud_heavy",
+   "volume": 0.4
+  },
+  {
+   "setFlag": "p15_corner_sand"
+  },
+  {
+   "event": "p15_corner"
+  }
+ ],
+ "p15c6.corner_water": [
+  "A water barrel, rolled all the way up to the bow. Bob rolls a second one. Gristle sends him back for a third. You stop him at four.",
+  {
+   "sfx": "thud_heavy",
+   "volume": 0.4
+  },
+  {
+   "setFlag": "p15_corner_water"
+  },
+  {
+   "event": "p15_corner"
+  }
+ ],
+ "p15c6.corner_sign": [
+  "The sign. Bob paints it. Gristle dictates.",
+  {
+   "insert": "sign_safe_corner"
+  },
+  "SAFE CORNER. NO FLAME WITHIN FORTY FEET OF ANYTHING GRAND. THIS MEANS THE CARDBOARD ONE. AND THE TREASURE ROOM. AND GARRICK.",
+  {
+   "setFlag": "p15_corner_sign"
+  },
+  {
+   "event": "p15_corner"
+  }
+ ],
+ "p15c6.corner_done": [
+  {
+   "setFlag": "p15_corner_said"
+  },
+  "A corner of the bow, swept, sanded, watered, fenced off with a rope Gristle tied himself, and forty feet from anything Grand, measured twice.",
+  "The visitors carry their folding chairs up to it, sit down, and lean back.",
+  "A thin curl of smoke goes up from the bow and away on the wind. That's all. The visitors look at the sky and say 'whoa' at it, from time to time, in different keys.",
+  "gristle: (arms folded, watching like a hawk) Forty feet. FORTY.",
+  "visitor_two: (calling back) This is the most fire-safe I've ever been in my LIFE.",
+  "After a while they want to know about everything. Everything on the ship.",
+  {
+   "tutorial": "Show them round: Garrick and his regalia, the Mark II in the galley, the sashes. They'll follow you about.",
+   "title": "Stinkbeard's Select Scent of Skunk"
+  }
+ ],
+ "p15c6.tour_garrick": [
+  "visitor_two: (to Garrick, awed) Okay, what are YOU, though? You're like... the king of something.",
+  "garrick[proud]: The GRAND STENCHMASTER. Holder of the Grand Sash, the Grand Crown, the Grand Nap and the Grand Seat at Table. (adjusting the ornament) This is the Holiday Branch. It's on loan.",
+  "visitor_one: (slowly) That's so much regalia, man. That's a LOT of regalia for... for farts?",
+  "garrick[proud]: For GRAND farts.",
+  {
+   "setFlag": "p15_tour_garrick"
+  },
+  {
+   "event": "p15_tour"
+  }
+ ],
+ "p15c6.tour_tv": [
+  "visitor_one: (in front of the Mark II, its valve and wire and horseshoe on the floor beside it) So this was on? Without being plugged in?",
+  "captain: For three days. Showing his life story. With ADVERTS.",
+  "visitor_one: (nodding slowly) Haunted TV. Yeah. My uncle had one of those. It only showed golf.",
+  {
+   "setFlag": "p15_tour_tv"
+  },
+  {
+   "event": "p15_tour"
+  }
+ ],
+ "p15c6.tour_sashes": [
+  "visitor_two: (holding up a Cheap-O-Rama Grand Stenchmaster Sash from the galley) HOLD MY SASH! (reading the back) 'Not suitable for children under eight or adults over eight.' Dude, this is MERCH.",
+  "captain[annoyed]: Put it down before he sees it flap.",
+  "visitor_two: (very carefully not flapping it) Respect. Total respect.",
+  {
+   "setFlag": "p15_tour_sashes"
+  },
+  {
+   "event": "p15_tour"
+  }
+ ],
+ "p15c6.tour_done": [
+  {
+   "setFlag": "p15_tour_said"
+  },
+  "visitor_one: (back at the bow, settling into his chair) Okay. Captain. Real question.",
+  "visitor_one: What's the difference between, like, a regular fart, and a... a GRAND one?",
+  {
+   "tutorial": "Explain what a Grand Stenchmaster fart actually is (the visitors, at the bow).",
+   "title": "Stinkbeard's Select Scent of Skunk"
+  }
+ ],
+ "p15c6.explain": [
+  {
+   "if": {
+    "notFlag": "p15_tour_said"
+   },
+   "then": [
+    "visitor_two: (from the bow) Show us around first, man! We wanna see EVERYTHING.",
+    {
+     "end": true
+    }
+   ]
+  },
+  "captain: (sitting down on a water barrel) Right. An ordinary fart. You do one. It goes. Nobody's very interested.",
+  "captain: A Grand Stenchmaster fart GROWLS.",
+  "visitor_two: Okay.",
+  "captain: It moves furniture. It takes the mast apart a bit at a time. It changes the WEATHER.",
+  "visitor_one: ...Okay.",
+  "captain: It makes a BANK. On your DECK. With depositors. It puts a dead man into a cardboard cut-out of himself and he gets up and asks where he is. It launches a whole treasure into the sky. It brings the SHARKSTORM.",
+  "visitor_one: (very quietly) Whoa.",
+  "captain[resigned]: It's a natural disaster. With an embarrassing backstory.",
+  "visitor_two: (after a long pause) So like... a vibe.",
+  "captain[resigned]: (putting your face in your hands) A vibe.",
+  {
+   "setFlag": "p15_explained"
+  },
+  {
+   "completeQuest": "stinkbeards_select"
+  },
+  {
+   "save": "auto"
+  },
+  {
+   "call": "p15c7.begin"
+  }
+ ],
+ "p15c7.begin": [
+  {
+   "setFlag": "p15_ch176_started"
+  },
+  {
+   "banner": "CHAPTER 176",
+   "sub": "The Chicken Incident"
+  },
+  {
+   "wait": 500
+  },
+  {
+   "sfx": "tube_warmup",
+   "volume": 0.7
+  },
+  {
+   "wait": 500
+  },
+  {
+   "sfx": "sc_sting",
+   "volume": 0.6
+  },
+  "From below, up through the galley hatch: a warm-up hum. A click. A jingle.",
+  "channel_narrator: (faintly, from the galley) THE STENCHMASTER CHANNEL...",
+  "Nobody gasps. Nobody says 'impossible'. You're all past that.",
+  "gristle: (flatly) Oh, COME ON.",
+  "pete[annoyed]: It's got no INSIDES. The Captain's got its insides. They're on the FLOOR.",
+  "squawks[outraged]: Bad TV.",
+  {
+   "setValue": "ses_mk2_state",
+   "value": "possessed"
+  },
+  {
+   "setVar": "ses_mk2_power",
+   "value": 1
+  },
+  {
+   "setFlag": "tv_possessed_reactivation"
+  },
+  {
+   "startQuest": "chicken_incident"
+  },
+  {
+   "tutorial": "Go and look (the Mark II, in the galley).",
+   "title": "The Chicken Incident"
+  }
+ ],
+ "p15c7.look": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "The Mark II. On. No valve. No wire. No horseshoe. The parts are still on the floor where you dropped them, and the set is running perfectly well without them. Better, if anything.",
+  "captain[angry]: (to the set) I took your INSIDES out.",
+  {
+   "vista": "galley_watch",
+   "fade": 400
+  },
+  {
+   "music": "stenchmaster_channel",
+   "fade": 400
+  },
+  {
+   "channelEpisode": "wrath_of_brogath",
+   "tv": "ses_mk2"
+  },
+  {
+   "vistaEnd": true,
+   "fade": 300
+  },
+  "captain[angry]: It knows about TUESDAY. How does it know about TUESDAY?",
+  "brogath[delighted]: (arriving from the quarters, nightcap on) Is it on? Is it HISTORY? Oh, it's on!",
+  {
+   "setFlag": "p15_tv_back"
+  },
+  {
+   "tutorial": "Watch it (Brogath). It's about a chicken.",
+   "title": "The Chicken Incident"
+  }
+ ],
+ "p15c7.watch": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "vista": "galley_watch",
+   "fade": 400
+  },
+  {
+   "stability": "meter",
+   "show": "show"
+  },
+  {
+   "stability": "set",
+   "pressure": 15
+  },
+  {
+   "channelEpisode": "chicken_incident",
+   "tv": "ses_mk2"
+  },
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  "brogath[thoughtful]: (very softly) Agnes.",
+  "brogath[thoughtful]: She was a very good chicken, Captain. She used to sit on my foot. She never once laughed at my sash.",
+  "brogath[pleased]: Three days, that town went quiet. Nobody argued. The mayor took his boots off in the street.",
+  {
+   "stability": "calm",
+   "id": "agnes",
+   "quiet": true
+  },
+  {
+   "stability": "meter",
+   "show": "hide"
+  },
+  "visitor_two: (who has come down the ladder at some point, with a cracker) Dude.",
+  "visitor_one: (beside him, staring at the screen) DUDE.",
+  {
+   "setFlag": "p15_agnes_watched"
+  },
+  {
+   "tutorial": "The visitors have had an idea. Say no to it (the visitors).",
+   "title": "The Chicken Incident"
+  }
+ ],
+ "p15c7.react_agnes": [
+  "brogath[thoughtful]: (very quietly, leaning towards the screen) That's her. That's Agnes.",
+  "brogath[bashful]: She's got her head on one side. She always had her head on one side. Like she was about to ask you something.",
+  "pete: (softly) Steady, Your Ancientness."
+ ],
+ "p15c7.clambake": [
+  {
+   "if": {
+    "notFlag": "p15_agnes_watched"
+   },
+   "then": [
+    "visitor_two: Shh, man. It's on.",
+    {
+     "end": true
+    }
+   ]
+  },
+  "visitor_one: Okay. Captain. Hear me out.",
+  "visitor_one: The green one. The town one. What if he did that... but BIG. Like, the whole storm. Hotbox the horizon. A clambake, man. A Sharkstorm CLAMBAKE.",
+  "captain[determined]: No.",
+  "visitor_two: Does he have, like... flavours? Can we get the green one but with, like, a hint of mango?",
+  "captain[determined]: NO.",
+  {
+   "choice": [
+    {
+     "text": "He can't CHOOSE them.",
+     "then": [
+      "captain[determined]: He can't CHOOSE. It isn't a MENU."
+     ]
+    },
+    {
+     "text": "It depends on what he's eaten.",
+     "then": [
+      "captain[determined]: It depends what he's eaten. And that's only the START."
+     ]
+    },
+    {
+     "text": "Ask him yourselves.",
+     "then": [
+      "brogath[confused]: (blinking) Choose one? Oh, no. Oh, I've never chosen one in my LIFE."
+     ]
+    }
+   ]
+  },
+  "captain[resigned]: A Stenchmaster fart is whatever it is. It's his dinner. It's his MOOD. It's whether his sash is fluttering, it's the weather, it's whatever ridiculous nonsense is going on that day.",
+  "brogath[thoughtful]: (nodding) And chickens, apparently.",
+  "captain[resigned]: And chickens. Apparently.",
+  "visitor_one: (deeply disappointed) So it's not, like, an app.",
+  "pete: (writing it on the back of the rules, on the floor) STENCHMASTER FARTS. ARE NOT. SELECTABLE. ON DEMAND.",
+  {
+   "setFlag": "brogath_rule_not_selectable"
+  },
+  {
+   "addVar": "brogath_rules",
+   "value": 1
+  },
+  {
+   "setFlag": "stenchmaster_farts_not_selectable"
+  },
+  "visitor_two: (to his friend, quietly) Bro. He's got a thing about the zone. The no-fart room. Under the stairs.",
+  "visitor_one: (sitting up) A ROOM without farts? On THIS ship?",
+  "pete: (tiredly) Yes. Everybody to the zone. Before anyone has another idea.",
+  {
+   "tutorial": "Retreat (the Fart-Free Zone, under the hold stairs).",
+   "title": "The Chicken Incident"
+  }
+ ]
+}

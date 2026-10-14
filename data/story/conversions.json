@@ -1,0 +1,30 @@
+{
+ "//": "Story Phase 15: one-time conversions. The 'convert' command runs one exactly once (its flag): story variables are recorded and emptied, items taken, cargo added. The purse (the player's gold) is never named here, so nothing earned elsewhere is ever touched.",
+ "economic_anger_waft": {
+  "//": "Chapter 173: Brogath's Economic Anger Waft turns the 20,000 Grand Tokens (Phase 14's own counter, never gold) and the captain's emergency reserve (the seven doubloons under the cabin floorboard, a story variable of its own, counted in chapter 173) into Skunk Weed: a fictional bargain-bin herb, as story cargo (lots).",
+  "flag": "grand_currency_converted",
+  "from": [
+   {
+    "var": "grand_currency_tokens",
+    "recordVar": "grand_currency_converted_tokens"
+   },
+   {
+    "var": "captain_emergency_reserve",
+    "recordVar": "captain_reserve_converted"
+   }
+  ],
+  "takeItems": [
+   "grand_currency"
+  ],
+  "to": [
+   {
+    "var": "skunk_weed_lots",
+    "add": 40
+   }
+  ],
+  "giveItems": [
+   "skunk_cargo_manifest"
+  ],
+  "notify": "THE GRAND CURRENCY IS GONE. (So is the reserve.) IN THEIR PLACE: A MOUNTAIN OF SKUNK WEED."
+ }
+}

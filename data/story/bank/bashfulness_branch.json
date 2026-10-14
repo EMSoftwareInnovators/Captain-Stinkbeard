@@ -1,0 +1,111 @@
+{
+ "//": "Story Phase 15: THE BASHFULNESS BRANCH, a small branch of the Grand Bank (Phase 14) that Brogath's concentrated embarrassment wedged into the old quarters (chapter 179). It exists while the story value bashfulness_branch_state is forming, open, flickering or closing: open so long as Brogath remains bashful. Same scale and ledger as the Grand Bank; its customers bring Teller Shift V2 modifiers. The night queue is served by the branch's own teller (the bank command's 'observe'); the relief queue by the captain, as RELIEF GRAND TELLER; the express window is the sash-backed loan. Closed for good in chapter 184 (bashfulness_branch_closed_for_good).",
+ "bashfulness_branch": {
+  "name": "THE BASHFULNESS BRANCH",
+  "slogan": "OPEN SO LONG AS BROGATH REMAINS BASHFUL",
+  "stateValue": "bashfulness_branch_state",
+  "ledgerVar": "branch_ledger_right",
+  "gradeVar": "branch_last_grade",
+  "slipsVar": "branch_last_slips",
+  "scale": [
+   {
+    "n": 1,
+    "name": "Gentle"
+   },
+   {
+    "n": 2,
+    "name": "Firm"
+   },
+   {
+    "n": 3,
+    "name": "Furniture-Aware"
+   },
+   {
+    "n": 4,
+    "name": "Furniture-Moving"
+   },
+   {
+    "n": 5,
+    "name": "Structural"
+   },
+   {
+    "n": 6,
+    "name": "Maritime"
+   },
+   {
+    "n": 7,
+    "name": "Municipal"
+   },
+   {
+    "n": 8,
+    "name": "Regional"
+   },
+   {
+    "n": 9,
+    "name": "Historic"
+   },
+   {
+    "n": 10,
+    "name": "Please Notify Authorities"
+   }
+  ],
+  "beyond": {
+   "n": "10+",
+   "name": "ABSOLUTELY NOT"
+  },
+  "queues": {
+   "night": {
+    "customers": [
+     "gasimir",
+     "flatulencia",
+     "billowmere",
+     "puffenstein"
+    ],
+    "servedVar": "branch_night_served",
+    "event": "p15_night"
+   },
+   "relief": {
+    "customers": [
+     "boomington",
+     "whistlewaft",
+     "fumblebottom",
+     "wind_brothers",
+     "boomboom",
+     "rumblequill",
+     "flapworthy",
+     "gary_relief",
+     "thunderpants",
+     "farthelmew"
+    ],
+    "servedVar": "branch_relief_served",
+    "event": "p15_relief"
+   },
+   "express": {
+    "customers": [
+     "whifflebottom"
+    ],
+    "servedVar": "branch_express_served",
+    "event": "p15_express"
+   }
+  },
+  "classifyPrompt": "captain: (the ledger) {name}. Class of deposit?",
+  "classifyRight": "Into the branch ledger: {class}. The ledger sighs, satisfied.",
+  "classifyWrong": "bank_voice: CORRECTION: {class}. THE BASHFULNESS BRANCH THANKS YOU FOR YOUR ESTIMATE.",
+  "vault": "p15.branch_vault",
+  "observed": "p15.branch_observed",
+  "counter": {
+   "crew_quarters": [
+    12,
+    14
+   ]
+  },
+  "area": {
+   "crew_quarters": [
+    11,
+    13,
+    5,
+    3
+   ]
+  }
+ }
+}

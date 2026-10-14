@@ -1311,6 +1311,125 @@
       "if": {
         "flag": "p14_complete"
       }
+    },
+    {
+      "id": "p15c1",
+      "name": "Chapter 170: The Stenchmaster Channel Presents",
+      "if": {
+        "flag": "p15_started"
+      }
+    },
+    {
+      "id": "p15c2",
+      "name": "Chapter 171: The Top Ten Most Embarrassing Sash Flutters",
+      "if": {
+        "flag": "p15_ch171_started"
+      }
+    },
+    {
+      "id": "p15c3",
+      "name": "Chapter 172: Family of Idiots",
+      "if": {
+        "flag": "p15_ch172_started"
+      }
+    },
+    {
+      "id": "p15c4",
+      "name": "Chapter 173: The Grand Economic Recovery",
+      "if": {
+        "flag": "p15_ch173_started"
+      }
+    },
+    {
+      "id": "p15c5",
+      "name": "Chapter 174: Creative Conversion",
+      "if": {
+        "flag": "p15_ch174_started"
+      }
+    },
+    {
+      "id": "p15c6",
+      "name": "Chapter 175: Stinkbeard's Select Scent of Skunk",
+      "if": {
+        "flag": "p15_ch175_started"
+      }
+    },
+    {
+      "id": "p15c7",
+      "name": "Chapter 176: The Chicken Incident",
+      "if": {
+        "flag": "p15_ch176_started"
+      }
+    },
+    {
+      "id": "p15c8",
+      "name": "Chapter 177: The Grand Paranoia",
+      "if": {
+        "flag": "p15_ch177_started"
+      }
+    },
+    {
+      "id": "p15c9",
+      "name": "Chapter 178: The Grand Stenchmaster's Grand Nap",
+      "if": {
+        "flag": "p15_ch178_started"
+      }
+    },
+    {
+      "id": "p15c10",
+      "name": "Chapter 179: The Nose-Fire Waft",
+      "if": {
+        "flag": "p15_ch179_started"
+      }
+    },
+    {
+      "id": "p15c11",
+      "name": "Chapter 180: The Bashfulness Branch",
+      "if": {
+        "flag": "p15_ch180_started"
+      }
+    },
+    {
+      "id": "p15c12",
+      "name": "Chapter 181: The Great Mellowing",
+      "if": {
+        "flag": "p15_ch181_started"
+      }
+    },
+    {
+      "id": "p15c13",
+      "name": "Chapter 182: The Untold Stories",
+      "if": {
+        "flag": "p15_ch182_started"
+      }
+    },
+    {
+      "id": "p15c14",
+      "name": "Chapter 183: Relief Grand Teller",
+      "if": {
+        "flag": "p15_ch183_started"
+      }
+    },
+    {
+      "id": "p15c15",
+      "name": "Chapter 184: The Sash-Backed Loan Emergency",
+      "if": {
+        "flag": "p15_ch184_started"
+      }
+    },
+    {
+      "id": "p15c16",
+      "name": "Chapter 185: The One Fart He Actually Misses",
+      "if": {
+        "flag": "p15_ch185_started"
+      }
+    },
+    {
+      "id": "phase15_end",
+      "name": "Not Today",
+      "if": {
+        "flag": "p15_complete"
+      }
     }
   ],
   "timeOfDay": [
@@ -1773,6 +1892,39 @@
         "var": {
           "name": "p4_tod",
           "eq": 34
+        }
+      }
+    },
+    {
+      "id": "p15_night",
+      "grade": "#9aa0c8",
+      "interior": 0.5,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 35
+        }
+      }
+    },
+    {
+      "id": "p15_mellow_morning",
+      "grade": "#d8e0b0",
+      "interior": 0.4,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 36
+        }
+      }
+    },
+    {
+      "id": "p15_paranoia",
+      "grade": "#c4b0d8",
+      "interior": 0.46,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 37
         }
       }
     }

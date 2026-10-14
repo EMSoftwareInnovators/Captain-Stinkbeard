@@ -1,0 +1,84 @@
+{
+ "//": "Story Phase 15: the Ship Atmosphere State. One saved story value (ship_atmosphere) says what the air aboard the Revenge is like; each state is authored consequences, not a gas simulation: a whole-room haze tint (rooms with their own haze keep it), how fast wanderers and routines move, and (optionally) the ship's music and ambience. Dialogue, looks, placements and the Sharkstorm read the value with ordinary conditions; Brogath's stability reads it through its 'mellow' entry. The 'atmosphere' script command changes it. Unset means NORMAL.",
+ "ship": {
+  "value": "ship_atmosphere",
+  "default": "NORMAL",
+  "maps": [
+   "main_deck",
+   "galley",
+   "cargo_hold",
+   "treasure_hold",
+   "crew_quarters",
+   "washroom",
+   "captains_quarters",
+   "fart_free_zone"
+  ],
+  "states": {
+   "NORMAL": {
+    "label": "Normal (for this ship)",
+    "notes": "Garrick, Brogath, the Sharkstorm, the treasure-room cloud. The usual."
+   },
+   "ORDINARY_STENCH": {
+    "label": "Ordinary stench",
+    "notes": "After the Great Mellowing is cleared: ordinary terrible Brogath stink, decrees, committees, flutter panics. Normality, and it's terrible."
+   },
+   "BROGATH_SKUNK_HAZE": {
+    "label": "Skunk haze",
+    "haze": {
+     "level": "light",
+     "color": "#8aa850"
+    },
+    "npcPace": 0.85,
+    "ambience": "skunk_haze",
+    "notes": "Brogath's first skunk-weed waft (chapter 171): green-olive, with his usual yellow-brown underneath. The crew think something's burning."
+   },
+   "MELLOW_HAZE": {
+    "label": "The Great Mellowing",
+    "haze": {
+     "level": "light",
+     "color": "#9cb860"
+    },
+    "npcPace": 0.45,
+    "music": "great_mellowing",
+    "ambience": "mellow_ship",
+    "notes": "Chapters 181-185: everyone but the captain (whose beard rejects it) is mellow. Garrick issues no decrees; Brogath's triggers count for a fraction (his MELLOW state); the crew wander slowly and snack; the Sharkstorm is mellow too."
+   },
+   "BEARD_PARANOIA_HAZE": {
+    "label": "Beard-smoke paranoia",
+    "haze": {
+     "level": "light",
+     "color": "#a894c8"
+    },
+    "music": "grand_paranoia",
+    "ambience": "paranoia_drone",
+    "notes": "Chapter 177 only: the captain and the two visitors see Ancient Grand Stenchmasters (the beard_paranoia alias set) and assess threats. Nobody can be attacked: it's a presentation layer."
+   },
+   "NOSE_FIRE_RESIDUE": {
+    "label": "Nose-fire residue",
+    "haze": {
+     "level": "light",
+     "color": "#d08a54"
+    },
+    "notes": "Chapter 179: the hot one. Everybody's nostrils smoked."
+   },
+   "BANK_FUMES": {
+    "label": "Bank fumes",
+    "haze": {
+     "level": "light",
+     "color": "#b49ad6"
+    },
+    "ambience": "bank_hum",
+    "notes": "Chapter 180: the Bashfulness Branch is open in the old quarters, and the night depositors are depositing."
+   },
+   "CLEARING": {
+    "label": "Clearing",
+    "haze": {
+     "level": "light",
+     "color": "#d6dcc6"
+    },
+    "npcPace": 0.8,
+    "notes": "Chapter 185: Vindicta's blast blows the mellow haze out of the ship."
+   }
+  }
+ }
+}

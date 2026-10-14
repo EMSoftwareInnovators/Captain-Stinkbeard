@@ -1,0 +1,161 @@
+{
+ "//": "Story Phase 15 world scripts: inspections of what the Great Mellowing leaves behind, and the sash pad.",
+ "p15.inspect.mk2_gutted": [
+  "The Mark II. Dark. No valve, no wire, no horseshoe. For the first time in its life, it looks like an ordinary broken television.",
+  "pete: (passing) For now, Captain."
+ ],
+ "p15.inspect.mk2_parts": [
+  "A valve, a wire, and Ned's lucky horseshoe, on the floor where you threw them.",
+  {
+   "if": {
+    "flag": "tv_possessed_reactivation"
+   },
+   "then": [
+    "The Mark II is on again, a yard away, running perfectly well without any of them. Nobody has picked them up. There doesn't seem to be much point."
+   ]
+  }
+ ],
+ "p15.inspect.tv_protocol": [
+  "THE BROGATH TELEVISION SAFETY PROTOCOL, in Pete's capitals. ONE: when he blushes, compliment him. TWO: commercial break, blanket ready. THREE: a sash on screen, cover his eyes. FOUR: a sash in the room, secure it. FIVE: Squawks, NO FLAP. SIX: Garrick, NO BEANS.",
+  {
+   "if": {
+    "flag": "great_mellowing_cleared"
+   },
+   "then": [
+    "Underneath, newer: SEVEN: IF EVERYBODY IS MELLOW, THE CAPTAIN DOES IT ALL."
+   ]
+  }
+ ],
+ "p15.inspect.blanket": [
+  "The anti-commercial blanket, folded, on the floor by the set. Ready. Gristle checks it's there every time he walks past. So do you, now."
+ ],
+ "p15.inspect.crate_gone": [
+  "Where the Grand Currency crate stood: a square of cleaner floorboard, and three tokens nobody bothered with. NOT LEGAL TENDER."
+ ],
+ "p15.inspect.stores": [
+  "The stores. Half restocked. Garrick's committee has been 'looking into it'. There is a spoon on the shelf with teeth marks in it."
+ ],
+ "p15.inspect.cargo": [
+  {
+   "if": {
+    "flag": "p15_sort_said"
+   },
+   "then": [
+    "The Skunk Weed, in crates: STEMS (many), SEEDS, LEAF (five, in straw), DUST, and the one with the lid nailed on. ESPECIALLY SKUNKY. {num:skunk_weed_lots} lots, on Pete's manifest.",
+    {
+     "if": {
+      "flag": "emergency_mellowing_policy"
+     },
+     "then": [
+      "A padlock on the lid now, and Pete's sign: EMERGENCY MELLOWING SUPPLY. CAPTAIN'S AUTHORITY ONLY. GROWN-UPS ONLY."
+     ]
+    }
+   ],
+   "else": [
+    "The mountain. Mostly stems. It smells like a skunk that has been up all night, and, underneath, faintly, Brogath."
+   ]
+  }
+ ],
+ "p15.inspect.boat": [
+  "SECOND THOUGHTS. The visitors' little boat, where the Sharkstorm put it. The engine is never going anywhere again. The cool box is full of crackers now; Jim's idea of rationing."
+ ],
+ "p15.inspect.safe_corner": [
+  "SAFE CORNER. NO FLAME WITHIN FORTY FEET OF ANYTHING GRAND. THIS MEANS THE CARDBOARD ONE. AND THE TREASURE ROOM. AND GARRICK. Sand, water, a rope, two folding chairs. Gristle measured it twice."
+ ],
+ "p15.inspect.rail_storm": [
+  "The Sharkstorm, going round. Somewhere in it, two pillows, still growling at each other. On one of them, if you look long enough, a small brown shape. Sitting perfectly still. Looking about her.",
+  "captain: (quietly) Not today. Not into THAT. But not never."
+ ],
+ "p15.inspect.branch": [
+  {
+   "if": {
+    "value": {
+     "name": "bashfulness_branch_state",
+     "in": [
+      "closing"
+     ]
+    }
+   },
+   "then": [
+    "THE BASHFULNESS BRANCH. The sign says CLOSING. The queue doesn't believe it."
+   ],
+   "else": [
+    "THE BASHFULNESS BRANCH. OPEN SO LONG AS BROGATH REMAINS BASHFUL. A tiny bell. A brass window. A teller made of haze who has been on shift for forty years."
+   ]
+  }
+ ],
+ "p15.inspect.branch_marks": [
+  "Where the Bashfulness Branch was: six little scorch marks and a dent in the floorboards. It smells, very faintly, of coins. It's closed. For good. The bell, mercifully, went with it."
+ ],
+ "p15.inspect.perch": [
+  "Agnes the Second's perch: a little crate with a sash folded in it, HOLD MY SASH!, and a brown feather or two.",
+  {
+   "if": {
+    "flag": "agnes_second_missing_in_sharkstorm"
+   },
+   "then": [
+    "Empty. Brogath sits by it in the evenings. He says he isn't waiting. He's waiting."
+   ]
+  }
+ ],
+ "p15.inspect.old_pillow": [
+  "The last of the old pillows. Yellowish. Greyish. It has a fold in the middle like a mouth, and it is breathing, and it is GROWLING at you."
+ ],
+ "p15.inspect.no_beard": [
+  "A sign on the zone's wall, in your capitals: NO BEARD JOINTS. A drawing of a beard, crossed out. Garrick has written underneath, very small: 'or merchandise?'. Somebody has crossed that out too."
+ ],
+ "p15.inspect.floorboard": [
+  {
+   "if": {
+    "flag": "grand_currency_converted"
+   },
+   "then": [
+    "The loose floorboard. Under it, the little iron box. In the box: stems. You keep them. You're not sure why. Proof, maybe. Of what, you couldn't say."
+   ],
+   "else": [
+    "The loose floorboard. Under it, seven real doubloons, in a little iron box. You stand on it."
+   ]
+  }
+ ],
+ "p15.zone_pad": [
+  "Your sash pad: HOLD MY SASH!, folded four deep, and a GRAND STENCHMASTER'S GRAND NAP for a blanket. Fart-themed. Not fart-scented. They were right. You'll never tell them.",
+  {
+   "choice": [
+    {
+     "text": "Rest a while",
+     "then": [
+      {
+       "fade": "out",
+       "duration": 700
+      },
+      {
+       "heal": "party"
+      },
+      {
+       "sfx": "snore",
+       "volume": 0.4
+      },
+      {
+       "wait": 700
+      },
+      {
+       "fade": "in",
+       "duration": 700
+      },
+      "You lie down for a while. Nobody deposits anything.",
+      {
+       "save": "auto"
+      }
+     ]
+    },
+    {
+     "text": "Not now"
+    }
+   ]
+  }
+ ],
+ "vindicta.idle": [
+  "vindicta: (forming, indignant) I am GRAND STENCHMISTRESS VINDICTA THUNDERWAFT THE...",
+  "She dissolves before she can finish. She seems to find that the most insulting thing of all."
+ ]
+}

@@ -1,7 +1,7 @@
 {
  "stenchmaster_channel": {
   "title": "The Stenchmaster Channel",
-  "//": "Story Phase 13: a channel that came with a kit for ages eight and up. Twenty-four hours of 'history', narrated with total seriousness: everything on it is Garrick's legends, dramatised, sponsored and somehow worse. Being on television makes none of it true. Beats with 'aroma' come out of the bedroom set's smell vent (Stench-O-Vision) while it's open.",
+  "//": "Story Phase 13: a channel that came with a kit for ages eight and up. Twenty-four hours of 'history', narrated with total seriousness: everything on it is Garrick's legends, dramatised, sponsored and somehow worse. Being on television makes none of it true. Beats with 'aroma' come out of the bedroom set's smell vent (Stench-O-Vision) while it's open. Story Phase 15: episodes can carry their own breaks ('segments': beat ranges, commercials from bbk_sash_ads with the Brogath trigger and reassurance prompt they cause, and reaction scripts), an unlock flag, a completion flag (doneFlag), whether the set may be switched off during them (powerOff), and Stench-O-Vision notes; the channelEpisode command plays the whole thing.",
   "laugh": "ftm_laugh",
   "episodes": [
    {
@@ -438,6 +438,872 @@
       "ms": 2400,
       "sfx": "sc_sting",
       "frameMs": 500
+     }
+    ]
+   },
+   {
+    "id": "age_of_fart_commerce",
+    "title": "BROGATH THE BASHFUL AND THE AGE OF FART COMMERCE",
+    "if": {
+     "flag": "p15_ch170_started"
+    },
+    "tv": "ses_mk2",
+    "tvState": "possessed",
+    "unlockFlag": "p15_ch170_started",
+    "doneFlag": "p15_aofc_watched",
+    "powerOff": false,
+    "stenchOVision": "aroma beats puff from the set's vent",
+    "//": "Story Phase 15 (chapter 170): Brogath's fall from treasure-rich pirate to fart-economy entrepreneur, in cartoon reenactment, with five commercial breaks that escalate (one sash, two, slow motion, unsupported, mass synchronized flutter). After each break Brogath has to be steadied (prompt sets ad_1..ad_5, a different piece of nonsense each time). Brogath objects only to the details: the colour of Tilda's hat, the number of ledgers, the size of the shed, the number of wreaths.",
+    "beats": [
+     {
+      "frames": [
+       "sc_logo_0",
+       "sc_logo_1"
+      ],
+      "line": "channel_narrator: THE STENCHMASTER CHANNEL PRESENTS: BROGATH THE BASHFUL AND THE AGE OF FART COMMERCE.",
+      "ms": 3200,
+      "sfx": "sc_sting",
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "aofc_rich_0",
+       "aofc_rich_1"
+      ],
+      "line": "channel_narrator: Before the Second Catastrophe, Brogath the Bashful was not rich in spirit. He was not rich in friendship.",
+      "ms": 3400,
+      "frameMs": 700
+     },
+     {
+      "frames": [
+       "aofc_rich_0",
+       "aofc_rich_1"
+      ],
+      "line": "channel_narrator: He was ACTUALLY RICH.",
+      "ms": 2200,
+      "sfx": "bling_chime",
+      "frameMs": 400
+     },
+     {
+      "frames": [
+       "aofc_rich_0",
+       "aofc_rich_1"
+      ],
+      "line": "channel_narrator: Real gold. Real repairs. Real provisions. For one brief, historically unrepeatable season: SOLVENT.",
+      "ms": 3400,
+      "frameMs": 700
+     },
+     {
+      "frames": [
+       "aofc_ledgers_0",
+       "aofc_ledgers_1"
+      ],
+      "line": "channel_narrator: His books were kept by Ledger Billiam, who carried TWO ledgers.",
+      "ms": 2800,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "aofc_ledgers_0",
+       "aofc_ledgers_1"
+      ],
+      "line": "ledger_billiam: One for money. And one for... the other thing.",
+      "ms": 2800,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "aofc_tilda_0",
+       "aofc_tilda_1"
+      ],
+      "line": "channel_narrator: His course was kept by No-Nonsense Tilda, in her sensible BLUE hat.",
+      "ms": 3000,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "aofc_bakery_0",
+       "aofc_bakery_1"
+      ],
+      "line": "channel_narrator: Then the treasure was lost, and Brogath went to market. With ATMOSPHERIC currency.",
+      "ms": 3000,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "aofc_bakery_0",
+       "aofc_bakery_1"
+      ],
+      "line": "channel_narrator: The baker refused. Brogath blushed. The loaves left the shelves at speed.",
+      "ms": 3000,
+      "sfx": "sc_rumble",
+      "frameMs": 300,
+      "aroma": true
+     },
+     {
+      "frames": [
+       "aofc_bakery_0",
+       "aofc_bakery_1"
+      ],
+      "line": "channel_narrator: The baker gave him a loaf to make him leave. Brogath recorded it as a SALE.",
+      "ms": 3000,
+      "laugh": true,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "aofc_cobbler_0",
+       "aofc_cobbler_1"
+      ],
+      "line": "channel_narrator: The cobbler. The cloth merchant. The same. Brogath concluded that the economy was WORKING.",
+      "ms": 3200,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "aofc_rope_0",
+       "aofc_rope_1"
+      ],
+      "line": "channel_narrator: One rope merchant entertained the idea. 'Knock that bucket over,' he said, 'and the rope's yours.'",
+      "ms": 3400,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "aofc_rope_0",
+       "aofc_rope_1"
+      ],
+      "line": "channel_narrator: The bucket left the shop, the street and the town. It was never found.",
+      "ms": 3000,
+      "sfx": "sc_rumble",
+      "laugh": true,
+      "frameMs": 300,
+      "aroma": true
+     },
+     {
+      "frames": [
+       "aofc_rope_0",
+       "aofc_rope_1"
+      ],
+      "line": "channel_narrator: He was given extra rope, and asked to leave. Brogath called it MARKET VALIDATION.",
+      "ms": 3000,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "aofc_farmer_0",
+       "aofc_farmer_1"
+      ],
+      "line": "channel_narrator: Hired by a farmer to blow the leaves off a field, he removed the leaves. The fence. A third of the shed.",
+      "ms": 3400,
+      "frameMs": 400,
+      "aroma": true
+     },
+     {
+      "frames": [
+       "aofc_farmer_0",
+       "aofc_farmer_1"
+      ],
+      "line": "channel_narrator: He was paid in full, chiefly to prevent a second attempt.",
+      "ms": 2800,
+      "laugh": true,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "aofc_forge_0",
+       "aofc_forge_1"
+      ],
+      "line": "channel_narrator: The blacksmith asked for a little more draught on his forge.",
+      "ms": 2800,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "aofc_forge_0",
+       "aofc_forge_1"
+      ],
+      "line": "channel_narrator: Concentrated output. The forge has not gone out since. Historians believe it is still lit.",
+      "ms": 3200,
+      "sfx": "sc_rumble",
+      "laugh": true,
+      "frameMs": 300
+     },
+     {
+      "frames": [
+       "aofc_boat_0",
+       "aofc_boat_1"
+      ],
+      "line": "channel_narrator: Transport: he would propel a rowing boat across the harbour by Stenchmaster power alone.",
+      "ms": 3000,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "aofc_boat_0",
+       "aofc_boat_1"
+      ],
+      "line": "channel_narrator: It went backwards. Into the harbourmaster.",
+      "ms": 2600,
+      "laugh": true,
+      "frameMs": 400
+     },
+     {
+      "frames": [
+       "beg_exchange_0",
+       "beg_exchange_1"
+      ],
+      "line": "channel_narrator: And at last: BROGATH'S GRAND GUST EXCHANGE. FARTS BOUGHT, SOLD AND TRADED.",
+      "ms": 3200,
+      "sfx": "bling_chime",
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "beg_customers_0",
+       "beg_customers_1"
+      ],
+      "line": "channel_narrator: 'What do you sell?' 'Farts.' 'What services do you offer?' 'Farts.' 'Have you anything besides farts?'",
+      "ms": 3600,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "beg_exchange_0",
+       "beg_exchange_1"
+      ],
+      "line": "channel_narrator: '...Beans?'",
+      "ms": 2000,
+      "laugh": true,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "aofc_funeral_0",
+       "aofc_funeral_1"
+      ],
+      "line": "channel_narrator: He believed, to the end, that his final fart would settle his funeral bill. The undertaker refused. Repeatedly.",
+      "ms": 3600,
+      "frameMs": 700
+     },
+     {
+      "frames": [
+       "aofc_funeral_0",
+       "aofc_funeral_1"
+      ],
+      "line": "channel_narrator: And on the day, it happened anyway. The hearse moved four feet. Two wreaths left the county.",
+      "ms": 3200,
+      "sfx": "sc_rumble",
+      "frameMs": 300,
+      "aroma": true
+     },
+     {
+      "frames": [
+       "aofc_funeral_0",
+       "aofc_funeral_1"
+      ],
+      "line": "channel_narrator: The undertaker declared the bill SETTLED, chiefly so that Brogath could be buried at once.",
+      "ms": 3200,
+      "laugh": true,
+      "frameMs": 700
+     },
+     {
+      "frames": [
+       "sc_logo_0",
+       "sc_logo_1"
+      ],
+      "line": "channel_narrator: BROGATH THE BASHFUL: A FINANCIAL PROOF. Stay tuned.",
+      "ms": 2400,
+      "sfx": "sc_sting",
+      "frameMs": 500
+     }
+    ],
+    "segments": [
+     {
+      "beats": [
+       0,
+       3
+      ]
+     },
+     {
+      "script": "p15c1.react_rich"
+     },
+     {
+      "beats": [
+       4,
+       6
+      ]
+     },
+     {
+      "script": "p15c1.react_tilda"
+     },
+     {
+      "commercial": {
+       "episode": "short_one",
+       "trigger": "flutter",
+       "quiet": true,
+       "reassure": "ad_1"
+      }
+     },
+     {
+      "beats": [
+       7,
+       10
+      ]
+     },
+     {
+      "script": "p15c1.react_bakery"
+     },
+     {
+      "commercial": {
+       "episode": "short_two",
+       "trigger": "flutter",
+       "quiet": true,
+       "reassure": "ad_2"
+      }
+     },
+     {
+      "beats": [
+       11,
+       15
+      ]
+     },
+     {
+      "script": "p15c1.react_rope"
+     },
+     {
+      "commercial": {
+       "episode": "slowmo",
+       "trigger": "slow_motion",
+       "quiet": true,
+       "reassure": "ad_3"
+      }
+     },
+     {
+      "beats": [
+       16,
+       19
+      ]
+     },
+     {
+      "script": "p15c1.react_forge"
+     },
+     {
+      "commercial": {
+       "episode": "unsupported",
+       "trigger": "unsupported",
+       "quiet": true,
+       "reassure": "ad_4"
+      }
+     },
+     {
+      "beats": [
+       20,
+       22
+      ]
+     },
+     {
+      "script": "p15c1.react_exchange"
+     },
+     {
+      "commercial": {
+       "episode": "mass_flutter",
+       "trigger": "mass_flutter",
+       "quiet": true,
+       "reassure": "ad_5"
+      }
+     },
+     {
+      "beats": [
+       23,
+       26
+      ]
+     },
+     {
+      "script": "p15c1.react_funeral"
+     }
+    ]
+   },
+   {
+    "id": "top_ten_flutters",
+    "title": "THE TOP TEN MOST EMBARRASSING SASH FLUTTERS",
+    "if": {
+     "flag": "p15_ch171_started"
+    },
+    "tv": "ses_mk2",
+    "tvState": "possessed",
+    "unlockFlag": "p15_ch171_started",
+    "doneFlag": "p15_top_ten_watched",
+    "powerOff": false,
+    "//": "Story Phase 15 (chapter 171): straight on after the Age of Fart Commerce. Number one is the Goat Incident.",
+    "beats": [
+     {
+      "frames": [
+       "tt_title_0",
+       "tt_title_1"
+      ],
+      "line": "channel_narrator: AND NOW: THE TOP TEN MOST EMBARRASSING SASH FLUTTERS OF BROGATH THE BASHFUL.",
+      "ms": 3200,
+      "sfx": "sc_sting",
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "tt_ten_0",
+       "tt_ten_1"
+      ],
+      "line": "channel_narrator: Number ten. The Harbour Gala. A light breeze. A long afternoon.",
+      "ms": 2800,
+      "sfx": "flutter_tiny",
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "tt_seven_0",
+       "tt_seven_1"
+      ],
+      "line": "channel_narrator: Number seven. The Wedding. The sash went into the cake. Twice.",
+      "ms": 2800,
+      "laugh": true,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "tt_four_0",
+       "tt_four_1"
+      ],
+      "line": "channel_narrator: Number four. The Coronation of Somebody Else.",
+      "ms": 2600,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "tt_two_0",
+       "tt_two_1"
+      ],
+      "line": "channel_narrator: Number two. The Mirror. He fluttered at HIMSELF.",
+      "ms": 2600,
+      "laugh": true,
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "tt_goat_0",
+       "tt_goat_1"
+      ],
+      "line": "channel_narrator: And number one. THE GOAT INCIDENT.",
+      "ms": 2600,
+      "sfx": "sc_sting",
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "tt_goat_0",
+       "tt_goat_1"
+      ],
+      "line": "channel_narrator: He stood beside a goat. A breeze lifted his sash. A child said: 'Mummy, the man's sash is DANCING.'",
+      "ms": 3600,
+      "sfx": "flutter_tiny",
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "tt_goat_down_0",
+       "tt_goat_down_1"
+      ],
+      "line": "channel_narrator: A short Stenchmaster fart. The goat went over.",
+      "ms": 2600,
+      "sfx": "sc_rumble",
+      "frameMs": 300,
+      "aroma": true
+     },
+     {
+      "frames": [
+       "tt_goat_run_0",
+       "tt_goat_run_1"
+      ],
+      "line": "channel_narrator: The goat got up. The goat left. The goat has not been seen since.",
+      "ms": 3000,
+      "laugh": true,
+      "frameMs": 400
+     }
+    ],
+    "segments": [
+     {
+      "beats": [
+       0,
+       4
+      ]
+     },
+     {
+      "script": "p15c2.react_list"
+     },
+     {
+      "beats": [
+       5,
+       8
+      ]
+     }
+    ]
+   },
+   {
+    "id": "goat_incident",
+    "title": "THE GOAT INCIDENT (REPEAT)",
+    "if": {
+     "flag": "p15_ch185_started"
+    },
+    "tv": "ses_mk2",
+    "powerOff": false,
+    "doneFlag": "p15_goat_rewatched",
+    "//": "Story Phase 15 (chapter 185): the Goat Incident on its own, for anybody trying to remember it on purpose.",
+    "beats": [
+     {
+      "frames": [
+       "tt_goat_0",
+       "tt_goat_1"
+      ],
+      "line": "channel_narrator: BY POPULAR DEMAND: THE GOAT INCIDENT.",
+      "ms": 2400,
+      "sfx": "sc_sting",
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "tt_goat_0",
+       "tt_goat_1"
+      ],
+      "line": "channel_narrator: A goat. A breeze. A sash. A child.",
+      "ms": 2600,
+      "sfx": "flutter_tiny",
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "tt_goat_down_0",
+       "tt_goat_down_1"
+      ],
+      "line": "channel_narrator: The goat went over.",
+      "ms": 2000,
+      "sfx": "sc_rumble",
+      "frameMs": 300,
+      "aroma": true
+     },
+     {
+      "frames": [
+       "tt_goat_run_0",
+       "tt_goat_run_1"
+      ],
+      "line": "channel_narrator: The goat left.",
+      "ms": 2000,
+      "laugh": true,
+      "frameMs": 400
+     }
+    ]
+   },
+   {
+    "id": "wrath_of_brogath",
+    "title": "THE WRATH OF BROGATH",
+    "if": {
+     "flag": "p15_ch176_started"
+    },
+    "tv": "ses_mk2",
+    "tvState": "possessed",
+    "unlockFlag": "p15_ch176_started",
+    "doneFlag": "p15_wrath_watched",
+    "powerOff": false,
+    "//": "Story Phase 15 (chapter 176): how the Mark II announces it's back (gutted, not plugged in): the night the bank appeared, and LAST TUESDAY.",
+    "beats": [
+     {
+      "frames": [
+       "wrath_title_0",
+       "wrath_title_1"
+      ],
+      "line": "channel_narrator: THE STENCHMASTER CHANNEL. WE NEVER LEFT.",
+      "ms": 2600,
+      "sfx": "sc_sting",
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "wrath_title_0",
+       "wrath_title_1"
+      ],
+      "line": "channel_narrator: Tonight: THE WRATH OF BROGATH. When Brogath ceaseth to be bashful.",
+      "ms": 3000,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "wrath_bank_0",
+       "wrath_bank_1"
+      ],
+      "line": "channel_narrator: Once, his wrath made a BANK.",
+      "ms": 2600,
+      "sfx": "sc_rumble",
+      "frameMs": 400
+     },
+     {
+      "frames": [
+       "wrath_weed_0",
+       "wrath_weed_1"
+      ],
+      "line": "channel_narrator: And last Tuesday, it made twenty thousand tokens into a mountain of bargain-bin Skunk Weed.",
+      "ms": 3400,
+      "laugh": true,
+      "frameMs": 400
+     },
+     {
+      "frames": [
+       "sc_logo_0",
+       "sc_logo_1"
+      ],
+      "line": "channel_narrator: After the break: a chicken.",
+      "ms": 2400,
+      "sfx": "sc_sting",
+      "frameMs": 500
+     }
+    ]
+   },
+   {
+    "id": "chicken_incident",
+    "title": "BROGATH AND THE CHICKEN",
+    "if": {
+     "flag": "p15_ch176_started"
+    },
+    "tv": "ses_mk2",
+    "tvState": "possessed",
+    "unlockFlag": "p15_ch176_started",
+    "doneFlag": "p15_agnes_watched",
+    "powerOff": false,
+    "stenchOVision": "the green beat",
+    "//": "Story Phase 15 (chapter 176): AGNES. Ancient Brogath goes bashful in front of a very good chicken; the fart is green; the whole market town goes mellow for three days; Agnes is fine. Set-up only: Agnes the Second comes later.",
+    "beats": [
+     {
+      "frames": [
+       "agnes_title_0",
+       "agnes_title_1"
+      ],
+      "line": "channel_narrator: THE STENCHMASTER CHANNEL PRESENTS: BROGATH AND THE CHICKEN.",
+      "ms": 2800,
+      "sfx": "sc_sting",
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "agnes_coop_0",
+       "agnes_coop_1"
+      ],
+      "line": "channel_narrator: In the market town of Lower Wafting there lived a chicken called AGNES.",
+      "ms": 3000,
+      "sfx": "hen_cluck",
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "agnes_coop_0",
+       "agnes_coop_1"
+      ],
+      "line": "channel_narrator: Agnes was, by every account, a very good chicken.",
+      "ms": 2600,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "agnes_coop_0",
+       "agnes_coop_1"
+      ],
+      "line": "channel_narrator: Brogath met her on a Tuesday. She looked at him. He went pink.",
+      "ms": 3000,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "agnes_waft_0",
+       "agnes_waft_1"
+      ],
+      "line": "channel_narrator: What happened next was GREEN.",
+      "ms": 2600,
+      "sfx": "sc_rumble",
+      "frameMs": 300,
+      "aroma": true
+     },
+     {
+      "frames": [
+       "agnes_town_0",
+       "agnes_town_1"
+      ],
+      "line": "channel_narrator: The whole town went quiet. The baker sat down. The mayor sat down. Nobody argued about anything for three days.",
+      "ms": 3800,
+      "frameMs": 900
+     },
+     {
+      "frames": [
+       "agnes_town_0",
+       "agnes_town_1"
+      ],
+      "line": "channel_narrator: The market was later described as 'unusually mellow'. Several merchants forgot to charge him.",
+      "ms": 3400,
+      "laugh": true,
+      "frameMs": 900
+     },
+     {
+      "frames": [
+       "agnes_coop_0",
+       "agnes_coop_1"
+      ],
+      "line": "channel_narrator: And Agnes? Agnes was fine. Agnes laid an egg, and went to bed.",
+      "ms": 3000,
+      "sfx": "hen_cluck",
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "sc_logo_0",
+       "sc_logo_1"
+      ],
+      "line": "channel_narrator: AGNES. A VERY GOOD CHICKEN.",
+      "ms": 2400,
+      "sfx": "sc_sting",
+      "frameMs": 500
+     }
+    ],
+    "segments": [
+     {
+      "beats": [
+       0,
+       3
+      ]
+     },
+     {
+      "script": "p15c7.react_agnes"
+     },
+     {
+      "beats": [
+       4,
+       8
+      ]
+     }
+    ]
+   },
+   {
+    "id": "untold_stories",
+    "title": "THE UNTOLD STORIES OF BROGATH THE BASHFUL",
+    "if": {
+     "flag": "p15_ch182_started"
+    },
+    "tv": "ses_mk2",
+    "tvState": "possessed",
+    "unlockFlag": "p15_ch182_started",
+    "doneFlag": "p15_untold_watched",
+    "powerOff": false,
+    "//": "Story Phase 15 (chapter 182): told while the Bashfulness Branch keeps ringing its bell. Three untold stories (the cannon, the wishing well, the chicken coop that was a bank); more can be added as beats and segments.",
+    "beats": [
+     {
+      "frames": [
+       "untold_title_0",
+       "untold_title_1"
+      ],
+      "line": "channel_narrator: THE UNTOLD STORIES OF BROGATH THE BASHFUL.",
+      "ms": 2800,
+      "sfx": "sc_sting",
+      "frameMs": 500
+     },
+     {
+      "frames": [
+       "untold_cannon_0",
+       "untold_cannon_1"
+      ],
+      "line": "channel_narrator: Untold story one. Brogath once fired himself from a cannon. To see if he could.",
+      "ms": 3200,
+      "sfx": "sc_rumble",
+      "frameMs": 400
+     },
+     {
+      "frames": [
+       "untold_cannon_0",
+       "untold_cannon_1"
+      ],
+      "line": "channel_narrator: He could. He landed in the harbourmaster's garden. The harbourmaster remembered him.",
+      "ms": 3200,
+      "laugh": true,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "untold_well_0",
+       "untold_well_1"
+      ],
+      "line": "channel_narrator: Untold story two. Brogath once opened an account at a wishing well.",
+      "ms": 3000,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "untold_well_0",
+       "untold_well_1"
+      ],
+      "line": "channel_narrator: He deposited his last real coin and asked for a statement. The well has never replied.",
+      "ms": 3200,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "untold_coop_0",
+       "untold_coop_1"
+      ],
+      "line": "channel_narrator: Untold story three. His crew once mistook a chicken coop for a bank.",
+      "ms": 3000,
+      "sfx": "hen_cluck",
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "untold_coop_0",
+       "untold_coop_1"
+      ],
+      "line": "channel_narrator: Ledger Billiam deposited eleven coins. The hens are believed to have spent them.",
+      "ms": 3200,
+      "laugh": true,
+      "frameMs": 600
+     },
+     {
+      "frames": [
+       "sc_logo_0",
+       "sc_logo_1"
+      ],
+      "line": "channel_narrator: More untold stories, after these messages. (There are always messages.)",
+      "ms": 2600,
+      "sfx": "sc_sting",
+      "frameMs": 500
+     }
+    ],
+    "segments": [
+     {
+      "beats": [
+       0,
+       2
+      ]
+     },
+     {
+      "script": "p15c13.react_cannon"
+     },
+     {
+      "beats": [
+       3,
+       4
+      ]
+     },
+     {
+      "script": "p15c13.react_well"
+     },
+     {
+      "beats": [
+       5,
+       7
+      ]
+     },
+     {
+      "script": "p15c13.react_coop"
      }
     ]
    }

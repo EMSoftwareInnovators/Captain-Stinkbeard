@@ -1,0 +1,974 @@
+{
+ "//": "Story Phase 15, chapters 170-172: the Stenchmaster Channel presents (stations, snacks, the Age of Fart Commerce), the Top Ten Sash Flutters (the goat, the first skunk-weed waft, the skunk-haze vision, the Mark II gutted), Family of Idiots (Brogath misses his crew, the cardboard plan stopped, the ancient crew in the pocket edition, no).",
+ "p15.ready_hint": [
+  {
+   "setFlag": "p15_ready_hint"
+  },
+  "From somewhere below, very faintly, a jingle you know too well. Then a voice, narrating something with total seriousness.",
+  {
+   "tutorial": "Go to the galley and see Pete. (The Mark II is still on.)",
+   "title": "The Great Mellowing"
+  }
+ ],
+ "p15c1.begin": [
+  {
+   "setFlag": "p15_started"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 32
+  },
+  {
+   "banner": "CAPTAIN STINKBEARD",
+   "sub": "and the One Fart He Actually Misses"
+  },
+  {
+   "setFlag": "p15_ch170_started"
+  },
+  {
+   "banner": "CHAPTER 170",
+   "sub": "The Stenchmaster Channel Presents"
+  },
+  {
+   "music": "stenchmaster_channel",
+   "fade": 600
+  },
+  "pete[tired]: (not looking round from the Mark II) Three days, Captain. It's been on for three days.",
+  "The Mark II sits on its crate, glowing. The plug is lying on the floor beside it, coiled neatly, where Jim left it. It isn't plugged into anything. It has never been plugged into anything.",
+  "pete[tired]: We've tried the power switch. We've tried the plug. Jim took two valves out. Bob took the aerial off. Gristle put a blanket over it. Ned hit it with a boot.",
+  "ned: (from across the galley) It hit me BACK.",
+  "pete[tired]: So now we've got a PROTOCOL.",
+  "Round the set, everybody has a place. A blanket folded on Gristle's knee. Bob with a paperweight in each hand. Jim by the curtain over the porthole. Squawks on the bench, wings clamped to his sides, glaring.",
+  "And in the front row, in his drawn-on nightcap, Brogath. Watching.",
+  "brogath[delighted]: (turning round) Captain! It's ME again! It's an ECONOMIC one!",
+  {
+   "startQuest": "stenchmaster_channel_presents"
+  },
+  {
+   "tutorial": "The Brogath Television Safety Protocol: everybody has a station. Check them all (Pete, Gristle, Bob, Jim, Squawks). Garrick, at the back, wants something.",
+   "title": "The Stenchmaster Channel Presents"
+  }
+ ],
+ "p15c1.station_pete": [
+  "pete: (quietly, never taking his eyes off Brogath's cheeks) Station one. I watch for the blush. First sign of pink, I say something nice.",
+  "captain: So you're the... emotional support pirate.",
+  "pete[annoyed]: I'm not ANYTHING, Captain. I'm sitting here. Next to him. Saying nice things. On a rota I didn't write.",
+  "pete: (to Brogath, smoothly, without a pause) That's a very distinguished nightcap, Your Ancientness.",
+  "brogath[pleased]: (patting it) I drew it myself.",
+  {
+   "setFlag": "p15_st_pete"
+  },
+  {
+   "event": "p15_station"
+  }
+ ],
+ "p15c1.station_gristle": [
+  "gristle: (holding up the folded blanket) Commercial break: blanket. Over his eyes. Not over his HEAD. We tried over his head. He thought he'd died again.",
+  {
+   "setFlag": "p15_st_gristle"
+  },
+  {
+   "event": "p15_station"
+  }
+ ],
+ "p15c1.station_bob": [
+  "bob: (a paperweight in each hand) Loose paper. Anything that might flap. I hold it DOWN.",
+  "bob: I've been holding this napkin down since Tuesday. Nobody's needed it. It's not about need, Captain. It's about READINESS.",
+  {
+   "setFlag": "p15_st_bob"
+  },
+  {
+   "event": "p15_station"
+  }
+ ],
+ "p15c1.station_jim": [
+  "jim: (one hand on the porthole curtain) Curtains, sashes, anything with a hem. If it's fabric and it moves, I'm on it.",
+  "jim: I've sewn the curtain to the wall. It's still technically a curtain.",
+  {
+   "setFlag": "p15_st_jim"
+  },
+  {
+   "event": "p15_station"
+  }
+ ],
+ "p15c1.station_squawks": [
+  "squawks[outraged]: No flap.",
+  "He hasn't moved a feather in three days. He's had his meals brought to him.",
+  "squawks[outraged]: (very quietly) No. Flap.",
+  {
+   "setFlag": "p15_st_squawks"
+  },
+  {
+   "event": "p15_station"
+  }
+ ],
+ "p15c1.snacks": [
+  "garrick[delighted]: (at the back, in his nightshirt and the Grand Crown, on the best stool) Captain! Excellent television! Excellent. Now: SNACKS. Something with a bit of body to it. Something with...",
+  {
+   "choice": [
+    {
+     "text": "NO BEANS.",
+     "then": [
+      "captain[determined]: NO. BEANS."
+     ]
+    },
+    {
+     "text": "...Beans?",
+     "then": [
+      "pete[alarmed]: (hissing from the front row) CAPTAIN.",
+      "captain[determined]: (quickly) NO. NO BEANS. Nobody said beans."
+     ]
+    },
+    {
+     "text": "Crackers. Plain ones.",
+     "then": [
+      "garrick[offended]: Crackers! The Grand Stenchmaster, on CRACKERS.",
+      "captain[determined]: Crackers. And NO BEANS."
+     ]
+    }
+   ]
+  },
+  "garrick[offended]: (sitting back, offended) I shall issue a decree about this.",
+  "captain[tired]: Issue it quietly.",
+  {
+   "setFlag": "p15_no_beans"
+  }
+ ],
+ "p15c1.stations_done": [
+  {
+   "setFlag": "p15_stations_said"
+  },
+  "Everybody in place. Blanket, paperweights, curtain, a parrot doing his best impression of a statue, and Pete, murmuring compliments. It's the most organised you've seen this crew since the day you took the ship.",
+  "On the screen, the jingle again. A title card.",
+  "brogath[delighted]: (patting the floor beside him) It's starting, Captain! Sit with me!",
+  {
+   "tutorial": "Watch it with him (Brogath, the front row). During the commercials, steady him: something confident. Something nonsense.",
+   "title": "The Stenchmaster Channel Presents"
+  }
+ ],
+ "p15c1.watch": [
+  {
+   "if": {
+    "notFlag": "p15_stations_said"
+   },
+   "then": [
+    "brogath[pleased]: Is everybody ready? Pete says everybody has to be ready.",
+    {
+     "bark": "pete",
+     "text": "Stations first, Captain!",
+     "duration": 1400
+    },
+    {
+     "end": true
+    }
+   ]
+  },
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "vista": "galley_watch",
+   "fade": 500
+  },
+  {
+   "music": "stenchmaster_channel",
+   "fade": 400
+  },
+  {
+   "stability": "meter",
+   "show": "show"
+  },
+  {
+   "stability": "set",
+   "pressure": 20
+  },
+  {
+   "channelEpisode": "age_of_fart_commerce",
+   "tv": "ses_mk2"
+  },
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  "The title card again, and a jingle, and the narrator clearing his throat for the next one.",
+  "brogath[proud]: (to the whole galley) A FINANCIAL PROOF. You heard him.",
+  "captain[tired]: (very quietly) I heard him.",
+  {
+   "completeQuest": "stenchmaster_channel_presents"
+  },
+  {
+   "call": "p15c2.begin"
+  }
+ ],
+ "p15c1.react_rich": [
+  "brogath[proud]: (to you, delighted) We WERE. Actually rich. We had a chandelier. On a SHIP.",
+  "garrick[delighted]: Solvent. Solvent! What a word, Captain.",
+  "pete: (quietly, without looking round) Commercials coming, Captain. You'll want something ready."
+ ],
+ "p15c1.react_tilda": [
+  "brogath[confused]: (sitting up very straight) Green.",
+  "captain: What?",
+  "brogath[confused]: Her hat. Tilda's hat. It was GREEN. She'd never have worn blue. Blue was for show.",
+  "brogath[thoughtful]: And Billiam had THREE ledgers. The third was for keeping track of the other two.",
+  "captain[annoyed]: That's what you object to? The HAT?",
+  "brogath[pleased]: Everything else is perfectly accurate.",
+  "channel_narrator: WE'LL BE RIGHT BACK, AFTER THIS WORD FROM OUR SPONSOR.",
+  "gristle: (shaking out the blanket) Commercial."
+ ],
+ "p15c1.react_bakery": [
+  {
+   "if": {
+    "var": {
+     "name": "brogath_pressure",
+     "gte": 55
+    }
+   },
+   "then": [
+    {
+     "call": "p15c1.ad_erupt"
+    }
+   ]
+  },
+  "brogath[proud]: It WAS a sale. I wrote it down. Billiam wrote it down twice. Once in each ledger.",
+  "jim: (hand on the curtain) Here comes another one."
+ ],
+ "p15c1.react_rope": [
+  {
+   "if": {
+    "var": {
+     "name": "brogath_pressure",
+     "gte": 55
+    }
+   },
+   "then": [
+    {
+     "call": "p15c1.ad_erupt"
+    }
+   ]
+  },
+  "brogath[thoughtful]: It was a PAIL. Not a bucket. And it was a QUARTER of the shed. A third is a gross exaggeration.",
+  "garrick[businesslike]: Market validation. Captain, we should be writing these down.",
+  "brogath[delighted]: Oh, we did. In sixteen eighty-three. There's a whole volume.",
+  "garrick[delighted]: PRECEDENT.",
+  "captain[resigned]: (to nobody) There's a whole volume."
+ ],
+ "p15c1.react_forge": [
+  {
+   "if": {
+    "var": {
+     "name": "brogath_pressure",
+     "gte": 55
+    }
+   },
+   "then": [
+    {
+     "call": "p15c1.ad_erupt"
+    }
+   ]
+  },
+  "brogath[delighted]: STILL LIT! I knew it. I KNEW it.",
+  "jim: (wistful) Could we get the address? For the stove?"
+ ],
+ "p15c1.react_exchange": [
+  {
+   "if": {
+    "var": {
+     "name": "brogath_pressure",
+     "gte": 55
+    }
+   },
+   "then": [
+    {
+     "call": "p15c1.ad_erupt"
+    }
+   ]
+  },
+  "garrick[delighted]: (on his feet) A GUST EXCHANGE! Captain, I'm reinstating it! By decree! Farts bought, sold and...",
+  "captain[determined]: NO.",
+  "brogath[pleased]: We had beans as well. In case anyone asked.",
+  "captain[determined]: Nobody is asking about BEANS."
+ ],
+ "p15c1.react_funeral": [
+  {
+   "if": {
+    "var": {
+     "name": "brogath_pressure",
+     "gte": 55
+    }
+   },
+   "then": [
+    {
+     "call": "p15c1.ad_erupt"
+    }
+   ]
+  },
+  "brogath[thoughtful]: (quietly) Three wreaths. Not two. Three left the county.",
+  "brogath[proud]: And it WAS settled. They said so. That's a financial PROOF, that is.",
+  "squawks[smug]: (not moving a feather) Bad money."
+ ],
+ "p15c1.ad_erupt": [
+  {
+   "sfx": "brogath_eruption_small",
+   "volume": 0.9
+  },
+  {
+   "shake": 3,
+   "duration": 700
+  },
+  {
+   "flash": "#e8e0a0",
+   "duration": 160
+  },
+  {
+   "burst": "fume",
+   "x": 14,
+   "y": 7,
+   "count": 8
+  },
+  "BRRRMP.",
+  "gristle: (already moving) BLANKET.",
+  "The blanket goes over Brogath's eyes, smoothly, the way a sail goes over a cannon. Bob is on the napkin. Jim is on the curtain. Squawks is on nothing, as hard as he can.",
+  "brogath[sorry]: (under the blanket) ...Little toot.",
+  "crew: (in unison, flat, without looking up) Agreed.",
+  {
+   "stability": "set",
+   "pressure": 30
+  }
+ ],
+ "p15c2.begin": [
+  {
+   "setFlag": "p15_ch171_started"
+  },
+  {
+   "banner": "CHAPTER 171",
+   "sub": "The Top Ten Most Embarrassing Sash Flutters"
+  },
+  {
+   "vista": "galley_watch",
+   "fade": 300
+  },
+  {
+   "channelEpisode": "top_ten_flutters",
+   "tv": "ses_mk2"
+  },
+  {
+   "stability": "trigger",
+   "id": "goat",
+   "quiet": true
+  },
+  "brogath[mortified]: (very small) The goat.",
+  "And Garrick, at the back, on the best stool, makes a noise like a kettle.",
+  "garrick[laugh]: (helpless) The GOAT. It went... it just went OVER... and then it got UP and...",
+  {
+   "stability": "trigger",
+   "id": "laughed_at"
+  },
+  "pete[alarmed]: (to Garrick, fast and low) Stop it. Stop it. STOP LAUGHING.",
+  "garrick[laugh]: I CAN'T...",
+  {
+   "vistaEnd": true,
+   "fade": 300
+  },
+  {
+   "stability": "set",
+   "pressure": 100
+  },
+  {
+   "sfx": "pressure_build",
+   "volume": 1.0
+  },
+  {
+   "shake": 2,
+   "duration": 900
+  },
+  "The card bows out. The printed cheeks go scarlet. Gristle has the blanket up.",
+  "And then it comes out. Not like the others.",
+  {
+   "sfx": "skunk_waft",
+   "volume": 1.0
+  },
+  {
+   "shake": 3,
+   "duration": 1400
+  },
+  {
+   "flash": "#b8d890",
+   "duration": 260
+  },
+  {
+   "burst": "fume",
+   "x": 14,
+   "y": 7,
+   "count": 14
+  },
+  {
+   "atmosphere": "BROGATH_SKUNK_HAZE"
+  },
+  {
+   "setFlag": "p15_first_skunk_waft"
+  },
+  {
+   "stability": "settle",
+   "pressure": 15
+  },
+  "It isn't loud. It's a long, low, wobbling sort of note, like somebody blowing across the top of a bottle in another room.",
+  "And it's GREEN. A slow green-olive haze, with his usual yellow-brown somewhere underneath it, rolling out across the galley at the height of your knees.",
+  "And the smell...",
+  "It isn't beans. It isn't parchment, or garlic, or the old cloud. It's sharp and green and thick and skunky. It smells like a forest that has been up all night.",
+  "jim[alarmed]: (sniffing) Something's BURNING.",
+  "bob[alarmed]: Is it the STOVE?",
+  "gristle: Check the lamps! Check the SET!",
+  {
+   "stability": "meter",
+   "show": "hide"
+  },
+  {
+   "startQuest": "top_ten_flutters"
+  },
+  {
+   "tutorial": "Find what's burning: the stove, the lantern over the long table, the Mark II.",
+   "title": "The Top Ten Most Embarrassing Sash Flutters"
+  }
+ ],
+ "p15c2.react_list": [
+  "brogath[thoughtful]: (stiffly) Number seven. The Wedding. It was a SPLENDID flutter, I'll have you know. It was the CAKE that was embarrassing.",
+  "pete: (smoothly) Very splendid, Your Ancientness.",
+  "channel_narrator: AND NOW. NUMBER ONE.",
+  "brogath[alarmed]: (going rigid) Oh, no. Oh, they wouldn't."
+ ],
+ "p15c2.burn_stove": [
+  "The stove. Cold. Jim hasn't lit it since breakfast, and breakfast was crackers (NO BEANS).",
+  "It's not the stove.",
+  {
+   "setFlag": "p15_burn_stove"
+  },
+  {
+   "event": "p15_burning"
+  }
+ ],
+ "p15c2.burn_lantern": [
+  "The lantern over the long table. Lit, steady, nothing smouldering. You hold your hand over it. It's just a lantern.",
+  "The smell is stronger over HERE, though. It's thickest away from the lantern. Thickest towards the front row.",
+  {
+   "setFlag": "p15_burn_lantern"
+  },
+  {
+   "event": "p15_burning"
+  }
+ ],
+ "p15c2.burn_tv": [
+  "The Mark II. Warm, but it's always warm. Not smoking. On the screen, the goat goes over again. In slow motion. It's showing the goat on a LOOP.",
+  "It's not the set. Not this time.",
+  {
+   "setFlag": "p15_burn_tv"
+  },
+  {
+   "event": "p15_burning"
+  }
+ ],
+ "p15c2.burning_done": [
+  {
+   "setFlag": "p15_burning_said"
+  },
+  "Nothing's burning. And the smell's getting STRONGER.",
+  "Pete is standing very still, looking at the front row, with the face of a man who has worked something out and would very much like not to have.",
+  {
+   "tutorial": "Work out where it's really coming from (Pete).",
+   "title": "The Top Ten Most Embarrassing Sash Flutters"
+  }
+ ],
+ "p15c2.source": [
+  {
+   "if": {
+    "notFlag": "p15_burning_said"
+   },
+   "then": [
+    "pete[worried]: Check everything, Captain. The stove, the lantern, the set.",
+    {
+     "end": true
+    }
+   ]
+  },
+  "pete: (very quietly) Captain. Nothing's burning.",
+  "pete: It's HIM.",
+  "Everybody turns round. Brogath, in the front row, in the middle of a slow green haze, looks behind himself to see who they're all looking at.",
+  "brogath[confused]: ...Oh.",
+  "brogath[embarrassed]: Oh, dear. That's not my usual. Is it? That's not my usual at ALL.",
+  "captain: (stepping in) Hang on. Let me just...",
+  "pete[alarmed]: Captain, don't breathe it through your...",
+  "You lean in. You breathe in. Through the beard.",
+  {
+   "sfx": "delirium_cue",
+   "volume": 0.8
+  },
+  {
+   "shake": 1,
+   "duration": 500
+  },
+  "And the beard, which has spent the last year filtering everything this ship could throw at it (Garrick, Frog Grog, garlic, onions, the old treasure-room cloud, a Grand Bank's worth of deposits, and GARY), takes the green, and adds it to the collection, and hands it back to you, distorted.",
+  {
+   "setFlag": "p15_skunk_vision"
+  },
+  "The galley tilts. Goes soft at the edges. Goes a pale, glowing green.",
+  "And your crew aren't your crew any more.",
+  "Pete is BROGATH. In the robe, and the crown. Gristle is RUMPOLD WINDBREAKER, vast and ancient. Bob is Sir Rumpus Windbottom. Jim is Lord Gustavio. Squawks is wearing a TIARA.",
+  "And Garrick, at the back, on the best stool, has become something with too many sashes and a light behind it: THE GRAND STENCHMASTER PRIME.",
+  "captain[alarmed]: (backing into the table) There's TWO of him. There's two BROGATHS.",
+  "pete: Captain, I'm Pete.",
+  "captain[alarmed]: THAT'S WHAT A BROGATH WOULD SAY.",
+  "Your hand goes to your cutlass. Pete's goes over yours, flat and firm, and stays there.",
+  "pete: (calmly) No. Nobody's drawing anything. You need air, Captain. Up the ladder. Now.",
+  "brogath[confused]: (from the front row, waving) Captain? I'm the cardboard one. Over here. Hello?",
+  {
+   "setFlag": "p15_skunk_source"
+  },
+  {
+   "tutorial": "Get some air (up on deck). Whatever anybody looks like.",
+   "title": "The Top Ten Most Embarrassing Sash Flutters"
+  }
+ ],
+ "p15c2.air": [
+  {
+   "setFlag": "p15_air"
+  },
+  {
+   "clearFlag": "p15_skunk_vision"
+  },
+  {
+   "sfx": "wind_gust",
+   "volume": 0.7
+  },
+  "Wind. Real wind, full of salt and shark and the Sharkstorm going round. You stand at the rail and breathe it through your mouth until the deck stops being green.",
+  "hale: (at the wheel) Captain? You're... a colour.",
+  "captain[resigned]: (gripping the rail) Hale. Are you an Ancient Grand Stenchmaster?",
+  "hale: ...No, Captain.",
+  "captain[resigned]: Good. Good man.",
+  "It's clearing. Hale is Hale. The sea is the sea. And you know exactly whose fault this is.",
+  "Not Brogath's. Brogath only watched it.",
+  "captain[determined]: (very quietly) That television.",
+  {
+   "tutorial": "Make it STOP (the Mark II, in the galley).",
+   "title": "The Top Ten Most Embarrassing Sash Flutters"
+  }
+ ],
+ "p15c2.stop": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "The Mark II. The goat goes over. The goat gets up. The goat goes over. The goat gets up.",
+  "captain[determined]: (rolling up your sleeves) Right.",
+  "pete: Captain, the protocol says...",
+  "captain[determined]: The protocol can WATCH.",
+  "You get your fingers in behind the back panel. The valve first: hot, glowing, humming at you.",
+  {
+   "repair": "pry",
+   "strikes": 3,
+   "title": "THE VALVE"
+  },
+  {
+   "sfx": "tube_pop",
+   "volume": 0.9
+  },
+  "It comes out with a pop. The picture doesn't even flicker. The wire next, the one that runs to the sauce-can aerial.",
+  {
+   "repair": "pry",
+   "strikes": 3,
+   "title": "THE WIRE"
+  },
+  {
+   "sfx": "wood_crack",
+   "volume": 0.6
+  },
+  "Out. Still the goat. And then the horseshoe, Ned's lucky horseshoe, wedged in the back since the day the Mark II was built, the thing that holds the whole set's luck in.",
+  {
+   "repair": "pry",
+   "strikes": 4,
+   "title": "THE HORSESHOE"
+  },
+  {
+   "sfx": "mk2_rattle",
+   "volume": 0.9
+  },
+  {
+   "sfx": "tv_power_off",
+   "volume": 1.0
+  },
+  {
+   "shake": 2,
+   "duration": 600
+  },
+  {
+   "setValue": "ses_mk2_state",
+   "value": "gutted"
+  },
+  {
+   "setVar": "ses_mk2_power",
+   "value": 0
+  },
+  {
+   "setFlag": "tv_destroyed_again"
+  },
+  {
+   "setFlag": "mk2_parts_on_floor"
+  },
+  "The picture folds to a dot. The dot waits, the way it always waits.",
+  "And goes out.",
+  "Silence. Real silence. The kind the galley hasn't had in three days.",
+  "You stand there with a valve, a wire and a horseshoe in your hands, breathing hard. Ned starts to clap. Nobody joins in. Ned stops.",
+  "pete: (quietly) ...For now, Captain.",
+  "captain[determined]: FOREVER.",
+  "pete: (quieter) For now.",
+  {
+   "atmosphere": "NORMAL"
+  },
+  "The green goes out of the air, slowly, the way a bruise goes. The galley smells of galley again. Mostly.",
+  {
+   "completeQuest": "top_ten_flutters"
+  },
+  {
+   "call": "p15c3.begin"
+  }
+ ],
+ "p15c3.begin": [
+  {
+   "setFlag": "p15_ch172_started"
+  },
+  {
+   "banner": "CHAPTER 172",
+   "sub": "Family of Idiots"
+  },
+  {
+   "music": "brogath_theme",
+   "fade": 800
+  },
+  "The front row is empty. The nightcap is on the floor.",
+  "jim: (quietly) He went back to the quarters. Didn't say anything. Just went.",
+  "squawks: (still not moving a feather, just in case) Brogath sad.",
+  {
+   "startQuest": "family_of_idiots"
+  },
+  {
+   "tutorial": "Find Brogath (the old quarters).",
+   "title": "Family of Idiots"
+  }
+ ],
+ "p15c3.find": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "He's sitting in front of the bedroom set. It's dark: nobody's turned it on and, for once, it hasn't turned itself on. He's looking at it anyway.",
+  "brogath[sorry]: (not looking round) I'm sorry about the television, Captain.",
+  "captain: It wasn't your...",
+  "brogath[thoughtful]: They were on it, you know. My crew. Billiam. Tilda. On television. Like they were a JOKE.",
+  "brogath: And they WERE a joke. That's the thing. They were idiots, Captain. Every one of them.",
+  "brogath[thoughtful]: (quietly) But they were MY idiots.",
+  {
+   "choice": [
+    {
+     "text": "Tell me about them.",
+     "then": [
+      "captain: Tell me about them."
+     ]
+    },
+    {
+     "text": "(Sit down next to him. Say nothing.)",
+     "then": [
+      "You sit down on the floor beside him, in front of the dark set. You don't say anything. After a while, he does."
+     ]
+    }
+   ]
+  },
+  "brogath[thoughtful]: Ledger Billiam. Two ledgers. Three, really. He'd write down a sneeze if you let him, and he'd find a column for it.",
+  "brogath[thoughtful]: No-Nonsense Tilda. Said 'No' to every plan I ever had. Came along on all of them anyway.",
+  "brogath[thoughtful]: Old Jeb Rattleplank, who rattled. Wobbly Ned. Blind-Eye Margery, who saw everything coming, eventually, very small. Half-Mast Harold. Captain-Sometimes Clem, who was captain when I didn't want to be, which was always.",
+  "brogath[pleased]: And Elsie. Elsie Beanwright. She cooked. She cooked a LOT.",
+  "brogath: I miss them. I miss the noise. I miss being alive with them. Not the stories. Them.",
+  "You don't say anything. There's nothing that would help, and nothing you can say that won't make the card go pink.",
+  "And then he sits up, slowly, the way a man sits up when an idea arrives.",
+  "brogath[thoughtful]: Captain. I came back through a cardboard picture of myself. Didn't I?",
+  "captain[alarmed]: ...Yes.",
+  "brogath[delighted]: Then what if THEY could too?",
+  "garrick[delighted]: (in the doorway, in his nightshirt, a stick of charcoal already in his hand) CARDBOARD! Captain, there's a whole Mega-Pack of it! I'll DRAW them!",
+  "captain[determined]: NO.",
+  "brogath[delighted]: Elsie first! She'd want to be first. She'd want to be first to the KITCHEN.",
+  "captain: NO. NO. Absolutely, completely, under no circumstances...",
+  {
+   "stability": "meter",
+   "show": "show"
+  },
+  {
+   "stability": "set",
+   "pressure": 45
+  },
+  {
+   "setFlag": "p15_brogath_quiet"
+  },
+  {
+   "tutorial": "Stop the cardboard plan: put the Mega-Pack box out of reach, take Garrick's sketches, and steady Brogath without making him feel foolish.",
+   "title": "Family of Idiots"
+  }
+ ],
+ "p15c3.box": [
+  "The Fan Mega-Pack's box. Flat card, a whole side of it blank and smooth and absolutely ideal for drawing an ancient cook on.",
+  "You fold it up as small as it'll go, sit on it until it stays that way, and stuff it into the linen locker.",
+  {
+   "sfx": "sash_growl",
+   "volume": 0.6
+  },
+  "The linen locker growls at it. Good.",
+  {
+   "setFlag": "p15_nc_box"
+  },
+  {
+   "event": "p15_no_cardboard"
+  }
+ ],
+ "p15c3.sketch": [
+  "garrick[businesslike]: (busy, on the back of a sheet of the Brogath Rules) Nearly done, Captain. I've given her a ladle. And a sort of... aura.",
+  "It's a cook. A round, cheerful, terrifying cook, with a pot under one arm. The pot has BEANS written on it, in case anyone was unclear.",
+  "captain[determined]: (taking it, and the charcoal) No.",
+  "garrick[offended]: That's an ORIGINAL.",
+  "captain[determined]: That's an original NO.",
+  "garrick[offended]: (folding his arms) I'll draw her from memory.",
+  "captain[determined]: You've never MET her.",
+  "garrick[businesslike]: (tapping his head) I've met her in SPIRIT.",
+  {
+   "setFlag": "p15_nc_sketch"
+  },
+  {
+   "event": "p15_no_cardboard"
+  }
+ ],
+ "p15c3.steady": [
+  {
+   "if": {
+    "flag": "p15_nc_steady"
+   },
+   "then": [
+    "brogath[thoughtful]: (still looking at the dark set) It was a silly idea. I know it was.",
+    {
+     "end": true
+    }
+   ]
+  },
+  "brogath[bashful]: (fidgeting with his printed sash) Was it a silly idea? It was, wasn't it. Everybody's looking at me like it was.",
+  {
+   "reassure": "crew_missing",
+   "var": "p15_crew_ok"
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p15_crew_ok",
+     "eq": 0
+    }
+   },
+   "then": [
+    {
+     "bark": "pete",
+     "text": "Gently, Captain!",
+     "duration": 1400
+    },
+    {
+     "reassure": "crew_missing",
+     "var": "p15_crew_ok"
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p15_crew_ok",
+     "eq": 0
+    }
+   },
+   "then": [
+    {
+     "reassure": "crew_missing",
+     "var": "p15_crew_ok"
+    }
+   ]
+  },
+  "brogath[thoughtful]: ...They'd have liked you, Captain. Tilda wouldn't have said so. But she would.",
+  {
+   "setFlag": "p15_nc_steady"
+  },
+  {
+   "event": "p15_no_cardboard"
+  }
+ ],
+ "p15c3.plan_done": [
+  {
+   "setFlag": "p15_plan_said"
+  },
+  {
+   "stability": "meter",
+   "show": "hide"
+  },
+  "No box. No sketch. Brogath, quiet again, but not the bad kind of quiet.",
+  "pete: (low, at your elbow) Captain. If he's going to keep missing them, we ought to know what we're dealing with. The zone. The pocket edition. ALL of us.",
+  {
+   "tutorial": "Find out who they were (the pocket edition, at the table in the Fart-Free Zone).",
+   "title": "Family of Idiots"
+  }
+ ],
+ "p15c3.read": [
+  {
+   "addVar": "p15_lore_n",
+   "value": 1
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p15_lore_n",
+     "eq": 1
+    }
+   },
+   "then": [
+    "THE COMPLETE GRAND STENCHMASTER LEGENDS, Cheap-O-Rama Pocket Edition. Appendix Nine: THE CREW OF BROGATH THE BASHFUL. The print is microscopic. Pete holds the candle.",
+    {
+     "insert": "pocket_crew_ledger"
+    },
+    "codex: LEDGER BILLIAM, ACCOUNTANT. Kept two ledgers: one for money, one for 'atmospheric wealth'. Once tried to capture the market value of the wind in a barrel. Brogath, passing, accidentally improved it. Billiam complained for a year that the breeze had been spoiled.",
+    "codex: NO-NONSENSE TILDA, NAVIGATOR. Sensible boots. Sensible hat. Navigated by a compass she had drawn herself. The crew followed it the wrong way for a week, until Brogath, embarrassed at dinner, turned the ship round by accident. Tilda logged it as navigation.",
+    "pete: (reading over your shoulder) She drew her own COMPASS.",
+    "gristle: And it WORKED. Sort of. That's worse.",
+    {
+     "setFlag": "ancient_lore_ledger"
+    },
+    {
+     "setFlag": "ancient_lore_tilda"
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p15_lore_n",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "insert": "pocket_crew_harold"
+    },
+    "codex: WOBBLY NED, ANCHOR GUARD. Guarded the anchor against anchor thieves (none were ever recorded) so devotedly that the crew could not use the anchor for three weeks.",
+    "ned: (from the corner, faintly) There was a Ned before me?",
+    "codex: HALF-MAST HAROLD, DECKHAND. Told to raise the main, raised everything: the sail, the flag, the lantern, the hatch, and Ledger Billiam, who from halfway up the mainmast calculated the market value of being elevated.",
+    "bob: (approving) Thorough.",
+    {
+     "setFlag": "ancient_lore_ned"
+    },
+    {
+     "setFlag": "ancient_lore_harold"
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p15_lore_n",
+     "eq": 3
+    }
+   },
+   "then": [
+    {
+     "insert": "pocket_crew_lost"
+    },
+    "codex: CAPTAIN-SOMETIMES CLEM. Captain whenever Brogath did not wish to be, and vice versa. In the Reef of Mutual Deference both declined to give the order, both stepped forward at once, both fell over, both apologised, and between them knocked the wheel hard to port, which was, by chance, the only way out.",
+    "codex: LOST INSIDE THEIR OWN SHIP. Billiam numbered the corridors, starting at forty-one. Old Jeb Rattleplank put up arrows; some of them disagreed. Blind-Eye Margery took one down. The crew were lost aboard their own ship for two days. Brogath, too embarrassed to say he was also lost, led them confidently in circles.",
+    "pete: (very quietly) He's still doing that. He walked into the washroom this morning and said it was the galley.",
+    {
+     "setFlag": "ancient_lore_clem"
+    },
+    {
+     "setFlag": "ancient_lore_lost"
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p15_lore_n",
+     "eq": 4
+    }
+   },
+   "then": [
+    {
+     "insert": "pocket_crew_elsie"
+    },
+    "codex: ELSIE BEANWRIGHT, COOK. Held that nearly every problem required beans. Her breakfasts are the origin of the legend of the MORNING OF MANY WINDS (see Vol. IV, pp. 1-340).",
+    "jim[alarmed]: (going white) Three hundred and FORTY pages?",
+    "jim[alarmed]: About BREAKFAST?",
+    {
+     "setFlag": "ancient_lore_elsie"
+    }
+   ]
+  },
+  {
+   "logbook": "ancient_crew"
+  },
+  {
+   "event": "p15_lore"
+  }
+ ],
+ "p15c3.lore_done": [
+  {
+   "setFlag": "p15_lore_said"
+  },
+  "Pete closes the pocket edition. Nobody says anything for a moment.",
+  "pete: ...They were idiots.",
+  "gristle: Loyal, though. Every one. Followed him into every daft thing he ever did. And stayed.",
+  "pete: (quietly) They were family.",
+  "Nobody argues. Even Squawks.",
+  "And then you have a thought. It's an ordinary thought, a small one, and it gets bigger the longer you have it.",
+  "captain: Elsie. Beanwright. In cardboard. In the GALLEY.",
+  "captain: Next to GARRICK.",
+  "jim[alarmed]: (gripping the table) Captain, no.",
+  "captain: Ancient beans. MODERN beans. A cook who thinks every problem needs them, and a Grand Stenchmaster who thinks every problem IS one...",
+  "gristle: (very quietly) The Morning of Many Winds. Again. On THIS ship.",
+  "captain[determined]: Never. Not in cardboard. Not in anything. NEVER.",
+  {
+   "tutorial": "Tell him no. Kindly. (Brogath, the old quarters.)",
+   "title": "Family of Idiots"
+  }
+ ],
+ "p15c3.tell": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "brogath[bashful]: (looking up) Captain?",
+  "captain: Brogath. No cardboard crew. Not Billiam, not Tilda. Not Elsie. ESPECIALLY not Elsie.",
+  "brogath: (nodding, very small) No. No, I know.",
+  "captain: But I read about them. All of them. They sound like they were family.",
+  "brogath[thoughtful]: ...They were.",
+  "captain: Well. You've got this lot now. Idiots, mostly. But they're ours. And so are you. I said that. I meant it.",
+  {
+   "stability": "calm",
+   "id": "part_of_crew"
+  },
+  "brogath[pleased]: (the card going a little less pink) A distinguished idiot, though?",
+  "captain[resigned]: (sighing) The MOST distinguished.",
+  "brogath[proud]: (sitting up) Thank you, Captain.",
+  {
+   "setFlag": "ancient_crew_reincarnation_prevented"
+  },
+  {
+   "setFlag": "brogath_crew_lore_known"
+  },
+  {
+   "stability": "settle",
+   "pressure": 8
+  },
+  {
+   "completeQuest": "family_of_idiots"
+  },
+  {
+   "call": "p15c4.begin"
+  }
+ ]
+}

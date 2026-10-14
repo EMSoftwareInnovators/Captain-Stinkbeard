@@ -1,0 +1,209 @@
+{
+ "id": "captains_quarters_phase15",
+ "patch": "captains_quarters",
+ "//": "Story Phase 15 in the cabin: the loose floorboard beside the bed (16,6), with the captain's emergency reserve under it: seven doubloons (173), then, after the waft came under the door, stems (174).",
+ "objects": [
+  {
+   "id": "p15_reserve",
+   "type": "inspect",
+   "x": 16,
+   "y": 6,
+   "if": {
+    "objectiveActive": "grand_economic_recovery.reserve"
+   },
+   "script": "p15c4.reserve"
+  },
+  {
+   "id": "p15_reserve_gone",
+   "type": "inspect",
+   "x": 16,
+   "y": 6,
+   "if": {
+    "objectiveActive": "creative_conversion.reserve"
+   },
+   "script": "p15c5.reserve"
+  },
+  {
+   "id": "p15_floorboard",
+   "type": "inspect",
+   "x": 16,
+   "y": 6,
+   "if": {
+    "flag": "captain_reserve_counted"
+   },
+   "script": "p15.inspect.floorboard"
+  },
+  {
+   "id": "p15c_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p15_started"
+   }
+  },
+  {
+   "id": "p15c_gristle_0",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p15_started"
+   }
+  },
+  {
+   "id": "p15c_bob_0",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p15_started"
+   }
+  },
+  {
+   "id": "p15c_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p15_started"
+   }
+  },
+  {
+   "id": "p15c_ned_0",
+   "type": "npc",
+   "npc": "ned",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p15_started"
+   }
+  },
+  {
+   "id": "p15c_squawks_0",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p15_started"
+   }
+  },
+  {
+   "id": "p15c_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p15_started"
+   }
+  },
+  {
+   "id": "p15c_brogath_0",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p15_started"
+   }
+  },
+  {
+   "id": "p15c_visitor_one_0",
+   "type": "npc",
+   "npc": "visitor_one",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p15_started"
+   }
+  },
+  {
+   "id": "p15c_visitor_two_0",
+   "type": "npc",
+   "npc": "visitor_two",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p15_started"
+   }
+  },
+  {
+   "id": "p15c_agnes_second_0",
+   "type": "npc",
+   "npc": "agnes_second",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p15_started"
+   }
+  },
+  {
+   "id": "p15c_branch_teller_0",
+   "type": "npc",
+   "npc": "branch_teller",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p15_started"
+   }
+  },
+  {
+   "id": "p15c_vindicta_0",
+   "type": "npc",
+   "npc": "vindicta",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p15_started"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "loose_floorboard",
+   "x": 16,
+   "y": 6,
+   "if": {
+    "all": [
+     {
+      "flag": "p15_started"
+     },
+     {
+      "not": {
+       "flag": "grand_currency_converted"
+      }
+     }
+    ]
+   },
+   "id": "p15_floorboard"
+  },
+  {
+   "prop": "loose_floorboard_weed",
+   "x": 16,
+   "y": 6,
+   "if": {
+    "flag": "grand_currency_converted"
+   },
+   "id": "p15_floorboard_weed"
+  }
+ ]
+}

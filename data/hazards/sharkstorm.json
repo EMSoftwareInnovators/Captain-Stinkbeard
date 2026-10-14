@@ -1107,6 +1107,72 @@
      ],
      "shake": 0.0015
     }
+   },
+   "mellow_clambake": {
+    "//": "Story Phase 15 (chapters 181-185): the Great Sharkstorm Clambake. The same storm, mellowed: slow, lazy, green at the edges; the sharks go round on their backs; nothing chews the hull; the Bling Bling King's tokens arrive at half speed with relaxed messages. Cleared by Vindicta's blast (back to rough_turbulence).",
+    "intensity": 1,
+    "distance": "inside",
+    "maps": [
+     "main_deck"
+    ],
+    "flying": {
+     "passEvery": [
+      5200,
+      9000
+     ],
+     "variants": [
+      "flying_shark",
+      "flying_shark",
+      "pillow_flying",
+      "flying_bbk"
+     ],
+     "swirl": true
+    },
+    "glints": {
+     "every": [
+      1800,
+      3600
+     ],
+     "sfx": "coin_glint"
+    },
+    "sway": {
+     "maps": [
+      "main_deck",
+      "galley",
+      "cargo_hold",
+      "treasure_hold",
+      "crew_quarters",
+      "washroom",
+      "captains_quarters"
+     ],
+     "drift": 0.9,
+     "period": 7600
+    },
+    "rumble": {
+     "every": [
+      30000,
+      50000
+     ],
+     "sfx": "mellow_whoosh"
+    },
+    "below": {
+     "maps": [
+      "galley",
+      "cargo_hold",
+      "treasure_hold",
+      "crew_quarters",
+      "washroom",
+      "captains_quarters"
+     ],
+     "every": [
+      30000,
+      50000
+     ],
+     "sfx": [
+      "hull_thud"
+     ],
+     "shake": 0.0006
+    }
    }
   }
  }

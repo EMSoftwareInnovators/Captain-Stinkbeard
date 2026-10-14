@@ -1,0 +1,17 @@
+[
+ {
+  "extend": "brogath",
+  "//": "Story Phase 15: MELLOW (the Great Mellowing) shows as his own look: the fume green, the cheeks pale.",
+  "variants": [
+   {
+    "if": {
+     "value": {
+      "name": "brogath_state",
+      "eq": "MELLOW"
+     }
+    },
+    "appearance": "brogath_mellow"
+   }
+  ]
+ }
+]

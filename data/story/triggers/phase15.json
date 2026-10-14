@@ -1,0 +1,386 @@
+[
+ {
+  "id": "p15_ready",
+  "if": {
+   "all": [
+    {
+     "flag": "p14_complete"
+    },
+    {
+     "notFlag": "p15_ready_hint"
+    },
+    {
+     "notFlag": "p15_started"
+    },
+    {
+     "not": {
+      "onMap": "galley"
+     }
+    }
+   ]
+  },
+  "script": "p15.ready_hint",
+  "once": false,
+  "//": "Phase 15 begins after Phase 14 when the captain talks to Pete in the galley (a one-time hint if you're somewhere else)."
+ },
+ {
+  "id": "p15_stations",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "stenchmaster_channel_presents.stations"
+    },
+    {
+     "objectiveDone": "stenchmaster_channel_presents.snacks"
+    },
+    {
+     "notFlag": "p15_stations_said"
+    }
+   ]
+  },
+  "script": "p15c1.stations_done",
+  "once": false
+ },
+ {
+  "id": "p15_burning",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "top_ten_flutters.burning"
+    },
+    {
+     "notFlag": "p15_burning_said"
+    }
+   ]
+  },
+  "script": "p15c2.burning_done",
+  "once": false
+ },
+ {
+  "id": "p15_air",
+  "if": {
+   "all": [
+    {
+     "objectiveActive": "top_ten_flutters.air"
+    },
+    {
+     "onMap": "main_deck"
+    }
+   ]
+  },
+  "script": "p15c2.air",
+  "once": false,
+  "//": "The skunk vision clears on deck."
+ },
+ {
+  "id": "p15_no_cardboard",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "family_of_idiots.plan"
+    },
+    {
+     "notFlag": "p15_plan_said"
+    }
+   ]
+  },
+  "script": "p15c3.plan_done",
+  "once": false
+ },
+ {
+  "id": "p15_lore",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "family_of_idiots.research"
+    },
+    {
+     "notFlag": "p15_lore_said"
+    }
+   ]
+  },
+  "script": "p15c3.lore_done",
+  "once": false
+ },
+ {
+  "id": "p15_sorted",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "creative_conversion.sort"
+    },
+    {
+     "notFlag": "p15_sort_said"
+    }
+   ]
+  },
+  "script": "p15c5.sort_done",
+  "once": false
+ },
+ {
+  "id": "p15_corner",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "stinkbeards_select.corner"
+    },
+    {
+     "notFlag": "p15_corner_said"
+    }
+   ]
+  },
+  "script": "p15c6.corner_done",
+  "once": false
+ },
+ {
+  "id": "p15_toured",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "stinkbeards_select.tour"
+    },
+    {
+     "notFlag": "p15_tour_said"
+    }
+   ]
+  },
+  "script": "p15c6.tour_done",
+  "once": false
+ },
+ {
+  "id": "p15_zone",
+  "if": {
+   "all": [
+    {
+     "objectiveActive": "chicken_incident.retreat"
+    },
+    {
+     "onMap": "fart_free_zone"
+    }
+   ]
+  },
+  "script": "p15c8.begin",
+  "once": false,
+  "//": "Chapter 177 starts in the Fart-Free Zone."
+ },
+ {
+  "id": "p15_threats",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "grand_paranoia.assess"
+    },
+    {
+     "notFlag": "p15_threats_said"
+    }
+   ]
+  },
+  "script": "p15c8.threats_done",
+  "once": false
+ },
+ {
+  "id": "p15_stripped",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "grand_stenchmaster_nap.strip"
+    },
+    {
+     "objectiveDone": "grand_stenchmaster_nap.sashes"
+    },
+    {
+     "notFlag": "p15_strip_said"
+    }
+   ]
+  },
+  "script": "p15c9.strip_done",
+  "once": false
+ },
+ {
+  "id": "p15_beds",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "grand_stenchmaster_nap.beds"
+    },
+    {
+     "notFlag": "p15_beds_said"
+    }
+   ]
+  },
+  "script": "p15c9.beds_done",
+  "once": false
+ },
+ {
+  "id": "p15_settled",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "grand_stenchmaster_nap.settle"
+    },
+    {
+     "notFlag": "p15_settle_said"
+    }
+   ]
+  },
+  "script": "p15c9.settle_done",
+  "once": false
+ },
+ {
+  "id": "p15_pillow2",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "nose_fire_waft.catch"
+    },
+    {
+     "notFlag": "p15_catch_said"
+    }
+   ]
+  },
+  "script": "p15c10.catch_done",
+  "once": false
+ },
+ {
+  "id": "p15_mellow_walk",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "great_mellowing.walk"
+    },
+    {
+     "notFlag": "p15_walk_said"
+    }
+   ]
+  },
+  "script": "p15c12.walk_done",
+  "once": false
+ },
+ {
+  "id": "p15_jobs",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "untold_stories.jobs"
+    },
+    {
+     "notFlag": "p15_jobs_said"
+    }
+   ]
+  },
+  "script": "p15c13.jobs_done",
+  "once": false
+ },
+ {
+  "id": "p15_relief_half",
+  "if": {
+   "all": [
+    {
+     "var": {
+      "name": "branch_relief_served",
+      "gte": 5
+     }
+    },
+    {
+     "notFlag": "p15_relief_half_said"
+    }
+   ]
+  },
+  "script": "p15c14.halfway",
+  "once": false,
+  "//": "Checkpoint halfway down the relief queue."
+ },
+ {
+  "id": "p15_relief_done",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "relief_grand_teller.serve"
+    },
+    {
+     "notFlag": "p15_relief_said"
+    }
+   ]
+  },
+  "script": "p15c14.serve_done",
+  "once": false
+ },
+ {
+  "id": "p15_forms",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "sash_backed_loan.forms"
+    },
+    {
+     "notFlag": "p15_forms_said"
+    }
+   ]
+  },
+  "script": "p15c15.forms_done",
+  "once": false
+ },
+ {
+  "id": "p15_last",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "sash_backed_loan.close"
+    },
+    {
+     "notFlag": "bashfulness_branch_closed_for_good"
+    }
+   ]
+  },
+  "script": "p15c15.branch_closes",
+  "once": false
+ },
+ {
+  "id": "p15_peace",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "the_fart_he_misses.peace"
+    },
+    {
+     "objectiveDone": "the_fart_he_misses.pantry"
+    },
+    {
+     "notFlag": "p15_peace_said"
+    }
+   ]
+  },
+  "script": "p15c16.peace_done",
+  "once": false
+ },
+ {
+  "id": "p15_vindicta",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "the_fart_he_misses.vindicta"
+    },
+    {
+     "notFlag": "p15_haze_cleared"
+    }
+   ]
+  },
+  "script": "p15c16.blast",
+  "once": false
+ },
+ {
+  "id": "p15_agnes",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "the_fart_he_misses.agnes"
+    },
+    {
+     "notFlag": "agnes_second_missing_in_sharkstorm"
+    }
+   ]
+  },
+  "script": "p15c16.agnes_gone",
+  "once": false
+ }
+]

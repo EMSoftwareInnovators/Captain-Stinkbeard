@@ -1,0 +1,145 @@
+{
+ "//": "Story Phase 15 ambiences: the skunk haze (a low wobble now and then, the ship creaking), the Great Mellowing (wind gone soft, the sea lazy, a far-off cluck, a lazy whoosh from the storm), the paranoia drone (quiet, slow, no stabs), and the branch's hum (coins being counted in another room, the bell, now and then).",
+ "skunk_haze": {
+  "loops": [
+   {
+    "source": "wind",
+    "volume": 0.18
+   },
+   {
+    "source": "ocean",
+    "volume": 0.2
+   }
+  ],
+  "oneshots": [
+   {
+    "sounds": [
+     "timber_creak"
+    ],
+    "every": [
+     8,
+     16
+    ],
+    "volume": 0.14
+   },
+   {
+    "sounds": [
+     "brogath_rumble_small"
+    ],
+    "every": [
+     20,
+     40
+    ],
+    "volume": 0.12
+   }
+  ]
+ },
+ "mellow_ship": {
+  "loops": [
+   {
+    "source": "wind",
+    "volume": 0.1
+   },
+   {
+    "source": "ocean",
+    "volume": 0.24
+   }
+  ],
+  "oneshots": [
+   {
+    "sounds": [
+     "mellow_whoosh"
+    ],
+    "every": [
+     18,
+     34
+    ],
+    "volume": 0.14
+   },
+   {
+    "sounds": [
+     "hen_cluck"
+    ],
+    "every": [
+     24,
+     48
+    ],
+    "volume": 0.06
+   },
+   {
+    "sounds": [
+     "hammock_creak",
+     "timber_creak"
+    ],
+    "every": [
+     10,
+     20
+    ],
+    "volume": 0.1
+   }
+  ]
+ },
+ "paranoia_drone": {
+  "loops": [
+   {
+    "source": "wind",
+    "volume": 0.14
+   }
+  ],
+  "oneshots": [
+   {
+    "sounds": [
+     "paranoia_sting"
+    ],
+    "every": [
+     14,
+     26
+    ],
+    "volume": 0.1
+   },
+   {
+    "sounds": [
+     "timber_creak",
+     "drift_creak"
+    ],
+    "every": [
+     6,
+     12
+    ],
+    "volume": 0.16
+   }
+  ]
+ },
+ "bank_hum": {
+  "loops": [
+   {
+    "source": "wind",
+    "volume": 0.08,
+    "muffled": true
+   }
+  ],
+  "oneshots": [
+   {
+    "sounds": [
+     "token_clack",
+     "coin_glint"
+    ],
+    "every": [
+     6,
+     12
+    ],
+    "volume": 0.08
+   },
+   {
+    "sounds": [
+     "teller_bell"
+    ],
+    "every": [
+     30,
+     60
+    ],
+    "volume": 0.06
+   }
+  ]
+ }
+}

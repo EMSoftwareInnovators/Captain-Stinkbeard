@@ -1,0 +1,1252 @@
+{
+ "//": "Story Phase 15: the Bashfulness Branch's customers arrive out of the haze at the end of the barricade, state their titles (or don't), deposit, react, and dissolve.",
+ "p15.branch.gasimir.intro": [
+  {
+   "spawn": "gasimir",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "gasimir",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "gasimir",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "branch_teller: Good evening, Your Grace. And how much would Your Grace like to deposit?",
+  "gasimir: (spreading his arms, enormous) ALL. OF IT.",
+  "<k>ALL OF IT.</>"
+ ],
+ "p15.branch.gasimir.observed": [
+  "The teller takes the Duke's sash in both hands. The Duke closes his eyes. It starts.",
+  "And keeps going. It goes on for so long that the lantern swings out, and back, and out again. Your sash bedding snaps taut under you like a sail in a gale.",
+  {
+   "repair": "brace",
+   "strikes": 3,
+   "title": "HOLD ON TO YOUR BEDDING"
+  },
+  {
+   "sfx": "papers_flutter",
+   "volume": 0.5
+  }
+ ],
+ "p15.branch.gasimir.after": [
+  "gasimir: (opening his eyes, satisfied) All of it. Every Grand Wind Crown. Goodnight.",
+  "The barrel table has moved four feet. The cards from the zone are in the rigging. Somehow.",
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "gasimir"
+  }
+ ],
+ "p15.branch.flatulencia.intro": [
+  {
+   "spawn": "flatulencia",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "flatulencia",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "flatulencia",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "flatulencia: (to the teller, briskly) The family deposit. Seven generations of it. With the compounded gust interest, naturally.",
+  "branch_teller: Naturally, Countess. Shall I compound it before or after?",
+  "flatulencia: (offended) DURING.",
+  "<k>Old money. Very old. Compounded.</>"
+ ],
+ "p15.branch.flatulencia.observed": [
+  "It compounds. You can HEAR it compounding: a deposit, and then a smaller deposit on top of the deposit, and then a deposit on THAT, getting louder each time.",
+  "The sash bedding snaps taut. Then tauter. Then you're holding on to it with both hands while it tries to become a flag.",
+  {
+   "repair": "brace",
+   "strikes": 3,
+   "title": "HOLD ON TO YOUR BEDDING"
+  },
+  {
+   "sfx": "papers_flutter",
+   "volume": 0.5
+  }
+ ],
+ "p15.branch.flatulencia.after": [
+  "flatulencia: (straightening her monocle) Seven generations. Interest at nine percent, per gust. Good evening.",
+  "Bob, asleep, is now on the other side of the room. He hasn't noticed.",
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "flatulencia"
+  }
+ ],
+ "p15.branch.billowmere.intro": [
+  {
+   "spawn": "billowmere",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "billowmere",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "billowmere",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "billowmere: (booming, at two in the morning) EVENING! I own every breeze north of the Gusting Hills, and I am making a DEPOSIT.",
+  "Every pad in the room groans. Garrick, asleep, applauds.",
+  "<k>Every breeze north of the hills. All of them his.</>"
+ ],
+ "p15.branch.billowmere.observed": [
+  "The Baron lets go. The porthole bursts open. The ship heels over three degrees. Your sash bedding snaps taut and lifts you, pad and all, an inch off the floor, and puts you down again a yard to the left.",
+  {
+   "repair": "brace",
+   "strikes": 3,
+   "title": "HOLD ON TO YOUR BEDDING"
+  },
+  {
+   "sfx": "papers_flutter",
+   "volume": 0.5
+  }
+ ],
+ "p15.branch.billowmere.after": [
+  "billowmere: (beaming) ROBUST! Goodnight!",
+  "The mast post creaks. The rules on the barricade flap, then remember the rules and stop.",
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "billowmere"
+  }
+ ],
+ "p15.branch.puffenstein.intro": [
+  {
+   "spawn": "puffenstein",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "puffenstein",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "puffenstein",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "puffenstein: (tiny, ancient, in pearls) Teller. I am the richest lady in the afterlife. Atmospherically. Do you know what that means?",
+  "branch_teller: (swallowing) It means you'll want the large vault, Your Grace.",
+  "<k>The richest of the lot. Her deposit has its own deposit.</>"
+ ],
+ "p15.branch.puffenstein.observed": [
+  "She doesn't so much deposit as ARRIVE. The whole room gets heavier. The sash bedding on every pad snaps taut at once, all round the room, like a regatta.",
+  "You hold on to yours. Pete holds on to his. Garrick's Grand Pad goes up the wall, with Garrick still asleep on it, and comes down again.",
+  {
+   "repair": "brace",
+   "strikes": 3,
+   "title": "HOLD ON TO YOUR BEDDING"
+  },
+  {
+   "sfx": "papers_flutter",
+   "volume": 0.5
+  }
+ ],
+ "p15.branch.puffenstein.after": [
+  "puffenstein: (patting the counter) That's the small one, dear. Goodnight.",
+  "The bell rings by itself, out of respect.",
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "puffenstein"
+  }
+ ],
+ "p15.branch.boomington.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "spawn": "boomington",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "boomington",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "boomington",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "bank_voice: NEXT. GRAND LORD BOOMINGTON OF BOOMINGTON, BOOM-WARDEN OF THE BOOMING MARCHES, THRICE-BOOMING KNIGHT OF THE ORDER OF THE BOOM, FIRST BOOMER OF THE...",
+  "captain[tired]: Sash, please.",
+  "boomington: (handing it over, unbothered) ...BOOMTOWN ASSEMBLY.",
+  "<k>The title takes longer than the deposit.</>"
+ ],
+ "p15.branch.boomington.after": [
+  "boomington: (turning, very calmly, and walking straight into the wall) Good day.",
+  "He bounces off. He tries the wall again. He finds the way out on the third go, entirely composed.",
+  {
+   "if": {
+    "var": {
+     "name": "branch_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the floor behind the counter. The forms are in the hammocks. Your beard is full of somebody else's deposit.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "branch_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "brogath",
+     "text": "Splendid!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "boomington"
+  }
+ ],
+ "p15.branch.whistlewaft.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "spawn": "whistlewaft",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "whistlewaft",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "whistlewaft",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "whistlewaft: I am the GRAND DUCHESS WHISTLEWAFT, of the... (frowning) the... Upper...? Lower? Of the something. With the gusts.",
+  "captain[tired]: That'll do.",
+  "<k>It whistles.</>"
+ ],
+ "p15.branch.whistlewaft.after": [
+  "The whistle goes on for a while after she's gone. Agnes answers it.",
+  "squawks: (asleep) ...Kettle.",
+  {
+   "if": {
+    "var": {
+     "name": "branch_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the floor behind the counter. The forms are in the hammocks. Your beard is full of somebody else's deposit.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "branch_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "brogath",
+     "text": "Splendid!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "whistlewaft"
+  }
+ ],
+ "p15.branch.fumblebottom.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "spawn": "fumblebottom",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "fumblebottom",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "fumblebottom",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "fumblebottom: (handing the form over upside down) Sorry. Sorry! Is it... is it the other way?",
+  "brogath[bashful]: (from his spot, sympathetically) Oh, he's embarrassed. Oh, poor man. Now I'M...",
+  "<k>He's holding the form upside down. And the sash. And possibly himself.</>"
+ ],
+ "p15.branch.fumblebottom.after": [
+  "fumblebottom: (going scarlet) Sorry. Sorry, was that too...",
+  "pete: (from the floor, mellowly) Nobody's embarrassed. Everybody's lovely.",
+  "It mostly works. Brogath only goes a little pink.",
+  {
+   "if": {
+    "var": {
+     "name": "branch_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the floor behind the counter. The forms are in the hammocks. Your beard is full of somebody else's deposit.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "branch_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "brogath",
+     "text": "Splendid!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "fumblebottom"
+  }
+ ],
+ "p15.branch.wind_brothers.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "spawn": "wind_brothers",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "wind_brothers",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "wind_brothers",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "bank_voice: NEXT. THE GRAND WIND BROTHERS.",
+  "wind_brothers: (both at once) Joint account. We do everything together. We're brothers. Did he say? He said. Hello.",
+  "captain[tired]: One sash?",
+  "wind_brothers: (both at once, holding one sash between them) It's a family sash.",
+  "<k>Two of them. They do everything together. EVERYTHING.</>"
+ ],
+ "p15.branch.wind_brothers.after": [
+  "wind_brothers: (both at once, leaving) Together. Every time. Since we were BOYS.",
+  "Your ears ring in stereo.",
+  {
+   "if": {
+    "var": {
+     "name": "branch_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the floor behind the counter. The forms are in the hammocks. Your beard is full of somebody else's deposit.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "branch_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "brogath",
+     "text": "Splendid!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "wind_brothers"
+  }
+ ],
+ "p15.branch.boomboom.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "spawn": "boomboom",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "boomboom",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "boomboom",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "boomboom: (sweetly) Hello, dear. Just a little one.",
+  "captain: (remembering a grandmother, and a counter going up in the air) No. No, I know what you are.",
+  "<k>A sweet little old lady. You've been here before.</>"
+ ],
+ "p15.branch.boomboom.after": [
+  "boomboom: (patting your hand) You're a nice boy. Your counter's on the ceiling.",
+  "It is. Partly.",
+  {
+   "if": {
+    "var": {
+     "name": "branch_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the floor behind the counter. The forms are in the hammocks. Your beard is full of somebody else's deposit.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "branch_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "brogath",
+     "text": "Splendid!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "boomboom"
+  }
+ ],
+ "p15.branch.rumblequill.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "spawn": "rumblequill",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "rumblequill",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "rumblequill",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "rumblequill: (adjusting his spectacles) Now. I shall explain the mechanism as we go. The pressure differential, you see...",
+  "captain: Please don't explain it as you go.",
+  "<k>He's going to explain it. While it's happening.</>"
+ ],
+ "p15.branch.rumblequill.after": [
+  "rumblequill: (scribbling notes) ...and THAT is why the eyebrows go. Any questions?",
+  "captain[tired]: No.",
+  "rumblequill: (delighted) A rare audience.",
+  {
+   "if": {
+    "var": {
+     "name": "branch_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the floor behind the counter. The forms are in the hammocks. Your beard is full of somebody else's deposit.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "branch_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "brogath",
+     "text": "Splendid!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "rumblequill"
+  }
+ ],
+ "p15.branch.flapworthy.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "spawn": "flapworthy",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "flapworthy",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "flapworthy",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "flapworthy: (sweeping in) FREE FLUTTER! A sash should FLY, teller. It should be FREE.",
+  "pete: (raising one hand from the floor, vaguely) ...I'll hold it. In a minute.",
+  "brogath[embarrassed]: (watching four yards of sash ripple across the floor) Oh. Oh, that's a LOT of sash.",
+  "<k>Free flutter. Three yards of it.</>"
+ ],
+ "p15.branch.flapworthy.after": [
+  "flapworthy: (gathering it up, armful by armful) Free flutter! Spread the word!",
+  "brogath: (deep breath, letting it go) ...It's lovely, really. It's just fabric. Lovely fabric.",
+  {
+   "if": {
+    "var": {
+     "name": "branch_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the floor behind the counter. The forms are in the hammocks. Your beard is full of somebody else's deposit.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "branch_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "brogath",
+     "text": "Splendid!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "flapworthy"
+  }
+ ],
+ "p15.branch.gary_relief.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "spawn": "gary",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "gary",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "gary",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "bank_voice: NEXT.",
+  "gary: I am Gary.",
+  "captain: (going cold all over) Gary.",
+  "gary: (sheepishly) Yeah. Hi. Gary.",
+  "captain: I remember you, Gary.",
+  "<k>Gary.</>"
+ ],
+ "p15.branch.gary_relief.after": [
+  "It's the loudest thing that's happened all night. Including the Dowager. In the Sharkstorm, two sharks turn the right way up to see what's going on.",
+  "captain[tired]: (holding the counter) WHY, Gary?",
+  "gary: (shrugging) Lunch.",
+  {
+   "if": {
+    "var": {
+     "name": "branch_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the floor behind the counter. The forms are in the hammocks. Your beard is full of somebody else's deposit.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "branch_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "brogath",
+     "text": "Splendid!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "gary"
+  }
+ ],
+ "p15.branch.thunderpants.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "spawn": "thunderpants",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "thunderpants",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "thunderpants",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "thunderpants: (saluting the wall) Admiral Thunderpants. Reporting for... reporting for...",
+  "captain[tired]: A deposit?",
+  "thunderpants: (brightening) Is that what I'm here for? Splendid. I'm sure I'd have remembered.",
+  "<k>He's forgotten why he came. He hasn't forgotten how.</>"
+ ],
+ "p15.branch.thunderpants.after": [
+  "thunderpants: (saluting you) Carry on! Whoever you are!",
+  "The counter has slid two feet towards the barricade. You slide it back.",
+  {
+   "if": {
+    "var": {
+     "name": "branch_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the floor behind the counter. The forms are in the hammocks. Your beard is full of somebody else's deposit.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "branch_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "brogath",
+     "text": "Splendid!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "thunderpants"
+  }
+ ],
+ "p15.branch.farthelmew.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "spawn": "farthelmew",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "farthelmew",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "farthelmew",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "bank_voice: NEXT. HIS IMPERIAL GRANDNESS THE GRAND EMPEROR FARTHELMEW THE NINTH, LORD OF ALL THE WINDS OF ALL THE GRAND EMPIRES, HOLDER OF MORE GRAND WIND CROWNS THAN THERE ARE GRAND WIND CROWNS.",
+  "farthelmew: (with a vast gesture) Teller. I wish to deposit... (a long pause) ...EVERYTHING.",
+  "<k>Everything. He wants to deposit EVERYTHING.</>"
+ ],
+ "p15.branch.farthelmew.after": [
+  "farthelmew: (slowly, staring at nothing) Teller. I don't think any of this money is real.",
+  "captain[angry]: NOW? You work that out NOW? DURING?",
+  "farthelmew: (wandering away, troubled) It's just... wind. All of it. It's always been wind.",
+  {
+   "if": {
+    "var": {
+     "name": "branch_last_grade",
+     "eq": 0
+    }
+   },
+   "then": [
+    "You get up off the floor behind the counter. The forms are in the hammocks. Your beard is full of somebody else's deposit.",
+    {
+     "sfx": "papers_flutter",
+     "volume": 0.6
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "branch_last_grade",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "bark": "brogath",
+     "text": "Splendid!",
+     "duration": 1100
+    }
+   ]
+  },
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "farthelmew"
+  }
+ ],
+ "p15.branch.whifflebottom.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "spawn": "whifflebottom",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "whifflebottom",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "whifflebottom",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "The AFTER-HOURS EXPRESS WINDOW. Grand Lady Whifflebottom, sash in one hand, ninety-seven stamped forms in the other.",
+  "whifflebottom: (solemnly) For the collateral activation. Both hands, teller. As per Form 61L.",
+  "<k>The collateral activation ceremony. Both hands on her sash.</>"
+ ],
+ "p15.branch.whifflebottom.after": [
+  "It goes off like a cannon full of feathers. The sash in your hands goes taut, and hot, and then tears, from one end to the other, and comes apart in two long smoking halves.",
+  {
+   "insert": "loan_cancelled"
+  },
+  "From the window, a slip of paper: COLLATERAL DESTROYED. LOAN AUTOMATICALLY CANCELLED. FEES NONREFUNDABLE.",
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "whifflebottom"
+  }
+ ],
+ "p15.branch_vault": [
+  {
+   "sfx": "vault_growl",
+   "volume": 0.5
+  },
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 14,
+   "count": 5
+  },
+  "The deposit goes through the little brass slot behind the counter, into somewhere much bigger than the counter. The branch purrs."
+ ],
+ "p15.branch_observed": [
+  "The branch teller takes the sash in both hands, braces his spectral feet, and holds on. It's all very professional.",
+  {
+   "repair": "brace",
+   "strikes": 3,
+   "title": "HOLD ON TO YOUR BEDDING"
+  }
+ ]
+}

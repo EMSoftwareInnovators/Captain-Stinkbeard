@@ -1,0 +1,777 @@
+[
+ {
+  "id": "stenchmaster_channel_presents",
+  "title": "The Stenchmaster Channel Presents",
+  "category": "main",
+  "giver": "pete",
+  "summary": "It isn't plugged in. It's on.",
+  "description": "The Mark II has been on for three days. Power switch, plug, valves, aerial, a blanket, a boot: it's still on, and it's still the Stenchmaster Channel. The crew have stations now. The Brogath Television Safety Protocol.",
+  "objectives": [
+   {
+    "id": "stations",
+    "text": "Check the safety protocol stations round the Mark II (Pete, Gristle, Bob, Jim, Squawks)",
+    "type": "event",
+    "target": "p15_station",
+    "count": 5
+   },
+   {
+    "id": "snacks",
+    "text": "Garrick wants snacks (Garrick)",
+    "type": "flag",
+    "target": "p15_no_beans"
+   },
+   {
+    "id": "watch",
+    "text": "Watch the Age of Fart Commerce with him (Brogath, the front row)",
+    "type": "flag",
+    "target": "p15_aofc_watched",
+    "after": [
+     "stations",
+     "snacks"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 90
+  }
+ },
+ {
+  "id": "top_ten_flutters",
+  "title": "The Top Ten Most Embarrassing Sash Flutters",
+  "category": "main",
+  "giver": "gristle",
+  "summary": "Number one is the goat.",
+  "description": "Straight on after the Age of Fart Commerce: a countdown. Number one is the Goat Incident. Garrick laughed. And now something smells like it's on fire, and green.",
+  "objectives": [
+   {
+    "id": "burning",
+    "text": "Find what's burning (the stove, the lantern over the long table, the Mark II)",
+    "type": "event",
+    "target": "p15_burning",
+    "count": 3
+   },
+   {
+    "id": "source",
+    "text": "Work out where it's really coming from (Pete)",
+    "type": "flag",
+    "target": "p15_skunk_source",
+    "after": [
+     "burning"
+    ]
+   },
+   {
+    "id": "air",
+    "text": "Get some air (up on deck)",
+    "type": "flag",
+    "target": "p15_air",
+    "after": [
+     "source"
+    ]
+   },
+   {
+    "id": "stop",
+    "text": "Make it STOP (the Mark II, in the galley)",
+    "type": "flag",
+    "target": "tv_destroyed_again",
+    "after": [
+     "air"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 90
+  }
+ },
+ {
+  "id": "family_of_idiots",
+  "title": "Family of Idiots",
+  "category": "main",
+  "giver": "brogath",
+  "summary": "They were idiots. They were MY idiots.",
+  "description": "With the set dark, Brogath has gone very quiet. Then he has an idea about cardboard, and Garrick has a pencil.",
+  "objectives": [
+   {
+    "id": "find",
+    "text": "Find Brogath (the old quarters)",
+    "type": "flag",
+    "target": "p15_brogath_quiet"
+   },
+   {
+    "id": "plan",
+    "text": "Stop the cardboard plan: the Mega-Pack box, Garrick's sketches, and Brogath himself (the old quarters)",
+    "type": "event",
+    "target": "p15_no_cardboard",
+    "count": 3,
+    "after": [
+     "find"
+    ]
+   },
+   {
+    "id": "research",
+    "text": "Find out who they were (the pocket edition, in the Fart-Free Zone)",
+    "type": "event",
+    "target": "p15_lore",
+    "count": 4,
+    "after": [
+     "plan"
+    ]
+   },
+   {
+    "id": "tell",
+    "text": "Tell him no. Kindly. (Brogath)",
+    "type": "flag",
+    "target": "ancient_crew_reincarnation_prevented",
+    "after": [
+     "research"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 100
+  }
+ },
+ {
+  "id": "grand_economic_recovery",
+  "title": "The Grand Economic Recovery",
+  "category": "main",
+  "giver": "brogath",
+  "summary": "A Grand Stenchmaster's GRAND IDEA.",
+  "description": "Brogath feels useless. Then he noticed the twenty thousand Grand Tokens. His last Anger Waft made a bank; a focused one, he says, might make the tokens into something people actually trade for. He needs somebody to make him furious. Garrick has volunteered.",
+  "objectives": [
+   {
+    "id": "reserve",
+    "text": "Before anything Grand happens: check the emergency reserve (the loose floorboard, your cabin)",
+    "type": "flag",
+    "target": "captain_reserve_counted"
+   },
+   {
+    "id": "crate",
+    "text": "Get the tokens up on deck, away from everything (the crate, in the galley)",
+    "type": "flag",
+    "target": "p15_crate_on_deck"
+   },
+   {
+    "id": "clear",
+    "text": "Everybody stand clear (Pete, on deck)",
+    "type": "flag",
+    "target": "p15_stand_clear",
+    "after": [
+     "reserve",
+     "crate"
+    ]
+   },
+   {
+    "id": "provoke",
+    "text": "Let Garrick make him angry (Garrick). You are going to regret this.",
+    "type": "flag",
+    "target": "grand_currency_converted",
+    "after": [
+     "clear"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 110
+  }
+ },
+ {
+  "id": "creative_conversion",
+  "title": "Creative Conversion",
+  "category": "main",
+  "giver": "pete",
+  "summary": "Twenty thousand tokens. One mountain.",
+  "description": "The tokens are gone. In their place, on the deck, a mountain of something green and brown and mostly stems, smelling of skunk, with Brogath underneath it. And the cloud went through your cabin door.",
+  "objectives": [
+   {
+    "id": "look",
+    "text": "See what the tokens became (the deck, where the crate was)",
+    "type": "flag",
+    "target": "p15_cargo_seen"
+   },
+   {
+    "id": "reserve",
+    "text": "Check the reserve. Please. (your cabin)",
+    "type": "flag",
+    "target": "p15_reserve_gone"
+   },
+   {
+    "id": "sort",
+    "text": "Sort it: stems, seeds, leaf, dust, and one especially skunky crate (the cargo mountain)",
+    "type": "event",
+    "target": "p15_sort",
+    "count": 5,
+    "after": [
+     "look"
+    ]
+   },
+   {
+    "id": "report",
+    "text": "Hear the Economic Recovery Report (Brogath)",
+    "type": "flag",
+    "target": "p15_report_heard",
+    "after": [
+     "sort",
+     "reserve"
+    ]
+   },
+   {
+    "id": "king",
+    "text": "Something's coming out of the Sharkstorm (the deck)",
+    "type": "flag",
+    "target": "p15_bbk_wholesale",
+    "after": [
+     "report"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 100
+  }
+ },
+ {
+  "id": "stinkbeards_select",
+  "title": "Stinkbeard's Select Scent of Skunk",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "Customers. Out of the storm.",
+  "description": "The Sharkstorm swallowed a little modern boat and spat it out on your deck, with two very relaxed grown men in it. They think you're a hallucination. They might also be customers.",
+  "objectives": [
+   {
+    "id": "boat",
+    "text": "See what the Sharkstorm spat out (the deck)",
+    "type": "flag",
+    "target": "p15_boat_seen"
+   },
+   {
+    "id": "meet",
+    "text": "Meet them (the two visitors)",
+    "type": "event",
+    "target": "p15_meet",
+    "count": 2,
+    "after": [
+     "boat"
+    ]
+   },
+   {
+    "id": "pitch",
+    "text": "Make a sale (Stoner #1)",
+    "type": "flag",
+    "target": "p15_first_sale",
+    "after": [
+     "meet"
+    ]
+   },
+   {
+    "id": "corner",
+    "text": "Make them a safe corner, well away from anything Grand (sand, water, a sign: on deck)",
+    "type": "event",
+    "target": "p15_corner",
+    "count": 3,
+    "after": [
+     "pitch"
+    ]
+   },
+   {
+    "id": "tour",
+    "text": "Show them round (Garrick, the Mark II, the sashes)",
+    "type": "event",
+    "target": "p15_tour",
+    "count": 3,
+    "after": [
+     "corner"
+    ]
+   },
+   {
+    "id": "explain",
+    "text": "Explain what a Grand Stenchmaster fart actually is (the visitors)",
+    "type": "flag",
+    "target": "p15_explained",
+    "after": [
+     "tour"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 110
+  }
+ },
+ {
+  "id": "chicken_incident",
+  "title": "The Chicken Incident",
+  "category": "main",
+  "giver": "squawks",
+  "summary": "Bad TV.",
+  "description": "The Mark II has no valve, no wire and no horseshoe, and it's on. Nobody is surprised any more. Everybody is furious.",
+  "objectives": [
+   {
+    "id": "look",
+    "text": "Go and look (the Mark II, in the galley)",
+    "type": "flag",
+    "target": "p15_tv_back"
+   },
+   {
+    "id": "watch",
+    "text": "Watch it (Brogath)",
+    "type": "flag",
+    "target": "p15_agnes_watched",
+    "after": [
+     "look"
+    ]
+   },
+   {
+    "id": "clambake",
+    "text": "Say no to the visitors' idea (the visitors)",
+    "type": "flag",
+    "target": "stenchmaster_farts_not_selectable",
+    "after": [
+     "watch"
+    ]
+   },
+   {
+    "id": "retreat",
+    "text": "Retreat (the Fart-Free Zone)",
+    "type": "flag",
+    "target": "p15_zone_retreat",
+    "after": [
+     "clambake"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 90
+  }
+ },
+ {
+  "id": "grand_paranoia",
+  "title": "The Grand Paranoia",
+  "category": "main",
+  "giver": "pete",
+  "summary": "LEVEL 6. EVACUATE REALITY.",
+  "description": "A snip of beard fringe. A terrible idea. Now the visitors and the captain can see Ancient Grand Stenchmasters everywhere, and somebody has to grade them.",
+  "objectives": [
+   {
+    "id": "assess",
+    "text": "Assess the threats (anything that moves: the galley, the crew)",
+    "type": "event",
+    "target": "p15_threat",
+    "count": 6
+   },
+   {
+    "id": "train",
+    "text": "Train the guards (the visitors)",
+    "type": "flag",
+    "target": "p15_guards_trained",
+    "after": [
+     "assess"
+    ]
+   },
+   {
+    "id": "recover",
+    "text": "Come down (the mattress, in the Fart-Free Zone)",
+    "type": "flag",
+    "target": "p15_recovered",
+    "after": [
+     "train"
+    ]
+   },
+   {
+    "id": "rule",
+    "text": "Make a rule (the Brogath Rules board, the old quarters)",
+    "type": "flag",
+    "target": "beard_experiment_banned",
+    "after": [
+     "recover"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 100
+  }
+ },
+ {
+  "id": "grand_stenchmaster_nap",
+  "title": "The Grand Stenchmaster's Grand Nap",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "It's a nap. It's just a nap.",
+  "description": "Everybody is exhausted. Garrick has decreed THE GRAND STENCHMASTER'S GRAND NAP, with rules. The old bedding is not fit to nap on: it has been through three eruptions and one of the pillows growls.",
+  "objectives": [
+   {
+    "id": "strip",
+    "text": "Strip the old bedding (the bunks; mind the growling one)",
+    "type": "event",
+    "target": "p15_strip",
+    "count": 3
+   },
+   {
+    "id": "sashes",
+    "text": "Fetch clean sashes (the Mega-Pack)",
+    "type": "flag",
+    "target": "p15_sashes_fetched"
+   },
+   {
+    "id": "beds",
+    "text": "Lay out the clean sash bedding (the floor by the bunks)",
+    "type": "event",
+    "target": "p15_bed",
+    "count": 3,
+    "after": [
+     "strip",
+     "sashes"
+    ]
+   },
+   {
+    "id": "settle",
+    "text": "Settle everybody down (Pete, the visitors, Garrick)",
+    "type": "event",
+    "target": "p15_settle",
+    "count": 3,
+    "after": [
+     "beds"
+    ]
+   },
+   {
+    "id": "pillow",
+    "text": "Deal with the growling pillow (the starboard cot)",
+    "type": "flag",
+    "target": "p15_pillow_caught",
+    "after": [
+     "settle"
+    ]
+   },
+   {
+    "id": "eject",
+    "text": "Get rid of it (over the rail, on deck)",
+    "type": "flag",
+    "target": "roaring_pillow_ejected",
+    "after": [
+     "pillow"
+    ]
+   },
+   {
+    "id": "nap",
+    "text": "Nap (your sash pad, in the old quarters)",
+    "type": "flag",
+    "target": "grand_nap_done",
+    "after": [
+     "eject"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 100
+  }
+ },
+ {
+  "id": "nose_fire_waft",
+  "title": "The Nose-Fire Waft",
+  "category": "main",
+  "giver": "brogath",
+  "summary": "You thought you were in the zone.",
+  "description": "You weren't in the Fart-Free Zone. You were in the old quarters, and Brogath was in the next bunk, and he heard all of it. The one he did was HOT. And it went into a pillow.",
+  "objectives": [
+   {
+    "id": "catch",
+    "text": "Catch the pillow (it won't stay still)",
+    "type": "event",
+    "target": "p15_pillow_catch",
+    "count": 3
+   },
+   {
+    "id": "throw",
+    "text": "Throw it out (over the rail, on deck)",
+    "type": "flag",
+    "target": "p15_pillow2_ejected",
+    "after": [
+     "catch"
+    ]
+   },
+   {
+    "id": "sorry",
+    "text": "Apologise to Brogath (the old quarters)",
+    "type": "flag",
+    "target": "p15_apologised",
+    "after": [
+     "throw"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 100
+  }
+ },
+ {
+  "id": "bashfulness_branch",
+  "title": "The Bashfulness Branch",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "OPEN SO LONG AS BROGATH REMAINS BASHFUL.",
+  "description": "Brogath's concentrated embarrassment has made a branch of the Grand Bank, wedged into the old quarters behind the barricade. It has its own teller. It is open all night.",
+  "objectives": [
+   {
+    "id": "look",
+    "text": "Look at it (the branch, in the old quarters)",
+    "type": "flag",
+    "target": "p15_branch_seen"
+   },
+   {
+    "id": "flicker",
+    "text": "Pay Brogath a compliment, and watch the sign (Brogath)",
+    "type": "flag",
+    "target": "p15_flicker_seen",
+    "after": [
+     "look"
+    ]
+   },
+   {
+    "id": "night",
+    "text": "Try to get some sleep (your sash pad)",
+    "type": "event",
+    "target": "p15_night",
+    "count": 4,
+    "after": [
+     "flicker"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 110
+  }
+ },
+ {
+  "id": "great_mellowing",
+  "title": "The Great Mellowing",
+  "category": "main",
+  "giver": "brogath",
+  "summary": "Agnes. AGNES.",
+  "description": "In the morning something came down out of the Sharkstorm on a parachute. It's a chicken. Brogath has seen a chicken before.",
+  "objectives": [
+   {
+    "id": "see",
+    "text": "See what's coming down out of the Sharkstorm (the deck)",
+    "type": "flag",
+    "target": "p15_parachute_seen"
+   },
+   {
+    "id": "catch",
+    "text": "Catch it (the chicken)",
+    "type": "flag",
+    "target": "agnes_second_on_ship",
+    "after": [
+     "see"
+    ]
+   },
+   {
+    "id": "brogath",
+    "text": "Take her to Brogath (the old quarters)",
+    "type": "flag",
+    "target": "great_mellowing",
+    "after": [
+     "catch"
+    ]
+   },
+   {
+    "id": "walk",
+    "text": "Walk the ship. Everybody's... different. (Garrick, Pete, Gristle, Bob, Jim, the visitors)",
+    "type": "event",
+    "target": "p15_mellow",
+    "count": 6,
+    "after": [
+     "brogath"
+    ]
+   },
+   {
+    "id": "sober",
+    "text": "Work out why you're the only one who isn't (Pete)",
+    "type": "flag",
+    "target": "p15_only_sober",
+    "after": [
+     "walk"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 120
+  }
+ },
+ {
+  "id": "untold_stories",
+  "title": "The Untold Stories",
+  "category": "main",
+  "giver": "pete",
+  "summary": "Nobody is at their station.",
+  "description": "The Mark II is showing a sash commercial. Brogath is watching. Everyone else is lying on the floor eating crackers. You will have to do everybody's job.",
+  "objectives": [
+   {
+    "id": "jobs",
+    "text": "Do everybody's job (the screen, the sash hammock, Brogath, Garrick, and BRACE when the ship lurches)",
+    "type": "event",
+    "target": "p15_job",
+    "count": 5
+   },
+   {
+    "id": "watch",
+    "text": "Watch the Untold Stories (Brogath)",
+    "type": "flag",
+    "target": "p15_untold_watched",
+    "after": [
+     "jobs"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 90
+  }
+ },
+ {
+  "id": "relief_grand_teller",
+  "title": "Relief Grand Teller",
+  "category": "main",
+  "giver": "brogath",
+  "summary": "The teller has clocked out.",
+  "description": "THE BASHFULNESS BRANCH's own teller has finished his shift. He gave you his badge on the way out. RELIEF GRAND TELLER. There is a queue.",
+  "objectives": [
+   {
+    "id": "serve",
+    "text": "Serve the relief queue (ring the branch bell, behind the counter in the old quarters)",
+    "type": "event",
+    "target": "p15_relief",
+    "count": 10
+   },
+   {
+    "id": "rating",
+    "text": "Collect your rating (the branch window)",
+    "type": "flag",
+    "target": "p15_teller_rated",
+    "after": [
+     "serve"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 160
+  }
+ },
+ {
+  "id": "sash_backed_loan",
+  "title": "The Sash-Backed Loan Emergency",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "Forty-seven silver. And a goat.",
+  "description": "The AFTER-HOURS EXPRESS WINDOW is lit. Grand Lady Whifflebottom the Financially Cornered needs an emergency loan, and the only collateral the branch accepts is a sash.",
+  "objectives": [
+   {
+    "id": "hear",
+    "text": "Hear her out (the window)",
+    "type": "flag",
+    "target": "p15_loan_heard"
+   },
+   {
+    "id": "forms",
+    "text": "Process the application: forms 1A to 97Q (the branch counter)",
+    "type": "event",
+    "target": "p15_form",
+    "count": 4,
+    "after": [
+     "hear"
+    ]
+   },
+   {
+    "id": "collateral",
+    "text": "The collateral activation ceremony (ring the bell, and hold her sash)",
+    "type": "flag",
+    "target": "sash_loan_resolved",
+    "after": [
+     "forms"
+    ]
+   },
+   {
+    "id": "close",
+    "text": "CLOSE THE LINE (the last customers, at the window)",
+    "type": "event",
+    "target": "p15_last",
+    "count": 3,
+    "after": [
+     "collateral"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 120
+  }
+ },
+ {
+  "id": "the_fart_he_misses",
+  "title": "The One Fart He Actually Misses",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "Not the smell. The silence.",
+  "description": "The branch is gone. Garrick hasn't issued a decree in a day and a half. Brogath watched a loose thread for an hour and said it was 'lovely'. It is magnificent. It can't last.",
+  "objectives": [
+   {
+    "id": "peace",
+    "text": "Enjoy it (anyone: Garrick, Brogath, Agnes)",
+    "type": "event",
+    "target": "p15_peace",
+    "count": 3
+   },
+   {
+    "id": "pantry",
+    "text": "Check the stores (the galley)",
+    "type": "flag",
+    "target": "p15_pantry_seen"
+   },
+   {
+    "id": "vindicta",
+    "text": "Get rid of her (the spectral customer on deck)",
+    "type": "event",
+    "target": "p15_vindicta",
+    "count": 3,
+    "after": [
+     "peace",
+     "pantry"
+    ]
+   },
+   {
+    "id": "agnes",
+    "text": "Find Agnes the Second (her perch, the deck, the rail)",
+    "type": "event",
+    "target": "p15_agnes_search",
+    "count": 3,
+    "after": [
+     "vindicta"
+    ]
+   },
+   {
+    "id": "again",
+    "text": "Ask Brogath to do it again (Brogath)",
+    "type": "flag",
+    "target": "p15_tried_again",
+    "after": [
+     "agnes"
+    ]
+   },
+   {
+    "id": "policy",
+    "text": "Write the captain's new rules (the Brogath Rules board, the old quarters)",
+    "type": "flag",
+    "target": "emergency_mellowing_policy",
+    "after": [
+     "again"
+    ]
+   },
+   {
+    "id": "end",
+    "text": "Not today. (the rail, on deck)",
+    "type": "flag",
+    "target": "p15_complete",
+    "after": [
+     "policy"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 140
+  }
+ }
+]

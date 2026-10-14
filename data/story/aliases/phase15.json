@@ -1,0 +1,107 @@
+{
+ "skunk_haze_vision": {
+  "//": "Story Phase 15 (chapter 171): the captain breathed Brogath's first skunk waft through his beard (an archive of every fume aboard). For a while his crew are Ancient Grand Stenchmasters again. A presentation layer only: names, portraits and looks; ids, quests, saves and dialogue stay real; nobody can be fought.",
+  "if": {
+   "flag": "p15_skunk_vision"
+  },
+  "overlay": {
+   "tint": "#cfe4a8",
+   "wobble": 1,
+   "every": [
+    3000,
+    6000
+   ]
+  },
+  "actors": {
+   "pete": {
+    "name": "BROGATH",
+    "portrait": "delirium_brogath",
+    "appearance": "pete_brogath",
+    "flicker": true
+   },
+   "gristle": {
+    "name": "RUMPOLD WINDBREAKER",
+    "portrait": "delirium_rumpold",
+    "appearance": "gristle_rumpold",
+    "flicker": true
+   },
+   "bob": {
+    "name": "SIR RUMPUS WINDBOTTOM",
+    "portrait": "delirium_rumpus",
+    "appearance": "bob_rumpus",
+    "flicker": true
+   },
+   "jim": {
+    "name": "LORD GUSTAVIO",
+    "portrait": "delirium_gustavio",
+    "appearance": "jim_gustavio",
+    "flicker": true
+   },
+   "squawks": {
+    "name": "PRINCESS STENCHALINA",
+    "portrait": "delirium_stenchalina",
+    "flicker": true
+   },
+   "garrick": {
+    "name": "THE GRAND STENCHMASTER PRIME",
+    "portrait": "delirium_prime",
+    "appearance": "garrick_prime",
+    "flicker": true
+   }
+  }
+ },
+ "beard_paranoia": {
+  "//": "Story Phase 15 (chapter 177): the beard-smoke catastrophe. The captain and the two visitors see Ancient Grand Stenchmasters everywhere and grade them on a threat chart. Brogath, the actual one, is apparently the decoy. Presentation only; the crew can't be attacked.",
+  "if": {
+   "flag": "p15_beard_paranoia"
+  },
+  "overlay": {
+   "tint": "#cdb8e6",
+   "wobble": 1,
+   "every": [
+    2500,
+    5000
+   ]
+  },
+  "actors": {
+   "pete": {
+    "name": "BROGATH (THREAT 5)",
+    "portrait": "delirium_brogath",
+    "appearance": "pete_brogath",
+    "flicker": true
+   },
+   "gristle": {
+    "name": "RUMPOLD THE ANCIENT (THREAT 4)",
+    "portrait": "delirium_rumpold",
+    "appearance": "gristle_rumpold",
+    "flicker": true
+   },
+   "bob": {
+    "name": "SIR RUMPUS (RELEASE POSTURE)",
+    "portrait": "delirium_rumpus",
+    "appearance": "bob_rumpus",
+    "flicker": true
+   },
+   "jim": {
+    "name": "LORD GUSTAVIO (ARMED: LADLE)",
+    "portrait": "delirium_gustavio",
+    "appearance": "jim_gustavio",
+    "flicker": true
+   },
+   "squawks": {
+    "name": "HER ROYAL HIGHNESS STENCHALINA",
+    "portrait": "delirium_stenchalina",
+    "flicker": true
+   },
+   "garrick": {
+    "name": "THE GRAND STENCHMASTER PRIME (THREAT 6)",
+    "portrait": "delirium_prime",
+    "appearance": "garrick_prime",
+    "flicker": true
+   },
+   "brogath": {
+    "name": "THE CARDBOARD ONE (DECOY?)"
+   }
+  }
+ }
+}

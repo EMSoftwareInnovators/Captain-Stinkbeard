@@ -1,6 +1,6 @@
 {
  "brogath": {
-  "//": "Story Phase 14: Brogath the Bashful, an Ancient Grand Stenchmaster inside a cardboard cut-out. He becomes dangerous by being EMBARRASSED (flutter, being reminded he's cardboard or dead, apologising, failing at machinery, being laughed at, smelling); confidence calms him (praise, reframing an accident as intentional, 'distinguished', agreeing it was a toot, 'ceremonial', a harmless important job, safe television). ANGRY is a separate, scripted state (the Anger Waft). The meter is BASHFULNESS (WRATH when angry).",
+  "//": "Story Phase 14: Brogath the Bashful, an Ancient Grand Stenchmaster inside a cardboard cut-out. He becomes dangerous by being EMBARRASSED (flutter, being reminded he's cardboard or dead, apologising, failing at machinery, being laughed at, smelling); confidence calms him (praise, reframing an accident as intentional, 'distinguished', agreeing it was a toot, 'ceremonial', a harmless important job, safe television). ANGRY is a separate, scripted state (the Anger Waft). The meter is BASHFULNESS (WRATH when angry). Story Phase 15: MELLOW is a third kind of state, read from the ship's atmosphere (the Great Mellowing): while the air is MELLOW_HAZE every rise in pressure counts for an eighth, so a sash can flutter in front of him and he only finds it interesting. Wrath (ANGRY) still wins over it.",
   "name": "BROGATH",
   "label": "BASHFULNESS",
   "angryLabel": "WRATH",
@@ -193,6 +193,47 @@
    },
    "banking": {
     "pressure": 0
+   },
+   "goat": {
+    "pressure": 30,
+    "line": "brogath[mortified]: The GOAT. They've shown the GOAT."
+   },
+   "slow_motion": {
+    "pressure": 20,
+    "sfx": "flutter_tiny",
+    "line": "brogath[embarrassed]: Slowly. They're doing it SLOWLY. So you can see every bit of it."
+   },
+   "unsupported": {
+    "pressure": 22,
+    "sfx": "flutter_tiny",
+    "line": "brogath[mortified]: There's nobody IN it. It's fluttering on its OWN."
+   },
+   "mass_flutter": {
+    "pressure": 30,
+    "sfx": "sash_flutter_big",
+    "line": "brogath[mortified]: All of them. TOGETHER. In TIME."
+   },
+   "speedrun": {
+    "pressure": 60,
+    "line": "brogath[devastated]: ..."
+   },
+   "useless": {
+    "pressure": 12,
+    "line": "brogath: Another thing I've broken. I do seem to break things."
+   },
+   "flapworthy": {
+    "pressure": 25,
+    "sfx": "sash_flutter_big",
+    "line": "brogath[embarrassed]: That sash is three yards long and it's FREE."
+   },
+   "ad_mellow": {
+    "pressure": 30,
+    "sfx": "flutter_tiny",
+    "line": "brogath[embarrassed]: (slowly) Oh. A sash. That's... fluttering."
+   },
+   "ordinary_stink": {
+    "pressure": 10,
+    "line": "brogath[sorry]: That's... not the green one, is it. That's the ordinary one."
    }
   },
   "calms": {
@@ -274,6 +315,50 @@
    "magnificent": {
     "pressure": -40,
     "line": "brogath[proud]: A rather magnificent Stenchmaster fart. Yes. Yes, it WAS."
+   },
+   "licensed_reenactment": {
+    "pressure": -24,
+    "line": "brogath[thoughtful]: A licensed reenactment. With permission. Well, that's ALLOWED, then."
+   },
+   "trained_sash": {
+    "pressure": -24,
+    "line": "brogath[proud]: Trained. Of course. Years of training, that. You can tell."
+   },
+   "controlled_flutter": {
+    "pressure": -26,
+    "line": "brogath[thoughtful]: Controlled commercial flutter. Controlled. Yes. It is very controlled."
+   },
+   "sash_performers": {
+    "pressure": -28,
+    "line": "brogath[proud]: Professional sash performers. Doing their JOB. And doing it well."
+   },
+   "ceremonial_movement": {
+    "pressure": -26,
+    "line": "brogath[proud]: Ceremonial movement. Every ceremony has some. I've always said so."
+   },
+   "historically_authorized": {
+    "pressure": -30,
+    "line": "brogath[proud]: Historically authorised motion! Then there's PRECEDENT. Oh, I feel much better."
+   },
+   "family": {
+    "pressure": -30,
+    "line": "brogath[thoughtful]: Family. Yes. That's what they were. Idiots. MY idiots."
+   },
+   "part_of_crew": {
+    "pressure": -35,
+    "line": "brogath[pleased]: Part of the crew. You did say that. You did say that, didn't you."
+   },
+   "creative_conversion": {
+    "pressure": -30,
+    "line": "brogath[proud]: A creative conversion! An ECONOMIC one! I knew it would work."
+   },
+   "distinguished_idiot": {
+    "pressure": -20,
+    "line": "brogath[pleased]: A distinguished... yes. I'll take the first part."
+   },
+   "agnes": {
+    "pressure": -25,
+    "line": "brogath[thoughtful]: Agnes was a very good chicken."
    }
   },
   "prompts": {
@@ -499,6 +584,171 @@
       "trigger": "stupid_idea"
      }
     ]
+   },
+   "ad_1": {
+    "show": 3,
+    "options": [
+     {
+      "text": "It's a licensed reenactment. They had permission to flutter.",
+      "calm": "licensed_reenactment"
+     },
+     {
+      "text": "It's only one sash. Hardly fluttering at all.",
+      "trigger": "honesty"
+     },
+     {
+      "text": "Don't look at it. Look at anything else. LOOK AT THE WALL.",
+      "trigger": "stupid_idea"
+     }
+    ]
+   },
+   "ad_2": {
+    "show": 3,
+    "options": [
+     {
+      "text": "Those are TRAINED sashes, Brogath. Years of training.",
+      "calm": "trained_sash"
+     },
+     {
+      "text": "Well, it's two now. Double the flutter.",
+      "trigger": "flutter"
+     },
+     {
+      "text": "It's the same sash twice. Television's cheap.",
+      "trigger": "honesty"
+     }
+    ]
+   },
+   "ad_3": {
+    "show": 3,
+    "options": [
+     {
+      "text": "Slow motion means it's CONTROLLED. Controlled commercial flutter.",
+      "calm": "controlled_flutter"
+     },
+     {
+      "text": "It's going slowly so we can all see it properly.",
+      "trigger": "slow_motion"
+     },
+     {
+      "text": "You can see every thread, can't you.",
+      "trigger": "laughed_at",
+      "reply": "brogath[mortified]: EVERY THREAD?"
+     }
+    ]
+   },
+   "ad_4": {
+    "show": 3,
+    "options": [
+     {
+      "text": "Nobody's in it because it's a PROFESSIONAL. A sash performer. Working.",
+      "calm": "sash_performers"
+     },
+     {
+      "text": "It's empty. Like a ghost sash.",
+      "trigger": "reminded_dead"
+     },
+     {
+      "text": "Maybe it's yours. From before.",
+      "trigger": "sad_memory"
+     }
+    ]
+   },
+   "ad_5": {
+    "show": 3,
+    "options": [
+     {
+      "text": "All together, in time: that's CEREMONIAL movement. A sash ceremony.",
+      "calm": "ceremonial_movement"
+     },
+     {
+      "text": "Historically authorised motion. There's precedent going back centuries.",
+      "calm": "historically_authorized"
+     },
+     {
+      "text": "That's a LOT of flutter.",
+      "trigger": "mass_flutter"
+     },
+     {
+      "text": "At least they're not YOUR sashes.",
+      "trigger": "honesty"
+     }
+    ]
+   },
+   "crew_missing": {
+    "show": 3,
+    "options": [
+     {
+      "text": "They sound like they were family.",
+      "calm": "family"
+     },
+     {
+      "text": "They sound like idiots.",
+      "trigger": "criticized",
+      "reply": "brogath: They were. They WERE. ...That's not the point."
+     },
+     {
+      "text": "You've got us now. You're part of this crew.",
+      "calm": "part_of_crew"
+     },
+     {
+      "text": "We could always draw them on some cardboard.",
+      "trigger": "stupid_idea",
+      "reply": "brogath[thoughtful]: ...Could we?"
+     }
+    ]
+   },
+   "report": {
+    "show": 3,
+    "options": [
+     {
+      "text": "It's a... creative conversion. A very creative economic conversion.",
+      "calm": "creative_conversion"
+     },
+     {
+      "text": "You turned our money into WEEDS.",
+      "trigger": "criticized"
+     },
+     {
+      "text": "It's a mountain. Of stems. And my GOLD.",
+      "trigger": "useless"
+     }
+    ]
+   },
+   "mellow_ad": {
+    "show": 3,
+    "options": [
+     {
+      "text": "Licensed. LICENSED, Pete. Licensed professional advertising sashes. For controlled commercial flutter.",
+      "calm": "professional_sashes"
+     },
+     {
+      "text": "It's just a sash, mate. Enjoy it.",
+      "trigger": "honesty"
+     },
+     {
+      "text": "(say nothing, and eat a cracker)",
+      "trigger": "sighing",
+      "say": "(You eat a cracker. Everyone else is.)"
+     }
+    ]
+   },
+   "agnes_gone": {
+    "show": 3,
+    "options": [
+     {
+      "text": "She was a very good chicken, Brogath.",
+      "calm": "agnes"
+     },
+     {
+      "text": "She'll be fine. Everything comes back out of that storm.",
+      "calm": "distraction"
+     },
+     {
+      "text": "And she was the only thing that made you do the GREEN one.",
+      "trigger": "useless"
+     }
+    ]
    }
   },
   "incidents": {
@@ -563,7 +813,25 @@
     "rate": 0.5,
     "erupt": "p14c22.surge",
     "afterErupt": 90
+   },
+   "aofc_ads": {
+    "start": 32,
+    "rate": 1.2,
+    "erupt": "p15c1.ad_erupt"
+   },
+   "mellow_ad": {
+    "start": 20,
+    "rate": 8.0,
+    "erupt": "p15c13.ad_erupt"
    }
-  }
+  },
+  "mellow": {
+   "value": "ship_atmosphere",
+   "in": [
+    "MELLOW_HAZE"
+   ],
+   "triggerScale": 0.125
+  },
+  "mellowLabel": "MELLOW"
  }
 }

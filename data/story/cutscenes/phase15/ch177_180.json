@@ -1,0 +1,1758 @@
+{
+ "//": "Story Phase 15, chapters 177-180: the beard-smoke catastrophe and the Grand Paranoia (threat levels, guard training, coming down, the rule), the Grand Nap (bedding, sashes, the loan lore, the growling pillow), the Nose-Fire Waft (the speed-run, the roaring pillow, the apology), and the Bashfulness Branch (forming, the flicker, the night depositors, served by the branch's own teller).",
+ "p15c8.begin": [
+  {
+   "setFlag": "p15_zone_retreat"
+  },
+  {
+   "completeQuest": "chicken_incident"
+  },
+  {
+   "setFlag": "p15_ch177_started"
+  },
+  {
+   "banner": "CHAPTER 177",
+   "sub": "The Grand Paranoia"
+  },
+  "The Fart-Free Zone. Candle. Cards. A jug of Frog Grog with a plate on it. The visitors sit down on the barrels like men entering a cathedral.",
+  "visitor_one: (breathing in, eyes shut) Nothing. It smells of NOTHING in here, man.",
+  "visitor_two: (looking at you, then at your beard, then at you) Captain. Can I say something?",
+  "visitor_two: Your beard is like... an archive. Of everything. Everything that's ever happened on this boat is IN there.",
+  "captain[annoyed]: Thank you.",
+  "visitor_one: (slowly sitting up) Dude. DUDE. What if you took, like, a tiny snip off the end of that... and a pinch of the especially skunky...",
+  "captain[determined]: No.",
+  "pete: No.",
+  "gristle: (from the door) Absolutely not.",
+  "visitor_two: It's the only room on the ship with nothing in the air to catch light. You SAID. Fire safety, man. We LEARNED.",
+  "And before anybody can stop it, the man in the woolly hat has Jim's kitchen scissors, and the very tip of your beard fringe, and then there's a twist of paper, and a thin, wrong-coloured smoke curling up off it.",
+  "You don't see how. You don't want to. It takes four seconds and it smells like the entire history of the ship at once.",
+  {
+   "sfx": "paranoia_sting",
+   "volume": 0.8
+  },
+  "visitor_one: (staring at Pete, very slowly) ...Dude. Pete's BROGATH.",
+  "visitor_two: (pressed against the wall) There's a PRINCESS. On the BARREL.",
+  "squawks[outraged]: (on the barrel) Walk.",
+  "And the smoke drifts, the way smoke does, round the candle, past Pete, into your beard, the place it came from, and back up your nose.",
+  {
+   "sfx": "delirium_cue",
+   "volume": 0.9
+  },
+  {
+   "shake": 1,
+   "duration": 600
+  },
+  {
+   "setFlag": "p15_beard_paranoia"
+  },
+  {
+   "setFlag": "beard_experiment_done"
+  },
+  {
+   "atmosphere": "BEARD_PARANOIA_HAZE"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 37
+  },
+  "Purple. Everything goes faintly, horribly purple. Pete has a crown. Gristle is nine feet tall and ancient. Squawks is ROYALTY.",
+  "captain[alarmed]: (backing into the mops) They're EVERYWHERE.",
+  "visitor_one: (gripping your arm) Captain. We need a system. A SCALE.",
+  "visitor_two: Like, levels. Threat levels. One to... to...",
+  "captain[determined]: SIX.",
+  {
+   "insert": "threat_chart"
+  },
+  "THE GRAND STENCHMASTER THREAT LEVELS. One: suspicious rumble. Two: possible sash event. Three: likely release. Four: structural threat. Five: regional Stenchmaster event. Six: EVACUATE REALITY.",
+  "pete: (exhausted, from somewhere behind his crown) Nobody is a threat. Nobody is doing anything. I am PETE.",
+  "captain[determined]: (narrowing your eyes) That is EXACTLY what a level five would say.",
+  {
+   "setValue": "threat_level",
+   "value": 1
+  },
+  {
+   "setFlag": "p15_paranoia_out"
+  },
+  {
+   "startQuest": "grand_paranoia"
+  },
+  {
+   "tutorial": "Assess the threats: anything that moves (the crew, the galley). Choose a threat level. Nobody can be fought; they're your crew, whatever they look like.",
+   "title": "The Grand Paranoia"
+  }
+ ],
+ "p15c8.threat_pete": [
+  "Pete, in the galley, reaches under his shirt and scratches his ribs.",
+  "visitor_one: (whispering) He's PRIMING.",
+  {
+   "choice": [
+    {
+     "text": "LEVEL 1: SUSPICIOUS RUMBLE",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 1
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_1"
+      },
+      "pete[tired]: I've got an ITCH, Captain."
+     ]
+    },
+    {
+     "text": "LEVEL 2: POSSIBLE SASH EVENT",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 2
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_2"
+      },
+      "pete[tired]: I've got an ITCH, Captain."
+     ]
+    },
+    {
+     "text": "LEVEL 3: LIKELY RELEASE",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 3
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_3"
+      },
+      "pete[tired]: I've got an ITCH, Captain."
+     ]
+    },
+    {
+     "text": "LEVEL 4: STRUCTURAL THREAT",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 4
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_4"
+      },
+      "pete[tired]: I've got an ITCH, Captain."
+     ]
+    },
+    {
+     "text": "LEVEL 5: REGIONAL STENCHMASTER EVENT",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 5
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_5"
+      },
+      "pete[tired]: I've got an ITCH, Captain."
+     ]
+    },
+    {
+     "text": "LEVEL 6: EVACUATE REALITY",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 6
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_6"
+      },
+      "pete[tired]: Evacuate... I've got an ITCH."
+     ]
+    }
+   ]
+  },
+  {
+   "setFlag": "p15_threat_pete"
+  },
+  {
+   "event": "p15_threat"
+  }
+ ],
+ "p15c8.threat_mug": [
+  {
+   "sfx": "cup_clink",
+   "volume": 0.8
+  },
+  "A mug rolls off the long table and lands on the floor with a clonk.",
+  "visitor_two: (diving behind the bench) INCOMING.",
+  {
+   "choice": [
+    {
+     "text": "LEVEL 1: SUSPICIOUS RUMBLE",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 1
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_1"
+      },
+      "It's a mug. It's lying there. It's not doing anything. That's what worries you."
+     ]
+    },
+    {
+     "text": "LEVEL 2: POSSIBLE SASH EVENT",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 2
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_2"
+      },
+      "It's a mug. It's lying there. It's not doing anything. That's what worries you."
+     ]
+    },
+    {
+     "text": "LEVEL 3: LIKELY RELEASE",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 3
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_3"
+      },
+      "It's a mug. It's lying there. It's not doing anything. That's what worries you."
+     ]
+    },
+    {
+     "text": "LEVEL 4: STRUCTURAL THREAT",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 4
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_4"
+      },
+      "It's a mug. It's lying there. It's not doing anything. That's what worries you."
+     ]
+    },
+    {
+     "text": "LEVEL 5: REGIONAL STENCHMASTER EVENT",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 5
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_5"
+      },
+      "It's a mug. It's lying there. It's not doing anything. That's what worries you."
+     ]
+    },
+    {
+     "text": "LEVEL 6: EVACUATE REALITY",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 6
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_6"
+      },
+      "It's a mug. It's lying there. It's not doing anything. That's what worries you."
+     ]
+    }
+   ]
+  },
+  {
+   "setFlag": "p15_threat_mug"
+  },
+  {
+   "event": "p15_threat"
+  }
+ ],
+ "p15c8.threat_bob": [
+  "Bob bends over to pick up the mug.",
+  "captain[alarmed]: RELEASE POSTURE.",
+  "visitor_one: RELEASE POSTURE!",
+  {
+   "choice": [
+    {
+     "text": "LEVEL 1: SUSPICIOUS RUMBLE",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 1
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_1"
+      },
+      "bob: (frozen, half bent, holding the mug) ...I'm just... picking up a mug."
+     ]
+    },
+    {
+     "text": "LEVEL 2: POSSIBLE SASH EVENT",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 2
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_2"
+      },
+      "bob: (frozen, half bent, holding the mug) ...I'm just... picking up a mug."
+     ]
+    },
+    {
+     "text": "LEVEL 3: LIKELY RELEASE",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 3
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_3"
+      },
+      "bob: (frozen, half bent, holding the mug) ...I'm just... picking up a mug."
+     ]
+    },
+    {
+     "text": "LEVEL 4: STRUCTURAL THREAT",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 4
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_4"
+      },
+      "bob: (frozen, half bent, holding the mug) ...I'm just... picking up a mug."
+     ]
+    },
+    {
+     "text": "LEVEL 5: REGIONAL STENCHMASTER EVENT",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 5
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_5"
+      },
+      "bob: (frozen, half bent, holding the mug) ...I'm just... picking up a mug."
+     ]
+    },
+    {
+     "text": "LEVEL 6: EVACUATE REALITY",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 6
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_6"
+      },
+      "bob: (very slowly straightening up) Should I... evacuate reality, or...?"
+     ]
+    }
+   ]
+  },
+  {
+   "setFlag": "p15_threat_bob"
+  },
+  {
+   "event": "p15_threat"
+  }
+ ],
+ "p15c8.threat_mop": [
+  {
+   "sfx": "thud_heavy",
+   "volume": 0.4
+  },
+  "The mop by the stairs falls over. On its own. Clack.",
+  "visitor_two: (pointing, trembling) It moved, man. It MOVED.",
+  {
+   "choice": [
+    {
+     "text": "LEVEL 1: SUSPICIOUS RUMBLE",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 1
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_1"
+      },
+      "You approach the mop with enormous care. The mop lies there. Plotting."
+     ]
+    },
+    {
+     "text": "LEVEL 2: POSSIBLE SASH EVENT",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 2
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_2"
+      },
+      "You approach the mop with enormous care. The mop lies there. Plotting."
+     ]
+    },
+    {
+     "text": "LEVEL 3: LIKELY RELEASE",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 3
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_3"
+      },
+      "You approach the mop with enormous care. The mop lies there. Plotting."
+     ]
+    },
+    {
+     "text": "LEVEL 4: STRUCTURAL THREAT",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 4
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_4"
+      },
+      "You approach the mop with enormous care. The mop lies there. Plotting."
+     ]
+    },
+    {
+     "text": "LEVEL 5: REGIONAL STENCHMASTER EVENT",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 5
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_5"
+      },
+      "You approach the mop with enormous care. The mop lies there. Plotting."
+     ]
+    },
+    {
+     "text": "LEVEL 6: EVACUATE REALITY",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 6
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_6"
+      },
+      "You approach the mop with enormous care. The mop lies there. Plotting."
+     ]
+    }
+   ]
+  },
+  {
+   "setFlag": "p15_threat_mop"
+  },
+  {
+   "event": "p15_threat"
+  }
+ ],
+ "p15c8.threat_squawks": [
+  "Squawks shifts from one foot to the other. Very slightly. He has a tiara on.",
+  "visitor_one: (bowing low) Your Highness.",
+  {
+   "choice": [
+    {
+     "text": "LEVEL 1: SUSPICIOUS RUMBLE",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 1
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_1"
+      },
+      "squawks[smug]: (pleased to be rated low) Good captain."
+     ]
+    },
+    {
+     "text": "LEVEL 2: POSSIBLE SASH EVENT",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 2
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_2"
+      },
+      "squawks[outraged]: (with withering contempt) Bad smoke."
+     ]
+    },
+    {
+     "text": "LEVEL 3: LIKELY RELEASE",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 3
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_3"
+      },
+      "squawks[outraged]: (with withering contempt) Bad smoke."
+     ]
+    },
+    {
+     "text": "LEVEL 4: STRUCTURAL THREAT",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 4
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_4"
+      },
+      "squawks[outraged]: (with withering contempt) Bad smoke."
+     ]
+    },
+    {
+     "text": "LEVEL 5: REGIONAL STENCHMASTER EVENT",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 5
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_5"
+      },
+      "squawks[outraged]: (with withering contempt) Bad smoke."
+     ]
+    },
+    {
+     "text": "LEVEL 6: EVACUATE REALITY",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 6
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_6"
+      },
+      "squawks[outraged]: (with withering contempt) Bad smoke."
+     ]
+    }
+   ]
+  },
+  {
+   "setFlag": "p15_threat_squawks"
+  },
+  {
+   "event": "p15_threat"
+  }
+ ],
+ "p15c8.threat_hull": [
+  {
+   "sfx": "timber_creak",
+   "volume": 0.8
+  },
+  "Somewhere in the hull, a timber creaks. Long and low. Like something waking up.",
+  "visitor_two: That's a RUMBLE, man. That's a LEVEL ONE AT LEAST.",
+  {
+   "choice": [
+    {
+     "text": "LEVEL 1: SUSPICIOUS RUMBLE",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 1
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_1"
+      },
+      "It's the ship. The ship creaks. The ship has always creaked. It has never creaked so SUSPICIOUSLY."
+     ]
+    },
+    {
+     "text": "LEVEL 2: POSSIBLE SASH EVENT",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 2
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_2"
+      },
+      "It's the ship. The ship creaks. The ship has always creaked. It has never creaked so SUSPICIOUSLY."
+     ]
+    },
+    {
+     "text": "LEVEL 3: LIKELY RELEASE",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 3
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_3"
+      },
+      "It's the ship. The ship creaks. The ship has always creaked. It has never creaked so SUSPICIOUSLY."
+     ]
+    },
+    {
+     "text": "LEVEL 4: STRUCTURAL THREAT",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 4
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_4"
+      },
+      "It's the ship. The ship creaks. The ship has always creaked. It has never creaked so SUSPICIOUSLY."
+     ]
+    },
+    {
+     "text": "LEVEL 5: REGIONAL STENCHMASTER EVENT",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 5
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_5"
+      },
+      "It's the ship. The ship creaks. The ship has always creaked. It has never creaked so SUSPICIOUSLY."
+     ]
+    },
+    {
+     "text": "LEVEL 6: EVACUATE REALITY",
+     "then": [
+      {
+       "setValue": "threat_level",
+       "value": 6
+      },
+      {
+       "sfx": "paranoia_sting",
+       "volume": 0.6
+      },
+      {
+       "insert": "threat_level_6"
+      },
+      "It's the ship. The ship creaks. The ship has always creaked. It has never creaked so SUSPICIOUSLY."
+     ]
+    }
+   ]
+  },
+  {
+   "setFlag": "p15_threat_hull"
+  },
+  {
+   "event": "p15_threat"
+  }
+ ],
+ "p15c8.threat_brogath": [
+  "brogath[confused]: (waving both flat arms) Captain! Captain, it's me! I'm the cardboard one! The REAL one!",
+  "captain[determined]: (not taking your eyes off Pete) Nice try, decoy.",
+  "brogath[confused]: (to the visitors) I'm a Grand Stenchmaster. An actual one. I'm the only one here.",
+  "visitor_one: (gently) Sure you are, little buddy.",
+  "brogath[bashful]: ...This isn't helping, is it."
+ ],
+ "p15c8.threats_done": [
+  {
+   "setFlag": "p15_threats_said"
+  },
+  "Six assessments. Six threats. A mug, a mop, the hull, a parrot, an itch and Bob. The ship is at LEVEL SIX and nobody is doing anything about it except you.",
+  "captain[determined]: We need GUARDS.",
+  "visitor_one: (saluting with the wrong hand) We'll do it, Captain.",
+  "pete: (lying face down on the bench) Please don't.",
+  {
+   "tutorial": "Train the guards (the visitors).",
+   "title": "The Grand Paranoia"
+  }
+ ],
+ "p15c8.train": [
+  {
+   "if": {
+    "notFlag": "p15_threats_said"
+   },
+   "then": [
+    "visitor_two: (crouched behind the bench) Assess them first, Captain! We need DATA.",
+    {
+     "end": true
+    }
+   ]
+  },
+  "captain[determined]: Right. Anti-Stenchmaster Guard Training. Lesson one. The stance.",
+  {
+   "choice": [
+    {
+     "text": "Knees bent. Nose covered.",
+     "then": [
+      "The visitors bend their knees and cover their noses. They hold it for a long time. They are very good at it."
+     ]
+    },
+    {
+     "text": "Back to the wall. Eyes on the sash.",
+     "then": [
+      "They put their backs to the wall and their eyes on the nearest sash. It isn't moving. They watch it anyway, ready."
+     ]
+    }
+   ]
+  },
+  "captain[determined]: Lesson two. The sniff. You never sniff through the BEARD.",
+  "visitor_two: (touching his chin) I haven't got a beard.",
+  "captain[determined]: Then you're already ahead of me. Lesson three. If the sash flutters...",
+  {
+   "choice": [
+    {
+     "text": "...you RUN.",
+     "then": [
+      "visitor_one: (scribbling it on his arm) Run."
+     ]
+    },
+    {
+     "text": "...you say something NICE.",
+     "then": [
+      "visitor_one: (scribbling it on his arm) Say something nice. Huh. That's actually really healthy, man."
+     ]
+    }
+   ]
+  },
+  "visitor_two: (standing to attention) Sir. Anti-Stenchmaster Guards, reporting. Sir.",
+  "pete: (from the bench, muffled) I've had enough. I've had ENOUGH. All three of you. Zone. Mattress. NOW.",
+  {
+   "setFlag": "p15_guards_trained"
+  },
+  {
+   "tutorial": "Come down (the mattress, in the Fart-Free Zone).",
+   "title": "The Grand Paranoia"
+  }
+ ],
+ "p15c8.recover": [
+  "You lie down on the mattress under the stairs. The visitors lie on the floor next to it, still at attention.",
+  {
+   "fade": "out",
+   "duration": 900
+  },
+  {
+   "sfx": "snore",
+   "volume": 0.4
+  },
+  {
+   "wait": 900
+  },
+  {
+   "clearFlag": "p15_beard_paranoia"
+  },
+  {
+   "atmosphere": "NORMAL"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 32
+  },
+  {
+   "setValue": "threat_level",
+   "value": 0
+  },
+  {
+   "fade": "in",
+   "duration": 900
+  },
+  "When you open your eyes, the purple has gone. Pete is Pete. He's sitting on a barrel looking at you, with the face of a man who has aged.",
+  "visitor_one: (sitting up, blinking) Whoa. Okay. That was... a lot.",
+  "visitor_two: (sitting up) I feel GREAT. I feel like I was in the army.",
+  "You sit up. You're fine. You're nearly fine. You look round the zone: the table, the cards, the candle, the mop in the corner.",
+  "captain[alarmed]: (pointing at the corner) Mop Brogath.",
+  "pete: (very tired) It's a mop, Captain.",
+  "captain[resigned]: (after a long moment) ...It's a mop.",
+  {
+   "setFlag": "p15_recovered"
+  },
+  {
+   "tutorial": "Make a rule (the Brogath Rules board, on the barricade in the old quarters).",
+   "title": "The Grand Paranoia"
+  }
+ ],
+ "p15c8.rule": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "The Brogath Rules. Four sheets and a ribbon. You take Pete's pencil. You turn the last sheet over, and start a new section, in your own capitals: THE CAPTAIN'S RULES.",
+  "captain[determined]: (writing) ONE. NO MORE BEARD JOINTS.",
+  "captain[determined]: TWO. Nobody cuts off ANY of the captain's beard. To sell. To smoke. For ANY reason.",
+  "captain[determined]: THREE. No 'Beard Reserve' product line.",
+  "garrick[offended]: (in the doorway, horrified) Captain, the MARGINS on a Beard Reserve...",
+  "captain[determined]: FOUR. No Grand Stenchmaster beard MERCHANDISE.",
+  "garrick[offended]: Not even a LOCKET?",
+  "captain[determined]: ESPECIALLY not a locket.",
+  {
+   "sfx": "bbk_tink",
+   "volume": 0.8
+  },
+  "TINK. A token, rolling in under the door, from the Sharkstorm, by way of a porthole. There's a card in it.",
+  {
+   "sfx": "bbk_tink",
+   "volume": 0.8
+  },
+  {
+   "insert": "bbk_beard_review"
+  },
+  "Five stars. MOST INNOVATIVE PRODUCT OF THE SEASON. THE BLING BLING KING WILL NOT BE STOCKING IT.",
+  "garrick[offended]: (snatching it) FIVE STARS, Captain.",
+  "captain[determined]: And he won't stock it. Even HE won't stock it.",
+  {
+   "setFlag": "brogath_rule_no_beard_joints"
+  },
+  {
+   "addVar": "brogath_rules",
+   "value": 1
+  },
+  {
+   "setFlag": "beard_experiment_banned"
+  },
+  {
+   "logbook": "brogath_rules"
+  },
+  {
+   "completeQuest": "grand_paranoia"
+  },
+  {
+   "call": "p15c9.begin"
+  }
+ ],
+ "p15c9.begin": [
+  {
+   "setFlag": "p15_ch178_started"
+  },
+  {
+   "banner": "CHAPTER 178",
+   "sub": "The Grand Stenchmaster's Grand Nap"
+  },
+  {
+   "music": "weary_morning",
+   "fade": 800
+  },
+  "Everybody is exhausted. Pete is asleep standing up. Gristle has nodded off holding a blanket. The visitors are lying in the middle of the floor, staring at the ceiling, saying 'whoa' at it.",
+  "garrick[proud]: (rising, crown and all) I DECREE: THE GRAND STENCHMASTER'S GRAND NAP.",
+  "captain[tired]: It's a nap.",
+  "garrick[proud]: It is the GRAND NAP. There are RULES. One: all sashes off. Two: nobody naps HIGHER than the Grand Stenchmaster. Three: a Grand Snore, to begin.",
+  "captain[tired]: It's lying down. With your eyes shut.",
+  "garrick[proud]: (sweeping a hand at the bunks) GRANDLY.",
+  "There's one problem. The bedding. The sash bedding you made up for the crew, months ago: it's been through the apology eruption, the catastrophe and the Economic Anger Waft. It's stiff. It's yellow. One of the blankets makes a noise when you go near it.",
+  "And the pillow on the starboard cot is growling.",
+  {
+   "sfx": "pillow_growl",
+   "volume": 0.6
+  },
+  {
+   "propFx": "jiggle",
+   "prop": "p15_old_pillow",
+   "duration": 700,
+   "intensity": 1.2
+  },
+  {
+   "startQuest": "grand_stenchmaster_nap"
+  },
+  {
+   "tutorial": "Strip the old bedding (the bunks; leave the growling pillow for now), and fetch clean sashes (the Mega-Pack).",
+   "title": "The Grand Stenchmaster's Grand Nap"
+  }
+ ],
+ "p15c9.strip_a": [
+  "You haul the bedding off the top port bunk. It comes away in one stiff sheet, like a sail that's been left out in a hurricane. It smells of apology.",
+  {
+   "sfx": "cloth_rip",
+   "volume": 0.5
+  },
+  {
+   "setFlag": "p15_strip_a"
+  },
+  {
+   "event": "p15_strip"
+  }
+ ],
+ "p15c9.strip_b": [
+  "The bottom port bunk. Underneath the blanket, scorched in a ring: a souvenir of the night he came back. You roll it up and throw it on the pile.",
+  {
+   "sfx": "cloth_rip",
+   "volume": 0.5
+  },
+  {
+   "setFlag": "p15_strip_b"
+  },
+  {
+   "event": "p15_strip"
+  }
+ ],
+ "p15c9.strip_c": [
+  "The middle bunk. The blanket on this one GROWLS. Faintly. You hold it at arm's length all the way to the pile, and it growls the whole way.",
+  {
+   "sfx": "cloth_rip",
+   "volume": 0.5
+  },
+  {
+   "setFlag": "p15_strip_c"
+  },
+  {
+   "event": "p15_strip"
+  }
+ ],
+ "p15c9.sashes": [
+  "The Fan Mega-Pack. Under the mugs and the posters and the fold-out Brogath that started all this: a bundle of Cheap-O-Rama Grand Stenchmaster Sashes. Clean. Never worn. Still in the wrappers. Dozens of them.",
+  "Printed on them, in gold: HOLD MY SASH! And SASH SECURE! And OFFICIAL GRAND WAFT SUPPORT STAFF. And, on one, specially, GRAND STENCHMASTER'S GRAND NAP.",
+  "captain[annoyed]: (holding one up) They've printed one for the NAP.",
+  "garrick[proud]: Of course they have. It's a CEREMONY.",
+  {
+   "setFlag": "p15_sashes_fetched"
+  }
+ ],
+ "p15c9.strip_done": [
+  {
+   "setFlag": "p15_strip_said"
+  },
+  "The old bedding is in a heap by the door, muttering. You've got an armful of clean sashes.",
+  {
+   "tutorial": "Lay out the clean sash bedding: pads, blankets, pillows (the floor by the bunks).",
+   "title": "The Grand Stenchmaster's Grand Nap"
+  }
+ ],
+ "p15c9.bed_port": [
+  "Sashes, folded four deep, for mattress pads, along the port side. Sashes for blankets. A sash rolled up for a pillow. HOLD MY SASH! HOLD MY SASH! HOLD MY SASH!",
+  {
+   "sfx": "cloth_flap",
+   "volume": 0.4
+  },
+  {
+   "setFlag": "p15_bed_port"
+  },
+  {
+   "event": "p15_bed"
+  }
+ ],
+ "p15c9.bed_stbd": [
+  "The starboard side. SASH SECURE! for pads. OFFICIAL GRAND WAFT SUPPORT STAFF for blankets. It looks like a merchandise stall that's lain down for a rest.",
+  {
+   "sfx": "cloth_flap",
+   "volume": 0.4
+  },
+  {
+   "setFlag": "p15_bed_stbd"
+  },
+  {
+   "event": "p15_bed"
+  }
+ ],
+ "p15c9.bed_grand": [
+  "And in the middle, by decree, the GRAND PAD: six sashes wide, with GRAND STENCHMASTER'S GRAND NAP across the top, for Garrick. You don't make it particularly well. He doesn't notice.",
+  {
+   "sfx": "cloth_flap",
+   "volume": 0.4
+  },
+  {
+   "setFlag": "p15_bed_grand"
+  },
+  {
+   "event": "p15_bed"
+  }
+ ],
+ "p15c9.beds_done": [
+  {
+   "setFlag": "p15_beds_said"
+  },
+  "The whole floor is sashes. Gold lettering everywhere you look. It's the most fart-themed room you have ever stood in.",
+  {
+   "tutorial": "Settle everybody down (Pete, the visitors, Garrick).",
+   "title": "The Grand Stenchmaster's Grand Nap"
+  }
+ ],
+ "p15c9.settle_pete": [
+  "pete: (lying down on a HOLD MY SASH!, already mostly asleep) Wake me if he blushes, Captain.",
+  "captain: Who's going to wake ME?",
+  "pete: (asleep) ...Mm.",
+  {
+   "setFlag": "p15_settle_pete"
+  },
+  {
+   "event": "p15_settle"
+  }
+ ],
+ "p15c9.settle_visitors": [
+  "visitor_one: (lying on a SASH SECURE!, blissful) Dude. These are SO comfortable.",
+  "captain[annoyed]: They're fart sashes. You're sleeping on FART SASHES.",
+  "visitor_two: (pulling an OFFICIAL GRAND WAFT SUPPORT STAFF up to his chin) Yeah, but they're fart-THEMED, man. Not fart-SCENTED.",
+  "visitor_one: Themed is way better than scented.",
+  "You open your mouth to argue. You can't think of anything. It's annoyingly correct.",
+  "captain[annoyed]: (shutting your mouth) ...Go to sleep.",
+  {
+   "setFlag": "p15_settle_visitors"
+  },
+  {
+   "event": "p15_settle"
+  }
+ ],
+ "p15c9.settle_garrick": [
+  "garrick[businesslike]: (on the Grand Pad, reading the pocket edition by lantern) Bedtime reading, Captain. Grand financial instruments. Listen to this.",
+  {
+   "insert": "pocket_sash_loan"
+  },
+  "codex: THE SASH-BACKED LOAN. Where a borrower has no assets save their ceremonial sash, the sash itself may serve as collateral. The lender, or a teller of the Grand Trust acting for them, must hold the borrower's sash in both hands while a Grand Stenchmaster release is performed upon it, to activate the collateral.",
+  "garrick[delighted]: To ACTIVATE the collateral, Captain.",
+  "captain[tired]: Goodnight, Garrick.",
+  "garrick[delighted]: (turning the page) There's a whole chapter on late fees.",
+  {
+   "setFlag": "p15_settle_garrick"
+  },
+  {
+   "event": "p15_settle"
+  }
+ ],
+ "p15c9.settle_done": [
+  {
+   "setFlag": "p15_settle_said"
+  },
+  {
+   "sfx": "pillow_growl",
+   "volume": 0.9
+  },
+  {
+   "propFx": "jiggle",
+   "prop": "p15_old_pillow",
+   "duration": 1200,
+   "intensity": 2.5
+  },
+  "Everybody's down. Everybody's nearly asleep. And on the starboard cot, the last of the old pillows lifts itself an inch, and GROWLS.",
+  "Then it shuffles. Sideways. Towards Garrick.",
+  "garrick[alarmed]: (pulling his crown down over his ears) Captain. Captain, it's COMING.",
+  {
+   "tutorial": "Deal with the growling pillow (the starboard cot).",
+   "title": "The Grand Stenchmaster's Grand Nap"
+  }
+ ],
+ "p15c9.pillow": [
+  "You stalk it. It growls at you. It has gone a sort of yellowish grey, and there's a fold in the middle of it that looks very much like a mouth.",
+  {
+   "repair": "grab",
+   "strikes": 4,
+   "title": "GRAB IT"
+  },
+  {
+   "sfx": "pillow_growl",
+   "volume": 1.0
+  },
+  "You get it. It thrashes. You hold it at arm's length, the way you'd hold a cat that has had enough.",
+  {
+   "setFlag": "p15_pillow_caught"
+  },
+  {
+   "tutorial": "Get rid of it (over the rail, on deck).",
+   "title": "The Grand Stenchmaster's Grand Nap"
+  }
+ ],
+ "p15c9.eject": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "You carry it up the ladder and onto the deck, growling all the way, and over to the rail.",
+  "captain[determined]: (holding it out over the sea) Go on. Go and growl at the SHARKS.",
+  {
+   "sfx": "whoosh",
+   "volume": 0.8
+  },
+  "You throw it. It goes up, and out, and into the Sharkstorm, and round.",
+  "The storm takes it. The storm thinks about it. A shark goes past with it in its mouth, and spits it out, and the next shark doesn't touch it.",
+  {
+   "sfx": "bbk_tink",
+   "volume": 0.8
+  },
+  {
+   "wait": 400
+  },
+  {
+   "sfx": "bbk_tink",
+   "volume": 0.8
+  },
+  {
+   "insert": "bbk_no_pillows"
+  },
+  "SHARKSTORM DOES NOT ACCEPT PREDATORY PILLOWS.",
+  "It doesn't come back, though. It just keeps going round. Growling. You can hear it every few minutes, on the wind.",
+  {
+   "setFlag": "roaring_pillow_ejected"
+  },
+  {
+   "tutorial": "Nap (your sash pad, in the old quarters).",
+   "title": "The Grand Stenchmaster's Grand Nap"
+  }
+ ],
+ "p15c9.nap": [
+  "Your pad. HOLD MY SASH!, folded four deep, with a GRAND STENCHMASTER'S GRAND NAP for a blanket, because they ran out of the others.",
+  "garrick: (on the Grand Pad, beginning) HHHHHHNNNNNNRRRRRRK. (That was the Grand Snore.)",
+  {
+   "fade": "out",
+   "duration": 1000
+  },
+  {
+   "sfx": "snore",
+   "volume": 0.5
+  },
+  {
+   "wait": 1200
+  },
+  {
+   "setFlag": "grand_nap_done"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 35
+  },
+  {
+   "save": "auto"
+  },
+  {
+   "completeQuest": "grand_stenchmaster_nap"
+  },
+  {
+   "call": "p15c10.begin"
+  }
+ ],
+ "p15c10.begin": [
+  {
+   "setFlag": "p15_ch179_started"
+  },
+  {
+   "banner": "CHAPTER 179",
+   "sub": "The Nose-Fire Waft"
+  },
+  {
+   "fade": "in",
+   "duration": 900
+  },
+  "You wake up in the dark. The beard itches.",
+  "You scratch it. You sniff your fingers. Big mistake. The snipped end of your beard fringe is right there under your nose, full of the visitors' smoke, and it goes up your nose like a ferret.",
+  {
+   "sfx": "delirium_cue",
+   "volume": 0.5
+  },
+  "Everything goes soft and safe and warm. Candlelight. A low ceiling. Sashes. You know exactly where you are.",
+  "captain: (comfortably, to the dark) Ahh. The zone.",
+  "You're in the Fart-Free Zone. Under the stairs. Safe. Nobody can hear you in here. You can say ANYTHING.",
+  "captain: (stretching, to the sleeping lump next to you that you are fairly sure is Pete) Pete. Pete. Can I tell you something about Brogath?",
+  "captain: He's a CEREAL BOX, Pete.",
+  {
+   "stability": "trigger",
+   "id": "reminded_cardboard",
+   "quiet": true
+  },
+  "captain: He's been dead four hundred years and he came back as a PROMOTIONAL ITEM. Ages eight and up.",
+  {
+   "stability": "trigger",
+   "id": "reminded_dead",
+   "quiet": true
+  },
+  "captain: His face is smudged. There's a printing error under one eye. Every time a SHIRT flutters he goes off like a cannon, and then he says 'little toot' and we all have to AGREE.",
+  {
+   "stability": "trigger",
+   "id": "print_quality",
+   "quiet": true
+  },
+  {
+   "stability": "trigger",
+   "id": "flutter",
+   "quiet": true
+  },
+  "captain: And his crew got lost in their own CORRIDORS, Pete. And he SMELLS.",
+  {
+   "stability": "trigger",
+   "id": "smells",
+   "quiet": true
+  },
+  {
+   "stability": "trigger",
+   "id": "speedrun",
+   "quiet": true
+  },
+  "The lump next to you sits up. It isn't Pete. Pete is on the other side.",
+  "It's a Grand Stenchmaster made of card, in a drawn-on nightcap, who has heard every single word.",
+  "The candlelight isn't candlelight. It's the old quarters' lantern. The low ceiling is the deck above. This is not the zone.",
+  "captain: (very small) ...Brogath.",
+  "brogath[devastated]: (in a whisper) A cereal box.",
+  {
+   "stability": "meter",
+   "show": "show"
+  },
+  {
+   "stability": "set",
+   "pressure": 100
+  },
+  {
+   "sfx": "pressure_build",
+   "volume": 1.0
+  },
+  {
+   "shake": 2,
+   "duration": 900
+  },
+  "This one doesn't bow out. It goes hot. You can feel it on your face, like standing in front of an oven door.",
+  {
+   "sfx": "nose_fire",
+   "volume": 1.0
+  },
+  {
+   "shake": 4,
+   "duration": 1100
+  },
+  {
+   "flash": "#f0a050",
+   "duration": 220
+  },
+  {
+   "burst": "fume",
+   "x": 10,
+   "y": 7,
+   "count": 12
+  },
+  {
+   "atmosphere": "NOSE_FIRE_RESIDUE"
+  },
+  {
+   "setFlag": "p15_nose_fire"
+  },
+  "It's not green. It's not the mellow one. It's the HOT one: dreadful, conventional, scorching, the smell of a frying pan full of old boots.",
+  "And everybody in the room, at once, gets a tiny little flame out of each nostril. Fwoof. Like a dragon with a cold.",
+  {
+   "bark": "gristle",
+   "text": "FWOOF!",
+   "duration": 900
+  },
+  {
+   "bark": "jim",
+   "text": "Fwoof!",
+   "duration": 900
+  },
+  {
+   "bark": "bob",
+   "text": "fwoof",
+   "duration": 900
+  },
+  "visitor_one: (sitting up, a tiny flame going out under his nose) ...Whoa.",
+  "It doesn't hurt. It just smokes. Everybody pats out their nose. Nobody's hurt. Somebody's eyebrow is slightly shorter.",
+  "And then the hot part of it, the bit still rolling along the floor, goes into one of the clean sash pillows. A GRAND STENCHMASTER'S GRAND NAP pillow.",
+  "The pillow inflates.",
+  {
+   "sfx": "pillow_roar",
+   "volume": 1.0
+  },
+  {
+   "shake": 3,
+   "duration": 700
+  },
+  {
+   "setValue": "pillow_spot",
+   "value": 1
+  },
+  "It growls. And then it ROARS. And then it gets up.",
+  {
+   "stability": "settle",
+   "pressure": 55
+  },
+  {
+   "stability": "meter",
+   "show": "hide"
+  },
+  {
+   "startQuest": "nose_fire_waft"
+  },
+  {
+   "tutorial": "Catch the pillow (it won't stay still).",
+   "title": "The Nose-Fire Waft"
+  }
+ ],
+ "p15c10.catch_1": [
+  "The pillow, crouched, growling, a fold in the middle of it opening and shutting.",
+  {
+   "repair": "grab",
+   "strikes": 3,
+   "title": "GRAB IT"
+  },
+  {
+   "sfx": "pillow_roar",
+   "volume": 0.9
+  },
+  {
+   "setValue": "pillow_spot",
+   "value": 2
+  },
+  "It slips out of your hands with a roar and bounds off across the room. Squawks shrieks. Agnes would have been proud, if there were an Agnes yet.",
+  {
+   "event": "p15_pillow_catch"
+  }
+ ],
+ "p15c10.catch_2": [
+  "The pillow, crouched, growling, a fold in the middle of it opening and shutting.",
+  {
+   "repair": "grab",
+   "strikes": 4,
+   "title": "GRAB IT"
+  },
+  {
+   "sfx": "pillow_roar",
+   "volume": 0.9
+  },
+  {
+   "setValue": "pillow_spot",
+   "value": 3
+  },
+  "It slips out of your hands with a roar and bounds off across the room. Squawks shrieks. Agnes would have been proud, if there were an Agnes yet.",
+  {
+   "event": "p15_pillow_catch"
+  }
+ ],
+ "p15c10.catch_3": [
+  "The pillow, crouched, growling, a fold in the middle of it opening and shutting.",
+  {
+   "repair": "grab",
+   "strikes": 5,
+   "title": "GOT IT"
+  },
+  {
+   "sfx": "pillow_roar",
+   "volume": 0.9
+  },
+  {
+   "setValue": "pillow_spot",
+   "value": 0
+  },
+  {
+   "setFlag": "p15_pillow2_caught"
+  },
+  "You get both arms round it and hold on. It thrashes. It roars. You hold on. It deflates, a little. It growls, a lot.",
+  {
+   "event": "p15_pillow_catch"
+  }
+ ],
+ "p15c10.catch_done": [
+  {
+   "setFlag": "p15_catch_said"
+  },
+  {
+   "tutorial": "Throw it out (over the rail, on deck).",
+   "title": "The Nose-Fire Waft"
+  }
+ ],
+ "p15c10.throw": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "Up the ladder with it, roaring, and to the rail. You don't make a speech this time.",
+  {
+   "sfx": "whoosh",
+   "volume": 0.8
+  },
+  "Over it goes. Into the storm. Round with the sharks, roaring at them. You can see the first pillow, the growling one, going round a little further out. They seem to have found each other.",
+  {
+   "sfx": "bbk_tink",
+   "volume": 0.8
+  },
+  {
+   "sfx": "bbk_tink",
+   "volume": 0.8
+  },
+  {
+   "insert": "bbk_no_pillows_2"
+  },
+  "SHARKSTORM STILL DOES NOT ACCEPT PREDATORY PILLOWS. THIS ONE EITHER.",
+  {
+   "setFlag": "p15_pillow2_ejected"
+  },
+  "And Brogath is still down there. On his own. With your words.",
+  {
+   "tutorial": "Apologise to Brogath (the old quarters).",
+   "title": "The Nose-Fire Waft"
+  }
+ ],
+ "p15c10.sorry": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "brogath: (not looking at you) Is it true? Am I a cereal box?",
+  "captain: No. No, you're... I thought I was in the zone, Brogath. I'd had a nose full of beard. I was talking rubbish.",
+  "brogath: You said I SMELL.",
+  "captain: (sitting down next to him) Everybody on this ship smells. I smell. My BEARD smells. It's how you can tell we're a crew.",
+  {
+   "stability": "calm",
+   "id": "part_of_crew"
+  },
+  "brogath[bashful]: (a very small, sideways look) ...Do you mean that?",
+  "captain: I said it before. Part of the crew. Distinguished idiot. I meant it.",
+  "brogath[bashful]: (going pink to the edges, the GOOD kind) Oh. Oh, Captain. Nobody's said anything that nice to me since... I don't even...",
+  "brogath[embarrassed]: Oh, now I'm embarrassed. About being PLEASED. Is that allowed?",
+  {
+   "stability": "set",
+   "pressure": 45
+  },
+  {
+   "sfx": "bank_materialise",
+   "volume": 0.9
+  },
+  {
+   "shake": 1,
+   "duration": 800
+  },
+  "And from behind the barricade, at the back of the room, a low, pleased, golden HUM.",
+  {
+   "setValue": "bashfulness_branch_state",
+   "value": "forming"
+  },
+  {
+   "setFlag": "p15_apologised"
+  },
+  "A glow. A sound like coins being counted in another room. A counter, purple and gold, rising out of the floorboards, too big for the space and wedging itself into it anyway, between the mast post and the wall.",
+  {
+   "setValue": "bashfulness_branch_state",
+   "value": "open"
+  },
+  {
+   "atmosphere": "BANK_FUMES"
+  },
+  {
+   "setFlag": "bashfulness_branch_formed"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.9
+  },
+  "DING.",
+  "captain: (staring) No.",
+  {
+   "save": "auto"
+  },
+  {
+   "completeQuest": "nose_fire_waft"
+  },
+  {
+   "call": "p15c11.begin"
+  }
+ ],
+ "p15c11.begin": [
+  {
+   "setFlag": "p15_ch180_started"
+  },
+  {
+   "banner": "CHAPTER 180",
+   "sub": "The Bashfulness Branch"
+  },
+  {
+   "music": "grand_bank",
+   "fade": 600
+  },
+  "It's small. It's a BRANCH. A little purple and gold counter, a little brass window, a little bell, and a sign, glowing, hanging from nothing at all.",
+  "And behind the counter, made of haze and very polite about it, a teller.",
+  {
+   "startQuest": "bashfulness_branch"
+  },
+  {
+   "tutorial": "Look at it (the branch, behind the barricade).",
+   "title": "The Bashfulness Branch"
+  }
+ ],
+ "p15c11.look": [
+  {
+   "insert": "branch_sign_open"
+  },
+  "THE GRAND STENCHMASTER'S GRAND BANK AND GRAND TRUST. THE BASHFULNESS BRANCH. OPEN SO LONG AS BROGATH REMAINS BASHFUL.",
+  "branch_teller: (with a small bow) Good evening, Captain. The Bashfulness Branch. Open so long as he remains bashful.",
+  "branch_teller: (lowering his voice) Which, between ourselves, is always.",
+  "captain[annoyed]: It's the middle of the NIGHT.",
+  "branch_teller: We are open all night, sir. Sadly, so is he.",
+  {
+   "setFlag": "p15_branch_seen"
+  },
+  "Pete, beside you, is reading the sign again, with his lips moving.",
+  "pete: (slowly) So long as he remains bashful. Captain. Captain, what if he WASN'T?",
+  {
+   "tutorial": "Pay Brogath a compliment, and watch the sign (Brogath).",
+   "title": "The Bashfulness Branch"
+  }
+ ],
+ "p15c11.flicker": [
+  {
+   "if": {
+    "notFlag": "p15_branch_seen"
+   },
+   "then": [
+    "brogath[bashful]: (not looking at the back of the room) Is something there? I'm not looking. I'm not looking at it.",
+    {
+     "end": true
+    }
+   ]
+  },
+  "captain: Brogath. That's a very distinguished nightcap.",
+  {
+   "stability": "calm",
+   "id": "distinguished"
+  },
+  "brogath[proud]: (sitting up straighter) Oh! Do you think so?",
+  {
+   "setValue": "bashfulness_branch_state",
+   "value": "flickering"
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  "Behind you, the branch... flickers. The sign stutters: OPEN. OP N. O . The teller goes thin, like a man in a draught. The bell rings a very small, uncertain ding.",
+  "pete: (gripping your arm) It's GOING. Captain, keep GOING.",
+  "captain: (fast) And your... your posture. Wonderful posture. For card.",
+  "brogath[bashful]: (going pink) Oh. Oh, now you're embarrassing me.",
+  {
+   "setValue": "bashfulness_branch_state",
+   "value": "open"
+  },
+  {
+   "sfx": "bank_materialise",
+   "volume": 0.6
+  },
+  "And it's back. Solid. Gold. OPEN SO LONG AS BROGATH REMAINS BASHFUL.",
+  "branch_teller: (straightening his cuffs) As I say, sir. Always.",
+  "pete: (letting go of your arm) It's impossible to shut. He's always at least a LITTLE bit bashful.",
+  "brogath[bashful]: (to his feet, delighted, mortified) Am I? Am I always? Oh, that's embarrassing.",
+  {
+   "sfx": "teller_bell",
+   "volume": 0.7
+  },
+  "DING.",
+  {
+   "setFlag": "p15_flicker_seen"
+  },
+  {
+   "tutorial": "Try to get some sleep (your sash pad). Somebody's at the window.",
+   "title": "The Bashfulness Branch"
+  }
+ ],
+ "p15c11.night": [
+  {
+   "if": {
+    "notFlag": "p15_flicker_seen"
+   },
+   "then": [
+    "You lie down. You can't. Not with THAT at the back of the room. Not until you've worked out how to shut it.",
+    {
+     "end": true
+    }
+   ]
+  },
+  "You lie down on your sash pad. You pull GRAND STENCHMASTER'S GRAND NAP up to your chin. You shut your eyes.",
+  {
+   "wait": 700
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 1.0
+  },
+  "DING.",
+  {
+   "bank": "next",
+   "bankId": "bashfulness_branch",
+   "queue": "night",
+   "observe": true
+  },
+  {
+   "if": {
+    "var": {
+     "name": "branch_night_served",
+     "lt": 4
+    }
+   },
+   "then": [
+    "The bell. That BELL. You put your pillow over your head. GRAND STENCHMASTER'S GRAND NAP. It doesn't help."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "branch_night_served",
+     "gte": 4
+    }
+   },
+   "then": [
+    {
+     "call": "p15c11.morning"
+    }
+   ]
+  }
+ ],
+ "p15c11.morning": [
+  {
+   "fade": "out",
+   "duration": 900
+  },
+  {
+   "wait": 700
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 36
+  },
+  {
+   "fade": "in",
+   "duration": 900
+  },
+  "At some point, the sky through the porthole goes grey. You haven't slept. The teller is polishing the bell. The bell is gleaming. You hate the bell.",
+  "captain[tired]: (to the ceiling) Ding.",
+  "pete: (from the next pad, without opening his eyes) Ding.",
+  {
+   "completeQuest": "bashfulness_branch"
+  },
+  {
+   "save": "auto"
+  },
+  {
+   "call": "p15c12.begin"
+  }
+ ]
+}

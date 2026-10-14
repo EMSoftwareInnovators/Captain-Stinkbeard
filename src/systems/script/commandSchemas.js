@@ -128,7 +128,7 @@ export const COMMAND_SCHEMAS = {
   // A reassurance prompt: the captain picks what to say from the subject's prompt set.
   reassure: { reassure: 'string', subject: 'string?', var: 'string?', prompt: 'line?' },
   // The Grand Bank: serve the next depositor in a queue, or a named one.
-  bank: { bank: 'string', queue: 'string?', bankId: 'string?' },
+  bank: { bank: 'string', queue: 'string?', bankId: 'string?', observe: 'boolean?' },
   bankDeposit: { bankDeposit: 'string' },
   // The Grand Currency purchase (exactly once: ten real doubloons out, twenty thousand tokens in; never gold).
   grandCurrency: { grandCurrency: 'string', bankId: 'string?', silent: 'boolean?' },

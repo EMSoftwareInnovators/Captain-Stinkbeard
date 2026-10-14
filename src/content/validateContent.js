@@ -736,6 +736,8 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     }
     for (const k of ['classifyRight', 'classifyWrong']) if (b[k]) validateLine(b[k].replace(/\{(name|class)\}/g, 'x'), c.at(k));
     if (b.vault) c.script(b.vault);
+    if (b.observed) c.script(b.observed);
+    if (b.stateValue && typeof b.stateValue !== 'string') c.error('"stateValue" names a story value');
     if (b.currency) {
       const cc = c.at('currency');
       cc.flag(b.currency.flag);
@@ -763,7 +765,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       if (beat.sfx) bc.sfx(beat.sfx);
     });
     if (!(cu.pattern ?? []).some((beat) => 'brace' in beat)) c.warn('no "brace" beat: one is added at the end');
-    for (const k of ['intro', 'after', 'vault']) if (cu[k]) c.script(cu[k]);
+    for (const k of ['intro', 'after', 'vault', 'observed']) if (cu[k]) c.script(cu[k]);
     (cu.modifiers ?? []).forEach((m) => { if (!TELLER_MODIFIERS.includes(m)) c.error(`unknown teller modifier "${m}" (use: ${TELLER_MODIFIERS.join(', ')})`); });
     if (cu.brogathTrigger && !db.stability?.get?.('brogath')?.triggers?.[cu.brogathTrigger]) c.error(`Brogath has no trigger "${cu.brogathTrigger}"`);
   }

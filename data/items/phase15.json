@@ -1,0 +1,60 @@
+[
+ {
+  "id": "skunk_cargo_manifest",
+  "name": "Cargo Manifest",
+  "type": "key",
+  "icon": "skunkcrate",
+  "value": 0,
+  "//": "Story Phase 15: the Skunk Weed is story cargo (lots, story variable skunk_weed_lots), not an item you use. Fictional. Bargain-bin. Mostly stems.",
+  "description": "CARGO: SKUNK WEED (FICTIONAL). {num:skunk_weed_lots} lots, in Pete's hand. Grade: stems, mostly. Origin: twenty thousand Grand Tokens and seven real doubloons. Aroma: skunk, with a faint Brogath undertone.",
+  "variants": [
+   {
+    "if": {
+     "flag": "emergency_mellowing_policy"
+    },
+    "description": "CARGO: SKUNK WEED (FICTIONAL). {num:skunk_weed_lots} lots. Under the new rules: the EMERGENCY MELLOWING SUPPLY. The captain may authorise it if Garrick forms a committee or Brogath panics about a sash. Grown-ups only."
+   }
+  ]
+ },
+ {
+  "id": "modern_cash",
+  "name": "Modern Cash",
+  "type": "key",
+  "icon": "cash",
+  "value": 0,
+  "//": "Story Phase 15: the visitors' money. A story oddity: it is not gold and no shop on this ship (or in this century) takes it.",
+  "description": "{num:modern_cash} 'dollars', in green paper, from the visitors. Not gold. Not anything. Pete says it's money, somewhere. Squawks says: bad money. You keep it in your boot anyway."
+ },
+ {
+  "id": "relief_teller_badge",
+  "name": "Relief Teller's Badge",
+  "type": "key",
+  "icon": "badge",
+  "value": 0,
+  "description": "THE BASHFULNESS BRANCH. RELIEF GRAND TELLER. Pinned on you by a teller made of haze on his way to his tea break. The pin is bent the other way from the last one.",
+  "variants": [
+   {
+    "if": {
+     "flag": "p15_teller_rated"
+    },
+    "description": "RELIEF GRAND TELLER. Customer rating: 2.3 / 5. CUSTOMERS FOUND TELLER HOSTILE. The branch is gone. The rating stayed."
+   }
+  ]
+ },
+ {
+  "id": "loan_fee_receipt",
+  "name": "Loan Fee Receipt",
+  "type": "key",
+  "icon": "ledger",
+  "value": 0,
+  "description": "SASH-BACKED LOAN, GRAND LADY WHIFFLEBOTTOM: 47 SILVER. STATUS: CANCELLED (COLLATERAL DESTROYED). FEES: NONREFUNDABLE. Stamped, with feeling, by you."
+ },
+ {
+  "id": "agnes_feather",
+  "name": "Agnes's Feather",
+  "type": "key",
+  "icon": "feather",
+  "value": 0,
+  "description": "A brown feather, caught on the rail where Agnes the Second was last seen, going round with the Sharkstorm. Brogath asked you to keep it. You said you would."
+ }
+]

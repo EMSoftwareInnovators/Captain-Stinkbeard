@@ -1,0 +1,644 @@
+{
+ "//": "Story Phase 15: the Bashfulness Branch's customers: the night depositors (each richer than the last; served by the branch teller while the captain tries to sleep), the relief queue (Teller Shift V2: each brings modifiers), and Grand Lady Whifflebottom at the AFTER-HOURS EXPRESS WINDOW. Gary is the Phase 14 Gary (the same NPC).",
+ "gasimir": {
+  "bank": "bashfulness_branch",
+  "npc": "gasimir",
+  "name": "Grand Duke Gasimir the Excessively Solvent",
+  "short": "Duke Gasimir",
+  "title": "Grand Duke of the Overflowing Vaults, Master of Thirty Thousand Grand Wind Crowns, Freeholder of the Upper Draught",
+  "intensity": 7,
+  "classify": [
+   6,
+   7,
+   8
+  ],
+  "telegraph": "ALL OF IT.",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "hold": 3
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "intro": "p15.branch.gasimir.intro",
+  "after": "p15.branch.gasimir.after",
+  "notes": "ALL OF IT. Thirty thousand Grand Wind Crowns. The lantern swung for an hour.",
+  "observed": "p15.branch.gasimir.observed"
+ },
+ "flatulencia": {
+  "bank": "bashfulness_branch",
+  "npc": "flatulencia",
+  "name": "Grand Countess Flatulencia",
+  "short": "Countess Flatulencia",
+  "title": "Grand Countess of the Seven Generations, Heiress to the Ancestral Breeze, Trustee of the Compounded Gust",
+  "intensity": 8,
+  "classify": [
+   7,
+   8,
+   9
+  ],
+  "telegraph": "Old money. Very old. Compounded.",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "hold": 3
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "intro": "p15.branch.flatulencia.intro",
+  "after": "p15.branch.flatulencia.after",
+  "notes": "Seven generations, compounded. The interest had interest.",
+  "observed": "p15.branch.flatulencia.observed"
+ },
+ "billowmere": {
+  "bank": "bashfulness_branch",
+  "npc": "billowmere",
+  "name": "Baron Billowmere of the Upper Draughts",
+  "short": "Baron Billowmere",
+  "title": "Baron Billowmere, Lord of the Upper Draughts, Owner of Every Breeze North of the Gusting Hills",
+  "intensity": 9,
+  "classify": [
+   8,
+   9,
+   10
+  ],
+  "telegraph": "Every breeze north of the hills. All of them his.",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "hold": 3
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "intro": "p15.branch.billowmere.intro",
+  "after": "p15.branch.billowmere.after",
+  "notes": "Regional, at least. Heeled the ship three degrees. At two in the morning.",
+  "observed": "p15.branch.billowmere.observed"
+ },
+ "puffenstein": {
+  "bank": "bashfulness_branch",
+  "npc": "puffenstein",
+  "name": "The Dowager Puffenstein",
+  "short": "The Dowager",
+  "title": "The Dowager Duchess Puffenstein, Richest Lady in the Whole of the Afterlife (Atmospherically)",
+  "intensity": 10,
+  "classify": [
+   8,
+   9,
+   10
+  ],
+  "telegraph": "The richest of the lot. Her deposit has its own deposit.",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "hold": 3
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "intro": "p15.branch.puffenstein.intro",
+  "after": "p15.branch.puffenstein.after",
+  "notes": "Please Notify Authorities. That was the SMALL one.",
+  "observed": "p15.branch.puffenstein.observed"
+ },
+ "boomington": {
+  "bank": "bashfulness_branch",
+  "npc": "boomington",
+  "name": "Grand Lord Boomington",
+  "short": "Lord Boomington",
+  "title": "Grand Lord Boomington of Boomington, Boom-Warden of the Booming Marches, Thrice-Booming Knight of the Order of the Boom, First Boomer of the Boomtown Assembly",
+  "intensity": 6,
+  "classify": [
+   5,
+   6,
+   7
+  ],
+  "telegraph": "The title takes longer than the deposit.",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "hold": 4,
+    "text": "Steady. The counter's moving under you.",
+    "band": [
+     34,
+     70
+    ]
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "intro": "p15.branch.boomington.intro",
+  "after": "p15.branch.boomington.after",
+  "notes": "Booming. Walked into the wall. Twice. Composure: total.",
+  "modifiers": [
+   "desk_slides"
+  ]
+ },
+ "whistlewaft": {
+  "bank": "bashfulness_branch",
+  "npc": "whistlewaft",
+  "name": "Grand Duchess Whistlewaft",
+  "short": "Duchess Whistlewaft",
+  "title": "Grand Duchess Whistlewaft of the... of the Something",
+  "intensity": 5,
+  "classify": [
+   4,
+   5,
+   6
+  ],
+  "telegraph": "It whistles.",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "hold": 3.5,
+    "text": "A high, thin note. Like a kettle. Like a very ANGRY kettle.",
+    "band": [
+     36,
+     66
+    ]
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 900,
+    "window": 170
+   }
+  ],
+  "intro": "p15.branch.whistlewaft.intro",
+  "after": "p15.branch.whistlewaft.after",
+  "notes": "Whistled. Forgot her title. (So did I.)",
+  "modifiers": [
+   "forgets_title",
+   "whistle"
+  ]
+ },
+ "fumblebottom": {
+  "bank": "bashfulness_branch",
+  "npc": "fumblebottom",
+  "name": "Sir Fumblebottom",
+  "short": "Sir Fumblebottom",
+  "title": "Sir Fumblebottom, Knight of the Inside-Out Sash",
+  "intensity": 4,
+  "classify": [
+   3,
+   4,
+   5
+  ],
+  "telegraph": "He's holding the form upside down. And the sash. And possibly himself.",
+  "pattern": [
+   {
+    "take": true,
+    "text": "The sash comes over inside out. The form comes over upside down. He apologises for both."
+   },
+   {
+    "hold": 3,
+    "text": "He's going pink. So is Brogath, watching.",
+    "band": [
+     32,
+     72
+    ]
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 950,
+    "window": 170
+   }
+  ],
+  "intro": "p15.branch.fumblebottom.intro",
+  "after": "p15.branch.fumblebottom.after",
+  "notes": "Sash inside out. Form upside down. Nearly started Brogath off. Nearly.",
+  "modifiers": [
+   "form_backwards",
+   "sash_wrong",
+   "brogath_risk"
+  ],
+  "brogathTrigger": "embarrassed_again"
+ },
+ "wind_brothers": {
+  "bank": "bashfulness_branch",
+  "npc": "wind_brothers",
+  "name": "The Grand Wind Brothers",
+  "short": "The Wind Brothers",
+  "title": "Grand Wind Brothers Hubert and Herbert, Joint Holders of the Family Gust (Undivided)",
+  "intensity": 7,
+  "classify": [
+   6,
+   7,
+   8
+  ],
+  "telegraph": "Two of them. They do everything together. EVERYTHING.",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "hold": 3,
+    "text": "They're talking. Both at once. They haven't stopped since they came in.",
+    "band": [
+     34,
+     68
+    ]
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 950,
+    "window": 170
+   }
+  ],
+  "intro": "p15.branch.wind_brothers.intro",
+  "after": "p15.branch.wind_brothers.after",
+  "notes": "Joint deposit. In time. In stereo.",
+  "modifiers": [
+   "shared"
+  ]
+ },
+ "boomboom": {
+  "bank": "bashfulness_branch",
+  "npc": "boomboom",
+  "name": "Grandmother Boom-Boom",
+  "short": "Grandmother Boom-Boom",
+  "title": "(she says she hasn't got one)",
+  "intensity": 9,
+  "classify": [
+   8,
+   9,
+   10
+  ],
+  "telegraph": "A sweet little old lady. You've been here before.",
+  "pattern": [
+   {
+    "take": true,
+    "text": "A tiny grandmother in a shawl. A tiny, harmless knitted sash."
+   },
+   {
+    "wait": 800,
+    "text": "She smiles at you.",
+    "label": "..."
+   },
+   {
+    "hold": 6,
+    "text": "And it doesn't stop. Your assistants are on the floor, eating crackers.",
+    "band": [
+     30,
+     72
+    ],
+    "milestones": [
+     {
+      "at": 3,
+      "text": "Still going. The shawl is horizontal."
+     },
+     {
+      "at": 5,
+      "text": "STILL going."
+     }
+    ]
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170,
+    "power": 9
+   }
+  ],
+  "intro": "p15.branch.boomboom.intro",
+  "after": "p15.branch.boomboom.after",
+  "notes": "DO NOT TRUST THE GRANDMOTHERS. (Second one.)",
+  "modifiers": [
+   "mellow_assistants"
+  ]
+ },
+ "rumblequill": {
+  "bank": "bashfulness_branch",
+  "npc": "rumblequill",
+  "name": "Professor Rumblequill",
+  "short": "Professor Rumblequill",
+  "title": "Professor Rumblequill, Chair of Theoretical Windage, Author of 'A Brief History of Gust'",
+  "intensity": 6,
+  "classify": [
+   5,
+   6,
+   7
+  ],
+  "telegraph": "He's going to explain it. While it's happening.",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "hold": 4.5,
+    "text": "He's lecturing. During.",
+    "band": [
+     34,
+     70
+    ],
+    "milestones": [
+     {
+      "at": 1.5,
+      "text": "'...the pressure differential, you see, is...'"
+     },
+     {
+      "at": 3.0,
+      "text": "'...and HERE is the interesting part...'"
+     }
+    ]
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "intro": "p15.branch.rumblequill.intro",
+  "after": "p15.branch.rumblequill.after",
+  "notes": "Lectured throughout. I learned nothing. I know too much.",
+  "modifiers": [
+   "tv_interrupt"
+  ]
+ },
+ "flapworthy": {
+  "bank": "bashfulness_branch",
+  "npc": "flapworthy",
+  "name": "Lady Flapworthy",
+  "short": "Lady Flapworthy",
+  "title": "Lady Flapworthy, President of the Society for Free Flutter",
+  "intensity": 7,
+  "classify": [
+   6,
+   7,
+   8
+  ],
+  "telegraph": "Free flutter. Three yards of it.",
+  "pattern": [
+   {
+    "take": true,
+    "text": "Her sash comes over the counter, and keeps coming. Three yards. Four. It's on the floor. It's FLUTTERING."
+   },
+   {
+    "hold": 4,
+    "text": "Somebody needs to hold the other end. Nobody's getting up.",
+    "band": [
+     30,
+     70
+    ]
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "intro": "p15.branch.flapworthy.intro",
+  "after": "p15.branch.flapworthy.after",
+  "notes": "Four yards of free flutter. Brogath held on. (Mellow, thank goodness.)",
+  "modifiers": [
+   "long_sash",
+   "mellow_assistants",
+   "brogath_risk"
+  ],
+  "brogathTrigger": "flapworthy"
+ },
+ "gary_relief": {
+  "bank": "bashfulness_branch",
+  "npc": "gary",
+  "name": "Gary",
+  "short": "Gary",
+  "title": "Gary",
+  "intensity": 8,
+  "classify": [
+   7,
+   8,
+   9
+  ],
+  "telegraph": "Gary.",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "wait": 600,
+    "text": "He looks completely ordinary. That's how it starts.",
+    "label": "..."
+   },
+   {
+    "hold": 4,
+    "text": "GARY.",
+    "band": [
+     30,
+     72
+    ]
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 900,
+    "window": 170,
+    "power": 8,
+    "text": "GARY."
+   }
+  ],
+  "intro": "p15.branch.gary_relief.intro",
+  "after": "p15.branch.gary_relief.after",
+  "notes": "GARY. AGAIN. (Lunch.)",
+  "modifiers": [
+   "tv_interrupt"
+  ]
+ },
+ "thunderpants": {
+  "bank": "bashfulness_branch",
+  "npc": "thunderpants",
+  "name": "Admiral Thunderpants",
+  "short": "Admiral Thunderpants",
+  "title": "Admiral of the Fleet Thunderpants (Retired) (He Thinks)",
+  "intensity": 8,
+  "classify": [
+   7,
+   8,
+   9
+  ],
+  "telegraph": "He's forgotten why he came. He hasn't forgotten how.",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "wait": 900,
+    "text": "He's looking round. He's not sure where he is.",
+    "label": "..."
+   },
+   {
+    "hold": 3.5,
+    "text": "He remembers.",
+    "band": [
+     32,
+     70
+    ],
+    "surges": [
+     {
+      "at": 1.5,
+      "kick": 20
+     }
+    ]
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 900,
+    "window": 170,
+    "power": 8
+   }
+  ],
+  "intro": "p15.branch.thunderpants.intro",
+  "after": "p15.branch.thunderpants.after",
+  "notes": "Forgot why he came. Remembered in time. Unfortunately.",
+  "modifiers": [
+   "forgets_title",
+   "desk_slides"
+  ]
+ },
+ "farthelmew": {
+  "bank": "bashfulness_branch",
+  "npc": "farthelmew",
+  "name": "Grand Emperor Farthelmew",
+  "short": "Emperor Farthelmew",
+  "title": "Grand Emperor Farthelmew the Ninth, Lord of All the Winds of All the Grand Empires, Holder of More Grand Wind Crowns Than There Are Grand Wind Crowns",
+  "intensity": "10+",
+  "classify": [
+   9,
+   10,
+   "10+"
+  ],
+  "telegraph": "Everything. He wants to deposit EVERYTHING.",
+  "pattern": [
+   {
+    "take": true,
+    "text": "A sash like a carpet. It takes two trips to get it over the counter."
+   },
+   {
+    "hold": 7,
+    "text": "He's depositing EVERYTHING.",
+    "band": [
+     30,
+     72
+    ],
+    "pull": 62,
+    "milestones": [
+     {
+      "at": 2.5,
+      "text": "'...is any of this... real, teller?'"
+     },
+     {
+      "at": 4.5,
+      "text": "'...are Grand Wind Crowns even... MONEY?'"
+     },
+     {
+      "at": 6.0,
+      "text": "'...I think I've been rather silly.'"
+     }
+    ]
+   },
+   {
+    "brace": "ABSOLUTELY NOT",
+    "ring": 1100,
+    "window": 200,
+    "power": "10+"
+   },
+   {
+    "brace": "HOLD ON!",
+    "ring": 800,
+    "window": 180,
+    "power": "10+"
+   }
+  ],
+  "intro": "p15.branch.farthelmew.intro",
+  "after": "p15.branch.farthelmew.after",
+  "notes": "EVERYTHING. Realised mid-deposit that none of it is real. MID-DEPOSIT.",
+  "modifiers": [
+   "long_sash",
+   "mellow_assistants",
+   "desk_slides"
+  ]
+ },
+ "whifflebottom": {
+  "bank": "bashfulness_branch",
+  "npc": "whifflebottom",
+  "name": "Grand Lady Whifflebottom the Financially Cornered",
+  "short": "Lady Whifflebottom",
+  "title": "Grand Lady Whifflebottom the Financially Cornered, Baroness of the Lesser Gusts, Warden of the Western Wind-Gate, Holder of the Eleven Ceremonial Spoons",
+  "intensity": 9,
+  "classify": [
+   8,
+   9,
+   10
+  ],
+  "telegraph": "The collateral activation ceremony. Both hands on her sash.",
+  "pattern": [
+   {
+    "take": true,
+    "text": "Her sash. Very long, very old. The collateral. Both hands."
+   },
+   {
+    "hold": 5,
+    "text": "The collateral is activating.",
+    "band": [
+     30,
+     70
+    ],
+    "milestones": [
+     {
+      "at": 2.0,
+      "text": "The sash is getting warm."
+     },
+     {
+      "at": 3.5,
+      "text": "The sash is SMOKING."
+     }
+    ]
+   },
+   {
+    "brace": "ACTIVATE!",
+    "ring": 1000,
+    "window": 170,
+    "power": 9
+   },
+   {
+    "brace": "IT'S TEARING!",
+    "ring": 800,
+    "window": 170,
+    "power": 9
+   }
+  ],
+  "intro": "p15.branch.whifflebottom.intro",
+  "after": "p15.branch.whifflebottom.after",
+  "notes": "Sash-backed loan: 47 silver. Collateral DESTROYED. Loan CANCELLED. Fees: NONREFUNDABLE.",
+  "modifiers": [
+   "long_sash"
+  ]
+ }
+}

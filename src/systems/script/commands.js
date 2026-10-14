@@ -31,13 +31,23 @@ const fill = (str, vars) => String(str ?? '').replace(/\{(\w+)\}/g, (m, k) => (k
  * script, the ledger (the teller picks a class; right or wrong, it's stamped),
  * then the queue moves on. Nothing can be failed.
  */
-async function serveCustomer(ctx, id, queueId = null) {
+async function serveCustomer(ctx, id, queueId = null, { observe = false } = {}) {
   const content = ctx.session.content ?? ctx.content;
   const c = content.bankCustomers?.get?.(id);
   if (!c) throw new Error(`No bank customer "${id}"`);
   const bank = bankDef(content, c.bank ?? 'grand_bank');
   const story = ctx.session.story;
   if (c.intro) await ctx.runner.run(c.intro, ctx);
+  // Story Phase 15: served by the branch's own teller (the captain is in bed, watching): the
+  // customer's "observed" script (or the bank's) plays instead of the teller's window and the
+  // ledger; their after script and the queue are the same.
+  if (observe) {
+    const watched = c.observed ?? bank.observed;
+    if (watched) await ctx.runner.run(watched, ctx);
+    if (c.after) await ctx.runner.run(c.after, ctx);
+    advanceQueue(ctx, bank, id, queueId);
+    return;
+  }
   const r = await service(ctx, 'ui', 'teller').teller({ id, ...c }, bank);
   const score = tellerScore(r?.grades ?? []);
   if (bank.gradeVar) story.setVar(bank.gradeVar, score);
@@ -64,7 +74,12 @@ async function serveCustomer(ctx, id, queueId = null) {
   if (line) await dialogue.say(parseLine(fill(line, { name: c.short ?? c.name, class: scaleLabel(bank, c.intensity) })));
   if (c.vault) await ctx.runner.run(c.vault, ctx);
   else if (bank.vault) await ctx.runner.run(bank.vault, ctx);
-  // The queue moves on.
+  advanceQueue(ctx, bank, id, queueId);
+}
+
+/** The queue moves on (never backwards: a customer served again after a load doesn't count twice). */
+function advanceQueue(ctx, bank, id, queueId) {
+  const story = ctx.session.story;
   const qid = queueId ?? Object.keys(bank.queues ?? {}).find((k) => bank.queues[k].customers.includes(id));
   const q = qid ? bank.queues[qid] : null;
   if (q) {
@@ -547,14 +562,17 @@ export function createCommandImplementations() {
       if (step.var) story.setVar(step.var, o.calm ? 1 : 0);
       return null;
     },
-    /** The Grand Bank: "next" serves the next depositor in a queue (nothing when it's empty). */
+    /**
+     * The Grand Bank: "next" serves the next depositor in a queue (nothing when it's empty).
+     * Story Phase 15: "observe": true has the branch's own teller serve them (no window, no ledger).
+     */
     bank: async (step, ctx) => {
       const content = ctx.session.content ?? ctx.content;
       const bank = bankDef(content, step.bankId);
       if (step.bank !== 'next') throw new Error(`Unknown bank op "${step.bank}"`);
       const queue = step.queue ?? Object.keys(bank.queues ?? {})[0];
       const id = nextCustomer(bank, queue, ctx.session);
-      if (id) await serveCustomer(ctx, id, queue);
+      if (id) await serveCustomer(ctx, id, queue, { observe: !!step.observe });
       return null;
     },
     bankDeposit: async (step, ctx) => {
