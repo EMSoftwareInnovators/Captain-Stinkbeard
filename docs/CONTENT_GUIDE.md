@@ -1554,6 +1554,85 @@ must never wander somewhere (Brogath and the hold).
 - **Logbooks** can grow with the story: give each entry an `if` on its own flag and keep a counter variable for props that show the list getting longer (the Brogath Rules: `brogath_rules`, `brogath_rule_<id>`).
 - **Cardboard looks:** an appearance with `"painter": "cardboard"` is painted by `src/art/characters/cardboardPainter.js` (a printed cut-out on a stand, with `blush`, `loaded`, `worn` and the like); its portrait expressions are print changes.
 
+## Story Phase 15 formats
+
+### The ship's atmosphere (`data/story/atmosphere.json`)
+
+```json
+"ship": { "value": "ship_atmosphere", "default": "NORMAL", "maps": ["main_deck", "galley"],
+  "states": { "MELLOW_HAZE": { "label": "The Great Mellowing", "haze": { "level": "light", "color": "#9cb860" },
+    "npcPace": 0.45, "music": "great_mellowing", "ambience": "mellow_ship" } } }
+```
+
+`{ "atmosphere": "MELLOW_HAZE" }` sets it. `haze` tints whole rooms in `maps`
+(a room with its own haze keeps it), `npcPace` scales how fast wanderers and
+routines walk, `music` and `ambience` replace the room's while it holds.
+Conditions read it like any story value:
+`{ "value": { "name": "ship_atmosphere", "in": ["MELLOW_HAZE"] } }`.
+
+### MELLOW (`mellow`, a stability subject)
+
+```json
+"mellow": { "value": "ship_atmosphere", "in": ["MELLOW_HAZE"], "triggerScale": 0.125 }, "mellowLabel": "MELLOW"
+```
+
+While the value is one of `in`, triggers count for `triggerScale` of
+themselves and the state reads `MELLOW` (ANGRY still wins); give the NPC a
+variant `{ "if": { "value": { "name": "brogath_state", "eq": "MELLOW" } } }`.
+
+### A channel episode with breaks (`segments`)
+
+```json
+{ "id": "top_ten_flutters", "tv": "ses_mk2", "tvState": "possessed", "unlockFlag": "p15_ch171_started",
+  "doneFlag": "p15_top_ten_watched", "powerOff": false,
+  "segments": [{ "beats": [0, 4] }, { "commercial": { "episode": "short_one", "trigger": "flutter", "quiet": true, "reassure": "ad_1" } }, { "script": "p15c2.react_list" }, { "beats": [5, 8] }] }
+```
+
+`{ "channelEpisode": "top_ten_flutters", "tv": "ses_mk2" }` plays the
+segments in order: beat ranges of the episode, commercials (an episode of
+`program`, default `bbk_sash_ads`, then the stability `trigger` and the
+`reassure` prompt set they cause), and reaction
+scripts; then sets `doneFlag`. Set the flag in the calling script as well if
+a quest objective waits on it (the trigger-hygiene test reads scripts).
+
+### A one-time conversion (`data/story/conversions.json`)
+
+```json
+"economic_anger_waft": { "flag": "grand_currency_converted",
+  "from": [{ "var": "grand_currency_tokens", "recordVar": "grand_currency_converted_tokens" }],
+  "takeItems": ["grand_currency"], "to": [{ "var": "skunk_weed_lots", "add": 40 }], "giveItems": ["skunk_cargo_manifest"] }
+```
+
+`{ "convert": "economic_anger_waft" }` runs it once: each `from` variable is
+recorded in `recordVar` and emptied, items taken, `to` added. Never name the
+purse.
+
+### Ancient crew (`data/story/ancient_crew.json`)
+
+Lore records: `displayName`, `role`, `summary`, `storyUnlockFlags` (the
+logbook entry waits on all of them), `futurePortraitAsset`, and
+`reincarnationAllowed`, which must be `false`.
+
+### A branch bank, observed queues, Teller V2 modifiers
+
+A bank may add `"stateValue": "bashfulness_branch_state"` and an
+`"observed"` script (a customer can have its own). `{ "bank": "next",
+"queue": "night", "observe": true }` (with `"bankId": "bashfulness_branch"`) lets the
+bank's teller serve the next customer (their `observed` script, then
+`after`; no window, no ledger question). A customer's `"modifiers"` change
+its beats (`forgets_title`, `form_backwards`, `sash_wrong`, `whistle`,
+`shared`, `long_sash`, `mellow_assistants`, `desk_slides`, `tv_interrupt`,
+`brogath_risk`); nothing becomes failable.
+
+### Chickens and the rest
+
+- An appearance with `"painter": "chicken"` is painted by
+  `src/art/characters/chickenPainter.js`; cardboard looks take `"mellow": true`.
+- A shared logbook entry whose `if` reads only variables must also name a flag
+  of its own phase (the earlier phases' brief tests prune by flag).
+- Every Phase 15 prop, inset and vista frame is listed in
+  [STORY_PHASE15.md](STORY_PHASE15.md).
+
 ## Tilesets and props
 
 **Tilesets** (`data/tilesets/`) list `frames` (painted by name in

@@ -630,6 +630,56 @@ and these reusable parts:
   printed cut-out on a stand (sheets and portraits); expressions are print
   changes, and the NPC's variants pick the look from the stability state.
 
+## Ship atmosphere, MELLOW, channel episodes, conversions (Phase 15)
+
+Story Phase 15 ([15](STORY_PHASE15.md)) added no rooms (the Bashfulness
+Branch is a state of the old quarters) and these reusable parts:
+
+- **Ship atmosphere.** One saved story value (`ship_atmosphere`) says what
+  the air is like; `data/story/atmosphere.json` gives each state (NORMAL,
+  ORDINARY_STENCH, BROGATH_SKUNK_HAZE, MELLOW_HAZE, BEARD_PARANOIA_HAZE,
+  NOSE_FIRE_RESIDUE, BANK_FUMES, CLEARING) its authored consequences: a
+  whole-room haze colour and level (`FumeLayer.setHaze`; rooms with their own
+  haze keep it), a walking pace for wanderers and routines (`NpcBrain` pace),
+  and optionally the music and ambience. Rules in
+  `src/systems/atmosphere.js` (`atmosphereDef`, `atmosphereId`,
+  `atmosphereNow`, `atmosphereOn`, `setAtmosphere`); the `atmosphere` command
+  changes it and `WorldScene` applies it on entering a room and when it
+  changes. There is no gas simulation: everything else reads the value with
+  ordinary conditions.
+- **MELLOW** (a stability state outside the bands). A subject's `mellow`
+  block names a story value and the states that make it mellow; while it
+  holds, `triggerScale` multiplies every trigger (`isMellow`, `triggerScale`,
+  and `stateFor(def, pressure, angry, mellow)` in `src/systems/stability.js`),
+  the meter shows the mellow label in its own colour, and the NPC's variants
+  pick the mellow look. ANGRY still wins (scripted).
+- **Channel episodes.** A programme episode can carry `segments` (beat
+  ranges, commercials from another programme with the stability trigger and
+  the reassurance prompt they cause, and reaction scripts), an `unlockFlag`,
+  a `doneFlag` and `powerOff` (whether the set may be switched off during it).
+  The `channelEpisode` command plays the whole thing in the watching view.
+- **One-time conversions.** `data/story/conversions.json`; the `convert`
+  command runs one exactly once (its flag), recording and emptying story
+  variables, taking items and adding cargo variables and items. The purse is
+  never named, so gold earned elsewhere is never touched (tested, also
+  across a reload).
+- **Ancient crew lore.** `data/story/ancient_crew.json` (registry
+  `ancientCrew`): lore records with `reincarnationAllowed: false`, which the
+  validator insists on, and the flags that unlock each logbook entry.
+- **Teller Shift V2.** A bank customer's `modifiers` (`TELLER_MODIFIERS` in
+  `src/systems/bank.js`: forgotten titles, backwards forms, inside-out
+  sashes, whistling, shared deposits, long sashes, mellow assistants, a
+  sliding desk, a television interruption, a Brogath risk) rewrite its beats
+  before the window opens (`applyTellerModifiers`), still unfailable. A bank
+  may name a `stateValue` (open only in some states) and an `observed`
+  script; `{ "bank": "next", "observe": true }` has the bank's own teller
+  serve the next customer (no window, no ledger question), and a queue's
+  served count only ever goes up, so a reload never serves anyone twice.
+- **Hallucinations** are aliases and looks behind flags
+  (`data/story/aliases/phase15.json`): presentation only, never battles.
+- **The chicken painter** (`src/art/characters/chickenPainter.js`, sheets and
+  portraits) and a `mellow` look for cardboard characters.
+
 ## Battle
 
 `BattleEngine` (`src/systems/battle/`) owns the rules and is fully
@@ -777,8 +827,8 @@ and walks into the next chapter. Aliases are never saved.
   | Tag | What |
   | --- | --- |
   | `@smoke` | a few minutes: menus, movement, a pad, Phase 2 presets, being walled in, the Dead Center's sealed door, the Forecast Board, the S.E.S., the Mark II knob panel, the discount-store reveal, the reef passage, the wrong-way entry, the sauce-can aerial, the six-rope lamp, the late-night knobs, the sealed treasure door, the thirty-second trial (held with real key presses), the Grand Dice, Garrick suspended, Stench-O-Vision with the hazard off, the delirium, the standees across a save, the BASHFULNESS meter, the teller's window, the Grand Bank across a save |
-  | `@story` | the long playthroughs (prologue, Phase 2, Phase 3, chapters 12 to 14, Phase 4, chapters 18 and 19, Phase 5, chapters 23 and 24, Phase 6, Phase 7, chapters 39 to 41, Phase 8, chapters 51 to 54, Phase 9, chapters 62 to 70, Phase 10, chapters 90 to 95, Phase 11, chapters 104 to 111, Phase 12, chapters 121 to 126, Phase 13, chapters 139 to 145, Phase 14, chapters 163 to 169) |
-  | `@prologue` `@phase2` `@phase3` `@phase4` `@phase5` `@phase6` `@phase7` `@phase8` `@phase9` `@phase10` `@phase11` `@phase12` `@phase13` `@phase14` | by part of the story |
+  | `@story` | the long playthroughs (prologue, Phase 2, Phase 3, chapters 12 to 14, Phase 4, chapters 18 and 19, Phase 5, chapters 23 and 24, Phase 6, Phase 7, chapters 39 to 41, Phase 8, chapters 51 to 54, Phase 9, chapters 62 to 70, Phase 10, chapters 90 to 95, Phase 11, chapters 104 to 111, Phase 12, chapters 121 to 126, Phase 13, chapters 139 to 145, Phase 14, chapters 163 to 169, Phase 15) |
+  | `@prologue` `@phase2` `@phase3` `@phase4` `@phase5` `@phase6` `@phase7` `@phase8` `@phase9` `@phase10` `@phase11` `@phase12` `@phase13` `@phase14` `@phase15` | by part of the story |
   | `@input` `@saves` `@world` `@scenes` `@ui` | by system |
 
   `npm run e2e:smoke`, `npm run e2e:quick` (all but `@story`),
@@ -803,7 +853,7 @@ and walks into the next chapter. Aliases are never saved.
       or under another object on every tile: Confirm reaches an open
       objective's spot before scenery, `src/world/inspectTarget.js`);
     - talking to someone the captain can't walk up to.
-- `tests/phase2_story.test.js` to `tests/phase14_story.test.js` play the Story Phases headlessly with the real
+- `tests/phase2_story.test.js` to `tests/phase15_story.test.js` play the Story Phases headlessly with the real
   scripts, quests and triggers and mock services, twice (always the first
   choice, always the last), and fails on any dead end, loop or script error.
   `tests/phase2.test.js` covers the fume model, variants, chapters and time of
@@ -850,7 +900,16 @@ and walks into the next chapter. Aliases are never saved.
   guard, the debug tab, and saves 13 → 14; the Phase 14 story test also
   checks one reincarnation, the bank gone after it concludes, a save in the
   middle of the teller's shift, and stability put back after each
-  catastrophe. `tests/storyStaging.js` also checks that whatever an open
+  catastrophe. `tests/phase15.test.js` covers the atmosphere states and
+  their effects, MELLOW, the one-time conversion (also across a reload, never
+  the purse), the channel episodes, the gutted and possessed Mark II,
+  hallucinations restored and never a battle, the ancient crew, the branch
+  (scale, modifiers, the observed night queue, Gary served once across a
+  load), saves 14 → 15 and the debug tab; the Phase 15 story test also
+  checks the end economy, the ordinary stench and the storm afterwards,
+  Agnes missing, the branch closed for good, everyone mellow, a save in the
+  middle of the relief shift, and the brief (banned names, the content
+  rules, nothing past the source). `tests/storyStaging.js` also checks that whatever an open
   objective needs is reachable from where the captain stands, and walks him
   up to an object from a side he can reach.
 
