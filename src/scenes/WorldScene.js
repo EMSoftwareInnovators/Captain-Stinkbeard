@@ -24,7 +24,7 @@ import { TILE_SIZE, DIR_VECTORS, OPPOSITE_DIR, DIRECTIONS, SCREEN_WIDTH, SCREEN_
 import { hash32 } from '../core/Rng.js';
 import { asArray } from '../core/util.js';
 import { placementChoices, placementChanges, roomGuard } from '../world/placements.js';
-import { atmosphereOn } from '../systems/atmosphere.js';
+import { atmosphereOn, roomHaze } from '../systems/atmosphere.js';
 import { inspectAt, isObjectiveJob } from '../world/inspectTarget.js';
 import { deadCenterZonesFor, deadCenterSeals } from '../systems/hazards/deadCenter.js';
 import { panicShouts } from '../systems/hazards/alarms.js';
@@ -714,10 +714,12 @@ export class WorldScene extends BaseScene {
     this.player?.setTexture(`char_${this.playerAppearance()}`);
     this.aliasFx = aliasOverlay(this.content, session);
     this.fumeLayer.setZones(this.fumeField.refresh(session, this.fumeClock, { immediate }));
-    // A room's own haze first; else the ship's atmosphere (Story Phase 15), tinted its own colour.
+    // The ship's atmosphere (Story Phase 15), tinted its own colour, unless the room's own haze is denser
+    // (a faint haze left over from an earlier chapter gives way to it).
     const ownHaze = hazeFor(this.model.meta.haze, session);
     const air = atmosphereOn(this.content, session, this.model.id);
-    this.fumeLayer.setHaze(ownHaze ?? air.haze?.level ?? null, ownHaze ? null : air.haze?.color ?? null);
+    const haze = roomHaze(ownHaze, air);
+    this.fumeLayer.setHaze(haze.level, haze.color);
     this.npcPace = air.npcPace ?? 1;
     this.sharks.setLevel(sharkLevelFor(this.model.meta, session), { immediate });
     this.sharkDuty?.sync();

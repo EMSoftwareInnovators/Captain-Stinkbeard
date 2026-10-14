@@ -61,3 +61,17 @@ export function setAtmosphere(content, session, id) {
   session.story.setValue(def.value ?? 'ship_atmosphere', id);
   return id;
 }
+
+/** How thick each haze level is. */
+const HAZE_RANK = { faint: 1, light: 2, dense: 3 };
+
+/**
+ * The haze a room shows: the ship's atmosphere (in its own colour) unless the
+ * room's own haze is denser; a faint haze left over from an earlier chapter
+ * gives way to it. `air` is what atmosphereOn returns.
+ */
+export function roomHaze(ownLevel, air) {
+  const level = air?.haze?.level ?? null;
+  if (level && (HAZE_RANK[level] ?? 0) >= (HAZE_RANK[ownLevel] ?? 0)) return { level, color: air.haze.color ?? null };
+  return { level: ownLevel ?? null, color: null };
+}

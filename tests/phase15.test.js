@@ -3,7 +3,7 @@ import { SaveManager } from '../src/systems/save/SaveManager.js';
 import { MemoryStorage } from '../src/platform/storage.js';
 import { SAVE_VERSION } from '../src/config/constants.js';
 import { stabilityDef, readStability, writePressure, addPressure, effectOf, triggerScale } from '../src/systems/stability.js';
-import { ATMOSPHERE_STATES, atmosphereId, atmosphereOn, setAtmosphere } from '../src/systems/atmosphere.js';
+import { ATMOSPHERE_STATES, atmosphereId, atmosphereOn, roomHaze, setAtmosphere } from '../src/systems/atmosphere.js';
 import { TELLER_MODIFIERS, applyTellerModifiers, nextCustomer } from '../src/systems/bank.js';
 import { bankDef } from '../src/systems/script/commands.js';
 import { resolveSpeaker, resolveActorLook } from '../src/systems/story/aliases.js';
@@ -34,6 +34,15 @@ describe('The Ship Atmosphere State', () => {
     expect(atmosphereOn(s.content, s.session, 'galley').npcPace).toBeLessThan(1);
     expect(atmosphereOn(s.content, s.session, 'not_a_ship_map').id).toBe('NORMAL');
     expect(() => setAtmosphere(s.content, s.session, 'GAS_SIMULATION')).toThrow();
+  });
+
+  it('shows in a room over a fainter leftover haze, and gives way to a denser one', () => {
+    const s = makeStory({ preset: 'p15_untold_stories' });
+    const air = atmosphereOn(s.content, s.session, 'galley');
+    expect(roomHaze('faint', air)).toEqual({ level: 'light', color: '#9cb860' });
+    expect(roomHaze(null, air)).toEqual({ level: 'light', color: '#9cb860' });
+    expect(roomHaze('dense', air)).toEqual({ level: 'dense', color: null });
+    expect(roomHaze('faint', atmosphereOn(s.content, s.session, 'not_a_ship_map'))).toEqual({ level: 'faint', color: null });
   });
 
   it('the atmosphere command sets it and rewrites Brogath\'s state at once', async () => {
