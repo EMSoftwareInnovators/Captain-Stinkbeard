@@ -1,3 +1,5 @@
+import path from 'node:path';
+import fs from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { SaveManager } from '../src/systems/save/SaveManager.js';
 import { MemoryStorage } from '../src/platform/storage.js';
@@ -52,6 +54,24 @@ describe('The Ship Atmosphere State', () => {
     expect(s.session.story.getValue('brogath_state')).toBe('MELLOW');
     await s.run([{ atmosphere: 'ORDINARY_STENCH' }]);
     expect(s.session.story.getValue('brogath_state')).not.toBe('MELLOW');
+  });
+});
+
+describe('Channel episodes are watched', () => {
+  it('every episode a Phase 15 scene plays has the watching view up first (and it comes down after)', () => {
+    const dir = path.resolve('data/story/cutscenes/phase15');
+    for (const f of fs.readdirSync(dir)) {
+      const scripts = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
+      for (const [id, body] of Object.entries(scripts)) {
+        if (!Array.isArray(body)) continue;
+        let up = false;
+        for (const step of body) {
+          if (step && typeof step === 'object' && typeof step.vista === 'string') up = true;
+          if (step && typeof step === 'object' && step.vistaEnd) up = false;
+          if (step && typeof step === 'object' && step.channelEpisode) expect(up, `${f} ${id}: ${step.channelEpisode} with no view up`).toBe(true);
+        }
+      }
+    }
   });
 });
 

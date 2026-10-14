@@ -1458,6 +1458,8 @@ function checkVistaCommands(db, art, C) {
       if (step.vistaEnd) vista = NONE;
       for (const cmd of ['vistaMove', 'vistaFrame', 'vistaShow', 'vistaSpin']) if (typeof step[cmd] === 'string') checkLayer(step[cmd], vista, cmd, sc);
       if (typeof step.tvProgram === 'string' && vista && vista !== NONE) checkLayer(step.layer ?? 'screen', vista, 'tvProgram', sc);
+      // A channel episode always plays in a vista's screen layer (Story Phase 15).
+      if (typeof step.channelEpisode === 'string' && vista) checkLayer(step.layer ?? 'screen', vista, 'channelEpisode', sc);
       if (typeof step.vistaFrame === 'string' && typeof step.frame === 'string' && !art.vista.has(step.frame)) sc.error(`no vista art "${step.frame}"`);
       if (typeof step.call === 'string') walk(step.call, vista, sid);
       // A branch that puts a vista up (or takes it down) leaves it unknown afterwards.
