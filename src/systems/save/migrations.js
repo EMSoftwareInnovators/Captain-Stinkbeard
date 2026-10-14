@@ -300,6 +300,17 @@ Object.assign(MIGRATIONS, {
    * A finished Phase 13 save walks into chapter 146 on load.
    */
   13: (state) => fillLayout(state),
+  /**
+   * 14 -> 15 (Story Phase 15: the Great Mellowing). Unchanged layout. The
+   * ship's atmosphere (`ship_atmosphere`, a story value; unset reads as
+   * NORMAL), the Stenchmaster Channel's episodes, the ancient crew's lore,
+   * the one-time Economic Anger Waft conversion (`grand_currency_converted`:
+   * the Grand Tokens and the captain's emergency reserve into Skunk Weed
+   * cargo, never the purse), the visitors, Agnes the Second, the
+   * Bashfulness Branch and its queues are flags, variables and values that
+   * start unset. A finished Phase 14 save walks into chapter 170 on load.
+   */
+  14: (state) => fillLayout(state),
 });
 
 export function migrateState(state, fromVersion, toVersion, migrations = MIGRATIONS) {

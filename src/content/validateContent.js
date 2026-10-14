@@ -18,6 +18,8 @@ import { ART_REGISTRY } from '../art/registry.js';
 import { ENGINE_FLAGS } from '../config/engineFlags.js';
 import { REPAIR_KINDS, REPAIR_SOUND_KEYS } from '../systems/repairKinds.js';
 import { STABILITY_STATES } from '../systems/stability.js';
+import { ATMOSPHERE_STATES } from '../systems/atmosphere.js';
+import { TELLER_MODIFIERS } from '../systems/bank.js';
 
 /**
  * Cross-reference validation for all content. Returns { errors, warnings }.
@@ -401,6 +403,37 @@ function validateStep(step, check, sctx) {
     }
   }
   if (name === 'swapItem' && step.swapItem === step.to) check.error('swapItem needs two different items');
+  // Story Phase 15: the ship's atmosphere, Stenchmaster Channel episodes, one-time conversions.
+  if (name === 'atmosphere') {
+    const ship = check.ctx.db.atmosphere?.get?.('ship');
+    if (!ship) check.error('no ship atmosphere (data/story/atmosphere.json)');
+    else if (!ship.states?.[step.atmosphere]) check.error(`unknown atmosphere state "${step.atmosphere}"`);
+  }
+  if (name === 'channelEpisode') {
+    const db = check.ctx.db;
+    const progId = step.program ?? 'stenchmaster_channel';
+    const ep = (db.tvPrograms?.get?.(progId)?.episodes ?? []).find((e) => e.id === step.channelEpisode);
+    if (!ep) check.error(`programme "${progId}" has no episode "${step.channelEpisode}"`);
+    else {
+      const n = (ep.beats ?? []).length;
+      for (const [i, seg] of (ep.segments ?? []).entries()) {
+        const sc = check.at(`${step.channelEpisode}.segments[${i}]`);
+        if (seg.beats && (!Array.isArray(seg.beats) || seg.beats[0] < 0 || seg.beats[1] >= n || seg.beats[0] > seg.beats[1])) sc.error(`beats must be [from, to] within the episode's ${n} beats`);
+        if (seg.script) sc.script(seg.script);
+        if (seg.commercial) {
+          const ad = seg.commercial;
+          const adProg = db.tvPrograms?.get?.(ad.program ?? 'bbk_sash_ads');
+          if (!(adProg?.episodes ?? []).some((e) => e.id === ad.episode)) sc.error(`no commercial "${ad.program ?? 'bbk_sash_ads'}/${ad.episode}"`);
+          const subj = db.stability?.get?.('brogath');
+          if (ad.trigger && !subj?.triggers?.[ad.trigger]) sc.error(`Brogath has no trigger "${ad.trigger}"`);
+          if (ad.reassure && !subj?.prompts?.[ad.reassure]) sc.error(`Brogath has no prompt set "${ad.reassure}"`);
+        }
+      }
+      const tvId = step.tv ?? ep.tv;
+      if (ep.tvState && tvId && !db.tv?.get?.(tvId)?.states?.[ep.tvState]) check.error(`television "${tvId}" has no state "${ep.tvState}"`);
+    }
+  }
+  if (name === 'convert' && !check.ctx.db.conversions?.get?.(step.convert)) check.error(`unknown conversion "${step.convert}" (data/story/conversions)`);
 }
 
 function validateSteps(steps, check, sctx) {
@@ -731,6 +764,39 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     });
     if (!(cu.pattern ?? []).some((beat) => 'brace' in beat)) c.warn('no "brace" beat: one is added at the end');
     for (const k of ['intro', 'after', 'vault']) if (cu[k]) c.script(cu[k]);
+    (cu.modifiers ?? []).forEach((m) => { if (!TELLER_MODIFIERS.includes(m)) c.error(`unknown teller modifier "${m}" (use: ${TELLER_MODIFIERS.join(', ')})`); });
+    if (cu.brogathTrigger && !db.stability?.get?.('brogath')?.triggers?.[cu.brogathTrigger]) c.error(`Brogath has no trigger "${cu.brogathTrigger}"`);
+  }
+
+  // Story Phase 15: the ship's atmosphere, one-time conversions, Brogath's ancient crew (lore)
+  for (const [id, a] of db.atmosphere?.map ?? []) {
+    const c = C(`${db.atmosphere.sourceOf(id)} (${id})`);
+    if (typeof a.value !== 'string') c.error('the atmosphere needs a story "value"');
+    if (!a.states?.[a.default ?? 'NORMAL']) c.error(`no default state "${a.default ?? 'NORMAL'}"`);
+    for (const m of a.maps ?? []) if (!db.maps.has(m)) c.error(`unknown map "${m}"`);
+    for (const [sid, s] of Object.entries(a.states ?? {})) {
+      const sc = c.at(`states.${sid}`);
+      if (!ATMOSPHERE_STATES.includes(sid)) sc.error(`unknown state (use: ${ATMOSPHERE_STATES.join(', ')})`);
+      if (s.haze && !['faint', 'light', 'dense'].includes(s.haze.level)) sc.error('haze.level must be faint, light or dense');
+      if (s.haze?.color && !/^#[0-9a-fA-F]{6}$/.test(s.haze.color)) sc.error('haze.color must be "#rrggbb"');
+      if (s.music && !db.music.has(s.music)) sc.error(`unknown music "${s.music}"`);
+      if (s.ambience && !db.ambience.has(s.ambience)) sc.error(`unknown ambience "${s.ambience}"`);
+      if (s.npcPace !== undefined && !(s.npcPace > 0 && s.npcPace <= 2)) sc.error('npcPace must be in (0, 2]');
+    }
+  }
+  for (const [id, cv] of db.conversions?.map ?? []) {
+    const c = C(`${db.conversions.sourceOf(id)} (${id})`);
+    c.flag(cv.flag);
+    if (!(cv.from ?? []).length || !(cv.to ?? []).length) c.error('a conversion needs "from" and "to"');
+    for (const f of cv.from ?? []) if (typeof f.var !== 'string') c.error('each "from" names a story "var"');
+    for (const k of [...(cv.takeItems ?? []), ...(cv.giveItems ?? [])]) if (!db.items.has(k)) c.error(`unknown item "${k}"`);
+    if ((cv.from ?? []).some((f) => f.var === 'gold')) c.error('a conversion never takes the purse');
+  }
+  for (const [id, m] of db.ancientCrew?.map ?? []) {
+    const c = C(`${db.ancientCrew.sourceOf(id)} (${id})`);
+    for (const k of ['displayName', 'role', 'summary']) if (typeof m[k] !== 'string') c.error(`"${k}" is required`);
+    if (m.reincarnationAllowed !== false) c.error('reincarnationAllowed must be false (nobody else comes back yet)');
+    for (const f of m.storyUnlockFlags ?? []) c.flag(f);
   }
 
   // Story Phase 13: alias sets (data/story/aliases)

@@ -151,8 +151,14 @@ export class FumeLayer {
     c.blobs = [];
   }
 
-  setHaze(level) {
+  /** A whole-room haze; `color` tints it (Story Phase 15: the ship's atmosphere), else the usual mustard. */
+  setHaze(level, color = null) {
     this.hazeLevel = level;
+    const c = color ? parseInt(String(color).replace('#', ''), 16) : 0xd0b848;
+    if (c !== this.hazeColor) {
+      this.hazeColor = c;
+      this.haze.setFillStyle(c, 1);
+    }
   }
 
   setReduced(reduced) {

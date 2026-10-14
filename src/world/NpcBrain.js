@@ -163,11 +163,12 @@ export class NpcBrain {
       case 'stand':
         if (this.behavior.lookAround && !SLEEP_POSES.has(a.pose)) this.lookAround(delta);
         break;
+      // Story Phase 15: the ship's atmosphere sets the pace (everyone takes their time in the Great Mellowing).
       case 'wander':
-        this.wander(delta);
+        this.wander(delta * (this.world.npcPace ?? 1));
         break;
       case 'routine':
-        this.routine(delta);
+        this.routine(delta * (this.world.npcPace ?? 1));
         break;
       default:
         break;

@@ -6,6 +6,7 @@ import { setDeadCenterLocation } from '../hazards/deadCenter.js';
 import { setSharkstormState } from '../hazards/sharkstorm.js';
 import { stabilityDef, readStability, writePressure, addPressure, effectOf, promptOptions, incidentDef } from '../stability.js';
 import { nextCustomer, scaleLabel, tellerScore } from '../bank.js';
+import { setAtmosphere } from '../atmosphere.js';
 
 /** Story Phase 14: a stability subject (data/story/stability) with its defaults. */
 export function stabilitySubject(content, id = 'brogath') {
@@ -43,6 +44,12 @@ async function serveCustomer(ctx, id, queueId = null) {
   if (bank.slipsVar) story.setVar(bank.slipsVar, r?.slips ?? 0);
   ctx.bus?.emit('bank:deposited', { customer: id, score, grades: r?.grades ?? [] });
   if (c.after) await ctx.runner.run(c.after, ctx);
+  // Story Phase 15: a depositor Brogath is watching (a sash he shouldn't see) sets him off a little (much less while he's mellow).
+  if ((c.modifiers ?? []).includes('brogath_risk') && content.stability?.get?.('brogath')) {
+    const def = stabilitySubject(content, 'brogath');
+    const r = addPressure(def, ctx.session, effectOf(def, 'trigger', c.brogathTrigger ?? 'flutter').pressure ?? 0);
+    ctx.bus?.emit('stability:changed', { subject: def.id, kind: 'trigger', ...r });
+  }
   // The ledger: what class was that?
   const opts = c.classify ?? [c.intensity];
   const dialogue = service(ctx, 'dialogue', 'bankDeposit');
@@ -560,6 +567,84 @@ export function createCommandImplementations() {
      * he has, if he has fewer), and the tokens go into their own variable,
      * never the purse. Running it again does nothing.
      */
+    // --- Story Phase 15 ------------------------------------------------------------
+    /**
+     * The ship's atmosphere (systems/atmosphere.js). Anyone whose stability
+     * reads it (Brogath, mellow) has his state written again at once.
+     */
+    atmosphere: (step, ctx) => {
+      const content = ctx.session.content ?? ctx.content;
+      setAtmosphere(content, ctx.session, step.atmosphere);
+      for (const [id, raw] of content.stability?.map ?? []) {
+        if (!raw.mellow) continue;
+        const def = stabilityDef({ id, ...raw });
+        const r = writePressure(def, ctx.session, readStability(def, ctx.session).pressure);
+        ctx.bus?.emit('stability:changed', { subject: id, kind: 'atmosphere', ...r });
+      }
+      ctx.bus?.emit('atmosphere:changed', { id: step.atmosphere });
+      return null;
+    },
+    /**
+     * A Stenchmaster Channel episode (data: a programme's episode with
+     * "segments"): its beats in runs, commercials cut in where the data puts
+     * them (the advert's beats, then the trigger it sets off and the prompt
+     * to steady him), and Brogath's live reactions (scripts) between. The
+     * episode may hold the set in a state while it plays (it can't be turned
+     * off), and marks itself seen. Built from the ordinary steps, so it plays
+     * the same in every runner.
+     */
+    channelEpisode: async (step, ctx) => {
+      const content = ctx.session.content ?? ctx.content;
+      const progId = step.program ?? 'stenchmaster_channel';
+      const prog = programDef(content, progId);
+      const ep = (prog?.episodes ?? []).find((e) => e.id === step.channelEpisode);
+      if (!ep) throw new Error(`Programme "${progId}" has no episode "${step.channelEpisode}"`);
+      const tv = step.tv ?? ep.tv ?? null;
+      const layer = step.layer ?? 'screen';
+      const steps = [];
+      if (ep.tvState && tv) steps.push({ tvSet: tv, state: ep.tvState });
+      const segments = ep.segments ?? [{ beats: [0, (ep.beats ?? []).length - 1] }];
+      for (const seg of segments) {
+        if (seg.beats) steps.push({ tvProgram: progId, episode: ep.id, from: seg.beats[0], to: seg.beats[1], layer, ...(tv ? { tv } : {}) });
+        const ad = seg.commercial;
+        if (ad) {
+          steps.push({ tvProgram: ad.program ?? 'bbk_sash_ads', episode: ad.episode, layer, ...(tv ? { tv } : {}) });
+          if (ad.trigger) steps.push({ stability: 'trigger', id: ad.trigger, quiet: !!ad.quiet });
+          if (ad.reassure) steps.push({ reassure: ad.reassure, ...(ad.prompt ? { prompt: ad.prompt } : {}) });
+        }
+        if (seg.script) steps.push({ call: seg.script });
+      }
+      await ctx.runner.run(steps, ctx);
+      if (ep.doneFlag) ctx.session.story.set(ep.doneFlag);
+      return null;
+    },
+    /**
+     * A one-time conversion (data/story/conversions.json): story variables
+     * emptied into others, items taken, behind one flag. Running it again
+     * does nothing (no save-and-load doubling). Never touches the purse
+     * unless the data names it (it doesn't).
+     */
+    convert: async (step, ctx) => {
+      const content = ctx.session.content ?? ctx.content;
+      const def = content.conversions?.get?.(step.convert);
+      if (!def) throw new Error(`No conversion "${step.convert}" (data/story/conversions)`);
+      const story = ctx.session.story;
+      if (story.has(def.flag)) return null;
+      for (const f of def.from ?? []) {
+        const had = story.getVar(f.var, 0);
+        if (f.recordVar) story.setVar(f.recordVar, had);
+        story.setVar(f.var, f.leave ?? 0);
+      }
+      for (const id of def.takeItems ?? []) {
+        const n = ctx.session.inventory.count(id);
+        if (n) ctx.session.inventory.remove(id, n);
+      }
+      for (const to of def.to ?? []) story.addVar(to.var, to.add ?? 0);
+      for (const id of def.giveItems ?? []) if (!ctx.session.inventory.count(id)) ctx.session.inventory.add(id, 1);
+      story.set(def.flag);
+      if (def.notify && !step.silent) await ctx.services.ui?.notify({ kind: 'text', text: def.notify });
+      return null;
+    },
     grandCurrency: async (step, ctx) => {
       const content = ctx.session.content ?? ctx.content;
       const cur = bankDef(content, step.bankId).currency;

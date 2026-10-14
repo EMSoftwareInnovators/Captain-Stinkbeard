@@ -3,6 +3,7 @@ import { GridSheet } from '../atlas.js';
 import { resolveLook, paintCharacterFrame, FIELD_POSES, FIELD_DIRS, FRAME_W, FRAME_H, EXTRA_POSES, EXTRA_POSE_RATES } from './characterPainter.js';
 import { paintParrotSheet, PARROT_RATES } from './parrotPainter.js';
 import { paintCardboardSheet, CARDBOARD_RATES } from './cardboardPainter.js';
+import { paintChickenSheet, CHICKEN_RATES } from './chickenPainter.js';
 import { paintBattleFrame, BATTLE_POSE_NAMES, BATTLE_W, BATTLE_H } from './battlePoses.js';
 
 function mirror(pc) {
@@ -28,6 +29,13 @@ export function buildCharacterSheet(appearance) {
     const sheet = new GridSheet(FRAME_W, FRAME_H, 16);
     for (const [name, f] of Object.entries(frames)) sheet.add(name, f);
     return { ...sheet.build(), anims, rates: CARDBOARD_RATES };
+  }
+  // Story Phase 15: Agnes the Second (a hen).
+  if (appearance.painter === 'chicken') {
+    const { frames, anims } = paintChickenSheet(appearance);
+    const sheet = new GridSheet(FRAME_W, FRAME_H, 16);
+    for (const [name, f] of Object.entries(frames)) sheet.add(name, f);
+    return { ...sheet.build(), anims, rates: CHICKEN_RATES };
   }
   const L = resolveLook(appearance);
   const sheet = new GridSheet(FRAME_W, FRAME_H, 16);

@@ -74,9 +74,62 @@ export function nextCustomer(bank, queueId, session) {
   return q.customers[served] ?? null;
 }
 
+/**
+ * Story Phase 15 (Teller Shift V2, the Bashfulness Branch): complications a
+ * depositor brings, as data on the customer ("modifiers": [...]). Each one
+ * reshapes the same beats; nothing new to learn, only more to cope with:
+ *   forgets_title · form_backwards · sash_wrong   a pause at the window first, while it's sorted out
+ *   whistle        the deposit whistles (its own sound, a word on the brace)
+ *   shared         two depositors, one deposit: a second brace, close behind the first
+ *   long_sash      the crew hold the rest of the sash: a narrower band
+ *   mellow_assistants  the assistants sway with the needle: more sway, a lurch
+ *   desk_slides    the desk slides mid-hold: a sudden kick
+ *   tv_interrupt   the television cuts in just before the brace
+ *   brogath_risk   Brogath is watching (the command applies his trigger afterwards)
+ */
+export const TELLER_MODIFIERS = ['forgets_title', 'form_backwards', 'sash_wrong', 'whistle', 'shared', 'long_sash', 'mellow_assistants', 'desk_slides', 'tv_interrupt', 'brogath_risk'];
+
+const MOD_TEXT = {
+  forgets_title: 'They stop halfway through their title. They start again. They stop at the same place.',
+  form_backwards: 'The deposit slip is upside down. And backwards. And signed on the wrong side.',
+  sash_wrong: 'Their sash is on inside out. You turn it round for them. Carefully.',
+};
+
+export function applyTellerModifiers(beats, mods = []) {
+  const out = beats.map((b) => ({ ...b }));
+  const holds = () => out.filter((b) => b.hold);
+  const braces = () => out.filter((b) => b.brace);
+  const firstAfterTake = out.findIndex((b) => !b.take);
+  for (const m of mods) {
+    if (MOD_TEXT[m]) out.splice(Math.max(0, firstAfterTake), 0, { wait: 1600, text: MOD_TEXT[m] });
+    else if (m === 'whistle') for (const b of braces()) Object.assign(b, { waveSfx: 'deposit_whistle', text: `${b.text ?? ''} (It WHISTLES.)`.trim() });
+    else if (m === 'shared') {
+      const last = braces().pop();
+      if (last) out.splice(out.indexOf(last) + 1, 0, { ...last, ring: Math.round((last.ring ?? 1000) * 0.7), text: 'AND HIS BROTHER!' });
+    } else if (m === 'long_sash') {
+      for (const b of holds()) {
+        const [lo, hi] = b.band ?? [34, 70];
+        Object.assign(b, { band: [lo + 4, hi - 4], text: b.text ?? 'The crew hold the rest of the sash. All of them.' });
+      }
+    } else if (m === 'mellow_assistants') {
+      for (const b of holds()) {
+        const sway = b.sway ?? { amp: 10, period: 3.6 };
+        b.sway = { ...sway, amp: Math.round(sway.amp * 1.5) };
+        b.surges = [...(b.surges ?? []), { at: Math.max(1, Math.round(b.hold / 2)), kick: 18 }];
+      }
+    } else if (m === 'desk_slides') {
+      for (const b of holds()) b.surges = [...(b.surges ?? []), { at: Math.max(1, Math.round(b.hold * 0.7)), kick: -24 }];
+    } else if (m === 'tv_interrupt') {
+      const last = braces().pop();
+      out.splice(last ? out.indexOf(last) : out.length, 0, { wait: 1400, text: 'THE TELEVISION: A word from our sponsor...', sfx: 'ad_chime' });
+    }
+  }
+  return out;
+}
+
 /** A fresh teller run for one customer. */
 export function createTeller(customer) {
-  const beats = (customer.pattern ?? []).map((b) => ({ ...b }));
+  const beats = applyTellerModifiers(customer.pattern ?? [], customer.modifiers ?? []);
   if (!beats.some((b) => b.brace)) beats.push({ brace: 'BRACE!', ring: 1000, window: 170 });
   return {
     customer,

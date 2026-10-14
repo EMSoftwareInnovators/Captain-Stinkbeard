@@ -132,6 +132,14 @@ export const COMMAND_SCHEMAS = {
   bankDeposit: { bankDeposit: 'string' },
   // The Grand Currency purchase (exactly once: ten real doubloons out, twenty thousand tokens in; never gold).
   grandCurrency: { grandCurrency: 'string', bankId: 'string?', silent: 'boolean?' },
+
+  // --- Story Phase 15 ---------------------------------------------------------------
+  // The ship's atmosphere (data/story/atmosphere.json).
+  atmosphere: { atmosphere: 'string' },
+  // A Stenchmaster Channel episode with segments: beats, commercials, Brogath's reactions.
+  channelEpisode: { channelEpisode: 'string', program: 'string?', tv: 'string?', layer: 'string?' },
+  // A one-time conversion (data/story/conversions.json).
+  convert: { convert: 'string', silent: 'boolean?' },
 };
 
 /** Commands that may carry "async": true (start and continue without waiting). */

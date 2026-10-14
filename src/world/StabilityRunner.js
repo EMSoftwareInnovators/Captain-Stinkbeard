@@ -1,4 +1,4 @@
-import { stabilityDef, readStability, writePressure, stateFor, stageIndex, incidentDef, stepIncident } from '../systems/stability.js';
+import { stabilityDef, readStability, writePressure, stateFor, stageIndex, incidentDef, stepIncident, triggerScale } from '../systems/stability.js';
 
 /**
  * Story Phase 14: Brogath Stability, in the world. The rules are
@@ -95,7 +95,7 @@ export class StabilityRunner {
     if (st.incident && control) {
       const inc = incidentDef(def, st.incident);
       const before = pressure;
-      const r = stepIncident(def, inc, pressure, dt / 1000);
+      const r = stepIncident(def, inc, pressure, dt / 1000, triggerScale(def, s));
       pressure = r.live;
       this.live = pressure;
       const s0 = stageIndex(def, before);
@@ -116,8 +116,8 @@ export class StabilityRunner {
     if (overlay) {
       if (show && !this.app.cinema?.busy) {
         overlay.setStability({
-          pressure, min: def.min, max: def.max, state: stateFor(def, pressure, angry), stage: stageIndex(def, pressure),
-          stages: def.stages, label: angry ? def.angryLabel ?? 'WRATH' : def.label ?? 'BASHFULNESS', incident: !!st.incident,
+          pressure, min: def.min, max: def.max, state: stateFor(def, pressure, angry, st.mellow), stage: stageIndex(def, pressure),
+          stages: def.stages, label: angry ? def.angryLabel ?? 'WRATH' : st.mellow ? def.mellowLabel ?? 'MELLOW' : def.label ?? 'BASHFULNESS', incident: !!st.incident,
         });
       } else overlay.setStability(null);
     }
@@ -125,7 +125,7 @@ export class StabilityRunner {
     // The cardboard.
     const a = this.actor;
     if (!a) return;
-    const state = stateFor(def, pressure, angry);
+    const state = stateFor(def, pressure, angry, st.mellow);
     const calm = this.app.settings.reducedEffects();
     if (calm) a.shiver = 0;
     else if (state === 'CRITICAL' || angry) a.shiver = Math.round(Math.sin(this.scene.time.now / 23) * 1.4);

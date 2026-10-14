@@ -32,9 +32,15 @@
  * BASHFUL, EMBARRASSED, PRESSURIZED, CRITICAL. ANGRY is separate: while the
  * anger flag is set the subject is ANGRY whatever the pressure (a scripted
  * state: the Anger Waft).
+ *
+ * Story Phase 15: MELLOW. A subject may name a story value and the readings
+ * of it that mellow him ("mellow": { "value": "ship_atmosphere", "in":
+ * ["MELLOW_HAZE"], "triggerScale": 0.1 }: the Great Mellowing). While mellow
+ * he shows MELLOW (ANGRY still wins), every trigger and every running
+ * incident moves him only triggerScale as much, and calms work as usual.
  */
 
-export const STABILITY_STATES = ['PLEASED', 'CALM', 'BASHFUL', 'EMBARRASSED', 'PRESSURIZED', 'CRITICAL', 'ANGRY'];
+export const STABILITY_STATES = ['PLEASED', 'CALM', 'BASHFUL', 'EMBARRASSED', 'PRESSURIZED', 'CRITICAL', 'ANGRY', 'MELLOW'];
 
 export const STABILITY_DEFAULTS = Object.freeze({
   min: -20,
@@ -76,9 +82,22 @@ export function clampPressure(def, p) {
   return Math.max(def.min, Math.min(def.max, p));
 }
 
-/** The state for a pressure (and anger). */
-export function stateFor(def, pressure, angry = false) {
+/** Whether the subject is mellow right now (Story Phase 15: the ship's atmosphere). */
+export function isMellow(def, session) {
+  const m = def.mellow;
+  if (!m?.value) return false;
+  return (m.in ?? []).includes(session.story.getValue(m.value));
+}
+
+/** How much a rise counts while mellow (1 otherwise). */
+export function triggerScale(def, session) {
+  return isMellow(def, session) ? (def.mellow.triggerScale ?? 0.1) : 1;
+}
+
+/** The state for a pressure (and anger, and mellowness). */
+export function stateFor(def, pressure, angry = false, mellow = false) {
   if (angry) return 'ANGRY';
+  if (mellow) return 'MELLOW';
   for (const b of def.bands) if (pressure < b.below) return b.state;
   return def.bands[def.bands.length - 1]?.state ?? 'CALM';
 }
@@ -97,10 +116,12 @@ export function readStability(def, session) {
   const story = session.story;
   const pressure = clampPressure(def, story.getVar(def.pressureVar, def.settleTo ?? 0));
   const angry = !!(def.angerFlag && story.has(def.angerFlag));
+  const mellow = isMellow(def, session);
   return {
     pressure,
     angry,
-    state: stateFor(def, pressure, angry),
+    mellow,
+    state: stateFor(def, pressure, angry, mellow),
     stage: stageIndex(def, pressure),
     incident: def.incidentValue ? story.getValue(def.incidentValue) : null,
     meter: def.meterValue ? story.getValue(def.meterValue) : null,
@@ -117,15 +138,16 @@ export function writePressure(def, session, pressure) {
   const to = clampPressure(def, Math.round(pressure));
   story.setVar(def.pressureVar, to);
   const angry = !!(def.angerFlag && story.has(def.angerFlag));
-  const state = stateFor(def, to, angry);
+  const state = stateFor(def, to, angry, isMellow(def, session));
   if (def.stateValue) story.setValue(def.stateValue, state);
   return { from, to, state, stageFrom: stageIndex(def, from), stageTo: stageIndex(def, to) };
 }
 
-/** Adds to the pressure. */
+/** Adds to the pressure (a rise counts for less while he's mellow). */
 export function addPressure(def, session, delta) {
   const cur = clampPressure(def, session.story.getVar(def.pressureVar, def.settleTo ?? 0));
-  return writePressure(def, session, cur + delta);
+  const d = delta > 0 ? delta * triggerScale(def, session) : delta;
+  return writePressure(def, session, cur + d);
 }
 
 /** A trigger or calm by id: { pressure, line, sfx } or throws (the validator checks every id used). */
@@ -173,7 +195,7 @@ export function incidentDef(def, id) {
  * frame the captain has control). `live` is the unrounded pressure. Returns
  * { live, erupt } where `erupt` says the pressure reached the top this step.
  */
-export function stepIncident(def, inc, live, dt) {
-  const next = Math.min(def.max, live + inc.rate * dt);
+export function stepIncident(def, inc, live, dt, scale = 1) {
+  const next = Math.min(def.max, live + inc.rate * scale * dt);
   return { live: next, erupt: next >= def.max && live < def.max };
 }

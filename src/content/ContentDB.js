@@ -45,6 +45,10 @@ const FOLDER_RULES = [
   { prefix: 'story/stability/', kind: 'stability', shape: 'map' },
   { prefix: 'story/bank/customers', kind: 'bankCustomers', shape: 'map' },
   { prefix: 'story/bank/', kind: 'banks', shape: 'map' },
+  // Story Phase 15: the ship's atmosphere states, one-time conversions, Brogath's ancient crew (lore only).
+  { prefix: 'story/atmosphere', kind: 'atmosphere', shape: 'map' },
+  { prefix: 'story/conversions', kind: 'conversions', shape: 'map' },
+  { prefix: 'story/ancient_crew', kind: 'ancientCrew', shape: 'map' },
   { prefix: 'hazards/', kind: 'hazards', shape: 'map' },
   { prefix: 'debug/', kind: 'debugPresets', shape: 'list' },
   { prefix: 'logs/', kind: 'logs', shape: 'map' },
@@ -108,6 +112,7 @@ export const REGISTRY_KINDS = [
   'encounters', 'props', 'appearances', 'portraits', 'scripts', 'flags', 'maps', 'tilesets', 'music',
   'sfx', 'instruments', 'ambience', 'timing', 'backdrops', 'vistas', 'storyTriggers', 'hazards', 'debugPresets',
   'mapPatches', 'logs', 'tv', 'tvPrograms', 'tension', 'dice', 'aliases', 'stability', 'bankCustomers', 'banks',
+  'atmosphere', 'conversions', 'ancientCrew',
 ];
 
 /** Content paths in load order: numbers compare as numbers ("phase9" before "phase10"). */

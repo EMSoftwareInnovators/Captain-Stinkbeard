@@ -24,6 +24,7 @@ import { TILE_SIZE, DIR_VECTORS, OPPOSITE_DIR, DIRECTIONS, SCREEN_WIDTH, SCREEN_
 import { hash32 } from '../core/Rng.js';
 import { asArray } from '../core/util.js';
 import { placementChoices, placementChanges, roomGuard } from '../world/placements.js';
+import { atmosphereOn } from '../systems/atmosphere.js';
 import { inspectAt, isObjectiveJob } from '../world/inspectTarget.js';
 import { deadCenterZonesFor, deadCenterSeals } from '../systems/hazards/deadCenter.js';
 import { panicShouts } from '../systems/hazards/alarms.js';
@@ -426,10 +427,12 @@ export class WorldScene extends BaseScene {
   mapAudio() {
     const meta = this.model.meta;
     const v = (meta.musicVariants ?? []).find((m) => evaluateCondition(m.if, this.session)) ?? {};
+    // Story Phase 15: the ship's atmosphere may set the music and ambience on the ship's maps (a room's own variants win).
+    const air = atmosphereOn(this.content, this.session, this.model.id);
     return {
-      music: 'music' in v ? v.music : meta.music,
+      music: 'music' in v ? v.music : air.music ?? meta.music,
       musicFilter: 'musicFilter' in v ? v.musicFilter : meta.musicFilter,
-      ambience: 'ambience' in v ? v.ambience : meta.ambience,
+      ambience: 'ambience' in v ? v.ambience : air.ambience ?? meta.ambience,
     };
   }
 
@@ -711,7 +714,11 @@ export class WorldScene extends BaseScene {
     this.player?.setTexture(`char_${this.playerAppearance()}`);
     this.aliasFx = aliasOverlay(this.content, session);
     this.fumeLayer.setZones(this.fumeField.refresh(session, this.fumeClock, { immediate }));
-    this.fumeLayer.setHaze(hazeFor(this.model.meta.haze, session));
+    // A room's own haze first; else the ship's atmosphere (Story Phase 15), tinted its own colour.
+    const ownHaze = hazeFor(this.model.meta.haze, session);
+    const air = atmosphereOn(this.content, session, this.model.id);
+    this.fumeLayer.setHaze(ownHaze ?? air.haze?.level ?? null, ownHaze ? null : air.haze?.color ?? null);
+    this.npcPace = air.npcPace ?? 1;
     this.sharks.setLevel(sharkLevelFor(this.model.meta, session), { immediate });
     this.sharkDuty?.sync();
     this.ambient?.refresh();
