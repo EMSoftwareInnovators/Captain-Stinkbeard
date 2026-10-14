@@ -6795,5 +6795,656 @@
     "x": 14,
     "y": 8,
     "facing": "down"
+  },
+  {
+    "id": "p15_start",
+    "name": "Phase 15 Start",
+    "description": "The morning after Mandatory History Night. The Mark II has been on for three days. Talk to Pete (the galley).",
+    "after": "p14_complete",
+    "map": "galley",
+    "x": 9,
+    "y": 7,
+    "facing": "right"
+  },
+  {
+    "id": "p15_top_ten",
+    "name": "Top Ten Sash Flutters",
+    "description": "Straight on after the Age of Fart Commerce: the countdown, the goat, and the first skunk waft. Starts chapter 171.",
+    "after": "p15_start",
+    "flags": [
+      "p15_aofc_watched",
+      "p15_ch170_started",
+      "p15_no_beans",
+      "p15_st_bob",
+      "p15_st_gristle",
+      "p15_st_jim",
+      "p15_st_pete",
+      "p15_st_squawks",
+      "p15_started",
+      "p15_stations_said"
+    ],
+    "vars": {
+      "brogath_pressure": -6,
+      "brogath_reassure_turn": 29,
+      "p4_tod": 32
+    },
+    "values": {
+      "brogath_meter": "show",
+      "brogath_state": "PLEASED"
+    },
+    "quests": {
+      "stenchmaster_channel_presents": "completed"
+    },
+    "map": "galley",
+    "x": 14,
+    "y": 8,
+    "facing": "down",
+    "script": "p15c2.begin"
+  },
+  {
+    "id": "p15_family",
+    "name": "Family of Idiots",
+    "description": "The Mark II gutted (for now). Brogath has gone quiet: his crew. Starts chapter 172.",
+    "after": "p15_top_ten",
+    "flags": [
+      "mk2_parts_on_floor",
+      "p15_air",
+      "p15_burn_lantern",
+      "p15_burn_stove",
+      "p15_burn_tv",
+      "p15_burning_said",
+      "p15_ch171_started",
+      "p15_first_skunk_waft",
+      "p15_skunk_source",
+      "p15_top_ten_watched",
+      "tv_destroyed_again"
+    ],
+    "vars": {
+      "brogath_pressure": 15,
+      "brogath_spot": 1,
+      "ses_mk2_power": 0
+    },
+    "values": {
+      "brogath_meter": "hide",
+      "brogath_state": "BASHFUL",
+      "ses_mk2_state": "gutted",
+      "ship_atmosphere": "NORMAL"
+    },
+    "quests": {
+      "top_ten_flutters": "completed"
+    },
+    "map": "galley",
+    "x": 15,
+    "y": 7,
+    "facing": "down",
+    "script": "p15c3.begin"
+  },
+  {
+    "id": "p15_economic_recovery",
+    "name": "Grand Economic Recovery",
+    "description": "A Grand Stenchmaster's Grand Idea. The reserve, the crate, standing clear, Garrick's exercise. Starts chapter 173.",
+    "after": "p15_family",
+    "flags": [
+      "ancient_crew_reincarnation_prevented",
+      "ancient_lore_clem",
+      "ancient_lore_elsie",
+      "ancient_lore_harold",
+      "ancient_lore_ledger",
+      "ancient_lore_lost",
+      "ancient_lore_ned",
+      "ancient_lore_tilda",
+      "brogath_crew_lore_known",
+      "p15_brogath_quiet",
+      "p15_ch172_started",
+      "p15_lore_said",
+      "p15_nc_box",
+      "p15_nc_sketch",
+      "p15_nc_steady",
+      "p15_plan_said"
+    ],
+    "vars": {
+      "brogath_pressure": 8,
+      "brogath_reassure_turn": 30,
+      "brogath_spot": 0,
+      "p15_crew_ok": 1,
+      "p15_lore_n": 4
+    },
+    "values": {
+      "brogath_meter": null,
+      "brogath_state": "CALM"
+    },
+    "quests": {
+      "family_of_idiots": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 9,
+    "y": 7,
+    "facing": "down",
+    "script": "p15c4.begin"
+  },
+  {
+    "id": "p15_creative_conversion",
+    "name": "Creative Conversion",
+    "description": "Twenty thousand tokens and seven doubloons, converted (once). A mountain of Skunk Weed. Starts chapter 174.",
+    "after": "p15_economic_recovery",
+    "flags": [
+      "captain_reserve_counted",
+      "grand_currency_converted",
+      "p15_ch173_started",
+      "p15_crate_on_deck",
+      "p15_economic_waft",
+      "p15_stand_clear",
+      "skunk_weed_cargo"
+    ],
+    "vars": {
+      "brogath_pressure": 10,
+      "brogath_spot": 1,
+      "captain_emergency_reserve": 0,
+      "captain_reserve_converted": 7,
+      "grand_currency_converted_tokens": 20000,
+      "grand_currency_tokens": 0,
+      "p4_tod": 31,
+      "skunk_weed_lots": 40
+    },
+    "values": {
+      "brogath_meter": "hide",
+      "ship_atmosphere": "BROGATH_SKUNK_HAZE"
+    },
+    "quests": {
+      "grand_economic_recovery": "completed"
+    },
+    "items": [
+      "skunk_cargo_manifest"
+    ],
+    "takeItems": [
+      "grand_currency"
+    ],
+    "map": "main_deck",
+    "x": 10,
+    "y": 26,
+    "facing": "down",
+    "script": "p15c5.begin"
+  },
+  {
+    "id": "p15_visitors",
+    "name": "Stinkbeard's Select",
+    "description": "The Sharkstorm spits a little boat onto the deck. Customers. Starts chapter 175.",
+    "after": "p15_creative_conversion",
+    "flags": [
+      "p15_bbk_wholesale",
+      "p15_cargo_seen",
+      "p15_ch174_started",
+      "p15_report_heard",
+      "p15_reserve_gone",
+      "p15_sort_dust",
+      "p15_sort_leaf",
+      "p15_sort_said",
+      "p15_sort_seeds",
+      "p15_sort_skunky",
+      "p15_sort_stems"
+    ],
+    "vars": {
+      "brogath_pressure": 8,
+      "brogath_reassure_turn": 33,
+      "p15_report_ok": 0
+    },
+    "values": {
+      "brogath_meter": null
+    },
+    "quests": {
+      "creative_conversion": "completed"
+    },
+    "map": "main_deck",
+    "x": 11,
+    "y": 22,
+    "facing": "down",
+    "script": "p15c6.begin"
+  },
+  {
+    "id": "p15_chicken_incident",
+    "name": "The Chicken Incident",
+    "description": "The Mark II is back on with no insides. Agnes, on television. Starts chapter 176.",
+    "after": "p15_visitors",
+    "flags": [
+      "modern_visitors_aboard",
+      "p15_boat_landed",
+      "p15_boat_seen",
+      "p15_ch175_started",
+      "p15_corner_said",
+      "p15_corner_sand",
+      "p15_corner_sign",
+      "p15_corner_water",
+      "p15_explained",
+      "p15_first_sale",
+      "p15_met_one",
+      "p15_met_two",
+      "p15_tour_garrick",
+      "p15_tour_said",
+      "p15_tour_sashes",
+      "p15_tour_tv"
+    ],
+    "vars": {
+      "brogath_spot": 2,
+      "modern_cash": 40,
+      "skunk_weed_lots": 39
+    },
+    "quests": {
+      "stinkbeards_select": "completed"
+    },
+    "items": [
+      "modern_cash"
+    ],
+    "map": "main_deck",
+    "x": 9,
+    "y": 37,
+    "facing": "down",
+    "script": "p15c7.begin"
+  },
+  {
+    "id": "p15_grand_paranoia",
+    "name": "The Grand Paranoia",
+    "description": "In the zone: the beard-smoke catastrophe, and the threat levels. Starts chapter 177.",
+    "after": "p15_chicken_incident",
+    "flags": [
+      "brogath_rule_not_selectable",
+      "p15_agnes_watched",
+      "p15_ch176_started",
+      "p15_tv_back",
+      "p15_wrath_watched",
+      "stenchmaster_farts_not_selectable",
+      "tv_possessed_reactivation"
+    ],
+    "vars": {
+      "brogath_pressure": -10,
+      "brogath_rules": 22,
+      "brogath_spot": 0,
+      "ses_mk2_power": 1
+    },
+    "values": {
+      "brogath_meter": "hide",
+      "brogath_state": "PLEASED",
+      "ses_mk2_state": "possessed"
+    },
+    "quests": {
+      "chicken_incident": {
+        "done": [
+          "clambake",
+          "look",
+          "retreat",
+          "watch"
+        ]
+      }
+    },
+    "map": "fart_free_zone",
+    "x": 5,
+    "y": 6,
+    "facing": "down",
+    "script": "p15c8.begin"
+  },
+  {
+    "id": "p15_grand_nap",
+    "name": "The Grand Nap",
+    "description": "Garrick decrees a nap. Clean sash bedding; a growling pillow. Starts chapter 178.",
+    "after": "p15_grand_paranoia",
+    "flags": [
+      "beard_experiment_banned",
+      "beard_experiment_done",
+      "brogath_rule_no_beard_joints",
+      "p15_ch177_started",
+      "p15_guards_trained",
+      "p15_paranoia_out",
+      "p15_recovered",
+      "p15_threat_bob",
+      "p15_threat_hull",
+      "p15_threat_mop",
+      "p15_threat_mug",
+      "p15_threat_pete",
+      "p15_threat_squawks",
+      "p15_threats_said",
+      "p15_zone_retreat"
+    ],
+    "vars": {
+      "brogath_rules": 23,
+      "brogath_spot": 2,
+      "p4_tod": 32,
+      "threat_level": 0
+    },
+    "values": {
+      "ship_atmosphere": "NORMAL"
+    },
+    "quests": {
+      "chicken_incident": "completed",
+      "grand_paranoia": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 9,
+    "y": 11,
+    "facing": "down",
+    "script": "p15c9.begin"
+  },
+  {
+    "id": "p15_nose_fire",
+    "name": "The Nose-Fire Waft",
+    "description": "The captain wakes, thinks he's in the zone, and says everything. Starts chapter 179.",
+    "after": "p15_grand_nap",
+    "flags": [
+      "grand_nap_done",
+      "p15_bed_grand",
+      "p15_bed_port",
+      "p15_bed_stbd",
+      "p15_beds_said",
+      "p15_ch178_started",
+      "p15_pillow_caught",
+      "p15_sashes_fetched",
+      "p15_settle_garrick",
+      "p15_settle_pete",
+      "p15_settle_said",
+      "p15_settle_visitors",
+      "p15_strip_a",
+      "p15_strip_b",
+      "p15_strip_c",
+      "p15_strip_said",
+      "roaring_pillow_ejected"
+    ],
+    "vars": {
+      "p4_tod": 35
+    },
+    "quests": {
+      "grand_stenchmaster_nap": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 2,
+    "y": 9,
+    "facing": "down",
+    "script": "p15c10.begin"
+  },
+  {
+    "id": "p15_bashfulness_branch",
+    "name": "Bashfulness Branch",
+    "description": "OPEN SO LONG AS BROGATH REMAINS BASHFUL. The night depositors. Starts chapter 180.",
+    "after": "p15_nose_fire",
+    "flags": [
+      "bashfulness_branch_formed",
+      "p15_apologised",
+      "p15_catch_said",
+      "p15_ch179_started",
+      "p15_nose_fire",
+      "p15_pillow2_caught",
+      "p15_pillow2_ejected"
+    ],
+    "vars": {
+      "brogath_pressure": 45,
+      "pillow_spot": 0
+    },
+    "values": {
+      "bashfulness_branch_state": "open",
+      "brogath_state": "EMBARRASSED",
+      "ship_atmosphere": "BANK_FUMES"
+    },
+    "quests": {
+      "nose_fire_waft": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 10,
+    "y": 8,
+    "facing": "down",
+    "script": "p15c11.begin"
+  },
+  {
+    "id": "p15_great_mellowing",
+    "name": "The Great Mellowing",
+    "description": "Something on a parachute, out of the Sharkstorm. Agnes the Second. Starts chapter 181.",
+    "after": "p15_bashfulness_branch",
+    "flags": [
+      "p15_branch_seen",
+      "p15_ch180_started",
+      "p15_flicker_seen"
+    ],
+    "vars": {
+      "branch_night_served": 4,
+      "brogath_pressure": 20,
+      "p4_tod": 36
+    },
+    "values": {
+      "brogath_state": "BASHFUL"
+    },
+    "quests": {
+      "bashfulness_branch": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 2,
+    "y": 9,
+    "facing": "down",
+    "script": "p15c12.begin"
+  },
+  {
+    "id": "p15_untold_stories",
+    "name": "The Untold Stories",
+    "description": "Everyone mellow, nobody at their station, a sash advert on the Mark II. Starts chapter 182.",
+    "after": "p15_great_mellowing",
+    "flags": [
+      "agnes_second_on_ship",
+      "great_mellowing",
+      "p15_ch181_started",
+      "p15_mellow_bob",
+      "p15_mellow_garrick",
+      "p15_mellow_gristle",
+      "p15_mellow_jim",
+      "p15_mellow_pete",
+      "p15_mellow_visitors",
+      "p15_mellowing_seen",
+      "p15_only_sober",
+      "p15_parachute_seen",
+      "p15_walk_said"
+    ],
+    "vars": {
+      "agnes_second_arrivals": 1
+    },
+    "values": {
+      "brogath_state": "MELLOW",
+      "great_sharkstorm": "mellow_clambake",
+      "ship_atmosphere": "MELLOW_HAZE"
+    },
+    "quests": {
+      "great_mellowing": "completed"
+    },
+    "map": "galley",
+    "x": 9,
+    "y": 9,
+    "facing": "down",
+    "script": "p15c13.begin"
+  },
+  {
+    "id": "p15_relief_teller",
+    "name": "Relief Grand Teller",
+    "description": "The branch teller clocks out. Ten customers. Starts chapter 183.",
+    "after": "p15_untold_stories",
+    "flags": [
+      "p15_ch182_started",
+      "p15_job_brace",
+      "p15_job_brogath",
+      "p15_job_garrick",
+      "p15_job_sash",
+      "p15_job_screen",
+      "p15_jobs_said",
+      "p15_untold_watched"
+    ],
+    "vars": {
+      "brogath_pressure": 8,
+      "brogath_reassure_turn": 34,
+      "p15_mellow_ok": 1
+    },
+    "quests": {
+      "untold_stories": "completed"
+    },
+    "map": "galley",
+    "x": 13,
+    "y": 7,
+    "facing": "down",
+    "script": "p15c14.begin"
+  },
+  {
+    "id": "p15_relief_gary",
+    "name": "Relief Queue: Gary",
+    "description": "Seven served. Next at the window: Gary. (Lunch.)",
+    "after": "p15_relief_teller",
+    "flags": [
+      "p15_ch183_started",
+      "branch_teller_clocked_out"
+    ],
+    "vars": {
+      "branch_relief_served": 7
+    },
+    "quests": {
+      "relief_grand_teller": {
+        "progress": {
+          "serve": 7
+        }
+      }
+    },
+    "items": [
+      "relief_teller_badge"
+    ],
+    "map": "crew_quarters",
+    "x": 12,
+    "y": 15,
+    "facing": "up"
+  },
+  {
+    "id": "p15_relief_farthelmew",
+    "name": "Relief Queue: Farthelmew",
+    "description": "Nine served. Next at the window: Grand Emperor Farthelmew, who wants to deposit everything.",
+    "after": "p15_relief_gary",
+    "vars": {
+      "branch_relief_served": 9
+    },
+    "quests": {
+      "relief_grand_teller": {
+        "progress": {
+          "serve": 9
+        }
+      }
+    },
+    "map": "crew_quarters",
+    "x": 12,
+    "y": 15,
+    "facing": "up"
+  },
+  {
+    "id": "p15_sash_loan",
+    "name": "Sash-Backed Loan",
+    "description": "The AFTER-HOURS EXPRESS WINDOW: Grand Lady Whifflebottom. Starts chapter 184.",
+    "after": "p15_relief_teller",
+    "flags": [
+      "branch_express_window",
+      "branch_teller_clocked_out",
+      "p15_ch183_started",
+      "p15_relief_half_said",
+      "p15_relief_said",
+      "p15_teller_rated"
+    ],
+    "vars": {
+      "branch_last_grade": 2,
+      "branch_last_slips": 0,
+      "branch_ledger_right": 1,
+      "branch_relief_served": 10,
+      "brogath_pressure": 12,
+      "teller_rating_x10": 23
+    },
+    "quests": {
+      "relief_grand_teller": "completed"
+    },
+    "items": [
+      "relief_teller_badge"
+    ],
+    "map": "crew_quarters",
+    "x": 12,
+    "y": 15,
+    "facing": "down",
+    "script": "p15c15.begin"
+  },
+  {
+    "id": "p15_the_fart_he_misses",
+    "name": "The Fart He Misses",
+    "description": "The branch closed for good. Peace, munchies, and then Vindicta. Starts chapter 185.",
+    "after": "p15_sash_loan",
+    "flags": [
+      "bashfulness_branch_closed_for_good",
+      "p15_ch184_started",
+      "p15_forms_said",
+      "p15_loan_arrived",
+      "p15_loan_heard",
+      "sash_loan_resolved"
+    ],
+    "vars": {
+      "branch_express_served": 1,
+      "p15_form_n": 4,
+      "p15_last_n": 3
+    },
+    "values": {
+      "bashfulness_branch_state": "closed"
+    },
+    "quests": {
+      "sash_backed_loan": "completed"
+    },
+    "items": [
+      "loan_fee_receipt"
+    ],
+    "map": "crew_quarters",
+    "x": 12,
+    "y": 13,
+    "facing": "down",
+    "script": "p15c16.begin"
+  },
+  {
+    "id": "p15_complete",
+    "name": "Phase 15 Complete",
+    "description": "Not today. The Skunk Weed is the Emergency Mellowing Supply; the visitors are still aboard; Agnes the Second is in the Sharkstorm, on a pillow.",
+    "after": "p15_the_fart_he_misses",
+    "flags": [
+      "agnes_second_missing_in_sharkstorm",
+      "brogath_rule_emergency_mellowing",
+      "emergency_mellowing_policy",
+      "great_mellowing_cleared",
+      "p15_ch185_started",
+      "p15_complete",
+      "p15_goat_rewatched",
+      "p15_haze_cleared",
+      "p15_pantry_seen",
+      "p15_peace_agnes",
+      "p15_peace_brogath",
+      "p15_peace_garrick",
+      "p15_peace_said",
+      "p15_search_deck",
+      "p15_search_perch",
+      "p15_search_rail",
+      "p15_tried_again",
+      "p15_vindicta_here"
+    ],
+    "clearFlags": [
+      "agnes_second_on_ship"
+    ],
+    "vars": {
+      "brogath_pressure": 8,
+      "brogath_rules": 24,
+      "brogath_spot": 1,
+      "p15_vindicta_n": 3
+    },
+    "values": {
+      "brogath_state": "CALM",
+      "great_sharkstorm": "rough_turbulence",
+      "ship_atmosphere": "ORDINARY_STENCH",
+      "ship_pantry": "raided"
+    },
+    "quests": {
+      "the_fart_he_misses": "completed"
+    },
+    "items": [
+      "agnes_feather"
+    ],
+    "map": "main_deck",
+    "x": 15,
+    "y": 13,
+    "facing": "down"
   }
 ]
