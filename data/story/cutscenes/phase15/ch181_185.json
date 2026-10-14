@@ -557,8 +557,11 @@
    "transition": "crew_quarters",
    "x": 12,
    "y": 11,
-   "facing": "down"
-  },
+   "facing": "down",
+   "then": "p15c14.arrive"
+  }
+ ],
+ "p15c14.arrive": [
   "The branch. Gleaming. The bell, gleaming. A queue: spectral customers, out of the haze, all the way to the barricade and round it.",
   "And the teller, coming out from behind the counter with his hat on and his coat over his arm.",
   "branch_teller: (pinning something to your chest) There we are, sir. Shift's over. I'm off.",
@@ -684,32 +687,17 @@
    "sub": "The Sash-Backed Loan Emergency"
   },
   {
-   "spawn": "whifflebottom",
-   "x": 15,
-   "y": 13,
-   "facing": "left"
+   "setFlag": "p15_loan_arrived"
   },
   {
    "burst": "fume",
-   "x": 15,
+   "x": 12,
    "y": 13,
    "count": 8
   },
   {
    "sfx": "haze_form",
    "volume": 0.7
-  },
-  {
-   "move": "whifflebottom",
-   "to": [
-    12,
-    13
-   ],
-   "speed": "run"
-  },
-  {
-   "face": "whifflebottom",
-   "dir": "down"
   },
   "A spectral lady comes out of the haze at a run, clutching a very long sash and a bundle of papers, and throws herself at the express window.",
   "whifflebottom: (breathless) EMERGENCY. Emergency LOAN. Please. PLEASE.",
@@ -956,9 +944,6 @@
    "bankDeposit": "whifflebottom"
   },
   {
-   "setFlag": "sash_loan_resolved"
-  },
-  {
    "giveItem": "loan_fee_receipt",
    "silent": true
   },
@@ -969,6 +954,9 @@
   "captain[angry]: It destroyed the collateral AND denied the loan? At the SAME TIME?",
   "whifflebottom: (folding up the slip, entirely satisfied) That's banking, dear.",
   {
+   "setFlag": "sash_loan_resolved"
+  },
+  {
    "burst": "fume",
    "x": 12,
    "y": 13,
@@ -977,9 +965,6 @@
   {
    "sfx": "haze_dissolve",
    "volume": 0.7
-  },
-  {
-   "despawn": "whifflebottom"
   },
   "And she dissolves, happily, into the haze, forty-seven silver poorer than she wasn't.",
   {

@@ -698,7 +698,7 @@
    "type": "npc",
    "npc": "pete",
    "x": 13,
-   "y": 8,
+   "y": 7,
    "facing": "right",
    "if": {
     "all": [
@@ -726,7 +726,7 @@
    "type": "npc",
    "npc": "pete",
    "x": 13,
-   "y": 8,
+   "y": 7,
    "facing": "right",
    "if": {
     "all": [
@@ -754,7 +754,7 @@
    "type": "npc",
    "npc": "pete",
    "x": 13,
-   "y": 8,
+   "y": 7,
    "facing": "right",
    "if": {
     "all": [
@@ -978,7 +978,7 @@
    "type": "npc",
    "npc": "pete",
    "x": 13,
-   "y": 8,
+   "y": 7,
    "facing": "right",
    "if": {
     "any": [
@@ -1109,8 +1109,8 @@
    "id": "p15g_gristle_4",
    "type": "npc",
    "npc": "gristle",
-   "x": 14,
-   "y": 9,
+   "x": 11,
+   "y": 6,
    "facing": "right",
    "if": {
     "all": [
@@ -1402,7 +1402,7 @@
    "id": "p15g_gristle_17",
    "type": "npc",
    "npc": "gristle",
-   "x": 12,
+   "x": 11,
    "y": 8,
    "facing": "right",
    "if": {
@@ -1430,7 +1430,7 @@
    "id": "p15g_gristle_18",
    "type": "npc",
    "npc": "gristle",
-   "x": 12,
+   "x": 11,
    "y": 8,
    "facing": "right",
    "if": {
@@ -1458,7 +1458,7 @@
    "id": "p15g_gristle_19",
    "type": "npc",
    "npc": "gristle",
-   "x": 12,
+   "x": 11,
    "y": 8,
    "facing": "right",
    "if": {
@@ -1682,7 +1682,7 @@
    "id": "p15g_gristle_29",
    "type": "npc",
    "npc": "gristle",
-   "x": 12,
+   "x": 11,
    "y": 8,
    "facing": "right",
    "if": {
@@ -2099,7 +2099,7 @@
    "id": "p15g_bob_16",
    "type": "npc",
    "npc": "bob",
-   "x": 11,
+   "x": 12,
    "y": 9,
    "facing": "up",
    "if": {
@@ -2127,7 +2127,7 @@
    "id": "p15g_bob_17",
    "type": "npc",
    "npc": "bob",
-   "x": 11,
+   "x": 12,
    "y": 9,
    "facing": "up",
    "if": {
@@ -2155,7 +2155,7 @@
    "id": "p15g_bob_18",
    "type": "npc",
    "npc": "bob",
-   "x": 11,
+   "x": 12,
    "y": 9,
    "facing": "up",
    "if": {
@@ -2379,7 +2379,7 @@
    "id": "p15g_bob_28",
    "type": "npc",
    "npc": "bob",
-   "x": 11,
+   "x": 12,
    "y": 9,
    "facing": "up",
    "if": {
@@ -2465,7 +2465,7 @@
    "id": "p15g_jim_2",
    "type": "npc",
    "npc": "jim",
-   "x": 15,
+   "x": 14,
    "y": 8,
    "facing": "right",
    "if": {
@@ -2541,7 +2541,7 @@
    "id": "p15g_jim_5",
    "type": "npc",
    "npc": "jim",
-   "x": 15,
+   "x": 14,
    "y": 8,
    "facing": "right",
    "if": {
@@ -3217,9 +3217,9 @@
    "id": "p15g_ned_4",
    "type": "npc",
    "npc": "ned",
-   "x": 15,
-   "y": 10,
-   "facing": "up",
+   "x": 16,
+   "y": 11,
+   "facing": "left",
    "if": {
     "all": [
      {
@@ -3230,8 +3230,9 @@
      }
     ]
    },
+   "pose": "sit",
    "behavior": {
-    "type": "stand"
+    "type": "sit"
    }
   },
   {
@@ -6792,6 +6793,17 @@
    "id": "p15g_vindicta_0",
    "type": "npc",
    "npc": "vindicta",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p15_started"
+   }
+  },
+  {
+   "id": "p15g_whifflebottom_0",
+   "type": "npc",
+   "npc": "whifflebottom",
    "x": 1,
    "y": 1,
    "absent": true,

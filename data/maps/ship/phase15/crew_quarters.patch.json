@@ -194,7 +194,7 @@
       "objectiveActive": "nose_fire_waft.catch"
      },
      {
-      "value": {
+      "var": {
        "name": "pillow_spot",
        "eq": 1
       }
@@ -214,7 +214,7 @@
       "objectiveActive": "nose_fire_waft.catch"
      },
      {
-      "value": {
+      "var": {
        "name": "pillow_spot",
        "eq": 2
       }
@@ -234,7 +234,7 @@
       "objectiveActive": "nose_fire_waft.catch"
      },
      {
-      "value": {
+      "var": {
        "name": "pillow_spot",
        "eq": 3
       }
@@ -1015,8 +1015,8 @@
    "id": "p15q_gristle_12",
    "type": "npc",
    "npc": "gristle",
-   "x": 12,
-   "y": 11,
+   "x": 13,
+   "y": 10,
    "facing": "up",
    "if": {
     "all": [
@@ -1957,7 +1957,7 @@
    "id": "p15q_ned_12",
    "type": "npc",
    "npc": "ned",
-   "x": 9,
+   "x": 14,
    "y": 11,
    "facing": "up",
    "if": {
@@ -3950,7 +3950,7 @@
    "id": "p15q_visitor_one_12",
    "type": "npc",
    "npc": "visitor_one",
-   "x": 8,
+   "x": 7,
    "y": 11,
    "facing": "up",
    "if": {
@@ -4265,7 +4265,7 @@
    "id": "p15q_visitor_two_12",
    "type": "npc",
    "npc": "visitor_two",
-   "x": 10,
+   "x": 11,
    "y": 11,
    "facing": "up",
    "if": {
@@ -4380,6 +4380,48 @@
    "if": {
     "flag": "p15_started"
    }
+  },
+  {
+   "id": "p15q_whifflebottom_0",
+   "type": "npc",
+   "npc": "whifflebottom",
+   "x": 12,
+   "y": 13,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p15_ch184_started"
+       },
+       {
+        "notFlag": "p15_ch185_started"
+       }
+      ]
+     },
+     {
+      "flag": "p15_loan_arrived"
+     },
+     {
+      "notFlag": "sash_loan_resolved"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p15q_whifflebottom_1",
+   "type": "npc",
+   "npc": "whifflebottom",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p15_started"
+   }
   }
  ],
  "props": [
@@ -4476,7 +4518,7 @@
    "x": 8,
    "y": 9,
    "if": {
-    "value": {
+    "var": {
      "name": "pillow_spot",
      "eq": 1
     }
@@ -4488,7 +4530,7 @@
    "x": 5,
    "y": 7,
    "if": {
-    "value": {
+    "var": {
      "name": "pillow_spot",
      "eq": 2
     }
@@ -4500,7 +4542,7 @@
    "x": 14,
    "y": 10,
    "if": {
-    "value": {
+    "var": {
      "name": "pillow_spot",
      "eq": 3
     }
