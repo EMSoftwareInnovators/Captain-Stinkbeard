@@ -7,10 +7,17 @@
     "id": "branch_gasimir",
     "title": "Grand Duke Gasimir the Excessively Solvent",
     "if": {
-     "var": {
-      "name": "branch_night_served",
-      "gte": 1
-     }
+     "all": [
+      {
+       "flag": "bashfulness_branch_formed"
+      },
+      {
+       "var": {
+        "name": "branch_night_served",
+        "gte": 1
+       }
+      }
+     ]
     },
     "depositor": "Grand Duke of the Overflowing Vaults, Master of Thirty Thousand Grand Wind Crowns, Freeholder of the Upper Draught",
     "intensity": "7 — MUNICIPAL",
@@ -21,10 +28,17 @@
     "id": "branch_flatulencia",
     "title": "Grand Countess Flatulencia",
     "if": {
-     "var": {
-      "name": "branch_night_served",
-      "gte": 2
-     }
+     "all": [
+      {
+       "flag": "bashfulness_branch_formed"
+      },
+      {
+       "var": {
+        "name": "branch_night_served",
+        "gte": 2
+       }
+      }
+     ]
     },
     "depositor": "Grand Countess of the Seven Generations, Heiress to the Ancestral Breeze, Trustee of the Compounded Gust",
     "intensity": "8 — REGIONAL",
@@ -35,10 +49,17 @@
     "id": "branch_billowmere",
     "title": "Baron Billowmere of the Upper Draughts",
     "if": {
-     "var": {
-      "name": "branch_night_served",
-      "gte": 3
-     }
+     "all": [
+      {
+       "flag": "bashfulness_branch_formed"
+      },
+      {
+       "var": {
+        "name": "branch_night_served",
+        "gte": 3
+       }
+      }
+     ]
     },
     "depositor": "Baron Billowmere, Lord of the Upper Draughts, Owner of Every Breeze North of the Gusting Hills",
     "intensity": "9 — HISTORIC",
@@ -49,10 +70,17 @@
     "id": "branch_puffenstein",
     "title": "The Dowager Puffenstein",
     "if": {
-     "var": {
-      "name": "branch_night_served",
-      "gte": 4
-     }
+     "all": [
+      {
+       "flag": "bashfulness_branch_formed"
+      },
+      {
+       "var": {
+        "name": "branch_night_served",
+        "gte": 4
+       }
+      }
+     ]
     },
     "depositor": "The Dowager Duchess Puffenstein, Richest Lady in the Whole of the Afterlife (Atmospherically)",
     "intensity": "10 — PLEASE NOTIFY AUTHORITIES",
@@ -63,10 +91,17 @@
     "id": "branch_boomington",
     "title": "Grand Lord Boomington",
     "if": {
-     "var": {
-      "name": "branch_relief_served",
-      "gte": 1
-     }
+     "all": [
+      {
+       "flag": "bashfulness_branch_formed"
+      },
+      {
+       "var": {
+        "name": "branch_relief_served",
+        "gte": 1
+       }
+      }
+     ]
     },
     "depositor": "Grand Lord Boomington of Boomington, Boom-Warden of the Booming Marches, Thrice-Booming Knight of the Order of the Boom, First Boomer of the Boomtown Assembly",
     "intensity": "6 — MARITIME",
@@ -77,10 +112,17 @@
     "id": "branch_whistlewaft",
     "title": "Grand Duchess Whistlewaft",
     "if": {
-     "var": {
-      "name": "branch_relief_served",
-      "gte": 2
-     }
+     "all": [
+      {
+       "flag": "bashfulness_branch_formed"
+      },
+      {
+       "var": {
+        "name": "branch_relief_served",
+        "gte": 2
+       }
+      }
+     ]
     },
     "depositor": "Grand Duchess Whistlewaft of the... of the Something",
     "intensity": "5 — STRUCTURAL",
@@ -91,10 +133,17 @@
     "id": "branch_fumblebottom",
     "title": "Sir Fumblebottom",
     "if": {
-     "var": {
-      "name": "branch_relief_served",
-      "gte": 3
-     }
+     "all": [
+      {
+       "flag": "bashfulness_branch_formed"
+      },
+      {
+       "var": {
+        "name": "branch_relief_served",
+        "gte": 3
+       }
+      }
+     ]
     },
     "depositor": "Sir Fumblebottom, Knight of the Inside-Out Sash",
     "intensity": "4 — FURNITURE-MOVING",
@@ -105,10 +154,17 @@
     "id": "branch_wind_brothers",
     "title": "The Grand Wind Brothers",
     "if": {
-     "var": {
-      "name": "branch_relief_served",
-      "gte": 4
-     }
+     "all": [
+      {
+       "flag": "bashfulness_branch_formed"
+      },
+      {
+       "var": {
+        "name": "branch_relief_served",
+        "gte": 4
+       }
+      }
+     ]
     },
     "depositor": "Grand Wind Brothers Hubert and Herbert, Joint Holders of the Family Gust (Undivided)",
     "intensity": "7 — MUNICIPAL",
@@ -119,10 +175,17 @@
     "id": "branch_boomboom",
     "title": "Grandmother Boom-Boom",
     "if": {
-     "var": {
-      "name": "branch_relief_served",
-      "gte": 5
-     }
+     "all": [
+      {
+       "flag": "bashfulness_branch_formed"
+      },
+      {
+       "var": {
+        "name": "branch_relief_served",
+        "gte": 5
+       }
+      }
+     ]
     },
     "depositor": "(she says she hasn't got one)",
     "intensity": "9 — HISTORIC",
@@ -133,10 +196,17 @@
     "id": "branch_rumblequill",
     "title": "Professor Rumblequill",
     "if": {
-     "var": {
-      "name": "branch_relief_served",
-      "gte": 6
-     }
+     "all": [
+      {
+       "flag": "bashfulness_branch_formed"
+      },
+      {
+       "var": {
+        "name": "branch_relief_served",
+        "gte": 6
+       }
+      }
+     ]
     },
     "depositor": "Professor Rumblequill, Chair of Theoretical Windage, Author of 'A Brief History of Gust'",
     "intensity": "6 — MARITIME",
@@ -147,10 +217,17 @@
     "id": "branch_flapworthy",
     "title": "Lady Flapworthy",
     "if": {
-     "var": {
-      "name": "branch_relief_served",
-      "gte": 7
-     }
+     "all": [
+      {
+       "flag": "bashfulness_branch_formed"
+      },
+      {
+       "var": {
+        "name": "branch_relief_served",
+        "gte": 7
+       }
+      }
+     ]
     },
     "depositor": "Lady Flapworthy, President of the Society for Free Flutter",
     "intensity": "7 — MUNICIPAL",
@@ -161,10 +238,17 @@
     "id": "branch_gary_relief",
     "title": "Gary",
     "if": {
-     "var": {
-      "name": "branch_relief_served",
-      "gte": 8
-     }
+     "all": [
+      {
+       "flag": "bashfulness_branch_formed"
+      },
+      {
+       "var": {
+        "name": "branch_relief_served",
+        "gte": 8
+       }
+      }
+     ]
     },
     "depositor": "Gary",
     "intensity": "8 — REGIONAL",
@@ -175,10 +259,17 @@
     "id": "branch_thunderpants",
     "title": "Admiral Thunderpants",
     "if": {
-     "var": {
-      "name": "branch_relief_served",
-      "gte": 9
-     }
+     "all": [
+      {
+       "flag": "bashfulness_branch_formed"
+      },
+      {
+       "var": {
+        "name": "branch_relief_served",
+        "gte": 9
+       }
+      }
+     ]
     },
     "depositor": "Admiral of the Fleet Thunderpants (Retired) (He Thinks)",
     "intensity": "8 — REGIONAL",
@@ -189,10 +280,17 @@
     "id": "branch_farthelmew",
     "title": "Grand Emperor Farthelmew",
     "if": {
-     "var": {
-      "name": "branch_relief_served",
-      "gte": 10
-     }
+     "all": [
+      {
+       "flag": "bashfulness_branch_formed"
+      },
+      {
+       "var": {
+        "name": "branch_relief_served",
+        "gte": 10
+       }
+      }
+     ]
     },
     "depositor": "Grand Emperor Farthelmew the Ninth, Lord of All the Winds of All the Grand Empires, Holder of More Grand Wind Crowns Than There Are Grand Wind Crowns",
     "intensity": "10+ — ABSOLUTELY NOT",

@@ -161,8 +161,9 @@ function shipNames() {
 }
 
 export function buildInsertAtlas() {
-  // 1024 wide since Story Phase 10: at 512 the stack grew past 4096 tall.
-  const atlas = new ShelfAtlas(1024, 2);
+  // 1024 wide since Story Phase 10 (at 512 the stack grew past 4096 tall);
+  // 2048 since Story Phase 15, for the same reason.
+  const atlas = new ShelfAtlas(2048, 2);
   atlas.add('eel_jar_label', eelJarLabel());
   atlas.add('toll_sign_close', tollSignClose());
   atlas.add('probation_rules', probationRules());

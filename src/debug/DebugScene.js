@@ -9,9 +9,11 @@ import { startPreset } from './startPreset.js';
 import { readStability, writePressure } from '../systems/stability.js';
 import { stabilitySubject, bankDef } from '../systems/script/commands.js';
 import { DEBUG_BROGATH } from './brogathDebug.js';
+import { DEBUG_MELLOWING } from './mellowingDebug.js';
+import { ATMOSPHERE_STATES, atmosphereId } from '../systems/atmosphere.js';
 import { roomGuard } from '../world/placements.js';
 
-const TABS = ['Info', 'Story', 'Warp', 'Flags', 'Quests', 'Items', 'Party', 'Battle', 'Brogath', 'Tools'];
+const TABS = ['Info', 'Story', 'Warp', 'Flags', 'Quests', 'Items', 'Party', 'Battle', 'Brogath', 'Mellow', 'Tools'];
 const GAMEPLAY_SCENES = ['Title', 'World', 'Battle', 'Menu', 'GameOver', 'Overlay'];
 
 /**
@@ -124,8 +126,12 @@ export class DebugScene extends BaseScene {
     this.clear();
     this.parts.push(this.add.rectangle(4, 4, SCREEN_WIDTH - 8, SCREEN_HEIGHT - 8, 0x05040a, 0.9).setOrigin(0).setDepth(100));
     this.parts.push(this.add.rectangle(4, 4, SCREEN_WIDTH - 8, 1, 0x4ade80).setOrigin(0).setDepth(101));
+    // The tab bar scrolls so the current tab is always on screen (Story Phase 15 added one too many).
     let x = 10;
+    const first = Math.max(0, Math.min(this.tab - 3, TABS.length - 8));
+    if (first > 0) x += this.text(x, 8, '<k>◀</>').textWidth + 4;
     TABS.forEach((name, i) => {
+      if (i < first || x > SCREEN_WIDTH - 24) return;
       const t = this.text(x, 8, name, { color: i === this.tab ? 0x4ade80 : UI_COLORS.dim });
       x += t.textWidth + 9;
     });
@@ -381,6 +387,63 @@ export class DebugScene extends BaseScene {
     if (cur) {
       out.push({ label: 'Grand Currency +20,000', right: `${s.story.getVar(cur.var, 0)}`, action: () => { s.story.addVar(cur.var, cur.amount); this.rerender(); } });
       out.push({ label: 'Grand Currency: remove all', action: () => { s.story.setVar(cur.var, 0); this.rerender(); } });
+    }
+    return out;
+  }
+
+  /** Story Phase 15: the Great Mellowing (see mellowingDebug.js). */
+  itemsMellow() {
+    const s = this.app.session;
+    const content = this.app.content;
+    if (!content.atmosphere?.has?.('ship')) return [{ label: '<k>No Phase 15 content</>' }];
+    const out = [];
+    const presets = content.debugPresets;
+    for (const [label, id] of DEBUG_MELLOWING.jumps) {
+      out.push({ label: `Jump: ${label}`, right: presets.has(id) ? id : '<r>missing</>', action: () => {
+        if (!presets.has(id)) return this.flash(`No preset ${id}`);
+        this.close();
+        startPreset(this.game, id);
+        return null;
+      } });
+    }
+    if (!s) return [...out, { label: '<k>Start a game for the rest</>' }];
+    out.push({ label: 'Atmosphere', right: atmosphereId(content, s), action: () => this.openSub(ATMOSPHERE_STATES.map((id) => ({
+      label: id,
+      action: () => { this.closeSub(); this.runInWorld([{ atmosphere: id }]); },
+    }))) });
+    out.push({ label: 'TV: play episode...', action: () => this.openSub(DEBUG_MELLOWING.episodes.map((id) => ({
+      label: id,
+      action: () => { this.closeSub(); this.runInWorld([{ vista: 'galley_watch', fade: 300 }, { channelEpisode: id, tv: 'ses_mk2' }, { vistaEnd: true, fade: 300 }]); },
+    }))) });
+    const here = () => ({ map: this.world?.model?.id, x: this.world?.player?.tx ?? 1, y: (this.world?.player?.ty ?? 1) + 1 });
+    for (const [label, steps] of DEBUG_MELLOWING.scenes) {
+      out.push({ label, action: () => {
+        if (steps === 'visitors') {
+          const { map, x, y } = here();
+          if (map && !roomGuard(content.npcs, map)('visitor_one')) return this.flash(`The visitors never go in ${map}.`);
+          return this.runInWorld([{ setFlag: ['modern_visitors_aboard'] }, { spawn: 'visitor_one', x, y, facing: 'up' }, { spawn: 'visitor_two', x: x + 1, y, facing: 'up' }]);
+        }
+        if (steps === 'agnes') {
+          const { map, x, y } = here();
+          if (map && !roomGuard(content.npcs, map)('agnes_second')) return this.flash(`Agnes never goes in ${map}.`);
+          return this.runInWorld([{ setFlag: ['agnes_second_on_ship'] }, { spawn: 'agnes_second', x, y, facing: 'up' }]);
+        }
+        return this.runInWorld(steps);
+      } });
+    }
+    // The Bashfulness Branch's customers.
+    const branch = content.banks?.has?.('bashfulness_branch') ? bankDef(content, 'bashfulness_branch') : null;
+    if (branch) {
+      const all = Object.entries(branch.queues ?? {}).flatMap(([qid, q]) => q.customers.map((cid, i) => ({ qid, q, cid, i })));
+      out.push({ label: 'Branch: serve from...', right: `${all.length}`, action: () => this.openSub(all.map(({ qid, q, cid, i }) => ({
+        label: `${qid}: ${content.bankCustomers.get(cid)?.short ?? cid}`,
+        action: () => {
+          this.closeSub();
+          s.story.setValue(branch.stateValue, 'open');
+          s.story.setVar(q.servedVar, i);
+          this.runInWorld([{ bank: 'next', bankId: 'bashfulness_branch', queue: qid, observe: qid === 'night' }]);
+        },
+      }))) });
     }
     return out;
   }
