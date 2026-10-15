@@ -1624,6 +1624,18 @@ its beats (`forgets_title`, `form_backwards`, `sash_wrong`, `whistle`,
 `shared`, `long_sash`, `mellow_assistants`, `desk_slides`, `tv_interrupt`,
 `brogath_risk`); nothing becomes failable.
 
+### Anywhere along the rail (`"rail": true`)
+
+```json
+{ "id": "p15_eject", "type": "inspect", "x": 16, "y": 13, "rail": true, "if": { "objectiveActive": "grand_stenchmaster_nap.eject" }, "script": "p15c9.eject" }
+```
+
+An inspect object marked `rail` is reached from every rail tile of its map
+(tile types with `"rail": true` in the tileset: the deck's side rails, the bow
+and the taffrail), so throwing something overboard works anywhere along the
+side. `x`/`y` stay as the spot the tests walk to. Don't make the script turn
+the captain to a fixed side: he is already facing the rail he chose.
+
 ### Chickens and the rest
 
 - An appearance with `"painter": "chicken"` is painted by

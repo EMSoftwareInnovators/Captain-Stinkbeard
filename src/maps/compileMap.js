@@ -48,6 +48,9 @@ export function compileMap(def, tileset, props = null) {
     return legend[ch] ?? null;
   };
 
+  // Tiles you can throw something over the side from (tile types marked "rail": the deck's
+  // rails, its bow and its taffrail). An inspect object with "rail": true covers all of them.
+  const rails = new Uint8Array(width * height);
   const resolveLayer = (grid, layerName) => {
     const out = new Int16Array(width * height).fill(-1);
     const solid = new Uint8Array(width * height);
@@ -65,6 +68,7 @@ export function compileMap(def, tileset, props = null) {
         if (idx === undefined) throw new ContentError(`${where}: tile type "${typeId}" uses frame "${frame}" missing from tileset "${tileset.id}"`);
         out[y * width + x] = idx;
         if (type.solid) solid[y * width + x] = 1;
+        if (type.rail) rails[y * width + x] = 1;
       }
     }
     return { out, solid };
@@ -131,6 +135,7 @@ export function compileMap(def, tileset, props = null) {
     ground: ground.out,
     overhead: overhead.out,
     solid,
+    rails,
     props: propList,
     objects,
     spawns,

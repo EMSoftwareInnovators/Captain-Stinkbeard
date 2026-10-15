@@ -1315,7 +1315,7 @@ export class WorldScene extends BaseScene {
     const occ = this.occupantAt(x, y) ?? this.aloftAt(x, y);
     if (occ && occ.kind === 'npc' && occ.npc) return { kind: 'npc', actor: occ, x, y };
     // An open objective's spot beats scenery on the same tile (src/world/inspectTarget.js).
-    const obj = inspectAt(this.objects, x, y, this.session);
+    const obj = inspectAt(this.objects, x, y, this.session, this.model);
     if (obj) return { kind: obj.type, obj, x, y };
     const prop = this.propAt.get(this.key(x, y));
     if (prop?.def?.inspect) return { kind: 'prop', prop, x, y };

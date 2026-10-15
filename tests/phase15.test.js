@@ -348,3 +348,28 @@ describe('Story Phase 15 debug tools', () => {
     for (const id of DEBUG_MELLOWING.episodes) expect(eps).toContain(id);
   });
 });
+
+describe('Throwing things overboard', () => {
+  it('works from anywhere along the deck rails, not one spot', async () => {
+    const { compileMap } = await import('../src/maps/compileMap.js');
+    const { inspectAt } = await import('../src/world/inspectTarget.js');
+    const s = makeStory({ preset: 'p15_grand_nap' });
+    const def = s.content.maps.require('main_deck');
+    const map = compileMap(def, s.content.tilesets.get(def.tileset), s.content.props);
+    const eject = def.objects.find((o) => o.id === 'p15_eject');
+    expect(eject.rail).toBe(true);
+    // (Only the throw, live: the rule is about tiles, not about when the objective opens.)
+    const objects = [{ ...eject, if: null }];
+    // Both side rails, near the stern and near the bow, and the angled bow rail: all the same spot.
+    for (const [x, y] of [[3, 8], [16, 8], [3, 30], [16, 30], [16, 13], [3, 35], [8, 40]]) {
+      expect(map.rails[y * map.width + x], `${x},${y} is rail`).toBe(1);
+      expect(inspectAt(objects, x, y, s.session, map)?.id, `${x},${y}`).toBe('p15_eject');
+    }
+    // The deck itself is not.
+    expect(inspectAt(objects, 9, 15, s.session, map)).toBe(null);
+    // Every throw over the side in the story is marked.
+    const marked = new Set();
+    for (const m of s.content.maps.list?.() ?? [...s.content.maps.map.values()]) for (const o of m.objects ?? []) if (o.rail) marked.add(o.id);
+    for (const id of ['p6_rail', 'p6_bulk_launch', 'p13_throw_1', 'p13_throw_2', 'p15_eject', 'p15_throw', 'p15_search_rail', 'p15_end']) expect(marked.has(id), id).toBe(true);
+  });
+});

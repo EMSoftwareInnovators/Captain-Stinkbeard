@@ -5,17 +5,23 @@ export function isObjectiveJob(obj) {
   return obj.type === 'inspect' && !!obj.if && JSON.stringify(obj.if).includes('objectiveActive');
 }
 
+/** True if the object is on tile x,y of the map; one marked "rail" is on every rail tile (throwing something overboard works anywhere along the rail). */
+export function coversTile(obj, x, y, map = null) {
+  if (obj.rail && map?.rails && x >= 0 && y >= 0 && x < map.width && y < map.height && map.rails[y * map.width + x]) return true;
+  return x >= obj.x && x < obj.x + (obj.w ?? 1) && y >= obj.y && y < obj.y + (obj.h ?? 1);
+}
+
 /**
  * Which inspect (or chest) object Confirm reaches on a tile: the first live
  * one in the room's order, except that a live spot for an open objective
  * beats scenery on the same tile (Story Phase 14: the barricade's shield is
  * the cardboard Sir Rumpus, whose own look-at spot comes first in the room).
  */
-export function inspectAt(objects, x, y, session) {
+export function inspectAt(objects, x, y, session, map = null) {
   let first = null;
   for (const obj of objects ?? []) {
     if (obj.type !== 'inspect' && obj.type !== 'chest') continue;
-    if (x < obj.x || x >= obj.x + (obj.w ?? 1) || y < obj.y || y >= obj.y + (obj.h ?? 1)) continue;
+    if (!coversTile(obj, x, y, map)) continue;
     if (obj.type === 'inspect' && obj.if && !evaluateCondition(obj.if, session)) continue;
     if (isObjectiveJob(obj)) return obj;
     first ??= obj;
