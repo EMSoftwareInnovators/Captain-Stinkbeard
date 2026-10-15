@@ -299,6 +299,16 @@ function chalkX() {
   return c;
 }
 
+/** A chalk outline on the floor, the size of a sash pad: where the bedding goes (the Grand Nap, chapter 178). */
+function chalkPad() {
+  const c = canvas(48, 16);
+  c.rect(2, 3, 44, 10, '#00000014');
+  for (let x = 2; x < 46; x++) if (x % 4 !== 3) { c.set(x, 3, '#f6f2e4'); c.set(x, 12, '#f6f2e4'); }
+  for (let y = 3; y < 13; y++) if (y % 4 !== 2) { c.set(2, y, '#f6f2e4'); c.set(45, y, '#f6f2e4'); }
+  for (let i = 0; i < 5; i++) { c.set(22 + i, 6 + i, '#ece6d2'); c.set(26 - i, 6 + i, '#ece6d2'); } // a little X in the middle
+  return c;
+}
+
 /** Agnes the Second's perch: a sash folded in a little crate, a feather or two. */
 function agnesPerch() {
   const c = canvas(16, 16);
@@ -367,6 +377,7 @@ export const PHASE15_PROPS = {
   branch_bell: branchBell,
   branch_marks: branchMarks,
   chalk_x: chalkX,
+  chalk_pad: chalkPad,
   agnes_perch: agnesPerch,
   captains_rules_sheet: captainsRules,
   sign_no_beard: signNoBeard,
