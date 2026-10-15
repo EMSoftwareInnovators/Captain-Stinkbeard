@@ -29,6 +29,9 @@ const NAV = [
 ];
 
 const PANE = { x: 96, y: 4, w: SCREEN_WIDTH - 100, h: SCREEN_HEIGHT - 8 };
+/** The most pause-menu entries shown at once (12 rows leave the gold/time box 52 pixels; more would push it off the screen). */
+const NAV_MAX_ROWS = 12;
+
 /** A logbook opened in the world (the Stench Log on its barrel). */
 const BOOK = { x: 24, y: 8, w: SCREEN_WIDTH - 48, h: SCREEN_HEIGHT - 16 };
 
@@ -88,14 +91,19 @@ export class MenuScene extends BaseScene {
     return [...NAV.slice(0, at), ...logs, ...NAV.slice(at)];
   }
 
+  /** How many entries the pause menu shows at once: past that (many logbooks) it scrolls, so the box below still fits. */
+  navRows() {
+    return Math.min(this.navList.length, NAV_MAX_ROWS);
+  }
+
   buildPause() {
     this.navList = this.navEntries();
-    addPanel(this, 4, 4, 88, this.navList.length * 12 + 12, { depth: 10 });
+    addPanel(this, 4, 4, 88, this.navRows() * 12 + 12, { depth: 10 });
     this.nav = new ListMenu(this, {
       x: 22,
       y: 10,
       width: 66,
-      rows: this.navList.length,
+      rows: this.navRows(),
       depth: 11,
       items: this.navList.map((n) => ({ label: n.label, value: n.value, color: n.value === 'quit' ? UI_COLORS.dim : undefined })),
       index: Math.min(this.app.menuIndex ?? 0, this.navList.length - 1),
@@ -122,7 +130,7 @@ export class MenuScene extends BaseScene {
   refreshSide() {
     const s = this.session;
     this.side.clear();
-    const y = this.navList.length * 12 + 20;
+    const y = this.navRows() * 12 + 20;
     const h = SCREEN_HEIGHT - y - 4;
     this.side.add(addPanel(this, 4, y, 88, h, { depth: 10 }));
     this.side.add(this.add.image(10, y + 7, 'ui', 'icon_gold').setOrigin(0).setDepth(11));

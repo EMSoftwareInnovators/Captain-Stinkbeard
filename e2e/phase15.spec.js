@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { open, go, touch, everyPreset, onMap, value, variable, has, firstMissing, D, G, Q } from './storyKit.js';
+import { open, go, touch, everyPreset, onMap, value, variable, has, firstMissing, C, D, G, Q } from './storyKit.js';
 
 /**
  * Story Phase 15 (THE GREAT MELLOWING, chapters 170-185) in a real browser
@@ -202,4 +202,28 @@ test('every Phase 15 preset loads and its scene plays without errors', { tag: ['
   const { g, errors } = await open(page);
   await autoTiming(g);
   await everyPreset(g, errors, 'p15_', 19);
+});
+
+test('the pause menu with every logbook open: it scrolls instead of running off the screen', { tag: ['@phase15', '@ui', '@smoke'] }, async ({ page }) => {
+  test.setTimeout(10 * 60 * 1000);
+  const { g, errors } = await open(page);
+  await g.preset('p15_economic_recovery');
+  await play(g);
+  // The floorboard by the bed opens one more logbook entry (the captain's emergency reserve).
+  await to(g, C);
+  await look(g, 'p15_floorboard');
+  await g.tap('KeyC', 50, 600);
+  const menu = () => g.eval(() => {
+    const m = window.__GAME__.game.scene.getScene('Menu');
+    return { entries: m.navList.length, rows: m.nav.rows, label: m.navList[m.nav.index].label, scroll: m.nav.scroll };
+  });
+  const first = await menu();
+  expect(first.entries).toBeGreaterThan(12);
+  expect(first.rows).toBe(12);
+  for (let i = 0; i < first.entries - 1; i++) await g.tap('ArrowDown', 50, 150);
+  const last = await menu();
+  expect(last.label).toBe('Quit to Title');
+  expect(last.scroll).toBe(first.entries - 12);
+  await g.tap('KeyX', 50, 400);
+  expect(errors).toEqual([]);
 });
