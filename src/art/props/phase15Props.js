@@ -343,12 +343,16 @@ function signNoBeard() {
 // --- the captain's cabin ----------------------------------------------------------------------------------------------
 
 function looseFloorboard({ weed = false } = {}) {
-  const c = canvas(16, 8);
-  c.rect(1, 3, 14, 3, LWOOD.l);
-  c.hline(1, 14, 3, LWOOD.h);
-  c.hline(1, 14, 5, LWOOD.d);
-  c.set(2, 4, IRON.h); c.set(13, 4, IRON.h);
-  if (weed) for (const [x, y] of [[5, 2], [7, 1], [9, 2], [11, 1]]) { c.set(x, y, SKUNK.l); c.set(x, y + 1, SKUNK.brown); }
+  // A plank prised up at one end, with the dark gap under it showing: easy to spot on the floor.
+  const c = canvas(16, 16);
+  c.rect(1, 8, 14, 5, '#1a120c'); // the gap in the floor
+  c.rect(2, 9, 12, 3, '#2c2016');
+  if (!weed) { c.set(6, 10, GOLD.l); c.set(9, 11, GOLD.m); c.set(11, 10, GOLD.l); } // a glint of doubloons
+  else for (const [x, y] of [[4, 10], [6, 9], [8, 10], [10, 9], [12, 10]]) { c.set(x, y, SKUNK.l); c.set(x, y + 1, SKUNK.brown); }
+  c.poly([[1, 7], [15, 3], [15, 6], [1, 9]], LWOOD.l); // the plank, lifted at the right end
+  c.line(1, 7, 15, 3, LWOOD.h);
+  c.line(1, 9, 15, 6, LWOOD.d);
+  c.set(3, 7, IRON.h); c.set(13, 4, IRON.h); // nails
   c.outline(INK);
   return c;
 }

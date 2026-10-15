@@ -1,13 +1,13 @@
 {
  "id": "captains_quarters_phase15",
  "patch": "captains_quarters",
- "//": "Story Phase 15 in the cabin: the loose floorboard beside the bed (16,6), with the captain's emergency reserve under it: seven doubloons (173), then, after the waft came under the door, stems (174).",
+ "//": "Story Phase 15 in the cabin: the loose floorboard at the foot of the bed (15,7), with the captain's emergency reserve under it: seven doubloons (173), then, after the waft came under the door, stems (174).",
  "objects": [
   {
    "id": "p15_reserve",
    "type": "inspect",
-   "x": 16,
-   "y": 6,
+   "x": 15,
+   "y": 7,
    "if": {
     "objectiveActive": "grand_economic_recovery.reserve"
    },
@@ -16,8 +16,8 @@
   {
    "id": "p15_reserve_gone",
    "type": "inspect",
-   "x": 16,
-   "y": 6,
+   "x": 15,
+   "y": 7,
    "if": {
     "objectiveActive": "creative_conversion.reserve"
    },
@@ -26,8 +26,8 @@
   {
    "id": "p15_floorboard",
    "type": "inspect",
-   "x": 16,
-   "y": 6,
+   "x": 15,
+   "y": 7,
    "if": {
     "flag": "captain_reserve_counted"
    },
@@ -191,8 +191,8 @@
  "props": [
   {
    "prop": "loose_floorboard",
-   "x": 16,
-   "y": 6,
+   "x": 15,
+   "y": 7,
    "if": {
     "all": [
      {
@@ -209,8 +209,8 @@
   },
   {
    "prop": "loose_floorboard_weed",
-   "x": 16,
-   "y": 6,
+   "x": 15,
+   "y": 7,
    "if": {
     "flag": "grand_currency_converted"
    },
