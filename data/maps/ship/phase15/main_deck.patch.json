@@ -6267,6 +6267,54 @@
    "id": "p15_boat"
   },
   {
+   "prop": "chalk_x",
+   "x": 7,
+   "y": 37,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "stinkbeards_select.corner"
+     },
+     {
+      "notFlag": "p15_corner_sand"
+     }
+    ]
+   },
+   "id": "p15_chalk_sand"
+  },
+  {
+   "prop": "chalk_x",
+   "x": 12,
+   "y": 37,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "stinkbeards_select.corner"
+     },
+     {
+      "notFlag": "p15_corner_water"
+     }
+    ]
+   },
+   "id": "p15_chalk_water"
+  },
+  {
+   "prop": "chalk_x",
+   "x": 9,
+   "y": 36,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "stinkbeards_select.corner"
+     },
+     {
+      "notFlag": "p15_corner_sign"
+     }
+    ]
+   },
+   "id": "p15_chalk_sign"
+  },
+  {
    "prop": "sand_bucket",
    "x": 7,
    "y": 37,
@@ -6317,6 +6365,122 @@
     ]
    },
    "id": "p15_feathers"
+  }
+ ],
+ "propConditions": [
+  {
+   "id": "p10_loot_a",
+   "if": {
+    "notFlag": "p15_started"
+   }
+  },
+  {
+   "id": "p10_loot_b",
+   "if": {
+    "notFlag": "p15_started"
+   }
+  },
+  {
+   "id": "p10_loot_c",
+   "if": {
+    "notFlag": "p15_started"
+   }
+  },
+  {
+   "id": "p13_cable_d1",
+   "if": {
+    "notFlag": "p15_started"
+   }
+  },
+  {
+   "id": "p13_cable_d2",
+   "if": {
+    "notFlag": "p15_started"
+   }
+  },
+  {
+   "id": "p13_cable_cannon",
+   "if": {
+    "notFlag": "p15_started"
+   }
+  },
+  {
+   "id": "p13_cable_d3",
+   "if": {
+    "notFlag": "p15_started"
+   }
+  },
+  {
+   "id": "p14_oats_deck",
+   "if": {
+    "notFlag": "p15_started"
+   }
+  },
+  {
+   "id": "debris_2",
+   "if": {
+    "notFlag": "p15_started"
+   }
+  },
+  {
+   "id": "debris_3",
+   "if": {
+    "notFlag": "p15_started"
+   }
+  },
+  {
+   "id": "p7_debris_2",
+   "if": {
+    "notFlag": "p15_started"
+   }
+  },
+  {
+   "id": "grog_splash",
+   "if": {
+    "notFlag": "p15_started"
+   }
+  },
+  {
+   "id": "bulk_grog_empty",
+   "if": {
+    "notFlag": "p15_started"
+   }
+  },
+  {
+   "id": "food_ban",
+   "if": {
+    "notFlag": "p15_started"
+   }
+  },
+  {
+   "id": "insult_notes",
+   "if": {
+    "notFlag": "p15_started"
+   }
+  },
+  {
+   "id": "duty_tools",
+   "if": {
+    "notFlag": "p15_started"
+   }
+  },
+  {
+   "id": "sharkmaster_notice",
+   "if": {
+    "notFlag": "p15_started"
+   }
+  },
+  {
+   "id": "p14_tokens_deck",
+   "if": {
+    "notFlag": "grand_currency_converted"
+   }
+  },
+  {
+   "id": "p14_tokens_deck2",
+   "if": {
+    "notFlag": "grand_currency_converted"
+   }
   }
  ],
  "onEnter": [

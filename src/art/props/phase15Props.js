@@ -74,19 +74,21 @@ function skunkCrates() {
 
 /** The visitors' little modern boat, SECOND THOUGHTS: white hull, a canvas canopy, two folding chairs, a cool box. 3x2. */
 function leisureBoat() {
+  // From above, beached across the deck at a slight angle: a little white motorboat, bow to the left.
   const c = canvas(48, 40);
-  groundShadow(c, 24, 37, 23, 2);
-  c.poly([[1, 22], [47, 22], [43, 35], [6, 35]], BOAT.m);
-  c.hline(1, 46, 22, BOAT.h);
-  c.rect(4, 24, 40, 3, BOAT.l);
-  c.hline(8, 30, 30, '#4a7aa8'); // SECOND THOUGHTS (a blue stripe of lettering)
-  c.rect(6, 8, 18, 3, '#e8d8a8'); // the canopy
-  c.vline(7, 11, 21, IRON.l); c.vline(22, 11, 21, IRON.l);
-  c.rect(27, 15, 6, 6, '#3a8ac8'); c.rect(27, 15, 6, 2, '#f0f0f0'); // the cool box
-  // a folding chair, still upright; the other one on its back
-  c.line(36, 12, 36, 21, '#c84a3a'); c.line(41, 12, 41, 21, '#c84a3a'); c.rect(36, 16, 6, 2, '#e8c050');
-  c.line(10, 19, 18, 17, '#c84a3a');
-  c.rect(42, 26, 4, 6, IRON.m); // the engine, which will not be going anywhere again
+  groundShadow(c, 25, 33, 23, 3);
+  const hull = [[1, 20], [10, 9], [40, 7], [46, 10], [46, 28], [40, 31], [10, 30]];
+  c.poly(hull, BOAT.m);
+  c.poly([[4, 20], [12, 11], [39, 10], [43, 12], [43, 26], [39, 28], [12, 28]], BOAT.l); // the gunwale
+  c.poly([[8, 20], [14, 14], [38, 13], [41, 15], [41, 24], [38, 26], [14, 26]], '#c8b890'); // the deck boards inside
+  c.line(2, 20, 10, 10, BOAT.h); c.line(10, 10, 39, 8, BOAT.h);
+  c.line(3, 21, 11, 29, '#4a7aa8'); c.line(11, 29, 40, 30, '#4a7aa8'); // the blue stripe (SECOND THOUGHTS)
+  c.line(17, 14, 15, 26, '#9ad0f0'); c.line(18, 14, 16, 26, '#d8f0ff'); // windscreen
+  c.rect(21, 15, 5, 4, '#c84a3a'); c.rect(21, 21, 5, 4, '#c84a3a'); // two seats
+  c.rect(22, 16, 3, 2, '#e06a5a'); c.rect(22, 22, 3, 2, '#e06a5a');
+  c.rect(30, 17, 5, 6, '#3a8ac8'); c.rect(30, 17, 5, 2, '#f0f0f0'); // the cool box
+  c.rect(44, 15, 4, 9, IRON.d); c.rect(45, 16, 2, 7, IRON.m); // the outboard, which will not be going anywhere again
+  c.line(38, 24, 41, 27, '#e8c050'); // a folding chair, folded
   c.outline(INK);
   return c;
 }
@@ -281,6 +283,22 @@ function branchMarks() {
   return c;
 }
 
+/** A chalk X on the deck: where something is meant to go (the safe corner, chapter 175). */
+function chalkX() {
+  const c = canvas(16, 16);
+  c.ellipse(8, 8, 7, 7, '#00000022');
+  for (let i = 0; i < 11; i++) {
+    for (const d of [0, 1]) {
+      c.set(3 + i + d, 3 + i, '#fbf8ec');
+      c.set(13 - i - d, 3 + i, '#fbf8ec');
+    }
+    if (i % 3 === 1) { c.set(3 + i, 4 + i, '#d8d2c0'); c.set(13 - i, 4 + i, '#d8d2c0'); }
+  }
+  // a chalk ring round it
+  for (let a = 0; a < 24; a++) if (a % 3) c.set(Math.round(8 + 7 * Math.cos((a / 24) * Math.PI * 2)), Math.round(8 + 7 * Math.sin((a / 24) * Math.PI * 2)), '#ece6d2');
+  return c;
+}
+
 /** Agnes the Second's perch: a sash folded in a little crate, a feather or two. */
 function agnesPerch() {
   const c = canvas(16, 16);
@@ -348,6 +366,7 @@ export const PHASE15_PROPS = {
   branch_counter_closing: () => branchCounter('closing'),
   branch_bell: branchBell,
   branch_marks: branchMarks,
+  chalk_x: chalkX,
   agnes_perch: agnesPerch,
   captains_rules_sheet: captainsRules,
   sign_no_beard: signNoBeard,
