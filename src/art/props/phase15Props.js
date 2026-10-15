@@ -138,8 +138,17 @@ function bbkToken() {
 
 /** Brown feathers, in a line. */
 function feathers() {
-  const c = canvas(16, 10);
-  for (const [x, y] of [[3, 6], [8, 4], [13, 7]]) { c.line(x - 2, y + 1, x + 2, y - 1, HEN.m); c.set(x, y, HEN.l); }
+  // A trail across four tiles, going towards the starboard rail: big pale feathers with brown tips,
+  // and scratch marks where she ran. Easy to see on the deck.
+  const c = canvas(64, 12);
+  const one = (x, y, flip) => {
+    c.line(x - 4, y + (flip ? -1 : 1), x + 4, y + (flip ? 1 : -1), '#f4ecd8'); // the quill
+    c.ellipse(x, y, 4, 1.6, '#efe3c4');
+    c.ellipse(x + 2, y + (flip ? 0.5 : -0.5), 2, 1, HEN.l);
+    c.set(x + 4, y + (flip ? 1 : -1), HEN.d); // brown tip
+  };
+  one(7, 6, false); one(23, 5, true); one(40, 7, false); one(55, 5, true);
+  for (const x of [14, 31, 47]) { c.line(x, 8, x + 3, 7, '#5a3a20'); c.line(x + 1, 9, x + 4, 8, '#5a3a20'); } // claw scratches
   c.outline(INK);
   return c;
 }
