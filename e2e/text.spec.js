@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { GameDriver } from './driver.js';
 
 /**
  * No text runs off the screen, past the width it was given, or over other
@@ -114,6 +115,9 @@ test('quest notifications wrap, stack and stay clear of the HUD', { tag: ['@ui']
   await page.evaluate(() => window.__GAME__.test.preset('p8_complete'));
   await page.waitForFunction(() => window.__GAME__.game.scene.isActive('World'));
   await page.waitForTimeout(1500);
+  // The next phase's 'what next' tip comes up over the room: close it (it isn't what's being measured).
+  const g = new GameDriver(page);
+  await g.skip();
   const toasts = await page.evaluate(() => {
     const out = [];
     for (const q of window.__GAME__.app.content.quests.list()) {
