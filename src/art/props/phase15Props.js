@@ -204,6 +204,36 @@ function sashPad(w, { grand = false } = {}) {
   };
 }
 
+/** The captain's own pad: navy with a gold border, his tricorn on the pillow. Not like the others. */
+function captainPad() {
+  const c = canvas(32, 14);
+  const NAVY = { d: '#1a2440', m: '#2c3c6a', l: '#4a5c94' };
+  c.rect(1, 4, 30, 8, NAVY.m);
+  c.hline(1, 30, 4, NAVY.l);
+  c.rect(1, 4, 30, 1, GOLD.l); c.rect(1, 11, 30, 1, GOLD.m);
+  c.vline(1, 4, 11, GOLD.l); c.vline(30, 4, 11, GOLD.m);
+  c.ellipse(6, 5, 4, 2.5, '#e8e0cc'); // the pillow
+  c.poly([[3, 4], [9, 4], [8, 2], [6, 1], [4, 2]], '#14141c'); // his tricorn, on it
+  c.set(6, 2, GOLD.l);
+  for (let x = 14; x < 28; x += 3) c.set(x, 8, GOLD.l); // a row of gold stitching
+  c.outline(INK);
+  return c;
+}
+
+/** A little pennant on a stick: CAPTAIN. Stuck in the floor by his pad so nobody else takes it. */
+function captainPennant() {
+  // Low, so it doesn't vanish into the bunting above the bunks: a cream flag with a red border.
+  const c = canvas(16, 24);
+  groundShadow(c, 8, 22, 4, 1);
+  c.vline(4, 9, 22, LWOOD.d);
+  c.rect(5, 10, 10, 7, '#f0e8d0');
+  c.hline(5, 14, 10, '#c8242c'); c.hline(5, 14, 16, '#c8242c'); c.vline(14, 10, 16, '#c8242c');
+  c.hline(7, 12, 13, '#14141c'); // CAPTAIN
+  c.set(4, 8, GOLD.l);
+  c.outline(INK);
+  return c;
+}
+
 /** The last of the old pillows: yellowish, grey, growling. A fold like a mouth. (Two frames: it breathes.) */
 function oldPillow() {
   const frames = [0, 1].map((f) => {
@@ -371,7 +401,8 @@ export const PHASE15_PROPS = {
   tv_protocol_sign: tvProtocolSign,
   snack_wreckage: snackWreckage,
   sash_pad: sashPad(3),
-  sash_pad_small: sashPad(2),
+  sash_pad_small: captainPad,
+  captain_pennant: captainPennant,
   sash_pad_grand: sashPad(3, { grand: true }),
   old_pillow: oldPillow,
   roaring_pillow: roaringPillow,
