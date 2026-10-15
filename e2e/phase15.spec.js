@@ -227,3 +227,25 @@ test('the pause menu with every logbook open: it scrolls instead of running off 
   await g.tap('KeyX', 50, 400);
   expect(errors).toEqual([]);
 });
+
+test('throwing the pillow overboard works from any rail (here the port rail, nowhere near the old spot)', { tag: ['@phase15', '@world', '@smoke'] }, async ({ page }) => {
+  test.setTimeout(10 * 60 * 1000);
+  const { g, errors } = await open(page);
+  await g.preset('p15_grand_nap');
+  await play(g);
+  await g.eval(() => {
+    const q = window.__GAME__.app.session.quests;
+    const st = window.__GAME__.app.session.story;
+    for (const f of ['p15_strip_a', 'p15_strip_b', 'p15_strip_c', 'p15_sashes_fetched', 'p15_bed_port', 'p15_bed_stbd', 'p15_bed_grand', 'p15_beds_said', 'p15_settle_said', 'p15_pillow_caught']) st.set(f);
+    for (const o of ['strip', 'sashes', 'beds', 'settle', 'pillow']) q.completeObjective('grand_stenchmaster_nap', o, { force: true });
+  });
+  await play(g);
+  expect(await g.eval(() => window.__GAME__.app.session.quests.isObjectiveAvailable('grand_stenchmaster_nap', 'eject'))).toBe(true);
+  await to(g, D);
+  await g.goto(4, 25);
+  await g.tap('ArrowLeft', 60, 200); // face the port rail
+  await g.tap('KeyZ', 50, 300);
+  await play(g);
+  expect(await has(g, 'roaring_pillow_ejected')).toBe(true);
+  expect(errors).toEqual([]);
+});
