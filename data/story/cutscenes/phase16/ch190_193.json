@@ -1,0 +1,730 @@
+{
+ "//": "Story Phase 16, chapters 190-193: Vindicta's legendary emergency (the clucking, the queue, the procedure, the rescue, the release), the near-miss (Agnes in the beard), Chicken-Town (hands off; the Great Mellowing again), and the Grand Dispensary.",
+ "p16c5.begin": [
+  {
+   "setFlag": "p16_ch190_started"
+  },
+  {
+   "banner": "CHAPTER 190",
+   "sub": "Vindicta's Legendary Emergency"
+  },
+  {
+   "music": "brogath_night",
+   "fade": 600
+  },
+  "That night, in the quiet after the Fart Zone, with the whole ship asleep: a sound.",
+  {
+   "sfx": "hen_cluck",
+   "volume": 0.35
+  },
+  "Small. Far off. Somewhere aboard. A cluck.",
+  "brogath[alarmed]: (sitting bolt upright under his canopy, in the dark) Did anybody... did anybody else...",
+  {
+   "sfx": "hen_cluck",
+   "volume": 0.3
+  },
+  "brogath[alarmed]: AGNES?",
+  {
+   "startQuest": "vindictas_emergency"
+  },
+  {
+   "tutorial": "Find the clucking: under the bunks (Crew Quarters), the galley barrels, the hold's far corner, the sash pile (Crew Quarters), the cargo grating (on deck).",
+   "title": "Vindicta's Legendary Emergency"
+  }
+ ],
+ "p16c5.search_bunks": [
+  "Under the cot on the right wall. Dust. A sock. A single brown feather, still warm.",
+  {
+   "sfx": "hen_cluck",
+   "volume": 0.3
+  },
+  "...cluck. Fainter. Not here.",
+  {
+   "setFlag": "p16_hen_bunks"
+  },
+  {
+   "event": "p16_cluck_search"
+  }
+ ],
+ "p16c5.search_barrels": [
+  "The galley barrels. Water, water, a barrel of Jim's 'emergency stew' that you close again very quickly. And a feather, floating.",
+  {
+   "setFlag": "p16_hen_barrels"
+  },
+  {
+   "event": "p16_cluck_search"
+  }
+ ],
+ "p16c5.search_hold": [
+  "The far corner of the hold, behind the sacks. Squawks is there, asleep on a sack, one eye open.",
+  "squawks: (without moving) Chicken. Up.",
+  {
+   "setFlag": "p16_hen_hold"
+  },
+  {
+   "event": "p16_cluck_search"
+  }
+ ],
+ "p16c5.search_sashes": [
+  "The sash pile by the Mega-Pack. Brogath has already turned it over twice. He's turning it over a third time, very gently, saying 'Agnes?' into each sash.",
+  {
+   "setFlag": "p16_hen_sashes"
+  },
+  {
+   "event": "p16_cluck_search"
+  }
+ ],
+ "p16c5.search_grating": [
+  "The cargo grating. Open, the way you left it. And from down in the dark of the sail locker, perfectly clearly:",
+  {
+   "sfx": "hen_cluck",
+   "volume": 0.7
+  },
+  "BAWK.",
+  "And beside the hatch, flat on the deck: a pillow. YOUR pillow. The one that went over the rail with her on it, a week ago, scorched, salty, and empty.",
+  {
+   "setFlag": "p16_hen_grating"
+  },
+  {
+   "event": "p16_cluck_search"
+  }
+ ],
+ "p16c5.search_done": [
+  {
+   "setFlag": "p16_hen_search_said"
+  },
+  "She came back. Round and round the Sharkstorm, on the pillow, and the storm put her down on the deck, and she walked straight into the only hole on the ship.",
+  "And then, from behind you, a voice like a door being kicked in.",
+  {
+   "spawn": "vindicta",
+   "x": 11,
+   "y": 19,
+   "facing": "up"
+  },
+  {
+   "burst": "fume",
+   "x": 11,
+   "y": 19,
+   "count": 10
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.8
+  },
+  "vindicta: CAPTAIN. I. AM. READY.",
+  {
+   "tutorial": "Vindicta needs the Fart Zone NOW: Vindicta, by the grating, on deck.",
+   "title": "Vindicta's Legendary Emergency"
+  }
+ ],
+ "p16c5.vindicta": [
+  {
+   "face": "vindicta",
+   "dir": "player"
+  },
+  "vindicta: (rigid, every crown on her humming) A WEEK, Captain. I've held it a WEEK. Grand Stenchmistresses do not use corridors. I am using your ROOM.",
+  "captain[alarmed]: Wait. There's a chicken in...",
+  "vindicta: (already climbing down the ladder, one rung at a time, terribly dignified) The queue is EMPTY. I've checked. Rule seven. One at a time. I am the one.",
+  {
+   "fartZone": "queue",
+   "who": "vindicta"
+  },
+  {
+   "fartZone": "enter",
+   "who": "vindicta"
+  },
+  {
+   "despawn": "vindicta"
+  },
+  "pete: (arriving, nightshirt, bucket) Captain. Is she going IN?",
+  "captain[determined]: Procedure. Portholes open, door shut. Then we get Agnes out before she... before.",
+  {
+   "setFlag": "p16_vindicta_queued"
+  },
+  {
+   "tutorial": "Run the procedure: the portholes, and the door (both in the Fart Zone).",
+   "title": "Vindicta's Legendary Emergency"
+  }
+ ],
+ "p16c5.portholes": [
+  {
+   "fartZone": "portholes",
+   "value": "open"
+  },
+  {
+   "sfx": "porthole_creak",
+   "volume": 0.8
+  },
+  "All three portholes, wide. Sea air. Vindicta, in the middle of the release circle, eyes shut, humming, takes no notice of you at all.",
+  "vindicta: (eyes shut) Procedure. Good. I approve of procedure.",
+  {
+   "setFlag": "p16_vproc_portholes"
+  },
+  {
+   "event": "p16_vproc"
+  }
+ ],
+ "p16c5.door_shut": [
+  {
+   "fartZone": "door",
+   "value": "closed"
+  },
+  {
+   "fartZone": "prepare"
+  },
+  {
+   "sfx": "door",
+   "volume": 0.9
+  },
+  "You haul the door to and drop the bar. You stay inside, by the door, behind the rope, where spectators go. Rule ten.",
+  "And through the door, very small, very clear:",
+  {
+   "sfx": "hen_frantic",
+   "volume": 0.8
+  },
+  "BAWK BAWK BAWK BAWK.",
+  "pete: (from the top of the ladder) Captain. That's...",
+  "brogath[alarmed]: (pushing past Pete, all of him at once) AGNES IS IN THERE.",
+  {
+   "stability": "trigger",
+   "id": "chicken_frantic",
+   "quiet": true
+  },
+  {
+   "setFlag": "p16_vproc_door"
+  },
+  {
+   "event": "p16_vproc"
+  }
+ ],
+ "p16c5.procedure_done": [
+  {
+   "setFlag": "p16_vproc_said"
+  },
+  "vindicta: (through the door, strained, magnificent) THIRTY SECONDS, CAPTAIN.",
+  {
+   "tutorial": "AGNES IS IN THERE. Get her out: the door (the Fart Zone). Watch the gap, grab, run.",
+   "title": "Vindicta's Legendary Emergency"
+  }
+ ],
+ "p16c5.rescue": [
+  {
+   "if": {
+    "notFlag": "p16_vproc_said"
+   },
+   "then": [
+    "Procedure first. Portholes, then the door.",
+    {
+     "end": true
+    }
+   ]
+  },
+  "Vindicta: in the circle, rising slowly off the floor, every sash on her standing straight out. Agnes: in the far corner, under the porthole, flapping. You throw the bar up and open the door a crack behind you, ready.",
+  "vindicta: (eyes shut) TWENTY.",
+  "You have to get across, past Vindicta, without her noticing, and back.",
+  {
+   "repair": "reach",
+   "strikes": 3,
+   "title": "WATCH THE GAP"
+  },
+  "You slip in along the wall, behind the rope. Agnes sees you and runs straight AT Vindicta.",
+  "vindicta: TEN.",
+  {
+   "repair": "grab",
+   "strikes": 3,
+   "title": "GRAB THE CHICKEN"
+  },
+  "You get her. Mostly. You get her by the middle and three feathers stay where she was.",
+  "vindicta: (opening one eye) ...Is that a CHICKEN?",
+  {
+   "repair": "brace",
+   "strikes": 3,
+   "title": "RUN"
+  },
+  "You go back out of that door like a cannonball, Agnes under your arm, and Pete slams it behind you and drops the bar, and everybody throws themselves flat on the deck.",
+  "vindicta: (through the door) ...THREE. TWO. ONE.",
+  {
+   "fartZone": "release",
+   "release": "vindicta_legendary"
+  },
+  {
+   "sfx": "vindicta_release",
+   "volume": 1.0
+  },
+  {
+   "shake": 4,
+   "duration": 1800
+  },
+  {
+   "flash": "#c8a090",
+   "duration": 300
+  },
+  {
+   "sfx": "door_bend",
+   "volume": 0.9
+  },
+  "The door BOWS. It bows outwards, all of it, like a sail in a gale, and holds. The iron bands sing. Three jets of something crimson and legendary go out of the three portholes, straight out over the sea, and somewhere a long way off a shark flips over and stays flipped.",
+  "The deck lifts an inch. Comes down. Holds.",
+  "Silence.",
+  {
+   "beard": "add",
+   "tag": "VINDICTA_LEGENDARY"
+  },
+  "vindicta: (through the bent door, sounding a hundred years younger) ...Ahh.",
+  "vindicta: (a pause) The room is ADEQUATE, Captain. I'll have that in writing.",
+  {
+   "fartZone": "ventilate"
+  },
+  "Agnes the Second, under your arm, a bit bald in places, puts her head out, looks round at everybody lying flat on the deck, and says:",
+  {
+   "sfx": "hen_cluck",
+   "volume": 0.8
+  },
+  "agnes_second[curious]: Bawk.",
+  {
+   "setFlag": "vindicta_chicken_rescue_complete"
+  },
+  {
+   "setFlag": "agnes_second_returned"
+  },
+  {
+   "addVar": "agnes_returns",
+   "value": 1
+  },
+  {
+   "completeQuest": "vindictas_emergency"
+  },
+  {
+   "call": "p16c6.begin"
+  }
+ ],
+ "p16c6.begin": [
+  {
+   "setFlag": "p16_ch191_started"
+  },
+  {
+   "banner": "CHAPTER 191",
+   "sub": "The Near-Miss"
+  },
+  {
+   "fartZone": "complete"
+  },
+  {
+   "music": "brogath_theme",
+   "fade": 600
+  },
+  "Brogath has not let go of her since. He has carried her down the ladder, through the old quarters, and back to his canopy, and he has told her everything that's happened since she left, in order, twice.",
+  "brogath[delighted]: She's back. She's BACK. Captain, she came back through the Sharkstorm for ME.",
+  "You suspect she came back through the Sharkstorm because the Sharkstorm is a circle. You don't say so.",
+  {
+   "startQuest": "chicken_near_miss"
+  },
+  {
+   "tutorial": "Agnes and the beard: Agnes, by Brogath (Crew Quarters).",
+   "title": "The Near-Miss"
+  }
+ ],
+ "p16c6.sniff": [
+  "You bend down to say hello. Agnes the Second looks at your beard with great interest. She steps closer. She puts her whole head in it.",
+  "She takes it out again. She looks at you. She sneezes, enormously, for a chicken.",
+  {
+   "sfx": "hen_cluck",
+   "volume": 0.6
+  },
+  "brogath: (delighted) She SNEEZED! At your BEARD! Oh, Agnes!",
+  "And he laughs. A real laugh, the first in a week. And you feel, very clearly, something in the room start to... turn green at the edges.",
+  {
+   "stability": "meter",
+   "show": "show"
+  },
+  {
+   "stability": "set",
+   "pressure": 50
+  },
+  {
+   "setFlag": "p16_agnes_sniffed"
+  },
+  {
+   "tutorial": "Steady Brogath (Crew Quarters).",
+   "title": "The Near-Miss"
+  }
+ ],
+ "p16c6.steady": [
+  "brogath[thoughtful]: (very still, eyes wide) Captain. Captain, I think... is it...? Is it the green one?",
+  {
+   "reassure": "near_miss",
+   "var": "p16_nm_ok"
+  },
+  {
+   "setFlag": "p16_nm_steadied"
+  },
+  {
+   "tutorial": "Watch it happen: Brogath (Crew Quarters).",
+   "title": "The Near-Miss"
+  }
+ ],
+ "p16c6.watch": [
+  "Everybody holds their breath. Agnes walks across Brogath's foot. Brogath looks at her with total love.",
+  {
+   "sfx": "skunk_waft",
+   "volume": 0.4
+  },
+  {
+   "burst": "fume",
+   "x": 10,
+   "y": 7,
+   "count": 5
+  },
+  "A small green puff. Very small. Very nearly. It hangs under the canopy for a moment, smelling ALMOST of the forest that's been up all night...",
+  {
+   "sfx": "brogath_rumble_small",
+   "volume": 0.5
+  },
+  "...and then, underneath, very faintly, of a sock. In a coffin.",
+  "brogath[sorry]: (deflating) Close. Not right.",
+  {
+   "stability": "settle",
+   "pressure": 20
+  },
+  {
+   "stability": "meter",
+   "show": "hide"
+  },
+  {
+   "setFlag": "brogath_chicken_near_miss"
+  },
+  {
+   "tutorial": "Calm down (Pete, Crew Quarters).",
+   "title": "The Near-Miss"
+  }
+ ],
+ "p16c6.calm": [
+  "pete: (sitting down next to you on the floor) You've been coaching him, Captain.",
+  "captain: I have NOT.",
+  "pete: You've been coaching a CHICKEN, Captain. You were going 'go on, Agnes, go on' under your breath. Like a gun crew.",
+  "captain[tired]: ...Was I?",
+  "pete: The whole time.",
+  {
+   "setFlag": "p16_nm_calm"
+  },
+  {
+   "completeQuest": "chicken_near_miss"
+  },
+  {
+   "call": "p16c7.begin"
+  }
+ ],
+ "p16c7.begin": [
+  {
+   "setFlag": "p16_ch192_started"
+  },
+  {
+   "banner": "CHAPTER 192",
+   "sub": "Chicken-Town"
+  },
+  "You need air. And to think. Mostly air.",
+  {
+   "startQuest": "chicken_town"
+  },
+  {
+   "tutorial": "Think it through: any rail, on deck.",
+   "title": "Chicken-Town"
+  }
+ ],
+ "p16c7.think": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "The rail. The Sharkstorm going round. Sharks. A gull, keeping its distance.",
+  "Chicken-Town. What happened in Chicken-Town? You've heard it on the television enough times. Brogath, in a town, near a chicken. Nobody asked him to do anything. Nobody lit anything. Nobody was waiting. The chicken was being a chicken.",
+  "captain: (to the sea) The chicken just needs to chicken.",
+  "hale: (from the wheel) Captain?",
+  "captain[determined]: Everybody's been WATCHING. All of us. Every minute. Waiting for it. That's the opposite of Chicken-Town.",
+  {
+   "setFlag": "chicken_town_waft_unlocked"
+  },
+  {
+   "tutorial": "Tell everybody to stop interfering: Garrick, the visitors and Pete (Crew Quarters).",
+   "title": "Chicken-Town"
+  }
+ ],
+ "p16c7.hands_garrick": [
+  "garrick[businesslike]: (with a stopwatch) I'm benchmarking the chicken, Captain. Clucks per minute. We're under target.",
+  "captain[determined]: Put. It. Down.",
+  "garrick[offended]: (putting it down very slowly) This is how innovation dies, Captain.",
+  {
+   "setFlag": "p16_hands_garrick"
+  },
+  {
+   "event": "p16_hands_off"
+  }
+ ],
+ "p16c7.hands_visitors": [
+  "visitor_two: (lying on his stomach two feet from Agnes, whispering) Come on, Agnes. Come ON, girl. Do the thing. Do the town thing.",
+  "captain[determined]: Leave her alone.",
+  "visitor_one: (sitting up, slowly) Whoa. Yeah. Yeah, man. You can't make a chicken. A chicken makes YOU.",
+  {
+   "setFlag": "p16_hands_visitors"
+  },
+  {
+   "event": "p16_hands_off"
+  }
+ ],
+ "p16c7.hands_pete": [
+  "pete: (holding the bucket out in front of him like a shield) Somebody's got to be ready, Captain.",
+  "captain: Put the bucket down, Pete. Go and lie down. Everybody lie down.",
+  "pete: (lowering it) ...Lie down? On a Tuesday?",
+  {
+   "setFlag": "p16_hands_pete"
+  },
+  {
+   "event": "p16_hands_off"
+  }
+ ],
+ "p16c7.hands_done": [
+  {
+   "setFlag": "p16_hands_said"
+  },
+  "Nobody's watching. Nobody's timing. Nobody's holding anything.",
+  {
+   "tutorial": "Sit down on your pad and do nothing (your navy pad, by the CAPTAIN pennant, Crew Quarters).",
+   "title": "Chicken-Town"
+  }
+ ],
+ "p16c7.wait": [
+  {
+   "if": {
+    "notFlag": "p16_hands_said"
+   },
+   "then": [
+    "You can't do nothing while everybody else is doing something.",
+    {
+     "end": true
+    }
+   ]
+  },
+  "You sit on your pad. You put your hands in your lap. You do nothing.",
+  "It's very difficult.",
+  {
+   "wait": 800
+  },
+  "Across the room, Brogath is lying on his back under the canopy, telling the ceiling about the Sharkstorm. Agnes the Second wanders along the floor, pecks at nothing, wanders back, and sits down on his foot.",
+  "brogath[pleased]: (quietly, to the ceiling) She's sitting on my foot. She always sat on my foot.",
+  "Nobody says anything. Nobody looks. Pete, with tremendous effort, is looking at the wall.",
+  "And it happens. Not a blast. Not a puff. A long, low, gentle sound, like somebody sighing in another room.",
+  {
+   "sfx": "skunk_waft_big",
+   "volume": 0.8
+  },
+  {
+   "flash": "#d0e0a8",
+   "duration": 400
+  },
+  {
+   "burst": "fume",
+   "x": 10,
+   "y": 7,
+   "count": 12
+  },
+  {
+   "atmosphere": "MELLOW_HAZE"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 39
+  },
+  "And it's GREEN. Pale and warm and slow, rolling out from under the canopy across the whole floor at the height of your ankles, and up the ladder, and all through the ship.",
+  "The forest that's been up all night. The town where everybody sat down.",
+  "brogath: (not even opening his eyes) Oh. There it is.",
+  {
+   "beard": "add",
+   "tag": "SKUNK_HAZE",
+   "quiet": true
+  },
+  "You don't move. You don't say anything. You'd worked out that would be the hard part, and you were right.",
+  {
+   "setFlag": "chicken_town_great_mellowing_complete"
+  },
+  {
+   "tutorial": "See the mellow ship: in the galley, Garrick and Jim; on deck, Pete, the visitors, and the Sharkstorm (any rail).",
+   "title": "Chicken-Town"
+  }
+ ],
+ "p16c7.walk_garrick": [
+  "garrick: (sitting on the floor of the galley with his crowns in a pile beside him) Captain. I've been thinking. Possibly... no committees. For a bit.",
+  "garrick: (gazing at a ladle) A ladle is a sort of spoon, isn't it. A spoon that's... been promoted.",
+  {
+   "setFlag": "p16_walk_garrick"
+  },
+  {
+   "event": "p16_mellow_walk"
+  }
+ ],
+ "p16c7.walk_jim": [
+  "jim: (stirring a pot of nothing) I'm making soup, Captain. There's nothing in it. It's going to be a lovely soup.",
+  {
+   "setFlag": "p16_walk_jim"
+  },
+  {
+   "event": "p16_mellow_walk"
+  }
+ ],
+ "p16c7.walk_pete": [
+  "pete: (lying on the deck with the bucket beside him, upside down, a gull standing on it) Lie down, you said. So I did. I've been lying down for an hour. I've never been so good at anything.",
+  {
+   "setFlag": "p16_walk_pete"
+  },
+  {
+   "event": "p16_mellow_walk"
+  }
+ ],
+ "p16c7.walk_visitors": [
+  "visitor_one: (in his folding chair) Captain. Man. You did it. You did it by not doing it.",
+  "visitor_two: (crying, a bit) It's the Chicken-Town, bro. It's the actual Chicken-Town.",
+  {
+   "setFlag": "p16_walk_visitors"
+  },
+  {
+   "event": "p16_mellow_walk"
+  }
+ ],
+ "p16c7.walk_rail": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "The Sharkstorm, going round, and round, slower than it's ever gone. The sharks are lying on their backs. One of them is doing the backstroke.",
+  "Somewhere in the middle of it, very faintly, a jingle starts and then thinks better of it.",
+  {
+   "setFlag": "p16_walk_rail"
+  },
+  {
+   "event": "p16_mellow_walk"
+  }
+ ],
+ "p16c7.walk_done": [
+  {
+   "setFlag": "p16_walk_said"
+  },
+  {
+   "completeQuest": "chicken_town"
+  },
+  {
+   "call": "p16c8.begin"
+  }
+ ],
+ "p16c8.begin": [
+  {
+   "setFlag": "p16_ch193_started"
+  },
+  {
+   "banner": "CHAPTER 193",
+   "sub": "The Grand Dispensary"
+  },
+  {
+   "music": "great_mellowing",
+   "fade": 600
+  },
+  "Evening. The ship is green and quiet. Down in the old quarters, from under the canopy, a small surprised voice.",
+  "brogath: Captain? Captain, come and see. I've found something out.",
+  {
+   "startQuest": "grand_dispensary"
+  },
+  {
+   "tutorial": "Brogath's discovery (under the canopy, Crew Quarters).",
+   "title": "The Grand Dispensary"
+  }
+ ],
+ "p16c8.brogath": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "brogath: (lying flat, Agnes on his foot) I can do it while I'm RELAXED. A proper one. A Grand Stenchmaster one. I don't have to be embarrassed first. Or angry. I just... let it.",
+  "brogath: Watch. (he doesn't do anything) ...There.",
+  {
+   "sfx": "skunk_waft",
+   "volume": 0.6
+  },
+  {
+   "shake": 1,
+   "duration": 500
+  },
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 14,
+   "count": 10
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.8
+  },
+  "A soft green one goes rolling across the floor, towards the barricade, where the Bashfulness Branch used to be. It gathers there. It pulls itself into a shape. A counter. Purple, gold trim, three little jars on top of it, and a sign.",
+  {
+   "setValue": "counter_department",
+   "value": "DISPENSARY"
+  },
+  "pete: (from his pad, not lifting his head) ...There's a shop.",
+  {
+   "setFlag": "p16_dispensary_appeared"
+  },
+  {
+   "tutorial": "Look at it: the counter (Crew Quarters).",
+   "title": "The Grand Dispensary"
+  }
+ ],
+ "p16c8.look": [
+  {
+   "insert": "dispensary_sign"
+  },
+  "A purple visor is lying on the counter, folded, with a badge pinned to it. You pick it up to look at the badge, and the visor puts itself on your head.",
+  {
+   "giveItem": "dispensary_visor"
+  },
+  {
+   "insert": "visor_badge"
+  },
+  "captain[tired]: (pulling at it) It won't come off.",
+  "garrick: (from the floor, mellowly) You've been HIRED, Captain. Against your will. It's very modern.",
+  {
+   "sfx": "teller_bell",
+   "volume": 0.6
+  },
+  "The bell on the counter rings by itself. At the end of the barricade, the haze is thickening into a customer.",
+  {
+   "setFlag": "grand_dispensary_opened"
+  },
+  {
+   "tutorial": "Serve the customers: ring the bell on the counter (Crew Quarters).",
+   "title": "The Grand Dispensary"
+  }
+ ],
+ "p16c8.serve": [
+  {
+   "bank": "next",
+   "queue": "dispensary",
+   "bankId": "grand_counter"
+  }
+ ],
+ "p16c8.serve_done": [
+  {
+   "setFlag": "p16_disp_said"
+  },
+  "Five customers. Five jars. And the till, which you didn't know the counter had, is full of Grand Tokens: {num:counter_till} of them.",
+  "brogath: (from under the canopy) Was that useful, Captain? I feel like that was USEFUL.",
+  {
+   "stability": "calm",
+   "id": "useful",
+   "quiet": true
+  },
+  "The till rattles. The tokens are piling up, and up, and the counter is creaking, and the air above it is starting to look... official.",
+  {
+   "completeQuest": "grand_dispensary"
+  },
+  {
+   "call": "p16c9.begin"
+  }
+ ]
+}

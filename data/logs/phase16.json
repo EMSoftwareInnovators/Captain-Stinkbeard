@@ -1,0 +1,300 @@
+{
+ "//": "Story Phase 16: the Fart Zone's rules, the captain's beard (contamination profile), the captain's journal, the TV listings. Every logbook and entry here waits on a Phase 16 flag.",
+ "fart_zone_rules": {
+  "title": "The Stenchmaster Fart Zone: Rules",
+  "menuLabel": "Fart Zone Rules",
+  "keeper": "pete",
+  "byline": "<k>Posted</> on the board by the door of the old sail locker. <k>Underlined</> by Pete (number nine, three times).",
+  "icon": "book",
+  "if": {
+   "flag": "stenchmaster_fart_zone_rules_posted"
+  },
+  "fields": [
+   {
+    "id": "rule",
+    "label": "Rule"
+   }
+  ],
+  "entries": [
+   {
+    "id": "fz_rule_1",
+    "title": "Rule 1",
+    "if": {
+     "flag": "stenchmaster_fart_zone_rules_posted"
+    },
+    "rule": "If a Grand Stenchmaster feels a major release coming: enter the room."
+   },
+   {
+    "id": "fz_rule_2",
+    "title": "Rule 2",
+    "if": {
+     "flag": "stenchmaster_fart_zone_rules_posted"
+    },
+    "rule": "Close the main door."
+   },
+   {
+    "id": "fz_rule_3",
+    "title": "Rule 3",
+    "if": {
+     "flag": "stenchmaster_fart_zone_rules_posted"
+    },
+    "rule": "Open the designated portholes."
+   },
+   {
+    "id": "fz_rule_4",
+    "title": "Rule 4",
+    "if": {
+     "flag": "stenchmaster_fart_zone_rules_posted"
+    },
+    "rule": "No beans inside."
+   },
+   {
+    "id": "fz_rule_5",
+    "title": "Rule 5",
+    "if": {
+     "flag": "stenchmaster_fart_zone_rules_posted"
+    },
+    "rule": "No banking."
+   },
+   {
+    "id": "fz_rule_6",
+    "title": "Rule 6",
+    "if": {
+     "flag": "stenchmaster_fart_zone_rules_posted"
+    },
+    "rule": "No sash-flutter demonstrations."
+   },
+   {
+    "id": "fz_rule_7",
+    "title": "Rule 7",
+    "if": {
+     "flag": "stenchmaster_fart_zone_rules_posted"
+    },
+    "rule": "One Stenchmaster at a time."
+   },
+   {
+    "id": "fz_rule_8",
+    "title": "Rule 8",
+    "if": {
+     "flag": "stenchmaster_fart_zone_rules_posted"
+    },
+    "rule": "No rhetorical insults near Brogath."
+   },
+   {
+    "id": "fz_rule_9",
+    "title": "Rule 9",
+    "if": {
+     "flag": "stenchmaster_fart_zone_rules_posted"
+    },
+    "rule": "Do not ask, 'Is that all?'"
+   },
+   {
+    "id": "fz_rule_10",
+    "title": "Rule 10",
+    "if": {
+     "flag": "stenchmaster_fart_zone_rules_posted"
+    },
+    "rule": "Spectators stay behind the rope."
+   },
+   {
+    "id": "fz_rule_11",
+    "title": "Rule 11",
+    "if": {
+     "flag": "stenchmaster_fart_zone_rules_posted"
+    },
+    "rule": "Two Stenchmasters at once: the overflow procedure (the second waits on deck, upwind)."
+   }
+  ]
+ },
+ "captains_beard": {
+  "title": "The Captain's Beard",
+  "menuLabel": "Beard Profile",
+  "byline": "<k>A contamination profile,</> compiled with a lantern, a mirror and the Grand Sashback terminal, which gave it 999.",
+  "icon": "book",
+  "if": {
+   "flag": "beard_coffin_sock"
+  },
+  "fields": [
+   {
+    "id": "note",
+    "label": "On record"
+   }
+  ],
+  "entries": [
+   {
+    "id": "beard_garrick_original",
+    "title": "Garrick (original)",
+    "if": {
+     "flag": "beard_garrick_original"
+    },
+    "note": "The first one. The treasure room. Where it all started (Story Phase 2)."
+   },
+   {
+    "id": "beard_brogath_ancient",
+    "title": "Brogath (ancient)",
+    "if": {
+     "flag": "beard_brogath_ancient"
+    },
+    "note": "Ancient Grand Stenchmaster, through cardboard (Story Phase 14)."
+   },
+   {
+    "id": "beard_grand_bank_deposits",
+    "title": "Grand Bank deposits",
+    "if": {
+     "flag": "beard_grand_bank_deposits"
+    },
+    "note": "Every deposit you ever held a sash for, layered (Story Phases 14-15)."
+   },
+   {
+    "id": "beard_skunk_haze",
+    "title": "Skunk haze",
+    "if": {
+     "flag": "beard_skunk_haze"
+    },
+    "note": "The green one, which the beard rejected: why you're the only one who never gets mellow (Story Phase 15)."
+   },
+   {
+    "id": "beard_coffin_sock",
+    "title": "Coffin Sock",
+    "if": {
+     "flag": "beard_coffin_sock"
+    },
+    "note": "Ancient. Dusty. Stale. Musty. Beans. It outranks everything else in there (chapter 188)."
+   },
+   {
+    "id": "beard_vindicta_legendary",
+    "title": "Vindicta (legendary)",
+    "if": {
+     "flag": "beard_vindicta_legendary"
+    },
+    "note": "A legendary ceremonial release, at point-blank range, while carrying a chicken (chapter 190)."
+   },
+   {
+    "id": "beard_grand_lighter_fuel",
+    "title": "Grand Lighter fuel",
+    "if": {
+     "flag": "beard_grand_lighter_fuel"
+    },
+    "note": "Thirty-two attempts, one of them right under your chin (chapter 187)."
+   },
+   {
+    "id": "beard_currency_converter",
+    "title": "Currency Converter",
+    "if": {
+     "flag": "beard_currency_converter"
+    },
+    "note": "One Grand Token's worth of Coffin Sock, straight from the output horn (chapter 195)."
+   },
+   {
+    "id": "beard_hornet_attracted",
+    "title": "Hornets",
+    "if": {
+     "flag": "beard_hornet_attracted"
+    },
+    "note": "They live in it now. STINGBEARD. (It passes.)"
+   }
+  ]
+ },
+ "captains_journal_p16": {
+  "extend": "captains_journal",
+  "severities": {
+   "Works sometimes": "o",
+   "In use": "o",
+   "Back": "g",
+   "Temporary": "o",
+   "Re-established": "r",
+   "Re-formed": "r"
+  },
+  "entries": [
+   {
+    "id": "lighter_p16",
+    "title": "The Grand Lighter",
+    "if": {
+     "flag": "grand_lighter_acquired"
+    },
+    "status": "Works sometimes",
+    "where": "My coat",
+    "holder": "Me",
+    "notes": "THE GRAND STENCHMASTER'S GRAND LIGHTER OF GRAND SMOKES. Cheap-O-Rama, out of the Sharkstorm, for shouting. Clicks so far: {num:lighter_clicks}. Flames: some."
+   },
+   {
+    "id": "fart_zone_p16",
+    "title": "The Stenchmaster Fart Zone",
+    "if": {
+     "flag": "stenchmaster_fart_zone_built"
+    },
+    "status": "In use",
+    "where": "The old sail locker, under the cargo grating",
+    "holder": "Grand Stenchmasters, one at a time",
+    "notes": "Door shut. Portholes open. Out to sea. The door has a bulge in it the shape of Vindicta. It held."
+   },
+   {
+    "id": "agnes_p16",
+    "title": "Agnes the Second",
+    "if": {
+     "flag": "agnes_second_returned"
+    },
+    "status": "Back",
+    "where": "On Brogath's foot",
+    "holder": "Brogath",
+    "notes": "Came back round the Sharkstorm on her pillow and walked straight into the Fart Zone as Vindicta went in. Watch the gap, grab, run. A bit bald in places. On page sixty-one of an application now: DO NOT TOAST."
+   },
+   {
+    "id": "bank_p16",
+    "title": "The Grand Bank (again)",
+    "if": {
+     "flag": "bank_reconstituted"
+    },
+    "status": "Re-formed",
+    "where": "The counter in the old quarters",
+    "holder": "Bankworth (his crown is the vault)",
+    "notes": "A dispensary took in tokens and the tokens turned into a gentleman. I am, apparently, still a teller. And an underwriter. With my NOSE."
+   },
+   {
+    "id": "hornets_p16",
+    "title": "The Hornets",
+    "if": {
+     "flag": "hornet_swarm_active"
+    },
+    "status": "Temporary",
+    "where": "My beard. Then the bank. Then away over the Sharkstorm at sunset.",
+    "holder": "Themselves (with excellent credit)",
+    "notes": "Brogath's HORNET FART, by the procedure, out of the portholes, mostly. STINGBEARD, they called me. Temporary. Every one of them has a card with a strand of my beard on it."
+   },
+   {
+    "id": "bureau_p16",
+    "title": "The Bureau of Ceremonial Ignition",
+    "if": {
+     "flag": "p16_puffchester_arrived"
+    },
+    "status": "Re-established",
+    "where": "The counter",
+    "holder": "Bankworth",
+    "notes": "Ninety-seven pages. A Council. Vindicta, very nearly. And then a lighter that works sometimes, and a queue of people asking for it. COMMON SENSE IS WINNING. (Sometimes.)"
+   }
+  ]
+ },
+ "channel_listings_p16": {
+  "extend": "channel_listings",
+  "entries": [
+   {
+    "id": "cheapo_grand_lighter",
+    "title": "Cheap-O-Rama: The Grand Lighter (advert)",
+    "if": {
+     "flag": "p16_cheapy_ad_seen"
+    },
+    "summary": "Cheapy the Cheapskate Clown. NOW WITH GRANDNESS! WORKS SOMETIMES! (*SOMETIMES.)",
+    "reaction": "Came on the Mark II by itself. Brogath had his eyes shut."
+   },
+   {
+    "id": "before_the_lighter",
+    "title": "Before the Grand Lighter",
+    "if": {
+     "flag": "ignition_documentary_viewed"
+    },
+    "summary": "The ceremonial Fire-Waft; the Bureau of Ceremonial Ignition (97 pages per cigar); Cheapy's 'invention'. On the portable set, in the bunker. Repeats.",
+    "reaction": "'I did it once. I was too shy to aim.'"
+   }
+  ]
+ }
+}

@@ -1,0 +1,621 @@
+{
+ "//": "Story Phase 16, chapters 194-197: the Sash Lounge and the return of the Grand Bank (Bankworth), the Grand Currency Converter, Grand Sashback Rewards (Lady Rancidella), and the Hornet Fart.",
+ "p16c9.begin": [
+  {
+   "setFlag": "p16_ch194_started"
+  },
+  {
+   "banner": "CHAPTER 194",
+   "sub": "The Sash Lounge"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 40
+  },
+  "While you were serving, the crew have been busy. Or rather, very, very relaxed, in an organised way.",
+  {
+   "startQuest": "bankworth"
+  },
+  {
+   "tutorial": "Look at what the crew have built: the Sash Lounge (the sign on the wall, Crew Quarters).",
+   "title": "The Sash Lounge"
+  }
+ ],
+ "p16c9.lounge": [
+  "THE SASH LOUNGE. Every clean Cheap-O-Rama sash left in the Mega-Pack, knotted into cushions, bolsters, a sort of throne for Squawks, and a long low sofa along the wall with Pete, Bob and Gristle on it, not moving.",
+  "gristle: (from inside a pile of sashes) Captain. These are the most comfortable things I have ever touched. And I've touched a mermaid.",
+  "bob: HOLD MY SASH, it says. I am. I'm holding all of them.",
+  {
+   "setFlag": "sash_lounge_built"
+  },
+  {
+   "tutorial": "Is that SINGING? (the Sash Lounge: Pete)",
+   "title": "The Sash Lounge"
+  }
+ ],
+ "p16c9.song": [
+  "pete: (lying full length on the sofa, eyes shut, conducting with one finger) Hold my sash... hold my saaash...",
+  "crew: (very softly, all together, from every cushion) ...hold my saaaash, and I'll hold yours...",
+  "pete: (opening one eye) We've written a song, Captain. It's got one verse. It's the same as the chorus.",
+  "From the counter, a creak. A long, heavy, metallic creak, like a safe door swinging.",
+  {
+   "sfx": "vault_growl",
+   "volume": 0.8
+  },
+  {
+   "shake": 1,
+   "duration": 600
+  },
+  {
+   "setFlag": "p16_song_heard"
+  },
+  {
+   "tutorial": "The gentleman at the counter: Bankworth (Crew Quarters).",
+   "title": "The Sash Lounge"
+  }
+ ],
+ "p16c9.bankworth": [
+  {
+   "face": "bankworth",
+   "dir": "player"
+  },
+  "Beside the counter, where the till was overflowing, a gentleman. Vast. Polite. Gold-trimmed. On his head, a crown that is quite plainly a small round vault door, with a handle.",
+  "bankworth[happy]: (bowing) Good evening, Captain. BANKWORTH. Of THE GRAND STENCHMASTER'S GRAND BANK AND GRAND TRUST.",
+  "captain: (very quietly) No.",
+  "bankworth[happy]: Oh, yes. The Grand Bank never really went away, Captain. It was simply between premises. And then a little shop opened, and took in tokens, and the tokens piled up, and, well. (he pats the vault door) Here I am. Re-formed. Solvent!",
+  "garrick[delighted]: (sitting up on a cushion) The BANK! Captain, the bank's BACK! I can feel my portfolio tingling.",
+  "bankworth: The dispensary will continue as a department, naturally. But the counter is a BANK again, Captain. And you, I think, are its teller.",
+  {
+   "setValue": "counter_department",
+   "value": "BANK"
+  },
+  {
+   "setFlag": "bank_reconstituted"
+  },
+  {
+   "setFlag": "bankworth_arrived"
+  },
+  {
+   "tutorial": "His opening deposit: ring the bell on the counter (Crew Quarters).",
+   "title": "The Sash Lounge"
+  }
+ ],
+ "p16c9.deposit": [
+  {
+   "bank": "next",
+   "queue": "bank",
+   "bankId": "grand_counter"
+  },
+  {
+   "setFlag": "p16_bankworth_deposit"
+  },
+  {
+   "completeQuest": "bankworth"
+  },
+  {
+   "call": "p16c10.begin"
+  }
+ ],
+ "p16c10.begin": [
+  {
+   "setFlag": "p16_ch195_started"
+  },
+  {
+   "banner": "CHAPTER 195",
+   "sub": "The Grand Currency Converter"
+  },
+  "bankworth[happy]: (gesturing grandly beside the counter) And for our customers' convenience, Captain: our newest service.",
+  "A machine. You're sure it wasn't there a minute ago. You're fairly sure.",
+  {
+   "startQuest": "currency_converter"
+  },
+  {
+   "tutorial": "Look at the machine: beside the counter, by the barricade (Crew Quarters).",
+   "title": "The Grand Currency Converter"
+  }
+ ],
+ "p16c10.machine": [
+  "Purple, with fake gold trim. A little coin display. A brass horn on top, pointing at the ceiling. Three slots, each with a brass label.",
+  "INPUT GRAND CURRENCY. OUTPUT CONVERTED ASSET. ATMOSPHERIC SETTLEMENT.",
+  "converter_voice: (out of the horn, deep and pleased) GOOD EVENING. I CONVERT.",
+  "It looks legitimate. That is the worst thing about it. It looks SO legitimate.",
+  "bankworth[happy]: Grand Tokens in; something of VALUE out. Do try it, Captain. One token. From the till.",
+  {
+   "setFlag": "currency_converter_discovered"
+  },
+  {
+   "tutorial": "Put one Grand Token from the till in it (the converter).",
+   "title": "The Grand Currency Converter"
+  }
+ ],
+ "p16c10.insert": [
+  "One Grand Token, out of the till. It's heavier than you remember. You drop it in the first slot.",
+  {
+   "sfx": "converter_whir",
+   "volume": 0.9
+  },
+  {
+   "currencyConverter": "converter",
+   "from": "counter_till",
+   "amount": 1
+  },
+  "The machine whirs. The coin display spins. The horn tilts down, slowly, until it's pointing at you.",
+  {
+   "sfx": "coffin_sock",
+   "volume": 0.6
+  },
+  {
+   "shake": 1,
+   "duration": 500
+  },
+  {
+   "burst": "fume",
+   "x": 7,
+   "y": 14,
+   "count": 6
+  },
+  "FFFUMP.",
+  "Coffin Sock. A small one. A token's worth. Right in your face.",
+  {
+   "beard": "add",
+   "tag": "CURRENCY_CONVERTER"
+  },
+  "converter_voice: CONVERSION COMPLETE.",
+  {
+   "setFlag": "currency_converter_first_use"
+  },
+  {
+   "tutorial": "Take the receipt (the converter).",
+   "title": "The Grand Currency Converter"
+  }
+ ],
+ "p16c10.receipt": [
+  {
+   "insert": "converter_receipt"
+  },
+  {
+   "giveItem": "converter_receipt"
+  },
+  "captain[tired]: (reading it twice) A FEE. It charged me a token. For converting a token. Into THAT.",
+  "bankworth[happy]: (approvingly) Very competitive, Captain.",
+  {
+   "setFlag": "p16_receipt_read"
+  },
+  {
+   "completeQuest": "currency_converter"
+  },
+  {
+   "call": "p16c11.begin"
+  }
+ ],
+ "p16c11.begin": [
+  {
+   "setFlag": "p16_ch196_started"
+  },
+  {
+   "banner": "CHAPTER 196",
+   "sub": "Grand Sashback Rewards"
+  },
+  "bankworth[happy]: Captain! A new product. GRAND SASHBACK REWARDS. Credit, Captain, for the discerning Stenchmaster.",
+  "bankworth: Approval depends on the applicant's sash. The more foul, the more historically distinguished, the higher the score.",
+  "captain[tired]: And who does the... assessing?",
+  "bankworth[happy]: (beaming at your beard) You do, Captain. You're the only underwriter on the seven seas with a nose like that.",
+  {
+   "startQuest": "sashback_rewards"
+  },
+  {
+   "tutorial": "The first applicant: ring the bell on the counter (Crew Quarters).",
+   "title": "Grand Sashback Rewards"
+  }
+ ],
+ "p16c11.first": [
+  {
+   "face": "bankworth",
+   "dir": "player"
+  },
+  "bankworth: (laying his own gold-trimmed sash on the counter) Let me be the first, Captain. For the training. Sniff it at arm's length, then closer, then...",
+  "bankworth: ...then you'll know.",
+  {
+   "appraise": "sashback",
+   "bias": 60
+  },
+  {
+   "insert": "sashback_card"
+  },
+  "bankworth[happy]: (holding up his new card, purple and gold) Splendid! I'm EXCELLENT. I always suspected.",
+  {
+   "setFlag": "sashback_credit_unlocked"
+  },
+  {
+   "tutorial": "Process the applications: ring the bell (Crew Quarters).",
+   "title": "Grand Sashback Rewards"
+  }
+ ],
+ "p16c11.serve": [
+  {
+   "bank": "next",
+   "queue": "credit",
+   "bankId": "grand_counter"
+  }
+ ],
+ "p16c11.more_done": [
+  {
+   "setFlag": "p16_credit_said"
+  },
+  "Two more cards. GRAND SASHBACK TOKENS ISSUED: {num:sashback_tokens_issued}. None of them yours.",
+  {
+   "sfx": "teller_bell",
+   "volume": 1.0
+  },
+  "And the bell rings by itself, very loudly, three times, like somebody important has arrived and wants everybody to know.",
+  {
+   "tutorial": "Lady Rancidella: ring the bell (Crew Quarters).",
+   "title": "Grand Sashback Rewards"
+  }
+ ],
+ "p16c11.rancidella": [
+  {
+   "bank": "next",
+   "queue": "rancidella",
+   "bankId": "grand_counter"
+  },
+  {
+   "setFlag": "p16_rancidella_approved"
+  },
+  {
+   "tutorial": "She's redeeming it. ALL of it. Stop her: the converter (Crew Quarters).",
+   "title": "Grand Sashback Rewards"
+  }
+ ],
+ "p16c11.redeem": [
+  {
+   "face": "rancidella",
+   "dir": "player"
+  },
+  "rancidella: (feeding the card into the first slot) Fifty thousand Grand Tokens. ALL OF THEM, machine. AT ONCE.",
+  "captain[alarmed]: Madam, NO, the conversion rate is...",
+  {
+   "currencyConverter": "converter",
+   "from": "rancidella_bonus",
+   "amount": "all"
+  },
+  {
+   "sfx": "converter_whir",
+   "volume": 1.0
+  },
+  "converter_voice: (with tremendous satisfaction) FIFTY. THOUSAND.",
+  "The coin display spins so fast it smokes. The horn swings round, and round, and settles. Pointing at the whole room.",
+  {
+   "sfx": "converter_blast",
+   "volume": 1.0
+  },
+  {
+   "shake": 4,
+   "duration": 1800
+  },
+  {
+   "flash": "#7a6c4a",
+   "duration": 400
+  },
+  {
+   "burst": "fume",
+   "x": 7,
+   "y": 14,
+   "count": 18
+  },
+  {
+   "burst": "fume",
+   "x": 4,
+   "y": 9,
+   "count": 12
+  },
+  {
+   "atmosphere": "COFFIN_SOCK",
+   "room": "crew_quarters"
+  },
+  "FFFFFFFFFUMMMMMMMMMMP.",
+  "Fifty thousand tokens' worth of Coffin Sock. It goes across the old quarters like a flood through a cellar. The Sash Lounge disappears into it. The green haze goes grey-brown in a breath.",
+  "rancidella: (emerging from it, perfectly content, fanning herself with the receipt) Value for money. Good evening.",
+  {
+   "burst": "fume",
+   "x": 7,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "rancidella"
+  },
+  "From somewhere in the cloud, Pete's voice: 'The HAZE, Captain. The green's going. We're LOSING it.'",
+  {
+   "setFlag": "rancidella_redemption_complete"
+  },
+  {
+   "tutorial": "Save the haze: Agnes and Brogath, under his canopy (Crew Quarters).",
+   "title": "Grand Sashback Rewards"
+  }
+ ],
+ "p16c11.save": [
+  "Brogath is sitting up under his canopy in the Coffin Sock, coughing politely, with Agnes clutched to his chest.",
+  "brogath[sorry]: It's all going grey, Captain. All the green. All of it.",
+  "Agnes wriggles. She gets down. She walks across the floor, through the grey, pecking at nothing, and climbs back onto his foot, and sits down, and looks up at him.",
+  "brogath[pleased]: (softly) ...Oh. Hello, you.",
+  {
+   "sfx": "skunk_waft",
+   "volume": 0.5
+  },
+  {
+   "burst": "fume",
+   "x": 10,
+   "y": 7,
+   "count": 6
+  },
+  "A tiny one. Barely anything. Green as spring. It goes out from under the canopy, and wherever it touches the grey, the grey gives up.",
+  {
+   "atmosphere": "SHIP",
+   "room": "crew_quarters"
+  },
+  "The haze is back. Thin, but back.",
+  {
+   "setFlag": "p16_tiny_green"
+  },
+  {
+   "tutorial": "Post the new policy: the converter (Crew Quarters).",
+   "title": "Grand Sashback Rewards"
+  }
+ ],
+ "p16c11.policy": [
+  {
+   "insert": "converter_policy"
+  },
+  "You nail it to the converter's side. Bankworth reads it, and winces, and nods.",
+  "bankworth: A cap. On conversions. (sadly) Prudent, Captain. Very prudent. Terribly un-grand.",
+  "converter_voice: (sulkily) ...ONE THOUSAND.",
+  {
+   "setFlag": "converter_air_quality_policy"
+  },
+  {
+   "completeQuest": "sashback_rewards"
+  },
+  {
+   "call": "p16c12.begin"
+  }
+ ],
+ "p16c12.begin": [
+  {
+   "setFlag": "p16_ch197_started"
+  },
+  {
+   "banner": "CHAPTER 197",
+   "sub": "The Hornet Fart"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 41
+  },
+  "Morning. Bright and warm and green. Brogath has been sitting very upright on his pad since before dawn, thinking. You can tell he's been thinking: the cardboard's creased.",
+  {
+   "startQuest": "hornet_fart"
+  },
+  {
+   "tutorial": "Hear his idea (Brogath, under his canopy, Crew Quarters).",
+   "title": "The Hornet Fart"
+  }
+ ],
+ "p16c12.idea": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "brogath[thoughtful]: Captain. I've been dispensing. I've been a bank. I sat on a chicken's foot. But I want to be USEFUL. Properly. A Grand Stenchmaster sort of useful.",
+  "brogath[delighted]: I've had a Grand Stenchmaster's Grand Idea. An ancient one. To drive off the sharks. Out of the Sharkstorm. For good. It's called...",
+  "captain[determined]: No.",
+  "brogath[delighted]: ...the HORNET...",
+  "captain[determined]: NO.",
+  "brogath[delighted]: ...FART.",
+  "pete: (from the lounge, without opening his eyes) We've said no, Your Ancientness. Twice. Before you finished.",
+  "brogath[bashful]: (crumpling a little) Oh. Only... I'd do it by the PROCEDURE. In the ROOM. Door, portholes, sash, everything. Out to sea. At the sharks.",
+  "And he looks so hopeful. And the Fart Zone is RIGHT THERE. And it worked, last time. Sort of. It held.",
+  {
+   "choice": [
+    {
+     "text": "...By the procedure. Every step.",
+     "then": [
+      "brogath[delighted]: EVERY step!"
+     ]
+    },
+    {
+     "text": "Fine. FINE. In the room.",
+     "then": [
+      "brogath[delighted]: (already heading for the ladder) The ROOM!"
+     ]
+    }
+   ]
+  },
+  {
+   "fartZone": "queue",
+   "who": "brogath"
+  },
+  {
+   "fartZone": "enter",
+   "who": "brogath"
+  },
+  {
+   "setFlag": "p16_hornet_idea"
+  },
+  {
+   "tutorial": "The posted procedure: Brogath in (done), the door, the portholes, his sash secured, the warning sign: all in the Fart Zone.",
+   "title": "The Hornet Fart"
+  }
+ ],
+ "p16c12.proc_door": [
+  {
+   "fartZone": "door",
+   "value": "closed"
+  },
+  {
+   "sfx": "door",
+   "volume": 0.8
+  },
+  "The door, shut from inside, the bar down. You and the observers are behind the rope. (Rule ten.) The door still has a bulge in it from Vindicta.",
+  {
+   "setFlag": "p16_hproc_door"
+  },
+  {
+   "event": "p16_hproc"
+  }
+ ],
+ "p16c12.proc_portholes": [
+  {
+   "fartZone": "portholes",
+   "value": "open"
+  },
+  {
+   "sfx": "porthole_creak",
+   "volume": 0.8
+  },
+  "All three portholes, open. Out there: the Sharkstorm. A few sharks, watching the ship with professional interest.",
+  {
+   "setFlag": "p16_hproc_portholes"
+  },
+  {
+   "event": "p16_hproc"
+  }
+ ],
+ "p16c12.proc_sash": [
+  "brogath[pleased]: (holding still while you knot his printed sash down with a real one) Secure. Nothing flapping. No flutter. Procedure.",
+  {
+   "stability": "calm",
+   "id": "zone_procedure",
+   "quiet": true
+  },
+  {
+   "setFlag": "p16_hproc_sash"
+  },
+  {
+   "event": "p16_hproc"
+  }
+ ],
+ "p16c12.proc_warning": [
+  "You turn the warning sign round so it says, on the back, in Pete's hand: RELEASE IN PROGRESS. GO AWAY.",
+  {
+   "setFlag": "p16_hproc_warning"
+  },
+  {
+   "event": "p16_hproc"
+  }
+ ],
+ "p16c12.procedure_done": [
+  {
+   "setFlag": "p16_hproc_said"
+  },
+  {
+   "fartZone": "prepare"
+  },
+  "Procedure complete. Brogath, in the circle, at the porthole end, eyes shut, very serious.",
+  {
+   "tutorial": "Watch from behind the rope: the bench (the Fart Zone).",
+   "title": "The Hornet Fart"
+  }
+ ],
+ "p16c12.release": [
+  {
+   "if": {
+    "notFlag": "p16_hproc_said"
+   },
+   "then": [
+    "Procedure first. Every step. You promised.",
+    {
+     "end": true
+    }
+   ]
+  },
+  "You sit on the observation bench. Pete sits next to you with the bucket. Garrick sits next to Pete with the clipboard.",
+  "brogath[thoughtful]: (to the portholes) For the sharks. For being useful. The ancient HORNET...",
+  {
+   "fartZone": "release",
+   "release": "hornet_fart"
+  },
+  {
+   "sfx": "hornet_fart",
+   "volume": 1.0
+  },
+  {
+   "shake": 3,
+   "duration": 1200
+  },
+  {
+   "flash": "#e0d098",
+   "duration": 260
+  },
+  "...FART.",
+  "It's a deep, brassy note, and then a hum. A rising hum. A rising, BUZZING hum.",
+  {
+   "sfx": "hornet_buzz",
+   "volume": 0.9
+  },
+  "And out of the haze around him come the hornets. Dozens. Hundreds. Little yellow-and-brown supernatural hornets, made of fume, every one of them furious, every one going straight out of the portholes, exactly as procedure requires, towards the sharks.",
+  {
+   "hornets": "SWARMING"
+  },
+  "pete: (very quietly, holding his bucket in front of his face) ...Out of the portholes. Mostly.",
+  "A few of them come back in. And go up the ladder.",
+  {
+   "fartZone": "ventilate"
+  },
+  {
+   "setFlag": "hornet_fart_occurred"
+  },
+  {
+   "tutorial": "Where did they go? On deck.",
+   "title": "The Hornet Fart"
+  }
+ ],
+ "p16c12.deck": [
+  {
+   "setFlag": "hornet_swarm_active"
+  },
+  {
+   "music": "hornet_business",
+   "fade": 400
+  },
+  "The deck is full of hornets.",
+  "They went out of the portholes, and round the hull, and saw the Sharkstorm, and the sharks, and the sharks bared their teeth, and the hornets, very sensibly, turned round and came back to the ship.",
+  "They're everywhere. A cloud of them, buzzing round the mast, the wheel, the rail. Hale is holding the wheel with one hand and swatting with the other.",
+  "hale: (flatly) Hornets, Captain.",
+  "captain[tired]: I can see that, Hale.",
+  "Brogath comes up the ladder behind you, beaming, a hornet sitting on his crown.",
+  {
+   "tutorial": "Say something about the swarm: Brogath, on deck.",
+   "title": "The Hornet Fart"
+  }
+ ],
+ "p16c12.praise": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "brogath[proud]: (waving at the cloud) Look at them, Captain! LOOK at them! Isn't it a GOOD swarm?",
+  {
+   "reassure": "hornet_pride",
+   "var": "p16_swarm_ok"
+  },
+  "brogath[pleased]: (to a hornet) Off you go! Do your duty!",
+  "The hornet does not go off. It looks at you. It looks, specifically, at your beard.",
+  {
+   "fartZone": "complete"
+  },
+  {
+   "setFlag": "p16_hornet_praised"
+  },
+  {
+   "completeQuest": "hornet_fart"
+  },
+  {
+   "call": "p16c13.begin"
+  }
+ ]
+}

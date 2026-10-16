@@ -354,6 +354,7 @@ export class StagingTracker {
     // Later chapters can lay a second door over an old one: stepping there reaches both.
     const warpsAt = (x, y) => warps.filter((w) => x >= w.x && x < w.x + (w.w || 1) && y >= w.y && y < w.y + (w.h || 1));
     for (const [spawnId, sp] of Object.entries(m.spawns)) {
+      if (sp.if && !evaluateCondition(sp.if, this.session)) continue;
       if (occupied.has(`${sp.x},${sp.y}`)) this.issue(`someone stands on the "${spawnId}" arrival point of ${map}`);
       const seen = new Set([`${sp.x},${sp.y}`]);
       const reached = new Set();

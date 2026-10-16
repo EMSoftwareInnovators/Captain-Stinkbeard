@@ -1,0 +1,230 @@
+{
+ "id": "captains_quarters_phase16",
+ "patch": "captains_quarters",
+ "//": "Story Phase 16 in the cabin: the desk's tinderbox (7,6: Pete borrowed it), the stern windows (8,3) aired after Coffin Sock.",
+ "objects": [
+  {
+   "id": "p16_fire_desk",
+   "type": "inspect",
+   "x": 7,
+   "y": 6,
+   "w": 3,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "grand_search_for_fire.search"
+     },
+     {
+      "notFlag": "p16_fire_desk"
+     }
+    ]
+   },
+   "script": "p16c1.search_desk"
+  },
+  {
+   "id": "p16_vent_cabin",
+   "type": "inspect",
+   "x": 8,
+   "y": 3,
+   "w": 2,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "coffin_sock.vent"
+     },
+     {
+      "notFlag": "p16_vent_cabin"
+     }
+    ]
+   },
+   "script": "p16c3.vent_cabin"
+  },
+  {
+   "id": "p16c_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16c_gristle_0",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16c_bob_0",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16c_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16c_ned_0",
+   "type": "npc",
+   "npc": "ned",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16c_squawks_0",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16c_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16c_brogath_0",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16c_visitor_one_0",
+   "type": "npc",
+   "npc": "visitor_one",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16c_visitor_two_0",
+   "type": "npc",
+   "npc": "visitor_two",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16c_agnes_second_0",
+   "type": "npc",
+   "npc": "agnes_second",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16c_vindicta_0",
+   "type": "npc",
+   "npc": "vindicta",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16c_bankworth_0",
+   "type": "npc",
+   "npc": "bankworth",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16c_puffchester_0",
+   "type": "npc",
+   "npc": "puffchester",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16c_rancidella_0",
+   "type": "npc",
+   "npc": "rancidella",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16c_branch_teller_0",
+   "type": "npc",
+   "npc": "branch_teller",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16c_whifflebottom_0",
+   "type": "npc",
+   "npc": "whifflebottom",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  }
+ ]
+}

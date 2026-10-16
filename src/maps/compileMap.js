@@ -111,7 +111,9 @@ export function compileMap(def, tileset, props = null) {
   const objects = (def.objects || []).map((o) => ({ ...o }));
   const spawns = {};
   for (const o of objects) {
-    if (o.type === 'spawn') spawns[o.id] = { x: o.x, y: o.y, facing: o.facing || 'down' };
+    // Story Phase 16: an arrival point can be conditional ("if"): only a door that exists leads to it, and
+    // people walking in and out of a room don't use one that isn't there yet.
+    if (o.type === 'spawn') spawns[o.id] = { x: o.x, y: o.y, facing: o.facing || 'down', ...(o.if ? { if: o.if } : {}) };
     if ((o.type === 'chest' || o.type === 'block') && o.solid !== false) {
       if (o.if) dynamicSolids.push({ x: o.x, y: o.y, w: o.w || 1, h: o.h || 1, if: o.if, source: `object ${o.id}` });
       else for (let j = 0; j < (o.h || 1); j++) for (let k = 0; k < (o.w || 1); k++) solid[(o.y + j) * width + o.x + k] = 1;

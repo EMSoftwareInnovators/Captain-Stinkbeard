@@ -1,0 +1,552 @@
+{
+ "//": "Story Phase 16, chapters 202-205: the Portable Stenchmaster Entertainment System (the documentary that won't stop), the 97-page application, the Grand Ignition Hearing, and the captain's desperate lighter pitch.",
+ "p16c17.begin": [
+  {
+   "setFlag": "p16_ch202_started"
+  },
+  {
+   "banner": "CHAPTER 202",
+   "sub": "The Portable Stenchmaster Entertainment System"
+  },
+  "garrick[businesslike]: (patting his coat) Captain. Now that we're all in here, with nothing to do, I've brought some entertainment.",
+  "pete[alarmed]: Garrick, there is no ROOM in here for anything.",
+  "garrick[delighted]: There's room for THIS.",
+  {
+   "startQuest": "portable_tv"
+  },
+  {
+   "tutorial": "Garrick's coat: Garrick (the Fart-Free Zone).",
+   "title": "The Portable Stenchmaster Entertainment System"
+  }
+ ],
+ "p16c17.coat": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "Garrick reaches into his coat. And keeps reaching. His arm goes in up to the shoulder. And out comes a television.",
+  "A small one. Purple, crooked, a bit like the Mark II if somebody had described the Mark II to a carpenter over a bad line. Two tubes poking out of the top. Mismatched knobs. A fork for an aerial. Stickers: GRAND TRAVEL MODEL. NO!",
+  "garrick[proud]: THE PORTABLE STENCHMASTER ENTERTAINMENT SYSTEM. Grand Travel Model. It was in the Mega-Pack. Under the sashes. I've been carrying it about for a WEEK.",
+  "captain: You've had a television in your coat. For a week. And you didn't SAY.",
+  "garrick[businesslike]: It's for EMERGENCIES, Captain. This is an emergency. Of boredom.",
+  "He sets it on the table. It's not plugged into anything. There's nothing to plug it into. The whole bunker is looking at it.",
+  {
+   "setFlag": "portable_stenchmaster_tv_acquired"
+  },
+  {
+   "tutorial": "The aerial: the portable set (on the table).",
+   "title": "The Portable Stenchmaster Entertainment System"
+  }
+ ],
+ "p16c17.aerial": [
+  "The fork. You straighten it, very slightly, the way you'd straighten a picture.",
+  {
+   "sfx": "portable_tv_on",
+   "volume": 0.9
+  },
+  "The screen lights up. Green. A jingle. A title card.",
+  {
+   "tvSet": "ses_portable",
+   "state": "possessed"
+  },
+  {
+   "setVar": "ses_portable_power",
+   "value": 1
+  },
+  "pete: (very quietly) It's the Stenchmaster Channel.",
+  "garrick[delighted]: It's on ALL Stenchmaster Entertainment Systems, Pete. It's in the small print.",
+  {
+   "setFlag": "p16_portable_aerial"
+  },
+  {
+   "tutorial": "Watch it: the portable set (the Fart-Free Zone).",
+   "title": "The Portable Stenchmaster Entertainment System"
+  }
+ ],
+ "p16c17.watch": [
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "vista": "bunker_watch",
+   "fade": 400
+  },
+  {
+   "music": "stenchmaster_channel",
+   "fade": 400
+  },
+  {
+   "tvProgram": "before_the_lighter",
+   "episode": "documentary",
+   "layer": "screen",
+   "tv": "ses_portable"
+  },
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "music": "brogath_theme",
+   "fade": 400
+  },
+  "You look down at the lighter in your hand. Purple. Gold. GRAN D. Historic, apparently.",
+  "The title card comes up again. BEFORE THE GRAND LIGHTER. The narrator clears his throat.",
+  {
+   "setFlag": "ignition_documentary_viewed"
+  },
+  {
+   "tvSet": "ses_portable",
+   "state": "repeating"
+  },
+  {
+   "tutorial": "Turn it off: the portable set. (Try.)",
+   "title": "The Portable Stenchmaster Entertainment System"
+  }
+ ],
+ "p16c17.off_1": [
+  "You turn the knob marked OFF. It comes off in your hand. It's a sticker of a knob. The real knob is round the back, and it says ON on both sides.",
+  "channel_narrator: (from the little set) Before the Grand Lighter, there was... nothing.",
+  "pete: It's starting again, Captain.",
+  {
+   "setFlag": "p16_tv_off_1"
+  },
+  {
+   "event": "p16_tv_off"
+  }
+ ],
+ "p16c17.off_2": [
+  "You reach for it again. Before you can touch it, Agnes the Second hops up onto the table, walks across the top of the set, looks down at the little green screen, and pecks the switch, once, very precisely.",
+  {
+   "sfx": "tv_power_off",
+   "volume": 0.8
+  },
+  {
+   "tvSet": "ses_portable",
+   "state": "repeating"
+  },
+  {
+   "setVar": "ses_portable_power",
+   "value": 0
+  },
+  "The picture folds to a dot. Waits. Goes out.",
+  "brogath[proud]: (down the speaking tube) GOOD girl.",
+  "garrick[offended]: (wounded) She's switched off my ENTERTAINMENT.",
+  {
+   "setFlag": "p16_tv_off_2"
+  },
+  {
+   "event": "p16_tv_off"
+  }
+ ],
+ "p16c17.off_done": [
+  {
+   "setFlag": "p16_tv_off_said"
+  },
+  "Quiet. A whole bunker of quiet. Then, from upstairs, through the boards, very faint: a bell. DING. And again. DING. The counter's open.",
+  "bankworth: (calling down, delighted) CAPTAIN! A new DEPARTMENT! And a customer!",
+  {
+   "completeQuest": "portable_tv"
+  },
+  {
+   "call": "p16c18.begin"
+  }
+ ],
+ "p16c18.begin": [
+  {
+   "setFlag": "p16_ch203_started"
+  },
+  {
+   "banner": "CHAPTER 203",
+   "sub": "The 97-Page Application"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 37
+  },
+  {
+   "setValue": "counter_department",
+   "value": "BUREAU"
+  },
+  "Above the counter, a new sign has appeared, in red: THE BUREAU OF CEREMONIAL IGNITION. Bankworth is standing under it, looking very pleased with himself.",
+  "bankworth[happy]: (proudly) Re-established, Captain! After four hundred years. Customers have been queuing for CENTURIES.",
+  "captain: You've brought back the BUREAU. The one the lighter ENDED.",
+  "bankworth: (gently) Bureaus come back, Captain. Like banks.",
+  {
+   "startQuest": "ignition_application"
+  },
+  {
+   "tutorial": "A customer at the Bureau: ring the bell on the counter (Crew Quarters).",
+   "title": "The 97-Page Application"
+  }
+ ],
+ "p16c18.customer": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.9
+  },
+  {
+   "spawn": "puffchester",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "puffchester",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "puffchester",
+   "dir": "down"
+  },
+  "puffchester: (removing his top hat, very slowly) Good evening, clerk. Lord Nicotinius Puffchester. The Third.",
+  "puffchester: I have been waiting, sir, for three hundred and four years, to have this... (he produces, from an inside pocket, something small, white and unlit, and puts it away again before you can look at it properly) ...lit. By the ancient formal procedure.",
+  "captain[tired]: I've got a lighter. Right here. Works sometimes.",
+  "puffchester: (as if you'd suggested he lick the floor) A LIGHTER. Good heavens, no. The PROCEDURE, clerk. The application. Ninety-seven pages.",
+  "Bankworth puts a stack of paper on the counter. It's as high as the bell.",
+  {
+   "setFlag": "p16_puffchester_arrived"
+  },
+  {
+   "tutorial": "The application: the counter (97 pages).",
+   "title": "The 97-Page Application"
+  }
+ ],
+ "p16c18.form": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "face": "puffchester",
+   "dir": "down"
+  },
+  "You pick up the pen. It's a long way to page ninety-seven.",
+  {
+   "proceeding": "ignition_application"
+  },
+  {
+   "giveItem": "ignition_application_copy"
+  },
+  {
+   "setFlag": "ignition_application_completed"
+  },
+  {
+   "tutorial": "Stamp it: the counter.",
+   "title": "The 97-Page Application"
+  }
+ ],
+ "p16c18.stamp": [
+  "You pick up the Bureau's stamp. It's heavy, brass, and old. You bring it down on page ninety-seven with tremendous relief.",
+  {
+   "sfx": "stamp",
+   "volume": 1.0
+  },
+  {
+   "insert": "application_stamp"
+  },
+  "captain: (reading it, slowly) Pre... ignition... REVIEW. Required.",
+  "puffchester: (with enormous satisfaction) Naturally. Before the Grand Ignition Council. And I shall require an ADVOCATE.",
+  "He looks at you. Bankworth looks at you. Garrick, coming up the ladder, looks at you, and then gets out his clipboard.",
+  {
+   "setFlag": "p16_review_required"
+  },
+  {
+   "completeQuest": "ignition_application"
+  },
+  {
+   "call": "p16c19.begin"
+  }
+ ],
+ "p16c19.begin": [
+  {
+   "setFlag": "p16_ch204_started"
+  },
+  {
+   "banner": "CHAPTER 204",
+   "sub": "The Grand Ignition Hearing"
+  },
+  "The Council convenes at the counter. You don't see them arrive. One moment the wall behind the counter is a wall; the next it's a very high bench, and three robed, spectral councillors behind it, each with a very small, very unlit candle.",
+  {
+   "startQuest": "ignition_hearing"
+  },
+  {
+   "tutorial": "Go before the Council: the counter (Crew Quarters).",
+   "title": "The Grand Ignition Hearing"
+  }
+ ],
+ "p16c19.council": [
+  {
+   "vista": "ignition_council",
+   "fade": 500
+  },
+  {
+   "music": "ignition_hearing",
+   "fade": 500
+  },
+  {
+   "sfx": "gavel",
+   "volume": 1.0
+  },
+  "council_chair: The Grand Ignition Council is in session. Application ninety-seven-stroke-Puffchester. Advocate: Captain... (he squints at the form) ...Stingbeard?",
+  "captain[tired]: STINKbeard. The hornets have gone.",
+  "council_chair: Advocate Stinkbeard. Proceed.",
+  "You are arguing, you realise, for the one thing you least want to happen.",
+  {
+   "proceeding": "ignition_hearing"
+  },
+  {
+   "insert": "council_ruling"
+  },
+  {
+   "setFlag": "grand_ignition_hearing_approved"
+  },
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "tutorial": "Who performs it? The Council (the counter).",
+   "title": "The Grand Ignition Hearing"
+  }
+ ],
+ "p16c19.selected": [
+  {
+   "vista": "ignition_council",
+   "fade": 300
+  },
+  "council_chair: The ignition shall be performed by the ancient method. A ceremonial Fire-Waft, by a qualified Grand Stenchmaster. Volunteers?",
+  "Everybody looks at Brogath. Brogath, in the lounge, slides very slowly under a cushion.",
+  "brogath[mortified]: (muffled) In front of EVERYBODY?",
+  {
+   "sfx": "haze_form",
+   "volume": 0.9
+  },
+  "vindicta: (from the back of the room, re-forming, magnificent) I. WILL.",
+  "The councillors gasp. Bankworth claps. Lord Puffchester bows so low his hat falls off.",
+  "vindicta: (sweeping to the front) Vindicta Thunderwaft. Still unserved. And THIS, Captain, is the service I was born for. A ceremonial Fire-Waft. Here. In your Crew Quarters.",
+  "captain: Not in the Fart Zone? Door, portholes...",
+  "vindicta: (lofty) A CEREMONY, Captain, requires an AUDIENCE.",
+  {
+   "sfx": "gavel",
+   "volume": 1.0
+  },
+  "council_chair: So ordered.",
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "setFlag": "vindicta_selected_for_ignition"
+  },
+  {
+   "completeQuest": "ignition_hearing"
+  },
+  {
+   "call": "p16c20.begin"
+  }
+ ],
+ "p16c20.begin": [
+  {
+   "setFlag": "p16_ch205_started"
+  },
+  {
+   "banner": "CHAPTER 205",
+   "sub": "Stinkbeard's Desperate Lighter Pitch"
+  },
+  "Vindicta is taking up position in the middle of the Crew Quarters, rolling her shoulders. Pete is moving everybody behind the barricade. Brogath has Agnes inside his robe. Garrick is taking minutes.",
+  "And in your coat: the lighter. Purple. Gold. Works sometimes.",
+  "It's the only thing standing between your ship and another legendary release.",
+  {
+   "startQuest": "lighter_pitch"
+  },
+  {
+   "tutorial": "Sell Lord Puffchester the lighter before Vindicta goes off: the Council (the counter). Watch her gauge.",
+   "title": "Stinkbeard's Desperate Lighter Pitch"
+  }
+ ],
+ "p16c20.pitch": [
+  {
+   "vista": "ignition_council",
+   "fade": 400
+  },
+  {
+   "music": "lighter_pitch",
+   "fade": 300
+  },
+  "captain[determined]: (stepping in front of the bench) Point of order. My lord. Before the ceremony. One small demonstration.",
+  "puffchester: (suspicious) Of WHAT?",
+  "captain[determined]: (holding it up) THE GRAND STENCHMASTER'S GRAND LIGHTER OF GRAND SMOKES.",
+  "vindicta: (from the middle of the room, starting to glow) GATHERING.",
+  {
+   "save": "auto"
+  },
+  {
+   "proceeding": "lighter_pitch"
+  },
+  "council_right: (faintly) No pages?",
+  "council_left: (faintly) No chickens toasted?",
+  "council_chair: (looking from the lighter to Vindicta and back) The applicant may... withdraw. If he wishes.",
+  "puffchester: (holding the lighter up to the lantern, utterly enchanted) Withdrawn. WITHDRAWN. Mechanical ignition, Council. It's the FUTURE.",
+  "vindicta: (stopping mid-glow, outraged) WITHDRAWN?",
+  {
+   "sfx": "brogath_rumble_small",
+   "volume": 0.6
+  },
+  "She deflates. Slowly. Magnificently. Like a very grand balloon with a very small hole in it.",
+  "vindicta: (going translucent at the edges) Unserved. AGAIN. (pointing at you) I'll be BACK, Stinkbeard. I am ALWAYS back.",
+  {
+   "burst": "fume",
+   "x": 11,
+   "y": 11,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.8
+  },
+  "And she's gone. For now. Everybody behind the barricade breathes out at once.",
+  "puffchester: (returning the lighter to you with a deep bow) Keep it, Captain. I shall be ordering my OWN. From this Cheapy.",
+  "He puts his hat on, says 'Good evening', and dissolves contentedly at the end of the barricade, to go and have his ceremony somewhere private, at last.",
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "setFlag": "puffchester_convinced"
+  },
+  {
+   "tutorial": "The next applicant: ring the bell on the counter (Crew Quarters).",
+   "title": "Stinkbeard's Desperate Lighter Pitch"
+  }
+ ],
+ "p16c20.next": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.9
+  },
+  {
+   "spawn": "bureau_puffington",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "bureau_puffington",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "bureau_puffington",
+   "dir": "down"
+  },
+  "bureau_puffington: (brightly) Good evening! Mrs. Puffington. I've been waiting two hundred years for the Bureau, and I'm told there are ninety-seven pages, and a Council, and...",
+  "captain[determined]: (holding up the lighter) Or.",
+  "bureau_puffington: (looking at it for a long moment) ...Is that a LIGHTER?",
+  "captain[determined]: It's MECHANICAL.",
+  "bureau_puffington: (delighted) Oh, how MODERN. Yes, please. That.",
+  {
+   "lighter": "grand_smokes",
+   "attempts": 3
+  },
+  "bureau_puffington: (happily) It's doing SOMETHING! I'll take it as approved. Good evening!",
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "bureau_puffington"
+  },
+  "Behind her, at the end of the barricade, the haze thickens into a queue. A long one. And every single customer in it is holding up a hand and saying the same thing: 'The LIGHTER one, please.'",
+  "bankworth: (watching the Bureau's sign flicker, sadly) ...Disruptive innovation.",
+  {
+   "setFlag": "mechanical_ignition_victory"
+  },
+  {
+   "tutorial": "Common sense: the counter.",
+   "title": "Stinkbeard's Desperate Lighter Pitch"
+  }
+ ],
+ "p16c20.end": [
+  {
+   "music": "great_mellowing",
+   "fade": 600
+  },
+  "You stand behind the counter. The visor's still on your head. The lighter's in your hand. The queue is still going round the barricade.",
+  "Brogath is in his spot by the bedroom set, under the loose canopy, with Agnes the Second on his foot. Pete is on the Sash Lounge sofa with his eyes shut. The visitors are asleep on their pad. Garrick, wearing both crowns, is drafting a strategy for the Bureau's digital transformation.",
+  "Somewhere out there: the Sharkstorm, still going round. A swarm of hornets made of fart, with excellent credit. Vindicta, re-forming. And down under the cargo grating, a room with a bent door, waiting.",
+  "garrick[delighted]: (looking up from the clipboard) Captain! I've been thinking. What we need now, going forward, is a TASK FORCE on...",
+  "You click the lighter. Once.",
+  {
+   "sfx": "lighter_flame",
+   "volume": 0.8
+  },
+  "A small, ordinary, steady flame. First time. You look at it. Everybody looks at it.",
+  "captain[determined]: (to the whole ship) COMMON. SENSE. IS. WINNING!",
+  "It goes out.",
+  {
+   "sfx": "lighter_click",
+   "volume": 0.6
+  },
+  "Click.",
+  "pete: (without opening his eyes) ...Sometimes, Captain.",
+  {
+   "setFlag": "p16_complete"
+  },
+  {
+   "completeQuest": "lighter_pitch"
+  },
+  {
+   "banner": "COMMON SENSE IS WINNING",
+   "sub": "(sometimes)"
+  },
+  {
+   "save": "auto"
+  }
+ ]
+}

@@ -1,0 +1,704 @@
+{
+ "//": "Story Phase 16, chapters 198-201: Stingbeard (the swarm in the beard, the nickname, the bunker), Sash-Quote Story Hour (the speaking tube), the Hornet Credit Boom (BZBZBZBZZZZ-7, approved), and the History of the Grand Lighter (the lore book, in the bunker).",
+ "p16c13.begin": [
+  {
+   "setFlag": "p16_ch198_started"
+  },
+  {
+   "banner": "CHAPTER 198",
+   "sub": "Stingbeard"
+  },
+  {
+   "hornets": "BEARD_ATTRACTED"
+  },
+  {
+   "beard": "add",
+   "tag": "HORNET_ATTRACTED"
+  },
+  "One hornet lands in your beard. Then another. Then a great many, all at once, with a noise like a kettle full of bees.",
+  "They're not stinging. They're... nesting. They've come out of Coffin Sock, and they've smelt the beard, and the beard smells of Coffin Sock and Vindicta and Garrick and the Grand Bank and a week of skunk haze, and to a hornet made of fart, it smells like HOME.",
+  "pete: (backing away, holding the bucket up) Captain. Captain, you're humming.",
+  {
+   "startQuest": "stingbeard"
+  },
+  {
+   "tutorial": "Get them out of your beard: wave them off (any rail), dunk it (the water barrel by the wheel), order them off (the wheel): on deck.",
+   "title": "Stingbeard"
+  }
+ ],
+ "p16c13.shoo_rail": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "You lean over the rail and wave your arms like a windmill.",
+  {
+   "repair": "brace",
+   "strikes": 3,
+   "title": "WAVE THEM OFF"
+  },
+  "Half of them go. They circle the mast once, and come back, and sit down again, slightly further in.",
+  {
+   "setFlag": "p16_shoo_rail"
+  },
+  {
+   "event": "p16_shoo"
+  }
+ ],
+ "p16c13.shoo_barrel": [
+  "You plunge your whole beard into the water barrel and hold it there.",
+  {
+   "repair": "heave",
+   "strikes": 3,
+   "title": "HOLD IT UNDER"
+  },
+  "You come up. The hornets come up too, out of the water, completely dry, the way only fart can be, and settle back in.",
+  {
+   "setFlag": "p16_shoo_barrel"
+  },
+  {
+   "event": "p16_shoo"
+  }
+ ],
+ "p16c13.shoo_wheel": [
+  "You take the wheel, stand to your full height, and give the order in your best captain's voice.",
+  "captain[determined]: HORNETS. ABANDON. BEARD.",
+  "hale: (stepping back from the wheel, respectfully) ...Aye, Captain.",
+  "The hornets go quiet. All of them. For a moment, you think you've done it. Then, all at once, they start humming the song. HOLD MY SASH.",
+  {
+   "setFlag": "p16_shoo_wheel"
+  },
+  {
+   "event": "p16_shoo"
+  }
+ ],
+ "p16c13.shoo_done": [
+  {
+   "setFlag": "p16_shoo_said"
+  },
+  "They're not leaving. They've made it very clear. You are, as far as the swarm is concerned, real estate.",
+  {
+   "tutorial": "...STINGBEARD? (anyone: Pete, on deck)",
+   "title": "Stingbeard"
+  }
+ ],
+ "p16c13.name": [
+  "pete: (at a safe distance, very carefully) Captain. The crew have been talking.",
+  "captain[tired]: Don't.",
+  "pete: About a... a name. For while it lasts. A ship's nickname. It's just...",
+  "visitor_two: (from the bow, delighted, at the top of his voice) STINGBEARD!",
+  "crew: (from all over the ship, at once) STINGBEARD!",
+  {
+   "insert": "stingbeard_bulletin"
+  },
+  "captain[determined]: TEMPORARY. It's a TEMPORARY nickname. When they leave, it leaves.",
+  "pete: (nodding solemnly) Yes, Stingbeard.",
+  {
+   "setFlag": "stingbeard_nickname_unlocked"
+  },
+  {
+   "setFlag": "nickname_stingbeard"
+  },
+  {
+   "tutorial": "The crew have a plan: the Fart-Free Zone (Pete, at its door in the hold).",
+   "title": "Stingbeard"
+  }
+ ],
+ "p16c13.bunker": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "Pete is standing in front of the little door to the Fart-Free Zone. There's a new sign on the wall. Behind the door: hammering, and Gristle's voice saying 'higher', and Garrick's saying 'synergy'.",
+  {
+   "insert": "bunker_sign"
+  },
+  "pete: We've reinforced it, Captain. Sashes on the walls, a cushion on the door, blankets over the vent. It's a bunker now. Hornet-proof. Bank-proof.",
+  "captain: Good. Let me in.",
+  "pete: (not moving) Captain. You're the reason the hornets are here. With respect. They'd follow you in.",
+  "captain[tired]: ...I'm locked out of my own fart-free zone.",
+  "pete: Only for now. (a pause) Stingbeard.",
+  {
+   "hornets": "BUNKER_SIEGE"
+  },
+  "Behind you, a hum. Half the swarm has followed you down the ladder and is circling the bunker door, very interested in it.",
+  {
+   "setFlag": "fart_free_zone_reinforced"
+  },
+  {
+   "tutorial": "Back to work: the bank counter (Crew Quarters).",
+   "title": "Stingbeard"
+  }
+ ],
+ "p16c13.work": [
+  {
+   "hornets": "BANK_INVADING"
+  },
+  "You go back to the counter. The swarm comes with you. Bankworth looks up, sees thirty hornets arriving in a beard-shaped cloud, and straightens his crown.",
+  "bankworth[happy]: Customers!",
+  "captain[tired]: They're not customers. They're living in me.",
+  "bankworth: (writing something down, thoughtfully) ...For now.",
+  {
+   "setFlag": "p16_back_to_work"
+  },
+  {
+   "completeQuest": "stingbeard"
+  },
+  {
+   "call": "p16c14.begin"
+  }
+ ],
+ "p16c14.begin": [
+  {
+   "setFlag": "p16_ch199_started"
+  },
+  {
+   "banner": "CHAPTER 199",
+   "sub": "Sash-Quote Story Hour"
+  },
+  "Beside the counter, something brass you're sure wasn't there this morning: a speaking tube, running down through the floor towards the hold. It whistles.",
+  {
+   "startQuest": "sash_quote_story_hour"
+  },
+  {
+   "tutorial": "Answer the speaking tube (beside the counter, Crew Quarters).",
+   "title": "Sash-Quote Story Hour"
+  }
+ ],
+ "p16c14.tube": [
+  {
+   "sfx": "speaking_tube",
+   "volume": 0.9
+  },
+  "garrick: (out of the tube, tinny, enormously pleased) Captain! Garrick here, in the bunker. We felt you were missing out on the team experience. So I've run a TUBE.",
+  "garrick: We're doing a little activity. SASH-QUOTE STORY HOUR. Everybody reads out the slogan off their sash, in their best voice, and we all reflect on it.",
+  "captain[tired]: I'm working.",
+  "garrick: (sternly) It's MANDATORY FUN, Captain.",
+  {
+   "setFlag": "p16_story_hour_started"
+  },
+  {
+   "tutorial": "Sash-quote story hour: answer the speaking tube five times.",
+   "title": "Sash-Quote Story Hour"
+  }
+ ],
+ "p16c14.quote": [
+  {
+   "sfx": "speaking_tube",
+   "volume": 0.7
+  },
+  {
+   "addVar": "p16_quote_n",
+   "value": 1
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p16_quote_n",
+     "eq": 1
+    }
+   },
+   "then": [
+    "gristle: (out of the tube, in a deep, dramatic voice) 'HOLD. MY. SASH.'",
+    "garrick: Beautiful. A call to collective responsibility. Captain, reflect?",
+    {
+     "choice": [
+      {
+       "text": "It's on every one of them, Gristle.",
+       "then": [
+        "gristle: (hurt) I did it in a VOICE."
+       ]
+      },
+      {
+       "text": "Very moving.",
+       "then": [
+        "gristle: Thank you, Captain."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p16_quote_n",
+     "eq": 2
+    }
+   },
+   "then": [
+    "bob: (out of the tube) 'ASK ME ABOUT MY CEREMONIAL WAFT.'",
+    "garrick: (instantly) I'd LOVE to ask you about your ceremonial...",
+    "crew: (everyone in the bunker) NO.",
+    {
+     "choice": [
+      {
+       "text": "Don't ask him, Garrick.",
+       "then": [
+        "garrick: (wounded) I was MEANT to ask. It SAYS."
+       ]
+      },
+      {
+       "text": "...I'll allow one question.",
+       "then": [
+        "garrick: (with relish) How CEREMONIAL was...",
+        "bob: I'm not answering it."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p16_quote_n",
+     "eq": 3
+    }
+   },
+   "then": [
+    "visitor_one: (out of the tube, slowly, profoundly) 'I SURVIVED THE GREAT MELLOWING (AND ALL I GOT WAS THIS SASH).'",
+    "visitor_two: Bro. That's our TRIP, bro. That's literally our trip.",
+    {
+     "choice": [
+      {
+       "text": "Nobody's survived it yet. It's still going.",
+       "then": [
+        "visitor_one: (awed) Whoa. We're still IN it."
+       ]
+      },
+      {
+       "text": "Lovely.",
+       "then": [
+        "visitor_one: Thanks, man."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p16_quote_n",
+     "eq": 4
+    }
+   },
+   "then": [
+    "jim: (out of the tube) 'KISS THE COOK (NOT DOWNWIND).'",
+    "jim: That's not a Stenchmaster one, Captain. I made it myself. With a pen.",
+    {
+     "choice": [
+      {
+       "text": "It's the best one.",
+       "then": [
+        "jim: (overjoyed) It IS, isn't it?"
+       ]
+      },
+      {
+       "text": "Nobody's kissing anybody.",
+       "then": [
+        "jim: (sadly) Nobody ever does."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p16_quote_n",
+     "gte": 5
+    }
+   },
+   "then": [
+    "squawks: (out of the tube, very clearly) 'GRAND STENCHMASTER'S OFFICIAL... TEST... SASH.'",
+    "squawks: (after a long pause) Bad sash.",
+    {
+     "choice": [
+      {
+       "text": "He's right.",
+       "then": [
+        "garrick: (sniffing) The PARROT is right. Write that down, somebody. Somebody with paper."
+       ]
+      },
+      {
+       "text": "Thank you, Squawks.",
+       "then": [
+        "squawks: (smug) Thank.",
+        "squawks: You."
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "event": "p16_sash_quote"
+  }
+ ],
+ "p16c14.quotes_done": [
+  {
+   "setFlag": "p16_quotes_said"
+  },
+  "garrick: (out of the tube) And THAT is the end of the reading. Captain, I'll be sending you a short feedback form. Two hundred questions.",
+  "Behind you, under his canopy, someone clears their throat. Brogath, holding up his printed sash.",
+  {
+   "tutorial": "Brogath has one (under his canopy, Crew Quarters).",
+   "title": "Sash-Quote Story Hour"
+  }
+ ],
+ "p16c14.brogath": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "brogath[bashful]: (very shy) I've got one, Captain. On mine. It's printed. It's been printed since the Mega-Pack.",
+  "brogath[bashful]: (reading it, slowly) 'BROGATH THE BASHFUL. ANCIENT GRAND STENCHMASTER. ACTUAL SIZE.'",
+  "brogath[thoughtful]: ...I'm not actual size, Captain. I was much bigger. I've always wanted somebody to know that.",
+  {
+   "choice": [
+    {
+     "text": "I know that.",
+     "then": [
+      "brogath[pleased]: (the card going pale) You do?"
+     ]
+    },
+    {
+     "text": "You're the biggest thing on this ship.",
+     "then": [
+      "brogath[pleased]: (delighted) In SPIRIT.",
+      "captain: In every way."
+     ]
+    }
+   ]
+  },
+  {
+   "stability": "calm",
+   "id": "praise",
+   "quiet": true
+  },
+  {
+   "setFlag": "sash_quote_story_hour_complete"
+  },
+  {
+   "completeQuest": "sash_quote_story_hour"
+  },
+  {
+   "call": "p16c15.begin"
+  }
+ ],
+ "p16c15.begin": [
+  {
+   "setFlag": "p16_ch200_started"
+  },
+  {
+   "banner": "CHAPTER 200",
+   "sub": "The Hornet Credit Boom"
+  },
+  "A beep, from the Grand Sashback terminal. You look over. One hornet, on its own, has landed on the APPLY NOW button. It's pressing it with its whole body.",
+  {
+   "startQuest": "hornet_credit_boom"
+  },
+  {
+   "tutorial": "Look at the terminal (beside the counter, Crew Quarters).",
+   "title": "The Hornet Credit Boom"
+  }
+ ],
+ "p16c15.apply": [
+  {
+   "sfx": "hornet_buzz",
+   "volume": 0.6
+  },
+  "hornet_bzz: BZBZBZBZZZZ.",
+  "The terminal takes it very seriously. A form appears. NAME: it fills itself in. BZBZBZBZZZZ-7.",
+  "COLLATERAL: the hornet lays something on the little brass tray. A single hair. Long, wiry, dark, unmistakably out of your beard.",
+  "captain: That's MINE.",
+  "bankworth[happy]: (peering over) And a very distinguished sash it is, too. Well. Strand.",
+  {
+   "setFlag": "p16_bzz_applied"
+  },
+  {
+   "tutorial": "Process the application (the terminal). You're the underwriter. It's your beard.",
+   "title": "The Hornet Credit Boom"
+  }
+ ],
+ "p16c15.approve": [
+  "You have to sniff it. It's procedure. It's your own beard. You sniff your own beard.",
+  {
+   "appraise": "sashback",
+   "bias": 400
+  },
+  {
+   "insert": "bzz_approval"
+  },
+  {
+   "setVar": "hornet_tokens",
+   "value": 50000
+  },
+  "hornet_bzz: (rising off the tray, triumphant) BZZZZZZ!",
+  {
+   "setFlag": "p16_bzz_approved"
+  },
+  {
+   "tutorial": "Where's it going? (the converter)",
+   "title": "The Hornet Credit Boom"
+  }
+ ],
+ "p16c15.converter": [
+  "BZBZBZBZZZZ-7 has flown straight to the converter and is trying to stuff a fifty-thousand-token card into the first slot. It's bigger than the hornet. The hornet is not discouraged.",
+  {
+   "sfx": "converter_whir",
+   "volume": 0.9
+  },
+  {
+   "currencyConverter": "converter",
+   "from": "hornet_tokens",
+   "amount": "all"
+  },
+  "converter_voice: (sulkily) AIR QUALITY POLICY. ONE THOUSAND TOKENS MAXIMUM.",
+  {
+   "sfx": "converter_blast",
+   "volume": 0.6
+  },
+  {
+   "shake": 2,
+   "duration": 800
+  },
+  {
+   "burst": "fume",
+   "x": 7,
+   "y": 14,
+   "count": 8
+  },
+  "FUMP. A thousand tokens' worth. A big one, but not a flood. The policy holds. You could kiss your own sign.",
+  "The hornet comes out of the cloud absolutely thrilled and flies straight back to the swarm, buzzing the news.",
+  {
+   "setFlag": "p16_bzz_converted"
+  },
+  {
+   "tutorial": "They've ALL found out: serve them (ring the bell on the counter, Crew Quarters).",
+   "title": "The Hornet Credit Boom"
+  }
+ ],
+ "p16c15.serve": [
+  {
+   "bank": "next",
+   "queue": "hornets",
+   "bankId": "grand_counter"
+  }
+ ],
+ "p16c15.epidemic_done": [
+  {
+   "setFlag": "p16_epidemic_said"
+  },
+  "Every hornet aboard has a card. Every card is a strand of your beard. You are, collectively, the collateral for the entire swarm's economy.",
+  {
+   "tutorial": "The bank's announcement: Bankworth (Crew Quarters).",
+   "title": "The Hornet Credit Boom"
+  }
+ ],
+ "p16c15.preferred": [
+  {
+   "face": "bankworth",
+   "dir": "player"
+  },
+  "bankworth[happy]: (clearing his throat, ceremonially) Captain. In the light of recent volume...",
+  {
+   "insert": "hornet_preferred"
+  },
+  "bankworth[happy]: Our fastest-growing customer segment. Excellent repayment prospects. Tiny. Numerous. Absolutely no interest in the converter's policy, which they find, I'm told, 'bzz'.",
+  "captain[tired]: They're paying back fifty thousand tokens each with WHAT?",
+  "bankworth: (serenely) With your beard, Captain. A strand a month. It's in the terms.",
+  {
+   "setFlag": "hornet_credit_boom_occurred"
+  },
+  {
+   "tutorial": "Meanwhile, in the bunker: the speaking tube.",
+   "title": "The Hornet Credit Boom"
+  }
+ ],
+ "p16c15.smores": [
+  {
+   "sfx": "speaking_tube",
+   "volume": 0.8
+  },
+  "Through the tube: crackling. Laughter. Somebody going 'ooh'.",
+  "garrick: (out of the tube, with his mouth full) Captain! We're toasting things! On a candle! Shaped like me!",
+  "captain: You haven't got any FIRE. Nobody's got any fire. I've got the only lighter on the ship.",
+  "garrick: (smugly) I had ONE match left, Captain. From the Grand Flamingo. 'USED FOR CEREMONIES.' This is a ceremony.",
+  "pete: (out of the tube, faintly, very happy) It's lovely in here, Stingbeard.",
+  {
+   "setFlag": "p16_smores"
+  },
+  {
+   "completeQuest": "hornet_credit_boom"
+  },
+  {
+   "call": "p16c16.begin"
+  }
+ ],
+ "p16c16.begin": [
+  {
+   "setFlag": "p16_ch201_started"
+  },
+  {
+   "banner": "CHAPTER 201",
+   "sub": "The History of the Grand Lighter"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 40
+  },
+  {
+   "hornets": "DISPERSING"
+  },
+  {
+   "beard": "remove",
+   "tag": "HORNET_ATTRACTED"
+  },
+  "Sunset. All at once, as if somebody had rung a bell, the swarm lifts out of your beard. They circle the mast once, fly off over the Sharkstorm in a long, wavering line, and are gone.",
+  "Wherever hornets made of fart go at night. Probably they'll be back. Bankworth turns his crown, and the counter shuts with a clunk.",
+  "bankworth: (yawning) Banking hours, Captain. Do get some rest. And bring the beard back tomorrow. We have obligations.",
+  "Your beard is light. Your beard is quiet. You are, for the moment, just Stinkbeard.",
+  {
+   "clearFlag": "nickname_stingbeard"
+  },
+  {
+   "startQuest": "grand_lighter_history"
+  },
+  {
+   "tutorial": "Get into the bunker at last: the Fart-Free Zone, in the hold.",
+   "title": "The History of the Grand Lighter"
+  }
+ ],
+ "p16c16.in_bunker": [
+  {
+   "setFlag": "p16_in_bunker"
+  },
+  {
+   "hornets": "DORMANT"
+  },
+  "The bunker. It's tiny. It was tiny before, and now there are cushions on the walls, and nine people, a parrot and a candle shaped like Garrick in it, and somehow, there's room for you.",
+  "pete: (shuffling up) Welcome in, Captain. No hornets?",
+  "captain: No hornets.",
+  "garrick[businesslike]: (opening the lore book with a great thump) Then I can share some LEARNINGS.",
+  {
+   "tutorial": "The History of the Grand Lighter: the lore book on the table (three chapters).",
+   "title": "The History of the Grand Lighter"
+  }
+ ],
+ "p16c16.read": [
+  {
+   "addVar": "p16_lore_n",
+   "value": 1
+  },
+  {
+   "vista": "galley_legend",
+   "fade": 400
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p16_lore_n",
+     "eq": 1
+    }
+   },
+   "then": [
+    {
+     "vistaFrame": "panel",
+     "frame": "leg_light_1"
+    },
+    {
+     "insert": "pocket_emergency_light"
+    },
+    "garrick[businesslike]: (reading) Chapter one. THE EMERGENCY LIGHT. When an ancient Grand Stenchmaster required a flame, there was one approved method: the ceremonial Fire-Waft.",
+    "garrick[businesslike]: Very grand. Performed only by the most qualified. Never closer than a mile from anything you'd miss.",
+    "brogath: (down the speaking tube from the lounge, small) I did it once. I was too shy to aim. They found the cigar in the next county."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p16_lore_n",
+     "eq": 2
+    }
+   },
+   "then": [
+    {
+     "vistaFrame": "panel",
+     "frame": "leg_light_2"
+    },
+    "garrick[businesslike]: Chapter two. Fire-Wafts being, er, unreliable, the ancients founded the BUREAU OF CEREMONIAL IGNITION. Ninety-seven pages per application. Per cigar.",
+    "garrick[delighted]: (misty-eyed) Ninety-seven, Captain. That's an organisation that knew what it was doing.",
+    "pete: (flatly) Most applicants died waiting."
+   ]
+  },
+  {
+   "if": {
+    "var": {
+     "name": "p16_lore_n",
+     "gte": 3
+    }
+   },
+   "then": [
+    {
+     "vistaFrame": "panel",
+     "frame": "leg_light_3"
+    },
+    "garrick[businesslike]: Chapter three. And then: Cheapy. Of Cheap-O-Rama. Who invented a MECHANICAL ignition device. 'Works sometimes.' It worked once, in a demonstration, in front of everybody.",
+    "garrick: (closing the book) It has never, according to this, worked reliably again. But it ended the Bureau. Nobody could be bothered with ninety-seven pages when there was a lighter that worked SOMETIMES.",
+    "You take the Grand Lighter out of your coat and look at it. Purple. Gold. GRAN D."
+   ]
+  },
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "event": "p16_lighter_lore"
+  }
+ ],
+ "p16c16.read_done": [
+  {
+   "setFlag": "p16_lore_said"
+  },
+  {
+   "tutorial": "Say something: Garrick (in the bunker).",
+   "title": "The History of the Grand Lighter"
+  }
+ ],
+ "p16c16.react": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  {
+   "choice": [
+    {
+     "text": "So this lighter is... historically important.",
+     "then": [
+      "garrick[delighted]: It's a HERITAGE ASSET, Captain."
+     ]
+    },
+    {
+     "text": "It ended a whole bureau. On its own.",
+     "then": [
+      "garrick[businesslike]: Disruptive innovation, Captain. I love it and I hate it."
+     ]
+    }
+   ]
+  },
+  "garrick: (lowering his voice) Mind you. Bureaus come back. They always come back. Like banks.",
+  {
+   "setFlag": "grand_lighter_history_unlocked"
+  },
+  {
+   "completeQuest": "grand_lighter_history"
+  },
+  {
+   "call": "p16c17.begin"
+  }
+ ]
+}

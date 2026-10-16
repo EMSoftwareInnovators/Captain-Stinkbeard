@@ -204,7 +204,8 @@ describe('Where Brogath may be', () => {
   it('his data lists his rooms, and none of them is the hold, the treasure room or the Fart-Free Zone', () => {
     const s = makeStory({ preset: 'p14_complete' });
     const rooms = s.content.npcs.require('brogath').rooms;
-    expect(rooms).toEqual(['crew_quarters', 'galley', 'main_deck']);
+    // Story Phase 16 adds the Stenchmaster Fart Zone (the old sail locker under the deck grating, not the hold).
+    expect(rooms).toEqual(['crew_quarters', 'galley', 'main_deck', 'stenchmaster_fart_zone']);
     for (const m of ['cargo_hold', 'treasure_hold', 'fart_free_zone']) expect(rooms).not.toContain(m);
   });
 

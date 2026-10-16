@@ -1,0 +1,2442 @@
+[
+ {
+  "extend": "garrick",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "grand_search_for_fire.calm"
+      },
+      {
+       "notFlag": "p16_calm_garrick"
+      }
+     ]
+    },
+    "script": "p16c1.calm_garrick"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "grand_search_for_fire.talks"
+      },
+      {
+       "notFlag": "p16_talk_garrick"
+      }
+     ]
+    },
+    "script": "p16c1.talk_garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_search_for_fire.precedent"
+    },
+    "script": "p16c1.precedent"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "coffin_sock.prep"
+      },
+      {
+       "notFlag": "p16_prep_garrick"
+      }
+     ]
+    },
+    "script": "p16c3.prep_garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "coffin_sock.committee"
+    },
+    "script": "p16c3.committee"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "stenchmaster_fart_zone.orient"
+      },
+      {
+       "notFlag": "p16_fz_orient_garrick"
+      }
+     ]
+    },
+    "script": "p16c4.orient_garrick"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "chicken_town.hands"
+      },
+      {
+       "notFlag": "p16_hands_garrick"
+      }
+     ]
+    },
+    "script": "p16c7.hands_garrick"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "chicken_town.walk"
+      },
+      {
+       "notFlag": "p16_walk_garrick"
+      }
+     ]
+    },
+    "script": "p16c7.walk_garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_lighter_history.react"
+    },
+    "script": "p16c16.react"
+   },
+   {
+    "if": {
+     "objectiveActive": "portable_tv.coat"
+    },
+    "script": "p16c17.coat"
+   },
+   {
+    "if": {
+     "flag": "p16_complete"
+    },
+    "cycle": [
+     "garrick.p16_after_1",
+     "garrick.p16_after_2"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch203_started"
+        },
+        {
+         "notFlag": "p16_ch204_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch204_started"
+        },
+        {
+         "notFlag": "p16_ch205_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch205_started"
+        },
+        {
+         "notFlag": "p16_complete"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p16_bureau_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch201_started"
+        },
+        {
+         "notFlag": "p16_ch202_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch202_started"
+        },
+        {
+         "notFlag": "p16_ch203_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p16_bunker_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch197_started"
+        },
+        {
+         "notFlag": "p16_ch198_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch198_started"
+        },
+        {
+         "notFlag": "p16_ch199_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch199_started"
+        },
+        {
+         "notFlag": "p16_ch200_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch200_started"
+        },
+        {
+         "notFlag": "p16_ch201_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p16_hornets_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch194_started"
+        },
+        {
+         "notFlag": "p16_ch195_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch195_started"
+        },
+        {
+         "notFlag": "p16_ch196_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch196_started"
+        },
+        {
+         "notFlag": "p16_ch197_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p16_bank_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch192_started"
+        },
+        {
+         "notFlag": "p16_ch193_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch193_started"
+        },
+        {
+         "notFlag": "p16_ch194_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p16_mellow_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p16_ch189_started"
+      },
+      {
+       "notFlag": "p16_ch190_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p16_zone_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p16_ch188_started"
+      },
+      {
+       "notFlag": "p16_ch189_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p16_coffin_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_started"
+        },
+        {
+         "notFlag": "p16_ch187_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch187_started"
+        },
+        {
+         "notFlag": "p16_ch188_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p16_lighter_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "brogath",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "grand_search_for_fire.talks"
+      },
+      {
+       "notFlag": "p16_talk_brogath"
+      }
+     ]
+    },
+    "script": "p16c1.talk_brogath"
+   },
+   {
+    "if": {
+     "objectiveActive": "the_grand_lighter.try"
+    },
+    "script": "p16c2.try"
+   },
+   {
+    "if": {
+     "objectiveActive": "the_grand_lighter.work"
+    },
+    "script": "p16c2.work"
+   },
+   {
+    "if": {
+     "objectiveActive": "coffin_sock.idea"
+    },
+    "script": "p16c3.idea"
+   },
+   {
+    "if": {
+     "objectiveActive": "coffin_sock.attempt"
+    },
+    "script": "p16c3.attempt"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "stenchmaster_fart_zone.orient"
+      },
+      {
+       "notFlag": "p16_fz_orient_brogath"
+      }
+     ]
+    },
+    "script": "p16c4.orient_brogath"
+   },
+   {
+    "if": {
+     "objectiveActive": "chicken_near_miss.steady"
+    },
+    "script": "p16c6.steady"
+   },
+   {
+    "if": {
+     "objectiveActive": "chicken_near_miss.watch"
+    },
+    "script": "p16c6.watch"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_dispensary.brogath"
+    },
+    "script": "p16c8.brogath"
+   },
+   {
+    "if": {
+     "objectiveActive": "sashback_rewards.save"
+    },
+    "script": "p16c11.save"
+   },
+   {
+    "if": {
+     "objectiveActive": "hornet_fart.idea"
+    },
+    "script": "p16c12.idea"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "hornet_fart.procedure"
+      },
+      {
+       "notFlag": "p16_hproc_sash"
+      }
+     ]
+    },
+    "script": "p16c12.proc_sash"
+   },
+   {
+    "if": {
+     "objectiveActive": "hornet_fart.praise"
+    },
+    "script": "p16c12.praise"
+   },
+   {
+    "if": {
+     "objectiveActive": "sash_quote_story_hour.brogath"
+    },
+    "script": "p16c14.brogath"
+   },
+   {
+    "if": {
+     "flag": "p16_complete"
+    },
+    "cycle": [
+     "brogath.p16_after_1",
+     "brogath.p16_after_2"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch203_started"
+        },
+        {
+         "notFlag": "p16_ch204_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch204_started"
+        },
+        {
+         "notFlag": "p16_ch205_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch205_started"
+        },
+        {
+         "notFlag": "p16_complete"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p16_bureau_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch201_started"
+        },
+        {
+         "notFlag": "p16_ch202_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch202_started"
+        },
+        {
+         "notFlag": "p16_ch203_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p16_bunker_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch197_started"
+        },
+        {
+         "notFlag": "p16_ch198_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch198_started"
+        },
+        {
+         "notFlag": "p16_ch199_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch199_started"
+        },
+        {
+         "notFlag": "p16_ch200_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch200_started"
+        },
+        {
+         "notFlag": "p16_ch201_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p16_hornets_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch194_started"
+        },
+        {
+         "notFlag": "p16_ch195_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch195_started"
+        },
+        {
+         "notFlag": "p16_ch196_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch196_started"
+        },
+        {
+         "notFlag": "p16_ch197_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p16_bank_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch192_started"
+        },
+        {
+         "notFlag": "p16_ch193_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch193_started"
+        },
+        {
+         "notFlag": "p16_ch194_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p16_mellow_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch190_started"
+        },
+        {
+         "notFlag": "p16_ch191_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch191_started"
+        },
+        {
+         "notFlag": "p16_ch192_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p16_agnes_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p16_ch189_started"
+      },
+      {
+       "notFlag": "p16_ch190_started"
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p16_zone_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p16_ch188_started"
+      },
+      {
+       "notFlag": "p16_ch189_started"
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p16_coffin_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_started"
+        },
+        {
+         "notFlag": "p16_ch187_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch187_started"
+        },
+        {
+         "notFlag": "p16_ch188_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p16_lighter_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "visitor_one",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "grand_search_for_fire.light"
+    },
+    "script": "p16c1.ask_light"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "coffin_sock.prep"
+      },
+      {
+       "notFlag": "p16_prep_visitors"
+      }
+     ]
+    },
+    "script": "p16c3.prep_visitors"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "chicken_town.hands"
+      },
+      {
+       "notFlag": "p16_hands_visitors"
+      }
+     ]
+    },
+    "script": "p16c7.hands_visitors"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "chicken_town.walk"
+      },
+      {
+       "notFlag": "p16_walk_visitors"
+      }
+     ]
+    },
+    "script": "p16c7.walk_visitors"
+   },
+   {
+    "if": {
+     "flag": "p16_complete"
+    },
+    "cycle": [
+     "visitor_one.p16_after_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch197_started"
+        },
+        {
+         "notFlag": "p16_ch198_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch198_started"
+        },
+        {
+         "notFlag": "p16_ch199_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch199_started"
+        },
+        {
+         "notFlag": "p16_ch200_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch200_started"
+        },
+        {
+         "notFlag": "p16_ch201_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "visitor_one.p16_hornets_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch192_started"
+        },
+        {
+         "notFlag": "p16_ch193_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch193_started"
+        },
+        {
+         "notFlag": "p16_ch194_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "visitor_one.p16_mellow_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p16_ch188_started"
+      },
+      {
+       "notFlag": "p16_ch189_started"
+      }
+     ]
+    },
+    "cycle": [
+     "visitor_one.p16_coffin_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_started"
+        },
+        {
+         "notFlag": "p16_ch187_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch187_started"
+        },
+        {
+         "notFlag": "p16_ch188_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "visitor_one.p16_lighter_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "visitor_two",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "grand_search_for_fire.light"
+    },
+    "script": "p16c1.ask_light"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "coffin_sock.prep"
+      },
+      {
+       "notFlag": "p16_prep_visitors"
+      }
+     ]
+    },
+    "script": "p16c3.prep_visitors"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "chicken_town.hands"
+      },
+      {
+       "notFlag": "p16_hands_visitors"
+      }
+     ]
+    },
+    "script": "p16c7.hands_visitors"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "chicken_town.walk"
+      },
+      {
+       "notFlag": "p16_walk_visitors"
+      }
+     ]
+    },
+    "script": "p16c7.walk_visitors"
+   },
+   {
+    "if": {
+     "flag": "p16_complete"
+    },
+    "cycle": [
+     "visitor_two.p16_after_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch197_started"
+        },
+        {
+         "notFlag": "p16_ch198_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch198_started"
+        },
+        {
+         "notFlag": "p16_ch199_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch199_started"
+        },
+        {
+         "notFlag": "p16_ch200_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch200_started"
+        },
+        {
+         "notFlag": "p16_ch201_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "visitor_two.p16_hornets_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch192_started"
+        },
+        {
+         "notFlag": "p16_ch193_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch193_started"
+        },
+        {
+         "notFlag": "p16_ch194_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "visitor_two.p16_mellow_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p16_ch188_started"
+      },
+      {
+       "notFlag": "p16_ch189_started"
+      }
+     ]
+    },
+    "cycle": [
+     "visitor_two.p16_coffin_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_started"
+        },
+        {
+         "notFlag": "p16_ch187_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch187_started"
+        },
+        {
+         "notFlag": "p16_ch188_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "visitor_two.p16_lighter_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "agnes_second",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "chicken_near_miss.sniff"
+    },
+    "script": "p16c6.sniff"
+   },
+   {
+    "if": {
+     "objectiveActive": "vindictas_emergency.rescue"
+    },
+    "script": "p16c5.rescue"
+   },
+   {
+    "if": {
+     "flag": "agnes_second_returned"
+    },
+    "script": "agnes_second.p16"
+   }
+  ]
+ },
+ {
+  "extend": "vindicta",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "the_grand_lighter.vindicta"
+    },
+    "script": "p16c2.vindicta"
+   },
+   {
+    "if": {
+     "objectiveActive": "stenchmaster_fart_zone.vindicta"
+    },
+    "script": "p16c4.vindicta"
+   },
+   {
+    "if": {
+     "objectiveActive": "vindictas_emergency.vindicta"
+    },
+    "script": "p16c5.vindicta"
+   },
+   {
+    "if": {
+     "flag": "p16_started"
+    },
+    "script": "vindicta.p16"
+   }
+  ]
+ },
+ {
+  "extend": "bankworth",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "bankworth.bankworth"
+    },
+    "script": "p16c9.bankworth"
+   },
+   {
+    "if": {
+     "objectiveActive": "hornet_credit_boom.preferred"
+    },
+    "script": "p16c15.preferred"
+   }
+  ]
+ },
+ {
+  "extend": "rancidella",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "sashback_rewards.redeem"
+    },
+    "script": "p16c11.redeem"
+   }
+  ]
+ },
+ {
+  "extend": "pete",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p15_complete"
+      },
+      {
+       "notFlag": "p16_started"
+      }
+     ]
+    },
+    "script": "p16c1.begin"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "grand_search_for_fire.calm"
+      },
+      {
+       "notFlag": "p16_calm_pete"
+      }
+     ]
+    },
+    "script": "p16c1.calm_pete"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "grand_search_for_fire.talks"
+      },
+      {
+       "notFlag": "p16_talk_pete"
+      }
+     ]
+    },
+    "script": "p16c1.talk_pete"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "coffin_sock.prep"
+      },
+      {
+       "notFlag": "p16_prep_pete"
+      }
+     ]
+    },
+    "script": "p16c3.prep_pete"
+   },
+   {
+    "if": {
+     "objectiveActive": "chicken_near_miss.calm"
+    },
+    "script": "p16c6.calm"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "chicken_town.hands"
+      },
+      {
+       "notFlag": "p16_hands_pete"
+      }
+     ]
+    },
+    "script": "p16c7.hands_pete"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "chicken_town.walk"
+      },
+      {
+       "notFlag": "p16_walk_pete"
+      }
+     ]
+    },
+    "script": "p16c7.walk_pete"
+   },
+   {
+    "if": {
+     "objectiveActive": "bankworth.song"
+    },
+    "script": "p16c9.song"
+   },
+   {
+    "if": {
+     "objectiveActive": "stingbeard.name"
+    },
+    "script": "p16c13.name"
+   },
+   {
+    "if": {
+     "objectiveActive": "stingbeard.bunker"
+    },
+    "script": "p16c13.bunker"
+   },
+   {
+    "if": {
+     "flag": "p16_complete"
+    },
+    "cycle": [
+     "pete.p16_after_1",
+     "pete.p16_after_2"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch203_started"
+        },
+        {
+         "notFlag": "p16_ch204_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch204_started"
+        },
+        {
+         "notFlag": "p16_ch205_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch205_started"
+        },
+        {
+         "notFlag": "p16_complete"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p16_bureau_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch201_started"
+        },
+        {
+         "notFlag": "p16_ch202_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch202_started"
+        },
+        {
+         "notFlag": "p16_ch203_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p16_bunker_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch197_started"
+        },
+        {
+         "notFlag": "p16_ch198_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch198_started"
+        },
+        {
+         "notFlag": "p16_ch199_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch199_started"
+        },
+        {
+         "notFlag": "p16_ch200_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch200_started"
+        },
+        {
+         "notFlag": "p16_ch201_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p16_hornets_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch194_started"
+        },
+        {
+         "notFlag": "p16_ch195_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch195_started"
+        },
+        {
+         "notFlag": "p16_ch196_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch196_started"
+        },
+        {
+         "notFlag": "p16_ch197_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p16_bank_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch192_started"
+        },
+        {
+         "notFlag": "p16_ch193_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch193_started"
+        },
+        {
+         "notFlag": "p16_ch194_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p16_mellow_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch190_started"
+        },
+        {
+         "notFlag": "p16_ch191_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch191_started"
+        },
+        {
+         "notFlag": "p16_ch192_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p16_agnes_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p16_ch189_started"
+      },
+      {
+       "notFlag": "p16_ch190_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p16_zone_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p16_ch188_started"
+      },
+      {
+       "notFlag": "p16_ch189_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p16_coffin_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_started"
+        },
+        {
+         "notFlag": "p16_ch187_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch187_started"
+        },
+        {
+         "notFlag": "p16_ch188_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p16_lighter_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "gristle",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p16_complete"
+    },
+    "cycle": [
+     "gristle.p16_after_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch197_started"
+        },
+        {
+         "notFlag": "p16_ch198_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch198_started"
+        },
+        {
+         "notFlag": "p16_ch199_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch199_started"
+        },
+        {
+         "notFlag": "p16_ch200_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch200_started"
+        },
+        {
+         "notFlag": "p16_ch201_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p16_hornets_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch194_started"
+        },
+        {
+         "notFlag": "p16_ch195_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch195_started"
+        },
+        {
+         "notFlag": "p16_ch196_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch196_started"
+        },
+        {
+         "notFlag": "p16_ch197_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p16_bank_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch192_started"
+        },
+        {
+         "notFlag": "p16_ch193_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch193_started"
+        },
+        {
+         "notFlag": "p16_ch194_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p16_mellow_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p16_ch188_started"
+      },
+      {
+       "notFlag": "p16_ch189_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p16_coffin_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_started"
+        },
+        {
+         "notFlag": "p16_ch187_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch187_started"
+        },
+        {
+         "notFlag": "p16_ch188_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p16_lighter_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "bob",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p16_complete"
+    },
+    "cycle": [
+     "bob.p16_after_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch197_started"
+        },
+        {
+         "notFlag": "p16_ch198_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch198_started"
+        },
+        {
+         "notFlag": "p16_ch199_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch199_started"
+        },
+        {
+         "notFlag": "p16_ch200_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch200_started"
+        },
+        {
+         "notFlag": "p16_ch201_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p16_hornets_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch194_started"
+        },
+        {
+         "notFlag": "p16_ch195_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch195_started"
+        },
+        {
+         "notFlag": "p16_ch196_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch196_started"
+        },
+        {
+         "notFlag": "p16_ch197_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p16_bank_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p16_ch189_started"
+      },
+      {
+       "notFlag": "p16_ch190_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p16_zone_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_started"
+        },
+        {
+         "notFlag": "p16_ch187_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch187_started"
+        },
+        {
+         "notFlag": "p16_ch188_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p16_lighter_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "jim",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "chicken_town.walk"
+      },
+      {
+       "notFlag": "p16_walk_jim"
+      }
+     ]
+    },
+    "script": "p16c7.walk_jim"
+   },
+   {
+    "if": {
+     "flag": "p16_complete"
+    },
+    "cycle": [
+     "jim.p16_after_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch197_started"
+        },
+        {
+         "notFlag": "p16_ch198_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch198_started"
+        },
+        {
+         "notFlag": "p16_ch199_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch199_started"
+        },
+        {
+         "notFlag": "p16_ch200_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch200_started"
+        },
+        {
+         "notFlag": "p16_ch201_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p16_hornets_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch192_started"
+        },
+        {
+         "notFlag": "p16_ch193_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch193_started"
+        },
+        {
+         "notFlag": "p16_ch194_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p16_mellow_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p16_ch188_started"
+      },
+      {
+       "notFlag": "p16_ch189_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p16_coffin_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_started"
+        },
+        {
+         "notFlag": "p16_ch187_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch187_started"
+        },
+        {
+         "notFlag": "p16_ch188_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p16_lighter_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "ned",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p16_complete"
+    },
+    "cycle": [
+     "ned.p16_after_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch197_started"
+        },
+        {
+         "notFlag": "p16_ch198_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch198_started"
+        },
+        {
+         "notFlag": "p16_ch199_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch199_started"
+        },
+        {
+         "notFlag": "p16_ch200_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch200_started"
+        },
+        {
+         "notFlag": "p16_ch201_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p16_hornets_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_started"
+        },
+        {
+         "notFlag": "p16_ch187_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch187_started"
+        },
+        {
+         "notFlag": "p16_ch188_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p16_lighter_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "squawks",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p16_complete"
+    },
+    "cycle": [
+     "squawks.p16_after_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch197_started"
+        },
+        {
+         "notFlag": "p16_ch198_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch198_started"
+        },
+        {
+         "notFlag": "p16_ch199_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch199_started"
+        },
+        {
+         "notFlag": "p16_ch200_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch200_started"
+        },
+        {
+         "notFlag": "p16_ch201_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p16_hornets_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch190_started"
+        },
+        {
+         "notFlag": "p16_ch191_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch191_started"
+        },
+        {
+         "notFlag": "p16_ch192_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p16_agnes_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p16_ch188_started"
+      },
+      {
+       "notFlag": "p16_ch189_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p16_coffin_1",
+     "squawks.p16_coffin_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "hale",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p16_complete"
+    },
+    "cycle": [
+     "hale.p16_after_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_ch197_started"
+        },
+        {
+         "notFlag": "p16_ch198_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch198_started"
+        },
+        {
+         "notFlag": "p16_ch199_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch199_started"
+        },
+        {
+         "notFlag": "p16_ch200_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch200_started"
+        },
+        {
+         "notFlag": "p16_ch201_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "hale.p16_hornets_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p16_ch189_started"
+      },
+      {
+       "notFlag": "p16_ch190_started"
+      }
+     ]
+    },
+    "cycle": [
+     "hale.p16_zone_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p16_started"
+        },
+        {
+         "notFlag": "p16_ch187_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p16_ch187_started"
+        },
+        {
+         "notFlag": "p16_ch188_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "hale.p16_lighter_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "nell",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p16_started"
+    },
+    "script": "nell.p16"
+   }
+  ]
+ },
+ {
+  "extend": "sully",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p16_started"
+    },
+    "script": "sully.p16"
+   }
+  ]
+ },
+ {
+  "extend": "wick",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p16_started"
+    },
+    "script": "wick.p16"
+   }
+  ]
+ },
+ {
+  "extend": "rook",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p16_started"
+    },
+    "script": "rook.p16"
+   }
+  ]
+ },
+ {
+  "extend": "brask",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p16_started"
+    },
+    "script": "brask.p16"
+   }
+  ]
+ },
+ {
+  "extend": "jory",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p16_started"
+    },
+    "script": "jory.p16"
+   }
+  ]
+ },
+ {
+  "extend": "mags",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p16_started"
+    },
+    "script": "mags.p16"
+   }
+  ]
+ },
+ {
+  "extend": "quill",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p16_started"
+    },
+    "script": "quill.p16"
+   }
+  ]
+ }
+]

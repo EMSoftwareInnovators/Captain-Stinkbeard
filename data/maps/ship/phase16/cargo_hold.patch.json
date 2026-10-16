@@ -1,0 +1,399 @@
+{
+ "id": "cargo_hold_phase16",
+ "patch": "cargo_hold",
+ "//": "Story Phase 16 in the hold: the big crate of ceremonial supplies (11,4: candles, no fire); the sacks in the far corner (18,10) in the search for the clucking; the bunker's sign by the Fart-Free Zone's door (12,3), and Pete guarding it (13,4) while the captain's beard has hornets in it (198-200).",
+ "objects": [
+  {
+   "id": "p16_fire_crate",
+   "type": "inspect",
+   "x": 11,
+   "y": 4,
+   "w": 2,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "grand_search_for_fire.search"
+     },
+     {
+      "notFlag": "p16_fire_crate"
+     }
+    ]
+   },
+   "script": "p16c1.search_crate"
+  },
+  {
+   "id": "p16_hen_hold",
+   "type": "inspect",
+   "x": 18,
+   "y": 10,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "vindictas_emergency.search"
+     },
+     {
+      "notFlag": "p16_hen_hold"
+     }
+    ]
+   },
+   "script": "p16c5.search_hold"
+  },
+  {
+   "id": "p16_bunker_look",
+   "type": "inspect",
+   "x": 12,
+   "y": 3,
+   "if": {
+    "flag": "fart_free_zone_reinforced"
+   },
+   "script": "p16.inspect.bunker_sign"
+  },
+  {
+   "id": "p16h_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_complete"
+   }
+  },
+  {
+   "id": "p16h_pete_1",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p16_ch205_started"
+     },
+     {
+      "notFlag": "p16_complete"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p16h_pete_2",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "p16_ch203_started"
+       },
+       {
+        "notFlag": "p16_ch204_started"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p16_ch204_started"
+       },
+       {
+        "notFlag": "p16_ch205_started"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": "p16h_pete_3",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p16_ch202_started"
+     },
+     {
+      "notFlag": "p16_ch203_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p16h_pete_4",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p16_ch201_started"
+     },
+     {
+      "notFlag": "p16_ch202_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p16h_pete_5",
+   "type": "npc",
+   "npc": "pete",
+   "x": 13,
+   "y": 4,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "any": [
+       {
+        "all": [
+         {
+          "flag": "p16_ch198_started"
+         },
+         {
+          "notFlag": "p16_ch199_started"
+         }
+        ]
+       },
+       {
+        "all": [
+         {
+          "flag": "p16_ch199_started"
+         },
+         {
+          "notFlag": "p16_ch200_started"
+         }
+        ]
+       },
+       {
+        "all": [
+         {
+          "flag": "p16_ch200_started"
+         },
+         {
+          "notFlag": "p16_ch201_started"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "flag": "stingbeard_nickname_unlocked"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p16h_pete_6",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16h_gristle_0",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16h_bob_0",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16h_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16h_ned_0",
+   "type": "npc",
+   "npc": "ned",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16h_squawks_0",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16h_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16h_brogath_0",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16h_visitor_one_0",
+   "type": "npc",
+   "npc": "visitor_one",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16h_visitor_two_0",
+   "type": "npc",
+   "npc": "visitor_two",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16h_agnes_second_0",
+   "type": "npc",
+   "npc": "agnes_second",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16h_vindicta_0",
+   "type": "npc",
+   "npc": "vindicta",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16h_bankworth_0",
+   "type": "npc",
+   "npc": "bankworth",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16h_puffchester_0",
+   "type": "npc",
+   "npc": "puffchester",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16h_rancidella_0",
+   "type": "npc",
+   "npc": "rancidella",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16h_branch_teller_0",
+   "type": "npc",
+   "npc": "branch_teller",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  },
+  {
+   "id": "p16h_whifflebottom_0",
+   "type": "npc",
+   "npc": "whifflebottom",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p16_started"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "bunker_sign",
+   "x": 12,
+   "y": 3,
+   "if": {
+    "flag": "fart_free_zone_reinforced"
+   },
+   "id": "p16_bunker_sign"
+  }
+ ]
+}

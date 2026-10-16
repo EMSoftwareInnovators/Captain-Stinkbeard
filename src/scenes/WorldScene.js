@@ -919,6 +919,7 @@ export class WorldScene extends BaseScene {
     }
     let best = null;
     for (const sp of Object.values(this.model.spawns)) {
+      if (sp.if && !evaluateCondition(sp.if, this.session)) continue;
       const d = dist.get(this.key(sp.x, sp.y));
       if (d === undefined || this.isBlocked(sp.x, sp.y, self)) continue;
       if (!best || d < best.d) best = { ...sp, d };

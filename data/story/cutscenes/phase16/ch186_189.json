@@ -19,6 +19,26 @@
    "value": 37
   },
   {
+   "beard": "add",
+   "tag": "GARRICK_ORIGINAL",
+   "quiet": true
+  },
+  {
+   "beard": "add",
+   "tag": "BROGATH_ANCIENT",
+   "quiet": true
+  },
+  {
+   "beard": "add",
+   "tag": "GRAND_BANK_DEPOSITS",
+   "quiet": true
+  },
+  {
+   "beard": "add",
+   "tag": "SKUNK_HAZE",
+   "quiet": true
+  },
+  {
    "banner": "CAPTAIN STINKBEARD",
    "sub": "and the Grand Lighter"
   },
@@ -91,7 +111,7 @@
    "setFlag": "p16_canopy_sashes"
   },
   {
-   "tutorial": "Rig the canopy over Brogath's Grand Pad: LOOSE, not sealed (the gold pad, Crew Quarters).",
+   "tutorial": "Rig the canopy over Brogath's spot: LOOSE, not sealed (by the bedroom set, Crew Quarters).",
    "title": "The Grand Search for Fire"
   }
  ],
@@ -107,7 +127,7 @@
     }
    ]
   },
-  "Four poles, one at each corner of the Grand Pad. The sashes over the top.",
+  "Four poles round the spot where Brogath sits, by the bedroom set. The sashes over the top.",
   {
    "choice": [
     {
@@ -405,7 +425,7 @@
    "setFlag": "grand_lighter_acquired"
   },
   {
-   "tutorial": "Try it: the canopy over the Grand Pad (Crew Quarters).",
+   "tutorial": "Try it: the canopy over Brogath's spot (Crew Quarters).",
    "title": "The Grand Lighter"
   }
  ],
@@ -466,7 +486,7 @@
    "setFlag": "p16_cheapy_ad_seen"
   },
   {
-   "tutorial": "Make it work: the canopy over the Grand Pad (Crew Quarters). Keep trying.",
+   "tutorial": "Make it work: the canopy over Brogath's spot (Crew Quarters). Keep trying.",
    "title": "The Grand Lighter"
   }
  ],
@@ -478,6 +498,10 @@
    "attempts": 32,
    "until": "flame",
    "montage": true
+  },
+  {
+   "beard": "add",
+   "tag": "GRAND_LIGHTER_FUEL"
   },
   "The thirty-second click. A flame. A little, ordinary, steady flame. Everybody gasps. Pete nearly drops the bucket.",
   "You lower it to the bowl. The Emergency Mellowing Supply catches, and a single green wisp curls up under the canopy, slow and lazy.",
@@ -691,8 +715,8 @@
   },
   {
    "burst": "fume",
-   "x": 12,
-   "y": 9,
+   "x": 10,
+   "y": 7,
    "count": 16
   },
   {

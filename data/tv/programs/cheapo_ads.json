@@ -1,10 +1,13 @@
 {
  "cheapo_ads": {
   "title": "Cheap-O-Rama",
-  "//": "Story Phase 16 (chapter 187): CHEAP-O-RAMA's advert for THE GRAND STENCHMASTER'S GRAND LIGHTER OF GRAND SMOKES, with Cheapy the Cheapskate Clown (original: a lanky fellow in a purple and gold checked suit, a bowler with the price tag still on, a coupon for a bow tie). It came on the Mark II by itself.",
+  "//": "Story Phase 16 (chapter 187): CHEAP-O-RAMA's advert for THE GRAND STENCHMASTER'S GRAND LIGHTER OF GRAND SMOKES, with Cheapy the Cheapskate Clown (original: a lanky fellow in a checked suit, a bowler with the price tag still on, a coupon for a bow tie). It came on the Mark II by itself.",
   "episodes": [
    {
     "id": "grand_lighter",
+    "if": {
+     "flag": "p16_started"
+    },
     "beats": [
      {
       "frames": [

@@ -25,7 +25,7 @@
    },
    {
     "id": "spot",
-    "text": "Rig the canopy over Brogath's spot: LOOSE, not sealed (the chalk mark, Crew Quarters)",
+    "text": "Rig the canopy over Brogath's spot by the bedroom set: LOOSE, not sealed (Crew Quarters)",
     "type": "flag",
     "target": "brogath_fume_canopy_built",
     "after": [
@@ -53,7 +53,7 @@
    },
    {
     "id": "search",
-    "text": "Search the ship for fire (Captain's Quarters desk, galley stove box, Crew Quarters footlocker, the hold's crates, Garrick's chest in the galley, the lantern locker on deck)",
+    "text": "Search for fire: cabin desk, galley stove, quarters footlocker, hold crate, Garrick's crate (galley), deck rum barrel",
     "type": "event",
     "target": "p16_fire_search",
     "count": 6,
@@ -100,7 +100,7 @@
    },
    {
     "id": "try",
-    "text": "Try it (the canopy, Crew Quarters)",
+    "text": "Try it (the canopy over Brogath's spot, Crew Quarters)",
     "type": "flag",
     "target": "p16_lighter_first_try",
     "after": [
@@ -118,7 +118,7 @@
    },
    {
     "id": "work",
-    "text": "Make it work (the canopy, Crew Quarters: keep trying)",
+    "text": "Make it work (the canopy over Brogath's spot, Crew Quarters: keep trying)",
     "type": "flag",
     "target": "grand_lighter_working",
     "after": [
@@ -215,7 +215,7 @@
   "objectives": [
    {
     "id": "find",
-    "text": "Open up the old sail locker (the grating by the mainmast, on deck)",
+    "text": "Open up the old sail locker (the cargo grating, midships on deck)",
     "type": "flag",
     "target": "p16_fz_found"
    },
@@ -330,7 +330,7 @@
   "objectives": [
    {
     "id": "search",
-    "text": "Find the clucking (under the bunks in the Crew Quarters, the galley barrels, the hold's far corner, the sash pile in the Crew Quarters, the grating on deck)",
+    "text": "Find the clucking: quarters bunks, galley barrels, hold corner, quarters sash pile, deck grating",
     "type": "event",
     "target": "p16_cluck_search",
     "count": 5
@@ -627,7 +627,7 @@
    },
    {
     "id": "save",
-    "text": "Save the haze (Agnes and Brogath, the Sash Lounge)",
+    "text": "Save the haze (Agnes and Brogath, under his canopy, Crew Quarters)",
     "type": "flag",
     "target": "p16_tiny_green",
     "after": [
@@ -658,7 +658,7 @@
   "objectives": [
    {
     "id": "idea",
-    "text": "Hear the idea (Brogath, the Sash Lounge)",
+    "text": "Hear the idea (Brogath, under his canopy, Crew Quarters)",
     "type": "flag",
     "target": "p16_hornet_idea"
    },
@@ -714,7 +714,7 @@
   "objectives": [
    {
     "id": "shoo",
-    "text": "Get them out of your beard (wave, shake, order them: on deck)",
+    "text": "Shoo them out of your beard (on deck): any rail, the water barrel by the wheel, the wheel",
     "type": "event",
     "target": "p16_shoo",
     "count": 3
@@ -777,7 +777,7 @@
    },
    {
     "id": "brogath",
-    "text": "Brogath has one (Brogath, the Sash Lounge)",
+    "text": "Brogath has one (Brogath, under his canopy, Crew Quarters)",
     "type": "flag",
     "target": "sash_quote_story_hour_complete",
     "after": [
