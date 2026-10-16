@@ -226,5 +226,23 @@
     "flag": "p16_started"
    }
   }
+ ],
+ "props": [
+  {
+   "prop": "chalk_x",
+   "x": 6,
+   "y": 6,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "grand_search_for_fire.search"
+     },
+     {
+      "notFlag": "p16_fire_desk"
+     }
+    ]
+   },
+   "id": "p16_chalk_fire_desk"
+  }
  ]
 }

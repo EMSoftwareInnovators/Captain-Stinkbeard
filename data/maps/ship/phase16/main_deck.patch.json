@@ -3019,6 +3019,38 @@
  ],
  "props": [
   {
+   "prop": "chalk_x",
+   "x": 6,
+   "y": 16,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "grand_search_for_fire.search"
+     },
+     {
+      "notFlag": "p16_fire_barrel"
+     }
+    ]
+   },
+   "id": "p16_chalk_fire_barrel"
+  },
+  {
+   "prop": "chalk_x",
+   "x": 9,
+   "y": 15,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "vindictas_emergency.search"
+     },
+     {
+      "notFlag": "p16_hen_grating"
+     }
+    ]
+   },
+   "id": "p16_chalk_hen_grating"
+  },
+  {
    "prop": "fz_hatch_open",
    "x": 9,
    "y": 17,

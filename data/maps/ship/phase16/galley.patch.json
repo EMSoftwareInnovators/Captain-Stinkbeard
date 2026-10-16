@@ -3563,5 +3563,55 @@
     "flag": "p16_started"
    }
   }
+ ],
+ "props": [
+  {
+   "prop": "chalk_x",
+   "x": 3,
+   "y": 4,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "grand_search_for_fire.search"
+     },
+     {
+      "notFlag": "p16_fire_stove"
+     }
+    ]
+   },
+   "id": "p16_chalk_fire_stove"
+  },
+  {
+   "prop": "chalk_x",
+   "x": 15,
+   "y": 7,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "grand_search_for_fire.search"
+     },
+     {
+      "notFlag": "p16_fire_garrick"
+     }
+    ]
+   },
+   "id": "p16_chalk_fire_garrick"
+  },
+  {
+   "prop": "chalk_x",
+   "x": 15,
+   "y": 4,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "vindictas_emergency.search"
+     },
+     {
+      "notFlag": "p16_hen_barrels"
+     }
+    ]
+   },
+   "id": "p16_chalk_hen_barrels"
+  }
  ]
 }

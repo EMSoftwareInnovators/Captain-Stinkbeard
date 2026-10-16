@@ -5621,6 +5621,54 @@
  ],
  "props": [
   {
+   "prop": "chalk_x",
+   "x": 5,
+   "y": 5,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "grand_search_for_fire.search"
+     },
+     {
+      "notFlag": "p16_fire_footlocker"
+     }
+    ]
+   },
+   "id": "p16_chalk_fire_footlocker"
+  },
+  {
+   "prop": "chalk_x",
+   "x": 15,
+   "y": 9,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "vindictas_emergency.search"
+     },
+     {
+      "notFlag": "p16_hen_bunks"
+     }
+    ]
+   },
+   "id": "p16_chalk_hen_bunks"
+  },
+  {
+   "prop": "chalk_x",
+   "x": 12,
+   "y": 9,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "vindictas_emergency.search"
+     },
+     {
+      "notFlag": "p16_hen_sashes"
+     }
+    ]
+   },
+   "id": "p16_chalk_hen_sashes"
+  },
+  {
    "prop": "fume_canopy",
    "x": 9,
    "y": 7,

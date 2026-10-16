@@ -263,6 +263,38 @@
  ],
  "props": [
   {
+   "prop": "chalk_x",
+   "x": 10,
+   "y": 4,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "grand_search_for_fire.search"
+     },
+     {
+      "notFlag": "p16_fire_crate"
+     }
+    ]
+   },
+   "id": "p16_chalk_fire_crate"
+  },
+  {
+   "prop": "chalk_x",
+   "x": 18,
+   "y": 11,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "vindictas_emergency.search"
+     },
+     {
+      "notFlag": "p16_hen_hold"
+     }
+    ]
+   },
+   "id": "p16_chalk_hen_hold"
+  },
+  {
    "prop": "bunker_sign",
    "x": 12,
    "y": 3,
