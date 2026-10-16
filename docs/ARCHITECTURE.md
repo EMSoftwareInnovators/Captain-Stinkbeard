@@ -680,6 +680,48 @@ Branch is a state of the old quarters) and these reusable parts:
 - **The chicken painter** (`src/art/characters/chickenPainter.js`, sheets and
   portraits) and a `mellow` look for cardboard characters.
 
+## Rooms' air, the Fart Zone, the beard, devices, proceedings, credit, hornets (Phase 16)
+
+Story Phase 16 ([16](STORY_PHASE16.md)) added one room
+(`stenchmaster_fart_zone`) and these reusable parts:
+
+- **Rooms with their own air.** `room_atmosphere_<map>` story values over the
+  ship's (`roomPrefix` in `data/story/atmosphere.json`); `atmosphereOn` reads
+  the room's first. `{ "atmosphere": "X", "room": "galley" }`, `"SHIP"` with a
+  room hands it back, `"clearRooms": true` hands them all back
+  (`setAtmosphere(..., { room })`, `clearRoomAtmospheres`).
+- **A release room** (`src/systems/fartZone.js`, `fartZone` command): one
+  occupant, a queue, door and portholes as story values, a state
+  (IDLE … COMPLETE), and authored releases processed exactly once
+  (`fz_done_<id>`; damage and odor applied once; a release against the posted
+  procedure throws unless forced).
+- **A beard profile** (`src/systems/beard.js`, `beard` command): tags are
+  flags (`beard_<tag>`); only tags marked `"permanent": false` can be removed.
+- **Novelty devices** (`src/systems/novelty.js`, `lighter` command): a
+  malfunction profile and a fixed outcome sequence indexed by a saved counter;
+  `until` forces the last attempt. Deterministic.
+- **Proceedings** (`src/systems/proceedings.js`, `proceeding` command): form,
+  hearing and pitch, played as dialogue choices; forms re-ask required
+  questions (bounded), hearings have a retry and a mercy, pitches have a gauge
+  (`vistaFrame` per pressure) and a checkpoint with a longer clock, so none
+  can be lost for good.
+- **Credit and conversion** (`src/systems/credit.js`, `appraise` and
+  `currencyConverter` commands): an appraisal is a score from chosen notes,
+  clamped; bonuses and conversions move story variables only (never the
+  purse), and an optional policy flag caps a conversion. Bank customers gain
+  `payment` (`tokens` into the bank's `tillVar`, `check`, `application`) and
+  `appraise`.
+- **A swarm hazard** (`src/systems/hazards/hornets.js`,
+  `src/world/HornetSwarm.js`, `hornets` command): a story value picks a state;
+  each state gives per-room counts (pooled sprites, capped), how many orbit the
+  player, an anchor, and whether they leave. Sprites never collide.
+- **RECOVERING** (stability): `recoverFlag` halves rises (`recoverScale`)
+  until cleared (`{ "stability": "recover", "on": false }`); ANGRY wins, then
+  RECOVERING, then MELLOW.
+- **Conditional arrival points**: a spawn object's `if` (compiled into
+  `model.spawns`) is honoured by `WorldScene.nearestArrival` and the staging
+  check.
+
 ## Battle
 
 `BattleEngine` (`src/systems/battle/`) owns the rules and is fully
@@ -788,9 +830,10 @@ handles fullscreen, so pixels stay square and sharp.
 See the README and [RETRO_PORT_NOTES.md](RETRO_PORT_NOTES.md#save-schema).
 Autosave on map entry and after battles, three manual slots from the pause
 menu, checksum + version per record, migrations table for future formats.
-The schema is at version 13 (Story Phase 4 added story values: where the
-Dead Center is; Phases 5 to 13 keep the layout, and Phases 11 to 13 add only
-flags, variables and values); a save from any earlier phase upgrades on load
+The schema is at version 16 (Story Phase 4 added story values: where the
+Dead Center is; Phases 5 to 16 keep the layout, and Phases 11 to 16 add only
+flags, variables and values: Phase 16's rooms' air, Fart Zone, beard, counter,
+lighter and hornets are all story state); a save from any earlier phase upgrades on load
 and walks into the next chapter. Aliases are never saved.
 
 ## Testing
@@ -827,8 +870,8 @@ and walks into the next chapter. Aliases are never saved.
   | Tag | What |
   | --- | --- |
   | `@smoke` | a few minutes: menus, movement, a pad, Phase 2 presets, being walled in, the Dead Center's sealed door, the Forecast Board, the S.E.S., the Mark II knob panel, the discount-store reveal, the reef passage, the wrong-way entry, the sauce-can aerial, the six-rope lamp, the late-night knobs, the sealed treasure door, the thirty-second trial (held with real key presses), the Grand Dice, Garrick suspended, Stench-O-Vision with the hazard off, the delirium, the standees across a save, the BASHFULNESS meter, the teller's window, the Grand Bank across a save |
-  | `@story` | the long playthroughs (prologue, Phase 2, Phase 3, chapters 12 to 14, Phase 4, chapters 18 and 19, Phase 5, chapters 23 and 24, Phase 6, Phase 7, chapters 39 to 41, Phase 8, chapters 51 to 54, Phase 9, chapters 62 to 70, Phase 10, chapters 90 to 95, Phase 11, chapters 104 to 111, Phase 12, chapters 121 to 126, Phase 13, chapters 139 to 145, Phase 14, chapters 163 to 169, Phase 15) |
-  | `@prologue` `@phase2` `@phase3` `@phase4` `@phase5` `@phase6` `@phase7` `@phase8` `@phase9` `@phase10` `@phase11` `@phase12` `@phase13` `@phase14` `@phase15` | by part of the story |
+  | `@story` | the long playthroughs (prologue, Phase 2, Phase 3, chapters 12 to 14, Phase 4, chapters 18 and 19, Phase 5, chapters 23 and 24, Phase 6, Phase 7, chapters 39 to 41, Phase 8, chapters 51 to 54, Phase 9, chapters 62 to 70, Phase 10, chapters 90 to 95, Phase 11, chapters 104 to 111, Phase 12, chapters 121 to 126, Phase 13, chapters 139 to 145, Phase 14, chapters 163 to 169, Phase 15, chapter 205) |
+  | `@prologue` `@phase2` `@phase3` `@phase4` `@phase5` `@phase6` `@phase7` `@phase8` `@phase9` `@phase10` `@phase11` `@phase12` `@phase13` `@phase14` `@phase15` `@phase16` | by part of the story |
   | `@input` `@saves` `@world` `@scenes` `@ui` | by system |
 
   `npm run e2e:smoke`, `npm run e2e:quick` (all but `@story`),
@@ -909,7 +952,13 @@ and walks into the next chapter. Aliases are never saved.
   checks the end economy, the ordinary stench and the storm afterwards,
   Agnes missing, the branch closed for good, everyone mellow, a save in the
   middle of the relief shift, and the brief (banned names, the content
-  rules, nothing past the source). `tests/storyStaging.js` also checks that whatever an open
+  rules, nothing past the source). `tests/phase16.test.js` covers rooms'
+  own air, the Fart Zone (each release once, across a save), the beard, the
+  lighter, the proceedings, credit and the converter (no gold, no doubling,
+  the cap), the hornets, RECOVERING, the two televisions, the bunker's lock,
+  saves 15 → 16 and the debug tab; the Phase 16 story test plays the phase
+  twice with the staging check, from ten presets and across two saves, and
+  checks the brief. `tests/storyStaging.js` also checks that whatever an open
   objective needs is reachable from where the captain stands, and walks him
   up to an object from a side he can reach.
 

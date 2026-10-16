@@ -1645,6 +1645,118 @@ the captain to a fixed side: he is already facing the rail he chose.
 - Every Phase 15 prop, inset and vista frame is listed in
   [STORY_PHASE15.md](STORY_PHASE15.md).
 
+## Story Phase 16 formats
+
+### A room's own air
+
+```json
+{ "atmosphere": "COFFIN_SOCK", "room": "crew_quarters" }
+{ "atmosphere": "SHIP", "room": "crew_quarters" }
+{ "atmosphere": "ORDINARY_STENCH", "clearRooms": true }
+```
+
+The first gives one room its own state (saved as `room_atmosphere_<map>`), the
+second hands it back to the ship's, the third hands every room back and sets
+the ship's. Conditions read it like any value:
+`{ "value": { "name": "room_atmosphere_galley", "eq": "COFFIN_SOCK" } }`.
+
+### A release room (`data/story/fart_zone.json`)
+
+```json
+"zone": { "map": "stenchmaster_fart_zone", "stateValue": "fz_state", "occupantValue": "fz_occupant",
+  "doorValue": "fz_door", "portholesValue": "fz_portholes", "damageVar": "fz_damage", "doneFlagPrefix": "fz_done_",
+  "releases": { "hornet_fart": { "damage": 1, "odor": "HORNET_SWARM_RESIDUE" } }, "rules": ["Close the main door.", "..."] }
+```
+
+Script it with `{ "fartZone": "queue", "who": "brogath" }`, `"enter"`,
+`"door"`/`"portholes"` (`"value": "open" | "closed"`), `"prepare"`,
+`"release"` (`"release": "hornet_fart"`: once ever, and only by the procedure
+unless `"force": true`), `"ventilate"`, `"complete"`, `"reset"`. Declare
+`fz_done_<release>` flags.
+
+### The beard (`data/story/beard.json`)
+
+```json
+"beard": { "flagPrefix": "beard_", "tags": { "COFFIN_SOCK": { "label": "Coffin Sock", "note": "..." },
+  "HORNET_ATTRACTED": { "label": "Hornets", "note": "...", "permanent": false } } }
+```
+
+`{ "beard": "add", "tag": "COFFIN_SOCK" }` (a toast unless `"quiet": true`);
+`"remove"` only for a tag with `"permanent": false`.
+
+### A novelty device (`data/story/novelty.json`)
+
+```json
+"grand_smokes": { "item": "grand_stenchmaster_lighter", "counterVar": "lighter_clicks",
+  "outcomes": { "click": { "text": "Click.", "short": "Click.", "sfx": "lighter_click" }, "flame": { "text": "...", "lit": true } },
+  "sequence": ["click", "nothing", "spark", "flame"] }
+```
+
+`{ "lighter": "grand_smokes", "attempts": 32, "until": "flame", "montage": true }`
+makes 32 attempts (the last forced), one line for the lot.
+
+### A proceeding (`data/story/proceedings/*.json`)
+
+```json
+"ignition_application": { "kind": "form", "pages": 97, "pageVar": "ignition_page", "answerPrefix": "ign_",
+  "questions": [
+    { "id": "chickens", "page": 61, "required": true, "prompt": "puffchester: CHICKENS NEARBY?",
+      "options": [{ "text": "No chickens.", "invalid": true, "reply": ["From the lounge: BAWK."] },
+                  { "text": "AGNES THE SECOND. DO NOT TOAST.", "flag": "p16_agnes_on_form" }],
+      "again": ["puffchester: The form won't accept that, clerk."] },
+    { "id": "pages_5_30", "montage": [5, 14, 30], "lines": ["Pages five to thirty: ANCESTORS."] } ],
+  "done": ["..."] }
+```
+
+A `hearing` has `questions` whose options carry `points`, a `pass` mark, and
+`passed`, `retry` and `mercy` scripts (one retry, then mercy). A `pitch` has
+`arguments` (`text`, `points`, `reply`, optional `lighter`), `goal`,
+`perRound`, `max`, `show`, a `gauge` (`{ "layer": "gauge", "prefix":
+"vgauge_", "frames": 6 }` on the current vista), `stages` (scripts by
+pressure), `fail` (the checkpoint) and `won`. Every script there is a list of
+ordinary steps. Run one with `{ "proceeding": "ignition_hearing" }`. The
+validator checks the best hearing answers reach the pass mark and every
+argument together reaches the goal.
+
+### Credit and the converter (`data/story/credit.json`)
+
+`"sashback"`: `base`, `min`, `max`, `notes` (each a prompt and options with
+`points`), `classes` and `bonuses` (highest first), `scoreVar`, `classValue`,
+`issuedVar`. `"converter"`: `convertedVar`, `usesVar`, `policyFlag`,
+`policyLimit`, `blasts`. Steps:
+`{ "appraise": "sashback", "bias": 120, "bonusVar": "rancidella_bonus" }` and
+`{ "currencyConverter": "converter", "from": "counter_till", "amount": "all" }`.
+Neither touches the purse.
+
+### More ways to pay at a bank counter
+
+A customer can have `"payment": "tokens"` (with `"tokens": 40`, into the
+bank's `tillVar`; the bank's `tokenLine`), `"check"` (with `"check": "<insert>"`)
+or `"application"` (the bank's `applicationLine`), and `"appraise": { "credit":
+"sashback", "bias": 0 }`. Those skip the teller's window and the ledger.
+
+### A swarm (`data/hazards/hornets.json`)
+
+```json
+"hornets": { "value": "hornet_swarm", "default": "DORMANT", "max": 48, "buzz": "hornet_buzz",
+  "states": { "BEARD_ATTRACTED": { "maps": { "main_deck": 14 }, "follow": 14 },
+              "BUNKER_SIEGE": { "maps": { "cargo_hold": 28 }, "anchors": { "cargo_hold": [13, 6] } },
+              "DISPERSING": { "maps": { "main_deck": 8 }, "leave": true } } }
+```
+
+`{ "hornets": "SWARMING" }` sets it; rooms show that many small sprites.
+
+### RECOVERING (a stability subject)
+
+`"recoverFlag": "brogath_recovering", "recoverScale": 0.5, "recoverLabel": "RECOVERING"`;
+`{ "stability": "recover", "on": true }` (or `false`; `settle` clears it).
+
+### A conditional arrival point
+
+`{ "id": "fz_grate", "type": "spawn", "x": 8, "y": 17, "if": { "flag": "p16_fz_found" } }`:
+people only walk in and out by it while the condition holds (and the staging
+check only tests it then).
+
 ## Tilesets and props
 
 **Tilesets** (`data/tilesets/`) list `frames` (painted by name in
