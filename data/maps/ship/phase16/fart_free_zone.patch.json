@@ -155,9 +155,9 @@
    "id": "p16z_pete_3",
    "type": "npc",
    "npc": "pete",
-   "x": 4,
+   "x": 9,
    "y": 5,
-   "facing": "right",
+   "facing": "left",
    "if": {
     "all": [
      {
@@ -176,9 +176,9 @@
    "id": "p16z_pete_4",
    "type": "npc",
    "npc": "pete",
-   "x": 4,
+   "x": 9,
    "y": 5,
-   "facing": "right",
+   "facing": "left",
    "if": {
     "all": [
      {
@@ -195,6 +195,58 @@
   },
   {
    "id": "p16z_pete_5",
+   "type": "npc",
+   "npc": "pete",
+   "x": 6,
+   "y": 4,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "any": [
+       {
+        "all": [
+         {
+          "flag": "p16_ch198_started"
+         },
+         {
+          "notFlag": "p16_ch199_started"
+         }
+        ]
+       },
+       {
+        "all": [
+         {
+          "flag": "p16_ch199_started"
+         },
+         {
+          "notFlag": "p16_ch200_started"
+         }
+        ]
+       },
+       {
+        "all": [
+         {
+          "flag": "p16_ch200_started"
+         },
+         {
+          "notFlag": "p16_ch201_started"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "flag": "stingbeard_nickname_unlocked"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p16z_pete_6",
    "type": "npc",
    "npc": "pete",
    "x": 1,
@@ -269,9 +321,9 @@
    "id": "p16z_gristle_3",
    "type": "npc",
    "npc": "gristle",
-   "x": 3,
+   "x": 1,
    "y": 4,
-   "facing": "down",
+   "facing": "right",
    "if": {
     "all": [
      {
@@ -282,17 +334,18 @@
      }
     ]
    },
+   "pose": "sit",
    "behavior": {
-    "type": "stand"
+    "type": "sit"
    }
   },
   {
    "id": "p16z_gristle_4",
    "type": "npc",
    "npc": "gristle",
-   "x": 3,
+   "x": 1,
    "y": 4,
-   "facing": "down",
+   "facing": "right",
    "if": {
     "all": [
      {
@@ -303,17 +356,18 @@
      }
     ]
    },
+   "pose": "sit",
    "behavior": {
-    "type": "stand"
+    "type": "sit"
    }
   },
   {
    "id": "p16z_gristle_5",
    "type": "npc",
    "npc": "gristle",
-   "x": 3,
+   "x": 1,
    "y": 4,
-   "facing": "down",
+   "facing": "right",
    "if": {
     "all": [
      {
@@ -355,8 +409,9 @@
      }
     ]
    },
+   "pose": "sit",
    "behavior": {
-    "type": "stand"
+    "type": "sit"
    }
   },
   {
@@ -436,7 +491,7 @@
    "type": "npc",
    "npc": "bob",
    "x": 1,
-   "y": 5,
+   "y": 6,
    "facing": "right",
    "if": {
     "all": [
@@ -458,7 +513,7 @@
    "type": "npc",
    "npc": "bob",
    "x": 1,
-   "y": 5,
+   "y": 6,
    "facing": "right",
    "if": {
     "all": [
@@ -480,7 +535,7 @@
    "type": "npc",
    "npc": "bob",
    "x": 1,
-   "y": 5,
+   "y": 6,
    "facing": "right",
    "if": {
     "all": [
@@ -1594,7 +1649,7 @@
    "id": "p16z_agnes_second_2",
    "type": "npc",
    "npc": "agnes_second",
-   "x": 2,
+   "x": 1,
    "y": 5,
    "facing": "right",
    "if": {

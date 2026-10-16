@@ -10,10 +10,11 @@ import { readStability, writePressure } from '../systems/stability.js';
 import { stabilitySubject, bankDef } from '../systems/script/commands.js';
 import { DEBUG_BROGATH } from './brogathDebug.js';
 import { DEBUG_MELLOWING } from './mellowingDebug.js';
+import { DEBUG_LIGHTER } from './lighterDebug.js';
 import { ATMOSPHERE_STATES, atmosphereId } from '../systems/atmosphere.js';
 import { roomGuard } from '../world/placements.js';
 
-const TABS = ['Info', 'Story', 'Warp', 'Flags', 'Quests', 'Items', 'Party', 'Battle', 'Brogath', 'Mellow', 'Tools'];
+const TABS = ['Info', 'Story', 'Warp', 'Flags', 'Quests', 'Items', 'Party', 'Battle', 'Brogath', 'Mellow', 'Lighter', 'Tools'];
 const GAMEPLAY_SCENES = ['Title', 'World', 'Battle', 'Menu', 'GameOver', 'Overlay'];
 
 /**
@@ -442,6 +443,54 @@ export class DebugScene extends BaseScene {
           s.story.setValue(branch.stateValue, 'open');
           s.story.setVar(q.servedVar, i);
           this.runInWorld([{ bank: 'next', bankId: 'bashfulness_branch', queue: qid, observe: qid === 'night' }]);
+        },
+      }))) });
+    }
+    return out;
+  }
+
+  /** Story Phase 16: the Grand Lighter (see lighterDebug.js). */
+  itemsLighter() {
+    const s = this.app.session;
+    const content = this.app.content;
+    if (!content.fartZone?.has?.('zone')) return [{ label: '<k>No Phase 16 content</>' }];
+    const out = [];
+    const presets = content.debugPresets;
+    for (const [label, id] of DEBUG_LIGHTER.jumps) {
+      out.push({ label: `Jump: ${label}`, right: presets.has(id) ? id : '<r>missing</>', action: () => {
+        if (!presets.has(id)) return this.flash(`No preset ${id}`);
+        this.close();
+        startPreset(this.game, id);
+        return null;
+      } });
+    }
+    if (!s) return [...out, { label: '<k>Start a game for the rest</>' }];
+    out.push({ label: 'Fart Zone', right: `${s.story.getValue('fz_state') ?? 'IDLE'} ${s.story.getValue('fz_occupant') ?? ''}` });
+    out.push({ label: 'Hornets', right: s.story.getValue('hornet_swarm') ?? 'DORMANT', action: () => this.openSub(DEBUG_LIGHTER.hornetStates.map((id) => ({
+      label: id,
+      action: () => { this.closeSub(); this.runInWorld([{ hornets: id }]); },
+    }))) });
+    out.push({ label: 'Lighter clicks', right: `${s.story.getVar('lighter_clicks', 0)}` });
+    for (const [label, steps] of DEBUG_LIGHTER.scenes) {
+      out.push({ label, action: () => {
+        if (steps === 'room_coffin') {
+          const map = this.world?.model?.id;
+          if (!map) return this.flash('Needs the world map.');
+          return this.runInWorld([{ atmosphere: 'COFFIN_SOCK', room: map }]);
+        }
+        return this.runInWorld(steps);
+      } });
+    }
+    const counter = content.banks?.has?.('grand_counter') ? bankDef(content, 'grand_counter') : null;
+    if (counter) {
+      const all = Object.entries(counter.queues ?? {}).flatMap(([qid, q]) => q.customers.map((cid, i) => ({ qid, q, cid, i })));
+      out.push({ label: 'Counter: serve from...', right: `${all.length}`, action: () => this.openSub(all.map(({ qid, q, cid, i }) => ({
+        label: `${qid}: ${content.bankCustomers.get(cid)?.short ?? content.bankCustomers.get(cid)?.name ?? cid}`,
+        action: () => {
+          this.closeSub();
+          if (!s.story.getValue('counter_department')) s.story.setValue('counter_department', 'BANK');
+          s.story.setVar(q.servedVar, i);
+          this.runInWorld([{ bank: 'next', bankId: 'grand_counter', queue: qid }]);
         },
       }))) });
     }

@@ -730,8 +730,9 @@ export function createCommandImplementations() {
       const content = ctx.session.content ?? ctx.content;
       // Story Phase 16: { "atmosphere": "COFFIN_SOCK", "room": "galley" } gives one room its own air;
       // { "atmosphere": "SHIP", "room": "galley" } hands it back; "clearRooms": true hands every room back.
+      // { "atmosphere": "SHIP", "clearRooms": true } only hands the rooms back.
       if (step.clearRooms) clearRoomAtmospheres(content, ctx.session);
-      setAtmosphere(content, ctx.session, step.atmosphere, { room: step.room ?? null });
+      if (!(step.clearRooms && step.atmosphere === 'SHIP' && !step.room)) setAtmosphere(content, ctx.session, step.atmosphere, { room: step.room ?? null });
       for (const [id, raw] of content.stability?.map ?? []) {
         if (!raw.mellow) continue;
         const def = stabilityDef({ id, ...raw });

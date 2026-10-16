@@ -100,24 +100,20 @@
    "setFlag": "nickname_stingbeard"
   },
   {
-   "tutorial": "The crew have a plan: the Fart-Free Zone (Pete, at its door in the hold).",
+   "tutorial": "The crew have a plan: the Fart-Free Zone (its door, in the hold).",
    "title": "Stingbeard"
   }
  ],
  "p16c13.bunker": [
-  {
-   "face": "pete",
-   "dir": "player"
-  },
-  "Pete is standing in front of the little door to the Fart-Free Zone. There's a new sign on the wall. Behind the door: hammering, and Gristle's voice saying 'higher', and Garrick's saying 'synergy'.",
+  "The little door to the Fart-Free Zone is shut, and barred from the inside. There's a new sign on the wall. Behind the door: hammering, and Gristle's voice saying 'higher', and Garrick's saying 'synergy'.",
   {
    "insert": "bunker_sign"
   },
-  "pete: We've reinforced it, Captain. Sashes on the walls, a cushion on the door, blankets over the vent. It's a bunker now. Hornet-proof. Bank-proof.",
+  "pete: (through the door) We've reinforced it, Captain. Sashes on the walls, a cushion on the door, blankets over the vent. It's a bunker now. Hornet-proof. Bank-proof.",
   "captain: Good. Let me in.",
-  "pete: (not moving) Captain. You're the reason the hornets are here. With respect. They'd follow you in.",
+  "pete: (through the door, not opening it) Captain. You're the reason the hornets are here. With respect. They'd follow you in.",
   "captain[tired]: ...I'm locked out of my own fart-free zone.",
-  "pete: Only for now. (a pause) Stingbeard.",
+  "pete: (through the door) Only for now. (a pause) Stingbeard.",
   {
    "hornets": "BUNKER_SIEGE"
   },
@@ -146,6 +142,25 @@
   },
   {
    "call": "p16c14.begin"
+  }
+ ],
+ "p16.bunker_door": [
+  {
+   "if": {
+    "objectiveActive": "stingbeard.bunker"
+   },
+   "then": [
+    {
+     "call": "p16c13.bunker"
+    }
+   ],
+   "else": [
+    {
+     "sfx": "door_small",
+     "volume": 0.5
+    },
+    "Barred, from the inside. Through the door, Pete: 'Not with the hornets, Captain. Sorry. Stingbeard.'"
+   ]
   }
  ],
  "p16c14.begin": [

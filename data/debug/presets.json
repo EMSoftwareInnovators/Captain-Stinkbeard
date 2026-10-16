@@ -7446,5 +7446,780 @@
     "x": 15,
     "y": 13,
     "facing": "down"
+  },
+  {
+    "id": "p16_start",
+    "name": "Phase 16 Start",
+    "description": "A day after Vindicta. Everybody is themselves again, which is unbearable. Talk to Pete (the galley).",
+    "after": "p15_complete",
+    "map": "galley",
+    "x": 11,
+    "y": 7,
+    "facing": "left"
+  },
+  {
+    "id": "p16_grand_lighter",
+    "name": "The Grand Lighter",
+    "description": "No fire anywhere aboard. Shout into the Sharkstorm. Starts chapter 187.",
+    "after": "p16_start",
+    "flags": [
+      "beard_brogath_ancient",
+      "beard_garrick_original",
+      "beard_grand_bank_deposits",
+      "beard_skunk_haze",
+      "brogath_fume_canopy_built",
+      "grand_search_for_fire_complete",
+      "p16_calm_garrick",
+      "p16_calm_pete",
+      "p16_calm_said",
+      "p16_canopy_sashes",
+      "p16_ch186_started",
+      "p16_fire_barrel",
+      "p16_fire_crate",
+      "p16_fire_desk",
+      "p16_fire_footlocker",
+      "p16_fire_garrick",
+      "p16_fire_stove",
+      "p16_no_light",
+      "p16_search_said",
+      "p16_started",
+      "p16_talk_brogath",
+      "p16_talk_garrick",
+      "p16_talk_pete",
+      "p16_talks_said"
+    ],
+    "vars": {
+      "brogath_pressure": -20,
+      "brogath_reassure_turn": 35,
+      "brogath_spot": 2,
+      "p16_canopy_ok": 1,
+      "p4_tod": 37
+    },
+    "values": {
+      "brogath_state": "PLEASED"
+    },
+    "quests": {
+      "grand_search_for_fire": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 13,
+    "y": 5,
+    "facing": "down",
+    "script": "p16c2.begin"
+  },
+  {
+    "id": "p16_coffin_sock",
+    "name": "Coffin Sock",
+    "description": "Brogath tries for the green one on purpose. Starts chapter 188.",
+    "after": "p16_grand_lighter",
+    "flags": [
+      "beard_grand_lighter_fuel",
+      "grand_lighter_acquired",
+      "grand_lighter_working",
+      "p16_ch187_started",
+      "p16_cheapy_ad_seen",
+      "p16_lighter_first_try",
+      "p16_shouted",
+      "vindicta_returned"
+    ],
+    "vars": {
+      "brogath_spot": 0,
+      "lighter_clicks": 35
+    },
+    "quests": {
+      "the_grand_lighter": "completed"
+    },
+    "items": [
+      "grand_stenchmaster_lighter"
+    ],
+    "map": "crew_quarters",
+    "x": 14,
+    "y": 11,
+    "facing": "down",
+    "script": "p16c3.begin"
+  },
+  {
+    "id": "p16_fart_zone",
+    "name": "Stenchmaster Fart Zone",
+    "description": "The old sail locker under the cargo grating becomes a release room. Starts chapter 189.",
+    "after": "p16_coffin_sock",
+    "flags": [
+      "beard_coffin_sock",
+      "brogath_recovering",
+      "first_coffin_sock_failure",
+      "p16_bbk_complaint",
+      "p16_ch188_started",
+      "p16_cs_no_committee",
+      "p16_green_idea",
+      "p16_prep_garrick",
+      "p16_prep_pete",
+      "p16_prep_said",
+      "p16_prep_visitors",
+      "p16_vent_cabin",
+      "p16_vent_galley",
+      "p16_vent_quarters",
+      "p16_vent_said"
+    ],
+    "vars": {
+      "brogath_pressure": -5,
+      "brogath_reassure_turn": 36,
+      "brogath_spot": 1,
+      "p16_cs_ok": 1,
+      "p4_tod": 38
+    },
+    "values": {
+      "brogath_state": "RECOVERING"
+    },
+    "quests": {
+      "coffin_sock": "completed"
+    },
+    "map": "main_deck",
+    "x": 11,
+    "y": 22,
+    "facing": "down",
+    "script": "p16c4.begin"
+  },
+  {
+    "id": "p16_vindicta_emergency",
+    "name": "Vindicta's Emergency",
+    "description": "Something clucks. Vindicta is READY. Starts chapter 190.",
+    "after": "p16_fart_zone",
+    "flags": [
+      "p16_ch189_started",
+      "p16_fz_clear_cable",
+      "p16_fz_clear_said",
+      "p16_fz_clear_sails",
+      "p16_fz_clear_spar",
+      "p16_fz_door_checked",
+      "p16_fz_found",
+      "p16_fz_inspected",
+      "p16_fz_observe",
+      "p16_fz_orient_brogath",
+      "p16_fz_orient_garrick",
+      "p16_fz_orient_said",
+      "p16_fz_porthole_1",
+      "p16_fz_porthole_2",
+      "p16_fz_porthole_3",
+      "p16_fz_queue",
+      "p16_fz_sign_a",
+      "p16_fz_sign_b",
+      "stenchmaster_fart_zone_built",
+      "stenchmaster_fart_zone_rules_posted"
+    ],
+    "clearFlags": [
+      "brogath_recovering"
+    ],
+    "vars": {
+      "brogath_pressure": -15,
+      "p4_tod": 37
+    },
+    "values": {
+      "brogath_state": "PLEASED",
+      "fz_state": "IDLE"
+    },
+    "quests": {
+      "stenchmaster_fart_zone": "completed"
+    },
+    "map": "main_deck",
+    "x": 11,
+    "y": 20,
+    "facing": "down",
+    "script": "p16c5.begin"
+  },
+  {
+    "id": "p16_rescue",
+    "name": "The Rescue (mid-190)",
+    "description": "Procedure done: portholes open, door shut. Agnes is in there. Watch the gap, grab, run.",
+    "after": "p16_vindicta_emergency",
+    "flags": [
+      "p16_ch190_started",
+      "p16_hen_barrels",
+      "p16_hen_bunks",
+      "p16_hen_grating",
+      "p16_hen_hold",
+      "p16_hen_sashes",
+      "p16_hen_search_said",
+      "p16_vindicta_queued",
+      "p16_vproc_door",
+      "p16_vproc_portholes",
+      "p16_vproc_said"
+    ],
+    "vars": {
+      "brogath_pressure": 9,
+      "brogath_spot": 0
+    },
+    "values": {
+      "brogath_state": "CALM",
+      "fz_door": "closed",
+      "fz_occupant": "vindicta",
+      "fz_portholes": "open",
+      "fz_state": "PREPARING"
+    },
+    "quests": {
+      "vindictas_emergency": {
+        "done": [
+          "procedure",
+          "search",
+          "vindicta"
+        ]
+      }
+    },
+    "map": "stenchmaster_fart_zone",
+    "x": 6,
+    "y": 8,
+    "facing": "down"
+  },
+  {
+    "id": "p16_near_miss",
+    "name": "The Near-Miss",
+    "description": "Agnes is back, and puts her head in the captain's beard. Starts chapter 191.",
+    "after": "p16_rescue",
+    "flags": [
+      "agnes_second_returned",
+      "beard_vindicta_legendary",
+      "fz_done_vindicta_legendary",
+      "vindicta_chicken_rescue_complete"
+    ],
+    "vars": {
+      "agnes_returns": 1,
+      "fz_damage": 2,
+      "fz_releases": 1
+    },
+    "values": {
+      "fz_state": "VENTILATING",
+      "room_atmosphere_stenchmaster_fart_zone": "CLEARING"
+    },
+    "quests": {
+      "vindictas_emergency": "completed"
+    },
+    "map": "stenchmaster_fart_zone",
+    "x": 6,
+    "y": 8,
+    "facing": "down",
+    "script": "p16c6.begin"
+  },
+  {
+    "id": "p16_chicken_town",
+    "name": "Chicken-Town",
+    "description": "The chicken just needs to chicken. Starts chapter 192.",
+    "after": "p16_near_miss",
+    "flags": [
+      "brogath_chicken_near_miss",
+      "p16_agnes_sniffed",
+      "p16_ch191_started",
+      "p16_nm_calm",
+      "p16_nm_steadied"
+    ],
+    "vars": {
+      "brogath_pressure": 20,
+      "brogath_reassure_turn": 37,
+      "p16_nm_ok": 1
+    },
+    "values": {
+      "brogath_state": "BASHFUL",
+      "fz_door": "open",
+      "fz_occupant": null,
+      "fz_state": "COMPLETE",
+      "room_atmosphere_stenchmaster_fart_zone": null
+    },
+    "quests": {
+      "chicken_near_miss": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 7,
+    "y": 8,
+    "facing": "down",
+    "script": "p16c7.begin"
+  },
+  {
+    "id": "p16_dispensary",
+    "name": "The Grand Dispensary",
+    "description": "Brogath can do it while relaxed. A counter appears. Starts chapter 193.",
+    "after": "p16_chicken_town",
+    "flags": [
+      "chicken_town_great_mellowing_complete",
+      "chicken_town_waft_unlocked",
+      "p16_ch192_started",
+      "p16_hands_garrick",
+      "p16_hands_pete",
+      "p16_hands_said",
+      "p16_hands_visitors",
+      "p16_walk_garrick",
+      "p16_walk_jim",
+      "p16_walk_pete",
+      "p16_walk_rail",
+      "p16_walk_said",
+      "p16_walk_visitors"
+    ],
+    "vars": {
+      "brogath_spot": 1,
+      "p4_tod": 39
+    },
+    "values": {
+      "brogath_state": "MELLOW",
+      "ship_atmosphere": "MELLOW_HAZE"
+    },
+    "quests": {
+      "chicken_town": "completed"
+    },
+    "map": "main_deck",
+    "x": 15,
+    "y": 13,
+    "facing": "down",
+    "script": "p16c8.begin"
+  },
+  {
+    "id": "p16_sash_lounge",
+    "name": "The Sash Lounge",
+    "description": "The crew's lounge; a song; Bankworth. Starts chapter 194.",
+    "after": "p16_dispensary",
+    "flags": [
+      "grand_dispensary_opened",
+      "p16_ch193_started",
+      "p16_disp_said",
+      "p16_dispensary_appeared"
+    ],
+    "vars": {
+      "brogath_pressure": 5,
+      "counter_disp_served": 5,
+      "counter_till": 170
+    },
+    "values": {
+      "counter_department": "DISPENSARY"
+    },
+    "quests": {
+      "grand_dispensary": "completed"
+    },
+    "items": [
+      "dispensary_visor"
+    ],
+    "map": "crew_quarters",
+    "x": 12,
+    "y": 15,
+    "facing": "down",
+    "script": "p16c9.begin"
+  },
+  {
+    "id": "p16_converter",
+    "name": "Currency Converter",
+    "description": "One token in, one Coffin Sock out. Starts chapter 195.",
+    "after": "p16_sash_lounge",
+    "flags": [
+      "bank_reconstituted",
+      "bankworth_arrived",
+      "p16_bankworth_deposit",
+      "p16_ch194_started",
+      "p16_song_heard",
+      "sash_lounge_built"
+    ],
+    "vars": {
+      "counter_bank_served": 1,
+      "counter_last_grade": 2,
+      "counter_last_slips": 0,
+      "p4_tod": 40
+    },
+    "values": {
+      "counter_department": "BANK"
+    },
+    "quests": {
+      "bankworth": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 12,
+    "y": 15,
+    "facing": "down",
+    "script": "p16c10.begin"
+  },
+  {
+    "id": "p16_sashback",
+    "name": "Grand Sashback Rewards",
+    "description": "Credit by the foulness of the sash. Lady Rancidella. Starts chapter 196.",
+    "after": "p16_converter",
+    "flags": [
+      "beard_currency_converter",
+      "currency_converter_discovered",
+      "currency_converter_first_use",
+      "p16_ch195_started",
+      "p16_receipt_read"
+    ],
+    "vars": {
+      "converter_tokens_converted": 1,
+      "converter_uses": 1,
+      "counter_till": 169
+    },
+    "values": {
+      "converter_last_blast": "puff"
+    },
+    "quests": {
+      "currency_converter": "completed"
+    },
+    "items": [
+      "converter_receipt"
+    ],
+    "map": "crew_quarters",
+    "x": 7,
+    "y": 15,
+    "facing": "down",
+    "script": "p16c11.begin"
+  },
+  {
+    "id": "p16_hornet_fart",
+    "name": "The Hornet Fart",
+    "description": "Brogath wants to be useful. HORNETS. Starts chapter 197.",
+    "after": "p16_sashback",
+    "flags": [
+      "converter_air_quality_policy",
+      "p16_ch196_started",
+      "p16_credit_said",
+      "p16_rancidella_approved",
+      "p16_tiny_green",
+      "rancidella_redemption_complete",
+      "sashback_credit_unlocked"
+    ],
+    "vars": {
+      "converter_tokens_converted": 250001,
+      "converter_uses": 2,
+      "counter_credit_served": 2,
+      "counter_rancidella_served": 1,
+      "credit_last_score": 999,
+      "rancidella_bonus": 0,
+      "sashback_cards": 4,
+      "sashback_tokens_issued": 600000
+    },
+    "values": {
+      "converter_last_blast": "catastrophe",
+      "credit_last_class": "RAUNCHY / EXCELLENT"
+    },
+    "quests": {
+      "sashback_rewards": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 7,
+    "y": 15,
+    "facing": "down",
+    "script": "p16c12.begin"
+  },
+  {
+    "id": "p16_hornet_release",
+    "name": "Behind the Rope (mid-197)",
+    "description": "The posted procedure done: Brogath in the circle, door shut, portholes open. Sit on the bench and watch.",
+    "after": "p16_hornet_fart",
+    "flags": [
+      "p16_ch197_started",
+      "p16_hornet_idea",
+      "p16_hproc_door",
+      "p16_hproc_portholes",
+      "p16_hproc_said",
+      "p16_hproc_sash",
+      "p16_hproc_warning"
+    ],
+    "vars": {
+      "brogath_pressure": -5,
+      "p4_tod": 41
+    },
+    "values": {
+      "fz_door": "closed",
+      "fz_occupant": "brogath",
+      "fz_state": "PREPARING"
+    },
+    "quests": {
+      "hornet_fart": {
+        "done": [
+          "idea",
+          "procedure"
+        ]
+      }
+    },
+    "map": "stenchmaster_fart_zone",
+    "x": 4,
+    "y": 4,
+    "facing": "down"
+  },
+  {
+    "id": "p16_stingbeard",
+    "name": "Stingbeard",
+    "description": "The hornets have found the beard. Starts chapter 198.",
+    "after": "p16_hornet_release",
+    "flags": [
+      "fz_done_hornet_fart",
+      "hornet_fart_occurred",
+      "hornet_swarm_active",
+      "p16_hornet_praised"
+    ],
+    "vars": {
+      "brogath_pressure": -20,
+      "brogath_reassure_turn": 38,
+      "fz_damage": 3,
+      "fz_releases": 2,
+      "p16_swarm_ok": 1
+    },
+    "values": {
+      "fz_door": "open",
+      "fz_occupant": null,
+      "fz_state": "COMPLETE",
+      "hornet_swarm": "SWARMING"
+    },
+    "quests": {
+      "hornet_fart": "completed"
+    },
+    "map": "main_deck",
+    "x": 12,
+    "y": 19,
+    "facing": "down",
+    "script": "p16c13.begin"
+  },
+  {
+    "id": "p16_story_hour",
+    "name": "Sash-Quote Story Hour",
+    "description": "The speaking tube from the bunker. Starts chapter 199.",
+    "after": "p16_stingbeard",
+    "flags": [
+      "beard_hornet_attracted",
+      "nickname_stingbeard",
+      "p16_back_to_work",
+      "p16_ch198_started",
+      "p16_shoo_barrel",
+      "p16_shoo_rail",
+      "p16_shoo_said",
+      "p16_shoo_wheel",
+      "stingbeard_nickname_unlocked"
+    ],
+    "values": {
+      "hornet_swarm": "BANK_INVADING"
+    },
+    "quests": {
+      "stingbeard": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 12,
+    "y": 13,
+    "facing": "down",
+    "script": "p16c14.begin"
+  },
+  {
+    "id": "p16_credit_boom",
+    "name": "Hornet Credit Boom",
+    "description": "BZBZBZBZZZZ-7 presses APPLY NOW. Starts chapter 200.",
+    "after": "p16_story_hour",
+    "flags": [
+      "p16_ch199_started",
+      "p16_quotes_said",
+      "p16_story_hour_started",
+      "sash_quote_story_hour_complete"
+    ],
+    "vars": {
+      "p16_quote_n": 5
+    },
+    "quests": {
+      "sash_quote_story_hour": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 10,
+    "y": 8,
+    "facing": "down",
+    "script": "p16c15.begin"
+  },
+  {
+    "id": "p16_epidemic",
+    "name": "The Epidemic (mid-200)",
+    "description": "They've ALL found out. Hornets at the counter, every one with a strand of your beard.",
+    "after": "p16_credit_boom",
+    "flags": [
+      "p16_bzz_applied",
+      "p16_bzz_approved",
+      "p16_bzz_converted",
+      "p16_ch200_started"
+    ],
+    "vars": {
+      "converter_tokens_converted": 251001,
+      "converter_uses": 3,
+      "hornet_tokens": 49000,
+      "sashback_cards": 5,
+      "sashback_tokens_issued": 850000
+    },
+    "values": {
+      "converter_capped": "yes",
+      "converter_last_blast": "blast"
+    },
+    "quests": {
+      "hornet_credit_boom": {
+        "done": [
+          "apply",
+          "approved",
+          "converter"
+        ]
+      }
+    },
+    "map": "crew_quarters",
+    "x": 7,
+    "y": 15,
+    "facing": "down"
+  },
+  {
+    "id": "p16_lighter_history",
+    "name": "Lighter History",
+    "description": "The hornets go home; the bunker at last; the lore book. Starts chapter 201.",
+    "after": "p16_epidemic",
+    "flags": [
+      "hornet_credit_boom_occurred",
+      "p16_epidemic_said",
+      "p16_smores"
+    ],
+    "vars": {
+      "counter_hornets_served": 3,
+      "hornet_tokens": 199000
+    },
+    "quests": {
+      "hornet_credit_boom": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 10,
+    "y": 14,
+    "facing": "down",
+    "script": "p16c16.begin"
+  },
+  {
+    "id": "p16_portable_tv",
+    "name": "Portable Set",
+    "description": "A television out of Garrick's coat. Starts chapter 202.",
+    "after": "p16_lighter_history",
+    "flags": [
+      "grand_lighter_history_unlocked",
+      "p16_ch201_started",
+      "p16_in_bunker",
+      "p16_lore_said"
+    ],
+    "clearFlags": [
+      "beard_hornet_attracted",
+      "nickname_stingbeard"
+    ],
+    "vars": {
+      "brogath_spot": 2,
+      "p16_lore_n": 3,
+      "p4_tod": 40
+    },
+    "values": {
+      "hornet_swarm": "DORMANT"
+    },
+    "quests": {
+      "grand_lighter_history": "completed"
+    },
+    "map": "fart_free_zone",
+    "x": 7,
+    "y": 5,
+    "facing": "down",
+    "script": "p16c17.begin"
+  },
+  {
+    "id": "p16_application",
+    "name": "97-Page Application",
+    "description": "The Bureau of Ceremonial Ignition. Lord Puffchester. Starts chapter 203.",
+    "after": "p16_portable_tv",
+    "flags": [
+      "ignition_documentary_viewed",
+      "p16_ch202_started",
+      "p16_portable_aerial",
+      "p16_tv_off_1",
+      "p16_tv_off_2",
+      "p16_tv_off_said",
+      "portable_stenchmaster_tv_acquired"
+    ],
+    "vars": {
+      "ses_portable_power": 0
+    },
+    "values": {
+      "ses_portable_state": "repeating"
+    },
+    "quests": {
+      "portable_tv": "completed"
+    },
+    "map": "fart_free_zone",
+    "x": 6,
+    "y": 5,
+    "facing": "down",
+    "script": "p16c18.begin"
+  },
+  {
+    "id": "p16_hearing",
+    "name": "Ignition Hearing",
+    "description": "PRE-IGNITION REVIEW REQUIRED. The captain is the advocate. Starts chapter 204.",
+    "after": "p16_application",
+    "flags": [
+      "ignition_application_completed",
+      "p16_ch203_started",
+      "p16_puffchester_arrived",
+      "p16_review_required"
+    ],
+    "vars": {
+      "brogath_spot": 0,
+      "ign_chickens": 0,
+      "ign_name": 0,
+      "ign_officer": 0,
+      "ign_reason": 0,
+      "ign_sign": 0,
+      "ign_stenchmaster": 0,
+      "ignition_page": 97,
+      "p4_tod": 37
+    },
+    "values": {
+      "counter_department": "BUREAU"
+    },
+    "quests": {
+      "ignition_application": "completed"
+    },
+    "items": [
+      "ignition_application_copy"
+    ],
+    "map": "crew_quarters",
+    "x": 12,
+    "y": 15,
+    "facing": "down",
+    "script": "p16c19.begin"
+  },
+  {
+    "id": "p16_lighter_pitch",
+    "name": "The Lighter Pitch",
+    "description": "Vindicta in the middle of the room. A lighter that works sometimes. Starts chapter 205.",
+    "after": "p16_hearing",
+    "flags": [
+      "grand_ignition_hearing_approved",
+      "p16_ch204_started",
+      "vindicta_selected_for_ignition"
+    ],
+    "vars": {
+      "ignition_hearing_score": 9
+    },
+    "quests": {
+      "ignition_hearing": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 12,
+    "y": 15,
+    "facing": "down",
+    "script": "p16c20.begin"
+  },
+  {
+    "id": "p16_complete",
+    "name": "Phase 16 Complete",
+    "description": "COMMON SENSE IS WINNING (sometimes). Agnes on Brogath's foot, Bankworth at the counter, the Sharkstorm still going round.",
+    "after": "p16_lighter_pitch",
+    "flags": [
+      "mechanical_ignition_victory",
+      "p16_ch205_started",
+      "p16_complete",
+      "puffchester_convinced"
+    ],
+    "vars": {
+      "lighter_clicks": 45,
+      "puffchester_points": 10,
+      "vindicta_pressure": 6
+    },
+    "quests": {
+      "lighter_pitch": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 12,
+    "y": 13,
+    "facing": "down"
   }
 ]

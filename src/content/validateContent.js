@@ -408,7 +408,7 @@ function validateStep(step, check, sctx) {
   if (name === 'atmosphere') {
     const ship = check.ctx.db.atmosphere?.get?.('ship');
     if (!ship) check.error('no ship atmosphere (data/story/atmosphere.json)');
-    else if (!(step.room && step.atmosphere === 'SHIP') && !ship.states?.[step.atmosphere]) check.error(`unknown atmosphere state "${step.atmosphere}"`);
+    else if (!((step.room || step.clearRooms) && step.atmosphere === 'SHIP') && !ship.states?.[step.atmosphere]) check.error(`unknown atmosphere state "${step.atmosphere}"`);
     if (step.room && ship && ship.maps && !ship.maps.includes(step.room)) check.error(`"${step.room}" is not one of the ship's maps`);
   }
   // Story Phase 16: the beard, the Fart Zone, novelty devices, proceedings, credit, the converter, hornets.

@@ -1,7 +1,7 @@
 {
  "id": "cargo_hold_phase16",
  "patch": "cargo_hold",
- "//": "Story Phase 16 in the hold: the big crate of ceremonial supplies (11,4: candles, no fire); the sacks in the far corner (18,10) in the search for the clucking; the bunker's sign by the Fart-Free Zone's door (12,3), and Pete guarding it (13,4) while the captain's beard has hornets in it (198-200).",
+ "//": "Story Phase 16 in the hold: the big crate of ceremonial supplies (11,4: candles, no fire); the sacks in the far corner (18,10) in the search for the clucking; the bunker's sign by the Fart-Free Zone's door (12,3); the door locked to the captain (and the hornets in his beard) from Stingbeard until nightfall (198-200): Pete talks through it.",
  "objects": [
   {
    "id": "p16_fire_crate",
@@ -39,6 +39,31 @@
    "script": "p16c5.search_hold"
   },
   {
+   "id": "p16_bunker_door",
+   "type": "warp",
+   "x": 13,
+   "y": 3,
+   "to": {
+    "map": "fart_free_zone",
+    "spawn": "door"
+   },
+   "sfx": "door_small",
+   "when": {
+    "all": [
+     {
+      "flag": "stingbeard_nickname_unlocked"
+     },
+     {
+      "notFlag": "p16_ch201_started"
+     }
+    ]
+   },
+   "if": {
+    "flag": "p16_ch201_started"
+   },
+   "locked": "p16.bunker_door"
+  },
+  {
    "id": "p16_bunker_look",
    "type": "inspect",
    "x": 12,
@@ -50,155 +75,6 @@
   },
   {
    "id": "p16h_pete_0",
-   "type": "npc",
-   "npc": "pete",
-   "x": 1,
-   "y": 1,
-   "absent": true,
-   "if": {
-    "flag": "p16_complete"
-   }
-  },
-  {
-   "id": "p16h_pete_1",
-   "type": "npc",
-   "npc": "pete",
-   "x": 1,
-   "y": 1,
-   "absent": true,
-   "if": {
-    "all": [
-     {
-      "flag": "p16_ch205_started"
-     },
-     {
-      "notFlag": "p16_complete"
-     }
-    ]
-   }
-  },
-  {
-   "id": "p16h_pete_2",
-   "type": "npc",
-   "npc": "pete",
-   "x": 1,
-   "y": 1,
-   "absent": true,
-   "if": {
-    "any": [
-     {
-      "all": [
-       {
-        "flag": "p16_ch203_started"
-       },
-       {
-        "notFlag": "p16_ch204_started"
-       }
-      ]
-     },
-     {
-      "all": [
-       {
-        "flag": "p16_ch204_started"
-       },
-       {
-        "notFlag": "p16_ch205_started"
-       }
-      ]
-     }
-    ]
-   }
-  },
-  {
-   "id": "p16h_pete_3",
-   "type": "npc",
-   "npc": "pete",
-   "x": 1,
-   "y": 1,
-   "absent": true,
-   "if": {
-    "all": [
-     {
-      "flag": "p16_ch202_started"
-     },
-     {
-      "notFlag": "p16_ch203_started"
-     }
-    ]
-   }
-  },
-  {
-   "id": "p16h_pete_4",
-   "type": "npc",
-   "npc": "pete",
-   "x": 1,
-   "y": 1,
-   "absent": true,
-   "if": {
-    "all": [
-     {
-      "flag": "p16_ch201_started"
-     },
-     {
-      "notFlag": "p16_ch202_started"
-     }
-    ]
-   }
-  },
-  {
-   "id": "p16h_pete_5",
-   "type": "npc",
-   "npc": "pete",
-   "x": 13,
-   "y": 4,
-   "facing": "right",
-   "if": {
-    "all": [
-     {
-      "any": [
-       {
-        "all": [
-         {
-          "flag": "p16_ch198_started"
-         },
-         {
-          "notFlag": "p16_ch199_started"
-         }
-        ]
-       },
-       {
-        "all": [
-         {
-          "flag": "p16_ch199_started"
-         },
-         {
-          "notFlag": "p16_ch200_started"
-         }
-        ]
-       },
-       {
-        "all": [
-         {
-          "flag": "p16_ch200_started"
-         },
-         {
-          "notFlag": "p16_ch201_started"
-         }
-        ]
-       }
-      ]
-     },
-     {
-      "flag": "stingbeard_nickname_unlocked"
-     }
-    ]
-   },
-   "behavior": {
-    "type": "stand"
-   }
-  },
-  {
-   "id": "p16h_pete_6",
    "type": "npc",
    "npc": "pete",
    "x": 1,
