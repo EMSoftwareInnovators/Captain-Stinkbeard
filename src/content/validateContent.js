@@ -375,7 +375,7 @@ function validateStep(step, check, sctx) {
       if (!subj.prompts?.[step.reassure]) check.error(`stability subject "${sid}" has no prompt set "${step.reassure}"`);
     } else {
       const op = step.stability;
-      const ops = ['trigger', 'calm', 'set', 'add', 'anger', 'meter', 'incident', 'secure', 'settle'];
+      const ops = ['trigger', 'calm', 'set', 'add', 'anger', 'recover', 'meter', 'incident', 'secure', 'settle'];
       if (!ops.includes(op)) check.error(`stability must be one of ${ops.join(', ')} (got "${op}")`);
       if (op === 'trigger' && !subj.triggers?.[step.id]) check.error(`stability subject "${sid}" has no trigger "${step.id}"`);
       if (op === 'calm' && !subj.calms?.[step.id]) check.error(`stability subject "${sid}" has no calm "${step.id}"`);
@@ -383,6 +383,7 @@ function validateStep(step, check, sctx) {
       if ((op === 'set' || op === 'add') && typeof step.pressure !== 'number') check.error(`stability "${op}" needs a number "pressure"`);
       if (op === 'meter' && !['show', 'hide', 'auto'].includes(step.show)) check.error('stability "meter" needs "show": show, hide or auto');
       if (op === 'anger' && !subj.angerFlag) check.error(`stability subject "${sid}" has no angerFlag`);
+      if (op === 'recover' && !subj.recoverFlag) check.error(`stability subject "${sid}" has no recoverFlag`);
     }
   }
   if (name === 'bank' || name === 'bankDeposit' || name === 'grandCurrency') {
@@ -407,7 +408,36 @@ function validateStep(step, check, sctx) {
   if (name === 'atmosphere') {
     const ship = check.ctx.db.atmosphere?.get?.('ship');
     if (!ship) check.error('no ship atmosphere (data/story/atmosphere.json)');
-    else if (!ship.states?.[step.atmosphere]) check.error(`unknown atmosphere state "${step.atmosphere}"`);
+    else if (!(step.room && step.atmosphere === 'SHIP') && !ship.states?.[step.atmosphere]) check.error(`unknown atmosphere state "${step.atmosphere}"`);
+    if (step.room && ship && ship.maps && !ship.maps.includes(step.room)) check.error(`"${step.room}" is not one of the ship's maps`);
+  }
+  // Story Phase 16: the beard, the Fart Zone, novelty devices, proceedings, credit, the converter, hornets.
+  if (name === 'beard') {
+    const def = check.ctx.db.beard?.get?.('beard');
+    if (!['add', 'remove'].includes(step.beard)) check.error('beard must be "add" or "remove"');
+    if (!def?.tags?.[step.tag]) check.error(`unknown beard tag "${step.tag}" (data/story/beard.json)`);
+    else if (step.beard === 'remove' && def.tags[step.tag].permanent !== false) check.error(`beard tag "${step.tag}" is permanent: it can't be removed`);
+  }
+  if (name === 'fartZone') {
+    const def = check.ctx.db.fartZone?.get?.('zone');
+    const ops = ['queue', 'enter', 'door', 'portholes', 'prepare', 'release', 'ventilate', 'complete', 'reset'];
+    if (!def) check.error('no Stenchmaster Fart Zone (data/story/fart_zone.json)');
+    if (!ops.includes(step.fartZone)) check.error(`fartZone must be one of ${ops.join(', ')}`);
+    if ((step.fartZone === 'door' || step.fartZone === 'portholes') && !['open', 'closed'].includes(step.value)) check.error(`fartZone "${step.fartZone}" needs "value": open or closed`);
+    if (step.fartZone === 'queue' && !step.who) check.error('fartZone "queue" needs "who"');
+    if (step.fartZone === 'release' && !def?.releases?.[step.release]) check.error(`the Fart Zone has no release "${step.release}"`);
+  }
+  if (name === 'lighter') {
+    const def = check.ctx.db.novelty?.get?.(step.lighter);
+    if (!def) check.error(`unknown novelty device "${step.lighter}" (data/story/novelty.json)`);
+    else if (step.until && !def.outcomes?.[step.until]) check.error(`novelty "${step.lighter}" has no outcome "${step.until}"`);
+  }
+  if (name === 'proceeding' && !check.ctx.db.proceedings?.get?.(step.proceeding)) check.error(`unknown proceeding "${step.proceeding}" (data/story/proceedings)`);
+  if ((name === 'appraise' || name === 'currencyConverter') && !check.ctx.db.credit?.get?.(step[name])) check.error(`unknown credit definition "${step[name]}" (data/story/credit.json)`);
+  if (name === 'currencyConverter' && step.amount !== undefined && step.amount !== 'all' && !(Number.isInteger(step.amount) && step.amount > 0)) check.error('currencyConverter "amount" is a positive whole number or "all"');
+  if (name === 'hornets') {
+    const def = check.ctx.db.hazards?.get?.('hornets');
+    if (!def?.states?.[step.hornets]) check.error(`unknown hornet state "${step.hornets}" (data/hazards/hornets.json)`);
   }
   if (name === 'channelEpisode') {
     const db = check.ctx.db;
@@ -681,6 +711,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     const c = C(`${db.stability.sourceOf(id)} (${id})`);
     for (const k of ['pressureVar', 'stateValue']) if (typeof d[k] !== 'string') c.error(`"${k}" is required`);
     if (d.angerFlag) c.flag(d.angerFlag);
+    if (d.recoverFlag) c.flag(d.recoverFlag);
     (d.bands ?? []).forEach((b, i) => {
       if (!STABILITY_STATES.includes(b.state)) c.at(`bands[${i}]`).error(`unknown state "${b.state}"`);
     });
@@ -768,6 +799,11 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     for (const k of ['intro', 'after', 'vault', 'observed']) if (cu[k]) c.script(cu[k]);
     (cu.modifiers ?? []).forEach((m) => { if (!TELLER_MODIFIERS.includes(m)) c.error(`unknown teller modifier "${m}" (use: ${TELLER_MODIFIERS.join(', ')})`); });
     if (cu.brogathTrigger && !db.stability?.get?.('brogath')?.triggers?.[cu.brogathTrigger]) c.error(`Brogath has no trigger "${cu.brogathTrigger}"`);
+    // Story Phase 16: other ways to pay at the counter, and credit applications.
+    if (cu.payment !== undefined && !['tokens', 'check', 'application'].includes(cu.payment)) c.error('"payment" must be tokens, check or application');
+    if (cu.payment === 'tokens' && !(cu.tokens >= 0)) c.error('a token payment needs "tokens" (>= 0)');
+    if (cu.check && art?.inserts && !art.inserts.has(cu.check)) c.error(`unknown insert "${cu.check}" (the check)`);
+    if (cu.appraise && !db.credit?.get?.(cu.appraise.credit ?? 'sashback')) c.error(`unknown credit "${cu.appraise.credit ?? 'sashback'}"`);
   }
 
   // Story Phase 15: the ship's atmosphere, one-time conversions, Brogath's ancient crew (lore)
@@ -784,6 +820,81 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       if (s.music && !db.music.has(s.music)) sc.error(`unknown music "${s.music}"`);
       if (s.ambience && !db.ambience.has(s.ambience)) sc.error(`unknown ambience "${s.ambience}"`);
       if (s.npcPace !== undefined && !(s.npcPace > 0 && s.npcPace <= 2)) sc.error('npcPace must be in (0, 2]');
+    }
+  }
+  // Story Phase 16: the beard, the Fart Zone, novelty devices, proceedings, credit, hornets.
+  for (const [id, b] of db.beard?.map ?? []) {
+    const c = C(`${db.beard.sourceOf(id)} (${id})`);
+    for (const [tid, t] of Object.entries(b.tags ?? {})) {
+      if (!/^[A-Z_]+$/.test(tid)) c.error(`beard tag "${tid}" should be UPPER_CASE`);
+      if (typeof t.label !== 'string') c.error(`beard tag "${tid}" needs a "label"`);
+      c.flag(`${b.flagPrefix ?? 'beard_'}${tid.toLowerCase()}`);
+    }
+  }
+  for (const [id, z] of db.fartZone?.map ?? []) {
+    const c = C(`${db.fartZone.sourceOf(id)} (${id})`);
+    if (z.map && !db.maps.has(z.map)) c.error(`unknown map "${z.map}"`);
+    for (const [rid, r] of Object.entries(z.releases ?? {})) {
+      if (r.odor && !db.atmosphere?.get?.('ship')?.states?.[r.odor]) c.error(`release "${rid}": unknown atmosphere "${r.odor}"`);
+      c.flag(`${z.doneFlagPrefix ?? 'fz_done_'}${rid}`);
+    }
+  }
+  for (const [id, n] of db.novelty?.map ?? []) {
+    const c = C(`${db.novelty.sourceOf(id)} (${id})`);
+    if (n.item && !db.items.has(n.item)) c.error(`unknown item "${n.item}"`);
+    if (!(n.sequence ?? []).length) c.error('a novelty device needs a "sequence"');
+    for (const o of n.sequence ?? []) if (!n.outcomes?.[o]) c.error(`sequence names unknown outcome "${o}"`);
+    for (const [oid, o] of Object.entries(n.outcomes ?? {})) {
+      if (typeof o.text !== 'string') c.error(`outcome "${oid}" needs "text"`);
+      if (o.sfx && !db.sfx.has(o.sfx)) c.error(`outcome "${oid}": unknown sfx "${o.sfx}"`);
+    }
+  }
+  for (const [id, pr] of db.proceedings?.map ?? []) {
+    const c = C(`${db.proceedings.sourceOf(id)} (${id})`);
+    if (!['form', 'hearing', 'pitch'].includes(pr.kind)) c.error('kind must be form, hearing or pitch');
+    const qs = pr.kind === 'pitch' ? [] : pr.questions ?? [];
+    for (const q of qs) {
+      if (q.montage) continue;
+      if (!(q.options ?? []).length) c.error(`question "${q.id}" has no options`);
+      for (const o of q.options ?? []) if (o.flag) c.flag(o.flag);
+    }
+    // The scripts it plays are ordinary step lists (lines included).
+    const steps = (x, where) => {
+      if (x === undefined) return;
+      const sctx = { nodes: { start: [] }, spawned: new Set() };
+      validateSteps(Array.isArray(x) ? x : [x], c.at(where), sctx);
+    };
+    for (const k of ['done', 'passed', 'retry', 'mercy', 'won', 'fail']) steps(pr[k], k);
+    for (const [p, st] of Object.entries(pr.stages ?? {})) steps(st, `stages.${p}`);
+    for (const q of pr.questions ?? []) {
+      for (const k of ['before', 'again', 'lines']) steps(q[k], `${q.id}.${k}`);
+      (q.options ?? []).forEach((o, i) => steps(o.reply, `${q.id}.options[${i}].reply`));
+    }
+    for (const a of pr.arguments ?? []) steps(a.reply, `${a.id}.reply`);
+    if (pr.kind === 'hearing') {
+      const best = qs.reduce((t, q) => t + Math.max(0, ...(q.options ?? []).map((o) => o.points ?? 0)), 0);
+      if (best < (pr.pass ?? 0)) c.error(`the best answers total ${best}, short of "pass" ${pr.pass}`);
+    }
+    if (pr.kind === 'pitch') {
+      const total = (pr.arguments ?? []).reduce((t, a) => t + Math.max(0, a.points ?? 0), 0);
+      if (total < (pr.goal ?? 1)) c.error(`every argument together is worth ${total}, short of "goal" ${pr.goal}: the pitch could never be won`);
+      for (const a of pr.arguments ?? []) if (a.lighter && !db.novelty?.get?.(a.lighter)) c.error(`argument "${a.id}": unknown novelty device "${a.lighter}"`);
+    }
+  }
+  for (const [id, cr] of db.credit?.map ?? []) {
+    const c = C(`${db.credit.sourceOf(id)} (${id})`);
+    if (cr.policyFlag) c.flag(cr.policyFlag);
+    for (const n of cr.notes ?? []) if (!(n.options ?? []).length) c.error(`note "${n.id}" has no options`);
+  }
+  {
+    const h = db.hazards?.get?.('hornets');
+    if (h) {
+      const c = C('hazards/hornets');
+      for (const [sid, st] of Object.entries(h.states ?? {})) {
+        if (!['DORMANT', 'SCATTERED', 'ALERT', 'SWARMING', 'BEARD_ATTRACTED', 'BANK_INVADING', 'BUNKER_SIEGE', 'DISPERSING'].includes(sid)) c.error(`unknown hornet state "${sid}"`);
+        for (const m of Object.keys(st.maps ?? {})) if (!db.maps.has(m)) c.error(`${sid}: unknown map "${m}"`);
+      }
+      if (h.buzz && !db.sfx.has(h.buzz)) c.error(`unknown sfx "${h.buzz}"`);
     }
   }
   for (const [id, cv] of db.conversions?.map ?? []) {

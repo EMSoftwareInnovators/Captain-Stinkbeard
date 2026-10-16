@@ -1,0 +1,39 @@
+{
+ "id": "lighter_pitch",
+ "title": "The Lighter Pitch",
+ "//": "Story Phase 16: the captain sells a cheap lighter to a gentleman against the clock. G major, quick and anxious-cheerful: a concertina lead, a ticking pluck, a bass that keeps hurrying. Original.",
+ "bpm": 138,
+ "stepsPerBeat": 4,
+ "reverb": 0.2,
+ "channels": {
+  "lead": {
+   "instrument": "concertina",
+   "volume": 0.12
+  },
+  "tick": {
+   "instrument": "pluck",
+   "volume": 0.08,
+   "pan": 0.3
+  },
+  "bass": {
+   "instrument": "tri_bass",
+   "volume": 0.28
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.08
+  }
+ },
+ "patterns": {
+  "A": {
+   "lead": "G4:2 B4:2 D5:4 B4:2 D5:2 G5:4 | F#5:4 E5:4 D5:8 | C5:2 E5:2 G5:4 E5:2 C5:2 A4:4 | B4:4 A4:4 G4:8",
+   "tick": "G5:2 r:2 G5:2 r:2 G5:2 r:2 G5:2 r:2 | D5:2 r:2 D5:2 r:2 D5:2 r:2 D5:2 r:2 | E5:2 r:2 E5:2 r:2 E5:2 r:2 E5:2 r:2 | D5:2 r:2 D5:2 r:2 G5:2 r:6",
+   "bass": "G2:4 D2:4 G2:4 D2:4 | D2:4 A2:4 D2:4 A2:4 | C2:4 G2:4 A2:4 E2:4 | D2:4 D2:4 G2:8",
+   "drums": "k...s...k...s... k...s...k...s... k...s...k...s... k...s...k.k.s.s."
+  }
+ },
+ "sequence": [
+  "A",
+  "A"
+ ]
+}

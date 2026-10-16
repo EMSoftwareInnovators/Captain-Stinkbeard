@@ -25,6 +25,7 @@ import { hash32 } from '../core/Rng.js';
 import { asArray } from '../core/util.js';
 import { placementChoices, placementChanges, roomGuard } from '../world/placements.js';
 import { atmosphereOn, roomHaze } from '../systems/atmosphere.js';
+import { HornetSwarm } from '../world/HornetSwarm.js';
 import { inspectAt, isObjectiveJob } from '../world/inspectTarget.js';
 import { deadCenterZonesFor, deadCenterSeals } from '../systems/hazards/deadCenter.js';
 import { panicShouts } from '../systems/hazards/alarms.js';
@@ -126,6 +127,8 @@ export class WorldScene extends BaseScene {
     this.sharks = new SharkLayer(this, sharkConfig(this.content));
     this.sharkDuty = new SharkDuty(this);
     this.sharkstorm = new SharkstormLayer(this);
+    // Story Phase 16: the hornet swarm (systems/hazards/hornets.js).
+    this.hornets = new HornetSwarm(this);
     // Story Phase 14: Brogath Stability (incidents, the BASHFULNESS meter, the cardboard's shivers).
     this.stability = new StabilityRunner(this);
     this.grade = this.add.rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0xffffff).setOrigin(0).setScrollFactor(0).setDepth(75000).setBlendMode('MULTIPLY');
@@ -178,6 +181,7 @@ export class WorldScene extends BaseScene {
     this.sharks?.destroy();
     this.sharkDuty?.destroy();
     this.sharkstorm?.destroy();
+    this.hornets?.destroy();
     // The camera may already be torn down when the scene shuts down.
     this.cameras?.main?.setRotation(0);
   }
@@ -593,6 +597,7 @@ export class WorldScene extends BaseScene {
     this.updateMarker(busy);
     this.updateFumes(dt, busy);
     this.sharks.update(dt, { busy, player: this.player });
+    this.hornets?.update(dt);
     this.sharkDuty.update(dt, busy || this.leaving);
     this.sharkstorm.update(dt, busy || this.leaving);
     this.stability.update(dt, busy);
@@ -723,6 +728,7 @@ export class WorldScene extends BaseScene {
     this.npcPace = air.npcPace ?? 1;
     this.sharks.setLevel(sharkLevelFor(this.model.meta, session), { immediate });
     this.sharkDuty?.sync();
+    this.hornets?.sync();
     this.ambient?.refresh();
     this.announceLogEntries();
     this.applyTimeOfDay(immediate ? 0 : 1600);

@@ -11,6 +11,7 @@ import { addPhase10VistaFrames, PHASE10_VISTA_FRAMES } from './vistaPhase10.js';
 import { addPhase11VistaFrames, PHASE11_VISTA_FRAMES } from './vistaPhase11.js';
 import { addPhase14VistaFrames, PHASE14_VISTA_FRAMES } from './vistaPhase14.js';
 import { addPhase15VistaFrames, PHASE15_VISTA_FRAMES } from './vistaPhase15.js';
+import { addPhase16VistaFrames, PHASE16_VISTA_FRAMES } from './vistaPhase16.js';
 
 /**
  * Side-view art for vistas (scenes/CinemaScene.js): skies and seas for each
@@ -578,6 +579,7 @@ export function buildVistaAtlas() {
   addPhase11VistaFrames(atlas);
   addPhase14VistaFrames(atlas);
   addPhase15VistaFrames(atlas);
+  addPhase16VistaFrames(atlas);
   for (let i = 0; i < 3; i++) atlas.add(`cloud_garlic_${i}`, garlicCloud(cloudRise(i)));
   return atlas.build();
 }
@@ -601,4 +603,5 @@ export const VISTA_FRAMES = [
   ...PHASE11_VISTA_FRAMES,
   ...PHASE14_VISTA_FRAMES,
   ...PHASE15_VISTA_FRAMES,
+  ...PHASE16_VISTA_FRAMES,
 ];

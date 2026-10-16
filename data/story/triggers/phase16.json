@@ -1,0 +1,349 @@
+[
+ {
+  "id": "p16_ready",
+  "if": {
+   "all": [
+    {
+     "flag": "p15_complete"
+    },
+    {
+     "notFlag": "p16_ready_hint"
+    },
+    {
+     "notFlag": "p16_started"
+    },
+    {
+     "not": {
+      "onMap": "galley"
+     }
+    }
+   ]
+  },
+  "script": "p16.ready_hint",
+  "once": false,
+  "//": "Phase 16 begins after Phase 15 when the captain talks to Pete in the galley (a one-time hint if you're somewhere else)."
+ },
+ {
+  "id": "p16_calmed",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "grand_search_for_fire.calm"
+    },
+    {
+     "notFlag": "p16_calm_said"
+    }
+   ]
+  },
+  "script": "p16c1.calm_done",
+  "once": false
+ },
+ {
+  "id": "p16_talked",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "grand_search_for_fire.talks"
+    },
+    {
+     "notFlag": "p16_talks_said"
+    }
+   ]
+  },
+  "script": "p16c1.talks_done",
+  "once": false
+ },
+ {
+  "id": "p16_searched",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "grand_search_for_fire.search"
+    },
+    {
+     "notFlag": "p16_search_said"
+    }
+   ]
+  },
+  "script": "p16c1.search_done",
+  "once": false
+ },
+ {
+  "id": "p16_prepped",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "coffin_sock.prep"
+    },
+    {
+     "notFlag": "p16_prep_said"
+    }
+   ]
+  },
+  "script": "p16c3.prep_done",
+  "once": false
+ },
+ {
+  "id": "p16_vented",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "coffin_sock.vent"
+    },
+    {
+     "notFlag": "p16_vent_said"
+    }
+   ]
+  },
+  "script": "p16c3.vent_done",
+  "once": false
+ },
+ {
+  "id": "p16_fz_cleared",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "stenchmaster_fart_zone.clear"
+    },
+    {
+     "notFlag": "p16_fz_clear_said"
+    }
+   ]
+  },
+  "script": "p16c4.clear_done",
+  "once": false
+ },
+ {
+  "id": "p16_fz_oriented",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "stenchmaster_fart_zone.orient"
+    },
+    {
+     "notFlag": "p16_fz_orient_said"
+    }
+   ]
+  },
+  "script": "p16c4.orient_done",
+  "once": false
+ },
+ {
+  "id": "p16_searched_hen",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "vindictas_emergency.search"
+    },
+    {
+     "notFlag": "p16_hen_search_said"
+    }
+   ]
+  },
+  "script": "p16c5.search_done",
+  "once": false
+ },
+ {
+  "id": "p16_vproc_done",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "vindictas_emergency.procedure"
+    },
+    {
+     "notFlag": "p16_vproc_said"
+    }
+   ]
+  },
+  "script": "p16c5.procedure_done",
+  "once": false
+ },
+ {
+  "id": "p16_hands_done",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "chicken_town.hands"
+    },
+    {
+     "notFlag": "p16_hands_said"
+    }
+   ]
+  },
+  "script": "p16c7.hands_done",
+  "once": false
+ },
+ {
+  "id": "p16_walk_done",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "chicken_town.walk"
+    },
+    {
+     "notFlag": "p16_walk_said"
+    }
+   ]
+  },
+  "script": "p16c7.walk_done",
+  "once": false
+ },
+ {
+  "id": "p16_disp_done",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "grand_dispensary.serve"
+    },
+    {
+     "notFlag": "p16_disp_said"
+    }
+   ]
+  },
+  "script": "p16c8.serve_done",
+  "once": false
+ },
+ {
+  "id": "p16_credit_done",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "sashback_rewards.more"
+    },
+    {
+     "notFlag": "p16_credit_said"
+    }
+   ]
+  },
+  "script": "p16c11.more_done",
+  "once": false
+ },
+ {
+  "id": "p16_hproc_done",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "hornet_fart.procedure"
+    },
+    {
+     "notFlag": "p16_hproc_said"
+    }
+   ]
+  },
+  "script": "p16c12.procedure_done",
+  "once": false
+ },
+ {
+  "id": "p16_hornet_deck",
+  "if": {
+   "all": [
+    {
+     "objectiveActive": "hornet_fart.deck"
+    },
+    {
+     "notFlag": "hornet_swarm_active"
+    },
+    {
+     "onMap": "main_deck"
+    }
+   ]
+  },
+  "script": "p16c12.deck",
+  "once": false,
+  "//": "The swarm, seen from the deck."
+ },
+ {
+  "id": "p16_shoo_done",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "stingbeard.shoo"
+    },
+    {
+     "notFlag": "p16_shoo_said"
+    }
+   ]
+  },
+  "script": "p16c13.shoo_done",
+  "once": false
+ },
+ {
+  "id": "p16_quotes_done",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "sash_quote_story_hour.sashes"
+    },
+    {
+     "notFlag": "p16_quotes_said"
+    }
+   ]
+  },
+  "script": "p16c14.quotes_done",
+  "once": false
+ },
+ {
+  "id": "p16_epidemic_done",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "hornet_credit_boom.epidemic"
+    },
+    {
+     "notFlag": "p16_epidemic_said"
+    }
+   ]
+  },
+  "script": "p16c15.epidemic_done",
+  "once": false
+ },
+ {
+  "id": "p16_bunker_in",
+  "if": {
+   "all": [
+    {
+     "objectiveActive": "grand_lighter_history.in"
+    },
+    {
+     "notFlag": "p16_in_bunker"
+    },
+    {
+     "onMap": "fart_free_zone"
+    }
+   ]
+  },
+  "script": "p16c16.in_bunker",
+  "once": false,
+  "//": "Chapter 201 starts when the captain gets into the bunker."
+ },
+ {
+  "id": "p16_lore_done",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "grand_lighter_history.read"
+    },
+    {
+     "notFlag": "p16_lore_said"
+    }
+   ]
+  },
+  "script": "p16c16.read_done",
+  "once": false
+ },
+ {
+  "id": "p16_tv_off_done",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "portable_tv.off"
+    },
+    {
+     "notFlag": "p16_tv_off_said"
+    }
+   ]
+  },
+  "script": "p16c17.off_done",
+  "once": false
+ }
+]

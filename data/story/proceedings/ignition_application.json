@@ -1,0 +1,243 @@
+{
+ "ignition_application": {
+  "kind": "form",
+  "title": "APPLICATION FOR CEREMONIAL IGNITION",
+  "pages": 97,
+  "pageVar": "ignition_page",
+  "answerPrefix": "ign_",
+  "//": "Story Phase 16 (chapter 203): the Bureau of Ceremonial Ignition's 97-page application, played as its funniest questions, with the dull stretches as page-number montages. The chicken question is required: only one answer will be filed. Nothing in it is a real procedure.",
+  "questions": [
+   {
+    "id": "name",
+    "page": 1,
+    "required": true,
+    "prompt": "puffchester: (at the window) Page one. Name and FULL title, clerk.",
+    "options": [
+     {
+      "text": "LORD NICOTINIUS PUFFCHESTER THE THIRD",
+      "reply": [
+       {
+        "insert": "application_p1"
+       },
+       "puffchester: (approving) Correct. In every particular."
+      ]
+     },
+     {
+      "text": "LORD PUFF",
+      "reply": [
+       "puffchester: (rigid) The THIRD, clerk. There were two before me and they would both be very upset."
+      ],
+      "invalid": true
+     },
+     {
+      "text": "(write 'some lord')",
+      "reply": [
+       "puffchester: I SAW that."
+      ],
+      "invalid": true
+     }
+    ],
+    "again": [
+     "puffchester: Again. From the top. With the THIRD."
+    ]
+   },
+   {
+    "id": "reason",
+    "page": 4,
+    "prompt": "puffchester: Page four. Reason for ignition.",
+    "options": [
+     {
+      "text": "Ceremonial.",
+      "reply": [
+       "puffchester: Naturally."
+      ]
+     },
+     {
+      "text": "He's been holding it unlit for three hundred years.",
+      "reply": [
+       "puffchester: (misty) Three hundred and FOUR.",
+       "garrick: (from the lounge) That's a long-term strategic commitment, that is."
+      ]
+     },
+     {
+      "text": "Recreational.",
+      "reply": [
+       "puffchester: (scandalised) There is NOTHING recreational about procedure."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "pages_5_30",
+    "montage": [
+     5,
+     9,
+     14,
+     22,
+     30
+    ],
+    "lines": [
+     "Pages five to thirty: ANCESTORS. All of them. With their opinions about cigars. Garrick reads three of them aloud for no reason."
+    ]
+   },
+   {
+    "id": "stenchmaster",
+    "page": 31,
+    "required": true,
+    "prompt": "puffchester: Page thirty-one. NEAREST GRAND STENCHMASTER.",
+    "options": [
+     {
+      "text": "Brogath the Bashful. Next room. Mellow.",
+      "reply": [
+       "brogath: (from the lounge, waving) Hello!",
+       "puffchester: (stiffly) Noted."
+      ]
+     },
+     {
+      "text": "None.",
+      "reply": [
+       "brogath: (from the lounge, cheerfully) Hello!",
+       "puffchester: (looking at you over his monocle) None?"
+      ],
+      "invalid": true
+     },
+     {
+      "text": "Vindicta. (Somewhere.)",
+      "reply": [
+       "vindicta: (from somewhere, faintly) I HEARD THAT.",
+       "puffchester: Write both, clerk. And a third, in case."
+      ]
+     }
+    ],
+    "again": [
+     "puffchester: Again, clerk. Honestly this time."
+    ]
+   },
+   {
+    "id": "pages_32_60",
+    "montage": [
+     32,
+     40,
+     47,
+     55,
+     60
+    ],
+    "lines": [
+     "Pages thirty-two to sixty: SASHES IN THE VICINITY. There are a great many sashes in the vicinity. You run out of ink. Bankworth lends you a pen shaped like a vault."
+    ]
+   },
+   {
+    "id": "chickens",
+    "page": 61,
+    "required": true,
+    "prompt": "puffchester: Page sixty-one. CHICKENS NEARBY?",
+    "options": [
+     {
+      "text": "No chickens.",
+      "reply": [
+       {
+        "sfx": "hen_cluck",
+        "volume": 0.8
+       },
+       "From the lounge: BAWK.",
+       "puffchester: (very slowly) No... chickens."
+      ],
+      "invalid": true
+     },
+     {
+      "text": "One. A spare one.",
+      "reply": [
+       "brogath: (from the lounge, sitting bolt upright) SPARE?",
+       "Agnes the Second hides her head under his foot."
+      ],
+      "invalid": true
+     },
+     {
+      "text": "AGNES THE SECOND. OPERATIONALLY IMPORTANT. DO NOT TOAST.",
+      "reply": [
+       {
+        "insert": "application_p61"
+       },
+       "puffchester: (writing it down, in capitals) Do... not... toast. Underlined?",
+       "captain[determined]: TWICE.",
+       "brogath: (from the lounge, very quietly) Thank you, Captain."
+      ],
+      "flag": "p16_agnes_on_form"
+     }
+    ],
+    "again": [
+     "puffchester: The form won't accept that, clerk. The form knows."
+    ]
+   },
+   {
+    "id": "officer",
+    "page": 72,
+    "prompt": "puffchester: Page seventy-two. Fire safety officer.",
+    "options": [
+     {
+      "text": "Captain Stinkbeard.",
+      "reply": [
+       "puffchester: Qualifications?",
+       "captain: I've been on fire. Twice. The second time I put it out."
+      ]
+     },
+     {
+      "text": "Pete.",
+      "reply": [
+       "pete: (from the lounge, without opening his eyes) I'm not anything. I'm sitting here."
+      ]
+     },
+     {
+      "text": "Garrick.",
+      "reply": [
+       "garrick: (instantly in the doorway) Delighted to take ownership of the ignition workstream, Your Lordship. I'll circle back with a FIRE STRATEGY.",
+       "captain[tired]: (crossing it out) No."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "pages_73_96",
+    "montage": [
+     73,
+     80,
+     88,
+     96
+    ],
+    "lines": [
+     "Pages seventy-three to ninety-six: the same question in twenty-four slightly different ways. ARE YOU SURE. You are not sure. You put SURE."
+    ]
+   },
+   {
+    "id": "sign",
+    "page": 97,
+    "prompt": "puffchester: Page ninety-seven. Sign here. And here. And here. And initial the bit about the goat.",
+    "options": [
+     {
+      "text": "(Sign.)"
+     },
+     {
+      "text": "(Sign with a flourish.)",
+      "reply": [
+       "puffchester: (a single tear) Beautiful."
+      ]
+     },
+     {
+      "text": "(Get Bankworth to witness it.)",
+      "reply": [
+       "bankworth: (stamping it with his crown) Witnessed! Solvent!"
+      ]
+     }
+    ]
+   }
+  ],
+  "done": [
+   {
+    "sfx": "stamp",
+    "volume": 0.9
+   },
+   "Ninety-seven pages. Initialled, witnessed, and stacked as high as the bell.",
+   "puffchester: (beaming) Now. The stamp, clerk."
+  ]
+ }
+}

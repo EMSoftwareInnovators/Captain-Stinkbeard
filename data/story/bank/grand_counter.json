@@ -1,0 +1,122 @@
+{
+ "//": "Story Phase 16: THE COUNTER, where the Bashfulness Branch was (crew quarters, 11-13,14). One service counter with several skins: the Grand Dispensary (customers pay Grand Tokens into the till, counter_till; they get a jar of one of Brogath's mellow wafts), the Grand Bank again (Bankworth's opening deposit at the teller's window; GRAND SASHBACK credit applications, appraised by the captain's nose; the hornets), and the Bureau of Ceremonial Ignition (the proceedings, played as scripts). The till is a story variable: it never touches the captain's purse.",
+ "grand_counter": {
+  "name": "THE COUNTER",
+  "slogan": "HELLO! I'M HAPPY TO SERVE YOU",
+  "stateValue": "counter_department",
+  "ledgerVar": "counter_ledger_right",
+  "gradeVar": "counter_last_grade",
+  "slipsVar": "counter_last_slips",
+  "tillVar": "counter_till",
+  "registerSfx": "spectral_register",
+  "tokenLine": "THE TILL: <y>{tokens}</> GRAND TOKENS, FROM {name}. (Not legal tender. Not yours.)",
+  "checkLine": "A GRAND CHECK, from {name}. Stamped. Filed.",
+  "applicationLine": "GRAND SASHBACK REWARDS: an application from {name}. The terminal wants a smell.",
+  "scale": [
+   {
+    "n": 1,
+    "name": "Gentle"
+   },
+   {
+    "n": 2,
+    "name": "Firm"
+   },
+   {
+    "n": 3,
+    "name": "Furniture-Aware"
+   },
+   {
+    "n": 4,
+    "name": "Furniture-Moving"
+   },
+   {
+    "n": 5,
+    "name": "Structural"
+   },
+   {
+    "n": 6,
+    "name": "Maritime"
+   },
+   {
+    "n": 7,
+    "name": "Municipal"
+   },
+   {
+    "n": 8,
+    "name": "Regional"
+   },
+   {
+    "n": 9,
+    "name": "Historic"
+   },
+   {
+    "n": 10,
+    "name": "Please Notify Authorities"
+   }
+  ],
+  "beyond": {
+   "n": "10+",
+   "name": "ABSOLUTELY NOT"
+  },
+  "queues": {
+   "dispensary": {
+    "customers": [
+     "disp_wheezeworth",
+     "disp_mildew",
+     "disp_stalebreath",
+     "disp_draftly",
+     "disp_fumble"
+    ],
+    "servedVar": "counter_disp_served",
+    "event": "p16_disp"
+   },
+   "bank": {
+    "customers": [
+     "bankworth_deposit"
+    ],
+    "servedVar": "counter_bank_served"
+   },
+   "credit": {
+    "customers": [
+     "credit_rottingham",
+     "credit_mustyhem"
+    ],
+    "servedVar": "counter_credit_served",
+    "event": "p16_credit"
+   },
+   "rancidella": {
+    "customers": [
+     "rancidella"
+    ],
+    "servedVar": "counter_rancidella_served"
+   },
+   "hornets": {
+    "customers": [
+     "hornet_eight",
+     "hornet_nine",
+     "hornet_eleven"
+    ],
+    "servedVar": "counter_hornets_served",
+    "event": "p16_epidemic"
+   }
+  },
+  "classifyPrompt": "captain: (the ledger) {name}. Class of deposit?",
+  "classifyRight": "Into the ledger: {class}. Bankworth applauds, very quietly, with two fingers.",
+  "classifyWrong": "bank_voice: CORRECTION: {class}. THE GRAND TRUST THANKS YOU FOR YOUR ESTIMATE.",
+  "vault": "p16.counter_vault",
+  "counter": {
+   "crew_quarters": [
+    12,
+    14
+   ]
+  },
+  "area": {
+   "crew_quarters": [
+    11,
+    13,
+    5,
+    3
+   ]
+  }
+ }
+}

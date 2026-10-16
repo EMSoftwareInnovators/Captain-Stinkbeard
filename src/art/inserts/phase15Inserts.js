@@ -22,7 +22,7 @@ const TEXT = '#3a2a1a';
 const PURPLE = { d: '#3a1e52', m: '#5a3278', l: '#9468b8' };
 const GOLDC = { d: '#9a7418', m: '#d8b032', l: '#f4dc6c' };
 
-function framed(rows, { bg = PAPER, fg = TEXT, border = '#8a6a3a', title = null, titleBg = null, pad = 14 } = {}) {
+export function framed(rows, { bg = PAPER, fg = TEXT, border = '#8a6a3a', title = null, titleBg = null, pad = 14 } = {}) {
   const all = title ? [title, ...rows] : rows;
   const W = Math.max(120, widest(all) + pad * 2);
   const H = 20 + rows.length * 11 + (title ? 16 : 0);
@@ -76,7 +76,7 @@ function branchSign(closing = false) {
 }
 
 /** A form from the stack, with a stamp box. */
-function form(code, title, questions) {
+export function form(code, title, questions) {
   const rows = [title, '', ...questions, '', '[ STAMP HERE ]'];
   const c = framed(rows, { title: `FORM ${code}`, titleBg: PURPLE.m });
   return c;

@@ -1,0 +1,59 @@
+[
+ {
+  "id": "grand_stenchmaster_lighter",
+  "name": "The Grand Lighter",
+  "type": "key",
+  "icon": "lighter",
+  "value": 0,
+  "//": "Story Phase 16: THE GRAND STENCHMASTER'S GRAND LIGHTER OF GRAND SMOKES (Cheap-O-Rama; Cheapy the Cheapskate Clown on the box). A story item with a malfunction profile (data/story/novelty.json): working, not reliable. Used in scenes; obviously fictional; nothing about it is a real device.",
+  "description": "THE GRAND STENCHMASTER'S GRAND LIGHTER OF GRAND SMOKES. Purple and gold plastic, printed crooked. 'NOW WITH GRANDNESS!' Attempts so far: {num:lighter_clicks}. Flames so far: some.",
+  "variants": [
+   {
+    "if": {
+     "flag": "mechanical_ignition_victory"
+    },
+    "description": "THE GRAND LIGHTER. Unreliable, cheap, ridiculous, and the only thing that kept Vindicta from lighting a cigarette with the Crew Quarters. Attempts: {num:lighter_clicks}. You'd buy another."
+   }
+  ]
+ },
+ {
+  "id": "dispensary_visor",
+  "name": "Employee Visor",
+  "type": "key",
+  "icon": "visor",
+  "value": 0,
+  "description": "A purple employee visor: THE GRAND DISPENSARY. HELLO! I'M HAPPY TO SERVE YOU. You were hired against your will. It's still on.",
+  "variants": [
+   {
+    "if": {
+     "flag": "bank_reconstituted"
+    },
+    "description": "A purple visor, the word DISPENSARY scratched out and GRAND BANK written over it in Bankworth's hand. Still HAPPY TO SERVE YOU."
+   }
+  ]
+ },
+ {
+  "id": "converter_receipt",
+  "name": "Converter Receipt",
+  "type": "key",
+  "icon": "receipt",
+  "value": 0,
+  "description": "GRAND CURRENCY CONVERSION. INPUT: 1 GRAND TOKEN. OUTPUT: 1 COFFIN SOCK ATMOSPHERIC EQUIVALENT (DELIVERED). FEE: 1 GRAND TOKEN. THANK YOU FOR CONVERTING."
+ },
+ {
+  "id": "ignition_application_copy",
+  "name": "Application (Copy)",
+  "type": "key",
+  "icon": "ledger",
+  "value": 0,
+  "description": "APPLICATION FOR CEREMONIAL IGNITION, 97 PAGES (CARBON COPY), Lord Nicotinius Puffchester the Third. Page 61: CHICKENS NEARBY: AGNES THE SECOND. OPERATIONALLY IMPORTANT. DO NOT TOAST.",
+  "variants": [
+   {
+    "if": {
+     "flag": "mechanical_ignition_victory"
+    },
+    "description": "APPLICATION FOR CEREMONIAL IGNITION, 97 PAGES. Approved by the Council. Withdrawn by the applicant, who used a lighter. STATUS: COMMON SENSE."
+   }
+  ]
+ }
+]

@@ -27,7 +27,7 @@ describe('Brogath Stability: the rules', () => {
   const def = brogath(s.content);
 
   it('has the seven states, low to high, with ANGRY apart from the pressure (and Phase 15\'s MELLOW)', () => {
-    expect(STABILITY_STATES).toEqual(['PLEASED', 'CALM', 'BASHFUL', 'EMBARRASSED', 'PRESSURIZED', 'CRITICAL', 'ANGRY', 'MELLOW']);
+    expect(STABILITY_STATES.slice(0, 8)).toEqual(['PLEASED', 'CALM', 'BASHFUL', 'EMBARRASSED', 'PRESSURIZED', 'CRITICAL', 'ANGRY', 'MELLOW']); // later phases add more (Phase 16: RECOVERING)
     expect([-5, 0, 20, 50, 70, 90].map((p) => stateFor(def, p))).toEqual(['PLEASED', 'CALM', 'BASHFUL', 'EMBARRASSED', 'PRESSURIZED', 'CRITICAL']);
     for (const p of [-20, 10, 99]) expect(stateFor(def, p, true)).toBe('ANGRY');
   });

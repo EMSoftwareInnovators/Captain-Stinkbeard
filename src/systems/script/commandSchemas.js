@@ -135,11 +135,27 @@ export const COMMAND_SCHEMAS = {
 
   // --- Story Phase 15 ---------------------------------------------------------------
   // The ship's atmosphere (data/story/atmosphere.json).
-  atmosphere: { atmosphere: 'string' },
+  atmosphere: { atmosphere: 'string', room: 'string?', clearRooms: 'boolean?' },
   // A Stenchmaster Channel episode with segments: beats, commercials, Brogath's reactions.
   channelEpisode: { channelEpisode: 'string', program: 'string?', tv: 'string?', layer: 'string?' },
   // A one-time conversion (data/story/conversions.json).
   convert: { convert: 'string', silent: 'boolean?' },
+
+  // --- Story Phase 16 ---------------------------------------------------------------
+  // The captain's beard (data/story/beard.json): add a tag, or remove a temporary one.
+  beard: { beard: 'string', tag: 'string', quiet: 'boolean?' },
+  // The Stenchmaster Fart Zone (data/story/fart_zone.json): queue | enter | door | portholes | prepare | release | ventilate | complete | reset.
+  fartZone: { fartZone: 'string', who: 'string?', value: 'string?', release: 'string?', force: 'boolean?' },
+  // A novelty device (data/story/novelty.json): attempts, the last one forced to "until" if given.
+  lighter: { lighter: 'string', attempts: 'number?', until: 'string?', montage: 'boolean?', quiet: 'boolean?', var: 'string?' },
+  // A form, a hearing or a pitch (data/story/proceedings).
+  proceeding: { proceeding: 'string' },
+  // GRAND SASHBACK appraisal (data/story/credit.json).
+  appraise: { appraise: 'string', bias: 'number?', bonusVar: 'string?', quiet: 'boolean?' },
+  // THE GRAND CURRENCY CONVERTER: tokens from a story variable in, Coffin Sock out ("amount": a number or "all").
+  currencyConverter: { currencyConverter: 'string', from: 'string', amount: 'any?' },
+  // The hornet swarm (data/hazards/hornets.json).
+  hornets: { hornets: 'string' },
 };
 
 /** Commands that may carry "async": true (start and continue without waiting). */

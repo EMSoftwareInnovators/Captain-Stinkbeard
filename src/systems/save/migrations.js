@@ -311,6 +311,19 @@ Object.assign(MIGRATIONS, {
    * start unset. A finished Phase 14 save walks into chapter 170 on load.
    */
   14: (state) => fillLayout(state),
+  /**
+   * 15 -> 16 (Story Phase 16: the Grand Lighter). Unchanged layout. Rooms'
+   * own air (`room_atmosphere_<map>`), the Stenchmaster Fart Zone (its state,
+   * queue, door, portholes, damage, and the releases it has taken, each once),
+   * the captain's beard (tags as flags), the Grand Lighter's attempt counter,
+   * the Grand Dispensary and the reconstituted Grand Bank, Grand Sashback
+   * credit, the Grand Currency Converter (story variables only, never the
+   * purse), the hornet swarm (a story value; unset reads as DORMANT), the
+   * portable television, and the ignition application, hearing and pitch are
+   * flags, variables and values that start unset. A finished Phase 15 save
+   * walks into chapter 186 on load.
+   */
+  15: (state) => fillLayout(state),
 });
 
 export function migrateState(state, fromVersion, toVersion, migrations = MIGRATIONS) {

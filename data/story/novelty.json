@@ -1,0 +1,70 @@
+{
+ "//": "Story Phase 16: novelty devices. THE GRAND STENCHMASTER'S GRAND LIGHTER OF GRAND SMOKES (Cheap-O-Rama, with Cheapy the Cheapskate Clown on the box): working, not reliable. Every attempt ever made is counted (lighter_clicks) and gets the next outcome in a fixed sequence, so it is unreliable without being random; a scene that needs a flame forces the last attempt ('until'). It's an obviously fictional novelty: nothing about it is a real device or a real procedure.",
+ "grand_smokes": {
+  "item": "grand_stenchmaster_lighter",
+  "counterVar": "lighter_clicks",
+  "outcomes": {
+   "click": {
+    "text": "Click.",
+    "short": "Click.",
+    "sfx": "lighter_click"
+   },
+   "nothing": {
+    "text": "...Nothing.",
+    "short": "Nothing."
+   },
+   "spark": {
+    "text": "A weak spark. It thinks about it. It decides against it.",
+    "short": "Spark.",
+    "sfx": "lighter_spark"
+   },
+   "brown_puff": {
+    "text": "A small brownish puff comes out of the top, and smells briefly of a fart on fire.",
+    "short": "Brown puff.",
+    "sfx": "lighter_puff"
+   },
+   "smell": {
+    "text": "No flame. Just a smell, like a candle that's been told a secret about beans.",
+    "short": "Smell.",
+    "sfx": "lighter_puff"
+   },
+   "sputter": {
+    "text": "A flame! For a moment! It sputters and goes out, looking embarrassed.",
+    "short": "Sputter.",
+    "sfx": "lighter_sputter"
+   },
+   "flame": {
+    "text": "A flame. A little, ordinary, steady flame. It just... works.",
+    "short": "FLAME.",
+    "sfx": "lighter_flame",
+    "lit": true
+   }
+  },
+  "sequence": [
+   "click",
+   "nothing",
+   "click",
+   "spark",
+   "nothing",
+   "brown_puff",
+   "click",
+   "smell",
+   "nothing",
+   "click",
+   "spark",
+   "sputter",
+   "click",
+   "nothing",
+   "brown_puff",
+   "click",
+   "click",
+   "nothing",
+   "spark",
+   "smell",
+   "click",
+   "sputter",
+   "nothing",
+   "flame"
+  ]
+ }
+}

@@ -25,7 +25,20 @@
  * The `atmosphere` script command changes it.
  */
 
-export const ATMOSPHERE_STATES = ['NORMAL', 'ORDINARY_STENCH', 'BROGATH_SKUNK_HAZE', 'MELLOW_HAZE', 'BEARD_PARANOIA_HAZE', 'NOSE_FIRE_RESIDUE', 'BANK_FUMES', 'CLEARING'];
+export const ATMOSPHERE_STATES = ['NORMAL', 'ORDINARY_STENCH', 'BROGATH_SKUNK_HAZE', 'MELLOW_HAZE', 'BEARD_PARANOIA_HAZE', 'NOSE_FIRE_RESIDUE', 'BANK_FUMES', 'CLEARING',
+  // Story Phase 16: Brogath's Coffin Sock, Vindicta's legendary release, what the hornets leave behind.
+  'COFFIN_SOCK', 'VINDICTA_RELEASE', 'HORNET_SWARM_RESIDUE'];
+
+/**
+ * Story Phase 16: rooms can have their own air. A room's story value
+ * (`roomPrefix` + map id, e.g. "room_atmosphere_galley") wins over the ship's
+ * while it's set: Coffin Sock in the crew quarters while the deck has been
+ * aired, the Stenchmaster Fart Zone mid-release. Unset (null) means the room
+ * shares the ship's air again.
+ */
+export function roomValueName(def, map) {
+  return `${def?.roomPrefix ?? 'room_atmosphere_'}${map}`;
+}
 
 /** The ship's atmosphere definition (null if the data has none). */
 export function atmosphereDef(content) {
@@ -50,16 +63,30 @@ export function atmosphereNow(content, session) {
 export function atmosphereOn(content, session, map) {
   const def = atmosphereDef(content);
   if (!def || (def.maps && !def.maps.includes(map))) return { id: 'NORMAL' };
+  const own = session.story.getValue(roomValueName(def, map));
+  if (own && def.states?.[own]) return { id: own, room: true, ...def.states[own] };
   return atmosphereNow(content, session);
 }
 
 /** Sets the state (unknown ids throw: the validator checks every one a script uses). */
-export function setAtmosphere(content, session, id) {
+export function setAtmosphere(content, session, id, { room = null } = {}) {
   const def = atmosphereDef(content);
   if (!def) throw new Error('No ship atmosphere (data/story/atmosphere.json)');
+  // A room's own air can be cleared (null: it shares the ship's again).
+  if (room && (id === null || id === 'SHIP')) {
+    session.story.setValue(roomValueName(def, room), null);
+    return null;
+  }
   if (!def.states?.[id]) throw new Error(`No atmosphere state "${id}"`);
-  session.story.setValue(def.value ?? 'ship_atmosphere', id);
+  session.story.setValue(room ? roomValueName(def, room) : def.value ?? 'ship_atmosphere', id);
   return id;
+}
+
+/** Clears every room's own air (the ship's applies everywhere again). */
+export function clearRoomAtmospheres(content, session) {
+  const def = atmosphereDef(content);
+  if (!def) return;
+  for (const m of def.maps ?? []) if (session.story.getValue(roomValueName(def, m))) session.story.setValue(roomValueName(def, m), null);
 }
 
 /** How thick each haze level is. */

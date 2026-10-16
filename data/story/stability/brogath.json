@@ -1,6 +1,6 @@
 {
  "brogath": {
-  "//": "Story Phase 14: Brogath the Bashful, an Ancient Grand Stenchmaster inside a cardboard cut-out. He becomes dangerous by being EMBARRASSED (flutter, being reminded he's cardboard or dead, apologising, failing at machinery, being laughed at, smelling); confidence calms him (praise, reframing an accident as intentional, 'distinguished', agreeing it was a toot, 'ceremonial', a harmless important job, safe television). ANGRY is a separate, scripted state (the Anger Waft). The meter is BASHFULNESS (WRATH when angry). Story Phase 15: MELLOW is a third kind of state, read from the ship's atmosphere (the Great Mellowing): while the air is MELLOW_HAZE every rise in pressure counts for an eighth, so a sash can flutter in front of him and he only finds it interesting. Wrath (ANGRY) still wins over it.",
+  "//": "Story Phase 14: Brogath the Bashful, an Ancient Grand Stenchmaster inside a cardboard cut-out. He becomes dangerous by being EMBARRASSED (flutter, being reminded he's cardboard or dead, apologising, failing at machinery, being laughed at, smelling); confidence calms him (praise, reframing an accident as intentional, 'distinguished', agreeing it was a toot, 'ceremonial', a harmless important job, safe television). ANGRY is a separate, scripted state (the Anger Waft). The meter is BASHFULNESS (WRATH when angry). Story Phase 15: MELLOW is a third kind of state, read from the ship's atmosphere (the Great Mellowing): while the air is MELLOW_HAZE every rise in pressure counts for an eighth, so a sash can flutter in front of him and he only finds it interesting. Wrath (ANGRY) still wins over it. Story Phase 16: RECOVERING (recoverFlag brogath_recovering, set by scripts after a big release): his rises count half as much until a script lets him out of it; triggers for Agnes the Second (clucking, frantic flapping), for being blamed, and for 'Is that all?'; calms for the chicken just chickening, the Fart Zone procedure and a good swarm; prompt sets for the near-miss and the Hornet Fart.",
   "name": "BROGATH",
   "label": "BASHFULNESS",
   "angryLabel": "WRATH",
@@ -234,6 +234,28 @@
    "ordinary_stink": {
     "pressure": 10,
     "line": "brogath[sorry]: That's... not the green one, is it. That's the ordinary one."
+   },
+   "chicken_cluck": {
+    "pressure": 10,
+    "sfx": "hen_cluck",
+    "line": "brogath[bashful]: (very quietly) She's... she's looking at me. Is she looking at me?"
+   },
+   "chicken_frantic": {
+    "pressure": 24,
+    "sfx": "wing_flap",
+    "line": "brogath[mortified]: She's running about! Because of ME! Everyone can SEE her running about!"
+   },
+   "blamed": {
+    "pressure": 14,
+    "line": "brogath[sorry]: It was me. I know it was me. It's always me."
+   },
+   "is_that_all": {
+    "pressure": 30,
+    "line": "brogath[mortified]: (very small) ...Is that ALL? Did someone say is that ALL?"
+   },
+   "hornet_praise_none": {
+    "pressure": 8,
+    "line": "brogath[confused]: Nobody's saying anything. Is the swarm not good? I thought it was a good swarm."
    }
   },
   "calms": {
@@ -359,6 +381,22 @@
    "agnes": {
     "pressure": -25,
     "line": "brogath[thoughtful]: Agnes was a very good chicken."
+   },
+   "chicken_just_chicken": {
+    "pressure": -12,
+    "line": "brogath[pleased]: (watching her peck) She's just being a chicken, isn't she. Look at her. Just... chickening."
+   },
+   "zone_procedure": {
+    "pressure": -10,
+    "line": "brogath[pleased]: Door. Portholes. Sash. Procedure. I like a procedure."
+   },
+   "good_swarm": {
+    "pressure": -15,
+    "line": "brogath[proud]: It IS a good swarm. Thank you. I made it myself."
+   },
+   "useful": {
+    "pressure": -15,
+    "line": "brogath[delighted]: Useful! I was USEFUL!"
    }
   },
   "prompts": {
@@ -749,6 +787,49 @@
       "trigger": "useless"
      }
     ]
+   },
+   "near_miss": {
+    "show": 3,
+    "options": [
+     {
+      "text": "That was very nearly it. Honestly. Very nearly.",
+      "calm": "reframe"
+     },
+     {
+      "text": "Nobody could have done it better. Nobody alive, certainly.",
+      "calm": "distinguished"
+     },
+     {
+      "text": "You're a very good Grand Stenchmaster and it isn't your fault.",
+      "calm": "praise"
+     },
+     {
+      "text": "Is that ALL?",
+      "trigger": "is_that_all",
+      "reply": "pete[alarmed]: (from somewhere) Rule NINE, Captain! RULE NINE!"
+     },
+     {
+      "text": "Whose fault was THAT, then?",
+      "trigger": "blamed"
+     }
+    ]
+   },
+   "hornet_pride": {
+    "show": 3,
+    "options": [
+     {
+      "text": "That's... a very good swarm, Your Ancientness.",
+      "calm": "good_swarm"
+     },
+     {
+      "text": "You were useful. Technically. In a way.",
+      "calm": "useful"
+     },
+     {
+      "text": "...",
+      "trigger": "hornet_praise_none"
+     }
+    ]
    }
   },
   "incidents": {
@@ -832,6 +913,9 @@
    ],
    "triggerScale": 0.125
   },
-  "mellowLabel": "MELLOW"
+  "mellowLabel": "MELLOW",
+  "recoverFlag": "brogath_recovering",
+  "recoverLabel": "RECOVERING",
+  "recoverScale": 0.5
  }
 }

@@ -1,0 +1,39 @@
+{
+ "//": "Story Phase 16 (chapter 189): THE STENCHMASTER FART ZONE, the old sail locker under the deck grating. Not the Fart-Free Zone (that's the crew's cramped refuge under the hold stairs): this one is for Grand Stenchmasters with a major release coming, to point it out of the portholes and away from the crew. One occupant at a time, a short queue, the door shut and the portholes open (the posted procedure), and each authored release processed exactly once. Not a gas simulation: its state is story values that props, hazes and dialogue read.",
+ "zone": {
+  "map": "stenchmaster_fart_zone",
+  "stateValue": "fz_state",
+  "occupantValue": "fz_occupant",
+  "queueValue": "fz_queue",
+  "doorValue": "fz_door",
+  "portholesValue": "fz_portholes",
+  "damageVar": "fz_damage",
+  "releasesVar": "fz_releases",
+  "doneFlagPrefix": "fz_done_",
+  "releases": {
+   "vindicta_legendary": {
+    "damage": 2,
+    "odor": "VINDICTA_RELEASE",
+    "//": "Chapter 190: the room's first real test. The door bends; the portholes rattle; the chicken survives."
+   },
+   "hornet_fart": {
+    "damage": 1,
+    "odor": "HORNET_SWARM_RESIDUE",
+    "//": "Chapter 197: Brogath's Hornet Fart. Out of the portholes, mostly."
+   }
+  },
+  "rules": [
+   "If a Grand Stenchmaster feels a major release coming: enter the room.",
+   "Close the main door.",
+   "Open the designated portholes.",
+   "No beans inside.",
+   "No banking.",
+   "No sash-flutter demonstrations.",
+   "One Stenchmaster at a time.",
+   "No rhetorical insults near Brogath.",
+   "Do not ask, 'Is that all?'",
+   "Spectators stay behind the rope.",
+   "Two Stenchmasters at once: the overflow procedure (the second waits on deck, upwind)."
+  ]
+ }
+}

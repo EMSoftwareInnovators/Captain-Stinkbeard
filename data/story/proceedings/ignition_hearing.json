@@ -1,0 +1,134 @@
+{
+ "ignition_hearing": {
+  "kind": "hearing",
+  "pass": 6,
+  "scoreVar": "ignition_hearing_score",
+  "//": "Story Phase 16 (chapter 204): the Grand Ignition Council's questions. The captain is the applicant's advocate. Best answers total 9; 6 passes. Falling short sends him back to the first question once; after that the Council passes it anyway, out of exhaustion.",
+  "questions": [
+   {
+    "id": "grand",
+    "prompt": "council_chair: Advocate. Does your applicant understand that ceremonial ignition is GRAND?",
+    "options": [
+     {
+      "text": "He understands it is VERY grand.",
+      "points": 2
+     },
+     {
+      "text": "He understands it's a cigarette.",
+      "reply": [
+       "council_chair: (gasp) A WHAT?"
+      ],
+      "points": 0
+     },
+     {
+      "text": "(Let Garrick answer.)",
+      "reply": [
+       "garrick: Your Grandnesses, we're fully aligned on grandness going forward.",
+       "council_chair: ...Acceptable."
+      ],
+      "points": 1
+     }
+    ]
+   },
+   {
+    "id": "chickens",
+    "prompt": "council_left: Chickens within the ignition radius?",
+    "options": [
+     {
+      "text": "One. Agnes the Second. Page sixty-one. DO NOT TOAST.",
+      "reply": [
+       "council_left: (approvingly) Underlined twice. Very proper."
+      ],
+      "points": 3
+     },
+     {
+      "text": "None.",
+      "reply": [
+       {
+        "sfx": "hen_cluck",
+        "volume": 0.7
+       },
+       "From the gallery: BAWK.",
+       "council_left: ...None?"
+      ],
+      "points": 0
+     },
+     {
+      "text": "Define 'radius'.",
+      "reply": [
+       "council_left: (warming to it) An EXCELLENT question. Let me get the other book."
+      ],
+      "points": 1
+     }
+    ]
+   },
+   {
+    "id": "pages",
+    "prompt": "council_right: All ninety-seven pages complete?",
+    "options": [
+     {
+      "text": "All ninety-seven. Initialled. Witnessed.",
+      "points": 2
+     },
+     {
+      "text": "Mostly.",
+      "reply": [
+       "council_right: (writing MOSTLY on a separate form)"
+      ],
+      "points": 0
+     },
+     {
+      "text": "There's a carbon copy, if you'd like ninety-seven more.",
+      "reply": [
+       "council_right: (delighted) Oh, I WOULD."
+      ],
+      "points": 1
+     }
+    ]
+   },
+   {
+    "id": "who",
+    "prompt": "council_chair: And who shall perform the ignition?",
+    "options": [
+     {
+      "text": "A qualified Grand Stenchmaster. With a procedure.",
+      "points": 2
+     },
+     {
+      "text": "Nobody, ideally.",
+      "reply": [
+       "council_chair: That is not how ignition works, Advocate."
+      ],
+      "points": 1
+     },
+     {
+      "text": "Brogath.",
+      "reply": [
+       "brogath: (from the gallery, mortified) Me? In FRONT of everybody?",
+       "council_chair: The candidate declines, I think."
+      ],
+      "points": 0
+     }
+    ]
+   }
+  ],
+  "passed": [
+   {
+    "sfx": "gavel",
+    "volume": 1.0
+   },
+   "council_chair: The Council has considered. APPROVED."
+  ],
+  "retry": [
+   "council_chair: (sighing) Advocate. From the beginning.",
+   "puffchester: (to you, under his breath) PLEASE."
+  ],
+  "mercy": [
+   {
+    "sfx": "gavel",
+    "volume": 1.0
+   },
+   "council_chair: (exhausted) Oh, APPROVED. Approved. I want my tea."
+  ]
+ }
+}

@@ -1,0 +1,83 @@
+{
+ "//": "Story Phase 16: the bunker watching the portable set (chapter 202: the hold-shelter backdrop, the portable set's own crooked cabinet), and the Grand Ignition Council's chamber with Vindicta's pressure gauge (chapters 204-205; the pitch moves the gauge a notch at a time: vgauge_0..5).",
+ "bunker_watch": {
+  "sky": "night",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "bg",
+    "frame": "hold_shelter",
+    "x": 160,
+    "y": 224,
+    "depth": 2
+   },
+   {
+    "id": "screen",
+    "frame": "doc_title_0",
+    "x": 160,
+    "y": 136,
+    "depth": 10,
+    "scale": 0.55,
+    "frames": [
+     "doc_title_0",
+     "doc_title_1"
+    ],
+    "frameMs": 420
+   },
+   {
+    "id": "scan",
+    "frame": "tv_scan",
+    "x": 160,
+    "y": 136,
+    "depth": 11,
+    "alpha": 0.5,
+    "scale": 0.55
+   },
+   {
+    "id": "glare",
+    "frame": "tv_glare",
+    "x": 160,
+    "y": 136,
+    "depth": 12,
+    "scale": 0.55
+   },
+   {
+    "id": "set",
+    "frame": "portable_bezel",
+    "x": 160,
+    "y": 160,
+    "depth": 13,
+    "scale": 0.55
+   },
+   {
+    "id": "crew",
+    "frame": "crew_backs",
+    "x": 160,
+    "y": 240,
+    "depth": 18
+   }
+  ]
+ },
+ "ignition_council": {
+  "sky": "night",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "bg",
+    "frame": "council_bg",
+    "x": 160,
+    "y": 224,
+    "depth": 2
+   },
+   {
+    "id": "gauge",
+    "frame": "vgauge_0",
+    "x": 284,
+    "y": 84,
+    "depth": 12
+   }
+  ]
+ }
+}

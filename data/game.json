@@ -1430,6 +1430,153 @@
       "if": {
         "flag": "p15_complete"
       }
+    },
+    {
+      "id": "p16c1",
+      "name": "Chapter 186: The Grand Search for Fire",
+      "if": {
+        "flag": "p16_started"
+      }
+    },
+    {
+      "id": "p16c2",
+      "name": "Chapter 187: The Grand Lighter",
+      "if": {
+        "flag": "p16_ch187_started"
+      }
+    },
+    {
+      "id": "p16c3",
+      "name": "Chapter 188: Coffin Sock",
+      "if": {
+        "flag": "p16_ch188_started"
+      }
+    },
+    {
+      "id": "p16c4",
+      "name": "Chapter 189: The Stenchmaster Fart Zone",
+      "if": {
+        "flag": "p16_ch189_started"
+      }
+    },
+    {
+      "id": "p16c5",
+      "name": "Chapter 190: Vindicta's Legendary Emergency",
+      "if": {
+        "flag": "p16_ch190_started"
+      }
+    },
+    {
+      "id": "p16c6",
+      "name": "Chapter 191: The Near-Miss",
+      "if": {
+        "flag": "p16_ch191_started"
+      }
+    },
+    {
+      "id": "p16c7",
+      "name": "Chapter 192: Chicken-Town",
+      "if": {
+        "flag": "p16_ch192_started"
+      }
+    },
+    {
+      "id": "p16c8",
+      "name": "Chapter 193: The Grand Dispensary",
+      "if": {
+        "flag": "p16_ch193_started"
+      }
+    },
+    {
+      "id": "p16c9",
+      "name": "Chapter 194: The Sash Lounge",
+      "if": {
+        "flag": "p16_ch194_started"
+      }
+    },
+    {
+      "id": "p16c10",
+      "name": "Chapter 195: The Grand Currency Converter",
+      "if": {
+        "flag": "p16_ch195_started"
+      }
+    },
+    {
+      "id": "p16c11",
+      "name": "Chapter 196: Grand Sashback Rewards",
+      "if": {
+        "flag": "p16_ch196_started"
+      }
+    },
+    {
+      "id": "p16c12",
+      "name": "Chapter 197: The Hornet Fart",
+      "if": {
+        "flag": "p16_ch197_started"
+      }
+    },
+    {
+      "id": "p16c13",
+      "name": "Chapter 198: Stingbeard",
+      "if": {
+        "flag": "p16_ch198_started"
+      }
+    },
+    {
+      "id": "p16c14",
+      "name": "Chapter 199: Sash-Quote Story Hour",
+      "if": {
+        "flag": "p16_ch199_started"
+      }
+    },
+    {
+      "id": "p16c15",
+      "name": "Chapter 200: The Hornet Credit Boom",
+      "if": {
+        "flag": "p16_ch200_started"
+      }
+    },
+    {
+      "id": "p16c16",
+      "name": "Chapter 201: The History of the Grand Lighter",
+      "if": {
+        "flag": "p16_ch201_started"
+      }
+    },
+    {
+      "id": "p16c17",
+      "name": "Chapter 202: The Portable Stenchmaster Entertainment System",
+      "if": {
+        "flag": "p16_ch202_started"
+      }
+    },
+    {
+      "id": "p16c18",
+      "name": "Chapter 203: The 97-Page Application",
+      "if": {
+        "flag": "p16_ch203_started"
+      }
+    },
+    {
+      "id": "p16c19",
+      "name": "Chapter 204: The Grand Ignition Hearing",
+      "if": {
+        "flag": "p16_ch204_started"
+      }
+    },
+    {
+      "id": "p16c20",
+      "name": "Chapter 205: Stinkbeard's Desperate Lighter Pitch",
+      "if": {
+        "flag": "p16_ch205_started"
+      }
+    },
+    {
+      "id": "phase16_end",
+      "name": "Common Sense Is Winning",
+      "if": {
+        "flag": "p16_complete"
+      }
     }
   ],
   "timeOfDay": [
@@ -1925,6 +2072,50 @@
         "var": {
           "name": "p4_tod",
           "eq": 37
+        }
+      }
+    },
+    {
+      "id": "p16_coffin",
+      "grade": "#b8ac8c",
+      "interior": 0.5,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 38
+        }
+      }
+    },
+    {
+      "id": "p16_chicken_town",
+      "grade": "#d0e0a8",
+      "interior": 0.4,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 39
+        }
+      }
+    },
+    {
+      "id": "p16_bank_night",
+      "grade": "#a8a0c8",
+      "interior": 0.52,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 40
+        }
+      }
+    },
+    {
+      "id": "p16_hornet_day",
+      "grade": "#e0d098",
+      "interior": 0.44,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 41
         }
       }
     }

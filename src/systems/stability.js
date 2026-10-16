@@ -40,7 +40,15 @@
  * incident moves him only triggerScale as much, and calms work as usual.
  */
 
-export const STABILITY_STATES = ['PLEASED', 'CALM', 'BASHFUL', 'EMBARRASSED', 'PRESSURIZED', 'CRITICAL', 'ANGRY', 'MELLOW'];
+export const STABILITY_STATES = ['PLEASED', 'CALM', 'BASHFUL', 'EMBARRASSED', 'PRESSURIZED', 'CRITICAL', 'ANGRY', 'MELLOW', 'RECOVERING'];
+
+/*
+ * Story Phase 16: RECOVERING. After a big scripted release a subject may be
+ * put into recovery ("recoverFlag": "brogath_recovering", set and cleared by
+ * scripts): he shows RECOVERING (ANGRY still wins; it wins over MELLOW) and
+ * every rise counts "recoverScale" as much (default 0.5) until a script lets
+ * him out of it.
+ */
 
 export const STABILITY_DEFAULTS = Object.freeze({
   min: -20,
@@ -91,12 +99,19 @@ export function isMellow(def, session) {
 
 /** How much a rise counts while mellow (1 otherwise). */
 export function triggerScale(def, session) {
-  return isMellow(def, session) ? (def.mellow.triggerScale ?? 0.1) : 1;
+  const mellow = isMellow(def, session) ? (def.mellow.triggerScale ?? 0.1) : 1;
+  return isRecovering(def, session) ? Math.min(mellow, def.recoverScale ?? 0.5) : mellow;
+}
+
+/** Whether a script has put the subject into recovery (Story Phase 16). */
+export function isRecovering(def, session) {
+  return !!(def.recoverFlag && session.story.has(def.recoverFlag));
 }
 
 /** The state for a pressure (and anger, and mellowness). */
-export function stateFor(def, pressure, angry = false, mellow = false) {
+export function stateFor(def, pressure, angry = false, mellow = false, recovering = false) {
   if (angry) return 'ANGRY';
+  if (recovering) return 'RECOVERING';
   if (mellow) return 'MELLOW';
   for (const b of def.bands) if (pressure < b.below) return b.state;
   return def.bands[def.bands.length - 1]?.state ?? 'CALM';
@@ -117,11 +132,13 @@ export function readStability(def, session) {
   const pressure = clampPressure(def, story.getVar(def.pressureVar, def.settleTo ?? 0));
   const angry = !!(def.angerFlag && story.has(def.angerFlag));
   const mellow = isMellow(def, session);
+  const recovering = isRecovering(def, session);
   return {
     pressure,
     angry,
     mellow,
-    state: stateFor(def, pressure, angry, mellow),
+    recovering,
+    state: stateFor(def, pressure, angry, mellow, recovering),
     stage: stageIndex(def, pressure),
     incident: def.incidentValue ? story.getValue(def.incidentValue) : null,
     meter: def.meterValue ? story.getValue(def.meterValue) : null,
@@ -138,7 +155,7 @@ export function writePressure(def, session, pressure) {
   const to = clampPressure(def, Math.round(pressure));
   story.setVar(def.pressureVar, to);
   const angry = !!(def.angerFlag && story.has(def.angerFlag));
-  const state = stateFor(def, to, angry, isMellow(def, session));
+  const state = stateFor(def, to, angry, isMellow(def, session), isRecovering(def, session));
   if (def.stateValue) story.setValue(def.stateValue, state);
   return { from, to, state, stageFrom: stageIndex(def, from), stageTo: stageIndex(def, to) };
 }

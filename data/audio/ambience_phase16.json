@@ -1,0 +1,84 @@
+{
+ "//": "Story Phase 16 ambiences: Coffin Sock (a stale, dusty hush: a low rumble rarely, the ship creaking, no loud loop), the Fart Zone (quiet below-deck, the portholes' wind), and the hornets (a thin buzz now and then, never constant).",
+ "coffin_sock": {
+  "loops": [
+   {
+    "source": "wind",
+    "volume": 0.1,
+    "muffled": true
+   }
+  ],
+  "oneshots": [
+   {
+    "sounds": [
+     "timber_creak"
+    ],
+    "every": [
+     8,
+     16
+    ],
+    "volume": 0.12
+   },
+   {
+    "sounds": [
+     "brogath_rumble_small"
+    ],
+    "every": [
+     30,
+     60
+    ],
+    "volume": 0.08
+   }
+  ]
+ },
+ "fart_zone": {
+  "loops": [
+   {
+    "source": "wind",
+    "volume": 0.14
+   },
+   {
+    "source": "ocean",
+    "volume": 0.16,
+    "muffled": true
+   }
+  ],
+  "oneshots": [
+   {
+    "sounds": [
+     "porthole_creak",
+     "timber_creak"
+    ],
+    "every": [
+     10,
+     20
+    ],
+    "volume": 0.1
+   }
+  ]
+ },
+ "hornet_day": {
+  "loops": [
+   {
+    "source": "wind",
+    "volume": 0.16
+   },
+   {
+    "source": "ocean",
+    "volume": 0.2
+   }
+  ],
+  "oneshots": [
+   {
+    "sounds": [
+     "hornet_buzz"
+    ],
+    "every": [
+     6,
+     14
+    ],
+    "volume": 0.08
+   }
+  ]
+ }
+}

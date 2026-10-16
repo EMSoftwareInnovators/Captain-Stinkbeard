@@ -1,0 +1,328 @@
+{
+ "//": "Story Phase 16: the counter's customers: the Grand Dispensary's (paying in Grand Tokens), Bankworth's opening deposit (the teller's window), GRAND SASHBACK applicants (appraised: the fouler the sash, the higher the score), Lady Rancidella, and the hornets.",
+ "disp_wheezeworth": {
+  "bank": "grand_counter",
+  "npc": "disp_wheezeworth",
+  "name": "Earl Wheezeworth",
+  "intensity": 3,
+  "classify": [
+   2,
+   3,
+   4
+  ],
+  "payment": "tokens",
+  "tokens": 40,
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "notes": "A jar of the mellow one.",
+  "intro": "p16.counter.disp_wheezeworth.intro",
+  "after": "p16.counter.disp_wheezeworth.after"
+ },
+ "disp_mildew": {
+  "bank": "grand_counter",
+  "npc": "disp_mildew",
+  "name": "Madame Mildew",
+  "intensity": 2,
+  "classify": [
+   1,
+   2,
+   3
+  ],
+  "payment": "tokens",
+  "tokens": 25,
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "notes": "A jar of the mellow one.",
+  "intro": "p16.counter.disp_mildew.intro",
+  "after": "p16.counter.disp_mildew.after"
+ },
+ "disp_stalebreath": {
+  "bank": "grand_counter",
+  "npc": "disp_stalebreath",
+  "name": "Sir Stalebreath",
+  "intensity": 4,
+  "classify": [
+   3,
+   4,
+   5
+  ],
+  "payment": "tokens",
+  "tokens": 60,
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "notes": "A jar of the mellow one.",
+  "intro": "p16.counter.disp_stalebreath.intro",
+  "after": "p16.counter.disp_stalebreath.after"
+ },
+ "disp_draftly": {
+  "bank": "grand_counter",
+  "npc": "disp_draftly",
+  "name": "The Draftly Twins",
+  "intensity": 3,
+  "classify": [
+   2,
+   3,
+   4
+  ],
+  "payment": "tokens",
+  "tokens": 30,
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "notes": "A jar of the mellow one.",
+  "intro": "p16.counter.disp_draftly.intro",
+  "after": "p16.counter.disp_draftly.after"
+ },
+ "disp_fumble": {
+  "bank": "grand_counter",
+  "npc": "disp_fumble",
+  "name": "Brother Fumble",
+  "intensity": 2,
+  "classify": [
+   1,
+   2,
+   3
+  ],
+  "payment": "tokens",
+  "tokens": 15,
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "notes": "A jar of the mellow one.",
+  "intro": "p16.counter.disp_fumble.intro",
+  "after": "p16.counter.disp_fumble.after"
+ },
+ "bankworth_deposit": {
+  "bank": "grand_counter",
+  "npc": "bankworth",
+  "name": "Bankworth",
+  "short": "Bankworth",
+  "title": "THE GRAND STENCHMASTER'S GRAND BANK AND GRAND TRUST (Personally)",
+  "intensity": 6,
+  "classify": [
+   5,
+   6,
+   7
+  ],
+  "pattern": [
+   {
+    "take": true,
+    "text": "His own sash. Gold-trimmed. He hands it over with a little bow."
+   },
+   {
+    "hold": 4,
+    "text": "He's depositing into himself. It's very... circular.",
+    "band": [
+     34,
+     70
+    ]
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "notes": "Opening deposit. The bank deposited into itself. Municipal.",
+  "intro": "p16.counter.bankworth_deposit.intro",
+  "after": "p16.counter.bankworth_deposit.after"
+ },
+ "credit_rottingham": {
+  "bank": "grand_counter",
+  "npc": "credit_rottingham",
+  "name": "Baron Rottingham",
+  "intensity": 6,
+  "classify": [
+   5,
+   6,
+   7
+  ],
+  "payment": "application",
+  "appraise": {
+   "credit": "sashback",
+   "bias": 20
+  },
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "notes": "GRAND SASHBACK.",
+  "intro": "p16.counter.credit_rottingham.intro",
+  "after": "p16.counter.credit_rottingham.after"
+ },
+ "credit_mustyhem": {
+  "bank": "grand_counter",
+  "npc": "credit_mustyhem",
+  "name": "Dame Mustyhem",
+  "intensity": 4,
+  "classify": [
+   3,
+   4,
+   5
+  ],
+  "payment": "application",
+  "appraise": {
+   "credit": "sashback",
+   "bias": -30
+  },
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "notes": "GRAND SASHBACK.",
+  "intro": "p16.counter.credit_mustyhem.intro",
+  "after": "p16.counter.credit_mustyhem.after"
+ },
+ "rancidella": {
+  "bank": "grand_counter",
+  "npc": "rancidella",
+  "name": "Lady Rancidella",
+  "intensity": 9,
+  "classify": [
+   8,
+   9,
+   10
+  ],
+  "payment": "application",
+  "appraise": {
+   "credit": "sashback",
+   "bias": 330,
+   "bonusVar": "rancidella_bonus"
+  },
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "notes": "GRAND SASHBACK.",
+  "intro": "p16.counter.rancidella.intro",
+  "after": "p16.counter.rancidella.after"
+ },
+ "hornet_eight": {
+  "bank": "grand_counter",
+  "name": "BZBZBZBZZZZ-8",
+  "intensity": 1,
+  "classify": [
+   1,
+   2,
+   3
+  ],
+  "payment": "application",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "notes": "A hornet. Approved.",
+  "intro": "p16.counter.hornet_eight.intro",
+  "after": "p16.counter.hornet_eight.after"
+ },
+ "hornet_nine": {
+  "bank": "grand_counter",
+  "name": "BZBZBZBZZZZ-9",
+  "intensity": 1,
+  "classify": [
+   1,
+   2,
+   3
+  ],
+  "payment": "application",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "notes": "A hornet. Approved.",
+  "intro": "p16.counter.hornet_nine.intro",
+  "after": "p16.counter.hornet_nine.after"
+ },
+ "hornet_eleven": {
+  "bank": "grand_counter",
+  "name": "BZZT-11",
+  "intensity": 1,
+  "classify": [
+   1,
+   2,
+   3
+  ],
+  "payment": "application",
+  "pattern": [
+   {
+    "take": true
+   },
+   {
+    "brace": "BRACE!",
+    "ring": 1000,
+    "window": 170
+   }
+  ],
+  "notes": "A hornet. Approved.",
+  "intro": "p16.counter.hornet_eleven.intro",
+  "after": "p16.counter.hornet_eleven.after"
+ }
+}

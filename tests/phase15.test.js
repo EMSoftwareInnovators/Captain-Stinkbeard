@@ -27,7 +27,7 @@ const brogath = (content) => stabilityDef({ id: 'brogath', ...content.stability.
 describe('The Ship Atmosphere State', () => {
   it('has the authored states, NORMAL when unset, and only on the ship\'s maps', () => {
     const s = makeStory({ preset: 'p14_complete' });
-    expect(ATMOSPHERE_STATES).toEqual(['NORMAL', 'ORDINARY_STENCH', 'BROGATH_SKUNK_HAZE', 'MELLOW_HAZE', 'BEARD_PARANOIA_HAZE', 'NOSE_FIRE_RESIDUE', 'BANK_FUMES', 'CLEARING']);
+    expect(ATMOSPHERE_STATES.slice(0, 8)).toEqual(['NORMAL', 'ORDINARY_STENCH', 'BROGATH_SKUNK_HAZE', 'MELLOW_HAZE', 'BEARD_PARANOIA_HAZE', 'NOSE_FIRE_RESIDUE', 'BANK_FUMES', 'CLEARING']); // Phase 16 adds three
     const def = s.content.atmosphere.get('ship');
     expect(Object.keys(def.states).sort()).toEqual([...ATMOSPHERE_STATES].sort());
     expect(atmosphereId(s.content, s.session)).toBe('NORMAL');

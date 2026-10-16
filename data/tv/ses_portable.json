@@ -1,0 +1,43 @@
+{
+ "//": "Story Phase 16 (chapter 202): THE PORTABLE STENCHMASTER ENTERTAINMENT SYSTEM, GRAND TRAVEL MODEL. A tiny CRT in a crooked purple cabinet, mismatched knobs, a fork for an aerial, two tubes showing, Cheap-O-Rama stickers and some very ridiculous safety labels. Garrick took it out of his coat. Distinct from the Mark II (ses_mk2), which is still in the galley: this one lives in the Fart-Free Zone. It only ever gets the Stenchmaster Channel. Nothing about it is a real procedure.",
+ "ses_portable": {
+  "name": "The Portable Stenchmaster Entertainment System (Grand Travel Model)",
+  "channelVar": "ses_portable_channel",
+  "powerVar": "ses_portable_power",
+  "stateValue": "ses_portable_state",
+  "offComments": [
+   [
+    "captain: It's off. For once. Don't touch it.",
+    "garrick: It's travel-sized, Captain. It travels."
+   ]
+  ],
+  "channels": [
+   {
+    "id": 9,
+    "title": "The Stenchmaster Channel",
+    "frames": [
+     "tv_static_0",
+     "tv_static_1",
+     "tv_static_2",
+     "tv_static_3"
+    ],
+    "frameMs": 80,
+    "glow": "#b8a0e0",
+    "comments": [
+     [
+      "captain: The Stenchmaster Channel. On the little one too.",
+      "garrick: The Stenchmaster Channel is available on all Stenchmaster Entertainment Systems, Captain. It's in the small print."
+     ]
+    ]
+   }
+  ],
+  "states": {
+   "possessed": {
+    "//": "On, and it won't go off. Like the big one."
+   },
+   "repeating": {
+    "//": "Chapter 202: BEFORE THE GRAND LIGHTER, again, from the top."
+   }
+  }
+ }
+}

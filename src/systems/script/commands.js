@@ -6,7 +6,13 @@ import { setDeadCenterLocation } from '../hazards/deadCenter.js';
 import { setSharkstormState } from '../hazards/sharkstorm.js';
 import { stabilityDef, readStability, writePressure, addPressure, effectOf, promptOptions, incidentDef } from '../stability.js';
 import { nextCustomer, scaleLabel, tellerScore } from '../bank.js';
-import { setAtmosphere } from '../atmosphere.js';
+import { setAtmosphere, clearRoomAtmospheres } from '../atmosphere.js';
+import { addBeardTag, removeBeardTag, beardDef } from '../beard.js';
+import { fartZoneDef, enqueue, enter as fzEnter, setDoor, setPortholes, release as fzRelease, ventilate, complete as fzComplete, resetZone, releaseProblems } from '../fartZone.js';
+import { noveltyDef, attempt as noveltyAttempt } from '../novelty.js';
+import { proceedingDef, answerEffect, hearingPassed, pitchRound } from '../proceedings.js';
+import { creditDef, appraisalScore, creditClass, welcomeBonus, conversion } from '../credit.js';
+import { setHornets } from '../hazards/hornets.js';
 
 /** Story Phase 14: a stability subject (data/story/stability) with its defaults. */
 export function stabilitySubject(content, id = 'brogath') {
@@ -48,12 +54,29 @@ async function serveCustomer(ctx, id, queueId = null, { observe = false } = {}) 
     advanceQueue(ctx, bank, id, queueId);
     return;
   }
+  // Story Phase 16: the counter takes other payments (the Grand Dispensary, the Bureau). A customer
+  // paying in Grand Tokens or with a Grand Check doesn't need the window: the tokens go into the
+  // till (a story variable), the check is shown and stamped. A credit applicant ("application")
+  // pays nothing: the sash is appraised.
+  if (c.payment === 'tokens' || c.payment === 'check' || c.payment === 'application') {
+    const dialogue = service(ctx, 'dialogue', 'bankDeposit');
+    if (c.payment === 'tokens' && bank.tillVar) story.addVar(bank.tillVar, c.tokens ?? 0);
+    if (c.payment === 'check' && c.check) await ctx.runner.run([{ insert: c.check }], ctx);
+    if (c.payment !== 'application') ctx.services.audio?.sfx(bank.registerSfx ?? 'spectral_register', { volume: 0.7 });
+    const line = { tokens: bank.tokenLine, check: bank.checkLine, application: bank.applicationLine }[c.payment];
+    if (line) await dialogue.say(parseLine(fill(line, { name: c.short ?? c.name, tokens: (c.tokens ?? 0).toLocaleString('en-US') })));
+    if (c.after) await ctx.runner.run(c.after, ctx);
+    if (c.appraise) await ctx.runner.run([{ appraise: c.appraise.credit ?? 'sashback', bias: c.appraise.bias ?? 0, bonusVar: c.appraise.bonusVar }], ctx);
+    advanceQueue(ctx, bank, id, queueId);
+    return;
+  }
   const r = await service(ctx, 'ui', 'teller').teller({ id, ...c }, bank);
   const score = tellerScore(r?.grades ?? []);
   if (bank.gradeVar) story.setVar(bank.gradeVar, score);
   if (bank.slipsVar) story.setVar(bank.slipsVar, r?.slips ?? 0);
   ctx.bus?.emit('bank:deposited', { customer: id, score, grades: r?.grades ?? [] });
   if (c.after) await ctx.runner.run(c.after, ctx);
+  if (c.appraise) await ctx.runner.run([{ appraise: c.appraise.credit ?? 'sashback', bias: c.appraise.bias ?? 0, bonusVar: c.appraise.bonusVar }], ctx);
   // Story Phase 15: a depositor Brogath is watching (a sash he shouldn't see) sets him off a little (much less while he's mellow).
   if ((c.modifiers ?? []).includes('brogath_risk') && content.stability?.get?.('brogath')) {
     const def = stabilitySubject(content, 'brogath');
@@ -87,6 +110,112 @@ function advanceQueue(ctx, bank, id, queueId) {
     if (story.getVar(q.servedVar, 0) <= at) story.setVar(q.servedVar, at + 1);
     if (q.event) ctx.bus?.emit('script:event', { name: q.event });
   }
+}
+
+/**
+ * Story Phase 16: plays a proceeding (systems/proceedings.js) as choices.
+ * Forms file every answer (asking a "required" question again on an invalid
+ * one) with the page number climbing; hearings total the points and pass or
+ * go back to the first question (after two failed hearings the council passes
+ * it anyway, out of exhaustion); pitches run rounds against the pressure,
+ * each argument usable once, and start over from a checkpoint if the
+ * pressure tops out (the clock is longer each time, so it always ends).
+ */
+async function runProceeding(def, step, ctx) {
+  const story = ctx.session.story;
+  const dialogue = service(ctx, 'dialogue', 'proceeding');
+  const run = (x) => (x ? ctx.runner.run(asArray(x), ctx) : null);
+  const ask = async (q) => {
+    const i = await dialogue.choose({ prompt: q.prompt ? parseLine(q.prompt) : null, options: q.options.map((o) => ({ text: o.text })), cancelIndex: null });
+    return { i, e: answerEffect(q, i) };
+  };
+  const page = (n) => {
+    if (def.pageVar) story.setVar(def.pageVar, n);
+    return ctx.services.ui?.notify({ kind: 'text', text: `PAGE <y>${n}</> OF ${def.pages ?? '?'}` });
+  };
+  if (def.kind === 'form') {
+    for (const q of def.questions ?? []) {
+      if (q.montage) {
+        for (const n of q.montage) await page(n);
+        await run(q.lines);
+        continue;
+      }
+      if (q.page) await page(q.page);
+      for (let tries = 0; ; tries++) {
+        const { i, e } = await ask(q);
+        if (e.flag) story.set(e.flag);
+        await run(e.reply);
+        if (!e.again || tries >= 3) {
+          if (def.answerPrefix) story.setVar(`${def.answerPrefix}${q.id}`, i);
+          break;
+        }
+        await run(q.again);
+      }
+    }
+    if (def.pageVar) story.setVar(def.pageVar, def.pages ?? 0);
+    await run(def.done);
+    return null;
+  }
+  if (def.kind === 'hearing') {
+    for (let attemptNo = 0; ; attemptNo++) {
+      let total = 0;
+      for (const q of def.questions ?? []) {
+        await run(q.before);
+        const { e } = await ask(q);
+        total += e.points;
+        await run(e.reply);
+      }
+      if (def.scoreVar) story.setVar(def.scoreVar, total);
+      if (hearingPassed(def, total)) {
+        await run(def.passed);
+        return null;
+      }
+      if (attemptNo >= 1) {
+        await run(def.mercy ?? def.passed);
+        return null;
+      }
+      await run(def.retry);
+    }
+  }
+  if (def.kind === 'pitch') {
+    const args = def.arguments ?? [];
+    let extra = 0;
+    for (let attemptNo = 0; ; attemptNo++) {
+      let convinced = 0;
+      let pressure = 0;
+      const used = new Set();
+      const gauge = async (p) => {
+        if (def.pressureVar) story.setVar(def.pressureVar, p);
+        if (def.gauge) await ctx.runner.run([{ vistaFrame: def.gauge.layer, frame: `${def.gauge.prefix}${Math.min(def.gauge.frames - 1, p)}` }], ctx);
+      };
+      await gauge(0);
+      while (true) {
+        const open = args.filter((a) => !used.has(a.id));
+        if (!open.length) break;
+        const shown = open.slice(0, def.show ?? 4);
+        const i = await dialogue.choose({ prompt: def.prompt ? parseLine(def.prompt) : null, options: shown.map((a) => ({ text: a.text })), cancelIndex: null });
+        const a = shown[i] ?? shown[0];
+        used.add(a.id);
+        await run(a.reply);
+        if (a.lighter) await ctx.runner.run([{ lighter: a.lighter, attempts: a.attempts ?? 3, until: a.until ?? null, montage: true }], ctx);
+        const r = pitchRound({ ...def, max: (def.max ?? Infinity) + extra }, convinced, pressure, a.points ?? 0);
+        convinced = r.convinced;
+        pressure = r.pressure;
+        if (def.convincedVar) story.setVar(def.convincedVar, convinced);
+        await gauge(pressure);
+        if (r.won) {
+          await run(def.won);
+          return null;
+        }
+        if (r.lost) break;
+        await run(def.stages?.[pressure]);
+      }
+      // The pressure topped out (or he ran out of arguments): the checkpoint. A longer clock next time.
+      await run(def.fail);
+      extra += args.length;
+    }
+  }
+  throw new Error(`Unknown proceeding kind "${def.kind}"`);
 }
 
 /**
@@ -515,6 +644,12 @@ export function createCommandImplementations() {
         if (step.on === false) story.clear(def.angerFlag);
         else story.set(def.angerFlag);
         emit(writePressure(def, s, readStability(def, s).pressure), op);
+      } else if (op === 'recover') {
+        // Story Phase 16: in (or out of) recovery after a big release.
+        if (!def.recoverFlag) throw new Error(`Stability subject "${def.id}" has no recoverFlag`);
+        if (step.on === false) story.clear(def.recoverFlag);
+        else story.set(def.recoverFlag);
+        emit(writePressure(def, s, readStability(def, s).pressure), op);
       } else if (op === 'meter') {
         if (def.meterValue) story.setValue(def.meterValue, step.show === 'auto' || !step.show ? null : step.show);
         ctx.bus?.emit('stability:changed', { subject: def.id, kind: op });
@@ -528,6 +663,7 @@ export function createCommandImplementations() {
         ctx.bus?.emit('stability:changed', { subject: def.id, kind: op });
       } else if (op === 'settle') {
         if (def.angerFlag) story.clear(def.angerFlag);
+        if (def.recoverFlag) story.clear(def.recoverFlag);
         if (def.incidentValue) story.setValue(def.incidentValue, null);
         if (def.meterValue) story.setValue(def.meterValue, null);
         emit(writePressure(def, s, step.pressure ?? def.settleTo), op);
@@ -592,7 +728,10 @@ export function createCommandImplementations() {
      */
     atmosphere: (step, ctx) => {
       const content = ctx.session.content ?? ctx.content;
-      setAtmosphere(content, ctx.session, step.atmosphere);
+      // Story Phase 16: { "atmosphere": "COFFIN_SOCK", "room": "galley" } gives one room its own air;
+      // { "atmosphere": "SHIP", "room": "galley" } hands it back; "clearRooms": true hands every room back.
+      if (step.clearRooms) clearRoomAtmospheres(content, ctx.session);
+      setAtmosphere(content, ctx.session, step.atmosphere, { room: step.room ?? null });
       for (const [id, raw] of content.stability?.map ?? []) {
         if (!raw.mellow) continue;
         const def = stabilityDef({ id, ...raw });
@@ -679,6 +818,140 @@ export function createCommandImplementations() {
         if (paid > 0) await ctx.services.ui?.notify({ kind: 'goldLost', amount: paid });
         if (cur.notify) await ctx.services.ui?.notify({ kind: 'text', text: cur.notify });
       }
+      return null;
+    },
+    // --- Story Phase 16 ------------------------------------------------------------
+    /** The captain's beard: { "beard": "add", "tag": "COFFIN_SOCK" } (or "remove", for a temporary one). */
+    beard: async (step, ctx) => {
+      const content = ctx.session.content ?? ctx.content;
+      const tag = step.tag;
+      const changed = step.beard === 'remove' ? removeBeardTag(content, ctx.session, tag) : addBeardTag(content, ctx.session, tag);
+      ctx.bus?.emit('beard:changed', { tag, op: step.beard });
+      if (changed && step.beard !== 'remove' && !step.quiet) {
+        const t = beardDef(content).tags[tag];
+        await ctx.services.ui?.notify({ kind: 'text', text: `BEARD: <y>+${t.label ?? tag}</>` });
+      }
+      return null;
+    },
+    /**
+     * The Stenchmaster Fart Zone (systems/fartZone.js): { "fartZone": "queue", "who": "brogath" },
+     * "enter" (who?), "door"/"portholes" ("value": open|closed), "release" ("release": id, once; the
+     * room's own air becomes the release's smell), "ventilate", "complete", "reset".
+     */
+    fartZone: async (step, ctx) => {
+      const content = ctx.session.content ?? ctx.content;
+      const def = fartZoneDef(content);
+      if (!def) throw new Error('No Stenchmaster Fart Zone (data/story/fart_zone.json)');
+      const s = ctx.session;
+      const op = step.fartZone;
+      if (op === 'queue') enqueue(def, s, step.who);
+      else if (op === 'enter') fzEnter(def, s, step.who ?? null);
+      else if (op === 'door') setDoor(def, s, step.value);
+      else if (op === 'portholes') setPortholes(def, s, step.value);
+      else if (op === 'prepare') s.story.setValue(def.stateValue ?? 'fz_state', 'PREPARING');
+      else if (op === 'release') {
+        const problems = releaseProblems(def, s);
+        if (problems.length && !step.force) throw new Error(`Fart Zone release "${step.release}" against procedure: ${problems.join(', ')}`);
+        const r = fzRelease(def, s, step.release);
+        if (r.done && r.odor && def.map) setAtmosphere(content, s, r.odor, { room: def.map });
+      } else if (op === 'ventilate') {
+        ventilate(def, s);
+        if (def.map) setAtmosphere(content, s, 'CLEARING', { room: def.map });
+      } else if (op === 'complete') {
+        fzComplete(def, s);
+        if (def.map) setAtmosphere(content, s, 'SHIP', { room: def.map });
+      } else if (op === 'reset') resetZone(def, s);
+      else throw new Error(`Unknown fartZone op "${op}"`);
+      ctx.bus?.emit('fartzone:changed', { op });
+      ctx.bus?.emit('atmosphere:changed', {});
+      return null;
+    },
+    /**
+     * A novelty device (systems/novelty.js): { "lighter": "grand_smokes", "attempts": 6, "until": "flame" }.
+     * Each attempt says what happened (and plays its sound); "montage": true runs them together in one line.
+     */
+    lighter: async (step, ctx) => {
+      const content = ctx.session.content ?? ctx.content;
+      const def = noveltyDef(content, step.lighter);
+      const outs = noveltyAttempt(def, ctx.session, step.attempts ?? 1, step.until ?? null);
+      const dialogue = service(ctx, 'dialogue', 'lighter');
+      if (step.montage) {
+        for (const o of outs) {
+          const e = def.outcomes[o];
+          if (e.sfx) ctx.services.audio?.sfx(e.sfx, { volume: e.volume ?? 0.7 });
+        }
+        const words = outs.map((o) => def.outcomes[o].short ?? def.outcomes[o].text);
+        if (!step.quiet) await dialogue.say(parseLine(words.join(' ')));
+      } else {
+        for (const o of outs) {
+          const e = def.outcomes[o];
+          if (e.sfx) ctx.services.audio?.sfx(e.sfx, { volume: e.volume ?? 0.7 });
+          if (!step.quiet) await dialogue.say(parseLine(e.text));
+        }
+      }
+      if (step.var) ctx.session.story.setValue(step.var, outs[outs.length - 1] ?? null);
+      ctx.bus?.emit('novelty:used', { device: step.lighter, outcomes: outs });
+      return null;
+    },
+    /** A form, a hearing or a pitch (systems/proceedings.js; data/story/proceedings). */
+    proceeding: async (step, ctx) => {
+      const content = ctx.session.content ?? ctx.content;
+      const def = proceedingDef(content, step.proceeding);
+      return runProceeding(def, step, ctx);
+    },
+    /**
+     * GRAND SASHBACK appraisal (systems/credit.js): the captain sniffs a sash, note by note, and the bank
+     * turns it into a score. { "appraise": "sashback", "bias": 120, "bonusVar": "rancidella_bonus" }.
+     */
+    appraise: async (step, ctx) => {
+      const content = ctx.session.content ?? ctx.content;
+      const def = creditDef(content, step.appraise);
+      const dialogue = service(ctx, 'dialogue', 'appraise');
+      const picks = [];
+      for (const n of def.notes ?? []) {
+        const i = await dialogue.choose({ prompt: n.prompt ? parseLine(n.prompt) : null, options: n.options.map((o) => ({ text: o.text })), cancelIndex: null });
+        picks.push(i);
+        const reply = n.options[i]?.reply;
+        if (reply) await ctx.runner.run(asArray(reply), ctx);
+      }
+      const score = appraisalScore(def, picks, step.bias ?? 0);
+      const cls = creditClass(def, score);
+      const story = ctx.session.story;
+      if (def.scoreVar) story.setVar(def.scoreVar, score);
+      if (def.classValue) story.setValue(def.classValue, cls);
+      const bonus = welcomeBonus(def, score);
+      if (step.bonusVar) story.setVar(step.bonusVar, bonus);
+      if (def.issuedVar) story.addVar(def.issuedVar, bonus);
+      if (def.cardsVar) story.addVar(def.cardsVar, 1);
+      ctx.services.audio?.sfx(def.sfx ?? 'credit_chime', { volume: 0.8 });
+      if (!step.quiet) await dialogue.say(parseLine(`GRAND CREDIT SCORE: ${score}. ${cls}. WELCOME BONUS: ${bonus.toLocaleString('en-US')} GRAND TOKENS.`));
+      return null;
+    },
+    /**
+     * THE GRAND CURRENCY CONVERTER (systems/credit.js): tokens in from a story variable, Coffin Sock out.
+     * { "currencyConverter": "converter", "from": "till_tokens", "amount": 1 } (or "all"). It never pays
+     * gold; "blastValue" says how bad it was (puff, blast, catastrophe) for the scene to show.
+     */
+    currencyConverter: async (step, ctx) => {
+      const content = ctx.session.content ?? ctx.content;
+      const def = creditDef(content, step.currencyConverter);
+      const story = ctx.session.story;
+      const have = Math.max(0, story.getVar(step.from, 0));
+      const offered = step.amount === 'all' ? have : Math.min(have, step.amount ?? 1);
+      const r = conversion(def, ctx.session, offered);
+      story.setVar(step.from, have - r.amount);
+      if (def.convertedVar) story.addVar(def.convertedVar, r.amount);
+      if (def.usesVar) story.addVar(def.usesVar, 1);
+      story.setValue(def.blastValue ?? 'converter_last_blast', r.blast);
+      if (r.capped && def.cappedValue) story.setValue(def.cappedValue, 'yes');
+      ctx.bus?.emit('converter:used', { amount: r.amount, blast: r.blast, capped: r.capped });
+      return null;
+    },
+    /** The hornet swarm (systems/hazards/hornets.js): { "hornets": "SWARMING" }. */
+    hornets: (step, ctx) => {
+      const content = ctx.session.content ?? ctx.content;
+      setHornets(content, ctx.session, step.hornets);
+      ctx.bus?.emit('hornets:changed', { state: step.hornets });
       return null;
     },
     battle: async (step, ctx, frame) => {

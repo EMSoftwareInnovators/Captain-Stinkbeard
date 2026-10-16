@@ -1,0 +1,72 @@
+{
+ "id": "stenchmaster_fart_zone",
+ "name": "The Stenchmaster Fart Zone",
+ "//": "Story Phase 16 (chapter 189): the old sail locker, under the cargo grating midships. A wooden compartment with three portholes on the sea side, made into a designated release room for Grand Stenchmasters by desperate pirates with signs and rope: the release area on the left, the observation point behind a rope on the right, the queue by the door. Not the Fart-Free Zone. Its props (signs, the door's dents, the portholes open or shut, the rules) are its phase16 patch.",
+ "tileset": "ship",
+ "music": "zone_quiet",
+ "musicFilter": "muffled",
+ "ambience": "below",
+ "lighting": {
+  "ambient": "#8a8070"
+ },
+ "legend": {
+  " ": "void",
+  ".": "floor",
+  "W": "wall",
+  "O": "porthole",
+  "[": "side_l",
+  "]": "side_r",
+  "_": "cap",
+  "{": "cap_l",
+  "}": "cap_r",
+  "v": "exit_s"
+ },
+ "tiles": [
+  "                ",
+  "[WWWWWWWWWWWWWW]",
+  "[WOWWWOWWWWWWOW]",
+  "[WWWWWWWWWWWWWW]",
+  "[..............]",
+  "[..............]",
+  "[..............]",
+  "[..............]",
+  "[..............]",
+  "{______vv______}"
+ ],
+ "props": [
+  {
+   "prop": "lantern_hanging",
+   "x": 8,
+   "y": 4,
+   "id": "fz_lantern"
+  }
+ ],
+ "objects": [
+  {
+   "id": "door",
+   "type": "spawn",
+   "x": 7,
+   "y": 8,
+   "facing": "up"
+  },
+  {
+   "id": "start",
+   "type": "spawn",
+   "x": 8,
+   "y": 7,
+   "facing": "up"
+  },
+  {
+   "id": "to_deck",
+   "type": "warp",
+   "x": 7,
+   "y": 9,
+   "w": 2,
+   "to": {
+    "map": "main_deck",
+    "spawn": "fz_grate"
+   },
+   "sfx": "stairs"
+  }
+ ]
+}

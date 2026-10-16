@@ -1,0 +1,74 @@
+{
+ "//": "Story Phase 16: the hornet swarm (Brogath's Hornet Fart, chapter 197). Comic and supernatural, never painful: a nuisance you can see and hear, not an enemy. One story value (hornet_swarm) says what the swarm is doing; each state says how many hornets each room shows (a pooled handful of small sprites), how many orbit the captain's beard, where the rest gather, and whether they're leaving. They never block the way.",
+ "hornets": {
+  "value": "hornet_swarm",
+  "default": "DORMANT",
+  "max": 48,
+  "buzz": "hornet_buzz",
+  "states": {
+   "DORMANT": {},
+   "SCATTERED": {
+    "maps": {
+     "main_deck": 8,
+     "stenchmaster_fart_zone": 4
+    }
+   },
+   "ALERT": {
+    "maps": {
+     "main_deck": 16,
+     "stenchmaster_fart_zone": 10
+    }
+   },
+   "SWARMING": {
+    "maps": {
+     "main_deck": 40,
+     "crew_quarters": 14,
+     "galley": 8,
+     "stenchmaster_fart_zone": 12
+    }
+   },
+   "BEARD_ATTRACTED": {
+    "maps": {
+     "main_deck": 14,
+     "crew_quarters": 10
+    },
+    "follow": 14
+   },
+   "BANK_INVADING": {
+    "maps": {
+     "crew_quarters": 30,
+     "main_deck": 10
+    },
+    "follow": 12,
+    "anchors": {
+     "crew_quarters": [
+      12,
+      13
+     ]
+    }
+   },
+   "BUNKER_SIEGE": {
+    "maps": {
+     "cargo_hold": 28,
+     "crew_quarters": 18,
+     "main_deck": 8
+    },
+    "follow": 10,
+    "anchors": {
+     "cargo_hold": [
+      4,
+      5
+     ]
+    }
+   },
+   "DISPERSING": {
+    "maps": {
+     "main_deck": 8,
+     "crew_quarters": 6,
+     "cargo_hold": 6
+    },
+    "leave": true
+   }
+  }
+ }
+}

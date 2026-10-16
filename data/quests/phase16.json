@@ -1,0 +1,1044 @@
+[
+ {
+  "id": "grand_search_for_fire",
+  "title": "The Grand Search for Fire",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "Calm is now an official shipboard objective.",
+  "description": "Since Vindicta blew the Great Mellowing out of the ship, everybody has been themselves again, and it's unbearable. Garrick says he can feel his administrative capacity coming back. You have Skunk Weed in the hold and the captain's authority. You are going to make this ship mellow again if it kills you. It might.",
+  "objectives": [
+   {
+    "id": "calm",
+    "text": "Announce Operation Calm (Pete, then Garrick: the galley)",
+    "type": "event",
+    "target": "p16_calm",
+    "count": 2
+   },
+   {
+    "id": "sashes",
+    "text": "Fetch clean sashes for a canopy (the Mega-Pack, Crew Quarters)",
+    "type": "flag",
+    "target": "p16_canopy_sashes",
+    "after": [
+     "calm"
+    ]
+   },
+   {
+    "id": "spot",
+    "text": "Rig the canopy over Brogath's spot: LOOSE, not sealed (the chalk mark, Crew Quarters)",
+    "type": "flag",
+    "target": "brogath_fume_canopy_built",
+    "after": [
+     "sashes"
+    ]
+   },
+   {
+    "id": "talks",
+    "text": "Precautions (Pete), a committee to stop (Garrick), and Brogath to check on: the Crew Quarters",
+    "type": "event",
+    "target": "p16_canopy_talk",
+    "count": 3,
+    "after": [
+     "spot"
+    ]
+   },
+   {
+    "id": "light",
+    "text": "Ask for a light (the visitors, Crew Quarters)",
+    "type": "flag",
+    "target": "p16_no_light",
+    "after": [
+     "talks"
+    ]
+   },
+   {
+    "id": "search",
+    "text": "Search the ship for fire (Captain's Quarters desk, galley stove box, Crew Quarters footlocker, the hold's crates, Garrick's chest in the galley, the lantern locker on deck)",
+    "type": "event",
+    "target": "p16_fire_search",
+    "count": 6,
+    "after": [
+     "light"
+    ]
+   },
+   {
+    "id": "precedent",
+    "text": "Hear the historical precedent (Garrick, with the lore book: Crew Quarters)",
+    "type": "flag",
+    "target": "grand_search_for_fire_complete",
+    "after": [
+     "search"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 120
+  }
+ },
+ {
+  "id": "the_grand_lighter",
+  "title": "The Grand Lighter",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "Matches. Or a lighter. ANYTHING.",
+  "description": "Nobody aboard has a single dependable way of making a small flame. The ship is full of ceremonial merchandise. There is one supplier left that answers.",
+  "objectives": [
+   {
+    "id": "shout",
+    "text": "Shout into the Sharkstorm for a light (any rail, on deck)",
+    "type": "flag",
+    "target": "p16_shouted"
+   },
+   {
+    "id": "catch",
+    "text": "Catch what comes back (the parcel, on deck)",
+    "type": "flag",
+    "target": "grand_lighter_acquired",
+    "after": [
+     "shout"
+    ]
+   },
+   {
+    "id": "try",
+    "text": "Try it (the canopy, Crew Quarters)",
+    "type": "flag",
+    "target": "p16_lighter_first_try",
+    "after": [
+     "catch"
+    ]
+   },
+   {
+    "id": "ad",
+    "text": "Somebody's switched the Mark II on (the galley)",
+    "type": "flag",
+    "target": "p16_cheapy_ad_seen",
+    "after": [
+     "try"
+    ]
+   },
+   {
+    "id": "work",
+    "text": "Make it work (the canopy, Crew Quarters: keep trying)",
+    "type": "flag",
+    "target": "grand_lighter_working",
+    "after": [
+     "ad"
+    ]
+   },
+   {
+    "id": "vindicta",
+    "text": "A visitor (Vindicta, Crew Quarters)",
+    "type": "flag",
+    "target": "vindicta_returned",
+    "after": [
+     "work"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 120
+  }
+ },
+ {
+  "id": "coffin_sock",
+  "title": "Coffin Sock",
+  "category": "main",
+  "giver": "brogath",
+  "summary": "It was supposed to be the green one.",
+  "description": "Brogath remembers the Chicken-Town Waft. He thinks he can do it again on purpose. You know Stenchmaster farts are not selectable on demand. You want the green one so badly you let him try anyway.",
+  "objectives": [
+   {
+    "id": "idea",
+    "text": "Hear Brogath out (Brogath, Crew Quarters)",
+    "type": "flag",
+    "target": "p16_green_idea"
+   },
+   {
+    "id": "prep",
+    "text": "Get everybody ready (Pete, the visitors, Garrick: Crew Quarters)",
+    "type": "event",
+    "target": "p16_prep",
+    "count": 3,
+    "after": [
+     "idea"
+    ]
+   },
+   {
+    "id": "attempt",
+    "text": "Let him try (Brogath, Crew Quarters)",
+    "type": "flag",
+    "target": "first_coffin_sock_failure",
+    "after": [
+     "prep"
+    ]
+   },
+   {
+    "id": "committee",
+    "text": "No classification committee (Garrick, Crew Quarters)",
+    "type": "flag",
+    "target": "p16_cs_no_committee",
+    "after": [
+     "attempt"
+    ]
+   },
+   {
+    "id": "vent",
+    "text": "Air the ship room by room (Crew Quarters porthole, galley porthole, the stern windows in the Captain's Quarters)",
+    "type": "event",
+    "target": "p16_vent",
+    "count": 3,
+    "after": [
+     "committee"
+    ]
+   },
+   {
+    "id": "bbk",
+    "text": "Something out of the Sharkstorm (the token, on deck)",
+    "type": "flag",
+    "target": "p16_bbk_complaint",
+    "after": [
+     "vent"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 120
+  }
+ },
+ {
+  "id": "stenchmaster_fart_zone",
+  "title": "The Stenchmaster Fart Zone",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "A room for it. Away from everybody.",
+  "description": "The ship needs a designated place for Grand Stenchmaster releases: somewhere with a door that shuts and portholes that open onto the sea. The old sail locker under the deck grating will do. It will have to.",
+  "objectives": [
+   {
+    "id": "find",
+    "text": "Open up the old sail locker (the grating by the mainmast, on deck)",
+    "type": "flag",
+    "target": "p16_fz_found"
+   },
+   {
+    "id": "inspect",
+    "text": "Look it over (inside the sail locker)",
+    "type": "flag",
+    "target": "p16_fz_inspected",
+    "after": [
+     "find"
+    ]
+   },
+   {
+    "id": "clear",
+    "text": "Clear out the junk (the old sails, the spar, the cable: the Fart Zone)",
+    "type": "event",
+    "target": "p16_fz_clear",
+    "count": 3,
+    "after": [
+     "inspect"
+    ]
+   },
+   {
+    "id": "signs",
+    "text": "Put up the warning signs (the chalk marks on the wall, the Fart Zone)",
+    "type": "event",
+    "target": "p16_fz_sign",
+    "count": 2,
+    "after": [
+     "clear"
+    ]
+   },
+   {
+    "id": "door",
+    "text": "Check the door frame (by the ladder, the Fart Zone)",
+    "type": "flag",
+    "target": "p16_fz_door_checked",
+    "after": [
+     "clear"
+    ]
+   },
+   {
+    "id": "portholes",
+    "text": "Free the three portholes (the Fart Zone, sea side)",
+    "type": "event",
+    "target": "p16_fz_porthole",
+    "count": 3,
+    "after": [
+     "clear"
+    ]
+   },
+   {
+    "id": "observe",
+    "text": "Set up an observation point behind a rope (the bench, the Fart Zone)",
+    "type": "flag",
+    "target": "p16_fz_observe",
+    "after": [
+     "signs",
+     "door",
+     "portholes"
+    ]
+   },
+   {
+    "id": "queue",
+    "text": "Rope off a queue (by the door, the Fart Zone)",
+    "type": "flag",
+    "target": "p16_fz_queue",
+    "after": [
+     "observe"
+    ]
+   },
+   {
+    "id": "rules",
+    "text": "Post the rules (the board, the Fart Zone)",
+    "type": "flag",
+    "target": "stenchmaster_fart_zone_rules_posted",
+    "after": [
+     "queue"
+    ]
+   },
+   {
+    "id": "orient",
+    "text": "Show Brogath and Garrick round (the Fart Zone)",
+    "type": "event",
+    "target": "p16_fz_orient",
+    "count": 2,
+    "after": [
+     "rules"
+    ]
+   },
+   {
+    "id": "vindicta",
+    "text": "No exemptions (Vindicta, on deck)",
+    "type": "flag",
+    "target": "stenchmaster_fart_zone_built",
+    "after": [
+     "orient"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 140
+  }
+ },
+ {
+  "id": "vindictas_emergency",
+  "title": "Vindicta's Legendary Emergency",
+  "category": "main",
+  "giver": "vindicta",
+  "summary": "Something clucked.",
+  "description": "Somewhere aboard, very faintly, something clucked. Agnes the Second went into the Sharkstorm on a pillow. Pillows come back. Chickens, apparently, also come back. And Vindicta has been holding something in for a week.",
+  "objectives": [
+   {
+    "id": "search",
+    "text": "Find the clucking (under the bunks in the Crew Quarters, the galley barrels, the hold's far corner, the sash pile in the Crew Quarters, the grating on deck)",
+    "type": "event",
+    "target": "p16_cluck_search",
+    "count": 5
+   },
+   {
+    "id": "vindicta",
+    "text": "Vindicta needs the Fart Zone. NOW. (Vindicta, by the grating, on deck)",
+    "type": "flag",
+    "target": "p16_vindicta_queued",
+    "after": [
+     "search"
+    ]
+   },
+   {
+    "id": "procedure",
+    "text": "Run the procedure: the door and the portholes (the Fart Zone)",
+    "type": "event",
+    "target": "p16_vproc",
+    "count": 2,
+    "after": [
+     "vindicta"
+    ]
+   },
+   {
+    "id": "rescue",
+    "text": "AGNES IS IN THERE. Get her out (the Fart Zone: watch the gap, grab, run)",
+    "type": "flag",
+    "target": "vindicta_chicken_rescue_complete",
+    "after": [
+     "procedure"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 160
+  }
+ },
+ {
+  "id": "chicken_near_miss",
+  "title": "The Near-Miss",
+  "category": "main",
+  "giver": "brogath",
+  "summary": "Close. Not right.",
+  "description": "Agnes the Second is back, a bit bald in places. Brogath is overjoyed. You are carrying her and she has just put her whole head in your beard.",
+  "objectives": [
+   {
+    "id": "sniff",
+    "text": "Agnes and the beard (Agnes, Crew Quarters)",
+    "type": "flag",
+    "target": "p16_agnes_sniffed"
+   },
+   {
+    "id": "steady",
+    "text": "Steady Brogath (Brogath, Crew Quarters)",
+    "type": "flag",
+    "target": "p16_nm_steadied",
+    "after": [
+     "sniff"
+    ]
+   },
+   {
+    "id": "watch",
+    "text": "Watch it happen (Brogath, Crew Quarters)",
+    "type": "flag",
+    "target": "brogath_chicken_near_miss",
+    "after": [
+     "steady"
+    ]
+   },
+   {
+    "id": "calm",
+    "text": "Calm down (Pete, Crew Quarters)",
+    "type": "flag",
+    "target": "p16_nm_calm",
+    "after": [
+     "watch"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 110
+  }
+ },
+ {
+  "id": "chicken_town",
+  "title": "Chicken-Town",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "The chicken just needs to chicken.",
+  "description": "You've been coaching a chicken. You've been coaching a chicken like a gun crew. What happened in Chicken-Town was a chicken being a chicken near Brogath. Nobody coached anybody.",
+  "objectives": [
+   {
+    "id": "think",
+    "text": "Think it through (any rail, on deck)",
+    "type": "flag",
+    "target": "chicken_town_waft_unlocked"
+   },
+   {
+    "id": "hands",
+    "text": "Tell everybody to stop interfering (Garrick, the visitors, Pete: Crew Quarters)",
+    "type": "event",
+    "target": "p16_hands_off",
+    "count": 3,
+    "after": [
+     "think"
+    ]
+   },
+   {
+    "id": "wait",
+    "text": "Sit down on your pad and do nothing (Crew Quarters)",
+    "type": "flag",
+    "target": "chicken_town_great_mellowing_complete",
+    "after": [
+     "hands"
+    ]
+   },
+   {
+    "id": "walk",
+    "text": "See the mellow ship (galley: Garrick, Jim; on deck: Pete, the visitors, the Sharkstorm from any rail)",
+    "type": "event",
+    "target": "p16_mellow_walk",
+    "count": 5,
+    "after": [
+     "wait"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 150
+  }
+ },
+ {
+  "id": "grand_dispensary",
+  "title": "The Grand Dispensary",
+  "category": "main",
+  "giver": "brogath",
+  "summary": "He can do it while mellow.",
+  "description": "Brogath, lying on the sash bedding with Agnes on his foot, has made a discovery: he can release a Grand Stenchmaster fart even while relaxed. He has made one. Something has appeared where the Bashfulness Branch used to be.",
+  "objectives": [
+   {
+    "id": "brogath",
+    "text": "Brogath's discovery (Brogath, Crew Quarters)",
+    "type": "flag",
+    "target": "p16_dispensary_appeared"
+   },
+   {
+    "id": "look",
+    "text": "Look at it (the counter, Crew Quarters)",
+    "type": "flag",
+    "target": "grand_dispensary_opened",
+    "after": [
+     "brogath"
+    ]
+   },
+   {
+    "id": "serve",
+    "text": "Serve the customers (ring the bell on the counter, Crew Quarters)",
+    "type": "event",
+    "target": "p16_disp",
+    "count": 5,
+    "after": [
+     "look"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 140
+  }
+ },
+ {
+  "id": "bankworth",
+  "title": "The Sash Lounge and the Return of the Grand Bank",
+  "category": "main",
+  "giver": "pete",
+  "summary": "HOLD MY SASH!",
+  "description": "While you work, the crew have discovered that the Cheap-O-Rama sashes are extremely comfortable. Also, there's a gentleman at the counter in a crown made of a vault door.",
+  "objectives": [
+   {
+    "id": "lounge",
+    "text": "Look at what the crew have built (the Sash Lounge, Crew Quarters)",
+    "type": "flag",
+    "target": "sash_lounge_built"
+   },
+   {
+    "id": "song",
+    "text": "Is that SINGING? (the Sash Lounge)",
+    "type": "flag",
+    "target": "p16_song_heard",
+    "after": [
+     "lounge"
+    ]
+   },
+   {
+    "id": "bankworth",
+    "text": "The gentleman at the counter (Bankworth, Crew Quarters)",
+    "type": "flag",
+    "target": "bankworth_arrived",
+    "after": [
+     "song"
+    ]
+   },
+   {
+    "id": "deposit",
+    "text": "His opening deposit (ring the bell on the counter)",
+    "type": "flag",
+    "target": "p16_bankworth_deposit",
+    "after": [
+     "bankworth"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 140
+  }
+ },
+ {
+  "id": "currency_converter",
+  "title": "The Grand Currency Converter",
+  "category": "main",
+  "giver": "bankworth",
+  "summary": "Converted assets.",
+  "description": "Beside the counter: a purple machine with fake gold trim, a coin display, a brass output horn and three slots. INPUT GRAND CURRENCY. OUTPUT CONVERTED ASSET. ATMOSPHERIC SETTLEMENT. It looks legitimate. Suspiciously legitimate.",
+  "objectives": [
+   {
+    "id": "machine",
+    "text": "Look at the machine (beside the counter, Crew Quarters)",
+    "type": "flag",
+    "target": "currency_converter_discovered"
+   },
+   {
+    "id": "insert",
+    "text": "Put one Grand Token from the till in it (the converter)",
+    "type": "flag",
+    "target": "currency_converter_first_use",
+    "after": [
+     "machine"
+    ]
+   },
+   {
+    "id": "receipt",
+    "text": "Take the receipt (the converter)",
+    "type": "flag",
+    "target": "p16_receipt_read",
+    "after": [
+     "insert"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 110
+  }
+ },
+ {
+  "id": "sashback_rewards",
+  "title": "Grand Sashback Rewards",
+  "category": "main",
+  "giver": "bankworth",
+  "summary": "The fouler the sash, the better the credit.",
+  "description": "THE GRAND STENCHMASTER'S GRAND BANK AND GRAND TRUST now offers credit. Approval depends on the applicant's sash: the more foul and historically distinguished, the higher the score. You are the underwriter. You underwrite with your nose.",
+  "objectives": [
+   {
+    "id": "first",
+    "text": "The first applicant (ring the bell on the counter, Crew Quarters)",
+    "type": "flag",
+    "target": "sashback_credit_unlocked"
+   },
+   {
+    "id": "more",
+    "text": "Process the applications (ring the bell)",
+    "type": "event",
+    "target": "p16_credit",
+    "count": 2,
+    "after": [
+     "first"
+    ]
+   },
+   {
+    "id": "rancidella",
+    "text": "Lady Rancidella (ring the bell)",
+    "type": "flag",
+    "target": "p16_rancidella_approved",
+    "after": [
+     "more"
+    ]
+   },
+   {
+    "id": "redeem",
+    "text": "She's redeeming it. ALL of it. (the converter)",
+    "type": "flag",
+    "target": "rancidella_redemption_complete",
+    "after": [
+     "rancidella"
+    ]
+   },
+   {
+    "id": "save",
+    "text": "Save the haze (Agnes and Brogath, the Sash Lounge)",
+    "type": "flag",
+    "target": "p16_tiny_green",
+    "after": [
+     "redeem"
+    ]
+   },
+   {
+    "id": "policy",
+    "text": "Post the new policy (the converter)",
+    "type": "flag",
+    "target": "converter_air_quality_policy",
+    "after": [
+     "save"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 150
+  }
+ },
+ {
+  "id": "hornet_fart",
+  "title": "The Hornet Fart",
+  "category": "main",
+  "giver": "brogath",
+  "summary": "A Grand Stenchmaster's Grand Idea.",
+  "description": "Brogath wants to be useful again. He has a Grand Stenchmaster idea. You said no before he finished the sentence. The sentence ended with HORNETS.",
+  "objectives": [
+   {
+    "id": "idea",
+    "text": "Hear the idea (Brogath, the Sash Lounge)",
+    "type": "flag",
+    "target": "p16_hornet_idea"
+   },
+   {
+    "id": "procedure",
+    "text": "The posted procedure: Brogath in, door shut, portholes open, sash secure, warning up (the Fart Zone)",
+    "type": "event",
+    "target": "p16_hproc",
+    "count": 4,
+    "after": [
+     "idea"
+    ]
+   },
+   {
+    "id": "release",
+    "text": "Watch from behind the rope (the bench, the Fart Zone)",
+    "type": "flag",
+    "target": "hornet_fart_occurred",
+    "after": [
+     "procedure"
+    ]
+   },
+   {
+    "id": "deck",
+    "text": "Where did they go? (on deck)",
+    "type": "flag",
+    "target": "hornet_swarm_active",
+    "after": [
+     "release"
+    ]
+   },
+   {
+    "id": "praise",
+    "text": "Say something about the swarm (Brogath, on deck)",
+    "type": "flag",
+    "target": "p16_hornet_praised",
+    "after": [
+     "deck"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 140
+  }
+ },
+ {
+  "id": "stingbeard",
+  "title": "Stingbeard",
+  "category": "main",
+  "giver": "pete",
+  "summary": "They love the beard.",
+  "description": "The hornets came out of Coffin Sock, they're angry, and they've found the most contaminated beard on the seven seas. It is yours.",
+  "objectives": [
+   {
+    "id": "shoo",
+    "text": "Get them out of your beard (wave, shake, order them: on deck)",
+    "type": "event",
+    "target": "p16_shoo",
+    "count": 3
+   },
+   {
+    "id": "name",
+    "text": "...STINGBEARD? (anyone, on deck)",
+    "type": "flag",
+    "target": "stingbeard_nickname_unlocked",
+    "after": [
+     "shoo"
+    ]
+   },
+   {
+    "id": "bunker",
+    "text": "The crew have a plan (the Fart-Free Zone, in the hold)",
+    "type": "flag",
+    "target": "fart_free_zone_reinforced",
+    "after": [
+     "name"
+    ]
+   },
+   {
+    "id": "work",
+    "text": "Back to work (the bank counter, Crew Quarters)",
+    "type": "flag",
+    "target": "p16_back_to_work",
+    "after": [
+     "bunker"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 130
+  }
+ },
+ {
+  "id": "sash_quote_story_hour",
+  "title": "Sash-Quote Story Hour",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "ASK ME ABOUT MY CEREMONIAL WAFT.",
+  "description": "Inside the bunker, the crew are reading the slogans off the sashes out loud, and Garrick has run a speaking tube from the bunker to the bank counter so that you can enjoy it too.",
+  "objectives": [
+   {
+    "id": "tube",
+    "text": "Answer the speaking tube (by the counter, Crew Quarters)",
+    "type": "flag",
+    "target": "p16_story_hour_started"
+   },
+   {
+    "id": "sashes",
+    "text": "Sash-quote story hour (the speaking tube): answer five of them",
+    "type": "event",
+    "target": "p16_sash_quote",
+    "count": 5,
+    "after": [
+     "tube"
+    ]
+   },
+   {
+    "id": "brogath",
+    "text": "Brogath has one (Brogath, the Sash Lounge)",
+    "type": "flag",
+    "target": "sash_quote_story_hour_complete",
+    "after": [
+     "sashes"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 130
+  }
+ },
+ {
+  "id": "hornet_credit_boom",
+  "title": "The Hornet Credit Boom",
+  "category": "main",
+  "giver": "bankworth",
+  "summary": "BZBZBZBZZZZ-7. APPROVED.",
+  "description": "One hornet has landed on the Grand Sashback application terminal. It pressed APPLY NOW. The terminal is taking it very seriously.",
+  "objectives": [
+   {
+    "id": "apply",
+    "text": "Look at the terminal (beside the counter, Crew Quarters)",
+    "type": "flag",
+    "target": "p16_bzz_applied"
+   },
+   {
+    "id": "approved",
+    "text": "Process the application (the terminal)",
+    "type": "flag",
+    "target": "p16_bzz_approved",
+    "after": [
+     "apply"
+    ]
+   },
+   {
+    "id": "converter",
+    "text": "Where's it going? (the converter)",
+    "type": "flag",
+    "target": "p16_bzz_converted",
+    "after": [
+     "approved"
+    ]
+   },
+   {
+    "id": "epidemic",
+    "text": "They've ALL found out (the counter: serve them)",
+    "type": "event",
+    "target": "p16_epidemic",
+    "count": 3,
+    "after": [
+     "converter"
+    ]
+   },
+   {
+    "id": "preferred",
+    "text": "The bank's announcement (Bankworth)",
+    "type": "flag",
+    "target": "hornet_credit_boom_occurred",
+    "after": [
+     "epidemic"
+    ]
+   },
+   {
+    "id": "smores",
+    "text": "Meanwhile, in the bunker (the speaking tube)",
+    "type": "flag",
+    "target": "p16_smores",
+    "after": [
+     "preferred"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 160
+  }
+ },
+ {
+  "id": "grand_lighter_history",
+  "title": "The History of the Grand Lighter",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "It used to work.",
+  "description": "The hornets have gone home for the night (wherever that is). The bank is shut. You're finally inside the bunker, and Garrick has the lore book out again.",
+  "objectives": [
+   {
+    "id": "in",
+    "text": "Get into the bunker at last (the Fart-Free Zone, in the hold)",
+    "type": "flag",
+    "target": "p16_in_bunker"
+   },
+   {
+    "id": "read",
+    "text": "The History of the Grand Lighter (the lore book: three chapters)",
+    "type": "event",
+    "target": "p16_lighter_lore",
+    "count": 3,
+    "after": [
+     "in"
+    ]
+   },
+   {
+    "id": "react",
+    "text": "Say something (Garrick)",
+    "type": "flag",
+    "target": "grand_lighter_history_unlocked",
+    "after": [
+     "read"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 120
+  }
+ },
+ {
+  "id": "portable_tv",
+  "title": "The Portable Stenchmaster Entertainment System",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "Grand Travel Model.",
+  "description": "There is no room in the bunker for anything else. Garrick has taken a television out of his coat.",
+  "objectives": [
+   {
+    "id": "coat",
+    "text": "Garrick's coat (Garrick, the Fart-Free Zone)",
+    "type": "flag",
+    "target": "portable_stenchmaster_tv_acquired"
+   },
+   {
+    "id": "aerial",
+    "text": "The aerial (the portable set)",
+    "type": "flag",
+    "target": "p16_portable_aerial",
+    "after": [
+     "coat"
+    ]
+   },
+   {
+    "id": "watch",
+    "text": "Watch it (the portable set)",
+    "type": "flag",
+    "target": "ignition_documentary_viewed",
+    "after": [
+     "aerial"
+    ]
+   },
+   {
+    "id": "off",
+    "text": "Turn it off (the portable set)",
+    "type": "event",
+    "target": "p16_tv_off",
+    "count": 2,
+    "after": [
+     "watch"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 120
+  }
+ },
+ {
+  "id": "ignition_application",
+  "title": "The 97-Page Application",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "Forms 1 to 97.",
+  "description": "The bank has a new department: THE BUREAU OF CEREMONIAL IGNITION. Its first customer wants his cigarette lit by the ancient formal procedure. You are the clerk.",
+  "objectives": [
+   {
+    "id": "customer",
+    "text": "A customer at the bureau (ring the bell on the counter, Crew Quarters)",
+    "type": "flag",
+    "target": "p16_puffchester_arrived"
+   },
+   {
+    "id": "form",
+    "text": "The application (the counter: 97 pages)",
+    "type": "flag",
+    "target": "ignition_application_completed",
+    "after": [
+     "customer"
+    ]
+   },
+   {
+    "id": "stamp",
+    "text": "Stamp it (the counter)",
+    "type": "flag",
+    "target": "p16_review_required",
+    "after": [
+     "form"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 140
+  }
+ },
+ {
+  "id": "ignition_hearing",
+  "title": "The Grand Ignition Hearing",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "PRE-IGNITION REVIEW REQUIRED.",
+  "description": "Approval requires a hearing before the Grand Ignition Council, and the applicant requires an advocate. You are the advocate. You are arguing for the one thing you don't want to happen.",
+  "objectives": [
+   {
+    "id": "council",
+    "text": "Go before the Council (the counter, Crew Quarters)",
+    "type": "flag",
+    "target": "grand_ignition_hearing_approved"
+   },
+   {
+    "id": "selected",
+    "text": "Who performs it? (the Council)",
+    "type": "flag",
+    "target": "vindicta_selected_for_ignition",
+    "after": [
+     "council"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 150
+  }
+ },
+ {
+  "id": "lighter_pitch",
+  "title": "Stinkbeard's Desperate Lighter Pitch",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "COMMON SENSE IS WINNING.",
+  "description": "Vindicta is going to perform a ceremonial Fire-Waft in the Crew Quarters. You still have the lighter. It is the only thing standing between you and another legendary release.",
+  "objectives": [
+   {
+    "id": "pitch",
+    "text": "Sell Lord Puffchester the lighter before Vindicta goes off (the Council)",
+    "type": "flag",
+    "target": "puffchester_convinced"
+   },
+   {
+    "id": "next",
+    "text": "The next applicant (ring the bell on the counter)",
+    "type": "flag",
+    "target": "mechanical_ignition_victory",
+    "after": [
+     "pitch"
+    ]
+   },
+   {
+    "id": "end",
+    "text": "Common sense (the counter)",
+    "type": "flag",
+    "target": "p16_complete",
+    "after": [
+     "next"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 160
+  }
+ }
+]

@@ -1,5 +1,5 @@
 {
- "//": "Story Phase 15: the Ship Atmosphere State. One saved story value (ship_atmosphere) says what the air aboard the Revenge is like; each state is authored consequences, not a gas simulation: a whole-room haze tint (rooms with their own haze keep it), how fast wanderers and routines move, and (optionally) the ship's music and ambience. Dialogue, looks, placements and the Sharkstorm read the value with ordinary conditions; Brogath's stability reads it through its 'mellow' entry. The 'atmosphere' script command changes it. Unset means NORMAL.",
+ "//": "Story Phase 15: the Ship Atmosphere State. One saved story value (ship_atmosphere) says what the air aboard the Revenge is like; each state is authored consequences, not a gas simulation: a whole-room haze tint (rooms with their own haze keep it), how fast wanderers and routines move, and (optionally) the ship's music and ambience. Dialogue, looks, placements and the Sharkstorm read the value with ordinary conditions; Brogath's stability reads it through its 'mellow' entry. The 'atmosphere' script command changes it. Unset means NORMAL. Story Phase 16: rooms can have their own air (story value room_atmosphere_<map>; the atmosphere command's 'room'), which wins over the ship's while set: Coffin Sock in the quarters while the deck has been aired, the Fart Zone mid-release. Three new states: COFFIN_SOCK, VINDICTA_RELEASE, HORNET_SWARM_RESIDUE. MELLOW_HAZE is the mellow skunk haze (the Chicken-Town Waft).",
  "ship": {
   "value": "ship_atmosphere",
   "default": "NORMAL",
@@ -11,7 +11,8 @@
    "crew_quarters",
    "washroom",
    "captains_quarters",
-   "fart_free_zone"
+   "fart_free_zone",
+   "stenchmaster_fart_zone"
   ],
   "states": {
    "NORMAL": {
@@ -41,7 +42,7 @@
     "npcPace": 0.45,
     "music": "great_mellowing",
     "ambience": "mellow_ship",
-    "notes": "Chapters 181-185: everyone but the captain (whose beard rejects it) is mellow. Garrick issues no decrees; Brogath's triggers count for a fraction (his MELLOW state); the crew wander slowly and snack; the Sharkstorm is mellow too."
+    "notes": "Chapters 181-185: everyone but the captain (whose beard rejects it) is mellow. Garrick issues no decrees; Brogath's triggers count for a fraction (his MELLOW state); the crew wander slowly and snack; the Sharkstorm is mellow too. Story Phase 16: the Chicken-Town Waft (chapter 192) brings it back, stronger: through the quarters, the passages, the deck, the rigging and the Sharkstorm. Story Phase 16: the Chicken-Town Waft (chapter 192) brings it back, stronger: through the quarters, the passages, the deck, the rigging and the Sharkstorm. Story Phase 16: the Chicken-Town Waft (chapter 192) brings it back, stronger: through the quarters, the passages, the deck, the rigging and the Sharkstorm."
    },
    "BEARD_PARANOIA_HAZE": {
     "label": "Beard-smoke paranoia",
@@ -78,7 +79,36 @@
     },
     "npcPace": 0.8,
     "notes": "Chapter 185: Vindicta's blast blows the mellow haze out of the ship."
+   },
+   "COFFIN_SOCK": {
+    "label": "Coffin Sock",
+    "haze": {
+     "level": "dense",
+     "color": "#7a6c4a"
+    },
+    "npcPace": 0.7,
+    "ambience": "coffin_sock",
+    "notes": "Story Phase 16 (chapter 188): Brogath tried for the green one and got COFFIN SOCK. Ancient, dusty, stale, musty, bean-heavy, and it outranks every other smell. Dark yellow-brown-grey. Aired out room by room (rooms keep their own air until they're opened up)."
+   },
+   "VINDICTA_RELEASE": {
+    "label": "Vindicta's release",
+    "haze": {
+     "level": "dense",
+     "color": "#a85a6a"
+    },
+    "npcPace": 0.8,
+    "notes": "Story Phase 16 (chapter 190): Grand Stenchmistress Vindicta Thunderwaft's legendary ceremonial release, in the Stenchmaster Fart Zone. Crimson-grey. The room's own air until it's ventilated."
+   },
+   "HORNET_SWARM_RESIDUE": {
+    "label": "Hornet residue",
+    "haze": {
+     "level": "light",
+     "color": "#c8b04a"
+    },
+    "npcPace": 0.9,
+    "notes": "Story Phase 16 (chapters 197-200): what the Hornet Fart leaves behind: a yellowish, buzzing sort of air. The hornets themselves are hazards/hornets.json."
    }
-  }
+  },
+  "roomPrefix": "room_atmosphere_"
  }
 }

@@ -1,0 +1,144 @@
+{
+ "lighter_pitch": {
+  "kind": "pitch",
+  "goal": 10,
+  "perRound": 1,
+  "max": 5,
+  "show": 4,
+  "pressureVar": "vindicta_pressure",
+  "convincedVar": "puffchester_points",
+  "gauge": {
+   "layer": "gauge",
+   "prefix": "vgauge_",
+   "frames": 6
+  },
+  "prompt": "captain: (the lighter in one hand, Lord Puffchester in the other) My lord...",
+  "//": "Story Phase 16 (chapter 205): the captain sells Lord Puffchester the Grand Lighter before Vindicta can perform the ceremonial Fire-Waft. Arguments carry points (each can be made once); every round Vindicta's pressure gauge climbs a notch. Reach 10 first. If the gauge tops out, Garrick calls a procedural recess (the checkpoint) and it starts again with a longer clock. Nothing is random.",
+  "arguments": [
+   {
+    "id": "mechanical",
+    "text": "It's MECHANICAL. Progress, my lord!",
+    "points": 2,
+    "reply": [
+     "puffchester: (interested despite himself) Mechanical..."
+    ]
+   },
+   {
+    "id": "purple",
+    "text": "It's purple. And gold. Very grand.",
+    "points": 1,
+    "reply": [
+     "puffchester: (squinting) It is... reasonably grand."
+    ]
+   },
+   {
+    "id": "cheapy",
+    "text": "Cheapy stands behind it. Personally.",
+    "points": 0,
+    "reply": [
+     "puffchester: Who is Cheapy?",
+     "captain: ...Forget Cheapy."
+    ]
+   },
+   {
+    "id": "no_pages",
+    "text": "No paperwork. Not one page. Ever.",
+    "points": 3,
+    "reply": [
+     "puffchester: (clutching the counter) None?",
+     "captain: NONE.",
+     "council_right: (faintly, from the bench) ...None?"
+    ]
+   },
+   {
+    "id": "demo",
+    "text": "Watch. (Click it.)",
+    "points": 1,
+    "lighter": "grand_smokes",
+    "attempts": 3,
+    "reply": [
+     "You hold it up. You click it. You click it again."
+    ]
+   },
+   {
+    "id": "nobody_farts",
+    "text": "Nobody has to fart, my lord. NOBODY.",
+    "points": 3,
+    "reply": [
+     "puffchester: (thoughtfully, looking at Vindicta) ...That IS a consideration."
+    ]
+   },
+   {
+    "id": "ceremony",
+    "text": "Every click is a little ceremony. Hundreds of them!",
+    "points": 2,
+    "reply": [
+     "puffchester: (charmed) A ceremony... per click."
+    ]
+   },
+   {
+    "id": "agnes",
+    "text": "Think of Agnes the Second. Page sixty-one.",
+    "points": 2,
+    "reply": [
+     "puffchester: (softening) Do not toast. I wrote it myself."
+    ]
+   }
+  ],
+  "stages": {
+   "1": [
+    "vindicta: (rolling her shoulders) Gathering..."
+   ],
+   "2": [
+    {
+     "sfx": "brogath_rumble_small",
+     "volume": 0.6
+    },
+    "vindicta: GATHERING. Somebody open a porthole. Or don't. I'm not fussy."
+   ],
+   "3": [
+    {
+     "sfx": "brogath_rumble_big",
+     "volume": 0.7
+    },
+    {
+     "shake": 1,
+     "duration": 500
+    },
+    "vindicta: (her crown starting to hum) THE ANCIENT FIRE-WAFT. THE GRAND CEREMONY. ANY. MOMENT. NOW."
+   ],
+   "4": [
+    {
+     "shake": 2,
+     "duration": 700
+    },
+    "pete: (diving behind the barricade) CAPTAIN. WHATEVER YOU'RE DOING. DO IT FASTER."
+   ]
+  },
+  "fail": [
+   {
+    "shake": 2,
+    "duration": 800
+   },
+   {
+    "sfx": "gavel",
+    "volume": 1.0
+   },
+   "garrick: (leaping up onto a stool) POINT OF ORDER! The Grand Stenchmaster calls a PROCEDURAL RECESS! Pending a review of the... the... the ROOM!",
+   "council_chair: (wearily) ...Granted. Fifteen minutes.",
+   "vindicta: (deflating, outraged) A RECESS?",
+   "garrick: (to you, in a whisper) You owe me a committee.",
+   "Fifteen minutes. Lord Puffchester is still at the window. You've still got the lighter. Start again."
+  ],
+  "won": [
+   {
+    "lighter": "grand_smokes",
+    "attempts": 1,
+    "until": "flame"
+   },
+   "A flame. A small, ordinary, steady flame, on the very first click, for the first time in recorded history.",
+   "puffchester: (very quietly) ...Oh.",
+   "puffchester: (taking it, reverently) It's... it's MECHANICAL."
+  ]
+ }
+}

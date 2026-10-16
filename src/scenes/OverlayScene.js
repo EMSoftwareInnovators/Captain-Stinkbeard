@@ -796,8 +796,8 @@ export class OverlayScene extends BaseScene {
       this.stabilityMeter = { parts, label, word, bar, ticks, stage, barW: w - 16, x, y, t: 0, key: null, rect: { x, y, w, h } };
     }
     const m = this.stabilityMeter;
-    const COLORS = { PLEASED: 0x9ad0ff, CALM: 0x7cb45a, BASHFUL: 0xf0c0d0, EMBARRASSED: 0xf08aa0, PRESSURIZED: 0xe07a28, CRITICAL: 0xe43c3a, ANGRY: 0xff5a1a, MELLOW: 0x9cc070 };
-    const MARK = { PLEASED: '<c>', CALM: '<g>', BASHFUL: '<w>', EMBARRASSED: '<y>', PRESSURIZED: '<o>', CRITICAL: '<r>', ANGRY: '<r>', MELLOW: '<g>' };
+    const COLORS = { PLEASED: 0x9ad0ff, CALM: 0x7cb45a, BASHFUL: 0xf0c0d0, EMBARRASSED: 0xf08aa0, PRESSURIZED: 0xe07a28, CRITICAL: 0xe43c3a, ANGRY: 0xff5a1a, MELLOW: 0x9cc070, RECOVERING: 0xb0a0c8 };
+    const MARK = { PLEASED: '<c>', CALM: '<g>', BASHFUL: '<w>', EMBARRASSED: '<y>', PRESSURIZED: '<o>', CRITICAL: '<r>', ANGRY: '<r>', MELLOW: '<g>', RECOVERING: '<w>' };
     const v = Math.max(0, Math.min(1, state.pressure / (state.max ?? 100)));
     m.bar.width = Math.max(1, Math.round(m.barW * v));
     m.bar.setFillStyle(COLORS[state.state] ?? 0xe0ad38);

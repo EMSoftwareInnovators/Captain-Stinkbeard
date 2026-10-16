@@ -1,0 +1,39 @@
+{
+ "id": "hornet_business",
+ "title": "Hornet Business",
+ "//": "Story Phase 16: the hornets, the beard and the bank. A minor, busy and buzzy: a warbling lead in quick runs, plucked strings like wingbeats, a walking bass. Comic, never frightening. Original.",
+ "bpm": 144,
+ "stepsPerBeat": 4,
+ "reverb": 0.2,
+ "channels": {
+  "lead": {
+   "instrument": "warble",
+   "volume": 0.12
+  },
+  "pizz": {
+   "instrument": "pluck",
+   "volume": 0.1,
+   "pan": -0.25
+  },
+  "bass": {
+   "instrument": "pluck_bass",
+   "volume": 0.28
+  },
+  "drums": {
+   "instrument": "kit",
+   "volume": 0.08
+  }
+ },
+ "patterns": {
+  "A": {
+   "lead": "A4:2 B4:2 C5:2 B4:2 A4:2 G#4:2 A4:4 | E5:2 D5:2 C5:2 B4:2 C5:8 | A4:2 C5:2 E5:2 C5:2 D5:2 B4:2 G#4:4 | A4:12 r:4",
+   "pizz": "A3:2 A3:2 r:4 A3:2 A3:2 r:4 | E3:2 E3:2 r:4 A3:2 A3:2 r:4 | F3:2 F3:2 r:4 E3:2 E3:2 r:4 | A3:2 A3:2 r:12",
+   "bass": "A2:4 C3:4 E3:4 C3:4 | A2:4 G2:4 F2:4 E2:4 | D2:4 F2:4 E2:4 G#2:4 | A2:8 E2:8",
+   "drums": "k.h.s.h.k.h.s.h. k.h.s.h.k.h.s.h. k.h.s.h.k.h.s.h. k.h.s.h.k...s..."
+  }
+ },
+ "sequence": [
+  "A",
+  "A"
+ ]
+}

@@ -1,0 +1,640 @@
+{
+ "//": "Story Phase 16: the counter's customers arrive out of the haze at the end of the barricade, are served, and go.",
+ "p16.counter.disp_wheezeworth.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "spawn": "disp_wheezeworth",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "disp_wheezeworth",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "disp_wheezeworth",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "disp_wheezeworth: (out of the haze, wheezing) One jar of the green, please. The MELLOW one. My doctor says I'm too tense. My doctor's been dead two hundred years. He's still tense."
+ ],
+ "p16.counter.disp_wheezeworth.after": [
+  {
+   "sfx": "skunk_waft",
+   "volume": 0.45
+  },
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 14,
+   "count": 4
+  },
+  "From his pad in the lounge, without opening his eyes, Brogath lets go of one small, mellow, green one. You catch it in a jar. You screw the lid on. You hand it over the counter.",
+  "disp_wheezeworth: (unscrewing the lid a crack, sniffing, going limp) Ohhh. Oh, that's the one. (dissolving, happily)",
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "disp_wheezeworth"
+  }
+ ],
+ "p16.counter.disp_mildew.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "spawn": "disp_mildew",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "disp_mildew",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "disp_mildew",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "disp_mildew: (very elegant) A small jar. For the boudoir. Do you gift-wrap?",
+  "captain: No.",
+  "disp_mildew: (unbothered) Then I'll carry it NAKED."
+ ],
+ "p16.counter.disp_mildew.after": [
+  {
+   "sfx": "skunk_waft",
+   "volume": 0.45
+  },
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 14,
+   "count": 4
+  },
+  "From his pad in the lounge, without opening his eyes, Brogath lets go of one small, mellow, green one. You catch it in a jar. You screw the lid on. You hand it over the counter.",
+  "disp_mildew: (holding the jar up to the lantern) It's green. How DARING.",
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "disp_mildew"
+  }
+ ],
+ "p16.counter.disp_stalebreath.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "spawn": "disp_stalebreath",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "disp_stalebreath",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "disp_stalebreath",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "disp_stalebreath: Large jar. Extra large. Is there a loyalty card? There should be a loyalty card.",
+  "captain[tired]: There's no loyalty card.",
+  "garrick: (from somewhere, delighted) THERE COULD BE A LOYALTY CARD."
+ ],
+ "p16.counter.disp_stalebreath.after": [
+  {
+   "sfx": "skunk_waft",
+   "volume": 0.45
+  },
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 14,
+   "count": 4
+  },
+  "From his pad in the lounge, without opening his eyes, Brogath lets go of one small, mellow, green one. You catch it in a jar. You screw the lid on. You hand it over the counter.",
+  "disp_stalebreath: (holding it with both arms) I'll be back. I'll be back for the rest of eternity, at this rate.",
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "disp_stalebreath"
+  }
+ ],
+ "p16.counter.disp_draftly.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "spawn": "disp_draftly",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "disp_draftly",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "disp_draftly",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "disp_draftly: (both of them, at once) Two jars. One each. Not the same jar. We've done the same jar. Never again."
+ ],
+ "p16.counter.disp_draftly.after": [
+  {
+   "sfx": "skunk_waft",
+   "volume": 0.45
+  },
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 14,
+   "count": 4
+  },
+  "From his pad in the lounge, without opening his eyes, Brogath lets go of one small, mellow, green one. You catch it in a jar. You screw the lid on. You hand it over the counter.",
+  "disp_draftly: (both, sniffing, both going cross-eyed at once) ...Oh, that's NICE.",
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "disp_draftly"
+  }
+ ],
+ "p16.counter.disp_fumble.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "spawn": "disp_fumble",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "disp_fumble",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "disp_fumble",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "disp_fumble: (dropping all his tokens on the floor, picking them up, dropping them again) Sorry. Sorry. Just a little jar. The littlest jar. Is it the littlest? Sorry."
+ ],
+ "p16.counter.disp_fumble.after": [
+  {
+   "sfx": "skunk_waft",
+   "volume": 0.45
+  },
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 14,
+   "count": 4
+  },
+  "From his pad in the lounge, without opening his eyes, Brogath lets go of one small, mellow, green one. You catch it in a jar. You screw the lid on. You hand it over the counter.",
+  "disp_fumble: (dropping the jar; it bounces; it's fine) SORRY. (it's fine) ...It's fine! Oh, I feel fine.",
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "disp_fumble"
+  }
+ ],
+ "p16.counter.bankworth_deposit.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "move": "bankworth",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "bankworth",
+   "dir": "down"
+  },
+  "bankworth: (at the window, formally) An opening deposit, Teller. Into the Grand Bank. Which is to say: me. It would be terribly bad form for a bank to open without one."
+ ],
+ "p16.counter.bankworth_deposit.after": [
+  "bankworth: (straightening his vault-door crown) Splendid. Solvent! We are OPEN.",
+  {
+   "move": "bankworth",
+   "to": [
+    14,
+    14
+   ]
+  },
+  {
+   "face": "bankworth",
+   "dir": "left"
+  }
+ ],
+ "p16.counter.credit_rottingham.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "spawn": "credit_rottingham",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "credit_rottingham",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "credit_rottingham",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "credit_rottingham: (slapping a sash on the counter that clanks) GRAND SASHBACK REWARDS. I'll have the BLACK card. Whatever's blacker than black.",
+  "captain[tired]: (holding the sash at arm's length) I have to smell it, sir. That's the... that's the procedure.",
+  "credit_rottingham: (proudly) Go on. It's been through three wars and a bean festival."
+ ],
+ "p16.counter.credit_rottingham.after": [
+  "credit_rottingham: (taking his card) Three wars, I said. THREE.",
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "credit_rottingham"
+  }
+ ],
+ "p16.counter.credit_mustyhem.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "spawn": "credit_mustyhem",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "credit_mustyhem",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "credit_mustyhem",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  "credit_mustyhem: (tiny, apologetic) I'm not sure my sash qualifies, dear. I wash it. Every Sunday. Is that... bad?",
+  "bankworth: (very gently, from behind you) It is a challenging profile, madam. The teller will do his best."
+ ],
+ "p16.counter.credit_mustyhem.after": [
+  "credit_mustyhem: (pleased anyway) Oh, I've never had a card before. Can I lick it?",
+  "captain: No.",
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 10
+  },
+  {
+   "sfx": "haze_dissolve",
+   "volume": 0.7
+  },
+  {
+   "despawn": "credit_mustyhem"
+  }
+ ],
+ "p16.counter.rancidella.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "spawn": "rancidella",
+   "x": 15,
+   "y": 13,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 15,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.7
+  },
+  {
+   "move": "rancidella",
+   "to": [
+    12,
+    13
+   ]
+  },
+  {
+   "face": "rancidella",
+   "dir": "down"
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.8
+  },
+  {
+   "sfx": "teller_bell",
+   "volume": 0.9
+  },
+  "rancidella: (sweeping in, enormous, a sash over one arm like a sleeping animal) LADY RANCIDELLA. For GRAND SASHBACK. And DON'T rush the sniff, young man. This sash has been in the family since the Morning of Many Winds.",
+  "bankworth: (delighted, under his breath) Oh, my word. Oh, she's PREMIUM."
+ ],
+ "p16.counter.rancidella.after": [
+  {
+   "insert": "rancidella_approval"
+  },
+  "rancidella: (snatching the card) FIFTY THOUSAND GRAND TOKENS. (turning, smiling a terrible smile) And where, pray, does one REDEEM them?",
+  "bankworth: (helpfully, before you can stop him) The converter, madam! Just beside the counter!",
+  "captain: NO. Wait. Madam, the converter...",
+  "rancidella: (already walking) ALL of them, I think. ALL AT ONCE.",
+  {
+   "move": "rancidella",
+   "to": [
+    10,
+    13
+   ]
+  },
+  {
+   "face": "rancidella",
+   "dir": "down"
+  }
+ ],
+ "p16.counter.hornet_eight.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "sfx": "hornet_buzz",
+   "volume": 0.6
+  },
+  "hornet_bzz: (a different hornet, landing on the bell) BZZ. BZBZ. (it presses APPLY NOW with its whole body)"
+ ],
+ "p16.counter.hornet_eight.after": [
+  {
+   "sfx": "credit_chime",
+   "volume": 0.7
+  },
+  "The terminal sniffs the strand of beard it's carrying. CREDIT SCORE: 999. APPROVED.",
+  "hornet_bzz: BZZZZ! (it flies straight to the converter)",
+  {
+   "addVar": "hornet_tokens",
+   "value": 50000
+  }
+ ],
+ "p16.counter.hornet_nine.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "sfx": "hornet_buzz",
+   "volume": 0.6
+  },
+  "Three of them at once, carrying one hair of your beard between them like a carpet."
+ ],
+ "p16.counter.hornet_nine.after": [
+  {
+   "sfx": "credit_chime",
+   "volume": 0.7
+  },
+  "APPROVED. APPROVED. APPROVED. The terminal is warm.",
+  "bankworth: (beaming) Volume, Captain! VOLUME!",
+  {
+   "addVar": "hornet_tokens",
+   "value": 50000
+  }
+ ],
+ "p16.counter.hornet_eleven.intro": [
+  {
+   "place": "player",
+   "x": 12,
+   "y": 15,
+   "facing": "up"
+  },
+  {
+   "sfx": "hornet_buzz",
+   "volume": 0.6
+  },
+  "One more. It has brought a little form. It has filled in the little form. Its handwriting is better than Garrick's."
+ ],
+ "p16.counter.hornet_eleven.after": [
+  {
+   "sfx": "credit_chime",
+   "volume": 0.7
+  },
+  "APPROVED. (PREFERRED.)",
+  "captain[tired]: (to the hornet) ...Don't spend it all at once.",
+  "hornet_bzz: BZZ. (it is going to spend it all at once)",
+  {
+   "addVar": "hornet_tokens",
+   "value": 50000
+  }
+ ],
+ "p16.counter_vault": [
+  {
+   "sfx": "vault_growl",
+   "volume": 0.4
+  },
+  "Into the slot behind the counter. Bankworth pats his crown, which is where the vault is now."
+ ]
+}

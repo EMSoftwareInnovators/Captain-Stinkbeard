@@ -1,0 +1,141 @@
+{
+ "//": "Story Phase 16: GRAND SASHBACK REWARDS and the GRAND CURRENCY CONVERTER, at the reconstituted Grand Bank. Not credit scoring: the fouler and more historically distinguished a customer's sash smells, the higher the score. Welcome bonuses are the customer's Grand Tokens, never the captain's, and the converter pays out in Coffin Sock: nothing here ever touches the purse, and nothing can be farmed.",
+ "sashback": {
+  "base": 470,
+  "min": 300,
+  "max": 999,
+  "scoreVar": "credit_last_score",
+  "classValue": "credit_last_class",
+  "sfx": "credit_chime",
+  "issuedVar": "sashback_tokens_issued",
+  "cardsVar": "sashback_cards",
+  "notes": [
+   {
+    "id": "top",
+    "prompt": "The top note (first sniff, at arm's length):",
+    "options": [
+     {
+      "text": "Old cellar. Distinguished.",
+      "points": 120
+     },
+     {
+      "text": "Boiled cabbage, vintage.",
+      "points": 90
+     },
+     {
+      "text": "Lavender? Is that... lavender?",
+      "points": 10,
+      "reply": [
+       "The bank's needle drops. A banker somewhere gasps."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "heart",
+    "prompt": "The heart (closer; hold your breath, then don't):",
+    "options": [
+     {
+      "text": "Beans. Ancestral beans.",
+      "points": 150
+     },
+     {
+      "text": "Wet dog in a library.",
+      "points": 110
+     },
+     {
+      "text": "Fresh linen.",
+      "points": 0,
+      "reply": [
+       "APPLICATION: CONCERNING."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "base",
+    "prompt": "The base (the bit that stays in your beard):",
+    "options": [
+     {
+      "text": "It's in my beard now. It's always been in my beard.",
+      "points": 160
+     },
+     {
+      "text": "Cheese that has made decisions.",
+      "points": 120
+     },
+     {
+      "text": "Nothing. Gone already.",
+      "points": 5
+     }
+    ]
+   }
+  ],
+  "classes": [
+   {
+    "min": 800,
+    "label": "RAUNCHY / EXCELLENT"
+   },
+   {
+    "min": 700,
+    "label": "PUNGENT / VERY GOOD"
+   },
+   {
+    "min": 600,
+    "label": "MUSTY / GOOD"
+   },
+   {
+    "min": 500,
+    "label": "WHIFFY / FAIR"
+   },
+   {
+    "min": 0,
+    "label": "FRESH / POOR"
+   }
+  ],
+  "bonuses": [
+   {
+    "min": 950,
+    "tokens": 250000
+   },
+   {
+    "min": 800,
+    "tokens": 50000
+   },
+   {
+    "min": 700,
+    "tokens": 20000
+   },
+   {
+    "min": 600,
+    "tokens": 5000
+   },
+   {
+    "min": 0,
+    "tokens": 500
+   }
+  ]
+ },
+ "converter": {
+  "convertedVar": "converter_tokens_converted",
+  "usesVar": "converter_uses",
+  "blastValue": "converter_last_blast",
+  "cappedValue": "converter_capped",
+  "policyFlag": "converter_air_quality_policy",
+  "policyLimit": 1000,
+  "blasts": [
+   {
+    "min": 1,
+    "level": "puff"
+   },
+   {
+    "min": 100,
+    "level": "blast"
+   },
+   {
+    "min": 5000,
+    "level": "catastrophe"
+   }
+  ]
+ }
+}

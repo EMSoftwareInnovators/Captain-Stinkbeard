@@ -1,0 +1,1124 @@
+{
+ "//": "Story Phase 16, chapters 186-189: the Grand Search for Fire (Operation Calm, the canopy, no light anywhere, the precedent), the Grand Lighter (Cheap-O-Rama out of the Sharkstorm, Cheapy's advert, thirty-two clicks, Vindicta), Coffin Sock (the green one on purpose: no), and the Stenchmaster Fart Zone (built, signed, roped, ruled).",
+ "p16.ready_hint": [
+  {
+   "setFlag": "p16_ready_hint"
+  },
+  "From the galley, Pete's voice, saying 'Captain' in the tone that means a meeting.",
+  {
+   "tutorial": "Go to the galley and see Pete.",
+   "title": "The Grand Lighter"
+  }
+ ],
+ "p16c1.begin": [
+  {
+   "setFlag": "p16_started"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 37
+  },
+  {
+   "banner": "CAPTAIN STINKBEARD",
+   "sub": "and the Grand Lighter"
+  },
+  {
+   "setFlag": "p16_ch186_started"
+  },
+  {
+   "banner": "CHAPTER 186",
+   "sub": "The Grand Search for Fire"
+  },
+  {
+   "music": "brogath_theme",
+   "fade": 600
+  },
+  "pete[tired]: (at the long table, head in his hands) Captain. It's been a day since Vindicta. Everybody's back to normal.",
+  "pete[tired]: Garrick's back to normal.",
+  "garrick: (bursting in from nowhere, in the full regalia, both crowns) GOOD MORNING, TEAM. I've had a bit of a think overnight and I can feel my ADMINISTRATIVE CAPACITY coming back. I'm going to set up a task force. On the task force.",
+  "pete[tired]: That's normal.",
+  "Somewhere aboard, Squawks is shouting at a bucket. Bob is counting the cannonballs out loud, for the third time today. Brogath is in the old quarters, sitting very upright, not flapping anything, in a terrible state about not flapping anything.",
+  "Agnes the Second is still out in the Sharkstorm, going round on a pillow. Nobody says her name. Brogath keeps looking at the porthole.",
+  "captain[determined]: Right. Everybody listen. As of now, CALM is an official shipboard objective.",
+  "pete: (lifting his head) ...Is it?",
+  "captain[determined]: It is. I've got the authority, I've got a hold full of Skunk Weed, and I've got my rules. The Emergency Mellowing Supply. Grown-ups only. A bowl of it smouldering under a canopy by Brogath, nice and slow, and this ship gets the green back.",
+  "garrick[delighted]: OPERATION CALM. Captain, I'll want a steering group. Possibly two. One to steer the other.",
+  "captain[determined]: No steering groups.",
+  {
+   "startQuest": "grand_search_for_fire"
+  },
+  {
+   "tutorial": "Announce Operation Calm: Pete, then Garrick (both here in the galley).",
+   "title": "The Grand Search for Fire"
+  }
+ ],
+ "p16c1.calm_pete": [
+  "pete: (sighing, getting up) A canopy. Over Brogath. With a smouldering bowl under it. Calm.",
+  "pete: You know what calm looks like on this ship, Captain? It looks like us carrying a fire into a room with a man made of cardboard in it.",
+  "captain[determined]: A SMALL fire. A LOOSE canopy. Not sealed. He's got to be able to breathe.",
+  "pete: (already heading for the ladder) I'll get the bucket.",
+  {
+   "setFlag": "p16_calm_pete"
+  },
+  {
+   "event": "p16_calm"
+  }
+ ],
+ "p16c1.calm_garrick": [
+  "garrick[businesslike]: Captain, before we go live on Calm, can I just flag that we've had no stakeholder engagement with the Skunk Weed?",
+  "captain[tired]: It's a plant, Garrick.",
+  "garrick[businesslike]: It's a KEY PARTNER, Captain. (lowering his voice) I'll be in the quarters. Leading. From the back.",
+  {
+   "setFlag": "p16_calm_garrick"
+  },
+  {
+   "event": "p16_calm"
+  }
+ ],
+ "p16c1.calm_done": [
+  {
+   "setFlag": "p16_calm_said"
+  },
+  {
+   "tutorial": "Clean sashes for the canopy: the Mega-Pack box in the Crew Quarters.",
+   "title": "The Grand Search for Fire"
+  }
+ ],
+ "p16c1.sashes": [
+  "The Fan Mega-Pack. Still half full of clean Cheap-O-Rama sashes in their plastic. HOLD MY SASH! HOLD MY SASH! HOLD MY SASH! You take an armful.",
+  "brogath[bashful]: (from his pad, very upright) Are those for me? Are those for my... canopy? I heard. Everybody heard. Pete said 'man made of cardboard' quite loudly.",
+  {
+   "setFlag": "p16_canopy_sashes"
+  },
+  {
+   "tutorial": "Rig the canopy over Brogath's Grand Pad: LOOSE, not sealed (the gold pad, Crew Quarters).",
+   "title": "The Grand Search for Fire"
+  }
+ ],
+ "p16c1.canopy": [
+  {
+   "if": {
+    "notFlag": "p16_canopy_sashes"
+   },
+   "then": [
+    "Sashes first: the Mega-Pack box.",
+    {
+     "end": true
+    }
+   ]
+  },
+  "Four poles, one at each corner of the Grand Pad. The sashes over the top.",
+  {
+   "choice": [
+    {
+     "text": "Tie them LOOSE. Let it breathe.",
+     "then": [
+      "You knot them loosely. They hang. They sway. When Brogath breathes out, the whole thing ripples like a jellyfish."
+     ]
+    },
+    {
+     "text": "Seal it up tight. Every gap.",
+     "then": [
+      "pete: (arriving with the bucket, and stopping dead) CAPTAIN. You sealed it.",
+      "pete: You've sealed a Grand Stenchmaster in a bag.",
+      "captain: ...Ah.",
+      "You untie it. You tie it loose. It hangs. It sways."
+     ]
+    }
+   ]
+  },
+  "brogath[pleased]: (sitting under it, looking up) It's like a little tent. A distinguished little tent.",
+  {
+   "stability": "calm",
+   "id": "distinguished",
+   "quiet": true
+  },
+  "The smudge bowl goes in the middle, on the floor in front of him, with a pinch of the Emergency Mellowing Supply in it. Grown-ups only. It sits there. It does not smoulder. Nothing has lit it.",
+  {
+   "setFlag": "brogath_fume_canopy_built"
+  },
+  {
+   "tutorial": "Talk to Pete (precautions), Garrick (stop the committee) and Brogath (check on him): all here in the Crew Quarters.",
+   "title": "The Grand Search for Fire"
+  }
+ ],
+ "p16c1.talk_pete": [
+  "pete: (counting on his fingers) Bucket of water: there. Second bucket: there. Third bucket, in case Garrick kicks over the first two: there.",
+  "pete: Portholes: open. Squawks: in the galley, under protest. The visitors: on their pad, under no protest at all.",
+  "captain: Good.",
+  "pete: It's not good, Captain. It's a plan. I'm making the best of it.",
+  {
+   "setFlag": "p16_talk_pete"
+  },
+  {
+   "event": "p16_canopy_talk"
+  }
+ ],
+ "p16c1.talk_garrick": [
+  "garrick[delighted]: (with a clipboard he has drawn himself) Captain! I've stood up a CANOPY OVERSIGHT COMMITTEE. Membership: me. Chair: me. Minutes: also me, but in a different voice.",
+  {
+   "choice": [
+    {
+     "text": "No committees.",
+     "then": [
+      "captain[determined]: No. Committees.",
+      "garrick[offended]: Then I'll form a working group to look INTO committees."
+     ]
+    },
+    {
+     "text": "You can be in charge of the bucket.",
+     "then": [
+      "garrick[delighted]: (seizing it) HEAD OF BUCKET. Captain, that's a C-suite position."
+     ]
+    }
+   ]
+  },
+  "garrick[businesslike]: (writing on the clipboard) Action item: the Captain is resistant to governance. I'll take that offline.",
+  {
+   "setFlag": "p16_talk_garrick"
+  },
+  {
+   "event": "p16_canopy_talk"
+  }
+ ],
+ "p16c1.talk_brogath": [
+  "brogath[bashful]: (under the canopy) It's very kind, Captain. Everybody going to so much trouble. About ME. Is everybody looking at me? They're all looking at me.",
+  {
+   "reassure": "general",
+   "var": "p16_canopy_ok"
+  },
+  "brogath[thoughtful]: (looking at the empty bowl) Only... Captain. What's it going to be lit WITH?",
+  {
+   "setFlag": "p16_talk_brogath"
+  },
+  {
+   "event": "p16_canopy_talk"
+  }
+ ],
+ "p16c1.talks_done": [
+  {
+   "setFlag": "p16_talks_said"
+  },
+  "Everybody turns and looks at the bowl. Then at each other. Then, for some reason, at you.",
+  "captain: Somebody's got a light. Somebody's always got a light.",
+  {
+   "tutorial": "Ask for a light: the visitors are on their pad (Crew Quarters).",
+   "title": "The Grand Search for Fire"
+  }
+ ],
+ "p16c1.ask_light": [
+  "visitor_one: (patting his pockets, slowly, all of them, twice) A light. Yeah. Totally. I've got a... no. That's a sock.",
+  "visitor_two: Bro, we had one. Bro. We had a lighter. It was in the boat. The SHARKS have the boat engine.",
+  "visitor_one: (gazing at the canopy) Whoa. A tent. For him. That's beautiful, man.",
+  "visitor_two: Ask the pirates, bro. Pirates have fire. It's like their whole thing. Cannons and stuff.",
+  "captain[tired]: (very quietly) The powder's soaked. The galley stove's been cold since Vindicta. Nobody's lit anything aboard for three days.",
+  "pete: (from the door) There'll be something. Somewhere. Tinderbox. Flint. A match. ANYTHING.",
+  {
+   "setFlag": "p16_no_light"
+  },
+  {
+   "tutorial": "Search the ship for fire: the desk (Captain's Quarters), the stove's box (galley), the footlocker (Crew Quarters), the big crate (the hold), Garrick's crate (galley), the rum barrel (on deck).",
+   "title": "The Grand Search for Fire"
+  }
+ ],
+ "p16c1.search_desk": [
+  "Your desk. The top drawer: a quill, a map with a coffee ring where the treasure should be, a tinderbox.",
+  "You open the tinderbox. Inside, folded very small, a note in Pete's hand: 'BORROWED FOR THE LANTERN. SORRY. -P.'",
+  {
+   "setFlag": "p16_fire_desk"
+  },
+  {
+   "event": "p16_fire_search"
+  }
+ ],
+ "p16c1.search_stove": [
+  "The box by the stove where Jim keeps the matches. Matches! Thirty of them!",
+  "Damp. Every one. You strike them anyway, one at a time, all thirty, with increasing feeling. The last one snaps and the head goes in your beard.",
+  {
+   "setFlag": "p16_fire_stove"
+  },
+  {
+   "event": "p16_fire_search"
+  }
+ ],
+ "p16c1.search_footlocker": [
+  "Gristle's footlocker. A flint and steel, wrapped in a sock. You strike it. A spark! Another! The sock catches, briefly, and you put it out on your own knee.",
+  "No more flint. The flint was the sock's.",
+  {
+   "setFlag": "p16_fire_footlocker"
+  },
+  {
+   "event": "p16_fire_search"
+  }
+ ],
+ "p16c1.search_crate": [
+  "The big crate in the hold, CEREMONIAL SUPPLIES (CHEAP-O-RAMA). Purple candles. Gold candles. A candle shaped like Garrick. Not a single thing to light any of them with.",
+  "On the bottom, a leaflet: 'CANDLES SOLD SEPARATELY FROM FIRE.'",
+  {
+   "setFlag": "p16_fire_crate"
+  },
+  {
+   "event": "p16_fire_search"
+  }
+ ],
+ "p16c1.search_garrick": [
+  "Garrick's crate, in the corner of the galley, labelled PERSONAL. ADMINISTRATIVE. DO NOT. Inside: eleven crowns, a bag of beans (confiscated, again), and a book of matches from somewhere called THE GRAND FLAMINGO.",
+  "Empty. Every match gone. On the inside of the cover, in Garrick's writing: 'USED FOR CEREMONIES.'",
+  {
+   "setFlag": "p16_fire_garrick"
+  },
+  {
+   "event": "p16_fire_search"
+  }
+ ],
+ "p16c1.search_barrel": [
+  "The rum barrel. You're not sure what you thought you'd find in a rum barrel. Rum. You find rum.",
+  "hale: (from the wheel) There's no fire in the rum, Captain. That's the one place there definitely shouldn't be.",
+  {
+   "setFlag": "p16_fire_barrel"
+  },
+  {
+   "event": "p16_fire_search"
+  }
+ ],
+ "p16c1.search_done": [
+  {
+   "setFlag": "p16_search_said"
+  },
+  "Six places. No fire. A whole pirate ship, and not a single dependable way of making one small flame.",
+  "garrick[delighted]: (appearing at your elbow with the lore book under his arm) Captain! There's PRECEDENT for this.",
+  {
+   "tutorial": "Hear the historical precedent (Garrick, with the lore book: Crew Quarters).",
+   "title": "The Grand Search for Fire"
+  }
+ ],
+ "p16c1.precedent": [
+  {
+   "if": {
+    "not": {
+     "flag": "p16_search_said"
+    }
+   },
+   "then": [
+    "garrick: Search the ship first, Captain. Precedent only works on people who've suffered.",
+    {
+     "end": true
+    }
+   ]
+  },
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  {
+   "vista": "galley_legend",
+   "fade": 500
+  },
+  {
+   "vistaFrame": "panel",
+   "frame": "leg_fire_search"
+  },
+  "garrick[businesslike]: (reading, with a lantern) THE GREAT SEARCH FOR FIRE. The year of the wet winter. An entire crew of Grand Stenchmasters turned their ship upside down for a single match.",
+  "garrick[businesslike]: Four days. They lifted every plank. They emptied the hold into the sea. They interviewed a goat.",
+  "captain: Where was it?",
+  "garrick[delighted]: In the captain's HAT. He'd been wearing it the entire time.",
+  "You take your hat off. You look in it. Nothing. A bit of match head from the galley.",
+  "garrick: The book says the moral is 'always check your hat'. I think the moral is 'buy a lighter', personally. But I'm not the book.",
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "completeQuest": "grand_search_for_fire"
+  },
+  {
+   "setFlag": "grand_search_for_fire_complete"
+  },
+  {
+   "call": "p16c2.begin"
+  }
+ ],
+ "p16c2.begin": [
+  {
+   "setFlag": "p16_ch187_started"
+  },
+  {
+   "banner": "CHAPTER 187",
+   "sub": "The Grand Lighter"
+  },
+  "captain[determined]: Right. Somebody, somewhere, sells lighters. And there's only one direction anything's ever come from lately.",
+  "pete[alarmed]: Captain, not the Sharkstorm.",
+  "captain[determined]: The Sharkstorm.",
+  {
+   "startQuest": "the_grand_lighter"
+  },
+  {
+   "tutorial": "Shout into the Sharkstorm for a light: any rail, on deck.",
+   "title": "The Grand Lighter"
+  }
+ ],
+ "p16c2.shout": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  "You lean out over the rail, cup your hands, and bellow into the storm, which is going round, as usual, full of sharks, as usual.",
+  "captain[determined]: (at the top of your lungs) HAS ANYBODY. GOT. A LIGHT.",
+  "A shark goes past on its back, looking at you. Then another. Then, from deep in the middle of the storm, faint and tinny, a JINGLE.",
+  {
+   "sfx": "cheapy_jingle",
+   "volume": 0.6
+  },
+  "hale: (at the wheel, very quietly) I didn't like that, Captain.",
+  {
+   "sfx": "bbk_tink",
+   "volume": 0.6
+  },
+  {
+   "shake": 1,
+   "duration": 400
+  },
+  "Something comes spinning out of the Sharkstorm on a tiny parachute, purple and gold, and lands on the deck behind you with a THOK.",
+  {
+   "setFlag": "p16_shouted"
+  },
+  {
+   "tutorial": "Catch what comes back: the parcel, on deck.",
+   "title": "The Grand Lighter"
+  }
+ ],
+ "p16c2.catch": [
+  "A parcel. Purple paper, gold string, CHEAP-O-RAMA stamped on every side. And a cardboard clown's face, grinning up at you: a lanky fellow in a bowler with the price tag still on.",
+  "Inside: a box. Inside the box: a smaller box. Inside THAT box:",
+  {
+   "insert": "lighter_box"
+  },
+  {
+   "giveItem": "grand_stenchmaster_lighter"
+  },
+  "It's purple. And gold. The plastic's printed slightly crooked, so the GRAND on the side reads GRAN D. It weighs nothing at all.",
+  {
+   "insert": "lighter_instructions"
+  },
+  "captain[tired]: 'Works sometimes.' Asterisk. 'Sometimes.'",
+  {
+   "setFlag": "grand_lighter_acquired"
+  },
+  {
+   "tutorial": "Try it: the canopy over the Grand Pad (Crew Quarters).",
+   "title": "The Grand Lighter"
+  }
+ ],
+ "p16c2.try": [
+  "Everybody's gathered round the canopy. Brogath, under it, has his eyes shut tight. Pete is holding the bucket. Garrick is holding the clipboard.",
+  "You hold the lighter over the bowl. You click it.",
+  {
+   "lighter": "grand_smokes",
+   "attempts": 3
+  },
+  "garrick[businesslike]: (writing) Click... click... click. Promising.",
+  "brogath[bashful]: (eyes still shut) Is it lit? Don't tell me. Tell me. Don't.",
+  "From the galley, through the deck, faint but unmistakable: the jingle again. And a voice. A tinny, delighted, terrible voice.",
+  {
+   "sfx": "cheapy_jingle",
+   "volume": 0.4
+  },
+  "jim: (shouting from the galley) CAPTAIN! The Mark II's come on by itself! There's a CLOWN on it!",
+  {
+   "setFlag": "p16_lighter_first_try"
+  },
+  {
+   "tutorial": "Somebody's switched the Mark II on: the galley.",
+   "title": "The Grand Lighter"
+  }
+ ],
+ "p16c2.ad": [
+  {
+   "face": "player",
+   "dir": "right"
+  },
+  {
+   "vista": "galley_watch",
+   "fade": 400
+  },
+  {
+   "music": "cheap_o_rama",
+   "fade": 300
+  },
+  {
+   "tvProgram": "cheapo_ads",
+   "episode": "grand_lighter",
+   "layer": "screen",
+   "tv": "ses_mk2"
+  },
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "music": "brogath_theme",
+   "fade": 400
+  },
+  "jim: (pointing at the dark screen) That was HIM. On the box. The clown.",
+  "pete: 'Works sometimes.' He SAID it, Captain. He said it out loud and grinned.",
+  "captain[determined]: Then it works SOMETIMES. All I need is one of the times.",
+  {
+   "setFlag": "p16_cheapy_ad_seen"
+  },
+  {
+   "tutorial": "Make it work: the canopy over the Grand Pad (Crew Quarters). Keep trying.",
+   "title": "The Grand Lighter"
+  }
+ ],
+ "p16c2.work": [
+  "You sit down beside the bowl. You hold up the lighter. Everybody leans in.",
+  "You click it. And you keep clicking it.",
+  {
+   "lighter": "grand_smokes",
+   "attempts": 32,
+   "until": "flame",
+   "montage": true
+  },
+  "The thirty-second click. A flame. A little, ordinary, steady flame. Everybody gasps. Pete nearly drops the bucket.",
+  "You lower it to the bowl. The Emergency Mellowing Supply catches, and a single green wisp curls up under the canopy, slow and lazy.",
+  "brogath[delighted]: (opening one eye, then the other) Oh. OH. That's the one. That's the green one. I can feel my sash loosening.",
+  {
+   "setFlag": "grand_lighter_working"
+  },
+  {
+   "sfx": "haze_form",
+   "volume": 0.8
+  },
+  {
+   "shake": 1,
+   "duration": 500
+  },
+  "And the wisp goes wrong. It thickens. It goes crimson at the edges. It pulls itself together into a shape: tall, crowned, furious, with her arms folded.",
+  {
+   "spawn": "vindicta",
+   "x": 14,
+   "y": 10,
+   "facing": "left"
+  },
+  {
+   "burst": "fume",
+   "x": 14,
+   "y": 10,
+   "count": 10
+  },
+  "vindicta: (looking down at the bowl) And what. Is. THIS.",
+  "captain[alarmed]: Vindicta.",
+  "vindicta: A CANOPY. For HIM. With a little SMOULDERING BOWL. And no queue.",
+  {
+   "sfx": "lighter_puff",
+   "volume": 0.8
+  },
+  "She bends down and blows on the bowl, once, very precisely, like somebody blowing out a birthday candle they didn't want to share. Out. The wisp's gone.",
+  {
+   "tutorial": "A visitor: Vindicta (Crew Quarters).",
+   "title": "The Grand Lighter"
+  }
+ ],
+ "p16c2.vindicta": [
+  {
+   "face": "vindicta",
+   "dir": "player"
+  },
+  "vindicta: Captain Stinkbeard. You KNOW me.",
+  "captain[tired]: You're the last customer. You wouldn't dissolve. You blew the Great Mellowing out of my ship.",
+  "vindicta: (lofty) I did you a SERVICE. And now I'm back, and I'm still unserved, and I have been holding something in for a WEEK, Captain. A week. Grand Stenchmistresses don't just... let go in a CORRIDOR.",
+  "brogath[alarmed]: (shrinking under the canopy) She means a really BIG one.",
+  "vindicta: (sweeping off towards the ladder) When I am READY, I shall require somewhere suitable. Somewhere PRIVATE. Somewhere with a DOOR. See to it.",
+  {
+   "burst": "fume",
+   "x": 14,
+   "y": 10,
+   "count": 10
+  },
+  {
+   "despawn": "vindicta"
+  },
+  "pete: (very quietly, holding his bucket) ...A week.",
+  {
+   "setFlag": "vindicta_returned"
+  },
+  {
+   "completeQuest": "the_grand_lighter"
+  },
+  {
+   "call": "p16c3.begin"
+  }
+ ],
+ "p16c3.begin": [
+  {
+   "setFlag": "p16_ch188_started"
+  },
+  {
+   "banner": "CHAPTER 188",
+   "sub": "Coffin Sock"
+  },
+  "brogath[thoughtful]: (under the canopy, very quietly, once everybody's gone) Captain.",
+  "brogath[thoughtful]: I've been thinking. The green one. In Chicken-Town. I did that. Didn't I? Me. Nobody lit anything.",
+  {
+   "startQuest": "coffin_sock"
+  },
+  {
+   "tutorial": "Hear Brogath out (under the canopy, Crew Quarters).",
+   "title": "Coffin Sock"
+  }
+ ],
+ "p16c3.idea": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "brogath[thoughtful]: If I did it once, I can do it again. On PURPOSE. The green one. No bowl, no lighter, no clown. Just me. I'll concentrate.",
+  "captain: Brogath, a Grand Stenchmaster fart isn't a menu. You've told me that. Everybody's told me that. The VISITORS have told me that.",
+  "brogath[bashful]: I know. I KNOW. But you want it so much, Captain. I can see you wanting it.",
+  "And the worst thing is: you do. You want the green one back so badly you can taste it. You can actually taste it. That might be the beard.",
+  {
+   "choice": [
+    {
+     "text": "All right. Try. Carefully.",
+     "then": [
+      "brogath[delighted]: (sitting up very straight) CAREFULLY. Yes."
+     ]
+    },
+    {
+     "text": "...I'm not going to stop you.",
+     "then": [
+      "brogath[delighted]: That's the same as yes! Isn't it? It's the same as yes."
+     ]
+    }
+   ]
+  },
+  {
+   "setFlag": "p16_green_idea"
+  },
+  {
+   "tutorial": "Get everybody ready: Pete, the visitors and Garrick (Crew Quarters).",
+   "title": "Coffin Sock"
+  }
+ ],
+ "p16c3.prep_pete": [
+  "pete: (handing out wet cloths) Over the nose. Over the MOUTH. Over the beard, Captain, especially the beard. Your beard's a liability.",
+  {
+   "setFlag": "p16_prep_pete"
+  },
+  {
+   "event": "p16_prep"
+  }
+ ],
+ "p16c3.prep_visitors": [
+  "visitor_one: (putting the wet cloth on his head, carefully, like a hat) We're ready, man. We're SO ready. The green one. On purpose.",
+  "visitor_two: Bro, if this works I'm getting it TATTOOED.",
+  {
+   "setFlag": "p16_prep_visitors"
+  },
+  {
+   "event": "p16_prep"
+  }
+ ],
+ "p16c3.prep_garrick": [
+  "garrick[businesslike]: (behind the barricade, the clipboard ready) I'll be capturing learnings, Captain. From a safe and strategic distance.",
+  {
+   "setFlag": "p16_prep_garrick"
+  },
+  {
+   "event": "p16_prep"
+  }
+ ],
+ "p16c3.prep_done": [
+  {
+   "setFlag": "p16_prep_said"
+  },
+  {
+   "tutorial": "Let him try (Brogath, under the canopy, Crew Quarters).",
+   "title": "Coffin Sock"
+  }
+ ],
+ "p16c3.attempt": [
+  {
+   "if": {
+    "notFlag": "p16_prep_said"
+   },
+   "then": [
+    "brogath[bashful]: Is everybody ready? Pete says everybody has to be ready.",
+    {
+     "end": true
+    }
+   ]
+  },
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  {
+   "stability": "meter",
+   "show": "show"
+  },
+  {
+   "stability": "set",
+   "pressure": 40
+  },
+  "brogath[thoughtful]: (eyes shut) Green. Green. Chicken-Town. Little houses. Everybody sitting down. GREEN.",
+  "Everybody holds their breath, behind their cloths. Brogath's printed cheeks go from pink to red to a colour cardboard isn't meant to go.",
+  "brogath[thoughtful]: (straining, very politely) Greeeeen...",
+  {
+   "stability": "set",
+   "pressure": 90
+  },
+  {
+   "sfx": "pressure_build",
+   "volume": 0.9
+  },
+  {
+   "shake": 2,
+   "duration": 800
+  },
+  "It comes out.",
+  {
+   "sfx": "coffin_sock",
+   "volume": 1.0
+  },
+  {
+   "shake": 3,
+   "duration": 1400
+  },
+  {
+   "flash": "#7a6c4a",
+   "duration": 300
+  },
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 9,
+   "count": 16
+  },
+  {
+   "atmosphere": "COFFIN_SOCK"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 38
+  },
+  {
+   "stability": "settle",
+   "pressure": 30
+  },
+  {
+   "stability": "recover",
+   "on": true
+  },
+  "It is not green.",
+  "It's the colour of a very old coat in a very old cupboard. It rolls out from under the canopy, low and slow and grey-yellow-brown, and it smells of...",
+  "Dust. Damp stone. A wardrobe nobody has opened since a funeral. Old beans, stored somewhere they shouldn't have been, for a long time, by somebody who's since passed on.",
+  "It smells like a sock that has been buried with someone.",
+  "visitor_one: (through his cloth, very quietly) ...Whoa. That's... that's a coffin, man.",
+  "visitor_two: (gagging) Bro. That's a SOCK. In a coffin. A COFFIN SOCK.",
+  "Everybody says it at once. COFFIN SOCK. It's named.",
+  {
+   "beard": "add",
+   "tag": "COFFIN_SOCK"
+  },
+  "And your beard takes it in, adds it to the collection, and settles, heavier than before.",
+  "brogath[mortified]: (very small) That's not the green one, is it.",
+  {
+   "stability": "trigger",
+   "id": "ordinary_stink",
+   "quiet": true
+  },
+  {
+   "reassure": "apology",
+   "var": "p16_cs_ok"
+  },
+  {
+   "stability": "meter",
+   "show": "hide"
+  },
+  {
+   "setFlag": "first_coffin_sock_failure"
+  },
+  {
+   "tutorial": "No classification committee (Garrick, Crew Quarters).",
+   "title": "Coffin Sock"
+  }
+ ],
+ "p16c3.committee": [
+  "garrick[delighted]: (emerging from behind the barricade with the clipboard, eyes streaming) Captain! I'm standing up a CLASSIFICATION COMMITTEE. We need a taxonomy. Coffin Sock, Coffin Sock Lite, Coffin Sock with Notes of...",
+  {
+   "choice": [
+    {
+     "text": "NO committee.",
+     "then": [
+      "captain[determined]: No. Committee.",
+      "garrick[offended]: (crossing it out) Very well. A sub-committee."
+     ]
+    },
+    {
+     "text": "Garrick, open a porthole.",
+     "then": [
+      "garrick[businesslike]: Delegating! Excellent leadership, Captain. (he does not open a porthole)"
+     ]
+    }
+   ]
+  },
+  "captain[determined]: Nobody classifies anything. We AIR. THE SHIP.",
+  {
+   "setFlag": "p16_cs_no_committee"
+  },
+  {
+   "tutorial": "Air the ship room by room: the porthole in the Crew Quarters, the galley porthole, the stern windows in the Captain's Quarters.",
+   "title": "Coffin Sock"
+  }
+ ],
+ "p16c3.vent_quarters": [
+  {
+   "sfx": "porthole_creak",
+   "volume": 0.8
+  },
+  "You haul the porthole open. Sea air comes in, and the Coffin Sock goes out, in a long grey sulk, the way a cat leaves a room.",
+  {
+   "atmosphere": "NORMAL",
+   "room": "crew_quarters"
+  },
+  {
+   "setFlag": "p16_vent_quarters"
+  },
+  {
+   "event": "p16_vent"
+  }
+ ],
+ "p16c3.vent_galley": [
+  {
+   "sfx": "porthole_creak",
+   "volume": 0.8
+  },
+  "The galley porthole. Stuck. You thump it. It opens. Jim, at the stove, takes his first breath in ten minutes and immediately cries.",
+  {
+   "atmosphere": "NORMAL",
+   "room": "galley"
+  },
+  {
+   "setFlag": "p16_vent_galley"
+  },
+  {
+   "event": "p16_vent"
+  }
+ ],
+ "p16c3.vent_cabin": [
+  {
+   "sfx": "porthole_creak",
+   "volume": 0.8
+  },
+  "Your stern windows. All of them, wide. The Coffin Sock had got into your wardrobe. Your good coat smells of an older, sadder coat.",
+  {
+   "atmosphere": "NORMAL",
+   "room": "captains_quarters"
+  },
+  {
+   "setFlag": "p16_vent_cabin"
+  },
+  {
+   "event": "p16_vent"
+  }
+ ],
+ "p16c3.vent_done": [
+  {
+   "setFlag": "p16_vent_said"
+  },
+  {
+   "atmosphere": "ORDINARY_STENCH",
+   "clearRooms": true
+  },
+  "The rest of the ship airs itself, slowly, grudgingly. Back to the ordinary stink. The ship has never been so glad of it.",
+  "And from up on deck: TINK. Something small and metal, out of the storm.",
+  {
+   "tutorial": "Something out of the Sharkstorm: the token on deck.",
+   "title": "Coffin Sock"
+  }
+ ],
+ "p16c3.bbk": [
+  {
+   "sfx": "bbk_tink",
+   "volume": 0.8
+  },
+  {
+   "insert": "bbk_coffin_sock"
+  },
+  "captain[tired]: He got it. In the STORM. The Bling Bling King got the Coffin Sock.",
+  "pete: (arriving on deck, still wearing his wet cloth) Captain. We can't keep doing this in the bedroom.",
+  "pete: He needs somewhere to go. Somewhere away from everybody. With a door. And windows that open to the SEA.",
+  "pete: And so does SHE. When she's ready. A week, she said.",
+  {
+   "setFlag": "p16_bbk_complaint"
+  },
+  {
+   "completeQuest": "coffin_sock"
+  },
+  {
+   "call": "p16c4.begin"
+  }
+ ],
+ "p16c4.begin": [
+  {
+   "setFlag": "p16_ch189_started"
+  },
+  {
+   "banner": "CHAPTER 189",
+   "sub": "The Stenchmaster Fart Zone"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 37
+  },
+  {
+   "stability": "recover",
+   "on": false
+  },
+  "pete: (pointing at the grating midships) The old sail locker. Under there. Nobody's been in it since the old sails went. It's got three portholes on the sea side. And a door.",
+  "captain[determined]: A room. For it. Away from everybody.",
+  "pete: A Fart Zone, Captain. Not the Fart-FREE Zone. The other one. The opposite one.",
+  {
+   "startQuest": "stenchmaster_fart_zone"
+  },
+  {
+   "tutorial": "Open up the old sail locker: the cargo grating, midships on deck.",
+   "title": "The Stenchmaster Fart Zone"
+  }
+ ],
+ "p16c4.find": [
+  {
+   "sfx": "wood_crack",
+   "volume": 0.7
+  },
+  "You get your fingers under the grating and heave. It comes up, hinges screaming, and below it: a ladder, going down into the dark, and a smell of old canvas and older seawater.",
+  {
+   "setFlag": "p16_fz_found"
+  },
+  {
+   "setValue": "fz_state",
+   "value": "IDLE"
+  },
+  {
+   "tutorial": "Go down the ladder: inside the old sail locker.",
+   "title": "The Stenchmaster Fart Zone"
+  }
+ ],
+ "p16c4.inspect": [
+  {
+   "setFlag": "p16_fz_inspected"
+  },
+  "The old sail locker. Long and low, a wooden room right under the deck, with three portholes along the sea side, all rusted shut. A heap of old sails. A spar. A great coil of cable. A door at the bottom of the ladder that has never, in living memory, been closed.",
+  "pete: (coming down behind you) It'll do. It'll have to.",
+  {
+   "tutorial": "Clear out the junk: the old sails, the spar, the cable (in here).",
+   "title": "The Stenchmaster Fart Zone"
+  }
+ ],
+ "p16c4.clear_sails": [
+  "The old sails, rolled up and dragged to the ladder. Under them: a nest of very surprised crabs, who leave, offended.",
+  {
+   "setFlag": "p16_fz_clear_sails"
+  },
+  {
+   "event": "p16_fz_clear"
+  }
+ ],
+ "p16c4.clear_spar": [
+  "The spar. You and Pete get an end each. It is heavier than it looks and longer than the room and you go up the ladder with it at an angle no ladder has ever seen.",
+  {
+   "setFlag": "p16_fz_clear_spar"
+  },
+  {
+   "event": "p16_fz_clear"
+  }
+ ],
+ "p16c4.clear_cable": [
+  "The cable. It's coiled. It remains coiled. You roll it to the ladder, and it unrolls behind you, all forty feet of it, and you roll it back.",
+  {
+   "setFlag": "p16_fz_clear_cable"
+  },
+  {
+   "event": "p16_fz_clear"
+  }
+ ],
+ "p16c4.clear_done": [
+  {
+   "setFlag": "p16_fz_clear_said"
+  },
+  "Empty. A bare plank floor, three portholes, a door. And a lot of space for one bad smell.",
+  {
+   "tutorial": "Signs on the wall (the chalk marks), the door frame (by the ladder), the three portholes (sea side): all in here.",
+   "title": "The Stenchmaster Fart Zone"
+  }
+ ],
+ "p16c4.sign_a": [
+  {
+   "insert": "fz_warning"
+  },
+  "You nail it up. Pete straightens it. Garrick, from the top of the ladder, says it should be bigger.",
+  {
+   "setFlag": "p16_fz_sign_a"
+  },
+  {
+   "event": "p16_fz_sign"
+  }
+ ],
+ "p16c4.sign_b": [
+  "The second sign, by the far end: the same, plus, underneath, in Pete's hand, NO, REALLY.",
+  {
+   "setFlag": "p16_fz_sign_b"
+  },
+  {
+   "event": "p16_fz_sign"
+  }
+ ],
+ "p16c4.door": [
+  "The door. Thick oak, iron hinges, a bar on the inside. You swing it shut. It closes with a deep, satisfied thump, like it has been waiting a hundred years to be asked.",
+  {
+   "sfx": "door",
+   "volume": 0.8
+  },
+  "You open it again. It's not time yet.",
+  {
+   "setFlag": "p16_fz_door_checked"
+  }
+ ],
+ "p16c4.porthole_1": [
+  {
+   "sfx": "porthole_creak",
+   "volume": 0.8
+  },
+  "The first porthole. Rusted. You lean on it. It gives with a crack and swings out over the sea.",
+  {
+   "setFlag": "p16_fz_porthole_1"
+  },
+  {
+   "event": "p16_fz_porthole"
+  }
+ ],
+ "p16c4.porthole_2": [
+  {
+   "sfx": "porthole_creak",
+   "volume": 0.8
+  },
+  "The middle porthole. A barnacle the size of a fist has grown over the latch. You ask it nicely. Then you ask it with a belaying pin.",
+  {
+   "setFlag": "p16_fz_porthole_2"
+  },
+  {
+   "event": "p16_fz_porthole"
+  }
+ ],
+ "p16c4.porthole_3": [
+  {
+   "sfx": "porthole_creak",
+   "volume": 0.8
+  },
+  "The far porthole. It opens on the first try, and you stand there, suspicious, for a while.",
+  {
+   "setFlag": "p16_fz_porthole_3"
+  },
+  {
+   "event": "p16_fz_porthole"
+  }
+ ],
+ "p16c4.observe": [
+  "A bench, at the far end, behind a rope on two posts. The observation point. You sit on it. It has a view of the whole room, and a clear line to the door.",
+  "pete: (sitting beside you) Spectators behind the rope. Always.",
+  {
+   "setFlag": "p16_fz_observe"
+  }
+ ],
+ "p16c4.queue": [
+  "A second rope, by the door: the queue. One Stenchmaster at a time. You stand in it, to see. It's a very short queue.",
+  {
+   "setFlag": "p16_fz_queue"
+  },
+  {
+   "setValue": "fz_queue",
+   "value": ""
+  }
+ ],
+ "p16c4.rules": [
+  {
+   "insert": "fz_rules"
+  },
+  "You pin it up on the board by the door. Number nine is underlined three times. Pete did that.",
+  {
+   "setFlag": "stenchmaster_fart_zone_rules_posted"
+  },
+  {
+   "logbook": "fart_zone_rules"
+  },
+  {
+   "tutorial": "Show Brogath and Garrick round (here in the Fart Zone).",
+   "title": "The Stenchmaster Fart Zone"
+  }
+ ],
+ "p16c4.orient_brogath": [
+  "brogath[thoughtful]: (looking round, very solemn) A room. For me. Away from everybody.",
+  "captain: For when you feel one coming. You come down here. Door shut. Portholes open. Out to sea.",
+  "brogath[pleased]: Door. Portholes. Sea. (nodding) I like a procedure. Nobody watching?",
+  "captain: Only from behind the rope.",
+  {
+   "stability": "calm",
+   "id": "zone_procedure"
+  },
+  {
+   "setFlag": "p16_fz_orient_brogath"
+  },
+  {
+   "event": "p16_fz_orient"
+  }
+ ],
+ "p16c4.orient_garrick": [
+  "garrick[delighted]: (reading the rules) 'Number five. No banking.' Captain, that's very restrictive.",
+  "captain[determined]: That's the point.",
+  "garrick[businesslike]: I'll want an office down here. Small. A desk. A plaque: HEAD OF RELEASES.",
+  "captain[determined]: No.",
+  {
+   "setFlag": "p16_fz_orient_garrick"
+  },
+  {
+   "event": "p16_fz_orient"
+  }
+ ],
+ "p16c4.orient_done": [
+  {
+   "setFlag": "p16_fz_orient_said"
+  },
+  "From up on deck, a crash, a gust, and a voice that could strip varnish.",
+  "vindicta: (from above) CAPTAIN STINKBEARD.",
+  {
+   "tutorial": "No exemptions: Vindicta, on deck by the grating.",
+   "title": "The Stenchmaster Fart Zone"
+  }
+ ],
+ "p16c4.vindicta": [
+  {
+   "face": "vindicta",
+   "dir": "player"
+  },
+  "vindicta: (looking down the hatch with enormous contempt) A HOLE. With ROPE.",
+  "captain: A designated release room. Door. Portholes. Rules. One at a time.",
+  "vindicta: (reading the board from up here, somehow) 'One Stenchmaster at a time.' And I suppose HE goes first.",
+  "captain[determined]: No exemptions. Anybody who needs it, uses it. You included. Especially you.",
+  "vindicta: (folding her arms) ...Hmph. When I am READY. Which will be SOON. And it will be the room's first real test, Captain.",
+  "vindicta: I'd get that door seen to.",
+  {
+   "setFlag": "stenchmaster_fart_zone_built"
+  },
+  {
+   "setValue": "fz_state",
+   "value": "IDLE"
+  },
+  {
+   "completeQuest": "stenchmaster_fart_zone"
+  },
+  {
+   "call": "p16c5.begin"
+  }
+ ]
+}
