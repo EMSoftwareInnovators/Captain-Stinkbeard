@@ -1,7 +1,7 @@
 {
  "id": "cargo_hold_phase16",
  "patch": "cargo_hold",
- "//": "Story Phase 16 in the hold: the big crate of ceremonial supplies (11,4: candles, no fire); the sacks in the far corner (18,10) in the search for the clucking; the bunker's sign by the Fart-Free Zone's door (12,3); the door locked to the captain (and the hornets in his beard) from Stingbeard until nightfall (198-200): Pete talks through it.",
+ "//": "Story Phase 16 in the hold: the big crate of ceremonial supplies (11,4: candles, no fire); the bilge pump (10,15) in the search for the clucking; the bunker's sign by the Fart-Free Zone's door (12,3); the door locked to the captain (and the hornets in his beard) from Stingbeard until nightfall (198-200): Pete talks through it.",
  "objects": [
   {
    "id": "p16_fire_crate",
@@ -24,8 +24,8 @@
   {
    "id": "p16_hen_hold",
    "type": "inspect",
-   "x": 18,
-   "y": 10,
+   "x": 10,
+   "y": 15,
    "if": {
     "all": [
      {
@@ -280,8 +280,8 @@
   },
   {
    "prop": "chalk_x",
-   "x": 18,
-   "y": 11,
+   "x": 11,
+   "y": 15,
    "if": {
     "all": [
      {
