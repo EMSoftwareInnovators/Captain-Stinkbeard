@@ -159,14 +159,21 @@ function converter() {
   return { frames, ms: 900 };
 }
 function creditTerminal() {
-  const c = canvas(16, 28);
-  groundShadow(c, 8, 26, 6, 1.5);
-  c.vline(8, 14, 25, IRON.m);
-  c.rect(2, 4, 12, 10, PURPLE.d); c.rect(3, 5, 10, 6, '#c8e0f0');
-  c.rect(4, 12, 8, 2, GOLD.m); // APPLY NOW
-  c.outline(INK);
-  return c;
+  // A little stand with a lit screen that blinks APPLY NOW (two calm frames): easy to pick out beside the converter.
+  const frames = [0, 1].map((f) => {
+    const c = canvas(16, 30);
+    groundShadow(c, 8, 28, 6, 1.5);
+    c.vline(8, 14, 27, IRON.m); c.hline(5, 11, 27, IRON.d);
+    c.rect(1, 2, 14, 13, PURPLE.d); c.strokeRect(1, 2, 14, 13, GOLD.m);
+    c.rect(3, 4, 10, 6, f ? '#f4dc6c' : '#c8e0f0');
+    c.hline(4, 11, 6, f ? RED : PURPLE.m); c.hline(5, 10, 8, f ? RED : PURPLE.m); // APPLY NOW
+    c.rect(4, 11, 8, 2, GOLD.l); // the big button
+    c.outline(INK);
+    return c;
+  });
+  return { frames, ms: 900 };
 }
+
 function speakingTube() {
   const c = canvas(16, 24);
   c.thickLine(8, 23, 8, 8, 2, GOLD.m);

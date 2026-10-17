@@ -1,7 +1,7 @@
 {
  "id": "crew_quarters_phase16",
  "patch": "crew_quarters",
- "//": "Story Phase 16 in the old quarters: Brogath's loose sash canopy over his spot by the bedroom set (9-11,7; Brogath at 10,7, Agnes pecking at 11,8 once she's back); the Mega-Pack (12,8); the footlocker (4,5); the porthole (2,3); the captain's pad (2,10); the Sash Lounge (its sign 5,3, bunting 9,3; the crew on the pads); THE COUNTER where the branch was (11-13,14; the bell 12,14; the teller's spot 12,15; the window 12,13): the Grand Dispensary, the Grand Bank, the Bureau; Bankworth beside it (14,14); the Grand Sashback terminal (7,13) and the Grand Currency Converter (7,14) by the barricade; the speaking tube (10,13).",
+ "//": "Story Phase 16 in the old quarters: Brogath's loose sash canopy over his spot by the bedroom set (9-11,7; Brogath at 10,7, Agnes pecking at 11,8 once she's back); the Mega-Pack (12,8); the footlocker (4,5); the porthole (2,3); the captain's pad (2,10); the Sash Lounge (its sign 5,3, bunting 9,3; the crew on the pads); THE COUNTER where the branch was (11-13,14; the bell 12,14; the teller's spot 12,15; the window 12,13): the Grand Dispensary, the Grand Bank, the Bureau; Bankworth beside it (14,14); the Grand Currency Converter (7,14) by the mast, left of the counter, and the Grand Sashback terminal beside it (6,13); the speaking tube (10,13).",
  "objects": [
   {
    "id": "p16_sashes",
@@ -281,7 +281,7 @@
   {
    "id": "p16_bzz_apply",
    "type": "inspect",
-   "x": 7,
+   "x": 6,
    "y": 13,
    "if": {
     "objectiveActive": "hornet_credit_boom.apply"
@@ -291,7 +291,7 @@
   {
    "id": "p16_bzz_approve",
    "type": "inspect",
-   "x": 7,
+   "x": 6,
    "y": 13,
    "if": {
     "objectiveActive": "hornet_credit_boom.approved"
@@ -462,7 +462,7 @@
   {
    "id": "p16_terminal_look",
    "type": "inspect",
-   "x": 7,
+   "x": 6,
    "y": 13,
    "if": {
     "flag": "bank_reconstituted"
@@ -5752,7 +5752,7 @@
   },
   {
    "prop": "credit_terminal",
-   "x": 7,
+   "x": 6,
    "y": 13,
    "if": {
     "flag": "bank_reconstituted"
