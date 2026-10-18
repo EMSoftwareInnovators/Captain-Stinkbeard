@@ -8221,5 +8221,850 @@
     "x": 12,
     "y": 13,
     "facing": "down"
+  },
+  {
+    "id": "p17_start",
+    "name": "Old Crew Memories",
+    "description": "A quiet night in the Fart-Free Zone. Brogath on the bedding with a slate and a pocket edition. Starts chapter 206 as you go in.",
+    "after": "p16_complete",
+    "map": "fart_free_zone",
+    "spawn": "door",
+    "facing": "up"
+  },
+  {
+    "id": "p17_cardboard",
+    "name": "Cardboard Construction",
+    "description": "Brogath has been busy on the north wall of the old quarters. Starts chapter 207.",
+    "after": "p17_start",
+    "flags": [
+      "brogath_old_crew_remembered",
+      "p17_ch206_started",
+      "p17_crew_elsie",
+      "p17_crew_jeb",
+      "p17_crew_ledger",
+      "p17_crew_ned",
+      "p17_crew_tilda",
+      "p17_memories_heard",
+      "p17_memories_said",
+      "p17_memory_book",
+      "p17_memory_sash",
+      "p17_memory_slate",
+      "p17_names_said",
+      "p17_pete_sympathy",
+      "p17_ready_hint",
+      "p17_started",
+      "p17_theory"
+    ],
+    "vars": {
+      "brogath_reassure_turn": 39,
+      "brogath_spot": 1,
+      "p4_tod": 42
+    },
+    "quests": {
+      "brogath_remembers": "completed"
+    },
+    "map": "fart_free_zone",
+    "x": 2,
+    "y": 5,
+    "facing": "down",
+    "script": "p17c2.begin"
+  },
+  {
+    "id": "p17_before_door",
+    "name": "Before the Door",
+    "description": "He's gone to the hold with two cut-outs and a plan. The treasure-room door. Starts chapter 208.",
+    "after": "p17_cardboard",
+    "flags": [
+      "ledger_cutout_created",
+      "other_old_crew_cutouts_prepared",
+      "p17_ch207_started",
+      "p17_cutout_elsie",
+      "p17_cutout_jeb",
+      "p17_cutout_ledger",
+      "p17_cutout_ned",
+      "p17_cutout_tilda",
+      "p17_cutouts_found",
+      "p17_cutouts_said",
+      "p17_door_warned",
+      "p17_eyebrows",
+      "p17_guard_asked",
+      "p17_race_galley",
+      "tilda_cutout_created"
+    ],
+    "vars": {
+      "brogath_spot": 0
+    },
+    "quests": {
+      "the_cardboard_crew": {
+        "done": [
+          "cutouts",
+          "door",
+          "eyebrows",
+          "find",
+          "guard"
+        ]
+      }
+    },
+    "map": "cargo_hold",
+    "x": 14,
+    "y": 4,
+    "facing": "down",
+    "script": "p17c3.begin"
+  },
+  {
+    "id": "p17_resurrection",
+    "name": "Ledger and Tilda Return (mid-208)",
+    "description": "The door's nailed shut again. A piece of it got out. Turn round.",
+    "after": "p17_before_door",
+    "flags": [
+      "p17_ch208_started",
+      "p17_door_cracked",
+      "p17_door_resealed"
+    ],
+    "values": {
+      "treasure_room_state": "sealed_reinforced"
+    },
+    "quests": {
+      "the_cardboard_crew": "completed",
+      "the_forbidden_door": {
+        "done": [
+          "shut",
+          "stop"
+        ]
+      }
+    },
+    "map": "cargo_hold",
+    "x": 4,
+    "y": 5,
+    "facing": "down"
+  },
+  {
+    "id": "p17_reunion",
+    "name": "The Reunion",
+    "description": "Two cut-outs with somebody in them. Starts chapter 209.",
+    "after": "p17_resurrection",
+    "flags": [
+      "ledger_billiam_reincarnated",
+      "tilda_reincarnated"
+    ],
+    "values": {
+      "ledger_status": "reincarnated_cardboard",
+      "tilda_status": "reincarnated_cardboard"
+    },
+    "quests": {
+      "the_forbidden_door": "completed"
+    },
+    "map": "cargo_hold",
+    "x": 2,
+    "y": 4,
+    "facing": "down",
+    "script": "p17c4.begin"
+  },
+  {
+    "id": "p17_financial_review",
+    "name": "Ledger's Financial Review",
+    "description": "Ledger and Tilda in the party. Adult supervision. Starts chapter 210.",
+    "after": "p17_reunion",
+    "flags": [
+      "ledger_party_unlocked",
+      "old_crew_reunion_completed",
+      "p17_ch209_started",
+      "p17_ledger_woke",
+      "p17_tilda_woke",
+      "tilda_party_unlocked"
+    ],
+    "quests": {
+      "the_ancient_reunion": "completed"
+    },
+    "party": [
+      "ledger",
+      "tilda"
+    ],
+    "map": "cargo_hold",
+    "x": 5,
+    "y": 5,
+    "facing": "down",
+    "script": "p17c5.begin"
+  },
+  {
+    "id": "p17_tilda_application",
+    "name": "Tilda's Application",
+    "description": "Tilda wants a light. The Bureau of Ceremonial Ignition, 97 pages. Starts chapter 211.",
+    "after": "p17_financial_review",
+    "flags": [
+      "ledger_accounting_introduced",
+      "p17_barrel_rail",
+      "p17_barrel_wheel",
+      "p17_barrels_said",
+      "p17_ch210_started",
+      "p17_entries_said",
+      "p17_entry_assets",
+      "p17_entry_currency",
+      "p17_entry_storm",
+      "p17_geniuses",
+      "p17_orders_bob",
+      "p17_orders_gristle",
+      "p17_orders_said",
+      "p17_roster_fixed",
+      "tilda_command_conflict_resolved"
+    ],
+    "vars": {
+      "brogath_spot": 1,
+      "p4_tod": 0
+    },
+    "quests": {
+      "the_geniuses": "completed"
+    },
+    "map": "main_deck",
+    "x": 10,
+    "y": 7,
+    "facing": "down",
+    "script": "p17c6.begin"
+  },
+  {
+    "id": "p17_documentary",
+    "name": "Old Crew Documentary",
+    "description": "THE CREW HE LEFT BEHIND on the Mark II. Starts chapter 212.",
+    "after": "p17_tilda_application",
+    "flags": [
+      "p17_ch211_started",
+      "p17_lighter_refused",
+      "p17_permit_issued",
+      "p17_tilda_at_bureau",
+      "p17_tilda_form_agnes",
+      "p17_tilda_form_flammable",
+      "p17_tilda_no_lungs",
+      "p17_tilda_provider_brogath",
+      "tilda_ignition_application_approved"
+    ],
+    "vars": {
+      "lighter_clicks": 47,
+      "tig_beans": 0,
+      "tig_chicken": 0,
+      "tig_composition": 0,
+      "tig_emergency": 0,
+      "tig_eyebrows": 0,
+      "tig_fire": 0,
+      "tig_incidents": 0,
+      "tig_intensity": 0,
+      "tig_lungs": 0,
+      "tig_name": 0,
+      "tig_provider": 0,
+      "tig_sign": 0,
+      "tilda_page": 97
+    },
+    "quests": {
+      "tilda_application": "completed"
+    },
+    "items": [
+      "tilda_ignition_permit"
+    ],
+    "map": "crew_quarters",
+    "x": 12,
+    "y": 15,
+    "facing": "down",
+    "script": "p17c7.begin"
+  },
+  {
+    "id": "p17_greyhook",
+    "name": "The Greyhook Proposal",
+    "description": "Ledger remembers where his books are. Tilda takes the wheel. Starts chapter 213.",
+    "after": "p17_documentary",
+    "flags": [
+      "old_crew_documentary_viewed",
+      "p17_ch212_started",
+      "p17_doc_after",
+      "p17_doc_on"
+    ],
+    "vars": {
+      "brogath_spot": 2,
+      "p4_tod": 42
+    },
+    "quests": {
+      "old_crew_documentary": "completed"
+    },
+    "map": "galley",
+    "x": 13,
+    "y": 7,
+    "facing": "down",
+    "script": "p17c8.begin"
+  },
+  {
+    "id": "p17_converter",
+    "name": "The Converter Incident",
+    "description": "Ledger has found a token. The converter is by the mast. Starts chapter 214.",
+    "after": "p17_greyhook",
+    "flags": [
+      "greyhook_expedition_blocked",
+      "greyhook_expedition_proposed",
+      "p17_ch213_started",
+      "p17_cm_bob",
+      "p17_cm_gristle",
+      "p17_countermand_said",
+      "p17_helm_log",
+      "p17_helm_pete",
+      "p17_helm_resolved",
+      "p17_tilda_helm",
+      "p17_wheel_secured"
+    ],
+    "vars": {
+      "p4_tod": 0
+    },
+    "values": {
+      "greyhook_expedition": "blocked"
+    },
+    "quests": {
+      "great_ledger_proposal": "completed",
+      "the_great_ledger_expedition": "active"
+    },
+    "map": "main_deck",
+    "x": 10,
+    "y": 7,
+    "facing": "down",
+    "script": "p17c9.begin"
+  },
+  {
+    "id": "p17_bbk_special",
+    "name": "The Late-Night Special",
+    "description": "MEET THE NEW DEAD IDIOTS! Interruptions fail. Starts chapter 215.",
+    "after": "p17_converter",
+    "flags": [
+      "captain_minutes_invented",
+      "ledger_converter_incident_complete",
+      "p17_ch214_started",
+      "p17_conversions_banned",
+      "p17_ledger_token",
+      "p17_research_given"
+    ],
+    "vars": {
+      "captain_minutes": 4,
+      "converter_tokens_converted": 251002,
+      "converter_uses": 4,
+      "ledger_tokens": 0
+    },
+    "values": {
+      "converter_last_blast": "puff",
+      "converter_state": "banned"
+    },
+    "quests": {
+      "captain_minutes": "completed"
+    },
+    "items": [
+      "ledger_research"
+    ],
+    "party": [
+      {
+        "id": "ledger",
+        "learn": [
+          "captain_minutes"
+        ]
+      }
+    ],
+    "map": "crew_quarters",
+    "x": 8,
+    "y": 15,
+    "facing": "down",
+    "script": "p17c10.begin"
+  },
+  {
+    "id": "p17_ignition_prep",
+    "name": "Tilda's Ignition Preparation",
+    "description": "The permit, the points, the conditions, the prep. Starts chapter 216.",
+    "after": "p17_bbk_special",
+    "flags": [
+      "bbk_late_night_special_viewed",
+      "p17_ch215_started",
+      "p17_special_on"
+    ],
+    "vars": {
+      "brogath_spot": 0,
+      "p4_tod": 40
+    },
+    "quests": {
+      "new_dead_idiots": "completed"
+    },
+    "map": "galley",
+    "x": 15,
+    "y": 7,
+    "facing": "down",
+    "script": "p17c11.begin"
+  },
+  {
+    "id": "p17_grand_restraint",
+    "name": "The Grand Restraint (mid-216)",
+    "description": "Portholes open, Agnes far away, Pete with buckets. Behind the rope in the Fart Zone.",
+    "after": "p17_ignition_prep",
+    "flags": [
+      "p17_ch216_started",
+      "p17_permit_produced",
+      "p17_point_card",
+      "p17_point_fire",
+      "p17_point_lungs",
+      "p17_points_said",
+      "p17_prep_agnes",
+      "p17_prep_bucket",
+      "p17_prep_portholes",
+      "p17_prep_said",
+      "p17_safety_conditions",
+      "tilda_admits_comfort"
+    ],
+    "vars": {
+      "p4_tod": 0
+    },
+    "quests": {
+      "grand_restraint": {
+        "done": [
+          "conditions",
+          "permit",
+          "points",
+          "prep"
+        ]
+      }
+    },
+    "map": "stenchmaster_fart_zone",
+    "x": 9,
+    "y": 6,
+    "facing": "down"
+  },
+  {
+    "id": "p17_fire_sharkstorm",
+    "name": "The Fire-Sharkstorm",
+    "description": "A shark hits the hull. A Fire-Waft. The storm overhead catches fire (for a while). Starts chapter 217.",
+    "after": "p17_grand_restraint",
+    "flags": [
+      "p17_prec_sash",
+      "p17_prec_tilda",
+      "tilda_grand_restraint_started"
+    ],
+    "vars": {
+      "brogath_pressure": 80,
+      "restraint_precautions": 2
+    },
+    "values": {
+      "brogath_meter": "show",
+      "fz_door": "closed",
+      "fz_occupant": "brogath",
+      "fz_state": "PREPARING"
+    },
+    "quests": {
+      "grand_restraint": "completed"
+    },
+    "map": "stenchmaster_fart_zone",
+    "x": 12,
+    "y": 8,
+    "facing": "down",
+    "script": "p17c12.begin"
+  },
+  {
+    "id": "p17_chicken_town",
+    "name": "Chicken-Town Again (mid-217)",
+    "description": "You've got Agnes under your coat. The Fart Zone, across the burning deck.",
+    "after": "p17_fire_sharkstorm",
+    "flags": [
+      "fire_sharkstorm_occurred",
+      "fz_done_tilda_fire_waft",
+      "p17_agnes_fetched",
+      "p17_carrying_agnes",
+      "p17_ch217_started",
+      "tilda_cardboard_singed"
+    ],
+    "vars": {
+      "brogath_pressure": 88,
+      "brogath_spot": 1,
+      "fz_damage": 4,
+      "fz_releases": 3,
+      "great_sharkstorm_flare_rooms": 10,
+      "p4_tod": 43
+    },
+    "values": {
+      "fz_state": "RELEASING",
+      "great_sharkstorm_flare": "fire_sharkstorm",
+      "room_atmosphere_stenchmaster_fart_zone": "FIRE_WAFT",
+      "tilda_condition": "singed"
+    },
+    "quests": {
+      "fire_sharkstorm": {
+        "done": [
+          "agnes"
+        ]
+      }
+    },
+    "map": "fart_free_zone",
+    "x": 2,
+    "y": 4,
+    "facing": "down"
+  },
+  {
+    "id": "p17_thunderbottom",
+    "name": "Thunderbottom Arrives",
+    "description": "Somebody rings the bell at the counter. Starts chapter 218.",
+    "after": "p17_chicken_town",
+    "flags": [
+      "brogath_recovering",
+      "chicken_town_second_mellowing",
+      "p17_fire_deck_seen",
+      "p17_inhale_failed",
+      "p17_mellow_brogath",
+      "p17_mellow_end",
+      "p17_mellow_garrick",
+      "p17_mellow_jim",
+      "p17_mellow_ledger",
+      "p17_mellow_pete",
+      "p17_mellow_said",
+      "p17_mellow_tilda",
+      "p17_mellow_visitors",
+      "tilda_cigarette_lit"
+    ],
+    "clearFlags": [
+      "p17_carrying_agnes"
+    ],
+    "vars": {
+      "brogath_pressure": 10,
+      "brogath_spot": 0,
+      "great_sharkstorm_flare_rooms": 0,
+      "p4_tod": 44
+    },
+    "values": {
+      "brogath_meter": null,
+      "brogath_state": "RECOVERING",
+      "fz_door": "open",
+      "fz_occupant": null,
+      "fz_state": "COMPLETE",
+      "great_sharkstorm_flare": null,
+      "room_atmosphere_stenchmaster_fart_zone": null
+    },
+    "quests": {
+      "fire_sharkstorm": "completed"
+    },
+    "map": "main_deck",
+    "x": 15,
+    "y": 13,
+    "facing": "down",
+    "script": "p17c13.begin"
+  },
+  {
+    "id": "p17_tb_threat",
+    "name": "Thunderbottom and Agnes (mid-218)",
+    "description": "Lord Vaporious Thunderbottom the Seventh has seen the chicken. Stand between them.",
+    "after": "p17_thunderbottom",
+    "flags": [
+      "p17_ch218_started",
+      "thunderbottom_arrived",
+      "thunderbottom_threatened_agnes"
+    ],
+    "values": {
+      "thunderbottom_state": "at_bureau"
+    },
+    "quests": {
+      "thunderbottom": {
+        "done": [
+          "bell",
+          "serve"
+        ]
+      }
+    },
+    "map": "crew_quarters",
+    "x": 11,
+    "y": 13,
+    "facing": "down"
+  },
+  {
+    "id": "p17_agnes_fart_zone",
+    "name": "Agnes in the Fart Zone",
+    "description": "The cushion's empty. TEN. NINE. Starts chapter 219.",
+    "after": "p17_tb_threat",
+    "flags": [
+      "p17_agnes_in_ffz",
+      "p17_agnes_led_away",
+      "p17_please",
+      "p17_tb_complaints",
+      "p17_tb_deck_seen",
+      "p17_tb_forms",
+      "p17_tb_insults",
+      "p17_tb_overtime",
+      "p17_tb_stood",
+      "p17_tb_title"
+    ],
+    "vars": {
+      "brogath_spot": 1,
+      "tb_offers": 5
+    },
+    "values": {
+      "fz_door": "closed",
+      "fz_occupant": "thunderbottom",
+      "fz_state": "PREPARING",
+      "thunderbottom_state": "fart_zone"
+    },
+    "quests": {
+      "thunderbottom": "completed"
+    },
+    "map": "fart_free_zone",
+    "x": 2,
+    "y": 4,
+    "facing": "down",
+    "script": "p17c14.begin"
+  },
+  {
+    "id": "p17_rescued",
+    "name": "After the Rescue (mid-219)",
+    "description": "Out, with her. Agnes on deck, fewer feathers than she had.",
+    "after": "p17_agnes_fart_zone",
+    "flags": [
+      "agnes_thunderbottom_rescue_complete",
+      "beard_thunderbottom_legendary",
+      "fz_done_thunderbottom_grand",
+      "p17_ch219_started",
+      "thunderbottom_departed",
+      "thunderbottom_fart_zone_started"
+    ],
+    "vars": {
+      "brogath_spot": 2,
+      "fz_damage": 6,
+      "fz_releases": 4
+    },
+    "values": {
+      "fz_door": "open",
+      "fz_occupant": null,
+      "fz_state": "COMPLETE",
+      "thunderbottom_state": "departed"
+    },
+    "quests": {
+      "grand_fart_chamber": {
+        "done": [
+          "approach",
+          "rescue"
+        ]
+      }
+    },
+    "map": "main_deck",
+    "x": 8,
+    "y": 17,
+    "facing": "down"
+  },
+  {
+    "id": "p17_beard_aftermath",
+    "name": "The Beard Exhales",
+    "description": "Your beard has taken in a legendary release. Starts chapter 220.",
+    "after": "p17_rescued",
+    "flags": [
+      "agnes_post_rescue_condition"
+    ],
+    "values": {
+      "agnes_condition": "frazzled"
+    },
+    "quests": {
+      "grand_fart_chamber": "completed"
+    },
+    "map": "main_deck",
+    "x": 7,
+    "y": 17,
+    "facing": "down",
+    "script": "p17c15.begin"
+  },
+  {
+    "id": "p17_coffin_brewing",
+    "name": "Coffin Sock: Pending (mid-220)",
+    "description": "Brogath has noticed something. COFFIN SOCK EVENT: PENDING. Emergency procedures.",
+    "after": "p17_beard_aftermath",
+    "flags": [
+      "beard_puffing",
+      "brogath_coffin_sock_brewing",
+      "p17_ch220_started",
+      "p17_first_puff"
+    ],
+    "vars": {
+      "brogath_pressure": 45,
+      "coffin_sock_countdown": 5
+    },
+    "values": {
+      "brogath_meter": "show",
+      "brogath_pending": "COFFIN_SOCK"
+    },
+    "quests": {
+      "beard_exhales": {
+        "done": [
+          "brogath",
+          "puff"
+        ]
+      }
+    },
+    "map": "crew_quarters",
+    "x": 10,
+    "y": 8,
+    "facing": "down"
+  },
+  {
+    "id": "p17_beard_joint",
+    "name": "The Beard Joint",
+    "description": "Garrick, behind a sash screen, with scissors. Starts chapter 221.",
+    "after": "p17_coffin_brewing",
+    "flags": [
+      "p17_proc_agnes",
+      "p17_proc_board",
+      "p17_proc_ledger",
+      "p17_proc_said",
+      "p17_proc_tilda"
+    ],
+    "vars": {
+      "brogath_pressure": 37,
+      "coffin_sock_countdown": 2
+    },
+    "quests": {
+      "beard_exhales": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 9,
+    "y": 11,
+    "facing": "down",
+    "script": "p17c16.begin"
+  },
+  {
+    "id": "p17_frog_grog",
+    "name": "Frog Grog (mid-221)",
+    "description": "Something wrong with everybody's faces. Garrick has an improvement.",
+    "after": "p17_beard_joint",
+    "flags": [
+      "garrick_beard_joint_experiment",
+      "p17_beard_joint_vision",
+      "p17_ch221_started",
+      "p17_vision_gristle",
+      "p17_vision_pete",
+      "p17_vision_said"
+    ],
+    "quests": {
+      "beard_joint": {
+        "done": [
+          "scissors",
+          "vision"
+        ]
+      }
+    },
+    "map": "crew_quarters",
+    "x": 3,
+    "y": 7,
+    "facing": "down"
+  },
+  {
+    "id": "p17_paranoia",
+    "name": "The Grand Paranoia Spiral (mid-221)",
+    "description": "Who's in on it? Five suspects, two layers, clues.",
+    "after": "p17_frog_grog",
+    "flags": [
+      "beard_frog_grog_fumes",
+      "frog_grog_beard_exposure",
+      "p17_grand_paranoia",
+      "stinkbeard_paranoia_active"
+    ],
+    "clearFlags": [
+      "p17_beard_joint_vision"
+    ],
+    "values": {
+      "room_atmosphere_crew_quarters": "FROG_GROG_FUMES"
+    },
+    "quests": {
+      "beard_joint": {
+        "done": [
+          "grog",
+          "scissors",
+          "vision"
+        ]
+      }
+    },
+    "map": "crew_quarters",
+    "x": 13,
+    "y": 6,
+    "facing": "down"
+  },
+  {
+    "id": "p17_stenchalina",
+    "name": "Princess Stenchalina",
+    "description": "HER. (It's Jim.) Starts chapter 222.",
+    "after": "p17_paranoia",
+    "flags": [
+      "p17_spiral_said",
+      "p17_suspect_brogath",
+      "p17_suspect_garrick",
+      "p17_suspect_ledger",
+      "p17_suspect_pete",
+      "p17_suspect_tilda"
+    ],
+    "vars": {
+      "brogath_pressure": 47,
+      "coffin_sock_countdown": -3
+    },
+    "quests": {
+      "beard_joint": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 1,
+    "y": 7,
+    "facing": "down",
+    "script": "p17c17.begin"
+  },
+  {
+    "id": "p17_coffin_release",
+    "name": "The Coffin Sock (mid-222)",
+    "description": "The countdown's at the end. ...Brogath?",
+    "after": "p17_stenchalina",
+    "flags": [
+      "p17_ch222_started",
+      "princess_stenchalina_delusion"
+    ],
+    "vars": {
+      "brogath_pressure": 97,
+      "coffin_sock_countdown": -9
+    },
+    "quests": {
+      "coffin_sock_catastrophe": {
+        "done": [
+          "princess"
+        ]
+      }
+    },
+    "map": "crew_quarters",
+    "x": 3,
+    "y": 10,
+    "facing": "down"
+  },
+  {
+    "id": "p17_complete",
+    "name": "Phase 17 Complete",
+    "description": "Partly recovered. Brogath proud. Everyone furious. Ledger and Tilda aboard; Greyhook Cove pending; the Sharkstorm still going round.",
+    "after": "p17_coffin_release",
+    "flags": [
+      "beard_coffin_sock_catastrophe",
+      "major_coffin_sock_release_complete",
+      "p17_after_brogath",
+      "p17_after_ledger",
+      "p17_after_pete",
+      "p17_after_said",
+      "p17_complete",
+      "p17_paranoia_broken",
+      "stinkbeard_paranoia_residue"
+    ],
+    "clearFlags": [
+      "brogath_recovering",
+      "p17_grand_paranoia"
+    ],
+    "vars": {
+      "brogath_pressure": 0,
+      "coffin_sock_countdown": 0,
+      "p4_tod": 45
+    },
+    "values": {
+      "brogath_meter": null,
+      "brogath_pending": null,
+      "brogath_state": "CALM",
+      "room_atmosphere_crew_quarters": null,
+      "ses_portable_state": "no_signal",
+      "ship_atmosphere": "COFFIN_SOCK"
+    },
+    "quests": {
+      "coffin_sock_catastrophe": "completed"
+    },
+    "map": "crew_quarters",
+    "x": 10,
+    "y": 8,
+    "facing": "down"
   }
 ]

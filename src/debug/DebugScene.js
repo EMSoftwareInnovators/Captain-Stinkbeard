@@ -11,10 +11,11 @@ import { stabilitySubject, bankDef } from '../systems/script/commands.js';
 import { DEBUG_BROGATH } from './brogathDebug.js';
 import { DEBUG_MELLOWING } from './mellowingDebug.js';
 import { DEBUG_LIGHTER } from './lighterDebug.js';
+import { DEBUG_CREW } from './crewDebug.js';
 import { ATMOSPHERE_STATES, atmosphereId } from '../systems/atmosphere.js';
 import { roomGuard } from '../world/placements.js';
 
-const TABS = ['Info', 'Story', 'Warp', 'Flags', 'Quests', 'Items', 'Party', 'Battle', 'Brogath', 'Mellow', 'Lighter', 'Tools'];
+const TABS = ['Info', 'Story', 'Warp', 'Flags', 'Quests', 'Items', 'Party', 'Battle', 'Brogath', 'Mellow', 'Lighter', 'Crew', 'Tools'];
 const GAMEPLAY_SCENES = ['Title', 'World', 'Battle', 'Menu', 'GameOver', 'Overlay'];
 
 /**
@@ -493,6 +494,39 @@ export class DebugScene extends BaseScene {
           this.runInWorld([{ bank: 'next', bankId: 'grand_counter', queue: qid }]);
         },
       }))) });
+    }
+    return out;
+  }
+
+  /** Story Phase 17: the old crew (see crewDebug.js). */
+  itemsCrew() {
+    const s = this.app.session;
+    const content = this.app.content;
+    if (!content.characters?.get?.('ledger')) return [{ label: '<k>No Phase 17 content</>' }];
+    const out = [];
+    const presets = content.debugPresets;
+    for (const [label, id] of DEBUG_CREW.jumps) {
+      out.push({ label: `Jump: ${label}`, right: presets.has(id) ? id : '<r>missing</>', action: () => {
+        if (!presets.has(id)) return this.flash(`No preset ${id}`);
+        this.close();
+        startPreset(this.game, id);
+        return null;
+      } });
+    }
+    if (!s) return [...out, { label: '<k>Start a game for the rest</>' }];
+    out.push({ label: 'Party', right: s.party.members.map((m) => m.id).join(' ') });
+    out.push({ label: 'Storm', right: `${s.story.getValue('great_sharkstorm') ?? '-'} ${s.story.getValue('great_sharkstorm_flare') ?? ''}` });
+    out.push({ label: 'Coffin Sock', right: `${s.story.getValue('brogath_pending') ?? '-'} ${s.story.getVar('coffin_sock_countdown', 0)}` });
+    out.push({ label: 'Captain Minutes', right: `${s.story.getVar('captain_minutes', 0)}` });
+    for (const [label, steps] of DEBUG_CREW.scenes) {
+      out.push({ label, action: () => {
+        if (steps === 'room_fire') {
+          const map = this.world?.model?.id;
+          if (!map) return this.flash('Needs the world map.');
+          return this.runInWorld([{ atmosphere: 'FIRE_WAFT', room: map }]);
+        }
+        return this.runInWorld(steps);
+      } });
     }
     return out;
   }

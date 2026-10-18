@@ -11,6 +11,7 @@ import { asArray } from '../core/util.js';
  *     "items": ["id" | { "id", "count" }],
  *     "takeItems": ["id"],                          // gone by then (handed over in a scene)
  *     "gold": n,                                    // at least this much in the purse (Story Phase 14: real doubloons)
+ *     "party": ["id" | { "id", "learn": [ability, ...] }], // Story Phase 17: joined by then (at the captain's level, once)
  *     "map", "spawn" | "x"/"y"/"facing", "script" }
  *
  * Engine-agnostic: the debug overlay, the E2E hooks and unit tests share it.
@@ -28,7 +29,7 @@ export function resolvePreset(content, id) {
     chain.unshift(cur);
     cur = cur.after ? content.debugPresets.get(cur.after) : null;
   }
-  const plan = { id, name: chain[chain.length - 1].name, flags: [], clearFlags: [], vars: {}, values: {}, quests: [], items: [], takeItems: [], gold: null, location: null, script: null };
+  const plan = { id, name: chain[chain.length - 1].name, flags: [], clearFlags: [], vars: {}, values: {}, quests: [], items: [], takeItems: [], gold: null, party: [], location: null, script: null };
   for (const p of chain) {
     for (const f of p.flags ?? []) if (!plan.flags.includes(f)) plan.flags.push(f);
     for (const f of p.clearFlags ?? []) {
@@ -46,6 +47,13 @@ export function resolvePreset(content, id) {
       if (!plan.takeItems.includes(id)) plan.takeItems.push(id);
     }
     if (p.gold !== undefined) plan.gold = p.gold;
+    // Story Phase 17: party members by then (a later preset can add what they've learned since).
+    for (const m of p.party ?? []) {
+      const e = typeof m === 'string' ? { id: m, learn: [] } : { id: m.id, learn: m.learn ?? [] };
+      const have = plan.party.find((x) => x.id === e.id);
+      if (have) for (const a of e.learn) { if (!have.learn.includes(a)) have.learn.push(a); }
+      else plan.party.push({ id: e.id, learn: [...e.learn] });
+    }
     if (p.map) plan.location = { map: p.map, spawn: p.spawn ?? null, x: p.x, y: p.y, facing: p.facing ?? 'down' };
     plan.script = p.script ?? null;
   }
@@ -58,6 +66,20 @@ export function applyPresetPlan(session, plan) {
   for (const id of plan.takeItems ?? []) if (session.inventory.count(id)) session.inventory.remove(id, session.inventory.count(id));
   // Story Phase 14: the purse (the latest preset in the chain that says).
   if (plan.gold !== null && plan.gold !== undefined) session.inventory.addGold(plan.gold - session.inventory.gold);
+  // Story Phase 17: party members join at the captain's level (never twice), with what they've learned.
+  for (const { id, learn } of plan.party ?? []) {
+    const party = session.party;
+    if (!party.has(id)) {
+      const member = party.add(id);
+      const level = party.leader()?.level;
+      if (typeof level === 'number' && level > member.level) {
+        member.setLevel(level);
+        member.fullHeal();
+      }
+    }
+    const member = party.get(id);
+    for (const a of learn) if (!member.abilities.includes(a)) member.abilities.push(a);
+  }
   for (const [name, value] of Object.entries(plan.vars)) session.story.setVar(name, value);
   for (const [name, value] of Object.entries(plan.values ?? {})) session.story.setValue(name, value);
   for (const f of plan.flags) session.story.set(f);

@@ -282,6 +282,26 @@
     "value": "fart_zone"
    },
    {
+    "fartZone": "queue",
+    "who": "thunderbottom"
+   },
+   {
+    "fartZone": "enter",
+    "who": "thunderbottom"
+   },
+   {
+    "fartZone": "portholes",
+    "value": "open"
+   },
+   {
+    "fartZone": "door",
+    "value": "closed"
+   },
+   {
+    "fartZone": "prepare"
+   },
+   "From under the deck, faintly: three portholes opening, one after another, and a door shutting, exactly by the posted procedure. He's read the rules. Of course he has.",
+   {
     "tutorial": "Agnes is following him. Lead her away (Agnes, by the grating on deck).",
     "title": "Lord Vaporious Thunderbottom the Seventh"
    }
@@ -376,6 +396,9 @@
  "p17c14.approach": {
   "start": [
    {
+    "save": "auto"
+   },
+   {
     "sfx": "thunderbottom_wave",
     "volume": 0.9
    },
@@ -390,7 +413,15 @@
     "strikes": 3,
     "title": "BETWEEN THE WAVES"
    },
-   "Down the ladder, fast, between one wave and the next.",
+   "Down the ladder, fast, between one wave and the next. You haul the door open.",
+   {
+    "fartZone": "door",
+    "value": "open"
+   },
+   {
+    "sfx": "door",
+    "volume": 0.8
+   },
    {
     "setFlag": "thunderbottom_fart_zone_started"
    },
@@ -426,8 +457,14 @@
     "sfx": "agnes_panic",
     "volume": 0.9
    },
+   "The next wave slams the door shut behind you.",
    {
-    "save": "auto"
+    "fartZone": "door",
+    "value": "closed"
+   },
+   {
+    "sfx": "door",
+    "volume": 0.9
    },
    {
     "goto": "debris"
@@ -511,9 +548,6 @@
     "count": 10
    },
    "You have her. Both hands. Some of her feathers stay behind on the wall. Most of Agnes comes with you.",
-   {
-    "save": "auto"
-   },
    {
     "goto": "turn"
    }
@@ -615,6 +649,12 @@
   },
   {
    "setFlag": "thunderbottom_departed"
+  },
+  {
+   "fartZone": "ventilate"
+  },
+  {
+   "fartZone": "complete"
   },
   {
    "atmosphere": "SHIP",

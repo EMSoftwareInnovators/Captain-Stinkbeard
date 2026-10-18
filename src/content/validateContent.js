@@ -1571,6 +1571,11 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     (pr.items || []).forEach((it) => c.item(typeof it === 'string' ? it : it.id));
     (pr.takeItems || []).forEach((it) => c.item(it));
     if (pr.gold !== undefined && !(Number.isInteger(pr.gold) && pr.gold >= 0)) c.error('"gold" must be a whole number of doubloons');
+    for (const m of pr.party || []) {
+      const id = typeof m === 'string' ? m : m?.id;
+      if (!db.characters.get(id)) c.error(`party member "${id}" is not a character`);
+      for (const a of (typeof m === 'object' && m?.learn) || []) if (!db.abilities.get(a)) c.error(`party member "${id}" learns unknown ability "${a}"`);
+    }
     c.map(pr.map);
     const m = compiled.get(pr.map);
     if (m && pr.spawn && !m.spawns[pr.spawn]) c.error(`map "${pr.map}" has no spawn "${pr.spawn}"`);
