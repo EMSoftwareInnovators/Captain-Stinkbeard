@@ -11,6 +11,7 @@ import { createCommandImplementations } from '../systems/script/commands.js';
 import { WorldState } from '../systems/world/WorldState.js';
 import { FumeField, Exposure, fumeConfig, hazeFor } from '../systems/hazards/fumes.js';
 import { sharkConfig, sharkLevelFor } from '../systems/hazards/sharks.js';
+import { tickSharkstormFlare } from '../systems/hazards/sharkstorm.js';
 import { resolveVariant, currentTimeOfDay, dueStoryTriggers, triggerKey } from '../systems/story/progress.js';
 import { resolveActorLook, aliasOverlay, actorAlias } from '../systems/story/aliases.js';
 import { takeNewEntries } from '../systems/logs/logbook.js';
@@ -26,6 +27,7 @@ import { asArray } from '../core/util.js';
 import { placementChoices, placementChanges, roomGuard } from '../world/placements.js';
 import { atmosphereOn, roomHaze } from '../systems/atmosphere.js';
 import { HornetSwarm } from '../world/HornetSwarm.js';
+import { BeardPuffs } from '../world/BeardPuffs.js';
 import { inspectAt, isObjectiveJob } from '../world/inspectTarget.js';
 import { deadCenterZonesFor, deadCenterSeals } from '../systems/hazards/deadCenter.js';
 import { panicShouts } from '../systems/hazards/alarms.js';
@@ -129,6 +131,8 @@ export class WorldScene extends BaseScene {
     this.sharkstorm = new SharkstormLayer(this);
     // Story Phase 16: the hornet swarm (systems/hazards/hornets.js).
     this.hornets = new HornetSwarm(this);
+    // Story Phase 17: the captain's beard puffs (systems/beard.js).
+    this.beardPuffs = new BeardPuffs(this);
     // Story Phase 14: Brogath Stability (incidents, the BASHFULNESS meter, the cardboard's shivers).
     this.stability = new StabilityRunner(this);
     this.grade = this.add.rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0xffffff).setOrigin(0).setScrollFactor(0).setDepth(75000).setBlendMode('MULTIPLY');
@@ -182,6 +186,7 @@ export class WorldScene extends BaseScene {
     this.sharkDuty?.destroy();
     this.sharkstorm?.destroy();
     this.hornets?.destroy();
+    this.beardPuffs?.destroy();
     // The camera may already be torn down when the scene shuts down.
     this.cameras?.main?.setRotation(0);
   }
@@ -464,6 +469,8 @@ export class WorldScene extends BaseScene {
   async runArrival() {
     const session = this.session;
     const firstVisit = session.world.visit(this.model.id);
+    // Story Phase 17: a temporary Sharkstorm flare burns down a little with every room change.
+    if (!this.entry.loaded && !this.entry.newGame) tickSharkstormFlare(this.content, session);
     this.app.bus.emit('map:entered', { map: this.model.id, first: firstVisit });
     this.updateRegions();
     if (this.entry.fadeIn !== false) await this.app.overlay.fadeIn(this.entry.newGame ? 700 : 260);
@@ -598,6 +605,7 @@ export class WorldScene extends BaseScene {
     this.updateFumes(dt, busy);
     this.sharks.update(dt, { busy, player: this.player });
     this.hornets?.update(dt);
+    this.beardPuffs?.update(dt, busy || this.leaving);
     this.sharkDuty.update(dt, busy || this.leaving);
     this.sharkstorm.update(dt, busy || this.leaving);
     this.stability.update(dt, busy);

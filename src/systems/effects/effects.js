@@ -8,7 +8,7 @@ import { asArray } from '../../core/util.js';
  *   { "type": "revive", "percent": 25 }         revive a knocked-out target
  *   { "type": "cure", "status": "sickened" }    remove statuses ("debuffs" = all negative)
  *   { "type": "applyStatus", "status": "braced", "duration": 3, "chance": 1 }
- *   { "type": "restore", "resource": "command", "amount": 1 }
+ *   { "type": "restore", "resource": "command", "amount": 1 }   ("*": whatever the target runs on)
  *   { "type": "fumeWard", "seconds": 90, "scale": 0.5 }   fumes build slower for a while (field)
  *   { "type": "sideEffect", "table": [                  one weighted surprise (Frog Grog)
  *       { "id": "warmed_up", "weight": 3, "status": "warmed_up", "duration": 3, "text": "…" },
@@ -66,6 +66,8 @@ export function applyEffect(effect, target, { rng = null, statuses = null, sessi
       if (!target.addStatus || !target.isAlive()) return { type: 'status', status: effect.status, applied: false };
       const chance = effect.chance ?? 1;
       if (chance < 1 && rng && !rng.chance(chance)) return { type: 'status', status: effect.status, applied: false, resisted: true };
+      // Story Phase 17: a trait can make a target immune (FUME_ANIMATED shrugs off sickness).
+      if (target.resists?.(effect.status)) return { type: 'status', status: effect.status, applied: false, resisted: true };
       target.addStatus(effect.status, effect.duration ?? null);
       return { type: 'status', status: effect.status, applied: true };
     }

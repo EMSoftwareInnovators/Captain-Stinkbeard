@@ -82,12 +82,26 @@ export class StatusPage {
     });
 
     y = rect.y + 150;
-    layer.add(addText(scene, x, y, "CAPTAIN'S ORDERS", { font: 'bold', color: UI_COLORS.heading, depth: D + 1 }));
-    const orders = ch.abilities.map((id) => content.abilities.get(id)).filter((a) => a && a.kind === 'order');
+    const res = ch.def.battle?.resource;
+    const unit = res?.short ?? 'CMD';
+    const heading = ch.def.battle?.ordersTitle ? ch.def.battle.ordersTitle.toUpperCase() : "CAPTAIN'S ORDERS";
+    layer.add(addText(scene, x, y, heading, { font: 'bold', color: UI_COLORS.heading, depth: D + 1 }));
+    const attackId = ch.def.battle?.attack;
+    const orders = ch.abilities.map((id) => content.abilities.get(id)).filter((a) => a && a.id !== attackId && (a.kind === 'order' || a.cost));
     if (!orders.length) layer.add(addText(scene, x, y + 15, '<k>None yet.</>', { depth: D + 1 }));
+    // Story Phase 17: a member with traits (Ledger, Tilda) gets a compact two-column list and a line of traits.
+    const traits = (ch.def.traits ?? []).map((id) => content.traits?.get?.(id)).filter(Boolean);
+    if (traits.length) {
+      orders.slice(0, 6).forEach((ab, i) => {
+        const cost = Object.values(ab.cost ?? {})[0] ?? 0;
+        layer.add(addText(scene, x + (i % 2) * 106, y + 15 + Math.floor(i / 2) * 11, `${ab.name} <y>${cost}</>`, { depth: D + 1 }));
+      });
+      layer.add(addText(scene, x, y + 50, `<k>Traits</> ${traits.map((t) => t.short ?? t.label).join(' · ')}`, { depth: D + 1 }));
+      return;
+    }
     orders.forEach((ab, i) => {
       const cost = Object.values(ab.cost ?? {})[0] ?? 0;
-      layer.add(addText(scene, x, y + 15 + i * 11, `${ab.name}  <y>${cost} CMD</>`, { depth: D + 1 }));
+      layer.add(addText(scene, x, y + 15 + i * 11, `${ab.name}  <y>${cost} ${unit}</>`, { depth: D + 1 }));
       layer.add(addText(scene, x + 88, y + 15 + i * 11, `<k>${shortDescription(ab.description)}</>`, { depth: D + 1 }));
     });
     const learnset = (ch.def.learnset || []).filter((e) => e.level > ch.level);

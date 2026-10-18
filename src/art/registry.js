@@ -33,6 +33,6 @@ export const ART_REGISTRY = {
   fx: new Set([...FUME_FX_FRAMES, ...PHASE10_FX_FRAMES, ...PHASE14_FX_FRAMES, ...BASE_FX_FRAMES]),
   expressions: new Set(EXPRESSION_NAMES),
   extraPoses: new Set(Object.keys(EXTRA_POSES)),
-  portraitPainters: new Set(['parrot', 'cardboard', 'chicken']),
-  characterPainters: new Set(['parrot', 'cardboard', 'chicken']),
+  portraitPainters: new Set(['parrot', 'cardboard', 'chicken', 'cardboard_crew']),
+  characterPainters: new Set(['parrot', 'cardboard', 'chicken', 'cardboard_crew']),
 };

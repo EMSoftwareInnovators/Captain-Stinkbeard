@@ -244,13 +244,13 @@ export class BattleScene extends BaseScene {
       label: ability.name,
       value: ability.id,
       disabled: !affordable,
-      right: `${ability.cost?.[res?.id] ?? 0} CMD`,
+      right: `${ability.cost?.[res?.id] ?? 0} ${res?.short ?? 'CMD'}`,
       rightColor: affordable ? 0xf8d86c : undefined,
       description: ability.description,
     }));
     const done = this.enableMenuInput();
     const id = await this.hud.openSubmenu({
-      title: `Orders  (${res?.current ?? 0}/${res?.max ?? 0} CMD)`,
+      title: `${actor.def.battle?.ordersTitle ?? 'Orders'}  (${res?.current ?? 0}/${res?.max ?? 0} ${res?.short ?? 'CMD'})`,
       entries,
       describe: (e) => this.hud.message(e?.description ?? '', { small: true }),
     });

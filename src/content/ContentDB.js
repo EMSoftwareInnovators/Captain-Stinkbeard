@@ -56,6 +56,8 @@ const FOLDER_RULES = [
   { prefix: 'story/novelty', kind: 'novelty', shape: 'map' },
   { prefix: 'story/proceedings/', kind: 'proceedings', shape: 'map' },
   { prefix: 'story/credit', kind: 'credit', shape: 'map' },
+  // Story Phase 17: party traits (Ledger and Tilda's cardboard physiology).
+  { prefix: 'story/traits', kind: 'traits', shape: 'map' },
   { prefix: 'hazards/', kind: 'hazards', shape: 'map' },
   { prefix: 'debug/', kind: 'debugPresets', shape: 'list' },
   { prefix: 'logs/', kind: 'logs', shape: 'map' },
@@ -119,7 +121,7 @@ export const REGISTRY_KINDS = [
   'encounters', 'props', 'appearances', 'portraits', 'scripts', 'flags', 'maps', 'tilesets', 'music',
   'sfx', 'instruments', 'ambience', 'timing', 'backdrops', 'vistas', 'storyTriggers', 'hazards', 'debugPresets',
   'mapPatches', 'logs', 'tv', 'tvPrograms', 'tension', 'dice', 'aliases', 'stability', 'bankCustomers', 'banks',
-  'atmosphere', 'conversions', 'ancientCrew', 'beard', 'fartZone', 'novelty', 'proceedings', 'credit',
+  'atmosphere', 'conversions', 'ancientCrew', 'beard', 'fartZone', 'novelty', 'proceedings', 'credit', 'traits',
 ];
 
 /** Content paths in load order: numbers compare as numbers ("phase9" before "phase10"). */

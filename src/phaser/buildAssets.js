@@ -51,6 +51,14 @@ export function assetSteps(scene, app) {
         const sheet = battlerSheet(content.appearances.get(ch.appearance));
         addTexture(scene, `battle_${ch.id}`, sheet);
         addAnimations(scene, `battle_${ch.id}`, sheet.anims, sheet.rates);
+        // Story Phase 17: a character whose battle sprite follows the story (singed Tilda) gets a sheet per variant look.
+        if (!ch.battle?.followAppearance) continue;
+        for (const v of ch.variants ?? []) {
+          if (!v.appearance || v.appearance === ch.appearance || scene.textures.exists(`battle_app_${v.appearance}`)) continue;
+          const vs = battlerSheet(content.appearances.get(v.appearance));
+          addTexture(scene, `battle_app_${v.appearance}`, vs);
+          addAnimations(scene, `battle_app_${v.appearance}`, vs.anims, vs.rates);
+        }
       }
       for (const id of ENEMY_IDS) {
         const sheet = enemySheet(id);

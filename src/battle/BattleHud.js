@@ -63,7 +63,7 @@ export class BattleHud {
       if (c.resource) {
         const px = compact ? SCREEN_WIDTH - 8 - c.resource.max * 8 : gx + gw + 30;
         const py = compact ? y + 1 : gy - 2;
-        if (!compact) row.cmdLabel = addText(this.scene, gx + gw + 8, gy - 2, 'CMD', { color: UI_COLORS.dim, depth: DEPTH + 2 });
+        if (!compact) row.cmdLabel = addText(this.scene, gx + gw + 8, gy - 2, c.resource.short ?? 'CMD', { color: UI_COLORS.dim, depth: DEPTH + 2 });
         for (let k = 0; k < c.resource.max; k++) row.pips.push(this.scene.add.image(px + k * 8, py, 'ui', 'pip_off').setOrigin(0).setDepth(DEPTH + 2));
       }
       this.rows.set(c.uid, row);
@@ -141,7 +141,7 @@ export class BattleHud {
     this.enemyTexts = [];
     const items = [
       { label: 'Attack', value: 'attack' },
-      { label: 'Orders', value: 'orders', disabled: !hasOrders },
+      { label: actor.def.battle?.ordersTitle ?? 'Orders', value: 'orders', disabled: !hasOrders },
       { label: 'Items', value: 'items', disabled: !hasItems },
       { label: 'Defend', value: 'defend' },
       { label: 'Flee', value: 'flee', disabled: !canFlee },
@@ -166,9 +166,9 @@ export class BattleHud {
   describeCommand(cmd, actor) {
     const text = {
       attack: `Strike with the ${actor.def.battle?.attackName ?? 'cutlass'}. Time {btn:confirm} on impact!`,
-      orders: "Captain's Orders. Spend Command to rally or target.",
+      orders: actor.def.battle?.ordersHint ?? "Captain's Orders. Spend Command to rally or target.",
       items: 'Use something from your pockets.',
-      defend: 'Guard until your next turn. Earns 1 Command.',
+      defend: `Guard until your next turn.${actor.resource?.onDefend ? ` Earns ${actor.resource.onDefend} ${actor.resource.name ?? 'Command'}.` : ''}`,
       flee: this.engine.encounter.canFlee === false ? "There's no running from this one." : 'Try to escape.',
     }[cmd];
     this.message(text, { small: true });

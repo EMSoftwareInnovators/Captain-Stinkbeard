@@ -4,6 +4,7 @@ import { resolveLook, paintCharacterFrame, FIELD_POSES, FIELD_DIRS, FRAME_W, FRA
 import { paintParrotSheet, PARROT_RATES } from './parrotPainter.js';
 import { paintCardboardSheet, CARDBOARD_RATES } from './cardboardPainter.js';
 import { paintChickenSheet, CHICKEN_RATES } from './chickenPainter.js';
+import { paintCrewSheet, CREW_RATES, paintCrewBattleFrame } from './cardboardCrewPainter.js';
 import { paintBattleFrame, BATTLE_POSE_NAMES, BATTLE_W, BATTLE_H } from './battlePoses.js';
 
 function mirror(pc) {
@@ -29,6 +30,13 @@ export function buildCharacterSheet(appearance) {
     const sheet = new GridSheet(FRAME_W, FRAME_H, 16);
     for (const [name, f] of Object.entries(frames)) sheet.add(name, f);
     return { ...sheet.build(), anims, rates: CARDBOARD_RATES };
+  }
+  // Story Phase 17: Brogath's old crew, cut out of the same carton (Ledger, Tilda; Jeb, Ned and Elsie stay props).
+  if (appearance.painter === 'cardboard_crew') {
+    const { frames, anims } = paintCrewSheet(appearance);
+    const sheet = new GridSheet(FRAME_W, FRAME_H, 16);
+    for (const [name, f] of Object.entries(frames)) sheet.add(name, f);
+    return { ...sheet.build(), anims, rates: CREW_RATES };
   }
   // Story Phase 15: Agnes the Second (a hen).
   if (appearance.painter === 'chicken') {
@@ -60,6 +68,11 @@ export function buildCharacterSheet(appearance) {
 
 /** Battle sheet (side view, facing left) for party members. */
 export function buildBattleSheet(appearance) {
+  if (appearance.painter === 'cardboard_crew') {
+    const sheet = new GridSheet(BATTLE_W, BATTLE_H, 8);
+    for (const pose of BATTLE_POSE_NAMES) sheet.add(pose, paintCrewBattleFrame(appearance, pose));
+    return sheet.build();
+  }
   const L = resolveLook(appearance);
   const sheet = new GridSheet(BATTLE_W, BATTLE_H, 8);
   for (const pose of BATTLE_POSE_NAMES) sheet.add(pose, paintBattleFrame(L, pose));

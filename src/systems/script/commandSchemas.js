@@ -44,7 +44,7 @@ export const COMMAND_SCHEMAS = {
   giveXp: { giveXp: 'number' },
   event: { event: 'string' },
   markObject: { markObject: 'string', set: 'object' },
-  joinParty: { joinParty: 'character' },
+  joinParty: { joinParty: 'character', level: 'any?', silent: 'boolean?' },
   leaveParty: { leaveParty: 'character' },
   save: { save: 'string' },
 
@@ -74,7 +74,7 @@ export const COMMAND_SCHEMAS = {
   shop: { shop: 'shop' },
 
   // --- set-pieces (Phase 2 onward) ------------------------------------------
-  fly: { fly: 'actor', to: 'array', duration: 'number?', arc: 'number?', land: 'boolean?', alt: 'number?', from: 'array?', fromAlt: 'number?', async: 'boolean?' },
+  fly: { fly: 'actor', to: 'array', duration: 'number?', arc: 'number?', land: 'boolean?', alt: 'number?', from: 'array?', fromAlt: 'number?', spin: 'number?', async: 'boolean?' },
   hop: { hop: 'actor', height: 'number?', duration: 'number?', async: 'boolean?' },
   bark: { bark: 'string', text: 'string', duration: 'number?', shout: 'boolean?', x: 'number?', y: 'number?' },
   burst: { burst: 'string', actor: 'actor?', x: 'number?', y: 'number?', count: 'number?', speed: 'any?', up: 'number?', dir: 'number?', cone: 'number?', spread: 'number?' },
@@ -109,7 +109,7 @@ export const COMMAND_SCHEMAS = {
 
   // --- Story Phase 4 -----------------------------------------------------------
   deadCenter: { deadCenter: 'string' },
-  sharkstorm: { sharkstorm: 'string' },
+  sharkstorm: { sharkstorm: 'string', flare: 'boolean?' },
   alarm: { alarm: 'number', where: 'string?', wait: 'boolean?' },
   course: { course: 'string', heading: 'number?', target: 'number?', to: 'number?', duration: 'number?', label: 'string?', async: 'boolean?' },
   sharkDuty: { sharkDuty: 'string' },
@@ -156,6 +156,12 @@ export const COMMAND_SCHEMAS = {
   currencyConverter: { currencyConverter: 'string', from: 'string', amount: 'any?' },
   // The hornet swarm (data/hazards/hornets.json).
   hornets: { hornets: 'string' },
+
+  // --- Story Phase 17 ---------------------------------------------------------------
+  // A party member learns an ability outside the level table (Ledger's CAPTAIN MINUTES), once.
+  learnAbility: { learnAbility: 'string', character: 'character', silent: 'boolean?' },
+  // The captain's beard puffs (data/story/beard.json "puffs"): one authored puff now.
+  beardPuff: { beardPuff: 'string', line: 'string?' },
 };
 
 /** Commands that may carry "async": true (start and continue without waiting). */

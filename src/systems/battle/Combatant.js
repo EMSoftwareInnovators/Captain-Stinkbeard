@@ -8,7 +8,7 @@ import { clamp } from '../../core/util.js';
  * battle ends.
  */
 export class Combatant {
-  constructor({ uid, side, name, def, stats, hp, abilities, statuses, character = null, resource = null, index = 0 }) {
+  constructor({ uid, side, name, def, stats, hp, abilities, statuses, character = null, resource = null, index = 0, traits = [] }) {
     this.uid = uid; // unique within the battle ("p0", "e1", ...)
     this.side = side; // 'party' | 'enemy'
     this.name = name;
@@ -22,6 +22,26 @@ export class Combatant {
     this.resource = resource ? { ...resource, current: resource.start ?? 0 } : null;
     this.index = index; // slot position for presentation
     this.actedThisTurn = false;
+    // Story Phase 17: traits (data/story/traits.json) with battle effects, e.g. Ledger and Tilda's cardboard.
+    this.traits = traits.filter(Boolean);
+  }
+
+  /** Damage multiplier the traits give against an element ("fire": cardboard burns). */
+  traitMultiplier(element) {
+    if (!element) return 1;
+    let m = 1;
+    for (const t of this.traits) m *= t.battle?.damageTaken?.[element] ?? 1;
+    return m;
+  }
+
+  /** Statuses the traits make this combatant immune to (fumes can't sicken a fume). */
+  resists(statusId) {
+    return this.traits.some((t) => (t.battle?.immune ?? []).includes(statusId));
+  }
+
+  /** Evasion (percent off the attacker's hit chance) the traits give: hard to hit edge-on. */
+  traitEvade() {
+    return this.traits.reduce((n, t) => n + (t.battle?.evade ?? 0), 0);
   }
 
   get maxHp() {
@@ -94,7 +114,8 @@ export class Combatant {
   }
 
   restoreResource(name, amount) {
-    if (!this.resource || this.resource.id !== name) return 0;
+    // "*" restores whatever this combatant runs on (Story Phase 17: party-wide orders).
+    if (!this.resource || (name !== '*' && this.resource.id !== name)) return 0;
     const before = this.resource.current;
     this.resource.current = clamp(before + amount, 0, this.resource.max);
     return this.resource.current - before;

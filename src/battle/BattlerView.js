@@ -15,6 +15,9 @@ export class BattlerView {
     this.homeY = y;
     this.isParty = combatant.side === 'party';
     this.texture = this.isParty ? `battle_${combatant.def.id}` : `enemy_${combatant.def.sprite ?? combatant.def.id}`;
+    // Story Phase 17: the look the story has given them (singed Tilda), when it has its own battle sheet.
+    const look = this.isParty && combatant.def.battle?.followAppearance ? combatant.character?.look?.appearance : null;
+    if (look && look !== combatant.def.appearance && scene.textures.exists(`battle_app_${look}`)) this.texture = `battle_app_${look}`;
     const first = this.isParty ? 'ready' : 'battle_idle0';
     this.sprite = scene.add.sprite(x, y, this.texture, first).setOrigin(0.5, this.isParty ? PARTY_FOOT : 1);
     const fw = this.sprite.frame.width;

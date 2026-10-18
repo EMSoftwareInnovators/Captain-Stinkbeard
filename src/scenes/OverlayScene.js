@@ -114,6 +114,13 @@ export class OverlayScene extends BaseScene {
       case 'goldLost':
         this.toasts.push({ text: `Paid <y>${n.amount}</> gold`, icon: 'gold' });
         break;
+      // Story Phase 17: Ledger and Tilda join the party; Ledger invents an ability.
+      case 'partyJoined':
+        this.toasts.push({ text: `<y>${n.name}</> joins the party!`, sound: 'item_get' });
+        break;
+      case 'abilityLearned':
+        this.toasts.push({ text: `${n.name} learns <y>${n.ability}</>`, sound: 'item_get' });
+        break;
       default:
         this.toasts.push({ text: String(n.text ?? n.kind) });
     }
@@ -777,8 +784,14 @@ export class OverlayScene extends BaseScene {
       }
       return;
     }
-    const w = 122;
+    // Story Phase 17: a release brewing (COFFIN SOCK EVENT — PENDING) widens the panel for its words.
+    const pending = state.pending ?? null;
+    const w = pending ? 150 : 122;
     const h = 36;
+    if (this.stabilityMeter && !this.stabilityMeter.hiding && !!this.stabilityMeter.pending !== !!pending) {
+      this.stabilityMeter.parts.forEach((p) => p.destroy());
+      this.stabilityMeter = null;
+    }
     if (!this.stabilityMeter || this.stabilityMeter.hiding) {
       this.stabilityMeter?.parts.forEach((p) => p.destroy());
       const x = SCREEN_WIDTH - w - 5;
@@ -793,7 +806,7 @@ export class OverlayScene extends BaseScene {
       const parts = [panel, label, word, barBack, bar, ...ticks, stage];
       parts.forEach((p) => p.setAlpha(0));
       this.tweens.add({ targets: parts, alpha: 1, duration: 200 });
-      this.stabilityMeter = { parts, label, word, bar, ticks, stage, barW: w - 16, x, y, t: 0, key: null, rect: { x, y, w, h } };
+      this.stabilityMeter = { parts, label, word, bar, ticks, stage, barW: w - 16, x, y, w, t: 0, key: null, rect: { x, y, w, h }, pending: !!pending };
     }
     const m = this.stabilityMeter;
     const COLORS = { PLEASED: 0x9ad0ff, CALM: 0x7cb45a, BASHFUL: 0xf0c0d0, EMBARRASSED: 0xf08aa0, PRESSURIZED: 0xe07a28, CRITICAL: 0xe43c3a, ANGRY: 0xff5a1a, MELLOW: 0x9cc070, RECOVERING: 0xb0a0c8 };
@@ -802,14 +815,21 @@ export class OverlayScene extends BaseScene {
     m.bar.width = Math.max(1, Math.round(m.barW * v));
     m.bar.setFillStyle(COLORS[state.state] ?? 0xe0ad38);
     const st = state.stages?.[state.stage];
-    const key = `${state.label}|${state.state}|${state.stage}`;
+    const key = `${state.label}|${state.state}|${state.stage}|${pending ? `${pending.label}|${pending.stage}` : ''}`;
     if (m.key !== key) {
       m.key = key;
-      setText(m.label, state.label ?? 'BASHFULNESS');
-      m.label.setTint?.(state.state === 'ANGRY' ? 0xff7a4a : 0xf0a8c8);
-      setText(m.word, `${MARK[state.state] ?? ''}${state.state}</>`);
-      m.word.x = m.x + 122 - 7 - m.word.textWidth;
-      setText(m.stage, st ? `${state.stage >= 3 ? '<r>' : state.stage >= 1 ? '<y>' : '<k>'}${st.label}</>` : '');
+      if (pending) {
+        setText(m.label, pending.label);
+        m.label.setTint?.(0xe8c070);
+        setText(m.word, `<r>${pending.word}</>`);
+        setText(m.stage, `<o>${pending.stage}</>`);
+      } else {
+        setText(m.label, state.label ?? 'BASHFULNESS');
+        m.label.setTint?.(state.state === 'ANGRY' ? 0xff7a4a : 0xf0a8c8);
+        setText(m.word, `${MARK[state.state] ?? ''}${state.state}</>`);
+        setText(m.stage, st ? `${state.stage >= 3 ? '<r>' : state.stage >= 1 ? '<y>' : '<k>'}${st.label}</>` : '');
+      }
+      m.word.x = m.x + (m.w ?? 122) - 7 - m.word.textWidth;
     }
     // Trembles at the top (and when angry), pulses while it's critical.
     m.t += 16;

@@ -1,4 +1,4 @@
-import { stabilityDef, readStability, writePressure, stateFor, stageIndex, incidentDef, stepIncident, triggerScale } from '../systems/stability.js';
+import { stabilityDef, readStability, writePressure, stateFor, stageIndex, incidentDef, stepIncident, triggerScale, pendingReadout } from '../systems/stability.js';
 
 /**
  * Story Phase 14: Brogath Stability, in the world. The rules are
@@ -111,13 +111,15 @@ export class StabilityRunner {
     // The meter.
     const angry = st.angry;
     const forced = st.meter;
-    const show = forced === 'show' || (forced !== 'hide' && (pressure >= def.reveal || angry || !!st.incident));
+    const pending = pendingReadout(def, st);
+    const show = forced === 'show' || (forced !== 'hide' && (pressure >= def.reveal || angry || !!st.incident || !!pending));
     const overlay = this.app.overlay;
     if (overlay) {
       if (show && !this.app.cinema?.busy) {
         overlay.setStability({
           pressure, min: def.min, max: def.max, state: stateFor(def, pressure, angry, st.mellow, st.recovering), stage: stageIndex(def, pressure),
           stages: def.stages, label: angry ? def.angryLabel ?? 'WRATH' : st.recovering ? def.recoverLabel ?? 'RECOVERING' : st.mellow ? def.mellowLabel ?? 'MELLOW' : def.label ?? 'BASHFULNESS', incident: !!st.incident,
+          pending,
         });
       } else overlay.setStability(null);
     }

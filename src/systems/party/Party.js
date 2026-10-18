@@ -71,6 +71,11 @@ export class Party {
         onWarning(`Save references unknown character "${data.id}" — skipped.`);
         continue;
       }
+      // Nobody is in the party twice (Story Phase 17: Ledger and Tilda join exactly once).
+      if (this.has(data.id)) {
+        onWarning(`Save lists "${data.id}" in the party twice — the second is skipped.`);
+        continue;
+      }
       const member = this.create(data.id);
       member.load(data, onWarning);
       this.members.push(member);

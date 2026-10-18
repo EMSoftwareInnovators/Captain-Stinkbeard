@@ -67,6 +67,7 @@ export class CinemaScene extends BaseScene {
         const bob = l.bob ? Math.round(Math.sin(this.time0 / (l.bobMs ?? 700) + l.phase) * l.bob) : 0;
         l.img.y = Math.round(l.y + bob);
         l.img.x = Math.round(l.x);
+        if (l.crt) this.applyCrt(l, delta);
       }
       if (this.active.sea) {
         const f = Math.floor(this.time0 / 420) % 2;
@@ -321,6 +322,34 @@ export class CinemaScene extends BaseScene {
 
   setVisible(id, visible) {
     this.layer(id).img.setVisible(visible);
+  }
+
+  /**
+   * Story Phase 17: a distorted CRT on a screen layer (the documentary that
+   * knows it's being watched): "wobble" (the picture sways), "jitter" (it
+   * shivers and flickers), "roll" (it slips up and down), null to stop.
+   * Reduced effects: a gentle flicker only.
+   */
+  crt(id, kind) {
+    const l = this.layer(id);
+    l.crt = kind ? { kind, t: 0 } : null;
+    if (!kind) l.img.setAlpha(l.alpha ?? 1);
+  }
+
+  applyCrt(l, delta) {
+    const c = l.crt;
+    c.t += delta;
+    const calm = this.app.settings?.reducedEffects?.();
+    if (calm) {
+      l.img.setAlpha(0.85 + 0.15 * Math.abs(Math.sin(c.t / 160)));
+      return;
+    }
+    if (c.kind === 'wobble') l.img.x += Math.round(Math.sin(c.t / 90) * 2);
+    else if (c.kind === 'roll') l.img.y += Math.round(((c.t / 30) % 6) - 3);
+    else {
+      l.img.x += Math.round(Math.sin(c.t * 1.7) * 1.4);
+      l.img.setAlpha(0.7 + 0.3 * Math.abs(Math.sin(c.t / 47)));
+    }
   }
 
   /** Particle burst on the vista (vistaFx). Not named fx: that is the FxPool. */

@@ -57,7 +57,14 @@ export class BattleEngine {
       character,
       resource: def.battle?.resource ?? null,
       index,
+      traits: this.traitsOf(def),
     });
+  }
+
+  /** Story Phase 17: a definition's traits, with their data (unknown ids are a content error). */
+  traitsOf(def) {
+    const reg = this.content.traits;
+    return (def.traits ?? []).map((id) => reg?.get?.(id)).filter(Boolean);
   }
 
   addEnemy(enemyId) {
@@ -73,6 +80,7 @@ export class BattleEngine {
       abilities: def.abilities,
       statuses: this.content.statuses,
       index: this.enemies.length,
+      traits: this.traitsOf(def),
     });
     c.letter = sameKind; // used for "Bilge Rat B" style naming
     this.enemies.push(c);
@@ -149,6 +157,14 @@ export class BattleEngine {
       }
       const actor = this.queue.shift();
       if (!actor.isAlive()) continue;
+      // Story Phase 17: a staggered combatant (BROGATH, STOP!) loses this turn, and the stagger goes.
+      const stagger = actor.statusIds().find((id) => this.content.statuses.get(id)?.skipsTurn);
+      if (stagger) {
+        actor.removeStatus(stagger);
+        events.push({ type: 'message', text: `${actor.name} is ${this.content.statuses.get(stagger)?.name?.toLowerCase() ?? 'staggered'}!` });
+        events.push({ type: 'statusEnd', target: actor.uid, status: stagger });
+        continue;
+      }
       this.turnCount += 1;
       actor.turnsTaken = (actor.turnsTaken || 0) + 1;
       actor.actedThisTurn = true;
@@ -307,13 +323,13 @@ export class BattleEngine {
         if ((ability.power ?? 0) > 0) {
           const timed = mechanic && grade !== 'none';
           const acc = ability.accuracy ?? 95;
-          const hitPct = hitChance(acc, actor.stat('luck'), target.stat('luck'));
+          const hitPct = hitChance(acc, actor.stat('luck'), target.stat('luck')) - (target.traitEvade?.() ?? 0);
           if (!timed && !ability.sureHit && this.rng.int(1, 100) > hitPct) {
             events.push({ type: 'miss', actor: actor.uid, target: target.uid });
             continue;
           }
           const crit = this.rng.int(1, 100) <= critChance(actor.stat('luck'), ability.critBonus ?? 0) || (timed && grade === 'perfect' && mechanic.perfectCrits);
-          let takenMult = target.damageTakenMultiplier();
+          let takenMult = target.damageTakenMultiplier() * (target.traitMultiplier?.(ability.element) ?? 1);
           if (target.side === 'party' && opts.guard && opts.guard !== 'none') {
             const guard = this.content.timing.get('guard');
             takenMult *= guard?.reduction?.[opts.guard] ?? 1;

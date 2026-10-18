@@ -439,6 +439,13 @@ function validateStep(step, check, sctx) {
     const def = check.ctx.db.hazards?.get?.('hornets');
     if (!def?.states?.[step.hornets]) check.error(`unknown hornet state "${step.hornets}" (data/hazards/hornets.json)`);
   }
+  // Story Phase 17: party joins, learned abilities, beard puffs, the Sharkstorm's flare.
+  if (name === 'joinParty' && step.level !== undefined && step.level !== 'leader' && !(Number.isInteger(step.level) && step.level >= 1)) check.error('joinParty "level" is "leader" or a whole number');
+  if (name === 'learnAbility' && !check.ctx.db.abilities.has(step.learnAbility)) check.error(`unknown ability "${step.learnAbility}"`);
+  if (name === 'beardPuff' && !['small', 'big'].includes(step.beardPuff)) check.error('beardPuff must be "small" or "big"');
+  if (name === 'beardPuff' && !check.ctx.db.beard?.get?.('beard')?.puffs) check.error('beardPuff needs "puffs" in data/story/beard.json');
+  if (name === 'sharkstorm' && step.flare && !sharkstormStates(check.ctx.db)[step.sharkstorm]?.temporary) check.error(`"${step.sharkstorm}" isn't a temporary Sharkstorm state (a flare needs "temporary")`);
+  if (name === 'sharkstorm' && !step.flare && step.sharkstorm !== 'end_flare' && sharkstormStates(check.ctx.db)[step.sharkstorm]?.temporary) check.error(`"${step.sharkstorm}" is temporary: use it as a flare ("flare": true)`);
   if (name === 'channelEpisode') {
     const db = check.ctx.db;
     const progId = step.program ?? 'stenchmaster_channel';
@@ -712,6 +719,8 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     for (const k of ['pressureVar', 'stateValue']) if (typeof d[k] !== 'string') c.error(`"${k}" is required`);
     if (d.angerFlag) c.flag(d.angerFlag);
     if (d.recoverFlag) c.flag(d.recoverFlag);
+    if (d.pending && typeof d.pendingValue !== 'string') c.error('"pending" readouts need a "pendingValue"');
+    for (const [pid, pr] of Object.entries(d.pending ?? {})) if (typeof pr.label !== 'string') c.at(`pending.${pid}`).error('needs a "label"');
     (d.bands ?? []).forEach((b, i) => {
       if (!STABILITY_STATES.includes(b.state)) c.at(`bands[${i}]`).error(`unknown state "${b.state}"`);
     });
@@ -830,6 +839,20 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       if (typeof t.label !== 'string') c.error(`beard tag "${tid}" needs a "label"`);
       c.flag(`${b.flagPrefix ?? 'beard_'}${tid.toLowerCase()}`);
     }
+    // Story Phase 17: the beard's puffs
+    if (b.puffs) {
+      const pc = c.at('puffs');
+      const pf = b.puffs;
+      if (pf.if) pc.condition(pf.if);
+      if (!Array.isArray(pf.every) || pf.every.length !== 2 || pf.every[0] < 8000) pc.error('"every" must be [min, max] ms, at least 8000 (a puff, not a fog)');
+      for (const f of [pf.sfx ?? []].flat()) pc.sfx(f);
+      for (const [who, lines] of Object.entries(pf.reactions ?? {})) {
+        if (who !== '*' && !db.npcs.has(who)) pc.error(`reactions: unknown NPC "${who}"`);
+        if (!Array.isArray(lines) || !lines.length) pc.error(`reactions.${who} needs lines`);
+        for (const l of lines ?? []) if (typeof l !== 'string' || l.length > 60) pc.error(`reactions.${who}: a bark is a short string (60 characters at most): "${l}"`);
+      }
+      if (pf.exposure && !(pf.exposure.alpha > 0 && pf.exposure.alpha <= 0.3)) pc.error('exposure.alpha must be in (0, 0.3]: a tint, never a fog');
+    }
   }
   for (const [id, z] of db.fartZone?.map ?? []) {
     const c = C(`${db.fartZone.sourceOf(id)} (${id})`);
@@ -908,7 +931,18 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
   for (const [id, m] of db.ancientCrew?.map ?? []) {
     const c = C(`${db.ancientCrew.sourceOf(id)} (${id})`);
     for (const k of ['displayName', 'role', 'summary']) if (typeof m[k] !== 'string') c.error(`"${k}" is required`);
-    if (m.reincarnationAllowed !== false) c.error('reincarnationAllowed must be false (nobody else comes back yet)');
+    // Story Phase 17: two of them came back (Ledger and Tilda). A record may allow it only with the
+    // reincarnation that did it: its flag, the NPC it became and the party member it is.
+    if (m.reincarnationAllowed === true) {
+      const r = m.reincarnation;
+      if (!r || typeof r.flag !== 'string') c.error('reincarnationAllowed needs a "reincarnation" with its "flag"');
+      else {
+        c.flag(r.flag);
+        if (!db.npcs.has(r.npc)) c.error(`reincarnation.npc "${r.npc}" is not an NPC`);
+        if (r.character && !db.characters.has(r.character)) c.error(`reincarnation.character "${r.character}" is not a party character`);
+      }
+    } else if (m.reincarnationAllowed !== false) c.error('reincarnationAllowed must be true (with its reincarnation) or false');
+    else if (m.reincarnation) c.error('a record that can\'t come back has no "reincarnation"');
     for (const f of m.storyUnlockFlags ?? []) c.flag(f);
   }
 
@@ -941,7 +975,17 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     }
     (ch.learnset || []).forEach((l) => c.ability(l.ability));
     if (ch.battle?.attack) c.ability(ch.battle.attack);
+    // Story Phase 17: traits (data/story/traits.json)
+    for (const t of ch.traits ?? []) if (!db.traits?.has?.(t)) c.error(`unknown trait "${t}" (data/story/traits.json)`);
     validateVariants(ch.variants, c);
+  }
+  for (const [id, t] of db.traits?.map ?? []) {
+    const c = C(`${db.traits.sourceOf(id)} (${id})`);
+    if (!/^[A-Z_]+$/.test(id)) c.error('a trait id is UPPER_CASE');
+    if (typeof t.label !== 'string' || typeof t.description !== 'string') c.error('a trait needs "label" and "description"');
+    for (const st of t.battle?.immune ?? []) if (!db.statuses.has(st)) c.error(`immune: unknown status "${st}"`);
+    for (const [el, m] of Object.entries(t.battle?.damageTaken ?? {})) if (!(m > 0 && m <= 3)) c.error(`damageTaken.${el} must be in (0, 3]`);
+    if (t.battle?.evade !== undefined && !(t.battle.evade >= 0 && t.battle.evade <= 25)) c.error('evade is 0..25 (percent)');
   }
 
   for (const st of db.statuses.list()) {
@@ -949,6 +993,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     if (!['buff', 'debuff'].includes(st.kind)) c.error('status kind must be buff or debuff');
     for (const k of Object.keys(st.modifiers || {})) if (!STAT_KEYS.includes(k) && k !== 'damageTaken') c.error(`unknown modifier "${k}"`);
     if (st.expires && st.expires !== 'turnStart') c.error('expires may only be "turnStart"');
+    if (st.skipsTurn !== undefined && (st.skipsTurn !== true || st.kind !== 'debuff')) c.error('skipsTurn is true, on a debuff');
     if (!art.statusIcons.has(st.id) && !st.hidden) c.warn(`status "${st.id}" has no icon`);
   }
 
@@ -1411,6 +1456,8 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     const states = sharkstormStates(db);
     for (const [sid, st] of Object.entries(states)) {
       const c = C(`data/hazards/sharkstorm.json (great_sharkstorm.states.${sid})`);
+      // Story Phase 17: a temporary flare must burn itself out
+      if (st.temporary && !(Number.isInteger(st.temporary.expiresAfterRooms) && st.temporary.expiresAfterRooms >= 1 && st.temporary.expiresAfterRooms <= 12)) c.error('temporary.expiresAfterRooms must be 1..12');
       for (const v of st.flying?.variants ?? []) for (const f of [`${v}_0`, `${v}_1`]) if (!art.stage.has(f)) c.error(`no stage art "${f}" (flying.variants)`);
       if (st.rumble?.sfx && !db.sfx.has(st.rumble.sfx)) c.error(`unknown sfx "${st.rumble.sfx}"`);
       if (st.below) {
@@ -1455,6 +1502,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
         for (const f of b.frames ?? []) if (!art.vista.has(f)) bc.error(`no vista art "${f}"`);
         if (b.sfx && !db.sfx.has(b.sfx)) bc.error(`unknown sfx "${b.sfx}"`);
         if (b.line) validateLine(b.line, bc);
+        if (b.crt !== undefined && !['wobble', 'jitter', 'roll'].includes(b.crt)) bc.error('crt must be wobble, jitter or roll');
       });
     });
   }

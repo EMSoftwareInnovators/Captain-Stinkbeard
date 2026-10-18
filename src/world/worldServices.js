@@ -61,7 +61,7 @@ export function createWorldServices(scene) {
   }
 
   /** Flies an actor through the air (ignores walls), landing on a tile. */
-  async function flyActor(a, { to, duration = 900, arc = 18, land = true, alt = 0, from = null, fromAlt = null }) {
+  async function flyActor(a, { to, duration = 900, arc = 18, land = true, alt = 0, from = null, fromAlt = null, spin = 0 }) {
     a.brain?.pause();
     a.scripted = true;
     // Optionally start somewhere else first (swooping in from off-screen).
@@ -76,7 +76,10 @@ export function createWorldServices(scene) {
     a.flight = { x: fromX, y: fromY, alt: a.flight?.alt ?? 0, depth: 60000 };
     if (Math.abs(toX - fromX) > Math.abs(toY - fromY)) a.face(toX > fromX ? 'right' : 'left');
     else a.face(toY > fromY ? 'down' : 'up');
-    a.playPose('fly');
+    // Story Phase 17: cardboard goes over and over ("spin": turns in the air) on its own spin frames if it has them.
+    const spinAnim = spin && scene.anims.exists?.(`${a.sprite.texture.key}:spin_down`);
+    if (spinAnim) a.sprite.play(`${a.sprite.texture.key}:spin_down`, true);
+    else a.playPose('fly');
     const startAlt = a.flight.alt;
     const st = { t: 0 };
     await new Promise((resolve) => {
@@ -89,11 +92,13 @@ export function createWorldServices(scene) {
           a.flight.x = fromX + (toX - fromX) * st.t;
           a.flight.y = fromY + (toY - fromY) * st.t;
           a.flight.alt = startAlt + (alt - startAlt) * st.t + Math.sin(st.t * Math.PI) * arc;
+          if (spin && !spinAnim) a.sprite.setAngle(st.t * 360 * spin);
           a.syncPosition();
         },
         onComplete: resolve,
       });
     });
+    if (spin) a.sprite.setAngle(0);
     if (land) {
       a.flight = null;
       a.setTile(to[0], to[1]);
@@ -284,6 +289,10 @@ export function createWorldServices(scene) {
           scene.restageDirty = true;
         }
       }
+    },
+    /** Story Phase 17: the captain's beard puffs, now ("small" or "big"), with an optional line for whoever's nearest. */
+    beardPuff(mode = 'small', line = null) {
+      return scene.beardPuffs?.puff(mode, line?.text ?? line ?? null) ?? null;
     },
     /** A little jump (surprise, being knocked about). */
     hop(id, { height = 8, duration = 280 } = {}) {
@@ -575,6 +584,13 @@ export function createWorldServices(scene) {
       move: (id, opts) => app.cinema.move(id, opts),
       frame: (id, frame) => app.cinema.frame(id, frame),
       frames: (id, list, ms) => app.cinema.frames(id, list, ms),
+      crt: (id, kind) => {
+        try {
+          app.cinema.crt(id, kind);
+        } catch {
+          // no such screen layer on this vista: nothing to distort
+        }
+      },
       spin: (id, k) => app.cinema.orbitSpeed(id, k),
       fx: (kind, opts) => app.cinema.vistaFx(kind, opts),
       setVisible: (id, v) => app.cinema.setVisible(id, v),

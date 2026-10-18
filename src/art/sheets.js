@@ -15,6 +15,7 @@ import { paintPortrait } from './portraits/portraitPainter.js';
 import { paintParrotPortrait } from './characters/parrotPainter.js';
 import { paintCardboardPortrait } from './characters/cardboardPainter.js';
 import { paintChickenPortrait } from './characters/chickenPainter.js';
+import { paintCrewPortrait } from './characters/cardboardCrewPainter.js';
 import { paintBackdrop, BACKDROP_PAINTERS } from './backdrops/backdrops.js';
 import { paintTitleSky, paintTitleSea, paintTitleShip, paintLogo } from './title/titleArt.js';
 import { FIELD_DIRS } from './characters/characterPainter.js';
@@ -136,6 +137,10 @@ export function portraitAtlas(content) {
     }
     if (p.painter === 'chicken') {
       for (const expr of p.expressions) atlas.add(`${p.id}_${expr}`, paintChickenPortrait(p, expr));
+      continue;
+    }
+    if (p.painter === 'cardboard_crew') {
+      for (const expr of p.expressions) atlas.add(`${p.id}_${expr}`, paintCrewPortrait(p, expr));
       continue;
     }
     const appearance = content.appearances.get(p.appearance ?? p.id);

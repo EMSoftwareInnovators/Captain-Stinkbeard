@@ -3,7 +3,7 @@ import { evaluateCondition, splitObjectiveRef } from '../conditions/conditions.j
 import { parseLine } from './parseLine.js';
 import { tvDef, setPower, setChannel, setTvCondition, programDef, programEpisode } from '../tv/tv.js';
 import { setDeadCenterLocation } from '../hazards/deadCenter.js';
-import { setSharkstormState } from '../hazards/sharkstorm.js';
+import { setSharkstormState, setSharkstormFlare, endSharkstormFlare } from '../hazards/sharkstorm.js';
 import { stabilityDef, readStability, writePressure, addPressure, effectOf, promptOptions, incidentDef } from '../stability.js';
 import { nextCustomer, scaleLabel, tellerScore } from '../bank.js';
 import { setAtmosphere, clearRoomAtmospheres } from '../atmosphere.js';
@@ -303,7 +303,11 @@ export function createCommandImplementations() {
     /** Where the Dead Center is now (a location id, or "none"). */
     /** Story Phase 6: moves the Great Sharkstorm to a state (and its distance with it). */
     sharkstorm: (step, ctx) => {
-      setSharkstormState(ctx.session.content ?? ctx.content, ctx.session, step.sharkstorm);
+      const content = ctx.session.content ?? ctx.content;
+      // Story Phase 17: a temporary flare (the Fire-Sharkstorm) over the state it's in, and its end.
+      if (step.sharkstorm === 'end_flare') return void endSharkstormFlare(content, ctx.session);
+      if (step.flare) return void setSharkstormFlare(content, ctx.session, step.sharkstorm);
+      setSharkstormState(content, ctx.session, step.sharkstorm);
       return null;
     },
     deadCenter: (step, ctx) => {
@@ -337,6 +341,8 @@ export function createCommandImplementations() {
       // from/to are beat indexes, both inclusive ({ from: 6, to: 7 } plays beats 6 and 7).
       for (const b of (ep.beats ?? []).slice(step.from ?? 0, step.to === undefined ? undefined : step.to + 1)) {
         if (b.frames?.length) service(ctx, 'cinema', 'tvProgram').frames(layer, b.frames, b.frameMs ?? 300);
+        // Story Phase 17: a beat can distort the set ("crt": "wobble" | "jitter" | "roll"); the next beat without it clears it.
+        ctx.services.cinema?.crt?.(layer, b.crt ?? null);
         if (b.sfx) service(ctx, 'audio', 'tvProgram').sfx(b.sfx);
         if (b.laugh) service(ctx, 'audio', 'tvProgram').sfx(prog.laugh ?? 'ftm_laugh', { volume: 0.8 });
         // Story Phase 13: Stench-O-Vision (the set named by "tv" puffs out of its vent).
@@ -410,8 +416,29 @@ export function createCommandImplementations() {
     markObject: (step, ctx) => {
       for (const [prop, value] of Object.entries(step.set)) ctx.session.world.set(step.markObject, prop, value);
     },
-    joinParty: (step, ctx) => {
-      ctx.session.party.add(step.joinParty);
+    joinParty: async (step, ctx) => {
+      // Story Phase 17: "level": "leader" joins at the captain's level (Ledger and Tilda, centuries late).
+      // Joining twice is a no-op: the party never holds anyone twice.
+      const party = ctx.session.party;
+      if (party.has(step.joinParty)) return;
+      const member = party.add(step.joinParty);
+      const level = step.level === 'leader' ? party.leader()?.level : step.level;
+      if (typeof level === 'number' && level > member.level) {
+        member.setLevel(level);
+        member.fullHeal();
+      }
+      if (!step.silent) await ctx.services.ui?.notify?.({ kind: 'partyJoined', name: party.nameOf(step.joinParty) });
+    },
+    learnAbility: async (step, ctx) => {
+      const member = ctx.session.party.get(step.character);
+      if (!member || member.abilities.includes(step.learnAbility)) return;
+      member.abilities.push(step.learnAbility);
+      const content = ctx.session.content ?? ctx.content;
+      const ab = content?.abilities?.get?.(step.learnAbility);
+      if (!step.silent) await ctx.services.ui?.notify?.({ kind: 'abilityLearned', name: member.name, ability: ab?.name ?? step.learnAbility });
+    },
+    beardPuff: (step, ctx) => {
+      ctx.services.world?.beardPuff?.(step.beardPuff, step.line ?? null);
     },
     leaveParty: (step, ctx) => {
       ctx.session.party.remove(step.leaveParty);
@@ -468,7 +495,7 @@ export function createCommandImplementations() {
     hideObject: (step, ctx) => service(ctx, 'world', 'hideObject').setObjectVisible(step.hideObject, false),
     effect: (step, ctx) => service(ctx, 'world', 'effect').effect(step.effect, { actor: step.actor, x: step.x, y: step.y }),
     fly: (step, ctx) => {
-      const p = service(ctx, 'world', 'fly').fly(step.fly, { to: step.to, duration: step.duration, arc: step.arc, land: step.land, alt: step.alt, from: step.from, fromAlt: step.fromAlt });
+      const p = service(ctx, 'world', 'fly').fly(step.fly, { to: step.to, duration: step.duration, arc: step.arc, land: step.land, alt: step.alt, from: step.from, fromAlt: step.fromAlt, spin: step.spin });
       return step.async ? null : p;
     },
     hop: (step, ctx) => {

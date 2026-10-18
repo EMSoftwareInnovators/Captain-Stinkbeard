@@ -58,3 +58,27 @@ export function removeBeardTag(content, session, tag) {
   session.story.clear(f);
   return true;
 }
+
+/**
+ * Story Phase 17: the beard has started releasing what it holds. Now and
+ * then (while "puffs.if" holds and the captain has control) it lets out a
+ * small, authored puff: a little haze at his chin, a short sound, somebody
+ * nearby reacting, now and then a brief exposure tint. Never a fog: it never
+ * covers the screen and never stops anyone. Data ("puffs" in beard.json):
+ *
+ *   "puffs": { "if": { "flag": "beard_puffing" }, "every": [18000, 34000], "sfx": ["beard_puff"],
+ *              "color": "#8a7a4a", "exposure": { "every": 3, "tint": "#a89868", "alpha": 0.16, "ms": 700 },
+ *              "reactions": { "pete": ["..."], "*": ["..."] }, "captain": ["..."], "countVar": "beard_puffs" }
+ *
+ * Which reaction comes next is a counter, not a dice roll (so tests and
+ * replays see the same lines).
+ */
+export function beardPuffDef(content) {
+  return beardDef(content)?.puffs ?? null;
+}
+
+/** The line someone says to puff number `n` (their own list, else everybody's). */
+export function puffReaction(def, who, n) {
+  const list = (who && def?.reactions?.[who]) || def?.reactions?.['*'] || [];
+  return list.length ? list[n % list.length] : null;
+}

@@ -324,6 +324,27 @@ Object.assign(MIGRATIONS, {
    * walks into chapter 186 on load.
    */
   15: (state) => fillLayout(state),
+  /**
+   * 16 -> 17 (Story Phase 17: the Return of the Ancient Crew and the Coffin
+   * Sock Catastrophe). Unchanged layout. Ledger Billiam and No-Nonsense Tilda
+   * (reincarnated once, behind `ledger_billiam_reincarnated` and
+   * `tilda_reincarnated`) are party members in the existing party list; the
+   * cut-outs, the door's second sealing, Tilda's permit (one item), Captain
+   * Minutes (a story variable, never the purse), the Greyhook expedition
+   * (blocked), the Sharkstorm's flare (a value that burns itself out), the
+   * beard's puffs, Agnes's condition and the Coffin Sock event are flags,
+   * variables and values that start unset. A party listing anyone twice is
+   * cleaned up here (and on every load). A finished Phase 16 save walks into
+   * chapter 206 on load.
+   */
+  16: (state) => {
+    const out = fillLayout(state);
+    if (Array.isArray(out.party)) {
+      const seen = new Set();
+      out.party = out.party.filter((m) => m && !seen.has(m.id) && seen.add(m.id));
+    }
+    return out;
+  },
 });
 
 export function migrateState(state, fromVersion, toVersion, migrations = MIGRATIONS) {

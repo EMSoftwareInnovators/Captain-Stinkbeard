@@ -18,6 +18,8 @@
  *     "stateValue": "brogath_state",       // saved story value (derived; dialogue and looks read it)
  *     "angerFlag": "brogath_angry",        // set only by scripts: ANGRY suppresses bashfulness
  *     "meterValue": "brogath_meter",       // "show" | "hide" | unset (automatic)
+ *     "pendingValue": "brogath_pending",   // Story Phase 17: a release brewing ("COFFIN_SOCK"), shown on the meter
+ *     "countdownVar": "coffin_sock_countdown", "pending": { "COFFIN_SOCK": { "label": "COFFIN SOCK EVENT", "word": "PENDING" } },
  *     "incidentValue": "brogath_incident", // the running incident's id, while pressure is rising
  *     "min": -20, "max": 100, "reveal": 30, "afterErupt": 55, "settleTo": 10,
  *     "bands": [{ "state": "PLEASED", "below": 0 }, { "state": "CALM", "below": 15 }, ...],
@@ -142,6 +144,20 @@ export function readStability(def, session) {
     stage: stageIndex(def, pressure),
     incident: def.incidentValue ? story.getValue(def.incidentValue) : null,
     meter: def.meterValue ? story.getValue(def.meterValue) : null,
+    // Story Phase 17: a big release brewing (COFFIN SOCK EVENT — PENDING) and its countdown, set by scripts.
+    pending: def.pendingValue ? story.getValue(def.pendingValue) : null,
+    countdown: def.countdownVar ? story.getVar(def.countdownVar, 0) : 0,
+  };
+}
+
+/** Story Phase 17: the meter's words for a pending release ({ label, word, stage }), or null. */
+export function pendingReadout(def, st) {
+  if (!st?.pending) return null;
+  const p = def.pending?.[st.pending] ?? {};
+  return {
+    label: p.label ?? `${st.pending} EVENT`,
+    word: p.word ?? 'PENDING',
+    stage: st.countdown > 0 ? (p.countdownLabel ?? 'BREWING: {n}').replace('{n}', st.countdown) : (p.imminentLabel ?? 'IMMINENT'),
   };
 }
 
