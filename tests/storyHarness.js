@@ -11,6 +11,7 @@ import { WorldState } from '../src/systems/world/WorldState.js';
 import { StagingTracker } from './storyStaging.js';
 import { inspectAt } from '../src/world/inspectTarget.js';
 import { deadCenterSeals } from '../src/systems/hazards/deadCenter.js';
+import { tickSharkstormFlare } from '../src/systems/hazards/sharkstorm.js';
 import { SaveManager } from '../src/systems/save/SaveManager.js';
 import { MemoryStorage } from '../src/platform/storage.js';
 
@@ -229,6 +230,8 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
       }
       session.location = { map, x: 1, y: 1, facing: 'down' };
       session.world.visit(map);
+      // Story Phase 17: a temporary flare over the storm burns down a room at a time (as WorldScene's arrival does).
+      tickSharkstormFlare(content, session);
       bus.emit('map:entered', { map });
       if (then) {
         await story.run(then);

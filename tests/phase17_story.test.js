@@ -143,15 +143,17 @@ describe('While it plays', () => {
     expect(atmosphereId(s.content, s.session)).toBe('COFFIN_SOCK');
   }, 180000);
 
-  it('the Fire-Sharkstorm burns itself out if nobody puts it out', async () => {
-    const s = await fromPreset('p17_fire_sharkstorm');
-    for (let i = 0; i < 6; i++) {
-      await go(s, i % 2 ? 'galley' : 'main_deck');
-    }
+  it('the Fire-Sharkstorm burns itself out after ten rooms if nobody puts it out (and a save keeps the count)', async () => {
+    const hop = (st) => go(st, st.map === 'main_deck' ? 'galley' : 'main_deck');
+    const s = await fromPreset('p17_fire_sharkstorm'); // arriving in the Fart Zone: one room
+    for (let i = 0; i < 4; i++) await hop(s); // five
+    expect(sharkstormFlare(s.content, s.session)).toBe('fire_sharkstorm');
     const t = reloadStory(s);
-    for (let i = 0; i < 6; i++) await go(t, i % 2 ? 'galley' : 'main_deck');
-    // (the harness ticks a room change the way WorldScene does on arrival)
-    expect(['fire_sharkstorm', null]).toContain(sharkstormFlare(t.content, t.session));
+    for (let i = 0; i < 4; i++) await hop(t); // nine
+    expect(sharkstormFlare(t.content, t.session)).toBe('fire_sharkstorm');
+    await hop(t); // ten
+    expect(sharkstormFlare(t.content, t.session)).toBe(null);
+    expect(sharkstormState(t.content, t.session)).toBe('rough_turbulence');
   }, 120000);
 
   it('a save in the Fart-Free Zone before the rescue picks up at the grating, and Agnes always comes out', async () => {

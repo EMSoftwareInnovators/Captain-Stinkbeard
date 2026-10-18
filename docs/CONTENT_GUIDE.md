@@ -1757,6 +1757,84 @@ or `"application"` (the bank's `applicationLine`), and `"appraise": { "credit":
 people only walk in and out by it while the condition holds (and the staging
 check only tests it then).
 
+## Story Phase 17 formats
+
+### A party member who is also an NPC (`data/characters/phase17.json`)
+
+```json
+{ "id": "tilda", "name": "No-Nonsense Tilda", "title": "First Mate", "npc": "tilda",
+  "appearance": "tilda", "portrait": "tilda",
+  "variants": [{ "if": { "flag": "tilda_cardboard_singed" }, "appearance": "tilda_singed", "portrait": "tilda_singed" }],
+  "traits": ["CARDBOARD_REINCARNATION", "FLAT_BODY", "FUME_ANIMATED", "LIGHTWEIGHT", "FIRE_SUSCEPTIBLE"],
+  "learnset": [{ "level": 1, "ability": "brogath_stop" }],
+  "battle": { "attack": "tilda_shove", "ordersTitle": "Commands", "followAppearance": true,
+              "resource": { "id": "authority", "name": "Authority", "short": "AUTH", "max": 5, "start": 2, "onDefend": 1 } } }
+```
+
+`"npc"` makes the NPC of that id the speaker (no second speaker record).
+`followAppearance` draws the battle sprite from the field appearance,
+variants included. Steps: `{ "joinParty": "tilda", "level": "leader" }` (once;
+at the captain's level) and `{ "learnAbility": "captain_minutes", "character":
+"ledger" }`.
+
+### Traits (`data/story/traits.json`)
+
+```json
+"FLAT_BODY": { "label": "Flat", "short": "Flat", "battle": { "evade": 8 }, "description": "..." },
+"FUME_ANIMATED": { "label": "Fume-animated", "battle": { "immune": ["sickened", "belching"] } },
+"FIRE_SUSCEPTIBLE": { "label": "Flammable", "battle": { "damageTaken": { "fire": 1.5 } } }
+```
+
+A status can have `"skipsTurn": true` (a debuff: the holder loses its next
+turn).
+
+### A temporary storm state (`data/hazards/sharkstorm.json`)
+
+A state with `"temporary": { "expiresAfterRooms": 10 }` can only be lit as a
+flare over the saved state: `{ "sharkstorm": "fire_sharkstorm", "flare": true
+}`, put out with `{ "sharkstorm": "end_flare" }`, and it goes out by itself
+after that many room changes. A state's `glints` can name `"bursts"` (FX
+burst kinds) and `"flashes": { "every": [ms, ms], "color": "#e8783a",
+"alpha": 0.12 }` tints the sky now and then (never with reduced effects).
+
+### Beard puffs (`data/story/beard.json`, `"puffs"`)
+
+```json
+"puffs": { "if": { "flag": "beard_puffing" }, "every": [20000, 36000], "sfx": ["beard_puff", "beard_puff_b"],
+           "reactions": { "pete": ["(stepping back) ...Captain."], "*": ["(eyes watering) Is that your beard?"] },
+           "captain": ["(the beard exhales on its own)"] }
+```
+
+`every` is at least 8000 ms; reactions are at most 60 characters. Scenes can
+puff on cue: `{ "beardPuff": "small", "line": "..." }`.
+
+### A pending release on a stability subject
+
+`"pendingValue": "brogath_pending", "countdownVar": "coffin_sock_countdown",
+"pending": { "COFFIN_SOCK": { "label": "COFFIN SOCK EVENT", "word": "PENDING",
+"countdownLabel": "BREWING: {n}", "imminentLabel": "IMMINENT" } }`. Set the
+value to show the panel, the variable to count down.
+
+### Ancient crew who can come back (`data/story/ancient_crew.json`)
+
+`"reincarnationAllowed": true` needs `"reincarnation": { "flag":
+"tilda_reincarnated", "npc": "tilda", "character": "tilda", "vessel":
+"cutout_tilda" }`. Everyone else stays `false`.
+
+### Programme beats with a CRT effect
+
+A `tvProgram` beat can add `"crt": "wobble" | "roll" | "jitter"`.
+
+### Presets with party members
+
+`"party": ["ledger", { "id": "ledger", "learn": ["captain_minutes"] }]` (they
+join at the captain's level, once).
+
+### An NPC extension that adds rooms
+
+`{ "extend": "brogath", "rooms": ["cargo_hold", "fart_free_zone"] }` (only
+for an NPC that already lists rooms).
+
 ## Tilesets and props
 
 **Tilesets** (`data/tilesets/`) list `frames` (painted by name in

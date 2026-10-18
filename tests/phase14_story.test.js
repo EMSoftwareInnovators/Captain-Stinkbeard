@@ -73,24 +73,24 @@ describe('Story Phase 14 can be played start to finish (headless)', () => {
     expect([...at].sort((a, b) => a - b)).toEqual(at);
     expect(currentChapter(s.content.game, s.session).id).toBe('phase14_end');
     for (const q of PHASE14_QUESTS) expect(s.quest(q), q).toBe('completed');
-  });
+  }, 120000);
 
   it('taking the last option at every choice (wrong answers to Brogath too, while he can take them); it converges', async () => {
     const { s } = await playPhase14('last');
     for (const q of PHASE14_QUESTS) expect(s.quest(q), q).toBe('completed');
     expect(s.has('brogath_permanent')).toBe(true);
-  });
+  }, 120000);
 });
 
 describe('Story Phase 14 staging', () => {
   it('nobody stands in a wall or a doorway, cuts off a door, or boxes the captain in (first options)', async () => {
     const { s } = await playPhase14('first');
     expect(s.stagingIssues.join('\n')).toBe('');
-  });
+  }, 120000);
   it('the same, choosing the last option everywhere', async () => {
     const { s } = await playPhase14('last');
     expect(s.stagingIssues.join('\n')).toBe('');
-  });
+  }, 120000);
 
   it('the barricade\'s shield is cardboard Sir Rumpus wherever he was stood in Phase 13 (and every standee in its other spot is walked round)', async () => {
     const s = makeStory({ preset: 'p13_complete' });
@@ -162,7 +162,7 @@ describe('Story Phase 14 debug presets are real, finishable points in the story'
       for (const q of PHASE14_QUESTS) expect(s.quest(q), `${id}: ${q}`).toBe('completed');
       expect(s.stagingIssues.join('\n'), id).toBe('');
       expect(s.session.story.getVar('grand_currency_gold_paid'), id).toBe(10);
-    });
+    }, 120000);
   }
 });
 

@@ -722,6 +722,50 @@ Story Phase 16 ([16](STORY_PHASE16.md)) added one room
   `model.spawns`) is honoured by `WorldScene.nearestArrival` and the staging
   check.
 
+## Party members from the story, traits, flares, puffs, a pending release (Phase 17)
+
+Story Phase 17 ([17](STORY_PHASE17.md)) added no room and these reusable parts:
+
+- **Joining at the leader's level.** `{ "joinParty": "ledger", "level":
+  "leader" }` adds a member at the captain's level with full HP, and is a
+  no-op if they're already in (the party never holds anyone twice;
+  `Party.load` drops a duplicate with a warning and migration 16 → 17 dedupes
+  old saves). `{ "learnAbility": "captain_minutes", "character": "ledger" }`
+  teaches a story ability once. Presets can carry `"party"` (members and what
+  they've learned).
+- **A party member who is an NPC.** A character with `"npc": "<npc id>"` isn't
+  registered as a second speaker: dialogue uses the NPC's record (name,
+  portrait, variants). `battle.followAppearance` builds battle frames from the
+  member's current field appearance (`battle_app_<appearance>`), so a story
+  variant (Tilda singed) shows in battle too.
+- **Traits** (`data/story/traits.json`, registry `traits`): a character's
+  `traits` list; each trait's `battle` part gives `damageTaken` multipliers by
+  element, `immune` statuses and `evade` (percent off the attacker's hit
+  chance), read by `Combatant` (`traitMultiplier`, `resists`, `traitEvade`)
+  and the engine. A status with `skipsTurn` costs its holder a turn.
+- **Per-member resources in the HUD**: the resource's `short` label,
+  `ordersTitle` and `ordersHint` name the orders menu and the defend hint.
+- **A temporary storm flare** (`setSharkstormFlare`, `endSharkstormFlare`,
+  `tickSharkstormFlare` in `src/systems/hazards/sharkstorm.js`; the
+  `sharkstorm` command's `"flare": true` and `"end_flare"`): a state with
+  `temporary.expiresAfterRooms` shows over the saved state (the
+  `great_sharkstorm_flare` value) and counts down a room change at a time
+  (`WorldScene.runArrival`, not on loads); conditions read the saved state.
+  `SharkstormLayer` reads `glints.bursts` and `flashes` (a faint full-screen
+  tint, never with reduced effects).
+- **Beard puffs** (`src/world/BeardPuffs.js`; `beard.puffs` in
+  `data/story/beard.json`; the `beardPuff` command): a deterministic timer
+  while a condition holds, a small puff at the captain, and the nearest NPC's
+  short reaction as a bark.
+- **A pending release** (stability `pendingValue`, `countdownVar`,
+  `pending[...]` labels; `pendingReadout`): the meter shows a labelled
+  PENDING panel with a countdown and IMMINENT at zero.
+- **CRT beats**: a TV programme beat's `"crt"` (`wobble`, `roll`, `jitter`)
+  is passed to `CinemaScene.crt`; with reduced effects it only flickers.
+- **NPC extensions can add rooms** (`"extend"` with `"rooms"`): Brogath may
+  enter the hold and the Fart-Free Zone from this phase (every placement there
+  waits on a Phase 17 flag).
+
 ## Battle
 
 `BattleEngine` (`src/systems/battle/`) owns the rules and is fully
@@ -830,10 +874,11 @@ handles fullscreen, so pixels stay square and sharp.
 See the README and [RETRO_PORT_NOTES.md](RETRO_PORT_NOTES.md#save-schema).
 Autosave on map entry and after battles, three manual slots from the pause
 menu, checksum + version per record, migrations table for future formats.
-The schema is at version 16 (Story Phase 4 added story values: where the
-Dead Center is; Phases 5 to 16 keep the layout, and Phases 11 to 16 add only
+The schema is at version 17 (Story Phase 4 added story values: where the
+Dead Center is; Phases 5 to 17 keep the layout, and Phases 11 to 17 add only
 flags, variables and values: Phase 16's rooms' air, Fart Zone, beard, counter,
-lighter and hornets are all story state); a save from any earlier phase upgrades on load
+lighter and hornets are all story state; Phase 17's new party members are
+ordinary party records, deduplicated on load); a save from any earlier phase upgrades on load
 and walks into the next chapter. Aliases are never saved.
 
 ## Testing
@@ -871,7 +916,7 @@ and walks into the next chapter. Aliases are never saved.
   | --- | --- |
   | `@smoke` | a few minutes: menus, movement, a pad, Phase 2 presets, being walled in, the Dead Center's sealed door, the Forecast Board, the S.E.S., the Mark II knob panel, the discount-store reveal, the reef passage, the wrong-way entry, the sauce-can aerial, the six-rope lamp, the late-night knobs, the sealed treasure door, the thirty-second trial (held with real key presses), the Grand Dice, Garrick suspended, Stench-O-Vision with the hazard off, the delirium, the standees across a save, the BASHFULNESS meter, the teller's window, the Grand Bank across a save |
   | `@story` | the long playthroughs (prologue, Phase 2, Phase 3, chapters 12 to 14, Phase 4, chapters 18 and 19, Phase 5, chapters 23 and 24, Phase 6, Phase 7, chapters 39 to 41, Phase 8, chapters 51 to 54, Phase 9, chapters 62 to 70, Phase 10, chapters 90 to 95, Phase 11, chapters 104 to 111, Phase 12, chapters 121 to 126, Phase 13, chapters 139 to 145, Phase 14, chapters 163 to 169, Phase 15, chapter 205) |
-  | `@prologue` `@phase2` `@phase3` `@phase4` `@phase5` `@phase6` `@phase7` `@phase8` `@phase9` `@phase10` `@phase11` `@phase12` `@phase13` `@phase14` `@phase15` `@phase16` | by part of the story |
+  | `@prologue` `@phase2` `@phase3` `@phase4` `@phase5` `@phase6` `@phase7` `@phase8` `@phase9` `@phase10` `@phase11` `@phase12` `@phase13` `@phase14` `@phase15` `@phase16` `@phase17` | by part of the story |
   | `@input` `@saves` `@world` `@scenes` `@ui` | by system |
 
   `npm run e2e:smoke`, `npm run e2e:quick` (all but `@story`),
@@ -958,7 +1003,17 @@ and walks into the next chapter. Aliases are never saved.
   the cap), the hornets, RECOVERING, the two televisions, the bunker's lock,
   saves 15 → 16 and the debug tab; the Phase 16 story test plays the phase
   twice with the staging check, from ten presets and across two saves, and
-  checks the brief. `tests/storyStaging.js` also checks that whatever an open
+  checks the brief. `tests/phase17.test.js` covers the party joins (once, at
+  the captain's level; a doubled member in a save), one speaker per member,
+  the cardboard traits in battle and the drill, the cut-outs (two back, three
+  still props), the sealed door, the temporary flare (over the saved state,
+  ten rooms, across a save), the pending readout, beard puffs, the paranoia
+  aliases (presentation only), the converter's ban and Captain Minutes (no
+  gold), one permit, saves 16 → 17 and the debug tab; the Phase 17 story test
+  plays the phase twice with the staging check, from all 27 presets and across
+  a save, checks the ending's world state and the brief. The story harness
+  ticks a storm flare on every arrival, as `WorldScene` does.
+  `tests/storyStaging.js` also checks that whatever an open
   objective needs is reachable from where the captain stands, and walks him
   up to an object from a side he can reach.
 

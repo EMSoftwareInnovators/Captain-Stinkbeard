@@ -39,7 +39,8 @@ export const firstMissing = async (g, ids, prefix) => {
 };
 
 // The way through: the hold is off the galley, the cabin off the deck; the old quarters join the galley and the deck once open.
-const VIA = { [H]: G, [C]: D };
+// Story Phase 17: the Fart-Free Zone is off the hold (so: deck, galley, hold, zone).
+const VIA = { [H]: G, [C]: D, fart_free_zone: H };
 
 /** Walks to another room, one doorway at a time (the nearest working warp to the next room). */
 export async function go(g, map) {
@@ -57,10 +58,16 @@ export async function go(g, map) {
       return best?.at ?? null;
     }, to);
     let next = map;
-    let at = VIA[here] && VIA[here] !== map ? null : await warpTo(map);
+    // a door straight there first (the Fart-Free Zone's, from the hold); else through the rooms on the way
+    let at = await warpTo(map);
     if (!at) {
-      next = VIA[here] ?? VIA[map] ?? (here === D ? G : D);
-      at = await warpTo(next);
+      // the first room on the way that has a door from here (a room further along the chain, when the next one has none)
+      const chain = [VIA[here], VIA[map], VIA[VIA[map]], here === D ? G : D].filter((m) => m && m !== here);
+      for (const m of chain) {
+        next = m;
+        at = await warpTo(m);
+        if (at) break;
+      }
     }
     if (!at) throw new Error(`no way from ${here} toward ${map}`);
     await g.travel(at[0], at[1], next);

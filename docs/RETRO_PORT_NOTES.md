@@ -149,9 +149,12 @@ frame is required. Button prompt glyphs are per device (`PROMPT_GLYPHS`).
 
 ## Save schema
 
-`src/systems/save/SaveManager.js`, current `SAVE_VERSION = 10` (Story Phase 10;
-versions 5 to 10 keep this layout, their migrations only rename or fill in;
-the example shows a version 5 record):
+`src/systems/save/SaveManager.js`, current `SAVE_VERSION = 17` (Story Phase 17;
+versions 5 to 17 keep this layout, their migrations only rename, fill in or,
+from 17, drop a party member listed twice; the example shows a version 5
+record). Story Phase 17's two new party members (Ledger and Tilda) are
+ordinary `party` entries, so the cartridge budget's four party slots still
+hold (the captain, Ledger, Tilda, one spare):
 
 ```json
 {
