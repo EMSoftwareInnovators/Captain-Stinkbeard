@@ -40,7 +40,7 @@ const t = (c, s, x, y, col = CRT[7], opts = {}) => drawText(c, s, x, y, col, { c
 // --- shared TV pieces ------------------------------------------------------------------------
 
 /** The Bling Bling King behind the late-night desk: head and shoulders, crown, chain, a little smug. */
-function host(c, f, { y = 0, hat = 'crown', sash = false, mouth = 'grin', x = 0 } = {}) {
+export function host(c, f, { y = 0, hat = 'crown', sash = false, mouth = 'grin', x = 0 } = {}) {
   const X = (dx) => 52 + x + dx;
   c.poly([[X(14), 28 + y], [X(22), 10 + y], [X(26), 30 + y]], CRT[3]); // the fin
   c.ellipse(X(4), 42 + y, 26, 16, CRT[4]);
@@ -66,7 +66,7 @@ function host(c, f, { y = 0, hat = 'crown', sash = false, mouth = 'grin', x = 0 
   if (sash) for (let k = 0; k < 18; k++) c.rect(X(-10) + k * 2, 36 + y + k, 3, 2, k % 3 ? CRT[5] : CRT[7]);
 }
 
-function deskFront(c, y = 58) {
+export function deskFront(c, y = 58) {
   c.rect(0, y, W, H - y, CRT[2]);
   c.hline(0, W - 1, y, CRT[5]);
   c.rect(8, y + 6, 22, 10, CRT[3]); // a mug

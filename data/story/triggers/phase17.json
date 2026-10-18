@@ -1,0 +1,387 @@
+[
+ {
+  "id": "p17_ready",
+  "if": {
+   "all": [
+    {
+     "flag": "p16_complete"
+    },
+    {
+     "notFlag": "p17_ready_hint"
+    },
+    {
+     "notFlag": "p17_started"
+    },
+    {
+     "not": {
+      "onMap": "fart_free_zone"
+     }
+    }
+   ]
+  },
+  "script": "p17.ready_hint",
+  "once": false,
+  "//": "Phase 17 begins after Phase 16 in the Fart-Free Zone (a one-time hint if you're somewhere else)."
+ },
+ {
+  "id": "p17_begin",
+  "if": {
+   "all": [
+    {
+     "flag": "p16_complete"
+    },
+    {
+     "notFlag": "p17_started"
+    },
+    {
+     "onMap": "fart_free_zone"
+    }
+   ]
+  },
+  "script": "p17c1.begin",
+  "once": false,
+  "//": "Chapter 206 starts when the captain goes into the Fart-Free Zone."
+ },
+ {
+  "id": "p17_p17_memories_said",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "brogath_remembers.memories"
+    },
+    {
+     "notFlag": "p17_memories_said"
+    }
+   ]
+  },
+  "script": "p17c1.memories_done",
+  "once": false
+ },
+ {
+  "id": "p17_p17_names_said",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "brogath_remembers.names"
+    },
+    {
+     "notFlag": "p17_names_said"
+    }
+   ]
+  },
+  "script": "p17c1.names_done",
+  "once": false
+ },
+ {
+  "id": "p17_p17_cutouts_said",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "the_cardboard_crew.cutouts"
+    },
+    {
+     "notFlag": "p17_cutouts_said"
+    }
+   ]
+  },
+  "script": "p17c2.cutouts_done",
+  "once": false
+ },
+ {
+  "id": "p17_race",
+  "if": {
+   "all": [
+    {
+     "objectiveActive": "the_cardboard_crew.run"
+    },
+    {
+     "notFlag": "p17_ch208_started"
+    },
+    {
+     "onMap": "cargo_hold"
+    }
+   ]
+  },
+  "script": "p17c3.begin",
+  "once": false,
+  "//": "The race: chapter 208 starts as the captain reaches the hold."
+ },
+ {
+  "id": "p17_race_galley",
+  "if": {
+   "all": [
+    {
+     "objectiveActive": "the_cardboard_crew.run"
+    },
+    {
+     "notFlag": "p17_race_galley"
+    },
+    {
+     "onMap": "galley"
+    }
+   ]
+  },
+  "script": "p17c2.race_galley",
+  "once": false
+ },
+ {
+  "id": "p17_p17_entries_said",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "the_geniuses.entries"
+    },
+    {
+     "notFlag": "p17_entries_said"
+    }
+   ]
+  },
+  "script": "p17c5.entries_done",
+  "once": false
+ },
+ {
+  "id": "p17_p17_orders_said",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "the_geniuses.orders"
+    },
+    {
+     "notFlag": "p17_orders_said"
+    }
+   ]
+  },
+  "script": "p17c5.orders_done",
+  "once": false
+ },
+ {
+  "id": "p17_p17_barrels_said",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "the_geniuses.barrels"
+    },
+    {
+     "notFlag": "p17_barrels_said"
+    }
+   ]
+  },
+  "script": "p17c5.barrels_done",
+  "once": false
+ },
+ {
+  "id": "p17_helm_deck",
+  "if": {
+   "all": [
+    {
+     "objectiveActive": "great_ledger_proposal.helm"
+    },
+    {
+     "notFlag": "p17_tilda_helm"
+    },
+    {
+     "onMap": "main_deck"
+    }
+   ]
+  },
+  "script": "p17c8.helm",
+  "once": false,
+  "//": "Tilda at the wheel, seen from the deck."
+ },
+ {
+  "id": "p17_p17_countermand_said",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "great_ledger_proposal.countermand"
+    },
+    {
+     "notFlag": "p17_countermand_said"
+    }
+   ]
+  },
+  "script": "p17c8.countermand_done",
+  "once": false
+ },
+ {
+  "id": "p17_p17_points_said",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "grand_restraint.points"
+    },
+    {
+     "notFlag": "p17_points_said"
+    }
+   ]
+  },
+  "script": "p17c11.points_done",
+  "once": false
+ },
+ {
+  "id": "p17_p17_prep_said",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "grand_restraint.prep"
+    },
+    {
+     "notFlag": "p17_prep_said"
+    }
+   ]
+  },
+  "script": "p17c11.prep_done",
+  "once": false
+ },
+ {
+  "id": "p17_fire_deck",
+  "if": {
+   "all": [
+    {
+     "objectiveActive": "fire_sharkstorm.deploy"
+    },
+    {
+     "flag": "p17_agnes_fetched"
+    },
+    {
+     "notFlag": "p17_fire_deck_seen"
+    },
+    {
+     "onMap": "main_deck"
+    }
+   ]
+  },
+  "script": "p17c12.fire_deck",
+  "once": false,
+  "//": "Carrying Agnes across the burning deck."
+ },
+ {
+  "id": "p17_p17_mellow_said",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "fire_sharkstorm.mellow"
+    },
+    {
+     "notFlag": "p17_mellow_said"
+    }
+   ]
+  },
+  "script": "p17c12.mellow_done",
+  "once": false
+ },
+ {
+  "id": "p17_deploy_fz",
+  "if": {
+   "all": [
+    {
+     "objectiveActive": "fire_sharkstorm.deploy"
+    },
+    {
+     "flag": "p17_agnes_fetched"
+    },
+    {
+     "onMap": "stenchmaster_fart_zone"
+    }
+   ]
+  },
+  "script": "p17c12.deploy",
+  "once": false,
+  "//": "Agnes, brought to Brogath in the Fart Zone."
+ },
+ {
+  "id": "p17_tb_deck",
+  "if": {
+   "all": [
+    {
+     "objectiveActive": "thunderbottom.lead"
+    },
+    {
+     "notFlag": "p17_tb_deck_seen"
+    },
+    {
+     "onMap": "main_deck"
+    }
+   ]
+  },
+  "script": "p17c13.deck",
+  "once": false,
+  "//": "Agnes following Lord Thunderbottom to the grating."
+ },
+ {
+  "id": "p17_puff_first",
+  "if": {
+   "all": [
+    {
+     "objectiveActive": "beard_exhales.puff"
+    },
+    {
+     "notFlag": "p17_first_puff"
+    }
+   ]
+  },
+  "script": "p17c15.first_puff",
+  "once": false,
+  "//": "The beard's first puff, as soon as the captain has control."
+ },
+ {
+  "id": "p17_p17_proc_said",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "beard_exhales.procedures"
+    },
+    {
+     "notFlag": "p17_proc_said"
+    }
+   ]
+  },
+  "script": "p17c15.procedures_done",
+  "once": false
+ },
+ {
+  "id": "p17_p17_vision_said",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "beard_joint.vision"
+    },
+    {
+     "notFlag": "p17_vision_said"
+    }
+   ]
+  },
+  "script": "p17c16.vision_done",
+  "once": false
+ },
+ {
+  "id": "p17_p17_spiral_said",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "beard_joint.spiral"
+    },
+    {
+     "notFlag": "p17_spiral_said"
+    }
+   ]
+  },
+  "script": "p17c16.spiral_done",
+  "once": false
+ },
+ {
+  "id": "p17_p17_after_said",
+  "if": {
+   "all": [
+    {
+     "objectiveDone": "coffin_sock_catastrophe.after"
+    },
+    {
+     "notFlag": "p17_after_said"
+    }
+   ]
+  },
+  "script": "p17c17.end",
+  "once": false
+ }
+]

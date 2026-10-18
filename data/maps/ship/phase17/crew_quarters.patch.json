@@ -1,0 +1,5723 @@
+{
+ "id": "crew_quarters_phase17",
+ "patch": "crew_quarters",
+ "//": "Story Phase 17 in the old quarters: the cut-out gallery along the north wall (row 5: Old Jeb 5, Ledger 6, Tilda 7, Wobbly Ned 10, Elsie 11; Ledger's and Tilda's go to the hold with Brogath in 207; the other three stay for good, dormant; the corridor in row 4 and the way down at 8-9,5 stay open); Ledger and Tilda by Brogath's canopy (9,8 and 11,7); the counter (the Bureau, 11-13,14; the bell 12,14; the window 12,13); the converter (7,14: banned from 214); the rules board (9,12: the roster, then COFFIN SOCK EVENT, PENDING); Garrick's sash screen (15,5).",
+ "objects": [
+  {
+   "id": "p17_cutout_jeb",
+   "type": "inspect",
+   "x": 5,
+   "y": 5,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_cardboard_crew.cutouts"
+     },
+     {
+      "notFlag": "p17_cutout_jeb"
+     }
+    ]
+   },
+   "script": "p17c2.cutout_jeb"
+  },
+  {
+   "id": "p17_cutout_ledger",
+   "type": "inspect",
+   "x": 6,
+   "y": 5,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_cardboard_crew.cutouts"
+     },
+     {
+      "notFlag": "p17_cutout_ledger"
+     }
+    ]
+   },
+   "script": "p17c2.cutout_ledger"
+  },
+  {
+   "id": "p17_cutout_tilda",
+   "type": "inspect",
+   "x": 7,
+   "y": 5,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_cardboard_crew.cutouts"
+     },
+     {
+      "notFlag": "p17_cutout_tilda"
+     }
+    ]
+   },
+   "script": "p17c2.cutout_tilda"
+  },
+  {
+   "id": "p17_cutout_ned",
+   "type": "inspect",
+   "x": 10,
+   "y": 5,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_cardboard_crew.cutouts"
+     },
+     {
+      "notFlag": "p17_cutout_ned"
+     }
+    ]
+   },
+   "script": "p17c2.cutout_ned"
+  },
+  {
+   "id": "p17_cutout_elsie",
+   "type": "inspect",
+   "x": 11,
+   "y": 5,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "the_cardboard_crew.cutouts"
+     },
+     {
+      "notFlag": "p17_cutout_elsie"
+     }
+    ]
+   },
+   "script": "p17c2.cutout_elsie"
+  },
+  {
+   "id": "p17_roster",
+   "type": "inspect",
+   "x": 9,
+   "y": 12,
+   "if": {
+    "objectiveActive": "the_geniuses.roster"
+   },
+   "script": "p17c5.roster"
+  },
+  {
+   "id": "p17_tilda_form",
+   "type": "inspect",
+   "x": 12,
+   "y": 14,
+   "if": {
+    "objectiveActive": "tilda_application.form"
+   },
+   "script": "p17c6.form"
+  },
+  {
+   "id": "p17_stop",
+   "type": "inspect",
+   "x": 7,
+   "y": 14,
+   "if": {
+    "objectiveActive": "captain_minutes.stop"
+   },
+   "script": "p17c9.stop"
+  },
+  {
+   "id": "p17_ban",
+   "type": "inspect",
+   "x": 7,
+   "y": 14,
+   "if": {
+    "objectiveActive": "captain_minutes.ban"
+   },
+   "script": "p17c9.ban"
+  },
+  {
+   "id": "p17_bell",
+   "type": "inspect",
+   "x": 12,
+   "y": 14,
+   "if": {
+    "objectiveActive": "thunderbottom.bell"
+   },
+   "script": "p17c13.bell"
+  },
+  {
+   "id": "p17_board",
+   "type": "inspect",
+   "x": 9,
+   "y": 12,
+   "if": {
+    "all": [
+     {
+      "objectiveActive": "beard_exhales.procedures"
+     },
+     {
+      "notFlag": "p17_proc_board"
+     }
+    ]
+   },
+   "script": "p17c15.proc_board"
+  },
+  {
+   "id": "p17_gallery_jeb",
+   "type": "inspect",
+   "x": 5,
+   "y": 5,
+   "if": {
+    "flag": "p17_cutouts_said"
+   },
+   "script": "p17.inspect.cutout_jeb"
+  },
+  {
+   "id": "p17_gallery_ned",
+   "type": "inspect",
+   "x": 10,
+   "y": 5,
+   "if": {
+    "flag": "p17_cutouts_said"
+   },
+   "script": "p17.inspect.cutout_ned"
+  },
+  {
+   "id": "p17_gallery_elsie",
+   "type": "inspect",
+   "x": 11,
+   "y": 5,
+   "if": {
+    "flag": "p17_cutouts_said"
+   },
+   "script": "p17.inspect.cutout_elsie"
+  },
+  {
+   "id": "p17_converter_banned",
+   "type": "inspect",
+   "x": 7,
+   "y": 14,
+   "if": {
+    "flag": "p17_conversions_banned"
+   },
+   "script": "p17.inspect.converter_banned"
+  },
+  {
+   "id": "p17_board_look",
+   "type": "inspect",
+   "x": 9,
+   "y": 12,
+   "if": {
+    "flag": "p17_proc_board"
+   },
+   "script": "p17.inspect.pending_board"
+  },
+  {
+   "id": "p17_screen_look",
+   "type": "inspect",
+   "x": 15,
+   "y": 5,
+   "if": {
+    "flag": "garrick_beard_joint_experiment"
+   },
+   "script": "p17.inspect.sash_screen"
+  },
+  {
+   "id": "p17q_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 6,
+   "facing": "right",
+   "if": {
+    "flag": "p17_complete"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_pete_1",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 6,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch222_started"
+     },
+     {
+      "notFlag": "p17_complete"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_pete_2",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 6,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch221_started"
+     },
+     {
+      "notFlag": "p17_ch222_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_pete_3",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 6,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch220_started"
+     },
+     {
+      "notFlag": "p17_ch221_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_pete_4",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch219_started"
+       },
+       {
+        "notFlag": "p17_ch220_started"
+       }
+      ]
+     },
+     {
+      "flag": "agnes_thunderbottom_rescue_complete"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_pete_5",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 6,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch219_started"
+     },
+     {
+      "notFlag": "p17_ch220_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_pete_6",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 6,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch218_started"
+     },
+     {
+      "notFlag": "p17_ch219_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_pete_7",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch217_started"
+       },
+       {
+        "notFlag": "p17_ch218_started"
+       }
+      ]
+     },
+     {
+      "flag": "chicken_town_second_mellowing"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_pete_8",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch217_started"
+     },
+     {
+      "notFlag": "p17_ch218_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_pete_9",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch216_started"
+       },
+       {
+        "notFlag": "p17_ch217_started"
+       }
+      ]
+     },
+     {
+      "flag": "p17_safety_conditions"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_pete_10",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch216_started"
+     },
+     {
+      "notFlag": "p17_ch217_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_pete_11",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch215_started"
+     },
+     {
+      "notFlag": "p17_ch216_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_pete_12",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 6,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch214_started"
+     },
+     {
+      "notFlag": "p17_ch215_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_pete_13",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch213_started"
+       },
+       {
+        "notFlag": "p17_ch214_started"
+       }
+      ]
+     },
+     {
+      "flag": "greyhook_expedition_blocked"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_pete_14",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch213_started"
+     },
+     {
+      "notFlag": "p17_ch214_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_pete_15",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch212_started"
+     },
+     {
+      "notFlag": "p17_ch213_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_pete_16",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 6,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch211_started"
+     },
+     {
+      "notFlag": "p17_ch212_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_pete_17",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch210_started"
+     },
+     {
+      "notFlag": "p17_ch211_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_pete_18",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "any": [
+       {
+        "all": [
+         {
+          "flag": "p17_ch208_started"
+         },
+         {
+          "notFlag": "p17_ch209_started"
+         }
+        ]
+       },
+       {
+        "all": [
+         {
+          "flag": "p17_ch209_started"
+         },
+         {
+          "notFlag": "p17_ch210_started"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "flag": "tilda_reincarnated"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_pete_19",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch207_started"
+       },
+       {
+        "notFlag": "p17_ch208_started"
+       }
+      ]
+     },
+     {
+      "notFlag": "p17_guard_asked"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_pete_20",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_started"
+     },
+     {
+      "notFlag": "p17_ch207_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_pete_21",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 6,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_started"
+     },
+     {
+      "flag": "old_crew_reunion_completed"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_pete_22",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 6,
+   "facing": "right",
+   "if": {
+    "flag": "p17_started"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_pete_23",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17q_gristle_0",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 3,
+   "y": 6,
+   "facing": "left",
+   "if": {
+    "flag": "p17_complete"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_gristle_1",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 3,
+   "y": 6,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch222_started"
+     },
+     {
+      "notFlag": "p17_complete"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_gristle_2",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 3,
+   "y": 6,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch221_started"
+     },
+     {
+      "notFlag": "p17_ch222_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_gristle_3",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 3,
+   "y": 6,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch220_started"
+     },
+     {
+      "notFlag": "p17_ch221_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_gristle_4",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 3,
+   "y": 6,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch219_started"
+     },
+     {
+      "notFlag": "p17_ch220_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_gristle_5",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 3,
+   "y": 6,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch218_started"
+     },
+     {
+      "notFlag": "p17_ch219_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_gristle_6",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 3,
+   "y": 6,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch217_started"
+       },
+       {
+        "notFlag": "p17_ch218_started"
+       }
+      ]
+     },
+     {
+      "flag": "chicken_town_second_mellowing"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_gristle_7",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 3,
+   "y": 6,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch217_started"
+     },
+     {
+      "notFlag": "p17_ch218_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_gristle_8",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch216_started"
+     },
+     {
+      "notFlag": "p17_ch217_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_gristle_9",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch215_started"
+     },
+     {
+      "notFlag": "p17_ch216_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_gristle_10",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 3,
+   "y": 6,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch214_started"
+     },
+     {
+      "notFlag": "p17_ch215_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_gristle_11",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch213_started"
+       },
+       {
+        "notFlag": "p17_ch214_started"
+       }
+      ]
+     },
+     {
+      "flag": "greyhook_expedition_blocked"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_gristle_12",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch213_started"
+     },
+     {
+      "notFlag": "p17_ch214_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_gristle_13",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch212_started"
+     },
+     {
+      "notFlag": "p17_ch213_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_gristle_14",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 3,
+   "y": 6,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch211_started"
+     },
+     {
+      "notFlag": "p17_ch212_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_gristle_15",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch210_started"
+     },
+     {
+      "notFlag": "p17_ch211_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_gristle_16",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 3,
+   "y": 6,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_started"
+     },
+     {
+      "flag": "old_crew_reunion_completed"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_gristle_17",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 3,
+   "y": 6,
+   "facing": "left",
+   "if": {
+    "flag": "p17_started"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_gristle_18",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17q_bob_0",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 9,
+   "facing": "right",
+   "if": {
+    "flag": "p17_complete"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_bob_1",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 9,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch222_started"
+     },
+     {
+      "notFlag": "p17_complete"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_bob_2",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 9,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch221_started"
+     },
+     {
+      "notFlag": "p17_ch222_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_bob_3",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 9,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch220_started"
+     },
+     {
+      "notFlag": "p17_ch221_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_bob_4",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 9,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch219_started"
+     },
+     {
+      "notFlag": "p17_ch220_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_bob_5",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 9,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch218_started"
+     },
+     {
+      "notFlag": "p17_ch219_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_bob_6",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 9,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch217_started"
+       },
+       {
+        "notFlag": "p17_ch218_started"
+       }
+      ]
+     },
+     {
+      "flag": "chicken_town_second_mellowing"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_bob_7",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 9,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch217_started"
+     },
+     {
+      "notFlag": "p17_ch218_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_bob_8",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch216_started"
+     },
+     {
+      "notFlag": "p17_ch217_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_bob_9",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch215_started"
+     },
+     {
+      "notFlag": "p17_ch216_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_bob_10",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 9,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch214_started"
+     },
+     {
+      "notFlag": "p17_ch215_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_bob_11",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch213_started"
+       },
+       {
+        "notFlag": "p17_ch214_started"
+       }
+      ]
+     },
+     {
+      "flag": "greyhook_expedition_blocked"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_bob_12",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch213_started"
+     },
+     {
+      "notFlag": "p17_ch214_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_bob_13",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch212_started"
+     },
+     {
+      "notFlag": "p17_ch213_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_bob_14",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 9,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch211_started"
+     },
+     {
+      "notFlag": "p17_ch212_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_bob_15",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch210_started"
+     },
+     {
+      "notFlag": "p17_ch211_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_bob_16",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 9,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_started"
+     },
+     {
+      "flag": "old_crew_reunion_completed"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_bob_17",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 9,
+   "facing": "right",
+   "if": {
+    "flag": "p17_started"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_bob_18",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17q_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 3,
+   "y": 9,
+   "facing": "left",
+   "if": {
+    "flag": "p17_complete"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_jim_1",
+   "type": "npc",
+   "npc": "jim",
+   "x": 3,
+   "y": 9,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch222_started"
+     },
+     {
+      "notFlag": "p17_complete"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_jim_2",
+   "type": "npc",
+   "npc": "jim",
+   "x": 3,
+   "y": 9,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch221_started"
+     },
+     {
+      "notFlag": "p17_ch222_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_jim_3",
+   "type": "npc",
+   "npc": "jim",
+   "x": 3,
+   "y": 9,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch220_started"
+     },
+     {
+      "notFlag": "p17_ch221_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_jim_4",
+   "type": "npc",
+   "npc": "jim",
+   "x": 3,
+   "y": 9,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch219_started"
+     },
+     {
+      "notFlag": "p17_ch220_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_jim_5",
+   "type": "npc",
+   "npc": "jim",
+   "x": 3,
+   "y": 9,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch218_started"
+     },
+     {
+      "notFlag": "p17_ch219_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_jim_6",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch217_started"
+       },
+       {
+        "notFlag": "p17_ch218_started"
+       }
+      ]
+     },
+     {
+      "flag": "chicken_town_second_mellowing"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_jim_7",
+   "type": "npc",
+   "npc": "jim",
+   "x": 3,
+   "y": 9,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch217_started"
+     },
+     {
+      "notFlag": "p17_ch218_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_jim_8",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch216_started"
+     },
+     {
+      "notFlag": "p17_ch217_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_jim_9",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch215_started"
+     },
+     {
+      "notFlag": "p17_ch216_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_jim_10",
+   "type": "npc",
+   "npc": "jim",
+   "x": 3,
+   "y": 9,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch214_started"
+     },
+     {
+      "notFlag": "p17_ch215_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_jim_11",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch213_started"
+     },
+     {
+      "notFlag": "p17_ch214_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_jim_12",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch212_started"
+     },
+     {
+      "notFlag": "p17_ch213_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_jim_13",
+   "type": "npc",
+   "npc": "jim",
+   "x": 3,
+   "y": 9,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch211_started"
+     },
+     {
+      "notFlag": "p17_ch212_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_jim_14",
+   "type": "npc",
+   "npc": "jim",
+   "x": 3,
+   "y": 9,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_started"
+     },
+     {
+      "flag": "old_crew_reunion_completed"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_jim_15",
+   "type": "npc",
+   "npc": "jim",
+   "x": 3,
+   "y": 9,
+   "facing": "left",
+   "if": {
+    "flag": "p17_started"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_jim_16",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17q_ned_0",
+   "type": "npc",
+   "npc": "ned",
+   "x": 7,
+   "y": 12,
+   "facing": "left",
+   "if": {
+    "flag": "p17_complete"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_ned_1",
+   "type": "npc",
+   "npc": "ned",
+   "x": 7,
+   "y": 12,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch222_started"
+     },
+     {
+      "notFlag": "p17_complete"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_ned_2",
+   "type": "npc",
+   "npc": "ned",
+   "x": 7,
+   "y": 12,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch221_started"
+     },
+     {
+      "notFlag": "p17_ch222_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_ned_3",
+   "type": "npc",
+   "npc": "ned",
+   "x": 7,
+   "y": 12,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch220_started"
+     },
+     {
+      "notFlag": "p17_ch221_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_ned_4",
+   "type": "npc",
+   "npc": "ned",
+   "x": 7,
+   "y": 12,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch219_started"
+     },
+     {
+      "notFlag": "p17_ch220_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_ned_5",
+   "type": "npc",
+   "npc": "ned",
+   "x": 7,
+   "y": 12,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch218_started"
+     },
+     {
+      "notFlag": "p17_ch219_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_ned_6",
+   "type": "npc",
+   "npc": "ned",
+   "x": 7,
+   "y": 12,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch217_started"
+       },
+       {
+        "notFlag": "p17_ch218_started"
+       }
+      ]
+     },
+     {
+      "flag": "chicken_town_second_mellowing"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_ned_7",
+   "type": "npc",
+   "npc": "ned",
+   "x": 7,
+   "y": 12,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch217_started"
+     },
+     {
+      "notFlag": "p17_ch218_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_ned_8",
+   "type": "npc",
+   "npc": "ned",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch216_started"
+     },
+     {
+      "notFlag": "p17_ch217_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_ned_9",
+   "type": "npc",
+   "npc": "ned",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch215_started"
+     },
+     {
+      "notFlag": "p17_ch216_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_ned_10",
+   "type": "npc",
+   "npc": "ned",
+   "x": 7,
+   "y": 12,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch214_started"
+     },
+     {
+      "notFlag": "p17_ch215_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_ned_11",
+   "type": "npc",
+   "npc": "ned",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch213_started"
+     },
+     {
+      "notFlag": "p17_ch214_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_ned_12",
+   "type": "npc",
+   "npc": "ned",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch212_started"
+     },
+     {
+      "notFlag": "p17_ch213_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_ned_13",
+   "type": "npc",
+   "npc": "ned",
+   "x": 7,
+   "y": 12,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch211_started"
+     },
+     {
+      "notFlag": "p17_ch212_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_ned_14",
+   "type": "npc",
+   "npc": "ned",
+   "x": 7,
+   "y": 12,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_started"
+     },
+     {
+      "flag": "old_crew_reunion_completed"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_ned_15",
+   "type": "npc",
+   "npc": "ned",
+   "x": 7,
+   "y": 12,
+   "facing": "left",
+   "if": {
+    "flag": "p17_started"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_ned_16",
+   "type": "npc",
+   "npc": "ned",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17q_squawks_0",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 16,
+   "y": 11,
+   "facing": "left",
+   "if": {
+    "flag": "p17_complete"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_squawks_1",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 16,
+   "y": 11,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch222_started"
+     },
+     {
+      "notFlag": "p17_complete"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_squawks_2",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 16,
+   "y": 11,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch221_started"
+     },
+     {
+      "notFlag": "p17_ch222_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_squawks_3",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 16,
+   "y": 11,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch220_started"
+     },
+     {
+      "notFlag": "p17_ch221_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_squawks_4",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 16,
+   "y": 11,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch219_started"
+     },
+     {
+      "notFlag": "p17_ch220_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_squawks_5",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 16,
+   "y": 11,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch218_started"
+     },
+     {
+      "notFlag": "p17_ch219_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_squawks_6",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 16,
+   "y": 11,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch217_started"
+       },
+       {
+        "notFlag": "p17_ch218_started"
+       }
+      ]
+     },
+     {
+      "flag": "chicken_town_second_mellowing"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_squawks_7",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 16,
+   "y": 11,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch217_started"
+     },
+     {
+      "notFlag": "p17_ch218_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_squawks_8",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch216_started"
+     },
+     {
+      "notFlag": "p17_ch217_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_squawks_9",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch215_started"
+     },
+     {
+      "notFlag": "p17_ch216_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_squawks_10",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 16,
+   "y": 11,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch214_started"
+     },
+     {
+      "notFlag": "p17_ch215_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_squawks_11",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch213_started"
+     },
+     {
+      "notFlag": "p17_ch214_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_squawks_12",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch212_started"
+     },
+     {
+      "notFlag": "p17_ch213_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_squawks_13",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 16,
+   "y": 11,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch211_started"
+     },
+     {
+      "notFlag": "p17_ch212_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_squawks_14",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 16,
+   "y": 11,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_started"
+     },
+     {
+      "flag": "old_crew_reunion_completed"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_squawks_15",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 16,
+   "y": 11,
+   "facing": "left",
+   "if": {
+    "flag": "p17_started"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_squawks_16",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17q_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 13,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "flag": "p17_complete"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_garrick_1",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 13,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch222_started"
+     },
+     {
+      "notFlag": "p17_complete"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_garrick_2",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 14,
+   "y": 6,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch221_started"
+     },
+     {
+      "notFlag": "p17_ch222_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_garrick_3",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 13,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch220_started"
+     },
+     {
+      "notFlag": "p17_ch221_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_garrick_4",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 13,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch219_started"
+     },
+     {
+      "notFlag": "p17_ch220_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_garrick_5",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 13,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch218_started"
+     },
+     {
+      "notFlag": "p17_ch219_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_garrick_6",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch217_started"
+       },
+       {
+        "notFlag": "p17_ch218_started"
+       }
+      ]
+     },
+     {
+      "flag": "chicken_town_second_mellowing"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_garrick_7",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 13,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch217_started"
+     },
+     {
+      "notFlag": "p17_ch218_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_garrick_8",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 13,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch216_started"
+       },
+       {
+        "notFlag": "p17_ch217_started"
+       }
+      ]
+     },
+     {
+      "flag": "p17_safety_conditions"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_garrick_9",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch216_started"
+     },
+     {
+      "notFlag": "p17_ch217_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_garrick_10",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch215_started"
+     },
+     {
+      "notFlag": "p17_ch216_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_garrick_11",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 13,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch214_started"
+     },
+     {
+      "notFlag": "p17_ch215_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_garrick_12",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch213_started"
+     },
+     {
+      "notFlag": "p17_ch214_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_garrick_13",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch212_started"
+     },
+     {
+      "notFlag": "p17_ch213_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_garrick_14",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 13,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch211_started"
+     },
+     {
+      "notFlag": "p17_ch212_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_garrick_15",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 13,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_started"
+     },
+     {
+      "flag": "old_crew_reunion_completed"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_garrick_16",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 13,
+   "y": 6,
+   "facing": "down",
+   "if": {
+    "flag": "p17_started"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_garrick_17",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17q_brogath_0",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 10,
+   "y": 7,
+   "facing": "up",
+   "if": {
+    "flag": "p17_complete"
+   },
+   "pose": "watch",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_brogath_1",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 10,
+   "y": 7,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch222_started"
+     },
+     {
+      "notFlag": "p17_complete"
+     }
+    ]
+   },
+   "pose": "watch",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_brogath_2",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 10,
+   "y": 7,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch221_started"
+     },
+     {
+      "notFlag": "p17_ch222_started"
+     }
+    ]
+   },
+   "pose": "watch",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_brogath_3",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 10,
+   "y": 7,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch220_started"
+     },
+     {
+      "notFlag": "p17_ch221_started"
+     }
+    ]
+   },
+   "pose": "watch",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_brogath_4",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 10,
+   "y": 7,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch219_started"
+     },
+     {
+      "notFlag": "p17_ch220_started"
+     }
+    ]
+   },
+   "pose": "watch",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_brogath_5",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 10,
+   "y": 7,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch218_started"
+     },
+     {
+      "notFlag": "p17_ch219_started"
+     }
+    ]
+   },
+   "pose": "watch",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_brogath_6",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch217_started"
+       },
+       {
+        "notFlag": "p17_ch218_started"
+       }
+      ]
+     },
+     {
+      "flag": "chicken_town_second_mellowing"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_brogath_7",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch217_started"
+     },
+     {
+      "notFlag": "p17_ch218_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_brogath_8",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch216_started"
+       },
+       {
+        "notFlag": "p17_ch217_started"
+       }
+      ]
+     },
+     {
+      "flag": "p17_safety_conditions"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_brogath_9",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch216_started"
+     },
+     {
+      "notFlag": "p17_ch217_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_brogath_10",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch215_started"
+     },
+     {
+      "notFlag": "p17_ch216_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_brogath_11",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 10,
+   "y": 7,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch214_started"
+     },
+     {
+      "notFlag": "p17_ch215_started"
+     }
+    ]
+   },
+   "pose": "watch",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_brogath_12",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch213_started"
+       },
+       {
+        "notFlag": "p17_ch214_started"
+       }
+      ]
+     },
+     {
+      "flag": "greyhook_expedition_blocked"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_brogath_13",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch213_started"
+     },
+     {
+      "notFlag": "p17_ch214_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_brogath_14",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch212_started"
+     },
+     {
+      "notFlag": "p17_ch213_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_brogath_15",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 10,
+   "y": 7,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch211_started"
+     },
+     {
+      "notFlag": "p17_ch212_started"
+     }
+    ]
+   },
+   "pose": "watch",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_brogath_16",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "any": [
+       {
+        "all": [
+         {
+          "flag": "p17_ch208_started"
+         },
+         {
+          "notFlag": "p17_ch209_started"
+         }
+        ]
+       },
+       {
+        "all": [
+         {
+          "flag": "p17_ch209_started"
+         },
+         {
+          "notFlag": "p17_ch210_started"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "flag": "tilda_reincarnated"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_brogath_17",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch208_started"
+     },
+     {
+      "notFlag": "p17_ch209_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_brogath_18",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch207_started"
+       },
+       {
+        "notFlag": "p17_ch208_started"
+       }
+      ]
+     },
+     {
+      "flag": "p17_guard_asked"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_brogath_19",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 8,
+   "y": 5,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch207_started"
+     },
+     {
+      "notFlag": "p17_ch208_started"
+     }
+    ]
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_brogath_20",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 8,
+   "y": 5,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_started"
+       },
+       {
+        "notFlag": "p17_ch207_started"
+       }
+      ]
+     },
+     {
+      "flag": "brogath_old_crew_remembered"
+     }
+    ]
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_brogath_21",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_started"
+     },
+     {
+      "notFlag": "p17_ch207_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_brogath_22",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 10,
+   "y": 7,
+   "facing": "up",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_started"
+     },
+     {
+      "flag": "old_crew_reunion_completed"
+     }
+    ]
+   },
+   "pose": "watch",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_brogath_23",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 10,
+   "y": 7,
+   "facing": "up",
+   "if": {
+    "flag": "p17_started"
+   },
+   "pose": "watch",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_brogath_24",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17q_visitor_one_0",
+   "type": "npc",
+   "npc": "visitor_one",
+   "x": 3,
+   "y": 13,
+   "facing": "right",
+   "if": {
+    "flag": "p17_complete"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_visitor_one_1",
+   "type": "npc",
+   "npc": "visitor_one",
+   "x": 3,
+   "y": 13,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch222_started"
+     },
+     {
+      "notFlag": "p17_complete"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_visitor_one_2",
+   "type": "npc",
+   "npc": "visitor_one",
+   "x": 3,
+   "y": 13,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch221_started"
+     },
+     {
+      "notFlag": "p17_ch222_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_visitor_one_3",
+   "type": "npc",
+   "npc": "visitor_one",
+   "x": 3,
+   "y": 13,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch220_started"
+     },
+     {
+      "notFlag": "p17_ch221_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_visitor_one_4",
+   "type": "npc",
+   "npc": "visitor_one",
+   "x": 3,
+   "y": 13,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch219_started"
+     },
+     {
+      "notFlag": "p17_ch220_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_visitor_one_5",
+   "type": "npc",
+   "npc": "visitor_one",
+   "x": 3,
+   "y": 13,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch218_started"
+     },
+     {
+      "notFlag": "p17_ch219_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_visitor_one_6",
+   "type": "npc",
+   "npc": "visitor_one",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch217_started"
+       },
+       {
+        "notFlag": "p17_ch218_started"
+       }
+      ]
+     },
+     {
+      "flag": "chicken_town_second_mellowing"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_visitor_one_7",
+   "type": "npc",
+   "npc": "visitor_one",
+   "x": 3,
+   "y": 13,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch217_started"
+     },
+     {
+      "notFlag": "p17_ch218_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_visitor_one_8",
+   "type": "npc",
+   "npc": "visitor_one",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch215_started"
+     },
+     {
+      "notFlag": "p17_ch216_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_visitor_one_9",
+   "type": "npc",
+   "npc": "visitor_one",
+   "x": 3,
+   "y": 13,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch214_started"
+     },
+     {
+      "notFlag": "p17_ch215_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_visitor_one_10",
+   "type": "npc",
+   "npc": "visitor_one",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch212_started"
+     },
+     {
+      "notFlag": "p17_ch213_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_visitor_one_11",
+   "type": "npc",
+   "npc": "visitor_one",
+   "x": 3,
+   "y": 13,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch211_started"
+     },
+     {
+      "notFlag": "p17_ch212_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_visitor_one_12",
+   "type": "npc",
+   "npc": "visitor_one",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_started"
+     },
+     {
+      "notFlag": "p17_ch207_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_visitor_one_13",
+   "type": "npc",
+   "npc": "visitor_one",
+   "x": 3,
+   "y": 13,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_started"
+     },
+     {
+      "flag": "old_crew_reunion_completed"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_visitor_one_14",
+   "type": "npc",
+   "npc": "visitor_one",
+   "x": 3,
+   "y": 13,
+   "facing": "right",
+   "if": {
+    "flag": "p17_started"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_visitor_one_15",
+   "type": "npc",
+   "npc": "visitor_one",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17q_visitor_two_0",
+   "type": "npc",
+   "npc": "visitor_two",
+   "x": 5,
+   "y": 13,
+   "facing": "left",
+   "if": {
+    "flag": "p17_complete"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_visitor_two_1",
+   "type": "npc",
+   "npc": "visitor_two",
+   "x": 5,
+   "y": 13,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch222_started"
+     },
+     {
+      "notFlag": "p17_complete"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_visitor_two_2",
+   "type": "npc",
+   "npc": "visitor_two",
+   "x": 5,
+   "y": 13,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch221_started"
+     },
+     {
+      "notFlag": "p17_ch222_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_visitor_two_3",
+   "type": "npc",
+   "npc": "visitor_two",
+   "x": 5,
+   "y": 13,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch220_started"
+     },
+     {
+      "notFlag": "p17_ch221_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_visitor_two_4",
+   "type": "npc",
+   "npc": "visitor_two",
+   "x": 5,
+   "y": 13,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch219_started"
+     },
+     {
+      "notFlag": "p17_ch220_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_visitor_two_5",
+   "type": "npc",
+   "npc": "visitor_two",
+   "x": 5,
+   "y": 13,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch218_started"
+     },
+     {
+      "notFlag": "p17_ch219_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_visitor_two_6",
+   "type": "npc",
+   "npc": "visitor_two",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch217_started"
+       },
+       {
+        "notFlag": "p17_ch218_started"
+       }
+      ]
+     },
+     {
+      "flag": "chicken_town_second_mellowing"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_visitor_two_7",
+   "type": "npc",
+   "npc": "visitor_two",
+   "x": 5,
+   "y": 13,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch217_started"
+     },
+     {
+      "notFlag": "p17_ch218_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_visitor_two_8",
+   "type": "npc",
+   "npc": "visitor_two",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch215_started"
+     },
+     {
+      "notFlag": "p17_ch216_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_visitor_two_9",
+   "type": "npc",
+   "npc": "visitor_two",
+   "x": 5,
+   "y": 13,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch214_started"
+     },
+     {
+      "notFlag": "p17_ch215_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_visitor_two_10",
+   "type": "npc",
+   "npc": "visitor_two",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch212_started"
+     },
+     {
+      "notFlag": "p17_ch213_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_visitor_two_11",
+   "type": "npc",
+   "npc": "visitor_two",
+   "x": 5,
+   "y": 13,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch211_started"
+     },
+     {
+      "notFlag": "p17_ch212_started"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_visitor_two_12",
+   "type": "npc",
+   "npc": "visitor_two",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_started"
+     },
+     {
+      "notFlag": "p17_ch207_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_visitor_two_13",
+   "type": "npc",
+   "npc": "visitor_two",
+   "x": 5,
+   "y": 13,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_started"
+     },
+     {
+      "flag": "old_crew_reunion_completed"
+     }
+    ]
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_visitor_two_14",
+   "type": "npc",
+   "npc": "visitor_two",
+   "x": 5,
+   "y": 13,
+   "facing": "left",
+   "if": {
+    "flag": "p17_started"
+   },
+   "pose": "sit",
+   "behavior": {
+    "type": "sit"
+   }
+  },
+  {
+   "id": "p17q_visitor_two_15",
+   "type": "npc",
+   "npc": "visitor_two",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17q_agnes_second_0",
+   "type": "npc",
+   "npc": "agnes_second",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_complete"
+   }
+  },
+  {
+   "id": "p17q_agnes_second_1",
+   "type": "npc",
+   "npc": "agnes_second",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_carrying_agnes"
+     },
+     {
+      "notFlag": "p17_complete"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_agnes_second_2",
+   "type": "npc",
+   "npc": "agnes_second",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch222_started"
+       },
+       {
+        "notFlag": "p17_complete"
+       }
+      ]
+     },
+     {
+      "flag": "p17_proc_agnes"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_agnes_second_3",
+   "type": "npc",
+   "npc": "agnes_second",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "any": [
+       {
+        "all": [
+         {
+          "flag": "p17_ch220_started"
+         },
+         {
+          "notFlag": "p17_ch221_started"
+         }
+        ]
+       },
+       {
+        "all": [
+         {
+          "flag": "p17_ch221_started"
+         },
+         {
+          "notFlag": "p17_ch222_started"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "flag": "p17_proc_agnes"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_agnes_second_4",
+   "type": "npc",
+   "npc": "agnes_second",
+   "x": 11,
+   "y": 8,
+   "facing": "down",
+   "if": {
+    "any": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch220_started"
+       },
+       {
+        "notFlag": "p17_ch221_started"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p17_ch221_started"
+       },
+       {
+        "notFlag": "p17_ch222_started"
+       }
+      ]
+     },
+     {
+      "all": [
+       {
+        "flag": "p17_ch222_started"
+       },
+       {
+        "notFlag": "p17_complete"
+       }
+      ]
+     }
+    ]
+   },
+   "pose": "dazed",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_agnes_second_5",
+   "type": "npc",
+   "npc": "agnes_second",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch219_started"
+       },
+       {
+        "notFlag": "p17_ch220_started"
+       }
+      ]
+     },
+     {
+      "flag": "agnes_thunderbottom_rescue_complete"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_agnes_second_6",
+   "type": "npc",
+   "npc": "agnes_second",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch219_started"
+     },
+     {
+      "notFlag": "p17_ch220_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_agnes_second_7",
+   "type": "npc",
+   "npc": "agnes_second",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch218_started"
+       },
+       {
+        "notFlag": "p17_ch219_started"
+       }
+      ]
+     },
+     {
+      "flag": "p17_agnes_in_ffz"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_agnes_second_8",
+   "type": "npc",
+   "npc": "agnes_second",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch218_started"
+       },
+       {
+        "notFlag": "p17_ch219_started"
+       }
+      ]
+     },
+     {
+      "flag": "p17_please"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_agnes_second_9",
+   "type": "npc",
+   "npc": "agnes_second",
+   "x": 11,
+   "y": 8,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch218_started"
+     },
+     {
+      "notFlag": "p17_ch219_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "wander",
+    "radius": 1
+   }
+  },
+  {
+   "id": "p17q_agnes_second_10",
+   "type": "npc",
+   "npc": "agnes_second",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch217_started"
+       },
+       {
+        "notFlag": "p17_ch218_started"
+       }
+      ]
+     },
+     {
+      "flag": "chicken_town_second_mellowing"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_agnes_second_11",
+   "type": "npc",
+   "npc": "agnes_second",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch217_started"
+     },
+     {
+      "notFlag": "p17_ch218_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_agnes_second_12",
+   "type": "npc",
+   "npc": "agnes_second",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch216_started"
+       },
+       {
+        "notFlag": "p17_ch217_started"
+       }
+      ]
+     },
+     {
+      "flag": "p17_prep_agnes"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_agnes_second_13",
+   "type": "npc",
+   "npc": "agnes_second",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_started"
+     },
+     {
+      "notFlag": "p17_ch207_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_agnes_second_14",
+   "type": "npc",
+   "npc": "agnes_second",
+   "x": 11,
+   "y": 8,
+   "facing": "down",
+   "if": {
+    "flag": "p17_started"
+   },
+   "behavior": {
+    "type": "wander",
+    "radius": 1
+   }
+  },
+  {
+   "id": "p17q_agnes_second_15",
+   "type": "npc",
+   "npc": "agnes_second",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17q_bankworth_0",
+   "type": "npc",
+   "npc": "bankworth",
+   "x": 14,
+   "y": 14,
+   "facing": "left",
+   "if": {
+    "flag": "p17_complete"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_bankworth_1",
+   "type": "npc",
+   "npc": "bankworth",
+   "x": 14,
+   "y": 14,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch222_started"
+     },
+     {
+      "notFlag": "p17_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_bankworth_2",
+   "type": "npc",
+   "npc": "bankworth",
+   "x": 14,
+   "y": 14,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch221_started"
+     },
+     {
+      "notFlag": "p17_ch222_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_bankworth_3",
+   "type": "npc",
+   "npc": "bankworth",
+   "x": 14,
+   "y": 14,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch220_started"
+     },
+     {
+      "notFlag": "p17_ch221_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_bankworth_4",
+   "type": "npc",
+   "npc": "bankworth",
+   "x": 14,
+   "y": 14,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch219_started"
+     },
+     {
+      "notFlag": "p17_ch220_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_bankworth_5",
+   "type": "npc",
+   "npc": "bankworth",
+   "x": 14,
+   "y": 14,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch218_started"
+     },
+     {
+      "notFlag": "p17_ch219_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_bankworth_6",
+   "type": "npc",
+   "npc": "bankworth",
+   "x": 14,
+   "y": 14,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch214_started"
+     },
+     {
+      "notFlag": "p17_ch215_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_bankworth_7",
+   "type": "npc",
+   "npc": "bankworth",
+   "x": 14,
+   "y": 14,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch211_started"
+     },
+     {
+      "notFlag": "p17_ch212_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_bankworth_8",
+   "type": "npc",
+   "npc": "bankworth",
+   "x": 14,
+   "y": 14,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_started"
+     },
+     {
+      "flag": "old_crew_reunion_completed"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_bankworth_9",
+   "type": "npc",
+   "npc": "bankworth",
+   "x": 14,
+   "y": 14,
+   "facing": "left",
+   "if": {
+    "flag": "p17_started"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_bankworth_10",
+   "type": "npc",
+   "npc": "bankworth",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17q_ledger_0",
+   "type": "npc",
+   "npc": "ledger",
+   "x": 9,
+   "y": 8,
+   "facing": "right",
+   "if": {
+    "flag": "p17_complete"
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_ledger_1",
+   "type": "npc",
+   "npc": "ledger",
+   "x": 9,
+   "y": 8,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch222_started"
+     },
+     {
+      "notFlag": "p17_complete"
+     }
+    ]
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_ledger_2",
+   "type": "npc",
+   "npc": "ledger",
+   "x": 9,
+   "y": 8,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch221_started"
+     },
+     {
+      "notFlag": "p17_ch222_started"
+     }
+    ]
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_ledger_3",
+   "type": "npc",
+   "npc": "ledger",
+   "x": 9,
+   "y": 8,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch220_started"
+     },
+     {
+      "notFlag": "p17_ch221_started"
+     }
+    ]
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_ledger_4",
+   "type": "npc",
+   "npc": "ledger",
+   "x": 9,
+   "y": 8,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch219_started"
+     },
+     {
+      "notFlag": "p17_ch220_started"
+     }
+    ]
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_ledger_5",
+   "type": "npc",
+   "npc": "ledger",
+   "x": 9,
+   "y": 8,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch218_started"
+     },
+     {
+      "notFlag": "p17_ch219_started"
+     }
+    ]
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_ledger_6",
+   "type": "npc",
+   "npc": "ledger",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch217_started"
+       },
+       {
+        "notFlag": "p17_ch218_started"
+       }
+      ]
+     },
+     {
+      "flag": "chicken_town_second_mellowing"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_ledger_7",
+   "type": "npc",
+   "npc": "ledger",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch217_started"
+     },
+     {
+      "notFlag": "p17_ch218_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_ledger_8",
+   "type": "npc",
+   "npc": "ledger",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch216_started"
+       },
+       {
+        "notFlag": "p17_ch217_started"
+       }
+      ]
+     },
+     {
+      "flag": "p17_safety_conditions"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_ledger_9",
+   "type": "npc",
+   "npc": "ledger",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch216_started"
+     },
+     {
+      "notFlag": "p17_ch217_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_ledger_10",
+   "type": "npc",
+   "npc": "ledger",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch215_started"
+     },
+     {
+      "notFlag": "p17_ch216_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_ledger_11",
+   "type": "npc",
+   "npc": "ledger",
+   "x": 9,
+   "y": 15,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch214_started"
+     },
+     {
+      "notFlag": "p17_ch215_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_ledger_12",
+   "type": "npc",
+   "npc": "ledger",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch213_started"
+       },
+       {
+        "notFlag": "p17_ch214_started"
+       }
+      ]
+     },
+     {
+      "flag": "greyhook_expedition_blocked"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_ledger_13",
+   "type": "npc",
+   "npc": "ledger",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch213_started"
+     },
+     {
+      "notFlag": "p17_ch214_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_ledger_14",
+   "type": "npc",
+   "npc": "ledger",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch212_started"
+     },
+     {
+      "notFlag": "p17_ch213_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_ledger_15",
+   "type": "npc",
+   "npc": "ledger",
+   "x": 10,
+   "y": 10,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch211_started"
+     },
+     {
+      "notFlag": "p17_ch212_started"
+     }
+    ]
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_ledger_16",
+   "type": "npc",
+   "npc": "ledger",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch210_started"
+     },
+     {
+      "notFlag": "p17_ch211_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_ledger_17",
+   "type": "npc",
+   "npc": "ledger",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "any": [
+       {
+        "all": [
+         {
+          "flag": "p17_ch208_started"
+         },
+         {
+          "notFlag": "p17_ch209_started"
+         }
+        ]
+       },
+       {
+        "all": [
+         {
+          "flag": "p17_ch209_started"
+         },
+         {
+          "notFlag": "p17_ch210_started"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "flag": "tilda_reincarnated"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_ledger_18",
+   "type": "npc",
+   "npc": "ledger",
+   "x": 9,
+   "y": 8,
+   "facing": "right",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_started"
+     },
+     {
+      "flag": "old_crew_reunion_completed"
+     }
+    ]
+   },
+   "pose": "work",
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_ledger_19",
+   "type": "npc",
+   "npc": "ledger",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17q_tilda_0",
+   "type": "npc",
+   "npc": "tilda",
+   "x": 11,
+   "y": 7,
+   "facing": "left",
+   "if": {
+    "flag": "p17_complete"
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_tilda_1",
+   "type": "npc",
+   "npc": "tilda",
+   "x": 11,
+   "y": 7,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch222_started"
+     },
+     {
+      "notFlag": "p17_complete"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_tilda_2",
+   "type": "npc",
+   "npc": "tilda",
+   "x": 11,
+   "y": 7,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch221_started"
+     },
+     {
+      "notFlag": "p17_ch222_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_tilda_3",
+   "type": "npc",
+   "npc": "tilda",
+   "x": 11,
+   "y": 7,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch220_started"
+     },
+     {
+      "notFlag": "p17_ch221_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_tilda_4",
+   "type": "npc",
+   "npc": "tilda",
+   "x": 11,
+   "y": 7,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch219_started"
+     },
+     {
+      "notFlag": "p17_ch220_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_tilda_5",
+   "type": "npc",
+   "npc": "tilda",
+   "x": 11,
+   "y": 7,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch218_started"
+     },
+     {
+      "notFlag": "p17_ch219_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_tilda_6",
+   "type": "npc",
+   "npc": "tilda",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch217_started"
+       },
+       {
+        "notFlag": "p17_ch218_started"
+       }
+      ]
+     },
+     {
+      "flag": "chicken_town_second_mellowing"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_tilda_7",
+   "type": "npc",
+   "npc": "tilda",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch217_started"
+     },
+     {
+      "notFlag": "p17_ch218_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_tilda_8",
+   "type": "npc",
+   "npc": "tilda",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch216_started"
+       },
+       {
+        "notFlag": "p17_ch217_started"
+       }
+      ]
+     },
+     {
+      "flag": "p17_safety_conditions"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_tilda_9",
+   "type": "npc",
+   "npc": "tilda",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch216_started"
+     },
+     {
+      "notFlag": "p17_ch217_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_tilda_10",
+   "type": "npc",
+   "npc": "tilda",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch215_started"
+     },
+     {
+      "notFlag": "p17_ch216_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_tilda_11",
+   "type": "npc",
+   "npc": "tilda",
+   "x": 11,
+   "y": 7,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch214_started"
+     },
+     {
+      "notFlag": "p17_ch215_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_tilda_12",
+   "type": "npc",
+   "npc": "tilda",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "all": [
+       {
+        "flag": "p17_ch213_started"
+       },
+       {
+        "notFlag": "p17_ch214_started"
+       }
+      ]
+     },
+     {
+      "flag": "greyhook_expedition_blocked"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_tilda_13",
+   "type": "npc",
+   "npc": "tilda",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch213_started"
+     },
+     {
+      "notFlag": "p17_ch214_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_tilda_14",
+   "type": "npc",
+   "npc": "tilda",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch212_started"
+     },
+     {
+      "notFlag": "p17_ch213_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_tilda_15",
+   "type": "npc",
+   "npc": "tilda",
+   "x": 12,
+   "y": 13,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch211_started"
+     },
+     {
+      "notFlag": "p17_ch212_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_tilda_16",
+   "type": "npc",
+   "npc": "tilda",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch210_started"
+     },
+     {
+      "notFlag": "p17_ch211_started"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_tilda_17",
+   "type": "npc",
+   "npc": "tilda",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "all": [
+     {
+      "any": [
+       {
+        "all": [
+         {
+          "flag": "p17_ch208_started"
+         },
+         {
+          "notFlag": "p17_ch209_started"
+         }
+        ]
+       },
+       {
+        "all": [
+         {
+          "flag": "p17_ch209_started"
+         },
+         {
+          "notFlag": "p17_ch210_started"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "flag": "tilda_reincarnated"
+     }
+    ]
+   }
+  },
+  {
+   "id": "p17q_tilda_18",
+   "type": "npc",
+   "npc": "tilda",
+   "x": 11,
+   "y": 7,
+   "facing": "left",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_started"
+     },
+     {
+      "flag": "old_crew_reunion_completed"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_tilda_19",
+   "type": "npc",
+   "npc": "tilda",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17q_thunderbottom_0",
+   "type": "npc",
+   "npc": "thunderbottom",
+   "x": 12,
+   "y": 13,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "thunderbottom_arrived"
+     },
+     {
+      "notFlag": "p17_please"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_thunderbottom_1",
+   "type": "npc",
+   "npc": "thunderbottom",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17q_bureau_puffington_0",
+   "type": "npc",
+   "npc": "bureau_puffington",
+   "x": 14,
+   "y": 13,
+   "facing": "down",
+   "if": {
+    "all": [
+     {
+      "flag": "p17_ch211_started"
+     },
+     {
+      "notFlag": "p17_ch212_started"
+     }
+    ]
+   },
+   "behavior": {
+    "type": "stand"
+   }
+  },
+  {
+   "id": "p17q_bureau_puffington_1",
+   "type": "npc",
+   "npc": "bureau_puffington",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17q_vindicta_0",
+   "type": "npc",
+   "npc": "vindicta",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17q_puffchester_0",
+   "type": "npc",
+   "npc": "puffchester",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17q_rancidella_0",
+   "type": "npc",
+   "npc": "rancidella",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17q_branch_teller_0",
+   "type": "npc",
+   "npc": "branch_teller",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17q_whifflebottom_0",
+   "type": "npc",
+   "npc": "whifflebottom",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  }
+ ],
+ "props": [
+  {
+   "prop": "cutout_jeb",
+   "x": 5,
+   "y": 5,
+   "if": {
+    "flag": "other_old_crew_cutouts_prepared"
+   },
+   "id": "p17_cutout_jeb"
+  },
+  {
+   "prop": "cutout_ledger",
+   "x": 6,
+   "y": 5,
+   "if": {
+    "all": [
+     {
+      "flag": "other_old_crew_cutouts_prepared"
+     },
+     {
+      "notFlag": "p17_guard_asked"
+     }
+    ]
+   },
+   "id": "p17_cutout_ledger"
+  },
+  {
+   "prop": "cutout_tilda",
+   "x": 7,
+   "y": 5,
+   "if": {
+    "all": [
+     {
+      "flag": "other_old_crew_cutouts_prepared"
+     },
+     {
+      "notFlag": "p17_guard_asked"
+     }
+    ]
+   },
+   "id": "p17_cutout_tilda"
+  },
+  {
+   "prop": "cutout_ned",
+   "x": 10,
+   "y": 5,
+   "if": {
+    "flag": "other_old_crew_cutouts_prepared"
+   },
+   "id": "p17_cutout_ned"
+  },
+  {
+   "prop": "cutout_elsie",
+   "x": 11,
+   "y": 5,
+   "if": {
+    "flag": "other_old_crew_cutouts_prepared"
+   },
+   "id": "p17_cutout_elsie"
+  },
+  {
+   "prop": "coffin_sock_board",
+   "x": 9,
+   "y": 12,
+   "if": {
+    "all": [
+     {
+      "flag": "p17_proc_board"
+     },
+     {
+      "notFlag": "major_coffin_sock_release_complete"
+     }
+    ]
+   },
+   "id": "p17_pending_board"
+  },
+  {
+   "prop": "coffin_sock_board_blown",
+   "x": 9,
+   "y": 12,
+   "if": {
+    "flag": "major_coffin_sock_release_complete"
+   },
+   "id": "p17_pending_board_blown"
+  },
+  {
+   "prop": "converter_planked",
+   "x": 7,
+   "y": 14,
+   "if": {
+    "flag": "p17_conversions_banned"
+   },
+   "id": "p17_converter_planked"
+  },
+  {
+   "prop": "sash_screen",
+   "x": 15,
+   "y": 5,
+   "if": {
+    "flag": "garrick_beard_joint_experiment"
+   },
+   "id": "p17_sash_screen"
+  },
+  {
+   "prop": "papers_scattered",
+   "x": 6,
+   "y": 10,
+   "if": {
+    "flag": "major_coffin_sock_release_complete"
+   },
+   "id": "p17_papers_a"
+  },
+  {
+   "prop": "papers_scattered",
+   "x": 13,
+   "y": 9,
+   "if": {
+    "flag": "major_coffin_sock_release_complete"
+   },
+   "id": "p17_papers_b"
+  }
+ ],
+ "propConditions": [
+  {
+   "id": "p16_converter",
+   "if": {
+    "notFlag": "p17_conversions_banned"
+   }
+  }
+ ],
+ "musicVariants": [
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p17_grand_paranoia"
+     },
+     {
+      "notFlag": "p17_paranoia_broken"
+     }
+    ]
+   },
+   "music": "grand_paranoia",
+   "ambience": "paranoia"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "major_coffin_sock_release_complete"
+     }
+    ]
+   },
+   "music": "weary_morning",
+   "musicFilter": "muffled",
+   "ambience": "coffin_sock"
+  }
+ ]
+}

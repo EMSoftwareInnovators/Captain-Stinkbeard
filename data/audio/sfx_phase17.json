@@ -1,0 +1,1779 @@
+{
+ "//": "Story Phase 17 sound effects: cardboard (tap, slap, spin, singe), the reincarnation, the old crew in battle, a coin, the converter stopping, the talk show's sting, a shark on the hull, the Fire-Waft and the burning storm, the second Chicken-Town, Lord Thunderbottom, a panicking and a sneezing hen, the beard's own puffs, scissors, the Frog Grog whumph, the Coffin Sock's build and its catastrophe, sashes, papers, a book, static, a service bell.",
+ "cardboard_tap": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.04,
+    "volume": 0.16,
+    "lp": 0.25,
+    "decay": 40
+   },
+   {
+    "wave": "triangle",
+    "dur": 0.05,
+    "volume": 0.06,
+    "sweep": [
+     220,
+     160
+    ],
+    "decay": 40
+   }
+  ]
+ },
+ "cardboard_slap": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.08,
+    "volume": 0.3,
+    "lp": 0.35,
+    "hp": 0.05,
+    "decay": 26
+   },
+   {
+    "wave": "square",
+    "dur": 0.06,
+    "volume": 0.06,
+    "sweep": [
+     180,
+     110
+    ],
+    "duty": 0.4,
+    "lp": 0.3,
+    "decay": 30
+   }
+  ]
+ },
+ "cardboard_spin": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.035,
+    "volume": 0.14,
+    "lp": 0.3,
+    "hp": 0.1,
+    "decay": 50,
+    "delay": 0.16
+   },
+   {
+    "type": "noise",
+    "dur": 0.035,
+    "volume": 0.15000000000000002,
+    "lp": 0.3,
+    "hp": 0.1,
+    "decay": 50,
+    "delay": 0.308
+   },
+   {
+    "type": "noise",
+    "dur": 0.035,
+    "volume": 0.16,
+    "lp": 0.3,
+    "hp": 0.1,
+    "decay": 50,
+    "delay": 0.444
+   },
+   {
+    "type": "noise",
+    "dur": 0.035,
+    "volume": 0.17,
+    "lp": 0.3,
+    "hp": 0.1,
+    "decay": 50,
+    "delay": 0.568
+   },
+   {
+    "type": "noise",
+    "dur": 0.035,
+    "volume": 0.18000000000000002,
+    "lp": 0.3,
+    "hp": 0.1,
+    "decay": 50,
+    "delay": 0.68
+   },
+   {
+    "type": "noise",
+    "dur": 0.035,
+    "volume": 0.19,
+    "lp": 0.3,
+    "hp": 0.1,
+    "decay": 50,
+    "delay": 0.78
+   },
+   {
+    "type": "noise",
+    "dur": 0.035,
+    "volume": 0.2,
+    "lp": 0.3,
+    "hp": 0.1,
+    "decay": 50,
+    "delay": 0.868
+   },
+   {
+    "type": "noise",
+    "dur": 0.035,
+    "volume": 0.21000000000000002,
+    "lp": 0.3,
+    "hp": 0.1,
+    "decay": 50,
+    "delay": 0.944
+   },
+   {
+    "type": "noise",
+    "dur": 0.035,
+    "volume": 0.22000000000000003,
+    "lp": 0.3,
+    "hp": 0.1,
+    "decay": 50,
+    "delay": 1.008
+   }
+  ]
+ },
+ "cardboard_singe": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.9,
+    "volume": 0.08,
+    "hp": 0.6,
+    "attack": 0.05,
+    "decay": 3
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.12,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 0.07
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.12,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 0.18
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.12,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 0.29
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.12,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 0.4
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.12,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 0.51
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.12,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 0.62
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.12,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 0.73
+   },
+   {
+    "wave": "sine",
+    "dur": 0.5,
+    "volume": 0.04,
+    "sweep": [
+     900,
+     700
+    ],
+    "decay": 5,
+    "delay": 0.1
+   }
+  ]
+ },
+ "cloud_growl": {
+  "layers": [
+   {
+    "wave": "saw",
+    "dur": 1.4,
+    "volume": 0.08,
+    "sweep": [
+     70,
+     58
+    ],
+    "lp": 0.08,
+    "attack": 0.2,
+    "decay": 1.6,
+    "vibrato": {
+     "rate": 7,
+     "depth": 0.2
+    }
+   },
+   {
+    "type": "noise",
+    "dur": 1.4,
+    "volume": 0.1,
+    "lp": 0.05,
+    "attack": 0.3,
+    "decay": 1.8
+   }
+  ]
+ },
+ "reincarnation_whoosh": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 1.2,
+    "volume": 0.16,
+    "hp": 0.1,
+    "lp": 0.5,
+    "attack": 0.4,
+    "decay": 2
+   },
+   {
+    "wave": "triangle",
+    "dur": 1.2,
+    "volume": 0.07,
+    "notes": [
+     [
+      "D5",
+      0.15
+     ],
+     [
+      "F#5",
+      0.15
+     ],
+     [
+      "A5",
+      0.15
+     ],
+     [
+      "D6",
+      0.15
+     ],
+     [
+      "F#6",
+      0.6
+     ]
+    ],
+    "decay": 2,
+    "delay": 0.3
+   },
+   {
+    "wave": "sine",
+    "dur": 1.0,
+    "volume": 0.05,
+    "sweep": [
+     140,
+     220
+    ],
+    "attack": 0.3,
+    "decay": 2
+   }
+  ]
+ },
+ "ledger_slam": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.12,
+    "volume": 0.34,
+    "lp": 0.2,
+    "decay": 20
+   },
+   {
+    "wave": "sine",
+    "dur": 0.25,
+    "volume": 0.2,
+    "sweep": [
+     120,
+     60
+    ],
+    "decay": 12
+   },
+   {
+    "type": "noise",
+    "dur": 0.04,
+    "volume": 0.12,
+    "hp": 0.4,
+    "decay": 50,
+    "delay": 0.02
+   }
+  ]
+ },
+ "book_slam": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.16,
+    "volume": 0.38,
+    "lp": 0.15,
+    "decay": 16
+   },
+   {
+    "wave": "sine",
+    "dur": 0.35,
+    "volume": 0.24,
+    "sweep": [
+     100,
+     48
+    ],
+    "decay": 9
+   },
+   {
+    "type": "noise",
+    "dur": 0.3,
+    "volume": 0.06,
+    "hp": 0.5,
+    "decay": 10,
+    "delay": 0.04
+   }
+  ]
+ },
+ "quill_scratch": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.05,
+    "volume": 0.08,
+    "hp": 0.7,
+    "decay": 30,
+    "delay": 0.0
+   },
+   {
+    "type": "noise",
+    "dur": 0.05,
+    "volume": 0.08,
+    "hp": 0.7,
+    "decay": 30,
+    "delay": 0.07
+   },
+   {
+    "type": "noise",
+    "dur": 0.05,
+    "volume": 0.08,
+    "hp": 0.7,
+    "decay": 30,
+    "delay": 0.14
+   },
+   {
+    "type": "noise",
+    "dur": 0.05,
+    "volume": 0.08,
+    "hp": 0.7,
+    "decay": 30,
+    "delay": 0.21
+   },
+   {
+    "type": "noise",
+    "dur": 0.05,
+    "volume": 0.08,
+    "hp": 0.7,
+    "decay": 30,
+    "delay": 0.28
+   }
+  ]
+ },
+ "page_flip": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.18,
+    "volume": 0.12,
+    "hp": 0.4,
+    "lp": 0.8,
+    "attack": 0.04,
+    "decay": 10
+   },
+   {
+    "type": "noise",
+    "dur": 0.05,
+    "volume": 0.08,
+    "hp": 0.6,
+    "decay": 40,
+    "delay": 0.15
+   }
+  ]
+ },
+ "tilda_sting": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.05,
+    "volume": 0.26,
+    "hp": 0.3,
+    "decay": 40
+   },
+   {
+    "wave": "square",
+    "dur": 0.18,
+    "volume": 0.1,
+    "notes": [
+     [
+      "E5",
+      0.06
+     ],
+     [
+      "C5",
+      0.12
+     ]
+    ],
+    "duty": 0.25,
+    "decay": 10
+   }
+  ]
+ },
+ "coin_drop": {
+  "layers": [
+   {
+    "wave": "triangle",
+    "dur": 0.2,
+    "volume": 0.12,
+    "notes": [
+     [
+      "E7",
+      0.2
+     ]
+    ],
+    "decay": 14
+   },
+   {
+    "wave": "triangle",
+    "dur": 0.15,
+    "volume": 0.07,
+    "notes": [
+     [
+      "E7",
+      0.15
+     ]
+    ],
+    "decay": 18,
+    "delay": 0.18
+   },
+   {
+    "wave": "triangle",
+    "dur": 0.1,
+    "volume": 0.04,
+    "notes": [
+     [
+      "E7",
+      0.1
+     ]
+    ],
+    "decay": 24,
+    "delay": 0.3
+   }
+  ]
+ },
+ "converter_stop": {
+  "layers": [
+   {
+    "wave": "square",
+    "dur": 0.9,
+    "volume": 0.06,
+    "sweep": [
+     340,
+     70
+    ],
+    "duty": 0.3,
+    "lp": 0.2,
+    "decay": 2.5
+   },
+   {
+    "type": "noise",
+    "dur": 0.1,
+    "volume": 0.24,
+    "lp": 0.2,
+    "decay": 20,
+    "delay": 0.85
+   },
+   {
+    "wave": "triangle",
+    "dur": 0.3,
+    "volume": 0.06,
+    "notes": [
+     [
+      "C3",
+      0.3
+     ]
+    ],
+    "decay": 8,
+    "delay": 0.9
+   }
+  ]
+ },
+ "talkshow_sting": {
+  "layers": [
+   {
+    "wave": "square",
+    "dur": 0.7,
+    "volume": 0.1,
+    "notes": [
+     [
+      "C5",
+      0.08
+     ],
+     [
+      "E5",
+      0.08
+     ],
+     [
+      "G5",
+      0.08
+     ],
+     [
+      "C6",
+      0.46
+     ]
+    ],
+    "duty": 0.25,
+    "decay": 2.4
+   },
+   {
+    "wave": "saw",
+    "dur": 0.7,
+    "volume": 0.05,
+    "notes": [
+     [
+      "G4",
+      0.24
+     ],
+     [
+      "C5",
+      0.46
+     ]
+    ],
+    "lp": 0.3,
+    "decay": 2.4
+   },
+   {
+    "type": "noise",
+    "dur": 0.6,
+    "volume": 0.1,
+    "hp": 0.6,
+    "decay": 4,
+    "delay": 0.24
+   }
+  ]
+ },
+ "shark_collision": {
+  "layers": [
+   {
+    "wave": "sine",
+    "dur": 0.8,
+    "volume": 0.36,
+    "sweep": [
+     80,
+     40
+    ],
+    "decay": 4
+   },
+   {
+    "type": "noise",
+    "dur": 0.5,
+    "volume": 0.3,
+    "lp": 0.18,
+    "decay": 6
+   },
+   {
+    "type": "noise",
+    "dur": 0.15,
+    "volume": 0.14,
+    "hp": 0.3,
+    "lp": 0.7,
+    "decay": 18,
+    "delay": 0.05
+   },
+   {
+    "wave": "saw",
+    "dur": 0.4,
+    "volume": 0.05,
+    "sweep": [
+     260,
+     180
+    ],
+    "lp": 0.12,
+    "decay": 6,
+    "delay": 0.2
+   }
+  ]
+ },
+ "firewaft_build": {
+  "layers": [
+   {
+    "wave": "sine",
+    "dur": 1.8,
+    "volume": 0.18,
+    "sweep": [
+     40,
+     70
+    ],
+    "attack": 1.0,
+    "decay": 0.8
+   },
+   {
+    "type": "noise",
+    "dur": 1.8,
+    "volume": 0.1,
+    "lp": 0.08,
+    "attack": 1.0,
+    "decay": 0.8
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.08,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 0.6
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.08,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 0.73
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.08,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 0.86
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.08,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 0.99
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.08,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 1.12
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.08,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 1.25
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.08,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 1.38
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.08,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 1.51
+   }
+  ]
+ },
+ "firewaft_release": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 1.6,
+    "volume": 0.28,
+    "hp": 0.05,
+    "lp": 0.4,
+    "attack": 0.03,
+    "decay": 1.8
+   },
+   {
+    "wave": "sine",
+    "dur": 1.4,
+    "volume": 0.26,
+    "sweep": [
+     64,
+     38
+    ],
+    "attack": 0.02,
+    "decay": 1.8
+   },
+   {
+    "type": "noise",
+    "dur": 0.03,
+    "volume": 0.12,
+    "hp": 0.5,
+    "decay": 50,
+    "delay": 0.1
+   },
+   {
+    "type": "noise",
+    "dur": 0.03,
+    "volume": 0.12,
+    "hp": 0.5,
+    "decay": 50,
+    "delay": 0.19
+   },
+   {
+    "type": "noise",
+    "dur": 0.03,
+    "volume": 0.12,
+    "hp": 0.5,
+    "decay": 50,
+    "delay": 0.28
+   },
+   {
+    "type": "noise",
+    "dur": 0.03,
+    "volume": 0.12,
+    "hp": 0.5,
+    "decay": 50,
+    "delay": 0.37
+   },
+   {
+    "type": "noise",
+    "dur": 0.03,
+    "volume": 0.12,
+    "hp": 0.5,
+    "decay": 50,
+    "delay": 0.46
+   },
+   {
+    "type": "noise",
+    "dur": 0.03,
+    "volume": 0.12,
+    "hp": 0.5,
+    "decay": 50,
+    "delay": 0.55
+   },
+   {
+    "type": "noise",
+    "dur": 0.03,
+    "volume": 0.12,
+    "hp": 0.5,
+    "decay": 50,
+    "delay": 0.64
+   },
+   {
+    "type": "noise",
+    "dur": 0.03,
+    "volume": 0.12,
+    "hp": 0.5,
+    "decay": 50,
+    "delay": 0.73
+   },
+   {
+    "type": "noise",
+    "dur": 0.03,
+    "volume": 0.12,
+    "hp": 0.5,
+    "decay": 50,
+    "delay": 0.82
+   },
+   {
+    "type": "noise",
+    "dur": 0.03,
+    "volume": 0.12,
+    "hp": 0.5,
+    "decay": 50,
+    "delay": 0.91
+   }
+  ]
+ },
+ "sharkstorm_flames": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 2.0,
+    "volume": 0.16,
+    "lp": 0.2,
+    "attack": 0.3,
+    "decay": 1.4
+   },
+   {
+    "wave": "sine",
+    "dur": 2.0,
+    "volume": 0.08,
+    "sweep": [
+     52,
+     46
+    ],
+    "attack": 0.4,
+    "decay": 1.2,
+    "vibrato": {
+     "rate": 4,
+     "depth": 0.1
+    }
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.1,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 0.2
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.1,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 0.35
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.1,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 0.5
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.1,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 0.65
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.1,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 0.8
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.1,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 0.95
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.1,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 1.1
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.1,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 1.25
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.1,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 1.4
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.1,
+    "hp": 0.5,
+    "decay": 60,
+    "delay": 1.55
+   }
+  ]
+ },
+ "chicken_town_release": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 1.8,
+    "volume": 0.14,
+    "lp": 0.12,
+    "attack": 0.3,
+    "decay": 1.4
+   },
+   {
+    "wave": "triangle",
+    "dur": 1.8,
+    "volume": 0.07,
+    "notes": [
+     [
+      "G4",
+      0.6
+     ],
+     [
+      "B4",
+      0.6
+     ],
+     [
+      "D5",
+      0.6
+     ]
+    ],
+    "attack": 0.2,
+    "decay": 1.2
+   },
+   {
+    "wave": "square",
+    "dur": 0.07,
+    "volume": 0.08,
+    "sweep": [
+     820,
+     574.0
+    ],
+    "duty": 0.3,
+    "lp": 0.4,
+    "decay": 18,
+    "delay": 1.5
+   }
+  ]
+ },
+ "thunderbottom_wave": {
+  "layers": [
+   {
+    "wave": "triangle",
+    "dur": 0.6,
+    "volume": 0.08,
+    "notes": [
+     [
+      "C6",
+      0.1
+     ],
+     [
+      "D6",
+      0.1
+     ],
+     [
+      "C6",
+      0.1
+     ],
+     [
+      "D6",
+      0.1
+     ],
+     [
+      "E6",
+      0.2
+     ]
+    ],
+    "decay": 3
+   },
+   {
+    "type": "noise",
+    "dur": 0.3,
+    "volume": 0.05,
+    "hp": 0.6,
+    "decay": 6
+   }
+  ]
+ },
+ "thunderbottom_release": {
+  "layers": [
+   {
+    "wave": "sine",
+    "dur": 3.2,
+    "volume": 0.36,
+    "sweep": [
+     48,
+     30
+    ],
+    "attack": 0.2,
+    "decay": 0.9,
+    "vibrato": {
+     "rate": 3,
+     "depth": 0.1
+    }
+   },
+   {
+    "wave": "saw",
+    "dur": 1.6,
+    "volume": 0.06,
+    "notes": [
+     [
+      "C3",
+      0.4
+     ],
+     [
+      "G2",
+      0.4
+     ],
+     [
+      "E2",
+      0.4
+     ],
+     [
+      "C2",
+      0.4
+     ]
+    ],
+    "lp": 0.15,
+    "attack": 0.1,
+    "decay": 1.4
+   },
+   {
+    "type": "noise",
+    "dur": 3.0,
+    "volume": 0.2,
+    "lp": 0.06,
+    "attack": 0.2,
+    "decay": 0.9
+   },
+   {
+    "type": "noise",
+    "dur": 0.8,
+    "volume": 0.08,
+    "hp": 0.4,
+    "lp": 0.8,
+    "decay": 3,
+    "delay": 2.2
+   }
+  ]
+ },
+ "agnes_panic": {
+  "layers": [
+   {
+    "wave": "square",
+    "dur": 0.07,
+    "volume": 0.1,
+    "sweep": [
+     1000,
+     700.0
+    ],
+    "duty": 0.3,
+    "lp": 0.4,
+    "decay": 18,
+    "delay": 0.0
+   },
+   {
+    "wave": "square",
+    "dur": 0.07,
+    "volume": 0.1,
+    "sweep": [
+     1140,
+     798.0
+    ],
+    "duty": 0.3,
+    "lp": 0.4,
+    "decay": 18,
+    "delay": 0.07
+   },
+   {
+    "wave": "square",
+    "dur": 0.07,
+    "volume": 0.1,
+    "sweep": [
+     1280,
+     896.0
+    ],
+    "duty": 0.3,
+    "lp": 0.4,
+    "decay": 18,
+    "delay": 0.14
+   },
+   {
+    "wave": "square",
+    "dur": 0.07,
+    "volume": 0.1,
+    "sweep": [
+     1420,
+     993.9999999999999
+    ],
+    "duty": 0.3,
+    "lp": 0.4,
+    "decay": 18,
+    "delay": 0.21
+   },
+   {
+    "wave": "square",
+    "dur": 0.07,
+    "volume": 0.1,
+    "sweep": [
+     1000,
+     700.0
+    ],
+    "duty": 0.3,
+    "lp": 0.4,
+    "decay": 18,
+    "delay": 0.28
+   },
+   {
+    "wave": "square",
+    "dur": 0.07,
+    "volume": 0.1,
+    "sweep": [
+     1140,
+     798.0
+    ],
+    "duty": 0.3,
+    "lp": 0.4,
+    "decay": 18,
+    "delay": 0.35
+   },
+   {
+    "wave": "square",
+    "dur": 0.07,
+    "volume": 0.1,
+    "sweep": [
+     1280,
+     896.0
+    ],
+    "duty": 0.3,
+    "lp": 0.4,
+    "decay": 18,
+    "delay": 0.42
+   },
+   {
+    "wave": "square",
+    "dur": 0.07,
+    "volume": 0.1,
+    "sweep": [
+     1420,
+     993.9999999999999
+    ],
+    "duty": 0.3,
+    "lp": 0.4,
+    "decay": 18,
+    "delay": 0.49
+   },
+   {
+    "wave": "square",
+    "dur": 0.07,
+    "volume": 0.1,
+    "sweep": [
+     1000,
+     700.0
+    ],
+    "duty": 0.3,
+    "lp": 0.4,
+    "decay": 18,
+    "delay": 0.56
+   },
+   {
+    "wave": "square",
+    "dur": 0.07,
+    "volume": 0.1,
+    "sweep": [
+     1140,
+     798.0
+    ],
+    "duty": 0.3,
+    "lp": 0.4,
+    "decay": 18,
+    "delay": 0.63
+   },
+   {
+    "wave": "square",
+    "dur": 0.07,
+    "volume": 0.1,
+    "sweep": [
+     1280,
+     896.0
+    ],
+    "duty": 0.3,
+    "lp": 0.4,
+    "decay": 18,
+    "delay": 0.7
+   },
+   {
+    "type": "noise",
+    "dur": 0.1,
+    "volume": 0.12,
+    "hp": 0.35,
+    "lp": 0.75,
+    "decay": 20,
+    "delay": 0.02
+   },
+   {
+    "type": "noise",
+    "dur": 0.1,
+    "volume": 0.12,
+    "hp": 0.35,
+    "lp": 0.75,
+    "decay": 20,
+    "delay": 0.2
+   },
+   {
+    "type": "noise",
+    "dur": 0.1,
+    "volume": 0.12,
+    "hp": 0.35,
+    "lp": 0.75,
+    "decay": 20,
+    "delay": 0.38
+   },
+   {
+    "type": "noise",
+    "dur": 0.1,
+    "volume": 0.12,
+    "hp": 0.35,
+    "lp": 0.75,
+    "decay": 20,
+    "delay": 0.56
+   }
+  ]
+ },
+ "hen_sneeze": {
+  "layers": [
+   {
+    "wave": "square",
+    "dur": 0.25,
+    "volume": 0.08,
+    "sweep": [
+     700,
+     1100
+    ],
+    "duty": 0.3,
+    "lp": 0.4,
+    "attack": 0.15,
+    "decay": 6
+   },
+   {
+    "type": "noise",
+    "dur": 0.14,
+    "volume": 0.3,
+    "hp": 0.3,
+    "decay": 20,
+    "delay": 0.26
+   },
+   {
+    "wave": "square",
+    "dur": 0.07,
+    "volume": 0.08,
+    "sweep": [
+     860,
+     602.0
+    ],
+    "duty": 0.3,
+    "lp": 0.4,
+    "decay": 18,
+    "delay": 0.45
+   }
+  ]
+ },
+ "beard_puff": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.35,
+    "volume": 0.14,
+    "lp": 0.12,
+    "attack": 0.03,
+    "decay": 7
+   },
+   {
+    "wave": "sine",
+    "dur": 0.3,
+    "volume": 0.06,
+    "sweep": [
+     110,
+     80
+    ],
+    "decay": 8
+   }
+  ]
+ },
+ "beard_puff_b": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.25,
+    "volume": 0.12,
+    "lp": 0.16,
+    "attack": 0.02,
+    "decay": 9
+   },
+   {
+    "wave": "sine",
+    "dur": 0.22,
+    "volume": 0.05,
+    "sweep": [
+     150,
+     100
+    ],
+    "decay": 10
+   },
+   {
+    "type": "noise",
+    "dur": 0.12,
+    "volume": 0.05,
+    "lp": 0.2,
+    "decay": 14,
+    "delay": 0.2
+   }
+  ]
+ },
+ "scissors_snip": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.025,
+    "volume": 0.2,
+    "hp": 0.6,
+    "decay": 60
+   },
+   {
+    "wave": "triangle",
+    "dur": 0.06,
+    "volume": 0.06,
+    "notes": [
+     [
+      "A6",
+      0.06
+     ]
+    ],
+    "decay": 40
+   },
+   {
+    "type": "noise",
+    "dur": 0.025,
+    "volume": 0.2,
+    "hp": 0.6,
+    "decay": 60,
+    "delay": 0.16
+   },
+   {
+    "wave": "triangle",
+    "dur": 0.06,
+    "volume": 0.06,
+    "notes": [
+     [
+      "B6",
+      0.06
+     ]
+    ],
+    "decay": 40,
+    "delay": 0.16
+   }
+  ]
+ },
+ "frog_grog_whumph": {
+  "layers": [
+   {
+    "wave": "sine",
+    "dur": 0.6,
+    "volume": 0.3,
+    "sweep": [
+     90,
+     40
+    ],
+    "decay": 6
+   },
+   {
+    "type": "noise",
+    "dur": 0.4,
+    "volume": 0.16,
+    "lp": 0.15,
+    "decay": 8
+   },
+   {
+    "wave": "sine",
+    "dur": 0.06,
+    "volume": 0.05,
+    "sweep": [
+     400,
+     600
+    ],
+    "decay": 30,
+    "delay": 0.25
+   },
+   {
+    "wave": "sine",
+    "dur": 0.06,
+    "volume": 0.05,
+    "sweep": [
+     490,
+     690
+    ],
+    "decay": 30,
+    "delay": 0.33
+   },
+   {
+    "wave": "sine",
+    "dur": 0.06,
+    "volume": 0.05,
+    "sweep": [
+     580,
+     780
+    ],
+    "decay": 30,
+    "delay": 0.41
+   },
+   {
+    "wave": "sine",
+    "dur": 0.06,
+    "volume": 0.05,
+    "sweep": [
+     670,
+     870
+    ],
+    "decay": 30,
+    "delay": 0.49
+   }
+  ]
+ },
+ "coffin_sock_buildup": {
+  "layers": [
+   {
+    "wave": "sine",
+    "dur": 2.4,
+    "volume": 0.2,
+    "sweep": [
+     34,
+     50
+    ],
+    "attack": 1.6,
+    "decay": 0.6,
+    "vibrato": {
+     "rate": 2,
+     "depth": 0.1
+    }
+   },
+   {
+    "type": "noise",
+    "dur": 2.4,
+    "volume": 0.1,
+    "lp": 0.05,
+    "attack": 1.6,
+    "decay": 0.6
+   },
+   {
+    "wave": "saw",
+    "dur": 2.0,
+    "volume": 0.04,
+    "sweep": [
+     200,
+     150
+    ],
+    "lp": 0.1,
+    "attack": 0.6,
+    "decay": 1.4,
+    "vibrato": {
+     "rate": 12,
+     "depth": 0.08
+    },
+    "delay": 0.3
+   }
+  ]
+ },
+ "coffin_sock_catastrophe": {
+  "layers": [
+   {
+    "wave": "sine",
+    "dur": 3.6,
+    "volume": 0.4,
+    "sweep": [
+     44,
+     26
+    ],
+    "attack": 0.05,
+    "decay": 0.8,
+    "vibrato": {
+     "rate": 2.5,
+     "depth": 0.1
+    }
+   },
+   {
+    "wave": "triangle",
+    "dur": 3.0,
+    "volume": 0.07,
+    "notes": [
+     [
+      "Db2",
+      1.0
+     ],
+     [
+      "C2",
+      1.0
+     ],
+     [
+      "B1",
+      1.0
+     ]
+    ],
+    "lp": 0.2,
+    "attack": 0.1,
+    "decay": 1.0
+   },
+   {
+    "type": "noise",
+    "dur": 3.6,
+    "volume": 0.24,
+    "lp": 0.05,
+    "attack": 0.05,
+    "decay": 0.8
+   },
+   {
+    "type": "noise",
+    "dur": 1.6,
+    "volume": 0.08,
+    "hp": 0.3,
+    "lp": 0.6,
+    "attack": 0.6,
+    "decay": 2,
+    "delay": 1.4
+   }
+  ]
+ },
+ "sash_snap": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.04,
+    "volume": 0.32,
+    "hp": 0.4,
+    "decay": 50
+   },
+   {
+    "type": "noise",
+    "dur": 0.1,
+    "volume": 0.1,
+    "lp": 0.4,
+    "decay": 20,
+    "delay": 0.02
+   },
+   {
+    "wave": "square",
+    "dur": 0.05,
+    "volume": 0.04,
+    "sweep": [
+     600,
+     300
+    ],
+    "duty": 0.3,
+    "decay": 40
+   }
+  ]
+ },
+ "papers_fly": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.06,
+    "volume": 0.1,
+    "hp": 0.4,
+    "lp": 0.85,
+    "decay": 30,
+    "delay": 0.0
+   },
+   {
+    "type": "noise",
+    "dur": 0.06,
+    "volume": 0.1,
+    "hp": 0.4,
+    "lp": 0.85,
+    "decay": 30,
+    "delay": 0.07
+   },
+   {
+    "type": "noise",
+    "dur": 0.06,
+    "volume": 0.1,
+    "hp": 0.4,
+    "lp": 0.85,
+    "decay": 30,
+    "delay": 0.14
+   },
+   {
+    "type": "noise",
+    "dur": 0.06,
+    "volume": 0.1,
+    "hp": 0.4,
+    "lp": 0.85,
+    "decay": 30,
+    "delay": 0.18
+   },
+   {
+    "type": "noise",
+    "dur": 0.06,
+    "volume": 0.1,
+    "hp": 0.4,
+    "lp": 0.85,
+    "decay": 30,
+    "delay": 0.25
+   },
+   {
+    "type": "noise",
+    "dur": 0.06,
+    "volume": 0.1,
+    "hp": 0.4,
+    "lp": 0.85,
+    "decay": 30,
+    "delay": 0.32
+   },
+   {
+    "type": "noise",
+    "dur": 0.06,
+    "volume": 0.1,
+    "hp": 0.4,
+    "lp": 0.85,
+    "decay": 30,
+    "delay": 0.36
+   },
+   {
+    "type": "noise",
+    "dur": 0.06,
+    "volume": 0.1,
+    "hp": 0.4,
+    "lp": 0.85,
+    "decay": 30,
+    "delay": 0.43
+   },
+   {
+    "type": "noise",
+    "dur": 0.06,
+    "volume": 0.1,
+    "hp": 0.4,
+    "lp": 0.85,
+    "decay": 30,
+    "delay": 0.5
+   },
+   {
+    "type": "noise",
+    "dur": 0.06,
+    "volume": 0.1,
+    "hp": 0.4,
+    "lp": 0.85,
+    "decay": 30,
+    "delay": 0.54
+   },
+   {
+    "type": "noise",
+    "dur": 0.06,
+    "volume": 0.1,
+    "hp": 0.4,
+    "lp": 0.85,
+    "decay": 30,
+    "delay": 0.61
+   },
+   {
+    "type": "noise",
+    "dur": 0.06,
+    "volume": 0.1,
+    "hp": 0.4,
+    "lp": 0.85,
+    "decay": 30,
+    "delay": 0.68
+   }
+  ]
+ },
+ "portable_tv_static": {
+  "layers": [
+   {
+    "type": "noise",
+    "dur": 0.8,
+    "volume": 0.12,
+    "hp": 0.5,
+    "attack": 0.02,
+    "decay": 2
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.1,
+    "hp": 0.3,
+    "decay": 60,
+    "delay": 0.05
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.1,
+    "hp": 0.3,
+    "decay": 60,
+    "delay": 0.17
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.1,
+    "hp": 0.3,
+    "decay": 60,
+    "delay": 0.29
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.1,
+    "hp": 0.3,
+    "decay": 60,
+    "delay": 0.41
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.1,
+    "hp": 0.3,
+    "decay": 60,
+    "delay": 0.53
+   },
+   {
+    "type": "noise",
+    "dur": 0.02,
+    "volume": 0.1,
+    "hp": 0.3,
+    "decay": 60,
+    "delay": 0.65
+   }
+  ]
+ },
+ "branch_bell": {
+  "layers": [
+   {
+    "wave": "triangle",
+    "dur": 0.8,
+    "volume": 0.14,
+    "notes": [
+     [
+      "A6",
+      0.8
+     ]
+    ],
+    "decay": 4
+   },
+   {
+    "wave": "sine",
+    "dur": 0.8,
+    "volume": 0.05,
+    "notes": [
+     [
+      "E7",
+      0.8
+     ]
+    ],
+    "decay": 6
+   }
+  ]
+ }
+}

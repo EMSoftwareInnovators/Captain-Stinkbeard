@@ -1,0 +1,169 @@
+[
+ {
+  "id": "ledger",
+  "name": "Ledger Billiam",
+  "title": "Treasurer",
+  "npc": "ledger",
+  "appearance": "ledger",
+  "portrait": "ledger",
+  "voice": {
+   "pitch": 1.1
+  },
+  "//": "Story Phase 17: Ledger Billiam, Brogath's treasurer centuries ago, back in a cardboard cut-out (chapter 208). Support and economy: weak blows, statuses, healing, everybody's resources. Confidently incompetent with money and mechanically very useful. Joins at the captain's level, once, for good.",
+  "startLevel": 1,
+  "baseStats": {
+   "maxHp": 46,
+   "attack": 9,
+   "defense": 7,
+   "speed": 10,
+   "luck": 10
+  },
+  "growth": {
+   "maxHp": 7,
+   "attack": 1.2,
+   "defense": 1.2,
+   "speed": 1.1,
+   "luck": 1.0
+  },
+  "startEquipment": {
+   "weapon": null,
+   "body": null,
+   "feet": null,
+   "accessory": null
+  },
+  "learnset": [
+   {
+    "level": 1,
+    "ability": "creative_accounting"
+   },
+   {
+    "level": 1,
+    "ability": "reconcile"
+   },
+   {
+    "level": 8,
+    "ability": "projected_profits"
+   },
+   {
+    "level": 16,
+    "ability": "questionable_valuation"
+   }
+  ],
+  "traits": [
+   "CARDBOARD_REINCARNATION",
+   "FLAT_BODY",
+   "FUME_ANIMATED",
+   "LIGHTWEIGHT",
+   "FIRE_SUSCEPTIBLE"
+  ],
+  "battle": {
+   "attack": "ledger_swat",
+   "attackName": "ledger",
+   "ordersTitle": "Accounts",
+   "ordersHint": "Ledger's accounts. Spend Accounts on creative bookkeeping.",
+   "followAppearance": true,
+   "resource": {
+    "id": "accounts",
+    "name": "Accounts",
+    "short": "ACC",
+    "max": 5,
+    "start": 3,
+    "onDefend": 1,
+    "onTiming": {
+     "great": 1,
+     "perfect": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "tilda",
+  "name": "No-Nonsense Tilda",
+  "title": "First Mate",
+  "npc": "tilda",
+  "appearance": "tilda",
+  "portrait": "tilda",
+  "voice": {
+   "pitch": 0.9
+  },
+  "//": "Story Phase 17: No-Nonsense Tilda, Brogath's first mate centuries ago, back in a cardboard cut-out (chapter 208). Heavy command: hard blows, guarding, crowd control, orders. Singed at a corner since the Fire-Sharkstorm (chapter 217): the look follows her into battle. Joins at the captain's level, once, for good.",
+  "startLevel": 1,
+  "baseStats": {
+   "maxHp": 60,
+   "attack": 13,
+   "defense": 11,
+   "speed": 7,
+   "luck": 5
+  },
+  "growth": {
+   "maxHp": 9.5,
+   "attack": 2.1,
+   "defense": 1.7,
+   "speed": 0.8,
+   "luck": 0.5
+  },
+  "startEquipment": {
+   "weapon": null,
+   "body": null,
+   "feet": null,
+   "accessory": null
+  },
+  "learnset": [
+   {
+    "level": 1,
+    "ability": "brogath_stop"
+   },
+   {
+    "level": 1,
+    "ability": "no_nonsense"
+   },
+   {
+    "level": 6,
+    "ability": "hold_the_line"
+   },
+   {
+    "level": 12,
+    "ability": "authoritative_rebuke"
+   },
+   {
+    "level": 20,
+    "ability": "first_mates_orders"
+   }
+  ],
+  "traits": [
+   "CARDBOARD_REINCARNATION",
+   "FLAT_BODY",
+   "FUME_ANIMATED",
+   "LIGHTWEIGHT",
+   "FIRE_SUSCEPTIBLE"
+  ],
+  "battle": {
+   "attack": "tilda_shove",
+   "attackName": "flat cardboard arm",
+   "ordersTitle": "Commands",
+   "ordersHint": "The first mate's commands. Spend Authority.",
+   "followAppearance": true,
+   "resource": {
+    "id": "authority",
+    "name": "Authority",
+    "short": "AUTH",
+    "max": 5,
+    "start": 2,
+    "onDefend": 1,
+    "onTiming": {
+     "great": 1,
+     "perfect": 1
+    }
+   }
+  },
+  "variants": [
+   {
+    "if": {
+     "flag": "tilda_cardboard_singed"
+    },
+    "appearance": "tilda_singed",
+    "portrait": "tilda_singed"
+   }
+  ]
+ }
+]

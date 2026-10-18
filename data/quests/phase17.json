@@ -1,0 +1,888 @@
+[
+ {
+  "id": "brogath_remembers",
+  "title": "Brogath Remembers",
+  "category": "main",
+  "giver": "brogath",
+  "summary": "Quiet, for once.",
+  "description": "The hornets have gone. The portable set is off. Everybody who fits is in the Fart-Free Zone, and Brogath is lying on the sash bedding with Agnes on his foot, looking at the ceiling, and he's gone very quiet. Then he says: 'I miss them.'",
+  "objectives": [
+   {
+    "id": "hear",
+    "text": "Sit with Brogath (on the bedding, the Fart-Free Zone)",
+    "type": "flag",
+    "target": "p17_memories_heard"
+   },
+   {
+    "id": "memories",
+    "text": "What he's kept: the slate, the pocket edition, his sash on the wall (the Fart-Free Zone)",
+    "type": "event",
+    "target": "p17_memory",
+    "count": 3,
+    "after": [
+     "hear"
+    ]
+   },
+   {
+    "id": "names",
+    "text": "Ask him about each of them (Brogath)",
+    "type": "event",
+    "target": "p17_crew_name",
+    "count": 5,
+    "after": [
+     "memories"
+    ]
+   },
+   {
+    "id": "pete",
+    "text": "Pete has something to say (Pete, the Fart-Free Zone)",
+    "type": "flag",
+    "target": "p17_pete_sympathy",
+    "after": [
+     "names"
+    ]
+   },
+   {
+    "id": "theory",
+    "text": "Something is dawning on him (Brogath)",
+    "type": "flag",
+    "target": "p17_theory",
+    "after": [
+     "pete"
+    ]
+   },
+   {
+    "id": "dissuade",
+    "text": "Talk him out of it (Brogath)",
+    "type": "flag",
+    "target": "brogath_old_crew_remembered",
+    "after": [
+     "theory"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 120
+  }
+ },
+ {
+  "id": "the_cardboard_crew",
+  "title": "The Cardboard Crew",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "'Only drawings,' he said.",
+  "description": "Brogath went up to the old quarters with the Fan Mega-Pack's empty carton and a crayon. He said he was going to do some drawings. He has done five drawings. They're the size of people.",
+  "objectives": [
+   {
+    "id": "find",
+    "text": "See what he's making (the north wall of the old quarters)",
+    "type": "flag",
+    "target": "p17_cutouts_found"
+   },
+   {
+    "id": "cutouts",
+    "text": "Look at each cut-out (the north wall, the old quarters)",
+    "type": "event",
+    "target": "p17_cutout",
+    "count": 5,
+    "after": [
+     "find"
+    ]
+   },
+   {
+    "id": "eyebrows",
+    "text": "Brogath, working on the eyebrows (Brogath)",
+    "type": "flag",
+    "target": "p17_eyebrows",
+    "after": [
+     "cutouts"
+    ]
+   },
+   {
+    "id": "door",
+    "text": "Warn him off the treasure-room door (Brogath)",
+    "type": "flag",
+    "target": "p17_door_warned",
+    "after": [
+     "eyebrows"
+    ]
+   },
+   {
+    "id": "guard",
+    "text": "Have that door watched: Pete (on deck, by the wheel)",
+    "type": "flag",
+    "target": "p17_guard_asked",
+    "after": [
+     "door"
+    ]
+   },
+   {
+    "id": "run",
+    "text": "RUN: the treasure-room door (the hold)",
+    "type": "flag",
+    "target": "p17_ch208_started",
+    "after": [
+     "guard"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 120
+  }
+ },
+ {
+  "id": "the_forbidden_door",
+  "title": "The Forbidden Door",
+  "category": "main",
+  "giver": "pete",
+  "summary": "It worked before.",
+  "description": "Brogath has two cut-outs propped in front of the treasure-room door, the planks half off it, and the look of a man who is about to do something for love.",
+  "objectives": [
+   {
+    "id": "stop",
+    "text": "Stop him (the treasure-room door, the hold)",
+    "type": "flag",
+    "target": "p17_door_cracked"
+   },
+   {
+    "id": "shut",
+    "text": "SLAM IT AND NAIL IT (the treasure-room door)",
+    "type": "flag",
+    "target": "p17_door_resealed",
+    "after": [
+     "stop"
+    ]
+   },
+   {
+    "id": "plume",
+    "text": "Turn round (the cut-outs, by the door)",
+    "type": "flag",
+    "target": "tilda_reincarnated",
+    "after": [
+     "shut"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 140
+  }
+ },
+ {
+  "id": "the_ancient_reunion",
+  "title": "The Ancient Reunion",
+  "category": "main",
+  "giver": "brogath",
+  "summary": "Four hundred years late.",
+  "description": "Two cut-outs are standing up in the hold, creaking, looking at their own hands. One of them has a ledger. One of them has eyebrows.",
+  "objectives": [
+   {
+    "id": "ledger",
+    "text": "The one with the hat (Ledger, the hold)",
+    "type": "flag",
+    "target": "p17_ledger_woke"
+   },
+   {
+    "id": "tilda",
+    "text": "The one with the eyebrows (Tilda, the hold)",
+    "type": "flag",
+    "target": "p17_tilda_woke"
+   },
+   {
+    "id": "reunion",
+    "text": "Let them have a moment (Brogath, the hold)",
+    "type": "flag",
+    "target": "old_crew_reunion_completed",
+    "after": [
+     "ledger",
+     "tilda"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 140
+  }
+ },
+ {
+  "id": "the_geniuses",
+  "title": "Adult Supervision",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "SHIP ASSETS: A LOT.",
+  "description": "You hoped Ledger and Tilda might give Brogath some adult supervision. Ledger is reviewing the ship's finances at the galley table. Tilda is giving orders on deck. Brogath says they're geniuses.",
+  "objectives": [
+   {
+    "id": "review",
+    "text": "Ledger's review of the finances (Ledger, the galley)",
+    "type": "flag",
+    "target": "ledger_accounting_introduced"
+   },
+   {
+    "id": "entries",
+    "text": "Correct his books (the ledger on the galley's mess table)",
+    "type": "event",
+    "target": "p17_entry",
+    "count": 3,
+    "after": [
+     "review"
+    ]
+   },
+   {
+    "id": "orders",
+    "text": "What did Tilda tell them? (Gristle and Bob, on deck)",
+    "type": "event",
+    "target": "p17_orders",
+    "count": 2
+   },
+   {
+    "id": "barrels",
+    "text": "Put the barrels back (on deck: by the wheel, by the rail)",
+    "type": "event",
+    "target": "p17_barrel",
+    "count": 2,
+    "after": [
+     "orders"
+    ]
+   },
+   {
+    "id": "roster",
+    "text": "The crew roster Ledger 'corrected' (the rules board, the old quarters)",
+    "type": "flag",
+    "target": "p17_roster_fixed",
+    "after": [
+     "entries"
+    ]
+   },
+   {
+    "id": "brogath",
+    "text": "Brogath, impressed (Brogath, the old quarters)",
+    "type": "flag",
+    "target": "p17_geniuses",
+    "after": [
+     "roster"
+    ]
+   },
+   {
+    "id": "authority",
+    "text": "Settle who's in charge (Tilda, on deck)",
+    "type": "flag",
+    "target": "tilda_command_conflict_resolved",
+    "after": [
+     "barrels",
+     "brogath"
+    ]
+   },
+   {
+    "id": "drill",
+    "text": "Tilda's drill, to see what they can do (Tilda)",
+    "type": "flag",
+    "target": "p17_drill_done",
+    "after": [
+     "authority"
+    ],
+    "optional": true
+   }
+  ],
+  "rewards": {
+   "xp": 160
+  }
+ },
+ {
+  "id": "tilda_application",
+  "title": "The Ninety-Seven Pages, Again",
+  "category": "main",
+  "giver": "tilda",
+  "summary": "She wants it done properly.",
+  "description": "Tilda has found the Bureau of Ceremonial Ignition at the counter, and the traditionalists still queuing at it. She wants her cigarette lit the old way: by a Fire-Waft. By Brogath.",
+  "objectives": [
+   {
+    "id": "bureau",
+    "text": "Tilda at the Bureau (the counter, the old quarters)",
+    "type": "flag",
+    "target": "p17_tilda_at_bureau"
+   },
+   {
+    "id": "lighter",
+    "text": "Offer her the lighter (Tilda)",
+    "type": "flag",
+    "target": "p17_lighter_refused",
+    "after": [
+     "bureau"
+    ]
+   },
+   {
+    "id": "form",
+    "text": "Her application (the counter: 97 pages)",
+    "type": "flag",
+    "target": "tilda_ignition_application_approved",
+    "after": [
+     "lighter"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 140
+  }
+ },
+ {
+  "id": "old_crew_documentary",
+  "title": "The Crew He Left Behind",
+  "category": "main",
+  "giver": "brogath",
+  "summary": "The Stenchmaster Channel knows.",
+  "description": "The Mark II in the galley has switched itself on, which it does, and the Stenchmaster Channel is showing a documentary about Brogath's crew, which it shouldn't be able to.",
+  "objectives": [
+   {
+    "id": "set",
+    "text": "The Mark II (the galley)",
+    "type": "flag",
+    "target": "p17_doc_on"
+   },
+   {
+    "id": "watch",
+    "text": "Watch it with them (the Mark II, the galley)",
+    "type": "flag",
+    "target": "old_crew_documentary_viewed",
+    "after": [
+     "set"
+    ]
+   },
+   {
+    "id": "after",
+    "text": "Afterwards (Brogath, the galley)",
+    "type": "flag",
+    "target": "p17_doc_after",
+    "after": [
+     "watch"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 140
+  }
+ },
+ {
+  "id": "great_ledger_proposal",
+  "title": "The Ledgers of Greyhook Cove",
+  "category": "main",
+  "giver": "ledger",
+  "summary": "Somewhere around Greyhook Cove.",
+  "description": "Ledger has remembered where his books are. Tilda has remembered she's a navigator. The ship is inside the Sharkstorm.",
+  "objectives": [
+   {
+    "id": "books",
+    "text": "Ledger remembers his books (Ledger, the galley)",
+    "type": "flag",
+    "target": "greyhook_expedition_proposed"
+   },
+   {
+    "id": "argue",
+    "text": "Argue about it (Ledger and Tilda)",
+    "type": "flag",
+    "target": "greyhook_expedition_blocked",
+    "after": [
+     "books"
+    ]
+   },
+   {
+    "id": "helm",
+    "text": "Tilda has gone up to the wheel (on deck)",
+    "type": "flag",
+    "target": "p17_tilda_helm",
+    "after": [
+     "argue"
+    ]
+   },
+   {
+    "id": "countermand",
+    "text": "Countermand her orders (Gristle at the sheets, Bob at the braces, on deck)",
+    "type": "event",
+    "target": "p17_countermand",
+    "count": 2,
+    "after": [
+     "helm"
+    ]
+   },
+   {
+    "id": "pete",
+    "text": "Pete (on deck)",
+    "type": "flag",
+    "target": "p17_helm_pete",
+    "after": [
+     "helm"
+    ]
+   },
+   {
+    "id": "log",
+    "text": "Your name back in the helm log (the log by the wheel)",
+    "type": "flag",
+    "target": "p17_helm_log",
+    "after": [
+     "pete"
+    ]
+   },
+   {
+    "id": "wheel",
+    "text": "Secure the wheel (the wheel)",
+    "type": "flag",
+    "target": "p17_wheel_secured",
+    "after": [
+     "countermand",
+     "log"
+    ]
+   },
+   {
+    "id": "explain",
+    "text": "Show her the Sharkstorm (Tilda, at the rail)",
+    "type": "flag",
+    "target": "p17_helm_resolved",
+    "after": [
+     "wheel"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 150
+  }
+ },
+ {
+  "id": "captain_minutes",
+  "title": "Captain Minutes",
+  "category": "main",
+  "giver": "ledger",
+  "summary": "What's it worth?",
+  "description": "Ledger has found a Grand Token on the floor of the old quarters. He wants to know what it's worth. There's a machine beside the counter that will tell him. You know exactly what that machine does.",
+  "objectives": [
+   {
+    "id": "token",
+    "text": "Ledger's found a token (Ledger, the old quarters)",
+    "type": "flag",
+    "target": "p17_ledger_token"
+   },
+   {
+    "id": "stop",
+    "text": "STOP HIM (the converter, by the mast)",
+    "type": "flag",
+    "target": "ledger_converter_incident_complete",
+    "after": [
+     "token"
+    ]
+   },
+   {
+    "id": "ban",
+    "text": "Ban conversions (the converter)",
+    "type": "flag",
+    "target": "p17_conversions_banned",
+    "after": [
+     "stop"
+    ]
+   },
+   {
+    "id": "research",
+    "text": "Ledger's research (Ledger)",
+    "type": "flag",
+    "target": "captain_minutes_invented",
+    "after": [
+     "ban"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 140
+  }
+ },
+ {
+  "id": "new_dead_idiots",
+  "title": "Meet the New Dead Idiots!",
+  "category": "main",
+  "giver": "pete",
+  "summary": "IT'S LATE. IT'S LIVE.",
+  "description": "The Mark II has come on by itself again, and it isn't the Stenchmaster Channel this time. It's the Bling Bling King, from inside the Sharkstorm, and the whole Sharkstorm is watching.",
+  "objectives": [
+   {
+    "id": "set",
+    "text": "The Mark II (the galley)",
+    "type": "flag",
+    "target": "p17_special_on"
+   },
+   {
+    "id": "watch",
+    "text": "THE BLING BLING KING'S LATE-NIGHT SHARKSTORM SPECIAL (the Mark II)",
+    "type": "flag",
+    "target": "bbk_late_night_special_viewed",
+    "after": [
+     "set"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 120
+  }
+ },
+ {
+  "id": "grand_restraint",
+  "title": "The Grand Restraint",
+  "category": "main",
+  "giver": "tilda",
+  "summary": "She hasn't forgotten.",
+  "description": "Tilda has her permit. She has no lungs, she is made of cardboard, she is flammable, and she wants her cigarette lit by Brogath. And you, apparently, are going to let her. Under conditions.",
+  "objectives": [
+   {
+    "id": "permit",
+    "text": "Tilda, with her permit (Tilda, the galley)",
+    "type": "flag",
+    "target": "p17_permit_produced"
+   },
+   {
+    "id": "points",
+    "text": "Make your points (Tilda)",
+    "type": "event",
+    "target": "p17_point",
+    "count": 3,
+    "after": [
+     "permit"
+    ]
+   },
+   {
+    "id": "conditions",
+    "text": "The safety conditions (Tilda)",
+    "type": "flag",
+    "target": "p17_safety_conditions",
+    "after": [
+     "points"
+    ]
+   },
+   {
+    "id": "prep",
+    "text": "Get ready: the Fart Zone's portholes, Agnes to the Fart-Free Zone, Pete's bucket",
+    "type": "event",
+    "target": "p17_prep",
+    "count": 3,
+    "after": [
+     "conditions"
+    ]
+   },
+   {
+    "id": "restraint",
+    "text": "THE GRAND STENCHMASTER'S GRAND RESTRAINT (behind the rope, the Fart Zone)",
+    "type": "flag",
+    "target": "tilda_grand_restraint_started",
+    "after": [
+     "prep"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 160
+  }
+ },
+ {
+  "id": "fire_sharkstorm",
+  "title": "The Fire-Sharkstorm",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "A very small Fire-Waft.",
+  "description": "The Sharkstorm is on fire. Not all of it. Enough of it. Brogath is mortified, Tilda is smouldering, and there's only one thing aboard that has ever calmed him down.",
+  "objectives": [
+   {
+    "id": "agnes",
+    "text": "Fetch Agnes (the Fart-Free Zone, in the hold)",
+    "type": "flag",
+    "target": "p17_agnes_fetched"
+   },
+   {
+    "id": "deploy",
+    "text": "Bring her to Brogath, gently (the Fart Zone, across the deck)",
+    "type": "flag",
+    "target": "chicken_town_second_mellowing",
+    "after": [
+     "agnes"
+    ]
+   },
+   {
+    "id": "mellow",
+    "text": "Everybody's mellow but you (Brogath, Ledger, Tilda in the Fart Zone; Pete, the visitors on deck; Garrick, Jim in the galley)",
+    "type": "event",
+    "target": "p17_mellow",
+    "count": 7,
+    "after": [
+     "deploy"
+    ]
+   },
+   {
+    "id": "inhale",
+    "text": "Try to breathe it in yourself (the haze, any rail on deck)",
+    "type": "flag",
+    "target": "p17_inhale_failed",
+    "after": [
+     "deploy"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 160
+  }
+ },
+ {
+  "id": "thunderbottom",
+  "title": "Lord Vaporious Thunderbottom the Seventh",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "An incomplete application.",
+  "description": "Somebody is ringing the Bureau's bell. Everybody else on the ship is too mellow to answer it. It's you. It's always you.",
+  "objectives": [
+   {
+    "id": "bell",
+    "text": "The bell (the counter, the old quarters)",
+    "type": "flag",
+    "target": "thunderbottom_arrived"
+   },
+   {
+    "id": "serve",
+    "text": "Serve him (the counter)",
+    "type": "flag",
+    "target": "thunderbottom_threatened_agnes",
+    "after": [
+     "bell"
+    ]
+   },
+   {
+    "id": "defend",
+    "text": "Stand between him and Agnes (Lord Thunderbottom)",
+    "type": "flag",
+    "target": "p17_please",
+    "after": [
+     "serve"
+    ]
+   },
+   {
+    "id": "lead",
+    "text": "Agnes is following him. Lead her away (Agnes, by the grating on deck)",
+    "type": "flag",
+    "target": "p17_agnes_led_away",
+    "after": [
+     "defend"
+    ]
+   },
+   {
+    "id": "farther",
+    "text": "Further away: the Fart-Free Zone (put her on the cushion)",
+    "type": "flag",
+    "target": "p17_agnes_in_ffz",
+    "after": [
+     "lead"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 160
+  }
+ },
+ {
+  "id": "grand_fart_chamber",
+  "title": "The Grand Fart Chamber",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "She went back in.",
+  "description": "Agnes slipped out of the Fart-Free Zone and wandered back into the Fart Zone, where Lord Thunderbottom has begun his grand ceremonial release.",
+  "objectives": [
+   {
+    "id": "approach",
+    "text": "Get to the Fart Zone (the grating, on deck)",
+    "type": "flag",
+    "target": "thunderbottom_fart_zone_started"
+   },
+   {
+    "id": "rescue",
+    "text": "Get her out (the Fart Zone)",
+    "type": "flag",
+    "target": "agnes_thunderbottom_rescue_complete",
+    "after": [
+     "approach"
+    ]
+   },
+   {
+    "id": "after",
+    "text": "Agnes (on deck)",
+    "type": "flag",
+    "target": "agnes_post_rescue_condition",
+    "after": [
+     "rescue"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 180
+  }
+ },
+ {
+  "id": "beard_exhales",
+  "title": "The Beard Exhales",
+  "category": "main",
+  "giver": "pete",
+  "summary": "It's not just keeping them.",
+  "description": "Your beard has absorbed Lord Thunderbottom. And now, every so often, it lets a little of everything it has ever absorbed back out.",
+  "objectives": [
+   {
+    "id": "puff",
+    "text": "Your beard (the old quarters)",
+    "type": "flag",
+    "target": "p17_first_puff"
+   },
+   {
+    "id": "shave",
+    "text": "Shave it off (the washroom mirror)",
+    "type": "flag",
+    "target": "p17_shave_joke",
+    "after": [
+     "puff"
+    ],
+    "optional": true
+   },
+   {
+    "id": "brogath",
+    "text": "Brogath has noticed something (Brogath, the old quarters)",
+    "type": "flag",
+    "target": "brogath_coffin_sock_brewing",
+    "after": [
+     "puff"
+    ]
+   },
+   {
+    "id": "procedures",
+    "text": "Emergency procedures: Tilda, Ledger, Agnes into the Fart-Free Zone, Pete's board",
+    "type": "event",
+    "target": "p17_proc",
+    "count": 4,
+    "after": [
+     "brogath"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 150
+  }
+ },
+ {
+  "id": "beard_joint",
+  "title": "The Beard Joint (Again)",
+  "category": "main",
+  "giver": "garrick",
+  "summary": "Garrick has scissors.",
+  "description": "While everybody watches Brogath, Garrick has been watching your beard. He has a pair of scissors and a historical precedent.",
+  "objectives": [
+   {
+    "id": "scissors",
+    "text": "Garrick (the old quarters)",
+    "type": "flag",
+    "target": "garrick_beard_joint_experiment"
+   },
+   {
+    "id": "vision",
+    "text": "Something is wrong with everybody's faces (talk to two of them)",
+    "type": "event",
+    "target": "p17_vision",
+    "count": 2,
+    "after": [
+     "scissors"
+    ]
+   },
+   {
+    "id": "grog",
+    "text": "Garrick's improvement (Garrick)",
+    "type": "flag",
+    "target": "frog_grog_beard_exposure",
+    "after": [
+     "vision"
+    ]
+   },
+   {
+    "id": "spiral",
+    "text": "Who's in on it? (Garrick, Ledger, Tilda, Brogath, Pete: the old quarters)",
+    "type": "event",
+    "target": "p17_suspect",
+    "count": 5,
+    "after": [
+     "grog"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 160
+  }
+ },
+ {
+  "id": "coffin_sock_catastrophe",
+  "title": "The Coffin Sock Catastrophe",
+  "category": "main",
+  "giver": "blackbeard",
+  "summary": "Princess Stenchalina the Perfumed.",
+  "description": "You know who's behind it. It's obvious. It's been obvious all along. It's HER.",
+  "objectives": [
+   {
+    "id": "princess",
+    "text": "HER (Salty Jim, the old quarters)",
+    "type": "flag",
+    "target": "princess_stenchalina_delusion"
+   },
+   {
+    "id": "release",
+    "text": "...Brogath? (the old quarters)",
+    "type": "flag",
+    "target": "major_coffin_sock_release_complete",
+    "after": [
+     "princess"
+    ]
+   },
+   {
+    "id": "after",
+    "text": "Afterwards (Ledger, Pete, Brogath: the old quarters)",
+    "type": "event",
+    "target": "p17_after",
+    "count": 3,
+    "after": [
+     "release"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 200
+  }
+ },
+ {
+  "id": "the_great_ledger_expedition",
+  "title": "The Great Ledger Expedition",
+  "category": "main",
+  "giver": "ledger",
+  "summary": "BLOCKED: the Revenge is inside the Sharkstorm.",
+  "description": "Ledger Billiam's old books (money ledgers, fart ledgers, the crew's accounts, the records of supposed Stenchmaster wealth) are somewhere around Greyhook Cove. They may have rotted. They may be underwater. They may be gone. Ledger says they're essential. Tilda has plotted a course. Nobody can go anywhere until the Revenge is out of the Sharkstorm.",
+  "objectives": [
+   {
+    "id": "escape",
+    "text": "BLOCKED: get the Revenge out of the Sharkstorm first",
+    "type": "flag",
+    "target": "revenge_out_of_sharkstorm"
+   },
+   {
+    "id": "voyage",
+    "text": "Sail for Greyhook Cove",
+    "type": "flag",
+    "target": "greyhook_voyage_begun",
+    "after": [
+     "escape"
+    ]
+   },
+   {
+    "id": "books",
+    "text": "Find Ledger's ledgers",
+    "type": "flag",
+    "target": "ledger_ledgers_found",
+    "after": [
+     "voyage"
+    ]
+   }
+  ],
+  "rewards": {
+   "xp": 0
+  }
+ }
+]

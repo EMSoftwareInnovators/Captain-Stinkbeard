@@ -1577,6 +1577,132 @@
       "if": {
         "flag": "p16_complete"
       }
+    },
+    {
+      "id": "p17c1",
+      "name": "Chapter 206: Brogath Remembers",
+      "if": {
+        "flag": "p17_started"
+      }
+    },
+    {
+      "id": "p17c2",
+      "name": "Chapter 207: The Cardboard Crew",
+      "if": {
+        "flag": "p17_ch207_started"
+      }
+    },
+    {
+      "id": "p17c3",
+      "name": "Chapter 208: The Forbidden Door",
+      "if": {
+        "flag": "p17_ch208_started"
+      }
+    },
+    {
+      "id": "p17c4",
+      "name": "Chapter 209: The Ancient Reunion",
+      "if": {
+        "flag": "p17_ch209_started"
+      }
+    },
+    {
+      "id": "p17c5",
+      "name": "Chapter 210: Adult Supervision",
+      "if": {
+        "flag": "p17_ch210_started"
+      }
+    },
+    {
+      "id": "p17c6",
+      "name": "Chapter 211: The Ninety-Seven Pages, Again",
+      "if": {
+        "flag": "p17_ch211_started"
+      }
+    },
+    {
+      "id": "p17c7",
+      "name": "Chapter 212: The Crew He Left Behind",
+      "if": {
+        "flag": "p17_ch212_started"
+      }
+    },
+    {
+      "id": "p17c8",
+      "name": "Chapter 213: The Ledgers of Greyhook Cove",
+      "if": {
+        "flag": "p17_ch213_started"
+      }
+    },
+    {
+      "id": "p17c9",
+      "name": "Chapter 214: Captain Minutes",
+      "if": {
+        "flag": "p17_ch214_started"
+      }
+    },
+    {
+      "id": "p17c10",
+      "name": "Chapter 215: Meet the New Dead Idiots!",
+      "if": {
+        "flag": "p17_ch215_started"
+      }
+    },
+    {
+      "id": "p17c11",
+      "name": "Chapter 216: The Grand Restraint",
+      "if": {
+        "flag": "p17_ch216_started"
+      }
+    },
+    {
+      "id": "p17c12",
+      "name": "Chapter 217: The Fire-Sharkstorm",
+      "if": {
+        "flag": "p17_ch217_started"
+      }
+    },
+    {
+      "id": "p17c13",
+      "name": "Chapter 218: Lord Vaporious Thunderbottom the Seventh",
+      "if": {
+        "flag": "p17_ch218_started"
+      }
+    },
+    {
+      "id": "p17c14",
+      "name": "Chapter 219: The Grand Fart Chamber",
+      "if": {
+        "flag": "p17_ch219_started"
+      }
+    },
+    {
+      "id": "p17c15",
+      "name": "Chapter 220: The Beard Exhales",
+      "if": {
+        "flag": "p17_ch220_started"
+      }
+    },
+    {
+      "id": "p17c16",
+      "name": "Chapter 221: The Beard Joint (Again)",
+      "if": {
+        "flag": "p17_ch221_started"
+      }
+    },
+    {
+      "id": "p17c17",
+      "name": "Chapter 222: The Coffin Sock Catastrophe",
+      "if": {
+        "flag": "p17_ch222_started"
+      }
+    },
+    {
+      "id": "phase17_end",
+      "name": "Everyone Is Furious",
+      "if": {
+        "flag": "p17_complete"
+      }
     }
   ],
   "timeOfDay": [
@@ -2116,6 +2242,50 @@
         "var": {
           "name": "p4_tod",
           "eq": 41
+        }
+      }
+    },
+    {
+      "id": "p17_lamplight",
+      "grade": "#d8c098",
+      "interior": 0.5,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 42
+        }
+      }
+    },
+    {
+      "id": "p17_fire",
+      "grade": "#e8b088",
+      "interior": 0.42,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 43
+        }
+      }
+    },
+    {
+      "id": "p17_green",
+      "grade": "#cce0a8",
+      "interior": 0.42,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 44
+        }
+      }
+    },
+    {
+      "id": "p17_coffin",
+      "grade": "#a89c78",
+      "interior": 0.55,
+      "if": {
+        "var": {
+          "name": "p4_tod",
+          "eq": 45
         }
       }
     }

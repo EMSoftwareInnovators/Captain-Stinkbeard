@@ -7,6 +7,7 @@ import { addPhase7StageFrames, PHASE7_STAGE_FRAMES } from './stagePhase7.js';
 import { addPhase9StageFrames, PHASE9_STAGE_FRAMES } from './stagePhase9.js';
 import { addPhase10StageFrames, PHASE10_STAGE_FRAMES } from './stagePhase10.js';
 import { addPhase14StageFrames, PHASE14_STAGE_FRAMES, PHASE14_STAGE_ANIMS } from './stagePhase14.js';
+import { addPhase17StageFrames, PHASE17_STAGE_FRAMES } from './stagePhase17.js';
 
 /**
  * "Stage" sprites: free-moving pieces that scripts place in the world (see
@@ -496,6 +497,7 @@ export function buildStageAtlas() {
   addPhase9StageFrames(atlas);
   addPhase10StageFrames(atlas);
   addPhase14StageFrames(atlas);
+  addPhase17StageFrames(atlas);
   const built = atlas.build();
   return {
     ...built,
@@ -533,4 +535,5 @@ export const STAGE_FRAMES = [
   ...PHASE9_STAGE_FRAMES,
   ...PHASE10_STAGE_FRAMES,
   ...PHASE14_STAGE_FRAMES,
+  ...PHASE17_STAGE_FRAMES,
 ];

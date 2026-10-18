@@ -1,8 +1,8 @@
 {
- "//": "Story Phase 15: Brogath's ancient crew, as lore records (the pocket edition, the Stenchmaster Channel, Brogath's own stories). Nobody here is reincarnated: reincarnationAllowed is false for all of them (the validator insists), and the cardboard plan of chapter 172 is prevented. futurePortraitAsset names art a later phase may paint.",
+ "//": "Story Phase 15: Brogath's ancient crew, as lore records (the pocket edition, the Stenchmaster Channel, Brogath's own stories). Nobody here is reincarnated: reincarnationAllowed is false for all of them (the validator insists), and the cardboard plan of chapter 172 is prevented. futurePortraitAsset names art a later phase may paint. Story Phase 17: two of them came back. Ledger Billiam and No-Nonsense Tilda were drawn on cardboard by Brogath and an escaped plume of the treasure room's cloud went into them (chapter 208): their records allow it, and name the reincarnation (its flag, the NPC and the party member). Everybody else stays false: Old Jeb, Wobbly Ned and Elsie Beanwright are cut-outs and nothing more (future hooks).",
  "ledger_billiam": {
   "displayName": "Ledger Billiam",
-  "role": "Accountant",
+  "role": "Accountant (Treasurer)",
   "summary": "Brogath's bookkeeper: a narrow, dry little man with two ledgers, one for money and one for atmospheric wealth, who treated every impossible thing as a bookkeeping problem. Wrote the WILL FART FOR FOOD sign.",
   "knownHistoricalIncidents": [
    "Tried to bottle the market value of the wind in a barrel; Brogath spoiled the breeze.",
@@ -10,31 +10,46 @@
    "Calculated the market value of being raised up a mast."
   ],
   "brogathRelationship": "Loyal to the last ledger. Recorded every fart Brogath ever did as revenue.",
-  "futurePortraitAsset": "ancient_ledger_billiam",
-  "reincarnationAllowed": false,
+  "futurePortraitAsset": "ledger",
+  "reincarnationAllowed": true,
   "storyUnlockFlags": [
-   "ancient_lore_ledger"
-  ]
+   "ancient_lore_ledger",
+   "ledger_billiam_reincarnated"
+  ],
+  "reincarnation": {
+   "flag": "ledger_billiam_reincarnated",
+   "npc": "ledger",
+   "character": "ledger",
+   "vessel": "cutout_ledger",
+   "chapter": 208
+  }
  },
  "nononsense_tilda": {
   "displayName": "No-Nonsense Tilda",
-  "role": "Navigator",
+  "role": "First Mate and Navigator",
   "summary": "Stern, practical, sensible boots and a sensible (GREEN) hat. Plainly the grounded one. Took part in every catastrophically stupid plan anyway, and navigated by a compass she drew herself.",
   "knownHistoricalIncidents": [
    "Steered by a hand-drawn compass; the crew followed it the wrong way; Brogath's accidental fart turned the ship round and she called it navigation."
   ],
   "brogathRelationship": "The one who said 'No' first, and came along anyway. Brogath trusted her more than any compass.",
-  "futurePortraitAsset": "ancient_nononsense_tilda",
-  "reincarnationAllowed": false,
+  "futurePortraitAsset": "tilda",
+  "reincarnationAllowed": true,
   "storyUnlockFlags": [
-   "ancient_lore_tilda"
+   "ancient_lore_tilda",
+   "tilda_reincarnated"
   ],
-  "//": "Kept future-ready: a later phase may give her a larger part."
+  "reincarnation": {
+   "flag": "tilda_reincarnated",
+   "npc": "tilda",
+   "character": "tilda",
+   "vessel": "cutout_tilda",
+   "chapter": 208
+  }
  },
  "old_jeb": {
   "displayName": "Old Jeb Rattleplank",
   "role": "Carpenter",
-  "summary": "Old even then. Rattled when he walked. Nailed up the signs that got the crew lost aboard their own ship (and took one down again, which made it worse).",
+  "summary": "Old even then. Rattled when he walked. Sold things, including things that weren't his and things that didn't exist, and nailed up the signs that got the crew lost aboard their own ship.",
   "knownHistoricalIncidents": [
    "Put up the conflicting arrows in the Lost Inside Our Own Ship incident."
   ],
@@ -43,7 +58,9 @@
   "reincarnationAllowed": false,
   "storyUnlockFlags": [
    "ancient_lore_lost"
-  ]
+  ],
+  "cutout": "cutout_jeb",
+  "//": "Story Phase 17: Brogath drew this one too (a dormant cut-out by the quarters' north wall). Not reincarnated: a future hook."
  },
  "wobbly_ned": {
   "displayName": "Wobbly Ned",
@@ -57,7 +74,9 @@
   "reincarnationAllowed": false,
   "storyUnlockFlags": [
    "ancient_lore_ned"
-  ]
+  ],
+  "cutout": "cutout_ned",
+  "//": "Story Phase 17: Brogath drew this one too (a dormant cut-out by the quarters' north wall). Not reincarnated: a future hook."
  },
  "blindeye_margery": {
   "displayName": "Blind-Eye Margery",
@@ -113,6 +132,8 @@
   "reincarnationAllowed": false,
   "storyUnlockFlags": [
    "ancient_lore_elsie"
-  ]
+  ],
+  "cutout": "cutout_elsie",
+  "//": "Story Phase 17: Brogath drew this one too (a dormant cut-out by the quarters' north wall). Not reincarnated: a future hook."
  }
 }

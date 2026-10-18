@@ -30,6 +30,11 @@ import { sharkstormNow, between } from '../systems/hazards/sharkstorm.js';
  * come down on the maps that have one. A treasure-laden storm
  * ("glints") flashes gold now and then: coins and jewels in the sky.
  *
+ * Story Phase 17: a glint can name its own bursts ("glints.bursts": embers
+ * for the Fire-Sharkstorm), and a burning storm lights the whole sky orange
+ * for a moment now and then ("flashes": { every, color, alpha }; a faint
+ * tint, never with reduced effects).
+ *
  * Story Phase 10: the Bling Bling King's sharks throw things. A state's
  * "tokens" ({ every, frames, max, sfx, maps? }) drops a cheap plastic prize
  * (a participation coin, a trophy, a rosette, a lobster shell) onto a free
@@ -84,6 +89,7 @@ export class SharkstormLayer {
     if (st.tokens && !busy) this.tokenRain(st.tokens, dt);
     if (!this.here) return;
     if (st.glints && !busy) this.glint(st.glints, dt);
+    if (st.flashes && !busy) this.skyFlash(st.flashes, dt);
     if (st.rumble && !busy) {
       this.rumbleT -= dt;
       if (this.rumbleT <= 0) {
@@ -118,9 +124,19 @@ export class SharkstormLayer {
     const cam = this.scene.cameras.main;
     const x = cam.scrollX + 20 + Math.random() * (SCREEN_WIDTH - 40);
     const y = cam.scrollY + 10 + Math.random() * 50;
-    this.scene.fx.burst(Math.random() < 0.6 ? 'coins' : 'gems', x, y, { count: 4 });
-    this.scene.fx.burst('sparkle', x, y, { count: 3 });
+    for (const b of g.bursts ?? [Math.random() < 0.6 ? 'coins' : 'gems', 'sparkle']) this.scene.fx.burst(b, x, y, { count: b === 'sparkle' ? 3 : 4 });
     if (Math.random() < 0.4) this.scene.app.audio.sfx(g.sfx ?? 'coin_glint', { volume: 0.25, rate: 0.9 + Math.random() * 0.3 });
+  }
+
+  /** A burning storm (Story Phase 17): the sky glows for a moment. A faint tint; never with reduced effects. */
+  skyFlash(fl, dt) {
+    if (this.scene.app.settings.reducedEffects()) return;
+    this.flashT = (this.flashT ?? 2500) - dt;
+    if (this.flashT > 0) return;
+    this.flashT = between(fl.every ?? [3200, 6000]);
+    const col = parseInt(String(fl.color ?? '#e8783a').slice(1), 16);
+    const glow = this.scene.add.rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, col).setOrigin(0).setScrollFactor(0).setDepth(79100).setAlpha(Math.min(0.3, fl.alpha ?? 0.12));
+    this.scene.tweens.add({ targets: glow, alpha: 0, duration: 700, onComplete: () => glow.destroy() });
   }
 
   // --- the Bling Bling King's prizes (Story Phase 10) ------------------------------------

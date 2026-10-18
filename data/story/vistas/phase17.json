@@ -1,0 +1,84 @@
+{
+ "//": "Story Phase 17: the reincarnation (the plume split in two, going into the two cut-outs: their printed faces change, their flat arms unfold); the Fire-Sharkstorm from the Fart Zone's portholes (rings of flame round the vortex, lit sharks); the second Chicken-Town waft putting it out; the old quarters before and after the Coffin Sock catastrophe.",
+ "reincarnation": {
+  "sky": "night",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "bg",
+    "frame": "hold_shelter",
+    "x": 160,
+    "y": 224,
+    "depth": 2
+   },
+   {
+    "id": "left",
+    "frame": "reinc_ledger_0",
+    "x": 100,
+    "y": 200,
+    "depth": 10
+   },
+   {
+    "id": "right",
+    "frame": "reinc_tilda_0",
+    "x": 220,
+    "y": 200,
+    "depth": 10
+   }
+  ]
+ },
+ "fire_sharkstorm": {
+  "sky": "inside",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "storm",
+    "frame": "fire_storm_0",
+    "x": 160,
+    "y": 224,
+    "depth": 4,
+    "frames": [
+     "fire_storm_0",
+     "fire_storm_1",
+     "fire_storm_2"
+    ],
+    "frameMs": 180
+   }
+  ]
+ },
+ "chicken_town_2": {
+  "sky": "inside",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "storm",
+    "frame": "ct2_0",
+    "x": 160,
+    "y": 224,
+    "depth": 4,
+    "frames": [
+     "ct2_0",
+     "ct2_1"
+    ],
+    "frameMs": 420
+   }
+  ]
+ },
+ "coffin_sock_shift": {
+  "sky": "night",
+  "sea": false,
+  "dock": "top",
+  "layers": [
+   {
+    "id": "before",
+    "frame": "cs_before_0",
+    "x": 160,
+    "y": 224,
+    "depth": 4
+   }
+  ]
+ }
+}

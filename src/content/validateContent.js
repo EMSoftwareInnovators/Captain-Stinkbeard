@@ -88,6 +88,7 @@ class Checker {
   }
 
   sharkstorm(id) {
+    if (id === 'end_flare') return; // Story Phase 17: puts out a temporary flare
     const states = sharkstormStates(this.ctx.db);
     if (typeof id !== 'string' || !(id in states)) this.error(`unknown Great Sharkstorm state "${id}" (see data/hazards/sharkstorm.json)`);
   }

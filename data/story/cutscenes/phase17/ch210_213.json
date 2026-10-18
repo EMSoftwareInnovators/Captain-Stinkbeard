@@ -1,0 +1,882 @@
+{
+ "//": "Story Phase 17, chapters 210-213: Adult Supervision, The Ninety-Seven Pages Again, The Crew He Left Behind, The Ledgers of Greyhook Cove.",
+ "p17c5.begin": [
+  {
+   "setFlag": "p17_ch210_started"
+  },
+  {
+   "banner": "CHAPTER 210",
+   "sub": "Adult Supervision"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 0
+  },
+  "The next morning. You had a thought in the night, and you've decided to believe it: Ledger and Tilda are going to be good for Brogath. Adult supervision. Two sensible people from his own time, who knew him, who can keep him in line.",
+  "Ledger has set up at the galley's mess table with his ledger. Tilda is on deck, giving orders. Brogath is in the old quarters, telling everybody they're geniuses.",
+  {
+   "startQuest": "the_geniuses"
+  },
+  {
+   "tutorial": "Ledger's review of the ship's finances (Ledger, at the galley's mess table).",
+   "title": "Adult Supervision"
+  }
+ ],
+ "p17c5.review": [
+  {
+   "face": "ledger",
+   "dir": "player"
+  },
+  "ledger[delighted]: (looking up from the ledger, quill in the air) Captain! I've done the ship! The whole ship! Finances, top to bottom. Marvellous position. Marvellous.",
+  {
+   "insert": "ledger_review",
+   "caption": "SHIP ASSETS: A LOT. SHIP LIABILITIES: PROBABLY LESS."
+  },
+  "captain: 'A lot'.",
+  "ledger[proud]: A LOT. I counted twice. Well, I counted once and then I wrote it down twice. That's double-entry.",
+  "captain: And the Sharkstorm is under ASSETS.",
+  "ledger[happy]: It's nearby! It's full of treasure! It's a large, revolving asset.",
+  {
+   "setFlag": "ledger_accounting_introduced"
+  },
+  {
+   "tutorial": "Correct his books (the ledger, on the galley's mess table).",
+   "title": "Adult Supervision"
+  }
+ ],
+ "p17c5.entries": [
+  "The ledger, open. Ledger's handwriting is beautiful and almost entirely wrong.",
+  {
+   "choice": [
+    {
+     "text": "SHIP ASSETS: A LOT",
+     "if": {
+      "notFlag": "p17_entry_assets"
+     },
+     "then": [
+      "captain: Put a NUMBER. An actual number.",
+      "ledger[thoughtful]: (writing) SHIP ASSETS: A LOT (A NUMBER).",
+      "captain: ...",
+      "ledger[worried]: (crossing it out, writing again) SHIP ASSETS: QUITE A LOT. Better?",
+      "It is, technically, slightly more accurate.",
+      {
+       "sfx": "quill_scratch",
+       "volume": 0.7
+      },
+      {
+       "setFlag": "p17_entry_assets"
+      },
+      {
+       "event": "p17_entry"
+      }
+     ]
+    },
+    {
+     "text": "THE SHARKSTORM (NEARBY): ASSET",
+     "if": {
+      "notFlag": "p17_entry_storm"
+     },
+     "then": [
+      "captain: The Sharkstorm is not an asset. The Sharkstorm is a LIABILITY. It's the biggest liability on the sea. We're INSIDE it.",
+      "ledger[confused]: (with real anguish) But it's FULL of gold.",
+      "captain: It's full of SHARKS.",
+      "ledger[thoughtful]: (after a long time, moving it with great care into a new column) There. Neither. I've started a new column.",
+      {
+       "sfx": "quill_scratch",
+       "volume": 0.7
+      },
+      {
+       "setFlag": "p17_entry_storm"
+      },
+      {
+       "event": "p17_entry"
+      }
+     ]
+    },
+    {
+     "text": "GRAND CURRENCY: 20,000 (RICH)",
+     "if": {
+      "notFlag": "p17_entry_currency"
+     },
+     "then": [
+      "captain: Grand Tokens aren't money. They're plastic. A gentleman made of a bank gives them out.",
+      "ledger[alarmed]: Plastic? But they're GRAND. It says so on them.",
+      "ledger[sad]: (moving them, sadly) GRAND CURRENCY: 20,000 (EMOTIONALLY RICH).",
+      {
+       "sfx": "quill_scratch",
+       "volume": 0.7
+      },
+      {
+       "setFlag": "p17_entry_currency"
+      },
+      {
+       "event": "p17_entry"
+      }
+     ]
+    },
+    {
+     "text": "The column headed MAYBE",
+     "if": {
+      "notFlag": "p17_entry_maybe"
+     },
+     "then": [
+      {
+       "insert": "ledger_maybe",
+       "caption": "MAYBE."
+      },
+      "captain: What's 'MAYBE'?",
+      "ledger[proud]: It's the most important column, Captain. ASSETS is what you've got. LIABILITIES is what you owe. MAYBE is everything else. It's where all the real money is.",
+      "In the MAYBE column: THE SHARKSTORM. THE TREASURE IN IT. A GOOD FEELING ABOUT TUESDAY. BROGATH (PRICELESS?).",
+      "You leave MAYBE alone. Some things you can't win.",
+      {
+       "setFlag": "p17_entry_maybe"
+      },
+      {
+       "event": "p17_entry"
+      }
+     ]
+    },
+    {
+     "text": "(Later.)"
+    }
+   ]
+  }
+ ],
+ "p17c5.entries_done": [
+  {
+   "setFlag": "p17_entries_said"
+  },
+  "ledger[delighted]: (closing the ledger with a WHUMP) Audited! By the captain himself! I've never been audited by a captain. Tilda used to just set fire to things.",
+  {
+   "tutorial": "The crew roster Ledger has 'corrected' (the rules board, in the old quarters).",
+   "title": "Adult Supervision"
+  }
+ ],
+ "p17c5.orders_gristle": [
+  {
+   "face": "gristle",
+   "dir": "player"
+  },
+  "gristle: (hauling on a rope, and also letting go of it, which is hard) Captain. Tilda said haul in the main sheet. Then she said let it out. Then she said 'and look like you MEAN it'.",
+  "gristle: I've been meaning it for an hour. Which one's the sheet?",
+  {
+   "choice": [
+    {
+     "text": "Leave the sheet as it was. Hale sets the sails.",
+     "then": [
+      "gristle: (dropping everything, relieved) Hale. Right. Hale. Thank you, Captain."
+     ]
+    },
+    {
+     "text": "Haul it in. Then let it out. Then make it look meant.",
+     "then": [
+      "gristle: (crying a bit) ...I can't do all three, Captain.",
+      "captain: Leave it as it was.",
+      "gristle: Thank you."
+     ]
+    }
+   ]
+  },
+  {
+   "setFlag": "p17_orders_gristle"
+  },
+  {
+   "event": "p17_orders"
+  }
+ ],
+ "p17c5.orders_bob": [
+  {
+   "face": "bob",
+   "dir": "player"
+  },
+  "bob: (standing very straight next to two barrels that weren't there yesterday) Tilda says these barrels look more authoritative on deck, Captain. She said the hold was 'wasting them'.",
+  "bob: One's in front of the wheel. One's next to the rail. I've been told to stand here and look like a barrel guard.",
+  "captain: They're hardtack barrels. They live in the hold.",
+  "bob: (whispering) I know, Captain. I put them there.",
+  {
+   "setFlag": "p17_orders_bob"
+  },
+  {
+   "event": "p17_orders"
+  }
+ ],
+ "p17c5.orders_done": [
+  {
+   "setFlag": "p17_orders_said"
+  },
+  {
+   "tutorial": "Put the barrels back (on deck: the one by the wheel, the one by the rail).",
+   "title": "Adult Supervision"
+  }
+ ],
+ "p17c5.barrel_wheel": [
+  "A barrel of hardtack, set square in front of the wheel, where it looks very authoritative and stops anybody steering.",
+  {
+   "repair": "carry",
+   "strikes": 3,
+   "title": "SHIFT IT!"
+  },
+  "Down the hatch with it, back where it lives.",
+  {
+   "setFlag": "p17_barrel_wheel"
+  },
+  {
+   "event": "p17_barrel"
+  }
+ ],
+ "p17c5.barrel_rail": [
+  "A barrel of hardtack by the rail, which it is leaning on, which is the rail of a ship inside a Sharkstorm.",
+  {
+   "repair": "carry",
+   "strikes": 3,
+   "title": "SHIFT IT!"
+  },
+  "Away from the rail, down the hatch, back where it lives.",
+  {
+   "setFlag": "p17_barrel_rail"
+  },
+  {
+   "event": "p17_barrel"
+  }
+ ],
+ "p17c5.barrels_done": [
+  {
+   "setFlag": "p17_barrels_said"
+  },
+  "tilda[stern]: (from the wheel, arms folded) Who moved my barrels?",
+  "captain: Me. The captain.",
+  "tilda[annoyed]: ...We'll talk about that.",
+  {
+   "tutorial": "Settle who's in charge (Tilda, on deck).",
+   "title": "Adult Supervision"
+  }
+ ],
+ "p17c5.roster": [
+  "Pinned over Pete's rules: a new crew roster, in Ledger's beautiful, wrong handwriting.",
+  {
+   "insert": "ledger_roster",
+   "caption": "THE SHIP'S COMPANY (CORRECTED)."
+  },
+  "CAPTAIN: STINKBEARD (LIABILITY). FIRST MATE: TILDA. TREASURER: LEDGER. GRAND STENCHMASTER: GARRICK (DISPUTED). ANCIENT GRAND STENCHMASTER: BROGATH (ASSET, PRICELESS). CHICKEN: AGNES (OPERATIONALLY IMPORTANT). EVERYBODY ELSE: MAYBE.",
+  {
+   "choice": [
+    {
+     "text": "Cross out LIABILITY.",
+     "then": [
+      "You cross it out and write CAPTAIN again. Somebody, later, adds (PROBABLY) in small letters. You can guess who."
+     ]
+    },
+    {
+     "text": "Cross out the whole thing.",
+     "then": [
+      "You cross out the whole thing. Pete's rules are underneath, all twenty-four of them, intact. Rule nine is still underlined three times."
+     ]
+    }
+   ]
+  },
+  {
+   "setFlag": "p17_roster_fixed"
+  },
+  {
+   "tutorial": "Brogath, who's very impressed with them (Brogath, the old quarters).",
+   "title": "Adult Supervision"
+  }
+ ],
+ "p17c5.geniuses": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "brogath[delighted]: Captain! Did you SEE? Ledger's done the WHOLE SHIP. And Tilda's REORGANISED THE DECK. They're geniuses. I always said they were geniuses. I said it in sixteen-ninety-something.",
+  "captain: Brogath. They are barely more intelligent than you.",
+  "Brogath goes very still. Then his printed cheeks go pink, all the way out to the edges of the card.",
+  "brogath[bashful]: (very quietly, overwhelmed) Captain. That's the nicest thing anybody's ever said about me.",
+  {
+   "stability": "calm",
+   "id": "praise",
+   "quiet": true
+  },
+  {
+   "setFlag": "p17_geniuses"
+  }
+ ],
+ "p17c5.authority": [
+  {
+   "face": "tilda",
+   "dir": "player"
+  },
+  "tilda[stern]: (at the wheel, arms folded, Hale beside her looking like a man whose wheel has been confiscated) Captain. A word. About command.",
+  "tilda[stern]: You've moved my barrels. You've unmade my orders. Your Ledger tells me you're a LIABILITY. I've been a first mate for sixty years. I've been dead for four hundred. I know how a ship's run.",
+  {
+   "choice": [
+    {
+     "text": "I'm the captain. You're the first mate. That's how a ship's run.",
+     "then": [
+      "tilda[annoyed]: (a long, flat look) ...Correct. Annoyingly."
+     ]
+    },
+    {
+     "text": "You can have the barrels. Not the ship.",
+     "then": [
+      "tilda[smug]: (a very small smile) A negotiator. Brogath never negotiated. He apologised until people gave up."
+     ]
+    },
+    {
+     "text": "Brogath trusts you. So do I. As FIRST MATE.",
+     "then": [
+      "tilda[soft]: (looking away, at nothing) ...He said that? (She clears her throat, which is a creak.) Fine. First mate."
+     ]
+    }
+   ]
+  },
+  "tilda[stern]: First mate. Acting captain when the captain is being unreasonable.",
+  "captain: No.",
+  "tilda[annoyed]: Acting captain when the captain is ASLEEP.",
+  "captain: ...No.",
+  "tilda[stern]: (unfolding nothing, because she can't) FIRST MATE. And when you need somebody to shout, you come to me. Agreed?",
+  "captain: Agreed.",
+  "Hale gets his wheel back. He holds it as if it might be taken off him again. It might.",
+  {
+   "setFlag": "tilda_command_conflict_resolved"
+  },
+  {
+   "completeQuest": "the_geniuses"
+  },
+  "tilda[determined]: (as you turn to go) And Stinkbeard? You'll want a drill. Find out what we're good for. Any time. Ask me.",
+  {
+   "tutorial": "Tilda will run a sparring drill whenever you ask her (it costs nothing to lose). Meanwhile: something at the Bureau has caught her eye.",
+   "title": "Adult Supervision"
+  },
+  {
+   "call": "p17c6.begin"
+  }
+ ],
+ "p17c5.drill": [
+  {
+   "face": "tilda",
+   "dir": "player"
+  },
+  "tilda[stern]: A drill? Good. Three volunteers. (She points. Three deckhands discover they've volunteered.) Ledger, you're with me. Captain, try to keep up.",
+  {
+   "choice": [
+    {
+     "text": "Drill. Now.",
+     "then": [
+      {
+       "battle": "ancient_drill",
+       "win": [
+        "tilda[smug]: (not even slightly out of breath, being cardboard) Adequate. Ledger, your swatting's improved.",
+        "ledger[proud]: I've been practising on the accounts!",
+        {
+         "setFlag": "p17_drill_done"
+        }
+       ],
+       "lose": [
+        "tilda[annoyed]: (picking a volunteer up off the deck by his collar) Again tomorrow. Properly.",
+        {
+         "setFlag": "p17_drill_done"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "text": "Not now."
+    }
+   ]
+  }
+ ],
+ "p17c6.begin": [
+  {
+   "setFlag": "p17_ch211_started"
+  },
+  {
+   "banner": "CHAPTER 211",
+   "sub": "The Ninety-Seven Pages, Again"
+  },
+  "The Bureau of Ceremonial Ignition never actually closed. The lighter won one argument. The traditionalists are still coming: there's one at the window now, Mrs. Puffington, filling in her own ninety-seven pages in a very small hand.",
+  "And Tilda is standing behind her, reading the sign over the counter, and her eyebrows have gone a way you haven't seen yet.",
+  {
+   "startQuest": "tilda_application"
+  },
+  {
+   "tutorial": "Tilda at the Bureau (the counter, the old quarters).",
+   "title": "The Ninety-Seven Pages, Again"
+  }
+ ],
+ "p17c6.bureau": [
+  {
+   "face": "tilda",
+   "dir": "player"
+  },
+  "tilda[surprised]: (reading) THE BUREAU OF CEREMONIAL IGNITION. (She reads it again.) It's still going. After four hundred years. Somebody kept it going.",
+  "tilda[soft]: (to herself) We used to do it on deck. In the evenings. Brogath would do the Fire-Waft and we'd all light our pipes off it and he'd go red and say he hadn't meant it to be so big.",
+  "tilda[determined]: (turning round, arms folded, all business) Clerk. One ceremonial ignition, please. Traditional. Fire-Waft. By Brogath.",
+  "Mrs. Puffington, ahead of her, looks round, looks at the eyebrows, and quietly lets her go first.",
+  {
+   "setFlag": "p17_tilda_at_bureau"
+  },
+  {
+   "tutorial": "Offer her the lighter (Tilda).",
+   "title": "The Ninety-Seven Pages, Again"
+  }
+ ],
+ "p17c6.lighter": [
+  {
+   "face": "tilda",
+   "dir": "player"
+  },
+  "You take the Grand Lighter out of your coat and hold it up.",
+  {
+   "choice": [
+    {
+     "text": "Here. It works. Sometimes.",
+     "then": [
+      "tilda[annoyed]: That's a novelty item, Captain. It has a CLOWN on it."
+     ]
+    },
+    {
+     "text": "Mechanical ignition. It's the future.",
+     "then": [
+      "tilda[annoyed]: I'm from the past. I'm cardboard. The future can wait."
+     ]
+    }
+   ]
+  },
+  {
+   "lighter": "grand_smokes",
+   "attempts": 2,
+   "quiet": true
+  },
+  "Click. Click. A small brown puff.",
+  {
+   "choice": [
+    {
+     "text": "You have no lungs, Tilda. You're FLAMMABLE.",
+     "then": [
+      "tilda[stern]: I'm aware what I'm made of, Stinkbeard. Brogath drew me."
+     ]
+    },
+    {
+     "text": "Please. The lighter. For everybody's sake.",
+     "then": [
+      "tilda[stern]: No."
+     ]
+    }
+   ]
+  },
+  "captain: WHY? Why does it have to be the Fire-Waft?",
+  "tilda[soft]: (a long pause; when she answers it isn't to you, it's to the counter) Because it was ours.",
+  "tilda[soft]: Every evening on the old ship. Him red as a beetroot, us all round him with our pipes, the sea going past. It was the only time he ever stood up straight. I want to stand next to him while he does it. Once. Before something else goes wrong.",
+  "For a moment you nearly understand.",
+  "Then you remember it involves a cigarette being lit by a catastrophic supernatural fart, next to a woman made of a box.",
+  "captain: (putting the lighter away) Fill in the form.",
+  {
+   "setFlag": "p17_lighter_refused"
+  },
+  {
+   "tutorial": "Her application (the counter: ninety-seven pages).",
+   "title": "The Ninety-Seven Pages, Again"
+  }
+ ],
+ "p17c6.form": [
+  "The Bureau's form. Ninety-seven pages, the same form as Lord Puffchester's. You've done it before. You know the bad pages.",
+  {
+   "proceeding": "tilda_application"
+  },
+  {
+   "if": {
+    "notFlag": "p17_permit_issued"
+   },
+   "then": [
+    {
+     "giveItem": "tilda_ignition_permit"
+    },
+    {
+     "setFlag": "p17_permit_issued"
+    }
+   ]
+  },
+  {
+   "setFlag": "tilda_ignition_application_approved"
+  },
+  "tilda[proud]: (holding the permit up to the lamp) Approved. (to Brogath, across the room, very nearly gently) You're my preferred provider.",
+  "brogath[mortified]: (from the lounge, all of him pink) ...Oh NO.",
+  "captain: SUBJECT TO SAFETY CONDITIONS. Agreed with ME. Which I haven't.",
+  "tilda[smug]: Then agree some.",
+  {
+   "completeQuest": "tilda_application"
+  },
+  {
+   "call": "p17c7.begin"
+  }
+ ],
+ "p17c7.begin": [
+  {
+   "setFlag": "p17_ch212_started"
+  },
+  {
+   "banner": "CHAPTER 212",
+   "sub": "The Crew He Left Behind"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 42
+  },
+  "That evening, before anybody can agree any conditions, the Mark II in the galley switches itself on.",
+  {
+   "sfx": "mk2_tube_ping",
+   "volume": 0.7
+  },
+  "It does that. It's possessed. Usually it shows adverts, or the Stenchmaster Channel's opinions about your beard. Tonight there's music. Slow music. Strings.",
+  {
+   "startQuest": "old_crew_documentary"
+  },
+  {
+   "tutorial": "The Mark II (the galley).",
+   "title": "The Crew He Left Behind"
+  }
+ ],
+ "p17c7.set": [
+  "THE STENCHMASTER CHANNEL PRESENTS, says the screen, in letters that tremble slightly. THE CREW HE LEFT BEHIND.",
+  "brogath: (from the doorway, very quietly) ...That's us.",
+  "Ledger sits down on the bench. Tilda doesn't sit, because she can't, but she stands as close to the set as she can without being in it. Brogath sits between them.",
+  {
+   "setFlag": "p17_doc_on"
+  },
+  {
+   "tutorial": "Watch it with them (the Mark II, the galley).",
+   "title": "The Crew He Left Behind"
+  }
+ ],
+ "p17c7.watch": [
+  {
+   "vista": "galley_watch",
+   "fade": 500
+  },
+  {
+   "channelEpisode": "crew_he_left_behind",
+   "tv": "ses_mk2",
+   "program": "old_crew_documentary"
+  },
+  {
+   "vistaEnd": true,
+   "fade": 500
+  },
+  {
+   "setFlag": "old_crew_documentary_viewed"
+  },
+  {
+   "tutorial": "Afterwards (Brogath, in the galley).",
+   "title": "The Crew He Left Behind"
+  }
+ ],
+ "p17c7.comment_1": [
+  {
+   "choice": [
+    {
+     "text": "(to Ledger) You kept the books for him all that time?",
+     "then": [
+      "ledger[sad]: (not looking away from the screen) Somebody had to. He was still the biggest asset we had. Even dead. Especially dead."
+     ]
+    },
+    {
+     "text": "(to Tilda) Did it work? Keeping order?",
+     "then": [
+      "tilda[stern]: (flat) For a while. (a pause) Then they just kept dying. You can't give orders to that."
+     ]
+    },
+    {
+     "text": "(Say nothing.)",
+     "then": [
+      "Nobody says anything. The strings go on."
+     ]
+    }
+   ]
+  }
+ ],
+ "p17c7.comment_2": [
+  "The picture: an empty chair on a deck. A woman in a green hat, much older, sitting on a barrel beside it, talking.",
+  {
+   "choice": [
+    {
+     "text": "(Look at Tilda.)",
+     "then": [
+      "Tilda is very still. Her eyebrows haven't moved. They're printed. That's the only reason."
+     ]
+    },
+    {
+     "text": "(Look at Brogath.)",
+     "then": [
+      "Brogath has both flat hands over his printed mouth.",
+      {
+       "stability": "trigger",
+       "id": "sad_memory",
+       "quiet": true
+      }
+     ]
+    },
+    {
+     "text": "(Look at the screen.)",
+     "then": [
+      "You keep looking at the screen. It's the only thing in the galley you can look at."
+     ]
+    }
+   ]
+  }
+ ],
+ "p17c7.comment_3": [
+  "The set flickers. The narrator stops. Then, very slowly, the picture turns, the way a person turns, toward the galley.",
+  {
+   "choice": [
+    {
+     "text": "...Is it looking at us?",
+     "then": [
+      "ledger[alarmed]: (whispering) It's looking at us."
+     ]
+    },
+    {
+     "text": "Switch it off.",
+     "then": [
+      "You reach for the knob. The knob goes round and round. The set keeps looking."
+     ]
+    }
+   ]
+  }
+ ],
+ "p17c7.after": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "brogath: (very quietly) I didn't know. About the chair. Nobody told me about the chair.",
+  "tilda[stern]: (arms folded, looking anywhere else) Nobody needed to know about the chair.",
+  "ledger[sad]: She talked to it every evening for eleven years. I wrote it in the books. As an expense. Of... of evenings.",
+  "Brogath puts one flat hand on Tilda's flat arm, and Tilda lets him.",
+  {
+   "stability": "calm",
+   "id": "old_friends",
+   "quiet": true
+  },
+  "And for a moment, you have something in your eye. Something that isn't the beard. You blink it away, and you're about to say something kind,",
+  "ledger[thoughtful]: (bolt upright) The BOOKS.",
+  {
+   "setFlag": "p17_doc_after"
+  },
+  {
+   "completeQuest": "old_crew_documentary"
+  },
+  {
+   "call": "p17c8.begin"
+  }
+ ],
+ "p17c8.begin": [
+  {
+   "setFlag": "p17_ch213_started"
+  },
+  {
+   "banner": "CHAPTER 213",
+   "sub": "The Ledgers of Greyhook Cove"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 0
+  },
+  {
+   "startQuest": "great_ledger_proposal"
+  },
+  {
+   "tutorial": "Ledger has remembered something (Ledger, in the galley).",
+   "title": "The Ledgers of Greyhook Cove"
+  }
+ ],
+ "p17c8.books": [
+  {
+   "face": "ledger",
+   "dir": "player"
+  },
+  "ledger[determined]: My books, Captain. My ledgers. The real ones. All of them. I told them where they were, at the end, before I... at the end. Greyhook Cove. A sea chest, at Greyhook Cove.",
+  "ledger[delighted]: The money ledgers! The fart ledgers! The crew accounts! The records of every Stenchmaster asset Brogath ever produced! Four hundred years of compound interest!",
+  "tilda[determined]: (already at the door) Greyhook Cove. I know Greyhook Cove. Two days east by north. One if Brogath helps.",
+  "brogath[delighted]: I'll help! What do I do? Do I blow?",
+  {
+   "setFlag": "greyhook_expedition_proposed"
+  },
+  {
+   "tutorial": "Argue about it (Ledger and Tilda, the galley).",
+   "title": "The Ledgers of Greyhook Cove"
+  }
+ ],
+ "p17c8.argue": [
+  {
+   "face": "ledger",
+   "dir": "player"
+  },
+  {
+   "choice": [
+    {
+     "text": "They're four hundred years old. They've rotted.",
+     "then": [
+      "ledger[determined]: Good ledger paper doesn't rot, Captain. It matures."
+     ]
+    },
+    {
+     "text": "They're probably underwater by now.",
+     "then": [
+      "ledger[determined]: Then they're in a very secure location."
+     ]
+    },
+    {
+     "text": "They might just be gone, Ledger.",
+     "then": [
+      "ledger[sad]: (a pause) ...Then I'd like to see the place they're gone from."
+     ]
+    }
+   ]
+  },
+  "captain: And we are INSIDE THE SHARKSTORM. We can't sail anywhere. We can't sail OUT.",
+  "tilda[stern]: (on her way up the ladder) We'll see about that.",
+  {
+   "startQuest": "the_great_ledger_expedition"
+  },
+  {
+   "setValue": "greyhook_expedition",
+   "value": "blocked"
+  },
+  {
+   "setFlag": "greyhook_expedition_blocked"
+  },
+  {
+   "tutorial": "THE GREAT LEDGER EXPEDITION is in your quest log, BLOCKED until the Revenge can get out of the Sharkstorm. Meanwhile, Tilda has gone up to the wheel (on deck).",
+   "title": "The Ledgers of Greyhook Cove"
+  }
+ ],
+ "p17c8.helm": [
+  {
+   "setFlag": "p17_tilda_helm"
+  },
+  {
+   "sfx": "tilda_sting",
+   "volume": 0.8
+  },
+  "tilda[determined]: (at the wheel, which she has taken off Hale) HELMSMAN STANDS DOWN. ALL HANDS: WE ARE SAILING FOR GREYHOOK COVE. HARD TO STARBOARD.",
+  "hale: (on the deck, where she put him) Captain, she just... took it.",
+  "gristle: (running for the sheets) Aye aye, Tilda!",
+  "bob: (running for the braces) Aye aye... (stopping) ...Captain?",
+  {
+   "tutorial": "Countermand her orders (Gristle at the sheets, Bob at the braces), talk to Pete, get your name back in the helm log, secure the wheel, and show her the Sharkstorm.",
+   "title": "The Ledgers of Greyhook Cove"
+  }
+ ],
+ "p17c8.countermand_gristle": [
+  {
+   "face": "gristle",
+   "dir": "player"
+  },
+  "captain: Gristle. Belay that. Leave the sheets.",
+  "gristle: (letting go with enormous relief) I knew it. I knew we weren't going anywhere. We never go anywhere.",
+  {
+   "setFlag": "p17_cm_gristle"
+  },
+  {
+   "event": "p17_countermand"
+  }
+ ],
+ "p17c8.countermand_bob": [
+  {
+   "face": "bob",
+   "dir": "player"
+  },
+  "captain: Bob. Leave the braces. Nobody's sailing for anywhere.",
+  "bob: (dropping them) Right you are, Captain. (quietly) She's very convincing, isn't she.",
+  {
+   "setFlag": "p17_cm_bob"
+  },
+  {
+   "event": "p17_countermand"
+  }
+ ],
+ "p17c8.countermand_done": [
+  {
+   "setFlag": "p17_countermand_said"
+  },
+  "tilda[furious]: (from the wheel) WHO is countermanding my...",
+  "captain: The captain.",
+  "tilda[annoyed]: (muttering) ...We agreed I could shout."
+ ],
+ "p17c8.pete": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "pete: (with his bucket, very calm, the way he gets) Captain. She's got the wheel. She's ninety-one, she's cardboard, and she's very good at it. I've been watching. She's steering for a place that's four hundred years out of date.",
+  "pete: The helm log's by the wheel. Put your name back in it. Then she's on the wheel without the captain's say-so, and that's a different thing, and she'll know it. She knows how a ship's run.",
+  {
+   "setFlag": "p17_helm_pete"
+  }
+ ],
+ "p17c8.log": [
+  {
+   "insert": "helm_log",
+   "caption": "THE HELM LOG."
+  },
+  "The helm log, on its hook by the wheel. The last entry, in a hard, straight hand: HELM TAKEN BY FIRST MATE TILDA. COURSE: GREYHOOK COVE. CAPTAIN: INFORMED (LATER).",
+  "You write under it: HELM RETURNED TO HALE, ON THE CAPTAIN'S ORDER. COURSE: ROUND AND ROUND. (STINKBEARD.)",
+  {
+   "setFlag": "p17_helm_log"
+  }
+ ],
+ "p17c8.wheel": [
+  {
+   "face": "tilda",
+   "dir": "player"
+  },
+  "tilda[stern]: (not letting go) I have the wheel.",
+  "captain: And I have the log. Hale. Take the wheel.",
+  "tilda[annoyed]: (letting go, eventually, one flat hand at a time) ...Lash it, then. If it's yours. Lash it properly.",
+  {
+   "repair": "lash",
+   "strikes": 3,
+   "title": "LASH THE WHEEL"
+  },
+  "Hale lashes it with you. The Revenge goes on going round, the way she was going round before, the only way she can.",
+  {
+   "setFlag": "p17_wheel_secured"
+  }
+ ],
+ "p17c8.explain": [
+  {
+   "face": "tilda",
+   "dir": "player"
+  },
+  "captain: Tilda. Come and look over the side. Properly. For once.",
+  "Tilda comes to the rail. She looks out. She sees it, for the first time: the wall of water going round, sharks going past sideways, a whole galleon's worth of treasure orbiting at eye level, a pillow, the Bling Bling King's flag, more sharks.",
+  {
+   "vista": "inside_spout",
+   "fade": 500
+  },
+  {
+   "wait": 1800
+  },
+  "tilda: (after a long, professional look) Manageable.",
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  "captain: MANAGEABLE?",
+  "ledger[happy]: (who has come up behind you) Oh, this is nothing. The Gulf of Cramps, remember, Tilda? The whirlpool with the WHALE in it?",
+  "brogath[pleased]: (from behind Ledger) And the time the sea caught fire because of me. Twice, because of me.",
+  "tilda[stern]: (to you, quite kindly) A navigational inconvenience, Captain. We'll be out by spring.",
+  "And you understand, all at once, that your new crew consider the Great Sharkstorm to be about the fourth worst thing that's ever happened to them. And they might be right.",
+  "tilda[stern]: (turning away from the rail) But it's your ship. (a pause) Captain.",
+  {
+   "setFlag": "p17_helm_resolved"
+  },
+  {
+   "completeQuest": "great_ledger_proposal"
+  },
+  {
+   "call": "p17c9.begin"
+  }
+ ]
+}

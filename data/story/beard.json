@@ -1,5 +1,5 @@
 {
- "//": "Story Phase 16: the Beard Contamination Profile. The captain's beard keeps a record of what it has been through: story tags (flags beard_<tag>), shown in the logbook 'The Captain's Beard', read by dialogue and by the hornets. Permanent tags are never removed: the beard is a physical record of the campaign. Not a chemistry system.",
+ "//": "Story Phase 16: the Beard Contamination Profile. The captain's beard keeps a record of what it has been through: story tags (flags beard_<tag>), shown in the logbook 'The Captain's Beard', read by dialogue and by the hornets. Permanent tags are never removed: the beard is a physical record of the campaign. Not a chemistry system. Story Phase 17: three more tags (Thunderbottom, the Beard Joint with Frog Grog, the Coffin Sock catastrophe), and the beard has started to puff on its own ('puffs': src/world/BeardPuffs.js, while beard_puffing is set). Shaving it is a joke, never a removal.",
  "beard": {
   "flagPrefix": "beard_",
   "tags": {
@@ -39,7 +39,91 @@
     "label": "Hornets",
     "note": "They live in it now. STINGBEARD. (It passes.)",
     "permanent": false
+   },
+   "THUNDERBOTTOM_LEGENDARY": {
+    "label": "Thunderbottom (legendary)",
+    "note": "Lord Vaporious Thunderbottom the Seventh's grand ceremonial release, absorbed whole while carrying Agnes out of the Fart Zone (chapter 219)."
+   },
+   "FROG_GROG_FUMES": {
+    "label": "Beard Joint, with Frog Grog",
+    "note": "Garrick's improvement on the historic Beard Joint, sneezed back into it by a chicken (chapter 221). The beard has not forgiven anybody."
+   },
+   "COFFIN_SOCK_CATASTROPHE": {
+    "label": "Coffin Sock (the catastrophe)",
+    "note": "Brogath's long-brewed Coffin Sock, the big one, caught at chin height (chapter 222). It outranks the first Coffin Sock. It outranks everything."
    }
+  },
+  "puffs": {
+   "if": {
+    "flag": "beard_puffing"
+   },
+   "every": [
+    20000,
+    36000
+   ],
+   "sfx": [
+    "beard_puff",
+    "beard_puff_b"
+   ],
+   "countVar": "beard_puffs",
+   "exposure": {
+    "every": 3,
+    "tint": "#a89868",
+    "alpha": 0.14,
+    "ms": 650
+   },
+   "reactions": {
+    "pete": [
+     "(stepping back) Beard, Captain.",
+     "(eyes watering) That's Thunderbottom.",
+     "Rule twenty-five: no beard indoors."
+    ],
+    "ledger": [
+     "(writing) One puff. Noted.",
+     "(sniffing) Coffin Sock, with notes.",
+     "That's a Captain Minute."
+    ],
+    "tilda": [
+     "CAPTAIN. Your BEARD.",
+     "(arms folded tighter) Contain that.",
+     "That is NOT regulation."
+    ],
+    "brogath": [
+     "(interested) Oh. Coffin Sock notes.",
+     "(his cardboard creaking) ...that's familiar.",
+     "(bashfully) It smells like my insides."
+    ],
+    "garrick": [
+     "(sniffing) VINTAGE.",
+     "That beard's an asset, Captain.",
+     "(taking notes) Fascinating."
+    ],
+    "jim": [
+     "(covering the pot) Not near the soup!",
+     "(holding his nose) Captain..."
+    ],
+    "agnes_second": [
+     "Bawk!",
+     "(flapping) BAWK."
+    ],
+    "visitor_one": [
+     "Whoa. The beard's breathing, man.",
+     "(waving it off) Respect the beard."
+    ],
+    "visitor_two": [
+     "BRO. Your beard just exhaled.",
+     "(gagging) That's a whole era, bro."
+    ],
+    "*": [
+     "(stepping back) ...Captain.",
+     "(eyes watering) Is that your beard?"
+    ]
+   },
+   "captain": [
+    "(the beard exhales on its own)",
+    "(a puff, from the beard)",
+    "(...not again)"
+   ]
   }
  }
 }

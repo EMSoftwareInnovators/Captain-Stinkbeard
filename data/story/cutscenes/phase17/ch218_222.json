@@ -1,0 +1,1648 @@
+{
+ "//": "Story Phase 17, chapters 218-222: Lord Vaporious Thunderbottom the Seventh, The Grand Fart Chamber, The Beard Exhales, The Beard Joint (Again), The Coffin Sock Catastrophe.",
+ "p17c13.begin": [
+  {
+   "setFlag": "p17_ch218_started"
+  },
+  {
+   "banner": "CHAPTER 218",
+   "sub": "Lord Vaporious Thunderbottom the Seventh"
+  },
+  {
+   "sfx": "branch_bell",
+   "volume": 0.8
+  },
+  {
+   "wait": 500
+  },
+  {
+   "sfx": "branch_bell",
+   "volume": 0.9
+  },
+  {
+   "wait": 400
+  },
+  {
+   "sfx": "branch_bell",
+   "volume": 1.0
+  },
+  "DING. DING. DING DING DING DING.",
+  "Somebody is ringing the Bureau's bell. Nobody gets up. Nobody on the ship can get up. They're all looking at their hands.",
+  "pete: (from the deck, dreamily, through the hatch) ...Somebody's ringing a bell, Captain. It's a lovely bell.",
+  {
+   "startQuest": "thunderbottom"
+  },
+  {
+   "tutorial": "The bell (the counter, the old quarters).",
+   "title": "Lord Vaporious Thunderbottom the Seventh"
+  }
+ ],
+ "p17c13.bell": [
+  {
+   "spawn": "thunderbottom",
+   "x": 12,
+   "y": 13,
+   "facing": "down"
+  },
+  {
+   "burst": "fume",
+   "x": 12,
+   "y": 13,
+   "count": 8
+  },
+  {
+   "sfx": "spectral_register",
+   "volume": 0.9
+  },
+  "At the Bureau's window, a vast spectral gentleman, purple and mustard, wearing a crown on top of another crown and a sash the width of a ship's banner. He's holding an application. He's holding it the way other people hold a sword.",
+  "thunderbottom[angry]: (in a voice like a cathedral being moved) LORD VAPORIOUS THUNDERBOTTOM THE SEVENTH. CEREMONIAL IGNITION. TODAY.",
+  "captain: (into the beard) ...Any relation to Vindicta Thunderwaft?",
+  "thunderbottom[annoyed]: NONE. Different SPELLING. Different WIND. Different CENTURY.",
+  {
+   "setFlag": "thunderbottom_arrived"
+  },
+  {
+   "setValue": "thunderbottom_state",
+   "value": "at_bureau"
+  },
+  {
+   "tutorial": "Serve him (the counter).",
+   "title": "Lord Vaporious Thunderbottom the Seventh"
+  }
+ ],
+ "p17c13.serve": [
+  {
+   "face": "thunderbottom",
+   "dir": "player"
+  },
+  "He slaps the application on the counter. Page one: his name, which takes up the whole page and continues on the back. Pages two to ninety-seven: blank.",
+  {
+   "insert": "thunderbottom_form",
+   "caption": "PAGES 2 TO 97: BLANK."
+  },
+  "captain: You've only done page one.",
+  "thunderbottom[angry]: Page one is MY NAME. My name IS the application. Prompt service, CLERK.",
+  {
+   "choice": [
+    {
+     "text": "The rules say all ninety-seven pages.",
+     "then": [
+      "thunderbottom[angry]: The RULES. I WROTE the rules. Seventh of my line! My great-great-great-grandfather wrote page forty!"
+     ]
+    },
+    {
+     "text": "(Look round for help.)",
+     "then": [
+      "Garrick is explaining the egg market to a teaspoon. Ledger is admiring a seven. Tilda is looking at her hand. Pete's on deck with a rope. You're on your own.",
+      "thunderbottom[angry]: Your staff are UNWELL, clerk."
+     ]
+    }
+   ]
+  },
+  {
+   "sfx": "brogath_rumble_small",
+   "volume": 0.5
+  },
+  "thunderbottom[angry]: (louder, the lamp swinging) I have been DEAD for three hundred years and I have NEVER BEEN KEPT WAITING...",
+  "And then he stops. He's looking past you, across the old quarters. At the floor by Brogath's canopy.",
+  "At Agnes.",
+  {
+   "music": "midnight_warning",
+   "fade": 400
+  },
+  "thunderbottom[happy]: (very differently, very quietly) ...Is that a chicken?",
+  "Agnes the Second, extremely mellow, is pecking at a crumb on the floor with great slowness and total concentration.",
+  "thunderbottom[happy]: In my day, clerk, a hen at a ceremony wasn't a guest. A hen at a ceremony was SUPPER.",
+  "Something goes cold in your chest. Not the beard. You.",
+  "thunderbottom[happy]: Sage. Onion. A slow spit over a ceremonial... (he sniffs the air, delicately) ...flame. It's been so LONG since anybody did a proper ceremonial supper.",
+  {
+   "setFlag": "thunderbottom_threatened_agnes"
+  },
+  {
+   "tutorial": "Stand between him and Agnes (Lord Thunderbottom).",
+   "title": "Lord Vaporious Thunderbottom the Seventh"
+  }
+ ],
+ "p17c13.defend": {
+  "start": [
+   {
+    "face": "thunderbottom",
+    "dir": "player"
+   },
+   {
+    "if": {
+     "notFlag": "p17_tb_stood"
+    },
+    "then": [
+     "You walk round the end of the counter. You stand between the window and the floor where Agnes is pecking. You don't plan it. Your feet do it.",
+     {
+      "setFlag": "p17_tb_stood"
+     }
+    ]
+   },
+   {
+    "choice": [
+     {
+      "text": "I'll fill in the forms for you. All of them.",
+      "if": {
+       "notFlag": "p17_tb_forms"
+      },
+      "then": [
+       "thunderbottom[happy]: (pleasantly) Lovely. And while you write, I'll just look at the chicken.",
+       {
+        "setFlag": "p17_tb_forms"
+       },
+       {
+        "addVar": "tb_offers",
+        "value": 1
+       },
+       {
+        "goto": "start"
+       }
+      ]
+     },
+     {
+      "text": "Complain all you like. I'll take every complaint.",
+      "if": {
+       "notFlag": "p17_tb_complaints"
+      },
+      "then": [
+       "thunderbottom[annoyed]: I have one complaint, clerk, and it is that I'm HUNGRY.",
+       {
+        "setFlag": "p17_tb_complaints"
+       },
+       {
+        "addVar": "tb_offers",
+        "value": 1
+       },
+       {
+        "goto": "start"
+       }
+      ]
+     },
+     {
+      "text": "I'll work overtime. All night. Expedited.",
+      "if": {
+       "notFlag": "p17_tb_overtime"
+      },
+      "then": [
+       "thunderbottom[happy]: Expedited! Marvellous. The supper too?",
+       {
+        "setFlag": "p17_tb_overtime"
+       },
+       {
+        "addVar": "tb_offers",
+        "value": 1
+       },
+       {
+        "goto": "start"
+       }
+      ]
+     },
+     {
+      "text": "I'll write your whole title out. Properly. In gold.",
+      "if": {
+       "notFlag": "p17_tb_title"
+      },
+      "then": [
+       "thunderbottom[happy]: LORD VAPORIOUS THUNDERBOTTOM THE SEVENTH, HEREDITARY VAPOUR OF THE NORTHERN... (he stops, smiles) You're stalling, clerk. I like stalling. Hens get tender while you wait.",
+       {
+        "setFlag": "p17_tb_title"
+       },
+       {
+        "addVar": "tb_offers",
+        "value": 1
+       },
+       {
+        "goto": "start"
+       }
+      ]
+     },
+     {
+      "text": "Insult me instead. Go on. I can take it.",
+      "if": {
+       "notFlag": "p17_tb_insults"
+      },
+      "then": [
+       "thunderbottom[annoyed]: You smell like a cupboard full of other people's ceremonies, clerk. (a pause) The chicken smells of nothing at all. Fresh.",
+       {
+        "setFlag": "p17_tb_insults"
+       },
+       {
+        "addVar": "tb_offers",
+        "value": 1
+       },
+       {
+        "goto": "start"
+       }
+      ]
+     },
+     {
+      "text": "Leave her alone. ...Please.",
+      "if": {
+       "var": {
+        "name": "tb_offers",
+        "gte": 3
+       }
+      },
+      "then": [
+       {
+        "goto": "please"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "please": [
+   "captain: (and you hear your own voice, and it's not the voice you use for anything else) Leave her alone. Please.",
+   "The word sits there on the counter between you, where the application is. Please. You haven't said it to anybody in years. You've never said it to anybody who frightened you.",
+   "thunderbottom[neutral]: (a long, interested look; something in it goes very sharp) ...Please, he says. The clerk says PLEASE.",
+   "thunderbottom[happy]: The chicken MATTERS to you.",
+   "captain: She's an operational asset.",
+   "thunderbottom[happy]: (gently, terribly) No, she isn't.",
+   "garrick: (from the lounge, mellow, helpful, not looking up from his teaspoon) Like the Violeta Wrathwaft business. Before your time, Captain. A Grand Stenchmistress, a ceremonial supper, a hen. The hen was fine. The supper was cancelled. Vindicta still brings it up at parties.",
+   "thunderbottom[annoyed]: (darkly) The Wrathwaft woman had no STAMINA.",
+   "He straightens. He draws himself up to his full spectral height, which goes through the deckhead a little.",
+   "thunderbottom[angry]: Very well, clerk. No supper. Instead: a GRAND. CEREMONIAL. RELEASE. In your little Fart Zone. Seventh of my line. The ship will remember it for a century.",
+   "thunderbottom[happy]: (turning for the stairs, over his shoulder) The chicken would make a particularly memorable witness.",
+   {
+    "despawn": "thunderbottom"
+   },
+   {
+    "sfx": "hen_cluck",
+    "volume": 0.6
+   },
+   "Agnes looks up from her crumb. She watches him go. She has never seen anybody so big. She gets up, slowly, mellowly, and follows him, at a distance, toward the stairs.",
+   {
+    "setFlag": "p17_please"
+   },
+   {
+    "setValue": "thunderbottom_state",
+    "value": "fart_zone"
+   },
+   {
+    "tutorial": "Agnes is following him. Lead her away (Agnes, by the grating on deck).",
+    "title": "Lord Vaporious Thunderbottom the Seventh"
+   }
+  ]
+ },
+ "p17c13.deck": [
+  {
+   "setFlag": "p17_tb_deck_seen"
+  },
+  "Lord Thunderbottom is already down through the grating; you can hear him below, humming, doing vocal exercises in a voice like a cellar. Agnes is standing at the edge of the grating, looking down the ladder, with her head on one side."
+ ],
+ "p17c13.lead": [
+  {
+   "face": "agnes_second",
+   "dir": "player"
+  },
+  {
+   "sfx": "hen_cluck",
+   "volume": 0.7
+  },
+  "You crouch down. You hold out a hand, the way you've seen Brogath do it. Agnes looks at the hand, and at the ladder, and at the hand.",
+  "captain: (quietly) Come on, Agnes. Not that way. This way. Please.",
+  "She comes. She lets you pick her up. You carry her back across the deck, away from the grating, and you can feel her heart going under the feathers, and you can feel yours.",
+  {
+   "setFlag": "p17_agnes_led_away"
+  },
+  {
+   "setFlag": "p17_carrying_agnes"
+  },
+  {
+   "tutorial": "Further away: the Fart-Free Zone (put her on the cushion).",
+   "title": "Lord Vaporious Thunderbottom the Seventh"
+  }
+ ],
+ "p17c13.farther": [
+  "The Fart-Free Zone. Padded, quiet, as far from the Fart Zone as the ship goes. You put Agnes down on the visitors' cushion.",
+  {
+   "sfx": "hen_cluck",
+   "volume": 0.5
+  },
+  "captain: Stay. Here. Please. It's the safest room on the ship. It's padded.",
+  "agnes_second[curious]: Bawk.",
+  {
+   "clearFlag": "p17_carrying_agnes"
+  },
+  {
+   "setFlag": "p17_agnes_in_ffz"
+  },
+  {
+   "completeQuest": "thunderbottom"
+  },
+  {
+   "call": "p17c14.begin"
+  }
+ ],
+ "p17c14.begin": [
+  {
+   "setFlag": "p17_ch219_started"
+  },
+  {
+   "banner": "CHAPTER 219",
+   "sub": "The Grand Fart Chamber"
+  },
+  "You turn round to pull the padded door to behind you.",
+  "When you turn back, the cushion is empty, and the door's open a crack, and from somewhere up the stairs, mellow and curious and going the wrong way:",
+  {
+   "sfx": "hen_cluck",
+   "volume": 0.6
+  },
+  "agnes_second[curious]: (distantly) Bawk.",
+  {
+   "sfx": "brogath_rumble_big",
+   "volume": 0.8
+  },
+  {
+   "shake": 2,
+   "duration": 900
+  },
+  "And from further away, through the planks, through the deck, a voice like a cathedral, counting down.",
+  "thunderbottom[happy]: (very far off) TEN. NINE.",
+  {
+   "startQuest": "grand_fart_chamber"
+  },
+  {
+   "save": "auto"
+  },
+  {
+   "tutorial": "AGNES IS IN THE FART ZONE. Get there (the grating, on deck).",
+   "title": "The Grand Fart Chamber"
+  }
+ ],
+ "p17c14.approach": {
+  "start": [
+   {
+    "sfx": "thunderbottom_wave",
+    "volume": 0.9
+   },
+   {
+    "shake": 3,
+    "duration": 700
+   },
+   "The grating is lifting and dropping with every wave of pressure from below. Purple-yellow fume comes up between the bars in pulses. Inside: a spectral voice, deliriously happy. And, very small: clucking.",
+   "You'll have to go down between the waves.",
+   {
+    "repair": "grip",
+    "strikes": 3,
+    "title": "BETWEEN THE WAVES"
+   },
+   "Down the ladder, fast, between one wave and the next.",
+   {
+    "setFlag": "thunderbottom_fart_zone_started"
+   },
+   {
+    "atmosphere": "THUNDERBOTTOM_RELEASE",
+    "room": "stenchmaster_fart_zone"
+   },
+   {
+    "transition": "stenchmaster_fart_zone",
+    "spawn": "door",
+    "then": "p17c14.chamber",
+    "noAutosave": true
+   }
+  ]
+ },
+ "p17c14.chamber": {
+  "start": [
+   {
+    "music": "rescue_tension",
+    "fade": 300
+   },
+   "THE GRAND FART CHAMBER. Lord Thunderbottom is floating in the release circle with his eyes shut and his arms out and every sash on him standing straight up. The portholes have blown open. Purple-yellow fume is going out of them in solid bars.",
+   {
+    "sfx": "thunderbottom_wave",
+    "volume": 1.0
+   },
+   {
+    "shake": 3,
+    "duration": 800
+   },
+   "Everything not nailed down is sliding toward the far wall. Including, across the boards, wings out, scrabbling, Agnes.",
+   {
+    "sfx": "agnes_panic",
+    "volume": 0.9
+   },
+   {
+    "save": "auto"
+   },
+   {
+    "goto": "debris"
+   }
+  ],
+  "debris": [
+   "Between you and her: the rope posts, the bench, half the warning signs, all coming loose and sliding.",
+   {
+    "repair": "clear",
+    "strikes": 3,
+    "title": "THE DEBRIS"
+   },
+   "You shove the bench aside. A sign goes past your ear: DO NOT ASK, 'IS THAT ALL?'",
+   {
+    "goto": "locate"
+   }
+  ],
+  "locate": [
+   "The fume's so thick you can't see her. You can hear her. Listen.",
+   {
+    "sfx": "agnes_panic",
+    "volume": 0.7
+   },
+   "agnes_second[alarmed]: (somewhere ahead and to the right, low, by the sea wall) BAWK. BAWK.",
+   {
+    "choice": [
+     {
+      "text": "(Under the left porthole.)",
+      "then": [
+       "Not there. The clucking's to the right, and low. A wave comes and pushes you back toward the door. Nothing's lost. Listen again.",
+       {
+        "sfx": "thunderbottom_wave",
+        "volume": 0.8
+       },
+       {
+        "goto": "locate"
+       }
+      ]
+     },
+     {
+      "text": "(By the far porthole, low, on the right.)",
+      "then": [
+       "There. Pressed flat against the sea wall under the far porthole, feathers going everywhere.",
+       {
+        "goto": "grab"
+       }
+      ]
+     },
+     {
+      "text": "(Behind the release circle.)",
+      "then": [
+       "Behind Thunderbottom? No. The clucking's coming from the sea wall, to the right. A wave pushes you back a step. Listen again.",
+       {
+        "sfx": "thunderbottom_wave",
+        "volume": 0.8
+       },
+       {
+        "goto": "locate"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "grab": [
+   "thunderbottom[happy]: (eyes shut, rising) FIVE. FOUR.",
+   "You get close enough. You get down low. You reach.",
+   {
+    "repair": "grab",
+    "strikes": 3,
+    "title": "PICK HER UP"
+   },
+   {
+    "sfx": "hen_cluck",
+    "volume": 0.8
+   },
+   {
+    "burst": "feathers",
+    "x": 13,
+    "y": 6,
+    "count": 10
+   },
+   "You have her. Both hands. Some of her feathers stay behind on the wall. Most of Agnes comes with you.",
+   {
+    "save": "auto"
+   },
+   {
+    "goto": "turn"
+   }
+  ],
+  "turn": [
+   "thunderbottom[happy]: THREE.",
+   {
+    "choice": [
+     {
+      "text": "(Turn your back to the release. Her against your chest.)",
+      "then": [
+       "You turn your back on Lord Thunderbottom. You put Agnes against your chest, under your beard, and you hunch over her like a man over a candle in the rain.",
+       {
+        "goto": "shield"
+       }
+      ]
+     },
+     {
+      "text": "(Face him. Like a captain.)",
+      "then": [
+       "You face him, like a captain, for about half a second, and then you think about what's coming and who you're holding, and you turn round anyway.",
+       {
+        "goto": "shield"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "shield": [
+   "thunderbottom[happy]: TWO. ONE.",
+   {
+    "fartZone": "release",
+    "release": "thunderbottom_grand"
+   },
+   {
+    "sfx": "thunderbottom_release",
+    "volume": 1.0
+   },
+   {
+    "shake": 4,
+    "duration": 1600
+   },
+   {
+    "flash": "#b89ad0",
+    "duration": 400
+   },
+   "THE GRAND CEREMONIAL RELEASE OF LORD VAPORIOUS THUNDERBOTTOM THE SEVENTH.",
+   "It hits you in the back like a door. Your coat goes flat against you. Your beard goes over your shoulder and takes the whole of it, all of it, everything, while Agnes stays tucked under it, clucking into your shirt.",
+   {
+    "repair": "brace",
+    "strikes": 4,
+    "title": "SHIELD HER"
+   },
+   {
+    "beard": "add",
+    "tag": "THUNDERBOTTOM_LEGENDARY"
+   },
+   {
+    "goto": "escape"
+   }
+  ],
+  "escape": [
+   "The door. Six steps. Six steps in a gale.",
+   {
+    "repair": "reach",
+    "strikes": 3,
+    "title": "THE DOOR"
+   },
+   "Out. Up the ladder. Onto the deck. Pete slams the grating behind you and sits on it.",
+   {
+    "transition": "main_deck",
+    "spawn": "fz_grate",
+    "then": "p17c14.out",
+    "noAutosave": true
+   }
+  ]
+ },
+ "p17c14.out": [
+  {
+   "setFlag": "agnes_thunderbottom_rescue_complete"
+  },
+  "From under the grating, muffled, a voice like a cathedral, sounding a hundred years younger:",
+  "thunderbottom[happy]: (through the bars) ...MAGNIFICENT. The room is ADEQUATE. I'll be going. Don't get up.",
+  {
+   "burst": "fume",
+   "x": 9,
+   "y": 16,
+   "count": 12
+  },
+  {
+   "sfx": "spectral_register",
+   "volume": 0.6
+  },
+  "A purple-yellow shape goes up out of the portholes and away into the Sharkstorm, very pleased with itself. Lord Vaporious Thunderbottom the Seventh has been served.",
+  {
+   "setValue": "thunderbottom_state",
+   "value": "departed"
+  },
+  {
+   "setFlag": "thunderbottom_departed"
+  },
+  {
+   "atmosphere": "SHIP",
+   "room": "stenchmaster_fart_zone"
+  },
+  {
+   "tutorial": "Agnes (on deck).",
+   "title": "The Grand Fart Chamber"
+  }
+ ],
+ "p17c14.after": [
+  {
+   "face": "agnes_second",
+   "dir": "player"
+  },
+  "You put her down on the deck. Carefully. She stands there.",
+  "She is missing a lot of feathers. The ones she has left are standing straight up. Her comb has been knocked to one side. Her eyes are going round in slightly different directions.",
+  {
+   "sfx": "hen_cluck",
+   "volume": 0.7
+  },
+  "agnes_second: Bawk?",
+  "She walks in a small circle. Then a smaller one. Then she pecks the deck, misses, pecks your boot, and sits down on it.",
+  "pete: (from the grating, where he's still sitting) She's alive, Captain. She's... (looking closer) ...she's a lot of things. Alive's one of them.",
+  "captain: (not moving the boot) She's fine. She's an operational asset. She's FINE.",
+  "Your hands are shaking. You let them.",
+  {
+   "setFlag": "agnes_post_rescue_condition"
+  },
+  {
+   "setValue": "agnes_condition",
+   "value": "frazzled"
+  },
+  {
+   "completeQuest": "grand_fart_chamber"
+  },
+  {
+   "call": "p17c15.begin"
+  }
+ ],
+ "p17c15.begin": [
+  {
+   "setFlag": "p17_ch220_started"
+  },
+  {
+   "banner": "CHAPTER 220",
+   "sub": "The Beard Exhales"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 44
+  },
+  "Later. Back in the old quarters, in the green haze, with everybody coming round slowly and Agnes asleep in a heap on Brogath's foot with her feathers on end.",
+  "Your beard feels... full. Heavier than it was. Warm.",
+  {
+   "startQuest": "beard_exhales"
+  },
+  {
+   "tutorial": "Your beard (the old quarters).",
+   "title": "The Beard Exhales"
+  }
+ ],
+ "p17c15.first_puff": [
+  {
+   "setFlag": "p17_first_puff"
+  },
+  {
+   "beardPuff": "big",
+   "line": "(stepping back) ...Captain. Your BEARD."
+  },
+  "Your beard exhales.",
+  "Not you. You didn't do anything. The beard did it by itself: a small, concentrated puff, straight out of the middle of it, and the smell is Thunderbottom, and under that Vindicta, and under that the converter, and under all of it, Coffin Sock.",
+  "captain: (very quietly, not moving) ...It's not just keeping them.",
+  "pete: (from a safe distance) It's letting them out, Captain. A bit at a time. Like a... like a cellar with a draught.",
+  {
+   "setFlag": "beard_puffing"
+  },
+  {
+   "tutorial": "Your beard now puffs now and then, on its own. People notice. (You could try shaving it: the washroom mirror.)",
+   "title": "The Beard Exhales"
+  }
+ ],
+ "p17c15.shave": [
+  "The washroom mirror. You. The beard. The razor on the shelf.",
+  "You pick up the razor.",
+  {
+   "beardPuff": "small",
+   "line": "(the beard, at the razor) ...pfft."
+  },
+  "The beard puffs at it. Right at it. The razor fogs over.",
+  "pete: (in the doorway, very calm) Captain. If you shave it off, where does it all GO?",
+  "You think about four years of the worst fumes on the seven seas, loose, all at once, in a washroom.",
+  "You put the razor down. The beard settles. You both pretend that didn't happen.",
+  {
+   "setFlag": "p17_shave_joke"
+  }
+ ],
+ "p17c15.brogath": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "brogath[thoughtful]: (sitting up very slowly, his printed nose turned toward your beard) Captain. Captain, come here. No, closer. ...There.",
+  {
+   "beardPuff": "small"
+  },
+  "brogath[thoughtful]: Coffin Sock. That's my Coffin Sock. With notes. Thunderbottom, a bit. The converter. But underneath... that's MINE.",
+  {
+   "stability": "trigger",
+   "id": "beard_notes",
+   "quiet": true
+  },
+  "brogath[loaded]: (his middle starting to bow) Oh. Oh, it's stirring something. Captain, it's like hearing your own song in a different key. It's making me want to... to...",
+  "captain: No.",
+  "brogath[loaded]: (bowing out, a creak at every hinge) ...to BREW one.",
+  {
+   "setValue": "brogath_pending",
+   "value": "COFFIN_SOCK"
+  },
+  {
+   "setVar": "coffin_sock_countdown",
+   "value": 5
+  },
+  {
+   "stability": "meter",
+   "show": "show"
+  },
+  {
+   "stability": "set",
+   "pressure": 45
+  },
+  {
+   "setFlag": "brogath_coffin_sock_brewing"
+  },
+  "On Brogath's meter, under his name, new words come up: COFFIN SOCK EVENT. PENDING.",
+  "tilda[stern]: (looking at him, then at you, and suddenly not mellow at all) I know that face. I know that BOW. Ledger, the book.",
+  "ledger[alarmed]: (already writing) WARNING SIGNS: PRESENT. BEAN INDEX: RISING. CAPTAIN: CONTRIBUTING.",
+  {
+   "tutorial": "Emergency procedures: Tilda (managing Brogath), Ledger (keeping the record), Agnes into the Fart-Free Zone, Pete's board.",
+   "title": "The Beard Exhales"
+  }
+ ],
+ "p17c15.proc_tilda": [
+  {
+   "face": "tilda",
+   "dir": "player"
+  },
+  "tilda[determined]: I've done this before, Captain. Hundreds of times. In for four. Out for four. Don't let him look at anything embarrassing. Don't let anybody say anything about his colouring.",
+  "tilda[stern]: And keep that BEARD away from him.",
+  {
+   "stability": "calm",
+   "id": "crew_calming",
+   "quiet": true
+  },
+  {
+   "addVar": "coffin_sock_countdown",
+   "value": -1
+  },
+  {
+   "setFlag": "p17_proc_tilda"
+  },
+  {
+   "event": "p17_proc"
+  }
+ ],
+ "p17c15.proc_ledger": [
+  {
+   "face": "ledger",
+   "dir": "player"
+  },
+  "ledger[worried]: I'm keeping the record. In case it's... historic. (writing) COFFIN SOCK EVENT: PENDING. ESTIMATED SIZE: MAYBE.",
+  "ledger[worried]: (quietly) Captain, the last time his bow went like that, we lost a harbour.",
+  {
+   "addVar": "coffin_sock_countdown",
+   "value": -1
+  },
+  {
+   "setFlag": "p17_proc_ledger"
+  },
+  {
+   "event": "p17_proc"
+  }
+ ],
+ "p17c15.proc_agnes": [
+  {
+   "face": "agnes_second",
+   "dir": "player"
+  },
+  "You pick her up again. She lets you. She's very light now, with so many feathers gone.",
+  "Down through the galley, through the hold, into the Fart-Free Zone, onto the cushion. This time you shut the padded door, and you put Pete's sign on it, and you check it twice.",
+  "agnes_second: (through the door) Bawk?",
+  {
+   "setFlag": "p17_proc_agnes"
+  },
+  {
+   "event": "p17_proc"
+  }
+ ],
+ "p17c15.proc_board": [
+  "Pete has wheeled the rules board round to face the room, wiped off the old rota, and he's holding the chalk out to you.",
+  {
+   "insert": "coffin_sock_pending_board",
+   "caption": "COFFIN SOCK EVENT: PENDING."
+  },
+  "You write it in letters a foot high. COFFIN SOCK EVENT: PENDING. Underneath, Pete adds: DO NOT EMBARRASS BROGATH. Underneath that, Garrick adds: (UNLESS FOR SCIENCE). Pete rubs that out.",
+  {
+   "addVar": "coffin_sock_countdown",
+   "value": -1
+  },
+  {
+   "setFlag": "p17_proc_board"
+  },
+  {
+   "event": "p17_proc"
+  }
+ ],
+ "p17c15.procedures_done": [
+  {
+   "setFlag": "p17_proc_said"
+  },
+  "Procedures in place. Agnes behind a padded door. Tilda on one side of Brogath, Ledger on the other, breathing with him. The whole ship watching him and trying not to look like it.",
+  "Nobody is watching you. Nobody except Garrick.",
+  {
+   "completeQuest": "beard_exhales"
+  },
+  {
+   "call": "p17c16.begin"
+  }
+ ],
+ "p17c16.begin": [
+  {
+   "setFlag": "p17_ch221_started"
+  },
+  {
+   "banner": "CHAPTER 221",
+   "sub": "The Beard Joint (Again)"
+  },
+  "Garrick is standing very close to you. Closer than he needs to be. He's looking at your beard the way he looked at the treasure room, the first night, before any of this.",
+  "He's holding a pair of scissors.",
+  {
+   "startQuest": "beard_joint"
+  },
+  {
+   "tutorial": "Garrick (the old quarters).",
+   "title": "The Beard Joint (Again)"
+  }
+ ],
+ "p17c16.scissors": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "garrick[delighted]: (in a whisper, with enormous enthusiasm) Captain. Hear me out. The BEARD JOINT.",
+  "captain: No.",
+  "garrick[businesslike]: The historic one! The night of the threat chart! The night the whole ship saw Ancient Grand Stenchmasters in the cutlery! A landmark event, Captain. And look what your beard's got in it NOW. Thunderbottom! Coffin Sock! Vindicta! It's a VINTAGE.",
+  {
+   "choice": [
+    {
+     "text": "Put the scissors down, Garrick.",
+     "then": [
+      "garrick[delighted]: I will, Captain. Afterwards."
+     ]
+    },
+    {
+     "text": "You remember what happened LAST time?",
+     "then": [
+      "garrick[proud]: Vividly! I've had it framed. In my mind."
+     ]
+    },
+    {
+     "text": "I'll have you thrown in the Sharkstorm.",
+     "then": [
+      "garrick[businesslike]: You've threatened that before. It's in the minutes. Ledger's minutes. Captain Minutes, actually."
+     ]
+    }
+   ]
+  },
+  {
+   "sfx": "scissors_snip",
+   "volume": 0.9
+  },
+  "Snip.",
+  "And he's gone behind the sash screen with a pinch of your beard, and a pinch of the old Skunk Weed from the hold, and a great deal of ceremony you can hear but mercifully can't see.",
+  "There's muttering. There's a little chant. There's, eventually, a thin grey smoke coming over the top of the screen, which Garrick wafts, with a ceremonial sash, toward Agnes's door.",
+  "garrick[delighted]: (wafting) For the chicken! She's had a very stressful day!",
+  "agnes_second: (from far below, through every deck, very relaxed) ...baaawwk.",
+  "And then he turns round with the sash, still wafting, and wafts it, accidentally, at you.",
+  {
+   "beardPuff": "small"
+  },
+  {
+   "setFlag": "garrick_beard_joint_experiment"
+  },
+  {
+   "setFlag": "p17_beard_joint_vision"
+  },
+  "Just a little. Just a breath. Just enough.",
+  "When you look round the old quarters, the crew have changed.",
+  {
+   "tutorial": "Something is wrong with everybody's faces. (Talk to two of them.)",
+   "title": "The Beard Joint (Again)"
+  }
+ ],
+ "p17c16.vision_pete": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "pete: (who is Pete) Captain? You all right? You're looking at me funny.",
+  "Pete has a sash on. Pete has never worn a sash. Pete has a crown on, and a robe, and his bucket has become a ceremonial urn, and his nameplate, when you look at it, says BROGATH THE ELDER?, and then, when you blink, PETE.",
+  "captain: ...Your crown's crooked.",
+  "pete: (touching his head, where there is nothing) My what?",
+  {
+   "setFlag": "p17_vision_pete"
+  },
+  {
+   "event": "p17_vision"
+  }
+ ],
+ "p17c16.vision_jim": [
+  {
+   "face": "jim",
+   "dir": "player"
+  },
+  "jim: (who is Jim, stirring soup) Soup, Captain?",
+  "LORD GUSTAVIO stirs a cauldron of ceremonial broth and offers you a ladle of it, with a terrible, knowing smile.",
+  "You blink. It's Jim. It's soup. Probably.",
+  {
+   "setFlag": "p17_vision_jim"
+  },
+  {
+   "event": "p17_vision"
+  }
+ ],
+ "p17c16.vision_gristle": [
+  {
+   "face": "gristle",
+   "dir": "player"
+  },
+  "gristle: (who is Gristle) Captain?",
+  "RUMPOLD WINDBREAKER, in his sash of office, salutes you with a belaying pin.",
+  "gristle: ...Why are you saluting me, Captain?",
+  {
+   "setFlag": "p17_vision_gristle"
+  },
+  {
+   "event": "p17_vision"
+  }
+ ],
+ "p17c16.vision_bob": [
+  {
+   "face": "bob",
+   "dir": "player"
+  },
+  "bob: (who is Bob) Captain, Garrick's doing something behind the screen again.",
+  "SIR RUMPUS WINDBOTTOM, in full ancient release posture, informs you that the Grand Stenchmaster Prime is preparing the rites.",
+  {
+   "setFlag": "p17_vision_bob"
+  },
+  {
+   "event": "p17_vision"
+  }
+ ],
+ "p17c16.vision_done": [
+  {
+   "setFlag": "p17_vision_said"
+  },
+  "It's fine. It's a small one. It'll pass. You've survived worse in this beard. You'll just stand very still until everybody's faces are their own again.",
+  {
+   "tutorial": "Garrick's improvement (Garrick).",
+   "title": "The Beard Joint (Again)"
+  }
+ ],
+ "p17c16.grog": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "garrick[businesslike]: (coming out from behind the screen, frowning at what's left) It needs BODY, Captain. It's thin. It's a thin vintage.",
+  "He takes a flask of Frog Grog off the shelf. You see it happen and you can't move fast enough.",
+  "This isn't a recipe. Nobody should ever do this, and nobody aboard could explain how it worked if they wanted to. Garrick pours a capful of Frog Grog over the whole smouldering business behind the screen 'for body', and it goes WHUMPH.",
+  {
+   "sfx": "frog_grog_whumph",
+   "volume": 0.9
+  },
+  {
+   "atmosphere": "FROG_GROG_FUMES",
+   "room": "crew_quarters"
+  },
+  {
+   "flash": "#a8c890",
+   "duration": 300
+  },
+  "A purple-green fume rolls out from behind the screen, low and lazy, across the floor and down the stairs.",
+  "Somewhere far below, a padded door, a cushion, a chicken who has had a very long day.",
+  {
+   "sfx": "hen_sneeze",
+   "volume": 0.9
+  },
+  "agnes_second[alarmed]: (very far off) HAA... HAAA... HAAAAA-CHOO.",
+  "It comes back up. All of it. Up the stairs, up through the galley, purple-green and secondhand and very concentrated, the way a sneeze from a chicken who's been through a Thunderbottom is concentrated, and it comes straight through the old quarters' door and straight into your face.",
+  {
+   "beardPuff": "big"
+  },
+  {
+   "beard": "add",
+   "tag": "FROG_GROG_FUMES"
+  },
+  {
+   "setFlag": "frog_grog_beard_exposure"
+  },
+  {
+   "clearFlag": "p17_beard_joint_vision"
+  },
+  {
+   "setFlag": "p17_grand_paranoia"
+  },
+  {
+   "setFlag": "stinkbeard_paranoia_active"
+  },
+  {
+   "music": "grand_paranoia",
+   "fade": 400
+  },
+  {
+   "ambience": "paranoia"
+  },
+  "Everything goes purple at the edges.",
+  "And you see it. All at once. Everything. What's REALLY going on aboard this ship.",
+  "captain: (very quietly) ...They're ALL in on it.",
+  {
+   "tutorial": "THE GRAND PARANOIA SPIRAL. Who's in on it? (Garrick, Ledger, Tilda, Brogath, Pete.) What you see is purple. What's actually happening, if you listen, is green.",
+   "title": "The Beard Joint (Again)"
+  }
+ ],
+ "p17c16.suspect_garrick": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "<p>THE CEREMONIAL OFFICIAL raises his sceptre (a teaspoon) and consecrates the room for the Release.</>",
+  "garrick[delighted]: (who is waving his arms at you) Captain! Captain, sit DOWN, you're upsetting Brogath!",
+  {
+   "choice": [
+    {
+     "text": "ACCUSE.",
+     "then": [
+      "captain: YOU. YOU STARTED THIS. WITH YOUR SCISSORS. YOU'RE THE OFFICIAL.",
+      "garrick[delighted]: (pleased) I'm the official? Of what? I'll take it.",
+      {
+       "stability": "trigger",
+       "id": "accused",
+       "quiet": true
+      },
+      {
+       "addVar": "coffin_sock_countdown",
+       "value": -1
+      }
+     ]
+    },
+    {
+     "text": "(Listen to what they're actually saying.)",
+     "then": [
+      "<g>(Garrick is flapping a sash at Brogath to cool him down. 'In for four,' he's saying. 'Out for four.')</>",
+      "You notice he's fanning Brogath, not you.",
+      {
+       "addVar": "paranoia_clues",
+       "value": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "setFlag": "p17_suspect_garrick"
+  },
+  {
+   "event": "p17_suspect"
+  }
+ ],
+ "p17c16.suspect_ledger": [
+  {
+   "face": "ledger",
+   "dir": "player"
+  },
+  "<p>THE TREASURER OF WINDS is recording the Rite in a great ledger, counting down the minutes to the Release in his terrible ancient script.</>",
+  "ledger[worried]: (who is holding a ledger) Captain, please, keep your voice down...",
+  {
+   "choice": [
+    {
+     "text": "ACCUSE.",
+     "then": [
+      "captain: WHAT ARE YOU COUNTING. WHAT ARE YOU COUNTING DOWN TO.",
+      "ledger[alarmed]: Breaths, Captain! I'm counting BREATHS!",
+      {
+       "stability": "trigger",
+       "id": "accused",
+       "quiet": true
+      },
+      {
+       "addVar": "coffin_sock_countdown",
+       "value": -1
+      }
+     ]
+    },
+    {
+     "text": "(Listen to what they're actually saying.)",
+     "then": [
+      "<g>(Ledger's ledger, upside down from where you're standing: BROGATH. BREATHING: 4 IN, 4 OUT. CALMER? MAYBE.)</>",
+      "He's counting Brogath's breaths. He's trying to keep him calm.",
+      {
+       "addVar": "paranoia_clues",
+       "value": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "setFlag": "p17_suspect_ledger"
+  },
+  {
+   "event": "p17_suspect"
+  }
+ ],
+ "p17c16.suspect_tilda": [
+  {
+   "face": "tilda",
+   "dir": "player"
+  },
+  "<p>THE FIRE STENCHMISTRESS stands at the Release's right hand, scorched from some earlier rite, her ancient cigarette smouldering like a fuse.</>",
+  "tilda[stern]: (who is standing between you and Brogath) Stinkbeard. STOP. Shouting.",
+  {
+   "choice": [
+    {
+     "text": "ACCUSE.",
+     "then": [
+      "captain: FIRE STENCHMISTRESS. I KNOW WHAT YOU ARE.",
+      "tilda[furious]: I'm a first mate with a burnt CORNER. Sit DOWN.",
+      {
+       "stability": "trigger",
+       "id": "accused",
+       "quiet": true
+      },
+      {
+       "addVar": "coffin_sock_countdown",
+       "value": -1
+      }
+     ]
+    },
+    {
+     "text": "(Listen to what they're actually saying.)",
+     "then": [
+      "<g>(Tilda's flat hand is on Brogath's shoulder. 'Look at me, not at him. Look at me, Brogath.')</>",
+      "She's talking him down. She's done it a hundred times.",
+      {
+       "addVar": "paranoia_clues",
+       "value": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "setFlag": "p17_suspect_tilda"
+  },
+  {
+   "event": "p17_suspect"
+  }
+ ],
+ "p17c16.suspect_brogath": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "<p>BROGATH, PREPARING THE RELEASE: the centre of the Rite, bowing outward, his seams glowing, every sash in the room turning toward him.</>",
+  "brogath[mortified]: (who is very pink and very bowed) Captain, why is everybody looking at me?",
+  {
+   "choice": [
+    {
+     "text": "ACCUSE.",
+     "then": [
+      "captain: YOU'RE THE RELEASE. YOU'RE THE WHOLE RELEASE.",
+      "brogath[mortified]: (shrinking, bowing out further) Am I? Is it me? It's always me...",
+      {
+       "stability": "trigger",
+       "id": "accused",
+       "quiet": true
+      },
+      {
+       "addVar": "coffin_sock_countdown",
+       "value": -1
+      }
+     ]
+    },
+    {
+     "text": "(Listen to what they're actually saying.)",
+     "then": [
+      "<g>(Brogath is trying very hard not to. 'In for four,' he's whispering to himself. 'I'm doing it, Tilda.')</>",
+      "He's trying so hard. You can see him trying.",
+      {
+       "addVar": "paranoia_clues",
+       "value": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "setFlag": "p17_suspect_brogath"
+  },
+  {
+   "event": "p17_suspect"
+  }
+ ],
+ "p17c16.suspect_pete": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "<p>THE RITUAL STEWARD carries the sacred vessel (a bucket) and has sealed the doors so none may escape the Rite.</>",
+  "pete: (who is Pete, with a bucket) Captain. Easy. Easy now.",
+  {
+   "choice": [
+    {
+     "text": "ACCUSE.",
+     "then": [
+      "captain: STEWARD. YOU SEALED THE DOORS.",
+      "pete: To keep the draught off him, Captain. Same as always.",
+      {
+       "stability": "trigger",
+       "id": "accused",
+       "quiet": true
+      },
+      {
+       "addVar": "coffin_sock_countdown",
+       "value": -1
+      }
+     ]
+    },
+    {
+     "text": "(Listen to what they're actually saying.)",
+     "then": [
+      "<g>(Pete has shut the doors so the draught doesn't hit Brogath. The bucket is in case he catches fire. It's Pete. It's always been Pete.)</>",
+      "It's Pete. With a bucket. Keeping the draught off.",
+      {
+       "addVar": "paranoia_clues",
+       "value": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "setFlag": "p17_suspect_pete"
+  },
+  {
+   "event": "p17_suspect"
+  }
+ ],
+ "p17c16.spiral_done": [
+  {
+   "setFlag": "p17_spiral_said"
+  },
+  {
+   "if": {
+    "var": {
+     "name": "paranoia_clues",
+     "gte": 3
+    }
+   },
+   "then": [
+    "Somewhere under the purple, a small, sober part of you has worked it out: they're not preparing a Release. They're trying to stop one. They're keeping Brogath calm.",
+    "And you've been shouting at all of them."
+   ],
+   "else": [
+    "The purple is everywhere now. They're ALL in on it. Every one of them. The whole ship is a Rite. And there's one face you haven't checked."
+   ]
+  },
+  "And then you see her. Across the old quarters, by the stove pipe. In disguise. Very nearly a perfect disguise.",
+  "captain: (very, very quietly) ...It's HER.",
+  {
+   "completeQuest": "beard_joint"
+  },
+  {
+   "call": "p17c17.begin"
+  }
+ ],
+ "p17c17.begin": [
+  {
+   "setFlag": "p17_ch222_started"
+  },
+  {
+   "banner": "CHAPTER 222",
+   "sub": "The Coffin Sock Catastrophe"
+  },
+  {
+   "startQuest": "coffin_sock_catastrophe"
+  },
+  {
+   "tutorial": "HER (Salty Jim, in the old quarters).",
+   "title": "The Coffin Sock Catastrophe"
+  }
+ ],
+ "p17c17.princess": [
+  {
+   "face": "jim",
+   "dir": "player"
+  },
+  "jim: (holding a ladle, worried) Captain? You're looking at me funny again.",
+  "captain: (pointing, his whole arm shaking) PRINCESS. STENCHALINA. THE PERFUMED.",
+  "jim: ...I'm Jim, Captain.",
+  "captain: THAT IS EXACTLY WHAT SHE WOULD SAY.",
+  {
+   "vista": "history_lesson",
+   "fade": 500
+  },
+  "captain: (to the whole room, at the top of his voice) THE PERFUMED PRINCESS OF THE EASTERN WIND COURT! Mocked by every Grand Stenchmaster from here to the Spice Isles because she smelled of ROSES! ROSES! A Stenchmaster who smelled of ROSES!",
+  "captain: They said she couldn't do a Stenchmaster Fart. Not one. They laughed at her for a CENTURY. And then one day, at the Court, at the Great Assembly, she did one...",
+  "captain: ...and nobody ever laughed again. Because there was nobody LEFT. Half the Eastern Wind Court, Jim. Half of it. They had to rename the WIND.",
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  "jim: (quietly) I'm Jim, Captain.",
+  "captain: ANOTHER DENIAL. That's two.",
+  {
+   "stability": "trigger",
+   "id": "stenchalina_rant",
+   "quiet": true
+  },
+  {
+   "addVar": "coffin_sock_countdown",
+   "value": -1
+  },
+  {
+   "stability": "set",
+   "pressure": 85
+  },
+  "jim: (holding up the ladle, desperately) I'm the COOK. I make the soup. You've had the soup. You've had it every day for four years.",
+  "captain: (stepping closer) And it's never smelled of anything, has it. NEVER. Because SHE can't smell of anything but...",
+  "jim: (very small) ...I put a rose in it once. For a treat.",
+  "Everybody in the old quarters slowly turns to look at Jim.",
+  "captain: THREE.",
+  {
+   "setFlag": "princess_stenchalina_delusion"
+  },
+  {
+   "stability": "trigger",
+   "id": "stenchalina_rant",
+   "quiet": true
+  },
+  {
+   "addVar": "coffin_sock_countdown",
+   "value": -5
+  },
+  {
+   "stability": "set",
+   "pressure": 97
+  },
+  "brogath[mortified]: (bowing out like a sail in a hurricane, every seam puffing) Captain, please, the Princess is a very SAD story and you're telling it LOUDLY and EVERYBODY IS LOOKING...",
+  "tilda[alarmed]: (looking from you, to Brogath, to you) ...He's DOING it. Stinkbeard, YOU'RE doing it. You're making the thing you're scared of.",
+  "ledger[worried]: (writing very fast) EVENT: IMMINENT. CAUSE: THE CAPTAIN. MAYBE.",
+  "garrick[delighted]: (absolutely fascinated, notebook out) Don't stop him! This is HISTORY!",
+  "brogath[loaded]: ...oh. Oh, no. Oh, Tilda.",
+  {
+   "tutorial": "...Brogath? (the old quarters)",
+   "title": "The Coffin Sock Catastrophe"
+  }
+ ],
+ "p17c17.release": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "There's a creak. A long one. The creak of a cardboard Ancient Grand Stenchmaster who has been bowing out for a day and a half, giving up.",
+  {
+   "vista": "coffin_sock_shift",
+   "fade": 300
+  },
+  {
+   "vistaFrame": "before",
+   "frame": "cs_before_0"
+  },
+  {
+   "wait": 1200
+  },
+  "Before: the green haze, soft, warm, everybody looking at their hands, a chicken asleep on a cushion three decks down.",
+  {
+   "sfx": "coffin_sock_buildup",
+   "volume": 1.0
+  },
+  {
+   "shake": 2,
+   "duration": 1600
+  },
+  "brogath[loaded]: (very quietly, quite peacefully) Sorry, everybody.",
+  {
+   "sfx": "coffin_sock_catastrophe",
+   "volume": 1.0
+  },
+  {
+   "shake": 5,
+   "duration": 2200
+  },
+  {
+   "flash": "#7a6c4a",
+   "duration": 600
+  },
+  {
+   "vistaFrame": "before",
+   "frame": "cs_after_0"
+  },
+  "After.",
+  {
+   "vistaEnd": true,
+   "fade": 300
+  },
+  {
+   "atmosphere": "COFFIN_SOCK"
+  },
+  {
+   "atmosphere": "COFFIN_SOCK",
+   "clearRooms": true
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 45
+  },
+  {
+   "setValue": "brogath_pending",
+   "value": null
+  },
+  {
+   "setVar": "coffin_sock_countdown",
+   "value": 0
+  },
+  "THE COFFIN SOCK. Dark, yellow-brown, ancient, musty, enormous, and everywhere, all at once. It doesn't push the green haze out. It eats it.",
+  {
+   "sfx": "sash_snap",
+   "volume": 0.9
+  },
+  {
+   "propFx": "jiggle",
+   "area": [
+    0,
+    3,
+    18,
+    12
+   ],
+   "duration": 900,
+   "intensity": 2
+  },
+  "Every sash in the Sash Lounge snaps tight, like a sail taking the wind.",
+  {
+   "burst": "papers",
+   "x": 9,
+   "y": 9,
+   "count": 18
+  },
+  {
+   "sfx": "papers_fly",
+   "volume": 0.8
+  },
+  "Every paper in the room goes up: Pete's rules, the roster, the COFFIN SOCK EVENT board, all of it, round and round the lamp.",
+  {
+   "sfx": "book_slam",
+   "volume": 1.0
+  },
+  "Ledger's ledger slams itself shut. All three of his ledgers do. On their own.",
+  {
+   "parallel": [
+    [
+     {
+      "fly": "tilda",
+      "to": [
+       5,
+       8
+      ],
+      "duration": 800,
+      "arc": 18,
+      "spin": 2
+     }
+    ]
+   ]
+  },
+  "Tilda goes over backwards, flat, spinning once, with her arms still folded.",
+  "Everybody else braces against the nearest thing. Pete braces against Pete.",
+  {
+   "repair": "brace",
+   "strikes": 3,
+   "title": "BRACE!"
+  },
+  {
+   "beard": "add",
+   "tag": "COFFIN_SOCK_CATASTROPHE"
+  },
+  "Your beard catches it. Of course it does. It catches it at chin height and holds onto it like a sail holds wind.",
+  {
+   "sfx": "cloud_growl",
+   "volume": 1.0
+  },
+  {
+   "shake": 2,
+   "duration": 900
+  },
+  "Below you, below the galley, below the hold, behind a door with NOT EVEN FOR FRIENDS nailed across it: a growl. The treasure room's cloud, answering. Recognising something. The door holds.",
+  {
+   "sfx": "vortex_roar",
+   "volume": 0.9
+  },
+  {
+   "shake": 3,
+   "duration": 1200
+  },
+  "Outside, the Sharkstorm lurches. For a moment it goes round the other way. Then it remembers itself.",
+  {
+   "setValue": "ses_portable_state",
+   "value": "no_signal"
+  },
+  {
+   "sfx": "portable_tv_static",
+   "volume": 0.7
+  },
+  "In the Fart-Free Zone, Garrick's portable set loses its signal for the first time in its life and shows nothing but snow.",
+  "And on a cushion behind a padded door, Agnes the Second, mellow, frazzled and fast asleep, sleeps through the whole thing. The procedures worked. One of them.",
+  {
+   "setFlag": "p17_paranoia_broken"
+  },
+  {
+   "setFlag": "stinkbeard_paranoia_residue"
+  },
+  {
+   "clearFlag": "p17_grand_paranoia"
+  },
+  {
+   "ambience": "coffin_sock"
+  },
+  {
+   "stability": "recover",
+   "on": false
+  },
+  {
+   "stability": "set",
+   "pressure": 0
+  },
+  {
+   "stability": "meter",
+   "show": "auto"
+  },
+  {
+   "setFlag": "major_coffin_sock_release_complete"
+  },
+  {
+   "tutorial": "Afterwards (Ledger, Pete, Brogath: the old quarters).",
+   "title": "The Coffin Sock Catastrophe"
+  }
+ ],
+ "p17c17.after_jim": [
+  {
+   "face": "jim",
+   "dir": "player"
+  },
+  "jim: (from under the table, clutching the ladle) ...I'm Jim, Captain.",
+  "captain: (slowly) ...You're Jim.",
+  "jim: (bursting into tears) THANK you."
+ ],
+ "p17c17.after_ledger": [
+  {
+   "face": "ledger",
+   "dir": "player"
+  },
+  "ledger[worried]: (prising his ledger open with both flat hands) Captain. You called Jim 'Jim'. That's good. But just now, when you looked at Garrick...",
+  "You look at Garrick. For a moment, just a moment, there's a crown on top of his crown, and a nameplate that says THE GRAND STENCHMASTER PRIME. Then it's Garrick.",
+  "ledger[thoughtful]: (writing) CAPTAIN: MOSTLY RECOVERED. RESIDUE: SOME. (a pause) MAYBE.",
+  {
+   "setFlag": "p17_after_ledger"
+  },
+  {
+   "event": "p17_after"
+  }
+ ],
+ "p17c17.after_pete": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "pete: (picking his rules up off the floor, one at a time, very slowly) It's in your beard, Captain. All of it. Whatever Garrick did, it's in there with everything else now. It'll be coming out a bit at a time.",
+  "pete: (looking at the window, the dark, the Coffin Sock rolling past it) It'll be a long night. I'd not look anybody in the face if I were you. Not till morning.",
+  {
+   "setFlag": "p17_after_pete"
+  },
+  {
+   "event": "p17_after"
+  }
+ ],
+ "p17c17.after_brogath": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "brogath[proud]: (completely flat, completely empty, completely calm for the first time in two days, standing in the middle of the old quarters looking round at the dark yellow-brown fog filling every corner of the ship) ...Oh.",
+  "brogath[proud]: (with tremendous, quiet pride) That's a GOOD one, isn't it.",
+  "Nobody answers him.",
+  "Tilda, singed, upside down in a pile of sashes. Ledger, holding his slammed ledger. Garrick, coughing into his notebook. Pete, with his rules. Jim, under the table. The visitors, somewhere, groaning. You, and your beard, and the residue in it.",
+  "Everybody aboard the Queen Anne's Revenge is looking at Brogath. Everybody is furious.",
+  "brogath[bashful]: (very small, very pleased) Is everybody looking at me?",
+  {
+   "setFlag": "p17_after_brogath"
+  },
+  {
+   "event": "p17_after"
+  }
+ ],
+ "p17c17.end": [
+  {
+   "setFlag": "p17_after_said"
+  },
+  "The Coffin Sock settles into the ship for the night, into every plank and every sash and every beard. Outside, the Sharkstorm goes round. Below, the treasure room's door holds. Somewhere, a chicken snores.",
+  "Ledger and Tilda are aboard for good. The Greyhook Cove expedition is pending. The captain's beard is fuller than it has ever been, and every so often, quietly, it exhales.",
+  {
+   "setFlag": "p17_complete"
+  },
+  {
+   "completeQuest": "coffin_sock_catastrophe"
+  },
+  {
+   "save": "auto"
+  }
+ ]
+}

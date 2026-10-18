@@ -1,0 +1,1072 @@
+{
+ "//": "Story Phase 17, chapters 206-209: Brogath Remembers, The Cardboard Crew, The Forbidden Door, The Ancient Reunion.",
+ "p17.ready_hint": [
+  {
+   "setFlag": "p17_ready_hint"
+  },
+  "It's quiet. The hornets have gone home. The portable set is off. Somebody has carried Brogath's sash bedding down to the Fart-Free Zone, and the whole off-watch has squeezed in after it.",
+  {
+   "tutorial": "Go down to the Fart-Free Zone (the little door under the hold stairs).",
+   "title": "Brogath Remembers"
+  }
+ ],
+ "p17c1.begin": [
+  {
+   "setFlag": "p17_started"
+  },
+  {
+   "setFlag": "p17_ch206_started"
+  },
+  {
+   "banner": "CHAPTER 206",
+   "sub": "Brogath Remembers"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 42
+  },
+  {
+   "music": "brogath_theme",
+   "fade": 800
+  },
+  {
+   "ambience": "below"
+  },
+  "The Fart-Free Zone, after everything. Sash cushions on every wall, the lamp turned low, Agnes the Second asleep on Brogath's foot. The two visitors are lying on the floor with their eyes shut, smiling at the ceiling.",
+  "For once, nothing is happening. You'd forgotten what that sounds like.",
+  "brogath[thoughtful]: (lying flat on the bedding, looking up) Captain?",
+  "brogath: (very quietly) I miss them.",
+  {
+   "startQuest": "brogath_remembers"
+  },
+  {
+   "tutorial": "Sit with Brogath (on the bedding, the Fart-Free Zone).",
+   "title": "Brogath Remembers"
+  }
+ ],
+ "p17c1.hear": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "You sit down on the end of the bedding. Agnes opens one eye, decides you're acceptable, and shuts it.",
+  "brogath: My crew. My old crew. I was thinking about them. It's the quiet. I haven't had a quiet in four hundred years. Things come back in a quiet.",
+  "brogath[thoughtful]: There was Ledger, and Tilda, and Old Jeb, and Wobbly Ned, and Elsie. There were more. Those were... those were mine.",
+  "brogath: I was dead, you see. And then I was cardboard. And somewhere in between, they all got old without me.",
+  {
+   "stability": "trigger",
+   "id": "old_crew_memory",
+   "quiet": true
+  },
+  "You don't say anything. It seems like the right thing not to say.",
+  {
+   "setFlag": "p17_memories_heard"
+  },
+  {
+   "tutorial": "What he's kept: the slate, the pocket edition on the table, and his sash on the wall (the Fart-Free Zone).",
+   "title": "Brogath Remembers"
+  }
+ ],
+ "p17c1.memory_slate": [
+  "The slate on the wall. Somebody has rubbed out last week's sash rota and drawn five faces in chalk instead. Badly, and with enormous care.",
+  "A man with a hat bigger than his whole body. A woman with eyebrows like two cutlasses. An old man with one eye drawn and one eye not. A sailor who's been drawn leaning. A round, happy woman holding a pot.",
+  "Under them, in Brogath's tiny bashful capitals: MY CREW.",
+  {
+   "setFlag": "p17_memory_slate"
+  },
+  {
+   "event": "p17_memory"
+  }
+ ],
+ "p17c1.memory_book": [
+  "The pocket edition, open on the table at a page Garrick never reads aloud. THE CREW OF BROGATH THE BASHFUL, it says, and under that a list, and under that a crayon drawing of a ship sailing backwards.",
+  "Somebody has drawn little hearts next to five of the names. The crayon is the same purple as Brogath's robe.",
+  {
+   "insert": "pocket_old_crew"
+  },
+  {
+   "setFlag": "p17_memory_book"
+  },
+  {
+   "event": "p17_memory"
+  }
+ ],
+ "p17c1.memory_sash": [
+  "Brogath's sash, the old one, hung up on a nail. It's knotted. Five knots, evenly spaced, tied very tightly and then smoothed down again, over and over, until the silk has gone soft.",
+  "brogath[bashful]: (from the bedding, not looking) One for each of them. So I'd remember. Then I died and remembered anyway.",
+  {
+   "setFlag": "p17_memory_sash"
+  },
+  {
+   "event": "p17_memory"
+  }
+ ],
+ "p17c1.memories_done": [
+  {
+   "setFlag": "p17_memories_said"
+  },
+  "brogath[thoughtful]: (sitting up a bit) You've been looking at my things. That's all right. Nobody's looked at them in a very long time.",
+  {
+   "tutorial": "Ask him about each of them (Brogath, on the bedding).",
+   "title": "Brogath Remembers"
+  }
+ ],
+ "p17c1.names": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  {
+   "if": {
+    "notFlag": "p17_names_said"
+   },
+   "then": [
+    "brogath[thoughtful]: Ask me about one. Any one. I'll tell you. I want to tell somebody.",
+    {
+     "choice": [
+      {
+       "text": "Ledger Billiam",
+       "if": {
+        "notFlag": "p17_crew_ledger"
+       },
+       "then": [
+        "brogath[pleased]: LEDGER. Our treasurer. He kept the books. He kept two books: one for money and one for, well. The other thing. Mine.",
+        "brogath[delighted]: He was terrible at it. Wonderfully terrible. He once counted the sea as an asset because we were on it. He always said numbers could make you rich if you wrote them down confidently enough.",
+        "brogath: He kept the books after I was gone, I expect. He'd have kept them for nobody.",
+        {
+         "setFlag": "p17_crew_ledger"
+        },
+        {
+         "event": "p17_crew_name"
+        }
+       ]
+      },
+      {
+       "text": "No-Nonsense Tilda",
+       "if": {
+        "notFlag": "p17_crew_tilda"
+       },
+       "then": [
+        "brogath[bashful]: Tilda. First mate. She said 'Brogath, stop' more than anyone has ever said anything. To me. Mostly to me.",
+        "brogath[proud]: She was the sensible one. She was angry nearly all the time and right about half of it, which on our ship was a record.",
+        "brogath: (quietly) She used to sit by my chair in the evenings and tell me everything I'd done wrong that day. I'd give anything to hear the list.",
+        {
+         "stability": "trigger",
+         "id": "old_crew_memory",
+         "quiet": true
+        },
+        {
+         "setFlag": "p17_crew_tilda"
+        },
+        {
+         "event": "p17_crew_name"
+        }
+       ]
+      },
+      {
+       "text": "Old Jeb Rattleplank",
+       "if": {
+        "notFlag": "p17_crew_jeb"
+       },
+       "then": [
+        "brogath[pleased]: Old Jeb. Old even then. He rattled. He sold things. Spare sails, the cook's pans, the anchor once, the moon twice. None of it was his. Some of it wasn't anybody's.",
+        {
+         "setFlag": "p17_crew_jeb"
+        },
+        {
+         "event": "p17_crew_name"
+        }
+       ]
+      },
+      {
+       "text": "Wobbly Ned",
+       "if": {
+        "notFlag": "p17_crew_ned"
+       },
+       "then": [
+        "brogath[thoughtful]: Ned. Wobbly Ned. Not the Ned you've got, a different Ned. Ours never once arrived anywhere in the same state he left. Lovely man. Couldn't tie a knot. Fell off the ship four times and climbed back on three.",
+        "brogath: (a pause) We never did find out about the fourth.",
+        {
+         "setFlag": "p17_crew_ned"
+        },
+        {
+         "event": "p17_crew_name"
+        }
+       ]
+      },
+      {
+       "text": "Elsie Beanwright",
+       "if": {
+        "notFlag": "p17_crew_elsie"
+       },
+       "then": [
+        "brogath[delighted]: ELSIE. The cook. She believed beans were the answer to everything. Grief, scurvy, weather. Beans.",
+        "brogath[bashful]: The Morning of Many Winds was hers, you know. Well. Ours. The harbour's never forgiven us. She made me breakfast every day of my life.",
+        {
+         "setFlag": "p17_crew_elsie"
+        },
+        {
+         "event": "p17_crew_name"
+        }
+       ]
+      },
+      {
+       "text": "(Later.)"
+      }
+     ]
+    }
+   ],
+   "else": [
+    "brogath[thoughtful]: Ledger, Tilda, Jeb, Ned, Elsie. I keep saying them. In case they can hear."
+   ]
+  }
+ ],
+ "p17c1.names_done": [
+  {
+   "setFlag": "p17_names_said"
+  },
+  "brogath: (very small) That's them. That's all of them. Well. That's all of them that I can say without crying on the bedding.",
+  {
+   "reassure": "old_crew"
+  },
+  {
+   "tutorial": "Pete has something to say (Pete, in the Fart-Free Zone).",
+   "title": "Brogath Remembers"
+  }
+ ],
+ "p17c1.pete": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "pete: (quietly, from the other wall) Captain. I had a crew once. Before this one. Before all of this.",
+  "pete: You don't stop missing them. You just stop saying so where people can hear. He's saying so. That's braver than most of us manage.",
+  "pete[happy]: (a small smile) Let him have it. Just for tonight. Nothing's on fire.",
+  "You look round the Fart-Free Zone. Nothing is on fire. Nobody is farting. Agnes is snoring very slightly. It's almost unbearable.",
+  {
+   "setFlag": "p17_pete_sympathy"
+  },
+  {
+   "tutorial": "Something is dawning on Brogath (Brogath, on the bedding).",
+   "title": "Brogath Remembers"
+  }
+ ],
+ "p17c1.theory": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "brogath[thoughtful]: (sitting bolt upright; Agnes slides off his foot, offended) Captain.",
+  "brogath[thoughtful]: Captain, how did I come back?",
+  "captain: ...An escaped plume of four-hundred-year-old fart went into a cardboard cut-out in the old quarters.",
+  "brogath[delighted]: EXACTLY. And there's still plenty of plume. Behind the door. And there's still plenty of cardboard. The Mega-Pack came in an ENORMOUS box.",
+  "brogath[delighted]: (very fast) I could draw them. All of them. And then just let a little bit of the cloud out, the way it happened before, and...",
+  "You hear the idea arrive in the room. It's the worst one you've ever heard, and you've been at sea with Garrick.",
+  {
+   "emote": "player",
+   "icon": "exclaim"
+  },
+  {
+   "sfx": "tilda_sting",
+   "volume": 0.6
+  },
+  {
+   "setFlag": "p17_theory"
+  },
+  {
+   "tutorial": "Talk him out of it (Brogath).",
+   "title": "Brogath Remembers"
+  }
+ ],
+ "p17c1.dissuade": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "brogath[delighted]: Ledger and Tilda first. They were always first. Well, Tilda was. Ledger was usually second, apologising.",
+  {
+   "choice": [
+    {
+     "text": "Your coming back was an ACCIDENT, Brogath.",
+     "then": [
+      "brogath[delighted]: Then it can happen again! Accidents happen all the time. On this ship they happen mostly on purpose."
+     ]
+    },
+    {
+     "text": "That cloud nearly flattened the ship. Twice.",
+     "then": [
+      "brogath[bashful]: It was very nice to ME. It put me in a lovely cut-out. Mostly the right way up."
+     ]
+    },
+    {
+     "text": "They've been dead for four hundred years.",
+     "then": [
+      "brogath: (very quietly) So was I.",
+      "You don't have an answer for that. He knows you don't. He's kind enough not to wait for one."
+     ]
+    }
+   ]
+  },
+  "brogath: (getting up, all at once, creaking) I'll just do some drawings. Only drawings. Drawings never hurt anybody.",
+  "brogath[bashful]: (at the door) Agnes, stay with the gentlemen. Captain... thank you for listening. Really.",
+  {
+   "stability": "calm",
+   "id": "listened",
+   "quiet": true
+  },
+  "And he's gone, up the stairs, carrying the Fan Mega-Pack's empty carton under one flat arm and a crayon in his teeth.",
+  "visitor_one: (eyes still shut) Drawings, man. That's how it starts.",
+  {
+   "setFlag": "brogath_old_crew_remembered"
+  },
+  {
+   "completeQuest": "brogath_remembers"
+  },
+  {
+   "call": "p17c2.begin"
+  }
+ ],
+ "p17c2.begin": [
+  {
+   "setFlag": "p17_ch207_started"
+  },
+  {
+   "banner": "CHAPTER 207",
+   "sub": "The Cardboard Crew"
+  },
+  {
+   "setFlag": "ledger_cutout_created"
+  },
+  {
+   "setFlag": "tilda_cutout_created"
+  },
+  {
+   "setFlag": "other_old_crew_cutouts_prepared"
+  },
+  "An hour later there's a smell of crayon, and a sound from the old quarters like somebody cutting a carton very carefully with a breadknife.",
+  {
+   "startQuest": "the_cardboard_crew"
+  },
+  {
+   "tutorial": "See what Brogath is making (the north wall of the old quarters).",
+   "title": "The Cardboard Crew"
+  }
+ ],
+ "p17c2.find": [
+  "Along the north wall of the old quarters, propped against the lockers, five of them. Cut out of the Mega-Pack's carton, coloured in with every crayon on the ship, each one standing on a little printed nameplate Brogath has lettered himself.",
+  "They're the size of people. They're the shape of people, mostly. They are very, very flat.",
+  "brogath[proud]: (on his knees in front of one, crayon in hand) Captain! Come and meet them!",
+  {
+   "setFlag": "p17_cutouts_found"
+  },
+  {
+   "tutorial": "Look at each cut-out (the north wall, the old quarters).",
+   "title": "The Cardboard Crew"
+  }
+ ],
+ "p17c2.cutout_ledger": [
+  {
+   "insert": "cutout_ledger_card",
+   "caption": "LEDGER BILLIAM. TREASURER. KNOWS MONEY."
+  },
+  "A tiny man under an enormous triangular hat, a hat wider than the carton was, so the brim has been taped on. A square face with a bewildered look on it. A ledger under one arm, a quill in the other hand. The blue of his coat has been coloured in about a pixel to the left of where it should be.",
+  "LEDGER BILLIAM, says the nameplate. TREASURER. KNOWS MONEY.",
+  "brogath[bashful]: (proudly) He doesn't. But he'd want it to say that.",
+  {
+   "setFlag": "p17_cutout_ledger"
+  },
+  {
+   "event": "p17_cutout"
+  }
+ ],
+ "p17c2.cutout_tilda": [
+  {
+   "insert": "cutout_tilda_card",
+   "caption": "NO-NONSENSE TILDA. FIRST MATE. BROGATH, STOP."
+  },
+  "A woman in a severe coat buttoned up to the chin, arms folded, a broad green hat, and eyebrows. Mostly eyebrows. They've been gone over in black crayon so many times they're slightly raised off the cardboard.",
+  "NO-NONSENSE TILDA, says the nameplate. FIRST MATE. BROGATH, STOP.",
+  "On the back, where the carton was, you can still read CHEAP-O-RAMA. Brogath has tried to colour over it and given up.",
+  {
+   "setFlag": "p17_cutout_tilda"
+  },
+  {
+   "event": "p17_cutout"
+  }
+ ],
+ "p17c2.cutout_jeb": [
+  "OLD JEB RATTLEPLANK. An old man, bald, a beard like a hedge in winter, an apron, a hammer, and a little tray of things for sale. One eye has been drawn in. The other is a pencil circle with EYE T.B.C. written in it.",
+  "brogath[sorry]: I ran out of the right brown. I'll finish him later. He won't mind. He never minded anything except prices.",
+  {
+   "setFlag": "p17_cutout_jeb"
+  },
+  {
+   "event": "p17_cutout"
+  }
+ ],
+ "p17c2.cutout_ned": [
+  "WOBBLY NED. A striped shirt, a knit cap, a grin. The card leans, gently, to the left. Brogath has propped it straight twice while you watch. It leans again.",
+  "brogath[pleased]: That's how he stood. That's exactly how he stood.",
+  {
+   "setFlag": "p17_cutout_ned"
+  },
+  {
+   "event": "p17_cutout"
+  }
+ ],
+ "p17c2.cutout_elsie": [
+  "ELSIE BEANWRIGHT. A round, beaming woman in a red kerchief, holding a pot of beans almost as big as she is, with a ladle in it. Only her left half has been coloured in. The right half is plain carton with pencil lines.",
+  "brogath[bashful]: (quietly) I couldn't get her smile right. I did it four times. That's the best one.",
+  {
+   "setFlag": "p17_cutout_elsie"
+  },
+  {
+   "event": "p17_cutout"
+  }
+ ],
+ "p17c2.cutouts_done": [
+  {
+   "setFlag": "p17_cutouts_said"
+  },
+  "Five of them. Flat, crayoned, propped against the lockers in a row, looking out at the room as if they're waiting to be introduced.",
+  "Brogath has gone back to the second one, and he's doing the eyebrows. Again.",
+  {
+   "tutorial": "Brogath, working on the eyebrows (Brogath).",
+   "title": "The Cardboard Crew"
+  }
+ ],
+ "p17c2.eyebrows": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "brogath[thoughtful]: (crayon, a tiny stroke, a long look, another tiny stroke) They're not angry enough. She had very angry eyebrows. The angriest eyebrows on the seven seas. She could stop a mutiny with one of them.",
+  "captain: You've been on those eyebrows for forty minutes.",
+  "brogath: (another stroke) Forty-one. There. No. THERE.",
+  "He holds the crayon up and looks at Tilda for a long time. Something about the way he's looking at her makes you want to leave the room.",
+  {
+   "setFlag": "p17_eyebrows"
+  },
+  {
+   "tutorial": "Warn him off the treasure-room door (Brogath).",
+   "title": "The Cardboard Crew"
+  }
+ ],
+ "p17c2.door": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "captain: Brogath. Listen to me. They're lovely. They're very good drawings. They are DRAWINGS. Nobody goes near the treasure-room door.",
+  "brogath[bashful]: (not quite looking at you) No, Captain.",
+  "captain: NOBODY. Not you, not a cut-out, not a cut-out carried by you.",
+  "brogath[sorry]: No, Captain. (a pause) Not even a little bit?",
+  "captain: NOT EVEN A LITTLE BIT.",
+  "brogath[bashful]: (very sincerely) I wouldn't. I promise.",
+  "He means it. He means it entirely. That's what worries you.",
+  {
+   "setFlag": "p17_door_warned"
+  },
+  {
+   "tutorial": "Have the treasure-room door watched: Pete (on deck, by the wheel).",
+   "title": "The Cardboard Crew"
+  }
+ ],
+ "p17c2.guard": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "captain: Pete. I need somebody on the treasure-room door. Tonight. All night.",
+  "pete: (instantly) Brogath?",
+  "captain: Brogath. With cut-outs.",
+  "pete[alarmed]: Cut-outs of WHAT?",
+  "captain: Of his old crew.",
+  "Pete looks at you. You look at Pete. Neither of you says the word 'cloud'. You can both hear it.",
+  "pete: (putting down his bucket) I'll go now. Let me just get my...",
+  {
+   "sfx": "door_rattle",
+   "volume": 0.7
+  },
+  {
+   "shake": 1,
+   "duration": 500
+  },
+  "Something, far below you, under the deck, under the galley, rattles. Boards. Old boards with nails in them.",
+  {
+   "sfx": "cloud_growl",
+   "volume": 0.6
+  },
+  "And then, very faintly, something growls.",
+  "pete[alarmed]: ...That's the door.",
+  {
+   "setFlag": "p17_guard_asked"
+  },
+  {
+   "tutorial": "RUN: the treasure-room door (down through the galley to the hold).",
+   "title": "The Cardboard Crew"
+  }
+ ],
+ "p17c2.race_galley": [
+  {
+   "setFlag": "p17_race_galley"
+  },
+  {
+   "sfx": "door_rattle",
+   "volume": 0.8
+  },
+  {
+   "shake": 1,
+   "duration": 400
+  },
+  "The galley's pots are swinging on their hooks. Through the floor: a rattle, a growl, and a small, bashful voice saying 'It worked before.'",
+  {
+   "bark": "jim",
+   "text": "Captain! The FLOOR!",
+   "duration": 1600,
+   "shout": true
+  }
+ ],
+ "p17c3.begin": [
+  {
+   "setFlag": "p17_ch208_started"
+  },
+  {
+   "banner": "CHAPTER 208",
+   "sub": "The Forbidden Door"
+  },
+  {
+   "music": "rescue_tension",
+   "fade": 300
+  },
+  {
+   "move": "player",
+   "to": [
+    9,
+    4
+   ],
+   "speed": "run"
+  },
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "Brogath is standing in front of the treasure-room door. He's propped Ledger on one side of him and Tilda on the other, facing the door, like guests at a door they've been invited to.",
+  "He's got two of the planks off. He's working on the third with a flat cardboard hand and enormous patience.",
+  {
+   "sfx": "door_rattle",
+   "volume": 0.9
+  },
+  {
+   "shake": 1,
+   "duration": 500
+  },
+  {
+   "propFx": "jiggle",
+   "prop": "treasure_signs_five",
+   "duration": 700
+  },
+  "The boards rattle. Not because he's pulling them. Because something behind them is pushing.",
+  {
+   "startQuest": "the_forbidden_door"
+  },
+  {
+   "tutorial": "Stop him (the treasure-room door).",
+   "title": "The Forbidden Door"
+  }
+ ],
+ "p17c3.stop": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  "captain: BROGATH. STEP AWAY FROM THE DOOR.",
+  "brogath: (not turning round) It worked before, Captain. It WORKED.",
+  "captain: IT WAS AN ACCIDENT. THE PREVIOUS RESURRECTION WAS AN ACCIDENT.",
+  "brogath: Then this is an accident too. A planned one.",
+  {
+   "sfx": "cloud_growl",
+   "volume": 0.9
+  },
+  {
+   "shake": 2,
+   "duration": 700
+  },
+  "From behind the door: a growl. Distorted, deep, enormous, the sound of four hundred years of the first night thinking about getting out.",
+  {
+   "spawn": "pete",
+   "x": 14,
+   "y": 4,
+   "facing": "down"
+  },
+  {
+   "sfx": "stomp_run",
+   "volume": 0.8
+  },
+  {
+   "move": "pete",
+   "to": [
+    10,
+    5
+   ],
+   "speed": "run"
+  },
+  "pete[alarmed]: (off the bottom of the stairs, bucket first) EVERYBODY BACK. EVERYBODY GET BACK FROM THAT DOOR. THAT IS NOT A DRILL. THAT IS A DOOR.",
+  "brogath[sorry]: (turning, finally, his hand still on the last plank) Pete, I just want my friends back.",
+  "And the plank comes off in his hand.",
+  {
+   "sfx": "door_creak",
+   "volume": 1.0
+  },
+  {
+   "sfx": "fume_release",
+   "volume": 0.9
+  },
+  {
+   "setValue": "treasure_room_state",
+   "value": "cracked_again"
+  },
+  {
+   "setFlag": "p17_door_cracked"
+  },
+  {
+   "fumeCloud": "p17_crack",
+   "level": "dense",
+   "x": 3,
+   "y": 3,
+   "w": 3,
+   "h": 2,
+   "grow": 500
+  },
+  {
+   "burst": "fume",
+   "x": 4,
+   "y": 3,
+   "count": 12
+  },
+  "The door opens. Not much. A crack. A finger's width. And through it comes a plume: yellow-brown, ancient, holding itself together the way no smell should.",
+  "pete[alarmed]: SHUT IT. SHUT IT NOW.",
+  {
+   "tutorial": "SLAM IT AND NAIL IT (the treasure-room door).",
+   "title": "The Forbidden Door"
+  }
+ ],
+ "p17c3.shut": [
+  {
+   "face": "player",
+   "dir": "left"
+  },
+  {
+   "move": "player",
+   "to": [
+    5,
+    4
+   ],
+   "speed": "run"
+  },
+  {
+   "face": "player",
+   "dir": "up"
+  },
+  "You get there over Brogath, around Pete, through the edge of the plume. Your beard catches some of it. Your beard has caught worse.",
+  {
+   "repair": "heave",
+   "strikes": 3,
+   "title": "SLAM IT!"
+  },
+  {
+   "sfx": "heavy_door",
+   "volume": 1.0
+  },
+  {
+   "shake": 3,
+   "duration": 500
+  },
+  "The door slams. The growl behind it goes on for a moment, offended, and stops.",
+  "pete: (throwing you the hammer) NAILS.",
+  {
+   "repair": "nail",
+   "strikes": 4,
+   "title": "NAIL IT!"
+  },
+  {
+   "sfx": "hammer_hit",
+   "volume": 0.8
+  },
+  {
+   "wait": 200
+  },
+  {
+   "sfx": "hammer_hit",
+   "volume": 0.8
+  },
+  "Every plank back up, and two more across them, and Pete's own sign over the lot: NOT EVEN FOR FRIENDS.",
+  {
+   "fumeCloud": "p17_crack",
+   "remove": true
+  },
+  {
+   "setValue": "treasure_room_state",
+   "value": "sealed_reinforced"
+  },
+  {
+   "setFlag": "p17_door_resealed"
+  },
+  "pete[annoyed]: (breathing hard) Sealed. Properly. Captain, WHAT was he...",
+  "Brogath isn't listening. Brogath is looking past both of you, at something in the middle of the hold.",
+  {
+   "tutorial": "Turn round (the cut-outs, by the door).",
+   "title": "The Forbidden Door"
+  }
+ ],
+ "p17c3.plume": [
+  {
+   "face": "player",
+   "dir": "down"
+  },
+  "The plume didn't go back in.",
+  "A piece of it got out before the door shut: a fist-sized knot of yellow-brown, hanging in the air over the corridor, holding itself together. It isn't drifting. It's deciding.",
+  {
+   "music": "brogath_returns",
+   "fade": 400
+  },
+  {
+   "sprite": "p17_plume",
+   "frame": "plume_0",
+   "x": 4.5,
+   "y": 4.6,
+   "anim": "plume",
+   "alpha": 0.9,
+   "depth": 56000
+  },
+  {
+   "moveSprite": "p17_plume",
+   "x": 4.5,
+   "y": 5.8,
+   "duration": 1300
+  },
+  {
+   "sfx": "reincarnation_whoosh",
+   "volume": 0.7
+  },
+  "It moves across the corridor. Slowly. And then, in the middle, it does something no smell has ever done in front of you.",
+  "It splits in two.",
+  {
+   "removeSprite": "p17_plume"
+  },
+  {
+   "sprite": "p17_plume_l",
+   "frame": "plume_0",
+   "x": 4.2,
+   "y": 5.8,
+   "anim": "plume",
+   "alpha": 0.85,
+   "depth": 56000
+  },
+  {
+   "sprite": "p17_plume_r",
+   "frame": "plume_0",
+   "x": 4.8,
+   "y": 5.8,
+   "anim": "plume",
+   "alpha": 0.85,
+   "depth": 56000
+  },
+  {
+   "parallel": [
+    [
+     {
+      "moveSprite": "p17_plume_l",
+      "x": 2.5,
+      "y": 6,
+      "duration": 1500
+     }
+    ],
+    [
+     {
+      "moveSprite": "p17_plume_r",
+      "x": 6.5,
+      "y": 6,
+      "duration": 1500
+     }
+    ]
+   ]
+  },
+  "One stream for each of them. It goes round them once, twice, like it's reading the nameplates.",
+  {
+   "vista": "reincarnation",
+   "fade": 500
+  },
+  {
+   "vistaFrame": "left",
+   "frame": "reinc_ledger_0"
+  },
+  {
+   "vistaFrame": "right",
+   "frame": "reinc_tilda_0"
+  },
+  {
+   "wait": 900
+  },
+  "And then it goes in.",
+  {
+   "sfx": "reincarnation_whoosh",
+   "volume": 0.9
+  },
+  {
+   "vistaFrame": "left",
+   "frame": "reinc_ledger_1"
+  },
+  {
+   "vistaFrame": "right",
+   "frame": "reinc_tilda_1"
+  },
+  {
+   "wait": 900
+  },
+  "The printed faces move. Ledger's bewildered crayon eyes blink. Tilda's eyebrows, all forty-one minutes of them, come DOWN.",
+  {
+   "vistaFrame": "left",
+   "frame": "reinc_ledger_2"
+  },
+  {
+   "vistaFrame": "right",
+   "frame": "reinc_tilda_2"
+  },
+  {
+   "wait": 900
+  },
+  {
+   "sfx": "cardboard_creak",
+   "volume": 0.8
+  },
+  "The flat arms unfold from the card, stiffly, at the hinge, the way Brogath's do.",
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "removeSprite": "p17_plume_l"
+  },
+  {
+   "removeSprite": "p17_plume_r"
+  },
+  {
+   "hideObject": "prop:p17_cutout_ledger_door"
+  },
+  {
+   "hideObject": "prop:p17_cutout_tilda_door"
+  },
+  {
+   "spawn": "ledger",
+   "x": 2,
+   "y": 5,
+   "facing": "down"
+  },
+  {
+   "spawn": "tilda",
+   "x": 6,
+   "y": 5,
+   "facing": "down"
+  },
+  {
+   "burst": "fume",
+   "x": 2,
+   "y": 5,
+   "count": 6
+  },
+  {
+   "burst": "fume",
+   "x": 6,
+   "y": 5,
+   "count": 6
+  },
+  {
+   "anim": "ledger",
+   "name": "wake"
+  },
+  {
+   "anim": "tilda",
+   "name": "wake"
+  },
+  {
+   "sfx": "cardboard_tap",
+   "volume": 0.8
+  },
+  {
+   "wait": 500
+  },
+  "Ledger takes a step. Rocks on his nameplate. Nearly goes over. Doesn't.",
+  {
+   "sfx": "cardboard_tap",
+   "volume": 0.8
+  },
+  {
+   "hop": "tilda",
+   "height": 3
+  },
+  "Tilda takes a step and doesn't rock at all. Of course she doesn't.",
+  {
+   "setFlag": "ledger_billiam_reincarnated"
+  },
+  {
+   "setFlag": "tilda_reincarnated"
+  },
+  {
+   "setValue": "ledger_status",
+   "value": "reincarnated_cardboard"
+  },
+  {
+   "setValue": "tilda_status",
+   "value": "reincarnated_cardboard"
+  },
+  "pete: (very quietly, holding his bucket in front of him like a shield) ...Oh, no.",
+  "brogath[delighted]: (in a voice you have never heard him use) ...Oh. Oh, YES.",
+  {
+   "completeQuest": "the_forbidden_door"
+  },
+  {
+   "call": "p17c4.begin"
+  }
+ ],
+ "p17c4.begin": [
+  {
+   "setFlag": "p17_ch209_started"
+  },
+  {
+   "banner": "CHAPTER 209",
+   "sub": "The Ancient Reunion"
+  },
+  {
+   "music": "old_crew_theme",
+   "fade": 600
+  },
+  "Two cut-outs, standing in the hold. Creaking. Looking at their own hands, then at each other, then at the hands again.",
+  {
+   "startQuest": "the_ancient_reunion"
+  },
+  {
+   "tutorial": "The one with the hat (Ledger), and the one with the eyebrows (Tilda): the hold.",
+   "title": "The Ancient Reunion"
+  }
+ ],
+ "p17c4.ledger": [
+  {
+   "face": "ledger",
+   "dir": "player"
+  },
+  "ledger[confused]: (turning his flat head to look at you, which means turning his whole self) Hello. I'm terribly sorry. Is this... is this a bank?",
+  "ledger[worried]: I was in a bed. In Port Something. It was very cold and I was very old and somebody was holding my hand and I was telling them where the books were. And then it was dark. And now it's a... cupboard.",
+  "ledger[thoughtful]: (looking down at himself) I'm flat. Am I flat? I've never been flat before. Is it a tax thing?",
+  "captain: It's... it's been a while, Mr Billiam.",
+  "ledger[confused]: How long a while?",
+  "captain: About four hundred years.",
+  "ledger[surprised]: (a long pause, then, with great seriousness) The INTEREST on that.",
+  {
+   "setFlag": "p17_ledger_woke"
+  }
+ ],
+ "p17c4.tilda": [
+  {
+   "face": "tilda",
+   "dir": "player"
+  },
+  "tilda[stern]: (arms folded, which she was printed with, so they stay folded) Who's in charge here.",
+  "captain: I am. Captain Stinkbeard.",
+  "tilda[annoyed]: (looking you up and down, slowly) No.",
+  "tilda[stern]: I died. I remember dying. I was ninety-one and I'd told the doctor what to do for six weeks and he'd done it wrong every time. And now I'm...",
+  "She looks down. She sees the coat, the boots, the crayon. She sees the nameplate. NO-NONSENSE TILDA. FIRST MATE. BROGATH, STOP.",
+  "tilda[furious]: I'm CARDBOARD.",
+  "tilda[furious]: Who did this. WHO DID THIS. Who draws a FIRST MATE on a BOX?",
+  {
+   "setFlag": "p17_tilda_woke"
+  }
+ ],
+ "p17c4.reunion": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "Brogath has been standing very still behind the door, half behind a crate, the way he stands when he doesn't want to be looked at. Tilda's question hangs in the air.",
+  "brogath[bashful]: (stepping out, very small) ...Hello, Tilda.",
+  "Tilda turns round. All of her, at once, on her nameplate.",
+  "tilda[surprised]: (a long, long pause) ...Brogath?",
+  "ledger[delighted]: BROGATH! (and then, uncertainly) Brogath, you're flat too.",
+  "brogath: I'm flat too. I've been flat for ages. I'm so sorry. I'm so sorry I died first. I left you everything to do.",
+  "ledger[sad]: (quietly) You did, rather. I kept the books. For twenty years. For nobody. I kept writing you down as an asset.",
+  "tilda[soft]: (the eyebrows doing something they have never, in four hundred years, been drawn to do) You stupid, bashful, ridiculous man. You stupid...",
+  "She stops. She can't unfold her arms. She's printed with them folded. She walks into him instead, and the three of them stand there, flat, creaking, pressed together in the middle of the hold.",
+  {
+   "choice": [
+    {
+     "text": "(Say nothing. Let them have it.)",
+     "then": [
+      "You don't say anything. Pete takes his cap off. Agnes, who has come down the stairs to see, sits down on Brogath's foot."
+     ]
+    },
+    {
+     "text": "Welcome back. Both of you.",
+     "then": [
+      "ledger[happy]: (muffled, inside the hug) Thank you, Captain. Very kind. Is there a form?"
+     ]
+    },
+    {
+     "text": "Brogath. You did it.",
+     "then": [
+      "brogath[delighted]: (very quietly) I did it. I did it, Captain. I'm sorry about the door."
+     ]
+    }
+   ]
+  },
+  {
+   "stability": "calm",
+   "id": "old_friends",
+   "quiet": true
+  },
+  {
+   "wait": 600
+  },
+  "For a little while, nobody in the hold is a joke. Four hundred years doesn't matter. It's just three old shipmates, and the lamp, and the ship going round.",
+  {
+   "wait": 800
+  },
+  {
+   "music": "brogath_theme",
+   "fade": 800
+  },
+  "ledger[thoughtful]: (letting go first, adjusting his hat, which takes some time) Now. Captain. Before anything else. Does this ship have a bank?",
+  "captain: ...It has had several.",
+  "ledger[delighted]: MARVELLOUS. I'll need an account. Two, really. One for money and one for him. (He nods at Brogath.) Opening deposit: the Sharkstorm. It's nearby. That counts.",
+  "tilda[stern]: (already marching for the stairs) Right. Ship's company: muster on deck. Barrels: where are your barrels? Who's on the wheel? WHY is it a man called Hale?",
+  "brogath[delighted]: (to you, glowing) We could do Jeb next! And Ned! Elsie would ADORE the galley...",
+  "captain: NO.",
+  "pete: (at the same time) NO.",
+  {
+   "setFlag": "old_crew_reunion_completed"
+  },
+  {
+   "joinParty": "ledger",
+   "level": "leader"
+  },
+  {
+   "joinParty": "tilda",
+   "level": "leader"
+  },
+  {
+   "setFlag": "ledger_party_unlocked"
+  },
+  {
+   "setFlag": "tilda_party_unlocked"
+  },
+  {
+   "tutorial": "Ledger Billiam and No-Nonsense Tilda have joined the party for good. They fight with their own abilities (Ledger: Accounts; Tilda: Commands) and their own resources. Look at them under Status in the menu.",
+   "title": "The Ancient Crew"
+  },
+  {
+   "completeQuest": "the_ancient_reunion"
+  },
+  {
+   "call": "p17c5.begin"
+  }
+ ]
+}

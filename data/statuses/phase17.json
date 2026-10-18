@@ -1,0 +1,73 @@
+[
+ {
+  "id": "undervalued",
+  "name": "Undervalued",
+  "kind": "debuff",
+  "duration": 3,
+  "modifiers": {
+   "attack": 0.75
+  },
+  "description": "Creative Accounting: filed as a minor expense. Attack down."
+ },
+ {
+  "id": "devalued",
+  "name": "Devalued",
+  "kind": "debuff",
+  "duration": 3,
+  "modifiers": {
+   "defense": 0.65
+  },
+  "description": "Questionable Valuation: worth MAYBE. Defense down."
+ },
+ {
+  "id": "projected",
+  "name": "Projected",
+  "kind": "buff",
+  "duration": 3,
+  "modifiers": {
+   "attack": 1.15,
+   "luck": 1.4
+  },
+  "description": "Projected Profits: Attack and Luck up."
+ },
+ {
+  "id": "staggered",
+  "name": "Staggered",
+  "kind": "debuff",
+  "duration": 1,
+  "skipsTurn": true,
+  "description": "BROGATH, STOP!: loses its next turn."
+ },
+ {
+  "id": "no_nonsense",
+  "name": "No Nonsense",
+  "kind": "buff",
+  "duration": 3,
+  "modifiers": {
+   "defense": 1.4,
+   "damageTaken": 0.85
+  },
+  "description": "No Nonsense!: Defense up, less damage."
+ },
+ {
+  "id": "held_line",
+  "name": "Holding",
+  "kind": "buff",
+  "duration": 2,
+  "modifiers": {
+   "damageTaken": 0.7
+  },
+  "description": "Hold the Line: takes less damage."
+ },
+ {
+  "id": "orders_given",
+  "name": "Under Orders",
+  "kind": "buff",
+  "duration": 3,
+  "modifiers": {
+   "attack": 1.2,
+   "speed": 1.2
+  },
+  "description": "First Mate's Orders: Attack and Speed up."
+ }
+]

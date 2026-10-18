@@ -1,6 +1,6 @@
 {
  "brogath": {
-  "//": "Story Phase 14: Brogath the Bashful, an Ancient Grand Stenchmaster inside a cardboard cut-out. He becomes dangerous by being EMBARRASSED (flutter, being reminded he's cardboard or dead, apologising, failing at machinery, being laughed at, smelling); confidence calms him (praise, reframing an accident as intentional, 'distinguished', agreeing it was a toot, 'ceremonial', a harmless important job, safe television). ANGRY is a separate, scripted state (the Anger Waft). The meter is BASHFULNESS (WRATH when angry). Story Phase 15: MELLOW is a third kind of state, read from the ship's atmosphere (the Great Mellowing): while the air is MELLOW_HAZE every rise in pressure counts for an eighth, so a sash can flutter in front of him and he only finds it interesting. Wrath (ANGRY) still wins over it. Story Phase 16: RECOVERING (recoverFlag brogath_recovering, set by scripts after a big release): his rises count half as much until a script lets him out of it; triggers for Agnes the Second (clucking, frantic flapping), for being blamed, and for 'Is that all?'; calms for the chicken just chickening, the Fart Zone procedure and a good swarm; prompt sets for the near-miss and the Hornet Fart.",
+  "//": "Story Phase 14: Brogath the Bashful, an Ancient Grand Stenchmaster inside a cardboard cut-out. He becomes dangerous by being EMBARRASSED (flutter, being reminded he's cardboard or dead, apologising, failing at machinery, being laughed at, smelling); confidence calms him (praise, reframing an accident as intentional, 'distinguished', agreeing it was a toot, 'ceremonial', a harmless important job, safe television). ANGRY is a separate, scripted state (the Anger Waft). The meter is BASHFULNESS (WRATH when angry). Story Phase 15: MELLOW is a third kind of state, read from the ship's atmosphere (the Great Mellowing): while the air is MELLOW_HAZE every rise in pressure counts for an eighth, so a sash can flutter in front of him and he only finds it interesting. Wrath (ANGRY) still wins over it. Story Phase 16: RECOVERING (recoverFlag brogath_recovering, set by scripts after a big release): his rises count half as much until a script lets him out of it; triggers for Agnes the Second (clucking, frantic flapping), for being blamed, and for 'Is that all?'; calms for the chicken just chickening, the Fart Zone procedure and a good swarm; prompt sets for the near-miss and the Hornet Fart. Story Phase 17: a release can be PENDING (pendingValue brogath_pending, countdownVar coffin_sock_countdown): the meter shows COFFIN SOCK EVENT, PENDING, and the countdown (chapters 220-222). Triggers for the old crew's memories, accusations, the Princess Stenchalina rant, the beard's Coffin Sock notes, the Grand Restraint and a cigarette nearby; calms for his old friends, being listened to, the crew calming him, and holding his sash; prompt sets for the old crew and the Grand Restraint.",
   "name": "BROGATH",
   "label": "BASHFULNESS",
   "angryLabel": "WRATH",
@@ -256,6 +256,33 @@
    "hornet_praise_none": {
     "pressure": 8,
     "line": "brogath[confused]: Nobody's saying anything. Is the swarm not good? I thought it was a good swarm."
+   },
+   "old_crew_memory": {
+    "pressure": 8,
+    "line": "brogath: (very quietly) They'd have liked you, Captain. Tilda would have shouted at you. That's how you knew."
+   },
+   "accused": {
+    "pressure": 14,
+    "line": "brogath[mortified]: (shrinking) Everyone's SHOUTING. Is it me? Is it about me?"
+   },
+   "stenchalina_rant": {
+    "pressure": 18,
+    "sfx": "brogath_rumble_big",
+    "line": "brogath[mortified]: (bowing out at the middle) Captain, please, the Princess is a very sad story and you're doing it LOUDLY."
+   },
+   "beard_notes": {
+    "pressure": 12,
+    "sfx": "brogath_rumble_small",
+    "line": "brogath[thoughtful]: (sniffing the air near your beard) ...Coffin Sock. With notes. Oh. Oh, that's stirring something."
+   },
+   "restraint": {
+    "pressure": 16,
+    "sfx": "pressure_build",
+    "line": "brogath[loaded]: (bowing out, his seams puffing brown) Restraining. Grandly. It's all going very well."
+   },
+   "fire_risk": {
+    "pressure": 10,
+    "line": "brogath[alarmed]: Is that a CIGARETTE? Near me? While I'm RESTRAINING?"
    }
   },
   "calms": {
@@ -397,6 +424,22 @@
    "useful": {
     "pressure": -15,
     "line": "brogath[delighted]: Useful! I was USEFUL!"
+   },
+   "old_friends": {
+    "pressure": -14,
+    "line": "brogath[delighted]: (between Ledger and Tilda, both arms round them, all three creaking) My crew. My actual crew."
+   },
+   "listened": {
+    "pressure": -10,
+    "line": "brogath[pleased]: (a long breath) Thank you for listening, Captain. Nobody's asked about them in four hundred years."
+   },
+   "crew_calming": {
+    "pressure": -8,
+    "line": "brogath[bashful]: (Tilda's hand on one shoulder, Ledger's on the other) In for four. Out for four. I'm doing it, Tilda."
+   },
+   "restraint_hold": {
+    "pressure": -6,
+    "line": "brogath[proud]: (holding his sash) Restraint. GRAND restraint. Look at me restraining."
    }
   },
   "prompts": {
@@ -830,6 +873,49 @@
       "trigger": "hornet_praise_none"
      }
     ]
+   },
+   "old_crew": {
+    "show": 3,
+    "options": [
+     {
+      "text": "Tell me about them. Properly.",
+      "calm": "listened"
+     },
+     {
+      "text": "They sound like they were good friends.",
+      "calm": "family"
+     },
+     {
+      "text": "You were a very good captain to them. I can tell.",
+      "calm": "praise"
+     },
+     {
+      "text": "They've been dead for centuries, Brogath.",
+      "trigger": "reminded_dead"
+     }
+    ]
+   },
+   "restraint": {
+    "show": 3,
+    "options": [
+     {
+      "text": "Slow breaths. Hold the sash. Grand restraint.",
+      "calm": "restraint_hold"
+     },
+     {
+      "text": "You're doing brilliantly. Distinguished, even.",
+      "calm": "distinguished"
+     },
+     {
+      "text": "The procedure's the procedure. You like a procedure.",
+      "calm": "zone_procedure"
+     },
+     {
+      "text": "Is that ALL?",
+      "trigger": "is_that_all",
+      "reply": "tilda[furious]: RULE NINE, Captain. Even I know rule nine."
+     }
+    ]
    }
   },
   "incidents": {
@@ -916,6 +1002,16 @@
   "mellowLabel": "MELLOW",
   "recoverFlag": "brogath_recovering",
   "recoverLabel": "RECOVERING",
-  "recoverScale": 0.5
+  "recoverScale": 0.5,
+  "pendingValue": "brogath_pending",
+  "countdownVar": "coffin_sock_countdown",
+  "pending": {
+   "COFFIN_SOCK": {
+    "label": "COFFIN SOCK EVENT",
+    "word": "PENDING",
+    "countdownLabel": "BREWING: {n}",
+    "imminentLabel": "IMMINENT"
+   }
+  }
  }
 }

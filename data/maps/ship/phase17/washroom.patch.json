@@ -1,0 +1,248 @@
+{
+ "id": "washroom_phase17",
+ "patch": "washroom",
+ "//": "Story Phase 17 in the washroom: the little mirror over the basin (2,4), the razor, and a joke about shaving (220). The beard stays.",
+ "objects": [
+  {
+   "id": "p17_shave",
+   "type": "inspect",
+   "x": 2,
+   "y": 4,
+   "if": {
+    "objectiveActive": "beard_exhales.shave"
+   },
+   "script": "p17c15.shave"
+  },
+  {
+   "id": "p17w_pete_0",
+   "type": "npc",
+   "npc": "pete",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17w_gristle_0",
+   "type": "npc",
+   "npc": "gristle",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17w_bob_0",
+   "type": "npc",
+   "npc": "bob",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17w_jim_0",
+   "type": "npc",
+   "npc": "jim",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17w_ned_0",
+   "type": "npc",
+   "npc": "ned",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17w_squawks_0",
+   "type": "npc",
+   "npc": "squawks",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17w_garrick_0",
+   "type": "npc",
+   "npc": "garrick",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17w_brogath_0",
+   "type": "npc",
+   "npc": "brogath",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17w_visitor_one_0",
+   "type": "npc",
+   "npc": "visitor_one",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17w_visitor_two_0",
+   "type": "npc",
+   "npc": "visitor_two",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17w_agnes_second_0",
+   "type": "npc",
+   "npc": "agnes_second",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17w_bankworth_0",
+   "type": "npc",
+   "npc": "bankworth",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17w_ledger_0",
+   "type": "npc",
+   "npc": "ledger",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17w_tilda_0",
+   "type": "npc",
+   "npc": "tilda",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17w_thunderbottom_0",
+   "type": "npc",
+   "npc": "thunderbottom",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17w_bureau_puffington_0",
+   "type": "npc",
+   "npc": "bureau_puffington",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17w_vindicta_0",
+   "type": "npc",
+   "npc": "vindicta",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17w_puffchester_0",
+   "type": "npc",
+   "npc": "puffchester",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17w_rancidella_0",
+   "type": "npc",
+   "npc": "rancidella",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17w_branch_teller_0",
+   "type": "npc",
+   "npc": "branch_teller",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  },
+  {
+   "id": "p17w_whifflebottom_0",
+   "type": "npc",
+   "npc": "whifflebottom",
+   "x": 1,
+   "y": 1,
+   "absent": true,
+   "if": {
+    "flag": "p17_started"
+   }
+  }
+ ]
+}

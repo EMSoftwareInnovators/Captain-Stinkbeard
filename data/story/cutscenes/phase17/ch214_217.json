@@ -1,0 +1,1306 @@
+{
+ "//": "Story Phase 17, chapters 214-217: Captain Minutes, Meet the New Dead Idiots!, The Grand Restraint, The Fire-Sharkstorm.",
+ "p17c9.begin": [
+  {
+   "setFlag": "p17_ch214_started"
+  },
+  {
+   "banner": "CHAPTER 214",
+   "sub": "Captain Minutes"
+  },
+  "Ledger has been crawling about the floor of the old quarters all morning with his quill behind his ear. He has found, under the bunks, one (1) Grand Token.",
+  {
+   "startQuest": "captain_minutes"
+  },
+  {
+   "tutorial": "Ledger's found a token (Ledger, the old quarters).",
+   "title": "Captain Minutes"
+  }
+ ],
+ "p17c9.token": [
+  {
+   "face": "ledger",
+   "dir": "player"
+  },
+  "ledger[delighted]: (holding it up to the lamp) Captain! Grand Currency! Hard money! Well. Hard plastic. What's it WORTH?",
+  "captain: Nothing. It's worth nothing. Put it down.",
+  "ledger[thoughtful]: Everything's worth something, Captain. That's the first rule of accounting. The second rule is to find out what. (looking past you) Oh, look. A machine.",
+  "You turn round. The Grand Currency Converter, by the mast: purple, fake gold trim, three slots, the brass horn. INPUT GRAND CURRENCY. OUTPUT CONVERTED ASSET. And under that, your own notice, nailed up after Lady Rancidella.",
+  "ledger[delighted]: It CONVERTS! It'll tell me what it's worth!",
+  {
+   "setVar": "ledger_tokens",
+   "value": 1
+  },
+  {
+   "setFlag": "p17_ledger_token"
+  },
+  {
+   "tutorial": "STOP HIM (the converter, by the mast).",
+   "title": "Captain Minutes"
+  }
+ ],
+ "p17c9.stop": [
+  "captain: LEDGER. DON'T...",
+  "You're two steps away. Ledger is flat. Flat things move fast when they want to.",
+  {
+   "sfx": "coin_drop",
+   "volume": 0.8
+  },
+  "Clink.",
+  {
+   "currencyConverter": "converter",
+   "from": "ledger_tokens",
+   "amount": 1
+  },
+  {
+   "sfx": "converter_whir",
+   "volume": 0.9
+  },
+  {
+   "wait": 500
+  },
+  "The converter hums. The brass horn swings round, very slowly, very precisely, until it's pointing at your face.",
+  "ledger[happy]: (reading the dial) CONVERTING...",
+  {
+   "setVar": "captain_minutes",
+   "value": 0
+  },
+  {
+   "sfx": "converter_blast",
+   "volume": 0.7
+  },
+  {
+   "shake": 1,
+   "duration": 500
+  },
+  {
+   "insert": "converter_clock_0"
+  },
+  "It starts.",
+  "It is Coffin Sock. It is concentrated Coffin Sock, delivered at the speed of a conversion, directly into the face that's closest to the horn, which is yours.",
+  {
+   "beard": "add",
+   "tag": "COFFIN_SOCK",
+   "quiet": true
+  },
+  {
+   "choice": [
+    {
+     "text": "(Cover the horn with your hat.)",
+     "then": [
+      "Your hat goes straight up into the rigging. The horn keeps going."
+     ]
+    },
+    {
+     "text": "(Hold your breath.)",
+     "then": [
+      "You hold your breath. You are a sea captain. You can hold your breath for a very long time. Not this long."
+     ]
+    }
+   ]
+  },
+  {
+   "addVar": "captain_minutes",
+   "value": 1
+  },
+  {
+   "sfx": "converter_blast",
+   "volume": 0.7
+  },
+  {
+   "shake": 1,
+   "duration": 500
+  },
+  {
+   "insert": "converter_clock_1"
+  },
+  "ONE MINUTE.",
+  "ledger[thoughtful]: (writing, a safe distance away) Output... steady. Excellent. A very STABLE asset.",
+  {
+   "choice": [
+    {
+     "text": "(Find the off switch.)",
+     "then": [
+      "There isn't one. There's a little brass plate where one might go, engraved: THANK YOU FOR CONVERTING."
+     ]
+    },
+    {
+     "text": "LEDGER. HOW DO YOU STOP IT.",
+     "then": [
+      "ledger[confused]: Stop it? Captain, it's PAYING OUT."
+     ]
+    }
+   ]
+  },
+  {
+   "addVar": "captain_minutes",
+   "value": 1
+  },
+  {
+   "sfx": "converter_blast",
+   "volume": 0.7
+  },
+  {
+   "shake": 1,
+   "duration": 500
+  },
+  {
+   "insert": "converter_clock_3"
+  },
+  "THREE MINUTES.",
+  "Pete has come in, taken one look, and gone out again. You can hear him outside the door, saying something about rule twenty-four to nobody.",
+  "brogath[thoughtful]: (from his canopy, sniffing, interested) That's Coffin Sock. That's MINE. Is that mine?",
+  {
+   "choice": [
+    {
+     "text": "(Get behind the mast.)",
+     "then": [
+      "The horn follows you. It's very well made. For this one thing."
+     ]
+    },
+    {
+     "text": "(Sit down. Accept it.)",
+     "then": [
+      "You sit down. The horn tilts down to follow. Of course it does."
+     ]
+    }
+   ]
+  },
+  {
+   "addVar": "captain_minutes",
+   "value": 1
+  },
+  {
+   "sfx": "converter_blast",
+   "volume": 0.7
+  },
+  {
+   "shake": 1,
+   "duration": 500
+  },
+  {
+   "insert": "converter_clock_4"
+  },
+  "FOUR MINUTES.",
+  "ledger[delighted]: (scribbling furiously) Captain, I've got it. I've GOT it. I know what it's worth. I'm inventing a UNIT.",
+  {
+   "choice": [
+    {
+     "text": "(Glare at Ledger.)",
+     "then": [
+      "ledger[happy]: (not looking up) Glaring noted! That's worth something too!"
+     ]
+    },
+    {
+     "text": "(Say nothing. Endure.)",
+     "then": [
+      "You endure. You have endured Garrick, the treasure room, the Sharkstorm and Vindicta. You can endure one more minute of this. You are wrong about that, but only by a bit."
+     ]
+    }
+   ]
+  },
+  {
+   "addVar": "captain_minutes",
+   "value": 1
+  },
+  {
+   "sfx": "converter_blast",
+   "volume": 1.0
+  },
+  {
+   "shake": 3,
+   "duration": 900
+  },
+  {
+   "flash": "#b8a070",
+   "duration": 300
+  },
+  "THE FINAL BLAST. The horn gives everything it's got left in one go, and your beard goes straight back like a sail in a gale, and then...",
+  {
+   "sfx": "converter_stop",
+   "volume": 0.8
+  },
+  "...it stops. A little bell rings. A receipt curls out of the slot.",
+  {
+   "insert": "converter_receipt_captain_minutes"
+  },
+  "ledger[delighted]: (holding up his ledger, glowing) FIVE CAPTAIN MINUTES!",
+  "captain: (very quietly, from inside the beard) ...Five what.",
+  "ledger[proud]: CAPTAIN MINUTES, Captain! A unit of value! I've measured it! One Grand Token buys one failed purchase, one failed purchase is five Captain Minutes, and five Captain Minutes is one atmospheric asset, delivered!",
+  {
+   "insert": "captain_minutes_rate"
+  },
+  "ledger[happy]: It's the first stable currency this ship has ever had. It's backed by you, Captain. By your SUFFERING. It'll never lose value.",
+  {
+   "setFlag": "ledger_converter_incident_complete"
+  },
+  {
+   "tutorial": "Ban conversions (the converter).",
+   "title": "Captain Minutes"
+  }
+ ],
+ "p17c9.ban": [
+  "You take the notice off the converter. You turn it over. You write on the back, very hard, so the nib goes through:",
+  {
+   "insert": "converter_banned"
+  },
+  "NO CONVERSIONS. NONE. EVER. BY ORDER OF THE CAPTAIN (5 MINUTES).",
+  "You nail it up over the input slot. Then you nail another plank over the notice. Then you take the token tray out and drop it in your coat.",
+  {
+   "setFlag": "p17_conversions_banned"
+  },
+  {
+   "setValue": "converter_state",
+   "value": "banned"
+  },
+  "ledger[sad]: (clutching his ledger to his chest) But my research...",
+  {
+   "tutorial": "Ledger's research (Ledger).",
+   "title": "Captain Minutes"
+  }
+ ],
+ "p17c9.research": [
+  {
+   "face": "ledger",
+   "dir": "player"
+  },
+  "ledger[worried]: (very fast) Captain, I've copied it all out. Neatly. In case of fire. In case of YOU. Please let me keep the research. Five Captain Minutes is a CORNERSTONE.",
+  {
+   "choice": [
+    {
+     "text": "Keep it. Never use it.",
+     "then": [
+      "ledger[delighted]: Never! Except in emergencies! Financial ones!"
+     ]
+    },
+    {
+     "text": "Give it here.",
+     "then": [
+      "He gives you a copy. He has, of course, kept the original. He has kept three originals."
+     ]
+    }
+   ]
+  },
+  {
+   "if": {
+    "notFlag": "p17_research_given"
+   },
+   "then": [
+    {
+     "giveItem": "ledger_research"
+    },
+    {
+     "setFlag": "p17_research_given"
+    }
+   ]
+  },
+  {
+   "setFlag": "captain_minutes_invented"
+  },
+  {
+   "learnAbility": "captain_minutes",
+   "character": "ledger"
+  },
+  "ledger[proud]: (to the room) The CAPTAIN MINUTE! You heard it here first. I'll be paying people in it. In battle! It's very motivating!",
+  {
+   "tutorial": "Ledger has a new Account: CAPTAIN MINUTES (heals the party and adds to everybody's resource). It is not money: it never touches your purse.",
+   "title": "Captain Minutes"
+  },
+  {
+   "completeQuest": "captain_minutes"
+  },
+  {
+   "call": "p17c10.begin"
+  }
+ ],
+ "p17c10.begin": [
+  {
+   "setFlag": "p17_ch215_started"
+  },
+  {
+   "banner": "CHAPTER 215",
+   "sub": "Meet the New Dead Idiots!"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 40
+  },
+  "That night, very late, the Mark II comes on in the galley. Not the Stenchmaster Channel. A drum roll. A brass fanfare played by something that has never had hands.",
+  {
+   "sfx": "talkshow_sting",
+   "volume": 0.7
+  },
+  {
+   "startQuest": "new_dead_idiots"
+  },
+  {
+   "tutorial": "The Mark II (the galley).",
+   "title": "Meet the New Dead Idiots!"
+  }
+ ],
+ "p17c10.set": [
+  "On the screen: a stage built entirely out of treasure chests. A curtain of gold coins. Rows and rows of sharks in little seats.",
+  "visitor_two: (already sitting in front of it, with a bowl) BRO. Bro. It's the KING. He's got a SHOW.",
+  "visitor_one: (beside him, holding a ladle like a microphone) Shh, man. It's starting.",
+  {
+   "setFlag": "p17_special_on"
+  },
+  {
+   "tutorial": "THE BLING BLING KING'S LATE-NIGHT SHARKSTORM SPECIAL (the Mark II, the galley).",
+   "title": "Meet the New Dead Idiots!"
+  }
+ ],
+ "p17c10.watch": [
+  {
+   "music": "late_night_bling",
+   "fade": 300
+  },
+  {
+   "vista": "galley_watch",
+   "fade": 500
+  },
+  {
+   "channelEpisode": "new_dead_idiots",
+   "program": "bbk_sharkstorm_special",
+   "tv": "ses_mk2"
+  },
+  {
+   "vistaEnd": true,
+   "fade": 500
+  },
+  "The screen goes to a test card. On the test card is the Bling Bling King's face, winking. Then the set switches itself off.",
+  "Behind you, in the galley doorway, the whole crew is standing very still, not laughing, in the way people don't laugh when they very much want to.",
+  "tilda[furious]: (eventually) HE called ME 'ma'am'.",
+  "ledger[delighted]: (eventually) He used my MAYBE column! On television! I'm PUBLISHED!",
+  "brogath[mortified]: (eventually, from under the table) Everybody in the Sharkstorm saw my bottom-half colouring.",
+  {
+   "setFlag": "bbk_late_night_special_viewed"
+  },
+  {
+   "completeQuest": "new_dead_idiots"
+  },
+  {
+   "call": "p17c11.begin"
+  }
+ ],
+ "p17c10.interrupt_1": [
+  {
+   "choice": [
+    {
+     "text": "(Switch it off.)",
+     "then": [
+      "You turn the knob. The picture shrinks to a dot, the dot stays there for a moment, considering, and then the picture comes back BIGGER.",
+      "bbk_special: (on screen, without looking round) And there's the captain, trying to switch us off. Give him a hand, folks!",
+      {
+       "sfx": "ftm_laugh",
+       "volume": 0.8
+      }
+     ]
+    },
+    {
+     "text": "(Throw a sash over it.)",
+     "then": [
+      "You throw a sash over the set. On the screen, a sash falls over the camera. The audience applauds the sash."
+     ]
+    },
+    {
+     "text": "(Watch.)",
+     "then": [
+      "You watch. You don't want to. You do."
+     ]
+    }
+   ]
+  }
+ ],
+ "p17c10.interrupt_2": [
+  {
+   "choice": [
+    {
+     "text": "THAT IS NOT MY SUFFERING. THAT IS MY FACE.",
+     "then": [
+      "bbk_special: (cupping an ear) He says it's his FACE, folks.",
+      {
+       "sfx": "ftm_laugh",
+       "volume": 0.9
+      },
+      "shark_audience: (as one) AWWWWW."
+     ]
+    },
+    {
+     "text": "(Unplug it.)",
+     "then": [
+      "It isn't plugged in. It's never been plugged in. It's a possessed television inside a Sharkstorm."
+     ]
+    },
+    {
+     "text": "(Hide behind the table.)",
+     "then": [
+      "Brogath is already under the table. He makes room for you. It's nice under the table."
+     ]
+    }
+   ]
+  }
+ ],
+ "p17c10.correspondents": [
+  "visitor_one: (into his ladle, very seriously) This is Correspondent One, reporting live from... from the galley, man. The galley of the ship that's on the TV.",
+  "visitor_two: (into a spoon) Correspondent Two! I can confirm the chicken! The chicken is REAL! I've MET the chicken!",
+  "On the screen, impossibly, a little picture of the two of them appears in the corner, waving.",
+  "bbk_special: (delighted) Our correspondents, folks! Embedded! Deeply embedded!"
+ ],
+ "p17c11.begin": [
+  {
+   "setFlag": "p17_ch216_started"
+  },
+  {
+   "banner": "CHAPTER 216",
+   "sub": "The Grand Restraint"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 0
+  },
+  "The next day. You'd almost let yourself believe she'd forgotten.",
+  {
+   "startQuest": "grand_restraint"
+  },
+  {
+   "tutorial": "Tilda, with her permit (Tilda, in the galley).",
+   "title": "The Grand Restraint"
+  }
+ ],
+ "p17c11.permit": [
+  {
+   "face": "tilda",
+   "dir": "player"
+  },
+  "tilda[determined]: (laying it on the table, smoothing it flat, which is easy, because so is she) My permit, Captain. Approved. Ninety-seven pages. Preferred provider: Brogath the Bashful.",
+  "She doesn't need another one. It's the same permit. The same signatures: her hard straight one, yours, his tiny bashful one with the crown.",
+  "tilda[stern]: I'd like it done today.",
+  {
+   "setFlag": "p17_permit_produced"
+  },
+  {
+   "tutorial": "Make your points (Tilda). Three of them.",
+   "title": "The Grand Restraint"
+  }
+ ],
+ "p17c11.points": [
+  {
+   "face": "tilda",
+   "dir": "player"
+  },
+  {
+   "choice": [
+    {
+     "text": "You have no lungs.",
+     "if": {
+      "notFlag": "p17_point_lungs"
+     },
+     "then": [
+      "tilda[stern]: Neither did my pipe. It still went.",
+      {
+       "setFlag": "p17_point_lungs"
+      },
+      {
+       "event": "p17_point"
+      }
+     ]
+    },
+    {
+     "text": "You are made of CARDBOARD.",
+     "if": {
+      "notFlag": "p17_point_card"
+     },
+     "then": [
+      "tilda[annoyed]: I am made of first mate. The cardboard is just what I'm in.",
+      {
+       "setFlag": "p17_point_card"
+      },
+      {
+       "event": "p17_point"
+      }
+     ]
+    },
+    {
+     "text": "You are FLAMMABLE. It's on page four.",
+     "if": {
+      "notFlag": "p17_point_fire"
+     },
+     "then": [
+      "tilda[stern]: I'll stand back.",
+      "captain: How far back?",
+      "tilda[annoyed]: ...Further back.",
+      {
+       "setFlag": "p17_point_fire"
+      },
+      {
+       "event": "p17_point"
+      }
+     ]
+    },
+    {
+     "text": "You've been warned about Brogath. By everyone. In writing.",
+     "if": {
+      "notFlag": "p17_point_warned"
+     },
+     "then": [
+      "tilda[smug]: I've been warned about Brogath for four hundred years. I wrote half the warnings.",
+      {
+       "setFlag": "p17_point_warned"
+      },
+      {
+       "event": "p17_point"
+      }
+     ]
+    },
+    {
+     "text": "There's a perfectly good lighter. In my coat.",
+     "if": {
+      "notFlag": "p17_point_lighter"
+     },
+     "then": [
+      {
+       "lighter": "grand_smokes",
+       "attempts": 1,
+       "quiet": true
+      },
+      "Click. Nothing.",
+      "tilda[annoyed]: 'Perfectly'.",
+      {
+       "setFlag": "p17_point_lighter"
+      },
+      {
+       "event": "p17_point"
+      }
+     ]
+    },
+    {
+     "text": "(Later.)"
+    }
+   ]
+  }
+ ],
+ "p17c11.points_done": [
+  {
+   "setFlag": "p17_points_said"
+  },
+  "tilda[soft]: (after a long time, quietly, so that only you can hear) Stinkbeard. I came back four hundred years late into a box with my name on it and BROGATH, STOP written under my feet. Everybody I knew is dead except two idiots and a chicken.",
+  "tilda[soft]: The old ritual's comforting. That's all. I want to do one familiar thing. With him. Once.",
+  "You open your mouth to say no. What comes out is:",
+  "captain: ...Conditions.",
+  {
+   "setFlag": "tilda_admits_comfort"
+  },
+  {
+   "tutorial": "The safety conditions (Tilda).",
+   "title": "The Grand Restraint"
+  }
+ ],
+ "p17c11.conditions": [
+  {
+   "face": "tilda",
+   "dir": "player"
+  },
+  "captain: One. It happens in the Stenchmaster Fart Zone. Nowhere else. No improvising in the sleeping quarters.",
+  "tilda[stern]: Agreed.",
+  "captain: Two. Portholes open. Three. Agnes is nowhere near it: the Fart-Free Zone, with the door shut. Four. Pete stands by with a bucket. Five. You stand BEHIND the rope.",
+  "tilda[annoyed]: ...Agreed. (a pause) Four is a good one. Pete's very good with a bucket.",
+  "pete: (from the doorway, instantly, holding it up) Bucket.",
+  {
+   "setFlag": "p17_safety_conditions"
+  },
+  {
+   "tutorial": "Get ready: open the Fart Zone's portholes, take Agnes to the Fart-Free Zone, and get Pete's bucket in place.",
+   "title": "The Grand Restraint"
+  }
+ ],
+ "p17c11.prep_portholes": [
+  {
+   "fartZone": "portholes",
+   "value": "open"
+  },
+  {
+   "sfx": "porthole_creak",
+   "volume": 0.8
+  },
+  "All three portholes, open to the sea and the Sharkstorm going round outside them.",
+  {
+   "setFlag": "p17_prep_portholes"
+  },
+  {
+   "event": "p17_prep"
+  }
+ ],
+ "p17c11.prep_agnes": [
+  {
+   "sfx": "hen_cluck",
+   "volume": 0.6
+  },
+  "You pick Agnes up. She lets you. You carry her down through the galley and the hold to the Fart-Free Zone and put her on the visitors' cushion, and shut the door on her, gently.",
+  "agnes_second[curious]: (through the door) Bawk.",
+  "captain: (through the door, before you can stop yourself) It's for your own good. Operationally.",
+  {
+   "setFlag": "p17_prep_agnes"
+  },
+  {
+   "event": "p17_prep"
+  }
+ ],
+ "p17c11.prep_bucket": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "pete: (with a bucket, two buckets, a wet sail over one shoulder) Behind the rope, by the door, Captain. If anything catches, I'm there.",
+  {
+   "setFlag": "p17_prep_bucket"
+  },
+  {
+   "event": "p17_prep"
+  }
+ ],
+ "p17c11.prep_done": [
+  {
+   "setFlag": "p17_prep_said"
+  },
+  "Ready. Portholes open. Agnes in the Fart-Free Zone. Pete by the door with his buckets. Ledger on the bench, quill out. Tilda behind the rope, permit in one hand and an unlit cigarette in the other.",
+  "brogath[bashful]: (in the release circle, very small) Captain? I've been working on something. Special. For today.",
+  {
+   "tutorial": "THE GRAND STENCHMASTER'S GRAND RESTRAINT (behind the rope, the Fart Zone).",
+   "title": "The Grand Restraint"
+  }
+ ],
+ "p17c11.restraint": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  {
+   "setFlag": "tilda_grand_restraint_started"
+  },
+  {
+   "music": "launch_buildup",
+   "fade": 400
+  },
+  {
+   "stability": "meter",
+   "show": "show"
+  },
+  "brogath[proud]: (standing very straight, his sash held in both hands) THE GRAND STENCHMASTER'S GRAND RESTRAINT. A technique. I've been practising. You take all of it and you just... hold it. Compressed. Controlled. And then you let out only a tiny, ceremonial, beautifully restrained...",
+  "captain: You've been practising since WHEN?",
+  "brogath[bashful]: Since breakfast.",
+  "ledger[happy]: (writing) CONDITIONS: Breezy. Portholes: open. Mood: hopeful.",
+  "tilda[determined]: (holding the cigarette out at the very full length of a flat cardboard arm) Whenever you're ready, Brogath.",
+  {
+   "stability": "set",
+   "pressure": 30
+  },
+  {
+   "insert": "restraint_panel_1"
+  },
+  {
+   "stability": "trigger",
+   "id": "restraint",
+   "quiet": true
+  },
+  "The readings: STABILITY falling. PRESSURE rising. SASH: fluttering at one corner. TILDA: at the rope. PORTHOLES: open. FIRE RISK: a cigarette, unlit. CHICKEN: far away (Fart-Free Zone).",
+  {
+   "choice": [
+    {
+     "text": "(Hold his sash still.)",
+     "then": [
+      {
+       "repair": "grip",
+       "strikes": 3,
+       "title": "HOLD THE SASH"
+      },
+      "The flutter stops. Brogath gives you a grateful creak.",
+      {
+       "addVar": "restraint_precautions",
+       "value": 1
+      },
+      {
+       "setFlag": "p17_prec_sash"
+      }
+     ]
+    },
+    {
+     "text": "(Wedge the portholes wider.)",
+     "then": [
+      {
+       "sfx": "porthole_creak",
+       "volume": 0.8
+      },
+      "A sea-wind comes through, steady. Whatever happens next has somewhere to go.",
+      {
+       "addVar": "restraint_precautions",
+       "value": 1
+      },
+      {
+       "setFlag": "p17_prec_ports"
+      }
+     ]
+    },
+    {
+     "text": "Is that ALL?",
+     "then": [
+      "tilda[furious]: RULE NINE, Captain. Even I know rule nine.",
+      {
+       "stability": "trigger",
+       "id": "is_that_all",
+       "quiet": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "stability": "set",
+   "pressure": 55
+  },
+  {
+   "insert": "restraint_panel_2"
+  },
+  {
+   "stability": "trigger",
+   "id": "restraint",
+   "quiet": true
+  },
+  "His middle is bowing out. Brown-grey fume is leaking out at the seams of the card, little puffs, at the hinges of his arms. It smells of a sock in a coffin.",
+  "brogath[loaded]: (strained) Restraining. GRANDLY. It's all going very well.",
+  {
+   "choice": [
+    {
+     "text": "(Move Tilda back. Further. Further than that.)",
+     "then": [
+      "tilda[annoyed]: (being moved, on her nameplate, like a chess piece) This is undignified.",
+      "captain: You're flammable.",
+      "She allows it.",
+      {
+       "addVar": "restraint_precautions",
+       "value": 1
+      },
+      {
+       "setFlag": "p17_prec_tilda"
+      }
+     ]
+    },
+    {
+     "text": "(Pete, bucket ready.)",
+     "then": [
+      "pete: (lifting it) Ready. Been ready since Chapter... since this morning.",
+      {
+       "addVar": "restraint_precautions",
+       "value": 1
+      },
+      {
+       "setFlag": "p17_prec_bucket"
+      }
+     ]
+    },
+    {
+     "text": "(Talk him through it.)",
+     "then": [
+      {
+       "reassure": "restraint"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "stability": "set",
+   "pressure": 80
+  },
+  {
+   "insert": "restraint_panel_3"
+  },
+  "STABILITY: critical. PRESSURE: very high. SASH: everywhere. FIRE RISK: (Tilda has, very quietly, held the cigarette a little closer.)",
+  "brogath[loaded]: (bowing out like a sail, his voice coming from somewhere much lower than usual) Tilda... nearly... nearly... a tiny one... a ceremonial...",
+  "Everything is, for one long second, completely under control.",
+  "And then a shark hits the ship.",
+  {
+   "call": "p17c12.begin"
+  }
+ ],
+ "p17c12.begin": [
+  {
+   "setFlag": "p17_ch217_started"
+  },
+  {
+   "banner": "CHAPTER 217",
+   "sub": "The Fire-Sharkstorm"
+  },
+  {
+   "sfx": "shark_collision",
+   "volume": 1.0
+  },
+  {
+   "shake": 4,
+   "duration": 900
+  },
+  {
+   "flash": "#ffffff",
+   "duration": 120
+  },
+  "A great white, going round with the storm, misjudges the corner and hits the Revenge broadside, right outside the Fart Zone.",
+  "The whole hull lurches. Everything not nailed down leaves the floor. Most of the things in the room that are not nailed down are made of cardboard.",
+  {
+   "sfx": "cardboard_spin",
+   "volume": 0.9
+  },
+  {
+   "parallel": [
+    [
+     {
+      "fly": "ledger",
+      "to": [
+       12,
+       5
+      ],
+      "duration": 900,
+      "arc": 30,
+      "spin": 3
+     }
+    ],
+    [
+     {
+      "fly": "tilda",
+      "to": [
+       4,
+       7
+      ],
+      "duration": 1000,
+      "arc": 34,
+      "spin": 3
+     }
+    ],
+    [
+     {
+      "fly": "brogath",
+      "to": [
+       9,
+       5
+      ],
+      "duration": 800,
+      "arc": 26,
+      "spin": 2
+     }
+    ]
+   ]
+  },
+  "Ledger, Tilda and Brogath go spinning across the room like three playing cards thrown at a hat.",
+  "Brogath lands on his edge. His restraint does not.",
+  {
+   "sfx": "firewaft_build",
+   "volume": 0.9
+  },
+  {
+   "shake": 2,
+   "duration": 700
+  },
+  "brogath[mortified]: (mid-air, mid-spin, mid-everything) ...OH NO.",
+  {
+   "fartZone": "release",
+   "release": "tilda_fire_waft"
+  },
+  {
+   "sfx": "firewaft_release",
+   "volume": 1.0
+  },
+  {
+   "flash": "#e8783a",
+   "duration": 400
+  },
+  {
+   "shake": 4,
+   "duration": 1200
+  },
+  {
+   "atmosphere": "FIRE_WAFT",
+   "room": "stenchmaster_fart_zone"
+  },
+  "The Fire-Waft. Not a tiny one. Not a ceremonial one. The real one: orange and roaring, straight out of all three portholes at once, and up.",
+  {
+   "sharkstorm": "fire_sharkstorm",
+   "flare": true
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 43
+  },
+  {
+   "vista": "fire_sharkstorm",
+   "fade": 400
+  },
+  {
+   "sfx": "sharkstorm_flames",
+   "volume": 1.0
+  },
+  {
+   "wait": 1600
+  },
+  "Up into the Sharkstorm. And the Sharkstorm, which is made of sea and sharks and four hundred years of contamination, catches fire.",
+  "Not all of it. Bands of it. Great orange rings of flame going round the vortex, and the sharks going round inside it lit up gold from underneath, looking very surprised.",
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "setFlag": "fire_sharkstorm_occurred"
+  },
+  "And in the middle of the Fart Zone, on her back, where she landed, Tilda is holding up her cigarette, which is lit.",
+  "tilda[surprised]: (looking at it) ...It's lit.",
+  "tilda[alarmed]: (looking at her own corner) ...So am I.",
+  {
+   "sfx": "cardboard_singe",
+   "volume": 0.9
+  },
+  {
+   "anim": "tilda",
+   "name": "panic"
+  },
+  {
+   "setFlag": "tilda_cardboard_singed"
+  },
+  {
+   "setValue": "tilda_condition",
+   "value": "singed"
+  },
+  "A corner of No-Nonsense Tilda is on fire. Her coat's hem, her nameplate, the brim of her hat. She's very flat and very dry and she's FOUR HUNDRED YEARS OLD.",
+  "tilda[panicked]: I'M ON FIRE. STINKBEARD. I'M ON FIRE.",
+  {
+   "if": {
+    "flag": "p17_prec_bucket"
+   },
+   "then": [
+    "pete: (already there, already throwing) BUCKET.",
+    {
+     "sfx": "splash",
+     "volume": 0.9
+    },
+    "Pete gets her in one throw. The fire goes out with a hiss. A corner of her stays black, curled and crisp, but that's all: a corner."
+   ],
+   "else": [
+    "pete: (from the door, already running) BUCKET.",
+    {
+     "sfx": "splash",
+     "volume": 0.9
+    },
+    "Pete gets her on the second throw. The fire goes out with a hiss. A corner of her stays black, curled and crisp."
+   ]
+  },
+  {
+   "if": {
+    "flag": "p17_prec_tilda"
+   },
+   "then": [
+    "Because you'd moved her back, it's only the corner and the end of her hat brim. It could have been all of her."
+   ]
+  },
+  {
+   "if": {
+    "flag": "p17_prec_ports"
+   },
+   "then": [
+    "Because of the portholes, nearly all of the Fire-Waft went out to sea. The room's only scorched."
+   ]
+  },
+  "tilda[panicked]: (patting herself, cigarette still in her hand) Is it out? Is it OUT? Captain, is my HAT out?",
+  "captain: (walking round in a small circle, because there is nothing else to do) A SMALL FIRE-WAFT. A SMALL, CEREMONIAL FIRE-WAFT. THE SHARKSTORM IS ON FIRE. THE SHARKSTORM. IS ON. FIRE.",
+  "brogath[mortified]: (on his edge, in the corner, leaking little puffs of Coffin Sock at every seam) I'm so sorry. I'm so sorry. I'm so...",
+  {
+   "stability": "trigger",
+   "id": "embarrassed_again",
+   "quiet": true
+  },
+  {
+   "stability": "set",
+   "pressure": 88
+  },
+  "He's going pinker. He's bowing out again. There's more in him, and it's coming. You know exactly one thing on this ship that has ever stopped it.",
+  {
+   "startQuest": "fire_sharkstorm"
+  },
+  {
+   "tutorial": "Fetch Agnes (the Fart-Free Zone, in the hold). The deck's on fire. Mind the sharks.",
+   "title": "The Fire-Sharkstorm"
+  }
+ ],
+ "p17c12.fire_deck": [
+  {
+   "setFlag": "p17_fire_deck_seen"
+  },
+  {
+   "sfx": "sharkstorm_flames",
+   "volume": 0.8
+  },
+  "Out on deck, the sky is going round on fire. Sharks pass overhead lit up like lanterns. Something orange and flaming lands in the sea and goes out with a hiss. Agnes, under your arm, is very quiet.",
+  "captain: (to the chicken, before you can stop yourself) It's all right. I've got you. You're an operational asset. I've GOT you."
+ ],
+ "p17c12.agnes": [
+  {
+   "face": "agnes_second",
+   "dir": "player"
+  },
+  {
+   "sfx": "hen_cluck",
+   "volume": 0.7
+  },
+  "Agnes is on the visitors' cushion in the Fart-Free Zone, where you left her, looking at the door with her head on one side. She heard the bang.",
+  "You pick her up. Carefully. Both hands. You tuck her under your coat, out of the smoke, and you're surprised how carefully you're doing it.",
+  "captain: You're coming with me. Brogath needs you. (a pause) Don't tell anybody I said please. Please.",
+  {
+   "setFlag": "p17_agnes_fetched"
+  },
+  {
+   "setFlag": "p17_carrying_agnes"
+  },
+  {
+   "tutorial": "Bring her to Brogath, gently (the Fart Zone: through the hold, the galley, across the burning deck, down the grating).",
+   "title": "The Fire-Sharkstorm"
+  }
+ ],
+ "p17c12.deploy": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "You set Agnes down in the Fart Zone, a respectful distance from Brogath, on a dry bit of floor. You don't push. You don't coach. You learned that last time.",
+  "Agnes the Second looks round the scorched room. She looks at Brogath. She walks over to him, on his edge in the corner, and she pecks him once, very gently, on the foot.",
+  {
+   "sfx": "hen_cluck",
+   "volume": 0.8
+  },
+  "agnes_second[content]: Bawk.",
+  "Brogath blushes. All the way out to the corners.",
+  {
+   "sfx": "chicken_town_release",
+   "volume": 0.9
+  },
+  {
+   "flash": "#c8e8a0",
+   "duration": 400
+  },
+  "And out of him comes the green one.",
+  {
+   "atmosphere": "MELLOW_HAZE"
+  },
+  {
+   "atmosphere": "MELLOW_HAZE",
+   "clearRooms": true
+  },
+  {
+   "sharkstorm": "end_flare"
+  },
+  {
+   "setVar": "p4_tod",
+   "value": 44
+  },
+  {
+   "clearFlag": "p17_carrying_agnes"
+  },
+  {
+   "vista": "chicken_town_2",
+   "fade": 400
+  },
+  {
+   "wait": 1600
+  },
+  "A fresh green Chicken-Town Waft, soft and enormous, out of the portholes and up. It goes into the Sharkstorm like milk into tea, and the rings of fire go green at the edges, and gold, and then go out, one by one, with a sound like a lot of people saying 'ahh' at once.",
+  {
+   "vistaEnd": true,
+   "fade": 400
+  },
+  {
+   "setFlag": "chicken_town_second_mellowing"
+  },
+  {
+   "stability": "recover",
+   "on": true
+  },
+  {
+   "stability": "set",
+   "pressure": 10
+  },
+  {
+   "stability": "meter",
+   "show": "auto"
+  },
+  "The sharks stop glowing. The storm goes on going round, the way it always does, just not on fire.",
+  "tilda[mellow]: (lying on her back, singed, holding her cigarette up, very relaxed) ...It's lit, Brogath. Look. It's properly lit.",
+  "She takes a puff. Nothing goes in, because there's nowhere for it to go, and nothing comes out, and she sighs anyway, deeply, like a woman of ninety-one on the deck of her old ship in the evening.",
+  {
+   "setFlag": "tilda_cigarette_lit"
+  },
+  {
+   "anim": "tilda",
+   "name": "smoke"
+  },
+  "tilda[mellow]: That was a success.",
+  "ledger[mellow]: (on the bench, writing very slowly) OUTCOME: FAVOURABLE. (a pause) SHARKSTORM: BRIEFLY IMPROVED.",
+  "captain: (to the room) That was one of the worst successes I've ever seen.",
+  "tilda[mellow]: (dreamily) When can I have another one?",
+  "captain: NEVER.",
+  {
+   "tutorial": "Everybody's mellow but you: Brogath, Ledger and Tilda here; Pete and the visitors on deck; Garrick and Jim in the galley. And you could try breathing it in yourself (any rail).",
+   "title": "The Fire-Sharkstorm"
+  }
+ ],
+ "p17c12.mellow_brogath": [
+  {
+   "face": "brogath",
+   "dir": "player"
+  },
+  "brogath: (lying on the floor, looking at his own hand, turning it over) Captain. Captain. I'm FLAT.",
+  "brogath: I knew. But I didn't KNOW. Look. You can see right through the idea of me.",
+  {
+   "setFlag": "p17_mellow_brogath"
+  },
+  {
+   "event": "p17_mellow"
+  }
+ ],
+ "p17c12.mellow_ledger": [
+  {
+   "face": "ledger",
+   "dir": "player"
+  },
+  "ledger[mellow]: (staring at the ledger) Seven. Captain. Look at this seven. It's a perfect seven. It doesn't stand for anything. It's just seven.",
+  "ledger[mellow]: (with tears in his crayon eyes) I've never enjoyed a number for its own sake before.",
+  {
+   "setFlag": "p17_mellow_ledger"
+  },
+  {
+   "event": "p17_mellow"
+  }
+ ],
+ "p17c12.mellow_tilda": [
+  {
+   "face": "tilda",
+   "dir": "player"
+  },
+  "tilda[mellow]: (holding up one flat hand, studying it in the green light) I'm holding something. I'm holding a hand. It's MINE.",
+  "tilda[mellow]: (very softly) Don't tell anybody I said this, Stinkbeard. It's a nice hand.",
+  {
+   "setFlag": "p17_mellow_tilda"
+  },
+  {
+   "event": "p17_mellow"
+  }
+ ],
+ "p17c12.mellow_pete": [
+  {
+   "face": "pete",
+   "dir": "player"
+  },
+  "pete: (sitting on deck, a coil of rope in his lap) Look at this rope, Captain. Three strands. Each one going round the others. Holding each other up. That's... that's us, that is.",
+  "pete: (looking up, very serious) I'm going to look at it a bit longer.",
+  {
+   "setFlag": "p17_mellow_pete"
+  },
+  {
+   "event": "p17_mellow"
+  }
+ ],
+ "p17c12.mellow_visitors": [
+  {
+   "face": "visitor_one",
+   "dir": "player"
+  },
+  "visitor_one: (flat on the deck) It's the second one, man. The SECOND Chicken-Town. We were there for both. That makes us historians.",
+  "visitor_two: (beside him, also flat) I'm not a historian, bro. I'm a VIBE.",
+  {
+   "setFlag": "p17_mellow_visitors"
+  },
+  {
+   "event": "p17_mellow"
+  }
+ ],
+ "p17c12.mellow_garrick": [
+  {
+   "face": "garrick",
+   "dir": "player"
+  },
+  "garrick[delighted]: (to Agnes, on the galley table, very earnestly) ...so the question is whether the egg market is a GROWTH market, Agnes. Or whether eggs are simply a store of value.",
+  "agnes_second[curious]: Bawk.",
+  "garrick[delighted]: (to you) She's BRILLIANT, Captain. Absolutely brilliant. She's said 'bawk' to everything and she's been right every time.",
+  {
+   "setFlag": "p17_mellow_garrick"
+  },
+  {
+   "event": "p17_mellow"
+  }
+ ],
+ "p17c12.mellow_jim": [
+  {
+   "face": "jim",
+   "dir": "player"
+  },
+  "jim: (holding an empty bucket up to the lamp) Captain. Look inside it.",
+  "captain: It's empty, Jim.",
+  "jim: (in awe) It's a whole room, Captain. With a handle.",
+  {
+   "setFlag": "p17_mellow_jim"
+  },
+  {
+   "event": "p17_mellow"
+  }
+ ],
+ "p17c12.inhale": [
+  "You stand at the rail with the green haze rolling past you, off the deck and up into the storm, and you breathe in. Deep. Deeper. You want this. You've EARNED this.",
+  "What you get is your beard.",
+  {
+   "beardPuff": "small"
+  },
+  "Coffin Sock. Vindicta. Thunderbottom, no, not yet, but the converter, the treasure room, Garrick's first one: every fume aboard, all of it in your beard, and it's in the way. The green haze can't get past it. You're the only sober man on a mellow ship.",
+  "captain: (into the Sharkstorm) I CAN'T EVEN GET MELLOW ON MY OWN SHIP.",
+  {
+   "setFlag": "p17_inhale_failed"
+  },
+  {
+   "if": {
+    "all": [
+     {
+      "flag": "p17_mellow_said"
+     },
+     {
+      "notFlag": "p17_mellow_end"
+     }
+    ]
+   },
+   "then": [
+    {
+     "call": "p17c12.end"
+    }
+   ]
+  }
+ ],
+ "p17c12.mellow_done": [
+  {
+   "setFlag": "p17_mellow_said"
+  },
+  {
+   "if": {
+    "flag": "p17_inhale_failed"
+   },
+   "then": [
+    {
+     "call": "p17c12.end"
+    }
+   ]
+  }
+ ],
+ "p17c12.end": [
+  {
+   "setFlag": "p17_mellow_end"
+  },
+  "The ship is the most peaceful it has ever been. Everybody aboard is looking at their own hands. Everybody except you.",
+  {
+   "completeQuest": "fire_sharkstorm"
+  },
+  {
+   "call": "p17c13.begin"
+  }
+ ]
+}

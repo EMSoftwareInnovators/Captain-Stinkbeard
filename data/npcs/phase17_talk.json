@@ -1,0 +1,2920 @@
+[
+ {
+  "extend": "garrick",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "fire_sharkstorm.mellow"
+      },
+      {
+       "notFlag": "p17_mellow_garrick"
+      }
+     ]
+    },
+    "script": "p17c12.mellow_garrick"
+   },
+   {
+    "if": {
+     "objectiveActive": "beard_joint.scissors"
+    },
+    "script": "p17c16.scissors"
+   },
+   {
+    "if": {
+     "objectiveActive": "beard_joint.grog"
+    },
+    "script": "p17c16.grog"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "beard_joint.spiral"
+      },
+      {
+       "notFlag": "p17_suspect_garrick"
+      }
+     ]
+    },
+    "script": "p17c16.suspect_garrick"
+   },
+   {
+    "if": {
+     "flag": "p17_complete"
+    },
+    "cycle": [
+     "garrick.p17_after_1",
+     "garrick.p17_after_2"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch220_started"
+        },
+        {
+         "notFlag": "p17_ch221_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch221_started"
+        },
+        {
+         "notFlag": "p17_ch222_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch222_started"
+        },
+        {
+         "notFlag": "p17_complete"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p17_coffin_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch218_started"
+        },
+        {
+         "notFlag": "p17_ch219_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch219_started"
+        },
+        {
+         "notFlag": "p17_ch220_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p17_thunder_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch215_started"
+        },
+        {
+         "notFlag": "p17_ch216_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch216_started"
+        },
+        {
+         "notFlag": "p17_ch217_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p17_restraint_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch214_started"
+      },
+      {
+       "notFlag": "p17_ch215_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p17_minutes_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch212_started"
+        },
+        {
+         "notFlag": "p17_ch213_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch213_started"
+        },
+        {
+         "notFlag": "p17_ch214_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p17_greyhook_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch211_started"
+      },
+      {
+       "notFlag": "p17_ch212_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p17_bureau_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch210_started"
+      },
+      {
+       "notFlag": "p17_ch211_started"
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p17_supervision_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch208_started"
+        },
+        {
+         "notFlag": "p17_ch209_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch209_started"
+        },
+        {
+         "notFlag": "p17_ch210_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p17_reunion_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_started"
+        },
+        {
+         "notFlag": "p17_ch207_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch207_started"
+        },
+        {
+         "notFlag": "p17_ch208_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "garrick.p17_cutouts_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "brogath",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "brogath_remembers.hear"
+    },
+    "script": "p17c1.hear"
+   },
+   {
+    "if": {
+     "objectiveActive": "brogath_remembers.names"
+    },
+    "script": "p17c1.names"
+   },
+   {
+    "if": {
+     "objectiveActive": "brogath_remembers.theory"
+    },
+    "script": "p17c1.theory"
+   },
+   {
+    "if": {
+     "objectiveActive": "brogath_remembers.dissuade"
+    },
+    "script": "p17c1.dissuade"
+   },
+   {
+    "if": {
+     "objectiveActive": "the_cardboard_crew.find"
+    },
+    "script": "p17c2.find"
+   },
+   {
+    "if": {
+     "objectiveActive": "the_cardboard_crew.eyebrows"
+    },
+    "script": "p17c2.eyebrows"
+   },
+   {
+    "if": {
+     "objectiveActive": "the_cardboard_crew.door"
+    },
+    "script": "p17c2.door"
+   },
+   {
+    "if": {
+     "objectiveActive": "the_forbidden_door.stop"
+    },
+    "script": "p17c3.stop"
+   },
+   {
+    "if": {
+     "objectiveActive": "the_ancient_reunion.reunion"
+    },
+    "script": "p17c4.reunion"
+   },
+   {
+    "if": {
+     "objectiveActive": "the_geniuses.brogath"
+    },
+    "script": "p17c5.geniuses"
+   },
+   {
+    "if": {
+     "objectiveActive": "old_crew_documentary.after"
+    },
+    "script": "p17c7.after"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "fire_sharkstorm.mellow"
+      },
+      {
+       "notFlag": "p17_mellow_brogath"
+      }
+     ]
+    },
+    "script": "p17c12.mellow_brogath"
+   },
+   {
+    "if": {
+     "objectiveActive": "beard_exhales.brogath"
+    },
+    "script": "p17c15.brogath"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "beard_joint.spiral"
+      },
+      {
+       "notFlag": "p17_suspect_brogath"
+      }
+     ]
+    },
+    "script": "p17c16.suspect_brogath"
+   },
+   {
+    "if": {
+     "objectiveActive": "coffin_sock_catastrophe.release"
+    },
+    "script": "p17c17.release"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "coffin_sock_catastrophe.after"
+      },
+      {
+       "notFlag": "p17_after_brogath"
+      }
+     ]
+    },
+    "script": "p17c17.after_brogath"
+   },
+   {
+    "if": {
+     "flag": "p17_complete"
+    },
+    "cycle": [
+     "brogath.p17_after_1",
+     "brogath.p17_after_2"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch220_started"
+        },
+        {
+         "notFlag": "p17_ch221_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch221_started"
+        },
+        {
+         "notFlag": "p17_ch222_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch222_started"
+        },
+        {
+         "notFlag": "p17_complete"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p17_coffin_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch218_started"
+        },
+        {
+         "notFlag": "p17_ch219_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch219_started"
+        },
+        {
+         "notFlag": "p17_ch220_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p17_thunder_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch215_started"
+        },
+        {
+         "notFlag": "p17_ch216_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch216_started"
+        },
+        {
+         "notFlag": "p17_ch217_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p17_restraint_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch214_started"
+      },
+      {
+       "notFlag": "p17_ch215_started"
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p17_minutes_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch212_started"
+        },
+        {
+         "notFlag": "p17_ch213_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch213_started"
+        },
+        {
+         "notFlag": "p17_ch214_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p17_greyhook_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch211_started"
+      },
+      {
+       "notFlag": "p17_ch212_started"
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p17_bureau_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch210_started"
+      },
+      {
+       "notFlag": "p17_ch211_started"
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p17_supervision_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch208_started"
+        },
+        {
+         "notFlag": "p17_ch209_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch209_started"
+        },
+        {
+         "notFlag": "p17_ch210_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p17_reunion_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_started"
+        },
+        {
+         "notFlag": "p17_ch207_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch207_started"
+        },
+        {
+         "notFlag": "p17_ch208_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "brogath.p17_cutouts_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "ledger",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "the_ancient_reunion.ledger"
+    },
+    "script": "p17c4.ledger"
+   },
+   {
+    "if": {
+     "objectiveActive": "the_geniuses.review"
+    },
+    "script": "p17c5.review"
+   },
+   {
+    "if": {
+     "objectiveActive": "great_ledger_proposal.books"
+    },
+    "script": "p17c8.books"
+   },
+   {
+    "if": {
+     "objectiveActive": "great_ledger_proposal.argue"
+    },
+    "script": "p17c8.argue"
+   },
+   {
+    "if": {
+     "objectiveActive": "captain_minutes.token"
+    },
+    "script": "p17c9.token"
+   },
+   {
+    "if": {
+     "objectiveActive": "captain_minutes.research"
+    },
+    "script": "p17c9.research"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "fire_sharkstorm.mellow"
+      },
+      {
+       "notFlag": "p17_mellow_ledger"
+      }
+     ]
+    },
+    "script": "p17c12.mellow_ledger"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "beard_exhales.procedures"
+      },
+      {
+       "notFlag": "p17_proc_ledger"
+      }
+     ]
+    },
+    "script": "p17c15.proc_ledger"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "beard_joint.spiral"
+      },
+      {
+       "notFlag": "p17_suspect_ledger"
+      }
+     ]
+    },
+    "script": "p17c16.suspect_ledger"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "coffin_sock_catastrophe.after"
+      },
+      {
+       "notFlag": "p17_after_ledger"
+      }
+     ]
+    },
+    "script": "p17c17.after_ledger"
+   },
+   {
+    "if": {
+     "flag": "p17_complete"
+    },
+    "cycle": [
+     "ledger.p17_after_1",
+     "ledger.p17_after_2"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch220_started"
+        },
+        {
+         "notFlag": "p17_ch221_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch221_started"
+        },
+        {
+         "notFlag": "p17_ch222_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch222_started"
+        },
+        {
+         "notFlag": "p17_complete"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "ledger.p17_coffin_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch218_started"
+        },
+        {
+         "notFlag": "p17_ch219_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch219_started"
+        },
+        {
+         "notFlag": "p17_ch220_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "ledger.p17_thunder_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch217_started"
+      },
+      {
+       "notFlag": "p17_ch218_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ledger.p17_mellow_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch215_started"
+        },
+        {
+         "notFlag": "p17_ch216_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch216_started"
+        },
+        {
+         "notFlag": "p17_ch217_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "ledger.p17_restraint_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch214_started"
+      },
+      {
+       "notFlag": "p17_ch215_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ledger.p17_minutes_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch212_started"
+        },
+        {
+         "notFlag": "p17_ch213_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch213_started"
+        },
+        {
+         "notFlag": "p17_ch214_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "ledger.p17_greyhook_1",
+     "ledger.p17_greyhook_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch211_started"
+      },
+      {
+       "notFlag": "p17_ch212_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ledger.p17_bureau_1",
+     "ledger.p17_bureau_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch210_started"
+      },
+      {
+       "notFlag": "p17_ch211_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ledger.p17_supervision_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch208_started"
+        },
+        {
+         "notFlag": "p17_ch209_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch209_started"
+        },
+        {
+         "notFlag": "p17_ch210_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "ledger.p17_reunion_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "tilda",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "the_ancient_reunion.tilda"
+    },
+    "script": "p17c4.tilda"
+   },
+   {
+    "if": {
+     "objectiveActive": "the_geniuses.authority"
+    },
+    "script": "p17c5.authority"
+   },
+   {
+    "if": {
+     "objectiveActive": "tilda_application.bureau"
+    },
+    "script": "p17c6.bureau"
+   },
+   {
+    "if": {
+     "objectiveActive": "tilda_application.lighter"
+    },
+    "script": "p17c6.lighter"
+   },
+   {
+    "if": {
+     "objectiveActive": "great_ledger_proposal.explain"
+    },
+    "script": "p17c8.explain"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_restraint.permit"
+    },
+    "script": "p17c11.permit"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_restraint.points"
+    },
+    "script": "p17c11.points"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_restraint.conditions"
+    },
+    "script": "p17c11.conditions"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "fire_sharkstorm.mellow"
+      },
+      {
+       "notFlag": "p17_mellow_tilda"
+      }
+     ]
+    },
+    "script": "p17c12.mellow_tilda"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "beard_exhales.procedures"
+      },
+      {
+       "notFlag": "p17_proc_tilda"
+      }
+     ]
+    },
+    "script": "p17c15.proc_tilda"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "beard_joint.spiral"
+      },
+      {
+       "notFlag": "p17_suspect_tilda"
+      }
+     ]
+    },
+    "script": "p17c16.suspect_tilda"
+   },
+   {
+    "if": {
+     "flag": "p17_complete"
+    },
+    "cycle": [
+     "tilda.p17_after_1",
+     "tilda.p17_after_2"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch220_started"
+        },
+        {
+         "notFlag": "p17_ch221_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch221_started"
+        },
+        {
+         "notFlag": "p17_ch222_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch222_started"
+        },
+        {
+         "notFlag": "p17_complete"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "tilda.p17_coffin_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch218_started"
+        },
+        {
+         "notFlag": "p17_ch219_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch219_started"
+        },
+        {
+         "notFlag": "p17_ch220_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "tilda.p17_thunder_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch217_started"
+      },
+      {
+       "notFlag": "p17_ch218_started"
+      }
+     ]
+    },
+    "cycle": [
+     "tilda.p17_mellow_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch215_started"
+        },
+        {
+         "notFlag": "p17_ch216_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch216_started"
+        },
+        {
+         "notFlag": "p17_ch217_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "tilda.p17_restraint_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch214_started"
+      },
+      {
+       "notFlag": "p17_ch215_started"
+      }
+     ]
+    },
+    "cycle": [
+     "tilda.p17_minutes_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch212_started"
+        },
+        {
+         "notFlag": "p17_ch213_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch213_started"
+        },
+        {
+         "notFlag": "p17_ch214_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "tilda.p17_greyhook_1",
+     "tilda.p17_greyhook_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch211_started"
+      },
+      {
+       "notFlag": "p17_ch212_started"
+      }
+     ]
+    },
+    "cycle": [
+     "tilda.p17_bureau_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch210_started"
+      },
+      {
+       "notFlag": "p17_ch211_started"
+      }
+     ]
+    },
+    "cycle": [
+     "tilda.p17_supervision_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch208_started"
+        },
+        {
+         "notFlag": "p17_ch209_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch209_started"
+        },
+        {
+         "notFlag": "p17_ch210_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "tilda.p17_reunion_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "visitor_one",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "fire_sharkstorm.mellow"
+      },
+      {
+       "notFlag": "p17_mellow_visitors"
+      }
+     ]
+    },
+    "script": "p17c12.mellow_visitors"
+   },
+   {
+    "if": {
+     "flag": "p17_complete"
+    },
+    "cycle": [
+     "visitor_one.p17_after_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch220_started"
+        },
+        {
+         "notFlag": "p17_ch221_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch221_started"
+        },
+        {
+         "notFlag": "p17_ch222_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch222_started"
+        },
+        {
+         "notFlag": "p17_complete"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "visitor_one.p17_coffin_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch217_started"
+      },
+      {
+       "notFlag": "p17_ch218_started"
+      }
+     ]
+    },
+    "cycle": [
+     "visitor_one.p17_mellow_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch215_started"
+        },
+        {
+         "notFlag": "p17_ch216_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch216_started"
+        },
+        {
+         "notFlag": "p17_ch217_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "visitor_one.p17_restraint_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch208_started"
+        },
+        {
+         "notFlag": "p17_ch209_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch209_started"
+        },
+        {
+         "notFlag": "p17_ch210_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "visitor_one.p17_reunion_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_started"
+        },
+        {
+         "notFlag": "p17_ch207_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch207_started"
+        },
+        {
+         "notFlag": "p17_ch208_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "visitor_one.p17_cutouts_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "visitor_two",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "fire_sharkstorm.mellow"
+      },
+      {
+       "notFlag": "p17_mellow_visitors"
+      }
+     ]
+    },
+    "script": "p17c12.mellow_visitors"
+   },
+   {
+    "if": {
+     "flag": "p17_complete"
+    },
+    "cycle": [
+     "visitor_two.p17_after_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch220_started"
+        },
+        {
+         "notFlag": "p17_ch221_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch221_started"
+        },
+        {
+         "notFlag": "p17_ch222_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch222_started"
+        },
+        {
+         "notFlag": "p17_complete"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "visitor_two.p17_coffin_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch217_started"
+      },
+      {
+       "notFlag": "p17_ch218_started"
+      }
+     ]
+    },
+    "cycle": [
+     "visitor_two.p17_mellow_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch215_started"
+        },
+        {
+         "notFlag": "p17_ch216_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch216_started"
+        },
+        {
+         "notFlag": "p17_ch217_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "visitor_two.p17_restraint_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch208_started"
+        },
+        {
+         "notFlag": "p17_ch209_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch209_started"
+        },
+        {
+         "notFlag": "p17_ch210_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "visitor_two.p17_reunion_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_started"
+        },
+        {
+         "notFlag": "p17_ch207_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch207_started"
+        },
+        {
+         "notFlag": "p17_ch208_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "visitor_two.p17_cutouts_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "agnes_second",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "grand_restraint.prep"
+      },
+      {
+       "notFlag": "p17_prep_agnes"
+      }
+     ]
+    },
+    "script": "p17c11.prep_agnes"
+   },
+   {
+    "if": {
+     "objectiveActive": "fire_sharkstorm.agnes"
+    },
+    "script": "p17c12.agnes"
+   },
+   {
+    "if": {
+     "objectiveActive": "thunderbottom.lead"
+    },
+    "script": "p17c13.lead"
+   },
+   {
+    "if": {
+     "objectiveActive": "grand_fart_chamber.after"
+    },
+    "script": "p17c14.after"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "beard_exhales.procedures"
+      },
+      {
+       "notFlag": "p17_proc_agnes"
+      }
+     ]
+    },
+    "script": "p17c15.proc_agnes"
+   },
+   {
+    "if": {
+     "flag": "agnes_post_rescue_condition"
+    },
+    "script": "agnes_second.p17"
+   }
+  ]
+ },
+ {
+  "extend": "thunderbottom",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "thunderbottom.serve"
+    },
+    "script": "p17c13.serve"
+   },
+   {
+    "if": {
+     "objectiveActive": "thunderbottom.defend"
+    },
+    "script": "p17c13.defend"
+   }
+  ]
+ },
+ {
+  "extend": "bureau_puffington",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch211_started"
+      },
+      {
+       "notFlag": "p17_ch212_started"
+      }
+     ]
+    },
+    "script": "bureau_puffington.p17"
+   }
+  ]
+ },
+ {
+  "extend": "pete",
+  "dialogue": [
+   {
+    "if": {
+     "objectiveActive": "brogath_remembers.pete"
+    },
+    "script": "p17c1.pete"
+   },
+   {
+    "if": {
+     "objectiveActive": "the_cardboard_crew.guard"
+    },
+    "script": "p17c2.guard"
+   },
+   {
+    "if": {
+     "objectiveActive": "great_ledger_proposal.pete"
+    },
+    "script": "p17c8.pete"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "grand_restraint.prep"
+      },
+      {
+       "notFlag": "p17_prep_bucket"
+      }
+     ]
+    },
+    "script": "p17c11.prep_bucket"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "fire_sharkstorm.mellow"
+      },
+      {
+       "notFlag": "p17_mellow_pete"
+      }
+     ]
+    },
+    "script": "p17c12.mellow_pete"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "beard_joint.vision"
+      },
+      {
+       "notFlag": "p17_vision_pete"
+      }
+     ]
+    },
+    "script": "p17c16.vision_pete"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "beard_joint.spiral"
+      },
+      {
+       "notFlag": "p17_suspect_pete"
+      }
+     ]
+    },
+    "script": "p17c16.suspect_pete"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "coffin_sock_catastrophe.after"
+      },
+      {
+       "notFlag": "p17_after_pete"
+      }
+     ]
+    },
+    "script": "p17c17.after_pete"
+   },
+   {
+    "if": {
+     "flag": "p17_complete"
+    },
+    "cycle": [
+     "pete.p17_after_1",
+     "pete.p17_after_2"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch220_started"
+        },
+        {
+         "notFlag": "p17_ch221_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch221_started"
+        },
+        {
+         "notFlag": "p17_ch222_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch222_started"
+        },
+        {
+         "notFlag": "p17_complete"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p17_coffin_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch218_started"
+        },
+        {
+         "notFlag": "p17_ch219_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch219_started"
+        },
+        {
+         "notFlag": "p17_ch220_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p17_thunder_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch215_started"
+        },
+        {
+         "notFlag": "p17_ch216_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch216_started"
+        },
+        {
+         "notFlag": "p17_ch217_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p17_restraint_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch214_started"
+      },
+      {
+       "notFlag": "p17_ch215_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p17_minutes_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch212_started"
+        },
+        {
+         "notFlag": "p17_ch213_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch213_started"
+        },
+        {
+         "notFlag": "p17_ch214_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p17_greyhook_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch210_started"
+      },
+      {
+       "notFlag": "p17_ch211_started"
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p17_supervision_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch208_started"
+        },
+        {
+         "notFlag": "p17_ch209_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch209_started"
+        },
+        {
+         "notFlag": "p17_ch210_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p17_reunion_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_started"
+        },
+        {
+         "notFlag": "p17_ch207_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch207_started"
+        },
+        {
+         "notFlag": "p17_ch208_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "pete.p17_cutouts_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "gristle",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "the_geniuses.orders"
+      },
+      {
+       "notFlag": "p17_orders_gristle"
+      }
+     ]
+    },
+    "script": "p17c5.orders_gristle"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "great_ledger_proposal.countermand"
+      },
+      {
+       "notFlag": "p17_cm_gristle"
+      }
+     ]
+    },
+    "script": "p17c8.countermand_gristle"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "beard_joint.vision"
+      },
+      {
+       "notFlag": "p17_vision_gristle"
+      }
+     ]
+    },
+    "script": "p17c16.vision_gristle"
+   },
+   {
+    "if": {
+     "flag": "p17_complete"
+    },
+    "cycle": [
+     "gristle.p17_after_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch220_started"
+        },
+        {
+         "notFlag": "p17_ch221_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch221_started"
+        },
+        {
+         "notFlag": "p17_ch222_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch222_started"
+        },
+        {
+         "notFlag": "p17_complete"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p17_coffin_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch217_started"
+      },
+      {
+       "notFlag": "p17_ch218_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p17_mellow_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch212_started"
+        },
+        {
+         "notFlag": "p17_ch213_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch213_started"
+        },
+        {
+         "notFlag": "p17_ch214_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p17_greyhook_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch210_started"
+      },
+      {
+       "notFlag": "p17_ch211_started"
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p17_supervision_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch208_started"
+        },
+        {
+         "notFlag": "p17_ch209_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch209_started"
+        },
+        {
+         "notFlag": "p17_ch210_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p17_reunion_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_started"
+        },
+        {
+         "notFlag": "p17_ch207_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch207_started"
+        },
+        {
+         "notFlag": "p17_ch208_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "gristle.p17_cutouts_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "bob",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "the_geniuses.orders"
+      },
+      {
+       "notFlag": "p17_orders_bob"
+      }
+     ]
+    },
+    "script": "p17c5.orders_bob"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "great_ledger_proposal.countermand"
+      },
+      {
+       "notFlag": "p17_cm_bob"
+      }
+     ]
+    },
+    "script": "p17c8.countermand_bob"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "beard_joint.vision"
+      },
+      {
+       "notFlag": "p17_vision_bob"
+      }
+     ]
+    },
+    "script": "p17c16.vision_bob"
+   },
+   {
+    "if": {
+     "flag": "p17_complete"
+    },
+    "cycle": [
+     "bob.p17_after_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch220_started"
+        },
+        {
+         "notFlag": "p17_ch221_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch221_started"
+        },
+        {
+         "notFlag": "p17_ch222_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch222_started"
+        },
+        {
+         "notFlag": "p17_complete"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p17_coffin_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch212_started"
+        },
+        {
+         "notFlag": "p17_ch213_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch213_started"
+        },
+        {
+         "notFlag": "p17_ch214_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p17_greyhook_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch210_started"
+      },
+      {
+       "notFlag": "p17_ch211_started"
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p17_supervision_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_started"
+        },
+        {
+         "notFlag": "p17_ch207_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch207_started"
+        },
+        {
+         "notFlag": "p17_ch208_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "bob.p17_cutouts_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "jim",
+  "dialogue": [
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "fire_sharkstorm.mellow"
+      },
+      {
+       "notFlag": "p17_mellow_jim"
+      }
+     ]
+    },
+    "script": "p17c12.mellow_jim"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "objectiveActive": "beard_joint.vision"
+      },
+      {
+       "notFlag": "p17_vision_jim"
+      }
+     ]
+    },
+    "script": "p17c16.vision_jim"
+   },
+   {
+    "if": {
+     "objectiveActive": "coffin_sock_catastrophe.princess"
+    },
+    "script": "p17c17.princess"
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "major_coffin_sock_release_complete"
+      },
+      {
+       "notFlag": "p17_complete"
+      }
+     ]
+    },
+    "script": "p17c17.after_jim"
+   },
+   {
+    "if": {
+     "flag": "p17_complete"
+    },
+    "cycle": [
+     "jim.p17_after_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch218_started"
+        },
+        {
+         "notFlag": "p17_ch219_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch219_started"
+        },
+        {
+         "notFlag": "p17_ch220_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p17_thunder_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch217_started"
+      },
+      {
+       "notFlag": "p17_ch218_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p17_mellow_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch214_started"
+      },
+      {
+       "notFlag": "p17_ch215_started"
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p17_minutes_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch208_started"
+        },
+        {
+         "notFlag": "p17_ch209_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch209_started"
+        },
+        {
+         "notFlag": "p17_ch210_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p17_reunion_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_started"
+        },
+        {
+         "notFlag": "p17_ch207_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch207_started"
+        },
+        {
+         "notFlag": "p17_ch208_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "jim.p17_cutouts_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "ned",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p17_complete"
+    },
+    "cycle": [
+     "ned.p17_after_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch210_started"
+      },
+      {
+       "notFlag": "p17_ch211_started"
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p17_supervision_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_started"
+        },
+        {
+         "notFlag": "p17_ch207_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch207_started"
+        },
+        {
+         "notFlag": "p17_ch208_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "ned.p17_cutouts_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "squawks",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p17_complete"
+    },
+    "cycle": [
+     "squawks.p17_after_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch220_started"
+        },
+        {
+         "notFlag": "p17_ch221_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch221_started"
+        },
+        {
+         "notFlag": "p17_ch222_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch222_started"
+        },
+        {
+         "notFlag": "p17_complete"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p17_coffin_1",
+     "squawks.p17_coffin_2"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch217_started"
+      },
+      {
+       "notFlag": "p17_ch218_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p17_mellow_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch214_started"
+      },
+      {
+       "notFlag": "p17_ch215_started"
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p17_minutes_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch208_started"
+        },
+        {
+         "notFlag": "p17_ch209_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch209_started"
+        },
+        {
+         "notFlag": "p17_ch210_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p17_reunion_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_started"
+        },
+        {
+         "notFlag": "p17_ch207_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch207_started"
+        },
+        {
+         "notFlag": "p17_ch208_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "squawks.p17_cutouts_1",
+     "squawks.p17_cutouts_2"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "hale",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p17_complete"
+    },
+    "cycle": [
+     "hale.p17_after_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch217_started"
+      },
+      {
+       "notFlag": "p17_ch218_started"
+      }
+     ]
+    },
+    "cycle": [
+     "hale.p17_mellow_1"
+    ]
+   },
+   {
+    "if": {
+     "any": [
+      {
+       "all": [
+        {
+         "flag": "p17_ch212_started"
+        },
+        {
+         "notFlag": "p17_ch213_started"
+        }
+       ]
+      },
+      {
+       "all": [
+        {
+         "flag": "p17_ch213_started"
+        },
+        {
+         "notFlag": "p17_ch214_started"
+        }
+       ]
+      }
+     ]
+    },
+    "cycle": [
+     "hale.p17_greyhook_1"
+    ]
+   },
+   {
+    "if": {
+     "all": [
+      {
+       "flag": "p17_ch210_started"
+      },
+      {
+       "notFlag": "p17_ch211_started"
+      }
+     ]
+    },
+    "cycle": [
+     "hale.p17_supervision_1"
+    ]
+   }
+  ]
+ },
+ {
+  "extend": "nell",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p17_started"
+    },
+    "script": "nell.p17"
+   }
+  ]
+ },
+ {
+  "extend": "sully",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p17_started"
+    },
+    "script": "sully.p17"
+   }
+  ]
+ },
+ {
+  "extend": "wick",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p17_started"
+    },
+    "script": "wick.p17"
+   }
+  ]
+ },
+ {
+  "extend": "rook",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p17_started"
+    },
+    "script": "rook.p17"
+   }
+  ]
+ },
+ {
+  "extend": "brask",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p17_started"
+    },
+    "script": "brask.p17"
+   }
+  ]
+ },
+ {
+  "extend": "jory",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p17_started"
+    },
+    "script": "jory.p17"
+   }
+  ]
+ },
+ {
+  "extend": "mags",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p17_started"
+    },
+    "script": "mags.p17"
+   }
+  ]
+ },
+ {
+  "extend": "quill",
+  "dialogue": [
+   {
+    "if": {
+     "flag": "p17_started"
+    },
+    "script": "quill.p17"
+   }
+  ]
+ }
+]

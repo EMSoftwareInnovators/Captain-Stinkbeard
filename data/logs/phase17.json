@@ -1,0 +1,219 @@
+{
+ "//": "Story Phase 17: the captain's journal, the TV listings, three lines of the beard's profile, and the old crew's register brought up to date. Every entry here waits on a Phase 17 flag.",
+ "captains_journal_p17": {
+  "extend": "captains_journal",
+  "severities": {
+   "Aboard": "g",
+   "Sealed (twice)": "o",
+   "Banned": "r",
+   "Out": "g",
+   "Blocked": "o",
+   "Pending": "o",
+   "Released": "r",
+   "Rescued": "g",
+   "Gone": "g"
+  },
+  "entries": [
+   {
+    "id": "old_crew_p17",
+    "title": "Ledger and Tilda",
+    "if": {
+     "flag": "old_crew_reunion_completed"
+    },
+    "status": "Aboard",
+    "where": "Everywhere, quite flat",
+    "holder": "Brogath (and they hold him)",
+    "notes": "Two of Brogath's cut-outs, painted from memory on the Fan Mega-Pack carton. A piece of the treasure room's cloud got out and went into them. LEDGER BILLIAM, TREASURER, KNOWS MONEY. NO-NONSENSE TILDA, FIRST MATE, BROGATH, STOP. They're crew now. They fight. Mostly they correct things."
+   },
+   {
+    "id": "door_p17",
+    "title": "The treasure-room door",
+    "if": {
+     "flag": "p17_door_resealed"
+    },
+    "status": "Sealed (twice)",
+    "where": "The cargo hold",
+    "holder": "Pete (and a sixth sign)",
+    "notes": "Cracked once more, for a second. Every plank back, two more across it. NOT EVEN FOR FRIENDS. It stays shut."
+   },
+   {
+    "id": "minutes_p17",
+    "title": "Captain Minutes",
+    "if": {
+     "flag": "captain_minutes_invented"
+    },
+    "status": "Banned",
+    "where": "Ledger's MAYBE column",
+    "holder": "Ledger Billiam",
+    "notes": "One token, one failed purchase, five minutes of Coffin Sock, all delivered to me. Ledger calls it a currency. It is not money. The converter is planked over. NO CONVERSIONS. NONE. EVER."
+   },
+   {
+    "id": "greyhook_p17",
+    "title": "Greyhook Cove",
+    "if": {
+     "flag": "greyhook_expedition_proposed"
+    },
+    "status": "Blocked",
+    "where": "Somewhere out of the storm",
+    "holder": "Ledger's books (in a sea chest)",
+    "notes": "Ledger remembered where his books are. Tilda steered for it. We are inside a storm going round and round. Nobody is going anywhere yet."
+   },
+   {
+    "id": "fire_p17",
+    "title": "The Fire-Sharkstorm",
+    "if": {
+     "flag": "fire_sharkstorm_occurred"
+    },
+    "status": "Out",
+    "where": "Overhead, briefly",
+    "holder": "Nobody (thank goodness)",
+    "notes": "A Fire-Waft, out of the portholes, up into the storm, and the storm caught fire in rings. Agnes put it out. Tilda's cigarette is lit. So, for a moment, was Tilda. Her corner is singed for good."
+   },
+   {
+    "id": "thunderbottom_p17",
+    "title": "Lord Thunderbottom",
+    "if": {
+     "flag": "thunderbottom_departed"
+    },
+    "status": "Gone",
+    "where": "Back to wherever the Bureau sends them",
+    "holder": "The Bureau",
+    "notes": "Lord Vaporious Thunderbottom the Seventh. Ninety-seven pages, ninety-six blank. Said things about Agnes. I said please. He went into the Fart Zone, the portholes went, and I went in after the chicken."
+   },
+   {
+    "id": "agnes_p17",
+    "title": "Agnes the Second",
+    "if": {
+     "flag": "agnes_thunderbottom_rescue_complete"
+    },
+    "status": "Rescued",
+    "where": "The Fart-Free Zone",
+    "holder": "Brogath",
+    "notes": "Out of the Fart Zone in my arms. Frazzled. Feathers everywhere. Sneezes now and then. Asleep on a cushion three decks down."
+   },
+   {
+    "id": "beard_p17",
+    "title": "My beard",
+    "if": {
+     "flag": "beard_puffing"
+    },
+    "status": "Pending",
+    "where": "My face",
+    "holder": "Itself, apparently",
+    "notes": "It puffs. On its own. A little, every so often, and people step back. Thunderbottom's grand release went straight into it."
+   },
+   {
+    "id": "coffin_p17",
+    "title": "The Coffin Sock",
+    "if": {
+     "flag": "brogath_coffin_sock_brewing"
+    },
+    "status": "Pending",
+    "where": "Brogath",
+    "holder": "Brogath",
+    "notes": "COFFIN SOCK EVENT: PENDING. Pete wrote it on his board. Brogath is bowing out at the middle and saying everything's fine."
+   },
+   {
+    "id": "catastrophe_p17",
+    "title": "The Coffin Sock Catastrophe",
+    "if": {
+     "flag": "major_coffin_sock_release_complete"
+    },
+    "status": "Released",
+    "where": "The old quarters, then everywhere",
+    "holder": "Everyone",
+    "notes": "It ate the green haze. Every sash snapped out flat. We've got some of the ship back. Brogath is very proud of himself. Everyone is furious."
+   }
+  ]
+ },
+ "channel_listings_p17": {
+  "extend": "channel_listings",
+  "entries": [
+   {
+    "id": "crew_he_left_behind",
+    "title": "The Crew He Left Behind",
+    "if": {
+     "flag": "old_crew_documentary_viewed"
+    },
+    "summary": "A documentary in stills: the books, the orders, the empty chair on deck, the years after, the last of them. Viewer comments. At the end the set noticed who was watching.",
+    "reaction": "Tilda sat up straight. Ledger cried into the MAYBE column."
+   },
+   {
+    "id": "new_dead_idiots",
+    "title": "Late-Night Special: Meet the New Dead Idiots!",
+    "if": {
+     "flag": "bbk_late_night_special_viewed"
+    },
+    "summary": "A talk show from inside the storm. Treasure chests, a hammerhead band, an audience of sharks, cartoon cut-outs, CAPTAIN MINUTES, the chicken, and two correspondents in the galley.",
+    "reaction": "Turning it off didn't work. Neither did the other thing."
+   }
+  ]
+ },
+ "captains_beard_p17": {
+  "extend": "captains_beard",
+  "entries": [
+   {
+    "id": "beard_thunderbottom_legendary",
+    "title": "Thunderbottom (legendary)",
+    "if": {
+     "flag": "beard_thunderbottom_legendary"
+    },
+    "note": "Lord Vaporious Thunderbottom the Seventh's grand ceremonial release, absorbed whole while carrying Agnes out of the Fart Zone (chapter 219)."
+   },
+   {
+    "id": "beard_frog_grog_fumes",
+    "title": "Beard Joint, with Frog Grog",
+    "if": {
+     "flag": "beard_frog_grog_fumes"
+    },
+    "note": "Garrick's improvement on the historic Beard Joint, sneezed back into it by a chicken (chapter 221). The beard has not forgiven anybody."
+   },
+   {
+    "id": "beard_coffin_sock_catastrophe",
+    "title": "Coffin Sock (the catastrophe)",
+    "if": {
+     "flag": "beard_coffin_sock_catastrophe"
+    },
+    "note": "Brogath's long-brewed Coffin Sock, the big one, caught at chin height (chapter 222). It outranks the first Coffin Sock. It outranks everything."
+   }
+  ]
+ },
+ "ancient_crew_p17": {
+  "extend": "ancient_crew",
+  "entries": [
+   {
+    "id": "ledger_aboard",
+    "title": "Ledger Billiam (aboard)",
+    "if": {
+     "flag": "ledger_billiam_reincarnated"
+    },
+    "role": "Treasurer. Accountant. Back aboard, cardboard.",
+    "summary": "In a cut-out Brogath painted of him on the Fan Mega-Pack carton: an enormous tricorn, a quill held up, a ledger under his arm. Remembers everything he wrote down.",
+    "incidents": "Reviewed the ship's finances (SHIP ASSETS: A LOT). Invented CAPTAIN MINUTES. Got the converter banned.",
+    "brogath": "'He kept my books for twenty-one years after I'd gone. Asset. Every one.'"
+   },
+   {
+    "id": "tilda_aboard",
+    "title": "No-Nonsense Tilda (aboard)",
+    "if": {
+     "flag": "tilda_reincarnated"
+    },
+    "role": "First mate. Navigator. Back aboard, cardboard, singed at one corner.",
+    "summary": "In a cut-out with eyebrows Brogath spent far too long on. Arms folded. Cheap-O-Rama on her back. Remembers every course she ever set.",
+    "incidents": "Took the helm for Greyhook Cove. Filed a ninety-seven-page application. Lit her cigarette in a burning storm.",
+    "brogath": "'BROGATH, STOP. She says it and I do. I always did.'"
+   },
+   {
+    "id": "three_cutouts",
+    "title": "Old Jeb, Wobbly Ned, Elsie",
+    "if": {
+     "flag": "other_old_crew_cutouts_prepared"
+    },
+    "role": "Cut-outs (still cardboard)",
+    "summary": "Three more of Brogath's cut-outs, stood in a row in the crew quarters' gallery. Ned leans. Elsie is only half coloured in. Nothing has gone into them.",
+    "incidents": "None. They're cardboard.",
+    "brogath": "'I'm keeping them nice. Just in case. (Not in case of anything.)'"
+   }
+  ]
+ }
+}

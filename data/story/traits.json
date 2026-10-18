@@ -1,0 +1,42 @@
+{
+ "//": "Story Phase 17: traits. A party member's 'traits' name these; the battle engine reads each one's 'battle' part (damage multipliers by element, statuses it's immune to, evasion) and the story reads the rest. Ledger and Tilda are cardboard: flat, fume-animated, light, flammable, and they can't be killed for good (knocked flat, they stand back up after a battle, and no hazard removes them from the ship).",
+ "CARDBOARD_REINCARNATION": {
+  "label": "Cardboard reincarnation",
+  "short": "Reincarnated",
+  "description": "An ancient crewmate's essence in a printed cut-out, held together by a little of the treasure room's cloud. Knocked flat, they stand back up: nothing removes them for good."
+ },
+ "FLAT_BODY": {
+  "label": "Flat",
+  "short": "Flat",
+  "battle": {
+   "evade": 8
+  },
+  "description": "Edge-on, three pixels wide. Blows that come at the wrong angle go straight past."
+ },
+ "FUME_ANIMATED": {
+  "label": "Fume-animated",
+  "short": "Fume",
+  "battle": {
+   "immune": [
+    "sickened",
+    "belching"
+   ]
+  },
+  "description": "Held together by fumes, so fumes can't make them sick."
+ },
+ "LIGHTWEIGHT": {
+  "label": "Lightweight",
+  "short": "Light",
+  "description": "Blown about by gusts, hull strikes and big releases. Lands flat. Gets up."
+ },
+ "FIRE_SUSCEPTIBLE": {
+  "label": "Flammable",
+  "short": "Flammable",
+  "battle": {
+   "damageTaken": {
+    "fire": 1.5
+   }
+  },
+  "description": "Cardboard. Fire hurts half as much again. (Tilda found out.)"
+ }
+}

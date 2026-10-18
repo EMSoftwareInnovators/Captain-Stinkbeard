@@ -628,7 +628,7 @@ function speedLines(f) {
 }
 
 /** Inside the funnel: walls of cloud and water streaming round past the ship, everything in them. */
-function spoutWall(f) {
+export function spoutWall(f) {
   const c = new PixelCanvas(320, 224);
   const r = rng(401 + f * 3);
   for (let y = 0; y < 224; y++) for (let x = 0; x < 320; x++) {

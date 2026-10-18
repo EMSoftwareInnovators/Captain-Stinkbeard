@@ -1,5 +1,5 @@
 {
- "//": "Story Phase 15: the Ship Atmosphere State. One saved story value (ship_atmosphere) says what the air aboard the Revenge is like; each state is authored consequences, not a gas simulation: a whole-room haze tint (rooms with their own haze keep it), how fast wanderers and routines move, and (optionally) the ship's music and ambience. Dialogue, looks, placements and the Sharkstorm read the value with ordinary conditions; Brogath's stability reads it through its 'mellow' entry. The 'atmosphere' script command changes it. Unset means NORMAL. Story Phase 16: rooms can have their own air (story value room_atmosphere_<map>; the atmosphere command's 'room'), which wins over the ship's while set: Coffin Sock in the quarters while the deck has been aired, the Fart Zone mid-release. Three new states: COFFIN_SOCK, VINDICTA_RELEASE, HORNET_SWARM_RESIDUE. MELLOW_HAZE is the mellow skunk haze (the Chicken-Town Waft).",
+ "//": "Story Phase 15: the Ship Atmosphere State. One saved story value (ship_atmosphere) says what the air aboard the Revenge is like; each state is authored consequences, not a gas simulation: a whole-room haze tint (rooms with their own haze keep it), how fast wanderers and routines move, and (optionally) the ship's music and ambience. Dialogue, looks, placements and the Sharkstorm read the value with ordinary conditions; Brogath's stability reads it through its 'mellow' entry. The 'atmosphere' script command changes it. Unset means NORMAL. Story Phase 16: rooms can have their own air (story value room_atmosphere_<map>; the atmosphere command's 'room'), which wins over the ship's while set: Coffin Sock in the quarters while the deck has been aired, the Fart Zone mid-release. Three new states: COFFIN_SOCK, VINDICTA_RELEASE, HORNET_SWARM_RESIDUE. MELLOW_HAZE is the mellow skunk haze (the Chicken-Town Waft). Story Phase 17: three more states (FIRE_WAFT, THUNDERBOTTOM_RELEASE, FROG_GROG_FUMES), all room air; the Chicken-Town haze comes back (chapter 217) and Coffin Sock blows it away for good at the end (chapter 222).",
  "ship": {
   "value": "ship_atmosphere",
   "default": "NORMAL",
@@ -42,7 +42,7 @@
     "npcPace": 0.45,
     "music": "great_mellowing",
     "ambience": "mellow_ship",
-    "notes": "Chapters 181-185: everyone but the captain (whose beard rejects it) is mellow. Garrick issues no decrees; Brogath's triggers count for a fraction (his MELLOW state); the crew wander slowly and snack; the Sharkstorm is mellow too. Story Phase 16: the Chicken-Town Waft (chapter 192) brings it back, stronger: through the quarters, the passages, the deck, the rigging and the Sharkstorm. Story Phase 16: the Chicken-Town Waft (chapter 192) brings it back, stronger: through the quarters, the passages, the deck, the rigging and the Sharkstorm. Story Phase 16: the Chicken-Town Waft (chapter 192) brings it back, stronger: through the quarters, the passages, the deck, the rigging and the Sharkstorm. Story Phase 16: the Chicken-Town Waft (chapter 192) brings it back, stronger: through the quarters, the passages, the deck, the rigging and the Sharkstorm."
+    "notes": "Chapters 181-185: everyone but the captain (whose beard rejects it) is mellow. Garrick issues no decrees; Brogath's triggers count for a fraction (his MELLOW state); the crew wander slowly and snack; the Sharkstorm is mellow too. Story Phase 16: the Chicken-Town Waft (chapter 192) brings it back, stronger: through the quarters, the passages, the deck, the rigging and the Sharkstorm. Story Phase 16: the Chicken-Town Waft (chapter 192) brings it back, stronger: through the quarters, the passages, the deck, the rigging and the Sharkstorm. Story Phase 16: the Chicken-Town Waft (chapter 192) brings it back, stronger: through the quarters, the passages, the deck, the rigging and the Sharkstorm. Story Phase 16: the Chicken-Town Waft (chapter 192) brings it back, stronger: through the quarters, the passages, the deck, the rigging and the Sharkstorm. Story Phase 17: Agnes and Brogath do it again (chapter 217), and it puts the Fire-Sharkstorm out; Coffin Sock blows it away (chapter 222)."
    },
    "BEARD_PARANOIA_HAZE": {
     "label": "Beard-smoke paranoia",
@@ -88,7 +88,7 @@
     },
     "npcPace": 0.7,
     "ambience": "coffin_sock",
-    "notes": "Story Phase 16 (chapter 188): Brogath tried for the green one and got COFFIN SOCK. Ancient, dusty, stale, musty, bean-heavy, and it outranks every other smell. Dark yellow-brown-grey. Aired out room by room (rooms keep their own air until they're opened up)."
+    "notes": "Story Phase 16 (chapter 188): Brogath tried for the green one and got COFFIN SOCK. Ancient, dusty, stale, musty, bean-heavy, and it outranks every other smell. Dark yellow-brown-grey. Aired out room by room (rooms keep their own air until they're opened up). Story Phase 17: the catastrophe (chapter 222): Brogath's long-brewed release, ship-wide, displacing the Chicken-Town haze. The phase ends in it."
    },
    "VINDICTA_RELEASE": {
     "label": "Vindicta's release",
@@ -107,6 +107,33 @@
     },
     "npcPace": 0.9,
     "notes": "Story Phase 16 (chapters 197-200): what the Hornet Fart leaves behind: a yellowish, buzzing sort of air. The hornets themselves are hazards/hornets.json."
+   },
+   "FIRE_WAFT": {
+    "label": "Fire-Waft smoke",
+    "haze": {
+     "level": "light",
+     "color": "#c8783a"
+    },
+    "npcPace": 0.9,
+    "notes": "Story Phase 17 (chapter 217): the Grand Restraint giving way: orange-brown smoke in the Fart Zone after the Fire-Waft. The room's own air until the green waft clears it."
+   },
+   "THUNDERBOTTOM_RELEASE": {
+    "label": "Thunderbottom's release",
+    "haze": {
+     "level": "dense",
+     "color": "#9a7ab0"
+    },
+    "npcPace": 0.8,
+    "notes": "Story Phase 17 (chapter 219): Lord Thunderbottom's grand ceremonial release in the Fart Zone: purple-yellow, pressure waves. The room's own air until it's ventilated."
+   },
+   "FROG_GROG_FUMES": {
+    "label": "Frog Grog fumes",
+    "haze": {
+     "level": "light",
+     "color": "#8ab07a"
+    },
+    "npcPace": 0.95,
+    "notes": "Story Phase 17 (chapter 221): Garrick's improvement on the Beard Joint (a scripted gag, not a recipe): purple-green fumes in the quarters, sneezed into the captain's face by Agnes."
    }
   },
   "roomPrefix": "room_atmosphere_"

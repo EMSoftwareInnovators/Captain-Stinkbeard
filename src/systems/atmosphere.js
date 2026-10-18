@@ -27,7 +27,9 @@
 
 export const ATMOSPHERE_STATES = ['NORMAL', 'ORDINARY_STENCH', 'BROGATH_SKUNK_HAZE', 'MELLOW_HAZE', 'BEARD_PARANOIA_HAZE', 'NOSE_FIRE_RESIDUE', 'BANK_FUMES', 'CLEARING',
   // Story Phase 16: Brogath's Coffin Sock, Vindicta's legendary release, what the hornets leave behind.
-  'COFFIN_SOCK', 'VINDICTA_RELEASE', 'HORNET_SWARM_RESIDUE'];
+  'COFFIN_SOCK', 'VINDICTA_RELEASE', 'HORNET_SWARM_RESIDUE',
+  // Story Phase 17: the Fire-Waft, Lord Thunderbottom's release, Frog Grog fumes in a beard.
+  'FIRE_WAFT', 'THUNDERBOTTOM_RELEASE', 'FROG_GROG_FUMES'];
 
 /**
  * Story Phase 16: rooms can have their own air. A room's story value

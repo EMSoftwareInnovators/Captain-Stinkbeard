@@ -1,0 +1,345 @@
+{
+ "tilda_application": {
+  "kind": "form",
+  "title": "APPLICATION FOR CEREMONIAL IGNITION",
+  "pages": 97,
+  "pageVar": "tilda_page",
+  "answerPrefix": "tig_",
+  "//": "Story Phase 17 (chapter 211): No-Nonsense Tilda's application for a ceremonial Fire-Waft ignition, on the Bureau's own 97-page form (the same proceeding engine as Lord Puffchester's). It is filed once: the permit it makes is the one she shows later (chapter 216). Nothing in it is a real procedure.",
+  "questions": [
+   {
+    "id": "name",
+    "page": 1,
+    "required": true,
+    "prompt": "tilda: (at the window, arms folded) Page one. NO-NONSENSE TILDA. First Mate. Write it down, clerk.",
+    "options": [
+     {
+      "text": "NO-NONSENSE TILDA, FIRST MATE",
+      "reply": [
+       "tilda: (curt) Correct."
+      ]
+     },
+     {
+      "text": "TILDA (CARDBOARD)",
+      "reply": [
+       "tilda[furious]: I am a FIRST MATE who is currently cardboard. Write the rank first."
+      ],
+      "invalid": true
+     },
+     {
+      "text": "ACTING CAPTAIN TILDA",
+      "reply": [
+       "tilda[smug]: ...Tempting. No. Write it properly. Stinkbeard's watching."
+      ],
+      "invalid": true
+     }
+    ],
+    "again": [
+     "tilda: Again. Rank first."
+    ]
+   },
+   {
+    "id": "composition",
+    "page": 3,
+    "prompt": "ledger: (reading over your shoulder) Page three: APPLICANT'S COMPOSITION. Oh, I like this one.",
+    "options": [
+     {
+      "text": "Cardboard. Printed. One side.",
+      "reply": [
+       "tilda: (looking down at herself) ...Both sides. There's Cheap-O-Rama on the back."
+      ]
+     },
+     {
+      "text": "Mostly fume.",
+      "reply": [
+       "ledger: I'll put 'mostly fume, partly cardboard, wholly first mate'."
+      ]
+     },
+     {
+      "text": "Flesh and blood.",
+      "reply": [
+       "tilda[annoyed]: Clerk. Look at me. LOOK at me."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "fire",
+    "page": 4,
+    "required": true,
+    "prompt": "documentary_narrator: (the form, in small print) PAGE FOUR. IS THE APPLICANT FLAMMABLE?",
+    "options": [
+     {
+      "text": "YES. VERY.",
+      "reply": [
+       "tilda[stern]: (through her teeth) ...Yes.",
+       "ledger: I'll draw a little flame. For emphasis."
+      ],
+      "flag": "p17_tilda_form_flammable"
+     },
+     {
+      "text": "No.",
+      "reply": [
+       "tilda: (quietly) Write yes, Stinkbeard. I'm not a liar. I'm just determined."
+      ],
+      "invalid": true
+     }
+    ],
+    "again": [
+     "The form waits. It knows."
+    ]
+   },
+   {
+    "id": "incidents",
+    "page": 9,
+    "prompt": "tilda: Page nine: PREVIOUS IGNITION INCIDENTS. (a pause) There was a hat.",
+    "options": [
+     {
+      "text": "One hat.",
+      "reply": [
+       "tilda: Brogath's. Seventeen-thirty-something. He said it was a candle. It was a hat."
+      ]
+     },
+     {
+      "text": "Several hats.",
+      "reply": [
+       "tilda[annoyed]: Two. It was TWO hats. Write two."
+      ]
+     },
+     {
+      "text": "None.",
+      "reply": [
+       "brogath: (from the lounge, helpfully) There was a hat!"
+      ]
+     }
+    ]
+   },
+   {
+    "id": "pages_10_29",
+    "montage": [
+     10,
+     14,
+     19,
+     24,
+     29
+    ],
+    "lines": [
+     "Pages ten to twenty-nine: WIND DIRECTION, ANCESTRY, OPINIONS ON CANDLES. Tilda has an opinion on every candle that has ever been lit."
+    ]
+   },
+   {
+    "id": "eyebrows",
+    "page": 30,
+    "prompt": "documentary_narrator: PAGE THIRTY. EYEBROW STATUS (FOR INSURANCE PURPOSES).",
+    "options": [
+     {
+      "text": "PRESENT. EMPHATICALLY.",
+      "reply": [
+       "brogath: (from the lounge, proudly) I did those. It took all afternoon."
+      ]
+     },
+     {
+      "text": "Printed on.",
+      "reply": [
+       "tilda: Drawn on. By hand. With CARE."
+      ]
+     },
+     {
+      "text": "At risk.",
+      "reply": [
+       "tilda[stern]: (touching them) They are NOT at risk."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "provider",
+    "page": 31,
+    "required": true,
+    "prompt": "tilda: Page thirty-one. PREFERRED GRAND STENCHMASTER. (before you can write anything) BROGATH THE BASHFUL.",
+    "options": [
+     {
+      "text": "PREFERRED PROVIDER: BROGATH THE BASHFUL",
+      "reply": [
+       "brogath: (from the lounge, a creak of pure joy) Me? She asked for ME?",
+       "You write it. Your hand is shaking a bit. Not from joy."
+      ],
+      "flag": "p17_tilda_provider_brogath"
+     },
+     {
+      "text": "Garrick. (He's the actual Grand Stenchmaster.)",
+      "reply": [
+       "garrick: (from somewhere, delighted) Did somebody say a ceremonial engagement?",
+       "tilda[furious]: BROGATH. I have waited four hundred years. BROGATH."
+      ],
+      "invalid": true
+     },
+     {
+      "text": "Nobody. A lighter.",
+      "reply": [
+       "tilda[annoyed]: Page thirty-one has no box for 'a lighter'. I checked."
+      ],
+      "invalid": true
+     }
+    ],
+    "again": [
+     "tilda: (arms folded) Again. B-R-O-G-A-T-H."
+    ]
+   },
+   {
+    "id": "intensity",
+    "page": 33,
+    "prompt": "documentary_narrator: PAGE THIRTY-THREE. REQUESTED FLAME INTENSITY.",
+    "options": [
+     {
+      "text": "SMALL.",
+      "reply": [
+       "tilda: Small. Ceremonial. Like the old days."
+      ]
+     },
+     {
+      "text": "VERY SMALL. TINY. A RUMOUR OF A FLAME.",
+      "reply": [
+       "tilda: (grudgingly) ...Fine."
+      ]
+     },
+     {
+      "text": "GRAND.",
+      "reply": [
+       "You cross it out before the ink dries. Tilda watches you do it and says nothing, which is worse."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "beans",
+    "page": 40,
+    "prompt": "documentary_narrator: PAGE FORTY. RECENT BEAN CONSUMPTION (APPLICANT AND PROVIDER).",
+    "options": [
+     {
+      "text": "Applicant: none (cardboard).",
+      "reply": [
+       "ledger: And the provider?",
+       "brogath: (very quietly) ...Some."
+      ]
+     },
+     {
+      "text": "Provider: some.",
+      "reply": [
+       "brogath: (very quietly, from the lounge) ...A bowl."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "pages_41_59",
+    "montage": [
+     41,
+     47,
+     52,
+     59
+    ],
+    "lines": [
+     "Pages forty-one to fifty-nine: PRIOR SCORCH MARKS (none yet, Tilda says, in a voice that dares the future), SASH-HOLDING REQUIREMENTS (two holders, opposite sides), STRUCTURAL SAFETY (she's a cut-out, Ledger writes; 'MOSTLY UPRIGHT')."
+    ]
+   },
+   {
+    "id": "lungs",
+    "page": 60,
+    "required": true,
+    "prompt": "documentary_narrator: PAGE SIXTY. DOES THE APPLICANT HAVE LUNGS?",
+    "options": [
+     {
+      "text": "No.",
+      "reply": [
+       "tilda: (a long pause) ...No.",
+       "captain: So how are you going to SMOKE it?",
+       "tilda[soft]: (quietly) That isn't the point, Stinkbeard. Fill in the form."
+      ],
+      "flag": "p17_tilda_no_lungs"
+     },
+     {
+      "text": "Yes.",
+      "reply": [
+       "tilda[annoyed]: Don't flatter me. Write no."
+      ],
+      "invalid": true
+     },
+     {
+      "text": "Unknown.",
+      "reply": [
+       "ledger: I'll put UNKNOWN in the MAYBE column."
+      ]
+     }
+    ],
+    "again": [
+     "The box is very small. It wants a very small answer."
+    ]
+   },
+   {
+    "id": "chicken",
+    "page": 61,
+    "required": true,
+    "prompt": "documentary_narrator: PAGE SIXTY-ONE. NEARBY LIVESTOCK.",
+    "options": [
+     {
+      "text": "AGNES THE SECOND. OPERATIONALLY IMPORTANT. DO NOT TOAST.",
+      "reply": [
+       "You write it the same way as last time. You write it bigger."
+      ],
+      "flag": "p17_tilda_form_agnes"
+     },
+     {
+      "text": "None.",
+      "reply": [
+       "agnes_second: (from the lounge) Bawk.",
+       "You write it properly."
+      ],
+      "invalid": true
+     }
+    ],
+    "again": [
+     "The chicken is right there."
+    ]
+   },
+   {
+    "id": "emergency",
+    "page": 96,
+    "prompt": "documentary_narrator: PAGE NINETY-SIX. EMERGENCY PROCEDURES.",
+    "options": [
+     {
+      "text": "Bucket. Portholes. Agnes elsewhere. Pete.",
+      "reply": [
+       "pete: (from the lounge, raising his bucket) Pete."
+      ]
+     },
+     {
+      "text": "Run.",
+      "reply": [
+       "tilda: Running is not a procedure. Write 'proceed briskly'."
+      ]
+     }
+    ]
+   },
+   {
+    "id": "sign",
+    "page": 97,
+    "prompt": "tilda: Page ninety-seven. Signature.",
+    "options": [
+     {
+      "text": "(Tilda signs. Then she makes YOU sign. Then Brogath.)",
+      "reply": [
+       "Three signatures: a hard straight one, yours, and a very small bashful one with a crown drawn next to it."
+      ]
+     }
+    ]
+   }
+  ],
+  "done": [
+   {
+    "insert": "tilda_application_p31"
+   },
+   "The Bureau's stamp comes down: APPROVED. SUBJECT TO SAFETY CONDITIONS AGREED WITH THE CAPTAIN. She takes the permit off the counter and holds it like a letter from home."
+  ]
+ }
+}

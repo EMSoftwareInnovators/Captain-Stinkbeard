@@ -150,6 +150,14 @@ const STATUS_ICONS = {
   stench_proof: ['oooooo', 'oGggGo', 'oGggGo', 'oGggGo', '.oGGo.', '..oo..'],
   belching: ['.YY...', 'YYYY.Y', '.YYYYY', '..YYY.', '.YYYY.', '..YY..'],
   dizzy: ['.BBBB.', 'B....B', 'B.BB.B', 'B.B..B', 'B.BBB.', 'B.....'],
+  // Story Phase 17: Ledger's accounts and Tilda's orders
+  undervalued: ['oooooo', 'o.YY.o', 'oY..Yo', 'o..YYo', 'oYYY.o', 'oooooo'],
+  devalued: ['RRRRRR', 'R.RR.R', '..RR..', '..RR..', 'RRRRRR', '.RRRR.'],
+  projected: ['.....G', '....GG', '...G.G', 'G.G...', '.G....', 'GGGGGG'],
+  staggered: ['R....R', '.R..R.', '..RR..', '..RR..', '.R..R.', 'R....R'],
+  no_nonsense: ['BBBBBB', 'B....B', 'B.BB.B', 'B.BB.B', 'B....B', 'BBBBBB'],
+  held_line: ['BBBBBB', 'BbbbbB', 'BbbbbB', '.BbbB.', '.BbbB.', '..BB..'],
+  orders_given: ['..GG..', '.GGGG.', 'GG..GG', '..GG..', '..GG..', '..GG..'],
 };
 
 function statusIcons() {

@@ -72,7 +72,8 @@ const FOLDER_RULES = [
  *     props, onEnter scripts, regions, ambient life, fume zones, lights and
  *     music/lighting variants to that map;
  *   - an NPC or character record with "extend": "<id>" puts its dialogue
- *     selectors ahead of the original ones and adds look variants.
+ *     selectors ahead of the original ones and adds look variants (and, for
+ *     an NPC that keeps to certain rooms, more rooms).
  */
 const MAP_PATCH_PREPEND = ['objects', 'musicVariants', 'lightingVariants', 'nameVariants', 'backgroundVariants', 'haze', 'sharks', 'sharkDuty'];
 const MAP_PATCH_APPEND = ['props', 'onEnter', 'regions', 'ambient', 'fumes', 'collision', 'decor'];
@@ -263,9 +264,14 @@ export class ContentDB {
       const merged = { ...base };
       if (ext.rec.dialogue) merged.dialogue = [...ext.rec.dialogue, ...(base.dialogue ?? [])];
       if (ext.rec.variants) merged.variants = [...ext.rec.variants, ...(base.variants ?? [])];
+      // Story Phase 17: a later phase can let someone into more rooms (Brogath, into the hold and the Fart-Free Zone).
+      if (ext.rec.rooms && ext.kind === 'npcs') {
+        if (!Array.isArray(base.rooms)) this.loadErrors.push(`${ext.source}: "rooms" extends a list "${ext.rec.extend}" doesn't have (it can go anywhere already)`);
+        else merged.rooms = [...new Set([...base.rooms, ...ext.rec.rooms])];
+      }
       for (const key of Object.keys(ext.rec)) {
-        if (!['extend', 'dialogue', 'variants'].includes(key) && !key.startsWith('//')) {
-          this.loadErrors.push(`${ext.source}: an extension may only add "dialogue" and "variants" (found "${key}")`);
+        if (!['extend', 'dialogue', 'variants', 'rooms'].includes(key) && !key.startsWith('//')) {
+          this.loadErrors.push(`${ext.source}: an extension may only add "dialogue", "variants" and (for an NPC) "rooms" (found "${key}")`);
         }
       }
       registry.map.set(base.id, merged);
@@ -349,7 +355,8 @@ export class ContentDB {
       add(def.id, rec, source);
       for (const alias of def.aliases ?? []) add(alias, rec, source);
     };
-    for (const def of this.characters.list()) addFrom(def, this.characters.sourceOf(def.id));
+    // Story Phase 17: a party member who is also an NPC aboard ("npc": the NPC's id) speaks as the NPC.
+    for (const def of this.characters.list()) if (!(def.npc && this.npcs.get(def.npc))) addFrom(def, this.characters.sourceOf(def.id));
     for (const def of this.npcs.list()) addFrom(def, this.npcs.sourceOf(def.id));
     for (const def of this.extraSpeakers.list()) addFrom(def, this.extraSpeakers.sourceOf(def.id));
   }

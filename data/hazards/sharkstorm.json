@@ -1,5 +1,5 @@
 {
- "//": "Story Phase 6: the Great Sharkstorm (see src/systems/hazards/sharkstorm.js and src/world/SharkstormLayer.js). One saved story value names its state; the story moves it along. It forms out of the second release and the frenzy, attacks the ship, is driven off by concentrated Frog Grog, and does NOT end: it ends the phase 'active_distant', a rotating storm front on the horizon. No weather simulation; flying sharks on deck are a few pooled sprites, always telegraphed, never harmful (a direct hit knocks the captain flat for a moment). Story Phase 7: it comes BACK (active_distant -> returning -> attacking_ship -> active_near_ship). Not recreated: the same storm, reorganised out of the contamination in the air and the sea and the hundreds of sharks still following the Revenge. It is not driven off again (there is no bulk Frog Grog left to do it with) and ends the phase parked over the ship. Flying sharks come in shapes now (variants); with the crew below, the storm is heard through the deck (below). Story Phase 8: it eases (easing_near_ship): fewer landings, further apart. Still there. Story Phase 9: it follows the Revenge to Crownskull Isle (following_crownskull), hangs off the coast (offshore_crownskull), turns inland after the Grand Excavation (inland_crownskull) and ends treasure-laden (treasure_laden): most of the Crimson Fortune is in it. Story Phase 10: it trails the limping Revenge (p10_trailing), fills the sky while the crew get ready (close_approach), takes the Revenge in when Garrick fires the wrong way (entering), and ends with her inside it, going round (inside_ship).",
+ "//": "Story Phase 6: the Great Sharkstorm (see src/systems/hazards/sharkstorm.js and src/world/SharkstormLayer.js). One saved story value names its state; the story moves it along. It forms out of the second release and the frenzy, attacks the ship, is driven off by concentrated Frog Grog, and does NOT end: it ends the phase 'active_distant', a rotating storm front on the horizon. No weather simulation; flying sharks on deck are a few pooled sprites, always telegraphed, never harmful (a direct hit knocks the captain flat for a moment). Story Phase 7: it comes BACK (active_distant -> returning -> attacking_ship -> active_near_ship). Not recreated: the same storm, reorganised out of the contamination in the air and the sea and the hundreds of sharks still following the Revenge. It is not driven off again (there is no bulk Frog Grog left to do it with) and ends the phase parked over the ship. Flying sharks come in shapes now (variants); with the crew below, the storm is heard through the deck (below). Story Phase 8: it eases (easing_near_ship): fewer landings, further apart. Still there. Story Phase 9: it follows the Revenge to Crownskull Isle (following_crownskull), hangs off the coast (offshore_crownskull), turns inland after the Grand Excavation (inland_crownskull) and ends treasure-laden (treasure_laden): most of the Crimson Fortune is in it. Story Phase 10: it trails the limping Revenge (p10_trailing), fills the sky while the crew get ready (close_approach), takes the Revenge in when Garrick fires the wrong way (entering), and ends with her inside it, going round (inside_ship). Story Phase 17: a state can be 'temporary' (a flare over the saved state: the Fire-Sharkstorm, chapter 217); it ends when the story says, or after a few room changes.",
  "great_sharkstorm": {
   "name": "The Great Sharkstorm",
   "value": "great_sharkstorm",
@@ -1172,6 +1172,90 @@
       "hull_thud"
      ],
      "shake": 0.0006
+    }
+   },
+   "fire_sharkstorm": {
+    "//": "Story Phase 17 (chapter 217): THE FIRE-SHARKSTORM. A Fire-Waft went out of the Fart Zone's portholes and up into the storm and lit it: a supernatural flare, flaming highlights in the vortex, sharks going round lit up orange. TEMPORARY: a flare over the saved state (rough_turbulence underneath), put out by the Chicken-Town waft, and it burns itself out after a few rooms whatever happens. Never permanent.",
+    "intensity": 3,
+    "distance": "inside",
+    "maps": [
+     "main_deck"
+    ],
+    "flying": {
+     "passEvery": [
+      1800,
+      3400
+     ],
+     "variants": [
+      "flying_shark_lit",
+      "flying_shark_lit",
+      "flying_shark",
+      "flying_hammer",
+      "flying_shark_lit"
+     ],
+     "swirl": true
+    },
+    "glints": {
+     "every": [
+      1400,
+      2600
+     ],
+     "sfx": "sharkstorm_flames",
+     "bursts": [
+      "embers",
+      "sparkle"
+     ]
+    },
+    "sway": {
+     "maps": [
+      "main_deck",
+      "galley",
+      "cargo_hold",
+      "treasure_hold",
+      "crew_quarters",
+      "washroom",
+      "captains_quarters"
+     ],
+     "drift": 2.9,
+     "period": 3800
+    },
+    "rumble": {
+     "every": [
+      6000,
+      11000
+     ],
+     "sfx": "sharkstorm_flames"
+    },
+    "below": {
+     "maps": [
+      "galley",
+      "cargo_hold",
+      "treasure_hold",
+      "crew_quarters",
+      "washroom",
+      "captains_quarters"
+     ],
+     "every": [
+      14000,
+      26000
+     ],
+     "sfx": [
+      "hull_thud",
+      "token_clack",
+      "deck_scrape"
+     ],
+     "shake": 0.0015
+    },
+    "temporary": {
+     "expiresAfterRooms": 10
+    },
+    "flashes": {
+     "every": [
+      3200,
+      6000
+     ],
+     "color": "#e8783a",
+     "alpha": 0.12
     }
    }
   }

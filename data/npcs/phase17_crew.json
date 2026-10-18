@@ -1,0 +1,23 @@
+[
+ {
+  "extend": "brogath",
+  "rooms": [
+   "cargo_hold",
+   "fart_free_zone"
+  ],
+  "//": "Story Phase 17: Brogath goes into the Fart-Free Zone (the old crew's memories, chapter 206) and the hold (the door, chapter 208). Never into the treasure room itself.",
+  "dialogue": []
+ },
+ {
+  "extend": "agnes_second",
+  "variants": [
+   {
+    "if": {
+     "flag": "agnes_post_rescue_condition"
+    },
+    "appearance": "agnes_frazzled",
+    "portrait": "agnes_frazzled"
+   }
+  ]
+ }
+]

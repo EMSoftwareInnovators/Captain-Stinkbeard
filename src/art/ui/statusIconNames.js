@@ -1,1 +1,1 @@
-export const STATUS_ICON_NAMES = ['braced', 'defending', 'marked', 'sickened', 'emboldened', 'rattled', 'warmed_up', 'stench_proof', 'belching', 'dizzy'];
+export const STATUS_ICON_NAMES = ['braced', 'defending', 'marked', 'sickened', 'emboldened', 'rattled', 'warmed_up', 'stench_proof', 'belching', 'dizzy', 'undervalued', 'devalued', 'projected', 'staggered', 'no_nonsense', 'held_line', 'orders_given'];

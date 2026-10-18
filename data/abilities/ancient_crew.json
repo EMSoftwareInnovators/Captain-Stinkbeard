@@ -1,0 +1,238 @@
+[
+ {
+  "id": "ledger_swat",
+  "name": "Ledger",
+  "kind": "attack",
+  "target": "enemy",
+  "power": 80,
+  "accuracy": 100,
+  "timing": "cutlass_strike",
+  "anim": "slash",
+  "sfx": "ledger_slam",
+  "description": "A swat with the ledger. Weak, but well documented. Press Confirm as it lands."
+ },
+ {
+  "id": "creative_accounting",
+  "name": "Creative Accounting",
+  "kind": "order",
+  "target": "enemy",
+  "cost": {
+   "accounts": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "undervalued",
+    "duration": 3
+   }
+  ],
+  "anim": "order",
+  "shout": "CREATIVE ACCOUNTING!",
+  "sfx": "quill_scratch",
+  "description": "Ledger re-files a foe as a minor expense. Its Attack drops for 3 turns."
+ },
+ {
+  "id": "reconcile",
+  "name": "Reconcile!",
+  "kind": "order",
+  "target": "ally",
+  "cost": {
+   "accounts": 1
+  },
+  "effects": [
+   {
+    "type": "cure",
+    "status": "debuffs"
+   },
+   {
+    "type": "heal",
+    "percent": 10
+   }
+  ],
+  "anim": "order",
+  "shout": "RECONCILE!",
+  "sfx": "buff",
+  "description": "Balances an ally's books: clears their troubles and a tenth of their wounds."
+ },
+ {
+  "id": "projected_profits",
+  "name": "Projected Profits",
+  "kind": "order",
+  "target": "allies",
+  "cost": {
+   "accounts": 2
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "projected",
+    "duration": 3
+   }
+  ],
+  "anim": "order",
+  "shout": "PROJECTED PROFITS!",
+  "sfx": "page_flip",
+  "description": "Everybody's going to be rich. Attack and Luck up for 3 turns."
+ },
+ {
+  "id": "questionable_valuation",
+  "name": "Questionable Valuation",
+  "kind": "order",
+  "target": "enemy",
+  "cost": {
+   "accounts": 2
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "devalued",
+    "duration": 3
+   }
+  ],
+  "anim": "order",
+  "shout": "QUESTIONABLE VALUATION!",
+  "sfx": "quill_scratch",
+  "description": "Ledger values a foe at MAYBE. Its Defense falls for 3 turns."
+ },
+ {
+  "id": "captain_minutes",
+  "name": "Captain Minutes",
+  "kind": "order",
+  "target": "allies",
+  "cost": {
+   "accounts": 3
+  },
+  "effects": [
+   {
+    "type": "heal",
+    "percent": 25
+   },
+   {
+    "type": "restore",
+    "resource": "*",
+    "amount": 1
+   }
+  ],
+  "anim": "order",
+  "shout": "CAPTAIN MINUTES!",
+  "sfx": "page_flip",
+  "description": "The captain's suffering, as a unit of value, paid out to everybody: heals a quarter and adds 1 to everybody's resource."
+ },
+ {
+  "id": "tilda_shove",
+  "name": "Shove",
+  "kind": "attack",
+  "target": "enemy",
+  "power": 110,
+  "accuracy": 98,
+  "timing": "cutlass_strike",
+  "anim": "slash",
+  "sfx": "cardboard_slap",
+  "description": "A no-nonsense shove with a flat cardboard arm. Press Confirm as it lands."
+ },
+ {
+  "id": "brogath_stop",
+  "name": "BROGATH, STOP!",
+  "kind": "order",
+  "target": "enemy",
+  "cost": {
+   "authority": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "staggered",
+    "duration": 1
+   }
+  ],
+  "anim": "order",
+  "shout": "BROGATH, STOP!",
+  "sfx": "tilda_sting",
+  "description": "Tilda's oldest order, at a foe: it stops whatever it was about to do (it loses its next turn)."
+ },
+ {
+  "id": "no_nonsense",
+  "name": "No Nonsense!",
+  "kind": "order",
+  "target": "self",
+  "cost": {
+   "authority": 1
+  },
+  "effects": [
+   {
+    "type": "cure",
+    "status": "debuffs"
+   },
+   {
+    "type": "applyStatus",
+    "status": "no_nonsense",
+    "duration": 3
+   }
+  ],
+  "anim": "order",
+  "shout": "NO NONSENSE!",
+  "sfx": "tilda_sting",
+  "description": "Tilda refuses to be affected: clears her troubles, Defense up and less damage for 3 turns."
+ },
+ {
+  "id": "hold_the_line",
+  "name": "Hold the Line",
+  "kind": "order",
+  "target": "allies",
+  "cost": {
+   "authority": 2
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "held_line",
+    "duration": 2
+   }
+  ],
+  "anim": "order",
+  "shout": "HOLD THE LINE!",
+  "sfx": "tilda_sting",
+  "description": "Everybody takes less damage for 2 turns."
+ },
+ {
+  "id": "authoritative_rebuke",
+  "name": "Authoritative Rebuke",
+  "kind": "attack",
+  "target": "enemy",
+  "power": 175,
+  "accuracy": 100,
+  "cost": {
+   "authority": 2
+  },
+  "timing": "cutlass_strike",
+  "critBonus": 6,
+  "anim": "slash",
+  "sfx": "cardboard_slap",
+  "description": "A heavy, personal rebuke, delivered with the whole card. Costs 2 Authority."
+ },
+ {
+  "id": "first_mates_orders",
+  "name": "First Mate's Orders",
+  "kind": "order",
+  "target": "allies",
+  "cost": {
+   "authority": 3
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "orders_given",
+    "duration": 3
+   },
+   {
+    "type": "restore",
+    "resource": "*",
+    "amount": 1
+   }
+  ],
+  "anim": "order",
+  "shout": "FIRST MATE'S ORDERS!",
+  "sfx": "tilda_sting",
+  "description": "Tilda tells everybody what to do (some of it is right): Attack and Speed up for 3 turns, and 1 more for everybody's resource."
+ }
+]

@@ -21,7 +21,7 @@ const W = SES_SCREEN.w;
 const H = SES_SCREEN.h;
 const t = (c, s, x, y, col = CRT[7], opts = {}) => drawText(c, s, x, y, col, { center: true, ...opts });
 
-function card(title, sub, f) {
+export function card(title, sub, f) {
   const c = screen(CRT[1]);
   rays(c, W / 2, 34, 12, CRT[2], f);
   c.rect(6, 24, W - 12, 26, CRT[0]);
@@ -29,7 +29,7 @@ function card(title, sub, f) {
   if (sub) t(c, sub, W / 2, 39, CRT[6]);
   return c;
 }
-function ground(c, y = 60, col = CRT[2]) { c.rect(0, y, W, H - y, col); }
+export function ground(c, y = 60, col = CRT[2]) { c.rect(0, y, W, H - y, col); }
 function stallFront(c, x, y, w, col = CRT[3]) {
   c.rect(x, y, w, 14, col);
   for (let k = 0; k < w; k += 6) c.rect(x + k, y - 8, 3, 8, k % 12 ? CRT[5] : CRT[6]);
@@ -38,7 +38,7 @@ function whiff(c, x, y, f, n = 3) {
   for (let i = 0; i < n; i++) c.ellipse(x + i * 7 + (f ? 3 : 0), y - i * 2, 3, 2, CRT[5]);
 }
 /** A little cartoon person (a baker, a merchant): head, body, an arm. */
-function person(c, x, y, { col = CRT[3], hat = null, flee = 0 } = {}) {
+export function person(c, x, y, { col = CRT[3], hat = null, flee = 0 } = {}) {
   c.ellipse(x, y, 5, 5, CRT[6]);
   c.rect(x - 4, y + 5, 8, 14, col);
   if (hat === 'tall') c.rect(x - 4, y - 10, 8, 6, CRT[7]);
@@ -61,7 +61,7 @@ function goat(c, x, y, { down = false, flip = false } = {}) {
   c.set(x + 12 * d, y - 5, CRT[0]);
   c.vline(x + 12 * d, y, y + 3, CRT[6]); // beard
 }
-function hen(c, x, y, { flip = false, s = 1 } = {}) {
+export function hen(c, x, y, { flip = false, s = 1 } = {}) {
   const d = flip ? -1 : 1;
   c.ellipse(x, y, 7 * s, 5 * s, CRT[6]);
   c.ellipse(x + 6 * d * s, y - 5 * s, 3 * s, 3 * s, CRT[7]);

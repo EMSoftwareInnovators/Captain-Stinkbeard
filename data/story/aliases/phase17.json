@@ -1,0 +1,159 @@
+{
+ "beard_joint_vision": {
+  "//": "Story Phase 17 (chapter 221): Garrick's new Beard Joint (beard clippings and the fictional Skunk Weed: abstract, off-screen, not a recipe). A small exposure: the captain sees Ancient Grand Stenchmaster figures in his crewmates, phantom sashes and crowns on them, nameplates that shift. Presentation only: ids, quests, saves and what people actually say stay real; the real names flicker through.",
+  "if": {
+   "all": [
+    {
+     "flag": "p17_beard_joint_vision"
+    },
+    {
+     "notFlag": "p17_grand_paranoia"
+    }
+   ]
+  },
+  "overlay": {
+   "tint": "#d8c8a8",
+   "wobble": 1,
+   "every": [
+    3500,
+    7000
+   ]
+  },
+  "actors": {
+   "pete": {
+    "name": "BROGATH THE ELDER?",
+    "flicker": true,
+    "portrait": "delirium_brogath",
+    "appearance": "pete_brogath"
+   },
+   "garrick": {
+    "name": "THE GRAND STENCHMASTER PRIME",
+    "flicker": true,
+    "portrait": "delirium_prime",
+    "appearance": "garrick_prime"
+   },
+   "jim": {
+    "name": "LORD GUSTAVIO",
+    "flicker": true,
+    "portrait": "delirium_gustavio",
+    "appearance": "jim_gustavio"
+   },
+   "gristle": {
+    "name": "RUMPOLD WINDBREAKER",
+    "flicker": true,
+    "portrait": "delirium_rumpold",
+    "appearance": "gristle_rumpold"
+   },
+   "bob": {
+    "name": "SIR RUMPUS WINDBOTTOM",
+    "flicker": true,
+    "portrait": "delirium_rumpus",
+    "appearance": "bob_rumpus"
+   }
+  }
+ },
+ "grand_paranoia": {
+  "//": "Story Phase 17 (chapters 221-222): THE GRAND PARANOIA SPIRAL. Frog Grog on the Beard Joint, sneezed into the captain's face by Agnes. Two layers: what he sees (an ancient conspiracy, every crewmate a Grand Stenchmaster preparing a release) and what's actually happening (a worried crew trying to keep Brogath calm), which the dialogue shows in green. The real names flicker through more and more. Presentation only; nobody's identity changes.",
+  "if": {
+   "all": [
+    {
+     "flag": "p17_grand_paranoia"
+    },
+    {
+     "notFlag": "p17_paranoia_broken"
+    }
+   ]
+  },
+  "overlay": {
+   "tint": "#b8a8d8",
+   "wobble": 2,
+   "every": [
+    2000,
+    4000
+   ]
+  },
+  "actors": {
+   "garrick": {
+    "name": "THE CEREMONIAL OFFICIAL",
+    "flicker": true,
+    "portrait": "delirium_prime",
+    "appearance": "garrick_prime"
+   },
+   "ledger": {
+    "name": "THE TREASURER OF WINDS",
+    "flicker": true
+   },
+   "tilda": {
+    "name": "THE FIRE STENCHMISTRESS",
+    "flicker": true
+   },
+   "brogath": {
+    "name": "BROGATH (PREPARING THE RELEASE)",
+    "flicker": true
+   },
+   "pete": {
+    "name": "THE RITUAL STEWARD",
+    "flicker": true,
+    "portrait": "delirium_brogath",
+    "appearance": "pete_brogath"
+   },
+   "jim": {
+    "name": "PRINCESS STENCHALINA THE PERFUMED",
+    "flicker": true,
+    "portrait": "delirium_stenchalina",
+    "appearance": "jim_stenchalina"
+   },
+   "gristle": {
+    "name": "RUMPOLD THE ANCIENT",
+    "flicker": true,
+    "portrait": "delirium_rumpold",
+    "appearance": "gristle_rumpold"
+   },
+   "bob": {
+    "name": "SIR RUMPUS (RELEASE POSTURE)",
+    "flicker": true,
+    "portrait": "delirium_rumpus",
+    "appearance": "bob_rumpus"
+   },
+   "visitor_one": {
+    "name": "WITNESS OF THE EASTERN COURT",
+    "flicker": true
+   },
+   "visitor_two": {
+    "name": "WITNESS OF THE WESTERN COURT",
+    "flicker": true
+   }
+  }
+ },
+ "paranoia_residue": {
+  "//": "Story Phase 17 (the end of chapter 222): the Coffin Sock blast knocked most of the paranoia out of him, not all of it. Now and then a crewmate is briefly an Ancient Grand Stenchmaster again. Mild: no wobble, a faint tint, real names nearly always. Left open for the next phase.",
+  "if": {
+   "all": [
+    {
+     "flag": "p17_paranoia_broken"
+    },
+    {
+     "flag": "stinkbeard_paranoia_residue"
+    }
+   ]
+  },
+  "overlay": {
+   "tint": "#d0c4a4",
+   "wobble": 0,
+   "every": [
+    9000,
+    16000
+   ]
+  },
+  "actors": {
+   "jim": {
+    "name": "PRINCESS STENCHALINA?",
+    "flicker": true
+   },
+   "garrick": {
+    "name": "THE GRAND STENCHMASTER PRIME?",
+    "flicker": true
+   }
+  }
+ }
+}

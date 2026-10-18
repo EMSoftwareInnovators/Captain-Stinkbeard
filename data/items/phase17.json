@@ -1,0 +1,34 @@
+[
+ {
+  "id": "tilda_ignition_permit",
+  "name": "Tilda's Permit",
+  "type": "key",
+  "icon": "ledger",
+  "value": 0,
+  "//": "Story Phase 17: the one permit (chapter 211). Tilda keeps it; the captain carries a copy. It is never reissued: chapter 216's scene reads this.",
+  "description": "PERMIT FOR CEREMONIAL IGNITION. APPLICANT: NO-NONSENSE TILDA. PROVIDER: BROGATH THE BASHFUL. SUBJECT TO SAFETY CONDITIONS AGREED WITH THE CAPTAIN. (He hasn't agreed any.)",
+  "variants": [
+   {
+    "if": {
+     "flag": "tilda_cigarette_lit"
+    },
+    "description": "PERMIT FOR CEREMONIAL IGNITION. APPLICANT: NO-NONSENSE TILDA. STATUS: USED. (The Sharkstorm caught fire. The cigarette got lit. Never again.)"
+   },
+   {
+    "if": {
+     "flag": "p17_safety_conditions"
+    },
+    "description": "PERMIT FOR CEREMONIAL IGNITION. APPLICANT: NO-NONSENSE TILDA. PROVIDER: BROGATH THE BASHFUL. CONDITIONS (in your writing): the Fart Zone only. Portholes open. Agnes elsewhere. A bucket. Behind the rope."
+   }
+  ]
+ },
+ {
+  "id": "ledger_research",
+  "name": "Ledger's Research",
+  "type": "key",
+  "icon": "ledger",
+  "value": 0,
+  "//": "Story Phase 17 (chapter 214): Ledger's notes on the Grand Currency Converter. Not money; Captain Minutes is a story variable and never touches the purse.",
+  "description": "FINANCIAL RESEARCH (PRESERVED). EXCHANGE RATE: 1 GRAND TOKEN = 1 FAILED PURCHASE = 5 CAPTAIN MINUTES = ONE (1) ATMOSPHERIC ASSET (DELIVERED). Captain Minutes recorded so far: {num:captain_minutes}. CONVERSIONS: BANNED (BY ORDER)."
+ }
+]

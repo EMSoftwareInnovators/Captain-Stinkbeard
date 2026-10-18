@@ -1,0 +1,93 @@
+[
+ {
+  "id": "ledger",
+  "name": "Ledger Billiam",
+  "title": "Treasurer (reincarnated)",
+  "appearance": "ledger",
+  "portrait": "ledger",
+  "voice": {
+   "pitch": 1.1
+  },
+  "shadow": "shadow_s",
+  "behavior": {
+   "type": "stand"
+  },
+  "rooms": [
+   "crew_quarters",
+   "galley",
+   "main_deck",
+   "cargo_hold",
+   "fart_free_zone",
+   "stenchmaster_fart_zone",
+   "captains_quarters"
+  ],
+  "//": "Story Phase 17: Ledger Billiam, back since chapter 208 (once, behind ledger_billiam_reincarnated). A cut-out with a ledger: works on his accounts wherever he's put. Never removed.",
+  "dialogue": [
+   {
+    "script": "ledger.idle"
+   }
+  ]
+ },
+ {
+  "id": "tilda",
+  "name": "No-Nonsense Tilda",
+  "title": "First Mate (reincarnated)",
+  "appearance": "tilda",
+  "portrait": "tilda",
+  "voice": {
+   "pitch": 0.9
+  },
+  "shadow": "shadow_s",
+  "behavior": {
+   "type": "stand"
+  },
+  "rooms": [
+   "crew_quarters",
+   "galley",
+   "main_deck",
+   "cargo_hold",
+   "fart_free_zone",
+   "stenchmaster_fart_zone",
+   "captains_quarters"
+  ],
+  "//": "Story Phase 17: No-Nonsense Tilda, back since chapter 208 (once, behind tilda_reincarnated). Issues orders wherever she's put. Singed from chapter 217. Never removed.",
+  "variants": [
+   {
+    "if": {
+     "flag": "tilda_cardboard_singed"
+    },
+    "appearance": "tilda_singed",
+    "portrait": "tilda_singed"
+   }
+  ],
+  "dialogue": [
+   {
+    "script": "tilda.idle"
+   }
+  ]
+ },
+ {
+  "id": "thunderbottom",
+  "name": "Lord Thunderbottom",
+  "title": "Lord Vaporious Thunderbottom the Seventh",
+  "appearance": "thunderbottom",
+  "portrait": "thunderbottom",
+  "voice": {
+   "pitch": 0.55
+  },
+  "behavior": {
+   "type": "stand"
+  },
+  "rooms": [
+   "crew_quarters",
+   "main_deck",
+   "stenchmaster_fart_zone"
+  ],
+  "//": "Story Phase 17 (chapters 218-219): LORD VAPORIOUS THUNDERBOTTOM THE SEVENTH, a spectral Grand Stenchmaster with an incomplete 97-page application. Not Vindicta Thunderwaft (no relation, he says, loudly). His threat to Agnes is never shown: only said, and refused.",
+  "dialogue": [
+   {
+    "script": "thunderbottom.idle"
+   }
+  ]
+ }
+]

@@ -1,0 +1,176 @@
+{
+ "bbk_sharkstorm_special": {
+  "title": "The Late-Night Sharkstorm Special",
+  "//": "Story Phase 17 (chapter 215): a late-night talk show from somewhere inside the storm, on the galley's set: a set made of treasure chests, an audience of sharks, a hammerhead orchestra, cartoon versions of the crew, the two visitors as live correspondents. It recaps the new arrivals and laughs at the captain. Interruptions fail. Original material.",
+  "laugh": "ftm_laugh",
+  "episodes": [
+   {
+    "id": "new_dead_idiots",
+    "if": {
+     "flag": "p17_started"
+    },
+    "tv": "ses_mk2",
+    "beats": [
+     {
+      "frames": [
+       "bbk17_title_0",
+       "bbk17_title_1"
+      ],
+      "ms": 3200,
+      "frameMs": 400,
+      "line": "announcer: IT'S LATE! IT'S LIVE! IT'S... THE BLING BLING KING'S LATE-NIGHT SHARKSTORM SPECIAL!",
+      "sfx": "talkshow_sting"
+     },
+     {
+      "frames": [
+       "bbk17_band_0",
+       "bbk17_band_1"
+      ],
+      "ms": 2400,
+      "frameMs": 300,
+      "line": "hammerheads: (a brass fanfare played entirely by sharks)",
+      "sfx": "talkshow_sting"
+     },
+     {
+      "frames": [
+       "bbk17_desk_0",
+       "bbk17_desk_1"
+      ],
+      "ms": 3600,
+      "frameMs": 520,
+      "line": "bbk_special: Thank you, thank you. What a crowd. What a STORM. Tonight's episode, folks: MEET... THE NEW... DEAD IDIOTS!",
+      "laugh": true
+     },
+     {
+      "frames": [
+       "bbk17_cartoon_0",
+       "bbk17_cartoon_1"
+      ],
+      "ms": 3600,
+      "frameMs": 520,
+      "line": "bbk_special: You know the ship. You know the beard. You know the cardboard guy, folks. Well now there's THREE cardboard guys.",
+      "laugh": true
+     },
+     {
+      "frames": [
+       "bbk17_cartoon_0",
+       "bbk17_cartoon_1"
+      ],
+      "ms": 4000,
+      "frameMs": 520,
+      "line": "bbk_special: How'd they get there? A FART, folks. Out of a CUPBOARD. Into a BOX. That's not a resurrection. That's a delivery.",
+      "laugh": true
+     },
+     {
+      "frames": [
+       "bbk17_maybe_0",
+       "bbk17_maybe_1"
+      ],
+      "ms": 4000,
+      "frameMs": 520,
+      "line": "bbk_special: The new one's an ACCOUNTANT. He's got a column called MAYBE. He's put my STORM in it. Folks, I'm a MAYBE.",
+      "laugh": true
+     },
+     {
+      "frames": [
+       "bbk17_minutes_0",
+       "bbk17_minutes_1"
+      ],
+      "ms": 4400,
+      "frameMs": 520,
+      "line": "bbk_special: And he's invented a currency. CAPTAIN MINUTES. Backed by the captain's suffering. Folks, I checked the exchange rate. It's the strongest currency in the sea.",
+      "laugh": true
+     },
+     {
+      "frames": [
+       "bbk17_desk_0",
+       "bbk17_desk_1"
+      ],
+      "ms": 4400,
+      "frameMs": 520,
+      "line": "bbk_special: Then there's the first mate. She's ninety-one, she's cardboard, and she tried to steer my storm to a place called GREYHOOK. Ma'am. Ma'am. You're IN me.",
+      "laugh": true
+     },
+     {
+      "frames": [
+       "bbk17_chicken_0",
+       "bbk17_chicken_1"
+      ],
+      "ms": 2600,
+      "frameMs": 520,
+      "line": "bbk_special: And the chicken! Let's hear it for the chicken, folks!",
+      "sfx": "hen_cluck"
+     },
+     {
+      "frames": [
+       "bbk17_audience_0",
+       "bbk17_audience_1"
+      ],
+      "ms": 2400,
+      "frameMs": 520,
+      "line": "shark_audience: (a whole storm of sharks, applauding a chicken)",
+      "laugh": true
+     },
+     {
+      "frames": [
+       "bbk17_correspondents_0",
+       "bbk17_correspondents_1"
+      ],
+      "ms": 3000,
+      "frameMs": 520,
+      "line": "bbk_special: We've got correspondents on board, folks! Embedded! Let's go live to the galley!"
+     },
+     {
+      "frames": [
+       "bbk17_desk_0",
+       "bbk17_desk_1"
+      ],
+      "ms": 4600,
+      "frameMs": 520,
+      "line": "bbk_special: (wiping his sunglasses) The whole crew, folks. Smart as a bag of sashes. The captain? He's watching. He's furious. Captain, if you're watching: we LOVE you. We love watching you.",
+      "laugh": true
+     },
+     {
+      "frames": [
+       "bbk17_title_0",
+       "bbk17_title_1"
+      ],
+      "ms": 2800,
+      "frameMs": 400,
+      "line": "bbk_special: Goodnight, Sharkstorm! Tip your sharks!",
+      "sfx": "talkshow_sting"
+     }
+    ],
+    "segments": [
+     {
+      "beats": [
+       0,
+       3
+      ],
+      "script": "p17c10.interrupt_1"
+     },
+     {
+      "beats": [
+       4,
+       6
+      ],
+      "script": "p17c10.interrupt_2"
+     },
+     {
+      "beats": [
+       7,
+       10
+      ],
+      "script": "p17c10.correspondents"
+     },
+     {
+      "beats": [
+       11,
+       12
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}
