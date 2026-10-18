@@ -170,7 +170,9 @@ describe('Story Phase 16 stays inside its brief', () => {
       'vindicta_served', 'vindicta_dissolved_for_good', 'p16_ch206_started', 'p17_started']) {
       expect(scripts).not.toMatch(new RegExp(`"setFlag":"${f}"`));
     }
-    expect(s.content.game.chapters.some((c) => /Chapter 206/.test(c.name))).toBe(false);
+    // Chapter 206 belongs to Story Phase 17; nothing in Phase 16 starts it.
+    expect(s.content.game.chapters.filter((c) => /Chapter 206/.test(c.name)).every((c) => /^p17/.test(c.id))).toBe(true);
+    expect(s.has('p17_started')).toBe(false);
     expect(s.has('brogath_permanent')).toBe(true);
     expect(s.has('garrick_regalia_restored')).toBe(true);
     expect(s.has('modern_visitors_aboard')).toBe(true);

@@ -229,14 +229,19 @@ describe('The hallucinations are a presentation layer', () => {
 });
 
 describe('Brogath\'s ancient crew: lore, and nobody comes back', () => {
-  it('eight records, all reincarnationAllowed false, none of them an NPC anywhere', () => {
+  it('eight records; in Phase 15 nobody comes back (only Ledger and Tilda ever do, in Phase 17, through their cut-outs)', () => {
     const s = makeStory({ preset: 'p14_complete' });
     const crew = [...s.content.ancientCrew.map.entries()];
     expect(crew.map(([, m]) => m.displayName).sort()).toEqual(['Blind-Eye Margery', 'Captain-Sometimes Clem', 'Elsie Beanwright', 'Half-Mast Harold', 'Ledger Billiam', 'No-Nonsense Tilda', 'Old Jeb Rattleplank', 'Wobbly Ned'].sort());
     for (const [id, m] of crew) {
-      expect(m.reincarnationAllowed, id).toBe(false);
       expect(s.content.npcs.get(id), id).toBeFalsy();
+      // Story Phase 17: Ledger and Tilda may come back, as cardboard, behind a Phase 17 flag; nobody else, ever.
+      expect(m.reincarnationAllowed, id).toBe(['ledger_billiam', 'nononsense_tilda'].includes(id));
+      if (m.reincarnationAllowed) expect(m.reincarnation.flag, id).toMatch(/_reincarnated$/);
     }
+    // ...and in Phase 15 neither of them has: no Phase 15 script sets a reincarnation flag.
+    const p15 = JSON.stringify([...s.content.scripts.map.entries()].filter(([sid]) => /^p15/.test(sid)).map(([, sc]) => sc));
+    expect(p15).not.toMatch(/_reincarnated"/);
   });
 });
 

@@ -201,12 +201,18 @@ describe('The Grand Currency: twenty thousand tokens, ten real doubloons, once',
 });
 
 describe('Where Brogath may be', () => {
-  it('his data lists his rooms, and none of them is the hold, the treasure room or the Fart-Free Zone', () => {
+  it('his data lists his rooms, and none of them is the treasure room (the hold and the Fart-Free Zone wait for Phase 17)', () => {
     const s = makeStory({ preset: 'p14_complete' });
     const rooms = s.content.npcs.require('brogath').rooms;
     // Story Phase 16 adds the Stenchmaster Fart Zone (the old sail locker under the deck grating, not the hold).
-    expect(rooms).toEqual(['crew_quarters', 'galley', 'main_deck', 'stenchmaster_fart_zone']);
-    for (const m of ['cargo_hold', 'treasure_hold', 'fart_free_zone']) expect(rooms).not.toContain(m);
+    // Story Phase 17 adds the hold (the race to the forbidden door) and the Fart-Free Zone (remembering his crew).
+    expect(rooms).toEqual(['crew_quarters', 'galley', 'main_deck', 'stenchmaster_fart_zone', 'cargo_hold', 'fart_free_zone']);
+    expect(rooms).not.toContain('treasure_hold');
+    // Before Phase 17 he is never placed in the hold or the Fart-Free Zone: every placement there waits on a Phase 17 flag.
+    for (const map of ['cargo_hold', 'fart_free_zone']) {
+      const placed = s.content.maps.require(map).objects.filter((o) => o.type === 'npc' && o.npc === 'brogath' && !o.absent);
+      for (const o of placed) expect(JSON.stringify(o.if ?? {}), o.id).toMatch(/"p17_/);
+    }
   });
 
   it('no placement anywhere puts him outside them', () => {
@@ -218,10 +224,10 @@ describe('Where Brogath may be', () => {
     }
   });
 
-  it('and the world refuses one anyway (the room guard)', () => {
+  it('and the world refuses one anyway (the room guard, in the treasure room)', () => {
     const s = makeStory({ preset: 'p14_complete' });
     const objects = [{ id: 'x', type: 'npc', npc: 'brogath', x: 3, y: 3 }, { id: 'y', type: 'npc', npc: 'pete', x: 4, y: 3 }];
-    const inHold = placementChoices(objects, s.session, roomGuard(s.content.npcs, 'cargo_hold'));
+    const inHold = placementChoices(objects, s.session, roomGuard(s.content.npcs, 'treasure_hold'));
     expect(inHold.get('brogath')).toBe(null);
     expect(inHold.get('pete')?.id).toBe('y');
     expect(placementChoices(objects, s.session, roomGuard(s.content.npcs, 'galley')).get('brogath')?.id).toBe('x');
