@@ -157,6 +157,8 @@ export class WorldScene extends BaseScene {
       this.app.bus.on('story:flagCleared', markStory),
       this.app.bus.on('story:varChanged', markStory),
       this.app.bus.on('story:valueChanged', markStory),
+      // A challenge put a checkpoint back (docs/gameplay-overhaul/07-challenge-outcomes.md): people and props follow the story.
+      this.app.bus.on('session:restored', markStory),
       this.app.bus.on('quest:started', markStory),
       this.app.bus.on('quest:objectiveCompleted', markStory),
       this.app.bus.on('quest:completed', markStory),
@@ -1624,6 +1626,27 @@ export class WorldScene extends BaseScene {
     // fade, or the last line (a choice's question) stays up on the new map.
     if (!opts.then) this.app.overlay.dialogue.forceClose();
     this.scene.restart({ map, ...opts });
+  }
+
+  /**
+   * After a challenge restored a checkpoint (docs/gameplay-overhaul/07-challenge-outcomes.md):
+   * the captain goes back to the checkpoint's tile when it is this room and
+   * the tile is free, stops walking, and every held key must be pressed
+   * again (nothing carries over into the retry). People, props and
+   * triggers restage from the story on the next frame ("session:restored").
+   */
+  afterRestore(cp) {
+    const loc = cp?.domains?.location;
+    const p = this.player;
+    p.stopWalking();
+    if (loc && loc.map === this.model.id && Number.isInteger(loc.x) && Number.isInteger(loc.y) && (p.tx !== loc.x || p.ty !== loc.y) && !this.isBlocked(loc.x, loc.y, p)) {
+      this.putActor(p, { x: loc.x, y: loc.y });
+      if (loc.facing) p.face(loc.facing);
+    }
+    this.controls.consumeAll();
+    this.wasMoving = false;
+    this.storyDirty = true;
+    this.triggersDirty = true;
   }
 
   openMenu() {

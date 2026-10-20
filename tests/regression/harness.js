@@ -20,7 +20,7 @@ import knownIssues from './known-issues.json' with { type: 'json' };
  * fails the invariants: a new interactive system must be registered.
  */
 export const NON_CHALLENGE_COMMANDS = Object.freeze([
-  'addVar', 'advanceObjective', 'ambience', 'anim', 'atmosphere', 'banner', 'bark', 'beard', 'beardPuff', 'burst', 'call', 'camera', 'channelEpisode',
+  'addVar', 'advanceObjective', 'ambience', 'anim', 'atmosphere', 'banner', 'bark', 'beard', 'beardPuff', 'burst', 'call', 'camera', 'channelEpisode', 'checkpoint',
   'choice', 'clearFlag', 'clearTokens', 'close', 'completeObjective', 'completeQuest', 'deadCenter', 'despawn', 'effect', 'emote', 'end', 'event', 'face',
   'fade', 'flash', 'fly', 'fumeCloud', 'giveGold', 'giveItem', 'giveXp', 'goto', 'grandCurrency', 'heal', 'hideObject', 'hop', 'hornets', 'insert',
   'joinParty', 'learnAbility', 'leaveParty', 'logbook', 'markObject', 'move', 'moveSprite', 'music', 'narrate', 'parallel', 'place', 'propFx',

@@ -59,6 +59,8 @@ const FOLDER_RULES = [
   // Story Phase 17: party traits (Ledger and Tilda's cardboard physiology).
   { prefix: 'story/traits', kind: 'traits', shape: 'map' },
   { prefix: 'hazards/', kind: 'hazards', shape: 'map' },
+  // Challenge profiles (docs/gameplay-overhaul/07-challenge-outcomes.md): shared rules a step opts into.
+  { prefix: 'challenges/', kind: 'challenges', shape: 'map' },
   { prefix: 'debug/', kind: 'debugPresets', shape: 'list' },
   { prefix: 'logs/', kind: 'logs', shape: 'map' },
   { prefix: 'tv/programs/', kind: 'tvPrograms', shape: 'map' },
@@ -123,6 +125,7 @@ export const REGISTRY_KINDS = [
   'sfx', 'instruments', 'ambience', 'timing', 'backdrops', 'vistas', 'storyTriggers', 'hazards', 'debugPresets',
   'mapPatches', 'logs', 'tv', 'tvPrograms', 'tension', 'dice', 'aliases', 'stability', 'bankCustomers', 'banks',
   'atmosphere', 'conversions', 'ancientCrew', 'beard', 'fartZone', 'novelty', 'proceedings', 'credit', 'traits',
+  'challenges',
 ];
 
 /** Content paths in load order: numbers compare as numbers ("phase9" before "phase10"). */

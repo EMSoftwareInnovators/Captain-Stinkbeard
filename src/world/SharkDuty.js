@@ -1,5 +1,7 @@
 import { TILE_SIZE, SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
-import { dutyData, dutySessionFor, DutyPlan, waveSpot } from '../systems/hazards/sharkDuty.js';
+import { dutyData, dutyEntryFor, DutyPlan, DutyWatch, waveSpot } from '../systems/hazards/sharkDuty.js';
+import { challengeConfig } from '../systems/challenge/config.js';
+import { ChallengeRun, challengeLog } from '../systems/challenge/runner.js';
 import { splitObjectiveRef, evaluateCondition } from '../systems/conditions/conditions.js';
 
 /**
@@ -17,6 +19,15 @@ import { splitObjectiveRef, evaluateCondition } from '../systems/conditions/cond
  * mid-watch doesn't send them away: the watch is put aside in the session's
  * per-play state (never saved) with its clock stopped, and the same sharks
  * are waiting, mid-bite, when the captain comes back.
+ *
+ * A watch can opt into a challenge (the map entry's or the session's
+ * "challenge", docs/gameplay-overhaul/07-challenge-outcomes.md). Then a
+ * DutyWatch keeps the score; past its limits (bites, a section overrun,
+ * failed shoves, the clock) the watch is lost: the captain retries from the
+ * start of the watch, or carries on with the consequences, as the challenge
+ * allows. "mechanics.shove" makes each shove a strict timing bar too: a shove
+ * that fails leaves the shark at the rail. Without a challenge nothing here
+ * changes how duty plays.
  */
 const PACE = [[0.25, 'Testing'], [0.5, 'Bolder'], [0.8, 'Hungry'], [2, 'Frantic']];
 const T = TILE_SIZE;
@@ -40,24 +51,42 @@ export class SharkDuty {
 
   /** Starts or stops duty to match the map's story entries. */
   sync() {
-    const id = dutySessionFor(this.scene.model.meta, this.scene.session);
+    const entry = dutyEntryFor(this.scene.model.meta, this.scene.session);
+    const id = entry?.session ?? null;
     if (id === this.sessionId) return;
     this.stop();
-    if (id && this.data.sessions?.[id]) this.start(id);
+    if (id && this.data.sessions?.[id]) this.start(id, entry);
   }
 
-  start(id) {
+  start(id, entry = null) {
     this.sessionId = id;
     this.def = this.data.sessions[id];
-    const saved = this.scene.session.transient?.sharkDuty;
+    const session = this.scene.session;
+    const saved = session.transient?.sharkDuty;
     const resume = saved && saved.sessionId === id && saved.map === this.scene.model.id;
+    // A watch put aside on another deck that won't be resumed is over: its challenge goes with it.
+    if (saved?.run && !resume) saved.run.abandon();
     this.plan = new DutyPlan(this.def, resume ? saved.plan : null);
     this.barkTimer = 5000;
     this.assisted = false;
+    this.run = null;
+    this.watch = null;
+    this.deciding = false;
     if (resume) {
       this.nextId = saved.nextId;
       this.assisted = !!saved.assisted;
       for (const inc of saved.incidents) this.restore(inc);
+      if (saved.run) {
+        this.run = saved.run;
+        this.watch = saved.watch ? DutyWatch.fromState(this.run.config.mechanics, saved.watch) : null;
+      }
+    } else {
+      // Opt-in only: the entry's "challenge", else the session's. No spec, no run: duty as it always was.
+      const cfg = challengeConfig(this.scene.content, entry?.challenge ?? this.def.challenge ?? null, { kind: 'sharkDuty', id: `sharkDuty:${id}` });
+      if (cfg) {
+        this.run = new ChallengeRun({ session, config: cfg, event: `sharkDuty:${id}`, script: null }).begin();
+        this.watch = new DutyWatch(cfg.mechanics);
+      }
     }
     this.updateBoard(true);
   }
@@ -73,6 +102,26 @@ export class SharkDuty {
     this.sessionId = null;
     this.def = null;
     this.scene.app.overlay?.setDutyBoard?.(null);
+    this.resolveRun();
+  }
+
+  /** The story moved on with the watch done: how it went (success or partial), and its partial consequences. */
+  resolveRun() {
+    const run = this.run;
+    const watch = this.watch;
+    this.run = null;
+    this.watch = null;
+    if (!run) return;
+    if (run.record.state === 'resolved') {
+      run.close();
+      return;
+    }
+    const rec = run.finish(watch ? watch.metrics({ completed: true }) : { completed: true });
+    // A watch completed by the story can't be judged a failure afterwards.
+    if (rec.state !== 'resolved') rec.state = 'resolved';
+    const steps = rec.outcome === 'partial' ? run.config.onPartial.consequences : [];
+    run.close();
+    if (steps.length) this.scene.runScript(steps);
   }
 
   /** Leaving the room: put the watch aside, sharks and all, for when he's back. */
@@ -87,8 +136,13 @@ export class SharkDuty {
         nextId: this.nextId,
         assisted: this.assisted,
         incidents: this.incidents.map((inc) => Object.fromEntries(keep.filter((k) => inc[k] !== undefined).map((k) => [k, inc[k]]))),
+        // The watch's challenge carries on when he's back (per-play only, like the rest of this).
+        run: this.run,
+        watch: this.watch?.state() ?? null,
       };
     }
+    this.run = null;
+    this.watch = null;
     for (const a of this.arrows) a.destroy();
     this.arrows = [];
     this.incidents = [];
@@ -127,7 +181,15 @@ export class SharkDuty {
     this.updateArrows();
     this.updateBoard();
     for (const inc of this.incidents) this.animate(inc, dt);
-    if (busy || this.responding) return;
+    if (busy || this.responding || this.deciding) return;
+    if (this.watch) {
+      this.watch.tick(dt);
+      const why = this.watch.failure();
+      if (why) {
+        this.fail(why);
+        return;
+      }
+    }
     const spots = new Set(this.incidents.map((i) => i.spot));
     for (const wave of this.plan.tick(dt, spots)) this.spawn(wave);
     for (const inc of this.incidents) {
@@ -164,6 +226,7 @@ export class SharkDuty {
     s.app.audio.sfx(a.sfx ?? 'pole_strike');
     this.clear(inc, { repelled: true });
     this.incidents = this.incidents.filter((i) => i !== inc);
+    this.watch?.repel();
     if (this.def?.event) s.app.bus.emit('script:event', { name: this.def.event });
     if (a.event) s.app.bus.emit('script:event', { name: a.event });
   }
@@ -255,6 +318,46 @@ export class SharkDuty {
     inc.t = 0;
     this.mark(inc, inc.x + 0.5, inc.y - 0.2, 'duty_patch_0');
     s.session.story.addVar('duty_bites', 1);
+    this.watch?.bite(inc.section);
+  }
+
+  /**
+   * The watch is lost (a challenge's limits, see DutyWatch): the clock and
+   * the captain stop while the outcome prompt asks what now. "Try again"
+   * puts the story back as it was when the watch began (the objective's
+   * count, the bites) and starts the watch over; "Carry on" runs the
+   * consequences and the watch goes on without the limits.
+   */
+  async fail(reason) {
+    const run = this.run;
+    if (!run || this.deciding) return;
+    this.deciding = true;
+    const s = this.scene;
+    const hooks = { runSteps: (steps) => s.runScript(steps), onRestored: (cp) => s.afterRestore(cp) };
+    const rec = run.finish({ ...this.watch.metrics({ completed: false }), reason });
+    s.scriptDepth += 1;
+    try {
+      if (rec.state === 'resolved') return;
+      await run.chargeCosts(hooks);
+      const wanted = run.autoDecision() ?? (await s.services.ui.challengeOutcome(rec, rec.options));
+      const choice = rec.options.some((o) => o.id === wanted) ? wanted : rec.options[0].id;
+      if (choice === 'retry') {
+        for (const inc of this.incidents) this.clear(inc, { retreat: true });
+        this.incidents = [];
+        await run.retry(hooks);
+        this.plan = new DutyPlan(this.def);
+        this.watch = new DutyWatch(run.config.mechanics);
+        this.assisted = false;
+        this.updateBoard(true);
+      } else {
+        await run.accept(hooks);
+        // Carried on: the rest of the watch plays without the limits (it was already lost).
+        this.watch = null;
+      }
+    } finally {
+      s.scriptDepth -= 1;
+      this.deciding = false;
+    }
   }
 
   // --- the captain responds ----------------------------------------------------------
@@ -280,12 +383,22 @@ export class SharkDuty {
     const title = inc.kind === 'patch' ? 'PATCH THE BITE' : inc.kind === 'boarder' ? 'HEAVE IT OVERBOARD' : inc.big ? 'REPEL THE BIG ONE' : 'REPEL THE SHARK';
     s.player.face(this.facingFor(inc));
     const hard = inc.kind === 'patch' ? {} : { speed: inc.speed ?? 1, zone: inc.zone ?? 26 };
-    await s.runScript([{ repair: kind, strikes, title, ...hard }]);
+    // A watch whose challenge asks for strict shoves: each shove is a timing bar that can fail.
+    const shove = inc.kind !== 'patch' && this.watch ? this.run?.config.mechanics.shove : null;
+    const challenge = shove ? { id: 'duty_shove', failure: true, mechanics: shove, outcomes: { failure: { completed: false }, fallback: 'success' }, retry: { policy: 'none', restore: false }, onFailure: { continue: true, prompt: false }, checkpoint: false } : undefined;
+    await s.runScript([{ repair: kind, strikes, title, ...hard, ...(challenge ? { challenge } : {}) }]);
     this.responding = false;
     if (!this.incidents.includes(inc)) return;
+    if (challenge && challengeLog(s.session).last('duty_shove')?.outcome === 'failure') {
+      // The shove didn't land: the shark is still there, and it counts against the watch.
+      this.watch?.miss();
+      return;
+    }
     const counted = inc.kind !== 'patch';
     this.clear(inc, { repelled: true });
     this.incidents = this.incidents.filter((i) => i !== inc);
+    if (counted) this.watch?.repel();
+    else this.watch?.patch();
     if (counted && this.def?.event) s.app.bus.emit('script:event', { name: this.def.event });
     if (!counted) s.app.bus.emit('script:event', { name: 'duty_patched' });
   }

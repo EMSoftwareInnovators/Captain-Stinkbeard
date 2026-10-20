@@ -8,6 +8,8 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
 import { alarmLevel, alarmColor } from '../systems/hazards/alarms.js';
 import { TvView } from '../ui/TvView.js';
 import { REPAIR_KINDS } from '../systems/repairKinds.js';
+import { createTimingBar, stepTimingBar, pressTimingBar, timingBarResult } from '../systems/timingBar.js';
+import { seededRandom } from '../systems/challenge/rng.js';
 import { SashTensionView } from '../ui/SashTensionView.js';
 import { DiceView } from '../ui/DiceView.js';
 import { TellerView } from '../ui/TellerView.js';
@@ -26,6 +28,17 @@ const SKILL_STATS = {
 };
 /** XP for each clean strike (no fumbles before it), and for a clean sweep. */
 const SKILL_XP = { clean: 2, sweep: 3 };
+/** Why a challenge failed, in the captain's words (the record's "reason"). */
+const CHALLENGE_REASONS = {
+  fumbles: 'too many fumbles',
+  time: 'out of time',
+  bites: 'the sharks got too many bites in',
+  missed: 'too many sharks got past the pole',
+  lost: 'the grip went',
+  torn: 'the sash tore',
+  deliberate: 'it was let go too soon',
+  held: 'it never fluttered',
+};
 /** A fumble locks the bar this long: pressing wildly is slower than waiting for the green. */
 const FUMBLE_MS = 480;
 
@@ -121,6 +134,13 @@ export class OverlayScene extends BaseScene {
       case 'abilityLearned':
         this.toasts.push({ text: `${n.name} learns <y>${n.ability}</>`, sound: 'item_get' });
         break;
+      // A challenge that asked to announce how it went (docs/gameplay-overhaul/07-challenge-outcomes.md).
+      case 'challenge': {
+        const rec = n.record;
+        const word = { success: '<g>Done!</>', partial: '<y>Done, but rough.</>', failure: '<r>Failed.</>' }[rec.outcome] ?? rec.outcome;
+        this.toasts.push({ text: `${word}${rec.grade ? ` Grade <y>${rec.grade}</>` : ''}`, hold: 1600 });
+        break;
+      }
       default:
         this.toasts.push({ text: String(n.text ?? n.kind) });
     }
@@ -195,6 +215,22 @@ export class OverlayScene extends BaseScene {
         },
       });
     });
+  }
+
+  /**
+   * After a challenge fails (docs/gameplay-overhaul/07-challenge-outcomes.md):
+   * what happened, and the ways forward the challenge allows ("Try again",
+   * "Carry on", "Go back: ..."), on the ordinary choice menu (keyboard and
+   * pad as everywhere; it can't be cancelled, so a stray press can't pick
+   * for the player). Resolves with the chosen option's id.
+   */
+  async challengeOutcome(record, options) {
+    const why = CHALLENGE_REASONS[record.reason] ?? (record.reason?.startsWith('section:') ? 'a section of the rail was overrun' : null);
+    const tries = record.maxAttempts ? ` (try ${record.attempt} of ${record.maxAttempts})` : record.attempt > 1 ? ` (try ${record.attempt})` : '';
+    const prompt = { speaker: null, text: `<r>That didn't work.</>${why ? ` ${why[0].toUpperCase()}${why.slice(1)}.` : ''}${tries}` };
+    const index = await this.dialogue.choose({ prompt, options: options.map((o) => ({ text: o.label })), cancelIndex: null });
+    await this.dialogue.close();
+    return options[index]?.id ?? options[0].id;
   }
 
   /**
@@ -278,9 +314,19 @@ export class OverlayScene extends BaseScene {
    * five and it's steadied for you. Clean strikes (no fumble before them)
    * earn a little XP. Resolves with the number of clean strikes.
    * `speed` scales the marker and `zone` is the green zone's width in px
-   * (Shark Duty makes each shark harder).
+   * (Shark Duty makes each shark harder). The rules are src/systems/timingBar.js.
    */
-  repair({ kind = 'hull', strikes = 3, title = null, speed = 1, zone: zoneWidth = 26 } = {}) {
+  repair(opts = {}) {
+    return this.timingBar(opts).then((r) => r.clean);
+  }
+
+  /**
+   * The timing bar, resolving with its full result (timingBarResult). With
+   * `challenge` (a step that opted in, docs/gameplay-overhaul/07-challenge-outcomes.md)
+   * and challenge.strict, it runs in strict mode: no widening, a fumble limit
+   * or a clock, and it can end in a real failure.
+   */
+  timingBar({ kind = 'hull', strikes = 3, title = null, speed = 1, zone: zoneWidth = 26, challenge = null } = {}) {
     const K = REPAIR_KINDS[kind] ?? REPAIR_KINDS.hull;
     const skill = this.skillFor(K.stat);
     return new Promise((resolve) => {
@@ -311,18 +357,43 @@ export class OverlayScene extends BaseScene {
         const tag = addText(this, x + 7, y + h - 13, `${skill.label} ${color}${skill.value}</>`, { depth: D + 2 });
         parts.push(tag);
       }
+      // Strict only: how many fumbles are left, or the clock, at the right of the panel.
+      const strict = !!challenge?.strict;
+      const mech = strict ? challenge.mechanics ?? {} : {};
+      let limitText = null;
+      if (strict && (mech.maxFumbles !== undefined || mech.timeLimit)) {
+        limitText = addText(this, x + w - 7, y + h - 13, '', { depth: D + 2 }).setOrigin(1, 0);
+        parts.push(limitText);
+      }
       parts.forEach((p) => p.setAlpha(0));
       this.tweens.add({ targets: parts, alpha: 1, duration: 150 });
       this.app.audio.ui('menu_open');
       const bonus = skill?.bonus ?? 0;
-      this.repairOpen = {
-        parts, resolve, zone, mark, nails, hint, barX, barW, strikes, K, skill,
-        done: 0, clean: 0, misses: 0, t: 0, dir: 1, pos: 0,
-        speed: (K.speed ?? 150) * speed * (1 - bonus * 0.25),
-        zoneW: Math.max(8, Math.round(zoneWidth * (1 + bonus))),
-        lock: 250,
-      };
-      this.placeRepairZone();
+      const bar = createTimingBar({
+        mode: strict ? 'strict' : 'legacy',
+        barW,
+        strikes,
+        speed: (K.speed ?? 150) * (mech.speed ?? speed) * (1 - bonus * 0.25),
+        zone: Math.max(8, Math.round((mech.zone ?? zoneWidth) * (1 + bonus))),
+        luck: skill ? skill.luck : 0,
+        fumbleLock: FUMBLE_MS,
+        auto: !!this.app.flags?.autoTiming,
+        maxFumbles: mech.maxFumbles,
+        timeLimit: mech.timeLimit,
+        assist: mech.assist ?? null,
+      }, strict ? seededRandom(challenge.seed) : Math.random);
+      const r = { parts, resolve, zone, mark, nails, hint, limitText, barX, barW, strikes, K, skill, bar, challenge };
+      // What the E2E driver and the review tests read (src/systems/timingBar.js keeps the truth).
+      Object.defineProperties(r, {
+        lock: { get: () => bar.lock, enumerable: true },
+        done: { get: () => bar.done, enumerable: true },
+        clean: { get: () => bar.clean, enumerable: true },
+        misses: { get: () => bar.misses, enumerable: true },
+        fumbles: { get: () => bar.fumbles, enumerable: true },
+      });
+      this.repairOpen = r;
+      this.drawRepairZone(r);
+      this.drawRepairLimit(r);
     });
   }
 
@@ -342,76 +413,91 @@ export class OverlayScene extends BaseScene {
     return { stat, label: def.label, value, luck, bonus: Math.max(-0.25, Math.min(0.6, (value - def.ref) / (def.ref * 3))) };
   }
 
-  placeRepairZone() {
-    const r = this.repairOpen;
-    const steadied = r.misses >= 5 || this.app.flags?.autoTiming;
-    const widened = !steadied && r.misses >= 3;
-    const zw = steadied ? r.barW : Math.min(r.barW - 24, Math.round(r.zoneW * (widened ? 1.6 : 1)));
-    r.zone.width = zw;
-    r.zone.x = steadied ? r.barX : r.barX + 12 + Math.floor(Math.random() * (r.barW - zw - 24));
-    r.zone.setFillStyle(steadied || widened ? 0x9ad07a : 0x7cb45a);
-    if (steadied && r.misses >= 5) this.setRepairHint(r, '<g>Steady... now!</>');
-    else if (widened) this.setRepairHint(r, '<g>Easy. Wait for it...</>');
+  /** The green where the model put it; an assist (legacy, or a challenge that asks for one) says so. */
+  drawRepairZone(r) {
+    const bar = r.bar;
+    r.zone.width = bar.zoneWidth;
+    r.zone.x = r.barX + bar.zoneX;
+    r.zone.setFillStyle(bar.zoneAssist ? 0x9ad07a : 0x7cb45a);
+    if (bar.zoneAssist === 'steadied' && bar.misses >= (bar.assist?.steadyAfter ?? 5)) this.setRepairHint(r, '<g>Steady... now!</>');
+    else if (bar.zoneAssist === 'widened') this.setRepairHint(r, '<g>Easy. Wait for it...</>');
+  }
+
+  /** Strict only: fumbles left, or seconds left. */
+  drawRepairLimit(r) {
+    if (!r.limitText) return;
+    const c = r.bar.cfg;
+    const parts = [];
+    if (c.maxFumbles !== undefined && c.maxFumbles !== null) parts.push(`${Math.max(0, c.maxFumbles - r.bar.fumbles)} left`);
+    if (c.timeLimit) parts.push(`${Math.max(0, Math.ceil((c.timeLimit - r.bar.t) / 1000))}s`);
+    const text = parts.join(' ');
+    if (text !== r.limitShown) {
+      r.limitShown = text;
+      setText(r.limitText, `<r>${text}</>`);
+    }
   }
 
   updateRepair(delta, input) {
     const r = this.repairOpen;
-    r.lock -= delta;
-    if (r.lock <= 0 && r.fumbled) {
-      r.fumbled = false;
-      r.mark.setFillStyle(0xfff4e0);
-    }
-    // The marker stands still while fumbled (you've dropped the hammer).
-    if (!r.fumbled) {
-      r.pos += r.dir * r.speed * (delta / 1000);
-      if (r.pos >= r.barW) { r.pos = r.barW; r.dir = -1; }
-      if (r.pos <= 0) { r.pos = 0; r.dir = 1; }
-      r.mark.x = Math.round(r.barX + r.pos);
-    }
-    if (!input.pressed('confirm')) return;
-    input.consume('confirm');
-    if (r.lock > 0) return;
-    r.lock = 160;
-    const hit = r.mark.x >= r.zone.x - 2 && r.mark.x <= r.zone.x + r.zone.width + 2;
-    if (!hit) {
-      // Luck: now and then a bad swing comes good anyway (no fumble).
-      if (r.skill && Math.random() * 100 < r.skill.luck) {
-        this.setRepairHint(r, '<y>Lucky!</> Again!');
-        this.app.audio.sfx(r.K.miss, { rate: 1.2 });
+    const bar = r.bar;
+    for (const e of stepTimingBar(bar, delta)) {
+      if (e.type === 'recovered') r.mark.setFillStyle(0xfff4e0);
+      if (e.type === 'failed') {
+        this.endRepair(r, 'failed');
         return;
       }
-      r.misses += 1;
-      r.fumbles = (r.fumbles ?? 0) + 1;
-      r.lock = FUMBLE_MS;
-      r.fumbled = true;
-      r.mark.setFillStyle(0xd04040);
-      this.app.audio.sfx(r.K.miss);
-      this.tweens.add({ targets: r.mark, alpha: 0.3, duration: 80, yoyo: true });
-      this.setRepairHint(r, '<r>Fumbled!</> Wait for the green.');
-      this.placeRepairZone();
-      return;
     }
-    this.app.audio.sfx(r.K.hit, { rate: 0.95 + r.done * 0.06 });
-    if (r.misses === 0) r.clean += 1;
-    r.nails[r.done].setFillStyle(r.misses === 0 ? 0xe0ad38 : 0xa08a5a);
-    r.done += 1;
-    r.misses = 0;
-    const k = this.app.settings.shakeScale?.() ?? 1;
-    if (k > 0) this.scene.get('World')?.cameras?.main?.shake(90, 0.004 * k);
-    if (r.done < r.strikes) {
-      r.speed += 22;
-      this.setRepairHint(r, `{btn:confirm} ${r.K.hint}`);
-      this.placeRepairZone();
-      return;
+    r.mark.x = Math.round(r.barX + bar.pos);
+    this.drawRepairLimit(r);
+    if (!input.pressed('confirm')) return;
+    input.consume('confirm');
+    for (const e of pressTimingBar(bar)) {
+      if (e.type === 'lucky') {
+        // Luck: now and then a bad swing comes good anyway (no fumble).
+        this.setRepairHint(r, '<y>Lucky!</> Again!');
+        this.app.audio.sfx(r.K.miss, { rate: 1.2 });
+      } else if (e.type === 'fumble') {
+        r.mark.setFillStyle(0xd04040);
+        this.app.audio.sfx(r.K.miss);
+        this.tweens.add({ targets: r.mark, alpha: 0.3, duration: 80, yoyo: true });
+        this.setRepairHint(r, '<r>Fumbled!</> Wait for the green.');
+        if (bar.phase === 'running') this.drawRepairZone(r);
+        this.drawRepairLimit(r);
+      } else if (e.type === 'failed') {
+        this.endRepair(r, 'failed');
+        return;
+      } else if (e.type === 'hit') {
+        this.app.audio.sfx(r.K.hit, { rate: 0.95 + (e.done - 1) * 0.06 });
+        r.nails[e.done - 1].setFillStyle(e.clean ? 0xe0ad38 : 0xa08a5a);
+        const k = this.app.settings.shakeScale?.() ?? 1;
+        if (k > 0) this.scene.get('World')?.cameras?.main?.shake(90, 0.004 * k);
+        if (bar.phase === 'running') {
+          this.setRepairHint(r, `{btn:confirm} ${r.K.hint}`);
+          this.drawRepairZone(r);
+        }
+      } else if (e.type === 'done') {
+        this.endRepair(r, 'done');
+        return;
+      }
     }
+  }
+
+  /** The bar closes: done (the reward for clean work) or, strict only, failed. */
+  endRepair(r, how) {
     this.repairOpen = null;
-    this.app.audio.sfx(r.K.done);
-    this.skillReward(r);
+    if (how === 'done') {
+      this.app.audio.sfx(r.K.done);
+      this.skillReward(r);
+    } else {
+      this.app.audio.sfx('buzzer');
+      this.setRepairHint(r, r.bar.reason === 'time' ? '<r>Out of time!</>' : '<r>Too many fumbles!</>');
+    }
+    const result = timingBarResult(r.bar);
     // The story carries on once the panel has gone, so the next line never
     // opens underneath it.
     this.tweens.add({
-      targets: r.parts, alpha: 0, delay: 250, duration: 160,
-      onComplete: () => { r.parts.forEach((p) => p.destroy()); r.resolve(r.clean); },
+      targets: r.parts, alpha: 0, delay: how === 'done' ? 250 : 700, duration: 160,
+      onComplete: () => { r.parts.forEach((p) => p.destroy()); r.resolve(result); },
     });
   }
 

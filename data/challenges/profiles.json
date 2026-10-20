@@ -1,0 +1,60 @@
+{
+  "//": "Challenge profiles (docs/gameplay-overhaul/07-challenge-outcomes.md): shared rules a step opts into with \"challenge\": \"<id>\" (or { \"profile\": \"<id>\", ...overrides }). No story chapter uses any of them yet: every existing step is legacy and plays as it always has.",
+  "repair_graded": {
+    "//": "Can't fail (legacy assists stay on); reports how clean the work was. For quiet beats that should still be scored.",
+    "kind": "repair",
+    "failure": false,
+    "outcomes": { "success": { "fumbles": 0 }, "fallback": "partial" },
+    "score": "accuracy",
+    "grades": [{ "min": 100, "grade": "A" }, { "min": 66, "grade": "B" }, { "min": 0, "grade": "C" }]
+  },
+  "repair_strict": {
+    "//": "A real test: no widening, two fumbles allowed. Must be won to go on (unlimited retries from the checkpoint).",
+    "kind": "repair",
+    "failure": true,
+    "mechanics": { "maxFumbles": 2 },
+    "outcomes": { "failure": { "completed": false }, "success": { "fumbles": 0 }, "fallback": "partial" },
+    "score": "accuracy",
+    "grades": [{ "min": 100, "grade": "A" }, { "min": 66, "grade": "B" }, { "min": 0, "grade": "C" }],
+    "retry": { "policy": "offer", "maxAttempts": null, "restore": true },
+    "onFailure": { "mustRetry": true }
+  },
+  "repair_hard_choice": {
+    "//": "Three tries against the clock; after any failure the captain may carry on with the damage instead (a chapter adds the consequences).",
+    "kind": "repair",
+    "failure": true,
+    "mechanics": { "maxFumbles": 3, "timeLimit": 15000 },
+    "outcomes": { "failure": { "completed": false }, "success": { "fumbles": 0 }, "fallback": "partial" },
+    "score": "accuracy",
+    "retry": { "policy": "offer", "maxAttempts": 3, "restore": true },
+    "onFailure": { "continue": true }
+  },
+  "shark_duty_strict": {
+    "//": "A watch that can be lost: more than three bites, or two at one section. Retry from the start of the watch.",
+    "kind": "sharkDuty",
+    "failure": true,
+    "mechanics": { "maxBites": 3, "sectionBites": {} },
+    "outcomes": { "failure": { "completed": false }, "success": { "bites": 0, "missed": 0 }, "fallback": "partial" },
+    "score": "repelled",
+    "retry": { "policy": "offer", "maxAttempts": null, "restore": true },
+    "onFailure": { "mustRetry": true }
+  },
+  "sash_trial_strict": {
+    "//": "The trial for real: lose the grip (three slips) or tear the sash and the ceremony is broken; held to the cue and let go on purpose, it's a success.",
+    "kind": "sashTension",
+    "failure": true,
+    "intent": "complete",
+    "mechanics": { "maxSlips": 2, "breakAt": { "value": 97, "seconds": 0.9 } },
+    "retry": { "policy": "offer", "maxAttempts": null, "restore": true },
+    "onFailure": { "mustRetry": true }
+  },
+  "sash_deliberate_flutter": {
+    "//": "The captain WANTS it to flutter early (to trigger the Stenchmaster's consequences): letting go on purpose is success, though the ceremony calls it a violation; an accidental flutter is partial; holding to the end is a failure.",
+    "kind": "sashTension",
+    "failure": true,
+    "intent": "sabotage",
+    "mechanics": { "earlyRelease": true, "maxSlips": 3 },
+    "retry": { "policy": "offer", "maxAttempts": null, "restore": true },
+    "onFailure": { "mustRetry": true }
+  }
+}

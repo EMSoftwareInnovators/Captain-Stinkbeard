@@ -20,6 +20,7 @@ import { REPAIR_KINDS, REPAIR_SOUND_KEYS } from '../systems/repairKinds.js';
 import { STABILITY_STATES } from '../systems/stability.js';
 import { ATMOSPHERE_STATES } from '../systems/atmosphere.js';
 import { TELLER_MODIFIERS } from '../systems/bank.js';
+import { challengeProblems, challengeConfig } from '../systems/challenge/config.js';
 
 /**
  * Cross-reference validation for all content. Returns { errors, warnings }.
@@ -222,6 +223,11 @@ function validateParam(type, value, check, sctx) {
     case 'vista': return check.vista(value);
     case 'log': return check.ref('logbook', value, check.ctx.db.logs);
     case 'tv': return check.ref('television', value, check.ctx.db.tv);
+    case 'challenge':
+      // The shape here; the rules (and the steps they run) in validateChallenge.
+      if (typeof value === 'string') return check.ref('challenge profile', value, check.ctx.db.challenges);
+      if (!isPlainObject(value)) check.error('a "challenge" must be a profile id (data/challenges) or an object');
+      return;
     case 'speaker':
       if (value !== null) check.speaker(value);
       return;
@@ -242,6 +248,26 @@ function validateParam(type, value, check, sctx) {
     default:
       check.error(`validator has no rule for param type "${type}"`);
   }
+}
+
+/**
+ * A challenge spec on a step, or a profile (docs/gameplay-overhaul/07-challenge-outcomes.md):
+ * its rules, the softlock rules, and the steps it runs (costs, consequences).
+ */
+function validateChallenge(spec, kind, check, sctx, step = {}) {
+  if (typeof spec !== 'string' && !isPlainObject(spec)) return;
+  if (typeof spec === 'string' && !check.ctx.db.challenges?.has?.(spec)) return;
+  for (const problem of challengeProblems(check.ctx.db, spec, { kind, step })) check.error(problem);
+  let cfg = null;
+  try {
+    cfg = challengeConfig(check.ctx.db, spec, { kind, id: 'check' });
+  } catch {
+    return;
+  }
+  if (!cfg || typeof spec === 'string') return;
+  const steps = { 'onFailure.costs': spec.onFailure?.costs, 'onFailure.consequences': spec.onFailure?.consequences, 'onPartial.consequences': spec.onPartial?.consequences };
+  for (const [path, list] of Object.entries(steps)) if (list !== undefined) validateParam('steps', list, check.at(path), sctx);
+  for (const f of cfg.keep.flags) check.flag(f);
 }
 
 function validateStep(step, check, sctx) {
@@ -353,6 +379,10 @@ function validateStep(step, check, sctx) {
   }
   if (name === 'tint' && !/^#[0-9a-fA-F]{6}$/.test(step.color ?? '')) check.error('tint color must be "#rrggbb"');
   if (name === 'repair' && !REPAIR_KINDS[step.repair]) check.error(`unknown timing-bar kind "${step.repair}" (see src/systems/repairKinds.js)`);
+  if ((name === 'repair' || name === 'sashTension') && step.challenge !== undefined) validateChallenge(step.challenge, name, check.at(`${name}.challenge`), sctx, step);
+  if ((name === 'repair' || name === 'sashTension') && step.challenge === undefined && ['outcomeValue', 'ifSuccess', 'ifPartial', 'ifFailure'].some((k) => k in step)) {
+    check.error('outcomeValue / ifSuccess / ifPartial / ifFailure need a "challenge" (a legacy step always succeeds)');
+  }
   // Story Phases 11-13: the sash tension, the dice, fragile items.
   if (name === 'sashTension' && !check.ctx.db.tension?.has?.(step.sashTension)) check.error(`unknown sash tension "${step.sashTension}" (data/story/tension)`);
   if (name === 'dice') {
@@ -683,6 +713,20 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       if (v.icon && !art.icons.has(v.icon)) vc.error(`unknown icon "${v.icon}"`);
       for (const k of Object.keys(v)) if (!['if', 'name', 'description', 'icon'].includes(k) && !isCommentKey(k)) vc.error(`unknown item variant field "${k}"`);
     });
+  }
+
+  // Challenge profiles (data/challenges): shared rules a step can opt into by id.
+  for (const [id, prof] of db.challenges?.map ?? []) {
+    const c = C(`${db.challenges.sourceOf(id)} (${id})`);
+    if (!prof.kind) {
+      c.error('a challenge profile needs "kind" (repair, sashTension or sharkDuty)');
+      continue;
+    }
+    validateChallenge({ profile: id }, prof.kind, c, { nodes: {}, spawned: new Set() });
+    for (const [path, list] of Object.entries({ 'onFailure.costs': prof.onFailure?.costs, 'onFailure.consequences': prof.onFailure?.consequences, 'onPartial.consequences': prof.onPartial?.consequences })) {
+      if (list !== undefined) validateParam('steps', list, c.at(path), { nodes: {}, spawned: new Set() });
+    }
+    for (const key of Object.keys(prof)) if (!isCommentKey(key) && !['kind', 'label', 'failure', 'mechanics', 'intent', 'outcomes', 'score', 'grades', 'retry', 'onFailure', 'onPartial', 'keep', 'checkpoint', 'announce'].includes(key)) c.error(`unknown challenge profile field "${key}"`);
   }
 
   // Story Phase 12: sash tension definitions (data/story/tension)
@@ -1110,6 +1154,16 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     const c = C(`${db.maps.sourceOf(id)} (${id})`);
     if (def.music !== undefined) c.music(def.music);
     if (def.ambience !== undefined) c.ambience(def.ambience);
+    // Shark Duty entries; one may opt the watch into a challenge (docs/gameplay-overhaul/07-challenge-outcomes.md).
+    (def.sharkDuty || []).forEach((e, i) => {
+      const ec = c.at(`sharkDuty[${i}]`);
+      if ('if' in e) ec.condition(e.if);
+      if (e.session && !db.hazards?.get?.('shark_duty')?.sessions?.[e.session]) ec.error(`unknown Shark Duty session "${e.session}" (data/hazards/shark_duty.json)`);
+      if (e.challenge !== undefined) {
+        validateParam('challenge', e.challenge, ec.at('challenge'), { nodes: {}, spawned: new Set() });
+        validateChallenge(e.challenge, 'sharkDuty', ec.at('challenge'), { nodes: {}, spawned: new Set() });
+      }
+    });
     (def.onEnter || []).forEach((e, i) => {
       if ('if' in e) c.at(`onEnter[${i}]`).condition(e.if);
       c.at(`onEnter[${i}]`).script(e.script);

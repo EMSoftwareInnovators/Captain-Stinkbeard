@@ -426,8 +426,8 @@ From `npm run regress:crew` and `npm run regress:rooms` (details: `tmp/regressio
   - Each fix turns a known-defect into "resolved": delete its entry from `known-issues.json` in the same change.
   - A new lifecycle error fails until it is fixed or classified.
 - **Challenge prompts (3 onwards):**
-  - Register new outcomes in `CHALLENGE_KINDS`, with `support` updated.
-  - Use `applyChallengePolicy(story, 'failure')` in the story walkers so every phase is also walked with failed challenges.
+  - Register new outcomes in `CHALLENGE_KINDS`: `outcomes` for the legacy behaviour, `optIn` for what a step that opts in can report (done in Prompt 3 for the timing bar, Shark Duty and the sash tension). The registry baseline counts opted-in uses per kind (`optedIn`), so a chapter that opts in shows up as a change to approve.
+  - Walk the phases with failures injected: `npm run test:walkers:fail-once` (the story harness's challenge policies, docs/gameplay-overhaul/07-challenge-outcomes.md). `applyChallengePolicy` still drives the legacy mocks.
   - An outcome still marked `unsupported` tells you which systems still can't fail.
 - **New systems (Integrity, Atmosphere, Beard Saturation and the rest):**
   - Move the system from `UNSUPPORTED` into `systemsState` in `snapshot.js`, so its value at every phase end is recorded and compared.

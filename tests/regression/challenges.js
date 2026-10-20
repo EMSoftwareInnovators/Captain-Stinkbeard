@@ -22,17 +22,20 @@ export const CHALLENGE_KINDS = Object.freeze({
   repair: {
     label: 'Timing bar (repair and its 38 variants)', commands: ['repair'], input: 'timed',
     outcomes: { success: 'always, eventually: the green zone widens after 3 misses and fills the bar after 5', partial: 'clean-strike count, only when the step stores it in "var"', failure: null },
-    retry: 'not needed (cannot fail)', blocksProgression: false, softlockRisk: 'none known', source: 'src/scenes/OverlayScene.js (placeRepairZone), src/systems/script/commands.js (repair)',
+    retry: 'not needed (cannot fail)', blocksProgression: false, softlockRisk: 'none known', source: 'src/systems/timingBar.js (legacy mode), src/scenes/OverlayScene.js, src/systems/script/commands.js (repair)',
+    optIn: { outcomes: { success: 'the profile\'s success rule (e.g. no fumbles)', partial: 'done, with fumbles (or the profile\'s partial rule)', failure: 'strict mode: past "maxFumbles", or out of "timeLimit"' }, retry: 'from the challenge checkpoint, as the config allows', source: 'src/systems/timingBar.js (strict mode), src/systems/challenge/' },
   },
   sharkDuty: {
     label: 'Shark Duty', commands: ['sharkDuty'], mapKey: 'sharkDuty', input: 'real-time',
     outcomes: { success: 'always: the session ends when its waves are done', partial: 'bites leave hull patches and add to "duty_bites"', failure: null },
     retry: 'not needed (its bar "can\'t be failed")', blocksProgression: false, softlockRisk: 'none known', source: 'src/systems/hazards/sharkDuty.js, src/world/SharkDuty.js',
+    optIn: { outcomes: { success: 'the watch ends with no bites (or the profile\'s rule)', partial: 'the watch ends with some bites', failure: 'DutyWatch limits: bites, a section overrun, failed shoves, the clock' }, retry: 'from the start of the watch', source: 'src/systems/hazards/sharkDuty.js (DutyWatch), src/world/SharkDuty.js, src/systems/challenge/' },
   },
   sashTension: {
     label: 'Sash tension hold', commands: ['sashTension'], input: 'timed',
     outcomes: { success: 'always ("never fails")', partial: 'slips stored in "var"; whether the release was pressed in "releasedVar"', failure: null },
     retry: 'not needed', blocksProgression: false, softlockRisk: 'none known', source: 'src/systems/tension.js, src/systems/script/commands.js (sashTension)',
+    optIn: { outcomes: { success: 'by intent: the trial completed (complete) or a deliberate early flutter (sabotage)', partial: 'by intent: completed but slipped, or an accidental flutter', failure: 'strict: the grip lost, the sash torn, or the wrong outcome for the intent' }, retry: 'from the challenge checkpoint', source: 'src/systems/tension.js (strict), src/systems/challenge/' },
   },
   teller: {
     label: 'Teller window (bank, branch, dispensary, credit)', commands: ['bank', 'bankDeposit'], input: 'timed',
@@ -107,10 +110,17 @@ export const CHALLENGE_KINDS = Object.freeze({
 });
 
 /** What a challenge kind can produce today: { success, partial, failure } as booleans. */
-export function outcomeSupport(kind) {
+/**
+ * What a kind can report: as the campaign plays it (legacy), or, with
+ * `optIn`, once a step opts into a challenge (src/systems/challenge/,
+ * docs/gameplay-overhaul/07-challenge-outcomes.md). Kinds without an opt-in
+ * report their legacy support either way.
+ */
+export function outcomeSupport(kind, { optIn = false } = {}) {
   const k = CHALLENGE_KINDS[kind];
   if (!k) throw new Error(`unknown challenge kind "${kind}"`);
-  return { success: !!k.outcomes.success, partial: !!k.outcomes.partial, failure: !!k.outcomes.failure };
+  const o = optIn && k.optIn ? k.optIn.outcomes : k.outcomes;
+  return { success: !!o.success, partial: !!o.partial, failure: !!o.failure };
 }
 
 /** Which registry entry a script step belongs to, or null. */
@@ -169,7 +179,7 @@ export function challengeInventory(content) {
         const kind = kindOfStep(v);
         if (kind) {
           const stored = [v.var, v.releasedVar, v.bonusVar].filter(Boolean);
-          instances.push({ kind, script: id, chapter, phase: chapter ? phaseOfChapter(chapter === 'prologue' ? 'prologue' : chapter) : null, storesResult: stored, resultRead: stored.some((n) => readNames.has(n)), flagsAfter: flags.length });
+          instances.push({ kind, script: id, chapter, phase: chapter ? phaseOfChapter(chapter === 'prologue' ? 'prologue' : chapter) : null, storesResult: stored, resultRead: stored.some((n) => readNames.has(n)), flagsAfter: flags.length, optedIn: v.challenge !== undefined });
         }
         Object.values(v).forEach(visit);
       }
@@ -178,7 +188,7 @@ export function challengeInventory(content) {
   }
   for (const map of content.maps.ids()) {
     const def = content.maps.get(map);
-    for (const e of def.sharkDuty ?? []) instances.push({ kind: 'sharkDuty', map, session: e.session ?? null, phase: null });
+    for (const e of def.sharkDuty ?? []) instances.push({ kind: 'sharkDuty', map, session: e.session ?? null, phase: null, optedIn: e.challenge !== undefined });
     for (const o of def.objects ?? []) if (o.type === 'enemy') instances.push({ kind: 'battle', map, encounter: o.encounter, phase: null });
     for (const f of def.fumes ?? []) instances.push({ kind: 'fumeExposure', map, zone: f.id ?? null, phase: null });
   }
@@ -190,8 +200,9 @@ export function challengeSummary(content) {
   const inv = challengeInventory(content);
   const byKind = {};
   for (const i of inv) {
-    const k = (byKind[i.kind] ??= { total: 0, scripts: 0, maps: 0, storingResult: 0, resultRead: 0, byPhase: {} });
+    const k = (byKind[i.kind] ??= { total: 0, scripts: 0, maps: 0, storingResult: 0, resultRead: 0, optedIn: 0, byPhase: {} });
     k.total++;
+    if (i.optedIn) k.optedIn++;
     if (i.script) {
       k.scripts++;
       if (i.storesResult?.length) k.storingResult++;
@@ -212,7 +223,7 @@ export function challengeSummary(content) {
   }
   return {
     vocabulary: OUTCOMES,
-    kinds: Object.fromEntries(Object.entries(CHALLENGE_KINDS).map(([id, k]) => [id, { label: k.label, input: k.input, support: outcomeSupport(id), retry: k.retry, blocksProgression: k.blocksProgression, softlockRisk: k.softlockRisk }])),
+    kinds: Object.fromEntries(Object.entries(CHALLENGE_KINDS).map(([id, k]) => [id, { label: k.label, input: k.input, support: outcomeSupport(id), ...(k.optIn ? { optIn: outcomeSupport(id, { optIn: true }) } : {}), retry: k.retry, blocksProgression: k.blocksProgression, softlockRisk: k.softlockRisk }])),
     usage: byKind,
     commandsSeen: [...commands].filter((c) => Object.values(CHALLENGE_KINDS).some((k) => k.commands.includes(c))).sort(),
   };

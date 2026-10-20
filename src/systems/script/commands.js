@@ -13,6 +13,9 @@ import { noveltyDef, attempt as noveltyAttempt } from '../novelty.js';
 import { proceedingDef, answerEffect, hearingPassed, pitchRound } from '../proceedings.js';
 import { creditDef, appraisalScore, creditClass, welcomeBonus, conversion } from '../credit.js';
 import { setHornets } from '../hazards/hornets.js';
+import { challengeConfig } from '../challenge/config.js';
+import { ChallengeRun, runChallenge, challengeLog, chapterOf } from '../challenge/runner.js';
+import { captureCheckpoint } from '../challenge/checkpoint.js';
 
 /** Story Phase 14: a stability subject (data/story/stability) with its defaults. */
 export function stabilitySubject(content, id = 'brogath') {
@@ -239,6 +242,42 @@ function service(ctx, name, command) {
   const svc = ctx.services?.[name];
   if (!svc) throw new Error(`Command "${command}" needs the "${name}" service, which is unavailable here`);
   return svc;
+}
+
+/**
+ * A step that opted into a challenge (docs/gameplay-overhaul/07-challenge-outcomes.md):
+ * its config, or null for a legacy step. The test harness may supply one for
+ * a legacy step through ctx.challengeOverride, to walk the campaign with
+ * failures injected; the game never does.
+ */
+function stepChallengeConfig(ctx, kind, step, frame) {
+  const spec = step.challenge ?? ctx.challengeOverride?.(kind, step, frame) ?? null;
+  if (spec === null) return null;
+  const content = ctx.session.content ?? ctx.content;
+  return challengeConfig(content, spec, { kind, id: `${frame?.id ?? '(inline)'}/${kind}` });
+}
+
+/**
+ * Runs one opted-in challenge step to its end: attempts through the
+ * mechanic, failures through the outcome prompt (retry, carry on, go back),
+ * then the step's own follow-ups: "outcomeValue" (the outcome in a story
+ * value) and "ifSuccess" / "ifPartial" / "ifFailure" (steps or a node).
+ * Returns what the command returns (a goto when one applies).
+ */
+async function runStepChallenge(ctx, frame, step, cfg, attempt) {
+  const run = new ChallengeRun({ session: ctx.session, config: cfg, chapter: chapterOf(frame?.id), event: frame?.id ?? null, script: frame?.id ?? null });
+  const hooks = {
+    attempt,
+    decide: (record, options) => service(ctx, 'ui', 'challengeOutcome').challengeOutcome(record, options),
+    runSteps: (steps) => ctx.runner.run(steps, ctx),
+    onRestored: (cp) => ctx.services?.world?.restoreCheckpoint?.(cp),
+  };
+  const { record, goto } = await runChallenge(run, hooks);
+  if (cfg.announce && record.outcome !== 'failure') await ctx.services?.ui?.notify?.({ kind: 'challenge', record });
+  if (step.outcomeValue) ctx.session.story.setValue(step.outcomeValue, record.outcome);
+  if (goto) return { goto };
+  const branch = { success: step.ifSuccess, partial: step.ifPartial, failure: step.ifFailure }[record.outcome];
+  return branch === undefined ? null : ctx.runner.execBranch(branch, ctx, frame);
 }
 
 function objectiveRef(ref) {
@@ -592,10 +631,26 @@ export function createCommandImplementations() {
       const p = service(ctx, 'world', 'sharkEvent').sharkEvent(step.sharkEvent, { x: step.x, y: step.y, duration: step.duration });
       return step.async ? null : p;
     },
-    /** A quick hammering prompt; the number of clean strikes can go in a variable. */
-    repair: async (step, ctx) => {
-      const clean = await service(ctx, 'ui', 'repair').repair({ kind: step.repair, strikes: step.strikes ?? 3, title: step.title ?? null, speed: step.speed ?? 1, zone: step.zone ?? 26 });
-      if (step.var) ctx.session.story.setVar(step.var, clean ?? 0);
+    /**
+     * A quick hammering prompt; the number of clean strikes can go in a
+     * variable. With "challenge" it is a real test (src/systems/timingBar.js
+     * strict mode): it can be failed, retried and graded.
+     */
+    repair: async (step, ctx, frame) => {
+      const opts = { kind: step.repair, strikes: step.strikes ?? 3, title: step.title ?? null, speed: step.speed ?? 1, zone: step.zone ?? 26 };
+      const cfg = stepChallengeConfig(ctx, 'repair', step, frame);
+      if (!cfg) {
+        const clean = await service(ctx, 'ui', 'repair').repair(opts);
+        if (step.var) ctx.session.story.setVar(step.var, clean ?? 0);
+        return null;
+      }
+      let last = null;
+      const result = await runStepChallenge(ctx, frame, step, cfg, async (info) => {
+        last = await service(ctx, 'ui', 'timingBar').timingBar({ ...opts, challenge: info });
+        return last;
+      });
+      if (step.var) ctx.session.story.setVar(step.var, last?.clean ?? 0);
+      return result;
     },
     // --- Story Phases 11-13 ---------------------------------------------------------
     /**
@@ -604,13 +659,36 @@ export function createCommandImplementations() {
      * caught out of the band, "releasedVar" 1 if the release was pressed (0 if the
      * hands slipped).
      */
-    sashTension: async (step, ctx) => {
+    sashTension: async (step, ctx, frame) => {
       const content = ctx.session.content ?? ctx.content;
       const def = content.tension?.get?.(step.sashTension);
       if (!def) throw new Error(`No sash tension definition "${step.sashTension}"`);
-      const r = await service(ctx, 'ui', 'sashTension').sashTension({ id: step.sashTension, ...def });
-      if (step.var) ctx.session.story.setVar(step.var, r?.slips ?? 0);
-      if (step.releasedVar) ctx.session.story.setVar(step.releasedVar, r?.released === 'slipped' ? 0 : 1);
+      const cfg = stepChallengeConfig(ctx, 'sashTension', step, frame);
+      if (!cfg) {
+        const r = await service(ctx, 'ui', 'sashTension').sashTension({ id: step.sashTension, ...def });
+        if (step.var) ctx.session.story.setVar(step.var, r?.slips ?? 0);
+        if (step.releasedVar) ctx.session.story.setVar(step.releasedVar, r?.released === 'slipped' ? 0 : 1);
+        return null;
+      }
+      // Opted in: the def's own numbers with the challenge's "strict" settings (grip, slips, tearing, letting go early).
+      let last = null;
+      const result = await runStepChallenge(ctx, frame, step, cfg, async (info) => {
+        const strict = info.strict ? { ...info.mechanics } : null;
+        last = await service(ctx, 'ui', 'holdTension').holdTension({ id: step.sashTension, ...def, strict, challenge: info });
+        return last;
+      });
+      if (step.var) ctx.session.story.setVar(step.var, last?.slips ?? 0);
+      if (step.releasedVar) ctx.session.story.setVar(step.releasedVar, last?.cause === 'accident' ? 0 : 1);
+      return result;
+    },
+    /**
+     * A named checkpoint for a sequence (docs/gameplay-overhaul/07-challenge-outcomes.md):
+     * a later challenge in this script whose config names it ("onFailure":
+     * { "fallback": name }) can offer to go back here, resuming at "resume".
+     * Per-play only; never saved.
+     */
+    checkpoint: (step, ctx, frame) => {
+      challengeLog(ctx.session).addCheckpoint(captureCheckpoint(ctx.session, { id: step.checkpoint, label: step.label ?? null, extra: { resume: step.resume ?? null, script: frame?.id ?? null } }));
     },
     /** A large die, rolled for the story (data/story/dice). The result is always the script's. */
     dice: (step, ctx) => {

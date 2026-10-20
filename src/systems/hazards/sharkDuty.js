@@ -40,8 +40,13 @@ export function dutyData(content) {
 
 /** The duty session the map runs right now (its first matching entry), or null. */
 export function dutySessionFor(meta, session) {
+  return dutyEntryFor(meta, session)?.session ?? null;
+}
+
+/** The map's first matching duty entry ({ if, session, challenge? }), or null. */
+export function dutyEntryFor(meta, session) {
   for (const e of meta?.sharkDuty ?? []) {
-    if (!e.if || evaluateCondition(e.if, session)) return e.session ?? null;
+    if (!e.if || evaluateCondition(e.if, session)) return e;
   }
   return null;
 }
@@ -133,5 +138,85 @@ export class DutyPlan {
       this.clock += (this.waves[this.index % this.waves.length].gap ?? 4000) * lerp(this.ramp.gap, this.level());
     }
     return due;
+  }
+}
+
+/**
+ * The watch's score, for a duty opted into a challenge (docs/gameplay-overhaul/07-challenge-outcomes.md).
+ * Pure: the world tells it what happened, it says how the watch is going
+ * and whether it has been lost. A duty without a challenge never makes one,
+ * and plays exactly as it always has (bites only leave patches).
+ *
+ * Limits (each optional; the challenge's "mechanics"):
+ *   maxBites        more bites than this in one watch and it's lost
+ *   sectionBites    { "port_mid": 2 } more than this at one rail section
+ *   maxMissed       more failed shoves than this (a strict shove that didn't land)
+ *   timeLimit       ms of the captain's time on watch before it's lost
+ */
+export class DutyWatch {
+  constructor(limits = {}) {
+    this.limits = limits;
+    this.repelled = 0;
+    this.bites = 0;
+    this.missed = 0;
+    this.patched = 0;
+    this.elapsed = 0;
+    this.bySection = {};
+  }
+
+  /** The captain's time on watch (only while he has control, like the duty's own clock). */
+  tick(dt) {
+    this.elapsed += dt;
+  }
+
+  repel() {
+    this.repelled += 1;
+  }
+
+  bite(section = null) {
+    this.bites += 1;
+    if (section) this.bySection[section] = (this.bySection[section] ?? 0) + 1;
+  }
+
+  /** A shove that didn't land (a strict timing bar that failed): the shark is still there. */
+  miss() {
+    this.missed += 1;
+  }
+
+  patch() {
+    this.patched += 1;
+  }
+
+  /** Why the watch is lost, or null. */
+  failure() {
+    const l = this.limits;
+    if (l.maxBites !== undefined && this.bites > l.maxBites) return 'bites';
+    for (const [section, max] of Object.entries(l.sectionBites ?? {})) if ((this.bySection[section] ?? 0) > max) return `section:${section}`;
+    if (l.maxMissed !== undefined && this.missed > l.maxMissed) return 'missed';
+    if (l.timeLimit && this.elapsed >= l.timeLimit) return 'time';
+    return null;
+  }
+
+  /** The metrics a challenge's rules read. */
+  metrics({ completed = false } = {}) {
+    return {
+      completed,
+      repelled: this.repelled,
+      bites: this.bites,
+      missed: this.missed,
+      patched: this.patched,
+      elapsed: Math.round(this.elapsed),
+      worstSection: Math.max(0, ...Object.values(this.bySection)),
+    };
+  }
+
+  state() {
+    return { repelled: this.repelled, bites: this.bites, missed: this.missed, patched: this.patched, elapsed: this.elapsed, bySection: { ...this.bySection } };
+  }
+
+  static fromState(limits, s) {
+    const w = new DutyWatch(limits);
+    if (s) Object.assign(w, { repelled: s.repelled, bites: s.bites, missed: s.missed, patched: s.patched, elapsed: s.elapsed, bySection: { ...s.bySection } });
+    return w;
   }
 }

@@ -162,6 +162,12 @@ describe('challenge outcome contract', () => {
     expect(outcomeSupport('sharkDuty').failure).toBe(false);
     expect(outcomeSupport('battle')).toEqual({ success: true, partial: true, failure: true });
     expect(outcomeSupport('course')).toEqual({ success: false, partial: false, failure: false });
+    // Prompt 3: three kinds can fail for real once a step opts in; none has yet.
+    for (const kind of ['repair', 'sharkDuty', 'sashTension']) {
+      expect(outcomeSupport(kind, { optIn: true }), kind).toEqual({ success: true, partial: true, failure: true });
+      expect(result.challenges.usage[kind].optedIn, `${kind} steps opted in`).toBe(0);
+    }
+    expect(outcomeSupport('course', { optIn: true })).toEqual(outcomeSupport('course'));
     for (const k of Object.values(CHALLENGE_KINDS)) expect(typeof k.blocksProgression).toBe('boolean');
     expect(result.challenges.usage.repair.scripts).toBeGreaterThan(100);
   });

@@ -176,6 +176,10 @@ export function createWorldServices(scene) {
     restage(mode) {
       return scene.restage({ instant: mode === 'cut', inScene: true });
     },
+    /** A challenge restored a checkpoint: the captain back on its tile, nothing held over (WorldScene.afterRestore). */
+    restoreCheckpoint(cp) {
+      scene.afterRestore(cp);
+    },
     /**
      * pan: glide to a tile or actor and hold there; follow: glide to an actor
      * and keep tracking it; reset: glide back to the captain and follow him.
@@ -535,6 +539,13 @@ export function createWorldServices(scene) {
         await overlay.dialogue.close();
         return overlay.repair(opts);
       },
+      // A timing bar that opted into a challenge: its full result (docs/gameplay-overhaul/07-challenge-outcomes.md).
+      timingBar: async (opts) => {
+        await overlay.dialogue.close();
+        return overlay.timingBar(opts);
+      },
+      // After a challenge fails: the ways forward it allows, on the choice menu.
+      challengeOutcome: (record, options) => overlay.challengeOutcome(record, options),
       tv: async (id, { mode = 'normal', panel = null } = {}) => {
         await overlay.dialogue.close();
         const def = tvDef(scene.content, id);
@@ -547,6 +558,11 @@ export function createWorldServices(scene) {
       },
       // Story Phase 12: the thirty-second hold, and a large die the cast can talk over (it stays up between commands).
       sashTension: async (def) => {
+        await overlay.dialogue.close();
+        return overlay.sashTension(def);
+      },
+      // The same close-up for a step that opted into a challenge (def.strict, def.challenge).
+      holdTension: async (def) => {
         await overlay.dialogue.close();
         return overlay.sashTension(def);
       },

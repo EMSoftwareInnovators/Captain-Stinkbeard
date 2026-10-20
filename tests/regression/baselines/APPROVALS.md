@@ -86,3 +86,33 @@ Across phases
   CHANGED    challenges: usage.tvCloseUp: undefined -> {"byPhase":{"P14":2,"P5":1},"maps":0,"resultRead":0,"scripts":10,"storingResult":0,"total":10}
 ```
 
+## 2026-10-20 (on e3141e2)
+
+Reason: Prompt 3 (challenge outcomes): the timing bar, Shark Duty and the sash tension gained an opt-in challenge mode (success / partial / real failure, checkpoints and retries; src/systems/challenge). The registry records that opt-in support next to the unchanged legacy support, and counts opted-in uses per kind: all 0, because no chapter has opted in. No phase snapshot changed.
+
+Files: challenges.json
+
+Changes: 0 regression, 0 warning, 0 improvement, 20 change
+
+```
+Approved changes: 20 changes
+
+Across phases
+  CHANGED    challenges: kinds.repair.optIn: undefined -> {"failure":true,"partial":true,"success":true}
+  CHANGED    challenges: kinds.sashTension.optIn: undefined -> {"failure":true,"partial":true,"success":true}
+  CHANGED    challenges: kinds.sharkDuty.optIn: undefined -> {"failure":true,"partial":true,"success":true}
+  CHANGED    challenges: usage.alarm.optedIn: undefined -> 0
+  CHANGED    challenges: usage.appraise.optedIn: undefined -> 0
+  CHANGED    challenges: usage.battle.optedIn: undefined -> 0
+  CHANGED    challenges: usage.conversion.optedIn: undefined -> 0
+  CHANGED    challenges: usage.course.optedIn: undefined -> 0
+  CHANGED    challenges: usage.dice.optedIn: undefined -> 0
+  CHANGED    challenges: usage.fartZone.optedIn: undefined -> 0
+  CHANGED    challenges: usage.fumeExposure.optedIn: undefined -> 0
+  CHANGED    challenges: usage.lighter.optedIn: undefined -> 0
+  CHANGED    challenges: usage.proceeding.optedIn: undefined -> 0
+  CHANGED    challenges: usage.reassure.optedIn: undefined -> 0
+  CHANGED    challenges: usage.repair.optedIn: undefined -> 0
+  ... 5 more (see the full report)
+```
+

@@ -14,6 +14,11 @@ import { deadCenterSeals } from '../src/systems/hazards/deadCenter.js';
 import { tickSharkstormFlare } from '../src/systems/hazards/sharkstorm.js';
 import { SaveManager } from '../src/systems/save/SaveManager.js';
 import { MemoryStorage } from '../src/platform/storage.js';
+import { seededRandom } from '../src/systems/challenge/rng.js';
+import { playTimingBar, repairBarConfig, playTension } from './challengeBots.js';
+import fs from 'node:fs';
+import path from 'node:path';
+import { expect } from 'vitest';
 
 /**
  * A headless story player shared by the story-phase tests: the real scripts,
@@ -25,7 +30,51 @@ import { MemoryStorage } from '../src/platform/storage.js';
  *
  *   makeStory({ pick: 'first' | 'last', preset: 'prologue_done' })
  *   makeStory({ pick, state })   // from a save (SaveManager.read(slot).state)
+ *   makeStory({ challenges: 'failOnce' })   // a challenge policy (below)
+ *
+ * Challenge policies (docs/gameplay-overhaul/07-challenge-outcomes.md). The
+ * mechanics are the game's own rules played by simulated hands
+ * (tests/challengeBots.js); the decision after a failure is the policy's.
+ *   legacy            (default) legacy steps keep their mocks; a step that opted in is played perfectly
+ *   success | partial | failure | failOnce | failThenContinue
+ *                     every repair and sash-tension step in the walk is run as a
+ *                     test challenge (TEST_CHALLENGES: the content is not changed)
+ *                     and played to that outcome: "failure" fails and carries on
+ *                     with the consequences, "failOnce" fails, retries from the
+ *                     checkpoint and wins, "failThenContinue" fails once and
+ *                     carries on.
+ * STORY_CHALLENGE_POLICY=failOnce sets the default for a whole test run.
  */
+
+/** The challenge policies the harness knows. */
+export const CHALLENGE_POLICIES = ['legacy', 'success', 'partial', 'failure', 'failOnce', 'failThenContinue'];
+
+/**
+ * The test challenges a policy runs legacy steps as (an in-memory override:
+ * ctx.challengeOverride; no content file changes). One fumble or slip is
+ * allowed, so a partial exists; "continue" only where the policy carries on.
+ */
+export function testChallenge(kind, policy) {
+  const carryOn = policy === 'failure' || policy === 'failThenContinue';
+  const onFailure = carryOn ? { continue: true } : { mustRetry: true };
+  const retry = { policy: 'offer', maxAttempts: null, restore: true };
+  if (kind === 'repair') return { failure: true, mechanics: { maxFumbles: 1 }, outcomes: { failure: { completed: false }, success: { fumbles: 0 }, fallback: 'partial' }, score: 'accuracy', retry, onFailure };
+  if (kind === 'sashTension') return { failure: true, intent: 'complete', mechanics: { maxSlips: 0 }, retry, onFailure };
+  return null;
+}
+
+/** Which hand plays an attempt under a policy (failing hands first, perfect after). */
+function handFor(kind, policy, attempt) {
+  const failing = kind === 'repair' ? 'fumble' : 'slack';
+  const partial = kind === 'repair' ? { fumbles: 1 } : 'noRelease';
+  switch (policy) {
+    case 'partial': return partial;
+    case 'failure': return failing;
+    case 'failOnce':
+    case 'failThenContinue': return attempt === 1 ? failing : 'perfect';
+    default: return 'perfect';
+  }
+}
 
 class Transition {
   constructor(map, opts) {
@@ -34,7 +83,8 @@ class Transition {
   }
 }
 
-export function makeStory({ pick = 'first', preset = 'prologue_done', state = null } = {}) {
+export function makeStory({ pick = 'first', preset = 'prologue_done', state = null, challenges = process.env.STORY_CHALLENGE_POLICY || 'legacy' } = {}) {
+  if (!CHALLENGE_POLICIES.includes(challenges)) throw new Error(`unknown challenge policy "${challenges}" (use: ${CHALLENGE_POLICIES.join(', ')})`);
   const content = loadContent();
   const bus = new EventBus();
   let session;
@@ -85,6 +135,8 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
   const world = new Proxy({}, {
     get: (_t, name) => {
       if (name === 'transition') return (map, opts) => { throw new Transition(map, opts); };
+      // A challenge put a checkpoint back: recorded (the world restages from the story by itself).
+      if (name === 'restoreCheckpoint') return (cp) => { restores.push({ id: cp.id, at: staging.context }); };
       if (tracked[name]) return async (...args) => { tracked[name](...args); return null; };
       return async () => null;
     },
@@ -100,6 +152,24 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
   const tellers = [];
   // A battle's result ('win' unless a test says otherwise: tests/regression/challenges.js drives it).
   let battleResult = 'win';
+  // Challenges (docs/gameplay-overhaul/07-challenge-outcomes.md): every resolved record, each attempt
+  // played, each decision after a failure, each checkpoint restored; decisions a test queues come first.
+  const challengeRecords = [];
+  const challengeAttempts = [];
+  const challengeDecisions = [];
+  const restores = [];
+  const decisionQueue = [];
+  bus.on('challenge:resolved', ({ record }) => {
+    challengeRecords.push(record);
+    // tools/walk-challenges.mjs: one line per resolved challenge, for the per-phase report.
+    const out = process.env.STORY_CHALLENGE_REPORT;
+    if (out) {
+      const st = expect.getState();
+      const line = { file: st.testPath ? path.basename(st.testPath) : null, test: st.currentTestName ?? null, policy: challenges, id: record.id, kind: record.kind, chapter: record.chapter, attempts: record.attempt, outcome: record.outcome, decision: record.decision, history: record.history.map((h) => h.outcome) };
+      fs.mkdirSync(path.dirname(out), { recursive: true });
+      fs.appendFileSync(out, `${JSON.stringify(line)}\n`);
+    }
+  });
   const services = {
     dialogue: {
       say: async (line) => log.push(`${line.speaker ?? '-'}: ${line.text}`),
@@ -117,6 +187,22 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
       openLog: async (id) => { opened.push(id); },
       // The hull-patch timing game: a clean run unless a test says otherwise.
       repair: async ({ strikes }) => (repairScore ?? strikes),
+      // A timing bar that opted into a challenge: the real rules, played by the policy's hand.
+      timingBar: async (opts) => {
+        const info = opts.challenge;
+        const hand = handFor('repair', challenges, info.attempt);
+        const result = playTimingBar(repairBarConfig(opts, info), hand, seededRandom(info.seed));
+        challengeAttempts.push({ kind: 'repair', id: info.id, attempt: info.attempt, hand, completed: result.completed, fumbles: result.fumbles, at: staging.context });
+        return result;
+      },
+      // After a failure: a queued decision, else the policy's (retry, or carry on).
+      challengeOutcome: async (record, options) => {
+        const ids = options.map((o) => o.id);
+        let choice = decisionQueue.length ? decisionQueue.shift() : challenges === 'failure' || challenges === 'failThenContinue' ? 'continue' : 'retry';
+        if (!ids.includes(choice)) choice = ids[0];
+        challengeDecisions.push({ id: record.id, attempt: record.attempt, options: ids, choice });
+        return choice;
+      },
       // Phase 4: the bell protocol and the course dial (recorded for tests).
       alarm: async (level, { where } = {}) => { alarms.push({ level, where, at: staging.context }); },
       course: async () => {},
@@ -126,6 +212,15 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
       sashTension: async (def) => {
         tensions.push(def.id);
         return tensionResult;
+      },
+      // A sash tension that opted into a challenge: the real rules, played by the policy's hand.
+      holdTension: async (def) => {
+        const info = def.challenge;
+        if (info.attempt === 1) tensions.push(def.id);
+        const hand = handFor('sashTension', challenges, info.attempt);
+        const result = playTension(def, hand, seededRandom(info.seed));
+        challengeAttempts.push({ kind: 'sashTension', id: info.id, attempt: info.attempt, hand, completed: result.completed, ceremony: result.ceremony, at: staging.context });
+        return result;
       },
       teller: async (customer) => {
         tellers.push(customer.id);
@@ -159,6 +254,10 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
     getScript: (id) => content.scripts.get(id),
   });
   const ctx = { session, bus, content, services, wait: async () => {} };
+  // The policy's test challenges for legacy steps (the game never sets this).
+  // A test that sets a legacy result itself (setRepairScore, setTensionResult) is testing that result: it wins.
+  const pinned = new Set();
+  if (challenges !== 'legacy') ctx.challengeOverride = (kind) => (pinned.has(kind) ? null : testChallenge(kind, challenges));
   let busy = 0;
 
   const story = {
@@ -174,6 +273,15 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
     dice,
     tensions,
     tellers,
+    challengePolicy: challenges,
+    challengeRecords,
+    challengeAttempts,
+    challengeDecisions,
+    restores,
+    /** Decisions for the next challenge failures, in order ('retry' | 'continue' | 'fallback'). */
+    decideChallenges(...ids) {
+      decisionQueue.push(...ids);
+    },
     /** What the next teller window reports ({ grades: ['perfect' | 'good' | 'miss', ...], slips }). */
     setTellerResult(r) {
       tellerResult = r;
@@ -185,10 +293,12 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
     /** What the next sash tension reports ({ slips, released: 'pressed' | 'slipped' }). */
     setTensionResult(r) {
       tensionResult = r;
+      pinned.add('sashTension');
     },
     /** Sets how many clean strikes the next repair timing game scores. */
     setRepairScore(n) {
       repairScore = n;
+      pinned.add('repair');
     },
     get map() {
       return session.location.map;
@@ -366,7 +476,7 @@ export function reloadStory(s) {
   if (!wrote.ok) throw new Error(`save failed: ${wrote.reason}`);
   const read = saves.read(1);
   if (!read.ok) throw new Error(`load failed: ${read.reason ?? read.error}`);
-  const t = makeStory({ pick: s.pickLast ? 'last' : 'first', state: read.state });
+  const t = makeStory({ pick: s.pickLast ? 'last' : 'first', state: read.state, challenges: s.challengePolicy });
   t.pickLast = s.pickLast;
   t.refused = s.refused;
   t.record = wrote.record;

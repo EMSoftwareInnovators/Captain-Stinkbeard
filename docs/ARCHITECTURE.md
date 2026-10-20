@@ -766,6 +766,35 @@ Story Phase 17 ([17](STORY_PHASE17.md)) added no room and these reusable parts:
   enter the hold and the Fart-Free Zone from this phase (every placement there
   waits on a Phase 17 flag).
 
+## Challenge outcomes, checkpoints and retries (overhaul Prompt 3)
+
+`src/systems/challenge/` is the outcome contract for challenges that opt in
+(docs/gameplay-overhaul/07-challenge-outcomes.md). Engine-agnostic:
+
+- `outcome.js`: success / partial / failure / unsupported, rules over a
+  mechanic's metrics, grades, the record;
+- `config.js`: a step's `challenge` (a profile in `data/challenges`, or an
+  object) as a full config, and `challengeProblems` (the softlock rules the
+  validator enforces);
+- `checkpoint.js`: capture and restore of the session's persistent domains
+  (what a save holds) plus fume exposure, with `keep`; restore emits
+  `session:restored`, and WorldScene restages and puts the captain back
+  (`afterRestore`);
+- `runner.js`: `ChallengeRun` and `runChallenge` (checkpoint, attempts,
+  sticky costs, the decision, consequences) and the per-play `ChallengeLog`
+  in `session.transient` (never saved; `challenge:resolved` on the bus);
+- `kinds.js` and `rng.js`: what each mechanic measures, seeded attempts.
+
+The mechanics stay pure: `src/systems/timingBar.js` (the repair bar's rules,
+legacy and strict; OverlayScene draws it), `src/systems/tension.js` (a
+`strict` block and `tensionResult`), `DutyWatch` in
+`src/systems/hazards/sharkDuty.js` (world/SharkDuty.js runs a watch's
+challenge). The `repair` and `sashTension` commands take the old code path
+when a step has no `challenge`; with one they call `ui.timingBar` /
+`ui.holdTension` and, after a failure, `ui.challengeOutcome` (the ordinary
+choice menu). The story harness drives the same runner through simulated
+hands (tests/challengeBots.js) and its challenge policies.
+
 ## Battle
 
 `BattleEngine` (`src/systems/battle/`) owns the rules and is fully
@@ -1024,6 +1053,13 @@ and walks into the next chapter. Aliases are never saved.
   `npm run regress:approve -- --reason "..."`. `perf/` holds the browser
   performance measurement (`npm run perf`), kept out of `npm run e2e`. See
   [gameplay-overhaul/06-regression-harness.md](gameplay-overhaul/06-regression-harness.md).
+- `tests/challenges.test.js` and `tests/challengeBots.js`: the challenge
+  outcome contract, checkpoints and retries, against the real mechanics
+  played by simulated hands; `makeStory({ challenges: 'failOnce' })` (or
+  `npm run test:walkers:fail-once`) walks the story with every repair and
+  sash-tension step failed once and retried. `e2e/challenges.spec.js` does it
+  in the browser with the keyboard and a pad, and loses and retries an
+  opted-in Shark Duty watch.
 
 ## Adding Chapter 8 (or anything else)
 

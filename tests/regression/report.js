@@ -201,6 +201,12 @@ export function formatChallengesReport(result) {
     const u = result.challenges.usage[id] ?? { scripts: 0, maps: 0, storingResult: 0, resultRead: 0 };
     lines.push(`| ${id} | ${k.input} | ${cell(k.outcomes.success ?? 'unsupported')} | ${cell(k.outcomes.partial ?? 'unsupported')} | ${cell(k.outcomes.failure ?? 'unsupported')} | ${cell(k.retry)} | ${k.blocksProgression ? 'yes' : 'no'} | ${cell(k.softlockRisk)} | ${u.scripts} / ${u.maps} | ${u.storingResult} / ${u.resultRead} | ${cell(k.source)} |`);
   }
+  lines.push('', '## Opted in (src/systems/challenge, docs/gameplay-overhaul/07-challenge-outcomes.md)', '', 'What a step that opts into a challenge can report. The table above is the campaign as it plays: no chapter has opted in while every "opted in" count is 0.', '', '| Kind | Success | Partial | Failure | Retry | Opted-in uses | Source |', '|---|---|---|---|---|---|---|');
+  for (const [id, k] of Object.entries(CHALLENGE_KINDS)) {
+    if (!k.optIn) continue;
+    const o = k.optIn.outcomes;
+    lines.push(`| ${id} | ${cell(o.success ?? 'unsupported')} | ${cell(o.partial ?? 'unsupported')} | ${cell(o.failure ?? 'unsupported')} | ${cell(k.optIn.retry)} | ${result.challenges.usage[id]?.optedIn ?? 0} | ${cell(k.optIn.source)} |`);
+  }
   lines.push('', '## Uses per phase', '');
   for (const [id, u] of Object.entries(result.challenges.usage)) lines.push(`- ${id}: ${Object.entries(u.byPhase).map(([p, n]) => `${p} ${n}`).join(', ') || 'maps only'}`);
   return lines.join('\n');

@@ -319,11 +319,12 @@ the cancel button (default: the last option).
 | `tint` | actor, `color` `"#rrggbb"`, `duration`, `async` | tint an actor for a moment (turning green) |
 | `sharks` | level or `"auto"`, `crowd` | hold a shark level for the scene (`crowd`: how many distant fins to draw); `auto` hands it back to the map |
 | `sharkEvent` | `bite` (`x`, `y` hull tile), `ram`, `flop` (`x`, `y` deck tile), `return`, `lure` (`x`, `y`, `duration`), `follow`, `unfollow`, `frenzy` (`x`, `y`: the scent on the hull), `calm`, `thrash` (`x`, `y`), `hammerhead` (`x`, `y`); `async` | staged shark moments |
-| `repair` | kind (`hull`, `rope`, `helm`, `shark`), `strikes`, `title`, `var`, `speed` (marker speed scale), `zone` (green width, px) | the timing game (patch, haul, hold the wheel, shove a shark); clean strikes go into `var` |
+| `repair` | kind (`hull`, `rope`, `helm`, `shark`), `strikes`, `title`, `var`, `speed` (marker speed scale), `zone` (green width, px); opt-in: `challenge`, `outcomeValue`, `ifSuccess`, `ifPartial`, `ifFailure` | the timing game (patch, haul, hold the wheel, shove a shark); clean strikes go into `var`. With `challenge` it can be failed and retried (see "Challenge outcomes" below) |
 | `deadCenter` | location id or `"none"` | where the Dead Center is now (Phase 4; see below) |
 | `alarm` | level 1-4, `where`, `wait` | ring the bell protocol: shown in words and heard; carries on unless `wait` |
 | `course` | `show` (`heading`, `target`, `label`), `drift` (`to`, `duration`), `hide`; `async` | the course dial (the ship falling off her heading) |
 | `sharkDuty` | `"clear"` | send every shark at the rail away at once (standing down) |
+| `checkpoint` | name, `resume` (a node), `label` | a sequence checkpoint a later challenge in the same script can offer to go back to (see "Challenge outcomes") |
 
 Actors are `player` (or `captain`) or the id of an NPC/actor on the map.
 
@@ -1922,3 +1923,21 @@ player walks into it or presses Confirm on it; with it, the door just opens.
 **A new enemy type**: add a painter (`field(dir, frame)` and
 `battle(frame)`) to `src/art/enemies/enemyPainters.js`, then data in
 `data/enemies/`, abilities in `data/abilities/`, and an encounter.
+
+## Challenge outcomes (opt-in difficulty)
+
+A `repair` or `sashTension` step, or a Shark Duty map entry or session, can
+opt into a challenge with `"challenge"`: a profile id from
+`data/challenges/profiles.json` (`repair_strict`, `repair_graded`,
+`repair_hard_choice`, `shark_duty_strict`, `sash_trial_strict`,
+`sash_deliberate_flutter`), or an object with an optional `"profile"` to
+start from. It can then fail for real: the outcome prompt offers retrying
+from the checkpoint, carrying on with consequences, or going back to an
+earlier `checkpoint`, as the config allows. `outcomeValue` keeps the
+outcome in a story value; `ifSuccess` / `ifPartial` / `ifFailure` run after
+it. A step without `"challenge"` is legacy and plays exactly as before (no
+existing chapter has opted in). The validator refuses any config that could
+leave the story with no way forward. Everything else, the record, the
+rules, checkpoints, the sash tension's intent (`complete` or `sabotage`) and
+how to test outcomes, is in
+[gameplay-overhaul/07-challenge-outcomes.md](gameplay-overhaul/07-challenge-outcomes.md).

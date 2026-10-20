@@ -10,6 +10,13 @@
  *   encounter shop character dir speaker line emote vista
  * A trailing "?" marks a param optional. The command's own key is listed too.
  */
+/**
+ * What a step that can be a challenge may carry (repair, sashTension): the
+ * opt-in ("challenge": a profile id or a config), where the outcome goes,
+ * and what runs after each outcome.
+ */
+const CHALLENGE_PARAMS = { challenge: 'challenge?', outcomeValue: 'string?', ifSuccess: 'steps?', ifPartial: 'steps?', ifFailure: 'steps?' };
+
 export const COMMAND_SCHEMAS = {
   // --- flow -------------------------------------------------------------
   goto: { goto: 'label' },
@@ -105,7 +112,7 @@ export const COMMAND_SCHEMAS = {
   tint: { tint: 'actor', color: 'string', duration: 'number?', async: 'boolean?' },
   sharks: { sharks: 'string', crowd: 'number?' },
   sharkEvent: { sharkEvent: 'string', x: 'number?', y: 'number?', duration: 'number?', async: 'boolean?' },
-  repair: { repair: 'string', strikes: 'number?', title: 'string?', var: 'string?', speed: 'number?', zone: 'number?' },
+  repair: { repair: 'string', strikes: 'number?', title: 'string?', var: 'string?', speed: 'number?', zone: 'number?', ...CHALLENGE_PARAMS },
 
   // --- Story Phase 4 -----------------------------------------------------------
   deadCenter: { deadCenter: 'string' },
@@ -118,7 +125,7 @@ export const COMMAND_SCHEMAS = {
   tvProgram: { tvProgram: 'string', episode: 'string?', layer: 'string?', from: 'number?', to: 'number?', tv: 'tv?' },
 
   // --- Story Phases 11-13 ------------------------------------------------------
-  sashTension: { sashTension: 'string', var: 'string?', releasedVar: 'string?' },
+  sashTension: { sashTension: 'string', var: 'string?', releasedVar: 'string?', ...CHALLENGE_PARAMS },
   dice: { dice: 'string', die: 'string?', result: 'number?', bounces: 'number?', to: 'number?', hops: 'number?', seconds: 'number?', face: 'number?', async: 'boolean?' },
   wear: { wear: 'item', to: 'string?' },
 
@@ -162,6 +169,10 @@ export const COMMAND_SCHEMAS = {
   learnAbility: { learnAbility: 'string', character: 'character', silent: 'boolean?' },
   // The captain's beard puffs (data/story/beard.json "puffs"): one authored puff now.
   beardPuff: { beardPuff: 'string', line: 'string?' },
+
+  // --- Challenge outcomes (docs/gameplay-overhaul/07-challenge-outcomes.md) ----------------
+  // A named sequence checkpoint a later challenge in the same script can offer to go back to.
+  checkpoint: { checkpoint: 'string', resume: 'label?', label: 'string?' },
 };
 
 /** Commands that may carry "async": true (start and continue without waiting). */

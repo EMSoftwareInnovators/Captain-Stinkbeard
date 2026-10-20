@@ -132,7 +132,8 @@ switch (cmd) {
     const paths = writeReports(result, changes, content, ['challenges']);
     for (const [id, k] of Object.entries(result.challenges.kinds)) {
       const u = result.challenges.usage[id];
-      console.log(`${id.padEnd(14)} input ${k.input.padEnd(9)} success ${k.support.success ? 'yes' : '-  '} partial ${k.support.partial ? 'yes' : '-  '} failure ${k.support.failure ? 'yes' : '-  '} uses ${u ? `${u.scripts} scripts, ${u.maps} maps` : 0}`);
+      const opt = k.optIn ? `  opt-in: failure ${k.optIn.failure ? 'yes' : '-'} (${u?.optedIn ?? 0} opted in)` : '';
+      console.log(`${id.padEnd(14)} input ${k.input.padEnd(9)} success ${k.support.success ? 'yes' : '-  '} partial ${k.support.partial ? 'yes' : '-  '} failure ${k.support.failure ? 'yes' : '-  '} uses ${u ? `${u.scripts} scripts, ${u.maps} maps` : 0}${opt}`);
     }
     console.log(`Report: ${paths['challenges.md']} (${ms()})`);
     break;

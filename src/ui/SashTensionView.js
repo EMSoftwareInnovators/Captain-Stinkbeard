@@ -1,7 +1,8 @@
 import { addPanel } from './Panel.js';
 import { addText, setText, centerText, UI_COLORS } from './text.js';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
-import { createTension, stepTension, tensionZone, autoHold } from '../systems/tension.js';
+import { createTension, stepTension, tensionZone, autoHold, tensionResult } from '../systems/tension.js';
+import { seededRandom } from '../systems/challenge/rng.js';
 
 const D = 720;
 const WORDS = ['ZERO', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE', 'TEN', 'ELEVEN', 'TWELVE', 'THIRTEEN',
@@ -21,12 +22,18 @@ const WORDS = ['ZERO', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'E
  * Calmer effects: no haze over the room beyond a faint tint, no pulsing
  * cue, no flash; screen shake follows the Screen Shake option. The story
  * is the same either way.
+ *
+ * A step that opted into a challenge (def.strict, docs/gameplay-overhaul/07-challenge-outcomes.md)
+ * also shows the grip, and Cancel lets go early on purpose when allowed;
+ * it resolves with tensionResult as well as the legacy { slips, released }.
  */
 export class SashTensionView {
   constructor(scene, def, { onDone }) {
     this.scene = scene;
     this.app = scene.game.app;
     this.st = createTension(def);
+    // A challenge's gusts follow its seed (a retry is reproducible); the legacy trial keeps Math.random.
+    this.rnd = def.challenge?.seed !== undefined ? seededRandom(def.challenge.seed) : Math.random;
     this.onDone = onDone;
     this.calm = this.app.settings.reducedEffects();
     this.lineT = 0;
@@ -72,7 +79,8 @@ export class SashTensionView {
     tight.x = mx + mw - tight.textWidth;
     this.line = this.add(addText(s, x + 10, y + h - 22, '', { depth: D + 2, maxWidth: w - 20, maxLines: 1, clipWidth: w - 20 }));
     this.hint = this.add(addText(s, 0, y + h - 12, '', { color: UI_COLORS.dim, depth: D + 2 }));
-    this.setHint('{btn:confirm} hold to pull · let go to ease');
+    this.setHint(this.st.strict?.earlyRelease ? '{btn:confirm} pull · {btn:cancel} let it go' : '{btn:confirm} hold to pull · let go to ease');
+    if (this.st.grip !== null) this.gripText = this.add(addText(s, x + 10, y + h - 12, '', { depth: D + 2 }));
     // the release cue, later
     this.cue = this.add(addText(s, 0, 96, d.release.cue ?? 'LET GO!', { font: 'big', color: UI_COLORS.gold, depth: D + 4 }).setVisible(false));
     centerText(this.cue, SCREEN_WIDTH / 2);
@@ -112,6 +120,13 @@ export class SashTensionView {
     this.needle.x = px(this.st.value);
     const zone = tensionZone(this.st);
     this.needle.setFillStyle(zone === 'ok' ? 0xfff4e0 : zone === 'low' ? 0xf07860 : 0xf8a040);
+    if (this.gripText) {
+      const g = Math.round(this.st.grip);
+      if (g !== this.gripShown) {
+        this.gripShown = g;
+        setText(this.gripText, `GRIP ${g < 25 ? '<r>' : '<w>'}${g}</>`);
+      }
+    }
   }
 
   shake(amount, ms = 260) {
@@ -130,7 +145,13 @@ export class SashTensionView {
       input.consume('confirm');
       input.consume('cancel');
     }
-    const events = stepTension(st, delta / 1000, { held, pressed });
+    // Strict only: Cancel during the hold lets it go on purpose (never the auto hand).
+    let release = false;
+    if (st.phase === 'hold' && st.strict?.earlyRelease && !auto && input.pressed('cancel')) {
+      release = true;
+      input.consume('cancel');
+    }
+    const events = stepTension(st, delta / 1000, { held, pressed, release }, this.rnd);
     const d = st.def;
     for (const e of events) this.onEvent(e, d);
     if (st.phase === 'done') return;
@@ -195,8 +216,12 @@ export class SashTensionView {
         this.setHint('{btn:confirm} let go');
         break;
       case 'released':
-        if (d.release.sfx) audio.sfx(d.release.sfx, { volume: 0.9 });
+        if (e.how === 'torn') audio.sfx('sail_snap', { volume: 0.9 });
+        else if (d.release.sfx) audio.sfx(d.release.sfx, { volume: 0.9 });
         if (e.how === 'slipped') this.say(d.release.slipLine ?? 'Your hands slip.', 1200);
+        if (e.how === 'lost') this.say('<r>The grip goes!</> It FLUTTERS!', 1400);
+        if (e.how === 'torn') this.say('<r>RRRIP!</> The sash tears!', 1400);
+        if (e.how === 'deliberate') this.say('You let it go. On purpose.', 1400);
         this.finish();
         break;
       default:
@@ -205,7 +230,7 @@ export class SashTensionView {
   }
 
   finish() {
-    const result = { slips: this.st.slips, released: this.st.released };
+    const result = { ...tensionResult(this.st), slips: this.st.slips, released: this.st.released };
     this.scene.tweens.add({
       targets: this.parts,
       alpha: 0,

@@ -25,6 +25,22 @@
  * (the needle goes back to the middle; it counts as a slip) and the clock
  * keeps running. At the end the cue asks for one deliberate press; if it
  * doesn't come, the captain's hands slip after "release.auto" ms anyway.
+ *
+ * Opt-in difficulty (a challenge, docs/gameplay-overhaul/07-challenge-outcomes.md)
+ * adds a "strict" block; without it everything above is unchanged:
+ *
+ *   "strict": {
+ *     "maxSlips": 2,                          // a slip past this and the grip is lost: it flutters early
+ *     "grip": { "max": 100, "drain": 4, "recover": 10 },  // holding tires the hands; at 0 they give out
+ *     "breakAt": { "value": 96, "seconds": 0.8 },         // pulled this tight for this long, the sash tears
+ *     "earlyRelease": true                    // Cancel lets go on purpose, before the count is up
+ *   }
+ *
+ * Two different questions get two answers (tensionResult): what the ceremony
+ * saw ("completed": held to the cue and let go; "broken": it fluttered early;
+ * "torn") and whether the captain meant it ("deliberate" or "accident").
+ * A deliberate early flutter breaks the ceremony's rules and can be exactly
+ * what the player was trying to do.
  */
 
 export const TENSION_DEFAULTS = Object.freeze({
@@ -68,6 +84,12 @@ export function createTension(def) {
     released: null, // 'pressed' | 'slipped'
     caughtT: 0,
     gustT: 3,
+    // Opt-in difficulty (null: the trial plays exactly as it always has).
+    strict: d.strict ?? null,
+    grip: d.strict?.grip ? d.strict.grip.max ?? 100 : null,
+    minGrip: d.strict?.grip ? d.strict.grip.max ?? 100 : null,
+    strain: 0,
+    early: false,
   };
 }
 
@@ -102,6 +124,8 @@ export function stepTension(st, dt, input = {}, rnd = Math.random) {
     }
     return ev;
   }
+  // Strict only: Cancel lets go on purpose, before the count is up.
+  if (st.strict?.earlyRelease && input.release) return finishEarly(st, 'deliberate', ev);
   st.t += dt;
   // The count: one event a whole second.
   while (st.second < Math.min(d.seconds, Math.floor(st.t))) {
@@ -141,10 +165,25 @@ export function stepTension(st, dt, input = {}, rnd = Math.random) {
   st.value = Math.max(0, Math.min(100, st.value));
   const zone = tensionZone(st);
   st.out = zone === 'ok' ? 0 : st.out + dt;
+  if (st.strict) {
+    const strict = st.strict;
+    if (strict.grip && st.grip !== null) {
+      const g = strict.grip;
+      st.grip = Math.max(0, Math.min(g.max ?? 100, st.grip + (input.held ? -(g.drain ?? 4) : g.recover ?? 10) * dt));
+      st.minGrip = Math.min(st.minGrip, st.grip);
+      if (st.grip <= 0) return finishEarly(st, 'lost', ev);
+    }
+    if (strict.breakAt) {
+      st.strain = st.value >= strict.breakAt.value ? st.strain + dt : 0;
+      if (st.strain >= (strict.breakAt.seconds ?? 0.8)) return finishEarly(st, 'torn', ev);
+    }
+  }
   if (st.out >= d.grace) {
     // Fail-soft: somebody grabs the end ("NOT YET!") and it starts again from the middle.
     st.slips += 1;
     st.out = 0;
+    // Strict: past "maxSlips" nobody catches it in time.
+    if (st.strict && st.strict.maxSlips !== undefined && st.slips > st.strict.maxSlips) return finishEarly(st, 'lost', ev);
     st.value = (st.band[0] + st.band[1]) / 2;
     st.caughtT = 0.45;
     ev.push({ type: 'caught', zone });
@@ -155,6 +194,42 @@ export function stepTension(st, dt, input = {}, rnd = Math.random) {
     ev.push({ type: 'cue' });
   }
   return ev;
+}
+
+/** Strict only: it's over before the count ("deliberate": let go on purpose; "lost": the grip went; "torn"). */
+function finishEarly(st, how, ev) {
+  st.phase = 'done';
+  st.released = how;
+  st.early = true;
+  ev.push({ type: 'released', how });
+  return ev;
+}
+
+/**
+ * What the run came to, as challenge metrics. The ceremony's view
+ * ("completed" | "broken" | "torn") and the captain's ("deliberate" | "accident")
+ * are reported separately: they are different questions.
+ */
+export function tensionResult(st) {
+  const torn = st.released === 'torn';
+  const completed = !st.early && st.phase === 'done';
+  const deliberate = st.released === 'pressed' || st.released === 'deliberate';
+  return {
+    completed,
+    early: st.early,
+    released: st.released,
+    deliberate,
+    accidental: !deliberate,
+    torn,
+    fluttered: !completed && !torn,
+    ceremony: torn ? 'torn' : completed ? 'completed' : 'broken',
+    cause: deliberate ? 'deliberate' : 'accident',
+    // In the captain's words, should the challenge call it a failure.
+    reason: torn ? 'torn' : st.released === 'lost' ? 'lost' : st.early ? 'deliberate' : 'held',
+    slips: st.slips,
+    seconds: Math.round(Math.min(st.t, st.def.seconds) * 10) / 10,
+    grip: st.minGrip === null ? null : Math.round(st.minGrip),
+  };
 }
 
 /** A perfect hand (debug "auto timing", tests): hold when below the middle of the band. */
