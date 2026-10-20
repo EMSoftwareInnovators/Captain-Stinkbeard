@@ -1,6 +1,6 @@
 # Story inventory, Phase 12: The Thirty-Second Sash Trial
 
-Chapters: 15 (p12c1 to p12c15). Dialogue lines: 436. Classification: Walk + press A 9, Choice or puzzle prompt 3, Timing / skill input 2, Dialogue / cutscene only 1.
+Chapters: 15 (p12c1 to p12c15). Dialogue lines: 436. Classification: Walk + press A 10, Timing / skill input 2, Choice or puzzle prompt 2, Dialogue / cutscene only 1.
 
 Sources: `data/game.json` (chapter list), `docs/STORY_PHASE12.md`, `data/quests/phase12.json`, `data/story/cutscenes/phase12/`, `data/story/flags/phase12.json`, `tests/phase12_story.test.js`, `tests/phase12Play.js`.
 
@@ -271,8 +271,8 @@ Audit status: **examined** (scripts parsed in full by the audit tooling; digest 
 1. **ID, title, source files.** `p12c15`, Chapter 126: One Day Is Apparently Unbearable. Scripts: 7 in `data/story/cutscenes/phase12/ch119_126.json`. Quests: `pull_my_finger` “One Day Is Apparently Unbearable” in `data/quests/phase12.json`.
 2. **Events and dialogue.** Two hours later Garrick asks crew to pull his finger; follow him round and stop him asking five people. Dialogue: 42 lines (garrick 14, (narration) 12, captain 5, pete 3, bob 2, gristle 2, jim 2, rusty_tom 1, +1 more); 0 choice prompt(s) with 0 options. Presentation: tvProgram ×5, vista ×1.
 3. **Characters, locations, props, flags.** Speaking characters: garrick, pete, bob, gristle, jim, rusty_tom, squawks. NPCs with dialogue keyed to an objective (hints, reactions or completions): garrick. Rooms: set by preceding chapter (no room change). Interactables: none. Flags set: 9 (`p12_ch126_started`, `p12_fg_pete`, `p12_fg_bob`, `p12_fg_gristle`, `p12_fg_jim`, `p12_fg_tom`, `finger_crisis_seen`, `bbk_daytime_seen`, `p12_complete`); items given: none.
-4. **Current player actions and mechanics.** Objectives: “Stop Garrick asking (follow him round: Pete, Bob, Gristle, Jim, Rusty Tom)” [event×5]. Mechanics invoked by the scripts: TV knobs ×2.
-5. **Classification.** Choice or puzzle prompt (TV knobs ×2). Nothing in this chapter can fail in a way that costs the player anything.
+4. **Current player actions and mechanics.** Objectives: “Stop Garrick asking (follow him round: Pete, Bob, Gristle, Jim, Rusty Tom)” [event×5]. Mechanics invoked by the scripts: TV state change (scripted) ×2.
+5. **Classification.** Walk + press A. Presentation-only effects with no player input: TV state change (scripted) ×2. Nothing in this chapter can fail in a way that costs the player anything.
 6. **Gameplay opportunities.** An interception chase.
 7. **Proposed primary mechanic.** Interception: Garrick moves crew to crew; reach each before he does (path blocking) or talk them out of it.
 8. **Secondary mechanics.** None.

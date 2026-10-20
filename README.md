@@ -73,6 +73,8 @@ Other scripts:
 | `npm run e2e:quick` | Every browser test except the long story playthroughs |
 | `npm run e2e:story` | Only the story playthroughs. Any tag works too: `npm run e2e -- --grep @phase3` (see [ARCHITECTURE.md](docs/ARCHITECTURE.md#testing)) |
 | `npm run export` | Writes all generated art to `exports/sprites/*.png` and the maps to Tiled `exports/tiled/*.tmj` |
+| `npm run regress` | The regression harness: the game measured at the end of all 17 story phases (story, crew, rooms, systems) and compared with the approved baselines in a few seconds. Also `regress:compare`, `regress:approve`, `regress:crew`, `regress:rooms`, `regress:coords`, `regress:challenges` (see [06-regression-harness.md](docs/gameplay-overhaul/06-regression-harness.md)) |
+| `npm run perf` | Frame times, room build times, scene contents and memory in the heaviest scenes (Playwright, diagnostic only); `npm run perf:bundle` reports the bundle size after a build |
 
 Node 20+ is recommended.
 

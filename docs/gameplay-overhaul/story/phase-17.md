@@ -127,8 +127,8 @@ Audit status: **examined** (scripts parsed in full by the audit tooling; digest 
 1. **ID, title, source files.** `p17c7`, Chapter 212: The Crew He Left Behind. Scripts: 7 in `data/story/cutscenes/phase17/ch210_213.json`. Quests: `old_crew_documentary` “The Crew He Left Behind” in `data/quests/phase17.json`.
 2. **Events and dialogue.** The Crew He Left Behind: the Mark II shows a documentary about Brogath's crew; watch it with them; afterwards. Dialogue: 21 lines ((narration) 13, ledger 4, brogath 2, tilda 2); 3 choice prompt(s) with 8 options. Presentation: vista ×1, channelEpisode ×1.
 3. **Characters, locations, props, flags.** Speaking characters: ledger, brogath, tilda. NPCs with dialogue keyed to an objective (hints, reactions or completions): brogath. Rooms: `galley`. Interactables: `p17_doc_set` (galley 16,7), `p17_doc_watch` (galley 16,7). Flags set: 4 (`p17_ch212_started`, `p17_doc_on`, `old_crew_documentary_viewed`, `p17_doc_after`); items given: none.
-4. **Current player actions and mechanics.** Objectives: “The Mark II (the galley)” [flag]; “Watch it with them (the Mark II, the galley)” [flag]; “Afterwards (Brogath, the galley)” [flag]. Mechanics invoked by the scripts: stability change ×2, TV power ×1.
-5. **Classification.** Walk + press A. Presentation-only effects with no player input: stability change ×2, TV power ×1. Nothing in this chapter can fail in a way that costs the player anything.
+4. **Current player actions and mechanics.** Objectives: “The Mark II (the galley)” [flag]; “Watch it with them (the Mark II, the galley)” [flag]; “Afterwards (Brogath, the galley)” [flag]. Mechanics invoked by the scripts: stability change ×2.
+5. **Classification.** Walk + press A. Presentation-only effects with no player input: stability change ×2. Nothing in this chapter can fail in a way that costs the player anything.
 6. **Gameplay opportunities.** TV.
 7. **Proposed primary mechanic.** Keep (quiet beat).
 8. **Secondary mechanics.** None.
@@ -181,8 +181,8 @@ Audit status: **examined** (scripts parsed in full by the audit tooling; digest 
 1. **ID, title, source files.** `p17c10`, Chapter 215: Meet the New Dead Idiots!. Scripts: 6 in `data/story/cutscenes/phase17/ch214_217.json`. Quests: `new_dead_idiots` “Meet the New Dead Idiots!” in `data/quests/phase17.json`.
 2. **Events and dialogue.** The Bling Bling King's Late-Night Sharkstorm Special (TV). Dialogue: 21 lines ((narration) 10, bbk_special 3, visitor_two 2, visitor_one 2, tilda 1, ledger 1, brogath 1, shark_audience 1); 2 choice prompt(s) with 6 options. Presentation: vista ×1, channelEpisode ×1.
 3. **Characters, locations, props, flags.** Speaking characters: bbk_special, visitor_two, visitor_one, tilda, ledger, brogath, shark_audience. NPCs with dialogue keyed to an objective (hints, reactions or completions): none. Rooms: `galley`. Interactables: `p17_special_set` (galley 16,7), `p17_special_watch` (galley 16,7). Flags set: 3 (`p17_ch215_started`, `p17_special_on`, `bbk_late_night_special_viewed`); items given: none.
-4. **Current player actions and mechanics.** Objectives: “The Mark II (the galley)” [flag]; “THE BLING BLING KING'S LATE-NIGHT SHARKSTORM SPECIAL (the Mark II)” [flag]. Mechanics invoked by the scripts: TV power ×1.
-5. **Classification.** Walk + press A. Presentation-only effects with no player input: TV power ×1. Nothing in this chapter can fail in a way that costs the player anything.
+4. **Current player actions and mechanics.** Objectives: “The Mark II (the galley)” [flag]; “THE BLING BLING KING'S LATE-NIGHT SHARKSTORM SPECIAL (the Mark II)” [flag]. Mechanics invoked by the scripts: none.
+5. **Classification.** Walk + press A. Nothing in this chapter can fail in a way that costs the player anything.
 6. **Gameplay opportunities.** TV.
 7. **Proposed primary mechanic.** Keep.
 8. **Secondary mechanics.** None.

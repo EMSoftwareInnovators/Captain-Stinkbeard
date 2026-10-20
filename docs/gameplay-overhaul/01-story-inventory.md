@@ -14,14 +14,14 @@ Depth, stated plainly: every chapter was examined at this data-and-digest level.
 - Playable chapter entries: **223**, made up of the prologue and **222** numbered chapters (Chapter 1 to Chapter 222).
 - `data/game.json` also holds **16 phase-end markers** (`phase2_end` … `phase17_end`, 239 entries in all). They are completion states used by the chapter select and presets, not chapters, so they are not counted here.
 - Dialogue lines across all chapters: **11,301**.
-- Classification: **Walk + press A** 107, **Timing / skill input** 79, **Choice or puzzle prompt** 28, **Dialogue / cutscene only** 9.
-- Mechanics with player input, by number of chapters that use them: timing bar (repair) 66, TV knobs 17, Brogath reassurance prompt 16, teller window 7, Shark Duty 4, proceeding (form/hearing/pitch) 4, dice roll 2, appraisal 2, battle (map encounters) 1, sash tension (hold) 1, teller deposit 1, battle 1.
+- Classification: **Walk + press A** 112, **Timing / skill input** 79, **Choice or puzzle prompt** 23, **Dialogue / cutscene only** 9.
+- Mechanics with player input, by number of chapters that use them: timing bar (repair) 66, Brogath reassurance prompt 16, TV close-up 9, teller window 7, Shark Duty 4, proceeding (form/hearing/pitch) 4, dice roll 2, appraisal 2, battle (map encounters) 1, sash tension (hold) 1, teller deposit 1, battle 1.
 - Chapters with a scripted battle: **1** (the optional drill in `p17c5`). The prologue’s three rat fights are map encounters (`hold_rats_1`, `hold_rats_2`, `hold_rats_nest` in `data/encounters/prologue.json`), not chapter scripts, so all of the game’s story combat sits in the prologue plus that one drill.
 - Proposed priorities: P1 45, P2 84, P3 94; complexity: S 141, M 71, L 11; quiet beats to protect: 88.
 
 ## Findings that affect the overhaul
 
-1. **Most chapters are walk-and-press-A.** A chapter counts as “walk + press A” when the player only talks to people, inspects objects or steps on tiles, and as “dialogue / cutscene only” when there is no objective at all. Together these make up 116 of 223 chapters. A further 28 add only a choice or puzzle prompt (TV knobs, reassurance choices, forms, appraisal, a die whose result is fixed by the script). Just 79 ask for timed input at all.
+1. **Most chapters are walk-and-press-A.** A chapter counts as “walk + press A” when the player only talks to people, inspects objects or steps on tiles, and as “dialogue / cutscene only” when there is no objective at all. Together these make up 121 of 223 chapters. A further 23 add only a choice or puzzle prompt (working the TV set, reassurance choices, forms, appraisal, a die whose result is fixed by the script). Just 79 ask for timed input at all.
    Of those 79, **64** use only the repair timing bar.
 2. **Nothing after the prologue can be failed.** The repair timing bar never fails: the script waits for the strikes and at most stores how many were clean. Only 2 of the 177 timing-bar steps in the scripts keep that number, and 3 scripts read it. Shark Duty’s bar widens after two misses “so it can’t be failed” (`src/systems/hazards/sharkDuty.js`); a slow strike lets a shark bite, which only adds a hull patch to hammer. The sash-tension hold “never fails” (`src/systems/script/commands.js`). Hearings and pitches send the player back to retry. Fume exposure ends in a collapse that carries the captain out. The course dial and the bell alarms are presentation: the dial drifts on its own and the alarms play, with no input. The only fights that can end the game are the prologue’s three rat encounters (`hold_rats_1`, `hold_rats_2`, `hold_rats_nest`), which lead to Game Over and a retry from the autosave; the prologue’s sparring match and the Phase 17 drill are `nonLethal`.
 3. **Combat is almost absent from the story.** Outside the prologue, the only scripted battle in 222 chapters is Tilda’s optional, non-lethal drill (`p17c5`). The game has 4 enemy types; the `cutthroat` appears only in debug encounters.
@@ -105,7 +105,7 @@ Class: D = dialogue / cutscene only, W = walk + press A, C = choice or puzzle pr
 | ID | # | Title | Lines | Class | Current mechanics | Proposed primary mechanic | Cx | Prio | Quiet |
 |---|---|---|---|---|---|---|---|---|---|
 | `p5c1` | 20 | Another Terrible Day | 102 | T | Shark Duty ×1 | Morning rounds as a scheduled task loop (check stores, wake crew) interrupted by a Dead C… | M | P2 |  |
-| `p5c2` | 21 | What Do You Actually Do? | 155 | C | TV knobs ×2 | Shark Duty round (reuse ch18 combat) with Garrick as a distraction hazard (his chair bloc… | M | P2 |  |
+| `p5c2` | 21 | What Do You Actually Do? | 155 | C | TV close-up ×1 | Shark Duty round (reuse ch18 combat) with Garrick as a distraction hazard (his chair bloc… | M | P2 |  |
 | `p5c3` | 22 | The Grand Stenchmaster's Office | 76 | W | – | Two-rail defence with boarding sharks (enemy variety | M | P2 |  |
 | `p5c4` | 23 | Dressed for Disaster | 115 | T | timing bar (repair) ×3 | Search-and-command | M | P2 |  |
 | `p5c5` | 24 | One Useful Thing | 117 | T | timing bar (repair) ×2 | Phase finale | L | P1 |  |
@@ -115,12 +115,12 @@ Class: D = dialogue / cutscene only, W = walk + press A, C = choice or puzzle pr
 | ID | # | Title | Lines | Class | Current mechanics | Proposed primary mechanic | Cx | Prio | Quiet |
 |---|---|---|---|---|---|---|---|---|---|
 | `p6c1` | 25 | The Grand Stenchmaster's Supper | 103 | T | Shark Duty ×1 | Keep the supper as a narrative beat; make the barrels a tracked ship resource (count show… | S | P3 | yes |
-| `p6c2` | 26 | The Frog Tax Man | 64 | C | TV knobs ×1 | S.E.S. shutdown puzzle | M | P2 |  |
-| `p6c3` | 27 | The Machine Refuses to Die | 79 | T | timing bar (repair) ×4, TV knobs ×1 | Fire crisis | M | P1 |  |
-| `p6c4` | 28 | The Worst Morning | 68 | T | Shark Duty ×1, TV knobs ×1 | Shark Duty as a proper combat shift | M | P1 |  |
+| `p6c2` | 26 | The Frog Tax Man | 64 | C | TV close-up ×1 | S.E.S. shutdown puzzle | M | P2 |  |
+| `p6c3` | 27 | The Machine Refuses to Die | 79 | T | timing bar (repair) ×4 | Fire crisis | M | P1 |  |
+| `p6c4` | 28 | The Worst Morning | 68 | T | Shark Duty ×1 | Shark Duty as a proper combat shift | M | P1 |  |
 | `p6c5` | 29 | The Burning Warning | 97 | T | timing bar (repair) ×1 | Timed evacuation | M | P1 |  |
 | `p6c6` | 30 | The Mightiest Gust Yet | 77 | W | – | Short 'brace and hold' sequence | S | P2 |  |
-| `p6c7` | 31 | The Great Sharkstorm | 79 | T | timing bar (repair) ×4, TV knobs ×1 | Storm deck | L | P1 |  |
+| `p6c7` | 31 | The Great Sharkstorm | 79 | T | timing bar (repair) ×4 | Storm deck | L | P1 |  |
 | `p6c8` | 32 | Another Ocean | 95 | T | timing bar (repair) ×1 | Barrel artillery | M | P1 |  |
 
 ### Phase 7: The Great Sharkstorm Returns and the Song of the Grand Stenchmaster
@@ -132,9 +132,9 @@ Class: D = dialogue / cutscene only, W = walk + press A, C = choice or puzzle pr
 | `p7c3` | 35 | Not a Stenchmaster Duty | 73 | W | – | Keep as dialogue; add one mechanical beat | S | P3 | yes |
 | `p7c4` | 36 | The Job Description | 57 | W | – | Keep as narrative; surface the Crew roster screen here for the first time (each grievance… | S | P3 | yes |
 | `p7c5` | 37 | The Grand Stenchmaster's Parade | 49 | T | timing bar (repair) ×3 | Multi-task shift | S | P2 |  |
-| `p7c6` | 38 | The Song of the Grand Stenchmaster | 86 | C | TV knobs ×1 | Keep the song; then 'catch him at it' | M | P2 |  |
+| `p7c6` | 38 | The Song of the Grand Stenchmaster | 86 | W | – | Keep the song; then 'catch him at it' | M | P2 |  |
 | `p7c7` | 39 | Everyone Below | 41 | T | timing bar (repair) ×1 | Retreat run | S | P2 |  |
-| `p7c8` | 40 | The Stenchmaster Entertainment System Mark II | 94 | T | TV knobs ×3, timing bar (repair) ×1 | Keep largely narrative; the switch beat becomes a 'hold him back' timing (twice). | S | P3 | yes |
+| `p7c8` | 40 | The Stenchmaster Entertainment System Mark II | 94 | T | timing bar (repair) ×1, TV close-up ×1 | Keep largely narrative; the switch beat becomes a 'hold him back' timing (twice). | S | P3 | yes |
 | `p7c9` | 41 | A Pleasant Evening | 110 | W | – | Quiet beat | S | P3 | yes |
 
 ### Phase 8: The Lost Fart and the Grand Nap
@@ -202,9 +202,9 @@ Class: D = dialogue / cutscene only, W = walk + press A, C = choice or puzzle pr
 | `p10c20` | 90 | The Approach | 39 | T | timing bar (repair) ×6 | Battle stations | M | P1 |  |
 | `p10c21` | 91 | The One Time | 68 | W | – | Escort the charged Garrick | M | P1 |  |
 | `p10c22` | 92 | The Wrong Way | 40 | T | timing bar (repair) ×3 | Helm alignment under fire | L | P1 |  |
-| `p10c23` | 93 | Inside the Spout | 45 | C | TV knobs ×2 | Keep; aerial adjustment on a rotating ship (signal drifts as the ship turns). | S | P3 | yes |
+| `p10c23` | 93 | Inside the Spout | 45 | C | TV close-up ×1 | Keep; aerial adjustment on a rotating ship (signal drifts as the ship turns). | S | P3 | yes |
 | `p10c24` | 94 | The Impossible Audit | 50 | W | – | Keep as is. | S | P3 | yes |
-| `p10c25` | 95 | I Used to Be Blackbeard | 56 | C | TV knobs ×1 | Keep as narrative (quiet beat). | S | P3 | yes |
+| `p10c25` | 95 | I Used to Be Blackbeard | 56 | W | – | Keep as narrative (quiet beat). | S | P3 | yes |
 
 ### Phase 11: The Grand Bedtime Argument
 
@@ -223,7 +223,7 @@ Class: D = dialogue / cutscene only, W = walk + press A, C = choice or puzzle pr
 | `p11c11` | 106 | Bed Sashes | 27 | T | timing bar (repair) ×3 | Sashes become a crafting material (rope substitute) in the inventory; re-hanging hammocks… | S | P2 |  |
 | `p11c12` | 107 | The Grand Nap's Grand Resumption | 15 | W | – | Keep as is. | S | P3 | yes |
 | `p11c13` | 108 | Sir Rumpus and Fart Validity | 28 | D | – | Keep (codex). | S | P3 | yes |
-| `p11c14` | 109 | Late-Night Bling Bling King | 16 | C | TV knobs ×2 | Keep; the knob shutdown can reuse the p6c2 puzzle with a harder sequence. | S | P3 | yes |
+| `p11c14` | 109 | Late-Night Bling Bling King | 16 | C | TV close-up ×1 | Keep; the knob shutdown can reuse the p6c2 puzzle with a harder sequence. | S | P3 | yes |
 | `p11c15` | 110 | The First Great Sash Flutter | 31 | W | – | Keep. | S | P3 | yes |
 | `p11c16` | 111 | Secret Research and the Anti-Dice Conspiracy | 97 | T | timing bar (repair) ×3 | Night heist | M | P1 |  |
 
@@ -245,23 +245,23 @@ Class: D = dialogue / cutscene only, W = walk + press A, C = choice or puzzle pr
 | `p12c12` | 123 | Garrick Is Not Grand | 16 | W | – | Keep; the suspension countdown shows on the HUD (existing var). | S | P3 | yes |
 | `p12c13` | 124 | The Authenticity Whiff | 34 | W | – | Keep; the inhalation adds Beard Saturation (persistent) as a real consequence. | S | P3 | yes |
 | `p12c14` | 125 | A Normal Pirate Breakfast | 30 | T | timing bar (repair) ×6 | Cooking mini-game (relaxed difficulty) | S | P3 | yes |
-| `p12c15` | 126 | One Day Is Apparently Unbearable | 42 | C | TV knobs ×2 | Interception | S | P2 |  |
+| `p12c15` | 126 | One Day Is Apparently Unbearable | 42 | W | – | Interception | S | P2 |  |
 
 ### Phase 13: The Ancient Stenchmaster Delirium
 
 | ID | # | Title | Lines | Class | Current mechanics | Proposed primary mechanic | Cx | Prio | Quiet |
 |---|---|---|---|---|---|---|---|---|---|
 | `p13c1` | 127 | The Finger-Pulling Breakdown | 27 | W | – | Keep; optional rebuttal choices draw on p12c8's fine print (show the clause). | S | P3 | yes |
-| `p13c2` | 128 | Don't Throw My Sash in the Trash | 15 | C | TV knobs ×1 | Contaminated equipment | S | P3 |  |
+| `p13c2` | 128 | Don't Throw My Sash in the Trash | 15 | W | – | Contaminated equipment | S | P3 |  |
 | `p13c3` | 129 | The Sleeping Quarters Are Alive | 33 | T | timing bar (repair) ×3 | Room reclamation | M | P1 |  |
 | `p13c4` | 130 | Condemn the Bedding | 32 | T | timing bar (repair) ×2 | Sort-and-dispose | S | P2 |  |
 | `p13c5` | 131 | Grand Stenchmaster Bedding | 20 | T | timing bar (repair) ×5 | Quarters rebuild (build mode) | M | P1 |  |
 | `p13c6` | 132 | The Fan Mega-Pack | 22 | W | – | Keep the placement choices; they are already player decisions with consequences (where ca… | S | P3 | yes |
-| `p13c7` | 133 | Build-Your-Own S.E.S. | 26 | T | timing bar (repair) ×1, TV knobs ×1 | Scavenger hunt with light routing (the parts are guarded by small hazards: the hold salva… | S | P3 |  |
-| `p13c8` | 134 | Wire the Two Systems Together | 22 | T | timing bar (repair) ×5, TV knobs ×1 | Cable routing | S | P2 |  |
-| `p13c9` | 135 | The Stenchmaster Channel | 15 | C | TV knobs ×1 | Keep. | S | P3 | yes |
-| `p13c10` | 136 | Stench-O-Vision | 14 | W | – | Keep; the Stench-O-Vision vents a small fume zone that grows until the knobs are set (reu… | S | P3 | yes |
-| `p13c11` | 137 | Poor in Gold, Rich in Gas | 11 | C | TV knobs ×1 | Keep. | S | P3 | yes |
+| `p13c7` | 133 | Build-Your-Own S.E.S. | 26 | T | timing bar (repair) ×1 | Scavenger hunt with light routing (the parts are guarded by small hazards: the hold salva… | S | P3 |  |
+| `p13c8` | 134 | Wire the Two Systems Together | 22 | T | timing bar (repair) ×5 | Cable routing | S | P2 |  |
+| `p13c9` | 135 | The Stenchmaster Channel | 15 | W | – | Keep. | S | P3 | yes |
+| `p13c10` | 136 | Stench-O-Vision | 14 | C | TV close-up ×1 | Keep; the Stench-O-Vision vents a small fume zone that grows until the knobs are set (reu… | S | P3 | yes |
+| `p13c11` | 137 | Poor in Gold, Rich in Gas | 11 | W | – | Keep. | S | P3 | yes |
 | `p13c12` | 138 | Captain Stinkbeard Finally Reaches His Limit | 27 | W | – | Keep; the rant targets are the player's choice (existing inspects). | S | P3 | yes |
 | `p13c13` | 139 | The Beard Betrays Him | 18 | D | – | Trigger the 'Saturated' status (screen tint, doubled sprites, controls slightly delayed)… | S | P1 |  |
 | `p13c14` | 140 | Every Ancient Stenchmaster Is Here | 34 | W | – | Hallucination rounds | M | P1 |  |
@@ -290,15 +290,15 @@ Class: D = dialogue / cutscene only, W = walk + press A, C = choice or puzzle pr
 | `p14c13` | 158 | The Grand Economy of Farts | 21 | W | – | Keep; Grand Currency denominations become a real (absurd) secondary currency in the inven… | S | P3 | yes |
 | `p14c14` | 159 | Bad Money | 32 | T | timing bar (repair) ×2 | Keep; the purse check shows currency conversion (the existing appraisal). | S | P3 | yes |
 | `p14c15` | 160 | Grand Temporary Ancient Oat Security Officer | 50 | T | timing bar (repair) ×4 | Babysit | S | P2 |  |
-| `p14c16` | 161 | Important Television Duty | 30 | W | – | Keep; channel selection reuses TV knobs. | S | P3 | yes |
-| `p14c17` | 162 | The Sash Flutter Commercial | 30 | T | timing bar (repair) ×2, Brogath reassurance prompt ×2 | Commercial crisis | M | P1 |  |
+| `p14c16` | 161 | Important Television Duty | 30 | C | TV close-up ×1 | Keep; channel selection reuses TV knobs. | S | P3 | yes |
+| `p14c17` | 162 | The Sash Flutter Commercial | 30 | T | TV close-up ×1, timing bar (repair) ×2, Brogath reassurance prompt ×2 | Commercial crisis | M | P1 |  |
 | `p14c18` | 163 | The Grand Bank | 46 | W | – | Keep. | S | P3 | yes |
 | `p14c19` | 164 | Your Gas Is Our Business | 17 | T | teller window ×2 | Teller shifts with escalating rules (forgeries, impatient customers, a stability meter if… | M | P2 |  |
 | `p14c20` | 165 | Legendary Depositors | 5 | W | – | Legend customers with unique teller rules (each legend from the codex has a quirk). | S | P2 |  |
 | `p14c21` | 166 | The Branch Concludes Business | 36 | W | – | Vault dash | S | P2 |  |
 | `p14c22` | 167 | Distinguishedly Furious | 69 | C | Brogath reassurance prompt ×5 | Brogath 'boss' | M | P1 |  |
 | `p14c23` | 168 | The Brogath Problem | 50 | W | – | Keep; the sums are a small calculation puzzle (how much water). | S | P3 | yes |
-| `p14c24` | 169 | Mandatory History Night | 63 | T | timing bar (repair) ×1, Brogath reassurance prompt ×1 | Keep the structure; the three commercial-break responses are a quick-reaction stability r… | S | P2 |  |
+| `p14c24` | 169 | Mandatory History Night | 63 | T | TV close-up ×2, timing bar (repair) ×1, Brogath reassurance prompt ×1 | Keep the structure; the three commercial-break responses are a quick-reaction stability r… | S | P2 |  |
 
 ### Phase 15: The Great Mellowing
 
@@ -341,7 +341,7 @@ Class: D = dialogue / cutscene only, W = walk + press A, C = choice or puzzle pr
 | `p16c14` | 199 | Sash-Quote Story Hour | 36 | W | – | Keep. | S | P3 | yes |
 | `p16c15` | 200 | The Hornet Credit Boom | 22 | T | appraisal ×1, teller window ×1 | Keep; the epidemic is a rush shift (teller). | S | P3 | yes |
 | `p16c16` | 201 | The History of the Grand Lighter | 20 | W | – | Keep. | S | P3 | yes |
-| `p16c17` | 202 | The Portable Stenchmaster Entertainment System | 24 | C | TV knobs ×3 | Keep. | S | P3 | yes |
+| `p16c17` | 202 | The Portable Stenchmaster Entertainment System | 24 | W | – | Keep. | S | P3 | yes |
 | `p16c18` | 203 | The 97-Page Application | 14 | C | proceeding (form/hearing/pitch) ×1 | Keep; the 97 pages could be a short form-filling puzzle (reuse p15c15). | S | P3 | yes |
 | `p16c19` | 204 | The Grand Ignition Hearing | 14 | C | proceeding (form/hearing/pitch) ×1 | Keep; the hearing is a short argument (proceeding) with evidence choices. | S | P3 | yes |
 | `p16c20` | 205 | Stinkbeard's Desperate Lighter Pitch | 35 | C | proceeding (form/hearing/pitch) ×1 | Pitch duel | M | P2 |  |

@@ -1,6 +1,6 @@
 # Story inventory, Phase 10: The Great Sharkstorm Spout Catastrophe
 
-Chapters: 25 (p10c1 to p10c25). Dialogue lines: 1090. Classification: Walk + press A 14, Timing / skill input 8, Choice or puzzle prompt 2, Dialogue / cutscene only 1.
+Chapters: 25 (p10c1 to p10c25). Dialogue lines: 1090. Classification: Walk + press A 15, Timing / skill input 8, Dialogue / cutscene only 1, Choice or puzzle prompt 1.
 
 Sources: `data/game.json` (chapter list), `docs/STORY_PHASE10.md`, `data/quests/phase10.json`, `data/story/cutscenes/phase10/`, `data/story/flags/phase10.json`, `tests/phase10_story.test.js`, `tests/phase10Play.js`.
 
@@ -415,8 +415,8 @@ Audit status: **examined** (scripts parsed in full by the audit tooling; digest 
 1. **ID, title, source files.** `p10c23`, Chapter 93: Inside the Spout. Scripts: 4 in `data/story/cutscenes/phase10/ch93_95.json`. Quests: `inside_the_spout` “Inside the Spout” in `data/quests/phase10.json`.
 2. **Events and dialogue.** Inside the spout: the galley rocks; the ship is going round; get a picture on the Mark II via the aerial. Dialogue: 45 lines ((narration) 19, garrick 12, pete 4, captain 4, rusty_tom 3, barnacle_bill 2, jim 1); 0 choice prompt(s) with 0 options. Presentation: vista ×1.
 3. **Characters, locations, props, flags.** Speaking characters: garrick, pete, rusty_tom, barnacle_bill, jim. NPCs with dialogue keyed to an objective (hints, reactions or completions): none. Rooms: `galley`. Interactables: `p10_tv_antenna` (galley 16,7). Flags set: 6 (`p10_ch93_started`, `great_sharkstorm_ship_captured`, `qar_inside_storm`, `garrick_pressure_reset`, `ses_signal_failure`, `sauce_antenna_installed`); items given: none.
-4. **Current player actions and mechanics.** Objectives: “Get a picture on the Mark II (its aerial)” [flag]. Mechanics invoked by the scripts: TV knobs ×2, TV power ×1.
-5. **Classification.** Choice or puzzle prompt (TV knobs ×2). Presentation-only effects with no player input: TV power ×1. Nothing in this chapter can fail in a way that costs the player anything.
+4. **Current player actions and mechanics.** Objectives: “Get a picture on the Mark II (its aerial)” [flag]. Mechanics invoked by the scripts: TV state change (scripted) ×2, TV close-up ×1.
+5. **Classification.** Choice or puzzle prompt (TV close-up ×1). Presentation-only effects with no player input: TV state change (scripted) ×2. Nothing in this chapter can fail in a way that costs the player anything.
 6. **Gameplay opportunities.** Short; TV knobs exist.
 7. **Proposed primary mechanic.** Keep; aerial adjustment on a rotating ship (signal drifts as the ship turns).
 8. **Secondary mechanics.** None.
@@ -451,8 +451,8 @@ Audit status: **examined** (scripts parsed in full by the audit tooling; digest 
 1. **ID, title, source files.** `p10c25`, Chapter 95: I Used to Be Blackbeard. Scripts: 3 in `data/story/cutscenes/phase10/ch93_95.json`. Quests: `blackbeard` “I Used to Be Blackbeard” in `data/quests/phase10.json`; `inside_great_sharkstorm` “Inside the Great Sharkstorm” (left OPEN) in `data/quests/phase10.json`.
 2. **Events and dialogue.** I Used to Be Blackbeard: a shark on TV with an advertising budget paid for with the captain's treasure; breathe. Opens 'Inside the Great Sharkstorm' (get the Revenge out; deal with the Bling Bling King) – still open at the end of Phase 17 (neither target flag is set by any script). Dialogue: 56 lines ((narration) 20, captain 12, garrick 12, squawks 2, ned 2, jim 2, bob 2, pete 2, +2 more); 0 choice prompt(s) with 0 options. Presentation: vista ×1, insert ×1.
 3. **Characters, locations, props, flags.** Speaking characters: garrick, squawks, ned, jim, bob, pete, gristle, hale. NPCs with dialogue keyed to an objective (hints, reactions or completions): squawks. Rooms: `galley`. Interactables: `p10_breathe` (galley 12,8). Flags set: 3 (`p10_ch95_started`, `blackbeard_breakdown_seen`, `p10_complete`); items given: none.
-4. **Current player actions and mechanics.** Objectives: “Breathe: go to your bed (the bean sacks by the long table) and sit down, or talk to Squawks” [flag]; “Get the Revenge out of the Great Sharkstorm” [flag]; “Deal with the Bling Bling King” [flag]. Mechanics invoked by the scripts: TV knobs ×1.
-5. **Classification.** Choice or puzzle prompt (TV knobs ×1). Nothing in this chapter can fail in a way that costs the player anything.
+4. **Current player actions and mechanics.** Objectives: “Breathe: go to your bed (the bean sacks by the long table) and sit down, or talk to Squawks” [flag]; “Get the Revenge out of the Great Sharkstorm” [flag]; “Deal with the Bling Bling King” [flag]. Mechanics invoked by the scripts: TV state change (scripted) ×1.
+5. **Classification.** Walk + press A. Presentation-only effects with no player input: TV state change (scripted) ×1. Nothing in this chapter can fail in a way that costs the player anything.
 6. **Gameplay opportunities.** An emotional low; the open quest is a hook for later content.
 7. **Proposed primary mechanic.** Keep as narrative (quiet beat).
 8. **Secondary mechanics.** Track the open quest in the roadmap (needs an ending or a re-scoping).

@@ -253,8 +253,8 @@ Audit status: **examined** (scripts parsed in full by the audit tooling; digest 
 1. **ID, title, source files.** `p11c14`, Chapter 109: Late-Night Bling Bling King. Scripts: 2 in `data/story/cutscenes/phase11/ch104_111.json`. Quests: `late_night_bling` “Late-Night Bling Bling King” in `data/quests/phase11.json`.
 2. **Events and dialogue.** The Mark II turns itself on: Late-Night Bling Bling King (the shark in a suit behind a desk); turn it off. Dialogue: 16 lines ((narration) 6, garrick 3, pete 2, jim 1, ned 1, bob 1, gristle 1, captain 1); 0 choice prompt(s) with 0 options. Presentation: tvProgram ×4, vista ×1.
 3. **Characters, locations, props, flags.** Speaking characters: garrick, pete, jim, ned, bob, gristle. NPCs with dialogue keyed to an objective (hints, reactions or completions): none. Rooms: `galley`. Interactables: `p11_tv_late` (galley 16,7). Flags set: 2 (`p11_ch109_started`, `bbk_late_night_seen`); items given: none.
-4. **Current player actions and mechanics.** Objectives: “Turn it OFF (the Mark II)” [flag]. Mechanics invoked by the scripts: TV knobs ×2, TV power ×1.
-5. **Classification.** Choice or puzzle prompt (TV knobs ×2). Presentation-only effects with no player input: TV power ×1. Nothing in this chapter can fail in a way that costs the player anything.
+4. **Current player actions and mechanics.** Objectives: “Turn it OFF (the Mark II)” [flag]. Mechanics invoked by the scripts: TV state change (scripted) ×2, TV close-up ×1.
+5. **Classification.** Choice or puzzle prompt (TV close-up ×1). Presentation-only effects with no player input: TV state change (scripted) ×2. Nothing in this chapter can fail in a way that costs the player anything.
 6. **Gameplay opportunities.** TV knob beat.
 7. **Proposed primary mechanic.** Keep; the knob shutdown can reuse the p6c2 puzzle with a harder sequence.
 8. **Secondary mechanics.** None.

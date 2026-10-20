@@ -6,7 +6,7 @@ What the game asks of the player today, where that falls short of a demanding ac
 
 From `01-story-inventory.md` (all 223 chapter entries) and the engine sources:
 
-- **116 of 223 chapters are walking and pressing A**, or pure cutscene. Another 28 add only a choice or puzzle prompt: TV knobs, reassurance choices, forms, appraisal, or a die whose result the script fixes. 79 ask for any timed input, and 64 of those use only the repair timing bar.
+- **121 of 223 chapters are walking and pressing A**, or pure cutscene. Another 23 add only a choice or puzzle prompt: working the TV set, reassurance choices, forms, appraisal, or a die whose result the script fixes. 79 ask for any timed input, and 64 of those use only the repair timing bar.
 - **Nothing after the prologue can be failed.**
   - The repair timing bar widens its green zone after 3 misses and fills the whole bar after 5 (`OverlayScene.placeRepairZone`). The script waits for the strikes and at most stores how many were clean: 2 of the 177 timing-bar steps keep that number, and 3 scripts read it.
   - Shark Duty’s bar “can’t be failed” (`src/systems/hazards/sharkDuty.js`). A slow strike lets a shark bite, which adds a hull patch to hammer and increments `duty_bites`.

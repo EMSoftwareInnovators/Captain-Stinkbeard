@@ -98,6 +98,8 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
   // Story Phase 14: the Grand Bank's teller window (a clean deposit unless a test says otherwise; recorded).
   let tellerResult = { grades: ['perfect'], slips: 0 };
   const tellers = [];
+  // A battle's result ('win' unless a test says otherwise: tests/regression/challenges.js drives it).
+  let battleResult = 'win';
   const services = {
     dialogue: {
       say: async (line) => log.push(`${line.speaker ?? '-'}: ${line.text}`),
@@ -149,7 +151,7 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
     audio: { sfx: () => {}, music: () => {}, ambience: () => {} },
     world,
     cinema: new Proxy({}, { get: () => async () => null }),
-    battle: { start: async () => 'win' },
+    battle: { start: async () => battleResult },
     saves: { autosave: () => {} },
   };
   const runner = new ScriptRunner({
@@ -175,6 +177,10 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
     /** What the next teller window reports ({ grades: ['perfect' | 'good' | 'miss', ...], slips }). */
     setTellerResult(r) {
       tellerResult = r;
+    },
+    /** What battles report from now on ('win' | 'lose' | 'flee'). */
+    setBattleResult(r) {
+      battleResult = r;
     },
     /** What the next sash tension reports ({ slips, released: 'pressed' | 'slipped' }). */
     setTensionResult(r) {

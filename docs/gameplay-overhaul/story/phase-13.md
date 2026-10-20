@@ -1,6 +1,6 @@
 # Story inventory, Phase 13: The Ancient Stenchmaster Delirium
 
-Chapters: 19 (p13c1 to p13c19). Dialogue lines: 467. Classification: Timing / skill input 9, Walk + press A 6, Choice or puzzle prompt 3, Dialogue / cutscene only 1.
+Chapters: 19 (p13c1 to p13c19). Dialogue lines: 467. Classification: Timing / skill input 9, Walk + press A 8, Choice or puzzle prompt 1, Dialogue / cutscene only 1.
 
 Sources: `data/game.json` (chapter list), `docs/STORY_PHASE13.md`, `data/quests/phase13.json`, `data/story/cutscenes/phase13/`, `data/story/flags/phase13.json`, `tests/phase13_story.test.js`, `tests/phase13Play.js`.
 
@@ -37,8 +37,8 @@ Audit status: **examined** (scripts parsed in full by the audit tooling; digest 
 1. **ID, title, source files.** `p13c2`, Chapter 128: Don't Throw My Sash in the Trash. Scripts: 3 in `data/story/cutscenes/phase13/ch127_133.json`. Quests: `sash_in_the_trash` “Don't Throw My Sash in the Trash” in `data/quests/phase13.json`.
 2. **Events and dialogue.** The sash has contaminated the wardrobe (coats changed colour); get rid of it; watch 'Don't Throw My Sash in the Trash' on the Mark II. Dialogue: 15 lines ((narration) 7, captain 2, pete 2, bob 2, gristle 1, jim 1); 0 choice prompt(s) with 0 options. Presentation: tvProgram ×5, vista ×1.
 3. **Characters, locations, props, flags.** Speaking characters: pete, bob, gristle, jim. NPCs with dialogue keyed to an objective (hints, reactions or completions): none. Rooms: `captains_quarters`, `galley`. Interactables: `p13_wardrobe` (captains_quarters 3,4), `p13_trash_watch` (galley 16,7). Flags set: 3 (`p13_ch128_started`, `p13_wardrobe_opened`, `sash_trash_song_seen`); items given: none.
-4. **Current player actions and mechanics.** Objectives: “Get rid of the sash (your wardrobe, in your cabin)” [flag]; “See what's on (the Mark II, in the galley)” [flag]. Mechanics invoked by the scripts: TV knobs ×1.
-5. **Classification.** Choice or puzzle prompt (TV knobs ×1). Nothing in this chapter can fail in a way that costs the player anything.
+4. **Current player actions and mechanics.** Objectives: “Get rid of the sash (your wardrobe, in your cabin)” [flag]; “See what's on (the Mark II, in the galley)” [flag]. Mechanics invoked by the scripts: TV state change (scripted) ×1.
+5. **Classification.** Walk + press A. Presentation-only effects with no player input: TV state change (scripted) ×1. Nothing in this chapter can fail in a way that costs the player anything.
 6. **Gameplay opportunities.** Contamination spreading into owned items is a Beard Saturation / equipment-condition idea.
 7. **Proposed primary mechanic.** Contaminated equipment: wardrobe items (coats) gain a 'tainted' condition that affects crew reactions; washing/airing them is a small upkeep loop.
 8. **Secondary mechanics.** TV segment kept.
@@ -127,8 +127,8 @@ Audit status: **examined** (scripts parsed in full by the audit tooling; digest 
 1. **ID, title, source files.** `p13c7`, Chapter 133: Build-Your-Own S.E.S.. Scripts: 7 in `data/story/cutscenes/phase13/ch127_133.json`. Quests: `build_your_own_ses` “Build-Your-Own S.E.S.” in `data/quests/phase13.json`.
 2. **Events and dialogue.** Build-Your-Own S.E.S. kit: find four parts across three rooms (forks, horseshoe, coils, transformer); build it on the barrel table. Dialogue: 26 lines ((narration) 10, garrick 6, captain 4, pete 2, jim 2, sully 2); 0 choice prompt(s) with 0 options. Presentation: giveItem ×4, insert ×1.
 3. **Characters, locations, props, flags.** Speaking characters: garrick, pete, jim, sully. NPCs with dialogue keyed to an objective (hints, reactions or completions): none. Rooms: `cargo_hold`, `crew_quarters`, `galley`. Interactables: `p13_horseshoe` (cargo_hold 13,3), `p13_coils` (cargo_hold 15,13), `p13_forks` (galley 5,4), `p13_transformer` (galley 16,7), `p13_kit_build` (crew_quarters 10,6). Flags set: 7 (`p13_ch133_started`, `ses_part_forks`, `ses_part_horseshoe`, `ses_part_coils`, `ses_part_transformer`, `p13_parts_said`, `second_ses_built`); items given: ses_parts.
-4. **Current player actions and mechanics.** Objectives: “Find the parts: forks (galley), horseshoe (hold stairs), coils (hold salvage crate), transformer (under the Mark II)” [event×4]; “Build it (the barrel table, in the quarters)” [flag]. Mechanics invoked by the scripts: timing bar (repair) ×1, TV knobs ×1.
-5. **Classification.** Timing / skill input (timing bar (repair) ×1, TV knobs ×1). Nothing in this chapter can fail in a way that costs the player anything.
+4. **Current player actions and mechanics.** Objectives: “Find the parts: forks (galley), horseshoe (hold stairs), coils (hold salvage crate), transformer (under the Mark II)” [event×4]; “Build it (the barrel table, in the quarters)” [flag]. Mechanics invoked by the scripts: timing bar (repair) ×1, TV state change (scripted) ×1.
+5. **Classification.** Timing / skill input (timing bar (repair) ×1). Presentation-only effects with no player input: TV state change (scripted) ×1. Nothing in this chapter can fail in a way that costs the player anything.
 6. **Gameplay opportunities.** Fetch quest across rooms.
 7. **Proposed primary mechanic.** Scavenger hunt with light routing (the parts are guarded by small hazards: the hold salvage crate is in the red fume, the horseshoe on the hold stairs is slippery).
 8. **Secondary mechanics.** None.
@@ -145,8 +145,8 @@ Audit status: **examined** (scripts parsed in full by the audit tooling; digest 
 1. **ID, title, source files.** `p13c8`, Chapter 134: Wire the Two Systems Together. Scripts: 6 in `data/story/cutscenes/phase13/ch134_139.json`. Quests: `wire_the_systems` “Wire the Two Systems Together” in `data/quests/phase13.json`.
 2. **Events and dialogue.** Wire the two TVs together the long way: tie off at cardboard Brogath, clear a path on deck, three turns round the starboard cannon, tape it down in the galley, connect. Dialogue: 22 lines ((narration) 11, garrick 5, captain 3, pete 1, gristle 1, jim 1); 0 choice prompt(s) with 0 options. Presentation: none.
 3. **Characters, locations, props, flags.** Speaking characters: garrick, pete, gristle, jim. NPCs with dialogue keyed to an objective (hints, reactions or completions): none. Rooms: `crew_quarters`, `galley`, `main_deck`. Interactables: `p13_cable_brogath_port` (crew_quarters 1,4), `p13_cable_brogath_starboard` (crew_quarters 14,4), `p13_deck_path` (main_deck 11,31), `p13_cannon` (main_deck 14,22), `p13_tape` (galley 14,5), `p13_connect` (galley 16,7). Flags set: 8 (`p13_ch134_started`, `cable_seg_1`, `cable_seg_2`, `cable_seg_3`, `cable_seg_4`, `cable_seg_5`, `tv_cable_routed`, `tv_systems_connected`); items given: none.
-4. **Current player actions and mechanics.** Objectives: “Tie the cable off at cardboard Brogath (wherever you put him)” [flag]; “Clear a path for it on deck (the crates by the fore hatch)” [flag]; “Three turns round the starboard cannon” [flag]; “Tack it down across the galley floor (by the ladder)” [flag]; “Connect it to the Mark II” [flag]. Mechanics invoked by the scripts: timing bar (repair) ×5, TV knobs ×1.
-5. **Classification.** Timing / skill input (timing bar (repair) ×5, TV knobs ×1). Nothing in this chapter can fail in a way that costs the player anything.
+4. **Current player actions and mechanics.** Objectives: “Tie the cable off at cardboard Brogath (wherever you put him)” [flag]; “Clear a path for it on deck (the crates by the fore hatch)” [flag]; “Three turns round the starboard cannon” [flag]; “Tack it down across the galley floor (by the ladder)” [flag]; “Connect it to the Mark II” [flag]. Mechanics invoked by the scripts: timing bar (repair) ×5, TV state change (scripted) ×1.
+5. **Classification.** Timing / skill input (timing bar (repair) ×5). Presentation-only effects with no player input: TV state change (scripted) ×1. Nothing in this chapter can fail in a way that costs the player anything.
 6. **Gameplay opportunities.** A cable-routing path puzzle across three rooms.
 7. **Proposed primary mechanic.** Cable routing: lay a cable of limited length through a route of required anchors; crossings and crew paths must be avoided (a trip hazard later).
 8. **Secondary mechanics.** None.
@@ -163,8 +163,8 @@ Audit status: **examined** (scripts parsed in full by the audit tooling; digest 
 1. **ID, title, source files.** `p13c9`, Chapter 135: The Stenchmaster Channel. Scripts: 2 in `data/story/cutscenes/phase13/ch134_139.json`. Quests: `stenchmaster_channel` “The Stenchmaster Channel” in `data/quests/phase13.json`.
 2. **Events and dialogue.** The Stenchmaster Channel (six TV segments). Dialogue: 15 lines ((narration) 4, garrick 4, pete 2, bob 1, jim 1, ned 1, gristle 1, captain 1); 0 choice prompt(s) with 0 options. Presentation: tvProgram ×6, vista ×1.
 3. **Characters, locations, props, flags.** Speaking characters: garrick, pete, bob, jim, ned, gristle. NPCs with dialogue keyed to an objective (hints, reactions or completions): none. Rooms: `crew_quarters`. Interactables: `p13_channel_watch` (crew_quarters 10,6). Flags set: 3 (`p13_ch135_started`, `stenchmaster_channel_unlocked`, `stenchalina_programme_seen`); items given: none.
-4. **Current player actions and mechanics.** Objectives: “Watch it (the bedroom set)” [flag]. Mechanics invoked by the scripts: TV power ×6, TV knobs ×1.
-5. **Classification.** Choice or puzzle prompt (TV knobs ×1). Presentation-only effects with no player input: TV power ×6. Nothing in this chapter can fail in a way that costs the player anything.
+4. **Current player actions and mechanics.** Objectives: “Watch it (the bedroom set)” [flag]. Mechanics invoked by the scripts: TV state change (scripted) ×1.
+5. **Classification.** Walk + press A. Presentation-only effects with no player input: TV state change (scripted) ×1. Nothing in this chapter can fail in a way that costs the player anything.
 6. **Gameplay opportunities.** TV.
 7. **Proposed primary mechanic.** Keep.
 8. **Secondary mechanics.** None.
@@ -181,8 +181,8 @@ Audit status: **examined** (scripts parsed in full by the audit tooling; digest 
 1. **ID, title, source files.** `p13c10`, Chapter 136: Stench-O-Vision. Scripts: 2 in `data/story/cutscenes/phase13/ch134_139.json`. Quests: `stench_o_vision` “Stench-O-Vision” in `data/quests/phase13.json`.
 2. **Events and dialogue.** Stench-O-Vision: a grille on the set releases the programme's smell; turn it off. Dialogue: 14 lines ((narration) 8, garrick 2, pete 1, jim 1, squawks 1, captain 1); 0 choice prompt(s) with 0 options. Presentation: insert ×2.
 3. **Characters, locations, props, flags.** Speaking characters: garrick, pete, jim, squawks. NPCs with dialogue keyed to an objective (hints, reactions or completions): none. Rooms: `crew_quarters`. Interactables: `p13_vent_knobs` (crew_quarters 10,6). Flags set: 3 (`p13_ch136_started`, `stench_o_vision_on`, `p13_smell_tokens_down`); items given: none.
-4. **Current player actions and mechanics.** Objectives: “Turn off the Stench-O-Vision (the bedroom set's knobs)” [flag]. Mechanics invoked by the scripts: TV power ×1.
-5. **Classification.** Walk + press A. Presentation-only effects with no player input: TV power ×1. Nothing in this chapter can fail in a way that costs the player anything.
+4. **Current player actions and mechanics.** Objectives: “Turn off the Stench-O-Vision (the bedroom set's knobs)” [flag]. Mechanics invoked by the scripts: TV close-up ×1.
+5. **Classification.** Choice or puzzle prompt (TV close-up ×1). Nothing in this chapter can fail in a way that costs the player anything.
 6. **Gameplay opportunities.** A smell-emitting TV is an Atmosphere hazard.
 7. **Proposed primary mechanic.** Keep; the Stench-O-Vision vents a small fume zone that grows until the knobs are set (reuse TV puzzle).
 8. **Secondary mechanics.** None.
@@ -199,8 +199,8 @@ Audit status: **examined** (scripts parsed in full by the audit tooling; digest 
 1. **ID, title, source files.** `p13c11`, Chapter 137: Poor in Gold, Rich in Gas. Scripts: 2 in `data/story/cutscenes/phase13/ch134_139.json`. Quests: `brogath_special` “Poor in Gold, Rich in Gas” in `data/quests/phase13.json`.
 2. **Events and dialogue.** The Brogath Special on both sets: the treasure dig in three minutes of TV. Dialogue: 11 lines (captain 3, (narration) 2, garrick 2, pete 1, bob 1, ned 1, gristle 1); 0 choice prompt(s) with 0 options. Presentation: tvProgram ×6, vista ×1.
 3. **Characters, locations, props, flags.** Speaking characters: garrick, pete, bob, ned, gristle. NPCs with dialogue keyed to an objective (hints, reactions or completions): none. Rooms: `crew_quarters`. Interactables: `p13_special_watch` (crew_quarters 10,6). Flags set: 2 (`p13_ch137_started`, `brogath_programme_seen`); items given: none.
-4. **Current player actions and mechanics.** Objectives: “Watch it (the bedroom set)” [flag]. Mechanics invoked by the scripts: TV power ×6, TV knobs ×1.
-5. **Classification.** Choice or puzzle prompt (TV knobs ×1). Presentation-only effects with no player input: TV power ×6. Nothing in this chapter can fail in a way that costs the player anything.
+4. **Current player actions and mechanics.** Objectives: “Watch it (the bedroom set)” [flag]. Mechanics invoked by the scripts: TV state change (scripted) ×1.
+5. **Classification.** Walk + press A. Presentation-only effects with no player input: TV state change (scripted) ×1. Nothing in this chapter can fail in a way that costs the player anything.
 6. **Gameplay opportunities.** TV.
 7. **Proposed primary mechanic.** Keep.
 8. **Secondary mechanics.** None.

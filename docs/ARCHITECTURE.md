@@ -1016,6 +1016,14 @@ and walks into the next chapter. Aliases are never saved.
   `tests/storyStaging.js` also checks that whatever an open
   objective needs is reachable from where the captain stands, and walks him
   up to an object from a side he can reach.
+- `tests/regression/` and `tests/regression.test.js` (the regression harness,
+  `npm run regress`): snapshots of all 17 phase ends (story, crew, rooms,
+  systems) compared with approved baselines, crew lifecycle checks, room
+  reachability and choke tiles, an index of every fixed tile coordinate, and
+  the challenge outcome registry. Baselines change only through
+  `npm run regress:approve -- --reason "..."`. `perf/` holds the browser
+  performance measurement (`npm run perf`), kept out of `npm run e2e`. See
+  [gameplay-overhaul/06-regression-harness.md](gameplay-overhaul/06-regression-harness.md).
 
 ## Adding Chapter 8 (or anything else)
 

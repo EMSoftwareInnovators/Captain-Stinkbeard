@@ -1,0 +1,937 @@
+{
+ "crew": {
+  "agnes_second": "unmatched",
+  "bankworth": "unmatched",
+  "barnacle_bill": "unmatched",
+  "beatrice": "scene-only",
+  "billowmere": "scene-only",
+  "bob": "present main_deck@7,30",
+  "boomboom": "scene-only",
+  "boomington": "scene-only",
+  "branch_teller": "unmatched",
+  "brask": "present main_deck@6,22",
+  "breezella": "scene-only",
+  "brogath": "unmatched",
+  "bureau_puffington": "unmatched",
+  "credit_mustyhem": "scene-only",
+  "credit_rottingham": "scene-only",
+  "disp_draftly": "scene-only",
+  "disp_fumble": "scene-only",
+  "disp_mildew": "scene-only",
+  "disp_stalebreath": "scene-only",
+  "disp_wheezeworth": "scene-only",
+  "duke_puff": "scene-only",
+  "dunstan": "present crew_quarters@11,11",
+  "farthelmew": "scene-only",
+  "fennimore": "present main_deck@13,13",
+  "finch": "present main_deck@11,34",
+  "flapworthy": "scene-only",
+  "flatulencia": "scene-only",
+  "fumblebottom": "scene-only",
+  "garrick": "present main_deck@11,17",
+  "gary": "scene-only",
+  "gasbeth": "scene-only",
+  "gasimir": "scene-only",
+  "gassius": "scene-only",
+  "gristle": "present main_deck@12,18",
+  "gustavius": "scene-only",
+  "gustilda": "scene-only",
+  "hale": "present main_deck@7,13",
+  "jim": "present galley@11,5:work",
+  "jory": "present main_deck@14,21:work",
+  "ledger": "unmatched",
+  "mags": "present galley@7,5:work [on-choke-tile]",
+  "ned": "present main_deck@9,37",
+  "nell": "present main_deck@9,5",
+  "penhallow": "present crew_quarters@10,14",
+  "pete": "present main_deck@12,30",
+  "puffalina": "scene-only",
+  "puffchester": "unmatched",
+  "puffenstein": "scene-only",
+  "puffington": "scene-only",
+  "quill": "present galley@13,5",
+  "rancidella": "unmatched",
+  "rook": "present main_deck@6,16",
+  "rumblequill": "scene-only",
+  "rumbleseptimus": "scene-only",
+  "rumblewaft": "scene-only",
+  "rumpington": "scene-only",
+  "rusty_tom": "unmatched",
+  "spectral_customer": "scene-only",
+  "squawks": "present main_deck@12,13",
+  "sully": "present main_deck@13,21:work",
+  "thunderbottom": "unmatched",
+  "thundergut": "scene-only",
+  "thunderpants": "scene-only",
+  "tilda": "unmatched",
+  "ventworth": "scene-only",
+  "vindicta": "unmatched",
+  "visitor_one": "unmatched",
+  "visitor_two": "unmatched",
+  "whifflebottom": "unmatched",
+  "whistlewaft": "scene-only",
+  "wick": "present main_deck@8,13",
+  "wind_brothers": "scene-only",
+  "wind_twins": "scene-only",
+  "windabella": "scene-only",
+  "windledger": "scene-only",
+  "zephyrella": "scene-only"
+ },
+ "crewSummary": {
+  "byRoom": {
+   "crew_quarters": [
+    "dunstan",
+    "penhallow"
+   ],
+   "galley": [
+    "jim",
+    "mags",
+    "quill"
+   ],
+   "main_deck": [
+    "bob",
+    "brask",
+    "fennimore",
+    "finch",
+    "garrick",
+    "gristle",
+    "hale",
+    "jory",
+    "ned",
+    "nell",
+    "pete",
+    "rook",
+    "squawks",
+    "sully",
+    "wick"
+   ]
+  },
+  "required": {}
+ },
+ "gameplay": {
+  "gold": 125,
+  "items": {
+   "frog_grog": 4,
+   "hardtack": 3,
+   "healing_tonic": 3,
+   "rat_catchers_charm": 1,
+   "rum_ration": 3,
+   "treasure_key": 1
+  },
+  "party": [
+   {
+    "abilities": [
+     "order_brace",
+     "order_focus_fire"
+    ],
+    "equipment": {
+     "accessory": null,
+     "body": "captains_coat",
+     "feet": "sea_boots",
+     "weapon": "cutlass"
+    },
+    "hp": 127,
+    "id": "blackbeard",
+    "level": 8
+   }
+  ],
+  "systems": {
+   "atmosphere": "NORMAL",
+   "beardTags": [
+    "beard_bait_seen",
+    "beard_inspection_agreed",
+    "beard_prognosis",
+    "beard_refresh_protested",
+    "beard_refreshed",
+    "beard_remedies_heard",
+    "beard_sniffed",
+    "beard_wash_attempted"
+   ],
+   "deadCenter": "treasure_hold",
+   "fartZone": {
+    "damage": 0,
+    "door": null,
+    "portholes": null,
+    "releases": 0,
+    "state": null
+   },
+   "great_sharkstorm": null,
+   "hornets": null,
+   "roomAtmospheres": {},
+   "stability.brogath": {
+    "pressure": 0,
+    "state": null
+   },
+   "tv": {
+    "ses": null,
+    "ses_kit": null,
+    "ses_mk2": null,
+    "ses_portable": null
+   }
+  },
+  "unsupported": {
+   "beardSaturation": "planned (Prompt 9); the beard keeps contamination tags only",
+   "challengeOutcomes": "planned (Prompt 3); no challenge records an outcome (see the challenge registry)",
+   "crewConditions": "planned (Prompt 22); crew have no condition or morale state",
+   "fieldCombat": "planned (Prompt 27); battles are turn-based encounters only",
+   "roomAtmosphere": "planned (Prompt 7): per-room air simulation (sources, ventilation, drift). What exists is recorded under systems: the ship-wide atmosphere, per-room overrides (Phase 16) and fume zones per room",
+   "shipIntegrity": "planned (roadmap Prompt 5); no hull or system condition exists yet"
+  }
+ },
+ "label": "Phase 4",
+ "phase": 4,
+ "preset": "p4_complete",
+ "rooms": {
+  "captains_quarters": {
+   "blocked": 125,
+   "blockedByPeople": [],
+   "chokeTiles": 8,
+   "criticalChokeTiles": [],
+   "exits": [
+    {
+     "at": "8,11",
+     "id": "p4_to_deck",
+     "locked": false,
+     "reachable": true,
+     "reachableWithPeople": true,
+     "shadowedBy": null,
+     "to": "main_deck"
+    },
+    {
+     "at": "8,11",
+     "id": "to_deck",
+     "locked": false,
+     "reachable": false,
+     "reachableWithPeople": false,
+     "shadowedBy": "p4_to_deck",
+     "to": "main_deck"
+    }
+   ],
+   "fumeZones": [],
+   "interactables": 11,
+   "overlappingFootprintTiles": 0,
+   "people": [],
+   "peopleOnChokeTiles": [],
+   "peopleOnCriticalChokeTiles": [],
+   "peopleOnNavTiles": 0,
+   "props": {
+    "fixtures": 16,
+    "story": 0
+   },
+   "reachable": 89,
+   "reachableWithPeople": 89,
+   "size": "18x12",
+   "spawns": [
+    "door@8,10",
+    "start@8,5"
+   ],
+   "stackedProps": [],
+   "unreachableObjectiveTargets": [],
+   "unreachableScenery": [
+    "mirror@2,3"
+   ],
+   "walkable": 91
+  },
+  "cargo_hold": {
+   "blocked": 158,
+   "blockedByPeople": [],
+   "chokeTiles": 10,
+   "criticalChokeTiles": [
+    "4,4"
+   ],
+   "exits": [
+    {
+     "at": "14,3",
+     "id": "p8_to_galley",
+     "locked": false,
+     "reachable": true,
+     "reachableWithPeople": true,
+     "shadowedBy": null,
+     "to": "galley"
+    },
+    {
+     "at": "14,3",
+     "id": "to_galley",
+     "locked": false,
+     "reachable": false,
+     "reachableWithPeople": false,
+     "shadowedBy": "p8_to_galley",
+     "to": "galley"
+    },
+    {
+     "at": "4,3",
+     "id": "to_treasure",
+     "locked": false,
+     "reachable": false,
+     "reachableWithPeople": false,
+     "shadowedBy": "to_treasure_p2",
+     "to": "treasure_hold"
+    },
+    {
+     "at": "4,3",
+     "id": "to_treasure_p2",
+     "locked": false,
+     "reachable": true,
+     "reachableWithPeople": true,
+     "shadowedBy": null,
+     "to": "treasure_hold"
+    }
+   ],
+   "fumeZones": [
+    "h_after:light"
+   ],
+   "interactables": 3,
+   "overlappingFootprintTiles": 0,
+   "people": [],
+   "peopleOnChokeTiles": [],
+   "peopleOnCriticalChokeTiles": [],
+   "peopleOnNavTiles": 0,
+   "props": {
+    "fixtures": 35,
+    "story": 9
+   },
+   "reachable": 193,
+   "reachableWithPeople": 193,
+   "size": "20x18",
+   "spawns": [
+    "stairs@14,4",
+    "treasure_door@4,4"
+   ],
+   "stackedProps": [],
+   "unreachableObjectiveTargets": [],
+   "unreachableScenery": [],
+   "walkable": 202
+  },
+  "crew_quarters": {
+   "blocked": 176,
+   "blockedByPeople": [],
+   "chokeTiles": 13,
+   "criticalChokeTiles": [
+    "4,4",
+    "5,4",
+    "8,4",
+    "13,4"
+   ],
+   "exits": [
+    {
+     "at": "13,3",
+     "id": "to_deck",
+     "locked": false,
+     "reachable": true,
+     "reachableWithPeople": true,
+     "shadowedBy": null,
+     "to": "main_deck"
+    },
+    {
+     "at": "8,3",
+     "id": "to_galley",
+     "locked": false,
+     "reachable": true,
+     "reachableWithPeople": true,
+     "shadowedBy": null,
+     "to": "galley"
+    },
+    {
+     "at": "3,3",
+     "id": "to_washroom",
+     "locked": false,
+     "reachable": true,
+     "reachableWithPeople": true,
+     "shadowedBy": null,
+     "to": "washroom"
+    }
+   ],
+   "fumeZones": [],
+   "interactables": 6,
+   "overlappingFootprintTiles": 0,
+   "people": [
+    "dunstan@11,11",
+    "penhallow@10,14"
+   ],
+   "peopleOnChokeTiles": [],
+   "peopleOnCriticalChokeTiles": [],
+   "peopleOnNavTiles": 2,
+   "props": {
+    "fixtures": 15,
+    "story": 12
+   },
+   "reachable": 145,
+   "reachableWithPeople": 143,
+   "size": "18x18",
+   "spawns": [
+    "ladder@13,4",
+    "north_door@8,4",
+    "washroom_door@3,4"
+   ],
+   "stackedProps": [],
+   "unreachableObjectiveTargets": [],
+   "unreachableScenery": [],
+   "walkable": 148
+  },
+  "crownskull_isle": {
+   "blocked": 1186,
+   "blockedByPeople": [],
+   "chokeTiles": 20,
+   "criticalChokeTiles": [],
+   "exits": [],
+   "fumeZones": [],
+   "interactables": 9,
+   "overlappingFootprintTiles": 1,
+   "people": [],
+   "peopleOnChokeTiles": [],
+   "peopleOnCriticalChokeTiles": [],
+   "peopleOnNavTiles": 0,
+   "props": {
+    "fixtures": 66,
+    "story": 0
+   },
+   "reachable": 3134,
+   "reachableWithPeople": 3134,
+   "size": "60x72",
+   "spawns": [
+    "from_ship@30,60",
+    "landing@30,60"
+   ],
+   "stackedProps": [],
+   "unreachableObjectiveTargets": [],
+   "unreachableScenery": [],
+   "walkable": 3134
+  },
+  "fart_free_zone": {
+   "blocked": 62,
+   "blockedByPeople": [],
+   "chokeTiles": 2,
+   "criticalChokeTiles": [],
+   "exits": [
+    {
+     "at": "5,7",
+     "id": "to_hold",
+     "locked": false,
+     "reachable": true,
+     "reachableWithPeople": true,
+     "shadowedBy": null,
+     "to": "cargo_hold"
+    }
+   ],
+   "fumeZones": [],
+   "interactables": 1,
+   "overlappingFootprintTiles": 0,
+   "people": [],
+   "peopleOnChokeTiles": [],
+   "peopleOnCriticalChokeTiles": [],
+   "peopleOnNavTiles": 0,
+   "props": {
+    "fixtures": 0,
+    "story": 3
+   },
+   "reachable": 24,
+   "reachableWithPeople": 24,
+   "size": "11x8",
+   "spawns": [
+    "bed@3,4",
+    "door@5,6",
+    "start@5,5"
+   ],
+   "stackedProps": [],
+   "unreachableObjectiveTargets": [],
+   "unreachableScenery": [],
+   "walkable": 26
+  },
+  "galley": {
+   "blocked": 133,
+   "blockedByPeople": [],
+   "chokeTiles": 8,
+   "criticalChokeTiles": [
+    "8,11"
+   ],
+   "exits": [
+    {
+     "at": "8,12",
+     "id": "p4_to_crew",
+     "locked": false,
+     "reachable": false,
+     "reachableWithPeople": false,
+     "shadowedBy": "p8_to_crew",
+     "to": "crew_quarters"
+    },
+    {
+     "at": "12,10",
+     "id": "p4_to_hold",
+     "locked": false,
+     "reachable": true,
+     "reachableWithPeople": true,
+     "shadowedBy": null,
+     "to": "cargo_hold"
+    },
+    {
+     "at": "8,12",
+     "id": "p8_to_crew",
+     "locked": false,
+     "reachable": true,
+     "reachableWithPeople": true,
+     "shadowedBy": null,
+     "to": "crew_quarters"
+    },
+    {
+     "at": "8,12",
+     "id": "to_crew",
+     "locked": false,
+     "reachable": false,
+     "reachableWithPeople": false,
+     "shadowedBy": "p8_to_crew",
+     "to": "crew_quarters"
+    },
+    {
+     "at": "14,3",
+     "id": "to_deck",
+     "locked": false,
+     "reachable": true,
+     "reachableWithPeople": true,
+     "shadowedBy": null,
+     "to": "main_deck"
+    },
+    {
+     "at": "12,10",
+     "id": "to_hold",
+     "locked": false,
+     "reachable": true,
+     "reachableWithPeople": true,
+     "shadowedBy": "p4_to_hold",
+     "to": "cargo_hold"
+    }
+   ],
+   "fumeZones": [],
+   "interactables": 10,
+   "overlappingFootprintTiles": 0,
+   "people": [
+    "jim@11,5:work",
+    "mags@7,5:work",
+    "quill@13,5"
+   ],
+   "peopleOnChokeTiles": [
+    "mags@7,5"
+   ],
+   "peopleOnCriticalChokeTiles": [],
+   "peopleOnNavTiles": 3,
+   "props": {
+    "fixtures": 16,
+    "story": 12
+   },
+   "reachable": 95,
+   "reachableWithPeople": 91,
+   "size": "18x13",
+   "spawns": [
+    "ladder@14,4",
+    "south_door@8,11",
+    "stairs@14,11"
+   ],
+   "stackedProps": [
+    "7,7 lantern_hanging+mess_table"
+   ],
+   "unreachableObjectiveTargets": [],
+   "unreachableScenery": [],
+   "walkable": 101
+  },
+  "main_deck": {
+   "blocked": 235,
+   "blockedByPeople": [],
+   "chokeTiles": 8,
+   "criticalChokeTiles": [],
+   "exits": [
+    {
+     "at": "9,24",
+     "id": "p10_hatch_hold_on",
+     "locked": false,
+     "reachable": true,
+     "reachableWithPeople": true,
+     "shadowedBy": null,
+     "to": "galley"
+    },
+    {
+     "at": "9,33",
+     "id": "p9_to_crew",
+     "locked": false,
+     "reachable": true,
+     "reachableWithPeople": true,
+     "shadowedBy": null,
+     "to": "crew_quarters"
+    },
+    {
+     "at": "9,11",
+     "id": "to_cabin",
+     "locked": false,
+     "reachable": true,
+     "reachableWithPeople": true,
+     "shadowedBy": null,
+     "to": "captains_quarters"
+    },
+    {
+     "at": "9,33",
+     "id": "to_crew",
+     "locked": false,
+     "reachable": false,
+     "reachableWithPeople": false,
+     "shadowedBy": "p9_to_crew",
+     "to": "crew_quarters"
+    },
+    {
+     "at": "9,24",
+     "id": "to_galley",
+     "locked": false,
+     "reachable": false,
+     "reachableWithPeople": false,
+     "shadowedBy": "p10_hatch_hold_on",
+     "to": "galley"
+    },
+    {
+     "at": "9,24",
+     "id": "to_galley_p2",
+     "locked": false,
+     "reachable": false,
+     "reachableWithPeople": false,
+     "shadowedBy": "p10_hatch_hold_on",
+     "to": "galley"
+    }
+   ],
+   "fumeZones": [
+    "d_hatch_wisp:light"
+   ],
+   "interactables": 33,
+   "overlappingFootprintTiles": 0,
+   "people": [
+    "bob@7,30",
+    "brask@6,22",
+    "fennimore@13,13",
+    "finch@11,34",
+    "garrick@11,17",
+    "gristle@12,18",
+    "hale@7,13",
+    "jory@14,21:work",
+    "ned@9,37",
+    "nell@9,5",
+    "pete@12,30",
+    "rook@6,16",
+    "squawks@12,13",
+    "sully@13,21:work",
+    "wick@8,13"
+   ],
+   "peopleOnChokeTiles": [],
+   "peopleOnCriticalChokeTiles": [],
+   "peopleOnNavTiles": 15,
+   "props": {
+    "fixtures": 30,
+    "story": 36
+   },
+   "reachable": 343,
+   "reachableWithPeople": 328,
+   "size": "20x46",
+   "spawns": [
+    "cabin_door@9,12",
+    "fore_hatch@9,32",
+    "main_hatch@9,23"
+   ],
+   "stackedProps": [
+    "11,18 rope_coil+rope_coil_damp",
+    "11,31 rope_coil+rope_coil_damp",
+    "16,21 hull_patch_fresh+patch_2",
+    "5,7 rope_coil+rope_coil_damp",
+    "8,21 rope_coil+rope_coil_damp",
+    "9,19 mast+mast_top",
+    "9,29 foremast+foremast_top"
+   ],
+   "unreachableObjectiveTargets": [],
+   "unreachableScenery": [],
+   "walkable": 685
+  },
+  "reef_passage": {
+   "blocked": 282,
+   "blockedByPeople": [],
+   "chokeTiles": 0,
+   "criticalChokeTiles": [],
+   "exits": [],
+   "fumeZones": [],
+   "interactables": 1,
+   "overlappingFootprintTiles": 0,
+   "people": [],
+   "peopleOnChokeTiles": [],
+   "peopleOnCriticalChokeTiles": [],
+   "peopleOnNavTiles": 0,
+   "props": {
+    "fixtures": 2,
+    "story": 0
+   },
+   "reachable": 818,
+   "reachableWithPeople": 818,
+   "size": "22x50",
+   "spawns": [
+    "beach@10,4",
+    "from_ship@11,47"
+   ],
+   "stackedProps": [],
+   "unreachableObjectiveTargets": [],
+   "unreachableScenery": [],
+   "walkable": 818
+  },
+  "stenchmaster_fart_zone": {
+   "blocked": 95,
+   "blockedByPeople": [],
+   "chokeTiles": 3,
+   "criticalChokeTiles": [],
+   "exits": [
+    {
+     "at": "7,9",
+     "id": "to_deck",
+     "locked": false,
+     "reachable": true,
+     "reachableWithPeople": true,
+     "shadowedBy": null,
+     "to": "main_deck"
+    }
+   ],
+   "fumeZones": [],
+   "interactables": 0,
+   "overlappingFootprintTiles": 0,
+   "people": [],
+   "peopleOnChokeTiles": [],
+   "peopleOnCriticalChokeTiles": [],
+   "peopleOnNavTiles": 0,
+   "props": {
+    "fixtures": 2,
+    "story": 3
+   },
+   "reachable": 63,
+   "reachableWithPeople": 63,
+   "size": "16x10",
+   "spawns": [
+    "door@7,8",
+    "start@8,7"
+   ],
+   "stackedProps": [],
+   "unreachableObjectiveTargets": [],
+   "unreachableScenery": [],
+   "walkable": 65
+  },
+  "treasure_hold": {
+   "blocked": 152,
+   "blockedByPeople": [],
+   "chokeTiles": 5,
+   "criticalChokeTiles": [],
+   "exits": [
+    {
+     "at": "9,13",
+     "id": "to_hold",
+     "locked": false,
+     "reachable": true,
+     "reachableWithPeople": true,
+     "shadowedBy": null,
+     "to": "cargo_hold"
+    }
+   ],
+   "fumeZones": [
+    "t_whiff:light"
+   ],
+   "interactables": 9,
+   "overlappingFootprintTiles": 0,
+   "people": [],
+   "peopleOnChokeTiles": [],
+   "peopleOnCriticalChokeTiles": [],
+   "peopleOnNavTiles": 0,
+   "props": {
+    "fixtures": 8,
+    "story": 39
+   },
+   "reachable": 127,
+   "reachableWithPeople": 127,
+   "size": "20x14",
+   "spawns": [
+    "door@9,12"
+   ],
+   "stackedProps": [
+    "12,11 chest_broken_foul+fume_wisp",
+    "17,8 fume_wisp+treasure_chest_small_foul",
+    "3,4 fume_wisp+treasure_chest_open_foul",
+    "9,4 fume_wisp+treasure_chest_foul"
+   ],
+   "unreachableObjectiveTargets": [],
+   "unreachableScenery": [],
+   "walkable": 128
+  },
+  "washroom": {
+   "blocked": 71,
+   "blockedByPeople": [],
+   "chokeTiles": 2,
+   "criticalChokeTiles": [],
+   "exits": [
+    {
+     "at": "5,8",
+     "id": "to_crew",
+     "locked": false,
+     "reachable": true,
+     "reachableWithPeople": true,
+     "shadowedBy": null,
+     "to": "crew_quarters"
+    }
+   ],
+   "fumeZones": [],
+   "interactables": 6,
+   "overlappingFootprintTiles": 0,
+   "people": [],
+   "peopleOnChokeTiles": [],
+   "peopleOnCriticalChokeTiles": [],
+   "peopleOnNavTiles": 0,
+   "props": {
+    "fixtures": 8,
+    "story": 0
+   },
+   "reachable": 36,
+   "reachableWithPeople": 36,
+   "size": "12x9",
+   "spawns": [
+    "door@5,7",
+    "start@5,6"
+   ],
+   "stackedProps": [],
+   "unreachableObjectiveTargets": [],
+   "unreachableScenery": [
+    "vent@2,3"
+   ],
+   "walkable": 37
+  }
+ },
+ "schema": 1,
+ "story": {
+  "chapter": "phase4_end: Life Around the Dead Center (complete)",
+  "chapterStarts": {
+   "checked": 22,
+   "failing": []
+  },
+  "consequences": {
+   "values": {
+    "dead_center": "treasure_hold"
+   },
+   "vars": {
+    "hull_patch_clean": 3,
+    "morning_beats": 3,
+    "p4_day": 7,
+    "p4_hull_damage": 3,
+    "p4_tod": 4
+   }
+  },
+  "flags": {
+   "added": [
+    "actively_ending",
+    "beard_refresh_protested",
+    "beard_refreshed",
+    "beard_remedies_heard",
+    "beard_wash_attempted",
+    "bell_protocol_established",
+    "bell_protocol_read",
+    "breakfast_center_arrived",
+    "breakfast_evacuated",
+    "center_returning",
+    "course_restored",
+    "deck_camp_set",
+    "feathers_alarm",
+    "feathers_returned",
+    "forecast_board_seen",
+    "forecast_board_up",
+    "forecast_day1_inspected",
+    "forecast_day1_shown",
+    "forecast_drunk",
+    "forecast_in_grog",
+    "frenzy_started",
+    "fresh_repair_destroyed",
+    "galley_incident_done",
+    "galley_incident_started",
+    "garrick_grand_stenchmaster_sash",
+    "garrick_priorities_seen",
+    "garrick_refused_duty",
+    "garrick_toast_seen",
+    "gristle_rescued",
+    "grog_thrown_overboard",
+    "hundreds_seen",
+    "lunch_salvaged",
+    "night_alarm_started",
+    "night_evacuation_done",
+    "night_scramble",
+    "night_squawks_saved",
+    "p4_ch16_started",
+    "p4_ch17_started",
+    "p4_ch18_started",
+    "p4_ch19_started",
+    "p4_complete",
+    "p4_ration_attended",
+    "p4_started",
+    "piracy_rant_done",
+    "port_damage_checked",
+    "quarterdeck_incident_started",
+    "quarters_incident_started",
+    "recurring_molt_heard",
+    "repair_board_done",
+    "repair_evacuated",
+    "repair_patch_done",
+    "repair_rope_done",
+    "repairs_started",
+    "sausage_forecast_seen",
+    "scuttle_found",
+    "shark_duty_introduced",
+    "shark_duty_reported",
+    "ship_smaller_seen",
+    "squawks_bald_again",
+    "squawks_protected",
+    "squawks_reached_seven_feathers",
+    "squawks_refused_grog",
+    "squawks_three_feathers",
+    "starboard_checked",
+    "stove_damper_closed",
+    "supervisor_debate",
+    "three_hundred_more",
+    "tomorrow_forecast_seen",
+    "washroom_door_seen",
+    "washroom_incident_started",
+    "waterline_alarm",
+    "waterline_evacuated",
+    "waterline_logged",
+    "where_is_center_asked",
+    "worst_forecast_seen",
+    "worst_places_seen",
+    "yellow_pillow_seen",
+    "yellow_wake_seen"
+   ],
+   "count": 208,
+   "removed": []
+  },
+  "location": "main_deck@-,-",
+  "quests": {
+   "active": [],
+   "completed": 22,
+   "completedIds": [
+    "captains_rounds",
+    "frog_grog",
+    "life_around_center",
+    "necessary_promotion",
+    "new_recruit",
+    "price_of_gold",
+    "rats_in_the_hold",
+    "repair_it_again",
+    "save_squawks",
+    "seven_feathers",
+    "shark_duty",
+    "sharks",
+    "ship_is_changing",
+    "stenchmaster_temporarily",
+    "strange_cargo",
+    "todays_forecast",
+    "tomorrows_heading",
+    "treasure_inspection",
+    "what_did_you_call_me",
+    "worst_places",
+    "yellow_alert",
+    "yellow_defense"
+   ],
+   "openByDesign": [],
+   "openObjectives": [],
+   "unexpectedOpen": []
+  }
+ }
+}

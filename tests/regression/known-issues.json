@@ -1,0 +1,73 @@
+{
+  "//": "Known problems the regression harness finds today, each with a status: known-defect (an established problem a later prompt should fix), intentional (the story means it), uncertain (needs a human decision), observation (recorded, not a problem). Anything the harness finds that is not listed here is reported as NEW, and new lifecycle errors fail tests/regression.test.js. When a later prompt fixes one of these, the harness reports the entry as resolved: delete it in the same change. See docs/gameplay-overhaul/06-regression-harness.md.",
+  "storageRooms": ["cargo_hold"],
+  "shelterPhases": {
+    "//": "Phases whose end the story itself spends sheltering in the hold: Everyone Below (Chapter 39) to the barracks and the landing (Chapters 42-62).",
+    "cargo_hold": [7, 8, 9]
+  },
+  "quests": [
+    { "quest": "tomorrows_heading", "phases": [1], "status": "intentional", "note": "The hook into Phase 2: started as the prologue ends." },
+    { "quest": "isle_curiosities", "phases": [9, 10, 11, 12, 13, 14, 15, 16, 17], "status": "uncertain", "note": "Optional side quest (visit objectives on Crownskull Isle). The phase presets never visit the curiosities, and once the crew row back in Chapter 73 nothing leads to the island again, so in a real playthrough it can stay unfinishable for the rest of the game. Needs a decision: close it on leaving the island, or make it completable." }
+  ],
+  "crew": [
+    { "type": "duplicate", "npc": "fennimore", "phases": [3, 9], "status": "known-defect", "note": "Placed in two rooms at once (P3 crew quarters + main deck; P9 cargo hold + main deck). Found by this harness; the Prompt 1 audit's per-milestone table showed one room only." },
+    { "type": "duplicate", "npc": "hale", "phases": [9], "status": "known-defect", "note": "Cargo hold + main deck at the end of Phase 9 (the crew are on Crownskull Isle then, so a player can't reach the ship to see it)." },
+    { "type": "duplicate", "npc": "jory", "phases": [3], "status": "known-defect", "note": "Cargo hold + main deck at the end of Phase 3." },
+    { "type": "duplicate", "npc": "nell", "phases": [9], "status": "known-defect", "note": "Cargo hold + main deck at the end of Phase 9 (ship unreachable then)." },
+    { "type": "duplicate", "npc": "sully", "phases": [9], "status": "known-defect", "note": "Cargo hold + main deck at the end of Phase 9 (ship unreachable then)." },
+
+    { "type": "vanished", "npc": "dunstan", "phases": [5], "status": "known-defect", "note": "Last scene: running out of the washroom in a towel (Chapter 20). Hidden by every placement row from Phase 6; no line explains it (02-crew-audit.md)." },
+    { "type": "vanished", "npc": "rusty_tom", "phases": [12], "status": "known-defect", "note": "Sash holder from Chapter 88; hidden by every row from Phase 13 with no exit." },
+    { "type": "vanished", "npc": "barnacle_bill", "phases": [12], "status": "known-defect", "note": "Sash holder from Chapter 88; hidden by every row from Phase 13 with no exit." },
+
+    { "type": "temporary-absence", "npc": "garrick", "phases": [3], "status": "intentional", "note": "Explicit absent row garrick_away_gone (flag garrick_evacuated_again): the story has him out of the way at the end of Phase 3." },
+    { "type": "temporary-absence", "npc": "garrick", "phases": [8], "status": "uncertain", "note": "Absent row p8h_garrick_0 (flag p8_garrick_in_bunk): 'in his bunk', yet no room places him in it at the end of Phase 8. Possibly drawn by the scene; needs checking." },
+    { "type": "temporary-absence", "npc": "squawks", "phases": [9], "status": "intentional", "note": "In the captain's chest pouch on Crownskull Isle (absent row p9h_squawks_0 from Chapter 62)." },
+    { "type": "temporary-absence", "npc": "gristle", "phases": [14], "status": "uncertain", "note": "Every room's first matching row hides him at the end of Phase 14 (e.g. p14h_gristle_0, flag p14_started); placed again from Phase 15. Intent not verified (02-crew-audit.md)." },
+
+    { "type": "stranded-in-storage", "npc": "jory", "phases": [1, 2, 3], "status": "intentional", "note": "The carpenter at work below in the prologue and Phases 2-3 ('The swell sprang two of my patches below')." },
+    { "type": "stranded-in-storage", "npc": "brask", "phases": [10, 11, 12, 13, 14, 15, 16, 17], "status": "known-defect", "note": "One of the eleven left in the hold after the Sharkstorm shelter (02-crew-audit.md)." },
+    { "type": "stranded-in-storage", "npc": "fennimore", "phases": [10, 11, 12, 13, 14, 15, 16, 17], "status": "known-defect", "note": "Left in the hold after the shelter." },
+    { "type": "stranded-in-storage", "npc": "finch", "phases": [10, 11, 12, 13, 14, 15, 16, 17], "status": "known-defect", "note": "Left in the hold after the shelter." },
+    { "type": "stranded-in-storage", "npc": "jory", "phases": [10, 11, 12, 13, 14, 15, 16, 17], "status": "known-defect", "note": "Left in the hold after the shelter (a workbench there is legitimate; standing there for eight phases with no job isn't)." },
+    { "type": "stranded-in-storage", "npc": "mags", "phases": [10, 11, 12, 13, 14, 15, 16, 17], "status": "known-defect", "note": "Left in the hold after the shelter." },
+    { "type": "stranded-in-storage", "npc": "nell", "phases": [10, 11, 12, 13, 14, 15, 16, 17], "status": "known-defect", "note": "Left in the hold after the shelter." },
+    { "type": "stranded-in-storage", "npc": "penhallow", "phases": [10, 11, 12, 13, 14, 15, 16, 17], "status": "known-defect", "note": "Left in the hold after the shelter." },
+    { "type": "stranded-in-storage", "npc": "quill", "phases": [10, 11, 12, 13, 14, 15, 16, 17], "status": "known-defect", "note": "Left in the hold after the shelter (a stores office there would be legitimate)." },
+    { "type": "stranded-in-storage", "npc": "rook", "phases": [10, 11, 12, 13, 14, 15, 16, 17], "status": "known-defect", "note": "Left in the hold after the shelter." },
+    { "type": "stranded-in-storage", "npc": "sully", "phases": [10, 11, 12, 13, 14, 15, 16, 17], "status": "known-defect", "note": "Left in the hold after the shelter." },
+    { "type": "stranded-in-storage", "npc": "wick", "phases": [10, 11, 12, 13, 14, 15, 16, 17], "status": "known-defect", "note": "Left in the hold after the shelter." },
+
+    { "type": "placed-before-first-line", "npc": "brask", "phases": [1], "status": "intentional", "note": "Prologue crew: talks through NPC dialogue in the prologue; first chapter-script line in Phase 2." },
+    { "type": "placed-before-first-line", "npc": "fennimore", "phases": [1], "status": "intentional", "note": "Prologue crew (as above)." },
+    { "type": "placed-before-first-line", "npc": "finch", "phases": [1], "status": "intentional", "note": "Prologue crew (as above)." },
+    { "type": "placed-before-first-line", "npc": "hale", "phases": [1], "status": "intentional", "note": "Prologue crew (as above)." },
+    { "type": "placed-before-first-line", "npc": "nell", "phases": [1], "status": "intentional", "note": "Prologue crew (as above)." },
+    { "type": "placed-before-first-line", "npc": "rook", "phases": [1], "status": "intentional", "note": "Prologue crew (as above)." },
+    { "type": "placed-before-first-line", "npc": "sully", "phases": [1], "status": "intentional", "note": "Prologue crew (as above)." },
+
+    { "type": "first-presence-with-first-line", "npc": "gristle", "phases": [3], "status": "known-defect", "note": "Introduced as long-serving crew but not in the world before his first line (02-crew-audit.md: seed him earlier)." },
+    { "type": "first-presence-with-first-line", "npc": "pete", "phases": [4], "status": "known-defect", "note": "'Slept through the Gust and everything after it': could be seen asleep in Phases 2-3." },
+    { "type": "first-presence-with-first-line", "npc": "rusty_tom", "phases": [10], "status": "known-defect", "note": "A deckhand 'since Portsmouth', first seen in Phase 10." },
+    { "type": "first-presence-with-first-line", "npc": "barnacle_bill", "phases": [10], "status": "known-defect", "note": "An old deckhand, first seen in Phase 10." },
+    { "type": "first-presence-with-first-line", "npc": "agnes_second", "phases": [16], "status": "observation", "note": "Arrives by parachute in Chapter 181; placed from the end of Phase 16." },
+    { "type": "first-presence-with-first-line", "npc": "bankworth", "phases": [16], "status": "observation", "note": "Forms in Chapter 194." },
+    { "type": "first-presence-with-first-line", "npc": "bob", "phases": [2], "status": "observation", "note": "First seen in Chapter 1." },
+    { "type": "first-presence-with-first-line", "npc": "brogath", "phases": [14], "status": "observation", "note": "Returns in Chapter 148." },
+    { "type": "first-presence-with-first-line", "npc": "dunstan", "phases": [2], "status": "observation", "note": "First seen in Phase 2." },
+    { "type": "first-presence-with-first-line", "npc": "garrick", "phases": [2], "status": "observation", "note": "Hauled aboard in Chapter 1." },
+    { "type": "first-presence-with-first-line", "npc": "jim", "phases": [2], "status": "observation", "note": "Back on the galley in Phase 2." },
+    { "type": "first-presence-with-first-line", "npc": "jory", "phases": [1], "status": "observation", "note": "Prologue crew." },
+    { "type": "first-presence-with-first-line", "npc": "ledger", "phases": [17], "status": "observation", "note": "Comes back in Chapter 209." },
+    { "type": "first-presence-with-first-line", "npc": "mags", "phases": [1], "status": "observation", "note": "Prologue crew." },
+    { "type": "first-presence-with-first-line", "npc": "ned", "phases": [2], "status": "observation", "note": "Back on watch in Phase 2." },
+    { "type": "first-presence-with-first-line", "npc": "penhallow", "phases": [2], "status": "observation", "note": "The merchant prisoner, from Phase 2." },
+    { "type": "first-presence-with-first-line", "npc": "quill", "phases": [1], "status": "observation", "note": "Prologue crew." },
+    { "type": "first-presence-with-first-line", "npc": "squawks", "phases": [2], "status": "observation", "note": "Placed from Phase 2." },
+    { "type": "first-presence-with-first-line", "npc": "tilda", "phases": [17], "status": "observation", "note": "Comes back in Chapter 209." },
+    { "type": "first-presence-with-first-line", "npc": "visitor_one", "phases": [15], "status": "observation", "note": "Spat out of the storm in Chapter 175." },
+    { "type": "first-presence-with-first-line", "npc": "visitor_two", "phases": [15], "status": "observation", "note": "Spat out of the storm in Chapter 175." },
+    { "type": "first-presence-with-first-line", "npc": "wick", "phases": [1], "status": "observation", "note": "Prologue crew." }
+  ],
+  "rooms": []
+}

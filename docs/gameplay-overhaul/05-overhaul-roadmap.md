@@ -142,6 +142,8 @@ Groups 2, 3 and 4 can be interleaved once group 1 is done. Group 5 should go in 
 
 ## Recommendation for Prompt 2
 
+> **Done in Prompt 2.** See [06-regression-harness.md](06-regression-harness.md) for what was built, the measured baseline, and the recommendation for Prompt 3.
+
 **Prompt 2: build the regression harness and measurement baseline.** No gameplay change.
 
 1. Convert this audit’s scripts into Vitest checks over all 17 phase presets: rooms (reachable area, choke tiles, unreachable live inspectables, shared story-prop anchors, live props) and crew (placements, people on choke tiles, hold occupancy). Record today’s values as the baseline, so later prompts show their effect as a diff.

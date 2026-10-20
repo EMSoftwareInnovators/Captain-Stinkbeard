@@ -1,6 +1,6 @@
 # Story inventory, Phase 16: The Grand Lighter
 
-Chapters: 20 (p16c1 to p16c20). Dialogue lines: 577. Classification: Choice or puzzle prompt 8, Walk + press A 6, Timing / skill input 6.
+Chapters: 20 (p16c1 to p16c20). Dialogue lines: 577. Classification: Choice or puzzle prompt 7, Walk + press A 7, Timing / skill input 6.
 
 Sources: `data/game.json` (chapter list), `docs/STORY_PHASE16.md`, `data/quests/phase16.json`, `data/story/cutscenes/phase16/`, `data/story/flags/phase16.json`, `tests/phase16_story.test.js`, `tests/phase16Play.js`.
 
@@ -37,8 +37,8 @@ Audit status: **examined** (scripts parsed in full by the audit tooling; digest 
 1. **ID, title, source files.** `p16c2`, Chapter 187: The Grand Lighter. Scripts: 7 in `data/story/cutscenes/phase16/ch186_189.json`. Quests: `the_grand_lighter` “The Grand Lighter” in `data/quests/phase16.json`.
 2. **Events and dialogue.** The Grand Lighter: shout into the Sharkstorm for a light; catch the parcel; try it; the Mark II comes on; make it work (lighter clicks); Vindicta visits. Dialogue: 37 lines ((narration) 15, captain 7, vindicta 5, pete 3, brogath 3, jim 2, hale 1, garrick 1); 0 choice prompt(s) with 0 options. Presentation: shake ×2, insert ×2, giveItem ×1, vista ×1, tvProgram ×1, spawn ×1.
 3. **Characters, locations, props, flags.** Speaking characters: vindicta, pete, brogath, jim, hale, garrick. NPCs with dialogue keyed to an objective (hints, reactions or completions): brogath, vindicta. Rooms: `crew_quarters`, `galley`, `main_deck`. Interactables: `p16_shout` (main_deck 16,13), `p16_parcel` (main_deck 12,20), `p16_try` (crew_quarters 9,7), `p16_ad` (galley 16,7), `p16_work` (crew_quarters 9,7). Flags set: 7 (`p16_ch187_started`, `p16_shouted`, `grand_lighter_acquired`, `p16_lighter_first_try`, `p16_cheapy_ad_seen`, `grand_lighter_working`, `vindicta_returned`); items given: grand_stenchmaster_lighter.
-4. **Current player actions and mechanics.** Objectives: “Shout into the Sharkstorm for a light (any rail, on deck)” [flag]; “Catch what comes back (the parcel, on deck)” [flag]; “Try it (the canopy over Brogath's spot, Crew Quarters)” [flag]; “Somebody's switched the Mark II on (the galley)” [flag]; “Make it work (the canopy over Brogath's spot, Crew Quarters: keep trying)” [flag]; “A visitor (Vindicta, Crew Quarters)” [flag]. Mechanics invoked by the scripts: lighter clicks ×2, TV power ×1.
-5. **Classification.** Walk + press A. Presentation-only effects with no player input: lighter clicks ×2, TV power ×1. Nothing in this chapter can fail in a way that costs the player anything.
+4. **Current player actions and mechanics.** Objectives: “Shout into the Sharkstorm for a light (any rail, on deck)” [flag]; “Catch what comes back (the parcel, on deck)” [flag]; “Try it (the canopy over Brogath's spot, Crew Quarters)” [flag]; “Somebody's switched the Mark II on (the galley)” [flag]; “Make it work (the canopy over Brogath's spot, Crew Quarters: keep trying)” [flag]; “A visitor (Vindicta, Crew Quarters)” [flag]. Mechanics invoked by the scripts: lighter clicks ×2.
+5. **Classification.** Walk + press A. Presentation-only effects with no player input: lighter clicks ×2. Nothing in this chapter can fail in a way that costs the player anything.
 6. **Gameplay opportunities.** Catching a parcel and an unreliable tool (lighter).
 7. **Proposed primary mechanic.** Lighter as an equipment item with a reliability stat (clicks); the parcel catch reuses falling-object telegraphs.
 8. **Secondary mechanics.** None.
@@ -307,8 +307,8 @@ Audit status: **examined** (scripts parsed in full by the audit tooling; digest 
 1. **ID, title, source files.** `p16c17`, Chapter 202: The Portable Stenchmaster Entertainment System. Scripts: 7 in `data/story/cutscenes/phase16/ch202_205.json`. Quests: `portable_tv` “The Portable Stenchmaster Entertainment System” in `data/quests/phase16.json`.
 2. **Events and dialogue.** The Portable S.E.S. comes out of Garrick's coat; fix the aerial; watch; turn it off twice. Dialogue: 24 lines ((narration) 11, garrick 6, pete 3, captain 1, channel_narrator 1, brogath 1, bankworth 1); 0 choice prompt(s) with 0 options. Presentation: vista ×1, tvProgram ×1.
 3. **Characters, locations, props, flags.** Speaking characters: garrick, pete, channel_narrator, brogath, bankworth. NPCs with dialogue keyed to an objective (hints, reactions or completions): garrick. Rooms: `fart_free_zone`. Interactables: `p16_aerial` (fart_free_zone 6,4), `p16_watch` (fart_free_zone 6,4), `p16_tv_off_1` (fart_free_zone 6,4), `p16_tv_off_2` (fart_free_zone 6,4). Flags set: 7 (`p16_ch202_started`, `portable_stenchmaster_tv_acquired`, `p16_portable_aerial`, `ignition_documentary_viewed`, `p16_tv_off_1`, `p16_tv_off_2`, `p16_tv_off_said`); items given: none.
-4. **Current player actions and mechanics.** Objectives: “Garrick's coat (Garrick, the Fart-Free Zone)” [flag]; “The aerial (the portable set)” [flag]; “Watch it (the portable set)” [flag]; “Turn it off (the portable set)” [event×2]. Mechanics invoked by the scripts: TV knobs ×3, TV power ×1.
-5. **Classification.** Choice or puzzle prompt (TV knobs ×3). Presentation-only effects with no player input: TV power ×1. Nothing in this chapter can fail in a way that costs the player anything.
+4. **Current player actions and mechanics.** Objectives: “Garrick's coat (Garrick, the Fart-Free Zone)” [flag]; “The aerial (the portable set)” [flag]; “Watch it (the portable set)” [flag]; “Turn it off (the portable set)” [event×2]. Mechanics invoked by the scripts: TV state change (scripted) ×3.
+5. **Classification.** Walk + press A. Presentation-only effects with no player input: TV state change (scripted) ×3. Nothing in this chapter can fail in a way that costs the player anything.
 6. **Gameplay opportunities.** TV.
 7. **Proposed primary mechanic.** Keep.
 8. **Secondary mechanics.** None.

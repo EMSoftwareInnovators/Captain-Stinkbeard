@@ -1,6 +1,6 @@
 # Story inventory, Phase 7: The Great Sharkstorm Returns and the Song of the Grand Stenchmaster
 
-Chapters: 9 (p7c1 to p7c9). Dialogue lines: 654. Classification: Timing / skill input 5, Walk + press A 3, Choice or puzzle prompt 1.
+Chapters: 9 (p7c1 to p7c9). Dialogue lines: 654. Classification: Timing / skill input 5, Walk + press A 4.
 
 Sources: `data/game.json` (chapter list), `docs/STORY_PHASE7.md`, `data/quests/phase7.json`, `data/story/cutscenes/phase7/`, `data/story/flags/phase7.json`, `tests/phase7_story.test.js`.
 
@@ -109,8 +109,8 @@ Audit status: **examined** (scripts parsed in full by the audit tooling; digest 
 1. **ID, title, source files.** `p7c6`, Chapter 38: The Song of the Grand Stenchmaster. Scripts: 5 in `data/story/cutscenes/phase7/ch38.json`. Quests: `back_to_work` “Back to Work” in `data/quests/phase7.json`.
 2. **Events and dialogue.** The Song of the Grand Stenchmaster (a long song); then Garrick quietly takes the ship apart for salvage while the captain watches. Dialogue: 86 lines (garrick 35, (narration) 25, captain 12, crew 6, squawks 2, jim 1, pete 1, bob 1, +3 more); 1 choice prompt(s) with 2 options. Presentation: shake ×2.
 3. **Characters, locations, props, flags.** Speaking characters: garrick, crew, squawks, jim, pete, bob, rook, hale, nell. NPCs with dialogue keyed to an objective (hints, reactions or completions): garrick. Rooms: set by preceding chapter (no room change). Interactables: none. Flags set: 9 (`p7_ch38_started`, `grand_stenchmaster_song_performed`, `stenchmaster_parade_done`, `ses_mark1_wrecked`, `p7_back_to_work`, `p7_salvage_compass`, `p7_lantern_fell`, `p7_salvage_lantern`, `p7_salvage_horseshoe`); items given: none.
-4. **Current player actions and mechanics.** Objectives: “Keep an eye on the Grand Stenchmaster (he's taking the ship apart)” [event×3]. Mechanics invoked by the scripts: TV knobs ×1.
-5. **Classification.** Choice or puzzle prompt (TV knobs ×1). Nothing in this chapter can fail in a way that costs the player anything.
+4. **Current player actions and mechanics.** Objectives: “Keep an eye on the Grand Stenchmaster (he's taking the ship apart)” [event×3]. Mechanics invoked by the scripts: TV state change (scripted) ×1.
+5. **Classification.** Walk + press A. Presentation-only effects with no player input: TV state change (scripted) ×1. Nothing in this chapter can fail in a way that costs the player anything.
 6. **Gameplay opportunities.** The song is a comedic set-piece; the salvage is a stealth/watch opportunity.
 7. **Proposed primary mechanic.** Keep the song; then 'catch him at it': Garrick removes three ship parts (the compass, the TV wire, the aerial) – the captain can stop or allow each, which determines how good Mark II is in p7c8 and what the ship loses.
 8. **Secondary mechanics.** Song choice stays as-is.
@@ -145,8 +145,8 @@ Audit status: **examined** (scripts parsed in full by the audit tooling; digest 
 1. **ID, title, source files.** `p7c8`, Chapter 40: The Stenchmaster Entertainment System Mark II. Scripts: 11 in `data/story/cutscenes/phase7/ch40.json`. Quests: `mark_two` “The Stenchmaster Entertainment System Mark II” in `data/quests/phase7.json`.
 2. **Events and dialogue.** In the hold, Garrick builds the S.E.S. Mark II on a crate from salvaged parts; keep his hands off the switch; knobs. Dialogue: 94 lines ((narration) 43, garrick 27, captain 8, pete 5, hale 4, bob 2, gristle 2, rook 1, +2 more); 2 choice prompt(s) with 6 options. Presentation: vista ×4, shake ×2.
 3. **Characters, locations, props, flags.** Speaking characters: garrick, pete, hale, bob, gristle, rook, crew, franklin. NPCs with dialogue keyed to an objective (hints, reactions or completions): garrick. Rooms: `cargo_hold`. Interactables: `p7_bench` (cargo_hold 11,11), `p7_knobs` (cargo_hold 11,11). Flags set: 11 (`p7_ch40_started`, `p7_mk2_aerial`, `p7_mk2_insulation`, `p7_mk2_routing`, `p7_mk2_knob`, `ses_mark2_built`, `p7_switch_stopped_1`, `p7_switch_stopped_2`, `p7_noise_helps`, `p7_mk2_startup`, +1 more); items given: none.
-4. **Current player actions and mechanics.** Objectives: “Watch the Grand Stenchmaster build it (his bench)” [event×4]; “Keep his hands off the switch (his bench)” [event×2]; “Mark II's knobs (the set)” [flag]. Mechanics invoked by the scripts: TV knobs ×3, timing bar (repair) ×1, TV power ×1.
-5. **Classification.** Timing / skill input (TV knobs ×3, timing bar (repair) ×1). Presentation-only effects with no player input: TV power ×1. Nothing in this chapter can fail in a way that costs the player anything.
+4. **Current player actions and mechanics.** Objectives: “Watch the Grand Stenchmaster build it (his bench)” [event×4]; “Keep his hands off the switch (his bench)” [event×2]; “Mark II's knobs (the set)” [flag]. Mechanics invoked by the scripts: TV state change (scripted) ×3, timing bar (repair) ×1, TV close-up ×1.
+5. **Classification.** Timing / skill input (timing bar (repair) ×1, TV close-up ×1). Presentation-only effects with no player input: TV state change (scripted) ×3. Nothing in this chapter can fail in a way that costs the player anything.
 6. **Gameplay opportunities.** A build scene with knobs; tie to the parts recovered or lost in p7c6.
 7. **Proposed primary mechanic.** Keep largely narrative; the switch beat becomes a 'hold him back' timing (twice).
 8. **Secondary mechanics.** Mark II quality depends on p7c6 (persistent reference).

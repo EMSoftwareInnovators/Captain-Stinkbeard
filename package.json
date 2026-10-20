@@ -10,12 +10,24 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:core": "vitest run --exclude tests/regression.test.js",
+    "test:regression": "vitest run tests/regression.test.js",
     "validate": "vitest run tests/content.test.js",
     "e2e": "playwright test",
     "e2e:smoke": "playwright test --grep @smoke",
     "e2e:quick": "playwright test --grep-invert @story",
     "e2e:story": "playwright test --grep @story",
-    "export": "node tools/export-assets.mjs"
+    "export": "node tools/export-assets.mjs",
+    "regress": "node tools/regress.mjs summary",
+    "regress:snapshot": "node tools/regress.mjs snapshot",
+    "regress:compare": "node tools/regress.mjs compare",
+    "regress:approve": "node tools/regress.mjs approve",
+    "regress:crew": "node tools/regress.mjs crew",
+    "regress:rooms": "node tools/regress.mjs rooms",
+    "regress:coords": "node tools/regress.mjs coords",
+    "regress:challenges": "node tools/regress.mjs challenges",
+    "perf": "playwright test -c playwright.perf.config.js",
+    "perf:bundle": "node tools/bundle-size.mjs"
   },
   "dependencies": {
     "phaser": "^4.2.1"
