@@ -56,6 +56,9 @@ function systemsState(content, session) {
   if (session.ship) {
     const o = session.ship.overall();
     out.ship = { overall: o.pct, destroyed: o.destroyed, sections: session.ship.serialize().sections };
+    // Prompt 6: the ship's emergencies (no chapter starts one: every phase should end with none).
+    const hz = session.ship.hazards;
+    out.ship.hazards = { leaks: hz.leaks.length, fires: hz.fires.map((f) => f.room), water: Object.keys(hz.water).sort(), stability: hz.stability().state, buckets: hz.buckets };
   }
   return out;
 }

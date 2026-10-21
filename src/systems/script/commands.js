@@ -18,6 +18,8 @@ import { ChallengeRun, runChallenge, challengeLog, chapterOf } from '../challeng
 import { captureCheckpoint } from '../challenge/checkpoint.js';
 import { normalizePrefs } from '../challenge/difficulty.js';
 import { shipTuning, resolveRepair, repairIdFor, affordableAttempts, sumItems } from '../ship/integrity.js';
+import { hazardData, fireRoom } from '../ship/hazards.js';
+import { responseOptions, patchWaste, roomLabel } from '../ship/response.js';
 import { tunedTensionDef } from '../tension.js';
 
 /** Story Phase 14: a stability subject (data/story/stability) with its defaults. */
@@ -285,7 +287,8 @@ async function playChallenge(ctx, frame, cfg, attempt, settle = null) {
     attempt,
     decide: (record, options) => service(ctx, 'ui', 'challengeOutcome').challengeOutcome(record, options),
     // Cost and consequence steps know which challenge they belong to (a resolved one can't damage the ship again).
-    runSteps: (steps) => ctx.runner.run(steps, { ...ctx, challenge: run.record }),
+    // Each charge of a cost, and each consequence list, is its own event scope (Prompt 6: retry-safe damage events).
+    runSteps: (steps, meta) => ctx.runner.run(steps, { ...ctx, challenge: run.record, eventScope: `${run.id}:${meta?.scope ?? `attempt${run.record.attempt}`}` }),
     onRestored: (cp) => ctx.services?.world?.restoreCheckpoint?.(cp),
     settle,
   };
@@ -309,6 +312,68 @@ const itemList = (content, list) => list.map((c) => `${c.count} ${itemName(conte
 /** Tells the player about the ship (a toast in the game; nothing in a headless run). */
 async function shipNotice(ctx, text) {
   await ctx.services?.ui?.notify?.({ kind: 'ship', text });
+}
+
+/**
+ * An event id as the ship records it (docs/gameplay-overhaul/10-flooding-and-fire.md,
+ * "Retry-safe damage events"): inside a challenge's costs or consequences it
+ * belongs to that charge or list ("bilge:cost:2:hit"); elsewhere in a
+ * challenge to its attempt ("bilge#3:hit"); outside one, as written. The ids
+ * applied are saved and checkpointed with the ship, so a retried attempt can
+ * take the same hit again and a repeated callback can't.
+ */
+export function scopedEventId(ctx, id) {
+  if (id === null || id === undefined) return null;
+  if (ctx.eventScope) return `${ctx.eventScope}:${id}`;
+  if (ctx.challenge) return `${ctx.challenge.id}#${ctx.challenge.attempt}:${id}`;
+  return id;
+}
+
+/** The challenge a step belongs to: running, or over once its run has closed (a partial's consequences still run inside it). */
+function challengeStateOf(ctx) {
+  const ch = ctx.challenge ?? null;
+  if (!ch) return null;
+  return challengeLog(ctx.session).active.get(ch.id)?.record === ch ? 'running' : 'resolved';
+}
+
+/** Takes a whole bill or nothing. */
+function takeAll(inventory, items) {
+  const need = sumItems(items);
+  if (need.some((c) => inventory.count(c.item) < c.count)) return false;
+  const taken = [];
+  for (const c of need) {
+    if (!inventory.remove(c.item, c.count)) {
+      for (const t of taken) inventory.add(t.item, t.count);
+      return false;
+    }
+    taken.push(c);
+  }
+  return true;
+}
+
+/** A step of emergency work: the progress shown, one tick of hazard time (the rest of the ship goes on meanwhile). */
+async function workTick(ctx, label, done, of) {
+  ctx.services?.ui?.work?.({ label, done, of });
+  await ctx.wait(hazardData(ctx.session.content ?? ctx.content)?.tickMs ?? 1000);
+  ctx.session.ship.hazards.tick(shipTuning(ctx.session.content ?? ctx.content, challengePrefs(ctx).difficulty));
+}
+
+/** A step that starts a hazard, if its event (scoped as above) hasn't happened and its challenge hasn't resolved. */
+function claimHazardEvent(ctx, step) {
+  if (challengeStateOf(ctx) === 'resolved' && step.authorized !== true) return false;
+  return ctx.session.ship.claimEvent(scopedEventId(ctx, step.eventId ?? null));
+}
+
+/** Runs `fn` with the hazards' own notices held back when the step says "announce": false. */
+function quietly(ctx, step, fn) {
+  const hz = ctx.session.ship.hazards;
+  const was = hz.quiet;
+  hz.quiet = step.announce === false;
+  try {
+    return fn();
+  } finally {
+    hz.quiet = was;
+  }
 }
 
 function shipDamageText(ctx, r) {
@@ -339,10 +404,16 @@ export function repairPlan(session, sectionId, { difficulty = 'captain', anywher
   const missing = repair.worst.filter((c) => session.inventory.count(c.item) < c.count).map((c) => ({ ...c, have: session.inventory.count(c.item) }));
   const attempts = affordableAttempts(repair, (id) => session.inventory.count(id));
   const rooms = sec.rooms.map((m) => content.maps.get(m)?.name ?? m);
-  if (ship.isLocked(sectionId)) return { ok: false, reason: 'busy', section: sec, repair, missing, attempts, here, rooms, message: 'That repair is already under way.' };
-  if (!here) return { ok: false, reason: 'elsewhere', section: sec, repair, missing, attempts, here, rooms, message: `Work on the ${sec.name.toLowerCase()} from: ${rooms.join(', ')}.` };
-  if (missing.length) return { ok: false, reason: 'materials', section: sec, repair, missing, attempts, here, rooms, message: `Not enough materials: ${missing.map((c) => `${itemName(content, c.item)} ${c.have}/${c.count}`).join(', ')}.` };
-  return { ok: true, section: sec, repair, missing, attempts, here, rooms };
+  // Prompt 6: water where he works makes a repair restore less (none when it's too deep), and a burning section can't be repaired.
+  const water = ship.hazards.waterIn(room);
+  const efficiency = water.stage.repair ?? 1;
+  const burning = ship.hazards.fires.find((f) => (fireRoom(content, f.room)?.burns ?? []).some((b) => b.section === sectionId)) ?? null;
+  if (ship.isLocked(sectionId)) return { ok: false, reason: 'busy', section: sec, repair, missing, attempts, here, rooms, efficiency, message: 'That repair is already under way.' };
+  if (!here) return { ok: false, reason: 'elsewhere', section: sec, repair, missing, attempts, here, rooms, efficiency, message: `Work on the ${sec.name.toLowerCase()} from: ${rooms.join(', ')}.` };
+  if (burning) return { ok: false, reason: 'burning', section: sec, repair, missing, attempts, here, rooms, efficiency, message: `Put out the fire in ${roomLabel(session, burning.room)} first.` };
+  if (water.stage.canWork === false) return { ok: false, reason: 'flooded', section: sec, repair, missing, attempts, here, rooms, efficiency, message: `Too deep to work in ${roomLabel(session, room)}: pump it down first.` };
+  if (missing.length) return { ok: false, reason: 'materials', section: sec, repair, missing, attempts, here, rooms, efficiency, message: `Not enough materials: ${missing.map((c) => `${itemName(content, c.item)} ${c.have}/${c.count}`).join(', ')}.` };
+  return { ok: true, section: sec, repair, missing, attempts, here, rooms, efficiency };
 }
 
 function objectiveRef(ref) {
@@ -753,22 +824,25 @@ export function createCommandImplementations() {
      * section or several (a broadside, a great blast), by "amount" before the
      * difficulty's scaling ("scale": false for an amount written for this
      * difficulty already), of a "category" (impact, shark, cannon, ...).
-     * "eventId" makes a callback apply once. Inside a challenge's costs or
+     * "eventId" makes a callback apply once (scoped to its challenge
+     * attempt or cost charge: scopedEventId). Inside a challenge's costs or
      * consequences it belongs to that challenge, and is refused once the
      * challenge has resolved unless "authorized". "announce": false is silent.
+     * "breach": true (Prompt 6) lets the blow hole the hull: a leak as bad as
+     * the section's condition allows, into "room" or the section's own.
      */
     shipDamage: async (step, ctx) => {
       const ship = ctx.session.ship;
       const tuning = shipTuning(ctx.session.content ?? ctx.content, challengePrefs(ctx).difficulty);
       const sections = Array.isArray(step.shipDamage) ? step.shipDamage : [step.shipDamage];
-      // The challenge this step belongs to is over once its run has closed (a partial's consequences still run inside it).
       const ch = ctx.challenge ?? null;
-      const challengeState = ch ? (challengeLog(ctx.session).active.get(ch.id)?.record === ch ? 'running' : 'resolved') : null;
+      const challengeState = challengeStateOf(ctx);
       for (const section of sections) {
-        const r = ship.applyDamage({
+        const r = quietly(ctx, step, () => ship.applyDamage({
           section, amount: step.amount, category: step.category ?? 'impact', source: step.source ?? ch?.id ?? null, event: ch?.id ?? null,
-          eventId: step.eventId ?? null, tuning, scale: step.scale !== false, challengeState, authorized: step.authorized === true,
-        });
+          eventId: scopedEventId(ctx, step.eventId ?? null), tuning, scale: step.scale !== false, challengeState, authorized: step.authorized === true,
+          breach: step.breach === true, room: step.room ?? null,
+        }));
         if (!r.ok) {
           // Content validation catches bad targets; at run time a refused blow changes nothing and says why (a repeated callback is quiet).
           if (r.reason !== 'duplicate event') console.warn(`shipDamage ${section}: ${r.reason}`);
@@ -834,7 +908,9 @@ export function createCommandImplementations() {
           if (rec.outcome !== 'success' && rec.outcome !== 'partial') return;
           const res = repair.results[rec.outcome];
           const items = rec.outcome === 'partial' ? sumItems(repair.cost, res.extra) : repair.cost;
-          committed = { items, done: ship.commitRepair({ section, restore: res.restore, items, inventory: session.inventory, source: `repair:${repair.id}` }) };
+          // Water where he works makes the work poorer (plan.efficiency: 1 when dry).
+          const restore = Math.max(1, Math.round(res.restore * (plan.efficiency ?? 1)));
+          committed = { items, done: ship.commitRepair({ section, restore, items, inventory: session.inventory, source: `repair:${repair.id}` }) };
           if (!committed.done.ok) throw new Error(`shipRepair ${section}: ${committed.done.reason} (the plan said there was enough)`);
         };
         const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: repair.kind, strikes: repair.strikes, title: repair.title, speed: 1, zone: 26, challenge: info });
@@ -852,6 +928,213 @@ export function createCommandImplementations() {
       } finally {
         ship.unlock(section);
       }
+    },
+    // --- Ship hazards (overhaul Prompt 6, docs/gameplay-overhaul/10-flooding-and-fire.md) -------
+    // None of these run unless a script asks: no chapter does yet. "eventId" makes a step happen once
+    // (scoped like shipDamage's); inside a resolved challenge they're refused unless "authorized".
+    /** Opens a leak in a section ("severity": seep | leak | breach; "room": one of its floodable rooms). */
+    leak: (step, ctx) => {
+      if (!claimHazardEvent(ctx, step)) return null;
+      const r = quietly(ctx, step, () => ctx.session.ship.hazards.openLeak({ section: step.leak, room: step.room ?? null, severity: step.severity ?? 'leak', source: step.source ?? ctx.challenge?.id ?? 'script' }));
+      if (!r.ok) throw new Error(`leak ${step.leak}: ${r.reason}`);
+      return null;
+    },
+    /** Water straight into a compartment (a wave over the side, a burst cask). */
+    flood: (step, ctx) => {
+      if (!claimHazardEvent(ctx, step)) return null;
+      if (!ctx.session.ship.hazards.waterIn(step.flood).floodable) throw new Error(`flood ${step.flood}: not a compartment`);
+      ctx.session.ship.hazards.addWater(step.flood, step.amount);
+      return null;
+    },
+    /** Water out of a compartment without work (the crew pumped it in a scene). */
+    drain: (step, ctx) => {
+      ctx.session.ship.hazards.removeWater(step.drain, step.amount);
+      return null;
+    },
+    /** Starts a fire ("intensity", default the data's ignition; "spread": false keeps it in its room). */
+    ignite: (step, ctx) => {
+      if (!claimHazardEvent(ctx, step)) return null;
+      const r = quietly(ctx, step, () => ctx.session.ship.hazards.ignite({ room: step.ignite, intensity: step.intensity ?? null, spread: step.spread !== false, source: step.source ?? ctx.challenge?.id ?? 'script' }));
+      // Awash or burnt out: nothing catches (not a content error: the state decides).
+      if (!r.ok && r.reason !== 'too wet to burn' && r.reason !== 'nothing left to burn') throw new Error(`ignite ${step.ignite}: ${r.reason}`);
+      return null;
+    },
+    /** Puts a fire out without work (the crew did it in a scene). */
+    extinguish: (step, ctx) => {
+      quietly(ctx, step, () => ctx.session.ship.hazards.extinguish(step.extinguish));
+      return null;
+    },
+    /** The leaks of a section (in one "room", or all) are gone (a scene's repair). The water stays. */
+    sealLeak: (step, ctx) => {
+      ctx.session.ship.hazards.sealLeaks(step.sealLeak, step.room ?? null);
+      return null;
+    },
+    /** Hazard time passes during an authored sequence (seconds): normally scenes stop the clock. */
+    hazardClock: (step, ctx) => {
+      const tuning = shipTuning(ctx.session.content ?? ctx.content, challengePrefs(ctx).difficulty);
+      for (let i = 0; i < Math.max(0, Math.floor(step.hazardClock)); i++) ctx.session.ship.hazards.tick(tuning);
+      return null;
+    },
+    /**
+     * Emergency work where the captain stands (src/systems/ship/response.js):
+     * pump, bail, fetch (fill the buckets), douse, smother. It takes its
+     * seconds of hazard time, tick by tick, while the rest of the ship's
+     * emergencies go on; pumping and bailing lower the water as it goes; a
+     * douse or smother lands at the end. Materials are taken when it starts.
+     * One action at a time. Refused (and said why) when it can't be done.
+     */
+    hazardAction: async (step, ctx) => {
+      const session = ctx.session;
+      const content = session.content ?? ctx.content;
+      const hz = session.ship.hazards;
+      const prefs = challengePrefs(ctx);
+      const tuning = shipTuning(content, prefs.difficulty);
+      const room = step.room ?? session.location?.map;
+      const opt = responseOptions(session, room, { difficulty: prefs.difficulty }).find((o) => o.action === step.hazardAction && (!step.station || o.station === step.station));
+      if (!opt?.ok) {
+        if (step.announce !== false) await shipNotice(ctx, `<r>${opt?.reason ?? 'Nothing to do that to here.'}</>`);
+        if (step.outcomeValue) session.story.setValue(step.outcomeValue, 'refused');
+        return null;
+      }
+      const actions = hazardData(content).actions;
+      const a = actions[opt.action];
+      if (opt.cost?.length && !takeAll(session.inventory, opt.cost)) throw new Error(`hazardAction ${opt.action}: materials gone (the plan said there were enough)`);
+      hz.working = true;
+      try {
+        const per = ((a.amount ?? 0) * tuning.responseScale) / opt.seconds;
+        let moved = 0;
+        // Pumping draws from the deepest compartment it drains, each tick; bailing from the room he's in.
+        const deepest = () => asArray(opt.target).map((r) => hz.waterIn(r)).filter((w) => w.units > 0).sort((x, y) => y.exact - x.exact)[0]?.room ?? null;
+        for (let i = 0; i < opt.seconds; i++) {
+          await workTick(ctx, a.label, i, opt.seconds);
+          const from = opt.action === 'pump' ? deepest() : opt.action === 'bail' ? opt.target : null;
+          if (from) moved += hz.removeWater(from, per);
+        }
+        let text = '';
+        if (opt.action === 'pump' || opt.action === 'bail') {
+          const w = hz.waterIn(opt.action === 'pump' ? asArray(opt.target)[0] : opt.target);
+          text = `${opt.action === 'pump' ? 'Pumped' : 'Bailed'} ${Math.round(moved)}: ${roomLabel(session, w.room).replace(/^the /, '')} water ${w.pct}% ${w.stage.label.toUpperCase()}.`;
+        } else if (opt.action === 'fetch') {
+          const n = hz.fillBuckets(room, actions.fetch.buckets);
+          text = n ? `Buckets filled: ${hz.buckets}/${actions.fetch.buckets}.` : 'No water to fill them with.';
+        } else if (hz.fireIn(room)) {
+          if (opt.action === 'douse') {
+            const at = hz.waterAtHand(room);
+            if (!at && hz.buckets > 0) hz.buckets -= 1;
+            else if (at === 'flood') hz.removeWater(room, actions.fetch.fromFlood);
+          }
+          const r = hz.douse(room, a.amount * tuning.responseScale);
+          const f = hz.fireIn(room);
+          text = r.out ? '' : `The fire in ${roomLabel(session, room)}: ${Math.round(f.intensity)}% ${f.stage.label.toUpperCase()}.`;
+        }
+        if (text && step.announce !== false) await shipNotice(ctx, text);
+        if (step.outcomeValue) session.story.setValue(step.outcomeValue, 'done');
+      } finally {
+        hz.working = false;
+        ctx.services?.ui?.work?.(null);
+      }
+      return null;
+    },
+    /**
+     * Patches the worst open leak where the captain stands (or the leak
+     * named): materials and the repair's timing bar (the ship_repair profile,
+     * or "challenge"). A failed try wastes a nail (a cost "Try again" keeps);
+     * the tries are what the hold can pay for. Success closes the leak, a
+     * rough patch halves it; then the patching work takes its seconds of
+     * hazard time with the leak still open. The hull and the water stay as
+     * they are: that's a repair, and pumping.
+     */
+    patchLeak: async (step, ctx, frame) => {
+      const session = ctx.session;
+      const content = session.content ?? ctx.content;
+      const hz = session.ship.hazards;
+      const prefs = challengePrefs(ctx);
+      const room = step.room ?? session.location?.map;
+      const opt = responseOptions(session, room, { difficulty: prefs.difficulty }).find((o) => o.action === 'patch' && (typeof step.patchLeak !== 'string' || o.leak === step.patchLeak));
+      if (!opt?.ok) {
+        if (step.announce !== false) await shipNotice(ctx, `<r>${opt?.reason ?? 'No open leak here.'}</>`);
+        if (step.outcomeValue) session.story.setValue(step.outcomeValue, 'refused');
+        return null;
+      }
+      const pdef = hazardData(content).actions.patch;
+      const leakId = opt.leak;
+      const waste = patchWaste(content, prefs.difficulty);
+      const get = (list, item) => list.find((c) => c.item === item)?.count ?? 0;
+      const worst = [...new Set([...opt.cost, ...waste].map((c) => c.item))].map((item) => ({ item, count: Math.max(get(opt.cost, item), get(waste, item)) }));
+      const attempts = affordableAttempts({ worst, results: { failure: { waste } } }, (id) => session.inventory.count(id));
+      hz.working = true;
+      try {
+        const base = challengeConfig(content, step.challenge ?? pdef.challenge, { kind: 'repair', id: `leak:${leakId}`, difficulty: prefs.difficulty });
+        const limit = Number.isFinite(attempts) ? attempts : null;
+        const cfg = {
+          ...base,
+          retry: { ...base.retry, maxAttempts: base.retry.maxAttempts === null ? limit : limit === null ? base.retry.maxAttempts : Math.min(base.retry.maxAttempts, limit) },
+          onFailure: { ...base.onFailure, mustRetry: false, continue: true, costs: [...base.onFailure.costs, ...waste.map((c) => ({ takeItem: c.item, count: c.count, silent: true }))] },
+        };
+        let committed = null;
+        const settle = async (rec) => {
+          if (rec.outcome !== 'success' && rec.outcome !== 'partial') return;
+          // The work takes its time with the leak still pouring, then the patch goes on.
+          const seconds = opt.seconds;
+          for (let i = 0; i < seconds; i++) await workTick(ctx, pdef.label, i, seconds);
+          if (!hz.leaks.some((l) => l.id === leakId && l.state === 'open')) return;
+          if (!takeAll(session.inventory, opt.cost)) throw new Error(`patchLeak ${leakId}: materials gone (the plan said there were enough)`);
+          committed = hz.patchLeak(leakId, rec.outcome);
+        };
+        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: pdef.kind, strikes: pdef.strikes, title: pdef.title, speed: 1, zone: 26, challenge: info });
+        const { record, goto } = await playChallenge(ctx, frame, cfg, attempt, settle);
+        if (committed && step.announce !== false) await shipNotice(ctx, `<k>Used ${itemList(content, opt.cost)}.</>`);
+        else if (!committed && step.announce !== false && record.outcome === 'failure') {
+          const wasted = record.consequences.costs ? sumItems(...Array.from({ length: record.consequences.costs }, () => waste)) : [];
+          await shipNotice(ctx, `<r>The patch failed.</>${wasted.length ? ` <k>Wasted ${itemList(content, wasted)}.</>` : ''}`);
+        }
+        return challengeFollowUp(ctx, frame, step, cfg, record, goto);
+      } finally {
+        hz.working = false;
+        ctx.services?.ui?.work?.(null);
+      }
+    },
+    /**
+     * "What can I do here?": the emergency actions in the captain's room
+     * (the world's Respond button, the Ship page), as a choice; the chosen one
+     * runs. One that can't be done says why. "Leave it" does nothing.
+     */
+    emergency: async (step, ctx, frame) => {
+      const session = ctx.session;
+      const prefs = challengePrefs(ctx);
+      const room = session.location?.map;
+      const opts = responseOptions(session, room, { difficulty: prefs.difficulty });
+      if (!opts.length) {
+        if (step.announce !== false) await shipNotice(ctx, '<k>Nothing to do about an emergency here.</>');
+        return null;
+      }
+      const hz = session.ship.hazards;
+      const bits = [];
+      const f = hz.fireIn(room);
+      if (f) bits.push(`<o>FIRE ${f.stage.label.toUpperCase()}</>`);
+      const w = hz.waterIn(room);
+      if (w.units > 0) bits.push(`water ${w.pct}% ${w.stage.label.toUpperCase()}`);
+      const open = hz.leaksIn(room).filter((l) => l.state === 'open');
+      if (open.length) bits.push(`<r>${open.length === 1 ? 'a leak' : `${open.length} leaks`}</>`);
+      const prompt = parseLine(`${(session.content.maps?.get?.(room)?.name ?? room)}${bits.length ? `: ${bits.join(', ')}` : ''}`);
+      const index = await service(ctx, 'dialogue', 'choice').choose({
+        prompt,
+        options: [...opts.map((o) => ({ text: o.ok ? o.label : `<k>${o.label}</>` })), { text: 'Leave it' }],
+        cancelIndex: opts.length,
+      });
+      const picked = opts[index];
+      if (!picked) {
+        await ctx.services?.dialogue?.close?.();
+        return null;
+      }
+      if (!picked.ok) {
+        await ctx.services?.dialogue?.close?.();
+        await shipNotice(ctx, `<r>${picked.reason}</>`);
+        return null;
+      }
+      await ctx.services?.dialogue?.close?.();
+      const next = picked.action === 'patch' ? { patchLeak: picked.leak } : { hazardAction: picked.action, ...(picked.station ? { station: picked.station } : {}) };
+      return ctx.runner.execBranch([next], ctx, frame);
     },
     /**
      * A named checkpoint for a sequence (docs/gameplay-overhaul/07-challenge-outcomes.md):

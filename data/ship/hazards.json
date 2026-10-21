@@ -1,0 +1,101 @@
+{
+  "//": "Ship hazards: leaks, flooding and fire (docs/gameplay-overhaul/10-flooding-and-fire.md). Everything is keyed by room (map id) and structural section (data/ship/integrity.json), never by tile, so the layout can change without touching this file or a save. Time is in seconds of hazard time: it runs only while the captain is free in the world (or while he works on an emergency). No story chapter starts a hazard: the campaign plays as before.",
+  "tickMs": 1000,
+  "compartments": {
+    "//": "Rooms that can hold water: capacity in units (the water level is a percentage of it), and which deck they are on (the hold is the bilge, where water ends up).",
+    "cargo_hold": { "capacity": 240, "deck": "hold" },
+    "treasure_hold": { "capacity": 140, "deck": "hold" },
+    "fart_free_zone": { "capacity": 60, "deck": "hold" },
+    "galley": { "capacity": 160, "deck": "tween" },
+    "crew_quarters": { "capacity": 200, "deck": "tween" },
+    "washroom": { "capacity": 60, "deck": "tween" }
+  },
+  "flow": [
+    { "from": "galley", "to": "cargo_hold", "kind": "drain", "rate": 4, "via": "the hold stairs" },
+    { "from": "crew_quarters", "to": "galley", "kind": "spill", "sill": 15, "rate": 3, "via": "the galley door" },
+    { "from": "washroom", "to": "crew_quarters", "kind": "spill", "sill": 15, "rate": 2, "via": "the washroom door" },
+    { "from": "cargo_hold", "to": "treasure_hold", "kind": "spill", "sill": 25, "rate": 3, "via": "the treasure door" },
+    { "from": "cargo_hold", "to": "fart_free_zone", "kind": "spill", "sill": 25, "rate": 2, "via": "the Fart-Free Zone's door" }
+  ],
+  "floodStages": [
+    { "id": "dry", "label": "Dry", "min": 0, "work": 1, "repair": 1, "wade": 1, "canWork": true },
+    { "id": "damp", "label": "Damp", "min": 1, "work": 1, "repair": 1, "wade": 1, "canWork": true },
+    { "id": "shallow", "label": "Shallow", "min": 10, "work": 1, "repair": 1, "wade": 1, "canWork": true },
+    { "id": "serious", "label": "Serious", "min": 35, "work": 1.25, "repair": 0.75, "wade": 1.25, "canWork": true },
+    { "id": "critical", "label": "Critical", "min": 65, "work": 1.5, "repair": 0.5, "wade": 1.5, "canWork": true },
+    { "id": "flooded", "label": "Flooded", "min": 95, "work": 1.5, "repair": 0, "wade": 1.75, "canWork": false }
+  ],
+  "stability": {
+    "//": "Water in the hold (the hold deck's share of its capacity): listing from 'listing', foundering from 'foundering', when the hulls strain ('amount' every 'every' seconds; strain never opens a leak).",
+    "listing": 35,
+    "foundering": 70,
+    "strain": { "every": 10, "amount": 1, "sections": ["hull_port", "hull_starboard"] }
+  },
+  "leaks": {
+    "//": "Which sections can open a leak, and where the water comes in by default (a blow can name another of the section's floodable rooms). A leak only opens when damage says so ('breach': true, or the leak command), never from a story's ordinary shipDamage.",
+    "sections": {
+      "hull_port": { "room": "cargo_hold" },
+      "hull_starboard": { "room": "cargo_hold" },
+      "bow": { "room": "crew_quarters" }
+    },
+    "severities": [
+      { "id": "seep", "label": "Seep", "below": 60, "rate": 0.6 },
+      { "id": "leak", "label": "Leak", "below": 30, "rate": 1.5 },
+      { "id": "breach", "label": "Breach", "below": 15, "rate": 3 }
+    ],
+    "sealAt": 60
+  },
+  "fire": {
+    "stages": [
+      { "id": "smouldering", "label": "Smouldering", "min": 1 },
+      { "id": "burning", "label": "Burning", "min": 25 },
+      { "id": "blazing", "label": "Blazing", "min": 60 },
+      { "id": "inferno", "label": "Inferno", "min": 90 }
+    ],
+    "ignite": 10,
+    "growth": 0.6,
+    "decay": 2,
+    "burnRate": 25,
+    "damagePerIntensity": 0.015,
+    "spreadAt": 60,
+    "spreadAfter": 20,
+    "spreadStart": 10,
+    "water": { "slows": 35, "drowns": 65, "slowBy": 3 },
+    "rooms": {
+      "main_deck": { "fuel": 150, "burns": [{ "section": "deck" }, { "section": "rigging", "from": "blazing" }], "spread": ["galley", "captains_quarters", "crew_quarters"] },
+      "captains_quarters": { "fuel": 100, "burns": [{ "section": "stern" }], "spread": ["main_deck"] },
+      "galley": { "fuel": 120, "burns": [{ "section": "hull_port", "from": "blazing" }, { "section": "hull_starboard", "from": "blazing" }], "spread": ["cargo_hold", "main_deck", "crew_quarters"] },
+      "crew_quarters": { "fuel": 140, "burns": [{ "section": "bow" }], "spread": ["galley", "main_deck"] },
+      "cargo_hold": { "fuel": 200, "burns": [{ "section": "hull_port", "from": "burning" }, { "section": "hull_starboard", "from": "burning" }], "spread": ["galley", "treasure_hold"] },
+      "treasure_hold": { "fuel": 80, "burns": [{ "section": "hull_port", "from": "blazing" }, { "section": "hull_starboard", "from": "blazing" }], "spread": ["cargo_hold"] }
+    }
+  },
+  "stations": {
+    "bilge_pump": { "kind": "pump", "label": "the bilge pump", "room": "cargo_hold", "drains": ["cargo_hold", "treasure_hold", "fart_free_zone"] }
+  },
+  "waterSources": {
+    "main_deck": "the sea",
+    "galley": "the water cask"
+  },
+  "actions": {
+    "pump": { "label": "Pump the bilge", "amount": 24, "seconds": 6 },
+    "bail": { "label": "Bail", "amount": 8, "seconds": 4 },
+    "fetch": { "label": "Fill the buckets", "seconds": 3, "buckets": 3, "fromFlood": 6 },
+    "douse": { "label": "Douse the fire", "amount": 25, "seconds": 3 },
+    "smother": { "label": "Smother it with sailcloth", "amount": 45, "seconds": 3, "cost": [{ "item": "sailcloth", "count": 1 }] },
+    "patch": {
+      "label": "Patch the leak",
+      "title": "PATCH THE LEAK",
+      "kind": "hull",
+      "strikes": 2,
+      "seconds": 4,
+      "cost": {
+        "seep": [{ "item": "nails", "count": 1 }, { "item": "planks", "count": 1 }],
+        "leak": [{ "item": "planks", "count": 1 }, { "item": "nails", "count": 2 }],
+        "breach": [{ "item": "planks", "count": 2 }, { "item": "nails", "count": 2 }, { "item": "sailcloth", "count": 1 }]
+      },
+      "waste": [{ "item": "nails", "count": 1 }],
+      "challenge": { "profile": "ship_repair" }
+    }
+  }
+}

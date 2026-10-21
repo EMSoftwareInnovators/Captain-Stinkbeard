@@ -38,6 +38,11 @@ import { SharkstormLayer } from '../world/SharkstormLayer.js';
 import { mapDisplayName } from '../maps/mapName.js';
 import { mapBackground } from '../maps/mapBackground.js';
 import { bedsAt, BED_POSES } from '../maps/compileMap.js';
+import { HazardLayer } from '../world/HazardLayer.js';
+import { shipTuning } from '../systems/ship/integrity.js';
+import { hazardData } from '../systems/ship/hazards.js';
+import { emergencySummary } from '../systems/ship/response.js';
+import { HazardClock } from '../systems/ship/hazardClock.js';
 
 // Step durations chosen so a 60 Hz frame moves a whole number of pixels:
 // walking is 2 px per frame (8 frames per tile), running 3 px per frame.
@@ -118,6 +123,11 @@ export class WorldScene extends BaseScene {
     this.refreshLighting();
     this.ambient = new Ambient(this, this.def.ambient || []);
     this.fx = new FxPool(this);
+    // Prompt 6: the ship's emergencies in this room (presentation of the hazard state), and its clock.
+    this.hazardLayer = new HazardLayer(this);
+    this.hazardClock = new HazardClock(hazardData(this.content)?.tickMs ?? 1000);
+    this.hazardDirty = true;
+    this.noticeSeen = new Map();
     this.barks = new Barks(this);
     this.stage = new Stage(this);
     const cfg = fumeConfig(this.content);
@@ -168,6 +178,11 @@ export class WorldScene extends BaseScene {
       // Overhaul Prompt 5: the ship's condition on the HUD, and what happens when the hull is gone.
       this.app.bus.on('ship:changed', () => this.refreshShipBadge()),
       this.app.bus.on('ship:destroyed', (e) => this.onShipDestroyed(e)),
+      // Overhaul Prompt 6: leaks, flooding and fire. Redrawn from the state once a frame when it changed; told once per change.
+      this.app.bus.on('hazard:changed', () => {
+        this.hazardDirty = true;
+      }),
+      this.app.bus.on('hazard:notice', (n) => this.onHazardNotice(n)),
     ];
     this.refreshShipBadge();
     this.events.once('shutdown', () => this.cleanup());
@@ -184,6 +199,9 @@ export class WorldScene extends BaseScene {
     this.app.overlay?.setHint(null);
     this.app.overlay?.setExposure(null);
     this.app.overlay?.setShipBadge(null);
+    this.app.overlay?.setEmergency(null);
+    this.app.overlay?.work(null);
+    this.hazardLayer?.destroy();
     this.stability?.destroy();
     this.fx?.destroy();
     this.barks?.clear();
@@ -593,6 +611,7 @@ export class WorldScene extends BaseScene {
       this.player.sprite.setAlpha(this.invulnerableMs > 0 && Math.floor(this.invulnerableMs / 100) % 2 ? 0.35 : 1);
     }
     const busy = this.isBusy();
+    this.updateHazards(dt, busy);
     for (const brain of this.npcs) {
       if (busy && !brain.actor.scripted && !brain.relocation?.inScene) continue;
       brain.update(dt);
@@ -1125,6 +1144,16 @@ export class WorldScene extends BaseScene {
         return;
       }
     }
+    // Prompt 6: respond to the emergency in this room (V / pad X): what can be done here, as a choice.
+    if (input.pressed('secondary')) {
+      input.consume('secondary');
+      if (this.emergencyHere) {
+        p.stopWalking();
+        this.wasMoving = false;
+        this.runScript([{ emergency: true }]);
+        return;
+      }
+    }
     if (input.pressed('debug')) return;
     for (const d of this.entryHeld) if (!input.isDown(d)) this.entryHeld.delete(d);
     if (this.lockedHold && !input.isDown(this.lockedHold)) this.lockedHold = null;
@@ -1198,7 +1227,7 @@ export class WorldScene extends BaseScene {
     // deliberate gate and only gives way when he is truly boxed in.
     if (person && (this.boxedIn(p) || (!person.blocks && this.time.now - this.pushing.since >= SQUEEZE_PAST_MS))) {
       this.pushing = null;
-      this.tradePlaces(person, dir, running ? RUN_MS : WALK_MS, dt);
+      this.tradePlaces(person, dir, (running ? RUN_MS : WALK_MS) * (this.wade ?? 1), dt);
       return;
     }
     if (blocked) {
@@ -1211,7 +1240,7 @@ export class WorldScene extends BaseScene {
     p.prevKey = this.key(p.tx, p.ty);
     // Continuing: carry the time left over from the last tile. Starting from
     // a standstill: begin one frame in, so the first pixel shows this frame.
-    p.beginStep(dir, running ? RUN_MS : WALK_MS, this.wasMoving ? p.carryMs : dt);
+    p.beginStep(dir, (running ? RUN_MS : WALK_MS) * (this.wade ?? 1), this.wasMoving ? p.carryMs : dt);
     this.wasMoving = true;
   }
 
@@ -1463,7 +1492,8 @@ export class WorldScene extends BaseScene {
     const t = this.interactionTarget();
     if (!t) {
       this.marker.setVisible(false);
-      this.app.overlay.setHint(null);
+      // Prompt 6: in a room with an emergency the captain can do something about, the Respond button.
+      this.app.overlay.setHint(this.emergencyHere ? '{btn:secondary} Respond' : null);
       return;
     }
     let mx = t.x * TILE_SIZE + TILE_SIZE / 2;
@@ -1669,6 +1699,7 @@ export class WorldScene extends BaseScene {
     this.wasMoving = false;
     this.player.stopWalking();
     this.refreshShipBadge();
+    this.hazardDirty = true;
     if (this.pendingResume) {
       const r = this.pendingResume;
       this.pendingResume = null;
@@ -1696,6 +1727,50 @@ export class WorldScene extends BaseScene {
     // The word and the colour both say how bad the worst section is (the percentage is the whole ship).
     const count = o.worst ? ship.sections().filter((s) => s.state === o.worst.state).length : 0;
     this.app.overlay?.setShipBadge({ pct: o.pct, label: o.worst?.label ?? o.label, state: o.worst?.state ?? o.state, count, damaged: o.damaged, destroyed: o.destroyed });
+  }
+
+  /**
+   * The ship's emergencies (docs/gameplay-overhaul/10-flooding-and-fire.md,
+   * "Timing and pause"): hazard time runs only while the captain is free in
+   * the world (no scene, dialogue, timing bar, room change or F2 panel; the
+   * pause menu and battles pause this scene), in fixed ticks from the frame
+   * time, so the frame rate never changes how fast a leak fills a room. The
+   * work actions run their own ticks. Drawn from the state when it changed.
+   */
+  updateHazards(dt, busy) {
+    const hz = this.session.ship.hazards;
+    this.hazardClock.advance(dt, {
+      active: hz.active,
+      eligible: !busy && !this.leaving && !this.collapsing && !this.scene.get('Debug')?.open,
+      tick: () => hz.tick(shipTuning(this.content, this.app.settings.challengePrefs().difficulty)),
+    });
+    if (this.hazardDirty) {
+      this.hazardDirty = false;
+      this.refreshHazards();
+    }
+    this.hazardLayer.update(dt, { reduced: this.fx.reduced });
+  }
+
+  /** The room's water and fire on screen, the walking pace in water, the emergency line, the Respond button. */
+  refreshHazards() {
+    const hz = this.session.ship.hazards;
+    const room = this.model.id;
+    this.hazardLayer.sync(room);
+    this.wade = hz.waterIn(room).stage.wade ?? 1;
+    const summary = emergencySummary(this.session, room, { difficulty: this.app.settings.challengePrefs().difficulty });
+    this.emergencyHere = !!summary?.respond;
+    this.app.overlay?.setEmergency(summary?.items.length ? summary : null);
+  }
+
+  /** A hazard changed stage: a toast and a sound, once per change (a repeat of the same notice within 4 s is dropped). */
+  onHazardNotice(n) {
+    const now = this.time?.now ?? 0;
+    if (now - (this.noticeSeen.get(n.key) ?? -Infinity) < 4000) return;
+    this.noticeSeen.set(n.key, now);
+    this.app.overlay?.toasts.push({ text: n.text, hold: 2600 });
+    const k = n.key.split(':');
+    const sfx = k[0] === 'leak' ? (k[2] === 'patched' || k[2] === 'sealed' ? 'hammer_hit' : 'hull_crack_heavy') : k[0] === 'fire' ? (k[2] === 'out' ? 'sizzle' : 'ember_hiss') : k[0] === 'stability' ? 'ship_groan' : k[0] === 'flood' && n.tone === 'r' ? 'splash_big' : null;
+    if (sfx) this.app.audio.sfx(sfx);
   }
 
   /**

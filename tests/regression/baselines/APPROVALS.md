@@ -218,3 +218,74 @@ Across phases
   CHANGED    coords: total: 8220 -> 8221
 ```
 
+## 2026-10-21 (on 2951055)
+
+Reason: Prompt 6: every phase snapshot records the ship's emergencies (none: no chapter starts a leak, flood or fire); the hazard_demo debug preset names its start tile (cargo_hold 14,4); patchLeak registered as a challenge kind with 0 uses
+
+Files: phase-01.json, phase-02.json, phase-03.json, phase-04.json, phase-05.json, phase-06.json, phase-07.json, phase-08.json, phase-09.json, phase-10.json, phase-11.json, phase-12.json, phase-13.json, phase-14.json, phase-15.json, phase-16.json, phase-17.json, coords.json, challenges.json
+
+Changes: 0 regression, 0 warning, 0 improvement, 23 change
+
+```
+Approved changes: 23 changes
+
+Phase 1
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 2
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 3
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 4
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 5
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 6
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 7
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 8
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 9
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 10
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 11
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 12
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 13
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 14
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 15
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 16
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 17
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Across phases
+  CHANGED    coords: byKind.preset position: 336 -> 337
+  CHANGED    coords: byRoom.cargo_hold.files.data/debug/presets.json: 44 -> 45
+  CHANGED    coords: byRoom.cargo_hold.kinds.preset position: 44 -> 45
+  CHANGED    coords: byRoom.cargo_hold.total: 763 -> 764
+  CHANGED    coords: total: 8221 -> 8222
+  CHANGED    challenges: kinds.patchLeak: undefined -> {"blocksProgression":false,"input":"timed","label":"Patching a leak (an emergency; Prompt 6)","retry":"offered while the hold can pay for one; the waste stays","softlockRisk":"none: no chapter uses it","support":{"failure":true,"partial":true,"success":true}}
+```
+

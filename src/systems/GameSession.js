@@ -23,7 +23,9 @@ export class GameSession {
     this.location = { map: null, x: 0, y: 0, facing: 'down' };
     this.quests = new QuestSystem({ quests: content.quests, session: this, bus });
     // Overhaul Prompt 5: the ship's structural condition (docs/gameplay-overhaul/09-ship-integrity.md).
-    this.ship = new ShipState({ def: content.ship, bus });
+    this.ship = new ShipState({ def: content.ship, hazards: content.shipHazards, bus });
+    // Prompt 6: emergencies name rooms by their map names ("the Cargo Hold").
+    this.ship.hazards.nameOf = (room) => content.maps?.get?.(room)?.name ?? null;
     this.playTime = 0; // seconds
     this.createdAt = new Date().toISOString();
     // Per-play state that is deliberately never saved (fume exposure...).

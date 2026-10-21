@@ -9,6 +9,7 @@
  *   flag flags item quest objective map npc actor script sfx music ambience
  *   encounter shop character dir speaker line emote vista
  *   shipSection shipSections shipCategory shipRepair
+ *   floodRoom fireRoom leakSection leakSeverity hazardAction
  * A trailing "?" marks a param optional. The command's own key is listed too.
  */
 /**
@@ -178,9 +179,20 @@ export const COMMAND_SCHEMAS = {
   // --- Challenge outcomes (docs/gameplay-overhaul/07-challenge-outcomes.md) ----------------
   // A named sequence checkpoint a later challenge in the same script can offer to go back to.
   checkpoint: { checkpoint: 'string', resume: 'label?', label: 'string?' },
-  shipDamage: { shipDamage: 'shipSections', amount: 'number', category: 'shipCategory?', source: 'string?', eventId: 'string?', scale: 'boolean?', announce: 'boolean?', authorized: 'boolean?' },
+  shipDamage: { shipDamage: 'shipSections', amount: 'number', category: 'shipCategory?', source: 'string?', eventId: 'string?', scale: 'boolean?', announce: 'boolean?', authorized: 'boolean?', breach: 'boolean?', room: 'floodRoom?' },
   shipRestore: { shipRestore: 'shipSection', amount: 'number', source: 'string?', announce: 'boolean?' },
   shipRepair: { shipRepair: 'shipSection', repair: 'shipRepair?', anywhere: 'boolean?', announce: 'boolean?', ...CHALLENGE_PARAMS },
+  // Ship hazards (overhaul Prompt 6, docs/gameplay-overhaul/10-flooding-and-fire.md): leaks, water, fire, and the work against them.
+  leak: { leak: 'leakSection', room: 'floodRoom?', severity: 'leakSeverity?', source: 'string?', eventId: 'string?', announce: 'boolean?', authorized: 'boolean?' },
+  flood: { flood: 'floodRoom', amount: 'number', eventId: 'string?', authorized: 'boolean?' },
+  drain: { drain: 'floodRoom', amount: 'number' },
+  ignite: { ignite: 'fireRoom', intensity: 'number?', spread: 'boolean?', source: 'string?', eventId: 'string?', announce: 'boolean?', authorized: 'boolean?' },
+  extinguish: { extinguish: 'fireRoom', announce: 'boolean?' },
+  sealLeak: { sealLeak: 'leakSection', room: 'floodRoom?' },
+  hazardClock: { hazardClock: 'number' },
+  hazardAction: { hazardAction: 'hazardAction', room: 'map?', station: 'string?', announce: 'boolean?', outcomeValue: 'string?' },
+  patchLeak: { patchLeak: 'any', room: 'floodRoom?', announce: 'boolean?', ...CHALLENGE_PARAMS },
+  emergency: { emergency: 'boolean', announce: 'boolean?' },
 };
 
 /** Commands that may carry "async": true (start and continue without waiting). */

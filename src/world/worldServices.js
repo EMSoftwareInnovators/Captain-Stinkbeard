@@ -546,6 +546,8 @@ export function createWorldServices(scene) {
       },
       // After a challenge fails: the ways forward it allows, on the choice menu.
       challengeOutcome: (record, options) => overlay.challengeOutcome(record, options),
+      // Overhaul Prompt 6: emergency work under way (pumping, bailing, dousing), or null when it's done.
+      work: (state) => overlay.work(state),
       tv: async (id, { mode = 'normal', panel = null } = {}) => {
         await overlay.dialogue.close();
         const def = tvDef(scene.content, id);

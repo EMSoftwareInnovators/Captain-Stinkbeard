@@ -14,7 +14,9 @@
     "collision": { "label": "a collision" },
     "storm": { "label": "the storm" },
     "supernatural": { "label": "something unnatural" },
-    "botched": { "label": "a botched repair" }
+    "botched": { "label": "a botched repair" },
+    "fire": { "label": "the fire" },
+    "strain": { "label": "the strain of the flooding" }
   },
   "sections": {
     "hull_port": {
@@ -24,7 +26,7 @@
       "function": "watertight",
       "functionLabel": "keeps the sea out",
       "rooms": ["cargo_hold", "galley", "crew_quarters", "treasure_hold"],
-      "resist": { "storm": 0.5, "cannon": 1.25, "supernatural": 0.75 },
+      "resist": { "storm": 0.5, "cannon": 1.25, "supernatural": 0.75, "fire": 0.75 },
       "repair": "hull_patch",
       "rebuild": "hull_rebuild"
     },
@@ -35,7 +37,7 @@
       "function": "watertight",
       "functionLabel": "keeps the sea out",
       "rooms": ["cargo_hold", "galley", "crew_quarters", "treasure_hold"],
-      "resist": { "storm": 0.5, "cannon": 1.25, "supernatural": 0.75 },
+      "resist": { "storm": 0.5, "cannon": 1.25, "supernatural": 0.75, "fire": 0.75 },
       "repair": "hull_patch",
       "rebuild": "hull_rebuild"
     },
@@ -65,7 +67,7 @@
       "function": "footing",
       "functionLabel": "gives footing on deck",
       "rooms": ["main_deck"],
-      "resist": { "shark": 0.5, "storm": 1.25 },
+      "resist": { "shark": 0.5, "storm": 1.25, "fire": 1.25 },
       "repair": "deck_mend",
       "rebuild": "deck_mend"
     },
@@ -75,7 +77,7 @@
       "function": "sailing",
       "functionLabel": "drives the ship",
       "rooms": ["main_deck"],
-      "resist": { "shark": 0, "storm": 1.5, "cannon": 0.75 },
+      "resist": { "shark": 0, "storm": 1.5, "cannon": 0.75, "fire": 1.5 },
       "repair": "rigging_splice",
       "rebuild": "rigging_rebuild"
     }

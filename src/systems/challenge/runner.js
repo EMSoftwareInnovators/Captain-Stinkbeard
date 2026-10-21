@@ -201,13 +201,14 @@ export class ChallengeRun {
   /** The failure's sticky costs: paid now, and again after every restore (a retry is not a free undo). */
   async chargeCosts(hooks) {
     if (!this.config.onFailure.costs.length) return;
-    await hooks.runSteps?.(this.config.onFailure.costs);
+    // Each charge is its own event scope: a cost's damage event lands once per charge, replays included (Prompt 6).
+    await hooks.runSteps?.(this.config.onFailure.costs, { scope: `cost:${this.charged + 1}` });
     this.charged += 1;
     this.record.consequences.costs = this.charged;
   }
 
   async replayCosts(hooks) {
-    for (let i = 0; i < this.charged; i++) await hooks.runSteps?.(this.config.onFailure.costs);
+    for (let i = 0; i < this.charged; i++) await hooks.runSteps?.(this.config.onFailure.costs, { scope: `cost:${i + 1}` });
   }
 
   /** Back to the checkpoint (as configured), costs re-applied, and a fresh attempt. */
@@ -238,7 +239,7 @@ export class ChallengeRun {
     this.record.accepted = true;
     const steps = this.config.onFailure.consequences;
     if (steps.length) {
-      await hooks.runSteps?.(steps);
+      await hooks.runSteps?.(steps, { scope: 'onFailure' });
       this.record.consequences.onFailure = steps.length;
       this.record.consequences.applied.push('onFailure');
     }
@@ -249,7 +250,7 @@ export class ChallengeRun {
   async settlePartial(hooks = {}) {
     const steps = this.config.onPartial.consequences;
     if (!steps.length) return;
-    await hooks.runSteps?.(steps);
+    await hooks.runSteps?.(steps, { scope: 'onPartial' });
     this.record.consequences.applied.push('onPartial');
   }
 
@@ -278,7 +279,8 @@ export const ATTEMPT_GUARD = 500;
  * @param {object} hooks
  * @param {(info) => Promise<object>} hooks.attempt   plays one attempt, returns the mechanic's metrics
  * @param {(record, options) => Promise<string>} hooks.decide   asks the player (an option id)
- * @param {(steps) => Promise<void>} [hooks.runSteps]  runs consequence / cost steps
+ * @param {(steps, meta) => Promise<void>} [hooks.runSteps]  runs consequence / cost steps; `meta.scope` names the
+ *   charge or list (cost:1, cost:2, onFailure, onPartial), so a damage event in them lands once per charge
  * @param {(checkpoint) => Promise<void>} [hooks.onRestored]  puts the world back (the captain's tile, input)
  * @param {(record) => Promise<void>} [hooks.settle]  commits what the final outcome earns (a ship repair takes its
  *   materials and restores the section), after the outcome and its consequences and before the run closes, so the

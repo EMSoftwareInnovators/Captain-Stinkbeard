@@ -848,12 +848,59 @@ damage, thresholds and material repairs. See
   page uses it too. A repair is a challenge (the `ship_repair` profile): the
   runner's `settle` hook commits its result before the run closes. The
   `ship` condition reads a section's state (`conditions.js`).
-- Checkpoints capture the `ship` domain; saves are version 18 (below).
+- Checkpoints capture the `ship` domain; saves are version 18 (below; 19
+  since Prompt 6).
 - UI: the badge and toasts in OverlayScene (`setShipBadge`, notify kind
   `ship`), refreshed by WorldScene on `ship:changed`; Pause > Ship
   (`src/ui/menu/ShipPage.js`). Confirm closes the menu and hands the world the
   repair (`MenuScene.close({ then })`, WorldScene `afterMenu`). Debug: F2 >
   Ship (`src/debug/shipDebug.js`) and the `ship_demo` preset.
+
+## Flooding, fire and the emergency response (overhaul Prompt 6)
+
+Leaks, water per compartment, fire per room, and what the captain does about
+them. See
+[gameplay-overhaul/10-flooding-and-fire.md](gameplay-overhaul/10-flooding-and-fire.md).
+No chapter uses any of it.
+
+- Data: `data/ship/hazards.json` (ContentDB `shipHazards`): compartments and
+  their capacity, the flow links (drains, door sills) between rooms, flood
+  stages and their effects, stability, which sections leak and how fast, fire
+  per room (fuel, the sections it burns, where it spreads), the pump station,
+  water sources and the response actions. Keyed by room and section ids,
+  never tiles; every link must be a real doorway (a map warp), checked by
+  `hazardDataProblems` with `roomLinks`.
+- `src/systems/ship/hazards.js`: pure lookups (stages, severities, links,
+  stations) and the validator. `src/systems/ship/HazardState.js`:
+  `session.ship.hazards`, owned by `ShipState` and saved inside the `ship`
+  domain. Nothing moves except `tick()`, one fixed step of hazard time:
+  leaks pour in, water drains and spills, fires grow, damage named sections
+  (through `ShipState.applyDamage`, category `fire`) and spread, a foundering
+  hold strains the hulls. A breach blow (`applyDamage({ breach: true })`)
+  opens a leak; a repair eases and seals it. Bus events: `hazard:changed`
+  (redraw), `hazard:notice` (a stage changed: a toast).
+- Time: `src/systems/ship/hazardClock.js` turns eligible frame time into
+  whole ticks (at most 3 a frame); WorldScene feeds it only while the captain
+  is free (no scene, dialogue, bar, menu, battle, transition or F2), so
+  nothing happens while paused. Emergency work ticks explicitly, one tick per
+  second of work, and scripts only with `hazardClock`.
+- The response: `src/systems/ship/response.js` (`responseOptions`: what can
+  be done in a room, with times, costs and refusals; `emergencySummary` and
+  `emergencyLine` for the HUD; `advice` for the Ship page). Commands:
+  `leak`, `flood`, `drain`, `ignite`, `extinguish`, `sealLeak`, `hazardClock`,
+  `hazardAction` (pump, bail, fetch, douse, smother), `patchLeak` (a
+  challenge on the repair bar) and `emergency` (the Respond choice). The
+  `hazard` condition reads it all.
+- Retry-safe damage events: `scopedEventId` scopes a step's `eventId` to
+  the challenge charge, list or attempt applying it (the runner passes the
+  scope); `ShipState.seen` is saved (`ship.events`) and checkpointed, so a
+  retry can take the same hit again and a repeated callback can't.
+- UI: the HUD emergency line and the work panel in OverlayScene
+  (`setEmergency`, `work`), the Respond hint and button (`secondary`: V, pad
+  X) in WorldScene, the room's tint, waterline, embers and smoke in
+  `src/world/HazardLayer.js` (rebuilt from the state on `hazard:changed`, a
+  load or a restore), the emergencies on Pause > Ship. Debug: F2 > Ship and
+  the `hazard_demo` preset.
 
 ## Battle
 
@@ -963,13 +1010,15 @@ handles fullscreen, so pixels stay square and sharp.
 See the README and [RETRO_PORT_NOTES.md](RETRO_PORT_NOTES.md#save-schema).
 Autosave on map entry and after battles, three manual slots from the pause
 menu, checksum + version per record, migrations table for future formats.
-The schema is at version 18 (Story Phase 4 added story values: where the
+The schema is at version 19 (Story Phase 4 added story values: where the
 Dead Center is; Phases 5 to 17 keep the layout, and Phases 11 to 17 add only
 flags, variables and values: Phase 16's rooms' air, Fart Zone, beard, counter,
 lighter and hornets are all story state; Phase 17's new party members are
 ordinary party records, deduplicated on load; overhaul Prompt 5 added
 `ship`, each section's integrity, and a version 17 save loads with a whole
-ship); a save from any earlier phase upgrades on load
+ship; Prompt 6 added the ship's hazards and the damage event ids already
+applied, and a version 18 save loads with no emergency); a save from any
+earlier phase upgrades on load
 and walks into the next chapter. Aliases are never saved.
 
 ## Testing

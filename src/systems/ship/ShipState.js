@@ -1,5 +1,6 @@
-import { isPlainObject } from '../../core/util.js';
+import { isPlainObject, asArray } from '../../core/util.js';
 import { thresholdFor, sumItems } from './integrity.js';
+import { HazardState } from './HazardState.js';
 
 /**
  * The ship's condition (docs/gameplay-overhaul/09-ship-integrity.md): each
@@ -12,7 +13,11 @@ import { thresholdFor, sumItems } from './integrity.js';
  *   - an unknown section or category, or an amount that isn't a positive
  *     number, changes nothing and says why
  *   - a damage event with an "eventId" applies once, however often its
- *     callback fires (genuine repeated attacks have their own ids)
+ *     callback fires (genuine repeated attacks have their own ids). Inside
+ *     a challenge the id is scoped to the attempt (the script commands do
+ *     that), and the ids seen are saved and restored with the ship, so a
+ *     retried attempt can take the same hit again and a stale callback
+ *     can't (docs/gameplay-overhaul/10-flooding-and-fire.md)
  *   - damage asked for by a challenge that has already resolved is refused
  *     unless explicitly authorized
  *   - a repair takes all of its materials or none, and only then restores
@@ -21,18 +26,24 @@ import { thresholdFor, sumItems } from './integrity.js';
  * Events on the bus: ship:damaged, ship:restored, ship:threshold (a section
  * moved to another condition), ship:destroyed (a vital section reached 0),
  * ship:changed (anything changed: the HUD redraws), ship:loaded.
+ *
+ * Its emergencies (leaks, water, fire: Prompt 6) are `this.hazards`
+ * (./HazardState.js), saved and checkpointed with it.
  */
 const SEEN_LIMIT = 128;
+/** Event ids a save and a checkpoint keep (all of them: at most SEEN_LIMIT). */
+const SAVED_EVENTS = SEEN_LIMIT;
 
 export class ShipState {
-  constructor({ def = null, bus = null } = {}) {
+  constructor({ def = null, hazards = null, bus = null } = {}) {
     this.def = def;
     this.bus = bus;
     this.hp = new Map();
-    // Per play only (never saved): damage events already applied, and repairs under way.
+    // Damage events already applied (saved and checkpointed, the latest SAVED_EVENTS), and repairs under way (per play).
     this.seen = new Set();
     this.locks = new Set();
     this.thresholds = [...(def?.thresholds ?? [])].sort((a, b) => b.min - a.min);
+    this.hazards = new HazardState({ ship: this, def: hazards, bus });
     this.reset();
   }
 
@@ -114,30 +125,34 @@ export class ShipState {
     return this.ids.every((id) => this.hp.get(id) >= this.def.sections[id].max);
   }
 
+  /** True when nothing is wrong at all: every section whole and no hazard (leak, water, fire, buckets carried). */
+  get untouched() {
+    return this.pristine && !this.hazards.any;
+  }
+
   /**
    * Damages one section. `req`:
    *   section, amount (before scaling), category, source, event (a story
    *   event or challenge id), eventId (applied once), tuning (the
    *   difficulty's ship tuning: damageScale, grace), scale (false: the amount
-   *   is final), challengeState / authorized (see the class comment)
+   *   is final), challengeState / authorized (see the class comment),
+   *   breach (true: this blow may hole the hull, opening a leak into `room`
+   *   or the section's own; Prompt 6), exact (true: a hazard's tick, already
+   *   scaled and resisted: applied as given)
    * Returns what happened; `ok: false` changes nothing.
    */
   applyDamage(req = {}) {
-    const { section, category = 'impact', source = null, event = null, eventId = null, tuning = null, scale = true, challengeState = null, authorized = false } = req;
+    const { section, category = 'impact', source = null, event = null, eventId = null, tuning = null, scale = true, challengeState = null, authorized = false, breach = false, room = null, exact = false } = req;
     const fail = (reason) => ({ ok: false, reason, section, category, applied: 0 });
     if (!this.has(section)) return fail('unknown section');
     if (!this.def.categories?.[category]) return fail('unknown category');
     const amount = Number(req.amount);
     if (!Number.isFinite(amount) || amount <= 0) return fail('invalid amount');
     if (challengeState === 'resolved' && !authorized) return fail('challenge already resolved');
-    if (eventId !== null && eventId !== undefined) {
-      if (this.seen.has(eventId)) return fail('duplicate event');
-      this.seen.add(eventId);
-      if (this.seen.size > SEEN_LIMIT) this.seen.delete(this.seen.values().next().value);
-    }
+    if (!this.claimEvent(eventId)) return fail('duplicate event');
     const def = this.def.sections[section];
-    const resist = def.resist?.[category] ?? 1;
-    const k = (scale ? tuning?.damageScale ?? 1 : 1) * resist;
+    const resist = exact ? 1 : def.resist?.[category] ?? 1;
+    const k = exact ? 1 : (scale ? tuning?.damageScale ?? 1 : 1) * resist;
     const before = this.hp.get(section);
     const from = this.section(section);
     if (k <= 0) return { ok: true, reason: 'immune', section, category, source, event, requested: amount, applied: 0, before, after: before, from: from.state, to: from.state, crossed: false, destroyed: this.destroyed };
@@ -152,6 +167,8 @@ export class ShipState {
     const to = this.section(section);
     const result = { ok: true, section, category, source, event, requested: amount, applied, before, after, max: def.max, from: from.state, to: to.state, crossed: from.state !== to.state, destroyed: this.destroyed, becameDestroyed: !wasDestroyed && this.destroyed };
     this.announce('ship:damaged', result, from, to);
+    // A blow that may hole the hull opens (or worsens, or tears open) a leak as bad as the section's condition now allows.
+    if (breach) result.leak = this.hazards.onBreach(result, room);
     return result;
   }
 
@@ -168,6 +185,8 @@ export class ShipState {
     const to = this.section(section);
     const result = { ok: true, section, source, restored: after - before, before, after, max: def.max, from: from.state, to: to.state, crossed: from.state !== to.state, destroyed: this.destroyed };
     this.announce('ship:restored', result, from, to);
+    // A sounder section leaks less, and stops once it's sound enough (the water already in stays).
+    this.hazards.onSectionRestored(section);
     return result;
   }
 
@@ -191,6 +210,19 @@ export class ShipState {
     }
     const r = restore > 0 ? this.restore(section, restore, { source }) : { ok: true, section, restored: 0, before: this.hp.get(section), after: this.hp.get(section) };
     return { ...r, spent: taken };
+  }
+
+  /**
+   * Records an event id (a damage callback, a scripted leak or fire); false
+   * if it was already applied. No id: always new (a hazard's own ticks never
+   * repeat, so they don't need one).
+   */
+  claimEvent(id) {
+    if (id === null || id === undefined) return true;
+    if (this.seen.has(id)) return false;
+    this.seen.add(id);
+    if (this.seen.size > SEEN_LIMIT) this.seen.delete(this.seen.values().next().value);
+    return true;
   }
 
   /** One repair at a time per section (repeated input can't start two). */
@@ -217,7 +249,7 @@ export class ShipState {
   }
 
   serialize() {
-    return { sections: Object.fromEntries(this.ids.map((id) => [id, this.hp.get(id)])) };
+    return { sections: Object.fromEntries(this.ids.map((id) => [id, this.hp.get(id)])), hazards: this.hazards.serialize(), events: [...this.seen].slice(-SAVED_EVENTS) };
   }
 
   /**
@@ -227,6 +259,8 @@ export class ShipState {
    */
   load(state, onWarning = () => {}) {
     this.reset();
+    // The damage events already applied (a save from before version 19 has none) and the emergencies (none: nothing invented).
+    this.seen = new Set(asArray(state?.events).filter((e) => typeof e === 'string').slice(-SAVED_EVENTS));
     const sections = isPlainObject(state?.sections) ? state.sections : {};
     for (const [id, v] of Object.entries(sections)) {
       if (!this.has(id)) {
@@ -241,7 +275,9 @@ export class ShipState {
       }
       this.hp.set(id, Math.max(0, Math.min(max, Math.round(n))));
     }
+    this.hazards.load(state?.hazards, onWarning);
     this.bus?.emit('ship:loaded', {});
+    this.bus?.emit('hazard:changed', {});
     this.bus?.emit('ship:changed', { section: null });
   }
 }

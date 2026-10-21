@@ -57,7 +57,7 @@ A blow (`ShipState.applyDamage`, or the `shipDamage` script step) names a sectio
 
 - Integrity is always a whole number from 0 to the maximum.
 - An unknown section or category, or an amount that isn't a positive number, changes nothing and says why.
-- **One event lands once:** a blow with an `eventId` applies once however often its callback fires. Repeated real attacks (no id, or their own ids) all land. The ids seen are per play, never saved, and capped at 128.
+- **One event lands once:** a blow with an `eventId` applies once however often its callback fires. Repeated real attacks (no id, or their own ids) all land. The ids seen are per play, never saved, and capped at 128. *(Changed in Prompt 6: the ids are now saved and checkpointed, and scoped to the challenge attempt or charge applying them, so a retry can take the same hit again; see [10-flooding-and-fire.md](10-flooding-and-fire.md), section 9.)*
 - **No damage after the fact:** inside a challenge, a blow is refused once that challenge has resolved, unless the step says `"authorized": true`.
 
 ### What a condition means
@@ -147,7 +147,7 @@ Any challenge can now charge the ship. The Prompt 3 findings asked for real targ
 
 ## Checkpoints and saves
 
-- **Checkpoints** capture the `ship` domain with the rest. A retry restores the ship and the hold together (a repair can't be undone without its materials coming back, and vice versa). `diffStates` reports `ship: { section: [before, after] }`. Locks and seen event ids are per play: a restore doesn't touch them.
+- **Checkpoints** capture the `ship` domain with the rest. A retry restores the ship and the hold together (a repair can't be undone without its materials coming back, and vice versa). `diffStates` reports `ship: { section: [before, after] }`. Locks and seen event ids are per play: a restore doesn't touch them. *(Prompt 6: the seen event ids are now part of the `ship` domain, so a restore puts back the ids of its moment; locks are still per play.)*
 - **Save version 18** stores `ship: { sections: { hull_port: 60, ... } }`, and nothing else. The 17 → 18 migration adds `{ sections: {} }` when a save has no ship (or something odd in its place); a missing section loads at its maximum, so **an old save loads with a whole ship, and no damage is invented**. Loading drops unknown sections (with a warning), turns a non-number into a whole section, and clamps and rounds the rest.
 - **No exploits** (test 23): a save taken mid-repair holds the ship and hold as they were when it was taken. Nothing is half-spent, and no repair is under way after loading. A failed try's waste stays wasted in a later save. Loading the same save twice gives the same hold. A permanent cost survives a retry only when it is a sticky cost.
 
@@ -180,7 +180,7 @@ The F2 Ship tab also lists every section's integrity and has "Repair everything 
 - **No repair stations.** Repairs start from Pause > Ship in a section's rooms. Stations (world objects with a section) are for the layout prompts, which will call `shipRepair` with the station's section (and `anywhere` if the station is the place).
 - **No source of materials in the campaign.** Only the demo preset and F2 give them. Resources and supply (Prompt 10) will add sources, and the shops can stock them then.
 - **The ship can be "lost" but there is no defeat:** `ship:destroyed` and `ship.onDestroyed.script` are hooks, and without a script the world shows a toast.
-- **Event ids are per play**, and a checkpoint restore doesn't forget them. A blow that can repeat inside a retried challenge needs an id per attempt (include the attempt number), or none.
+- **Event ids are per play**, and a checkpoint restore doesn't forget them. A blow that can repeat inside a retried challenge needs an id per attempt (include the attempt number), or none. *(Fixed in Prompt 6: ids are scoped and restored with the checkpoint; see [10-flooding-and-fire.md](10-flooding-and-fire.md), section 9.)*
 - **One section, one repair at a time**, from one place. Crew repairing in parallel (Prompts 20–26) needs per-station locks.
 - **No new sound or animation** for damage: a toast and the badge. The game's look is unchanged.
 - **The 100-minute full browser suite was not run.** The smoke suite and the new and affected specs were (see the Prompt 5 report).
@@ -191,8 +191,8 @@ Documented here, with no code until the owning prompt:
 
 | System (prompt) | Reads | Writes |
 |---|---|---|
-| Flooding (6) | the hulls' `efficiency` / `operational` (leaks below `damaged`) | — (water level is its own state) |
-| Fire (6) | `deck`, `rigging` | `shipDamage` with a `fire` category (add it to `categories`) |
+| Flooding (6), **done** | the hulls' percentage (a leak's severity: below 60 / 30 / 15%) | `strain` damage from a foundering hold; water is its own state ([10](10-flooding-and-fire.md)) |
+| Fire (6), **done** | the sections each room's fire names, their `fire` resistance | `applyDamage` with the `fire` category (added to `categories`) |
 | Atmosphere per room (7) | a section's rooms | none: atmosphere and integrity stay separate |
 | Pressure events, Brogath / Garrick (8) | – | an eruption's `shipDamage` (category `supernatural`, with an `eventId`) |
 | Beard Saturation (9) | – | none planned |

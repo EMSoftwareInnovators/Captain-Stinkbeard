@@ -472,8 +472,8 @@ describe('15. controls: one press, one action', () => {
 
 // ---------------------------------------------------------------------------------------------
 describe('16. saves never hold a half-finished attempt', () => {
-  it('challenges add nothing to the save (version 18 since Prompt 5 added the ship); checkpoints and records are per-play only', async () => {
-    expect(SAVE_VERSION).toBe(18);
+  it('challenges add nothing to the save (version 19 since Prompts 5 and 6 added the ship and its hazards); checkpoints and records are per-play only', async () => {
+    expect(SAVE_VERSION).toBe(19);
     const s = makeStory({ preset: 'p17_complete', challenges: 'failOnce' });
     await s.run([{ repair: 'hull', strikes: 3, challenge: STRICT_REPAIR({ id: 'fixture_save' }) }]);
     const state = s.session.serialize();

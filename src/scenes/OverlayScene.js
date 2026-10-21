@@ -8,6 +8,7 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
 import { alarmLevel, alarmColor } from '../systems/hazards/alarms.js';
 import { TvView } from '../ui/TvView.js';
 import { REPAIR_KINDS } from '../systems/repairKinds.js';
+import { emergencyLine } from '../systems/ship/response.js';
 import { createTimingBar, stepTimingBar, pressTimingBar, timingBarResult, timingBarSettings, inZone } from '../systems/timingBar.js';
 import { resolveAssists } from '../systems/challenge/difficulty.js';
 import { tunedTensionDef } from '../systems/tension.js';
@@ -190,13 +191,78 @@ export class OverlayScene extends BaseScene {
 
   /** The badge gives way to anything at the bottom of the screen (dialogue, a timing bar, the sash close-up) and to the menus. */
   layoutShipBadge() {
-    const b = this.shipBadge;
-    if (!b) return;
     const show = !this.busy && !this.scene.isActive('Menu') && !this.scene.isActive('Battle') && !this.scene.get('Debug')?.open;
-    if (b.shown !== show) {
+    for (const b of [this.shipBadge, this.emergencyLine]) {
+      if (!b || b.shown === show) continue;
       b.shown = show;
       b.parts.forEach((p) => p.setVisible(show));
     }
+  }
+
+  /**
+   * The ship's emergencies (overhaul Prompt 6): one line above the ship
+   * badge while any leak is open, water is in or a fire burns. The worst two
+   * in words ("FIRE Galley BLAZING  WATER Cargo Hold 42%"), how many more,
+   * and LISTING / FOUNDERING when the hold is filling. Hidden like the badge.
+   * `state`: { items: [markup], more, stability, here } or null.
+   */
+  setEmergency(state) {
+    if (!state) {
+      this.emergencyLine?.parts.forEach((p) => p.destroy());
+      this.emergencyLine = null;
+      return;
+    }
+    const D = 398;
+    if (!this.emergencyLine) {
+      const bg = this.add.rectangle(0, 0, 10, 14, 0x1a0808, 0.75).setOrigin(0).setDepth(D);
+      const text = addText(this, 0, 0, '', { depth: D + 1 });
+      this.emergencyLine = { parts: [bg, text], bg, text };
+    }
+    const e = this.emergencyLine;
+    const key = JSON.stringify(state);
+    if (e.key !== key) {
+      e.key = key;
+      // The full line if it fits the screen, else the worst one and a count.
+      const markup = emergencyLine(state, (m) => {
+        setText(e.text, m);
+        return e.text.textWidth <= SCREEN_WIDTH - 12;
+      });
+      setText(e.text, markup);
+      e.text.x = 8;
+      e.text.y = SCREEN_HEIGHT - 31;
+      e.bg.setPosition(4, SCREEN_HEIGHT - 33);
+      e.bg.width = e.text.textWidth + 8;
+    }
+    this.layoutShipBadge();
+  }
+
+  /**
+   * Emergency work in progress (overhaul Prompt 6: pumping, bailing,
+   * dousing): what, and how far along, low in the middle of the screen.
+   * `state`: { label, done, of } or null.
+   */
+  work(state) {
+    if (!state) {
+      this.workPanel?.parts.forEach((p) => p.destroy());
+      this.workPanel = null;
+      return;
+    }
+    const w = 150;
+    const x = Math.round((SCREEN_WIDTH - w) / 2);
+    const y = SCREEN_HEIGHT - 62;
+    if (!this.workPanel) {
+      const panel = addPanel(this, x, y, w, 26, { depth: 420 });
+      const label = addText(this, x + 7, y + 4, '', { font: 'bold', color: 0xf0d860, depth: 421 });
+      const back = this.add.rectangle(x + 8, y + 17, w - 16, 4, 0x1a1320).setOrigin(0).setDepth(421);
+      const bar = this.add.rectangle(x + 8, y + 17, 1, 4, 0x6cb4e4).setOrigin(0).setDepth(422);
+      const left = addText(this, 0, y + 5, '', { color: 0xdccca8, depth: 421 });
+      this.workPanel = { parts: [panel, label, back, bar, left], label, bar, left, barW: w - 16, x, w };
+    }
+    const p = this.workPanel;
+    setText(p.label, state.label.toUpperCase());
+    p.bar.width = Math.max(1, Math.round((p.barW * (state.done + 1)) / Math.max(1, state.of)));
+    setText(p.left, `${Math.max(0, state.of - state.done - 1)} s`);
+    p.left.x = p.x + p.w - 8 - p.left.textWidth;
   }
 
   get busy() {
@@ -1043,6 +1109,8 @@ export class OverlayScene extends BaseScene {
     this.setExposure(null);
     this.setStability(null);
     this.setShipBadge(null);
+    this.setEmergency(null);
+    this.work(null);
     this.app.cinema?.reset();
     if (this.tutorialOpen) {
       this.tutorialOpen.parts.forEach((p) => p.destroy());

@@ -23,6 +23,7 @@ import { TELLER_MODIFIERS } from '../systems/bank.js';
 import { challengeProblems, challengeConfig, specKeyProblems, PROFILE_KEYS } from '../systems/challenge/config.js';
 import { difficultyDataProblems, DIFFICULTIES } from '../systems/challenge/difficulty.js';
 import { shipDataProblems } from '../systems/ship/integrity.js';
+import { hazardDataProblems, compartment, compartmentIds, fireRoom, flammableRooms, leakSections, leakSeverity } from '../systems/ship/hazards.js';
 import { DutyPlan } from '../systems/hazards/sharkDuty.js';
 
 /** The least time a shark on an opted-in watch may give before it bites (a walk across the deck). */
@@ -242,6 +243,22 @@ function validateParam(type, value, check, sctx) {
     case 'shipRepair':
       if (!check.ctx.db.ship?.repairs?.[value]) check.error(`unknown ship repair "${value}"`);
       return;
+    // Prompt 6 hazards (data/ship/hazards.json): rooms that can flood or burn, sections that can leak.
+    case 'floodRoom':
+      if (!compartment(check.ctx.db, value)) check.error(`"${value}" can't hold water (data/ship/hazards.json compartments: ${compartmentIds(check.ctx.db).join(', ')})`);
+      return;
+    case 'fireRoom':
+      if (!fireRoom(check.ctx.db, value)) check.error(`"${value}" can't burn (data/ship/hazards.json fire.rooms: ${flammableRooms(check.ctx.db).join(', ')})`);
+      return;
+    case 'leakSection':
+      if (!check.ctx.db.shipHazards?.leaks?.sections?.[value]) check.error(`the ${value} can't leak (data/ship/hazards.json leaks.sections: ${leakSections(check.ctx.db).join(', ')})`);
+      return;
+    case 'leakSeverity':
+      if (!leakSeverity(check.ctx.db.shipHazards, value)) check.error(`unknown leak severity "${value}"`);
+      return;
+    case 'hazardAction':
+      if (!['pump', 'bail', 'fetch', 'douse', 'smother'].includes(value)) check.error(`unknown emergency action "${value}" (pump, bail, fetch, douse, smother; patching is patchLeak)`);
+      return;
     case 'challenge':
       // The shape here; the rules (and the steps they run) in validateChallenge.
       if (typeof value === 'string') return check.ref('challenge profile', value, check.ctx.db.challenges);
@@ -406,7 +423,17 @@ function validateStep(step, check, sctx) {
   if ((name === 'repair' || name === 'sashTension') && step.challenge !== undefined) validateChallenge(step.challenge, name, check.at(`${name}.challenge`), sctx, step);
   // A ship repair is always a challenge (its repair's, or this step's own).
   if (name === 'shipRepair' && step.challenge !== undefined) validateChallenge(step.challenge, 'repair', check.at('shipRepair.challenge'), sctx, { strikes: check.ctx.db.ship?.repairs?.[step.repair]?.strikes });
-  if ((name === 'shipDamage' || name === 'shipRestore') && !(step.amount > 0)) check.error(`${name}: "amount" must be a number above 0`);
+  if ((name === 'shipDamage' || name === 'shipRestore' || name === 'flood' || name === 'drain') && !(step.amount > 0)) check.error(`${name}: "amount" must be a number above 0`);
+  // Prompt 6: a breach lands in one of the section's own floodable rooms; a patch is a challenge like a repair.
+  if (name === 'shipDamage' && step.room !== undefined) {
+    for (const sec of asArray(step.shipDamage)) if (!asArray(check.ctx.db.ship?.sections?.[sec]?.rooms).includes(step.room)) check.error(`shipDamage: "${step.room}" isn't one of the ${sec}'s rooms`);
+    if (step.breach !== true) check.error('shipDamage: "room" only matters with "breach": true');
+  }
+  if (name === 'leak' && step.room !== undefined && !asArray(check.ctx.db.ship?.sections?.[step.leak]?.rooms).includes(step.room)) check.error(`leak: "${step.room}" isn't one of the ${step.leak}'s rooms`);
+  if (name === 'ignite' && step.intensity !== undefined && !(step.intensity > 0 && step.intensity <= 100)) check.error('ignite: "intensity" must be 1 to 100');
+  if (name === 'patchLeak' && step.patchLeak !== true && typeof step.patchLeak !== 'string') check.error('patchLeak: true (the worst leak here) or a leak id');
+  if (name === 'patchLeak' && step.challenge !== undefined) validateChallenge(step.challenge, 'repair', check.at('patchLeak.challenge'), sctx, { strikes: check.ctx.db.shipHazards?.actions?.patch?.strikes });
+  if (name === 'hazardAction' && step.station !== undefined && !check.ctx.db.shipHazards?.stations?.[step.station]) check.error(`hazardAction: unknown station "${step.station}"`);
   if ((name === 'repair' || name === 'sashTension') && step.challenge === undefined && ['outcomeValue', 'ifSuccess', 'ifPartial', 'ifFailure'].some((k) => k in step)) {
     check.error('outcomeValue / ifSuccess / ifPartial / ifFailure need a "challenge" (a legacy step always succeeds)');
   }
@@ -767,6 +794,23 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
 
   // Ship Integrity (data/ship/integrity.json): sections, thresholds, repairs and their challenges.
   for (const problem of shipDataProblems(db)) C('data/ship').error(problem);
+  // Ship hazards (data/ship/hazards.json): rooms and links from the maps, sections, materials, the patch's challenge.
+  for (const problem of hazardDataProblems(db)) C('data/ship').error(problem);
+  if (db.shipHazards?.actions?.patch) {
+    const c = C('data/ship/hazards.json (actions.patch)');
+    const spec = db.shipHazards.actions.patch.challenge ?? { profile: 'ship_repair' };
+    for (const problem of challengeProblems(db, spec, { kind: 'repair', step: { strikes: db.shipHazards.actions.patch.strikes } })) c.error(`challenge: ${problem}`);
+    for (const d of DIFFICULTIES) {
+      let cfg = null;
+      try {
+        cfg = challengeConfig(db, spec, { kind: 'repair', id: 'check', difficulty: d });
+      } catch {
+        break;
+      }
+      if (!cfg?.failure) c.error(`[${d}] a patch's challenge must be able to fail ("failure": true)`);
+      else if (cfg.onFailure.mustRetry) c.error(`[${d}] a patch can't be must-win: the materials may run out`);
+    }
+  }
   for (const [id, r] of Object.entries(db.ship?.repairs ?? {})) {
     if (id.startsWith('//')) continue;
     const c = C(`data/ship/integrity.json (repairs.${id})`);

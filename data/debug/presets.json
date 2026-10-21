@@ -9074,5 +9074,13 @@
     "after": "p17_complete",
     "map": "crew_quarters", "x": 10, "y": 8, "facing": "down",
     "items": [{ "id": "planks", "count": 6 }, { "id": "nails", "count": 6 }, { "id": "rope", "count": 4 }, { "id": "sailcloth", "count": 2 }]
+  },
+  {
+    "id": "hazard_demo",
+    "name": "Emergency demo",
+    "description": "Overhaul Prompt 6 test bench (docs/gameplay-overhaul/10-flooding-and-fire.md): the end of Phase 17 in the cargo hold, by the bilge pump, with a whole ship and emergency supplies. Start a leak or a fire from F2 > Ship; respond with V (pad X) where it happens.",
+    "after": "p17_complete",
+    "map": "cargo_hold", "x": 14, "y": 4, "facing": "down",
+    "items": [{ "id": "planks", "count": 8 }, { "id": "nails", "count": 10 }, { "id": "rope", "count": 4 }, { "id": "sailcloth", "count": 4 }]
   }
 ]

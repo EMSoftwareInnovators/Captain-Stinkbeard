@@ -111,6 +111,7 @@ function buildButtonGlyphs() {
   out.key_c = keycap(9, (c, col) => miniText(c, 'C', 3, 1, col));
   out.key_q = keycap(9, (c, col) => miniText(c, 'Q', 3, 1, col));
   out.key_e = keycap(9, (c, col) => miniText(c, 'E', 3, 1, col));
+  out.key_v = keycap(9, (c, col) => miniText(c, 'V', 3, 1, col));
   out.key_esc = keycap(15, (c, col) => miniText(c, 'ESC', 2, 1, col));
   out.key_f2 = keycap(11, (c, col) => miniText(c, 'F2', 2, 1, col));
   out.key_enter = keycap(11, (c, col) => {

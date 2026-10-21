@@ -273,6 +273,8 @@ the cancel button (default: the last option).
 | `setVar` / `addVar` | name, `value` | story variables |
 | `giveItem` / `takeItem` | item, `count`, `silent` | inventory (with a notice unless silent) |
 | `shipDamage` / `shipRestore` / `shipRepair` | section(s), `amount`, ... | the ship's condition (see "Ship Integrity" at the end) |
+| `leak` / `flood` / `drain` / `ignite` / `extinguish` / `sealLeak` / `hazardClock` | section or room, ... | start or end an emergency, or run its clock (see "Flooding and fire" at the end) |
+| `hazardAction` / `patchLeak` / `emergency` | action, ... | the captain's response: pump, bail, fetch, douse, smother, patch, or the Respond choice |
 | `giveGold` / `takeGold` | amount, `silent` | gold |
 | `startQuest` | quest, `silent` | start a quest |
 | `completeObjective` | `"quest.objective"` | finish an objective |
@@ -360,6 +362,7 @@ Used by `if` everywhere (dialogue selectors, steps, choices, map objects, warps,
 | `always` / `never` | `{ "always": true }` |
 | `deadCenter` | `{ "deadCenter": "galley_breakfast" }` or a list (any of): where the Dead Center is (Phase 4) |
 | `ship` | `{ "ship": { "section": "rigging", "operational": false } }`: a section's or the whole ship's condition (see "Ship Integrity") |
+| `hazard` | `{ "hazard": { "fire": "galley", "stage": ["blazing", "inferno"] } }`: the ship's emergencies (see "Flooding and fire") |
 
 ## Story flags and variables
 
@@ -2007,3 +2010,62 @@ The condition:
 Everything else (thresholds, costs per difficulty, the HUD, the demo, the
 rules for layout changes) is in
 [gameplay-overhaul/09-ship-integrity.md](gameplay-overhaul/09-ship-integrity.md).
+
+Since Prompt 6, `shipDamage` also takes `"breach": true` (the blow may open
+a leak as bad as the section's condition now allows) and `"room"` (which of
+the section's compartments it leaks into). Ordinary story damage never has
+`breach`: only a chapter that opts into flooding should use it.
+
+## Flooding and fire
+
+Leaks, water per compartment and fire per room, defined in
+`data/ship/hazards.json` by room (map id) and section, never by tile. No
+chapter uses them yet. Steps:
+
+```json
+{ "leak": "hull_port", "severity": "leak", "eventId": "p41_hole" }
+{ "leak": "hull_starboard", "room": "treasure_hold", "severity": "breach" }
+{ "shipDamage": "hull_port", "amount": 40, "category": "cannon", "breach": true, "eventId": "p41_shot_2" }
+{ "flood": "galley", "amount": 60 }
+{ "drain": "cargo_hold", "amount": 30 }
+{ "ignite": "galley", "intensity": 30, "spread": false, "eventId": "p41_stove" }
+{ "extinguish": "galley" }
+{ "sealLeak": "hull_port" }
+{ "hazardClock": 10 }
+{ "hazardAction": "pump", "outcomeValue": "p41_pumped" }
+{ "patchLeak": true, "outcomeValue": "p41_patch" }
+{ "emergency": true }
+```
+
+- `leak` opens (or worsens) a leak: a section that can leak (`hull_port`,
+  `hull_starboard`, `bow`), one of its compartments, a severity (`seep`,
+  `leak`, `breach`). `flood` / `drain` add or remove water units; `ignite`
+  starts a fire (intensity 1–100; nothing happens in a room awash or burnt
+  out); `extinguish` and `sealLeak` end them with no work. An `eventId`
+  applies once, scoped to the challenge attempt or charge it runs in.
+- `hazardClock` runs N seconds of hazard time at once (the world only runs
+  it while the captain is free; scripts never do unless they say so).
+- `hazardAction` (`pump`, `bail`, `fetch`, `douse`, `smother`) and
+  `patchLeak` (`true`, or a leak id; a challenge on the repair bar) are the
+  captain's response, in the room he's in. If it can't be done they say why
+  and set `outcomeValue` to `refused`. `emergency` opens the Respond choice.
+- A challenge can start, worsen or end emergencies in its `costs` (they
+  survive a retry) and `consequences`.
+
+The condition:
+
+```json
+{ "hazard": { "fire": "galley" } }                        a fire there ("fire": true: anywhere)
+{ "hazard": { "fire": true, "stage": ["blazing", "inferno"] } }
+{ "hazard": { "water": "cargo_hold", "pct": { "gte": 35 } } }
+{ "hazard": { "water": "cargo_hold", "stage": "critical" } }
+{ "hazard": { "leak": "hull_port" } }                     an open leak ("leak": true: any)
+{ "hazard": { "stability": "foundering" } }               steady, listing or foundering
+{ "hazard": { "any": false } }                            all clear
+```
+
+A chapter that opts in must also supply the materials its emergencies ask
+for (until Prompt 10 adds a source) and test that every difficulty can
+recover. Everything else (rates, stages, the response, difficulty,
+checkpoints, the HUD, the demo) is in
+[gameplay-overhaul/10-flooding-and-fire.md](gameplay-overhaul/10-flooding-and-fire.md).

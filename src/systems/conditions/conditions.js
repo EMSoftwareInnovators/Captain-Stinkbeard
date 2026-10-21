@@ -222,6 +222,54 @@ export const CONDITION_OPERATORS = {
     },
   },
 
+  /**
+   * Overhaul Prompt 6: the ship's emergencies (docs/gameplay-overhaul/10-flooding-and-fire.md).
+   *   { "hazard": { "fire": "galley" } }   a fire there ("fire": true: anywhere; "stage": a fire stage or list)
+   *   { "hazard": { "water": "cargo_hold", "pct": { "gte": 35 } } }   ("stage": a flood stage or list)
+   *   { "hazard": { "leak": "hull_port" } }   an open leak in that section ("leak": true: any)
+   *   { "hazard": { "any": true } }   any emergency at all ("any": false: none)
+   *   { "hazard": { "stability": "foundering" } }   steady, listing or foundering
+   * Every key given must hold. A session without hazards reads as all clear.
+   */
+  hazard: {
+    evaluate: (v, s) => {
+      const hz = s.ship?.hazards;
+      if (!hz) return v.any === false || (v.any === undefined && !v.fire && !v.water && !v.leak && (v.stability ?? 'steady') === 'steady');
+      if ('any' in v && hz.active !== v.any) return false;
+      if ('stability' in v && !asArray(v.stability).includes(hz.stability().state)) return false;
+      if (v.leak !== undefined && !hz.leaks.some((l) => l.state === 'open' && (v.leak === true || l.section === v.leak))) return false;
+      if (v.fire !== undefined) {
+        const fires = hz.fires.filter((f) => v.fire === true || f.room === v.fire);
+        if (!fires.length) return false;
+        if ('stage' in v && !fires.some((f) => asArray(v.stage).includes(hz.fireIn(f.room).stage.id))) return false;
+      }
+      if (v.water !== undefined) {
+        const w = hz.waterIn(v.water);
+        if ('pct' in v && !compare(w.pct, v.pct)) return false;
+        if ('stage' in v && !asArray(v.stage).includes(w.stage.id)) return false;
+        if (!('pct' in v) && !('stage' in v) && !(w.units > 0)) return false;
+      }
+      return true;
+    },
+    validate: (v, c) => {
+      if (!isPlainObject(v)) return c.error('hazard condition needs { fire | water | leak | any | stability }');
+      const data = c.ctx?.db?.shipHazards;
+      for (const k of Object.keys(v)) if (!['fire', 'water', 'leak', 'stage', 'pct', 'any', 'stability'].includes(k)) c.error(`hazard condition: unknown key "${k}"`);
+      if (typeof v.fire === 'string' && data && !data.fire?.rooms?.[v.fire]) c.error(`hazard condition: "${v.fire}" can't burn`);
+      if (typeof v.water === 'string' && data && !data.compartments?.[v.water]) c.error(`hazard condition: "${v.water}" can't hold water`);
+      if (typeof v.leak === 'string' && data && !data.leaks?.sections?.[v.leak]) c.error(`hazard condition: the ${v.leak} can't leak`);
+      if ('stage' in v) {
+        const known = v.fire !== undefined ? (data?.fire?.stages ?? []).map((st) => st.id) : (data?.floodStages ?? []).map((st) => st.id);
+        if (v.fire === undefined && v.water === undefined) c.error('hazard condition: "stage" goes with "fire" or "water"');
+        for (const st of asArray(v.stage)) if (known.length && !known.includes(st)) c.error(`hazard condition: unknown stage "${st}" (use: ${known.join(', ')})`);
+      }
+      if ('pct' in v && (v.water === undefined || !(typeof v.pct === 'number' || (isPlainObject(v.pct) && Object.keys(v.pct).every((op) => COMPARE_KEYS.includes(op)))))) c.error('hazard condition: "pct" goes with "water", as a number or { lt, gte, ... }');
+      for (const st of asArray(v.stability ?? [])) if (!['steady', 'listing', 'foundering'].includes(st)) c.error(`hazard condition: unknown stability "${st}"`);
+      if ('any' in v && typeof v.any !== 'boolean') c.error('hazard condition: "any" must be true or false');
+      return undefined;
+    },
+  },
+
   all: {
     evaluate: (v, s) => asArray(v).every((cond) => evaluateCondition(cond, s)),
     validate: (v, c) => asArray(v).forEach((cond) => validateCondition(cond, c)),

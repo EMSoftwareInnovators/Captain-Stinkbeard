@@ -551,6 +551,17 @@ export class DebugScene extends BaseScene {
       this.rerender();
     } });
     for (const [label, steps] of DEBUG_SHIP.scenes) out.push({ label, action: () => this.runInWorld(steps) });
+    // Prompt 6: the emergencies (leaks, water, fire), what's going on, and a way to stop it all.
+    const hz = s.ship.hazards;
+    const em = hz.emergencies();
+    out.push({ label: 'Emergencies', right: em.length ? `${em.length} (t=${hz.time}s, buckets ${hz.buckets})` : '<k>none</>' });
+    for (const e of em.slice(0, 6)) out.push({ label: `  ${e.kind} ${e.room}`, right: e.kind === 'fire' ? `${e.intensity} ${e.label}` : e.kind === 'flood' ? `${e.pct}% ${e.label}` : e.label });
+    for (const [label, steps] of DEBUG_SHIP.hazards) out.push({ label, action: () => this.runInWorld(steps) });
+    out.push({ label: 'End every emergency (no materials)', action: () => {
+      hz.reset();
+      hz.changed();
+      this.rerender();
+    } });
     out.push({ label: 'Take every repair material', action: () => {
       for (const id of DEBUG_SHIP.materials) if (s.inventory.count(id)) s.inventory.remove(id, s.inventory.count(id));
       this.rerender();

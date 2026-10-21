@@ -149,11 +149,14 @@ frame is required. Button prompt glyphs are per device (`PROMPT_GLYPHS`).
 
 ## Save schema
 
-`src/systems/save/SaveManager.js`, current `SAVE_VERSION = 18` (versions 5
+`src/systems/save/SaveManager.js`, current `SAVE_VERSION = 19` (versions 5
 to 17 keep this layout, their migrations only rename, fill in or, from 17,
 drop a party member listed twice; version 18, overhaul Prompt 5, adds
 `"ship": { "sections": { "hull_port": 100, ... } }`, six section integrities;
-the example shows a version 5 record). Story Phase 17's two new party members (Ledger and Tilda) are
+version 19, overhaul Prompt 6, adds `ship.hazards` (leaks, water per
+compartment, fires, the fuel left per room, buckets, hazard time) and
+`ship.events` (the damage event ids already applied), and a version 18 save
+loads with no emergency; the example shows a version 5 record). Story Phase 17's two new party members (Ledger and Tilda) are
 ordinary `party` entries, so the cartridge budget's four party slots still
 hold (the captain, Ledger, Tilda, one spare):
 
@@ -180,7 +183,11 @@ vars 32 bytes, object state 16 bytes, visited maps 4 bytes, dialogue counters
 16 bytes, inventory 64 items × 1 byte + gold 3 bytes, party 4 × 16 bytes,
 quests 32 × 8 bytes, location 5 bytes, play time 4 bytes, ship sections
 6 × 1 byte (each at most 100, so a byte; a 1000 maximum would need two),
-checksum 2 bytes —
+ship hazards about 60 bytes (water 6 × 1 byte, units rounded; leaks 4 × 3
+bytes; fires 6 × 4 bytes: intensity, fuel, heat, flags; fuel left 6 × 1
+byte; buckets, strain and hazard time 4 bytes), applied damage events
+32 × 2 bytes (a 16-bit hash of each id, and a shorter list than the
+browser's 128), checksum 2 bytes —
 well under 1 KB. Four slots (3 manual + autosave) fit easily in 8 KB SRAM.
 
 Versioning: every format change bumps `SAVE_VERSION` and adds a migration

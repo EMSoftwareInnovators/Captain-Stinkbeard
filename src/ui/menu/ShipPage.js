@@ -3,6 +3,8 @@ import { addText, UI_COLORS } from '../text.js';
 import { ListMenu } from '../ListMenu.js';
 import { UiLayer } from './UiLayer.js';
 import { repairPlan } from '../../systems/script/commands.js';
+import { responseOptions, advice, roomLabel } from '../../systems/ship/response.js';
+import { fireRoom, leakSeverity } from '../../systems/ship/hazards.js';
 
 /** A condition's colour mark (the word beside it always says the same thing). */
 const TONE = { healthy: 'g', worn: 'w', damaged: 'y', critical: 'o', disabled: 'r' };
@@ -15,6 +17,11 @@ const TONE = { healthy: 'g', worn: 'w', damaged: 'y', critical: 'o', disabled: '
  * repaired here closes the menu and starts the repair in the world (the
  * shipRepair command: materials, a timing bar, the outcome). Keyboard and
  * pad, like every page; one press starts one repair.
+ *
+ * Prompt 6 (docs/gameplay-overhaul/10-flooding-and-fire.md): below the
+ * sections, every emergency (fires, water, leaks) with what it's doing and
+ * what to do about it; Confirm on one in the captain's room closes the menu
+ * and opens the Respond choice there.
  */
 export class ShipPage {
   constructor(scene, rect) {
@@ -54,6 +61,14 @@ export class ShipPage {
     layer.add(scene.add.rectangle(rect.x + 12, rect.y + 24, bw, 4, 0x1a1320).setOrigin(0).setDepth(D + 1));
     layer.add(scene.add.rectangle(rect.x + 12, rect.y + 24, Math.max(1, Math.round((bw * o.pct) / 100)), 4, { g: 0x8cd46a, w: 0xd8d4e8, y: 0xf8d86c, o: 0xf8a040, r: 0xf07860 }[tone]).setOrigin(0).setDepth(D + 2));
     const items = ship.sections().map((s) => ({ label: s.name, value: s.id, right: `${s.pct}% ${s.label.toUpperCase()}`, rightColor: { g: 0x8cd46a, w: 0xffffff, y: 0xf8d86c, o: 0xf8a040, r: 0xf07860 }[TONE[s.state]] }));
+    // The emergencies, worst first: words for what they are (not only colour).
+    const place = (r) => this.app.content.maps.get(r)?.name?.replace(/^The /, '') ?? r;
+    for (const e of ship.hazards.emergencies()) {
+      const kind = e.kind === 'fire' ? 'Fire' : e.kind === 'flood' ? 'Water' : 'Leak';
+      const right = e.kind === 'fire' ? `${e.intensity}% ${e.label.toUpperCase()}` : e.kind === 'flood' ? `${e.pct}% ${e.label.toUpperCase()}` : e.label.toUpperCase();
+      const color = e.kind === 'fire' ? 0xf8a040 : e.kind === 'leak' ? (e.open ? 0xf07860 : 0x8cd46a) : e.pct >= 65 ? 0xf07860 : 0xf8d86c;
+      items.push({ label: `${kind}: ${place(e.room)}`, value: `hz:${e.id}`, right, rightColor: color });
+    }
     this.menu = new ListMenu(scene, {
       x: rect.x + 24,
       y: rect.y + 34,
@@ -80,6 +95,10 @@ export class ShipPage {
   renderDetail() {
     this.detail.clear();
     const id = this.menu?.selected?.value;
+    if (id?.startsWith('hz:')) {
+      this.renderHazard(id.slice(3));
+      return;
+    }
     const sec = id ? this.session.ship.section(id) : null;
     if (!sec) return;
     const { scene, rect } = this;
@@ -121,8 +140,62 @@ export class ShipPage {
     }
   }
 
+  /** An emergency's detail: where, how bad, what it does, what to do, and Respond if it's here. */
+  renderHazard(hid) {
+    const { scene, rect } = this;
+    const hz = this.session.ship.hazards;
+    const e = hz.emergencies().find((x) => x.id === hid);
+    if (!e) return;
+    const D = 21;
+    const x = rect.x + 12;
+    const width = rect.w - 24;
+    let y = rect.y + 117;
+    const line = (text) => {
+      const t = this.detail.add(addText(scene, x, y, text, { depth: D, maxWidth: width }));
+      y += t.text.split('\n').length * 11 + 2;
+    };
+    const content = this.app.content;
+    const where = roomLabel(this.session, e.room);
+    if (e.kind === 'fire') {
+      line(`<o>Fire</> in ${where}: <o>${e.intensity}% ${e.label.toUpperCase()}</>`);
+      const burns = (fireRoom(content, e.room)?.burns ?? []).map((b) => this.session.ship.section(b.section)?.name).filter(Boolean);
+      if (burns.length) line(`<k>Burning:</> ${[...new Set(burns)].join(', ')}`);
+    } else if (e.kind === 'flood') {
+      const w = hz.waterIn(e.room);
+      line(`<y>Water</> in ${where}: ${w.pct}% ${w.stage.label.toUpperCase()}`);
+      const slow = w.stage.work > 1 ? `work ${Math.round((w.stage.work - 1) * 100)}% slower, repairs ${Math.round(w.stage.repair * 100)}%` : 'no effect yet';
+      line(`<k>${w.stage.canWork ? slow : 'Too deep to work in: pump it down'}</>`);
+    } else {
+      const sev = leakSeverity(hz.def, e.stage)?.label ?? e.label;
+      line(`<r>${e.open ? sev : 'Patched leak'}</> in the ${this.session.ship.section(e.section).name.toLowerCase()}, into ${where}`);
+    }
+    line(`<k>${advice(this.session, e)}</>`);
+    const here = this.session.location?.map === e.room;
+    const opts = here ? responseOptions(this.session, e.room, { difficulty: this.app.settings.challengePrefs().difficulty }) : [];
+    if (opts.length) line(`{btn:confirm} <y>Respond here</>`);
+    else line(`<k>${here ? 'Nothing to do about it from here.' : `Go to ${where} to deal with it.`}</>`);
+  }
+
+  /** Confirm on an emergency in this room: close the menu and open the Respond choice in the world. */
+  respond(hid) {
+    if (this.started) return;
+    const e = this.session.ship.hazards.emergencies().find((x) => x.id === hid);
+    const here = e && this.session.location?.map === e.room && responseOptions(this.session, e.room).length > 0;
+    if (!here) {
+      this.app.audio.ui('buzzer');
+      return;
+    }
+    this.started = true;
+    this.app.audio.ui('confirm');
+    this.scene.close({ then: (world) => world.runScript([{ emergency: true }]) });
+  }
+
   /** Confirm: a repair that can start here closes the menu and starts in the world; anything else says why. */
   repair(id) {
+    if (id?.startsWith('hz:')) {
+      this.respond(id.slice(3));
+      return;
+    }
     if (this.started) return;
     const plan = this.plan(id);
     if (!plan.ok) {

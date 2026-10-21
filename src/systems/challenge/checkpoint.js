@@ -6,7 +6,7 @@ import { deepClone, asArray } from '../../core/util.js';
  * A checkpoint is the session's persistent state, exactly what a save holds
  * (story flags, variables and values; quests; inventory and gold; the
  * party's levels, HP and equipment; world objects opened, beaten or marked;
- * the ship's condition; the captain's map and tile), plus the per-play hazards a save leaves out
+ * the ship's condition, its leaks, water and fires; the captain's map and tile), plus the per-play hazards a save leaves out
  * (fume exposure). Restoring one is therefore never more inconsistent than
  * loading a save, and it is never written to a save: checkpoints live in the
  * session's per-play state only.
@@ -103,7 +103,7 @@ export function restoreCheckpoint(session, cp, { keep = {} } = {}) {
  * or repaired ([before, after] integrity).
  */
 export function diffStates(before, after) {
-  const out = { flagsSet: [], flagsCleared: [], vars: {}, values: {}, quests: {}, items: {}, gold: 0, ship: {} };
+  const out = { flagsSet: [], flagsCleared: [], vars: {}, values: {}, quests: {}, items: {}, gold: 0, ship: {}, hazards: {} };
   if (!before || !after) return out;
   const fb = new Set(before.story?.flags ?? []);
   const fa = new Set(after.story?.flags ?? []);
@@ -129,10 +129,29 @@ export function diffStates(before, after) {
   const sa = before.ship?.sections ?? {};
   const sb = after.ship?.sections ?? {};
   for (const id of new Set([...Object.keys(sa), ...Object.keys(sb)])) if ((sa[id] ?? null) !== (sb[id] ?? null)) out.ship[id] = [sa[id] ?? null, sb[id] ?? null];
+  // Prompt 6: water per compartment and fire per room ([before, after], rounded), and open leaks.
+  const ha = before.ship?.hazards ?? {};
+  const hb = after.ship?.hazards ?? {};
+  const pairs = (a, b) => {
+    const o = {};
+    for (const k of new Set([...Object.keys(a), ...Object.keys(b)])) {
+      const x = Math.round(a[k] ?? 0);
+      const y = Math.round(b[k] ?? 0);
+      if (x !== y) o[k] = [x, y];
+    }
+    return o;
+  };
+  const fires = (h) => Object.fromEntries((h.fires ?? []).map((f) => [f.room, f.intensity]));
+  const water = pairs(ha.water ?? {}, hb.water ?? {});
+  const fire = pairs(fires(ha), fires(hb));
+  const open = (h) => (h.leaks ?? []).filter((l) => l.state === 'open').map((l) => `${l.id}:${l.severity}${l.slowed ? ':slowed' : ''}`).sort().join(',');
+  if (Object.keys(water).length) out.hazards.water = water;
+  if (Object.keys(fire).length) out.hazards.fire = fire;
+  if (open(ha) !== open(hb)) out.hazards.leaks = [(ha.leaks ?? []).filter((l) => l.state === 'open').length, (hb.leaks ?? []).filter((l) => l.state === 'open').length];
   return out;
 }
 
 /** True when a diff records no change at all. */
 export function isEmptyDiff(d) {
-  return !d.flagsSet.length && !d.flagsCleared.length && !Object.keys(d.vars).length && !Object.keys(d.values).length && !Object.keys(d.quests).length && !Object.keys(d.items).length && !d.gold && !Object.keys(d.ship ?? {}).length;
+  return !d.flagsSet.length && !d.flagsCleared.length && !Object.keys(d.vars).length && !Object.keys(d.values).length && !Object.keys(d.quests).length && !Object.keys(d.items).length && !d.gold && !Object.keys(d.ship ?? {}).length && !Object.keys(d.hazards ?? {}).length;
 }

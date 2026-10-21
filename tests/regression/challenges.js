@@ -82,6 +82,11 @@ export const CHALLENGE_KINDS = Object.freeze({
     outcomes: { success: 'the section restored by the repair\'s full amount', partial: 'restored by less, for extra material', failure: 'material wasted and a little more damage; another try while the materials last' },
     retry: 'offered while the hold can pay for one; the waste and the damage stay', blocksProgression: false, softlockRisk: 'none: no chapter uses it, and a failed repair never ends the game', note: 'always plays as a strict challenge (the ship_repair profile); no chapter step uses it', source: 'src/systems/ship/, src/systems/script/commands.js (shipRepair), src/ui/menu/ShipPage.js',
   },
+  patchLeak: {
+    label: 'Patching a leak (an emergency; Prompt 6)', commands: ['patchLeak'], input: 'timed',
+    outcomes: { success: 'the leak closed (the hull and the water stay)', partial: 'the leak slowed to half', failure: 'a nail wasted; another try while the materials last' },
+    retry: 'offered while the hold can pay for one; the waste stays', blocksProgression: false, softlockRisk: 'none: no chapter uses it', note: 'always plays as a strict challenge (the ship_repair profile); no chapter step uses it', source: 'src/systems/ship/, src/systems/script/commands.js (patchLeak)',
+  },
   dice: {
     label: 'Grand Dice', commands: ['dice'], input: 'none',
     outcomes: { success: null, partial: null, failure: null },

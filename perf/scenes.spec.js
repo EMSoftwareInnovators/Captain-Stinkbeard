@@ -26,6 +26,18 @@ const SCENES = [
   { preset: 'p10_complete', rooms: ['main_deck'], why: 'inside the Great Sharkstorm (storm sky, shark layer)' },
   { preset: 'p13_complete', rooms: ['main_deck', 'cargo_hold'], why: 'most story props on deck (75); 11 crew in the hold' },
   { preset: 'p17_complete', rooms: ['crew_quarters', 'main_deck', 'cargo_hold', 'galley'], why: 'the end of the game: every room at its fullest' },
+  // Prompt 6 (docs/gameplay-overhaul/10-flooding-and-fire.md, "Performance"): the same hold mid-emergency, hazards ticking while measured.
+  {
+    preset: 'hazard_demo',
+    rooms: ['cargo_hold'],
+    why: 'an emergency in the hold: a breach, the water rising, a blazing fire (tint, waterline, embers, smoke)',
+    setup: () => {
+      const h = window.__GAME__.app.session.ship.hazards;
+      h.openLeak({ section: 'hull_port', severity: 'breach', source: 'perf' });
+      h.addWater('cargo_hold', 70);
+      h.ignite({ room: 'cargo_hold', intensity: 70, spread: false, source: 'perf' });
+    },
+  },
 ];
 
 /** Diagnostic limits: a measurement past one is flagged in the report, nothing fails. */
@@ -347,6 +359,7 @@ test.describe('performance @perf', () => {
     for (let run = 1; run <= RUNS; run++) {
       for (const scene of SCENES.filter((sc) => !ONLY || ONLY.includes(sc.preset))) {
         await driver.preset(scene.preset);
+        if (scene.setup) await driver.eval(scene.setup);
         await installSamplers(driver);
         for (const room of scene.rooms) {
           const r = await measureRoom(driver, page, cdp, scene, room, run);

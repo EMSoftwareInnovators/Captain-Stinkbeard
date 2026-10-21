@@ -361,6 +361,17 @@ Object.assign(MIGRATIONS, {
     out.ship = ship && ship.sections && typeof ship.sections === 'object' ? ship : { sections: {} };
     return out;
   },
+  /**
+   * 18 -> 19 (overhaul Prompt 6: leaks, flooding and fire,
+   * docs/gameplay-overhaul/10-flooding-and-fire.md). The ship gains
+   * "hazards" (leaks, water per compartment, fires) and "events" (the damage
+   * events already applied). A version 18 save had none of either, and
+   * nothing in the campaign starts a hazard, so both stay absent: loading
+   * reads that as a dry, unburnt ship (nothing invented) and the sections as
+   * they were. The bump stops an older build from loading a save and
+   * silently dropping an emergency.
+   */
+  18: (state) => fillLayout(state),
 });
 
 export function migrateState(state, fromVersion, toVersion, migrations = MIGRATIONS) {

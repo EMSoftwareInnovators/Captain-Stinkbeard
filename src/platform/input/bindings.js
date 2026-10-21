@@ -59,7 +59,7 @@ export const PREVENT_DEFAULT = new Set([
 /** Which glyph (see art/font/glyphs.js BUTTON_GLYPHS) represents an action per device. */
 export const PROMPT_GLYPHS = {
   keyboard: {
-    confirm: 'key_z', cancel: 'key_x', menu: 'key_c', run: 'key_shift', secondary: 'key_c',
+    confirm: 'key_z', cancel: 'key_x', menu: 'key_c', run: 'key_shift', secondary: 'key_v',
     pageLeft: 'key_q', pageRight: 'key_e', move: 'key_arrows', start: 'key_esc', debug: 'key_f2', enter: 'key_enter',
   },
   gamepad: {

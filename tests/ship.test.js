@@ -35,7 +35,7 @@ import { playPhase17 } from './phase17Play.js';
 /**
  * Ship Integrity (docs/gameplay-overhaul/09-ship-integrity.md): sections,
  * damage, thresholds, material repairs played as challenges, difficulty,
- * checkpoints and saves (version 18). Deterministic: repairs are the game's
+ * checkpoints and saves (version 18, now 19). Deterministic: repairs are the game's
  * own timing bar played by simulated hands (tests/challengeBots.js) on fixed
  * seeds. The numbered blocks follow the 27 checks Prompt 5 asked for; the
  * browser half (the Ship page, the HUD, keyboard and pad) is e2e/ship.spec.js.
@@ -167,7 +167,7 @@ describe('2. sections have stable ids, never tiles; bad ship data is rejected', 
     expect(errors).toMatch(/unknown ship repair "nope"/);
     expect(errors).toMatch(/ship condition: unknown section "mast"/);
     expect(errors).toMatch(/ship condition: unknown state "sunk"/);
-    expect(Object.keys(SHIP_TUNING)).toEqual(['damageScale', 'repairScale', 'costScale']);
+    expect(Object.keys(SHIP_TUNING)).toEqual(['damageScale', 'repairScale', 'costScale', 'leakScale', 'fireScale', 'responseScale']);
   });
 });
 
@@ -636,9 +636,10 @@ describe('16-18. checkpoints and retries', () => {
 // ---------------------------------------------------------------------------------------------
 describe('19. difficulty', () => {
   it('scales damage, repairs, materials, penalties and the bar, from the one difficulty system', async () => {
-    expect(shipTuning(content, 'deckhand')).toEqual({ damageScale: 0.75, repairScale: 1.25, costScale: 0.5, grace: true });
-    expect(shipTuning(content, 'captain')).toEqual({ damageScale: 1, repairScale: 1, costScale: 1, grace: true });
-    expect(shipTuning(content, 'brutal')).toEqual({ damageScale: 1.25, repairScale: 0.85, costScale: 1.5, grace: false });
+    // (Prompt 6 added the hazards' leakScale, fireScale and responseScale: tests/hazards.test.js.)
+    expect(shipTuning(content, 'deckhand')).toMatchObject({ damageScale: 0.75, repairScale: 1.25, costScale: 0.5, grace: true });
+    expect(shipTuning(content, 'captain')).toMatchObject({ damageScale: 1, repairScale: 1, costScale: 1, grace: true });
+    expect(shipTuning(content, 'brutal')).toMatchObject({ damageScale: 1.25, repairScale: 0.85, costScale: 1.5, grace: false });
     expect(shipTuning(content, 'nightmare')).toEqual(shipTuning(content, 'captain'));
     const want = {
       deckhand: { cost: [1, 1], success: 44, partial: 23, extra: 1, waste: 1, damage: 3, maxFumbles: 3, hit: 30, after: 100, left: [9, 9] },
@@ -714,7 +715,7 @@ describe('20. the timing assist', () => {
 });
 
 // ---------------------------------------------------------------------------------------------
-describe('21-23. saves (version 18)', () => {
+describe('21-23. saves (version 18, since Prompt 6 19)', () => {
   /** A save as version 17 wrote it: no ship. */
   function v17Save(s, storage) {
     const saves = new SaveManager({ storage, content, version: 17 });
@@ -730,7 +731,7 @@ describe('21-23. saves (version 18)', () => {
   }
 
   it('21. a version 17 save loads with a whole ship and everything else as it was', () => {
-    expect(SAVE_VERSION).toBe(18);
+    expect(SAVE_VERSION).toBe(19);
     const s = session();
     stock(s, { planks: 3 });
     s.story.setVar('fx_kept', 7);
@@ -750,7 +751,7 @@ describe('21-23. saves (version 18)', () => {
       void playTime;
       return rest;
     };
-    // Everything else is what the same game saved as version 18 loads as.
+    // Everything else is what the same game saved as the current version loads as.
     const now = new SaveManager({ storage: new MemoryStorage(), content });
     now.save(1, s);
     const same = GameSession.fromState({ content, bus: new EventBus(), state: now.read(1).state });
@@ -774,15 +775,18 @@ describe('21-23. saves (version 18)', () => {
     }
   });
 
-  it('22. version 18 saves the ship and loads it back exactly; a damaged number is made safe', async () => {
+  it('22. the current version saves the ship and loads it back exactly; a damaged number is made safe', async () => {
     const s = story();
     s.session.ship.applyDamage({ section: 'hull_port', amount: 40 });
     s.session.ship.applyDamage({ section: 'rigging', amount: 500, tuning: { grace: false } });
     s.session.ship.applyDamage({ section: 'deck', amount: 12, eventId: 'fx_ev' });
     const t = reloadStory(s);
-    expect(t.record.version).toBe(18);
-    expect(t.record.state.ship).toEqual({ sections: { ...WHOLE, hull_port: 60, rigging: 0, deck: 48 } });
-    expect(JSON.stringify(t.record.state.ship)).not.toMatch(/fx_ev|locks|seen/);
+    expect(t.record.version).toBe(19);
+    expect(t.record.state.ship.sections).toEqual({ ...WHOLE, hull_port: 60, rigging: 0, deck: 48 });
+    // Since Prompt 6 the ship also saves its emergencies (none here) and the damage events applied (retry-safe, tests/hazards.test.js).
+    expect(t.record.state.ship.hazards).toMatchObject({ leaks: [], water: {}, fires: [] });
+    expect(t.record.state.ship.events).toEqual(['fx_ev']);
+    expect(JSON.stringify(t.record.state.ship)).not.toMatch(/locks|seen/);
     expect(hps(t.session)).toEqual(hps(s.session));
     expect(t.session.ship.isOperational('rigging')).toBe(false);
     const warnings = [];
@@ -871,7 +875,7 @@ describe('24-25. the campaign is unchanged', () => {
     const baselines = import.meta.glob('/tests/regression/baselines/phase-*.json', { eager: true, import: 'default' });
     expect(Object.keys(baselines).length).toBe(17);
     for (const [file, snap] of Object.entries(baselines)) {
-      expect([file, snap.gameplay.systems.ship]).toEqual([file, { destroyed: false, overall: 100, sections: WHOLE }]);
+      expect([file, snap.gameplay.systems.ship]).toEqual([file, { destroyed: false, overall: 100, sections: WHOLE, hazards: { leaks: 0, fires: [], water: [], stability: 'steady', buckets: 0 } }]);
       expect(Object.keys(snap.gameplay.unsupported)).not.toContain('shipIntegrity');
     }
     for (const phase of PHASES) expect([phase.n, sessionAt(content, phase.preset).ship.pristine]).toEqual([phase.n, true]);
