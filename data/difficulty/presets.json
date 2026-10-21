@@ -1,0 +1,33 @@
+{
+  "//": "Difficulty presets (docs/gameplay-overhaul/08-difficulty-and-accessibility.md). Each preset's \"challenges\" gives every kind of challenge its feel on that difficulty, as bounded adjustments to the mechanic's own numbers (src/systems/challenge/difficulty.js, TUNING). They only reach challenges that opted in: every legacy step plays as it always has. A profile or a challenge can set any of these itself, and can give each difficulty its own limits, retries and costs (\"difficulty\": { \"brutal\": { ... } }).",
+  "deckhand": {
+    "order": 0,
+    "label": "Deckhand",
+    "tagline": "Forgiving",
+    "summary": "For the story and the crew. Wider timing windows, more slack, gentler costs and easy retries. Challenges can still go wrong.",
+    "challenges": {
+      "repair": { "zoneAdd": 8, "speedScale": 0.85 },
+      "sashTension": { "tolerance": 5, "graceAdd": 0.6, "swayScale": 0.85 },
+      "sharkDuty": { "reactionScale": 1.3 }
+    }
+  },
+  "captain": {
+    "order": 1,
+    "default": true,
+    "label": "Captain",
+    "tagline": "Challenging",
+    "summary": "The voyage as meant. Timing, preparation and nerve all count, failure has a price, and mashing the button won't save you.",
+    "challenges": {}
+  },
+  "brutal": {
+    "order": 2,
+    "label": "Brutal",
+    "tagline": "Expert",
+    "summary": "For old salts. Tighter windows, fewer second chances and heavier costs. Hard, never unfair: every challenge can be won.",
+    "challenges": {
+      "repair": { "zoneAdd": -6, "speedScale": 1.15 },
+      "sashTension": { "tolerance": -3, "graceAdd": -0.4, "swayScale": 1.15 },
+      "sharkDuty": { "reactionScale": 0.85 }
+    }
+  }
+}

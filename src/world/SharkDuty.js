@@ -27,7 +27,11 @@ import { splitObjectiveRef, evaluateCondition } from '../systems/conditions/cond
  * start of the watch, or carries on with the consequences, as the challenge
  * allows. "mechanics.shove" makes each shove a strict timing bar too: a shove
  * that fails leaves the shark at the rail. Without a challenge nothing here
- * changes how duty plays.
+ * changes how duty plays. The watch's difficulty (docs/gameplay-overhaul/08-difficulty-and-accessibility.md)
+ * is fixed when it starts: its limits and how long each shark waits
+ * ("reactionScale") hold for every retry; a difficulty chosen mid-watch
+ * applies from the next watch. Each shove's timing bar takes the player's
+ * timing assist as it opens.
  */
 const PACE = [[0.25, 'Testing'], [0.5, 'Bolder'], [0.8, 'Hungry'], [2, 'Frantic']];
 const T = TILE_SIZE;
@@ -66,7 +70,8 @@ export class SharkDuty {
     const resume = saved && saved.sessionId === id && saved.map === this.scene.model.id;
     // A watch put aside on another deck that won't be resumed is over: its challenge goes with it.
     if (saved?.run && !resume) saved.run.abandon();
-    this.plan = new DutyPlan(this.def, resume ? saved.plan : null);
+    // An opted-in watch's difficulty sets how long each shark waits (its run's frozen config; legacy: 1).
+    this.plan = new DutyPlan(this.def, resume ? saved.plan : null, { reactionScale: resume ? saved.run?.config.mechanics.reactionScale : undefined });
     this.barkTimer = 5000;
     this.assisted = false;
     this.run = null;
@@ -82,10 +87,12 @@ export class SharkDuty {
       }
     } else {
       // Opt-in only: the entry's "challenge", else the session's. No spec, no run: duty as it always was.
-      const cfg = challengeConfig(this.scene.content, entry?.challenge ?? this.def.challenge ?? null, { kind: 'sharkDuty', id: `sharkDuty:${id}` });
+      const prefs = () => this.scene.app.settings.challengePrefs();
+      const cfg = challengeConfig(this.scene.content, entry?.challenge ?? this.def.challenge ?? null, { kind: 'sharkDuty', id: `sharkDuty:${id}`, difficulty: prefs().difficulty });
       if (cfg) {
-        this.run = new ChallengeRun({ session, config: cfg, event: `sharkDuty:${id}`, script: null }).begin();
+        this.run = new ChallengeRun({ session, config: cfg, event: `sharkDuty:${id}`, script: null, prefs, content: this.scene.content }).begin();
         this.watch = new DutyWatch(cfg.mechanics);
+        this.plan = new DutyPlan(this.def, null, { reactionScale: cfg.mechanics.reactionScale });
       }
     }
     this.updateBoard(true);
@@ -345,7 +352,8 @@ export class SharkDuty {
         for (const inc of this.incidents) this.clear(inc, { retreat: true });
         this.incidents = [];
         await run.retry(hooks);
-        this.plan = new DutyPlan(this.def);
+        // The same rules as the first try (the run's difficulty is fixed for the whole watch).
+        this.plan = new DutyPlan(this.def, null, { reactionScale: run.config.mechanics.reactionScale });
         this.watch = new DutyWatch(run.config.mechanics);
         this.assisted = false;
         this.updateBoard(true);

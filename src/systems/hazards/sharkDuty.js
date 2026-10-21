@@ -81,10 +81,18 @@ const lerp = ([a, b], t) => a + (b - a) * t;
  * state() can be put aside while the captain is off the deck.
  */
 export class DutyPlan {
-  constructor(def, state = null) {
+  /**
+   * @param {object} def    the session (data/hazards/shark_duty.json)
+   * @param {object} state  a plan put aside (state())
+   * @param {object} opts   reactionScale: a watch that opted into a challenge, on its
+   *                        difficulty (docs/gameplay-overhaul/08-difficulty-and-accessibility.md):
+   *                        how long each shark waits before it bites. 1 for every legacy watch.
+   */
+  constructor(def, state = null, { reactionScale = 1 } = {}) {
     this.def = def;
     this.waves = def.waves ?? [];
     this.ramp = { ...DEFAULT_RAMP, ...(def.ramp ?? {}) };
+    this.reactionScale = Number.isFinite(reactionScale) && reactionScale > 0 ? reactionScale : 1;
     this.index = 0;
     this.cycles = 0;
     this.served = 0;
@@ -106,7 +114,7 @@ export class DutyPlan {
     const t = this.level(n);
     const base = wave.window ?? this.def.window ?? 8000;
     const big = !!wave.big || (t >= this.ramp.bigFrom && n % this.ramp.bigEvery === this.ramp.bigEvery - 1);
-    return { window: Math.round(base * lerp(this.ramp.window, t)), speed: lerp(this.ramp.speed, t), zone: Math.round(lerp(this.ramp.zone, t)), big, level: t };
+    return { window: Math.round(base * lerp(this.ramp.window, t) * this.reactionScale), speed: lerp(this.ramp.speed, t), zone: Math.round(lerp(this.ramp.zone, t)), big, level: t };
   }
 
   /**

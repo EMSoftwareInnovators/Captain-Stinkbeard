@@ -161,7 +161,7 @@ export class MenuScene extends BaseScene {
       this.page.render();
     } else {
       const text = {
-        options: 'Sound, text speed, controls feel and display.',
+        options: 'Difficulty and timing assists, sound, text speed, controls feel and display.',
         save: 'Write your progress to one of three save slots.',
         return: 'Back to the ship.',
         quit: 'Return to the title screen. Unsaved progress is lost.',

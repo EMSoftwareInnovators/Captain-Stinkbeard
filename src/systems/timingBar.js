@@ -39,12 +39,57 @@ export const MIN_ZONE = 8;
 export const MIN_WINDOW_MS = 50;
 
 /**
+ * The numbers a bar runs with, from (in order; docs/gameplay-overhaul/08-difficulty-and-accessibility.md):
+ *   the step's own   baseSpeed (the kind's px/s), speed (a multiplier), zone (px), strikes
+ *   the challenge's  mechanics, difficulty included (opted in only): an absolute
+ *                    "speed" / "zone", or "speedScale" / "zoneAdd" on the step's;
+ *                    "maxFumbles" / "timeLimit" only when it can fail (strict)
+ *   the leader's     stat bonus (-0.25 .. 0.6): more green, a slower marker; and luck
+ *   the player's     assist (resolveAssists; a challenge's attempt brings its own):
+ *                    timing (slower, more green, more time, cues) and, strict
+ *                    only, the classic bar's widening
+ * Pure, so the overlay and the test bots run exactly the same numbers. With no
+ * challenge and no assist it is the bar the game has always had.
+ */
+export function timingBarSettings({ baseSpeed = TIMING_DEFAULTS.speed, speed = 1, zone = TIMING_DEFAULTS.zone, strikes = TIMING_DEFAULTS.strikes, barW = TIMING_DEFAULTS.barW, challenge = null, bonus = 0, luck = 0, assist = challenge?.assist ?? null, auto = false, fumbleLock = TIMING_DEFAULTS.fumbleLock } = {}) {
+  const strict = !!challenge?.strict;
+  const mech = challenge ? challenge.mechanics ?? {} : {};
+  const speedMul = mech.speed ?? speed * (mech.speedScale ?? 1);
+  const zoneW = mech.zone ?? zone + (mech.zoneAdd ?? 0);
+  let px = baseSpeed * speedMul * (1 - bonus * 0.25);
+  let green = Math.max(MIN_ZONE, Math.round(zoneW * (1 + bonus)));
+  let timeLimit = strict ? mech.timeLimit : undefined;
+  const timing = assist?.timing ?? null;
+  if (timing) {
+    px *= timing.speedScale ?? 1;
+    green = Math.min(barW - TIMING_DEFAULTS.margin * 2, green + (timing.zoneAdd ?? 0));
+    if (timeLimit) timeLimit = Math.round(timeLimit * (timing.timeScale ?? 1));
+  }
+  return {
+    mode: strict ? 'strict' : 'legacy',
+    barW,
+    strikes,
+    speed: px,
+    zone: green,
+    luck,
+    fumbleLock,
+    auto,
+    maxFumbles: strict ? mech.maxFumbles : undefined,
+    timeLimit,
+    // A strict bar's own assist (the challenge's), else the player's classic bar; a legacy bar has LEGACY_ASSIST.
+    assist: strict ? mech.assist ?? assist?.classic ?? null : null,
+    cues: !!assist?.cues,
+  };
+}
+
+/**
  * A fresh bar. `cfg`: TIMING_DEFAULTS overrides plus
  *   mode        'legacy' | 'strict'
  *   assist      strict only: { widenAfter, widenScale, steadyAfter } (each optional), or null
  *   maxFumbles  strict only: more fumbles than this in one attempt fails it
  *   timeLimit   strict only: ms; the attempt fails when it runs out
  *   auto        debug auto timing (legacy: steadied from the start)
+ *   cues        the timing assist's readable cues (drawing only; the rules are the same)
  * `rnd` places the green (and rolls luck): Math.random for legacy, seeded for challenges.
  */
 export function createTimingBar(cfg = {}, rnd = Math.random) {

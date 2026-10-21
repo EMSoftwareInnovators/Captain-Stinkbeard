@@ -6,11 +6,12 @@ import { ListMenu } from '../ui/ListMenu.js';
 import { OptionsPanel } from '../ui/panels/OptionsPanel.js';
 import { SaveLoadPanel } from '../ui/panels/SaveLoadPanel.js';
 import { ControllerSetupPanel } from '../ui/panels/ControllerSetupPanel.js';
+import { DifficultyPanel } from '../ui/panels/DifficultyPanel.js';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
 
 /**
  * Title screen: sunset over the sea, the ship sailing, the logo, then
- * New Game / Continue / Load Game / Options.
+ * New Game (the difficulty first) / Continue / Load Game / Options.
  */
 export class TitleScene extends BaseScene {
   constructor() {
@@ -87,7 +88,7 @@ export class TitleScene extends BaseScene {
   }
 
   choose(value) {
-    if (value === 'new') this.startNew();
+    if (value === 'new') this.chooseDifficulty();
     if (value === 'continue') this.loadSlot(this.app.saves.latestSlot());
     if (value === 'load') {
       this.menu.setFocused(false);
@@ -113,7 +114,29 @@ export class TitleScene extends BaseScene {
     }
   }
 
+  /**
+   * Before a new game: the difficulty, Captain highlighted whatever was played
+   * last (docs/gameplay-overhaul/08-difficulty-and-accessibility.md). Back
+   * returns to the menu.
+   */
+  chooseDifficulty() {
+    this.menu.setFocused(false);
+    this.panel = new DifficultyPanel(this, {
+      mode: 'new',
+      depth: 20,
+      onPick: () => {
+        this.panel = null;
+        this.startNew();
+      },
+      onClose: () => {
+        this.panel = null;
+        this.menu.setFocused(true);
+      },
+    });
+  }
+
   async startNew() {
+    if (this.state === 'leaving') return;
     this.state = 'leaving';
     const session = this.app.startNewGame();
     this.app.audio.stopMusic({ fade: 0.8 });

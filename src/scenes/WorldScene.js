@@ -1499,6 +1499,7 @@ export class WorldScene extends BaseScene {
       content: this.content,
       services: this.services,
       wait: (ms) => this.wait(ms),
+      challengePrefs: () => this.app.settings.challengePrefs(),
     };
   }
 

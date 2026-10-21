@@ -1,4 +1,4 @@
-import { createTimingBar, stepTimingBar, pressTimingBar, inZone, timingBarResult, TIMING_DEFAULTS } from '../src/systems/timingBar.js';
+import { createTimingBar, stepTimingBar, pressTimingBar, inZone, timingBarResult, timingBarSettings, TIMING_DEFAULTS } from '../src/systems/timingBar.js';
 import { createTension, stepTension, autoHold, tensionResult } from '../src/systems/tension.js';
 import { REPAIR_KINDS } from '../src/systems/repairKinds.js';
 import { seededRandom } from '../src/systems/challenge/rng.js';
@@ -38,21 +38,15 @@ export function playTimingBar(cfg, hand = 'perfect', rnd = Math.random) {
   return timingBarResult(st);
 }
 
-/** The bar a repair step would show, with the game's numbers (no stat bonus: the harness has no leader bonus). */
-export function repairBarConfig(opts, info = null) {
+/**
+ * The bar a repair step would show, with the game's numbers (timingBarSettings,
+ * as the overlay uses it): the step's, the challenge's (difficulty included) and
+ * the attempt's assist. `bonus` is the leader's stat (the harness has no leader: 0;
+ * -0.25 is the weakest leader the validator allows for).
+ */
+export function repairBarConfig(opts, info = null, { bonus = 0, assist = info?.assist ?? null } = {}) {
   const K = REPAIR_KINDS[opts.kind] ?? REPAIR_KINDS.hull;
-  const strict = !!info?.strict;
-  const mech = strict ? info.mechanics ?? {} : {};
-  return {
-    mode: strict ? 'strict' : 'legacy',
-    barW: TIMING_DEFAULTS.barW,
-    strikes: opts.strikes ?? 3,
-    speed: (K.speed ?? 150) * (mech.speed ?? opts.speed ?? 1),
-    zone: Math.max(8, Math.round(mech.zone ?? opts.zone ?? 26)),
-    maxFumbles: mech.maxFumbles,
-    timeLimit: mech.timeLimit,
-    assist: mech.assist ?? null,
-  };
+  return timingBarSettings({ baseSpeed: K.speed ?? 150, speed: opts.speed ?? 1, zone: opts.zone ?? 26, strikes: opts.strikes ?? 3, barW: TIMING_DEFAULTS.barW, challenge: info, bonus, assist });
 }
 
 /**

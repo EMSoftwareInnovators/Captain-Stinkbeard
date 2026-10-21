@@ -64,6 +64,48 @@ export function tensionDef(def = {}) {
   };
 }
 
+/** The narrowest a band can be made (by a difficulty's tolerance): still holdable. */
+export const MIN_BAND = 12;
+
+/**
+ * A definition with a difficulty's feel and the player's assist applied
+ * (docs/gameplay-overhaul/08-difficulty-and-accessibility.md): `tuning` is a
+ * challenge's mechanics (tolerance, graceAdd, swayScale, from its difficulty
+ * preset, profile or own spec), `assist` the timing assist's (resolveAssists).
+ * Both are added together:
+ *   tolerance  points either side of the band (and of every milestone's band)
+ *   graceAdd   seconds more (or less) out of the band before a slip
+ *   swayScale  the ship's sway
+ * The band never closes below 12 points, never leaves 2..98, and stays well
+ * under a "breakAt" (tearing is for pulling too hard, not for holding well).
+ * `cues` turns on the readable cues (the view shows PULL / HOLD / EASE).
+ * With neither, it is the definition as written.
+ */
+export function tunedTensionDef(def, { tuning = null, assist = null, cues = false } = {}) {
+  const tol = (tuning?.tolerance ?? 0) + (assist?.tolerance ?? 0);
+  const grace = (tuning?.graceAdd ?? 0) + (assist?.graceAdd ?? 0);
+  const sway = (tuning?.swayScale ?? 1) * (assist?.swayScale ?? 1);
+  if (!tol && !grace && sway === 1 && !cues) return def;
+  const d = tensionDef(def);
+  const ceiling = def.strict?.breakAt ? Math.min(98, def.strict.breakAt.value - 6) : 98;
+  const widen = ([lo, hi]) => {
+    const mid = (lo + hi) / 2;
+    const half = Math.max(MIN_BAND / 2, (hi - lo) / 2 + tol);
+    let a = Math.max(2, mid - half);
+    let b = Math.min(ceiling, mid + half);
+    if (b - a < MIN_BAND) [a, b] = [Math.max(2, b - MIN_BAND), Math.max(2, b - MIN_BAND) + MIN_BAND];
+    return [Math.round(a * 10) / 10, Math.round(b * 10) / 10];
+  };
+  return {
+    ...def,
+    band: widen(d.band),
+    grace: Math.max(0.5, d.grace + grace),
+    sway: { ...d.sway, amp: d.sway.amp * sway },
+    milestones: d.milestones.map((m) => (m.band ? { ...m, band: widen(m.band) } : m)),
+    cues: cues || def.cues === true,
+  };
+}
+
 /** A fresh run: the needle starts in the middle of the band. */
 export function createTension(def) {
   const d = tensionDef(def);

@@ -312,7 +312,7 @@ The counts are challenge runs across all of each phase's walks (both choice orde
 
 - **Three mechanics only.** The timing bar, Shark Duty and the sash tension are on the contract. Battles, the teller window, proceedings and reassurance still report through their own legacy means. The runner is generic, so each can be added with a kind entry and an attempt hook.
 - **Same script and room for "go back".** Going back works within one script and room; a checkpoint in another room is not offered.
-- **No difficulty modes yet.** The strict modes have no assist setting tied to the options menu. Difficulty modes and assists are Prompt 4.
+- **Difficulty modes and assists** came in Prompt 4: see [08-difficulty-and-accessibility.md](08-difficulty-and-accessibility.md). That prompt also closed the gap below for the sash tension: a strict trial is now played in the browser (`e2e/difficulty.spec.js`).
 - **Consequences are plain script steps.** There is no Ship Integrity or materials system yet, so "damage" is a story variable until Prompt 5.
 - **Records are per play.** A chapter that needs to remember a failure across a save stores it itself (`outcomeValue`, `keep`, costs).
 - **Shark Duty in the walkers.** The headless walkers don't run Shark Duty's world simulation. It is covered by `DutyWatch` unit tests and the browser test.

@@ -20,7 +20,12 @@ import { REPAIR_KINDS, REPAIR_SOUND_KEYS } from '../systems/repairKinds.js';
 import { STABILITY_STATES } from '../systems/stability.js';
 import { ATMOSPHERE_STATES } from '../systems/atmosphere.js';
 import { TELLER_MODIFIERS } from '../systems/bank.js';
-import { challengeProblems, challengeConfig } from '../systems/challenge/config.js';
+import { challengeProblems, challengeConfig, specKeyProblems, PROFILE_KEYS } from '../systems/challenge/config.js';
+import { difficultyDataProblems, DIFFICULTIES } from '../systems/challenge/difficulty.js';
+import { DutyPlan } from '../systems/hazards/sharkDuty.js';
+
+/** The least time a shark on an opted-in watch may give before it bites (a walk across the deck). */
+const MIN_SHARK_WINDOW_MS = 3000;
 
 /**
  * Cross-reference validation for all content. Returns { errors, warnings }.
@@ -266,6 +271,11 @@ function validateChallenge(spec, kind, check, sctx, step = {}) {
   }
   if (!cfg || typeof spec === 'string') return;
   const steps = { 'onFailure.costs': spec.onFailure?.costs, 'onFailure.consequences': spec.onFailure?.consequences, 'onPartial.consequences': spec.onPartial?.consequences };
+  // A difficulty can bring its own costs and consequences: they are steps like any other.
+  for (const [d, block] of Object.entries(isPlainObject(spec.difficulty) ? spec.difficulty : {})) {
+    if (!isPlainObject(block)) continue;
+    Object.assign(steps, { [`difficulty.${d}.onFailure.costs`]: block.onFailure?.costs, [`difficulty.${d}.onFailure.consequences`]: block.onFailure?.consequences, [`difficulty.${d}.onPartial.consequences`]: block.onPartial?.consequences });
+  }
   for (const [path, list] of Object.entries(steps)) if (list !== undefined) validateParam('steps', list, check.at(path), sctx);
   for (const f of cfg.keep.flags) check.flag(f);
 }
@@ -723,11 +733,19 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       continue;
     }
     validateChallenge({ profile: id }, prof.kind, c, { nodes: {}, spawned: new Set() });
-    for (const [path, list] of Object.entries({ 'onFailure.costs': prof.onFailure?.costs, 'onFailure.consequences': prof.onFailure?.consequences, 'onPartial.consequences': prof.onPartial?.consequences })) {
+    const lists = { 'onFailure.costs': prof.onFailure?.costs, 'onFailure.consequences': prof.onFailure?.consequences, 'onPartial.consequences': prof.onPartial?.consequences };
+    for (const [d, block] of Object.entries(isPlainObject(prof.difficulty) ? prof.difficulty : {})) {
+      if (isPlainObject(block)) Object.assign(lists, { [`difficulty.${d}.onFailure.costs`]: block.onFailure?.costs, [`difficulty.${d}.onFailure.consequences`]: block.onFailure?.consequences, [`difficulty.${d}.onPartial.consequences`]: block.onPartial?.consequences });
+    }
+    for (const [path, list] of Object.entries(lists)) {
       if (list !== undefined) validateParam('steps', list, c.at(path), { nodes: {}, spawned: new Set() });
     }
-    for (const key of Object.keys(prof)) if (!isCommentKey(key) && !['kind', 'label', 'failure', 'mechanics', 'intent', 'outcomes', 'score', 'grades', 'retry', 'onFailure', 'onPartial', 'keep', 'checkpoint', 'announce'].includes(key)) c.error(`unknown challenge profile field "${key}"`);
+    for (const problem of specKeyProblems(prof, prof.kind)) c.error(problem);
+    for (const key of Object.keys(prof)) if (!isCommentKey(key) && !PROFILE_KEYS.includes(key)) c.error(`unknown challenge profile field "${key}"`);
   }
+
+  // Difficulty presets and timing assists (data/difficulty): the known difficulties, every adjustment within its bounds.
+  for (const problem of difficultyDataProblems(db)) C('data/difficulty').error(problem);
 
   // Story Phase 12: sash tension definitions (data/story/tension)
   for (const [id, t] of db.tension?.map ?? []) {
@@ -1162,6 +1180,19 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       if (e.challenge !== undefined) {
         validateParam('challenge', e.challenge, ec.at('challenge'), { nodes: {}, spawned: new Set() });
         validateChallenge(e.challenge, 'sharkDuty', ec.at('challenge'), { nodes: {}, spawned: new Set() });
+        // On every difficulty, the hardest shark still gives the captain time to reach the rail.
+        const session = db.hazards?.get?.('shark_duty')?.sessions?.[e.session];
+        for (const d of session ? DIFFICULTIES : []) {
+          let cfg = null;
+          try {
+            cfg = challengeConfig(db, e.challenge, { kind: 'sharkDuty', id: 'check', difficulty: d });
+          } catch {
+            break;
+          }
+          const plan = new DutyPlan(session, null, { reactionScale: cfg?.mechanics.reactionScale });
+          const shortest = Math.min(...(session.waves ?? [{}]).map((w) => plan.tuning(w, plan.ramp.over).window));
+          if (shortest < MIN_SHARK_WINDOW_MS) ec.at('challenge').error(`[${d}] the hardest shark bites after ${shortest} ms: under ${MIN_SHARK_WINDOW_MS} ms nobody can reach the rail in time`);
+        }
       }
     });
     (def.onEnter || []).forEach((e, i) => {

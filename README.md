@@ -122,7 +122,16 @@ confirm as it meets the gold ring for a **GOOD / GREAT / PERFECT** hit. When an
 enemy lunges at you, press confirm as the blow lands to **guard**. Neither is
 required; they just make fights shorter and safer.
 
-**Options and accessibility** (title screen or pause menu): volumes, text
+**Difficulty** is chosen before a new game: **Deckhand** (forgiving),
+**Captain** (challenging, the default) or **Brutal** (expert), and can be
+changed any time in Options. It applies to challenges rebuilt for it; the
+rest of the voyage plays as it always has for now.
+
+**Options and accessibility** (title screen or pause menu): the difficulty
+and two timing assists that go with any difficulty, **Timing assist** (Off /
+Light / Strong: slower markers, more green, more time and clearer cues on
+timing bars and the sash trial) and **Classic bar** (strict timing bars help
+after a miss, like the old bar); volumes, text
 speed and sounds, always run, **Screen shake** (Full / Reduced / Off),
 **Visual effects** (Full / Reduced: fewer particles, softer flashes, calmer
 fumes), **Fume hazard** (Normal / Gentle / Off: how fast thick fumes build

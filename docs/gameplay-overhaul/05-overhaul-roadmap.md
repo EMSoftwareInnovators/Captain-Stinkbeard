@@ -14,7 +14,7 @@ A dependency-ordered plan of small, individually testable Claude Code prompts. P
 
 1. **Combat model** (`04-gameplay-systems.md` §4). Hybrid real-time field combat plus turn-based bosses is assumed. Needed before group 4.
 2. **Endgame story.** The five open quests need endings. The story is yours: group 6 starts with a proposal document for you to approve before any new story is written.
-3. **Difficulty default.** Which mode (Story / Seaworthy / Ruthless) is the default for a new game. Needed by Prompt 4.
+3. **Difficulty default.** Decided in Prompt 4: the modes are **Deckhand / Captain / Brutal**, and **Captain** is the default for a new game ([08-difficulty-and-accessibility.md](08-difficulty-and-accessibility.md)).
 
 ## Group 1 · Architecture and shared mechanics (Prompts 2–11)
 
@@ -22,7 +22,7 @@ A dependency-ordered plan of small, individually testable Claude Code prompts. P
 |---|---|---|---|---|
 | 2 | **Regression harness and measurements.** Turn this audit’s tooling into tests: per-room and per-crew snapshots at all 17 phase presets (reachable area, choke tiles, unreachable inspectables, live props, placements); a read-only coordinate reference index tool; an explicit “win” policy for the story walkers; a frame-time baseline in the browser | – | No gameplay change; new tests pass on today’s content; index lists every coordinate reference per room; frame-time numbers recorded in `docs/gameplay-overhaul/` | `tests/storyHarness.js`, `tests/storyStaging.js`, `src/debug/presets.js`, `src/maps/compileMap.js`, `src/world/placements.js`, `tools/` |
 | 3 | **Challenge outcome contract (S0)** and challenge-start checkpoints with instant retry; opt-in fail rules for `repair`, Shark Duty, sash tension; harness “fail first” policy. **Done**: see [07-challenge-outcomes.md](07-challenge-outcomes.md) | 2 | Steps without fail rules play identically; fail rules branch and retry; every walker passes under both policies | `src/systems/script/commands.js`, `src/scenes/OverlayScene.js`, `src/systems/hazards/sharkDuty.js`, `src/systems/tension.js`, `src/systems/challenge/` (as built), `src/systems/timingBar.js` |
-| 4 | **Difficulty modes and assists** (Story / Seaworthy / Ruthless); today’s bar widening becomes an assist (the strict bar already takes `mechanics.assist`; there is no timing-assist accessibility option yet) | 3 | Setting saved; each mode changes only the tables in data, by adjusting opted-in challenges' mechanics and retry rules, never legacy steps; E2E options test updated | `src/systems/settings/Settings.js`, `src/ui/panels/OptionsPanel.js`, `src/systems/challenge/config.js` |
+| 4 | **Difficulty modes and assists** (Deckhand / Captain / Brutal); today’s bar widening becomes the classic-bar assist, plus a timing assist. **Done**: see [08-difficulty-and-accessibility.md](08-difficulty-and-accessibility.md) | 3 | Setting saved; each mode changes only the tables in data, by adjusting opted-in challenges' mechanics and retry rules, never legacy steps; E2E options test updated | `src/systems/settings/Settings.js`, `src/ui/panels/OptionsPanel.js`, `src/ui/panels/DifficultyPanel.js`, `src/systems/challenge/config.js`, `src/systems/challenge/difficulty.js`, `data/difficulty/` |
 | 5 | **Ship Integrity core (S1)**: sections, damage, HUD readout, materials-based repairs; save v18 | 3 | Integrity values saved and migrated; repairs can consume materials when a chapter opts in; no chapter opted in yet | new `src/systems/integrity.js`, `src/systems/repairKinds.js`, `src/scenes/OverlayScene.js`, `src/systems/save/` |
 | 6 | **Flooding and fire**: leaks raise the hold water level, the pump lowers it; fires spread until smothered | 5 | Deterministic tests for spread and pumping; one debug preset demonstrates both | `src/systems/hazards/`, `src/world/` |
 | 7 | **Atmosphere per room (S2)**: air values, sources and sinks, doors and portholes, generated fume zones; `atmosphere.js` states become a layer | 3 | Existing fume rectangles still work; generated zones are deterministic; exposure uses equipment hooks | `src/systems/hazards/fumes.js`, `src/systems/atmosphere.js`, `src/systems/hazards/deadCenter.js`, `src/world/FumeLayer.js` |
@@ -62,7 +62,7 @@ Needs the combat decision.
 
 | # | Prompt | Depends on | Acceptance criteria | Main source paths |
 |---|---|---|---|---|
-| 27 | **Field combat core**: tool swing, dodge, stagger, telegraphs, knockdown, input buffering, bindings | 3, 4 | Gamepad and keyboard E2E; frame budget met; no lethal field damage outside Ruthless | `src/world/FieldEnemy.js`, `src/scenes/WorldScene.js`, `src/platform/input/bindings.js` |
+| 27 | **Field combat core**: tool swing, dodge, stagger, telegraphs, knockdown, input buffering, bindings | 3, 4 | Gamepad and keyboard E2E; frame budget met; no lethal field damage outside Brutal | `src/world/FieldEnemy.js`, `src/scenes/WorldScene.js`, `src/platform/input/bindings.js` |
 | 28 | **Enemy families I**: rats and nests, crabs, sharks on deck (from Shark Duty), falling-shark impacts | 27 | Each enemy’s pattern is deterministic and telegraphed; tests per enemy | `data/enemies/`, `src/world/SharkDuty.js` |
 | 29 | **Enemy families II**: hornets, animated bedding, boarders and marines, hostile spectres | 27, 8 | As above | `src/systems/hazards/hornets.js`, `data/enemies/` |
 | 30 | **Equipment expansion**: head and face slots; the protective gear the story gives (wet cloth, goggles, clay-pot helmet, beard wrap, waist rope) becomes equipment, with a migration | 7, 9 | Old saves keep the items; gear changes exposure, timing zones and combat | `src/config/constants.js` (`EQUIPMENT_SLOTS`), `src/systems/party/equipment.js`, `data/items/` |
@@ -161,4 +161,14 @@ What building the challenge contract showed, and how it changes later prompts:
 - **"Go back to an earlier checkpoint" works within one script and room.** A chapter that needs to go back across a room change needs a room-aware fallback (a transition to the checkpoint's room). Add it when a campaign prompt first needs it, not before.
 - **Consequences are script steps for now.** Until Ship Integrity (Prompt 5) and materials (Prompt 10) exist, "damage" and "supplies used" are story variables. Those prompts should give challenges real targets (an integrity section, a material) to charge.
 - **The harness can walk every phase with failures injected** (`npm run test:walkers:fail-once`), so each campaign prompt (35–53) can prove its chapters stay finishable whatever the player does.
+
+## Findings from Prompt 4
+
+What building difficulty and assists showed, and how it changes later prompts:
+
+- **Difficulty is a layer, not a second system.** A challenge resolves through engine defaults, the difficulty preset's feel, the profile, the challenge, then the player's assists. Every later system that should scale with difficulty (combat in Prompt 27, Ship Integrity in 5, Atmosphere in 7) adds its feel keys to `TUNING` and its kind to the presets, and its stakes to profiles' `difficulty` blocks. It doesn't add its own difficulty switch.
+- **Stakes live in profiles.** The presets only change how a challenge feels. Fumbles, slips, bites, tries, costs and consequences per difficulty are written in the shared profiles (already done for all six) or in a chapter's own `difficulty` block. Campaign prompts 35–53 should start from a profile and override per difficulty only what the chapter needs.
+- **Every difficulty is validated on its own.** A chapter that opts in is checked as three configs: winnable, finishable, every named outcome reachable. Campaign prompts should also run `npm run test:walkers:difficulty`.
+- **The timing assist already reaches legacy content.** Turning a chapter's steps into challenges doesn't change what an assisted player gets; only the stakes become real.
+- **A difficulty condition for scripts is still missing.** Branching dialogue or encounters on the difficulty outside a challenge needs one (read from the prefs, never saved). Add it in the first campaign prompt that needs it.
 

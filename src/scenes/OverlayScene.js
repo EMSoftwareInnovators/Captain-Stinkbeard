@@ -8,7 +8,9 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../config/constants.js';
 import { alarmLevel, alarmColor } from '../systems/hazards/alarms.js';
 import { TvView } from '../ui/TvView.js';
 import { REPAIR_KINDS } from '../systems/repairKinds.js';
-import { createTimingBar, stepTimingBar, pressTimingBar, timingBarResult } from '../systems/timingBar.js';
+import { createTimingBar, stepTimingBar, pressTimingBar, timingBarResult, timingBarSettings, inZone } from '../systems/timingBar.js';
+import { resolveAssists } from '../systems/challenge/difficulty.js';
+import { tunedTensionDef } from '../systems/tension.js';
 import { seededRandom } from '../systems/challenge/rng.js';
 import { SashTensionView } from '../ui/SashTensionView.js';
 import { DiceView } from '../ui/DiceView.js';
@@ -206,6 +208,11 @@ export class OverlayScene extends BaseScene {
    * in systems/tension.js). Resolves with { slips, released } once let go.
    */
   sashTension(def) {
+    // A challenge's attempt arrives with its feel and assist applied; a legacy trial takes the player's timing assist here.
+    if (!def.challenge) {
+      const assist = resolveAssists(this.app.content, 'sashTension', this.app.settings.challengePrefs?.());
+      if (assist.tension) def = tunedTensionDef(def, { assist: assist.tension, cues: assist.cues });
+    }
     return new Promise((resolve) => {
       this.app.audio.ui('menu_open');
       this.tensionOpen = new SashTensionView(this, def, {
@@ -361,28 +368,33 @@ export class OverlayScene extends BaseScene {
       const strict = !!challenge?.strict;
       const mech = strict ? challenge.mechanics ?? {} : {};
       let limitText = null;
-      if (strict && (mech.maxFumbles !== undefined || mech.timeLimit)) {
+      if (strict && ((mech.maxFumbles !== undefined && mech.maxFumbles !== null) || mech.timeLimit)) {
         limitText = addText(this, x + w - 7, y + h - 13, '', { depth: D + 2 }).setOrigin(1, 0);
         parts.push(limitText);
       }
+      // The player's timing assist: a challenge's attempt brings its own (recorded); a legacy bar reads the option.
+      const assist = challenge ? challenge.assist ?? null : resolveAssists(this.app.content, 'repair', this.app.settings.challengePrefs?.());
+      const settings = timingBarSettings({
+        baseSpeed: K.speed ?? 150,
+        speed,
+        zone: zoneWidth,
+        strikes,
+        barW,
+        challenge,
+        bonus: skill?.bonus ?? 0,
+        luck: skill ? skill.luck : 0,
+        assist,
+        auto: !!this.app.flags?.autoTiming,
+        fumbleLock: FUMBLE_MS,
+      });
+      // Assist cues: the green's edges marked, and the marker stands taller over the green (shape, not just colour).
+      const ticks = settings.cues ? [0, 1, 2, 3].map(() => this.add.rectangle(barX, barY - 4, 1, 3, 0xfff4e0).setOrigin(0.5, 0).setDepth(D + 2)) : [];
+      parts.push(...ticks);
       parts.forEach((p) => p.setAlpha(0));
       this.tweens.add({ targets: parts, alpha: 1, duration: 150 });
       this.app.audio.ui('menu_open');
-      const bonus = skill?.bonus ?? 0;
-      const bar = createTimingBar({
-        mode: strict ? 'strict' : 'legacy',
-        barW,
-        strikes,
-        speed: (K.speed ?? 150) * (mech.speed ?? speed) * (1 - bonus * 0.25),
-        zone: Math.max(8, Math.round((mech.zone ?? zoneWidth) * (1 + bonus))),
-        luck: skill ? skill.luck : 0,
-        fumbleLock: FUMBLE_MS,
-        auto: !!this.app.flags?.autoTiming,
-        maxFumbles: mech.maxFumbles,
-        timeLimit: mech.timeLimit,
-        assist: mech.assist ?? null,
-      }, strict ? seededRandom(challenge.seed) : Math.random);
-      const r = { parts, resolve, zone, mark, nails, hint, limitText, barX, barW, strikes, K, skill, bar, challenge };
+      const bar = createTimingBar(settings, strict ? seededRandom(challenge.seed) : Math.random);
+      const r = { parts, resolve, zone, mark, nails, hint, limitText, barX, barY, barW, strikes, K, skill, bar, challenge, ticks, cues: settings.cues };
       // What the E2E driver and the review tests read (src/systems/timingBar.js keeps the truth).
       Object.defineProperties(r, {
         lock: { get: () => bar.lock, enumerable: true },
@@ -419,6 +431,12 @@ export class OverlayScene extends BaseScene {
     r.zone.width = bar.zoneWidth;
     r.zone.x = r.barX + bar.zoneX;
     r.zone.setFillStyle(bar.zoneAssist ? 0x9ad07a : 0x7cb45a);
+    if (r.ticks?.length) {
+      // Two ticks either side of each edge of the green, above the bar.
+      const left = r.zone.x;
+      const right = r.zone.x + r.zone.width;
+      [left - 1, left + 1, right - 1, right + 1].forEach((x, i) => r.ticks[i].setPosition(Math.round(x), r.barY - 4));
+    }
     if (bar.zoneAssist === 'steadied' && bar.misses >= (bar.assist?.steadyAfter ?? 5)) this.setRepairHint(r, '<g>Steady... now!</>');
     else if (bar.zoneAssist === 'widened') this.setRepairHint(r, '<g>Easy. Wait for it...</>');
   }
@@ -448,6 +466,12 @@ export class OverlayScene extends BaseScene {
       }
     }
     r.mark.x = Math.round(r.barX + bar.pos);
+    // Assist cues: over the green the marker stands taller (readable without colour).
+    if (r.cues) {
+      const tall = bar.phase === 'running' && bar.lock <= 0 && inZone(bar);
+      r.mark.height = tall ? 18 : 14;
+      r.mark.y = r.barY - (tall ? 5 : 3);
+    }
     this.drawRepairLimit(r);
     if (!input.pressed('confirm')) return;
     input.consume('confirm');
@@ -472,7 +496,8 @@ export class OverlayScene extends BaseScene {
         const k = this.app.settings.shakeScale?.() ?? 1;
         if (k > 0) this.scene.get('World')?.cameras?.main?.shake(90, 0.004 * k);
         if (bar.phase === 'running') {
-          this.setRepairHint(r, `{btn:confirm} ${r.K.hint}`);
+          // Assist cues say how the strike went in words too.
+          this.setRepairHint(r, r.cues ? `<g>${e.clean ? 'Clean hit!' : 'Hit!'}</> ${e.done} of ${r.strikes}` : `{btn:confirm} ${r.K.hint}`);
           this.drawRepairZone(r);
         }
       } else if (e.type === 'done') {

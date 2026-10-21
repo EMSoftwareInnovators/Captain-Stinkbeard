@@ -92,6 +92,117 @@ export function ruleOps(rule, out = new Set()) {
   return out;
 }
 
+/*
+ * Can an outcome happen at all? A kind describes the ways an attempt can end
+ * ("endings", src/systems/challenge/kinds.js) as ranges of its metrics:
+ * { values: [...] } for flags and words, { min, max } for numbers. These
+ * answer, for one ending, whether a rule can hold (some value in range makes
+ * it true) and whether it must (every value does). Both lean towards "can":
+ * a rule called impossible really is, so the validator never rejects a
+ * challenge that works.
+ */
+function numericSpan(dom, ops) {
+  let lo = dom.min;
+  let hi = dom.max;
+  let loOpen = false;
+  let hiOpen = false;
+  for (const [op, arg] of ops) {
+    if (!Number.isFinite(arg) && op !== 'ne' && op !== 'in') return null;
+    if (op === 'eq') {
+      if (arg > lo || (arg === lo && !loOpen)) [lo, loOpen] = [arg, false];
+      if (arg < hi || (arg === hi && !hiOpen)) [hi, hiOpen] = [arg, false];
+    } else if (op === 'gt' && arg >= lo) [lo, loOpen] = [arg, true];
+    else if (op === 'gte' && arg > lo) [lo, loOpen] = [arg, false];
+    else if (op === 'lt' && arg <= hi) [hi, hiOpen] = [arg, true];
+    else if (op === 'lte' && arg < hi) [hi, hiOpen] = [arg, false];
+  }
+  return { lo, hi, loOpen, hiOpen };
+}
+
+function condCan(dom, want) {
+  if (!dom) return true;
+  const ops = isPlainObject(want) ? Object.entries(want) : [['eq', want]];
+  if (dom.values) return dom.values.some((v) => ops.every(([op, arg]) => OPS[op]?.(v, arg)));
+  const span = numericSpan(dom, ops);
+  if (!span) return false;
+  const { lo, hi, loOpen, hiOpen } = span;
+  if (lo > hi || (lo === hi && (loOpen || hiOpen))) return false;
+  for (const [op, arg] of ops) {
+    if (op === 'ne' && lo === hi && lo === arg) return false;
+    if (op === 'in' && !(Array.isArray(arg) && arg.some((v) => v >= lo && v <= hi))) return false;
+  }
+  return true;
+}
+
+function condMust(dom, want) {
+  if (!dom) return false;
+  const ops = isPlainObject(want) ? Object.entries(want) : [['eq', want]];
+  if (dom.values) return dom.values.every((v) => ops.every(([op, arg]) => OPS[op]?.(v, arg)));
+  return ops.every(([op, arg]) => {
+    if (op === 'gte') return dom.min >= arg;
+    if (op === 'gt') return dom.min > arg;
+    if (op === 'lte') return dom.max <= arg;
+    if (op === 'lt') return dom.max < arg;
+    if (op === 'eq') return dom.min === arg && dom.max === arg;
+    if (op === 'ne') return dom.max < arg || dom.min > arg;
+    if (op === 'in') return dom.min === dom.max && Array.isArray(arg) && arg.includes(dom.min);
+    return false;
+  });
+}
+
+/** Can `rule` hold for some attempt ending in `ending` (metric -> range)? */
+export function ruleCan(rule, ending) {
+  if (rule === true) return true;
+  if (!isPlainObject(rule)) return false;
+  return Object.entries(rule).every(([key, want]) => {
+    if (key.startsWith('//')) return true;
+    if (key === 'any') return (want ?? []).some((r) => ruleCan(r, ending));
+    if (key === 'all') return (want ?? []).every((r) => ruleCan(r, ending));
+    return condCan(ending[key], want);
+  });
+}
+
+/** Must `rule` hold for every attempt ending in `ending`? */
+export function ruleMust(rule, ending) {
+  if (rule === true) return true;
+  if (!isPlainObject(rule)) return false;
+  return Object.entries(rule).every(([key, want]) => {
+    if (key.startsWith('//')) return true;
+    if (key === 'any') return (want ?? []).some((r) => ruleMust(r, ending));
+    if (key === 'all') return (want ?? []).every((r) => ruleMust(r, ending));
+    return condMust(ending[key], want);
+  });
+}
+
+/**
+ * What a challenge's rules can produce over its endings (in the order the
+ * rules are checked: failure, success, partial, then the fallback):
+ * `outcomes` the outcomes an attempt can end in, `rules` the rules that can
+ * be the one that decides (a partial reached only through the fallback means
+ * the partial rule's own threshold is out of reach).
+ * @returns {{ outcomes: Set<string>, rules: Set<string> }}
+ */
+export function reachableOutcomes(outcomes = {}, endings = [], supported = ['success', 'partial', 'failure']) {
+  const out = new Set();
+  const rules = new Set();
+  const order = ['failure', 'success', 'partial'].filter((o) => outcomes[o] !== undefined && outcomes[o] !== null);
+  for (const ending of endings) {
+    let blocked = false;
+    for (const o of order) {
+      if (!blocked && ruleCan(outcomes[o], ending)) {
+        out.add(supported.includes(o) ? o : 'unsupported');
+        rules.add(o);
+      }
+      if (ruleMust(outcomes[o], ending)) blocked = true;
+    }
+    if (!blocked) {
+      const fallback = outcomes.fallback ?? 'partial';
+      out.add(supported.includes(fallback) ? fallback : supported.includes('success') ? 'success' : 'unsupported');
+    }
+  }
+  return { outcomes: out, rules };
+}
+
 /**
  * The outcome for a set of metrics. Rules are checked failure first, then
  * success, then partial; when none holds, "fallback" decides (partial by
@@ -147,6 +258,13 @@ export function createRecord({ id, kind, chapter = null, event = null, script = 
     narrative: null,
     intent: null,
     cause: null,
+    // Which rules were in force (docs/gameplay-overhaul/08-difficulty-and-accessibility.md):
+    // the difficulty the run started on, the assists that helped the latest attempt
+    // (each attempt's are in its history line), and the resolved thresholds.
+    difficulty: null,
+    assists: [],
+    rules: null,
+    retried: false,
     retryAvailable: false,
     options: [],
     checkpoint: null,

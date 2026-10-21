@@ -15,6 +15,7 @@ import { tickSharkstormFlare } from '../src/systems/hazards/sharkstorm.js';
 import { SaveManager } from '../src/systems/save/SaveManager.js';
 import { MemoryStorage } from '../src/platform/storage.js';
 import { seededRandom } from '../src/systems/challenge/rng.js';
+import { normalizePrefs, DEFAULT_PREFS } from '../src/systems/challenge/difficulty.js';
 import { playTimingBar, repairBarConfig, playTension } from './challengeBots.js';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -83,8 +84,10 @@ class Transition {
   }
 }
 
-export function makeStory({ pick = 'first', preset = 'prologue_done', state = null, challenges = process.env.STORY_CHALLENGE_POLICY || 'legacy' } = {}) {
+export function makeStory({ pick = 'first', preset = 'prologue_done', state = null, challenges = process.env.STORY_CHALLENGE_POLICY || 'legacy', prefs = null } = {}) {
   if (!CHALLENGE_POLICIES.includes(challenges)) throw new Error(`unknown challenge policy "${challenges}" (use: ${CHALLENGE_POLICIES.join(', ')})`);
+  // The player's difficulty and assists (Settings.challengePrefs in the game). STORY_DIFFICULTY sets a whole run's.
+  let challengePrefs = normalizePrefs(prefs ?? { difficulty: process.env.STORY_DIFFICULTY || DEFAULT_PREFS.difficulty, timingAssist: process.env.STORY_TIMING_ASSIST || 'off', classicBar: process.env.STORY_CLASSIC_BAR === '1' });
   const content = loadContent();
   const bus = new EventBus();
   let session;
@@ -159,13 +162,15 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
   const challengeDecisions = [];
   const restores = [];
   const decisionQueue = [];
+  // Hands for the next challenge attempts, in order (else the policy's).
+  const handQueue = [];
   bus.on('challenge:resolved', ({ record }) => {
     challengeRecords.push(record);
     // tools/walk-challenges.mjs: one line per resolved challenge, for the per-phase report.
     const out = process.env.STORY_CHALLENGE_REPORT;
     if (out) {
       const st = expect.getState();
-      const line = { file: st.testPath ? path.basename(st.testPath) : null, test: st.currentTestName ?? null, policy: challenges, id: record.id, kind: record.kind, chapter: record.chapter, attempts: record.attempt, outcome: record.outcome, decision: record.decision, history: record.history.map((h) => h.outcome) };
+      const line = { file: st.testPath ? path.basename(st.testPath) : null, test: st.currentTestName ?? null, policy: challenges, difficulty: record.difficulty, id: record.id, kind: record.kind, chapter: record.chapter, attempts: record.attempt, outcome: record.outcome, decision: record.decision, history: record.history.map((h) => h.outcome) };
       fs.mkdirSync(path.dirname(out), { recursive: true });
       fs.appendFileSync(out, `${JSON.stringify(line)}\n`);
     }
@@ -190,9 +195,10 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
       // A timing bar that opted into a challenge: the real rules, played by the policy's hand.
       timingBar: async (opts) => {
         const info = opts.challenge;
-        const hand = handFor('repair', challenges, info.attempt);
-        const result = playTimingBar(repairBarConfig(opts, info), hand, seededRandom(info.seed));
-        challengeAttempts.push({ kind: 'repair', id: info.id, attempt: info.attempt, hand, completed: result.completed, fumbles: result.fumbles, at: staging.context });
+        const hand = handQueue.length ? handQueue.shift() : handFor('repair', challenges, info.attempt);
+        const bar = repairBarConfig(opts, info);
+        const result = playTimingBar(bar, hand, seededRandom(info.seed));
+        challengeAttempts.push({ kind: 'repair', id: info.id, attempt: info.attempt, hand, completed: result.completed, fumbles: result.fumbles, difficulty: info.difficulty, assists: info.assist?.applied ?? [], bar: { zone: bar.zone, speed: bar.speed, maxFumbles: bar.maxFumbles, timeLimit: bar.timeLimit, assist: bar.assist }, at: staging.context });
         return result;
       },
       // After a failure: a queued decision, else the policy's (retry, or carry on).
@@ -217,9 +223,9 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
       holdTension: async (def) => {
         const info = def.challenge;
         if (info.attempt === 1) tensions.push(def.id);
-        const hand = handFor('sashTension', challenges, info.attempt);
+        const hand = handQueue.length ? handQueue.shift() : handFor('sashTension', challenges, info.attempt);
         const result = playTension(def, hand, seededRandom(info.seed));
-        challengeAttempts.push({ kind: 'sashTension', id: info.id, attempt: info.attempt, hand, completed: result.completed, ceremony: result.ceremony, at: staging.context });
+        challengeAttempts.push({ kind: 'sashTension', id: info.id, attempt: info.attempt, hand, completed: result.completed, ceremony: result.ceremony, outcomeCause: result.cause, difficulty: info.difficulty, assists: info.assist?.applied ?? [], band: def.band, grace: def.grace, at: staging.context });
         return result;
       },
       teller: async (customer) => {
@@ -253,7 +259,7 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
     registry: new CommandRegistry().registerAll(createCommandImplementations()),
     getScript: (id) => content.scripts.get(id),
   });
-  const ctx = { session, bus, content, services, wait: async () => {} };
+  const ctx = { session, bus, content, services, wait: async () => {}, challengePrefs: () => challengePrefs };
   // The policy's test challenges for legacy steps (the game never sets this).
   // A test that sets a legacy result itself (setRepairScore, setTensionResult) is testing that result: it wins.
   const pinned = new Set();
@@ -274,6 +280,14 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
     tensions,
     tellers,
     challengePolicy: challenges,
+    /** The player's difficulty and assists (read when a challenge starts, and assists at each attempt). */
+    get prefs() {
+      return challengePrefs;
+    },
+    /** Changes them, as the options menu would (between challenges, or between attempts). */
+    setPrefs(p) {
+      challengePrefs = normalizePrefs({ ...challengePrefs, ...p });
+    },
     challengeRecords,
     challengeAttempts,
     challengeDecisions,
@@ -281,6 +295,10 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
     /** Decisions for the next challenge failures, in order ('retry' | 'continue' | 'fallback'). */
     decideChallenges(...ids) {
       decisionQueue.push(...ids);
+    },
+    /** Hands for the next challenge attempts (tests/challengeBots.js: 'perfect', 'fumble', { fumbles: n }, 'slack', { early: s }, ...). */
+    playHands(...hands) {
+      handQueue.push(...hands);
     },
     /** What the next teller window reports ({ grades: ['perfect' | 'good' | 'miss', ...], slips }). */
     setTellerResult(r) {
@@ -476,7 +494,7 @@ export function reloadStory(s) {
   if (!wrote.ok) throw new Error(`save failed: ${wrote.reason}`);
   const read = saves.read(1);
   if (!read.ok) throw new Error(`load failed: ${read.reason ?? read.error}`);
-  const t = makeStory({ pick: s.pickLast ? 'last' : 'first', state: read.state, challenges: s.challengePolicy });
+  const t = makeStory({ pick: s.pickLast ? 'last' : 'first', state: read.state, challenges: s.challengePolicy, prefs: s.prefs });
   t.pickLast = s.pickLast;
   t.refused = s.refused;
   t.record = wrote.record;

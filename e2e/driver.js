@@ -51,6 +51,11 @@ export class GameDriver {
       current = await this.eval(() => window.__GAME__.game.scene.getScene('Title').menu.index);
     }
     await this.tap('KeyZ', 45, 300);
+    // New Game asks for the difficulty first: Captain is highlighted; Z sets sail.
+    if (value === 'new') {
+      await this.waitFor(() => window.__GAME__.game.scene.getScene('Title').panel?.mode === 'new', null, 5000);
+      await this.tap('KeyZ', 45, 300);
+    }
     await this.waitFor(() => window.__GAME__.game.scene.isActive('World'), null, 15000);
   }
 

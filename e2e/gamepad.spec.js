@@ -158,6 +158,10 @@ for (const [name, setup] of Object.entries(SETUPS)) {
     for (let i = 0; i < 20 && (await page.evaluate(() => window.__GAME__.game.scene.getScene('Title').state)) !== 'menu'; i++) await press(setup.A);
     expect(await page.evaluate(() => window.__GAME__.game.scene.getScene('Title').state)).toBe('menu');
     await press(setup.A); // New Game (first entry when there is no save)
+    // The difficulty, Captain highlighted: A sets sail.
+    await page.waitForFunction(() => window.__GAME__.game.scene.getScene('Title').panel?.mode === 'new', null, { timeout: 5000 });
+    expect(await page.evaluate(() => { const p = window.__GAME__.game.scene.getScene('Title').panel; return p.rows[p.index].id; })).toBe('captain');
+    await press(setup.A);
     await page.waitForFunction(() => window.__GAME__.game.scene.isActive('World'), null, { timeout: 15000 });
 
     // Read through the opening with the A button.

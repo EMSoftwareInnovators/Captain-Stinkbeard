@@ -88,4 +88,22 @@ describe('text fits where the game shows it', () => {
     for (const n of content.npcs.list()) if (width(n.name) > 150) bad.push(n.name);
     expect(bad).toEqual([]);
   });
+
+  it('the difficulty panel: every description in four lines, every notice in two, rows and help on one (src/ui/panels/DifficultyPanel.js)', async () => {
+    const { difficultyTexts, DIFFICULTY_NOTICE, ASSIST_NOTICE, ACTIVE_NOTICE } = await import('../src/ui/panels/DifficultyPanel.js');
+    const { difficultyList } = await import('../src/systems/challenge/difficulty.js');
+    const W = 280 - 24; // the panel's text width
+    const bad = [];
+    for (const t of difficultyTexts(content)) if (lines(t, W).length > 4 || longest(t, W) > W) bad.push(`description: ${t}`);
+    for (const t of [DIFFICULTY_NOTICE, ASSIST_NOTICE, ACTIVE_NOTICE]) if (lines(t, W).length > 2) bad.push(`notice: ${t}`);
+    // A row: the label from x+22, the value from x+112, inside the panel's right edge.
+    for (const d of difficultyList(content)) if (width(`${d.tagline}  (default)`) > 280 - 112 - 8 || width(d.label) > 112 - 22 - 4) bad.push(`row: ${d.label}`);
+    for (const t of ['◀ Captain ▶', '◀ Strong ▶', '◀ Off ▶']) if (width(t) > 280 - 112 - 8) bad.push(`value: ${t}`);
+    for (const t of ['{btn:confirm} Set sail   {btn:cancel} Back', '◀▶ Change   {btn:cancel} Back']) if (width(t) > 280 - 16) bad.push(`help: ${t}`);
+    expect(width('CHOOSE YOUR DIFFICULTY', fonts.bold)).toBeLessThan(280 - 16);
+    // The options row's value ("Deckhand + assist"), from x+130 in a 240 panel.
+    for (const d of difficultyList(content)) if (width(`${d.label} + assist`) > 240 - 130 - 8) bad.push(`options: ${d.label}`);
+    if (width('{btn:confirm} Change   {btn:cancel} Back') > 240 - 20) bad.push('options help');
+    expect(bad).toEqual([]);
+  });
 });

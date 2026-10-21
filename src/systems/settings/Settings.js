@@ -1,4 +1,5 @@
 import { STORAGE_PREFIX } from '../../config/constants.js';
+import { DIFFICULTIES, DEFAULT_DIFFICULTY, TIMING_ASSIST_LEVELS } from '../challenge/difficulty.js';
 
 export const TEXT_SPEEDS = ['slow', 'normal', 'fast', 'instant'];
 /** Milliseconds per character for the typewriter at each speed. */
@@ -26,6 +27,12 @@ export const DEFAULT_SETTINGS = Object.freeze({
   scaleMode: 'integer',
   fullscreen: false,
   alwaysRun: false,
+  // Challenges (docs/gameplay-overhaul/08-difficulty-and-accessibility.md): the
+  // difficulty, and timing assists that go with any difficulty. Per device, like
+  // the rest of the options: a save never holds them, so loading one never changes them.
+  difficulty: DEFAULT_DIFFICULTY,
+  timingAssist: 'off',
+  classicBar: false,
   // Controllers the player has set up by hand (Options → Controller), by the
   // id the browser reports: { buttons: { south: 0, … }, dirs: { up: { button } | { axis, value } } },
   // or { auto: true } for "leave it on the automatic layout, don't ask again".
@@ -53,6 +60,9 @@ const VALIDATORS = {
   scaleMode: (v) => SCALE_MODES.includes(v),
   fullscreen: (v) => typeof v === 'boolean',
   alwaysRun: (v) => typeof v === 'boolean',
+  difficulty: (v) => DIFFICULTIES.includes(v),
+  timingAssist: (v) => TIMING_ASSIST_LEVELS.includes(v),
+  classicBar: (v) => typeof v === 'boolean',
   padLayouts: (v) => !!v && typeof v === 'object' && !Array.isArray(v) && Object.values(v).every(validPadLayout),
 };
 
@@ -118,6 +128,11 @@ export class Settings {
   /** Multiplier on fume exposure (0 = fumes never make the captain collapse). */
   fumeScale() {
     return FUME_HAZARD_SCALE[this.values.fumeHazard] ?? 1;
+  }
+
+  /** What challenges read: the difficulty and the timing assists (src/systems/challenge/difficulty.js). */
+  challengePrefs() {
+    return { difficulty: this.values.difficulty, timingAssist: this.values.timingAssist, classicBar: this.values.classicBar };
   }
 
   all() {

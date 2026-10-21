@@ -3,6 +3,8 @@ import { createRecord, evaluateOutcome, gradeFor, pushHistory } from './outcome.
 import { captureCheckpoint, restoreCheckpoint, diffStates } from './checkpoint.js';
 import { supportedOutcomes } from './kinds.js';
 import { attemptSeed } from './rng.js';
+import { configRules } from './config.js';
+import { resolveAssists, normalizePrefs, DEFAULT_PREFS } from './difficulty.js';
 
 /**
  * Running a challenge that opted in (docs/gameplay-overhaul/07-challenge-outcomes.md):
@@ -78,15 +80,28 @@ export class ChallengeRun {
    * @param {object} o
    * @param {object} o.session
    * @param {object} o.config  from challengeConfig (never null: legacy steps don't make runs)
+   * @param {object|() => object} [o.prefs]  the player's difficulty and assists (Settings.challengePrefs)
+   *
+   * The difficulty is the config's, resolved once when the challenge starts:
+   * its rules hold for every attempt and retry, so changing the difficulty
+   * mid-challenge can't change a pending retry, its costs or its limits (the
+   * change applies from the next challenge). Assists are read at the start of
+   * each attempt (an assist turned on between attempts helps the next one),
+   * and each attempt's history line says which helped.
    */
-  constructor({ session, config, chapter = null, event = null, script = null }) {
+  constructor({ session, config, chapter = null, event = null, script = null, prefs = null, content = null }) {
     if (!config) throw new Error('ChallengeRun needs a config (legacy challenges never make one)');
     this.session = session;
+    this.content = content ?? session?.content ?? null;
     this.config = config;
     this.id = config.id;
     this.kind = config.kind;
+    this.prefs = typeof prefs === 'function' ? prefs : () => prefs ?? DEFAULT_PREFS;
     this.record = createRecord({ id: config.id, kind: config.kind, chapter, event, script, enabled: true, failureEnabled: config.failure, legacy: false, maxAttempts: config.retry.maxAttempts ?? null });
     this.record.intent = config.intent;
+    this.record.difficulty = config.difficulty ?? null;
+    this.record.rules = configRules(config);
+    this.assist = null;
     this.checkpoint = null;
     this.charged = 0;
     this.start = null;
@@ -116,12 +131,16 @@ export class ChallengeRun {
     r.options = [];
     r.retryAvailable = false;
     r.decision = null;
+    r.retried = r.attempt > 1;
     this.seed = attemptSeed(this.id, r.attempt);
+    // The player's assists, as they are now (layer 5: on top of the resolved rules).
+    this.assist = resolveAssists(this.content, this.kind, normalizePrefs(this.prefs()), { strict: this.strict, allowClassic: this.config.assists?.classic !== false, ownAssist: !!this.config.mechanics?.assist });
+    r.assists = [...this.assist.applied];
   }
 
-  /** What the mechanic needs for this attempt. */
+  /** What the mechanic needs for this attempt: the rules, the seed, and the assists that help it. */
   attemptInfo() {
-    return { id: this.id, attempt: this.record.attempt, seed: this.seed, strict: this.strict, mechanics: this.config.mechanics, intent: this.config.intent };
+    return { id: this.id, attempt: this.record.attempt, seed: this.seed, strict: this.strict, mechanics: this.config.mechanics, intent: this.config.intent, difficulty: this.config.difficulty ?? null, assist: this.assist };
   }
 
   /**
@@ -141,7 +160,7 @@ export class ChallengeRun {
     r.reason = outcome === 'failure' ? metrics.reason ?? (matched ? `the ${matched} rule held` : 'failed') : null;
     if (metrics.ceremony !== undefined) r.narrative = { ceremony: metrics.ceremony, early: !!metrics.early };
     r.cause = metrics.cause ?? null;
-    pushHistory(r, { attempt: r.attempt, outcome, reason: r.reason, score: r.score });
+    pushHistory(r, { attempt: r.attempt, outcome, reason: r.reason, score: r.score, difficulty: r.difficulty, assists: [...r.assists] });
     if (outcome === 'failure') {
       r.state = 'awaiting';
       r.options = this.options();

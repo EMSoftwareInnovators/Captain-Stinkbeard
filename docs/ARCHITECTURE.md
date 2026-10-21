@@ -40,7 +40,7 @@ frame loop.
 | `bus` | `EventBus` for game events (see below) |
 | `content` | `ContentDB`: every registry (`items`, `npcs`, `maps`, `scripts`, …) |
 | `validation` | `{ errors, warnings }` from `validateContent` (dev builds stop on errors) |
-| `settings` | persisted options (volumes, text speed, scaling, …) |
+| `settings` | persisted options (volumes, text speed, scaling, difficulty and timing assists, …) |
 | `saves` | `SaveManager` (slots, checksums, migrations) |
 | `input` | `InputManager` (keyboard + gamepad actions) |
 | `audio` | `AudioEngine` (music / ambience / SFX / UI buses) |
@@ -795,6 +795,35 @@ when a step has no `challenge`; with one they call `ui.timingBar` /
 choice menu). The story harness drives the same runner through simulated
 hands (tests/challengeBots.js) and its challenge policies.
 
+## Difficulty and accessibility assists (overhaul Prompt 4)
+
+`src/systems/challenge/difficulty.js` holds the three difficulties
+(`deckhand`, `captain` (the default), `brutal`), the timing-assist levels and
+the bounds both are kept within (`TUNING`, `ASSIST_TUNING`). The numbers are
+data: `data/difficulty/presets.json` and `data/difficulty/assists.json`
+(ContentDB `difficulties` and `assists`). See
+[gameplay-overhaul/08-difficulty-and-accessibility.md](gameplay-overhaul/08-difficulty-and-accessibility.md).
+
+- `challengeConfig(content, spec, { kind, difficulty })` resolves in layers:
+  engine defaults, the preset's feel, the profile then its `difficulty`
+  block, the challenge then its block. `challengeProblems` validates every
+  difficulty, including whether each outcome a rule names can be reached
+  (`kinds.js` `endings`, `outcome.js` `reachableOutcomes`).
+- The difficulty is fixed per challenge (the run's config). Assists are read
+  at each attempt (`ChallengeRun` takes `prefs`; `attemptInfo().assist`), and
+  each record says which difficulty, assists and rules were in force.
+- Pure helpers apply the layers to the mechanics: `timingBarSettings` (the
+  step, the challenge, the leader's stat, then the assist; the overlay and
+  the test bots both use it), `tunedTensionDef` (band, grace, sway, cues) and
+  `DutyPlan`'s `reactionScale`.
+- The preferences are settings (`difficulty`, `timingAssist`, `classicBar`;
+  `Settings.challengePrefs()`), per device and never in a save, so the save
+  version is unchanged. Scripts read them through `ctx.challengePrefs`;
+  Shark Duty through the app's settings.
+- UI: `src/ui/panels/DifficultyPanel.js`, the choice before a new game
+  (TitleScene) and the *Difficulty and assists* panel behind the Options'
+  first row.
+
 ## Battle
 
 `BattleEngine` (`src/systems/battle/`) owns the rules and is fully
@@ -1060,6 +1089,13 @@ and walks into the next chapter. Aliases are never saved.
   sash-tension step failed once and retried. `e2e/challenges.spec.js` does it
   in the browser with the keyboard and a pad, and loses and retries an
   opted-in Shark Duty watch.
+- `tests/difficulty.test.js` (`npm run test:difficulty`): the difficulty
+  presets, the configuration layers, assists, persistence, records and
+  validation on every difficulty; `makeStory({ prefs })` or `STORY_DIFFICULTY`
+  plays the harness on a difficulty (`npm run test:walkers:difficulty`).
+  `e2e/difficulty.spec.js` chooses the difficulty with the keyboard and a
+  pad, changes it in Options, reloads, and plays a strict sash tension
+  through the real close-up.
 
 ## Adding Chapter 8 (or anything else)
 

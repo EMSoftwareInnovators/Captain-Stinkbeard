@@ -26,6 +26,8 @@ const WORDS = ['ZERO', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'E
  * A step that opted into a challenge (def.strict, docs/gameplay-overhaul/07-challenge-outcomes.md)
  * also shows the grip, and Cancel lets go early on purpose when allowed;
  * it resolves with tensionResult as well as the legacy { slips, released }.
+ * With the timing assist's cues (def.cues) a word under the meter says what
+ * to do: PULL, HOLD or EASE.
  */
 export class SashTensionView {
   constructor(scene, def, { onDone }) {
@@ -77,6 +79,8 @@ export class SashTensionView {
     this.add(addText(s, mx, my + 12, '<r>SLACK</>', { depth: D + 2 }));
     const tight = this.add(addText(s, 0, my + 12, '<o>TOO TIGHT</>', { depth: D + 2 }));
     tight.x = mx + mw - tight.textWidth;
+    // The timing assist's cue: what to do now, in a word (not colour alone).
+    if (d.cues) this.cueWord = this.add(addText(s, 0, my + 12, '', { depth: D + 2 }));
     this.line = this.add(addText(s, x + 10, y + h - 22, '', { depth: D + 2, maxWidth: w - 20, maxLines: 1, clipWidth: w - 20 }));
     this.hint = this.add(addText(s, 0, y + h - 12, '', { color: UI_COLORS.dim, depth: D + 2 }));
     this.setHint(this.st.strict?.earlyRelease ? '{btn:confirm} pull · {btn:cancel} let it go' : '{btn:confirm} hold to pull · let go to ease');
@@ -120,6 +124,14 @@ export class SashTensionView {
     this.needle.x = px(this.st.value);
     const zone = tensionZone(this.st);
     this.needle.setFillStyle(zone === 'ok' ? 0xfff4e0 : zone === 'low' ? 0xf07860 : 0xf8a040);
+    if (this.cueWord) {
+      const word = this.st.phase !== 'hold' ? '' : zone === 'low' ? '<r>PULL</>' : zone === 'high' ? '<o>EASE</>' : '<g>HOLD</>';
+      if (word !== this.cueShown) {
+        this.cueShown = word;
+        setText(this.cueWord, word);
+        centerText(this.cueWord, x + w / 2);
+      }
+    }
     if (this.gripText) {
       const g = Math.round(this.st.grip);
       if (g !== this.gripShown) {

@@ -5,21 +5,25 @@
 //
 //   node tools/walk-challenges.mjs                 fail once, then succeed (the default)
 //   node tools/walk-challenges.mjs partial         any policy the story harness knows
+//   node tools/walk-challenges.mjs failOnce brutal on a difficulty (deckhand, captain, brutal;
+//                                                  docs/gameplay-overhaul/08-difficulty-and-accessibility.md)
 //
 // The walkers' own assertions run as usual, so a pass means every phase is
 // still traversable with that policy. Writes tmp/challenges/<policy>.jsonl and
-// tmp/challenges/<policy>.md. Exit code: the walkers'.
+// tmp/challenges/<policy>.md (<policy>-<difficulty> off Captain). Exit code: the walkers'.
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 
 const policy = process.argv[2] ?? 'failOnce';
+const difficulty = process.argv[3] ?? 'captain';
+const name = difficulty === 'captain' ? policy : `${policy}-${difficulty}`;
 const dir = path.resolve('tmp/challenges');
-const jsonl = path.join(dir, `${policy}.jsonl`);
+const jsonl = path.join(dir, `${name}.jsonl`);
 fs.mkdirSync(dir, { recursive: true });
 fs.rmSync(jsonl, { force: true });
 
-const run = spawnSync('npx', ['vitest', 'run', '_story'], { stdio: 'inherit', env: { ...process.env, STORY_CHALLENGE_POLICY: policy, STORY_CHALLENGE_REPORT: jsonl } });
+const run = spawnSync('npx', ['vitest', 'run', '_story'], { stdio: 'inherit', env: { ...process.env, STORY_CHALLENGE_POLICY: policy, STORY_DIFFICULTY: difficulty, STORY_CHALLENGE_REPORT: jsonl } });
 
 const lines = fs.existsSync(jsonl) ? fs.readFileSync(jsonl, 'utf8').trim().split('\n').filter(Boolean).map((l) => JSON.parse(l)) : [];
 const phaseOf = (file) => Number(/phase(\d+)_story/.exec(file ?? '')?.[1] ?? 0);
@@ -30,7 +34,9 @@ for (const l of lines) {
   byPhase.get(p).push(l);
 }
 const out = [
-  `# Story walkers under the "${policy}" challenge policy`,
+  `# Story walkers under the "${policy}" challenge policy, on ${difficulty[0].toUpperCase()}${difficulty.slice(1)}`,
+  '',
+  `Difficulty recorded on every run: ${[...new Set(lines.map((l) => l.difficulty ?? '?'))].join(', ') || '-'}.`,
   '',
   `Walkers: ${run.status === 0 ? 'all passed' : `FAILED (exit ${run.status})`}. Every repair and sash-tension step met in a walk ran as a test challenge (the content is unchanged); Shark Duty runs in the world and the prologue's challenges are map battles, so neither is walked here.`,
   '',
@@ -57,6 +63,6 @@ for (let p = 1; p <= 17; p++) {
   out.push(`| ${p} | ${ls.length} | ${new Set(ls.map((l) => l.id)).size} | ${fmt(kinds)} | ${failed} | ${retries} | ${fmt(outcomes)} |`);
 }
 out.push('', `${lines.length} challenge runs in all.`);
-fs.writeFileSync(path.join(dir, `${policy}.md`), `${out.join('\n')}\n`);
-console.log(`\n${out.join('\n')}\n\nWrote ${path.join(dir, `${policy}.md`)}`);
+fs.writeFileSync(path.join(dir, `${name}.md`), `${out.join('\n')}\n`);
+console.log(`\n${out.join('\n')}\n\nWrote ${path.join(dir, `${name}.md`)}`);
 process.exit(run.status ?? 1);

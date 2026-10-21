@@ -16,6 +16,8 @@ import { setHornets } from '../hazards/hornets.js';
 import { challengeConfig } from '../challenge/config.js';
 import { ChallengeRun, runChallenge, challengeLog, chapterOf } from '../challenge/runner.js';
 import { captureCheckpoint } from '../challenge/checkpoint.js';
+import { normalizePrefs } from '../challenge/difficulty.js';
+import { tunedTensionDef } from '../tension.js';
 
 /** Story Phase 14: a stability subject (data/story/stability) with its defaults. */
 export function stabilitySubject(content, id = 'brogath') {
@@ -254,7 +256,13 @@ function stepChallengeConfig(ctx, kind, step, frame) {
   const spec = step.challenge ?? ctx.challengeOverride?.(kind, step, frame) ?? null;
   if (spec === null) return null;
   const content = ctx.session.content ?? ctx.content;
-  return challengeConfig(content, spec, { kind, id: `${frame?.id ?? '(inline)'}/${kind}` });
+  // Resolved once, for the difficulty the player is on now: the whole challenge keeps it (ChallengeRun).
+  return challengeConfig(content, spec, { kind, id: `${frame?.id ?? '(inline)'}/${kind}`, difficulty: challengePrefs(ctx).difficulty });
+}
+
+/** The player's difficulty and assists (Settings.challengePrefs), or the defaults (a headless run, a test). */
+function challengePrefs(ctx) {
+  return normalizePrefs(ctx.challengePrefs?.() ?? null);
 }
 
 /**
@@ -265,7 +273,7 @@ function stepChallengeConfig(ctx, kind, step, frame) {
  * Returns what the command returns (a goto when one applies).
  */
 async function runStepChallenge(ctx, frame, step, cfg, attempt) {
-  const run = new ChallengeRun({ session: ctx.session, config: cfg, chapter: chapterOf(frame?.id), event: frame?.id ?? null, script: frame?.id ?? null });
+  const run = new ChallengeRun({ session: ctx.session, config: cfg, chapter: chapterOf(frame?.id), event: frame?.id ?? null, script: frame?.id ?? null, prefs: () => challengePrefs(ctx), content: ctx.session.content ?? ctx.content });
   const hooks = {
     attempt,
     decide: (record, options) => service(ctx, 'ui', 'challengeOutcome').challengeOutcome(record, options),
@@ -670,11 +678,13 @@ export function createCommandImplementations() {
         if (step.releasedVar) ctx.session.story.setVar(step.releasedVar, r?.released === 'slipped' ? 0 : 1);
         return null;
       }
-      // Opted in: the def's own numbers with the challenge's "strict" settings (grip, slips, tearing, letting go early).
+      // Opted in: the def's own numbers with the challenge's "strict" settings (grip, slips, tearing, letting go early),
+      // its difficulty's feel (band, grace, sway) and the attempt's assist.
       let last = null;
       const result = await runStepChallenge(ctx, frame, step, cfg, async (info) => {
         const strict = info.strict ? { ...info.mechanics } : null;
-        last = await service(ctx, 'ui', 'holdTension').holdTension({ id: step.sashTension, ...def, strict, challenge: info });
+        const tuned = tunedTensionDef({ ...def, strict }, { tuning: info.mechanics, assist: info.assist?.tension, cues: !!info.assist?.cues });
+        last = await service(ctx, 'ui', 'holdTension').holdTension({ id: step.sashTension, ...tuned, strict, challenge: info });
         return last;
       });
       if (step.var) ctx.session.story.setVar(step.var, last?.slips ?? 0);

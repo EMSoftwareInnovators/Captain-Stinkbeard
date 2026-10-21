@@ -1,0 +1,29 @@
+{
+  "//": "Accessibility assists for timing (docs/gameplay-overhaul/08-difficulty-and-accessibility.md). Independent of difficulty: any level goes with any difficulty. An assist only ever makes timing easier, within the bounds in src/systems/challenge/difficulty.js (ASSIST_TUNING), and never decides an outcome: fumbles and slips still count, and a challenge's record lists every assist that helped.",
+  "timingAssist": {
+    "off": {
+      "label": "Off",
+      "summary": "Timing bars and the sash tension play at their normal pace."
+    },
+    "light": {
+      "label": "Light",
+      "summary": "Slower markers, a little more green, a longer clock and clearer cues. Fumbles and slips still count.",
+      "repair": { "speedScale": 0.85, "zoneAdd": 4, "timeScale": 1.25, "cues": true },
+      "sashTension": { "tolerance": 3, "graceAdd": 0.4, "swayScale": 0.9, "cues": true }
+    },
+    "strong": {
+      "label": "Strong",
+      "summary": "Much slower markers, a wide green, half again the time and clearer cues. Fumbles and slips still count.",
+      "repair": { "speedScale": 0.7, "zoneAdd": 8, "timeScale": 1.5, "cues": true },
+      "sashTension": { "tolerance": 6, "graceAdd": 0.8, "swayScale": 0.75, "cues": true }
+    }
+  },
+  "classicBar": {
+    "label": "Classic bar",
+    "summary": {
+      "off": "Strict timing bars don't help after a miss.",
+      "on": "Strict timing bars help after a miss, like the old bar: the green widens, then steadies. Fumbles still count."
+    },
+    "assist": { "widenAfter": 1, "widenScale": 1.6, "steadyAfter": 2 }
+  }
+}

@@ -1,15 +1,19 @@
 {
-  "//": "Challenge profiles (docs/gameplay-overhaul/07-challenge-outcomes.md): shared rules a step opts into with \"challenge\": \"<id>\" (or { \"profile\": \"<id>\", ...overrides }). No story chapter uses any of them yet: every existing step is legacy and plays as it always has.",
+  "//": "Challenge profiles (docs/gameplay-overhaul/07-challenge-outcomes.md): shared rules a step opts into with \"challenge\": \"<id>\" (or { \"profile\": \"<id>\", ...overrides }). No story chapter uses any of them yet: every existing step is legacy and plays as it always has. Each profile's top level is Captain, the default; its \"difficulty\" blocks give Deckhand and Brutal their own stakes (docs/gameplay-overhaul/08-difficulty-and-accessibility.md). The difficulty presets (data/difficulty) add the feel: the green, the speed, the band.",
   "repair_graded": {
-    "//": "Can't fail (legacy assists stay on); reports how clean the work was. For quiet beats that should still be scored.",
+    "//": "Can't fail (legacy assists stay on); reports how clean the work was. For quiet beats that should still be scored. Brutal grades harder.",
     "kind": "repair",
     "failure": false,
     "outcomes": { "success": { "fumbles": 0 }, "fallback": "partial" },
     "score": "accuracy",
-    "grades": [{ "min": 100, "grade": "A" }, { "min": 66, "grade": "B" }, { "min": 0, "grade": "C" }]
+    "grades": [{ "min": 100, "grade": "A" }, { "min": 66, "grade": "B" }, { "min": 0, "grade": "C" }],
+    "difficulty": {
+      "deckhand": { "outcomes": { "success": { "fumbles": { "lte": 1 } }, "fallback": "partial" }, "grades": [{ "min": 66, "grade": "A" }, { "min": 33, "grade": "B" }, { "min": 0, "grade": "C" }] },
+      "brutal": { "grades": [{ "min": 100, "grade": "A" }, { "min": 90, "grade": "B" }, { "min": 0, "grade": "C" }] }
+    }
   },
   "repair_strict": {
-    "//": "A real test: no widening, two fumbles allowed. Must be won to go on (unlimited retries from the checkpoint).",
+    "//": "A real test: no widening, two fumbles allowed. Must be won to go on (unlimited retries from the checkpoint). Deckhand allows four and calls one fumble a success; Brutal allows one.",
     "kind": "repair",
     "failure": true,
     "mechanics": { "maxFumbles": 2 },
@@ -17,44 +21,64 @@
     "score": "accuracy",
     "grades": [{ "min": 100, "grade": "A" }, { "min": 66, "grade": "B" }, { "min": 0, "grade": "C" }],
     "retry": { "policy": "offer", "maxAttempts": null, "restore": true },
-    "onFailure": { "mustRetry": true }
+    "onFailure": { "mustRetry": true },
+    "difficulty": {
+      "deckhand": { "mechanics": { "maxFumbles": 4 }, "outcomes": { "failure": { "completed": false }, "success": { "fumbles": { "lte": 1 } }, "fallback": "partial" } },
+      "brutal": { "mechanics": { "maxFumbles": 1 } }
+    }
   },
   "repair_hard_choice": {
-    "//": "Three tries against the clock; after any failure the captain may carry on with the damage instead (a chapter adds the consequences).",
+    "//": "Three tries against the clock; after any failure the captain may carry on with the damage instead (a chapter adds the consequences). Deckhand: unlimited tries and more time. Brutal: two tries, two fumbles, less time.",
     "kind": "repair",
     "failure": true,
     "mechanics": { "maxFumbles": 3, "timeLimit": 15000 },
     "outcomes": { "failure": { "completed": false }, "success": { "fumbles": 0 }, "fallback": "partial" },
     "score": "accuracy",
     "retry": { "policy": "offer", "maxAttempts": 3, "restore": true },
-    "onFailure": { "continue": true }
+    "onFailure": { "continue": true },
+    "difficulty": {
+      "deckhand": { "mechanics": { "maxFumbles": 5, "timeLimit": 22000 }, "retry": { "maxAttempts": null } },
+      "brutal": { "mechanics": { "maxFumbles": 2, "timeLimit": 12000 }, "retry": { "maxAttempts": 2 } }
+    }
   },
   "shark_duty_strict": {
-    "//": "A watch that can be lost: more than three bites, or two at one section. Retry from the start of the watch.",
+    "//": "A watch that can be lost: more than three bites. Retry from the start of the watch. Deckhand allows six; Brutal one, and two failed shoves.",
     "kind": "sharkDuty",
     "failure": true,
     "mechanics": { "maxBites": 3, "sectionBites": {} },
     "outcomes": { "failure": { "completed": false }, "success": { "bites": 0, "missed": 0 }, "fallback": "partial" },
     "score": "repelled",
     "retry": { "policy": "offer", "maxAttempts": null, "restore": true },
-    "onFailure": { "mustRetry": true }
+    "onFailure": { "mustRetry": true },
+    "difficulty": {
+      "deckhand": { "mechanics": { "maxBites": 6 } },
+      "brutal": { "mechanics": { "maxBites": 1, "maxMissed": 2 } }
+    }
   },
   "sash_trial_strict": {
-    "//": "The trial for real: lose the grip (three slips) or tear the sash and the ceremony is broken; held to the cue and let go on purpose, it's a success.",
+    "//": "The trial for real: lose the grip (three slips) or tear the sash and the ceremony is broken; held to the cue and let go on purpose, it's a success. Deckhand allows four slips and a slip is still a partial; Brutal allows one, tires the hands and tears sooner.",
     "kind": "sashTension",
     "failure": true,
     "intent": "complete",
     "mechanics": { "maxSlips": 2, "breakAt": { "value": 97, "seconds": 0.9 } },
     "retry": { "policy": "offer", "maxAttempts": null, "restore": true },
-    "onFailure": { "mustRetry": true }
+    "onFailure": { "mustRetry": true },
+    "difficulty": {
+      "deckhand": { "mechanics": { "maxSlips": 4, "breakAt": { "value": 99, "seconds": 1.2 } } },
+      "brutal": { "mechanics": { "maxSlips": 1, "breakAt": { "value": 94, "seconds": 0.7 }, "grip": { "max": 100, "drain": 3, "recover": 12 } } }
+    }
   },
   "sash_deliberate_flutter": {
-    "//": "The captain WANTS it to flutter early (to trigger the Stenchmaster's consequences): letting go on purpose is success, though the ceremony calls it a violation; an accidental flutter is partial; holding to the end is a failure.",
+    "//": "The captain WANTS it to flutter early (to trigger the Stenchmaster's consequences): letting go on purpose is success, though the ceremony calls it a violation; an accidental flutter is partial; holding to the end is a failure. The intent is the same on every difficulty; only the slips allowed change.",
     "kind": "sashTension",
     "failure": true,
     "intent": "sabotage",
     "mechanics": { "earlyRelease": true, "maxSlips": 3 },
     "retry": { "policy": "offer", "maxAttempts": null, "restore": true },
-    "onFailure": { "mustRetry": true }
+    "onFailure": { "mustRetry": true },
+    "difficulty": {
+      "deckhand": { "mechanics": { "maxSlips": 5 } },
+      "brutal": { "mechanics": { "maxSlips": 1 } }
+    }
   }
 }

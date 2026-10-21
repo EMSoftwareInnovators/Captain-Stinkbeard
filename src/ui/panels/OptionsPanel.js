@@ -3,8 +3,11 @@ import { addText, setText, centerText, UI_COLORS } from '../text.js';
 import { TEXT_SPEEDS, SHAKE_LEVELS, EFFECT_LEVELS, FUME_HAZARD_LEVELS } from '../../systems/settings/Settings.js';
 import { DisplayScaler } from '../../platform/display.js';
 import { ControllerSetupPanel } from './ControllerSetupPanel.js';
+import { DifficultyPanel } from './DifficultyPanel.js';
+import { difficultyList } from '../../systems/challenge/difficulty.js';
 
 const ROWS = [
+  { key: 'difficulty', label: 'Difficulty', type: 'difficulty' },
   { key: 'masterVolume', label: 'Master volume', type: 'volume' },
   { key: 'musicVolume', label: 'Music volume', type: 'volume' },
   { key: 'ambienceVolume', label: 'Ambience volume', type: 'volume' },
@@ -23,7 +26,8 @@ const ROWS = [
 /**
  * Options screen usable from the title and the pause menu.
  * Up/down selects, left/right changes, cancel closes. Changes apply and
- * persist immediately.
+ * persist immediately. The first row shows the difficulty (and whether a
+ * timing assist is on) and opens the difficulty and assists panel.
  */
 export class OptionsPanel {
   constructor(scene, { onClose, depth = 300 }) {
@@ -35,21 +39,21 @@ export class OptionsPanel {
     const x = 40;
     const w = 240;
     const rowH = 13;
-    const h = 24 + ROWS.length * rowH + 20;
-    const y = Math.max(4, Math.round((224 - h) / 2));
+    const h = 22 + ROWS.length * rowH + 16;
+    const y = Math.max(2, Math.round((224 - h) / 2));
     this.parts = [addPanel(scene, x, y, w, h, { depth })];
     const title = addText(scene, 0, y + 8, 'OPTIONS', { font: 'bold', color: UI_COLORS.heading, depth: depth + 1 });
     centerText(title, x + w / 2);
     this.parts.push(title);
     this.rows = ROWS.map((row, i) => {
-      const ry = y + 26 + i * rowH;
+      const ry = y + 22 + i * rowH;
       const label = addText(scene, x + 22, ry, row.label, { depth: depth + 1 });
       const value = addText(scene, x + 130, ry, '', { depth: depth + 1 });
       this.parts.push(label, value);
       return { ...row, label, value, y: ry };
     });
     this.cursor = scene.add.image(x + 6, 0, 'ui', 'cursor').setOrigin(0).setDepth(depth + 2);
-    this.help = addText(scene, x + 10, y + h - 14, '', { color: UI_COLORS.dim, depth: depth + 1 });
+    this.help = addText(scene, x + 10, y + h - 13, '', { color: UI_COLORS.dim, depth: depth + 1 });
     this.parts.push(this.cursor, this.help);
     this.refresh();
   }
@@ -68,8 +72,16 @@ export class OptionsPanel {
     return pad.mapping === 'standard' ? 'Standard' : 'Set up...';
   }
 
+  /** The difficulty, and a word if a timing assist is on (the details are one press away). */
+  difficultyText() {
+    const s = this.app.settings;
+    const name = difficultyList(this.app.content).find((d) => d.id === s.get('difficulty'))?.label ?? s.get('difficulty');
+    return s.get('timingAssist') !== 'off' || s.get('classicBar') ? `${name} + assist` : name;
+  }
+
   valueText(row) {
     if (row.type === 'controller') return this.controllerText();
+    if (row.type === 'difficulty') return this.difficultyText();
     const v = this.app.settings.get(row.key);
     if (row.type === 'volume') {
       const n = Math.round(v * 10);
@@ -81,14 +93,15 @@ export class OptionsPanel {
 
   refresh() {
     this.rows.forEach((row, i) => {
-      const text = row.type === 'controller' ? this.valueText(row) : `◀ ${this.valueText(row)} ▶`;
+      const text = row.type === 'controller' || row.type === 'difficulty' ? this.valueText(row) : `◀ ${this.valueText(row)} ▶`;
       setText(row.value, text, { color: i === this.index ? UI_COLORS.gold : UI_COLORS.text });
       row.label.setTint(i === this.index ? UI_COLORS.gold : UI_COLORS.text);
     });
     this.cursor.y = this.rows[this.index].y - 1;
-    const help = this.rows[this.index].type === 'controller'
+    const type = this.rows[this.index].type;
+    const help = type === 'controller'
       ? `{btn:confirm} Set up${this.app.settings.get('padLayouts')?.[this.controllerPad()?.id]?.buttons ? '   ◀ Reset' : ''}   {btn:cancel} Back`
-      : '◀▶ Change   {btn:cancel} Back';
+      : type === 'difficulty' ? '{btn:confirm} Change   {btn:cancel} Back' : '◀▶ Change   {btn:cancel} Back';
     setText(this.help, help, { color: UI_COLORS.dim });
   }
 
@@ -103,9 +116,27 @@ export class OptionsPanel {
     });
   }
 
+  openDifficulty() {
+    this.sub = new DifficultyPanel(this.scene, {
+      mode: 'options',
+      depth: this.depth + 20,
+      onClose: () => {
+        this.sub = null;
+        this.refresh();
+      },
+    });
+  }
+
   change(dir) {
     const row = this.rows[this.index];
     const s = this.app.settings;
+    if (row.type === 'difficulty') {
+      if (dir > 0) {
+        this.app.audio.ui('confirm');
+        this.openDifficulty();
+      }
+      return;
+    }
     if (row.type === 'controller') {
       const pad = this.controllerPad();
       const layouts = s.get('padLayouts') ?? {};
@@ -145,6 +176,10 @@ export class OptionsPanel {
   update(input) {
     if (this.setup) {
       this.setup.update(input);
+      return;
+    }
+    if (this.sub) {
+      this.sub.update(input);
       return;
     }
     if (input.repeat('up')) {

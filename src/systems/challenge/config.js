@@ -1,7 +1,8 @@
 import { asArray, isPlainObject, deepClone } from '../../core/util.js';
 import { CHECKPOINT_DOMAINS } from './checkpoint.js';
 import { kindDef } from './kinds.js';
-import { ruleMetrics, ruleOps, RULE_OPS } from './outcome.js';
+import { ruleMetrics, ruleOps, RULE_OPS, reachableOutcomes } from './outcome.js';
+import { DIFFICULTIES, DEFAULT_DIFFICULTY, presetTuning } from './difficulty.js';
 
 /**
  * A challenge's configuration (docs/gameplay-overhaul/07-challenge-outcomes.md):
@@ -14,7 +15,7 @@ import { ruleMetrics, ruleOps, RULE_OPS } from './outcome.js';
  *     "profile": "repair_strict",           // start from a shared profile
  *     "id": "p99_patch_breach",             // stable id (records, seeds); defaults to the script and step
  *     "failure": true,                      // real failure enabled (false: graded, can't fail)
- *     "mechanics": { "maxFumbles": 2 },     // the kind's difficulty settings
+ *     "mechanics": { "maxFumbles": 2 },     // the kind's limits and feel
  *     "intent": "complete",                 // the sash tension: complete | sabotage
  *     "outcomes": { "failure": {...}, "success": {...}, "partial": {...}, "fallback": "partial" },
  *     "score": "accuracy", "grades": [{ "min": 100, "grade": "A" }, ...],
@@ -30,12 +31,30 @@ import { ruleMetrics, ruleOps, RULE_OPS } from './outcome.js';
  *     "onPartial": { "consequences": [steps] },
  *     "keep": { "flags": [], "vars": [], "values": [] },   // survives a restore
  *     "checkpoint": true,      // false: retries don't restore anything
- *     "announce": false        // show a short result toast on success / partial
+ *     "announce": false,       // show a short result toast on success / partial
+ *     "assists": { "classic": true },   // false: the player's classic bar doesn't apply here
+ *     "difficulty": {          // per difficulty (docs/gameplay-overhaul/08-difficulty-and-accessibility.md)
+ *       "deckhand": { "mechanics": { "maxFumbles": 4 } },
+ *       "brutal": { "mechanics": { "maxFumbles": 1 }, "onFailure": { "costs": [...] } }
+ *     }
  *   }
+ *
+ * Resolution, each layer winning over the one before (deterministic; see
+ * ./difficulty.js): engine defaults, the difficulty preset's feel, the
+ * profile then its block for the difficulty, the challenge then its block.
+ * Accessibility assists come last, per attempt (ChallengeRun).
  */
-const TOP_KEYS = ['profile', 'id', 'kind', 'label', 'enabled', 'failure', 'mechanics', 'intent', 'outcomes', 'score', 'grades', 'retry', 'onFailure', 'onPartial', 'keep', 'checkpoint', 'announce'];
+const TOP_KEYS = ['profile', 'id', 'kind', 'label', 'enabled', 'failure', 'mechanics', 'intent', 'outcomes', 'score', 'grades', 'retry', 'onFailure', 'onPartial', 'keep', 'checkpoint', 'announce', 'assists', 'difficulty'];
+export const PROFILE_KEYS = TOP_KEYS.filter((k) => !['profile', 'id', 'enabled'].includes(k));
 const RETRY_KEYS = ['policy', 'maxAttempts', 'restore'];
 const FAILURE_KEYS = ['mustRetry', 'continue', 'prompt', 'costs', 'consequences', 'fallback'];
+/**
+ * What a difficulty block may change: the stakes (limits, thresholds,
+ * retries, costs, consequences). Never what the challenge is (its id, kind,
+ * intent) or what a retry restores (keep, checkpoint): the objective is the
+ * same on every difficulty.
+ */
+export const DIFFICULTY_KEYS = Object.freeze(['failure', 'mechanics', 'outcomes', 'score', 'grades', 'retry', 'onFailure', 'onPartial']);
 export const RETRY_POLICIES = Object.freeze(['offer', 'auto', 'none']);
 
 const isComment = (k) => k.startsWith('//') || k.startsWith('_');
@@ -51,6 +70,24 @@ function merge(base, over) {
   return out;
 }
 
+/** One layer over the ones below. In "mechanics" an absolute number drops a lower layer's adjustment to it. */
+function layer(acc, over, pairs = {}) {
+  if (!isPlainObject(over)) return acc;
+  const { mechanics, difficulty, ...rest } = over;
+  const out = merge(acc, rest);
+  if (isPlainObject(mechanics)) {
+    const m = { ...(acc.mechanics ?? {}) };
+    for (const [k, v] of Object.entries(mechanics)) {
+      if (isComment(k)) continue;
+      m[k] = isPlainObject(v) && isPlainObject(m[k]) ? merge(m[k], v) : deepClone(v);
+      const adjust = pairs[k];
+      if (adjust && !(adjust in mechanics)) delete m[adjust];
+    }
+    out.mechanics = m;
+  }
+  return out;
+}
+
 /** The profile a spec names, if any (data/challenges). */
 export function challengeProfile(content, id) {
   return content?.challenges?.get?.(id) ?? null;
@@ -61,9 +98,10 @@ export function challengeProfile(content, id) {
  * legacy (no spec, or "enabled": false).
  * @param {object} content
  * @param {string|object|null|undefined} spec
- * @param {object} ctx { kind, id }  the kind the step is (repair, sashTension, sharkDuty) and its default id
+ * @param {object} ctx { kind, id, difficulty }  the kind the step is (repair, sashTension, sharkDuty),
+ *   its default id, and the difficulty to resolve for (the player's; Captain by default)
  */
-export function challengeConfig(content, spec, { kind, id = null } = {}) {
+export function challengeConfig(content, spec, { kind, id = null, difficulty = DEFAULT_DIFFICULTY } = {}) {
   if (spec === undefined || spec === null || spec === false) return null;
   const raw = typeof spec === 'string' ? { profile: spec } : spec;
   if (!isPlainObject(raw)) throw new Error(`a "challenge" must be a profile id or an object, got ${JSON.stringify(spec)}`);
@@ -72,16 +110,26 @@ export function challengeConfig(content, spec, { kind, id = null } = {}) {
   const k = kindDef(kind ?? raw.kind ?? profile.kind);
   if (!k) throw new Error(`"${kind ?? raw.kind ?? profile.kind}" is not a challenge kind`);
   if (profile.kind && kind && profile.kind !== kind) throw new Error(`challenge profile "${raw.profile}" is for ${profile.kind}, not ${kind}`);
-  const m = merge(merge(k.defaults ?? {}, profile), raw);
+  const kindId = kind ?? raw.kind ?? profile.kind;
+  const diff = DIFFICULTIES.includes(difficulty) ? difficulty : DEFAULT_DIFFICULTY;
+  const pairs = k.pairs ?? {};
+  // 1. engine defaults · 2. the difficulty's feel · 3. the profile · 4. the challenge (each then its difficulty block)
+  let m = layer({}, k.defaults ?? {}, pairs);
+  m = layer(m, { mechanics: presetTuning(content, diff, kindId) }, pairs);
+  m = layer(m, profile, pairs);
+  m = layer(m, profile.difficulty?.[diff], pairs);
+  m = layer(m, raw, pairs);
+  m = layer(m, raw.difficulty?.[diff], pairs);
   if (m.enabled === false) return null;
   const intent = m.intent ?? null;
   const outcomes = m.outcomes ?? (intent && k.intents?.[intent]) ?? {};
   const onFailure = { mustRetry: false, continue: false, prompt: true, costs: [], consequences: [], fallback: null, ...(m.onFailure ?? {}) };
   return {
     id: m.id ?? id,
-    kind: kind ?? m.kind,
+    kind: kindId,
     label: m.label ?? k.label,
     profile: raw.profile ?? null,
+    difficulty: diff,
     failure: m.failure === true,
     mechanics: m.mechanics ?? {},
     intent,
@@ -94,29 +142,79 @@ export function challengeConfig(content, spec, { kind, id = null } = {}) {
     keep: { flags: asArray(m.keep?.flags), vars: asArray(m.keep?.vars), values: asArray(m.keep?.values) },
     checkpoint: m.checkpoint === false ? false : { domains: m.checkpoint?.domains ?? CHECKPOINT_DOMAINS },
     announce: m.announce === true,
+    assists: { classic: m.assists?.classic !== false },
   };
 }
 
 /**
- * Everything wrong with a raw spec or a profile, as messages. Most of these
- * protect the campaign: a challenge that could leave the story with no way
- * forward is rejected before it ever runs.
+ * The thresholds a config was resolved to, small enough for every record
+ * (what a balance pass needs to reproduce an attempt).
  */
-export function challengeProblems(content, spec, { kind = null, step = {} } = {}) {
+export function configRules(cfg) {
+  return {
+    difficulty: cfg.difficulty,
+    failure: cfg.failure,
+    mechanics: deepClone(cfg.mechanics),
+    outcomes: deepClone(cfg.outcomes),
+    retry: { ...cfg.retry },
+    onFailure: { mustRetry: cfg.onFailure.mustRetry, continue: cfg.onFailure.continue, costs: cfg.onFailure.costs.length, consequences: cfg.onFailure.consequences.length, fallback: cfg.onFailure.fallback },
+    onPartial: cfg.onPartial.consequences.length,
+  };
+}
+
+/** Steps that give rather than take: never a cost. */
+const GIVING = ['giveItem', 'giveGold', 'grantRewards', 'giveXp'];
+
+/** A failure cost that isn't one: something given, or a negative amount taken. */
+function costProblems(costs) {
   const out = [];
-  let cfg;
-  try {
-    cfg = challengeConfig(content, spec, { kind, id: 'check' });
-  } catch (err) {
-    return [err.message];
+  for (const step of asArray(costs)) {
+    if (!isPlainObject(step)) continue;
+    for (const g of GIVING) if (g in step) out.push(`onFailure.costs: "${g}" gives something; a cost can only take (use onPartial / consequences for rewards)`);
+    if ('takeItem' in step && step.count !== undefined && !(step.count > 0)) out.push('onFailure.costs: takeItem "count" must be positive');
+    if ('takeGold' in step && !(step.takeGold > 0)) out.push('onFailure.costs: takeGold must be positive');
   }
-  if (!cfg) return out;
-  const raw = typeof spec === 'string' ? {} : spec;
-  for (const key of Object.keys(raw)) if (!isComment(key) && !TOP_KEYS.includes(key)) out.push(`unknown challenge field "${key}"`);
-  for (const key of Object.keys(raw.retry ?? {})) if (!isComment(key) && !RETRY_KEYS.includes(key)) out.push(`unknown retry field "${key}"`);
-  for (const key of Object.keys(raw.onFailure ?? {})) if (!isComment(key) && !FAILURE_KEYS.includes(key)) out.push(`unknown onFailure field "${key}"`);
-  const k = kindDef(cfg.kind);
-  for (const key of Object.keys(cfg.mechanics)) if (!isComment(key) && !k.mechanics.includes(key)) out.push(`${cfg.kind} has no mechanic "${key}" (has: ${k.mechanics.join(', ')})`);
+  return out;
+}
+
+/** Unknown keys in a raw spec, a profile or a difficulty block. */
+function keyProblems(raw, k, where = '', kind = '') {
+  const out = [];
+  for (const key of Object.keys(raw.retry ?? {})) if (!isComment(key) && !RETRY_KEYS.includes(key)) out.push(`${where}unknown retry field "${key}"`);
+  for (const key of Object.keys(raw.onFailure ?? {})) if (!isComment(key) && !FAILURE_KEYS.includes(key)) out.push(`${where}unknown onFailure field "${key}"`);
+  for (const key of Object.keys(raw.mechanics ?? {})) if (!isComment(key) && !k.mechanics.includes(key)) out.push(`${where}${kind} has no mechanic "${key}" (has: ${k.mechanics.join(', ')})`);
+  for (const key of Object.keys(raw.assists ?? {})) if (!isComment(key) && key !== 'classic') out.push(`${where}unknown assists field "${key}" (only "classic")`);
+  if (raw.assists?.classic !== undefined && typeof raw.assists.classic !== 'boolean') out.push(`${where}assists.classic must be true or false`);
+  return out;
+}
+
+/** The difficulty blocks of a spec or profile: known difficulties, and only the stakes. */
+function difficultyBlockProblems(blocks, k, where = '', kind = '') {
+  const out = [];
+  if (blocks === undefined) return out;
+  if (!isPlainObject(blocks)) return [`${where}"difficulty" must be an object of { ${DIFFICULTIES.join(' | ')}: { ... } }`];
+  for (const [d, block] of Object.entries(blocks)) {
+    if (isComment(d)) continue;
+    if (!DIFFICULTIES.includes(d)) {
+      out.push(`${where}unknown difficulty "${d}" (use: ${DIFFICULTIES.join(', ')})`);
+      continue;
+    }
+    if (!isPlainObject(block)) {
+      out.push(`${where}difficulty.${d} must be an object`);
+      continue;
+    }
+    for (const key of Object.keys(block)) {
+      if (isComment(key)) continue;
+      if (!DIFFICULTY_KEYS.includes(key)) out.push(`${where}difficulty.${d} can't change "${key}" (a difficulty changes only the stakes: ${DIFFICULTY_KEYS.join(', ')}; the objective stays the same)`);
+    }
+    out.push(...keyProblems(block, k, `${where}difficulty.${d}: `, kind));
+  }
+  return out;
+}
+
+/** Everything wrong with one resolved config (one difficulty). */
+function resolvedProblems(cfg, k, step) {
+  const out = [];
   if (cfg.intent && !k.intents?.[cfg.intent]) out.push(`${cfg.kind} has no intent "${cfg.intent}"`);
   for (const [name, rule] of Object.entries(cfg.outcomes)) {
     if (name === 'fallback') {
@@ -135,7 +233,7 @@ export function challengeProblems(content, spec, { kind = null, step = {} } = {}
   if (!RETRY_POLICIES.includes(cfg.retry.policy)) out.push(`retry.policy must be one of ${RETRY_POLICIES.join(', ')}`);
   const f = cfg.onFailure;
   const limited = cfg.retry.maxAttempts !== null && cfg.retry.maxAttempts !== undefined;
-  if (limited && !(cfg.retry.maxAttempts >= 1)) out.push('retry.maxAttempts must be 1 or more (or null for unlimited)');
+  if (limited && !(Number.isInteger(cfg.retry.maxAttempts) && cfg.retry.maxAttempts >= 1)) out.push('retry.maxAttempts must be a whole number, 1 or more (or null for unlimited)');
   if (cfg.failure) {
     if (!cfg.outcomes.failure) out.push('failure is enabled but there is no outcomes.failure rule');
     // The softlock rules: after any failure there must be a way forward.
@@ -144,9 +242,70 @@ export function challengeProblems(content, spec, { kind = null, step = {} } = {}
     if (f.mustRetry && cfg.retry.policy === 'none') out.push('onFailure.mustRetry needs retries');
     if (!f.mustRetry && !f.continue && (limited || cfg.retry.policy === 'none')) out.push('when attempts can run out, onFailure.continue must be true (or the story has no way forward)');
     if (cfg.retry.restore && cfg.checkpoint === false) out.push('retry.restore needs a checkpoint ("checkpoint": false turns it off)');
-  } else if (spec && typeof spec === 'object' && (spec.onFailure || spec.retry)) {
-    out.push('onFailure / retry are set but failure is not enabled ("failure": true)');
+    out.push(...costProblems(f.costs));
   }
   if (k.problems) out.push(...k.problems(cfg.mechanics, step));
+  // Every outcome the rules name must be one an attempt can really end in.
+  if (k.endings && !out.length) {
+    const supported = ['success', 'partial', 'failure'].filter((o) => cfg.failure || o !== 'failure');
+    const reach = reachableOutcomes(cfg.outcomes, k.endings(cfg, step), supported);
+    if (!reach.outcomes.has('success')) out.push('no attempt can end in success: the rules (or this difficulty\'s limits) leave no way to win');
+    if (cfg.outcomes.partial && !reach.rules.has('partial')) out.push('outcomes.partial can never be reached (its threshold lies outside what an attempt can do, or an earlier rule always holds first)');
+    if (cfg.failure && !reach.outcomes.has('failure')) out.push(`failure is enabled, but nothing can end an attempt as a failure (give it a limit: ${k.limits.join(', ')})`);
+    if (reach.outcomes.has('unsupported')) out.push('a rule asks for an outcome this challenge can\'t produce (failure is off, so it would be reported as unsupported)');
+  }
   return out;
+}
+
+/**
+ * Everything wrong with a raw spec or a profile, as messages, on every
+ * difficulty: each one must resolve to a challenge that can be won and that
+ * never leaves the story without a way forward. A problem on only some
+ * difficulties is prefixed with them ("[brutal] ...").
+ */
+export function challengeProblems(content, spec, { kind = null, step = {} } = {}) {
+  const out = [];
+  let base;
+  try {
+    base = challengeConfig(content, spec, { kind, id: 'check' });
+  } catch (err) {
+    return [err.message];
+  }
+  if (!base) return out;
+  const raw = typeof spec === 'string' ? {} : spec;
+  const k = kindDef(base.kind);
+  for (const key of Object.keys(raw)) if (!isComment(key) && !TOP_KEYS.includes(key)) out.push(`unknown challenge field "${key}"`);
+  out.push(...specKeyProblems(raw, base.kind));
+  if (!base.failure && (raw.onFailure || raw.retry) && !Object.values(raw.difficulty ?? {}).some((b) => b?.failure === true)) {
+    out.push('onFailure / retry are set but failure is not enabled ("failure": true)');
+  }
+  // Every difficulty resolves on its own.
+  const byMessage = new Map();
+  for (const d of DIFFICULTIES) {
+    let cfg;
+    try {
+      cfg = challengeConfig(content, spec, { kind, id: 'check', difficulty: d });
+    } catch (err) {
+      out.push(`[${d}] ${err.message}`);
+      continue;
+    }
+    if (!cfg) continue;
+    for (const msg of new Set(resolvedProblems(cfg, k, step))) {
+      if (!byMessage.has(msg)) byMessage.set(msg, []);
+      byMessage.get(msg).push(d);
+    }
+  }
+  for (const [msg, ds] of byMessage) out.push(ds.length === DIFFICULTIES.length ? msg : `[${ds.join(', ')}] ${msg}`);
+  return out;
+}
+
+/**
+ * Unknown or misplaced keys in a spec or a profile (its retry, onFailure,
+ * mechanics and assists, and its difficulty blocks). The profile loop in
+ * validateContent runs this once per profile; challengeProblems on each spec.
+ */
+export function specKeyProblems(raw, kind) {
+  const k = kindDef(kind);
+  if (!k || !isPlainObject(raw)) return [];
+  return [...keyProblems(raw, k, '', kind), ...difficultyBlockProblems(raw.difficulty, k, '', kind)];
 }

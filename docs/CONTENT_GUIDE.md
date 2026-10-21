@@ -1941,3 +1941,23 @@ leave the story with no way forward. Everything else, the record, the
 rules, checkpoints, the sash tension's intent (`complete` or `sabotage`) and
 how to test outcomes, is in
 [gameplay-overhaul/07-challenge-outcomes.md](gameplay-overhaul/07-challenge-outcomes.md).
+
+**Difficulty.** The player picks Deckhand, Captain (the default) or Brutal
+before a new game, and can change it in Options. It reaches only challenges
+that opted in. `data/difficulty/presets.json` gives each kind its feel on
+each difficulty (more or less green, a faster or slower marker, a wider or
+narrower band, sharks that wait longer or shorter). The stakes are written
+per difficulty in a profile's or a challenge's `"difficulty"` block:
+
+```json
+"challenge": { "profile": "repair_strict", "id": "p41_breach",
+  "difficulty": { "brutal": { "mechanics": { "maxFumbles": 0 }, "onFailure": { "costs": [{ "takeItem": "planks" }] } } } }
+```
+
+A block may change `failure`, `mechanics`, `outcomes`, `score`, `grades`,
+`retry`, `onFailure` and `onPartial`, never the challenge's `id`, `intent`,
+`keep` or `checkpoint`. Every difficulty is validated on its own: it must be
+winnable and leave the story a way forward. The player's timing assist and
+classic bar are separate, go with any difficulty, and never decide an
+outcome. Details:
+[gameplay-overhaul/08-difficulty-and-accessibility.md](gameplay-overhaul/08-difficulty-and-accessibility.md).
