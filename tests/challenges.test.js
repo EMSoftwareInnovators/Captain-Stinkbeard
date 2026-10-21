@@ -471,13 +471,13 @@ describe('15. controls: one press, one action', () => {
 });
 
 // ---------------------------------------------------------------------------------------------
-describe('16. saves stay version 17 and never hold a half-finished attempt', () => {
-  it('the save format is unchanged; checkpoints and records are per-play only', async () => {
-    expect(SAVE_VERSION).toBe(17);
+describe('16. saves never hold a half-finished attempt', () => {
+  it('challenges add nothing to the save (version 18 since Prompt 5 added the ship); checkpoints and records are per-play only', async () => {
+    expect(SAVE_VERSION).toBe(18);
     const s = makeStory({ preset: 'p17_complete', challenges: 'failOnce' });
     await s.run([{ repair: 'hull', strikes: 3, challenge: STRICT_REPAIR({ id: 'fixture_save' }) }]);
     const state = s.session.serialize();
-    expect(Object.keys(state).sort()).toEqual(['createdAt', 'inventory', 'location', 'party', 'playTime', 'quests', 'story', 'world']);
+    expect(Object.keys(state).sort()).toEqual(['createdAt', 'inventory', 'location', 'party', 'playTime', 'quests', 'ship', 'story', 'world']);
     expect(JSON.stringify(state)).not.toMatch(/fixture_save|challengeLog|checkpoint/);
     const t = reloadStory(s);
     expect(t.challengePolicy).toBe('failOnce');

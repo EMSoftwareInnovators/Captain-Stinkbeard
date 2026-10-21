@@ -186,6 +186,42 @@ export const CONDITION_OPERATORS = {
     validate: (v, c) => asArray(v).forEach((id) => c.deadCenter?.(id)),
   },
 
+  /**
+   * Overhaul Prompt 5: the ship's condition (docs/gameplay-overhaul/09-ship-integrity.md).
+   *   { "ship": { "section": "rigging", "operational": false } }
+   *   { "ship": { "section": "hull_port", "state": ["critical", "disabled"] } }
+   *   { "ship": { "section": "hull_port", "integrity": { "lt": 50 } } }   (percent)
+   *   { "ship": { "overall": { "lt": 60 } } }   { "ship": { "destroyed": true } }
+   * Every key given must hold. A session without a ship (old tools) reads as whole.
+   */
+  ship: {
+    evaluate: (v, s) => {
+      const ship = s.ship;
+      if (!ship) return v.destroyed !== true && v.operational !== false;
+      if ('destroyed' in v && ship.destroyed !== v.destroyed) return false;
+      if ('overall' in v && !compare(ship.overall().pct, v.overall)) return false;
+      if (v.section === undefined) return true;
+      const sec = ship.section(v.section);
+      if (!sec) return false;
+      if ('operational' in v && sec.operational !== v.operational) return false;
+      if ('state' in v && !asArray(v.state).includes(sec.state)) return false;
+      if ('integrity' in v && !compare(sec.pct, v.integrity)) return false;
+      return true;
+    },
+    validate: (v, c) => {
+      if (!isPlainObject(v)) return c.error('ship condition needs { section, operational | state | integrity } or { overall } or { destroyed }');
+      const data = c.ctx?.db?.ship;
+      for (const k of Object.keys(v)) if (!['section', 'operational', 'state', 'integrity', 'overall', 'destroyed'].includes(k)) c.error(`ship condition: unknown key "${k}"`);
+      if (v.section !== undefined && data && !data.sections?.[v.section]) c.error(`ship condition: unknown section "${v.section}"`);
+      if (v.section === undefined && ['operational', 'state', 'integrity'].some((k) => k in v)) c.error('ship condition: "operational", "state" and "integrity" need a "section"');
+      const states = (data?.thresholds ?? []).map((t) => t.id);
+      for (const st of asArray(v.state ?? [])) if (states.length && !states.includes(st)) c.error(`ship condition: unknown state "${st}" (use: ${states.join(', ')})`);
+      for (const k of ['integrity', 'overall']) if (k in v && !(typeof v[k] === 'number' || (isPlainObject(v[k]) && Object.keys(v[k]).every((op) => COMPARE_KEYS.includes(op))))) c.error(`ship condition: "${k}" needs a number or { lt, gte, ... }`);
+      for (const k of ['operational', 'destroyed']) if (k in v && typeof v[k] !== 'boolean') c.error(`ship condition: "${k}" must be true or false`);
+      return undefined;
+    },
+  },
+
   all: {
     evaluate: (v, s) => asArray(v).every((cond) => evaluateCondition(cond, s)),
     validate: (v, c) => asArray(v).forEach((cond) => validateCondition(cond, c)),

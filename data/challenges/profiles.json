@@ -68,6 +68,20 @@
       "brutal": { "mechanics": { "maxSlips": 1, "breakAt": { "value": 94, "seconds": 0.7 }, "grip": { "max": 100, "drain": 3, "recover": 12 } } }
     }
   },
+  "ship_repair": {
+    "//": "A ship repair (Pause > Ship, data/ship/integrity.json): a strict timing bar, two fumbles allowed. A failure wastes materials and the captain may try again while the materials last (the repair limits the tries), or leave it. Deckhand allows three fumbles, Brutal one.",
+    "kind": "repair",
+    "failure": true,
+    "mechanics": { "maxFumbles": 2 },
+    "outcomes": { "failure": { "completed": false }, "success": { "fumbles": 0 }, "fallback": "partial" },
+    "score": "accuracy",
+    "retry": { "policy": "offer", "maxAttempts": null, "restore": true },
+    "onFailure": { "continue": true },
+    "difficulty": {
+      "deckhand": { "mechanics": { "maxFumbles": 3 } },
+      "brutal": { "mechanics": { "maxFumbles": 1 } }
+    }
+  },
   "sash_deliberate_flutter": {
     "//": "The captain WANTS it to flutter early (to trigger the Stenchmaster's consequences): letting go on purpose is success, though the ceremony calls it a violation; an accidental flutter is partial; holding to the end is a failure. The intent is the same on every difficulty; only the slips allowed change.",
     "kind": "sashTension",

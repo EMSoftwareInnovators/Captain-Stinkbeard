@@ -162,8 +162,11 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
   const challengeDecisions = [];
   const restores = [];
   const decisionQueue = [];
+  const notices = [];
   // Hands for the next challenge attempts, in order (else the policy's).
   const handQueue = [];
+  // Called as each timing bar attempt starts (a test saves the game mid-repair from here).
+  const attemptHooks = [];
   bus.on('challenge:resolved', ({ record }) => {
     challengeRecords.push(record);
     // tools/walk-challenges.mjs: one line per resolved challenge, for the per-phase report.
@@ -186,7 +189,8 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
       tutorial: async () => {},
     },
     ui: {
-      notify: async () => {},
+      // Recorded: ship damage and repair notices (Ship Integrity) read them.
+      notify: async (n) => { notices.push(n); },
       banner: async () => {},
       openShop: async () => {},
       openLog: async (id) => { opened.push(id); },
@@ -195,6 +199,7 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
       // A timing bar that opted into a challenge: the real rules, played by the policy's hand.
       timingBar: async (opts) => {
         const info = opts.challenge;
+        for (const hook of attemptHooks) await hook(info, opts);
         const hand = handQueue.length ? handQueue.shift() : handFor('repair', challenges, info.attempt);
         const bar = repairBarConfig(opts, info);
         const result = playTimingBar(bar, hand, seededRandom(info.seed));
@@ -280,6 +285,7 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
     tensions,
     tellers,
     challengePolicy: challenges,
+    notices,
     /** The player's difficulty and assists (read when a challenge starts, and assists at each attempt). */
     get prefs() {
       return challengePrefs;
@@ -295,6 +301,10 @@ export function makeStory({ pick = 'first', preset = 'prologue_done', state = nu
     /** Decisions for the next challenge failures, in order ('retry' | 'continue' | 'fallback'). */
     decideChallenges(...ids) {
       decisionQueue.push(...ids);
+    },
+    /** Runs `fn(info, opts)` as each timing bar attempt starts. */
+    onAttempt(fn) {
+      attemptHooks.push(fn);
     },
     /** Hands for the next challenge attempts (tests/challengeBots.js: 'perfect', 'fumble', { fumbles: n }, 'slack', { early: s }, ...). */
     playHands(...hands) {

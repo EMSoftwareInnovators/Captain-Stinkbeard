@@ -824,6 +824,37 @@ data: `data/difficulty/presets.json` and `data/difficulty/assists.json`
   (TitleScene) and the *Difficulty and assists* panel behind the Options'
   first row.
 
+## Ship Integrity (overhaul Prompt 5)
+
+The ship's condition: six structural sections (`hull_port`,
+`hull_starboard`, `bow`, `stern`, `deck`, `rigging`) with integrity, typed
+damage, thresholds and material repairs. See
+[gameplay-overhaul/09-ship-integrity.md](gameplay-overhaul/09-ship-integrity.md).
+
+- Data: `data/ship/integrity.json` (ContentDB `ship`: thresholds,
+  categories, sections mapped to rooms by map id, repairs) and the materials
+  in `data/items/materials.json` (item type `material`, no `use`).
+- `src/systems/ship/integrity.js`: pure rules (thresholds, the difficulty's
+  `shipTuning`, `resolveRepair` per difficulty, `affordableAttempts`,
+  `shipDataProblems` for the validator).
+- `src/systems/ship/ShipState.js`: `session.ship`, the integrity per
+  section; `applyDamage` (validated, idempotent per `eventId`, refused after
+  its challenge resolved), `restore`, `commitRepair` (all or nothing),
+  per-section locks, `serialize` / `load`. Event-driven: `ship:damaged`,
+  `ship:restored`, `ship:threshold`, `ship:destroyed`, `ship:changed`,
+  `ship:loaded`. Nothing runs per frame.
+- Commands (`src/systems/script/commands.js`): `shipDamage`, `shipRestore`,
+  `shipRepair`. `repairPlan` says whether a repair can start, and the Ship
+  page uses it too. A repair is a challenge (the `ship_repair` profile): the
+  runner's `settle` hook commits its result before the run closes. The
+  `ship` condition reads a section's state (`conditions.js`).
+- Checkpoints capture the `ship` domain; saves are version 18 (below).
+- UI: the badge and toasts in OverlayScene (`setShipBadge`, notify kind
+  `ship`), refreshed by WorldScene on `ship:changed`; Pause > Ship
+  (`src/ui/menu/ShipPage.js`). Confirm closes the menu and hands the world the
+  repair (`MenuScene.close({ then })`, WorldScene `afterMenu`). Debug: F2 >
+  Ship (`src/debug/shipDebug.js`) and the `ship_demo` preset.
+
 ## Battle
 
 `BattleEngine` (`src/systems/battle/`) owns the rules and is fully
@@ -932,11 +963,13 @@ handles fullscreen, so pixels stay square and sharp.
 See the README and [RETRO_PORT_NOTES.md](RETRO_PORT_NOTES.md#save-schema).
 Autosave on map entry and after battles, three manual slots from the pause
 menu, checksum + version per record, migrations table for future formats.
-The schema is at version 17 (Story Phase 4 added story values: where the
+The schema is at version 18 (Story Phase 4 added story values: where the
 Dead Center is; Phases 5 to 17 keep the layout, and Phases 11 to 17 add only
 flags, variables and values: Phase 16's rooms' air, Fart Zone, beard, counter,
 lighter and hornets are all story state; Phase 17's new party members are
-ordinary party records, deduplicated on load); a save from any earlier phase upgrades on load
+ordinary party records, deduplicated on load; overhaul Prompt 5 added
+`ship`, each section's integrity, and a version 17 save loads with a whole
+ship); a save from any earlier phase upgrades on load
 and walks into the next chapter. Aliases are never saved.
 
 ## Testing

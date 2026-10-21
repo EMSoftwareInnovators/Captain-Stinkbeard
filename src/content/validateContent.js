@@ -22,6 +22,7 @@ import { ATMOSPHERE_STATES } from '../systems/atmosphere.js';
 import { TELLER_MODIFIERS } from '../systems/bank.js';
 import { challengeProblems, challengeConfig, specKeyProblems, PROFILE_KEYS } from '../systems/challenge/config.js';
 import { difficultyDataProblems, DIFFICULTIES } from '../systems/challenge/difficulty.js';
+import { shipDataProblems } from '../systems/ship/integrity.js';
 import { DutyPlan } from '../systems/hazards/sharkDuty.js';
 
 /** The least time a shark on an opted-in watch may give before it bites (a walk across the deck). */
@@ -228,6 +229,19 @@ function validateParam(type, value, check, sctx) {
     case 'vista': return check.vista(value);
     case 'log': return check.ref('logbook', value, check.ctx.db.logs);
     case 'tv': return check.ref('television', value, check.ctx.db.tv);
+    case 'shipSection':
+      if (!check.ctx.db.ship?.sections?.[value]) check.error(`unknown ship section "${value}" (data/ship/integrity.json: ${Object.keys(check.ctx.db.ship?.sections ?? {}).join(', ')})`);
+      return;
+    case 'shipSections':
+      if (Array.isArray(value) && !value.length) check.error('expected at least one ship section');
+      asArray(value).forEach((v) => validateParam('shipSection', v, check, sctx));
+      return;
+    case 'shipCategory':
+      if (!check.ctx.db.ship?.categories?.[value]) check.error(`unknown damage category "${value}" (data/ship/integrity.json: ${Object.keys(check.ctx.db.ship?.categories ?? {}).join(', ')})`);
+      return;
+    case 'shipRepair':
+      if (!check.ctx.db.ship?.repairs?.[value]) check.error(`unknown ship repair "${value}"`);
+      return;
     case 'challenge':
       // The shape here; the rules (and the steps they run) in validateChallenge.
       if (typeof value === 'string') return check.ref('challenge profile', value, check.ctx.db.challenges);
@@ -390,6 +404,9 @@ function validateStep(step, check, sctx) {
   if (name === 'tint' && !/^#[0-9a-fA-F]{6}$/.test(step.color ?? '')) check.error('tint color must be "#rrggbb"');
   if (name === 'repair' && !REPAIR_KINDS[step.repair]) check.error(`unknown timing-bar kind "${step.repair}" (see src/systems/repairKinds.js)`);
   if ((name === 'repair' || name === 'sashTension') && step.challenge !== undefined) validateChallenge(step.challenge, name, check.at(`${name}.challenge`), sctx, step);
+  // A ship repair is always a challenge (its repair's, or this step's own).
+  if (name === 'shipRepair' && step.challenge !== undefined) validateChallenge(step.challenge, 'repair', check.at('shipRepair.challenge'), sctx, { strikes: check.ctx.db.ship?.repairs?.[step.repair]?.strikes });
+  if ((name === 'shipDamage' || name === 'shipRestore') && !(step.amount > 0)) check.error(`${name}: "amount" must be a number above 0`);
   if ((name === 'repair' || name === 'sashTension') && step.challenge === undefined && ['outcomeValue', 'ifSuccess', 'ifPartial', 'ifFailure'].some((k) => k in step)) {
     check.error('outcomeValue / ifSuccess / ifPartial / ifFailure need a "challenge" (a legacy step always succeeds)');
   }
@@ -708,6 +725,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       }
       if (item.useSfx) c.sfx(item.useSfx);
     }
+    if (item.type === 'material' && item.use) c.error('a material is used up by work (a ship repair), not from the menu: no "use"');
     if (item.type === 'equipment') {
       if (!EQUIPMENT_SLOTS.includes(item.slot)) c.error(`equipment slot must be one of ${EQUIPMENT_SLOTS.join(', ')}`);
       validateStats(item.stats || {}, c, { required: false });
@@ -746,6 +764,26 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
 
   // Difficulty presets and timing assists (data/difficulty): the known difficulties, every adjustment within its bounds.
   for (const problem of difficultyDataProblems(db)) C('data/difficulty').error(problem);
+
+  // Ship Integrity (data/ship/integrity.json): sections, thresholds, repairs and their challenges.
+  for (const problem of shipDataProblems(db)) C('data/ship').error(problem);
+  for (const [id, r] of Object.entries(db.ship?.repairs ?? {})) {
+    if (id.startsWith('//')) continue;
+    const c = C(`data/ship/integrity.json (repairs.${id})`);
+    const spec = r.challenge ?? { profile: 'ship_repair' };
+    for (const problem of challengeProblems(db, spec, { kind: 'repair', step: { strikes: r.strikes } })) c.error(`challenge: ${problem}`);
+    // A repair's tries are limited by the materials, so it must always be possible to give up.
+    for (const d of DIFFICULTIES) {
+      let cfg = null;
+      try {
+        cfg = challengeConfig(db, spec, { kind: 'repair', id: 'check', difficulty: d });
+      } catch {
+        break;
+      }
+      if (!cfg?.failure) c.error(`[${d}] a ship repair's challenge must be able to fail ("failure": true)`);
+      else if (cfg.onFailure.mustRetry) c.error(`[${d}] a ship repair can't be must-win: the materials may run out`);
+    }
+  }
 
   // Story Phase 12: sash tension definitions (data/story/tension)
   for (const [id, t] of db.tension?.map ?? []) {

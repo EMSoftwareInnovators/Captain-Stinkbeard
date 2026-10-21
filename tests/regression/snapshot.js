@@ -19,7 +19,6 @@ export const SNAPSHOT_SCHEMA = 1;
 
 /** Planned systems (docs/gameplay-overhaul/04-gameplay-systems.md) with no state in the game yet. */
 export const UNSUPPORTED = {
-  shipIntegrity: 'planned (roadmap Prompt 5); no hull or system condition exists yet',
   roomAtmosphere: 'planned (Prompt 7): per-room air simulation (sources, ventilation, drift). What exists is recorded under systems: the ship-wide atmosphere, per-room overrides (Phase 16) and fume zones per room',
   beardSaturation: 'planned (Prompt 9); the beard keeps contamination tags only',
   crewConditions: 'planned (Prompt 22); crew have no condition or morale state',
@@ -53,6 +52,11 @@ function systemsState(content, session) {
   const prefix = content.beard?.get?.('beard')?.flagPrefix;
   if (prefix) out.beardTags = story.allFlags().filter((f) => f.startsWith(prefix)).sort();
   out.tv = Object.fromEntries((content.tv?.ids?.() ?? []).sort().filter((id) => content.tv.get(id)?.stateValue).map((id) => [id, getValue(content.tv.get(id).stateValue)]));
+  // Overhaul Prompt 5: each structural section's integrity (no chapter damages the ship, so every phase ends whole).
+  if (session.ship) {
+    const o = session.ship.overall();
+    out.ship = { overall: o.pct, destroyed: o.destroyed, sections: session.ship.serialize().sections };
+  }
   return out;
 }
 

@@ -1,0 +1,163 @@
+{
+  "//": "Ship Integrity (docs/gameplay-overhaul/09-ship-integrity.md). Structural sections have stable ids that are never tile coordinates: rooms (by map id) and, later, repair stations map onto sections, so the ship can be redesigned without touching this file. No story chapter damages the ship yet: the campaign plays as before.",
+  "thresholds": [
+    { "id": "healthy", "label": "Healthy", "min": 85, "efficiency": 1, "operational": true, "note": "sound" },
+    { "id": "worn", "label": "Worn", "min": 60, "efficiency": 1, "operational": true, "note": "holding" },
+    { "id": "damaged", "label": "Damaged", "min": 30, "efficiency": 0.75, "operational": true, "note": "works, badly" },
+    { "id": "critical", "label": "Critical", "min": 1, "efficiency": 0.4, "operational": true, "note": "barely holding" },
+    { "id": "disabled", "label": "Disabled", "min": 0, "efficiency": 0, "operational": false, "note": "out of action" }
+  ],
+  "categories": {
+    "impact": { "label": "a blow" },
+    "shark": { "label": "a shark" },
+    "cannon": { "label": "cannon fire" },
+    "collision": { "label": "a collision" },
+    "storm": { "label": "the storm" },
+    "supernatural": { "label": "something unnatural" },
+    "botched": { "label": "a botched repair" }
+  },
+  "sections": {
+    "hull_port": {
+      "name": "Port hull",
+      "max": 100,
+      "vital": true,
+      "function": "watertight",
+      "functionLabel": "keeps the sea out",
+      "rooms": ["cargo_hold", "galley", "crew_quarters", "treasure_hold"],
+      "resist": { "storm": 0.5, "cannon": 1.25, "supernatural": 0.75 },
+      "repair": "hull_patch",
+      "rebuild": "hull_rebuild"
+    },
+    "hull_starboard": {
+      "name": "Starboard hull",
+      "max": 100,
+      "vital": true,
+      "function": "watertight",
+      "functionLabel": "keeps the sea out",
+      "rooms": ["cargo_hold", "galley", "crew_quarters", "treasure_hold"],
+      "resist": { "storm": 0.5, "cannon": 1.25, "supernatural": 0.75 },
+      "repair": "hull_patch",
+      "rebuild": "hull_rebuild"
+    },
+    "bow": {
+      "name": "Bow",
+      "max": 80,
+      "function": "seaworthy",
+      "functionLabel": "cuts the waves",
+      "rooms": ["main_deck", "crew_quarters"],
+      "resist": { "shark": 0.5, "collision": 1.5 },
+      "repair": "hull_patch",
+      "rebuild": "hull_rebuild"
+    },
+    "stern": {
+      "name": "Stern and rudder",
+      "max": 80,
+      "function": "steering",
+      "functionLabel": "steers the ship",
+      "rooms": ["main_deck", "captains_quarters"],
+      "resist": { "shark": 1.25, "storm": 0.75 },
+      "repair": "rudder_fix",
+      "rebuild": "rudder_fix"
+    },
+    "deck": {
+      "name": "Main deck",
+      "max": 60,
+      "function": "footing",
+      "functionLabel": "gives footing on deck",
+      "rooms": ["main_deck"],
+      "resist": { "shark": 0.5, "storm": 1.25 },
+      "repair": "deck_mend",
+      "rebuild": "deck_mend"
+    },
+    "rigging": {
+      "name": "Mast and rigging",
+      "max": 60,
+      "function": "sailing",
+      "functionLabel": "drives the ship",
+      "rooms": ["main_deck"],
+      "resist": { "shark": 0, "storm": 1.5, "cannon": 0.75 },
+      "repair": "rigging_splice",
+      "rebuild": "rigging_rebuild"
+    }
+  },
+  "repairs": {
+    "hull_patch": {
+      "label": "Patch the hull",
+      "title": "PATCH THE HULL",
+      "kind": "hull",
+      "strikes": 3,
+      "cost": [{ "item": "planks", "count": 2 }, { "item": "nails", "count": 2 }],
+      "results": {
+        "success": { "restore": 35 },
+        "partial": { "restore": 18, "extra": [{ "item": "nails", "count": 1 }] },
+        "failure": { "waste": [{ "item": "nails", "count": 1 }], "damage": 4 }
+      },
+      "challenge": { "profile": "ship_repair" }
+    },
+    "hull_rebuild": {
+      "label": "Rebuild the planking",
+      "title": "REBUILD THE PLANKING",
+      "kind": "hull",
+      "strikes": 4,
+      "cost": [{ "item": "planks", "count": 4 }, { "item": "nails", "count": 3 }],
+      "results": {
+        "success": { "restore": 30 },
+        "partial": { "restore": 15, "extra": [{ "item": "planks", "count": 1 }] },
+        "failure": { "waste": [{ "item": "planks", "count": 1 }, { "item": "nails", "count": 1 }] }
+      },
+      "challenge": { "profile": "ship_repair" }
+    },
+    "rudder_fix": {
+      "label": "Fix the rudder",
+      "title": "FIX THE RUDDER",
+      "kind": "nail",
+      "strikes": 3,
+      "cost": [{ "item": "planks", "count": 1 }, { "item": "rope", "count": 1 }, { "item": "nails", "count": 1 }],
+      "results": {
+        "success": { "restore": 30 },
+        "partial": { "restore": 15, "extra": [{ "item": "rope", "count": 1 }] },
+        "failure": { "waste": [{ "item": "nails", "count": 1 }], "damage": 3 }
+      },
+      "challenge": { "profile": "ship_repair" }
+    },
+    "deck_mend": {
+      "label": "Mend the deck",
+      "title": "MEND THE DECK",
+      "kind": "nail",
+      "strikes": 2,
+      "cost": [{ "item": "planks", "count": 1 }, { "item": "nails", "count": 1 }],
+      "results": {
+        "success": { "restore": 30 },
+        "partial": { "restore": 15, "extra": [{ "item": "nails", "count": 1 }] },
+        "failure": { "waste": [{ "item": "nails", "count": 1 }], "damage": 3 }
+      },
+      "challenge": { "profile": "ship_repair" }
+    },
+    "rigging_splice": {
+      "label": "Splice the rigging",
+      "title": "SPLICE THE RIGGING",
+      "kind": "rope",
+      "strikes": 3,
+      "cost": [{ "item": "rope", "count": 2 }, { "item": "sailcloth", "count": 1 }],
+      "results": {
+        "success": { "restore": 35 },
+        "partial": { "restore": 18, "extra": [{ "item": "rope", "count": 1 }] },
+        "failure": { "waste": [{ "item": "rope", "count": 1 }], "damage": 3 }
+      },
+      "challenge": { "profile": "ship_repair" }
+    },
+    "rigging_rebuild": {
+      "label": "Re-rig the mast",
+      "title": "RE-RIG THE MAST",
+      "kind": "rope",
+      "strikes": 4,
+      "cost": [{ "item": "rope", "count": 3 }, { "item": "sailcloth", "count": 2 }],
+      "results": {
+        "success": { "restore": 30 },
+        "partial": { "restore": 15, "extra": [{ "item": "rope", "count": 1 }] },
+        "failure": { "waste": [{ "item": "rope", "count": 1 }] }
+      },
+      "challenge": { "profile": "ship_repair" }
+    }
+  }
+}

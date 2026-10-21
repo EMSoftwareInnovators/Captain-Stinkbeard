@@ -10,7 +10,7 @@ Prompt 4 added three difficulty modes, accessibility assists for timing, and the
 | Timing assist on every bar and sash trial; classic bar on strict bars | yes | – |
 | The choice before a new game, the Options panel, persistence | yes | – |
 | Records that say which rules and assists were in force | yes | balance passes reading them (Prompts 34, 60) |
-| Difficulty for battles, the teller window, field combat, Ship Integrity, Atmosphere | no | each system's own prompt, through the same layers |
+| Difficulty for battles, the teller window, field combat, Atmosphere | no | each system's own prompt, through the same layers (Ship Integrity got it in Prompt 5: the presets' `ship` block, [09-ship-integrity.md](09-ship-integrity.md)) |
 
 ## The three difficulties
 
@@ -112,7 +112,7 @@ The assist numbers are data (`data/difficulty/assists.json`), validated to only 
 ## Persistence and saves
 
 - **Where.** The three preferences are options, saved with the others in the device's settings (`captain-stinkbeard.settings`; `difficulty`, `timingAssist`, `classicBar` in `src/systems/settings/Settings.js`). They survive closing and reopening the game. The choice before a new game writes `difficulty` there.
-- **Not in saves.** Save files hold no preference. **The save version stays 17** and no migration was needed: every existing save loads as it is and plays on the device's current difficulty. This follows the fume hazard option, the existing accessibility setting, which is also per device.
+- **Not in saves.** Save files hold no preference. **The save version stayed 17** in this prompt and no migration was needed (Prompt 5 moved it to 18 for the ship's condition; still no preference in it): every existing save loads as it is and plays on the device's current difficulty. This follows the fume hazard option, the existing accessibility setting, which is also per device.
 - **Defaults.** Options stored before Prompt 4 have no difficulty: they load as Captain, Timing assist Off, Classic bar Off. An unknown or damaged value falls back to the same defaults.
 - **Nothing rewrites progress.** Preferences live outside the session, so changing one never touches story progress and is never captured or restored by a checkpoint. A retry can't undo a difficulty change, and a difficulty change can't undo a retry.
 - **Trade-off.** Two save slots on one device share a difficulty. Binding a difficulty to a playthrough would need a save field (v18); no prompt needs it yet.

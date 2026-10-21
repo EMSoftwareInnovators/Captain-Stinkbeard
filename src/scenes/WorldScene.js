@@ -165,7 +165,11 @@ export class WorldScene extends BaseScene {
       this.app.bus.on('settings:changed', () => this.applyReducedEffects()),
       // Story Phase 13: Stench-O-Vision puffs out of a set's vent, in this room if the set is here.
       this.app.bus.on('tv:aroma', ({ tv }) => this.ventPuff(tv)),
+      // Overhaul Prompt 5: the ship's condition on the HUD, and what happens when the hull is gone.
+      this.app.bus.on('ship:changed', () => this.refreshShipBadge()),
+      this.app.bus.on('ship:destroyed', (e) => this.onShipDestroyed(e)),
     ];
+    this.refreshShipBadge();
     this.events.once('shutdown', () => this.cleanup());
     this.events.on('resume', () => this.onResume());
 
@@ -179,6 +183,7 @@ export class WorldScene extends BaseScene {
     if (this.app.overlay?.dialogue) this.app.overlay.dialogue.dockResolver = null;
     this.app.overlay?.setHint(null);
     this.app.overlay?.setExposure(null);
+    this.app.overlay?.setShipBadge(null);
     this.stability?.destroy();
     this.fx?.destroy();
     this.barks?.clear();
@@ -1663,11 +1668,46 @@ export class WorldScene extends BaseScene {
     this.controls.consumeAll();
     this.wasMoving = false;
     this.player.stopWalking();
+    this.refreshShipBadge();
     if (this.pendingResume) {
       const r = this.pendingResume;
       this.pendingResume = null;
       r();
     }
+    // Something the pause menu asked for once it closed (Pause > Ship: a repair).
+    if (this.afterMenu) {
+      const f = this.afterMenu;
+      this.afterMenu = null;
+      f(this);
+    }
+  }
+
+  /**
+   * The ship's condition at the bottom-left (docs/gameplay-overhaul/09-ship-integrity.md):
+   * nothing while every section is whole, which is always, in the campaign as it stands.
+   */
+  refreshShipBadge() {
+    const ship = this.session?.ship;
+    if (!ship || ship.pristine) {
+      this.app.overlay?.setShipBadge(null);
+      return;
+    }
+    const o = ship.overall();
+    // The word and the colour both say how bad the worst section is (the percentage is the whole ship).
+    const count = o.worst ? ship.sections().filter((s) => s.state === o.worst.state).length : 0;
+    this.app.overlay?.setShipBadge({ pct: o.pct, label: o.worst?.label ?? o.label, state: o.worst?.state ?? o.state, count, damaged: o.damaged, destroyed: o.destroyed });
+  }
+
+  /**
+   * A vital section (the hull) reached 0: the ship is lost. The hook for a
+   * future defeat ("ship.onDestroyed": a script); until a chapter needs one
+   * the player is told and nothing else happens, so no existing chapter can
+   * end in a sinking.
+   */
+  onShipDestroyed() {
+    const script = this.content.ship?.onDestroyed?.script ?? null;
+    if (script) this.runScript([{ call: script }]);
+    else this.app.overlay?.toasts.push({ text: '<r>The hull is gone: the ship is sinking!</>', hold: 3200 });
   }
 
   /** Opens a shop from a script; resolves when the shop closes. */
@@ -1730,6 +1770,7 @@ export class WorldScene extends BaseScene {
       this.time.delayedCall(200, async () => {
         await this.app.overlay.fadeOut(260);
         this.app.audio.pushMusic();
+        this.app.overlay.setShipBadge(null);
         this.scene.pause();
         this.scene.launch('Battle', {
           encounter: encounterId,

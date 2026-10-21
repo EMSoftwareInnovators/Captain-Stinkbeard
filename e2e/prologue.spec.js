@@ -91,7 +91,10 @@ test('the prologue can be played from New Game to free exploration', { tag: ['@p
 
   // Save to slot 1 from the pause menu.
   await g.tap('KeyC', 45, 500);
-  await g.keys('ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown', 'ArrowDown', 'KeyZ');
+  // Down to Save (found by name: the menu's entries change as pages are added).
+  const saveAt = await g.eval(() => window.__GAME__.game.scene.getScene('Menu').navList.findIndex((n) => n.value === 'save'));
+  for (let i = 0; i < saveAt; i++) await g.keys('ArrowDown');
+  await g.keys('KeyZ');
   await g.wait(300);
   await g.keys('KeyZ');
   await g.wait(400);

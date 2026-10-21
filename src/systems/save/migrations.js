@@ -345,6 +345,22 @@ Object.assign(MIGRATIONS, {
     }
     return out;
   },
+  /**
+   * 17 -> 18 (overhaul Prompt 5: Ship Integrity, docs/gameplay-overhaul/09-ship-integrity.md).
+   * The save gains "ship": each structural section's integrity. A version 17
+   * save never had any, and nothing in the campaign damages the ship yet, so
+   * it starts whole: "ship": { "sections": {} } (a section a save doesn't
+   * list is at full integrity). No damage is invented; story, quests,
+   * inventory, the party, world objects and the location carry over as they
+   * are. The bump stops an older build from loading a save and silently
+   * dropping its ship. Player options are not in saves and are untouched.
+   */
+  17: (state) => {
+    const out = fillLayout(state);
+    const ship = state.ship && typeof state.ship === 'object' && !Array.isArray(state.ship) ? state.ship : null;
+    out.ship = ship && ship.sections && typeof ship.sections === 'object' ? ship : { sections: {} };
+    return out;
+  },
 });
 
 export function migrateState(state, fromVersion, toVersion, migrations = MIGRATIONS) {

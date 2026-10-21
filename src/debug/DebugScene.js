@@ -12,10 +12,11 @@ import { DEBUG_BROGATH } from './brogathDebug.js';
 import { DEBUG_MELLOWING } from './mellowingDebug.js';
 import { DEBUG_LIGHTER } from './lighterDebug.js';
 import { DEBUG_CREW } from './crewDebug.js';
+import { DEBUG_SHIP } from './shipDebug.js';
 import { ATMOSPHERE_STATES, atmosphereId } from '../systems/atmosphere.js';
 import { roomGuard } from '../world/placements.js';
 
-const TABS = ['Info', 'Story', 'Warp', 'Flags', 'Quests', 'Items', 'Party', 'Battle', 'Brogath', 'Mellow', 'Lighter', 'Crew', 'Tools'];
+const TABS = ['Info', 'Story', 'Warp', 'Flags', 'Quests', 'Items', 'Party', 'Battle', 'Brogath', 'Mellow', 'Lighter', 'Crew', 'Ship', 'Tools'];
 const GAMEPLAY_SCENES = ['Title', 'World', 'Battle', 'Menu', 'GameOver', 'Overlay'];
 
 /**
@@ -528,6 +529,32 @@ export class DebugScene extends BaseScene {
         return this.runInWorld(steps);
       } });
     }
+    return out;
+  }
+
+  /** Overhaul Prompt 5: the Ship Integrity bench (see shipDebug.js). */
+  itemsShip() {
+    const s = this.app.session;
+    const presets = this.app.content.debugPresets;
+    const out = DEBUG_SHIP.jumps.map(([label, id]) => ({ label: `Jump: ${label}`, right: presets.has(id) ? id : '<r>missing</>', action: () => {
+      if (!presets.has(id)) return this.flash(`No preset ${id}`);
+      this.close();
+      startPreset(this.game, id);
+      return null;
+    } }));
+    if (!s?.ship) return [...out, { label: '<k>Start a game for the rest</>' }];
+    const o = s.ship.overall();
+    out.push({ label: 'Ship', right: `${o.pct}% ${o.destroyed ? 'SINKING' : o.label}` });
+    for (const sec of s.ship.sections()) out.push({ label: `  ${sec.name}`, right: `${sec.hp}/${sec.max} ${sec.label}` });
+    out.push({ label: 'Repair everything (no materials)', action: () => {
+      for (const sec of s.ship.sections()) if (sec.hp < sec.max) s.ship.restore(sec.id, sec.max, { source: 'debug' });
+      this.rerender();
+    } });
+    for (const [label, steps] of DEBUG_SHIP.scenes) out.push({ label, action: () => this.runInWorld(steps) });
+    out.push({ label: 'Take every repair material', action: () => {
+      for (const id of DEBUG_SHIP.materials) if (s.inventory.count(id)) s.inventory.remove(id, s.inventory.count(id));
+      this.rerender();
+    } });
     return out;
   }
 

@@ -116,3 +116,105 @@ Across phases
   ... 5 more (see the full report)
 ```
 
+## 2026-10-21 (on 2273716)
+
+Reason: Prompt 5: Ship Integrity exists; every phase ends with a whole ship (no chapter damages it); shipIntegrity moves from unsupported to systems.ship; shipRepair registered as a challenge kind with 0 uses
+
+Files: phase-01.json, phase-02.json, phase-03.json, phase-04.json, phase-05.json, phase-06.json, phase-07.json, phase-08.json, phase-09.json, phase-10.json, phase-11.json, phase-12.json, phase-13.json, phase-14.json, phase-15.json, phase-16.json, phase-17.json, challenges.json
+
+Changes: 0 regression, 0 warning, 17 improvement, 18 change
+
+```
+Approved changes: 17 improvements, 18 changes
+
+Phase 1
+  IMPROVED   gameplay.unsupported: now supported: shipIntegrity
+  CHANGED    gameplay.systems.ship: null -> {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 2
+  IMPROVED   gameplay.unsupported: now supported: shipIntegrity
+  CHANGED    gameplay.systems.ship: null -> {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 3
+  IMPROVED   gameplay.unsupported: now supported: shipIntegrity
+  CHANGED    gameplay.systems.ship: null -> {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 4
+  IMPROVED   gameplay.unsupported: now supported: shipIntegrity
+  CHANGED    gameplay.systems.ship: null -> {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 5
+  IMPROVED   gameplay.unsupported: now supported: shipIntegrity
+  CHANGED    gameplay.systems.ship: null -> {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 6
+  IMPROVED   gameplay.unsupported: now supported: shipIntegrity
+  CHANGED    gameplay.systems.ship: null -> {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 7
+  IMPROVED   gameplay.unsupported: now supported: shipIntegrity
+  CHANGED    gameplay.systems.ship: null -> {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 8
+  IMPROVED   gameplay.unsupported: now supported: shipIntegrity
+  CHANGED    gameplay.systems.ship: null -> {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 9
+  IMPROVED   gameplay.unsupported: now supported: shipIntegrity
+  CHANGED    gameplay.systems.ship: null -> {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 10
+  IMPROVED   gameplay.unsupported: now supported: shipIntegrity
+  CHANGED    gameplay.systems.ship: null -> {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 11
+  IMPROVED   gameplay.unsupported: now supported: shipIntegrity
+  CHANGED    gameplay.systems.ship: null -> {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 12
+  IMPROVED   gameplay.unsupported: now supported: shipIntegrity
+  CHANGED    gameplay.systems.ship: null -> {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 13
+  IMPROVED   gameplay.unsupported: now supported: shipIntegrity
+  CHANGED    gameplay.systems.ship: null -> {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 14
+  IMPROVED   gameplay.unsupported: now supported: shipIntegrity
+  CHANGED    gameplay.systems.ship: null -> {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 15
+  IMPROVED   gameplay.unsupported: now supported: shipIntegrity
+  CHANGED    gameplay.systems.ship: null -> {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 16
+  IMPROVED   gameplay.unsupported: now supported: shipIntegrity
+  CHANGED    gameplay.systems.ship: null -> {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 17
+  IMPROVED   gameplay.unsupported: now supported: shipIntegrity
+  CHANGED    gameplay.systems.ship: null -> {"destroyed":false,"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Across phases
+  CHANGED    challenges: kinds.shipRepair: undefined -> {"blocksProgression":false,"input":"timed","label":"Ship repair (Pause > Ship; Prompt 5)","retry":"offered while the hold can pay for one; the waste and the damage stay","softlockRisk":"none: no chapter uses it, and a failed repair never ends the game","support":{"failure":true,"partial":true,"success":true}}
+```
+
+## 2026-10-21 (on 2273716)
+
+Reason: Prompt 5: the ship_demo debug preset names its start position (crew_quarters 10,8, the same tile as p17_complete): one more preset coordinate reference; no room, prop or NPC moved
+
+Files: coords.json
+
+Changes: 0 regression, 0 warning, 0 improvement, 5 change
+
+```
+Approved changes: 5 changes
+
+Across phases
+  CHANGED    coords: byKind.preset position: 335 -> 336
+  CHANGED    coords: byRoom.crew_quarters.files.data/debug/presets.json: 57 -> 58
+  CHANGED    coords: byRoom.crew_quarters.kinds.preset position: 57 -> 58
+  CHANGED    coords: byRoom.crew_quarters.total: 1365 -> 1366
+  CHANGED    coords: total: 8220 -> 8221
+```
+

@@ -143,8 +143,59 @@ export class OverlayScene extends BaseScene {
         this.toasts.push({ text: `${word}${rec.grade ? ` Grade <y>${rec.grade}</>` : ''}`, hold: 1600 });
         break;
       }
+      // Ship Integrity (docs/gameplay-overhaul/09-ship-integrity.md): damage, repairs, what's missing.
+      case 'ship':
+        this.toasts.push({ text: n.text, hold: 2400 });
+        break;
       default:
         this.toasts.push({ text: String(n.text ?? n.kind) });
+    }
+  }
+
+  /**
+   * The ship's condition at the bottom-left (overhaul Prompt 5): shown only
+   * while some section is below full integrity, hidden under dialogue and
+   * the timing bars. `state` is { pct, label, state, damaged, destroyed } or
+   * null: the whole ship's percentage, and how many sections are in the
+   * worst condition, in words as well as colour ("SHIP 69%: 1 DISABLED
+   * (3 hit)"). `count`: the sections in that condition.
+   */
+  setShipBadge(state) {
+    if (!state) {
+      this.shipBadge?.parts.forEach((p) => p.destroy());
+      this.shipBadge = null;
+      return;
+    }
+    const D = 398;
+    if (!this.shipBadge) {
+      const bg = this.add.rectangle(0, 0, 10, 14, 0x07060c, 0.7).setOrigin(0).setDepth(D);
+      const text = addText(this, 0, 0, '', { depth: D + 1 });
+      this.shipBadge = { parts: [bg, text], bg, text };
+    }
+    const b = this.shipBadge;
+    const tone = state.destroyed || state.state === 'disabled' ? '<r>' : state.state === 'critical' ? '<o>' : state.state === 'damaged' ? '<y>' : '<w>';
+    const word = state.destroyed ? 'SINKING' : state.label.toUpperCase();
+    const worst = state.destroyed ? word : `${state.count ?? 1} ${word}`;
+    const key = `${state.pct}|${worst}|${state.damaged}`;
+    if (b.key !== key) {
+      b.key = key;
+      setText(b.text, `<k>SHIP</> ${state.pct}%: ${tone}${worst}</>${state.damaged ? ` <k>(${state.damaged} hit)</>` : ''}`);
+      b.text.x = 8;
+      b.text.y = SCREEN_HEIGHT - 15;
+      b.bg.setPosition(4, SCREEN_HEIGHT - 17);
+      b.bg.width = b.text.textWidth + 8;
+    }
+    this.layoutShipBadge();
+  }
+
+  /** The badge gives way to anything at the bottom of the screen (dialogue, a timing bar, the sash close-up) and to the menus. */
+  layoutShipBadge() {
+    const b = this.shipBadge;
+    if (!b) return;
+    const show = !this.busy && !this.scene.isActive('Menu') && !this.scene.isActive('Battle') && !this.scene.get('Debug')?.open;
+    if (b.shown !== show) {
+      b.shown = show;
+      b.parts.forEach((p) => p.setVisible(show));
     }
   }
 
@@ -156,6 +207,7 @@ export class OverlayScene extends BaseScene {
     const input = this.controls;
     this.toasts.relayout();
     this.relayoutAlarm();
+    this.layoutShipBadge();
     if (this.repairOpen) {
       this.updateRepair(delta, input);
       return;
@@ -990,6 +1042,7 @@ export class OverlayScene extends BaseScene {
     this.setHint(null);
     this.setExposure(null);
     this.setStability(null);
+    this.setShipBadge(null);
     this.app.cinema?.reset();
     if (this.tutorialOpen) {
       this.tutorialOpen.parts.forEach((p) => p.destroy());

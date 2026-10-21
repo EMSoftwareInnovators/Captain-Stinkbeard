@@ -77,6 +77,11 @@ export const CHALLENGE_KINDS = Object.freeze({
     outcomes: { success: 'get out before exposure fills', partial: 'exposure taken', failure: 'collapse: the fumeCollapse script carries the captain out (non-fatal)' },
     retry: 'walk back in', blocksProgression: false, softlockRisk: 'none known', source: 'src/systems/hazards/fumes.js, src/scenes/WorldScene.js',
   },
+  shipRepair: {
+    label: 'Ship repair (Pause > Ship; Prompt 5)', commands: ['shipRepair'], input: 'timed',
+    outcomes: { success: 'the section restored by the repair\'s full amount', partial: 'restored by less, for extra material', failure: 'material wasted and a little more damage; another try while the materials last' },
+    retry: 'offered while the hold can pay for one; the waste and the damage stay', blocksProgression: false, softlockRisk: 'none: no chapter uses it, and a failed repair never ends the game', note: 'always plays as a strict challenge (the ship_repair profile); no chapter step uses it', source: 'src/systems/ship/, src/systems/script/commands.js (shipRepair), src/ui/menu/ShipPage.js',
+  },
   dice: {
     label: 'Grand Dice', commands: ['dice'], input: 'none',
     outcomes: { success: null, partial: null, failure: null },

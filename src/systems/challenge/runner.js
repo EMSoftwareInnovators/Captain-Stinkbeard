@@ -280,6 +280,9 @@ export const ATTEMPT_GUARD = 500;
  * @param {(record, options) => Promise<string>} hooks.decide   asks the player (an option id)
  * @param {(steps) => Promise<void>} [hooks.runSteps]  runs consequence / cost steps
  * @param {(checkpoint) => Promise<void>} [hooks.onRestored]  puts the world back (the captain's tile, input)
+ * @param {(record) => Promise<void>} [hooks.settle]  commits what the final outcome earns (a ship repair takes its
+ *   materials and restores the section), after the outcome and its consequences and before the run closes, so the
+ *   record's transitions include it
  * @returns {Promise<{ record: object, goto: string|null }>}
  */
 export async function runChallenge(run, hooks) {
@@ -309,6 +312,7 @@ export async function runChallenge(run, hooks) {
       await run.accept(hooks);
       break;
     }
+    await hooks.settle?.(run.record);
   } finally {
     run.close();
   }

@@ -272,6 +272,7 @@ the cancel button (default: the last option).
 | `setFlag` / `clearFlag` | flag or list | story flags |
 | `setVar` / `addVar` | name, `value` | story variables |
 | `giveItem` / `takeItem` | item, `count`, `silent` | inventory (with a notice unless silent) |
+| `shipDamage` / `shipRestore` / `shipRepair` | section(s), `amount`, ... | the ship's condition (see "Ship Integrity" at the end) |
 | `giveGold` / `takeGold` | amount, `silent` | gold |
 | `startQuest` | quest, `silent` | start a quest |
 | `completeObjective` | `"quest.objective"` | finish an objective |
@@ -358,6 +359,7 @@ Used by `if` everywhere (dialogue selectors, steps, choices, map objects, warps,
 | `all` / `any` / `not` | `{ "all": [ … ] }`, `{ "not": { … } }` |
 | `always` / `never` | `{ "always": true }` |
 | `deadCenter` | `{ "deadCenter": "galley_breakfast" }` or a list (any of): where the Dead Center is (Phase 4) |
+| `ship` | `{ "ship": { "section": "rigging", "operational": false } }`: a section's or the whole ship's condition (see "Ship Integrity") |
 
 ## Story flags and variables
 
@@ -424,8 +426,9 @@ shown and `onComplete` runs when the player is free. Categories `main` and
 
 ## Items, equipment and shops
 
-`data/items/*.json`, one list per file. `type` is `consumable`, `key` or
-`equipment`; `icon` names an item icon (`hardtack`, `tonic`, `rum`, `bandage`,
+`data/items/*.json`, one list per file. `type` is `consumable`, `key`,
+`equipment` or `material` (planks, nails, rope, sailcloth: used up by ship
+repairs, never from the menu, so no `use`); `icon` names an item icon (`hardtack`, `tonic`, `rum`, `bandage`,
 `rusty_key`, `treasure_key`, `fuse`, `cutlass`, `axe`, `coat`, `boots`,
 `doubloon`, `charm`, `fishbone`, `gold`, `ledger`, `shirt`); `value` is the
 shop price (sold for half).
@@ -1961,3 +1964,46 @@ winnable and leave the story a way forward. The player's timing assist and
 classic bar are separate, go with any difficulty, and never decide an
 outcome. Details:
 [gameplay-overhaul/08-difficulty-and-accessibility.md](gameplay-overhaul/08-difficulty-and-accessibility.md).
+
+## Ship Integrity
+
+The ship has six sections (`hull_port`, `hull_starboard`, `bow`, `stern`,
+`deck`, `rigging`), defined in `data/ship/integrity.json` with their rooms
+(map ids, never tiles), resistances and repairs. No chapter uses them yet.
+Steps:
+
+```json
+{ "shipDamage": "hull_port", "amount": 20, "category": "shark", "eventId": "p41_bite_1" }
+{ "shipDamage": ["deck", "stern"], "amount": 10, "category": "storm", "announce": false }
+{ "shipRestore": "rigging", "amount": 30, "announce": true }
+{ "shipRepair": "hull_port", "outcomeValue": "p41_patch", "ifFailure": "leak_left" }
+```
+
+- `shipDamage`: scaled by the difficulty (`"scale": false` for an exact
+  amount) and the section's resistance to the `category` (`impact`,
+  `shark`, `cannon`, `collision`, `storm`, `supernatural`, `botched`). An
+  `eventId` applies once however often the step runs. Inside a challenge it
+  is refused once the challenge has resolved, unless `"authorized": true`.
+- `shipRestore`: a fix with no materials (the crew did it in a scene).
+- `shipRepair`: the player's repair, with materials, a timing bar and an
+  outcome. It needs the section damaged, the captain in one of its rooms
+  (or `"anywhere": true` for a station), and the materials for the worst
+  outcome. Otherwise it says why and sets `outcomeValue` to `refused`.
+  `"repair"` picks a repair other than the section's own, and `"challenge"`
+  its own challenge (it must be able to fail).
+- A challenge's failure can charge the ship: `"costs": [{ "shipDamage": ... }]`
+  survive a retry, and `"consequences"` run on Carry on.
+
+The condition:
+
+```json
+{ "ship": { "section": "rigging", "operational": false } }
+{ "ship": { "section": "hull_port", "state": ["critical", "disabled"] } }
+{ "ship": { "section": "hull_port", "integrity": { "lt": 50 } } }
+{ "ship": { "overall": { "lt": 60 } } }
+{ "ship": { "destroyed": true } }
+```
+
+Everything else (thresholds, costs per difficulty, the HUD, the demo, the
+rules for layout changes) is in
+[gameplay-overhaul/09-ship-integrity.md](gameplay-overhaul/09-ship-integrity.md).

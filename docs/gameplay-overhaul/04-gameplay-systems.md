@@ -66,7 +66,7 @@ Each system is data-driven, engine-independent (rules in `src/systems/`, drawing
 
 - **What:** each room has an air value per substance (yellow gust, red sauce, green mellow haze, Coffin Sock, Stench-O-Vision). There are sources (Garrick, Brogath, the Suit, the vats, the TV grille, the beard), sinks (open portholes, hatches, doors, wind) and drift. Fume zones are generated from the room’s air instead of only from hand-placed rectangles. Exposure depends on air, equipment (wet cloth, goggles, wrap) and time.
 - **Extends:** `fumes.js` (zones, exposure, collapse), `deadCenter.js` (moving source), `atmosphere.js` (ship-wide states and their consequences, which become one layer), `fartZone.js` (doors and portholes are already modelled), the haze rendering in `FumeLayer`.
-- **Failure:** collapse becomes costly: lost time, a crew member dazed, or the Dead Center grows. It stays non-lethal by default, and the Ruthless difficulty can make the dense core lethal.
+- **Failure:** collapse becomes costly: lost time, a crew member dazed, or the Dead Center grows. It stays non-lethal by default, and the Brutal difficulty can make the dense core lethal.
 - **Story hooks:** Chapter 4 (evacuation), Chapter 6 (dive), Chapter 48, Chapter 78, Chapter 130, Chapter 151, Chapter 188 (venting), Chapter 222.
 
 ### S3. Stink Beard Saturation
@@ -119,7 +119,7 @@ Each system is data-driven, engine-independent (rules in `src/systems/`, drawing
 ### S10. Checkpoints, failure and assists
 
 - **Checkpoints:** an autosave at chapter start and at each challenge start (S0). Retry from the challenge in under 3 seconds.
-- **Assists:** opt-in, never forced. Today’s automatic bar widening becomes the “Seaworthy” default; “Ruthless” removes it.
+- **Assists:** opt-in, never forced, on every difficulty (Deckhand / Captain / Brutal). Today’s automatic bar widening stays on legacy bars and becomes the opt-in “classic bar” assist for strict ones, next to a timing assist. (Decided in Prompt 4: [08-difficulty-and-accessibility.md](08-difficulty-and-accessibility.md).)
 - **Softlock guard:** a validator rule that every `fail` path leads back to a playable state, plus a headless “fail first, then succeed” mode in the story harness.
 
 ## 4. Combat direction (needs your decision)

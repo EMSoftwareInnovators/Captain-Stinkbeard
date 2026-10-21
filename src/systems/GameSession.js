@@ -3,6 +3,7 @@ import { WorldState } from './world/WorldState.js';
 import { Inventory } from './inventory/Inventory.js';
 import { Party } from './party/Party.js';
 import { QuestSystem } from './quests/QuestSystem.js';
+import { ShipState } from './ship/ShipState.js';
 import { resolveVariant } from './story/progress.js';
 import { deepClone } from '../core/util.js';
 
@@ -21,6 +22,8 @@ export class GameSession {
     this.party = new Party({ characters: content.characters, progression: content.progression, items: content.items, bus, resolve: (def) => resolveVariant(def, this) });
     this.location = { map: null, x: 0, y: 0, facing: 'down' };
     this.quests = new QuestSystem({ quests: content.quests, session: this, bus });
+    // Overhaul Prompt 5: the ship's structural condition (docs/gameplay-overhaul/09-ship-integrity.md).
+    this.ship = new ShipState({ def: content.ship, bus });
     this.playTime = 0; // seconds
     this.createdAt = new Date().toISOString();
     // Per-play state that is deliberately never saved (fume exposure...).
@@ -80,6 +83,7 @@ export class GameSession {
       inventory: this.inventory.serialize(),
       party: this.party.serialize(),
       quests: this.quests.serialize(),
+      ship: this.ship.serialize(),
       location: { ...this.location },
       playTime: Math.floor(this.playTime),
       createdAt: this.createdAt,
@@ -93,6 +97,7 @@ export class GameSession {
     this.inventory.load(s.inventory, onWarning);
     this.party.load(s.party, onWarning);
     this.quests.load(s.quests, onWarning);
+    this.ship.load(s.ship, onWarning);
     this.location = { map: s.location?.map ?? null, x: s.location?.x ?? 0, y: s.location?.y ?? 0, facing: s.location?.facing ?? 'down' };
     this.playTime = Number.isFinite(s.playTime) ? s.playTime : 0;
     this.createdAt = s.createdAt ?? this.createdAt;

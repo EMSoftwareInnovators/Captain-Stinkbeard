@@ -7,7 +7,8 @@ import { applyEffects, wouldAffect, itemUsableIn } from '../../systems/effects/e
 import { resolveVariant } from '../../systems/story/progress.js';
 
 const TABS = [
-  { id: 'consumable', label: 'Supplies' },
+  // Repair materials (overhaul Prompt 5) are listed with the supplies, after them, and greyed: they're used up by repairs (Pause > Ship).
+  { id: 'consumable', label: 'Supplies', also: ['material'] },
   { id: 'key', label: 'Key Items' },
   { id: 'equipment', label: 'Gear' },
 ];
@@ -35,9 +36,10 @@ export class ItemsPage {
   }
 
   entries() {
-    const type = TABS[this.tabIndex].id;
+    const tab = TABS[this.tabIndex];
+    const list = [tab.id, ...(tab.also ?? [])].flatMap((type) => this.session.inventory.entries({ type }));
     // Story Phase 11: an item can read differently as the story goes ("variants": a fragile booklet wearing out).
-    return this.session.inventory.entries({ type }).map((e) => (e.def?.variants ? { ...e, def: resolveVariant(e.def, this.session) } : e));
+    return list.map((e) => (e.def?.variants ? { ...e, def: resolveVariant(e.def, this.session) } : e));
   }
 
   render() {
@@ -72,7 +74,7 @@ export class ItemsPage {
         value: e.id,
         icon: e.def.icon,
         right: e.def.type === 'key' ? '' : `×${e.count}`,
-        color: e.def.type === 'consumable' && !usable ? UI_COLORS.dim : undefined,
+        color: (e.def.type === 'consumable' && !usable) || e.def.type === 'material' ? UI_COLORS.dim : undefined,
       };
     });
     this.menu = new ListMenu(scene, {

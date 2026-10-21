@@ -119,6 +119,8 @@ export function expandDecor(decor = []) {
 const SINGLE_FILES = {
   'game.json': 'game',
   'progression/leveling.json': 'leveling',
+  // Overhaul Prompt 5: Ship Integrity's sections, thresholds and repairs (docs/gameplay-overhaul/09-ship-integrity.md).
+  'ship/integrity.json': 'ship',
 };
 
 export const REGISTRY_KINDS = [
@@ -143,6 +145,7 @@ export class ContentDB {
     for (const kind of REGISTRY_KINDS) this[kind] = new Registry(kind);
     this.game = null;
     this.leveling = null;
+    this.ship = null;
     this.loadErrors = [];
     this.extensions = []; // { kind: 'npcs'|'characters', rec, source }
     this.files = Object.keys(files).map(relativePath).sort(byPath);

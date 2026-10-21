@@ -84,7 +84,8 @@ test('no text runs off the screen or over other text in the pause menu', { tag: 
 });
 
 test('no text runs off the screen in banners or tips', { tag: ['@ui'] }, async ({ page }) => {
-  test.setTimeout(10 * 60 * 1000);
+  // About 900 banners and tips at 0.5 to 1.7 s each: more than 10 minutes since Phase 17 (11.4 min measured in Prompt 5).
+  test.setTimeout(20 * 60 * 1000);
   const errors = await open(page);
   await page.evaluate(() => window.__GAME__.test.preset('phase3_complete'));
   await page.waitForFunction(() => window.__GAME__.game.scene.isActive('World'));

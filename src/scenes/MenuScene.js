@@ -7,6 +7,7 @@ import { StatusPage } from '../ui/menu/StatusPage.js';
 import { ItemsPage } from '../ui/menu/ItemsPage.js';
 import { EquipPage } from '../ui/menu/EquipPage.js';
 import { QuestsPage } from '../ui/menu/QuestsPage.js';
+import { ShipPage } from '../ui/menu/ShipPage.js';
 import { LogPage } from '../ui/menu/LogPage.js';
 import { logAvailable } from '../systems/logs/logbook.js';
 import { ShopView } from '../ui/menu/ShopView.js';
@@ -22,6 +23,8 @@ const NAV = [
   { label: 'Items', value: 'items', page: ItemsPage },
   { label: 'Equip', value: 'equip', page: EquipPage },
   { label: 'Quests', value: 'quests', page: QuestsPage },
+  // Overhaul Prompt 5: the ship's condition and its repairs (docs/gameplay-overhaul/09-ship-integrity.md).
+  { label: 'Ship', value: 'ship', page: ShipPage },
   { label: 'Options', value: 'options' },
   { label: 'Save', value: 'save' },
   { label: 'Return', value: 'return' },
@@ -87,7 +90,7 @@ export class MenuScene extends BaseScene {
     for (const [id, log] of this.app.content.logs.map) {
       if (logAvailable(log, this.session)) logs.push({ label: log.menuLabel ?? log.title, value: `log:${id}`, page: LogPage, args: { logId: id } });
     }
-    const at = NAV.findIndex((n) => n.value === 'quests') + 1;
+    const at = NAV.findIndex((n) => n.value === 'ship') + 1;
     return [...NAV.slice(0, at), ...logs, ...NAV.slice(at)];
   }
 
@@ -233,7 +236,8 @@ export class MenuScene extends BaseScene {
     this.scene.start('Title');
   }
 
-  close() {
+  /** Closes the menu. `then(world)` runs once the world is back (the Ship page starts a repair there). */
+  close({ then = null } = {}) {
     if (this.closing) return;
     this.closing = true;
     this.app.audio.ui('menu_close');
@@ -241,6 +245,7 @@ export class MenuScene extends BaseScene {
     this.page = null;
     this.shopView?.destroy();
     this.shopView = null;
+    if (then) this.scene.get('World').afterMenu = then;
     this.scene.stop();
     this.scene.resume('World');
   }

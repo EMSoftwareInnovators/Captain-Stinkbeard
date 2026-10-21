@@ -114,7 +114,7 @@ Per room:
 
 Systems the overhaul has planned but that don't exist yet are listed under `unsupported`, each with what exists today and the prompt that will add it:
 
-- Ship Integrity;
+- Ship Integrity (since Prompt 5 measured under `systems.ship`: each section's integrity, the overall percentage, whether the ship is lost);
 - per-room atmosphere simulation;
 - Beard Saturation;
 - crew conditions;

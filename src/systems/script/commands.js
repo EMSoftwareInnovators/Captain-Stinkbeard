@@ -17,6 +17,7 @@ import { challengeConfig } from '../challenge/config.js';
 import { ChallengeRun, runChallenge, challengeLog, chapterOf } from '../challenge/runner.js';
 import { captureCheckpoint } from '../challenge/checkpoint.js';
 import { normalizePrefs } from '../challenge/difficulty.js';
+import { shipTuning, resolveRepair, repairIdFor, affordableAttempts, sumItems } from '../ship/integrity.js';
 import { tunedTensionDef } from '../tension.js';
 
 /** Story Phase 14: a stability subject (data/story/stability) with its defaults. */
@@ -273,19 +274,75 @@ function challengePrefs(ctx) {
  * Returns what the command returns (a goto when one applies).
  */
 async function runStepChallenge(ctx, frame, step, cfg, attempt) {
+  const { record, goto } = await playChallenge(ctx, frame, cfg, attempt);
+  return challengeFollowUp(ctx, frame, step, cfg, record, goto);
+}
+
+/** Plays a challenge to its final outcome (the runner, with the game's prompt, consequence steps and restore). */
+async function playChallenge(ctx, frame, cfg, attempt, settle = null) {
   const run = new ChallengeRun({ session: ctx.session, config: cfg, chapter: chapterOf(frame?.id), event: frame?.id ?? null, script: frame?.id ?? null, prefs: () => challengePrefs(ctx), content: ctx.session.content ?? ctx.content });
   const hooks = {
     attempt,
     decide: (record, options) => service(ctx, 'ui', 'challengeOutcome').challengeOutcome(record, options),
-    runSteps: (steps) => ctx.runner.run(steps, ctx),
+    // Cost and consequence steps know which challenge they belong to (a resolved one can't damage the ship again).
+    runSteps: (steps) => ctx.runner.run(steps, { ...ctx, challenge: run.record }),
     onRestored: (cp) => ctx.services?.world?.restoreCheckpoint?.(cp),
+    settle,
   };
-  const { record, goto } = await runChallenge(run, hooks);
+  return runChallenge(run, hooks);
+}
+
+/** After the outcome: the toast, "outcomeValue", then a "go back" or the step's if-branch. */
+async function challengeFollowUp(ctx, frame, step, cfg, record, goto) {
   if (cfg.announce && record.outcome !== 'failure') await ctx.services?.ui?.notify?.({ kind: 'challenge', record });
   if (step.outcomeValue) ctx.session.story.setValue(step.outcomeValue, record.outcome);
   if (goto) return { goto };
   const branch = { success: step.ifSuccess, partial: step.ifPartial, failure: step.ifFailure }[record.outcome];
   return branch === undefined ? null : ctx.runner.execBranch(branch, ctx, frame);
+}
+
+// --- Ship Integrity (overhaul Prompt 5, docs/gameplay-overhaul/09-ship-integrity.md) -----------
+
+const itemName = (content, id) => content.items?.get?.(id)?.name ?? id;
+const itemList = (content, list) => list.map((c) => `${c.count} ${itemName(content, c.item)}`).join(', ');
+
+/** Tells the player about the ship (a toast in the game; nothing in a headless run). */
+async function shipNotice(ctx, text) {
+  await ctx.services?.ui?.notify?.({ kind: 'ship', text });
+}
+
+function shipDamageText(ctx, r) {
+  const sec = ctx.session.ship.section(r.section);
+  const by = (ctx.session.content ?? ctx.content).ship?.categories?.[r.category]?.label ?? r.category;
+  if (r.reason === 'immune') return `<k>${sec.name}: no harm from ${by}.</>`;
+  const mark = sec.state === 'disabled' ? '<r>' : sec.state === 'critical' ? '<o>' : '<y>';
+  return `${sec.name} hit by ${by}: ${mark}${sec.pct}% ${sec.label.toUpperCase()}</>${r.crossed ? '!' : ''}`;
+}
+
+/**
+ * Can this section be repaired here and now, and with what? Everything the
+ * Ship page and the shipRepair command show and check, without changing
+ * anything.
+ */
+export function repairPlan(session, sectionId, { difficulty = 'captain', anywhere = false, repairId = null } = {}) {
+  const content = session.content;
+  const ship = session.ship;
+  const sec = ship.section(sectionId);
+  if (!sec) return { ok: false, reason: 'unknown', message: `There is no "${sectionId}" to repair.` };
+  if (!sec.repairable) return { ok: false, reason: 'unrepairable', section: sec, message: `The ${sec.name.toLowerCase()} can't be repaired.` };
+  if (sec.hp >= sec.max) return { ok: false, reason: 'whole', section: sec, message: `The ${sec.name.toLowerCase()} needs no repair.` };
+  const def = content.ship.sections[sectionId];
+  const repair = resolveRepair(content, repairId ?? repairIdFor(def, sec.hp), difficulty);
+  if (!repair) return { ok: false, reason: 'unknown', section: sec, message: 'No repair is known for that.' };
+  const room = session.location?.map ?? null;
+  const here = anywhere || sec.rooms.includes(room);
+  const missing = repair.worst.filter((c) => session.inventory.count(c.item) < c.count).map((c) => ({ ...c, have: session.inventory.count(c.item) }));
+  const attempts = affordableAttempts(repair, (id) => session.inventory.count(id));
+  const rooms = sec.rooms.map((m) => content.maps.get(m)?.name ?? m);
+  if (ship.isLocked(sectionId)) return { ok: false, reason: 'busy', section: sec, repair, missing, attempts, here, rooms, message: 'That repair is already under way.' };
+  if (!here) return { ok: false, reason: 'elsewhere', section: sec, repair, missing, attempts, here, rooms, message: `Work on the ${sec.name.toLowerCase()} from: ${rooms.join(', ')}.` };
+  if (missing.length) return { ok: false, reason: 'materials', section: sec, repair, missing, attempts, here, rooms, message: `Not enough materials: ${missing.map((c) => `${itemName(content, c.item)} ${c.have}/${c.count}`).join(', ')}.` };
+  return { ok: true, section: sec, repair, missing, attempts, here, rooms };
 }
 
 function objectiveRef(ref) {
@@ -690,6 +747,111 @@ export function createCommandImplementations() {
       if (step.var) ctx.session.story.setVar(step.var, last?.slips ?? 0);
       if (step.releasedVar) ctx.session.story.setVar(step.releasedVar, last?.cause === 'accident' ? 0 : 1);
       return result;
+    },
+    /**
+     * Damages the ship (docs/gameplay-overhaul/09-ship-integrity.md): one
+     * section or several (a broadside, a great blast), by "amount" before the
+     * difficulty's scaling ("scale": false for an amount written for this
+     * difficulty already), of a "category" (impact, shark, cannon, ...).
+     * "eventId" makes a callback apply once. Inside a challenge's costs or
+     * consequences it belongs to that challenge, and is refused once the
+     * challenge has resolved unless "authorized". "announce": false is silent.
+     */
+    shipDamage: async (step, ctx) => {
+      const ship = ctx.session.ship;
+      const tuning = shipTuning(ctx.session.content ?? ctx.content, challengePrefs(ctx).difficulty);
+      const sections = Array.isArray(step.shipDamage) ? step.shipDamage : [step.shipDamage];
+      // The challenge this step belongs to is over once its run has closed (a partial's consequences still run inside it).
+      const ch = ctx.challenge ?? null;
+      const challengeState = ch ? (challengeLog(ctx.session).active.get(ch.id)?.record === ch ? 'running' : 'resolved') : null;
+      for (const section of sections) {
+        const r = ship.applyDamage({
+          section, amount: step.amount, category: step.category ?? 'impact', source: step.source ?? ch?.id ?? null, event: ch?.id ?? null,
+          eventId: step.eventId ?? null, tuning, scale: step.scale !== false, challengeState, authorized: step.authorized === true,
+        });
+        if (!r.ok) {
+          // Content validation catches bad targets; at run time a refused blow changes nothing and says why (a repeated callback is quiet).
+          if (r.reason !== 'duplicate event') console.warn(`shipDamage ${section}: ${r.reason}`);
+          continue;
+        }
+        if (step.announce !== false) await shipNotice(ctx, shipDamageText(ctx, r));
+      }
+    },
+    /** Restores a section without materials (the crew fixed it in a scene). Never past its maximum. */
+    shipRestore: async (step, ctx) => {
+      const r = ctx.session.ship.restore(step.shipRestore, step.amount, { source: step.source ?? 'script' });
+      if (!r.ok) throw new Error(`shipRestore ${step.shipRestore}: ${r.reason}`);
+      if (step.announce) {
+        const sec = ctx.session.ship.section(r.section);
+        await shipNotice(ctx, `${sec.name} repaired: <g>${sec.pct}% ${sec.label.toUpperCase()}</>`);
+      }
+    },
+    /**
+     * A repair the player makes (the Ship page, or a station's script): the
+     * section must be damaged and repairable, the captain in one of its rooms
+     * (or "anywhere": true), and the hold must have the materials for the
+     * repair's worst outcome. Then, in this order:
+     *   1. the section is locked (a second press can't start another repair)
+     *   2. the repair's challenge plays (a timing bar; its checkpoint holds the
+     *      ship and the hold). Each failed attempt wastes its materials, a cost
+     *      that survives "Try again"; the tries are limited to what the hold
+     *      can pay for. Giving up runs the failure's damage.
+     *   3. the outcome is committed before the run closes: success and partial
+     *      take their materials (all or nothing) and restore the section; a
+     *      failure takes nothing more
+     *   4. the lock is released, the player is told, then "outcomeValue" and
+     *      the if-branches (they see the repaired ship)
+     * A plan that can't start (no materials, the wrong room, nothing to fix)
+     * changes nothing and says why.
+     */
+    shipRepair: async (step, ctx, frame) => {
+      const session = ctx.session;
+      const content = session.content ?? ctx.content;
+      const ship = session.ship;
+      const prefs = challengePrefs(ctx);
+      const plan = repairPlan(session, step.shipRepair, { difficulty: prefs.difficulty, anywhere: step.anywhere === true, repairId: step.repair ?? null });
+      if (!plan.ok) {
+        if (step.announce !== false) await shipNotice(ctx, `<r>${plan.message}</>`);
+        if (step.outcomeValue) session.story.setValue(step.outcomeValue, 'refused');
+        return null;
+      }
+      const section = plan.section.id;
+      if (!ship.lock(section)) return null;
+      try {
+        const repair = plan.repair;
+        const base = challengeConfig(content, step.challenge ?? repair.challenge, { kind: 'repair', id: `ship:${section}:${repair.id}`, difficulty: prefs.difficulty });
+        const waste = repair.results.failure.waste.map((c) => ({ takeItem: c.item, count: c.count, silent: true }));
+        const damage = repair.results.failure.damage ? [{ shipDamage: section, amount: repair.results.failure.damage, category: 'botched', scale: false, announce: true }] : [];
+        const limit = Number.isFinite(plan.attempts) ? plan.attempts : null;
+        const cfg = {
+          ...base,
+          retry: { ...base.retry, maxAttempts: base.retry.maxAttempts === null ? limit : limit === null ? base.retry.maxAttempts : Math.min(base.retry.maxAttempts, limit) },
+          onFailure: { ...base.onFailure, mustRetry: false, continue: true, costs: [...base.onFailure.costs, ...waste], consequences: [...base.onFailure.consequences, ...damage] },
+        };
+        // 3. The commitment: what the final outcome earns, before the run closes (its record then shows it).
+        let committed = null;
+        const settle = async (rec) => {
+          if (rec.outcome !== 'success' && rec.outcome !== 'partial') return;
+          const res = repair.results[rec.outcome];
+          const items = rec.outcome === 'partial' ? sumItems(repair.cost, res.extra) : repair.cost;
+          committed = { items, done: ship.commitRepair({ section, restore: res.restore, items, inventory: session.inventory, source: `repair:${repair.id}` }) };
+          if (!committed.done.ok) throw new Error(`shipRepair ${section}: ${committed.done.reason} (the plan said there was enough)`);
+        };
+        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: repair.kind, strikes: repair.strikes, title: repair.title, speed: 1, zone: 26, challenge: info });
+        const { record, goto } = await playChallenge(ctx, frame, cfg, attempt, settle);
+        if (committed) {
+          const items = committed.items;
+          const sec = ship.section(section);
+          const tone = record.outcome === 'success' ? '<g>' : '<y>';
+          if (step.announce !== false) await shipNotice(ctx, `${tone}${record.outcome === 'success' ? 'Repaired' : 'Rough repair'}:</> ${sec.name} ${sec.pct}% ${sec.label.toUpperCase()}. <k>Used ${itemList(content, items)}.</>`);
+        } else if (step.announce !== false) {
+          const wasted = record.consequences.costs ? sumItems(...Array.from({ length: record.consequences.costs }, () => repair.results.failure.waste)) : [];
+          await shipNotice(ctx, `<r>The repair failed.</>${wasted.length ? ` <k>Wasted ${itemList(content, wasted)}.</>` : ''}`);
+        }
+        return challengeFollowUp(ctx, frame, step, cfg, record, goto);
+      } finally {
+        ship.unlock(section);
+      }
     },
     /**
      * A named checkpoint for a sequence (docs/gameplay-overhaul/07-challenge-outcomes.md):

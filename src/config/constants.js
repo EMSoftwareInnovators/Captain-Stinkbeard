@@ -8,7 +8,7 @@ export const SCREEN_HEIGHT = 224;
 export const TILE_SIZE = 16;
 
 /** Save-data schema version. Bump when the save format changes and add a migration. */
-export const SAVE_VERSION = 17;
+export const SAVE_VERSION = 18;
 
 /** Namespace for all browser-storage keys. */
 export const STORAGE_PREFIX = 'captain-stinkbeard';
@@ -43,7 +43,8 @@ export const STAT_LABELS = {
   luck: 'Luck',
 };
 
-export const ITEM_TYPES = ['consumable', 'equipment', 'key'];
+/** "material": used up by work (ship repairs, overhaul Prompt 5), never used from the menu. Listed with the supplies. */
+export const ITEM_TYPES = ['consumable', 'equipment', 'key', 'material'];
 
 export const MAX_ITEM_STACK = 99;
 export const MAX_GOLD = 999999;

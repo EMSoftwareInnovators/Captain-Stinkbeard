@@ -149,10 +149,11 @@ frame is required. Button prompt glyphs are per device (`PROMPT_GLYPHS`).
 
 ## Save schema
 
-`src/systems/save/SaveManager.js`, current `SAVE_VERSION = 17` (Story Phase 17;
-versions 5 to 17 keep this layout, their migrations only rename, fill in or,
-from 17, drop a party member listed twice; the example shows a version 5
-record). Story Phase 17's two new party members (Ledger and Tilda) are
+`src/systems/save/SaveManager.js`, current `SAVE_VERSION = 18` (versions 5
+to 17 keep this layout, their migrations only rename, fill in or, from 17,
+drop a party member listed twice; version 18, overhaul Prompt 5, adds
+`"ship": { "sections": { "hull_port": 100, ... } }`, six section integrities;
+the example shows a version 5 record). Story Phase 17's two new party members (Ledger and Tilda) are
 ordinary `party` entries, so the cartridge budget's four party slots still
 hold (the captain, Ledger, Tilda, one spare):
 
@@ -177,7 +178,9 @@ hold (the captain, Ledger, Tilda, one spare):
 Binary budget estimate for a cartridge port (per slot): flags 8 bytes,
 vars 32 bytes, object state 16 bytes, visited maps 4 bytes, dialogue counters
 16 bytes, inventory 64 items × 1 byte + gold 3 bytes, party 4 × 16 bytes,
-quests 32 × 8 bytes, location 5 bytes, play time 4 bytes, checksum 2 bytes —
+quests 32 × 8 bytes, location 5 bytes, play time 4 bytes, ship sections
+6 × 1 byte (each at most 100, so a byte; a 1000 maximum would need two),
+checksum 2 bytes —
 well under 1 KB. Four slots (3 manual + autosave) fit easily in 8 KB SRAM.
 
 Versioning: every format change bumps `SAVE_VERSION` and adds a migration

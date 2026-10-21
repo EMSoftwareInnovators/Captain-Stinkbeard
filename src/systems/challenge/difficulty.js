@@ -189,7 +189,8 @@ export function difficultyDataProblems(content) {
     }
     for (const key of ['label', 'tagline', 'summary']) if (typeof p[key] !== 'string' || !p[key]) out.push(`${at}: needs "${key}"`);
     if ((p.default === true) !== (id === DEFAULT_DIFFICULTY)) out.push(`${at}: only "${DEFAULT_DIFFICULTY}" is the default`);
-    for (const key of Object.keys(p)) if (!key.startsWith('//') && !['order', 'default', 'label', 'tagline', 'summary', 'challenges'].includes(key)) out.push(`${at}: unknown field "${key}"`);
+    // "ship": the ship's damage, repairs and costs on this difficulty (checked with the ship's data, src/systems/ship/integrity.js).
+    for (const key of Object.keys(p)) if (!key.startsWith('//') && !['order', 'default', 'label', 'tagline', 'summary', 'challenges', 'ship'].includes(key)) out.push(`${at}: unknown field "${key}"`);
     for (const [kind, t] of Object.entries(p.challenges ?? {})) {
       if (!TUNING[kind]) {
         out.push(`${at}: "${kind}" is not a challenge kind`);

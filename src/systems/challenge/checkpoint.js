@@ -6,7 +6,7 @@ import { deepClone, asArray } from '../../core/util.js';
  * A checkpoint is the session's persistent state, exactly what a save holds
  * (story flags, variables and values; quests; inventory and gold; the
  * party's levels, HP and equipment; world objects opened, beaten or marked;
- * the captain's map and tile), plus the per-play hazards a save leaves out
+ * the ship's condition; the captain's map and tile), plus the per-play hazards a save leaves out
  * (fume exposure). Restoring one is therefore never more inconsistent than
  * loading a save, and it is never written to a save: checkpoints live in the
  * session's per-play state only.
@@ -18,7 +18,7 @@ import { deepClone, asArray } from '../../core/util.js';
  * NPC placements and story props follow the story, so the world restages
  * them when it hears "session:restored".
  */
-export const CHECKPOINT_DOMAINS = Object.freeze(['story', 'quests', 'inventory', 'party', 'world', 'location']);
+export const CHECKPOINT_DOMAINS = Object.freeze(['story', 'quests', 'inventory', 'party', 'world', 'ship', 'location']);
 
 /**
  * @param {import('../GameSession.js').GameSession} session
@@ -86,6 +86,7 @@ export function restoreCheckpoint(session, cp, { keep = {} } = {}) {
   if (d.inventory) session.inventory.load(deepClone(d.inventory), warn);
   if (d.party) session.party.load(deepClone(d.party), warn);
   if (d.world) session.world.load(deepClone(d.world));
+  if (d.ship && session.ship) session.ship.load(deepClone(d.ship), warn);
   if (d.location) session.location = { ...session.location, ...deepClone(d.location) };
   writeKeep(session, kept);
   const exposure = session.transient?.exposure;
@@ -98,10 +99,11 @@ export function restoreCheckpoint(session, cp, { keep = {} } = {}) {
 /**
  * What changed between two serialized session states, in story terms:
  * flags set and cleared, variables and values changed, quests and
- * objectives moved, items and gold gained or lost.
+ * objectives moved, items and gold gained or lost, ship sections damaged
+ * or repaired ([before, after] integrity).
  */
 export function diffStates(before, after) {
-  const out = { flagsSet: [], flagsCleared: [], vars: {}, values: {}, quests: {}, items: {}, gold: 0 };
+  const out = { flagsSet: [], flagsCleared: [], vars: {}, values: {}, quests: {}, items: {}, gold: 0, ship: {} };
   if (!before || !after) return out;
   const fb = new Set(before.story?.flags ?? []);
   const fa = new Set(after.story?.flags ?? []);
@@ -124,10 +126,13 @@ export function diffStates(before, after) {
     if (delta) out.items[id] = delta;
   }
   out.gold = (after.inventory?.gold ?? 0) - (before.inventory?.gold ?? 0);
+  const sa = before.ship?.sections ?? {};
+  const sb = after.ship?.sections ?? {};
+  for (const id of new Set([...Object.keys(sa), ...Object.keys(sb)])) if ((sa[id] ?? null) !== (sb[id] ?? null)) out.ship[id] = [sa[id] ?? null, sb[id] ?? null];
   return out;
 }
 
 /** True when a diff records no change at all. */
 export function isEmptyDiff(d) {
-  return !d.flagsSet.length && !d.flagsCleared.length && !Object.keys(d.vars).length && !Object.keys(d.values).length && !Object.keys(d.quests).length && !Object.keys(d.items).length && !d.gold;
+  return !d.flagsSet.length && !d.flagsCleared.length && !Object.keys(d.vars).length && !Object.keys(d.values).length && !Object.keys(d.quests).length && !Object.keys(d.items).length && !d.gold && !Object.keys(d.ship ?? {}).length;
 }

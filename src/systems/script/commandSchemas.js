@@ -8,6 +8,7 @@
  * Param types: string number boolean array object any condition steps label
  *   flag flags item quest objective map npc actor script sfx music ambience
  *   encounter shop character dir speaker line emote vista
+ *   shipSection shipSections shipCategory shipRepair
  * A trailing "?" marks a param optional. The command's own key is listed too.
  */
 /**
@@ -17,6 +18,10 @@
  */
 const CHALLENGE_PARAMS = { challenge: 'challenge?', outcomeValue: 'string?', ifSuccess: 'steps?', ifPartial: 'steps?', ifFailure: 'steps?' };
 
+/**
+ * Ship Integrity (docs/gameplay-overhaul/09-ship-integrity.md): a section id
+ * ("shipSections" also takes a list), a damage category, a repair id.
+ */
 export const COMMAND_SCHEMAS = {
   // --- flow -------------------------------------------------------------
   goto: { goto: 'label' },
@@ -173,6 +178,9 @@ export const COMMAND_SCHEMAS = {
   // --- Challenge outcomes (docs/gameplay-overhaul/07-challenge-outcomes.md) ----------------
   // A named sequence checkpoint a later challenge in the same script can offer to go back to.
   checkpoint: { checkpoint: 'string', resume: 'label?', label: 'string?' },
+  shipDamage: { shipDamage: 'shipSections', amount: 'number', category: 'shipCategory?', source: 'string?', eventId: 'string?', scale: 'boolean?', announce: 'boolean?', authorized: 'boolean?' },
+  shipRestore: { shipRestore: 'shipSection', amount: 'number', source: 'string?', announce: 'boolean?' },
+  shipRepair: { shipRepair: 'shipSection', repair: 'shipRepair?', anywhere: 'boolean?', announce: 'boolean?', ...CHALLENGE_PARAMS },
 };
 
 /** Commands that may carry "async": true (start and continue without waiting). */

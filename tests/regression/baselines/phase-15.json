@@ -182,6 +182,18 @@
    "great_sharkstorm": "rough_turbulence",
    "hornets": null,
    "roomAtmospheres": {},
+   "ship": {
+    "destroyed": false,
+    "overall": 100,
+    "sections": {
+     "bow": 80,
+     "deck": 60,
+     "hull_port": 100,
+     "hull_starboard": 100,
+     "rigging": 60,
+     "stern": 80
+    }
+   },
    "stability.brogath": {
     "pressure": 8,
     "state": "CALM"
@@ -198,8 +210,7 @@
    "challengeOutcomes": "planned (Prompt 3); no challenge records an outcome (see the challenge registry)",
    "crewConditions": "planned (Prompt 22); crew have no condition or morale state",
    "fieldCombat": "planned (Prompt 27); battles are turn-based encounters only",
-   "roomAtmosphere": "planned (Prompt 7): per-room air simulation (sources, ventilation, drift). What exists is recorded under systems: the ship-wide atmosphere, per-room overrides (Phase 16) and fume zones per room",
-   "shipIntegrity": "planned (roadmap Prompt 5); no hull or system condition exists yet"
+   "roomAtmosphere": "planned (Prompt 7): per-room air simulation (sources, ventilation, drift). What exists is recorded under systems: the ship-wide atmosphere, per-room overrides (Phase 16) and fume zones per room"
   }
  },
  "label": "Phase 15",
