@@ -23,13 +23,31 @@ export class GameSession {
     this.location = { map: null, x: 0, y: 0, facing: 'down' };
     this.quests = new QuestSystem({ quests: content.quests, session: this, bus });
     // Overhaul Prompt 5: the ship's structural condition (docs/gameplay-overhaul/09-ship-integrity.md).
-    this.ship = new ShipState({ def: content.ship, hazards: content.shipHazards, bus });
+    this.ship = new ShipState({ def: content.ship, hazards: content.shipHazards, air: content.shipAir, bus });
     // Prompt 6: emergencies name rooms by their map names ("the Cargo Hold").
     this.ship.hazards.nameOf = (room) => content.maps?.get?.(room)?.name ?? null;
+    // Prompt 7: the air knows where the captain breathes, and how bad air hurts him (docs/gameplay-overhaul/11-atmosphere-and-ventilation.md).
+    this.ship.air.nameOf = this.ship.hazards.nameOf;
+    this.ship.air.where = () => this.location?.map ?? null;
+    this.ship.air.hurt = (hp, floor) => this.chokeLeader(hp, floor);
     this.playTime = 0; // seconds
     this.createdAt = new Date().toISOString();
     // Per-play state that is deliberately never saved (fume exposure...).
     this.transient = {};
+  }
+
+  /**
+   * Bad air takes `hp` from the captain (the party's leader), never below
+   * `floor` of his maximum HP (and never below 1): it never kills. Returns
+   * the HP lost.
+   */
+  chokeLeader(hp, floor) {
+    const m = this.party.members[0];
+    if (!m) return 0;
+    const min = Math.max(1, Math.ceil(m.maxHp * floor));
+    const lost = Math.max(0, Math.min(Math.floor(hp), m.hp - min));
+    if (lost > 0) m.hp -= lost;
+    return lost;
   }
 
   /** Creates a fresh playthrough from data/game.json → newGame. */

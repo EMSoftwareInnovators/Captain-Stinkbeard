@@ -10,6 +10,7 @@
  *   encounter shop character dir speaker line emote vista
  *   shipSection shipSections shipCategory shipRepair
  *   floodRoom fireRoom leakSection leakSeverity hazardAction
+ *   airRoom airSubstance airConnection airState
  * A trailing "?" marks a param optional. The command's own key is listed too.
  */
 /**
@@ -186,13 +187,22 @@ export const COMMAND_SCHEMAS = {
   leak: { leak: 'leakSection', room: 'floodRoom?', severity: 'leakSeverity?', source: 'string?', eventId: 'string?', announce: 'boolean?', authorized: 'boolean?' },
   flood: { flood: 'floodRoom', amount: 'number', eventId: 'string?', authorized: 'boolean?' },
   drain: { drain: 'floodRoom', amount: 'number' },
-  ignite: { ignite: 'fireRoom', intensity: 'number?', spread: 'boolean?', source: 'string?', eventId: 'string?', announce: 'boolean?', authorized: 'boolean?' },
+  ignite: { ignite: 'fireRoom', intensity: 'number?', spread: 'boolean?', smoke: 'boolean?', source: 'string?', eventId: 'string?', announce: 'boolean?', authorized: 'boolean?' },
   extinguish: { extinguish: 'fireRoom', announce: 'boolean?' },
   sealLeak: { sealLeak: 'leakSection', room: 'floodRoom?' },
   hazardClock: { hazardClock: 'number' },
   hazardAction: { hazardAction: 'hazardAction', room: 'map?', station: 'string?', announce: 'boolean?', outcomeValue: 'string?' },
   patchLeak: { patchLeak: 'any', room: 'floodRoom?', announce: 'boolean?', ...CHALLENGE_PARAMS },
   emergency: { emergency: 'boolean', announce: 'boolean?' },
+  // The ship's air (overhaul Prompt 7, docs/gameplay-overhaul/11-atmosphere-and-ventilation.md): gas, openings, and the captain's work on them.
+  airSource: { airSource: 'airRoom', substance: 'airSubstance', rate: 'number', amount: 'number?', seconds: 'number?', id: 'string?', label: 'string?', source: 'string?', eventId: 'string?', announce: 'boolean?', authorized: 'boolean?', outcomeValue: 'string?' },
+  airStop: { airStop: 'any', room: 'airRoom?' },
+  airAdd: { airAdd: 'airRoom', substance: 'airSubstance', pct: 'number', eventId: 'string?', authorized: 'boolean?' },
+  airVent: { airVent: 'airRoom', share: 'number?' },
+  airConnection: { airConnection: 'airConnection', state: 'airState?', damaged: 'boolean?', outcomeValue: 'string?' },
+  airCheck: { airCheck: 'boolean', room: 'airRoom?' },
+  airControl: { airControl: 'airConnection', state: 'airState?', room: 'airRoom?', announce: 'boolean?', outcomeValue: 'string?' },
+  airSeal: { airSeal: 'airConnection', room: 'airRoom?', announce: 'boolean?', ...CHALLENGE_PARAMS },
 };
 
 /** Commands that may carry "async": true (start and continue without waiting). */

@@ -103,7 +103,7 @@ export function restoreCheckpoint(session, cp, { keep = {} } = {}) {
  * or repaired ([before, after] integrity).
  */
 export function diffStates(before, after) {
-  const out = { flagsSet: [], flagsCleared: [], vars: {}, values: {}, quests: {}, items: {}, gold: 0, ship: {}, hazards: {} };
+  const out = { flagsSet: [], flagsCleared: [], vars: {}, values: {}, quests: {}, items: {}, gold: 0, ship: {}, hazards: {}, air: {} };
   if (!before || !after) return out;
   const fb = new Set(before.story?.flags ?? []);
   const fa = new Set(after.story?.flags ?? []);
@@ -148,10 +148,25 @@ export function diffStates(before, after) {
   if (Object.keys(water).length) out.hazards.water = water;
   if (Object.keys(fire).length) out.hazards.fire = fire;
   if (open(ha) !== open(hb)) out.hazards.leaks = [(ha.leaks ?? []).filter((l) => l.state === 'open').length, (hb.leaks ?? []).filter((l) => l.state === 'open').length];
+  // Prompt 7: the gas in each room (all substances, rounded quantity), openings changed, sources pouring, the captain's exposure.
+  const aa = before.ship?.air ?? {};
+  const ab = after.ship?.air ?? {};
+  const roomGas = (a) => Object.fromEntries(Object.entries(a.gas ?? {}).map(([r, g]) => [r, Object.values(g).reduce((n, q) => n + q, 0)]));
+  const gas = pairs(roomGas(aa), roomGas(ab));
+  if (Object.keys(gas).length) out.air.gas = gas;
+  const links = {};
+  for (const k of new Set([...Object.keys(aa.links ?? {}), ...Object.keys(ab.links ?? {})])) {
+    const x = aa.links?.[k]?.state ?? 'default';
+    const y = ab.links?.[k]?.state ?? 'default';
+    if (x !== y) links[k] = [x, y];
+  }
+  if (Object.keys(links).length) out.air.links = links;
+  if ((aa.sources ?? []).length !== (ab.sources ?? []).length) out.air.sources = [(aa.sources ?? []).length, (ab.sources ?? []).length];
+  if (Math.round(aa.exposure ?? 0) !== Math.round(ab.exposure ?? 0)) out.air.exposure = [Math.round(aa.exposure ?? 0), Math.round(ab.exposure ?? 0)];
   return out;
 }
 
 /** True when a diff records no change at all. */
 export function isEmptyDiff(d) {
-  return !d.flagsSet.length && !d.flagsCleared.length && !Object.keys(d.vars).length && !Object.keys(d.values).length && !Object.keys(d.quests).length && !Object.keys(d.items).length && !d.gold && !Object.keys(d.ship ?? {}).length && !Object.keys(d.hazards ?? {}).length;
+  return !d.flagsSet.length && !d.flagsCleared.length && !Object.keys(d.vars).length && !Object.keys(d.values).length && !Object.keys(d.quests).length && !Object.keys(d.items).length && !d.gold && !Object.keys(d.ship ?? {}).length && !Object.keys(d.hazards ?? {}).length && !Object.keys(d.air ?? {}).length;
 }

@@ -197,6 +197,15 @@ export class OverlayScene extends BaseScene {
       b.shown = show;
       b.parts.forEach((p) => p.setVisible(show));
     }
+    // Prompt 7: the meter, when it reads the ship's air, gives way to the menus too (the legacy FUMES meter is left as it was).
+    const m = this.meter;
+    if (m) {
+      const meterShow = m.labelText !== 'AIR' || (!this.scene.isActive('Menu') && !this.scene.isActive('Battle') && !this.scene.get('Debug')?.open);
+      if (m.shown !== meterShow) {
+        m.shown = meterShow;
+        m.parts.forEach((p) => p.setVisible(meterShow));
+      }
+    }
   }
 
   /**
@@ -247,19 +256,25 @@ export class OverlayScene extends BaseScene {
       this.workPanel = null;
       return;
     }
-    const w = 150;
-    const x = Math.round((SCREEN_WIDTH - w) / 2);
     const y = SCREEN_HEIGHT - 62;
+    const text = state.label.toUpperCase();
+    // As wide as its words need (Prompt 7: "CLOSING THE FART-FREE ZONE DOOR"), at least 150, never off the screen.
+    if (this.workPanel && this.workPanel.text !== text) {
+      this.workPanel.parts.forEach((p) => p.destroy());
+      this.workPanel = null;
+    }
     if (!this.workPanel) {
+      const label = addText(this, 0, y + 4, text, { font: 'bold', color: 0xf0d860, depth: 421 });
+      const w = Math.min(SCREEN_WIDTH - 8, Math.max(150, label.textWidth + 38));
+      const x = Math.round((SCREEN_WIDTH - w) / 2);
+      label.x = x + 7;
       const panel = addPanel(this, x, y, w, 26, { depth: 420 });
-      const label = addText(this, x + 7, y + 4, '', { font: 'bold', color: 0xf0d860, depth: 421 });
       const back = this.add.rectangle(x + 8, y + 17, w - 16, 4, 0x1a1320).setOrigin(0).setDepth(421);
       const bar = this.add.rectangle(x + 8, y + 17, 1, 4, 0x6cb4e4).setOrigin(0).setDepth(422);
       const left = addText(this, 0, y + 5, '', { color: 0xdccca8, depth: 421 });
-      this.workPanel = { parts: [panel, label, back, bar, left], label, bar, left, barW: w - 16, x, w };
+      this.workPanel = { parts: [panel, label, back, bar, left], label, bar, left, barW: w - 16, x, w, text };
     }
     const p = this.workPanel;
-    setText(p.label, state.label.toUpperCase());
     p.bar.width = Math.max(1, Math.round((p.barW * (state.done + 1)) / Math.max(1, state.of)));
     setText(p.left, `${Math.max(0, state.of - state.done - 1)} s`);
     p.left.x = p.x + p.w - 8 - p.left.textWidth;
@@ -975,17 +990,24 @@ export class OverlayScene extends BaseScene {
       const parts = [panel, label, barBack, bar, tag];
       parts.forEach((p) => p.setAlpha(0));
       this.tweens.add({ targets: parts, alpha: 1, duration: 200 });
-      this.meter = { parts, bar, tag, barW: w - 16, level: undefined, t: 0, rect: { x, y, w, h: 26 } };
+      this.meter = { parts, bar, tag, label, barW: w - 16, level: undefined, t: 0, rect: { x, y, w, h: 26 } };
     }
     const m = this.meter;
+    // Prompt 7: the same meter reads the ship's air ("AIR", with its stage word) when that is what's in his lungs.
+    const labelText = state.label ?? 'FUMES';
+    if (m.labelText !== labelText) {
+      m.labelText = labelText;
+      setText(m.label, labelText);
+    }
     const v = Math.max(0, Math.min(1, state.value));
     m.bar.width = Math.max(1, Math.round(m.barW * v));
     const col = v < 0.35 ? 0x7cb45a : v < 0.6 ? 0xe0ad38 : v < 0.8 ? 0xe07a28 : 0xe43c3a;
     m.bar.setFillStyle(col);
-    if (m.level !== state.level) {
-      m.level = state.level;
+    const tagKey = state.tag ?? state.level;
+    if (m.level !== tagKey) {
+      m.level = tagKey;
       const names = { light: '<k>light</>', dense: '<o>DENSE</>', center: '<r>DEAD CENTER</>' };
-      setText(m.tag, names[state.level] ?? '');
+      setText(m.tag, state.tag ?? names[state.level] ?? '');
     }
     // Pulse when close to collapsing.
     m.t += 16;

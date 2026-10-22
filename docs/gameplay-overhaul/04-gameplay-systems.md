@@ -67,6 +67,7 @@ Each system is data-driven, engine-independent (rules in `src/systems/`, drawing
 - **What:** each room has an air value per substance (yellow gust, red sauce, green mellow haze, Coffin Sock, Stench-O-Vision). There are sources (Garrick, Brogath, the Suit, the vats, the TV grille, the beard), sinks (open portholes, hatches, doors, wind) and drift. Fume zones are generated from the room’s air instead of only from hand-placed rectangles. Exposure depends on air, equipment (wet cloth, goggles, wrap) and time.
 - **Extends:** `fumes.js` (zones, exposure, collapse), `deadCenter.js` (moving source), `atmosphere.js` (ship-wide states and their consequences, which become one layer), `fartZone.js` (doors and portholes are already modelled), the haze rendering in `FumeLayer`.
 - **Failure:** collapse becomes costly: lost time, a crew member dazed, or the Dead Center grows. It stays non-lethal by default, and the Brutal difficulty can make the dense core lethal.
+- **Built (Prompt 7):** the per-room air, its sources and sinks (the openings, the open sky), drift between rooms and exposure with protection now exist as a generic system beside the fume zones, which are unchanged: [11-atmosphere-and-ventilation.md](11-atmosphere-and-ventilation.md). Generating fume zones from the air and the named substances are left to the prompts that migrate those scenes.
 - **Story hooks:** Chapter 4 (evacuation), Chapter 6 (dive), Chapter 48, Chapter 78, Chapter 130, Chapter 151, Chapter 188 (venting), Chapter 222.
 
 ### S3. Stink Beard Saturation

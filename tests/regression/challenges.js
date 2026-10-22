@@ -87,6 +87,11 @@ export const CHALLENGE_KINDS = Object.freeze({
     outcomes: { success: 'the leak closed (the hull and the water stay)', partial: 'the leak slowed to half', failure: 'a nail wasted; another try while the materials last' },
     retry: 'offered while the hold can pay for one; the waste stays', blocksProgression: false, softlockRisk: 'none: no chapter uses it', note: 'always plays as a strict challenge (the ship_repair profile); no chapter step uses it', source: 'src/systems/ship/, src/systems/script/commands.js (patchLeak)',
   },
+  airSeal: {
+    label: 'Sealing a door or hatch against bad air (Prompt 7)', commands: ['airSeal'], input: 'timed',
+    outcomes: { success: 'sealed (no air through it)', partial: 'sealed, roughly', failure: 'a nail wasted; another try while the materials last' },
+    retry: 'offered while the hold can pay for one; the waste stays', blocksProgression: false, softlockRisk: 'none: no chapter uses it', note: 'always plays as a strict challenge (the ship_repair profile); no chapter step uses it', source: 'src/systems/ship/, src/systems/script/commands.js (airSeal)',
+  },
   dice: {
     label: 'Grand Dice', commands: ['dice'], input: 'none',
     outcomes: { success: null, partial: null, failure: null },

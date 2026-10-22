@@ -275,6 +275,8 @@ the cancel button (default: the last option).
 | `shipDamage` / `shipRestore` / `shipRepair` | section(s), `amount`, ... | the ship's condition (see "Ship Integrity" at the end) |
 | `leak` / `flood` / `drain` / `ignite` / `extinguish` / `sealLeak` / `hazardClock` | section or room, ... | start or end an emergency, or run its clock (see "Flooding and fire" at the end) |
 | `hazardAction` / `patchLeak` / `emergency` | action, ... | the captain's response: pump, bail, fetch, douse, smother, patch, or the Respond choice |
+| `airSource` / `airStop` / `airAdd` / `airVent` / `airConnection` | room or opening, ... | the ship's air: start or stop gas, add it, air a room, open, shut, seal or damage an opening (see "The ship's air" at the end) |
+| `airCheck` / `airControl` / `airSeal` | opening, ... | the captain's work on the air: the report, opening and shutting, sealing (a challenge) |
 | `giveGold` / `takeGold` | amount, `silent` | gold |
 | `startQuest` | quest, `silent` | start a quest |
 | `completeObjective` | `"quest.objective"` | finish an objective |
@@ -363,6 +365,7 @@ Used by `if` everywhere (dialogue selectors, steps, choices, map objects, warps,
 | `deadCenter` | `{ "deadCenter": "galley_breakfast" }` or a list (any of): where the Dead Center is (Phase 4) |
 | `ship` | `{ "ship": { "section": "rigging", "operational": false } }`: a section's or the whole ship's condition (see "Ship Integrity") |
 | `hazard` | `{ "hazard": { "fire": "galley", "stage": ["blazing", "inferno"] } }`: the ship's emergencies (see "Flooding and fire") |
+| `air` | `{ "air": { "room": "galley", "quality": ["toxic", "deadly"] } }`: the ship's air and the captain's lungs (see "The ship's air") |
 
 ## Story flags and variables
 
@@ -2069,3 +2072,54 @@ for (until Prompt 10 adds a source) and test that every difficulty can
 recover. Everything else (rates, stages, the response, difficulty,
 checkpoints, the HUD, the demo) is in
 [gameplay-overhaul/10-flooding-and-fire.md](gameplay-overhaul/10-flooding-and-fire.md).
+
+## The ship's air
+
+Air room by room, defined in `data/ship/air.json` by room (map id) and by
+opening id (never by tile): substances, rooms, the openings between them and
+to the outside. No chapter uses it: the campaign's fumes are the fume zones
+above, unchanged. Not the Phase 15 `atmosphere` value either. Steps:
+
+```json
+{ "airSource": "crew_quarters", "substance": "vapor", "rate": 4, "amount": 240, "label": "a cracked cask", "eventId": "p41_cask" }
+{ "airSource": "galley", "substance": "smoke", "rate": 6, "seconds": 60, "id": "stove" }
+{ "airStop": "stove" }
+{ "airAdd": "washroom", "substance": "heavy_gas", "pct": 30 }
+{ "airVent": "crew_quarters", "share": 0.5 }
+{ "airConnection": "washroom_door", "state": "sealed" }
+{ "airConnection": "fore_hatch", "damaged": true }
+{ "airCheck": true }
+{ "airControl": "galley_door", "state": "closed", "outcomeValue": "p41_door" }
+{ "airSeal": "galley_door", "outcomeValue": "p41_seal" }
+{ "ignite": "galley", "intensity": 30, "smoke": true }
+```
+
+- Substances: `smoke`, `vapor`, `heavy_gas`. Openings: `cabin_door`,
+  `main_hatch`, `fore_hatch`, `fz_hatch`, `galley_door`, `washroom_door`,
+  `hold_stairs` (always open), `treasure_door`, `ffz_door`, `open_sky`
+  (always open), `stern_windows`, `quarters_porthole`, `galley_porthole`,
+  `washroom_porthole`, `fz_portholes`.
+- A source must end (`amount` and/or `seconds`; at most 20 a second, 600 s).
+  `airAdd` is points of the room's air. An `eventId` applies once, scoped to
+  the challenge attempt or charge it runs in.
+- `airConnection` is a scene's change, at once; `airControl` (open, close,
+  unseal) and `airSeal` are the captain's own work in his room, with their
+  seconds (a seal is a challenge on the repair bar). Refused, they say why
+  and set `outcomeValue` to `refused`.
+
+The condition:
+
+```json
+{ "air": { "room": "galley" } }                                  any gas there
+{ "air": { "room": "galley", "substance": "smoke", "pct": { "gte": 20 } } }
+{ "air": { "room": "galley", "safe": true } }                    safe to go in
+{ "air": { "exposure": { "gte": 35 } } }    { "air": { "exposureStage": "dangerous" } }
+{ "air": { "connection": "galley_door", "state": "closed" } }
+{ "air": { "source": true } }               { "air": { "any": false } }
+```
+
+A chapter that moves a fume scene onto the air replaces its fume zones with
+a source (never both: one owner for the captain's lungs), supplies the
+materials its seals need, and tests every difficulty. Everything else is in
+[gameplay-overhaul/11-atmosphere-and-ventilation.md](gameplay-overhaul/11-atmosphere-and-ventilation.md).
+

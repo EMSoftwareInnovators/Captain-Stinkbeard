@@ -38,6 +38,19 @@ const SCENES = [
       h.ignite({ room: 'cargo_hold', intensity: 70, spread: false, source: 'perf' });
     },
   },
+  // Prompt 7 (docs/gameplay-overhaul/11-atmosphere-and-ventilation.md, "Performance"): the quarters full of bad air, the air ticking while measured.
+  {
+    preset: 'air_demo',
+    rooms: ['crew_quarters'],
+    why: 'bad air in the quarters: vapor pouring and smoke, the haze and wisps, the AIR meter, every room\'s air moving',
+    setup: () => {
+      const a = window.__GAME__.app.session.ship.air;
+      a.addGas('crew_quarters', 'vapor', 70);
+      a.addGas('crew_quarters', 'smoke', 30);
+      a.addGas('galley', 'heavy_gas', 20);
+      a.startSource({ room: 'crew_quarters', substance: 'vapor', rate: 3, seconds: 600, source: 'perf' });
+    },
+  },
 ];
 
 /** Diagnostic limits: a measurement past one is flagged in the report, nothing fails. */

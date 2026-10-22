@@ -59,6 +59,9 @@ function systemsState(content, session) {
     // Prompt 6: the ship's emergencies (no chapter starts one: every phase should end with none).
     const hz = session.ship.hazards;
     out.ship.hazards = { leaks: hz.leaks.length, fires: hz.fires.map((f) => f.room), water: Object.keys(hz.water).sort(), stability: hz.stability().state, buckets: hz.buckets };
+    // Prompt 7: the air (rooms with any gas, sources, openings changed from their defaults, the captain's lungs).
+    const air = session.ship.air;
+    out.ship.air = { rooms: Object.keys(air.gas).sort(), sources: air.sources.length, links: Object.keys(air.links).sort(), exposure: Math.round(air.exposure) };
   }
   return out;
 }

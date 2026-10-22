@@ -19,6 +19,18 @@
   "tv"
  ],
  "kinds": {
+  "airSeal": {
+   "blocksProgression": false,
+   "input": "timed",
+   "label": "Sealing a door or hatch against bad air (Prompt 7)",
+   "retry": "offered while the hold can pay for one; the waste stays",
+   "softlockRisk": "none: no chapter uses it",
+   "support": {
+    "failure": true,
+    "partial": true,
+    "success": true
+   }
+  },
   "alarm": {
    "blocksProgression": false,
    "input": "none",

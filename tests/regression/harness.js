@@ -27,7 +27,8 @@ export const NON_CHALLENGE_COMMANDS = Object.freeze([
   'removeSprite', 'respawn', 'restage', 'roll', 'save', 'say', 'setFlag', 'setValue', 'setVar', 'sfx', 'shake', 'sharkEvent', 'sharks', 'sharkstorm',
   'shipDamage', 'shipRestore', 'shop',
   // Prompt 6 hazards: starting and ending them, and the emergency work (a patch is a challenge: patchLeak in the registry).
-  'leak', 'flood', 'drain', 'ignite', 'extinguish', 'sealLeak', 'hazardClock', 'hazardAction', 'emergency', 'showObject', 'spawn', 'sprite', 'spriteFrame', 'stability', 'startQuest', 'swapItem', 'takeGold', 'takeItem', 'tether', 'tint', 'token',
+  'leak', 'flood', 'drain', 'ignite', 'extinguish', 'sealLeak', 'hazardClock', 'hazardAction', 'emergency',
+  'airSource', 'airStop', 'airAdd', 'airVent', 'airConnection', 'airCheck', 'airControl', 'showObject', 'spawn', 'sprite', 'spriteFrame', 'stability', 'startQuest', 'swapItem', 'takeGold', 'takeItem', 'tether', 'tint', 'token',
   'transition', 'tutorial', 'tvProgram', 'tvSet', 'vista', 'vistaEnd', 'vistaFrame', 'vistaFx', 'vistaMove', 'vistaShow', 'vistaSpin', 'wait', 'wear',
 ]);
 

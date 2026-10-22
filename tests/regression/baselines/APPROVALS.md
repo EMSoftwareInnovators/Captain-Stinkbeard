@@ -289,3 +289,74 @@ Across phases
   CHANGED    challenges: kinds.patchLeak: undefined -> {"blocksProgression":false,"input":"timed","label":"Patching a leak (an emergency; Prompt 6)","retry":"offered while the hold can pay for one; the waste stays","softlockRisk":"none: no chapter uses it","support":{"failure":true,"partial":true,"success":true}}
 ```
 
+## 2026-10-22 (on 2067c62)
+
+Reason: Overhaul Prompt 7 (docs/gameplay-overhaul/11-atmosphere-and-ventilation.md): every phase snapshot gains systems.ship.air (rooms with gas, sources, openings changed from their defaults, the captain's exposure), and it reads clean in all 17 phases: no chapter starts a source, adds gas, changes an opening or reads the air. The air_demo debug preset adds one preset position in the crew quarters (coords +1). airSeal is registered as a challenge kind with no chapter uses. Nothing else changed.
+
+Files: phase-01.json, phase-02.json, phase-03.json, phase-04.json, phase-05.json, phase-06.json, phase-07.json, phase-08.json, phase-09.json, phase-10.json, phase-11.json, phase-12.json, phase-13.json, phase-14.json, phase-15.json, phase-16.json, phase-17.json, coords.json, challenges.json
+
+Changes: 0 regression, 0 warning, 0 improvement, 23 change
+
+```
+Approved changes: 23 changes
+
+Phase 1
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 2
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 3
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 4
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 5
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 6
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 7
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 8
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 9
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 10
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 11
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 12
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 13
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 14
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 15
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 16
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 17
+  CHANGED    gameplay.systems.ship: {"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Across phases
+  CHANGED    coords: byKind.preset position: 337 -> 338
+  CHANGED    coords: byRoom.crew_quarters.files.data/debug/presets.json: 58 -> 59
+  CHANGED    coords: byRoom.crew_quarters.kinds.preset position: 58 -> 59
+  CHANGED    coords: byRoom.crew_quarters.total: 1366 -> 1367
+  CHANGED    coords: total: 8222 -> 8223
+  CHANGED    challenges: kinds.airSeal: undefined -> {"blocksProgression":false,"input":"timed","label":"Sealing a door or hatch against bad air (Prompt 7)","retry":"offered while the hold can pay for one; the waste stays","softlockRisk":"none: no chapter uses it","support":{"failure":true,"partial":true,"success":true}}
+```
+

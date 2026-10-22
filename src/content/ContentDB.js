@@ -123,6 +123,8 @@ const SINGLE_FILES = {
   'ship/integrity.json': 'ship',
   // Prompt 6: leaks, flooding and fire (docs/gameplay-overhaul/10-flooding-and-fire.md).
   'ship/hazards.json': 'shipHazards',
+  // Prompt 7: the ship's air, room by room (docs/gameplay-overhaul/11-atmosphere-and-ventilation.md).
+  'ship/air.json': 'shipAir',
 };
 
 export const REGISTRY_KINDS = [
@@ -149,6 +151,7 @@ export class ContentDB {
     this.leveling = null;
     this.ship = null;
     this.shipHazards = null;
+    this.shipAir = null;
     this.loadErrors = [];
     this.extensions = []; // { kind: 'npcs'|'characters', rec, source }
     this.files = Object.keys(files).map(relativePath).sort(byPath);

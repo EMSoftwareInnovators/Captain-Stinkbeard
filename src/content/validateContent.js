@@ -24,6 +24,7 @@ import { challengeProblems, challengeConfig, specKeyProblems, PROFILE_KEYS } fro
 import { difficultyDataProblems, DIFFICULTIES } from '../systems/challenge/difficulty.js';
 import { shipDataProblems } from '../systems/ship/integrity.js';
 import { hazardDataProblems, compartment, compartmentIds, fireRoom, flammableRooms, leakSections, leakSeverity } from '../systems/ship/hazards.js';
+import { airDataProblems, airRoom, substance, connection, connectionKind, AIR_STATES } from '../systems/ship/air.js';
 import { DutyPlan } from '../systems/hazards/sharkDuty.js';
 
 /** The least time a shark on an opted-in watch may give before it bites (a walk across the deck). */
@@ -259,6 +260,19 @@ function validateParam(type, value, check, sctx) {
     case 'hazardAction':
       if (!['pump', 'bail', 'fetch', 'douse', 'smother'].includes(value)) check.error(`unknown emergency action "${value}" (pump, bail, fetch, douse, smother; patching is patchLeak)`);
       return;
+    // Prompt 7 air (data/ship/air.json): rooms with air, substances, openings and their states.
+    case 'airRoom':
+      if (!airRoom(check.ctx.db, value)) check.error(`"${value}" has no ship air (data/ship/air.json rooms)`);
+      return;
+    case 'airSubstance':
+      if (!substance(check.ctx.db, value)) check.error(`unknown substance "${value}" (data/ship/air.json substances)`);
+      return;
+    case 'airConnection':
+      if (!connection(check.ctx.db, value)) check.error(`unknown opening "${value}" (data/ship/air.json connections)`);
+      return;
+    case 'airState':
+      if (!AIR_STATES.includes(value)) check.error(`an opening is ${AIR_STATES.join(', ')} (got "${value}")`);
+      return;
     case 'challenge':
       // The shape here; the rules (and the steps they run) in validateChallenge.
       if (typeof value === 'string') return check.ref('challenge profile', value, check.ctx.db.challenges);
@@ -434,6 +448,30 @@ function validateStep(step, check, sctx) {
   if (name === 'patchLeak' && step.patchLeak !== true && typeof step.patchLeak !== 'string') check.error('patchLeak: true (the worst leak here) or a leak id');
   if (name === 'patchLeak' && step.challenge !== undefined) validateChallenge(step.challenge, 'repair', check.at('patchLeak.challenge'), sctx, { strikes: check.ctx.db.shipHazards?.actions?.patch?.strikes });
   if (name === 'hazardAction' && step.station !== undefined && !check.ctx.db.shipHazards?.stations?.[step.station]) check.error(`hazardAction: unknown station "${step.station}"`);
+  // Prompt 7: a source must end and stay within the limits; amounts and shares in range; a state the opening has; a seal is a challenge.
+  if (name.startsWith('air')) {
+    const lim = check.ctx.db.shipAir?.limits ?? {};
+    if (name === 'airSource') {
+      if (!(step.rate > 0 && step.rate <= (lim.rate ?? 20))) check.error(`airSource: "rate" must be above 0, at most ${lim.rate ?? 20} a second`);
+      if (step.amount === undefined && step.seconds === undefined) check.error('airSource: a source must end: give it "amount" or "seconds"');
+      if (step.amount !== undefined && !(step.amount > 0)) check.error('airSource: "amount" must be above 0');
+      if (step.seconds !== undefined && !(Number.isInteger(step.seconds) && step.seconds > 0 && step.seconds <= (lim.seconds ?? 600))) check.error(`airSource: "seconds" must be whole, 1 to ${lim.seconds ?? 600}`);
+    }
+    if (name === 'airAdd' && !(step.pct > 0 && step.pct <= 100)) check.error('airAdd: "pct" must be above 0, at most 100');
+    if (name === 'airVent' && step.share !== undefined && !(step.share > 0 && step.share <= 1)) check.error('airVent: "share" must be above 0, at most 1');
+    if (name === 'airStop' && !(typeof step.airStop === 'string' || (step.airStop === true && step.room !== undefined))) check.error('airStop: a source id, or true with a "room"');
+    if ((name === 'airConnection' || name === 'airControl') && step.state !== undefined) {
+      const kd = connectionKind(check.ctx.db, step[name]);
+      if (kd && !asArray(kd.states).includes(step.state)) check.error(`${name}: ${connection(check.ctx.db, step[name])?.label} can't be ${step.state} (${asArray(kd.states).join(', ')})`);
+    }
+    if (name === 'airControl' && step.state === 'sealed') check.error('airControl: sealing is airSeal (materials and the repair bar)');
+    if (name === 'airConnection' && step.state === undefined && step.damaged === undefined) check.error('airConnection: give a "state" or "damaged"');
+    if (name === 'airSeal') {
+      const kd = connectionKind(check.ctx.db, step.airSeal);
+      if (kd && !asArray(kd.states).includes('sealed')) check.error(`airSeal: ${connection(check.ctx.db, step.airSeal)?.label} can't be sealed`);
+      if (step.challenge !== undefined) validateChallenge(step.challenge, 'repair', check.at('airSeal.challenge'), sctx, { strikes: check.ctx.db.shipAir?.actions?.seal?.strikes });
+    }
+  }
   if ((name === 'repair' || name === 'sashTension') && step.challenge === undefined && ['outcomeValue', 'ifSuccess', 'ifPartial', 'ifFailure'].some((k) => k in step)) {
     check.error('outcomeValue / ifSuccess / ifPartial / ifFailure need a "challenge" (a legacy step always succeeds)');
   }
@@ -796,6 +834,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
   for (const problem of shipDataProblems(db)) C('data/ship').error(problem);
   // Ship hazards (data/ship/hazards.json): rooms and links from the maps, sections, materials, the patch's challenge.
   for (const problem of hazardDataProblems(db)) C('data/ship').error(problem);
+  for (const problem of airDataProblems(db)) C('data/ship').error(problem);
   if (db.shipHazards?.actions?.patch) {
     const c = C('data/ship/hazards.json (actions.patch)');
     const spec = db.shipHazards.actions.patch.challenge ?? { profile: 'ship_repair' };

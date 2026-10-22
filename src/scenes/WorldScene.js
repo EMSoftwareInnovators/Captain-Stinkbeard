@@ -42,6 +42,7 @@ import { HazardLayer } from '../world/HazardLayer.js';
 import { shipTuning } from '../systems/ship/integrity.js';
 import { hazardData } from '../systems/ship/hazards.js';
 import { emergencySummary } from '../systems/ship/response.js';
+import { exposureFactors } from '../systems/ship/airResponse.js';
 import { HazardClock } from '../systems/ship/hazardClock.js';
 
 // Step durations chosen so a 60 Hz frame moves a whole number of pixels:
@@ -183,6 +184,8 @@ export class WorldScene extends BaseScene {
         this.hazardDirty = true;
       }),
       this.app.bus.on('hazard:notice', (n) => this.onHazardNotice(n)),
+      // Prompt 7: bad lungs make him cough: a fit stops him a moment.
+      this.app.bus.on('air:cough', () => this.onAirCough()),
     ];
     this.refreshShipBadge();
     this.events.once('shutdown', () => this.cleanup());
@@ -1057,7 +1060,15 @@ export class WorldScene extends BaseScene {
     // The meter belongs to free play: cutscenes and dialogue hide it.
     const hazardOn = this.app.settings.fumeScale() > 0 && !this.app.flags.fumeImmunity;
     const show = !busy && (exposure.value > 0.5 || (hazardOn && (level === 'dense' || level === 'center')));
-    overlay?.setExposure(show ? { value: exposure.fraction, level } : null);
+    // Prompt 7: one meter for both kinds of air. The legacy fumes' while they hold him; else the ship's air (its own
+    // label and stage word), while his lungs are short of clear or the air where he stands is bad.
+    // Like the legacy meter: the word is the air where he stands, the bar is his lungs.
+    const air = this.session.ship.air;
+    const ex = air.exposureNow();
+    const here = air.airIn(this.model.id);
+    const airShow = !busy && !show && (ex.value > 0.5 || (hazardOn && here.index > 0));
+    const words = { clean: '<g>clean</>', hazy: '<k>hazy</>', foul: '<y>FOUL</>', toxic: '<o>TOXIC</>', deadly: '<r>DEADLY</>' };
+    overlay?.setExposure(show ? { value: exposure.fraction, level } : airShow ? { value: ex.value / (air.def?.exposure?.max ?? 100), level: null, label: 'AIR', tag: words[here.quality.id] ?? '' } : null);
     // Coughing in thick air.
     if (level === 'dense' || level === 'center' || exposure.value > 40) {
       this.coughTimer -= dt;
@@ -1155,6 +1166,12 @@ export class WorldScene extends BaseScene {
       }
     }
     if (input.pressed('debug')) return;
+    // Prompt 7: a coughing fit holds him where he stands (he can still open the menu or respond).
+    if (this.coughMs > 0) {
+      if (this.wasMoving || p.pose === 'walk') p.stopWalking();
+      this.wasMoving = false;
+      return;
+    }
     for (const d of this.entryHeld) if (!input.isDown(d)) this.entryHeld.delete(d);
     if (this.lockedHold && !input.isDown(this.lockedHold)) this.lockedHold = null;
     const dir = input.heldDirection();
@@ -1738,17 +1755,34 @@ export class WorldScene extends BaseScene {
    * work actions run their own ticks. Drawn from the state when it changed.
    */
   updateHazards(dt, busy) {
-    const hz = this.session.ship.hazards;
+    const ship = this.session.ship;
+    // Prompt 7: the air breathes the fume hazard option (Gentle halves, Off stops exposure; never the air itself), and
+    // a legacy fume zone at his feet owns his lungs this second (one exposure, never two).
+    const level = this.playerFumeLevel();
+    // The protection the legacy fumes honour protects from the ship's air too: the wet cloth, a swig of Frog Grog.
+    const ward = this.session.transient.fumeWard;
+    const protect = (this.session.story.has('rescue_gear_on') ? 0.7 : 1) * (ward?.ms > 0 ? ward.scale : 1);
+    ship.air.access = this.app.flags.fumeImmunity ? 0 : this.app.settings.fumeScale() * protect;
+    ship.air.legacyOwns = level === 'dense' || level === 'center';
     this.hazardClock.advance(dt, {
-      active: hz.active,
+      active: ship.envActive,
       eligible: !busy && !this.leaving && !this.collapsing && !this.scene.get('Debug')?.open,
-      tick: () => hz.tick(shipTuning(this.content, this.app.settings.challengePrefs().difficulty)),
+      tick: () => ship.tick(shipTuning(this.content, this.app.settings.challengePrefs().difficulty)),
     });
     if (this.hazardDirty) {
       this.hazardDirty = false;
       this.refreshHazards();
     }
+    if (this.coughMs > 0) this.coughMs -= dt;
     this.hazardLayer.update(dt, { reduced: this.fx.reduced });
+  }
+
+  /** A coughing fit (the air's exposure stage): the captain stops a moment, and says so. Never during a scene. */
+  onAirCough() {
+    if (this.isBusy() || this.leaving) return;
+    this.coughMs = 650;
+    this.app.audio.sfx(`cough${Math.floor(Math.random() * 3)}`);
+    this.barks.show(this.player, '<y>*cough* *hack*</>', { duration: 900 });
   }
 
   /** The room's water and fire on screen, the walking pace in water, the emergency line, the Respond button. */
@@ -1756,7 +1790,15 @@ export class WorldScene extends BaseScene {
     const hz = this.session.ship.hazards;
     const room = this.model.id;
     this.hazardLayer.sync(room);
-    this.wade = hz.waterIn(room).stage.wade ?? 1;
+    // Deep water and bad lungs both slow him (Prompt 7: the exposure stage's "walk").
+    this.wade = (hz.waterIn(room).stage.wade ?? 1) * exposureFactors(this.session).walk;
+    // Prompt 7: walking into bad air is never a surprise: it is named as he arrives (once per room and quality).
+    const air = this.session.ship.air.airIn(room);
+    if (air.index > 0 && this.airWarned !== `${room}:${air.quality.id}`) {
+      this.airWarned = `${room}:${air.quality.id}`;
+      const tone = air.quality.id === 'deadly' ? 'r' : air.quality.id === 'toxic' ? 'o' : 'y';
+      this.onHazardNotice({ key: `air:here:${room}:${air.quality.id}`, text: `<${tone}>${air.quality.label.toUpperCase()}</> air in here: ${air.worst.short} ${air.worst.shown}%. <k>Don't linger.</>`, tone });
+    } else if (air.index <= 0) this.airWarned = null;
     const summary = emergencySummary(this.session, room, { difficulty: this.app.settings.challengePrefs().difficulty });
     this.emergencyHere = !!summary?.respond;
     this.app.overlay?.setEmergency(summary?.items.length ? summary : null);

@@ -262,8 +262,12 @@ export class HazardState {
     return f ? f.fuel : this.fuel[room] ?? rdef.fuel;
   }
 
-  /** Starts a fire (or feeds one already burning). `spread: false` keeps it in its room. */
-  ignite({ room, intensity = null, spread = true, source = null }) {
+  /**
+   * Starts a fire (or feeds one already burning). `spread: false` keeps it in
+   * its room; `smoke: true` (opt-in, Prompt 7) has it send smoke into its
+   * room's air, and a fire it spreads to does the same.
+   */
+  ignite({ room, intensity = null, spread = true, smoke = false, source = null }) {
     const rdef = fireRoom({ shipHazards: this.def }, room);
     if (!rdef) return { ok: false, reason: 'room cannot burn', room };
     const w = this.waterIn(room);
@@ -274,10 +278,11 @@ export class HazardState {
     if (f) {
       f.intensity = Math.max(f.intensity, start);
       f.spread = f.spread || spread;
+      if (smoke) f.smoke = true;
       this.changed();
       return { ok: true, fire: f, started: false };
     }
-    f = { id: `fire_${this.next++}`, room, intensity: start, fuel: this.fuelLeft(room), spread: spread !== false, hot: 0, acc: {}, source, since: this.time };
+    f = { id: `fire_${this.next++}`, room, intensity: start, fuel: this.fuelLeft(room), spread: spread !== false, ...(smoke ? { smoke: true } : {}), hot: 0, acc: {}, source, since: this.time };
     this.fires.push(f);
     this.notice(`fire:${f.id}:start`, `<o>FIRE</> in ${this.roomName(room)}!`, 'o');
     this.changed();
@@ -443,7 +448,7 @@ export class HazardState {
     f.hot = 0;
     for (const to of rdef.spread ?? []) {
       if (this.fires.some((x) => x.room === to)) continue;
-      const r = this.ignite({ room: to, intensity: fd.spreadStart, spread: true, source: `spread:${f.id}` });
+      const r = this.ignite({ room: to, intensity: fd.spreadStart, spread: true, smoke: f.smoke === true, source: `spread:${f.id}` });
       if (r.ok) {
         this.notice(`fire:${r.fire.id}:spread`, `<o>The fire spread</> from ${this.roomName(f.room)} to ${this.roomName(to)}!`, 'o');
         break;
@@ -557,7 +562,7 @@ export class HazardState {
       maxId = Math.max(maxId, idNum(f.id));
       const acc = {};
       for (const [s, v] of Object.entries(isPlainObject(f.acc) ? f.acc : {})) if (sections[s] && Number.isFinite(v) && v >= 0 && v < 1) acc[s] = v;
-      this.fires.push({ id: f.id, room: f.room, intensity: round2(Math.min(100, Number(f.intensity))), fuel: Number.isFinite(f.fuel) ? Math.max(0, Math.min(rdef.fuel, f.fuel)) : rdef.fuel, spread: f.spread !== false, hot: Number.isInteger(f.hot) && f.hot >= 0 ? f.hot : 0, acc, source: typeof f.source === 'string' ? f.source : null, since: Number.isFinite(f.since) ? f.since : 0 });
+      this.fires.push({ id: f.id, room: f.room, intensity: round2(Math.min(100, Number(f.intensity))), fuel: Number.isFinite(f.fuel) ? Math.max(0, Math.min(rdef.fuel, f.fuel)) : rdef.fuel, spread: f.spread !== false, ...(f.smoke === true ? { smoke: true } : {}), hot: Number.isInteger(f.hot) && f.hot >= 0 ? f.hot : 0, acc, source: typeof f.source === 'string' ? f.source : null, since: Number.isFinite(f.since) ? f.since : 0 });
     }
     for (const [room, left] of Object.entries(isPlainObject(state.fuel) ? state.fuel : {})) {
       const rdef = fireRoom({ shipHazards: this.def }, room);

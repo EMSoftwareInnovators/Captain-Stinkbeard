@@ -372,6 +372,18 @@ Object.assign(MIGRATIONS, {
    * silently dropping an emergency.
    */
   18: (state) => fillLayout(state),
+  /**
+   * 19 -> 20 (overhaul Prompt 7: the ship's air, room by room,
+   * docs/gameplay-overhaul/11-atmosphere-and-ventilation.md). The ship gains
+   * "air" (gas per room, sources, openings changed from their defaults, the
+   * captain's exposure). A version 19 save had none, and nothing in the
+   * campaign starts any, so it stays absent: loading reads that as clean air
+   * everywhere, every opening at its default and clear lungs (nothing
+   * invented); the hull, the leaks, the water, the fires, the hold and the
+   * story load as they were. The bump stops an older build from loading a
+   * save and silently dropping the air.
+   */
+  19: (state) => fillLayout(state),
 });
 
 export function migrateState(state, fromVersion, toVersion, migrations = MIGRATIONS) {

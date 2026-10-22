@@ -562,6 +562,18 @@ export class DebugScene extends BaseScene {
       hz.changed();
       this.rerender();
     } });
+    // Prompt 7: the air, room by room, and the captain's lungs.
+    const air = s.ship.air;
+    const bad = air.emergencies();
+    const lungs = air.exposureNow();
+    out.push({ label: 'Air', right: `${bad.length ? `${bad.length} room(s) bad` : '<k>clean</>'}, ${air.sources.length} source(s), lungs ${lungs.pct}% ${lungs.stage.label}` });
+    for (const e of bad.slice(0, 5)) out.push({ label: `  ${e.room}`, right: `${e.substance} ${e.pct}% ${e.label}` });
+    for (const [label, steps] of DEBUG_SHIP.air) out.push({ label, action: () => this.runInWorld(steps) });
+    out.push({ label: 'Clear the air and the lungs (every opening to default)', action: () => {
+      air.reset();
+      air.changed();
+      this.rerender();
+    } });
     out.push({ label: 'Take every repair material', action: () => {
       for (const id of DEBUG_SHIP.materials) if (s.inventory.count(id)) s.inventory.remove(id, s.inventory.count(id));
       this.rerender();

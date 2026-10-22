@@ -8,6 +8,7 @@ export const DEBUG_SHIP = {
   jumps: [
     ['Ship Integrity demo (crew quarters, materials, a healthy ship)', 'ship_demo'],
     ['Emergency demo (cargo hold by the bilge pump, supplies, a healthy ship)', 'hazard_demo'],
+    ['Air demo (crew quarters, clean air, sealing supplies)', 'air_demo'],
   ],
   /**
    * Prompt 6 (docs/gameplay-overhaul/10-flooding-and-fire.md, "Trying it"):
@@ -30,6 +31,35 @@ export const DEBUG_SHIP = {
     ]],
     ['A wave over the side: 60 water into the galley', [{ flood: 'galley', amount: 60 }]],
     ['Let 10 seconds of emergency pass', [{ hazardClock: 10 }]],
+  ],
+  /**
+   * Prompt 7 (docs/gameplay-overhaul/11-atmosphere-and-ventilation.md,
+   * "Trying it"): the air scenarios, from the air_demo preset (the crew
+   * quarters). Each is script steps; the air then moves on hazard time.
+   */
+  air: [
+    ['Air A: vapor pouring from a cracked cask in the crew quarters', [
+      { airSource: 'crew_quarters', substance: 'vapor', rate: 4, amount: 240, label: 'a cracked cask of pickling vinegar', source: 'debug' },
+    ]],
+    ['Air B: the washroom sealed, full of heavy gas', [
+      { airConnection: 'washroom_door', state: 'sealed' },
+      { airAdd: 'washroom', substance: 'heavy_gas', pct: 30 },
+    ]],
+    ['Air C: the galley stove smoking, the galley shut', [
+      { airConnection: 'main_hatch', state: 'closed' },
+      { airConnection: 'galley_door', state: 'closed' },
+      { airAdd: 'galley', substance: 'smoke', pct: 50 },
+      { airSource: 'galley', substance: 'smoke', rate: 6, seconds: 60, label: 'the smoking stove', source: 'debug' },
+    ]],
+    ['Air D: the hold breached, the galley stove burning (smoke), vapor in the quarters', [
+      { shipDamage: 'hull_port', amount: 60, category: 'cannon', breach: true, scale: false, source: 'debug' },
+      { shipDamage: 'hull_port', amount: 10, category: 'cannon', breach: true, scale: false, source: 'debug' },
+      { ignite: 'galley', intensity: 30, smoke: true, source: 'debug' },
+      { airSource: 'crew_quarters', substance: 'vapor', rate: 3, amount: 150, label: 'a cracked cask of pickling vinegar', source: 'debug' },
+    ]],
+    ['Air E: a short release in the crew quarters (save, reload, retry)', [
+      { airSource: 'crew_quarters', substance: 'vapor', rate: 3, seconds: 40, label: 'a cracked cask of pickling vinegar', source: 'debug' },
+    ]],
   ],
   scenes: [
     ['A shark bites the port hull (40)', [{ shipDamage: 'hull_port', amount: 40, category: 'shark', source: 'debug' }]],

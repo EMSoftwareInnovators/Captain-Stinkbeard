@@ -902,6 +902,41 @@ No chapter uses any of it.
   load or a restore), the emergencies on Pause > Ship. Debug: F2 > Ship and
   the `hazard_demo` preset.
 
+## The ship's air (overhaul Prompt 7)
+
+Air per room: gas that accumulates, moves through the ship's openings,
+vents to the outside, and is breathed by the captain. See
+[gameplay-overhaul/11-atmosphere-and-ventilation.md](gameplay-overhaul/11-atmosphere-and-ventilation.md).
+No chapter uses it; the legacy fume zones (below, "Fumes") are unchanged.
+Not the Phase 15 atmosphere story value (`src/systems/atmosphere.js`).
+
+- Data: `data/ship/air.json` (ContentDB `shipAir`): substances (safe level,
+  potency, decay, venting, heaviness), rooms (volume, deck level), kinds of
+  opening and their rates per state, the openings by stable id (every one
+  between two rooms a real doorway, checked with `roomLinks`), air quality,
+  exposure stages and their effects, limits, the seal action. Keyed by room
+  and opening, never tiles.
+- `src/systems/ship/air.js`: pure lookups and the validator.
+  `src/systems/ship/AirState.js`: `session.ship.air`, saved inside the
+  `ship` domain. Nothing moves except `tick()`: sources pour, opt-in fire
+  smoke, gas moves through every opening in data order (conservative,
+  never past level, never into a full room), vents to the outside, decays,
+  and the captain breathes (`where`, `hurt`, `access`, `legacyOwns` are set
+  per play by the session and the world). Events: the shared
+  `hazard:changed` / `hazard:notice`, and `air:cough`.
+- One clock: `ShipState.tick()` ticks the hazards then the air;
+  WorldScene's `HazardClock` and the work actions call it.
+- The captain's side: `src/systems/ship/airResponse.js` (`airOptions` for
+  the room he's in, `airReport`, `airAdvice`, `exposureFactors`, which
+  `response.js`'s `workFactor` and WorldScene's pace use). Commands:
+  `airSource`, `airStop`, `airAdd`, `airVent`, `airConnection` (scenes),
+  `airCheck`, `airControl`, `airSeal` (the captain; a seal is a challenge),
+  and `emergency` offers both lists. The `air` condition reads it all.
+- UI: the HUD line (`emergencySummary` counts bad air), the shared exposure
+  meter (`OverlayScene.setExposure` with an AIR label), the haze and wisps
+  in `HazardLayer`, the work panel sized to its words, the air rows on
+  Pause > Ship. Debug: F2 > Ship and the `air_demo` preset.
+
 ## Battle
 
 `BattleEngine` (`src/systems/battle/`) owns the rules and is fully
@@ -1010,14 +1045,15 @@ handles fullscreen, so pixels stay square and sharp.
 See the README and [RETRO_PORT_NOTES.md](RETRO_PORT_NOTES.md#save-schema).
 Autosave on map entry and after battles, three manual slots from the pause
 menu, checksum + version per record, migrations table for future formats.
-The schema is at version 19 (Story Phase 4 added story values: where the
+The schema is at version 20 (Story Phase 4 added story values: where the
 Dead Center is; Phases 5 to 17 keep the layout, and Phases 11 to 17 add only
 flags, variables and values: Phase 16's rooms' air, Fart Zone, beard, counter,
 lighter and hornets are all story state; Phase 17's new party members are
 ordinary party records, deduplicated on load; overhaul Prompt 5 added
 `ship`, each section's integrity, and a version 17 save loads with a whole
 ship; Prompt 6 added the ship's hazards and the damage event ids already
-applied, and a version 18 save loads with no emergency); a save from any
+applied, and a version 18 save loads with no emergency; Prompt 7 added the
+ship's air, and a version 19 save loads with clean air); a save from any
 earlier phase upgrades on load
 and walks into the next chapter. Aliases are never saved.
 

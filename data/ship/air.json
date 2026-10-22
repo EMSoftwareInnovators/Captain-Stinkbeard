@@ -1,0 +1,91 @@
+{
+  "//": "The ship's air, room by room (docs/gameplay-overhaul/11-atmosphere-and-ventilation.md). Keyed by room (map id) and by connection id, never by tile, so the layout can move doors and portholes without touching a save. Concentrations are percent of a room's air (0 to 100 for all substances together); a room's quantity of a substance is percent x volume / 100. Time is hazard time (the same clock as flooding and fire). Nothing here is used by a story chapter: the campaign's fumes are the legacy fume zones, unchanged.",
+  "substances": {
+    "//": "safe: the concentration below which it does no harm; potency: exposure per second per point above safe; decay: share lost per second on its own (0 = only ventilation clears it); vent: how readily it leaves through an opening to the outside; heavy: it sinks (flows down faster, up slower: sink and rise).",
+    "smoke": { "label": "Smoke", "short": "SMOKE", "color": "#6e6870", "safe": 15, "potency": 0.06, "decay": 0.004, "vent": 1 },
+    "vapor": { "label": "Irritating vapor", "short": "VAPOR", "color": "#b4c45c", "safe": 8, "potency": 0.12, "decay": 0.0015, "vent": 1 },
+    "heavy_gas": { "label": "Heavy gas", "short": "HEAVY GAS", "color": "#8c6cac", "safe": 4, "potency": 0.2, "decay": 0, "vent": 0.5, "heavy": true, "sink": 1.5, "rise": 0.25 }
+  },
+  "rooms": {
+    "//": "volume: how much air (bigger rooms dilute more); level: 0 the weather deck, 1 between decks, 2 the hold (heavy gas sinks down the levels).",
+    "main_deck": { "volume": 600, "level": 0 },
+    "captains_quarters": { "volume": 120, "level": 0 },
+    "crew_quarters": { "volume": 200, "level": 1 },
+    "galley": { "volume": 160, "level": 1 },
+    "washroom": { "volume": 60, "level": 1 },
+    "stenchmaster_fart_zone": { "volume": 100, "level": 1 },
+    "cargo_hold": { "volume": 260, "level": 2 },
+    "treasure_hold": { "volume": 140, "level": 2 },
+    "fart_free_zone": { "volume": 50, "level": 2 }
+  },
+  "kinds": {
+    "//": "How much air a connection passes per second in each state (a share of the concentration difference, times the smaller room's volume; to the outside, a share of the room's gas), which states it can be put in, and how long it takes the captain to change it. A damaged connection leaks 'damagedLeak' more whatever its state, and can't be sealed.",
+    "door": { "label": "door", "rates": { "open": 0.1, "closed": 0.006, "sealed": 0 }, "states": ["open", "closed", "sealed"], "seconds": 1 },
+    "hatch": { "label": "hatch", "rates": { "open": 0.08, "closed": 0.004, "sealed": 0 }, "states": ["open", "closed", "sealed"], "seconds": 2 },
+    "stairs": { "label": "stairs", "rates": { "open": 0.08 }, "states": ["open"] },
+    "porthole": { "label": "porthole", "rates": { "open": 0.05, "closed": 0 }, "states": ["open", "closed"], "seconds": 2 },
+    "window": { "label": "windows", "rates": { "open": 0.07, "closed": 0 }, "states": ["open", "closed"], "seconds": 2 },
+    "sky": { "label": "open sky", "rates": { "open": 0.25 }, "states": ["open"] }
+  },
+  "damagedLeak": 0.04,
+  "connections": {
+    "//": "Every connection between two rooms must be a real doorway (a map warp between them: checked). 'outside' is the open air, where vented gas goes and never comes back. 'state' is the default (a save stores only the ones changed).",
+    "cabin_door": { "label": "the cabin door", "kind": "door", "rooms": ["main_deck", "captains_quarters"], "state": "open" },
+    "main_hatch": { "label": "the main hatch", "kind": "hatch", "rooms": ["main_deck", "galley"], "state": "open" },
+    "fore_hatch": { "label": "the fore hatch", "kind": "hatch", "rooms": ["main_deck", "crew_quarters"], "state": "open" },
+    "fz_hatch": { "label": "the Fart Zone hatch", "kind": "hatch", "rooms": ["main_deck", "stenchmaster_fart_zone"], "state": "open" },
+    "galley_door": { "label": "the galley door", "kind": "door", "rooms": ["galley", "crew_quarters"], "state": "open" },
+    "washroom_door": { "label": "the washroom door", "kind": "door", "rooms": ["crew_quarters", "washroom"], "state": "open" },
+    "hold_stairs": { "label": "the hold stairs", "kind": "stairs", "rooms": ["galley", "cargo_hold"], "state": "open" },
+    "treasure_door": { "label": "the treasure door", "kind": "door", "rooms": ["cargo_hold", "treasure_hold"], "state": "open" },
+    "ffz_door": { "label": "the Fart-Free Zone door", "kind": "door", "rooms": ["cargo_hold", "fart_free_zone"], "state": "open" },
+    "open_sky": { "label": "the open sky", "kind": "sky", "rooms": ["main_deck", "outside"], "state": "open" },
+    "stern_windows": { "label": "the stern windows", "kind": "window", "rooms": ["captains_quarters", "outside"], "state": "closed" },
+    "quarters_porthole": { "label": "the quarters porthole", "kind": "porthole", "rooms": ["crew_quarters", "outside"], "state": "closed" },
+    "galley_porthole": { "label": "the galley porthole", "kind": "porthole", "rooms": ["galley", "outside"], "state": "closed" },
+    "washroom_porthole": { "label": "the washroom porthole", "kind": "porthole", "rooms": ["washroom", "outside"], "state": "closed" },
+    "fz_portholes": { "label": "the Fart Zone portholes", "kind": "porthole", "rooms": ["stenchmaster_fart_zone", "outside"], "state": "closed" }
+  },
+  "quality": {
+    "//": "A room's air by its index (the exposure a second of it gives: the sum over substances of (percent - safe) x potency, where above safe). Below 1% of anything it is clean; any gas, all of it under its safe level, is hazy.",
+    "levels": [
+      { "id": "clean", "label": "Clean", "index": 0 },
+      { "id": "hazy", "label": "Hazy", "index": 0 },
+      { "id": "foul", "label": "Foul", "index": 0.01 },
+      { "id": "toxic", "label": "Toxic", "index": 1.5 },
+      { "id": "deadly", "label": "Deadly", "index": 4 }
+    ],
+    "trace": 1
+  },
+  "exposure": {
+    "//": "The captain's lungs (0 to max): what he has breathed, not what the room holds. It rises by the room's index each second (x the difficulty's exposureScale, x the fume hazard option), falls in clean air ('recover', or 'recoverHazy' in air that's hazy but harmless). work and walk: how much longer emergency work and each step take; cough: every N seconds a coughing fit stops him; hurt: every N seconds the captain loses hp, never below 'floor' of his maximum.",
+    "max": 100,
+    "recover": 5,
+    "recoverHazy": 2,
+    "stages": [
+      { "id": "clear", "label": "Clear", "min": 0, "work": 1, "walk": 1 },
+      { "id": "mild", "label": "Mild", "min": 15, "work": 1, "walk": 1 },
+      { "id": "impaired", "label": "Impaired", "min": 35, "work": 1.25, "walk": 1.2 },
+      { "id": "dangerous", "label": "Dangerous", "min": 60, "work": 1.5, "walk": 1.4, "cough": 6 },
+      { "id": "critical", "label": "Critical", "min": 85, "work": 1.75, "walk": 1.6, "cough": 4, "hurt": { "every": 3, "hp": 1, "floor": 0.25 } }
+    ]
+  },
+  "fire": {
+    "//": "Opt-in: a fire started with \"smoke\": true sends smoke into its room (intensity x smokePerIntensity a second). No story fire does.",
+    "smokePerIntensity": 0.05
+  },
+  "limits": { "sources": 12, "rate": 20, "seconds": 600 },
+  "actions": {
+    "seal": {
+      "label": "Seal",
+      "title": "SEAL THE GAPS",
+      "kind": "hull",
+      "strikes": 2,
+      "seconds": 4,
+      "unsealSeconds": 2,
+      "cost": [{ "item": "sailcloth", "count": 1 }, { "item": "nails", "count": 1 }],
+      "waste": [{ "item": "nails", "count": 1 }],
+      "challenge": { "profile": "ship_repair" }
+    }
+  }
+}

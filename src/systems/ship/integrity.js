@@ -28,8 +28,12 @@ export const SHIP_TUNING = Object.freeze({
   leakScale: [0.5, 1.5],
   fireScale: [0.5, 1.5],
   responseScale: [0.5, 1.5],
+  // Prompt 7 air (docs/gameplay-overhaul/11-atmosphere-and-ventilation.md): the risk to the captain and what his ventilation achieves, never how gas moves between rooms.
+  exposureScale: [0.5, 1.5],
+  recoveryScale: [0.5, 1.5],
+  ventScale: [0.5, 1.5],
 });
-export const SHIP_TUNING_DEFAULTS = Object.freeze({ damageScale: 1, repairScale: 1, costScale: 1, leakScale: 1, fireScale: 1, responseScale: 1, grace: true });
+export const SHIP_TUNING_DEFAULTS = Object.freeze({ damageScale: 1, repairScale: 1, costScale: 1, leakScale: 1, fireScale: 1, responseScale: 1, exposureScale: 1, recoveryScale: 1, ventScale: 1, grace: true });
 
 /** The outcomes a repair names results for. */
 export const REPAIR_OUTCOMES = Object.freeze(['success', 'partial', 'failure']);

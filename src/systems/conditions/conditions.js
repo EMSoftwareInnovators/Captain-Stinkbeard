@@ -270,6 +270,64 @@ export const CONDITION_OPERATORS = {
     },
   },
 
+  /**
+   * Prompt 7: the ship's air (docs/gameplay-overhaul/11-atmosphere-and-ventilation.md).
+   *   { "air": { "room": "galley" } }   any gas there (not clean)
+   *   { "air": { "room": "galley", "quality": ["toxic", "deadly"] } }
+   *   { "air": { "room": "galley", "substance": "smoke", "pct": { "gte": 20 } } }   (no substance: all of it)
+   *   { "air": { "room": "galley", "safe": true } }   nothing above its safe level: safe to go in
+   *   { "air": { "exposure": { "gte": 35 } } }   the captain's lungs (percent); "exposureStage": a stage or list
+   *   { "air": { "connection": "galley_door", "state": "closed" } }   ("damaged": true)
+   *   { "air": { "source": "galley" } }   a source pouring there ("source": true: anywhere)
+   *   { "air": { "any": true } }   anything in the air, a source, short breath ("any": false: none)
+   * Every key given must hold. A session without air reads as clean.
+   */
+  air: {
+    evaluate: (v, s) => {
+      const air = s.ship?.air;
+      if (!air?.enabled) return v.any === false || (v.safe === true && !('exposure' in v) && !('exposureStage' in v)) || ('quality' in v && asArray(v.quality).includes('clean'));
+      if ('any' in v && air.active !== v.any) return false;
+      if (v.room !== undefined) {
+        const a = air.airIn(v.room);
+        if ('safe' in v && (a.index <= 0) !== v.safe) return false;
+        if ('quality' in v && !asArray(v.quality).includes(a.quality.id)) return false;
+        const pct = v.substance ? a.subs.find((x) => x.id === v.substance)?.pct ?? 0 : a.total;
+        if ('pct' in v && !compare(Math.round(pct), v.pct)) return false;
+        if (!('safe' in v) && !('quality' in v) && !('pct' in v) && !(v.substance ? pct > 0 : a.quality.id !== 'clean')) return false;
+      }
+      if ('exposure' in v && !compare(air.exposureNow().pct, v.exposure)) return false;
+      if ('exposureStage' in v && !asArray(v.exposureStage).includes(air.exposureNow().stage.id)) return false;
+      if (v.connection !== undefined) {
+        const c = air.connectionState(v.connection);
+        if (!c) return false;
+        if ('state' in v && !asArray(v.state).includes(c.state)) return false;
+        if ('damaged' in v && c.damaged !== v.damaged) return false;
+      }
+      if (v.source !== undefined && !air.sources.some((x) => v.source === true || x.room === v.source)) return false;
+      return true;
+    },
+    validate: (v, c) => {
+      if (!isPlainObject(v)) return c.error('air condition needs { room | exposure | exposureStage | connection | source | any }');
+      const data = c.ctx?.db?.shipAir;
+      const keys = ['room', 'substance', 'pct', 'quality', 'safe', 'exposure', 'exposureStage', 'connection', 'state', 'damaged', 'source', 'any'];
+      for (const k of Object.keys(v)) if (!keys.includes(k)) c.error(`air condition: unknown key "${k}"`);
+      if (v.room !== undefined && data && !data.rooms?.[v.room]) c.error(`air condition: "${v.room}" has no ship air`);
+      if (v.substance !== undefined && data && !data.substances?.[v.substance]) c.error(`air condition: unknown substance "${v.substance}"`);
+      for (const k of ['substance', 'pct', 'quality', 'safe']) if (k in v && v.room === undefined) c.error(`air condition: "${k}" goes with "room"`);
+      const levels = (data?.quality?.levels ?? []).map((l) => l.id);
+      for (const q of asArray(v.quality ?? [])) if (levels.length && !levels.includes(q)) c.error(`air condition: unknown quality "${q}" (use: ${levels.join(', ')})`);
+      const stages = (data?.exposure?.stages ?? []).map((st) => st.id);
+      for (const st of asArray(v.exposureStage ?? [])) if (stages.length && !stages.includes(st)) c.error(`air condition: unknown exposure stage "${st}" (use: ${stages.join(', ')})`);
+      for (const k of ['pct', 'exposure']) if (k in v && !(typeof v[k] === 'number' || (isPlainObject(v[k]) && Object.keys(v[k]).every((op) => COMPARE_KEYS.includes(op))))) c.error(`air condition: "${k}" is a number or { lt, gte, ... }`);
+      if (v.connection !== undefined && data && !data.connections?.[v.connection]) c.error(`air condition: unknown opening "${v.connection}"`);
+      for (const k of ['state', 'damaged']) if (k in v && v.connection === undefined) c.error(`air condition: "${k}" goes with "connection"`);
+      for (const st of asArray(v.state ?? [])) if (!['open', 'closed', 'sealed'].includes(st)) c.error(`air condition: unknown state "${st}"`);
+      if (v.source !== undefined && v.source !== true && data && !data.rooms?.[v.source]) c.error(`air condition: "${v.source}" has no ship air`);
+      for (const k of ['safe', 'damaged', 'any']) if (k in v && typeof v[k] !== 'boolean') c.error(`air condition: "${k}" must be true or false`);
+      return undefined;
+    },
+  },
+
   all: {
     evaluate: (v, s) => asArray(v).every((cond) => evaluateCondition(cond, s)),
     validate: (v, c) => asArray(v).forEach((cond) => validateCondition(cond, c)),

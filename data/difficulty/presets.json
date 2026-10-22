@@ -1,5 +1,5 @@
 {
-  "//": "Difficulty presets (docs/gameplay-overhaul/08-difficulty-and-accessibility.md). Each preset's \"challenges\" gives every kind of challenge its feel on that difficulty, as bounded adjustments to the mechanic's own numbers (src/systems/challenge/difficulty.js, TUNING). They only reach challenges that opted in: every legacy step plays as it always has. \"ship\" scales Ship Integrity on each difficulty: damage taken, what a repair restores, the materials it costs (rounded up), and \"grace\" (one blow can't take a section that is still holding straight to nothing; docs/gameplay-overhaul/09-ship-integrity.md); since Prompt 6 also leak inflow, fire growth and spread, and what one pump, bail or douse achieves (docs/gameplay-overhaul/10-flooding-and-fire.md). A profile or a challenge can set any of these itself, and can give each difficulty its own limits, retries and costs (\"difficulty\": { \"brutal\": { ... } }).",
+  "//": "Difficulty presets (docs/gameplay-overhaul/08-difficulty-and-accessibility.md). Each preset's \"challenges\" gives every kind of challenge its feel on that difficulty, as bounded adjustments to the mechanic's own numbers (src/systems/challenge/difficulty.js, TUNING). They only reach challenges that opted in: every legacy step plays as it always has. \"ship\" scales Ship Integrity on each difficulty: damage taken, what a repair restores, the materials it costs (rounded up), and \"grace\" (one blow can't take a section that is still holding straight to nothing; docs/gameplay-overhaul/09-ship-integrity.md); since Prompt 6 also leak inflow, fire growth and spread, and what one pump, bail or douse achieves (docs/gameplay-overhaul/10-flooding-and-fire.md). Since Prompt 7 also the captain's exposure to bad air, how fast he recovers, and what an open porthole clears (exposureScale, recoveryScale, ventScale; docs/gameplay-overhaul/11-atmosphere-and-ventilation.md): never how gas moves between rooms. A profile or a challenge can set any of these itself, and can give each difficulty its own limits, retries and costs (\"difficulty\": { \"brutal\": { ... } }).",
   "deckhand": {
     "order": 0,
     "label": "Deckhand",
@@ -10,7 +10,7 @@
       "sashTension": { "tolerance": 5, "graceAdd": 0.6, "swayScale": 0.85 },
       "sharkDuty": { "reactionScale": 1.3 }
     },
-    "ship": { "damageScale": 0.75, "repairScale": 1.25, "costScale": 0.5, "grace": true, "leakScale": 0.6, "fireScale": 0.6, "responseScale": 1.3 }
+    "ship": { "damageScale": 0.75, "repairScale": 1.25, "costScale": 0.5, "grace": true, "leakScale": 0.6, "fireScale": 0.6, "responseScale": 1.3, "exposureScale": 0.6, "recoveryScale": 1.4, "ventScale": 1.25 }
   },
   "captain": {
     "order": 1,
@@ -31,6 +31,6 @@
       "sashTension": { "tolerance": -3, "graceAdd": -0.4, "swayScale": 1.15 },
       "sharkDuty": { "reactionScale": 0.85 }
     },
-    "ship": { "damageScale": 1.25, "repairScale": 0.85, "costScale": 1.5, "grace": false, "leakScale": 1.3, "fireScale": 1.3, "responseScale": 0.85 }
+    "ship": { "damageScale": 1.25, "repairScale": 0.85, "costScale": 1.5, "grace": false, "leakScale": 1.3, "fireScale": 1.3, "responseScale": 0.85, "exposureScale": 1.35, "recoveryScale": 0.75, "ventScale": 0.85 }
   }
 }

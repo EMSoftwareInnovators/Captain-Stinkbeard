@@ -5,6 +5,7 @@ import { UiLayer } from './UiLayer.js';
 import { repairPlan } from '../../systems/script/commands.js';
 import { responseOptions, advice, roomLabel } from '../../systems/ship/response.js';
 import { fireRoom, leakSeverity } from '../../systems/ship/hazards.js';
+import { airOptions, airAdvice, exposureFactors, shortName } from '../../systems/ship/airResponse.js';
 
 /** A condition's colour mark (the word beside it always says the same thing). */
 const TONE = { healthy: 'g', worn: 'w', damaged: 'y', critical: 'o', disabled: 'r' };
@@ -22,6 +23,11 @@ const TONE = { healthy: 'g', worn: 'w', damaged: 'y', critical: 'o', disabled: '
  * sections, every emergency (fires, water, leaks) with what it's doing and
  * what to do about it; Confirm on one in the captain's room closes the menu
  * and opens the Respond choice there.
+ *
+ * Prompt 7 (docs/gameplay-overhaul/11-atmosphere-and-ventilation.md): rooms
+ * whose air is foul or worse are emergencies too (what's in it, where it
+ * comes from, the room's openings), and the captain's own lungs while
+ * they're short of clear.
  */
 export class ShipPage {
   constructor(scene, rect) {
@@ -69,6 +75,11 @@ export class ShipPage {
       const color = e.kind === 'fire' ? 0xf8a040 : e.kind === 'leak' ? (e.open ? 0xf07860 : 0x8cd46a) : e.pct >= 65 ? 0xf07860 : 0xf8d86c;
       items.push({ label: `${kind}: ${place(e.room)}`, value: `hz:${e.id}`, right, rightColor: color });
     }
+    // The ship's air: rooms foul or worse, then his lungs.
+    const airColor = { foul: 0xf8d86c, toxic: 0xf8a040, deadly: 0xf07860 };
+    for (const e of ship.air.emergencies()) items.push({ label: `Air: ${place(e.room)}`, value: `hz:${e.id}`, right: `${e.substance} ${e.pct}% ${e.label.toUpperCase()}`, rightColor: airColor[e.stage] ?? 0xf8d86c });
+    const lungs = ship.air.exposureNow();
+    if (lungs.value > 0) items.push({ label: 'Your lungs', value: 'hz:lungs', right: `${lungs.pct}% ${lungs.stage.label.toUpperCase()}`, rightColor: lungs.rank >= 3 ? 0xf07860 : lungs.rank >= 2 ? 0xf8a040 : 0xf8d86c });
     this.menu = new ListMenu(scene, {
       x: rect.x + 24,
       y: rect.y + 34,
@@ -142,6 +153,10 @@ export class ShipPage {
 
   /** An emergency's detail: where, how bad, what it does, what to do, and Respond if it's here. */
   renderHazard(hid) {
+    if (hid === 'lungs' || hid.startsWith('air:')) {
+      this.renderAir(hid);
+      return;
+    }
     const { scene, rect } = this;
     const hz = this.session.ship.hazards;
     const e = hz.emergencies().find((x) => x.id === hid);
@@ -176,9 +191,61 @@ export class ShipPage {
     else line(`<k>${here ? 'Nothing to do about it from here.' : `Go to ${where} to deal with it.`}</>`);
   }
 
+  /** A room's air or the captain's lungs: what's in it, where from, its openings, what to do; Respond if it's here. */
+  renderAir(hid) {
+    const { scene, rect } = this;
+    const session = this.session;
+    const air = session.ship.air;
+    const D = 21;
+    const x = rect.x + 12;
+    const width = rect.w - 24;
+    let y = rect.y + 117;
+    const line = (text) => {
+      const t = this.detail.add(addText(scene, x, y, text, { depth: D, maxWidth: width }));
+      y += t.text.split('\n').length * 11 + 2;
+    };
+    if (hid === 'lungs') {
+      const ex = air.exposureNow();
+      const f = exposureFactors(session);
+      line(`<y>Your lungs:</> exposure ${ex.pct}% ${ex.stage.label.toUpperCase()}`);
+      const effects = [f.work > 1 ? `work ${Math.round((f.work - 1) * 100)}% slower` : null, f.walk > 1 ? `walking ${Math.round((f.walk - 1) * 100)}% slower` : null, ex.stage.cough ? 'coughing fits' : null, ex.stage.hurt ? 'losing HP' : null].filter(Boolean);
+      line(`<k>${effects.length ? effects.join(', ') : 'No effect yet'}.</>`);
+      line('<k>Breathe clean air to clear them: it takes a while.</>');
+      return;
+    }
+    const room = hid.slice(4);
+    const a = air.airIn(room);
+    const where = roomLabel(session, room);
+    const tone = { foul: 'y', toxic: 'o', deadly: 'r' }[a.quality.id] ?? 'w';
+    const trend = a.trend === 'rising' ? ', worse' : a.trend === 'falling' ? ', clearing' : '';
+    // The room is the row's own label: here, what's in it, its openings in two short groups, what to do (the
+    // full report, damage and all, is "Check the air" in the room).
+    line(`<${tone}>${a.quality.label.toUpperCase()}</>${trend}: ${a.subs.map((sub) => `${sub.short} ${sub.shown}%`).join(', ')}.`);
+    const ops = air.connectionsIn(room).filter((c) => c.changeable);
+    const named = (list) => list.map((c) => shortName(c.label)).join(', ');
+    const opened = ops.filter((c) => c.state === 'open');
+    const shut = ops.filter((c) => c.state !== 'open');
+    line(`<k>${[opened.length ? `Open: ${named(opened)}.` : '', shut.length ? `Shut: ${named(shut)}.` : ''].filter(Boolean).join(' ')}</>`);
+    line(`<k>${a.sources.length ? 'Still pouring in. ' : ''}${airAdvice(session, room)}</>`);
+    const here = session.location?.map === room;
+    line(here ? `{btn:confirm} <y>Respond here</>` : `<k>Go there to deal with it.</>`);
+  }
+
   /** Confirm on an emergency in this room: close the menu and open the Respond choice in the world. */
   respond(hid) {
     if (this.started) return;
+    const room = this.session.location?.map;
+    if (hid === 'lungs' || hid.startsWith('air:')) {
+      const ok = hid !== 'lungs' && hid.slice(4) === room && airOptions(this.session, room).length > 0;
+      if (!ok) {
+        this.app.audio.ui('buzzer');
+        return;
+      }
+      this.started = true;
+      this.app.audio.ui('confirm');
+      this.scene.close({ then: (world) => world.runScript([{ emergency: true }]) });
+      return;
+    }
     const e = this.session.ship.hazards.emergencies().find((x) => x.id === hid);
     const here = e && this.session.location?.map === e.room && responseOptions(this.session, e.room).length > 0;
     if (!here) {

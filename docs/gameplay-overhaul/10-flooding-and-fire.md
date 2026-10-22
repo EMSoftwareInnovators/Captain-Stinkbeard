@@ -206,7 +206,7 @@ Loading checks everything against the data: a leak with an unknown section, room
 
 ## 11. Timing and pause
 
-Hazard time is **fixed-step and deterministic**: one tick per `tickMs` (1000 ms) of eligible time, counted by `HazardClock` (`src/systems/ship/hazardClock.js`). The frame rate decides only when a tick lands, never how many (10.5 s at 30, 60 or 144 fps is 10 ticks). At most 3 ticks run in one frame; a longer stall drops the excess rather than dumping it later, so there is no burst of damage after a hitch.
+Hazard time is **fixed-step and deterministic**: one tick per `tickMs` (1000 ms) of eligible time, counted by `HazardClock` (`src/systems/ship/hazardClock.js`). *(Since Prompt 7 the clock ticks `ship.tick()`, the hazards then the ship's air, on the same rules: [11-atmosphere-and-ventilation.md](11-atmosphere-and-ventilation.md), section 8. A fire started with `"smoke": true` sends smoke into its room's air; no story fire does.)* The frame rate decides only when a tick lands, never how many (10.5 s at 30, 60 or 144 fps is 10 ticks). At most 3 ticks run in one frame; a longer stall drops the excess rather than dumping it later, so there is no burst of damage after a hitch.
 
 | Situation | Hazard time |
 |---|---|

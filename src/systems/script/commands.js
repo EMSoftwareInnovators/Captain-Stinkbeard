@@ -20,6 +20,8 @@ import { normalizePrefs } from '../challenge/difficulty.js';
 import { shipTuning, resolveRepair, repairIdFor, affordableAttempts, sumItems } from '../ship/integrity.js';
 import { hazardData, fireRoom } from '../ship/hazards.js';
 import { responseOptions, patchWaste, roomLabel } from '../ship/response.js';
+import { airRoom } from '../ship/air.js';
+import { airOptions, airReport, sealWaste } from '../ship/airResponse.js';
 import { tunedTensionDef } from '../tension.js';
 
 /** Story Phase 14: a stability subject (data/story/stability) with its defaults. */
@@ -355,7 +357,7 @@ function takeAll(inventory, items) {
 async function workTick(ctx, label, done, of) {
   ctx.services?.ui?.work?.({ label, done, of });
   await ctx.wait(hazardData(ctx.session.content ?? ctx.content)?.tickMs ?? 1000);
-  ctx.session.ship.hazards.tick(shipTuning(ctx.session.content ?? ctx.content, challengePrefs(ctx).difficulty));
+  ctx.session.ship.tick(shipTuning(ctx.session.content ?? ctx.content, challengePrefs(ctx).difficulty));
 }
 
 /** A step that starts a hazard, if its event (scoped as above) hasn't happened and its challenge hasn't resolved. */
@@ -366,13 +368,14 @@ function claimHazardEvent(ctx, step) {
 
 /** Runs `fn` with the hazards' own notices held back when the step says "announce": false. */
 function quietly(ctx, step, fn) {
-  const hz = ctx.session.ship.hazards;
-  const was = hz.quiet;
+  const { hazards: hz, air } = ctx.session.ship;
+  const was = [hz.quiet, air.quiet];
   hz.quiet = step.announce === false;
+  air.quiet = step.announce === false;
   try {
     return fn();
   } finally {
-    hz.quiet = was;
+    [hz.quiet, air.quiet] = was;
   }
 }
 
@@ -954,7 +957,7 @@ export function createCommandImplementations() {
     /** Starts a fire ("intensity", default the data's ignition; "spread": false keeps it in its room). */
     ignite: (step, ctx) => {
       if (!claimHazardEvent(ctx, step)) return null;
-      const r = quietly(ctx, step, () => ctx.session.ship.hazards.ignite({ room: step.ignite, intensity: step.intensity ?? null, spread: step.spread !== false, source: step.source ?? ctx.challenge?.id ?? 'script' }));
+      const r = quietly(ctx, step, () => ctx.session.ship.hazards.ignite({ room: step.ignite, intensity: step.intensity ?? null, spread: step.spread !== false, smoke: step.smoke === true, source: step.source ?? ctx.challenge?.id ?? 'script' }));
       // Awash or burnt out: nothing catches (not a content error: the state decides).
       if (!r.ok && r.reason !== 'too wet to burn' && r.reason !== 'nothing left to burn') throw new Error(`ignite ${step.ignite}: ${r.reason}`);
       return null;
@@ -972,7 +975,7 @@ export function createCommandImplementations() {
     /** Hazard time passes during an authored sequence (seconds): normally scenes stop the clock. */
     hazardClock: (step, ctx) => {
       const tuning = shipTuning(ctx.session.content ?? ctx.content, challengePrefs(ctx).difficulty);
-      for (let i = 0; i < Math.max(0, Math.floor(step.hazardClock)); i++) ctx.session.ship.hazards.tick(tuning);
+      for (let i = 0; i < Math.max(0, Math.floor(step.hazardClock)); i++) ctx.session.ship.tick(tuning);
       return null;
     },
     /**
@@ -1103,8 +1106,10 @@ export function createCommandImplementations() {
       const session = ctx.session;
       const prefs = challengePrefs(ctx);
       const room = session.location?.map;
-      const opts = responseOptions(session, room, { difficulty: prefs.difficulty });
-      if (!opts.length) {
+      const hazardOpts = responseOptions(session, room, { difficulty: prefs.difficulty });
+      // Prompt 7: the air's actions in this room (docs/gameplay-overhaul/11-atmosphere-and-ventilation.md).
+      const airOpts = airOptions(session, room, { difficulty: prefs.difficulty });
+      if (!hazardOpts.length && !airOpts.length) {
         if (step.announce !== false) await shipNotice(ctx, '<k>Nothing to do about an emergency here.</>');
         return null;
       }
@@ -1116,13 +1121,28 @@ export function createCommandImplementations() {
       if (w.units > 0) bits.push(`water ${w.pct}% ${w.stage.label.toUpperCase()}`);
       const open = hz.leaksIn(room).filter((l) => l.state === 'open');
       if (open.length) bits.push(`<r>${open.length === 1 ? 'a leak' : `${open.length} leaks`}</>`);
+      const a = session.ship.air.airIn(room);
+      if (a.quality.id !== 'clean') bits.push(`air ${a.quality.label.toUpperCase()}`);
       const prompt = parseLine(`${(session.content.maps?.get?.(room)?.name ?? room)}${bits.length ? `: ${bits.join(', ')}` : ''}`);
-      const index = await service(ctx, 'dialogue', 'choice').choose({
-        prompt,
-        options: [...opts.map((o) => ({ text: o.ok ? o.label : `<k>${o.label}</>` })), { text: 'Leave it' }],
-        cancelIndex: opts.length,
-      });
-      const picked = opts[index];
+      const choose = async (opts) => {
+        const index = await service(ctx, 'dialogue', 'choice').choose({
+          prompt,
+          options: [...opts.map((o) => ({ text: o.ok ? o.label : `<k>${o.label}</>` })), { text: 'Leave it' }],
+          cancelIndex: opts.length,
+        });
+        return opts[index] ?? null;
+      };
+      // Both kinds of trouble here: which first (two short lists, not one long one).
+      let opts = hazardOpts.length ? hazardOpts : airOpts;
+      if (hazardOpts.length && airOpts.length) {
+        const pick = await choose([{ label: 'Fight the emergency', ok: true, list: hazardOpts }, { label: 'Air and vents', ok: true, list: airOpts }]);
+        if (!pick) {
+          await ctx.services?.dialogue?.close?.();
+          return null;
+        }
+        opts = pick.list;
+      }
+      const picked = await choose(opts);
       if (!picked) {
         await ctx.services?.dialogue?.close?.();
         return null;
@@ -1133,8 +1153,149 @@ export function createCommandImplementations() {
         return null;
       }
       await ctx.services?.dialogue?.close?.();
-      const next = picked.action === 'patch' ? { patchLeak: picked.leak } : { hazardAction: picked.action, ...(picked.station ? { station: picked.station } : {}) };
+      let next;
+      if (picked.action === 'patch') next = { patchLeak: picked.leak };
+      else if (picked.action === 'check') next = { airCheck: true };
+      else if (picked.action === 'seal') next = { airSeal: picked.connection };
+      else if (picked.connection) next = { airControl: picked.connection, state: picked.to };
+      else next = { hazardAction: picked.action, ...(picked.station ? { station: picked.station } : {}) };
       return ctx.runner.execBranch([next], ctx, frame);
+    },
+    // --- Prompt 7: the ship's air (docs/gameplay-overhaul/11-atmosphere-and-ventilation.md) ---
+    /** Starts a gas source: { "airSource": room, "substance", "rate" (units a second), "amount" and/or "seconds", "id"?, "label"? }. */
+    airSource: (step, ctx) => {
+      if (!claimHazardEvent(ctx, step)) return null;
+      const r = quietly(ctx, step, () => ctx.session.ship.air.startSource({ id: step.id ?? null, room: step.airSource, substance: step.substance, rate: step.rate, amount: step.amount ?? null, seconds: step.seconds ?? null, label: step.label ?? null, source: step.source ?? ctx.challenge?.id ?? 'script' }));
+      // Already pouring, or too many at once: the state decides, not the content (nothing changes).
+      if (!r.ok && r.reason !== 'already pouring' && r.reason !== 'too many sources') throw new Error(`airSource ${step.airSource}: ${r.reason}`);
+      if (step.outcomeValue) ctx.session.story.setValue(step.outcomeValue, r.ok ? 'started' : 'refused');
+      return null;
+    },
+    /** Stops a source: { "airStop": "id" }, or every source in a room: { "airStop": true, "room": room }. */
+    airStop: (step, ctx) => {
+      ctx.session.ship.air.stopSource(typeof step.airStop === 'string' ? step.airStop : null, step.airStop === true ? step.room : null);
+      return null;
+    },
+    /** Gas straight into a room: { "airAdd": room, "substance", "pct" } (points of the room's air; never past full). */
+    airAdd: (step, ctx) => {
+      if (!claimHazardEvent(ctx, step)) return null;
+      const air = ctx.session.ship.air;
+      air.addGas(step.airAdd, step.substance, (step.pct * air.volume(step.airAdd)) / 100);
+      return null;
+    },
+    /** The crew airs a room out (a scene): { "airVent": room, "share"? } (0 to 1 of its gas leaves the ship; default all). */
+    airVent: (step, ctx) => {
+      ctx.session.ship.air.ventRoom(step.airVent, step.share ?? 1);
+      return null;
+    },
+    /**
+     * A scene opens, shuts, seals or damages an opening, at once:
+     * { "airConnection": id, "state"?, "damaged"? }. Sealing an open one
+     * shuts it first; a damaged one can't be sealed (nothing changes).
+     */
+    airConnection: (step, ctx) => {
+      const air = ctx.session.ship.air;
+      if (step.state === 'sealed' && air.connectionState(step.airConnection)?.state === 'open') air.setConnection(step.airConnection, 'closed');
+      const r = air.setConnection(step.airConnection, step.state ?? null, { damaged: step.damaged ?? null });
+      if (step.outcomeValue) ctx.session.story.setValue(step.outcomeValue, r.ok ? 'done' : 'refused');
+      return null;
+    },
+    /** "Check the air" where the captain stands: the report, in the dialogue box. */
+    airCheck: async (step, ctx) => {
+      const room = step.room ?? ctx.session.location?.map;
+      if (!airRoom(ctx.session.content, room)) {
+        await shipNotice(ctx, '<k>No ship air to check here.</>');
+        return null;
+      }
+      for (const text of airReport(ctx.session, room)) await service(ctx, 'dialogue', 'narrate').say({ speaker: null, expression: null, text });
+      await ctx.services?.dialogue?.close?.();
+      return null;
+    },
+    /**
+     * The captain opens, shuts or unseals an opening of the room he is in:
+     * { "airControl": id, "state": "open" | "closed" }. It takes its seconds
+     * (hazard time runs: the gas goes on meanwhile); refused, it says why.
+     */
+    airControl: async (step, ctx) => {
+      const session = ctx.session;
+      const prefs = challengePrefs(ctx);
+      const room = step.room ?? session.location?.map;
+      const opt = airOptions(session, room, { difficulty: prefs.difficulty, always: true }).find((o) => o.connection === step.airControl && o.action !== 'seal' && (!step.state || o.to === step.state));
+      if (!opt?.ok) {
+        if (step.announce !== false) await shipNotice(ctx, `<r>${opt?.reason ?? "Nothing to do to that from here."}</>`);
+        if (step.outcomeValue) session.story.setValue(step.outcomeValue, 'refused');
+        return null;
+      }
+      const hz = session.ship.hazards;
+      const air = session.ship.air;
+      const c = air.connectionState(opt.connection);
+      hz.working = true;
+      try {
+        const label = `${{ open: 'Opening', close: 'Closing', unseal: 'Unsealing' }[opt.action]} ${c.label.replace(/^the /, 'the ')}`;
+        for (let i = 0; i < opt.seconds; i++) await workTick(ctx, label, i, opt.seconds);
+        const r = air.setConnection(opt.connection, opt.to);
+        if (r.ok && step.announce !== false) await shipNotice(ctx, `${{ open: 'Opened', close: 'Closed', unseal: 'Unsealed' }[opt.action]} ${c.label}.`);
+        if (step.outcomeValue) session.story.setValue(step.outcomeValue, r.ok ? 'done' : 'refused');
+      } finally {
+        hz.working = false;
+        ctx.services?.ui?.work?.(null);
+      }
+      return null;
+    },
+    /**
+     * Seals a closed door or hatch of the captain's room (sailcloth and
+     * nails, on the repair bar: the ship_repair profile, or "challenge"). A
+     * failed try wastes a nail (a cost "Try again" keeps); the tries are what
+     * the hold can pay for. Success or a rough job seals it after its seconds.
+     */
+    airSeal: async (step, ctx, frame) => {
+      const session = ctx.session;
+      const content = session.content ?? ctx.content;
+      const prefs = challengePrefs(ctx);
+      const room = step.room ?? session.location?.map;
+      const opt = airOptions(session, room, { difficulty: prefs.difficulty, always: true }).find((o) => o.action === 'seal' && o.connection === step.airSeal);
+      if (!opt?.ok) {
+        if (step.announce !== false) await shipNotice(ctx, `<r>${opt?.reason ?? "That can't be sealed from here."}</>`);
+        if (step.outcomeValue) session.story.setValue(step.outcomeValue, 'refused');
+        return null;
+      }
+      const sdef = content.shipAir.actions.seal;
+      const hz = session.ship.hazards;
+      const air = session.ship.air;
+      const c = air.connectionState(opt.connection);
+      const waste = sealWaste(content, prefs.difficulty);
+      const get = (list, item) => list.find((x) => x.item === item)?.count ?? 0;
+      const worst = [...new Set([...opt.cost, ...waste].map((x) => x.item))].map((item) => ({ item, count: Math.max(get(opt.cost, item), get(waste, item)) }));
+      const attempts = affordableAttempts({ worst, results: { failure: { waste } } }, (id) => session.inventory.count(id));
+      hz.working = true;
+      try {
+        const base = challengeConfig(content, step.challenge ?? sdef.challenge, { kind: 'repair', id: `seal:${opt.connection}`, difficulty: prefs.difficulty });
+        const limit = Number.isFinite(attempts) ? attempts : null;
+        const cfg = {
+          ...base,
+          retry: { ...base.retry, maxAttempts: base.retry.maxAttempts === null ? limit : limit === null ? base.retry.maxAttempts : Math.min(base.retry.maxAttempts, limit) },
+          onFailure: { ...base.onFailure, mustRetry: false, continue: true, costs: [...base.onFailure.costs, ...waste.map((x) => ({ takeItem: x.item, count: x.count, silent: true }))] },
+        };
+        let committed = null;
+        const settle = async (rec) => {
+          if (rec.outcome !== 'success' && rec.outcome !== 'partial') return;
+          for (let i = 0; i < opt.seconds; i++) await workTick(ctx, `Sealing ${c.label}`, i, opt.seconds);
+          if (air.connectionState(opt.connection).state !== 'closed') return;
+          if (!takeAll(session.inventory, opt.cost)) throw new Error(`airSeal ${opt.connection}: materials gone (the plan said there were enough)`);
+          committed = air.setConnection(opt.connection, 'sealed');
+        };
+        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: sdef.kind, strikes: sdef.strikes, title: sdef.title, speed: 1, zone: 26, challenge: info });
+        const { record, goto } = await playChallenge(ctx, frame, cfg, attempt, settle);
+        if (committed?.ok && step.announce !== false) await shipNotice(ctx, `<g>Sealed</> ${c.label}. <k>Used ${itemList(content, opt.cost)}.</>`);
+        else if (!committed?.ok && step.announce !== false && record.outcome === 'failure') {
+          const wasted = record.consequences.costs ? sumItems(...Array.from({ length: record.consequences.costs }, () => waste)) : [];
+          await shipNotice(ctx, `<r>The seal didn't take.</>${wasted.length ? ` <k>Wasted ${itemList(content, wasted)}.</>` : ''}`);
+        }
+        return challengeFollowUp(ctx, frame, step, cfg, record, goto);
+      } finally {
+        hz.working = false;
+        ctx.services?.ui?.work?.(null);
+      }
     },
     /**
      * A named checkpoint for a sequence (docs/gameplay-overhaul/07-challenge-outcomes.md):
