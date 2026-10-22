@@ -6,6 +6,7 @@ import { repairPlan } from '../../systems/script/commands.js';
 import { responseOptions, advice, roomLabel } from '../../systems/ship/response.js';
 import { fireRoom, leakSeverity } from '../../systems/ship/hazards.js';
 import { airOptions, airAdvice, exposureFactors, shortName } from '../../systems/ship/airResponse.js';
+import { pressureAdvice, pressureHere } from '../../systems/ship/pressureResponse.js';
 
 /** A condition's colour mark (the word beside it always says the same thing). */
 const TONE = { healthy: 'g', worn: 'w', damaged: 'y', critical: 'o', disabled: 'r' };
@@ -80,6 +81,9 @@ export class ShipPage {
     for (const e of ship.air.emergencies()) items.push({ label: `Air: ${place(e.room)}`, value: `hz:${e.id}`, right: `${e.substance} ${e.pct}% ${e.label.toUpperCase()}`, rightColor: airColor[e.stage] ?? 0xf8d86c });
     const lungs = ship.air.exposureNow();
     if (lungs.value > 0) items.push({ label: 'Your lungs', value: 'hz:lungs', right: `${lungs.pct}% ${lungs.stage.label.toUpperCase()}`, rightColor: lungs.rank >= 3 ? 0xf07860 : lungs.rank >= 2 ? 0xf8a040 : 0xf8d86c });
+    // Prompt 8: a Grand Stenchmaster building up (words for the stage, not only colour).
+    const toneColor = { g: 0x8cd46a, w: 0xffffff, y: 0xf8d86c, o: 0xf8a040, r: 0xf07860 };
+    for (const e of ship.pressure.emergencies()) items.push({ label: `Pressure: ${e.name}`, value: `hz:${e.id}`, right: `${e.label.toUpperCase()}${e.held ? ' HELD' : ''}${e.left !== null ? ` ${e.left}s` : ''}`, rightColor: toneColor[e.tone] ?? 0xf8d86c });
     this.menu = new ListMenu(scene, {
       x: rect.x + 24,
       y: rect.y + 34,
@@ -157,6 +161,10 @@ export class ShipPage {
       this.renderAir(hid);
       return;
     }
+    if (hid.startsWith('pressure:')) {
+      this.renderPressure(hid.slice(9));
+      return;
+    }
     const { scene, rect } = this;
     const hz = this.session.ship.hazards;
     const e = hz.emergencies().find((x) => x.id === hid);
@@ -231,10 +239,43 @@ export class ShipPage {
     line(here ? `{btn:confirm} <y>Respond here</>` : `<k>Go there to deal with it.</>`);
   }
 
+  /** A Grand Stenchmaster: how bad, what builds him up, what he holds, the countdown, what to do; Respond if he's here. */
+  renderPressure(id) {
+    const { scene, rect } = this;
+    const session = this.session;
+    const i = session.ship.pressure.info(id);
+    if (!i) return;
+    const D = 21;
+    const x = rect.x + 12;
+    const width = rect.w - 24;
+    let y = rect.y + 117;
+    const line = (text) => {
+      const t = this.detail.add(addText(scene, x, y, text, { depth: D, maxWidth: width }));
+      y += t.text.split('\n').length * 11 + 2;
+    };
+    const where = roomLabel(session, i.room);
+    line(`<${i.tone}>${i.label.toUpperCase()}</> (${i.pct}%) in ${where}.${i.phase === 'imminent' ? ` <r>${i.left} s!</>` : ''}`);
+    const bits = [i.mods.length ? `Building: ${i.mods.map((m) => m.label).join(', ')}.` : '', i.held > 0 ? `Held in: ${Math.round(i.held)}.` : ''].filter(Boolean);
+    if (bits.length) line(`<k>${bits.join(' ')}</>`);
+    line(`<k>${pressureAdvice(session, id)}</>`);
+    line(session.location?.map === i.room ? `{btn:confirm} <y>Respond here</>` : `<k>Go to ${where} to deal with him.</>`);
+  }
+
   /** Confirm on an emergency in this room: close the menu and open the Respond choice in the world. */
   respond(hid) {
     if (this.started) return;
     const room = this.session.location?.map;
+    if (hid.startsWith('pressure:')) {
+      const i = this.session.ship.pressure.info(hid.slice(9));
+      if (!(i && i.room === room && pressureHere(this.session, room))) {
+        this.app.audio.ui('buzzer');
+        return;
+      }
+      this.started = true;
+      this.app.audio.ui('confirm');
+      this.scene.close({ then: (world) => world.runScript([{ emergency: true }]) });
+      return;
+    }
     if (hid === 'lungs' || hid.startsWith('air:')) {
       const ok = hid !== 'lungs' && hid.slice(4) === room && airOptions(this.session, room).length > 0;
       if (!ok) {

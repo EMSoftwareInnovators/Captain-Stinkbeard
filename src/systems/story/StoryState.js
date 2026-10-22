@@ -19,6 +19,8 @@ export class StoryState {
     this.flags = new Set();
     this.vars = new Map();
     this.values = new Map();
+    // Overhaul Prompt 8: counts every change, so a reader can cache what it worked out from the story (where a character is).
+    this.rev = 0;
   }
 
   checkFlag(flag) {
@@ -40,6 +42,7 @@ export class StoryState {
     this.checkFlag(flag);
     if (this.flags.has(flag)) return false;
     this.flags.add(flag);
+    this.rev++;
     this.bus?.emit('story:flagSet', { flag });
     return true;
   }
@@ -48,6 +51,7 @@ export class StoryState {
     this.checkFlag(flag);
     if (!this.flags.has(flag)) return false;
     this.flags.delete(flag);
+    this.rev++;
     this.bus?.emit('story:flagCleared', { flag });
     return true;
   }
@@ -64,7 +68,10 @@ export class StoryState {
     if (!Number.isFinite(value)) throw new Error(`Story var "${name}" must be a number`);
     const prev = this.getVar(name);
     this.vars.set(name, value);
-    if (prev !== value) this.bus?.emit('story:varChanged', { name, value, prev });
+    if (prev !== value) {
+      this.rev++;
+      this.bus?.emit('story:varChanged', { name, value, prev });
+    }
   }
 
   addVar(name, delta) {
@@ -83,7 +90,10 @@ export class StoryState {
     const next = value || null;
     if (next === null) this.values.delete(name);
     else this.values.set(name, next);
-    if (prev !== next) this.bus?.emit('story:valueChanged', { name, value: next, prev });
+    if (prev !== next) {
+      this.rev++;
+      this.bus?.emit('story:valueChanged', { name, value: next, prev });
+    }
   }
 
   allFlags() {
@@ -99,6 +109,7 @@ export class StoryState {
   }
 
   load(data = {}) {
+    this.rev++;
     this.flags = new Set(Array.isArray(data.flags) ? data.flags.filter((f) => typeof f === 'string') : []);
     this.vars = new Map(
       Object.entries(data.vars || {}).filter(([, v]) => Number.isFinite(v)),

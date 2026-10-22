@@ -149,7 +149,7 @@ frame is required. Button prompt glyphs are per device (`PROMPT_GLYPHS`).
 
 ## Save schema
 
-`src/systems/save/SaveManager.js`, current `SAVE_VERSION = 20` (versions 5
+`src/systems/save/SaveManager.js`, current `SAVE_VERSION = 21` (versions 5
 to 17 keep this layout, their migrations only rename, fill in or, from 17,
 drop a party member listed twice; version 18, overhaul Prompt 5, adds
 `"ship": { "sections": { "hull_port": 100, ... } }`, six section integrities;
@@ -158,7 +158,11 @@ compartment, fires, the fuel left per room, buckets, hazard time) and
 `ship.events` (the damage event ids already applied), and a version 18 save
 loads with no emergency; version 20, overhaul Prompt 7, adds `ship.air` (gas
 per room and substance, sources, openings changed from their defaults, the
-captain's exposure), and a version 19 save loads with clean air; the example
+captain's exposure), and a version 19 save loads with clean air; version 21,
+overhaul Prompt 8, adds `ship.pressure` (each touched subject's switch,
+pressure, carried fraction, what it holds, strain, phase and seconds left,
+locks, modifiers, eruption count, prompt turn), and a version 20 save loads
+with every subject off; the example
 shows a version 5 record). Story Phase 17's two new party members (Ledger and Tilda) are
 ordinary `party` entries, so the cartridge budget's four party slots still
 hold (the captain, Ledger, Tilda, one spare):
@@ -192,7 +196,10 @@ byte; buckets, strain and hazard time 4 bytes), applied damage events
 32 × 2 bytes (a 16-bit hash of each id, and a shorter list than the
 browser's 128), the ship's air about 60 bytes (9 rooms × 3 substances × 1
 byte, a percentage; openings 15 × 2 bits; 4 sources × 6 bytes; exposure 1
-byte), checksum 2 bytes —
+byte), Grand Stenchmaster pressure about 30 bytes (2 subjects × 15: switch
+and phase 1, pressure 1, held 1, strain and locks 2, seconds left 1,
+eruption count 1, 4 modifiers × 2 (id, seconds left); Brogath's pressure
+is already a story variable), checksum 2 bytes —
 well under 1 KB. Four slots (3 manual + autosave) fit easily in 8 KB SRAM.
 
 Versioning: every format change bumps `SAVE_VERSION` and adds a migration

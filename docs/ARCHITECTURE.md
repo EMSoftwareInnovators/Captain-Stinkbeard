@@ -937,6 +937,44 @@ Not the Phase 15 atmosphere story value (`src/systems/atmosphere.js`).
   in `HazardLayer`, the work panel sized to its words, the air rows on
   Pause > Ship. Debug: F2 > Ship and the `air_demo` preset.
 
+## Grand Stenchmaster pressure (overhaul Prompt 8)
+
+Characters who build pressure and release it into the ship: Brogath and
+Garrick to start. See
+[gameplay-overhaul/12-pressure-and-eruptions.md](gameplay-overhaul/12-pressure-and-eruptions.md).
+Opt-in: no chapter switches a subject on, and Brogath's Phase 14 Stability
+(below, "Brogath Stability") plays exactly as before.
+
+- Data: `data/ship/pressure.json` (ContentDB `shipPressure`): the six
+  stages, release levels and profiles (gas, openings, damage), the sections
+  a release strikes per room, limits, the restraint's bar, and the subjects
+  (each a stable npc id; a `legacy` subject is backed by its Stability).
+- `src/systems/ship/pressure.js`: pure lookups, `npcWhere` (where the story
+  has a character, from the same placement rules the world stages by),
+  the validator. `src/systems/ship/PressureState.js`:
+  `session.ship.pressure`, saved inside the `ship` domain. Brogath's
+  pressure is his Stability variable, written through `writePressure` (one
+  number); what he holds, his modifiers, countdown and cooldown are here. It
+  waits while a Stability incident or the scripted ANGRY state owns him.
+  Events: `hazard:notice` / `hazard:changed`, `pressure:stage`,
+  `pressure:erupted`, and `stability:changed` for Brogath's listeners.
+- One clock: `ShipState.tick()` ticks the pressure (an eruption's damage,
+  blast and gas source), then the hazards, then the air (which pours the
+  source the same second).
+- The captain's side: `src/systems/ship/pressureResponse.js` (the subject's
+  options in his room: check, soothe, restrain on the timing bar, a
+  controlled release; the report; the HUD words). Commands: `pressureSubject`,
+  `pressureTrigger`, `pressureCalm`, `pressureAdd`, `pressureHold`,
+  `pressureModifier`, `pressureErupt`, `pressureSettle`, `pressureSetback`
+  (scenes), `pressureCheck`, `pressureSoothe`, `pressureRestrain`,
+  `pressureRelease` (the captain), and `airMend` for an opening a blast
+  damaged. `emergency` offers a group per subject in the room, with the
+  air's actions to prepare. The `pressure` condition reads it.
+- World: `src/world/PressureCues.js` (barks, sounds, the shiver, warning
+  puffs, the eruption's shake and burst; none of the motion with reduced
+  effects). UI: the HUD line (`emergencySummary`), Pause > Ship rows.
+  Debug: F2 > Ship and the `pressure_demo` preset.
+
 ## Battle
 
 `BattleEngine` (`src/systems/battle/`) owns the rules and is fully
@@ -1045,7 +1083,7 @@ handles fullscreen, so pixels stay square and sharp.
 See the README and [RETRO_PORT_NOTES.md](RETRO_PORT_NOTES.md#save-schema).
 Autosave on map entry and after battles, three manual slots from the pause
 menu, checksum + version per record, migrations table for future formats.
-The schema is at version 20 (Story Phase 4 added story values: where the
+The schema is at version 21 (Story Phase 4 added story values: where the
 Dead Center is; Phases 5 to 17 keep the layout, and Phases 11 to 17 add only
 flags, variables and values: Phase 16's rooms' air, Fart Zone, beard, counter,
 lighter and hornets are all story state; Phase 17's new party members are
@@ -1053,7 +1091,9 @@ ordinary party records, deduplicated on load; overhaul Prompt 5 added
 `ship`, each section's integrity, and a version 17 save loads with a whole
 ship; Prompt 6 added the ship's hazards and the damage event ids already
 applied, and a version 18 save loads with no emergency; Prompt 7 added the
-ship's air, and a version 19 save loads with clean air); a save from any
+ship's air, and a version 19 save loads with clean air; Prompt 8 added the
+Grand Stenchmasters' pressure, and a version 20 save loads with every
+subject off); a save from any
 earlier phase upgrades on load
 and walks into the next chapter. Aliases are never saved.
 

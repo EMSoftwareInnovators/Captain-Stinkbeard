@@ -92,6 +92,16 @@ export const CHALLENGE_KINDS = Object.freeze({
     outcomes: { success: 'sealed (no air through it)', partial: 'sealed, roughly', failure: 'a nail wasted; another try while the materials last' },
     retry: 'offered while the hold can pay for one; the waste stays', blocksProgression: false, softlockRisk: 'none: no chapter uses it', note: 'always plays as a strict challenge (the ship_repair profile); no chapter step uses it', source: 'src/systems/ship/, src/systems/script/commands.js (airSeal)',
   },
+  airMend: {
+    label: 'Mending a door or hatch a blast damaged (Prompt 8)', commands: ['airMend'], input: 'timed',
+    outcomes: { success: 'mended (it shuts and seals again)', partial: 'mended, roughly', failure: 'a nail wasted; another try while the materials last' },
+    retry: 'offered while the hold can pay for one; the waste stays', blocksProgression: false, softlockRisk: 'none: no chapter uses it', note: 'always plays as a strict challenge (the ship_repair profile); no chapter step uses it', source: 'src/systems/ship/, src/systems/script/commands.js (airMend)',
+  },
+  pressureRestrain: {
+    label: 'Coaching a Grand Stenchmaster to hold it in (Prompt 8)', commands: ['pressureRestrain'], input: 'timed',
+    outcomes: { success: 'held: the pressure falls now, stored up for later', partial: 'held, roughly', failure: 'he is worse, and won\'t try again for a while' },
+    retry: 'offered; each failed try leaves him worse (a cost a retry keeps)', blocksProgression: false, softlockRisk: 'none: no chapter uses it, and a failed hold never ends the game', note: 'always plays as a strict challenge (the ship_repair profile); no chapter step uses it', source: 'src/systems/ship/PressureState.js, src/systems/script/commands.js (pressureRestrain)',
+  },
   dice: {
     label: 'Grand Dice', commands: ['dice'], input: 'none',
     outcomes: { success: null, partial: null, failure: null },

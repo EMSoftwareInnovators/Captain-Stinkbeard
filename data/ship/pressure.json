@@ -1,0 +1,101 @@
+{
+  "//": "Overhaul Prompt 8: Grand Stenchmaster pressure and eruptions (docs/gameplay-overhaul/12-pressure-and-eruptions.md). Subjects are characters who build pressure and release it into the ship's air, its openings and its structure. Opt-in: a subject does nothing until a script enables it (pressureSubject), and no chapter does. Brogath's pressure IS his Phase 14 Stability (data/story/stability/brogath.json): the same story variable, read and written through systems/stability.js, so there is only ever one number for him. Garrick's is new and lives in the ship's saved state. Stage ids are fixed (stable, uneasy, building, dangerous, critical, imminent); each subject sets where its own begin ('at'), and imminent is its maximum.",
+  "stages": {
+    "stable": { "label": "stable", "tone": "g", "weight": 0, "calm": 1 },
+    "uneasy": { "label": "uneasy", "tone": "w", "weight": 0, "calm": 1 },
+    "building": { "label": "building", "tone": "y", "weight": 90, "calm": 1 },
+    "dangerous": { "label": "dangerous", "tone": "o", "weight": 140, "calm": 0.75 },
+    "critical": { "label": "critical", "tone": "r", "weight": 200, "calm": 0.5 },
+    "imminent": { "label": "imminent", "tone": "r", "weight": 300, "calm": 0.35 }
+  },
+  "//levels": "A release's size, from its intensity: the pressure (above 0) plus what was held in, times the subject's heldWeight; a controlled release counts controlScale as much.",
+  "levels": [
+    { "id": "minor", "label": "a minor release", "below": 45, "sfx": "toot_tiny" },
+    { "id": "moderate", "label": "a moderate release", "below": 75, "sfx": "fart_growl" },
+    { "id": "major", "label": "a MAJOR ERUPTION", "below": 115, "sfx": "fart_roar", "shake": 0.004 },
+    { "id": "catastrophic", "label": "a CATASTROPHIC ERUPTION", "sfx": "blast_surge", "shake": 0.008 }
+  ],
+  "//profiles": "What a release does. gas: a finite source in the subject's room (amount and rate scale with the difficulty's releaseScale; the substance is the subject's). openings: the room's openings to other rooms, in data order: 'force' closed ones blown open, 'damage' of them left damaged, 'breakSeals' tears every seal in the room. damage: sections struck ('room' is the first of the room's impact list, 'room2' the second; a section id names one), never below damage.floor of the section. Leaks and fires only when a profile says so ('breach' on a damage entry, 'ignite').",
+  "profiles": {
+    "minor": { "level": "minor", "gas": { "amount": 30, "rate": 10 } },
+    "moderate": { "level": "moderate", "gas": { "amount": 80, "rate": 14 } },
+    "major": { "level": "major", "gas": { "amount": 150, "rate": 18 }, "openings": { "force": 1 }, "damage": [{ "section": "room", "amount": 12 }] },
+    "catastrophic": { "level": "catastrophic", "gas": { "amount": 240, "rate": 20 }, "openings": { "force": 2, "damage": 1, "breakSeals": true }, "damage": [{ "section": "room", "amount": 22 }, { "section": "room2", "amount": 10 }] }
+  },
+  "//impact": "The sections a release in each room strikes, in order (validated against data/ship/integrity.json: each must be one of the section's rooms). The washroom and the two zones belong to no section: a release there strikes nothing structural.",
+  "impact": {
+    "main_deck": ["deck", "rigging"],
+    "captains_quarters": ["stern"],
+    "crew_quarters": ["bow", "hull_port"],
+    "galley": ["hull_starboard", "hull_port"],
+    "cargo_hold": ["hull_port", "hull_starboard"],
+    "treasure_hold": ["hull_starboard"]
+  },
+  "damage": { "category": "supernatural", "floor": 0.25 },
+  "limits": { "modifiers": 4, "rate": 5, "seconds": 300, "held": 90, "warn": [3, 30], "cooldown": [5, 300] },
+  "actions": {
+    "restrain": { "title": "HOLD IT IN", "kind": "restrain", "strikes": 2, "challenge": { "profile": "ship_repair" } }
+  },
+  "subjects": {
+    "brogath": {
+      "//": "Embarrassment. His rises are his Stability triggers (flutter, laughed_at, apologized...), his calms its calms, and reassuring him is its 'general' prompt: the right thing to say calms him, the wrong thing sets him off. Holding it in works now and costs later: what he held counts in full at the eruption, and every hold makes the next embarrassment hit harder. Mellow and recovering (Phases 15-16) still soften his rises, as they always have. While a Stability incident runs or he is ANGRY, a scene owns him and this system waits.",
+      "name": "Brogath",
+      "npc": "brogath",
+      "legacy": "brogath",
+      "available": { "flag": "p14_started" },
+      "at": { "uneasy": 15, "building": 40, "dangerous": 65, "critical": 85 },
+      "substance": "vapor",
+      "triggers": "legacy",
+      "calms": "legacy",
+      "strain": 0.25,
+      "modifiers": {
+        "stared_at": { "label": "the crew staring at him", "rate": 1.5, "seconds": 60 }
+      },
+      "soothe": { "kind": "prompt", "set": "general", "lock": 6, "label": "Reassure Brogath" },
+      "restrain": { "label": "Ask Brogath to hold it in", "amount": 30, "holdFactor": 1.5, "maxStrain": 3, "lock": 12, "failRise": 12, "minStage": "building" },
+      "release": { "label": "Help Brogath let it out gently", "controlScale": 0.7, "seconds": 3, "minStage": "building" },
+      "eruption": { "warn": 8, "cooldown": 30, "after": 10, "heldWeight": 1, "cancelBelow": 85 },
+      "reach": 3,
+      "puff": { "every": 5, "sfx": "puff_tiny", "bark": "<k>*pfft*</>" }
+    },
+    "garrick": {
+      "//": "Gas and ceremony. Food and drink charge him (a digesting modifier keeps him rising for a while); a Grand Stenchmaster ceremony is deliberate and fast, and he won't be settled in the middle of one. He has more control: his controlled release is half as big, and he can hold it in without it counting double, but what he holds seeps back out (bleed) a little every second. Nothing here reads or writes his story values (garrick_release and the rest stay the story's).",
+      "name": "Garrick",
+      "npc": "garrick",
+      "min": 0,
+      "max": 100,
+      "start": 5,
+      "at": { "uneasy": 20, "building": 40, "dangerous": 60, "critical": 80 },
+      "substance": "heavy_gas",
+      "triggers": {
+        "feast": { "pressure": 25, "label": "a feast", "modifier": "digesting" },
+        "beans": { "pressure": 15, "label": "beans", "modifier": "digesting" },
+        "drink": { "pressure": 10, "label": "a drink" },
+        "ritual": { "pressure": 10, "label": "a Grand Stenchmaster ceremony", "modifier": "ceremony" },
+        "ritual_failed": { "pressure": 25, "label": "a ceremony gone wrong" },
+        "startle": { "pressure": 8, "label": "a fright" }
+      },
+      "calms": {
+        "settle": { "pressure": -12, "label": "settled" },
+        "rest": { "pressure": -20, "label": "a long rest" }
+      },
+      "modifiers": {
+        "digesting": { "label": "digesting", "rate": 0.6, "seconds": 60 },
+        "ceremony": { "label": "a ceremony under way", "rate": 1.5, "seconds": 20, "deliberate": true }
+      },
+      "soothe": { "kind": "work", "calm": "settle", "seconds": 3, "lock": 8, "label": "Settle Garrick down", "refuseWhile": "deliberate" },
+      "restrain": { "label": "Ask Garrick to hold it in", "amount": 25, "holdFactor": 1, "bleed": 0.5, "maxStrain": 4, "lock": 8, "failRise": 8, "minStage": "building" },
+      "release": { "label": "Let Garrick let it out, carefully", "controlScale": 0.5, "seconds": 2, "minStage": "uneasy" },
+      "eruption": { "warn": 10, "cooldown": 30, "after": 5, "heldWeight": 0.75, "cancelBelow": 80 },
+      "reach": 3,
+      "cues": {
+        "uneasy": { "bark": "<k>*grrrlb*</>", "sfx": "stomach_growl" },
+        "building": { "bark": "<y>*GRRRLB*</>", "sfx": "stomach_glorp" },
+        "dangerous": { "bark": "<o>*GLOOORP*</>", "sfx": "stomach_big" },
+        "critical": { "bark": "<r>*GRRRNK!*</>", "sfx": "stomach_howl", "shake": 0.002 },
+        "imminent": { "bark": "<r>*GLOOOOORP!!*</>", "sfx": "release_rumble", "shake": 0.004 }
+      },
+      "puff": { "every": 5, "sfx": "puff_tiny", "bark": "<k>*pfft*</>" }
+    }
+  }
+}

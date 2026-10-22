@@ -32,8 +32,15 @@ export const SHIP_TUNING = Object.freeze({
   exposureScale: [0.5, 1.5],
   recoveryScale: [0.5, 1.5],
   ventScale: [0.5, 1.5],
+  // Prompt 8 pressure (docs/gameplay-overhaul/12-pressure-and-eruptions.md): how fast a Grand Stenchmaster builds, the warning before he blows,
+  // what calming achieves, what holding it in costs later, and how big a release is. Never the gas's movement.
+  pressureScale: [0.5, 1.5],
+  warnScale: [0.5, 1.5],
+  calmScale: [0.5, 1.5],
+  holdScale: [0.5, 1.5],
+  releaseScale: [0.5, 1.5],
 });
-export const SHIP_TUNING_DEFAULTS = Object.freeze({ damageScale: 1, repairScale: 1, costScale: 1, leakScale: 1, fireScale: 1, responseScale: 1, exposureScale: 1, recoveryScale: 1, ventScale: 1, grace: true });
+export const SHIP_TUNING_DEFAULTS = Object.freeze({ damageScale: 1, repairScale: 1, costScale: 1, leakScale: 1, fireScale: 1, responseScale: 1, exposureScale: 1, recoveryScale: 1, ventScale: 1, pressureScale: 1, warnScale: 1, calmScale: 1, holdScale: 1, releaseScale: 1, grace: true });
 
 /** The outcomes a repair names results for. */
 export const REPAIR_OUTCOMES = Object.freeze(['success', 'partial', 'failure']);

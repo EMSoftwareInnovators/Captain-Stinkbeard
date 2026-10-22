@@ -501,7 +501,8 @@ describe('what the captain can do about it', () => {
     expect(airOptions(s.session).filter((o) => o.action !== 'check').every((o) => !o.ok && o.reason === 'Already at work.')).toBe(true);
     s.session.ship.hazards.working = false;
     air.setConnection('galley_door', null, { damaged: true });
-    expect(airOptions(s.session).find((o) => o.action === 'seal')).toMatchObject({ ok: false, reason: "The galley door is damaged: it won't seal." });
+    // Prompt 8: a damaged door is mended first (planks and nails), then it seals.
+    expect(airOptions(s.session).find((o) => o.action === 'seal')).toMatchObject({ ok: false, reason: 'The galley door is damaged: mend it first.' });
     air.setConnection('galley_door', null, { damaged: false });
     s.session.inventory.remove('sailcloth', s.session.inventory.count('sailcloth'));
     expect(airOptions(s.session).find((o) => o.action === 'seal')).toMatchObject({ ok: false, reason: 'Not enough: Sailcloth 0/1.' });
@@ -722,15 +723,15 @@ describe('checkpoints and retry-safe gas events', () => {
 });
 
 // ---------------------------------------------------------------------------------------------
-describe('saves (version 20)', () => {
+describe('saves (version 20, since Prompt 8 21)', () => {
   it('the air saves and loads exactly, and goes on the same way afterwards', async () => {
-    expect(SAVE_VERSION).toBe(20);
+    expect(SAVE_VERSION).toBe(21);
     const s = demo();
     const air = s.session.ship.air;
     await s.run([...DEBUG_SHIP.air[4][1], { airControl: 'galley_door', state: 'closed' }, { hazardClock: 12 }]);
     expect(air.exposure).toBeGreaterThan(0);
     const t = reloadStory(s);
-    expect(t.record.version).toBe(20);
+    expect(t.record.version).toBe(21);
     expect(t.session.ship.air.serialize()).toEqual(air.serialize());
     tick(s.session.ship, 30);
     tick(t.session.ship, 30);

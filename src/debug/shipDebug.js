@@ -9,6 +9,7 @@ export const DEBUG_SHIP = {
     ['Ship Integrity demo (crew quarters, materials, a healthy ship)', 'ship_demo'],
     ['Emergency demo (cargo hold by the bilge pump, supplies, a healthy ship)', 'hazard_demo'],
     ['Air demo (crew quarters, clean air, sealing supplies)', 'air_demo'],
+    ['Pressure demo (crew quarters by Brogath and Garrick, supplies)', 'pressure_demo'],
   ],
   /**
    * Prompt 6 (docs/gameplay-overhaul/10-flooding-and-fire.md, "Trying it"):
@@ -59,6 +60,52 @@ export const DEBUG_SHIP = {
     ]],
     ['Air E: a short release in the crew quarters (save, reload, retry)', [
       { airSource: 'crew_quarters', substance: 'vapor', rate: 3, seconds: 40, label: 'a cracked cask of pickling vinegar', source: 'debug' },
+    ]],
+  ],
+  /**
+   * Prompt 8 (docs/gameplay-overhaul/12-pressure-and-eruptions.md, "Trying
+   * it"): the pressure scenarios, from the pressure_demo preset (the crew
+   * quarters, Brogath and Garrick within reach). Each switches its subject
+   * on and sets the scene; then it all runs on hazard time, and the
+   * captain responds with V (pad X).
+   */
+  pressure: [
+    ['Pressure A: Brogath laughed at, the crew staring (calm him)', [
+      { pressureSubject: 'brogath', on: true },
+      { pressureSettle: 'brogath', pressure: 20 },
+      { pressureModifier: 'brogath', modifier: 'stared_at' },
+      { pressureTrigger: 'brogath', trigger: 'laughed_at' },
+    ]],
+    ['Pressure B: Garrick after a feast (open a porthole, let it out carefully)', [
+      { pressureSubject: 'garrick', on: true },
+      { pressureSettle: 'garrick' },
+      { pressureTrigger: 'garrick', trigger: 'feast' },
+    ]],
+    ['Pressure C: Garrick held it in twice, then a ceremony (a catastrophe is coming)', [
+      { pressureSubject: 'garrick', on: true },
+      { pressureSettle: 'garrick', pressure: 60 },
+      { pressureHold: 'garrick' },
+      { pressureHold: 'garrick' },
+      { pressureAdd: 'garrick', amount: 85 },
+      { pressureModifier: 'garrick', modifier: 'ceremony' },
+    ]],
+    // He only moves when something happens to him: after choosing (let it out, calm him, hold it in, or nothing), keep at him with the two rows below.
+    ['Pressure D: Brogath building (relieve, calm, hold it in, or leave him; then embarrass him)', [
+      { pressureSubject: 'brogath', on: true },
+      { pressureSettle: 'brogath', pressure: 55 },
+    ]],
+    ['Pressure E: Garrick charged (save, reload, hold it in, retry, release)', [
+      { pressureSubject: 'garrick', on: true },
+      { pressureSettle: 'garrick', pressure: 40 },
+      { pressureTrigger: 'garrick', trigger: 'beans' },
+    ]],
+    ['Embarrass Brogath (he trips)', [{ pressureTrigger: 'brogath', trigger: 'tripped' }]],
+    ['Embarrass Brogath (the crew laughs at him)', [{ pressureTrigger: 'brogath', trigger: 'laughed_at' }]],
+    ['Garrick has a drink', [{ pressureTrigger: 'garrick', trigger: 'drink' }]],
+    ['Let 10 seconds pass', [{ hazardClock: 10 }]],
+    ['Settle them both and switch them off', [
+      { pressureSettle: 'brogath' }, { pressureSubject: 'brogath', on: false },
+      { pressureSettle: 'garrick' }, { pressureSubject: 'garrick', on: false },
     ]],
   ],
   scenes: [

@@ -21,7 +21,9 @@ import { shipTuning, resolveRepair, repairIdFor, affordableAttempts, sumItems } 
 import { hazardData, fireRoom } from '../ship/hazards.js';
 import { responseOptions, patchWaste, roomLabel } from '../ship/response.js';
 import { airRoom } from '../ship/air.js';
-import { airOptions, airReport, sealWaste } from '../ship/airResponse.js';
+import { airOptions, airReport, sealWaste, mendWaste } from '../ship/airResponse.js';
+import { subjectDef, stageInfo, pressureData } from '../ship/pressure.js';
+import { subjectOptions, pressureGroups, pressureHere, pressureReport } from '../ship/pressureResponse.js';
 import { tunedTensionDef } from '../tension.js';
 
 /** Story Phase 14: a stability subject (data/story/stability) with its defaults. */
@@ -368,15 +370,21 @@ function claimHazardEvent(ctx, step) {
 
 /** Runs `fn` with the hazards' own notices held back when the step says "announce": false. */
 function quietly(ctx, step, fn) {
-  const { hazards: hz, air } = ctx.session.ship;
-  const was = [hz.quiet, air.quiet];
+  const { hazards: hz, air, pressure } = ctx.session.ship;
+  const was = [hz.quiet, air.quiet, pressure.quiet];
   hz.quiet = step.announce === false;
   air.quiet = step.announce === false;
+  pressure.quiet = step.announce === false;
   try {
     return fn();
   } finally {
-    [hz.quiet, air.quiet] = was;
+    [hz.quiet, air.quiet, pressure.quiet] = was;
   }
+}
+
+/** The ship tuning of the difficulty in play. */
+function tuningOf(ctx) {
+  return shipTuning(ctx.session.content ?? ctx.content, challengePrefs(ctx).difficulty);
 }
 
 function shipDamageText(ctx, r) {
@@ -1107,9 +1115,11 @@ export function createCommandImplementations() {
       const prefs = challengePrefs(ctx);
       const room = session.location?.map;
       const hazardOpts = responseOptions(session, room, { difficulty: prefs.difficulty });
+      // Prompt 8: a Grand Stenchmaster in the room (docs/gameplay-overhaul/12-pressure-and-eruptions.md); the air's actions are offered with him, to prepare.
+      const pGroups = pressureGroups(session, room);
       // Prompt 7: the air's actions in this room (docs/gameplay-overhaul/11-atmosphere-and-ventilation.md).
-      const airOpts = airOptions(session, room, { difficulty: prefs.difficulty });
-      if (!hazardOpts.length && !airOpts.length) {
+      const airOpts = airOptions(session, room, { difficulty: prefs.difficulty, always: pGroups.length > 0 });
+      if (!hazardOpts.length && !airOpts.length && !pGroups.length) {
         if (step.announce !== false) await shipNotice(ctx, '<k>Nothing to do about an emergency here.</>');
         return null;
       }
@@ -1132,10 +1142,11 @@ export function createCommandImplementations() {
         });
         return opts[index] ?? null;
       };
-      // Both kinds of trouble here: which first (two short lists, not one long one).
-      let opts = hazardOpts.length ? hazardOpts : airOpts;
-      if (hazardOpts.length && airOpts.length) {
-        const pick = await choose([{ label: 'Fight the emergency', ok: true, list: hazardOpts }, { label: 'Air and vents', ok: true, list: airOpts }]);
+      // More than one kind of trouble here: which first (short lists, not one long one).
+      const groups = [...pGroups, ...(hazardOpts.length ? [{ label: 'Fight the emergency', ok: true, list: hazardOpts }] : []), ...(airOpts.length ? [{ label: 'Air and vents', ok: true, list: airOpts }] : [])];
+      let opts = groups[0].list;
+      if (groups.length > 1) {
+        const pick = await choose(groups);
         if (!pick) {
           await ctx.services?.dialogue?.close?.();
           return null;
@@ -1157,6 +1168,11 @@ export function createCommandImplementations() {
       if (picked.action === 'patch') next = { patchLeak: picked.leak };
       else if (picked.action === 'check') next = { airCheck: true };
       else if (picked.action === 'seal') next = { airSeal: picked.connection };
+      else if (picked.action === 'mend') next = { airMend: picked.connection };
+      else if (picked.action === 'pcheck') next = { pressureCheck: picked.subject };
+      else if (picked.action === 'soothe') next = { pressureSoothe: picked.subject };
+      else if (picked.action === 'restrain') next = { pressureRestrain: picked.subject };
+      else if (picked.action === 'release') next = { pressureRelease: picked.subject };
       else if (picked.connection) next = { airControl: picked.connection, state: picked.to };
       else next = { hazardAction: picked.action, ...(picked.station ? { station: picked.station } : {}) };
       return ctx.runner.execBranch([next], ctx, frame);
@@ -1296,6 +1312,280 @@ export function createCommandImplementations() {
         hz.working = false;
         ctx.services?.ui?.work?.(null);
       }
+    },
+    /**
+     * Prompt 8: mends a door or hatch a blast damaged, in the captain's room
+     * (planks and nails, on the repair bar, like a seal). A failed try wastes
+     * a nail; success or a rough job mends it after its seconds.
+     */
+    airMend: async (step, ctx, frame) => {
+      const session = ctx.session;
+      const content = session.content ?? ctx.content;
+      const prefs = challengePrefs(ctx);
+      const room = step.room ?? session.location?.map;
+      const opt = airOptions(session, room, { difficulty: prefs.difficulty, always: true }).find((o) => o.action === 'mend' && o.connection === step.airMend);
+      if (!opt?.ok) {
+        if (step.announce !== false) await shipNotice(ctx, `<r>${opt?.reason ?? 'Nothing to mend there from here.'}</>`);
+        if (step.outcomeValue) session.story.setValue(step.outcomeValue, 'refused');
+        return null;
+      }
+      const mdef = content.shipAir.actions.mend;
+      const hz = session.ship.hazards;
+      const air = session.ship.air;
+      const c = air.connectionState(opt.connection);
+      const waste = mendWaste(content, prefs.difficulty);
+      const get = (list, item) => list.find((x) => x.item === item)?.count ?? 0;
+      const worst = [...new Set([...opt.cost, ...waste].map((x) => x.item))].map((item) => ({ item, count: Math.max(get(opt.cost, item), get(waste, item)) }));
+      const attempts = affordableAttempts({ worst, results: { failure: { waste } } }, (id) => session.inventory.count(id));
+      hz.working = true;
+      try {
+        const base = challengeConfig(content, step.challenge ?? mdef.challenge, { kind: 'repair', id: `mend:${opt.connection}`, difficulty: prefs.difficulty });
+        const limit = Number.isFinite(attempts) ? attempts : null;
+        const cfg = {
+          ...base,
+          retry: { ...base.retry, maxAttempts: base.retry.maxAttempts === null ? limit : limit === null ? base.retry.maxAttempts : Math.min(base.retry.maxAttempts, limit) },
+          onFailure: { ...base.onFailure, mustRetry: false, continue: true, costs: [...base.onFailure.costs, ...waste.map((x) => ({ takeItem: x.item, count: x.count, silent: true }))] },
+        };
+        let committed = null;
+        const settle = async (rec) => {
+          if (rec.outcome !== 'success' && rec.outcome !== 'partial') return;
+          for (let i = 0; i < opt.seconds; i++) await workTick(ctx, `Mending ${c.label}`, i, opt.seconds);
+          if (!air.connectionState(opt.connection).damaged) return;
+          if (!takeAll(session.inventory, opt.cost)) throw new Error(`airMend ${opt.connection}: materials gone (the plan said there were enough)`);
+          committed = air.setConnection(opt.connection, null, { damaged: false });
+        };
+        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: mdef.kind, strikes: mdef.strikes, title: mdef.title, speed: 1, zone: 26, challenge: info });
+        const { record, goto } = await playChallenge(ctx, frame, cfg, attempt, settle);
+        if (committed?.ok && step.announce !== false) await shipNotice(ctx, `<g>Mended</> ${c.label}. <k>Used ${itemList(content, opt.cost)}.</>`);
+        else if (!committed?.ok && step.announce !== false && record.outcome === 'failure') {
+          const wasted = record.consequences.costs ? sumItems(...Array.from({ length: record.consequences.costs }, () => waste)) : [];
+          await shipNotice(ctx, `<r>It didn't hold.</>${wasted.length ? ` <k>Wasted ${itemList(content, wasted)}.</>` : ''}`);
+        }
+        return challengeFollowUp(ctx, frame, step, cfg, record, goto);
+      } finally {
+        hz.working = false;
+        ctx.services?.ui?.work?.(null);
+      }
+    },
+    // --- Prompt 8: Grand Stenchmaster pressure (docs/gameplay-overhaul/12-pressure-and-eruptions.md) ---
+    /** Switches a subject's pressure on or off: { "pressureSubject": "garrick", "on": true }. Opt-in: no chapter does. */
+    pressureSubject: (step, ctx) => {
+      const r = ctx.session.ship.pressure.enable(step.pressureSubject, step.on !== false);
+      if (!r.ok) throw new Error(`pressureSubject ${step.pressureSubject}: ${r.reason}`);
+      return null;
+    },
+    /**
+     * A named trigger: { "pressureTrigger": subject, "trigger": id, "eventId"? }.
+     * Brogath's are his Stability's (its line is said unless "quiet"). Refused
+     * (off, away, a scene owns him): nothing changes ("outcomeValue": refused).
+     */
+    pressureTrigger: async (step, ctx) => {
+      if (!claimHazardEvent(ctx, step)) return null;
+      const r = quietly(ctx, step, () => ctx.session.ship.pressure.trigger(step.pressureTrigger, step.trigger, tuningOf(ctx)));
+      if (step.outcomeValue) ctx.session.story.setValue(step.outcomeValue, r.ok ? 'done' : 'refused');
+      if (!r.ok) return null;
+      if (r.effect?.sfx) ctx.services?.audio?.sfx?.(r.effect.sfx, { volume: r.effect.volume ?? 0.7 });
+      if (r.effect?.line && !step.quiet) await service(ctx, 'dialogue', 'pressure').say(parseLine(r.effect.line));
+      return null;
+    },
+    /** A named calm (scaled by the difficulty and his stage): { "pressureCalm": subject, "calm": id }. */
+    pressureCalm: async (step, ctx) => {
+      const r = quietly(ctx, step, () => ctx.session.ship.pressure.calm(step.pressureCalm, step.calm, tuningOf(ctx)));
+      if (step.outcomeValue) ctx.session.story.setValue(step.outcomeValue, r.ok ? 'done' : 'refused');
+      if (r.ok && r.effect?.line && !step.quiet) await service(ctx, 'dialogue', 'pressure').say(parseLine(r.effect.line));
+      return null;
+    },
+    /**
+     * A scene's suppression: { "pressureHold": subject, "amount"? }. He holds
+     * it in (default: his hold's amount): lower now, stored up for later,
+     * and strained; no lock (that is the captain's own try).
+     */
+    pressureHold: (step, ctx) => {
+      const pr = ctx.session.ship.pressure;
+      if (!pr.ready(step.pressureHold).ok) return null;
+      quietly(ctx, step, () => pr.restrained(step.pressureHold, tuningOf(ctx), { amount: step.amount ?? null, lock: false }));
+      return null;
+    },
+    /** A scripted amount: { "pressureAdd": subject, "amount": n } (a rise is scaled like any; a fall isn't). */
+    pressureAdd: (step, ctx) => {
+      if (!claimHazardEvent(ctx, step)) return null;
+      quietly(ctx, step, () => ctx.session.ship.pressure.add(step.pressureAdd, step.amount, tuningOf(ctx)));
+      return null;
+    },
+    /** A temporary modifier from the subject's table: { "pressureModifier": subject, "modifier": id, "remove"? }. */
+    pressureModifier: (step, ctx) => {
+      const pr = ctx.session.ship.pressure;
+      if (step.remove) pr.removeModifier(step.pressureModifier, step.modifier);
+      else if (pr.ready(step.pressureModifier).ok) quietly(ctx, step, () => pr.addModifier(step.pressureModifier, step.modifier));
+      return null;
+    },
+    /**
+     * A release now: { "pressureErupt": subject, "profile"?, "controlled"?,
+     * "room"?, "eventId"? }. Its size comes from his pressure and what he
+     * held unless a profile is named; "room" (a room with ship air) overrides
+     * where he is. Applied once per event id (scoped like any hazard event).
+     */
+    pressureErupt: (step, ctx) => {
+      if (challengeStateOf(ctx) === 'resolved' && step.authorized !== true) return null;
+      const pr = ctx.session.ship.pressure;
+      const ready = pr.ready(step.pressureErupt);
+      if (!ready.ok) {
+        if (step.outcomeValue) ctx.session.story.setValue(step.outcomeValue, 'refused');
+        return null;
+      }
+      const r = quietly(ctx, step, () => pr.erupt(step.pressureErupt, { controlled: step.controlled === true, profile: step.profile ?? null, room: step.room ?? null, eventId: scopedEventId(ctx, step.eventId ?? null), tuning: tuningOf(ctx) }));
+      if (step.outcomeValue) ctx.session.story.setValue(step.outcomeValue, r.ok ? r.level : 'refused');
+      return null;
+    },
+    /** Back to calm after a scene: { "pressureSettle": subject, "pressure"? } (nothing held, pending or building). */
+    pressureSettle: (step, ctx) => {
+      ctx.session.ship.pressure.settle(step.pressureSettle, step.pressure ?? null);
+      return null;
+    },
+    /** A failed hold, as a challenge cost (kept through a retry): { "pressureSetback": subject, "action": "restrain" }. */
+    pressureSetback: (step, ctx) => {
+      quietly(ctx, step, () => ctx.session.ship.pressure.setback(step.pressureSetback, step.action ?? 'restrain', tuningOf(ctx)));
+      return null;
+    },
+    /** "Check on him": the report, in the dialogue box. */
+    pressureCheck: async (step, ctx) => {
+      const lines = pressureReport(ctx.session, step.pressureCheck);
+      if (!lines.length) return null;
+      for (const text of lines) await service(ctx, 'dialogue', 'narrate').say({ speaker: null, expression: null, text });
+      await ctx.services?.dialogue?.close?.();
+      return null;
+    },
+    /**
+     * The captain calms him, up close: Brogath with the right words (his
+     * Stability's reassurance prompt: a wrong answer sets him off), Garrick by
+     * settling him down (seconds of work, while the rest goes on). Either way
+     * a lock follows: no calming on every press.
+     */
+    pressureSoothe: async (step, ctx) => {
+      const session = ctx.session;
+      const id = step.pressureSoothe;
+      const opt = subjectOptions(session, id).find((o) => o.action === 'soothe');
+      if (!opt?.ok) {
+        if (step.announce !== false) await shipNotice(ctx, `<r>${opt?.reason ?? 'Nobody to calm here.'}</>`);
+        if (step.outcomeValue) session.story.setValue(step.outcomeValue, 'refused');
+        return null;
+      }
+      const def = subjectDef(session.content, id);
+      const pr = session.ship.pressure;
+      const st = pr.state(id);
+      const T = tuningOf(ctx);
+      const stageWords = () => {
+        const si = stageInfo(session.content, pr.stage(id));
+        return `<${si.tone}>${si.label.toUpperCase()}</>`;
+      };
+      let calmed = false;
+      if (def.soothe.kind === 'prompt') {
+        const set = def.legacy.prompts[def.soothe.set];
+        const opts = promptOptions(def.legacy, def.soothe.set, st.turn);
+        st.turn += 1;
+        const dialogue = service(ctx, 'dialogue', 'reassure');
+        const index = await dialogue.choose({ prompt: parseLine(`${def.name}: ${stageWords()}. What do you say?`), options: opts.map((o) => ({ text: o.text })), cancelIndex: null });
+        const o = opts[index] ?? opts[0];
+        if (set.echo !== false) await dialogue.say(parseLine(`${set.speaker ?? 'captain'}: ${o.say ?? o.text}`));
+        // Even the wrong words use up the moment.
+        st.calmLock = def.soothe.lock;
+        const r = o.calm ? pr.calm(id, o.calm, T) : pr.trigger(id, o.trigger, T);
+        calmed = !!o.calm && r.ok;
+        const e = r.effect;
+        if (e?.sfx) ctx.services?.audio?.sfx?.(e.sfx, { volume: e.volume ?? 0.7 });
+        const reply = o.reply ?? e?.line;
+        if (reply) await dialogue.say(parseLine(reply));
+        await ctx.services?.dialogue?.close?.();
+      } else {
+        const hz = session.ship.hazards;
+        hz.working = true;
+        try {
+          for (let i = 0; i < opt.seconds; i++) await workTick(ctx, `Settling ${def.name}`, i, opt.seconds);
+        } finally {
+          hz.working = false;
+          ctx.services?.ui?.work?.(null);
+        }
+        st.calmLock = def.soothe.lock;
+        // Still here and still in a state to listen?
+        const again = subjectOptions(session, id).find((o) => o.action === 'soothe');
+        if (pr.ready(id).ok && !again?.reason?.includes('mid-ceremony')) calmed = pr.calm(id, def.soothe.calm, T).ok;
+      }
+      if (step.announce !== false) await shipNotice(ctx, calmed ? `<g>${def.name} calms down a little.</> <k>Now:</> ${stageWords()}` : `<r>That made it worse.</> <k>${def.name}:</> ${stageWords()}`);
+      if (step.outcomeValue) session.story.setValue(step.outcomeValue, calmed ? 'calmed' : 'worse');
+      return null;
+    },
+    /**
+     * The captain coaches him to hold it in (the timing bar: data
+     * actions.restrain). Held, the pressure falls now and comes back bigger
+     * at the release; failed, he is worse and can't try again for a while (a
+     * cost "Try again" keeps).
+     */
+    pressureRestrain: async (step, ctx, frame) => {
+      const session = ctx.session;
+      const content = session.content ?? ctx.content;
+      const id = step.pressureRestrain;
+      const opt = subjectOptions(session, id).find((o) => o.action === 'restrain');
+      if (!opt?.ok) {
+        if (step.announce !== false) await shipNotice(ctx, `<r>${opt?.reason ?? 'Nobody to hold it in here.'}</>`);
+        if (step.outcomeValue) session.story.setValue(step.outcomeValue, 'refused');
+        return null;
+      }
+      const prefs = challengePrefs(ctx);
+      const act = pressureData(content).actions.restrain;
+      const def = subjectDef(content, id);
+      const pr = session.ship.pressure;
+      const hz = session.ship.hazards;
+      hz.working = true;
+      try {
+        const base = challengeConfig(content, step.challenge ?? act.challenge, { kind: 'repair', id: `restrain:${id}`, difficulty: prefs.difficulty });
+        const cfg = { ...base, onFailure: { ...base.onFailure, mustRetry: false, continue: true, costs: [...base.onFailure.costs, { pressureSetback: id, action: 'restrain' }] } };
+        let held = null;
+        const settle = async (rec) => {
+          if (rec.outcome !== 'success' && rec.outcome !== 'partial') return;
+          if (pr.ready(id).ok) held = pr.restrained(id, tuningOf(ctx));
+        };
+        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: act.kind, strikes: act.strikes, title: act.title, speed: 1, zone: 26, challenge: info });
+        const { record, goto } = await playChallenge(ctx, frame, cfg, attempt, settle);
+        if (!held && step.announce !== false && record.outcome === 'failure') await shipNotice(ctx, `<r>He couldn't hold it.</> <k>${def.name} is worse, and won't try again for a while.</>`);
+        return challengeFollowUp(ctx, frame, step, cfg, record, goto);
+      } finally {
+        hz.working = false;
+        ctx.services?.ui?.work?.(null);
+      }
+    },
+    /**
+     * The captain helps him let it out, here and now (seconds of work): a
+     * controlled release, smaller than an eruption. Open a porthole first.
+     * If the countdown runs out while they work, the eruption came first.
+     */
+    pressureRelease: async (step, ctx) => {
+      const session = ctx.session;
+      const id = step.pressureRelease;
+      const opt = subjectOptions(session, id).find((o) => o.action === 'release');
+      if (!opt?.ok) {
+        if (step.announce !== false) await shipNotice(ctx, `<r>${opt?.reason ?? 'Nobody to help here.'}</>`);
+        if (step.outcomeValue) session.story.setValue(step.outcomeValue, 'refused');
+        return null;
+      }
+      const def = subjectDef(session.content, id);
+      const pr = session.ship.pressure;
+      const before = pr.state(id).count;
+      const hz = session.ship.hazards;
+      hz.working = true;
+      try {
+        for (let i = 0; i < opt.seconds; i++) await workTick(ctx, `Easing ${def.name}`, i, opt.seconds);
+      } finally {
+        hz.working = false;
+        ctx.services?.ui?.work?.(null);
+      }
+      if (pr.state(id).count !== before) {
+        if (step.announce !== false) await shipNotice(ctx, `<r>Too late.</> <k>${def.name} went first.</>`);
+        if (step.outcomeValue) session.story.setValue(step.outcomeValue, 'late');
+        return null;
+      }
+      const r = pr.ready(id).ok ? pr.erupt(id, { controlled: true, tuning: tuningOf(ctx) }) : { ok: false };
+      if (step.outcomeValue) session.story.setValue(step.outcomeValue, r.ok ? r.level : 'refused');
+      return null;
     },
     /**
      * A named checkpoint for a sequence (docs/gameplay-overhaul/07-challenge-outcomes.md):

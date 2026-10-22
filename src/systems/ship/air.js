@@ -193,15 +193,19 @@ export function airDataProblems(content) {
   const lim = data.limits ?? {};
   if (!(Number.isInteger(lim.sources) && lim.sources >= 1 && lim.sources <= 64)) out.push(`${at} (limits): sources must be 1 to 64`);
   if (!(lim.rate > 0) || !(lim.seconds > 0)) out.push(`${at} (limits): rate and seconds must be above 0`);
-  const seal = data.actions?.seal;
-  if (!seal) out.push(`${at} (actions.seal): missing`);
-  else {
-    for (const c of [...asArray(seal.cost), ...asArray(seal.waste)]) {
-      const item = content.items?.get?.(c.item);
-      if (!item) out.push(`${at} (actions.seal): "${c.item}" is not an item`);
-      else if (item.type !== 'material') out.push(`${at} (actions.seal): "${c.item}" is not a material`);
+  // The seal, and (Prompt 8) mending a damaged opening: materials only, seconds of work.
+  for (const key of ['seal', 'mend']) {
+    const act = data.actions?.[key];
+    if (!act) {
+      out.push(`${at} (actions.${key}): missing`);
+      continue;
     }
-    if (!(seal.seconds >= 1 && seal.unsealSeconds >= 1)) out.push(`${at} (actions.seal): seconds and unsealSeconds must be 1 or more`);
+    for (const c of [...asArray(act.cost), ...asArray(act.waste)]) {
+      const item = content.items?.get?.(c.item);
+      if (!item) out.push(`${at} (actions.${key}): "${c.item}" is not an item`);
+      else if (item.type !== 'material') out.push(`${at} (actions.${key}): "${c.item}" is not a material`);
+    }
+    if (!(act.seconds >= 1) || (key === 'seal' && !(act.unsealSeconds >= 1))) out.push(`${at} (actions.${key}): seconds${key === 'seal' ? ' and unsealSeconds' : ''} must be 1 or more`);
   }
   return out;
 }

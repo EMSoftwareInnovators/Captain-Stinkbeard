@@ -574,6 +574,13 @@ export class DebugScene extends BaseScene {
       air.changed();
       this.rerender();
     } });
+    // Prompt 8: the Grand Stenchmasters' pressure.
+    for (const id of Object.keys(s.ship.pressure.subjects)) {
+      const i = s.ship.pressure.info(id);
+      if (!i) continue;
+      out.push({ label: `Pressure: ${i.name}`, right: `${i.on ? '' : '<k>off</> '}${i.shown} ${i.label}${i.held ? ` held ${Math.round(i.held)}` : ''} ${i.phase}${i.left ? ` ${i.left}s` : ''}${i.available ? '' : ' <k>away</>'}` });
+    }
+    for (const [label, steps] of DEBUG_SHIP.pressure) out.push({ label, action: () => this.runInWorld(steps) });
     out.push({ label: 'Take every repair material', action: () => {
       for (const id of DEBUG_SHIP.materials) if (s.inventory.count(id)) s.inventory.remove(id, s.inventory.count(id));
       this.rerender();

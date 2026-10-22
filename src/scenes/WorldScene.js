@@ -34,6 +34,7 @@ import { panicShouts } from '../systems/hazards/alarms.js';
 import { SharkDuty } from '../world/SharkDuty.js';
 import { intensityValue } from '../systems/bank.js';
 import { StabilityRunner } from '../world/StabilityRunner.js';
+import { PressureCues } from '../world/PressureCues.js';
 import { SharkstormLayer } from '../world/SharkstormLayer.js';
 import { mapDisplayName } from '../maps/mapName.js';
 import { mapBackground } from '../maps/mapBackground.js';
@@ -146,6 +147,8 @@ export class WorldScene extends BaseScene {
     this.beardPuffs = new BeardPuffs(this);
     // Story Phase 14: Brogath Stability (incidents, the BASHFULNESS meter, the cardboard's shivers).
     this.stability = new StabilityRunner(this);
+    // Overhaul Prompt 8: a Grand Stenchmaster's warnings and eruptions in the world (the rules: systems/ship/PressureState.js).
+    this.pressureCues = new PressureCues(this);
     this.grade = this.add.rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0xffffff).setOrigin(0).setScrollFactor(0).setDepth(75000).setBlendMode('MULTIPLY');
     this.applyReducedEffects();
     this.refreshStory({ immediate: true });
@@ -206,6 +209,7 @@ export class WorldScene extends BaseScene {
     this.app.overlay?.work(null);
     this.hazardLayer?.destroy();
     this.stability?.destroy();
+    this.pressureCues?.destroy();
     this.fx?.destroy();
     this.barks?.clear();
     this.stage?.clear();
@@ -638,6 +642,7 @@ export class WorldScene extends BaseScene {
     this.sharkDuty.update(dt, busy || this.leaving);
     this.sharkstorm.update(dt, busy || this.leaving);
     this.stability.update(dt, busy);
+    this.pressureCues.update(dt, busy || this.leaving);
     this.updateDebugDraw();
     this.ambient.update(dt, this.player);
     this.updateAliasFx(dt);

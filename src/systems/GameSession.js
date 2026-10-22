@@ -23,13 +23,15 @@ export class GameSession {
     this.location = { map: null, x: 0, y: 0, facing: 'down' };
     this.quests = new QuestSystem({ quests: content.quests, session: this, bus });
     // Overhaul Prompt 5: the ship's structural condition (docs/gameplay-overhaul/09-ship-integrity.md).
-    this.ship = new ShipState({ def: content.ship, hazards: content.shipHazards, air: content.shipAir, bus });
+    this.ship = new ShipState({ def: content.ship, hazards: content.shipHazards, air: content.shipAir, pressure: content.shipPressure, bus });
     // Prompt 6: emergencies name rooms by their map names ("the Cargo Hold").
     this.ship.hazards.nameOf = (room) => content.maps?.get?.(room)?.name ?? null;
     // Prompt 7: the air knows where the captain breathes, and how bad air hurts him (docs/gameplay-overhaul/11-atmosphere-and-ventilation.md).
     this.ship.air.nameOf = this.ship.hazards.nameOf;
     this.ship.air.where = () => this.location?.map ?? null;
     this.ship.air.hurt = (hp, floor) => this.chokeLeader(hp, floor);
+    // Prompt 8: the Grand Stenchmasters' pressure reads the story (where they are; Brogath's Stability) (docs/gameplay-overhaul/12-pressure-and-eruptions.md).
+    this.ship.pressure.session = this;
     this.playTime = 0; // seconds
     this.createdAt = new Date().toISOString();
     // Per-play state that is deliberately never saved (fume exposure...).

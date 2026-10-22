@@ -167,7 +167,7 @@ describe('2. sections have stable ids, never tiles; bad ship data is rejected', 
     expect(errors).toMatch(/unknown ship repair "nope"/);
     expect(errors).toMatch(/ship condition: unknown section "mast"/);
     expect(errors).toMatch(/ship condition: unknown state "sunk"/);
-    expect(Object.keys(SHIP_TUNING)).toEqual(['damageScale', 'repairScale', 'costScale', 'leakScale', 'fireScale', 'responseScale', 'exposureScale', 'recoveryScale', 'ventScale']);
+    expect(Object.keys(SHIP_TUNING)).toEqual(['damageScale', 'repairScale', 'costScale', 'leakScale', 'fireScale', 'responseScale', 'exposureScale', 'recoveryScale', 'ventScale', 'pressureScale', 'warnScale', 'calmScale', 'holdScale', 'releaseScale']);
   });
 });
 
@@ -731,7 +731,7 @@ describe('21-23. saves (version 18, since Prompt 6 19)', () => {
   }
 
   it('21. a version 17 save loads with a whole ship and everything else as it was', () => {
-    expect(SAVE_VERSION).toBe(20);
+    expect(SAVE_VERSION).toBe(21);
     const s = session();
     stock(s, { planks: 3 });
     s.story.setVar('fx_kept', 7);
@@ -781,7 +781,7 @@ describe('21-23. saves (version 18, since Prompt 6 19)', () => {
     s.session.ship.applyDamage({ section: 'rigging', amount: 500, tuning: { grace: false } });
     s.session.ship.applyDamage({ section: 'deck', amount: 12, eventId: 'fx_ev' });
     const t = reloadStory(s);
-    expect(t.record.version).toBe(20);
+    expect(t.record.version).toBe(21);
     expect(t.record.state.ship.sections).toEqual({ ...WHOLE, hull_port: 60, rigging: 0, deck: 48 });
     // Since Prompt 6 the ship also saves its emergencies (none here) and the damage events applied (retry-safe, tests/hazards.test.js).
     expect(t.record.state.ship.hazards).toMatchObject({ leaks: [], water: {}, fires: [] });
@@ -875,7 +875,7 @@ describe('24-25. the campaign is unchanged', () => {
     const baselines = import.meta.glob('/tests/regression/baselines/phase-*.json', { eager: true, import: 'default' });
     expect(Object.keys(baselines).length).toBe(17);
     for (const [file, snap] of Object.entries(baselines)) {
-      expect([file, snap.gameplay.systems.ship]).toEqual([file, { destroyed: false, overall: 100, sections: WHOLE, hazards: { leaks: 0, fires: [], water: [], stability: 'steady', buckets: 0 }, air: { rooms: [], sources: 0, links: [], exposure: 0 } }]);
+      expect([file, snap.gameplay.systems.ship]).toEqual([file, { destroyed: false, overall: 100, sections: WHOLE, hazards: { leaks: 0, fires: [], water: [], stability: 'steady', buckets: 0 }, air: { rooms: [], sources: 0, links: [], exposure: 0 }, pressure: { subjects: [], on: [], pending: [] } }]);
       expect(Object.keys(snap.gameplay.unsupported)).not.toContain('shipIntegrity');
     }
     for (const phase of PHASES) expect([phase.n, sessionAt(content, phase.preset).ship.pristine]).toEqual([phase.n, true]);

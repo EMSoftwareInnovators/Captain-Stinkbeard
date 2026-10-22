@@ -114,7 +114,7 @@ Per room:
 
 Systems the overhaul has planned but that don't exist yet are listed under `unsupported`, each with what exists today and the prompt that will add it:
 
-- Ship Integrity (since Prompt 5 measured under `systems.ship`: each section's integrity, the overall percentage, whether the ship is lost; since Prompt 6 also `systems.ship.hazards`: open leaks, the rooms burning and holding water, the stability and the buckets carried, all clear in every phase; since Prompt 7 `systems.ship.air`: the rooms with any gas, the sources, the openings changed from their defaults and the captain's exposure, clean in every phase);
+- Ship Integrity (since Prompt 5 measured under `systems.ship`: each section's integrity, the overall percentage, whether the ship is lost; since Prompt 6 also `systems.ship.hazards`: open leaks, the rooms burning and holding water, the stability and the buckets carried, all clear in every phase; since Prompt 7 `systems.ship.air`: the rooms with any gas, the sources, the openings changed from their defaults and the captain's exposure, clean in every phase; since Prompt 8 `systems.ship.pressure`: the pressure subjects ever touched, switched on, or with a countdown or cooldown, none in every phase);
 - per-room atmosphere simulation;
 - Beard Saturation;
 - crew conditions;

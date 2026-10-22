@@ -11,6 +11,7 @@
  *   shipSection shipSections shipCategory shipRepair
  *   floodRoom fireRoom leakSection leakSeverity hazardAction
  *   airRoom airSubstance airConnection airState
+ *   pressureSubject pressureProfile
  * A trailing "?" marks a param optional. The command's own key is listed too.
  */
 /**
@@ -203,6 +204,21 @@ export const COMMAND_SCHEMAS = {
   airCheck: { airCheck: 'boolean', room: 'airRoom?' },
   airControl: { airControl: 'airConnection', state: 'airState?', room: 'airRoom?', announce: 'boolean?', outcomeValue: 'string?' },
   airSeal: { airSeal: 'airConnection', room: 'airRoom?', announce: 'boolean?', ...CHALLENGE_PARAMS },
+  airMend: { airMend: 'airConnection', room: 'airRoom?', announce: 'boolean?', ...CHALLENGE_PARAMS },
+  // Grand Stenchmaster pressure (overhaul Prompt 8, docs/gameplay-overhaul/12-pressure-and-eruptions.md): opt-in subjects, their triggers and calms, releases, and the captain's interventions.
+  pressureSubject: { pressureSubject: 'pressureSubject', on: 'boolean?' },
+  pressureTrigger: { pressureTrigger: 'pressureSubject', trigger: 'string', quiet: 'boolean?', eventId: 'string?', announce: 'boolean?', authorized: 'boolean?', outcomeValue: 'string?' },
+  pressureCalm: { pressureCalm: 'pressureSubject', calm: 'string', quiet: 'boolean?', announce: 'boolean?', outcomeValue: 'string?' },
+  pressureAdd: { pressureAdd: 'pressureSubject', amount: 'number', eventId: 'string?', announce: 'boolean?', authorized: 'boolean?' },
+  pressureHold: { pressureHold: 'pressureSubject', amount: 'number?', announce: 'boolean?' },
+  pressureModifier: { pressureModifier: 'pressureSubject', modifier: 'string', remove: 'boolean?', announce: 'boolean?' },
+  pressureErupt: { pressureErupt: 'pressureSubject', profile: 'pressureProfile?', controlled: 'boolean?', room: 'airRoom?', eventId: 'string?', announce: 'boolean?', authorized: 'boolean?', outcomeValue: 'string?' },
+  pressureSettle: { pressureSettle: 'pressureSubject', pressure: 'number?' },
+  pressureSetback: { pressureSetback: 'pressureSubject', action: 'string?', announce: 'boolean?' },
+  pressureCheck: { pressureCheck: 'pressureSubject' },
+  pressureSoothe: { pressureSoothe: 'pressureSubject', announce: 'boolean?', outcomeValue: 'string?' },
+  pressureRestrain: { pressureRestrain: 'pressureSubject', announce: 'boolean?', ...CHALLENGE_PARAMS },
+  pressureRelease: { pressureRelease: 'pressureSubject', announce: 'boolean?', outcomeValue: 'string?' },
 };
 
 /** Commands that may carry "async": true (start and continue without waiting). */

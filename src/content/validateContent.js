@@ -25,6 +25,7 @@ import { difficultyDataProblems, DIFFICULTIES } from '../systems/challenge/diffi
 import { shipDataProblems } from '../systems/ship/integrity.js';
 import { hazardDataProblems, compartment, compartmentIds, fireRoom, flammableRooms, leakSections, leakSeverity } from '../systems/ship/hazards.js';
 import { airDataProblems, airRoom, substance, connection, connectionKind, AIR_STATES } from '../systems/ship/air.js';
+import { pressureDataProblems, subjectDef, subjectIds, profileDef, profileIds } from '../systems/ship/pressure.js';
 import { DutyPlan } from '../systems/hazards/sharkDuty.js';
 
 /** The least time a shark on an opted-in watch may give before it bites (a walk across the deck). */
@@ -273,6 +274,13 @@ function validateParam(type, value, check, sctx) {
     case 'airState':
       if (!AIR_STATES.includes(value)) check.error(`an opening is ${AIR_STATES.join(', ')} (got "${value}")`);
       return;
+    // Prompt 8 pressure (data/ship/pressure.json): subjects and release profiles.
+    case 'pressureSubject':
+      if (!subjectDef(check.ctx.db, value)) check.error(`unknown pressure subject "${value}" (data/ship/pressure.json subjects: ${subjectIds(check.ctx.db).join(', ')})`);
+      return;
+    case 'pressureProfile':
+      if (!profileDef(check.ctx.db, value)) check.error(`unknown release profile "${value}" (data/ship/pressure.json profiles: ${profileIds(check.ctx.db).join(', ')})`);
+      return;
     case 'challenge':
       // The shape here; the rules (and the steps they run) in validateChallenge.
       if (typeof value === 'string') return check.ref('challenge profile', value, check.ctx.db.challenges);
@@ -471,6 +479,27 @@ function validateStep(step, check, sctx) {
       if (kd && !asArray(kd.states).includes('sealed')) check.error(`airSeal: ${connection(check.ctx.db, step.airSeal)?.label} can't be sealed`);
       if (step.challenge !== undefined) validateChallenge(step.challenge, 'repair', check.at('airSeal.challenge'), sctx, { strikes: check.ctx.db.shipAir?.actions?.seal?.strikes });
     }
+  }
+  if (name === 'airMend' && step.challenge !== undefined) validateChallenge(step.challenge, 'repair', check.at('airMend.challenge'), sctx, { strikes: check.ctx.db.shipAir?.actions?.mend?.strikes });
+  if (name === 'airMend') {
+    const kd = connectionKind(check.ctx.db, step.airMend);
+    if (kd && !(asArray(kd.states).length > 1)) check.error(`airMend: ${connection(check.ctx.db, step.airMend)?.label} can't be damaged (nothing to mend)`);
+  }
+  // Prompt 8: a subject's own triggers, calms and modifiers; amounts within its range; a hold is a challenge.
+  if (name.startsWith('pressure')) {
+    const def = subjectDef(check.ctx.db, step[name]);
+    if (def) {
+      const span = def.max - def.min;
+      if (name === 'pressureTrigger' && !def.triggers[step.trigger]) check.error(`pressureTrigger: ${def.name} has no trigger "${step.trigger}" (${Object.keys(def.triggers).filter((k) => !k.startsWith('//')).join(', ')})`);
+      if (name === 'pressureCalm' && !def.calms[step.calm]) check.error(`pressureCalm: ${def.name} has no calm "${step.calm}" (${Object.keys(def.calms).filter((k) => !k.startsWith('//')).join(', ')})`);
+      if (name === 'pressureModifier' && !def.modifiers[step.modifier]) check.error(`pressureModifier: ${def.name} has no modifier "${step.modifier}"`);
+      if (name === 'pressureAdd' && !(Number.isFinite(step.amount) && step.amount !== 0 && Math.abs(step.amount) <= span)) check.error(`pressureAdd: "amount" must be a number other than 0, at most ${span} either way`);
+      if (name === 'pressureHold' && step.amount !== undefined && !(Number.isFinite(step.amount) && step.amount > 0 && step.amount <= span / 2)) check.error(`pressureHold: "amount" must be above 0, at most ${span / 2}`);
+      if (name === 'pressureSettle' && step.pressure !== undefined && !(Number.isFinite(step.pressure) && step.pressure >= def.min && step.pressure < def.max)) check.error(`pressureSettle: "pressure" must be from ${def.min} to below ${def.max}`);
+    }
+    if (name === 'pressureSetback' && step.action !== undefined && step.action !== 'restrain') check.error('pressureSetback: "action" is "restrain"');
+    if (name === 'pressureErupt' && step.controlled === true && step.profile !== undefined) check.error('pressureErupt: a controlled release takes its size from him; give "profile" or "controlled", not both');
+    if (name === 'pressureRestrain' && step.challenge !== undefined) validateChallenge(step.challenge, 'repair', check.at('pressureRestrain.challenge'), sctx, { strikes: check.ctx.db.shipPressure?.actions?.restrain?.strikes });
   }
   if ((name === 'repair' || name === 'sashTension') && step.challenge === undefined && ['outcomeValue', 'ifSuccess', 'ifPartial', 'ifFailure'].some((k) => k in step)) {
     check.error('outcomeValue / ifSuccess / ifPartial / ifFailure need a "challenge" (a legacy step always succeeds)');
@@ -835,6 +864,12 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
   // Ship hazards (data/ship/hazards.json): rooms and links from the maps, sections, materials, the patch's challenge.
   for (const problem of hazardDataProblems(db)) C('data/ship').error(problem);
   for (const problem of airDataProblems(db)) C('data/ship').error(problem);
+  for (const problem of pressureDataProblems(db)) C('data/ship').error(problem);
+  // A subject's "available" is a story condition like any other.
+  for (const id of subjectIds(db)) {
+    const cond = db.shipPressure.subjects[id].available;
+    if (cond !== undefined) C('data/ship/pressure.json').at(`subjects.${id}.available`).condition(cond);
+  }
   if (db.shipHazards?.actions?.patch) {
     const c = C('data/ship/hazards.json (actions.patch)');
     const spec = db.shipHazards.actions.patch.challenge ?? { profile: 'ship_repair' };

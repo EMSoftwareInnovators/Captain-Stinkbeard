@@ -48,6 +48,8 @@ export const REPAIR_KINDS = {
   slice: { title: 'SLICE IT', hint: 'Cut on the green!', stat: 'speed', hit: 'knife_chop', miss: 'plate_wobble', done: 'plate_tink', speed: 140 },
   pour: { title: 'POUR THE TEA', hint: 'Tip on the green!', stat: 'defense', hit: 'tea_pour', miss: 'grog_spill', done: 'tea_sip', speed: 110 },
   solder: { title: 'SOLDER IT', hint: 'Touch on the green!', stat: 'speed', hit: 'solder_hiss', miss: 'mk2_zzzt', done: 'mk2_tube_ping', speed: 125 },
+  // Overhaul Prompt 8: coaching a Grand Stenchmaster to hold it in (docs/gameplay-overhaul/12-pressure-and-eruptions.md).
+  restrain: { title: 'HOLD IT IN', hint: 'Breathe with him on the green!', stat: 'defense', hit: 'cardboard_creak', miss: 'puff_tiny', done: 'stomach_bubble', speed: 125 },
 };
 
 /** The sounds each kind plays (the validator checks they exist). */

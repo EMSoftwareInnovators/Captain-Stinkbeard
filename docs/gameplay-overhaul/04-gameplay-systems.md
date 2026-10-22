@@ -91,6 +91,7 @@ Each system is data-driven, engine-independent (rules in `src/systems/`, drawing
   - **Vindicta and Thunderbottom:** spectral pressure that counts down to a legendary release.
 - **Extends:** `stability.js` (“Nothing here is random”), `StabilityRunner.js`, `fartZone.js` (where eruptions are safe), the reassurance prompt.
 - **Failure:** an eruption does real, recoverable damage: air, integrity, crew conditions. The story continues.
+- **Built (Prompt 8):** pressure subjects for Brogath (an adapter over his Stability: one number, his triggers, calms and prompt) and Garrick (new: food, drink and ceremony, more control, what he holds seeping back), warning stages, the captain's interventions (reassure or settle, hold it in on the timing bar, a controlled release), and eruptions into the air, the room's openings and the hull, opt-in and unused by the campaign: [12-pressure-and-eruptions.md](12-pressure-and-eruptions.md). Vindicta, Thunderbottom, crew conditions and wiring the story's own releases (the Grand Feast, `garrick_release`) are left to later prompts.
 
 ### S6. Combat (see §4 for the decision)
 

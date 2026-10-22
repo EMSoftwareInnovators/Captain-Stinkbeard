@@ -51,6 +51,21 @@ const SCENES = [
       a.startSource({ room: 'crew_quarters', substance: 'vapor', rate: 3, seconds: 600, source: 'perf' });
     },
   },
+  // Prompt 8 (docs/gameplay-overhaul/12-pressure-and-eruptions.md, "Performance findings"): both Grand Stenchmasters in play while measured.
+  {
+    preset: 'pressure_demo',
+    rooms: ['crew_quarters'],
+    why: 'both Grand Stenchmasters in play in the quarters: Garrick critical (shiver, warning puffs, the HUD line), Brogath building under a modifier, the pressure ticking',
+    setup: () => {
+      const p = window.__GAME__.app.session.ship.pressure;
+      p.enable('garrick');
+      p.enable('brogath');
+      p.settle('garrick', 85);
+      p.settle('brogath', 45);
+      p.addModifier('brogath', 'stared_at');
+      p.addModifier('garrick', 'digesting');
+    },
+  },
 ];
 
 /** Diagnostic limits: a measurement past one is flagged in the report, nothing fails. */

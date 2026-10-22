@@ -384,6 +384,18 @@ Object.assign(MIGRATIONS, {
    * save and silently dropping the air.
    */
   19: (state) => fillLayout(state),
+  /**
+   * 20 -> 21 (overhaul Prompt 8: Grand Stenchmaster pressure,
+   * docs/gameplay-overhaul/12-pressure-and-eruptions.md). The ship gains
+   * "pressure" (each switched-on subject's pressure, what it holds in, its
+   * modifiers, countdown or cooldown). A version 20 save had none, and no
+   * chapter switches a subject on, so it stays absent: loading reads that as
+   * every subject off with nothing pending (no eruption is invented, nobody
+   * is moved or spawned). Brogath's Stability is a story variable, so it
+   * loads exactly as it was. The bump stops an older build from loading a
+   * save and silently dropping a pressure in play.
+   */
+  20: (state) => fillLayout(state),
 });
 
 export function migrateState(state, fromVersion, toVersion, migrations = MIGRATIONS) {

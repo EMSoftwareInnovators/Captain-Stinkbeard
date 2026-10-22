@@ -103,7 +103,7 @@ export function restoreCheckpoint(session, cp, { keep = {} } = {}) {
  * or repaired ([before, after] integrity).
  */
 export function diffStates(before, after) {
-  const out = { flagsSet: [], flagsCleared: [], vars: {}, values: {}, quests: {}, items: {}, gold: 0, ship: {}, hazards: {}, air: {} };
+  const out = { flagsSet: [], flagsCleared: [], vars: {}, values: {}, quests: {}, items: {}, gold: 0, ship: {}, hazards: {}, air: {}, pressure: {} };
   if (!before || !after) return out;
   const fb = new Set(before.story?.flags ?? []);
   const fa = new Set(after.story?.flags ?? []);
@@ -163,10 +163,21 @@ export function diffStates(before, after) {
   if (Object.keys(links).length) out.air.links = links;
   if ((aa.sources ?? []).length !== (ab.sources ?? []).length) out.air.sources = [(aa.sources ?? []).length, (ab.sources ?? []).length];
   if (Math.round(aa.exposure ?? 0) !== Math.round(ab.exposure ?? 0)) out.air.exposure = [Math.round(aa.exposure ?? 0), Math.round(ab.exposure ?? 0)];
+  // Prompt 8: each Grand Stenchmaster's pressure (Garrick's here; Brogath's is his Stability variable, in vars), what he holds, his phase and eruptions.
+  const pa = before.ship?.pressure?.subjects ?? {};
+  const pb = after.ship?.pressure?.subjects ?? {};
+  for (const id of new Set([...Object.keys(pa), ...Object.keys(pb)])) {
+    const x = pa[id] ?? {};
+    const y = pb[id] ?? {};
+    const d = {};
+    for (const k of ['on', 'phase', 'count', 'strain']) if ((x[k] ?? null) !== (y[k] ?? null)) d[k] = [x[k] ?? null, y[k] ?? null];
+    for (const k of ['p', 'held']) if (Math.round(x[k] ?? 0) !== Math.round(y[k] ?? 0)) d[k] = [Math.round(x[k] ?? 0), Math.round(y[k] ?? 0)];
+    if (Object.keys(d).length) out.pressure[id] = d;
+  }
   return out;
 }
 
 /** True when a diff records no change at all. */
 export function isEmptyDiff(d) {
-  return !d.flagsSet.length && !d.flagsCleared.length && !Object.keys(d.vars).length && !Object.keys(d.values).length && !Object.keys(d.quests).length && !Object.keys(d.items).length && !d.gold && !Object.keys(d.ship ?? {}).length && !Object.keys(d.hazards ?? {}).length && !Object.keys(d.air ?? {}).length;
+  return !d.flagsSet.length && !d.flagsCleared.length && !Object.keys(d.vars).length && !Object.keys(d.values).length && !Object.keys(d.quests).length && !Object.keys(d.items).length && !d.gold && !Object.keys(d.ship ?? {}).length && !Object.keys(d.hazards ?? {}).length && !Object.keys(d.air ?? {}).length && !Object.keys(d.pressure ?? {}).length;
 }

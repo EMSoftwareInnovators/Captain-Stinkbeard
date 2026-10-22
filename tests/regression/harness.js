@@ -28,7 +28,10 @@ export const NON_CHALLENGE_COMMANDS = Object.freeze([
   'shipDamage', 'shipRestore', 'shop',
   // Prompt 6 hazards: starting and ending them, and the emergency work (a patch is a challenge: patchLeak in the registry).
   'leak', 'flood', 'drain', 'ignite', 'extinguish', 'sealLeak', 'hazardClock', 'hazardAction', 'emergency',
-  'airSource', 'airStop', 'airAdd', 'airVent', 'airConnection', 'airCheck', 'airControl', 'showObject', 'spawn', 'sprite', 'spriteFrame', 'stability', 'startQuest', 'swapItem', 'takeGold', 'takeItem', 'tether', 'tint', 'token',
+  'airSource', 'airStop', 'airAdd', 'airVent', 'airConnection', 'airCheck', 'airControl',
+  // Prompt 8 pressure: subjects, triggers and releases, and the captain's check, calm and controlled release (a hold is a challenge: pressureRestrain).
+  'pressureSubject', 'pressureTrigger', 'pressureCalm', 'pressureAdd', 'pressureHold', 'pressureModifier', 'pressureErupt', 'pressureSettle', 'pressureSetback',
+  'pressureCheck', 'pressureSoothe', 'pressureRelease', 'showObject', 'spawn', 'sprite', 'spriteFrame', 'stability', 'startQuest', 'swapItem', 'takeGold', 'takeItem', 'tether', 'tint', 'token',
   'transition', 'tutorial', 'tvProgram', 'tvSet', 'vista', 'vistaEnd', 'vistaFrame', 'vistaFx', 'vistaMove', 'vistaShow', 'vistaSpin', 'wait', 'wear',
 ]);
 

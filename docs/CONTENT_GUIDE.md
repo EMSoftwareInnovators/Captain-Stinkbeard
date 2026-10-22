@@ -277,6 +277,9 @@ the cancel button (default: the last option).
 | `hazardAction` / `patchLeak` / `emergency` | action, ... | the captain's response: pump, bail, fetch, douse, smother, patch, or the Respond choice |
 | `airSource` / `airStop` / `airAdd` / `airVent` / `airConnection` | room or opening, ... | the ship's air: start or stop gas, add it, air a room, open, shut, seal or damage an opening (see "The ship's air" at the end) |
 | `airCheck` / `airControl` / `airSeal` | opening, ... | the captain's work on the air: the report, opening and shutting, sealing (a challenge) |
+| `airMend` | opening, ... | the captain mends a door or hatch a blast damaged (planks and nails; a challenge) |
+| `pressureSubject` / `pressureTrigger` / `pressureCalm` / `pressureAdd` / `pressureHold` / `pressureModifier` / `pressureErupt` / `pressureSettle` | subject, ... | a Grand Stenchmaster's pressure: switch it on, triggers, calms, holds, modifiers, a release (see "Grand Stenchmaster pressure" at the end) |
+| `pressureCheck` / `pressureSoothe` / `pressureRestrain` / `pressureRelease` | subject, ... | the captain's interventions: the report, calming him, holding it in (a challenge), a controlled release |
 | `giveGold` / `takeGold` | amount, `silent` | gold |
 | `startQuest` | quest, `silent` | start a quest |
 | `completeObjective` | `"quest.objective"` | finish an objective |
@@ -366,6 +369,7 @@ Used by `if` everywhere (dialogue selectors, steps, choices, map objects, warps,
 | `ship` | `{ "ship": { "section": "rigging", "operational": false } }`: a section's or the whole ship's condition (see "Ship Integrity") |
 | `hazard` | `{ "hazard": { "fire": "galley", "stage": ["blazing", "inferno"] } }`: the ship's emergencies (see "Flooding and fire") |
 | `air` | `{ "air": { "room": "galley", "quality": ["toxic", "deadly"] } }`: the ship's air and the captain's lungs (see "The ship's air") |
+| `pressure` | `{ "pressure": { "subject": "garrick", "stage": ["critical", "imminent"] } }`: a Grand Stenchmaster's pressure (see "Grand Stenchmaster pressure") |
 
 ## Story flags and variables
 
@@ -2122,4 +2126,56 @@ A chapter that moves a fume scene onto the air replaces its fume zones with
 a source (never both: one owner for the captain's lungs), supplies the
 materials its seals need, and tests every difficulty. Everything else is in
 [gameplay-overhaul/11-atmosphere-and-ventilation.md](gameplay-overhaul/11-atmosphere-and-ventilation.md).
+
+## Grand Stenchmaster pressure
+
+Characters who build pressure and release it into the ship, defined in
+`data/ship/pressure.json` by character (npc id), never by tile. No chapter
+uses it. A subject does nothing until a script switches it on, and then only
+while the story has the character aboard in a room with ship air.
+
+Brogath's pressure is his Stability (`brogath_pressure`): his triggers, calms
+and reassurance prompt are its own, and the ordinary `stability` steps go on
+working as they always have. While a Stability incident runs or he is ANGRY,
+this system waits.
+
+```json
+{ "pressureSubject": "garrick", "on": true }
+{ "pressureTrigger": "garrick", "trigger": "feast", "eventId": "p50_feast" }
+{ "pressureTrigger": "brogath", "trigger": "laughed_at", "quiet": true }
+{ "pressureCalm": "garrick", "calm": "rest" }
+{ "pressureModifier": "garrick", "modifier": "ceremony" }
+{ "pressureHold": "garrick" }
+{ "pressureAdd": "garrick", "amount": 20 }
+{ "pressureErupt": "garrick", "profile": "major", "eventId": "p50_blow" }
+{ "pressureErupt": "brogath", "controlled": true }
+{ "pressureSettle": "brogath", "pressure": 10 }
+{ "pressureSoothe": "brogath", "outcomeValue": "p50_calm" }
+{ "pressureRestrain": "garrick", "outcomeValue": "p50_hold" }
+{ "pressureRelease": "garrick" }
+{ "airMend": "fore_hatch" }
+```
+
+- **Subjects and their tables.** Subjects are `brogath` and `garrick`. Each has its own triggers, calms and modifiers (Brogath's triggers and calms are his Stability's). Release profiles are `minor`, `moderate`, `major` and `catastrophic`.
+- **A release.** It pours the subject's substance into the room, blows and damages that room's doors, and strikes the sections the data names for the room (never below a quarter). Leaks and fire happen only if a profile says so.
+- **The captain's actions** are done up close, with locks after them. A hold is a challenge on the repair bar, and its failure leaves him worse, even through a retry.
+- **Event ids.** An `eventId` applies once, scoped to the challenge attempt or charge it runs in. An eruption without one uses the subject's own count.
+
+The condition:
+
+```json
+{ "pressure": { "subject": "garrick", "stage": ["critical", "imminent"] } }
+{ "pressure": { "subject": "brogath", "pressure": { "gte": 40 } } }
+{ "pressure": { "subject": "garrick", "phase": "cooldown" } }
+{ "pressure": { "subject": "brogath", "held": true } }
+{ "pressure": { "subject": "garrick", "erupted": { "gte": 1 } } }
+{ "pressure": { "subject": "garrick", "active": true, "here": true } }
+```
+
+A chapter that moves a scripted release onto this system switches its subject
+on, replaces the release with `pressureErupt` (or lets the countdown do it),
+replaces any fume zones with the release's gas (one owner for the captain's
+lungs), supplies the materials the mending needs, and tests every difficulty.
+Everything else is in
+[gameplay-overhaul/12-pressure-and-eruptions.md](gameplay-overhaul/12-pressure-and-eruptions.md).
 

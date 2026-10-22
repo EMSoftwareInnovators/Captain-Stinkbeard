@@ -86,6 +86,17 @@
       "cost": [{ "item": "sailcloth", "count": 1 }, { "item": "nails", "count": 1 }],
       "waste": [{ "item": "nails", "count": 1 }],
       "challenge": { "profile": "ship_repair" }
+    },
+    "//mend": "Prompt 8: a door or hatch a blast left damaged (it leaks when shut and won't seal) is mended with planks and nails on the repair bar.",
+    "mend": {
+      "label": "Mend",
+      "title": "MEND IT",
+      "kind": "nail",
+      "strikes": 2,
+      "seconds": 3,
+      "cost": [{ "item": "planks", "count": 1 }, { "item": "nails", "count": 1 }],
+      "waste": [{ "item": "nails", "count": 1 }],
+      "challenge": { "profile": "ship_repair" }
     }
   }
 }

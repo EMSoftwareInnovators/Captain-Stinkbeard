@@ -328,6 +328,47 @@ export const CONDITION_OPERATORS = {
     },
   },
 
+  /**
+   * Overhaul Prompt 8: a Grand Stenchmaster's pressure (docs/gameplay-overhaul/12-pressure-and-eruptions.md).
+   *   { "pressure": { "subject": "garrick", "stage": ["critical", "imminent"] } }
+   *   { "pressure": { "subject": "brogath", "pressure": { "gte": 40 } } }   his own units (Brogath's: his Stability)
+   *   { "pressure": { "subject": "garrick", "phase": "cooldown" } }          idle, imminent or cooldown
+   *   { "pressure": { "subject": "brogath", "held": true } }                 holding something in
+   *   { "pressure": { "subject": "garrick", "erupted": { "gte": 1 } } }      eruptions so far
+   *   { "pressure": { "subject": "garrick", "active": true } }               switched on ("available": aboard; "here": in the captain's room)
+   */
+  pressure: {
+    evaluate: (v, s) => {
+      const i = s.ship?.pressure?.info?.(v.subject);
+      if (!i) return false;
+      if ('active' in v && i.on !== v.active) return false;
+      if ('available' in v && i.available !== v.available) return false;
+      if ('here' in v && (i.available && i.room === s.location?.map) !== v.here) return false;
+      if ('stage' in v && !asArray(v.stage).includes(i.stage)) return false;
+      if ('pressure' in v && !compare(Math.round(i.pressure), v.pressure)) return false;
+      if ('held' in v && (typeof v.held === 'boolean' ? i.held > 0 !== v.held : !compare(Math.round(i.held), v.held))) return false;
+      if ('phase' in v && !asArray(v.phase).includes(i.phase)) return false;
+      if ('erupted' in v && !compare(i.count, v.erupted)) return false;
+      return true;
+    },
+    validate: (v, c) => {
+      if (!isPlainObject(v)) return c.error('pressure condition needs { subject, ... }');
+      const data = c.ctx?.db?.shipPressure;
+      const keys = ['subject', 'active', 'available', 'here', 'stage', 'pressure', 'held', 'phase', 'erupted'];
+      for (const k of Object.keys(v)) if (!keys.includes(k)) c.error(`pressure condition: unknown key "${k}"`);
+      if (typeof v.subject !== 'string') c.error('pressure condition: "subject" is required');
+      else if (data && !data.subjects?.[v.subject]) c.error(`pressure condition: unknown subject "${v.subject}"`);
+      const stages = Object.keys(data?.stages ?? {}).filter((k) => !k.startsWith('//'));
+      for (const st of asArray(v.stage ?? [])) if (stages.length && !stages.includes(st)) c.error(`pressure condition: unknown stage "${st}" (use: ${stages.join(', ')})`);
+      for (const ph of asArray(v.phase ?? [])) if (!['idle', 'imminent', 'cooldown'].includes(ph)) c.error(`pressure condition: unknown phase "${ph}" (idle, imminent, cooldown)`);
+      const cmp = (x) => typeof x === 'number' || (isPlainObject(x) && Object.keys(x).every((op) => COMPARE_KEYS.includes(op)));
+      for (const k of ['pressure', 'erupted']) if (k in v && !cmp(v[k])) c.error(`pressure condition: "${k}" is a number or { lt, gte, ... }`);
+      if ('held' in v && typeof v.held !== 'boolean' && !cmp(v.held)) c.error('pressure condition: "held" is true, false, a number or { lt, gte, ... }');
+      for (const k of ['active', 'available', 'here']) if (k in v && typeof v[k] !== 'boolean') c.error(`pressure condition: "${k}" must be true or false`);
+      return undefined;
+    },
+  },
+
   all: {
     evaluate: (v, s) => asArray(v).every((cond) => evaluateCondition(cond, s)),
     validate: (v, c) => asArray(v).forEach((cond) => validateCondition(cond, c)),

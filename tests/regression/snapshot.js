@@ -62,6 +62,10 @@ function systemsState(content, session) {
     // Prompt 7: the air (rooms with any gas, sources, openings changed from their defaults, the captain's lungs).
     const air = session.ship.air;
     out.ship.air = { rooms: Object.keys(air.gas).sort(), sources: air.sources.length, links: Object.keys(air.links).sort(), exposure: Math.round(air.exposure) };
+    // Prompt 8: Grand Stenchmaster pressure (subjects ever touched, switched on, with a countdown or cooldown). No chapter switches one on.
+    const pr = session.ship.pressure;
+    const subs = Object.entries(pr.subjects);
+    out.ship.pressure = { subjects: subs.map(([id]) => id).sort(), on: subs.filter(([, st]) => st.on).map(([id]) => id).sort(), pending: subs.filter(([, st]) => st.phase !== 'idle').map(([id]) => id).sort() };
   }
   return out;
 }

@@ -19,6 +19,18 @@
   "tv"
  ],
  "kinds": {
+  "airMend": {
+   "blocksProgression": false,
+   "input": "timed",
+   "label": "Mending a door or hatch a blast damaged (Prompt 8)",
+   "retry": "offered while the hold can pay for one; the waste stays",
+   "softlockRisk": "none: no chapter uses it",
+   "support": {
+    "failure": true,
+    "partial": true,
+    "success": true
+   }
+  },
   "airSeal": {
    "blocksProgression": false,
    "input": "timed",
@@ -145,6 +157,18 @@
    "label": "Patching a leak (an emergency; Prompt 6)",
    "retry": "offered while the hold can pay for one; the waste stays",
    "softlockRisk": "none: no chapter uses it",
+   "support": {
+    "failure": true,
+    "partial": true,
+    "success": true
+   }
+  },
+  "pressureRestrain": {
+   "blocksProgression": false,
+   "input": "timed",
+   "label": "Coaching a Grand Stenchmaster to hold it in (Prompt 8)",
+   "retry": "offered; each failed try leaves him worse (a cost a retry keeps)",
+   "softlockRisk": "none: no chapter uses it, and a failed hold never ends the game",
    "support": {
     "failure": true,
     "partial": true,

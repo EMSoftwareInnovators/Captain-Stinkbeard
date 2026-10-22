@@ -16,6 +16,7 @@ import { airData, airRoom, OUTSIDE, exposureStage } from './air.js';
  *   open / close  a door, hatch, porthole or windows
  *   seal     a closed door or hatch: sailcloth and nails, on the repair bar
  *   unseal   back to closed (the cloth is spoiled)
+ *   mend     a door or hatch a blast damaged (Prompt 8): planks and nails, on the repair bar
  */
 
 const itemName = (content, id) => content.items?.get?.(id)?.name ?? id;
@@ -45,6 +46,23 @@ export function sealCost(content, difficulty) {
 export function sealWaste(content, difficulty) {
   const t = shipTuning(content, difficulty);
   return asArray(airData(content)?.actions?.seal?.waste).map((c) => ({ item: c.item, count: scaleCount(c.count ?? 1, t.costScale) }));
+}
+
+/** Prompt 8: mending a damaged opening, its bill and a failed try's waste on a difficulty. */
+export function mendCost(content, difficulty) {
+  const t = shipTuning(content, difficulty);
+  return asArray(airData(content)?.actions?.mend?.cost).map((c) => ({ item: c.item, count: scaleCount(c.count ?? 1, t.costScale) }));
+}
+
+export function mendWaste(content, difficulty) {
+  const t = shipTuning(content, difficulty);
+  return asArray(airData(content)?.actions?.mend?.waste).map((c) => ({ item: c.item, count: scaleCount(c.count ?? 1, t.costScale) }));
+}
+
+/** The larger of a bill and a failed try's waste, item by item (what one attempt can need). */
+function worstOf(cost, waste) {
+  const get = (list, item) => list.find((x) => x.item === item)?.count ?? 0;
+  return [...new Set([...cost, ...waste].map((x) => x.item))].map((item) => ({ item, count: Math.max(get(cost, item), get(waste, item)) }));
 }
 
 /** An opening's short name, for tight spaces ("the quarters porthole" -> "porthole"; it's the room's own). */
@@ -86,16 +104,20 @@ export function airOptions(session, room = session.location?.map, { difficulty =
       out.push({ action: 'open', connection: c.id, to: 'open', ok: !deep && !busy, reason: deep ?? busy, seconds, label: `Open the ${name} (${seconds} s)` });
       if (c.states.includes('sealed')) {
         const cost = sealCost(content, difficulty);
-        const waste = sealWaste(content, difficulty);
-        const get = (list, item) => list.find((x) => x.item === item)?.count ?? 0;
-        const worst = [...new Set([...cost, ...waste].map((x) => x.item))].map((item) => ({ item, count: Math.max(get(cost, item), get(waste, item)) }));
-        const missing = worst.filter((x) => inv.count(x.item) < x.count);
-        const reason = c.damaged ? `The ${name} is damaged: it won't seal.` : deep ?? busy ?? (missing.length ? `Not enough: ${missing.map((x) => `${itemName(content, x.item)} ${inv.count(x.item)}/${x.count}`).join(', ')}.` : null);
+        const missing = worstOf(cost, sealWaste(content, difficulty)).filter((x) => inv.count(x.item) < x.count);
+        const reason = c.damaged ? `The ${name} is damaged: mend it first.` : deep ?? busy ?? (missing.length ? `Not enough: ${missing.map((x) => `${itemName(content, x.item)} ${inv.count(x.item)}/${x.count}`).join(', ')}.` : null);
         out.push({ action: 'seal', connection: c.id, to: 'sealed', cost, ok: !reason, reason, seconds: secs(data.actions.seal.seconds), label: `Seal the ${name}: ${itemList(content, cost)}` });
       }
     } else if (c.state === 'sealed') {
       const seconds = secs(data.actions.seal.unsealSeconds);
       out.push({ action: 'unseal', connection: c.id, to: 'closed', ok: !deep && !busy, reason: deep ?? busy, seconds, label: `Unseal the ${name} (${seconds} s)` });
+    }
+    // Prompt 8: a damaged door or hatch can be mended (planks and nails, on the repair bar).
+    if (c.damaged && data.actions?.mend) {
+      const cost = mendCost(content, difficulty);
+      const missing = worstOf(cost, mendWaste(content, difficulty)).filter((x) => inv.count(x.item) < x.count);
+      const reason = deep ?? busy ?? (missing.length ? `Not enough: ${missing.map((x) => `${itemName(content, x.item)} ${inv.count(x.item)}/${x.count}`).join(', ')}.` : null);
+      out.push({ action: 'mend', connection: c.id, to: c.state, cost, ok: !reason, reason, seconds: secs(data.actions.mend.seconds), label: `Mend the ${name}: ${itemList(content, cost)}` });
     }
   }
   return out;
