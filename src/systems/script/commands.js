@@ -23,7 +23,7 @@ import { responseOptions, patchWaste, roomLabel } from '../ship/response.js';
 import { airRoom } from '../ship/air.js';
 import { airOptions, airReport, sealWaste, mendWaste } from '../ship/airResponse.js';
 import { subjectDef, stageInfo, pressureData } from '../ship/pressure.js';
-import { subjectOptions, pressureGroups, pressureHere, pressureReport } from '../ship/pressureResponse.js';
+import { subjectOptions, pressureGroups, pressureReport } from '../ship/pressureResponse.js';
 import { tunedTensionDef } from '../tension.js';
 
 /** Story Phase 14: a stability subject (data/story/stability) with its defaults. */

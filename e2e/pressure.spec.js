@@ -180,7 +180,8 @@ test('Brogath with the keyboard: laughed at and stared at, the HUD and his meter
   expect((await info(g, 'brogath')).pressure).toBeGreaterThanOrEqual(after.pressure);
 
   // Reduced effects: no shaking, the simulation the same (the crew still stares; he still builds).
-  await g.eval(() => window.__GAME__.app.settings.set('reducedEffects', true));
+  await g.eval(() => window.__GAME__.app.settings.set('effects', 'reduced'));
+  expect(await g.eval(() => window.__GAME__.app.settings.reducedEffects())).toBe(true);
   const p0 = (await info(g, 'brogath')).pressure;
   await g.wait(6000);
   expect((await info(g, 'brogath')).pressure).toBeGreaterThan(p0);
