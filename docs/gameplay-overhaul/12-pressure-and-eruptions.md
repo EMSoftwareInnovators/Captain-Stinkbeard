@@ -424,7 +424,15 @@ The condition:
 - **State:** two subjects at most, four modifiers each; a save grows by about 200 bytes with both in play, nothing with neither.
 - **Per tick:** a few arithmetic steps per switched-on subject. "Where is he" is a placement lookup over his own rows in 9 rooms, cached until the story or the captain's room changes. A thousand ticks with both in play and triggers every 30 s stay well under the test's bound, with nothing accumulating.
 - **Per frame:** for each switched-on subject in the room, a shiver and a puff timer. A puff is one small burst every 5 s at most, and none with reduced effects. Nothing runs when no subject is on (the campaign).
-- **Measured** with the perf instrumentation. See the Prompt 8 report for the numbers; they are diagnostic, since the test machine renders in software.
+- **Measured** with the existing instrumentation: the perf spec now has a pressure scene (the `pressure_demo` crew quarters with both subjects in play, Garrick critical with his shiver and warning puffs, Brogath building under a modifier, the pressure ticking) next to the end-of-Phase-17 crew quarters. Three runs (`PERF_RUNS=3`, medians with the range) on the test machine's software renderer, so diagnostic only:
+
+  | Scene | still: work p95 ms | walk: work p95 ms | still: frame avg ms | display objects | heap MB |
+  |---|---|---|---|---|---|
+  | end of Phase 17, crew quarters (nobody in play) | 4.3 (3.3-4.9) | 3.6 (2.7-3.8) | 18.96 | 189 | 92.0 |
+  | pressure demo, crew quarters (both in play) | 4.6 (4.3-5.3) | 4.6 (3.7-4.6) | 20.45 | 189 | 92.2 |
+
+  At most about 1 ms more work per frame, from the shiver, the puffs and the HUD line; no more display objects; no heap growth. Every figure is well inside the harness's limits (work p95 12 ms). The frame-time flags (p95 33 ms) show up in the rooms with nobody in play too: they come from the software renderer, not from the pressure.
+- **Bundle:** 7201 kB raw, 1836 kB gzip, 1399 kB brotli: 58, 16 and 13 kB more than before this prompt (the code and its data).
 
 ## 20. Known limitations
 
