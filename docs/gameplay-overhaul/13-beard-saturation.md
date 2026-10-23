@@ -29,9 +29,9 @@ prompt adds.
 | HUD and page | the emergency line (`response.js`, the beard first), Pause > Ship "Your beard" (`src/ui/menu/ShipPage.js`) |
 | Timing bar | the `scrub` kind in `src/systems/repairKinds.js` |
 | Demo | `beard_demo` preset, F2 > Ship > Beard A-F (`src/debug/shipDebug.js`) |
-| Tests | `tests/beard.test.js` (51), `e2e/beard.spec.js` (3) |
+| Tests | `tests/beard.test.js` (52), `e2e/beard.spec.js` (3) |
 
-## 1. Preflight: what the beard was
+## 1. Existing beard mechanics and compatibility
 
 Everything that touched the beard before this prompt, and what it is:
 
@@ -39,37 +39,22 @@ Everything that touched the beard before this prompt, and what it is:
 - **The puffs** (Story Phase 17, `beardPuff`, 6 uses; `src/world/BeardPuffs.js`). An authored puff from the beard, a reaction from whoever is near, and the story variable `beard_puffs`. **Cosmetic and narrative.** Untouched; the new warning puffs are a separate cue and never touch `beard_puffs`.
 - **Beard flags in scenes**: `beard_sniffed`, `beard_wash_attempted` (the Story Phase 4 washroom tub scene). **Narrative only.**
 - **The washroom** (`data/maps/ship/washroom.json`): a basin (2,4), the tub (7,5), remedies, a shelf, a vent and towels. Only story inspections. **Reused** (no new fixture): the tub and the basin are the care stations.
-- **Story items**: the wet cloth, the bottle goggles and the beard wrap are key items with no effect. The rescue's protection is the story flag `rescue_gear_on` (his lungs take 0.7 of the legacy fumes and, since Prompt 7, of the ship's air). Frog Grog's ward is per-play (`transient.fumeWard`). **Kept as they are**; the new mapping (section 14) applies only while one is worn over the beard by choice.
+- **Story items**: the wet cloth, the bottle goggles and the beard wrap are key items with no effect. The rescue's protection is the story flag `rescue_gear_on` (his lungs take 0.7 of the legacy fumes and, since Prompt 7, of the ship's air). Frog Grog's ward is per-play (`transient.fumeWard`). **Kept as they are**; the new mapping (section 10) applies only while one is worn over the beard by choice.
 - **The legacy fume zones** (`src/systems/hazards/fumes.js`): story exposure in authored clouds. **Gameplay, kept**: while one has his lungs, the ship's air doesn't (Prompt 7's rule), and the beard doesn't change that.
-- **The hornet swarm** (Story Phase 16, `src/systems/hazards/hornets.js`). A story hazard. **Kept**; the new hornet-nested condition is a separate hook (section 9) and never starts the swarm.
+- **The hornet swarm** (Story Phase 16, `src/systems/hazards/hornets.js`). A story hazard. **Kept**; the new hornet-nested condition is a separate hook (section 6) and never starts the swarm.
 - **What it builds on** (extendable): the ship's air and exposure (Prompt 7), eruptions and their gas (Prompt 8), the challenge runner and checkpoints (Prompt 3), difficulty tuning (Prompt 4), Ship Integrity's event ids and saves (Prompts 5-6), the hazard clock.
 
 Nothing new competes with these: no second atmosphere, exposure, status, equipment or challenge framework.
 
-## 2. Architecture
+**Where it lives.** `ship.beard` is a `BeardState` owned by the ship, like `ship.air` and `ship.pressure`: saved in the ship's state (`ship.beard`), restored with the ship by checkpoints, ticked by `ship.tick()`. The air calls into it once a second while he breathes; scripts and the captain's actions call it through commands. It knows the session (content, inventory, where the captain is) and nothing about Phaser: the world listens to its events (`beard:gag`, `beard:puff`, `beard:purged`, `beard:hallucinate`, `beard:hornets`) and its notices (`hazard:notice`, keys `beard:...`).
 
-`ship.beard` is a `BeardState` owned by the ship, like `ship.air` and `ship.pressure`: saved in the ship's state (`ship.beard`), restored with the ship by checkpoints, ticked by `ship.tick()`. The air calls into it once a second while he breathes; scripts and the captain's actions call it through commands. It knows the session (content, inventory, where the captain is) and nothing about Phaser: the world listens to its events (`beard:gag`, `beard:puff`, `beard:purged`, `beard:hallucinate`, `beard:hornets`) and its notices (`hazard:notice`, keys `beard:...`).
+## 2. Saturation state
 
-## 3. Beard state and composition
-
-- **Composition** (`held`): an amount per contaminant, from a compact registry in the data:
-
-| Contaminant | From | Absorb | Potency | Cleans | Purges as | Flags |
-|---|---|---|---|---|---|---|
-| smoke | the air | 1 | 0.02 | 1 | smoke | |
-| vapor | the air | 0.8 | 0.05 | 1 | vapor | irritant |
-| heavy_gas | the air | 0.5 | 0.08 | 0.8 | heavy gas | irritant |
-| stench_residue | eruptions, scripts | - | 0.06 | 0.4 | vapor | supernatural |
-| test_musk | debug and tests only | - | 0.02 | 0.6 | vapor | supernatural, paranoia, debugOnly |
-
-  The named gases of later prompts (Coffin Sock, Chicken-Town, Fire-Waft, Beard Joint) are not implemented; a new contaminant is a data entry (section 20).
 - **Capacity**: 100 units, times the difficulty's `beardCapacityScale` (Deckhand 140, Captain 100, Brutal 70).
 - **Total**: always the sum of the composition (never stored), never negative, never past capacity. A deposit beyond capacity is refused, not lost. An unknown contaminant or a bad amount changes nothing and says why.
 - **Kept state**: whether it is on; the purge cycle (`idle`, `overload` with a countdown, `cooldown`); kept conditions with their seconds; the effects' timers; the sniff lock and the sniff's interruption; what is worn; purges so far (event ids); visions shown. Per play (never saved): what moved (taken, deposited, cleaned, released: conservation is checked on these), the trend, and what was last announced.
 
-## 4. Saturation stages
-
-By how full it is (percent of this difficulty's capacity):
+**Stages**, by how full it is (percent of this difficulty's capacity), each with an effect:
 
 | Stage | From | Catches | Gives off | Work | Walk | Warning puffs |
 |---|---|---|---|---|---|---|
@@ -83,7 +68,29 @@ By how full it is (percent of this difficulty's capacity):
 
 "Catches" is the share of a breath it takes (times the contaminant's absorb and what he wears); "gives off" is exposure per unit held a second, times potency. Work and walk multiply the time emergency work takes and each step (with water and his lungs: `captainFactors`). The validator requires rising thresholds, a full beard that catches nothing, and never a perfect filter (at most 90%).
 
-## 5. Absorption from the room's air
+**Risk and reward.**
+
+- **Reward**: a clean beard keeps the worst of the air out of his lungs: he can work in smoke that would otherwise make him cough and stumble. Washing it keeps that going.
+- **Price**: what it catches stays. It fills, protects less, slows his work a little, gives off what it holds when heavy, makes him gag when irritants build up, and at full it purges into whatever room he is in, after a warning. A beard full of vapor in a room he can't air out is a problem.
+- **Brutal**: a 70-unit beard saturates first (in the same smoke: Brutal before Captain before Deckhand, tested), washing does less (x0.75), the purge warning is shorter (7 s), and what it gives off counts more (`exposureScale` 1.35). Deckhand: 140 units, washing x1.3, a 15 s warning.
+
+## 3. Contamination composition
+
+- **Composition** (`held`): an amount per contaminant, from a compact registry in the data:
+
+| Contaminant | From | Absorb | Potency | Cleans | Purges as | Flags |
+|---|---|---|---|---|---|---|
+| smoke | the air | 1 | 0.02 | 1 | smoke | |
+| vapor | the air | 0.8 | 0.05 | 1 | vapor | irritant |
+| heavy_gas | the air | 0.5 | 0.08 | 0.8 | heavy gas | irritant |
+| stench_residue | eruptions, scripts | - | 0.06 | 0.4 | vapor | supernatural |
+| test_musk | debug and tests only | - | 0.02 | 0.6 | vapor | supernatural, paranoia, debugOnly |
+
+  The named gases of later prompts (Coffin Sock, Chicken-Town, Fire-Waft, Beard Joint) are not implemented; a new contaminant is a data entry (section 20).
+
+Two contaminants that fill the same share behave differently: a beard of smoke protects and gives off little, one of heavy gas gives off four times as much and washes out slower, one of vapor or heavy gas makes him gag, one of residue barely washes out, and only the musk makes him paranoid (`tests/beard.test.js`).
+
+## 4. Absorption and conservation rules
 
 Each second the captain breathes (`AirState.breathe`, inside the air's tick), with the beard on:
 
@@ -91,9 +98,13 @@ Each second the captain breathes (`AirState.breathe`, inside the air's tick), wi
 2. What it catches leaves the room (`AirState.takeGas`, counted in `air.absorbed`) and goes into the beard.
 3. His lungs breathe the rest: each gas at `pct x (1 - share caught)`, against its safe level, times its potency (`indexThrough`). So a clean beard can keep moderate smoke below the safe level altogether, and a full one protects not at all.
 
-Conservation: for every air gas, `in the rooms + vented + decayed + absorbed - released by the beard` is exactly what was poured, and what the beard holds of it is `absorbed - released - washed out`. Event deposits are a separate source (section 7). Deterministic: no randomness, the data's order, one step a second.
+Conservation: for every air gas, `in the rooms + vented + decayed + absorbed - released by the beard` is exactly what was poured, and what the beard holds of it is `absorbed - released - washed out`. Event deposits are a separate source (below). Deterministic: no randomness, the data's order, one step a second.
 
-## 6. Protection and the exposure chain
+**Eruptions and other event deposits.** One model, documented and tested: an eruption's **gas** is air like any other, and reaches the beard only as he breathes it (above); an eruption's **residue** is a deposit straight into the beard, of a supernatural contaminant that never comes from the air. The two never overlap, so nothing is counted twice.
+
+The residue is opt-in per subject (`"beard": { "contaminant": "stench_residue", "amount": 12, "reach": 4 }` on Brogath and Garrick in `data/ship/pressure.json`). An eruption deposits it only if the beard system is on, the captain is in the eruption's room and within `reach` tiles of the subject, `amount x intensity/100` (bounded 0.25 to 2 times), once per eruption (`<eruption id>:beard`). A contamination event carries its source, room, intensity, contaminant, amount, the subject's position and an event id. Legacy story eruptions (Stability incidents, cutscenes) deposit nothing: they are not Prompt 8 eruptions and the beard system is off in every chapter anyway.
+
+## 5. Protection and exposure interaction
 
 `room air -> the beard (its share, out of the room) -> what passes -> his lungs`, then, exactly as before Prompt 9:
 
@@ -108,19 +119,11 @@ No double counting: the beard only reduces what reaches the protections, it neve
 
 **Not permanent.** Its protection falls stage by stage as it fills (55% to 0), and a full beard gives off the most. Washing or purging restores it.
 
-## 7. Eruption integration
+**Sniffing: internal exposure.**
 
-One model, documented and tested: an eruption's **gas** is air like any other, and reaches the beard only as he breathes it (section 5); an eruption's **residue** is a deposit straight into the beard, of a supernatural contaminant that never comes from the air. The two never overlap, so nothing is counted twice.
+- **Sniff your beard** (`beardSniff`): the detail (each contaminant and its share), at a price: a whiff into his lungs (`held x potency x 0.6`, through the fume option and the difficulty), a gag if there's irritant in it, and 10 s before the next sniff. It interrupts paranoia (section 7). Never needed for anything, and the price is only what the beard holds.
 
-The residue is opt-in per subject (`"beard": { "contaminant": "stench_residue", "amount": 12, "reach": 4 }` on Brogath and Garrick in `data/ship/pressure.json`). An eruption deposits it only if the beard system is on, the captain is in the eruption's room and within `reach` tiles of the subject, `amount x intensity/100` (bounded 0.25 to 2 times), once per eruption (`<eruption id>:beard`). A contamination event carries its source, room, intensity, contaminant, amount, the subject's position and an event id. Legacy story eruptions (Stability incidents, cutscenes) deposit nothing: they are not Prompt 8 eruptions and the beard system is off in every chapter anyway.
-
-## 8. Risk and reward
-
-- **Reward**: a clean beard keeps the worst of the air out of his lungs: he can work in smoke that would otherwise make him cough and stumble. Washing it keeps that going.
-- **Price**: what it catches stays. It fills, protects less, slows his work a little, gives off what it holds when heavy, makes him gag when irritants build up, and at full it purges into whatever room he is in, after a warning. A beard full of vapor in a room he can't air out is a problem.
-- **Brutal**: a 70-unit beard saturates first (in the same smoke: Brutal before Captain before Deckhand, tested), washing does less (x0.75), the purge warning is shorter (7 s), and what it gives off counts more (`exposureScale` 1.35). Deckhand: 140 units, washing x1.3, a 15 s warning.
-
-## 9. Statuses
+## 6. Status effects
 
 Four, data-driven (`statuses` in the data), each with limited, real behaviour:
 
@@ -128,12 +131,12 @@ Four, data-driven (`statuses` in the data), each with limited, real behaviour:
 |---|---|---|---|
 | Saturated | derived | saturated stage or worse | the stage's own (holds less, protects less); on the HUD as the stage |
 | Gagging | derived | irritant contaminants at 30% of capacity or more (the goggles halve them) | a gagging fit every 8 s (he stops a moment, like a cough); work x1.15. No fits with the fume hazard option Off |
-| Paranoid | contaminant | paranoia contaminants at 8% or more, then 20 s after | perception (section 10): a vision every 12 s |
+| Paranoid | contaminant | paranoia contaminants at 8% or more, then 20 s after | perception (section 7): a vision every 12 s |
 | Hornet-nested | applied | a script or event, 300 s | work x1.1; the `beard:hornets` hook every 9 s (a buzz); smoke at 12% of capacity drives them out, and so does a scrub |
 
 Derived statuses are read from what is held (not saved); kept ones are saved with their seconds. Every kept status ends (applied: at most 600 s). A derived status can't be applied by a script. The hornet hook is for a later system: there is no hornet enemy here. Beard Joint intoxication is not implemented.
 
-## 10. Paranoia
+## 7. Paranoia behavior
 
 Limited perception distortion, from an eligible contaminant (paranoia: only the debug-only test musk today) or an explicit script event (`beardStatus: paranoid`), never from ordinary smoke (a full beard of smoke: tested). While paranoid and not snapped out of it:
 
@@ -143,7 +146,7 @@ Limited perception distortion, from an eligible contaminant (paranoia: only the 
 
 **Fairness**: nobody's name, sprite, identity, quest or interaction changes (tested: actor names and the story are untouched); nothing is hidden or made unidentifiable; nothing redirects an attack; the clue is always the same "(?)", in words, so colour is never the only clue; visions never appear on the HUD line, where the real warnings stay; reduced effects keep the words. A **sniff** snaps him out of it for 15 s (no visions; the status itself stays). That temporary interruption is modelled apart from real recovery, which only comes when the contaminant is gone and the 20 s linger has run out.
 
-## 11. Overload and purging
+## 8. Overload and purging
 
 - **Warning puffs**: at critical and worse, a little "*pff*" at his chin every few seconds. A cue only: no gas.
 - **Involuntary overload**: full (100%), it says so and counts down (10 s times `warnScale`, never under 4), then purges half of each contaminant into the room he is in. Wringing it out or washing it below 95% first cancels the countdown.
@@ -152,12 +155,7 @@ Limited perception distortion, from an eligible contaminant (paranoia: only the 
 - **What a purge releases**: finite air sources in his room, of what each contaminant becomes (`release`), never more than left the beard (every source slot taken: all at once, never past full; no ship air there: into the open, counted as vented). One per event id (`beard:purge:<n>`, saved; its own ids skip one already taken, so a countdown always ends in a purge; a script's own `eventId` is refused when repeated).
 - **No loop**: after any purge the beard takes nothing in for its cooldown (15 to 60 s), the purge's gas spreads and vents meanwhile, and a beard can only overload again by taking in more than half its capacity anew. Overloaded in a sealed room with nothing pouring, it purges once in ten minutes and the stink in room and beard together only ever falls (tested). None of it runs in a story scene: the system is off in every chapter.
 
-## 12. Sniffing and inspecting
-
-- **Look at your beard** (Respond, `beardInspect`): how full and how bad, what it smells of in broad words ("mostly irritating vapor, with smoke and something not of this world": no figures), each condition with its meaning, how well it protects, the purge risk, what is worn, what to do.
-- **Sniff your beard** (`beardSniff`): the detail (each contaminant and its share), at a price: a whiff into his lungs (`held x potency x 0.6`, through the fume option and the difficulty), a gag if there's irritant in it, and 10 s before the next sniff. It interrupts paranoia (section 10). Never needed for anything, and the price is only what the beard holds.
-
-## 13. Beard care
+## 9. Beard care
 
 At a care station: next to the washroom tub (7,5) or the basin (2,4) (reach 1). No new fixture. Refused, with the reason, away from a station, in deep water, in air that isn't breathable (it would only soak up more), or while other work is going on.
 
@@ -166,7 +164,7 @@ At a care station: next to the washroom tub (7,5) or the basin (2,4) (reach 1). 
 
 The timing assist and Classic Bar apply as to every bar.
 
-## 14. Equipment
+## 10. Equipment compatibility
 
 An opt-in mapping (`equipment` in the data) for three story items; no second equipment system, and nothing is worn by itself:
 
@@ -178,7 +176,7 @@ An opt-in mapping (`equipment` in the data) for three story items; no second equ
 
 Worn only through `beardWear` or Respond while the system is on, and only while carried (an item that leaves the inventory stops counting). The items stay key items; nothing in the story changes.
 
-## 15. Difficulty and accessibility
+## 11. Difficulty and accessibility
 
 Two new ship tuning keys (validated bounds 0.5 to 1.5) and three existing ones:
 
@@ -197,7 +195,7 @@ Accessibility:
 - **The fume hazard option**: it affects what reaches his **lungs** (from the air, from what the beard gives off, from a sniff) and the **gagging fits** (none when Off or immune). It does not stop the beard filling, its stages, its purges or its HUD warnings: the beard is about the room's air, and Off must never secretly reintroduce lung damage (tested: Off, nothing reaches his lungs).
 - **Remapping and gamepad**: Respond is the Respond control (V, pad X); everything else is choices and the bar.
 
-## 16. Timing and the hazard clock
+## 12. Hazard-clock ordering
 
 One clock, frame-rate independent, paused exactly as before (only while the captain is free in the world, never during a scene, dialogue, the bar, a room change or the F2 panel; the work actions run their own ticks). Each tick, in order:
 
@@ -206,11 +204,13 @@ One clock, frame-rate independent, paused exactly as before (only while the capt
 3. **the air**: sources pour (a purge's too), fires smoke, gas moves, decays; then he breathes, **through the beard first** (absorption, then his lungs);
 4. **the beard's own second**: locks, kept statuses, effects (gag, vision, buzz), warning puffs, the overload countdown and its purge (whose gas pours from the next second), the cooldown.
 
-Checkpoint restore puts the whole ship back at once (section 17). World interaction (Respond, care) happens between ticks or as work ticks.
+Checkpoint restore puts the whole ship back at once (section 14). World interaction (Respond, care) happens between ticks or as work ticks.
 
-## 17. Saves and checkpoints
+## 13. Save version and migration
 
 **Save version 22** (`SAVE_VERSION`, migration `21 -> 22` in `src/systems/save/migrations.js`). The ship's state gains `beard` (written only once the system has been used: `{}` until then): on, composition, phase and countdown, kept statuses with their seconds, effect timers, sniff lock and interruption, worn items, purge and vision counts. Event ids are the ship's (`events`), as before. Versions 17 to 21 load with the beard off and clean; the story's beard tags load exactly as they were and are never read as contamination or conditions (tested on all five). Damaged data loads safely: unknown contaminants, statuses, items and phases are dropped or reset with a warning, numbers clamped, more than the largest capacity scaled down, and nothing is announced on loading.
+
+## 14. Checkpoints and retries
 
 **Checkpoints** capture and restore `ship.beard` with the ship's air and events. Tested:
 
@@ -225,7 +225,7 @@ Checkpoint restore puts the whole ship back at once (section 17). World interact
 9. saving in the middle of grooming saves the state before it (rag and beard), and the loaded game can groom again;
 10. the checkpoint diff names what changed (`beard`: on, phase, count, held by contaminant, statuses, worn).
 
-## 18. Script commands and conditions
+## 15. Script commands and conditions
 
 All validated; all opt-in; no chapter uses any of them (tested: scripts, maps, quests).
 
@@ -244,9 +244,15 @@ All validated; all opt-in; no chapter uses any of them (tested: scripts, maps, q
 
 The condition `{ "beardSaturation": { ... } }` reads `active`, `stage`, `pct`, `contains` + `amount`, `status`, `phase`, `wearing`, `purged`. The debug-only test musk is refused in content by command and condition. The story's own `beard` (tags) and `beardPuff` commands are unchanged; tags are still read with `{ "flag": "beard_<tag>" }`.
 
+## 16. UI and controls
+
 **HUD**: while saturated or worse, gagging, with a kept condition, or counting down, the emergency line leads with the beard ("BEARD 68% SATURATED GAGGING", "BEARD CRITICAL PURGE RISK", "BEARD OVERLOADED 6s"): it is his own and always here, so it takes the first place and the worst other emergency follows. **Respond** groups "Your beard" with the room's other troubles. **Pause > Ship** has a "Your beard" row while the system is on: how full and the trend, what it holds (short names), conditions with their seconds, protection, purge risk, where and with what to wash it (rags carried), and Respond. Every word is measured to fit (tested). Keyboard and pad alike.
 
-## 19. Trying it (the debug demo) and testing
+- **Look at your beard** (Respond, `beardInspect`): how full and how bad, what it smells of in broad words ("mostly irritating vapor, with smoke and something not of this world": no figures), each condition with its meaning, how well it protects, the purge risk, what is worn, what to do.
+
+The world's cues (`src/world/BeardCues.js`): a gagging fit stops him a moment with "*gag* *hurk*"; a warning puff is "*pff*" and a wisp at his chin; a purge has its sound and a burst of the gas's colour; a vision is a purple toast marked (?) and the label "(?) Grand Stenchmaster?" over the nearest person; the hornets buzz. Notices are said once per change (the world also drops a repeat of the same notice within 4 s), so nothing spams.
+
+## 17. Debug demonstration
 
 F2 > Ship > "Jump: Beard demo" (`beard_demo`: the end of Phase 17 in the crew quarters, the washroom next door, sailcloth, the beard wrap, the wet cloth and the goggles), then:
 
@@ -259,13 +265,13 @@ F2 > Ship > "Jump: Beard demo" (`beard_demo`: the end of Phase 17 in the crew qu
 
 Plus "Wear the beard wrap", "Let 10 seconds pass", and "Wash it clean and switch it off". Respond with V (pad X).
 
-Tests: `tests/beard.test.js` (51: the model and data, absorption and conservation, protection, determinism, the fume option and legacy zones, offgas, eruptions, statuses, paranoia's fairness, overload and purging, no loop and no jammed ids, look and sniff, care, equipment, difficulty and assists, the clock, saves 17-22, damaged data, checkpoints and retries, commands, validation, the condition, HUD, Respond, the Ship page, every word's fit, cost, scenarios A-F, the campaign and the story's beard unchanged). `e2e/beard.spec.js` (3: keyboard look, sniff and rinse with reduced effects; a gamepad scrub failed and retried; an overload saved mid-countdown and continued, wrung out in time, and paranoia's visions).
+Tests: `tests/beard.test.js` (52: the model and data, absorption and conservation, protection, determinism, the fume option and legacy zones, offgas, eruptions, statuses, paranoia's fairness, overload and purging, no loop and no jammed ids, look and sniff, care and its cancellation, equipment, difficulty and assists, the clock, saves 17-22, damaged data, checkpoints and retries, commands, validation, the condition, HUD, Respond, the Ship page, every word's fit, cost, scenarios A-F, the campaign and the story's beard unchanged). `e2e/beard.spec.js` (3: keyboard look, sniff and rinse with reduced effects; a gamepad scrub failed and retried; an overload saved mid-countdown and continued, wrung out in time, and paranoia's visions).
 
-## 20. Performance findings, limitations and what comes next
+## 18. Performance findings
 
-**Performance.** The beard does a few multiplications per gas per second while it is on, nothing per frame, and nothing at all while off (every chapter). A thousand seconds of smoke with every condition on stays bounded (tested: under 2.5 s headless, a few hundred bytes of save, at most five timers). In the browser (`perf/scenes.spec.js`, the `beard_demo` scene: smoke pouring, the beard absorbing, gagging, hornets and visions): see the numbers in the final report of Prompt 9 and `tmp/perf/`; they are within the same diagnostic limits as the pressure demo.
+The beard does a few multiplications per gas per second while it is on, nothing per frame, and nothing at all while off (every chapter). A thousand seconds of smoke with every condition on stays bounded (tested: under 2.5 s headless, a few hundred bytes of save, at most five timers). In the browser (`perf/scenes.spec.js`, the `beard_demo` scene: smoke pouring, the beard absorbing, gagging, hornets and visions): see the numbers in the final report of Prompt 9 and `tmp/perf/`; they are within the same diagnostic limits as the pressure demo.
 
-**Limitations.**
+## 19. Known limitations
 
 - One beard, the captain's. Crew beards are not simulated.
 - The hornet-nested condition is a hook (a buzz and slower work); there are no hornets to fight.
@@ -274,4 +280,15 @@ Tests: `tests/beard.test.js` (51: the model and data, absorption and conservatio
 - The look and the sniff are dialogue reports; there is no dedicated beard panel apart from the Ship page row.
 - Care stations are the washroom's tub and basin only.
 
-**Next (named gases, Prompt 10 and on).** A named gas is a contaminant entry (from the air with `air` and `absorb`, or deposited as a supernatural residue), with its `potency`, `cleans`, what it purges as, and flags (`irritant`, `paranoia`); a status is a `statuses` entry with bounded effects; an event that should leave something in the beard uses `beardAdd` or a subject's `beard`. Nothing in the engine needs to change for that.
+## 20. Future named-fume integration
+
+A named gas is a contaminant entry (from the air with `air` and `absorb`, or deposited as a supernatural residue), with its `potency`, `cleans`, what it purges as, and flags (`irritant`, `paranoia`); a status is a `statuses` entry with bounded effects; an event that should leave something in the beard uses `beardAdd` or a subject's `beard`. Nothing in the engine needs to change for that.
+
+The named varieties, as they arrive:
+
+- **Coffin Sock**: lingering; a contaminant that `cleans` poorly, and a rinse that barely touches it.
+- **Chicken-Town**: transforming; a status with its own bounded effect.
+- **Fire-Waft**: igniting; a purge of it could start a fire through the hazards' `ignite`, opt-in per profile.
+- **Beard Joint**: the paranoia contaminant for the story (`paranoia: true`, no longer debug-only), with its intoxication as a further status; the sniff already interrupts its visions without curing it.
+
+None of them is implemented here.

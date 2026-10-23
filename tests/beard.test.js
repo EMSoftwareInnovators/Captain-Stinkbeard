@@ -608,6 +608,37 @@ describe('beard care', () => {
     expect(s.session.inventory.count('sailcloth')).toBe(1);
   });
 
+  it('cancelled: backing out of Respond (at the group or the action) or carrying on after a failed scrub spends no time and nothing it shouldn\'t', async () => {
+    const s = demo();
+    await s.run([...scenario('D'), { airAdd: 'washroom', substance: 'smoke', pct: 1 }]);
+    toWashroom(s);
+    const before = JSON.stringify(s.session.ship.beard.serialize());
+    const rags = s.session.inventory.count('sailcloth');
+    const ticks = [];
+    const orig = s.session.ship.tick.bind(s.session.ship);
+    s.session.ship.tick = (t) => {
+      ticks.push(1);
+      return orig(t);
+    };
+    // Two groups here (the trace of smoke offers the air too): "Leave it" at the group, then at the action.
+    const groups = 2;
+    s.choices.push(groups);
+    await s.run([{ emergency: true }]);
+    const opts = beardOptions(s.session);
+    s.choices.push(1, opts.length);
+    await s.run([{ emergency: true }]);
+    expect(ticks.length).toBe(0);
+    expect(JSON.stringify(s.session.ship.beard.serialize())).toBe(before);
+    expect(s.session.inventory.count('sailcloth')).toBe(rags);
+    // A failed scrub, then "Carry on": that try's rag and its little clean, nothing more, and no second try.
+    s.playHands({ fumbles: 3 });
+    s.decideChallenges('continue');
+    await s.run([{ beardCare: 'scrub' }]);
+    expect(s.challengeRecords.at(-1)).toMatchObject({ outcome: 'failure', attempt: 1 });
+    expect(s.session.inventory.count('sailcloth')).toBe(rags - 1);
+    expect(s.session.ship.hazards.working).toBe(false);
+  });
+
   it('no free materials: with no sailcloth a scrub is refused (and says what\'s missing), but a rinse needs only water, so a beard can always be cleaned', async () => {
     const s = demo();
     await s.run(scenario('D'));
