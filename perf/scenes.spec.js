@@ -83,6 +83,28 @@ const SCENES = [
       s.air.startSource({ room: 'crew_quarters', substance: 'smoke', rate: 3, seconds: 600, source: 'perf' });
     },
   },
+  // Prompt 10 (docs/gameplay-overhaul/14-resources-and-cooking.md, "Test and performance results"): the supplies on a clock
+  // while measured (two effects running, sources restocking and cooling down, the pot simmering, the wet cloth drying in
+  // smoke), the stores stocked, and Respond's reach recomputed as he walks.
+  {
+    preset: 'supplies_demo',
+    rooms: ['cargo_hold'],
+    why: 'the supplies in play in the hold: food and draught effects ticking, restocks and recoveries counting, a pot on, the cloth drying in smoke, Respond following him from spot to spot',
+    setup: () => {
+      const s = window.__GAME__.app.session;
+      const u = s.ship.supplies;
+      u.on = true;
+      u.stock('hold', 'planks', 12);
+      u.stock('hold', 'beans', 8);
+      u.applyEffect('full_belly');
+      u.applyEffect('grog_ward');
+      for (const id of ['galley_jugs', 'galley_sacks', 'hold_bilge', 'hold_sacking']) u.take(id);
+      u.startCooking('bean_stew', 2);
+      u.equip('wet_cloth');
+      s.ship.air.addGas('cargo_hold', 'smoke', 20);
+      s.ship.air.startSource({ room: 'cargo_hold', substance: 'smoke', rate: 2, seconds: 600, source: 'perf' });
+    },
+  },
 ];
 
 /** Diagnostic limits: a measurement past one is flagged in the report, nothing fails. */

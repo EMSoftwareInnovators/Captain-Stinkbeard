@@ -850,6 +850,10 @@ describe('legacy protection: no chapter opts in', () => {
     }
     const s = GameSession.newGame({ content, bus: new EventBus() });
     expect([s.ship.supplies.on, s.ship.supplies.untouched]).toEqual([false, true]);
+    // The 17 approved phase snapshots: the supplies off and empty at the end of every phase.
+    const baselines = import.meta.glob('/tests/regression/baselines/phase-*.json', { eager: true, import: 'default' });
+    expect(Object.keys(baselines).length).toBe(17);
+    for (const [file, snap] of Object.entries(baselines)) expect([file, snap.gameplay.systems.ship.supplies]).toEqual([file, { on: false, stored: [], sources: [], cooking: null, effects: [] }]);
     for (const p of content.debugPresets.list()) {
       const t = GameSession.newGame({ content, bus: new EventBus() });
       applyPresetPlan(t, resolvePreset(content, p.id));

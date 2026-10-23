@@ -103,6 +103,18 @@
     "success": false
    }
   },
+  "cook": {
+   "blocksProgression": false,
+   "input": "timed",
+   "label": "Cooking at the galley stove (Prompt 10)",
+   "retry": "offered while what he can reach pays for a try; the waste stays",
+   "softlockRisk": "none: no chapter uses it, and nothing needs a meal",
+   "support": {
+    "failure": true,
+    "partial": true,
+    "success": true
+   }
+  },
   "course": {
    "blocksProgression": false,
    "input": "none",
@@ -268,6 +280,18 @@
    "label": "Ship repair (Pause > Ship; Prompt 5)",
    "retry": "offered while the hold can pay for one; the waste and the damage stay",
    "softlockRisk": "none: no chapter uses it, and a failed repair never ends the game",
+   "support": {
+    "failure": true,
+    "partial": true,
+    "success": true
+   }
+  },
+  "supplyTake": {
+   "blocksProgression": false,
+   "input": "timed",
+   "label": "Searching and salvaging the ship's supplies (Prompt 10)",
+   "retry": "offered; each failed try is a knock (a cost a retry keeps, never below the floor)",
+   "softlockRisk": "none: no chapter uses it; the bilge and the sacking always come back",
    "support": {
     "failure": true,
     "partial": true,

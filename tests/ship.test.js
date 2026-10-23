@@ -167,7 +167,7 @@ describe('2. sections have stable ids, never tiles; bad ship data is rejected', 
     expect(errors).toMatch(/unknown ship repair "nope"/);
     expect(errors).toMatch(/ship condition: unknown section "mast"/);
     expect(errors).toMatch(/ship condition: unknown state "sunk"/);
-    expect(Object.keys(SHIP_TUNING)).toEqual(['damageScale', 'repairScale', 'costScale', 'leakScale', 'fireScale', 'responseScale', 'exposureScale', 'recoveryScale', 'ventScale', 'pressureScale', 'warnScale', 'calmScale', 'holdScale', 'releaseScale', 'beardCapacityScale', 'cleanScale']);
+    expect(Object.keys(SHIP_TUNING)).toEqual(['damageScale', 'repairScale', 'costScale', 'leakScale', 'fireScale', 'responseScale', 'exposureScale', 'recoveryScale', 'ventScale', 'pressureScale', 'warnScale', 'calmScale', 'holdScale', 'releaseScale', 'beardCapacityScale', 'cleanScale', 'supplyYieldScale', 'restockScale', 'supplyZone', 'effectScale']);
   });
 });
 
@@ -875,7 +875,7 @@ describe('24-25. the campaign is unchanged', () => {
     const baselines = import.meta.glob('/tests/regression/baselines/phase-*.json', { eager: true, import: 'default' });
     expect(Object.keys(baselines).length).toBe(17);
     for (const [file, snap] of Object.entries(baselines)) {
-      expect([file, snap.gameplay.systems.ship]).toEqual([file, { destroyed: false, overall: 100, sections: WHOLE, hazards: { leaks: 0, fires: [], water: [], stability: 'steady', buckets: 0 }, air: { rooms: [], sources: 0, links: [], exposure: 0 }, pressure: { subjects: [], on: [], pending: [] }, beard: { on: false, held: [], statuses: [], worn: [], purges: 0 } }]);
+      expect([file, snap.gameplay.systems.ship]).toEqual([file, { destroyed: false, overall: 100, sections: WHOLE, hazards: { leaks: 0, fires: [], water: [], stability: 'steady', buckets: 0 }, air: { rooms: [], sources: 0, links: [], exposure: 0 }, pressure: { subjects: [], on: [], pending: [] }, beard: { on: false, held: [], statuses: [], worn: [], purges: 0 }, supplies: { on: false, stored: [], sources: [], cooking: null, effects: [] } }]);
       expect(Object.keys(snap.gameplay.unsupported)).not.toContain('shipIntegrity');
     }
     for (const phase of PHASES) expect([phase.n, sessionAt(content, phase.preset).ship.pristine]).toEqual([phase.n, true]);

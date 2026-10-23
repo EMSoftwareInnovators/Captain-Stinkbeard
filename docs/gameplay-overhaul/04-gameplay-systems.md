@@ -113,6 +113,7 @@ Each system is data-driven, engine-independent (rules in `src/systems/`, drawing
 - **Frog Grog:** a consumable with side effects, and the Chapter 25 barrel count as a stock.
 - **Currency:** doubloons, and the absurd Grand Currency economy (tokens, conversions, credit, the bank) as a real trading layer whose comedy is that it is worthless and yet strictly enforced.
 - **Extends:** `inventory`, `bank.js`, `credit.js`, `conversions.json`, Quill and Penhallow as the people you deal with.
+- **Built (Prompt 10):** the materials and food the overhaul spends, made visible and obtainable: resource classes over the one inventory, places in the rooms to search, salvage and scavenge (two bounded recoveries so a repair material can always be had again, on every difficulty), the ship's stores in the hold, the wrap, cloth, goggles and Bob's Pot worn by hand, timed food and draught effects, a grog tot taken with Frog Grog's ward by the smaller (Frog Grog itself unchanged), and four story foods cooked at the galley stove on the timing bar, all opt-in and unused by the campaign: [14-resources-and-cooking.md](14-resources-and-cooking.md). Sashes as a material, meals for crew morale, the barrel count as a stock, and the currency layer (merchants, the Grand Bank) are left to later prompts.
 
 ### S9. Persistent consequences
 

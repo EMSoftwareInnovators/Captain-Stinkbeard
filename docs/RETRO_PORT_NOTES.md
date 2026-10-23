@@ -167,7 +167,13 @@ with every subject off; version 22, overhaul Prompt 9, adds `ship.beard`
 phase and seconds left, kept statuses with their seconds, effect timers, the
 sniff's lock and interruption, worn items, purge and vision counts; `{}`
 until it is first used), and a version 21 save loads with it off and clean
-(the story's beard tags stay flags); the example
+(the story's beard tags stay flags); version 23, overhaul Prompt 10, adds
+`ship.supplies` (the supplies' switch, each store's stock by item, each
+touched source's uses left, restock and cooldown seconds, food and draught
+effects with their seconds, the galley pot, the wet cloth's charges,
+recipes taught; sparse, `{}` until first used; worn gear stays in
+`ship.beard.worn`), and a version 22 save loads with it off and empty
+(nothing given retroactively); the example
 shows a version 5 record). Story Phase 17's two new party members (Ledger and Tilda) are
 ordinary `party` entries, so the cartridge budget's four party slots still
 hold (the captain, Ledger, Tilda, one spare):

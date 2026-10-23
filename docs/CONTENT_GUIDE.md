@@ -2231,3 +2231,60 @@ on rinsing, which is free), never needs a sniff or a scrub to progress,
 switches it off again if the scene is over, and tests every difficulty.
 Everything else is in
 [gameplay-overhaul/13-beard-saturation.md](gameplay-overhaul/13-beard-saturation.md).
+
+## Shipboard supplies
+
+Supplies, stores, gear, food and cooking, defined in `data/ship/supplies.json`
+(and ordinary items in `data/items/`). No chapter uses them. Nothing happens
+until a script switches the system on; then the places in the rooms give
+what they hold (by hand, through Respond), the ship's stores keep what is
+put there, gear is worn by choice, food and draughts start timed effects,
+and the galley cooks.
+
+```json
+{ "suppliesSystem": true }
+{ "supplyStore": "hold", "give": [{ "item": "beans", "count": 4 }] }
+{ "supplyTransfer": "hold", "item": "planks", "count": 2, "to": "pack", "anywhere": true }
+{ "supplySource": "hold_crates", "op": "restock" }
+{ "supplyTake": "hold_wreckage" }
+{ "gearEquip": "clay_pot_helmet" }
+{ "useSupply": "bean_stew" }
+{ "learnRecipe": "fish_chowder" }
+{ "cook": "bean_stew", "outcomeValue": "ch_stew" }
+{ "serve": true }
+```
+
+```json
+{ "supplies": { "active": true } }
+{ "supplies": { "has": "planks", "count": { "gte": 2 } } }
+{ "supplies": { "stored": "beans", "store": "hold" } }
+{ "supplies": { "source": "hold_crates", "left": 0 } }
+{ "supplies": { "wearing": "wet_cloth" } }
+{ "supplies": { "effect": "full_belly" } }
+{ "supplies": { "canCook": "bean_stew" } }
+```
+
+Adding a **source**: a place in an existing room (its props' tiles in
+`at`, `reach` 1 to 3), a `type` (`cache`: seconds of work; `salvage`: the
+timing bar, with `results` and an optional `knock`; `recovery`: always
+there, at most 2 of each, a `cooldown`), `yields` (one entry per item,
+never a key item), `uses` (1 to 9; a recovery has none), an optional
+`restock`, `when` or `closed`. Adding a **recipe**: ingredients that are
+in the ingredient class and come from some source, a food product, serves
+for success and partial, a waste that is one of its ingredients, seconds,
+simmer, and the bar (`kind`, `strikes`, a challenge that can fail and isn't
+must-win). Adding **gear**: a story item, a slot, a note, and something it
+does (a beard effect in `data/ship/beard.json`, or a `knock`). Adding an
+**effect**: a group (`meal` or `draught`), seconds (it always ends), and
+bounded factors (`work`, `hurt`, `zone`, `lungs`: a draught's). The
+validator checks every rule, including that each repair material can be
+recovered on every difficulty (`npm run economy` shows the economy).
+
+Never class an item a story step takes or swaps (the validator refuses it:
+the stores could hold it when the story looks for it); Frog Grog, the rum
+ration and the key items stay the story's. Repairs pay from what the
+captain carries; only the cook draws on the stores. A chapter that turns
+the supplies on rewards with ordinary `giveItem`, never needs a meal to
+progress, keeps a recovery within reach of any repair it asks for, and
+tests every difficulty. Everything else is in
+[gameplay-overhaul/14-resources-and-cooking.md](gameplay-overhaul/14-resources-and-cooking.md).

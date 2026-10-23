@@ -1020,6 +1020,46 @@ unchanged.
   with reduced effects). UI: the HUD line (the beard first), Pause > Ship
   "Your beard". Debug: F2 > Ship and the `beard_demo` preset.
 
+## Shipboard supplies (overhaul Prompt 10)
+
+Resources the captain works with by hand: places in the rooms that give
+materials and food, the ship's shared stores, protective gear worn by
+choice, timed food and draught effects, and the galley's cooking. See
+[gameplay-overhaul/14-resources-and-cooking.md](gameplay-overhaul/14-resources-and-cooking.md).
+Opt-in: no chapter switches it on. One inventory: the pack is the
+session's `Inventory` and the items are ordinary `data/items` entries.
+
+- Data: `data/ship/supplies.json` (ContentDB `shipSupplies`): classes (what
+  each functional resource is), stores, sources (cache, salvage, recovery),
+  gear (slots, restrictions, charges, water), effects (meal and draught
+  groups), limits, stations and recipes. New items in
+  `data/items/supplies.json`.
+- `src/systems/ship/supplies.js`: pure lookups, reach (`within`), yields on
+  a difficulty, the economy report (`npm run economy`) and the validator.
+  `src/systems/ship/SupplyState.js`: `session.ship.supplies`, saved inside
+  the `ship` domain (sparse; `{}` until first used): the stores' stock, each
+  touched source, effects, the pot, the cloth's charges, recipes taught.
+  Every transaction is whole or nothing (`deposit`, `withdraw`, `spend`,
+  `take`, `serve`). Worn gear is the beard's worn list (one list).
+- One clock: `ShipState.tick()` ends with the supplies' second (effects run
+  down, restocks and recoveries count, the pot simmers, the cloth dries in
+  the air he just breathed). `envActive` includes it.
+- Pipelines joined, not duplicated: a `shipEffect` item effect
+  (`effects.js`) goes through the Items menu's use; a draught's ward is
+  taken with Frog Grog's by the smaller in `WorldScene.updateHazards`; a
+  full belly joins `captainFactors` (work); a warm belly scales the air's
+  `hurt`; the bar's zone (`barZone`) is the six ship repairs' and the
+  salvage and stir's. Repairs still pay from the pack (`takeAll`); only the
+  cook may draw on the stores.
+- The captain's side: `src/systems/ship/supplyResponse.js` (Respond groups
+  by where he stands, reports, work seconds). Commands: `suppliesSystem`,
+  `supplyStore`, `supplyTransfer`, `supplyMenu`, `supplyCheck`,
+  `supplySource`, `supplyTake` (a salvage is the `pry` bar), `supplySetback`,
+  `gearEquip`, `gearRecharge`, `useSupply`, `supplyEffect`, `learnRecipe`,
+  `cook` (the `stir` bar), `serve`, `cookReport`. The `supplies` condition
+  reads it. UI: Respond, Pause > Ship rows, Pause > Items descriptions.
+  Debug: F2 > Ship and the `supplies_demo` preset.
+
 ## Battle
 
 `BattleEngine` (`src/systems/battle/`) owns the rules and is fully
