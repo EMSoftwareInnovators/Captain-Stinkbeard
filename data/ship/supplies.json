@@ -1,0 +1,175 @@
+{
+  "//": "Overhaul Prompt 10: shipboard resources (docs/gameplay-overhaul/14-resources-and-cooking.md). Opt-in: nothing here happens until a script switches the system on ({ \"suppliesSystem\": true }), and no chapter does. Items are the ordinary items of data/items (one inventory); this file says what they are for, where they come from, where the ship keeps them, what can be worn and what the galley cooks.",
+  "//classes": "Every functional resource, once: repair materials (the repairs' bills), emergency supplies, ingredients (the galley's), food (eaten from the Items menu), consumables, and protective gear (worn, never used up). A story item that is none of these (Frog Grog, the rum ration that becomes it, the key items) is never taken by this system: an item a story step takes or swaps can't be classed (the validator checks).",
+  "classes": {
+    "repair": { "label": "Repair materials", "items": ["planks", "nails", "rope", "sailcloth"] },
+    "emergency": { "label": "Emergency supplies", "items": ["bandage", "healing_tonic"] },
+    "ingredient": { "label": "Ingredients", "items": ["beans", "onions", "oats", "garlic", "salt_fish"] },
+    "food": { "label": "Food", "items": ["hardtack", "bean_stew", "oat_porridge", "fish_chowder", "garlic_broth"] },
+    "consumable": { "label": "Draughts", "items": ["grog_tot"] },
+    "equipment": { "label": "Protective gear", "items": ["beard_wrap", "wet_cloth", "bottle_goggles", "clay_pot_helmet"] }
+  },
+  "//stores": "The ship's shared stores: deposit and withdraw standing at them (at: the props' tiles, reach in tiles), never more than 'capacity' units in all, only the classes it 'accepts' (never a key item). Repairs pay from what the captain carries, never from here: he fetches. 'spend': the actions that may also draw on the stores, and the rooms they may do it from (the cook sends down to the hold from the galley).",
+  "stores": {
+    "hold": {
+      "label": "the ship's stores",
+      "room": "cargo_hold",
+      "at": [[1, 7], [2, 6], [3, 6]],
+      "reach": 1,
+      "capacity": 60,
+      "accepts": ["repair", "emergency", "ingredient", "food"],
+      "spend": { "for": ["cook"], "in": ["galley", "cargo_hold"] }
+    }
+  },
+  "//sources": "Where supplies come from, by hand, in the rooms (no remote menu). type: cache (searched: seconds of work, no bar), salvage (pried loose on the timing bar: success gives all, partial its share, a failure a knock), recovery (always there, small, a cooldown after each: the way back from empty). uses: how many times it gives before it is empty (recovery: unlimited). restock: { every (seconds of hazard time), add, max, when? }. when: a condition for it to be there at all. Its state (what is left, the restock and cooldown clocks) is saved and checkpointed: leaving the room, reloading or retrying never refills it.",
+  "sources": {
+    "hold_crates": {
+      "type": "cache",
+      "label": "the loose crates",
+      "room": "cargo_hold",
+      "at": [[4, 7], [5, 7], [6, 7]],
+      "reach": 1,
+      "action": { "label": "Search the loose crates", "seconds": 5 },
+      "yields": [{ "item": "planks", "count": 2 }, { "item": "nails", "count": 3 }, { "item": "beans", "count": 2 }],
+      "uses": 1
+    },
+    "hold_wreckage": {
+      "type": "salvage",
+      "label": "the stove-in crates",
+      "room": "cargo_hold",
+      "at": [[14, 9], [15, 10], [16, 10], [17, 9]],
+      "reach": 1,
+      "action": { "label": "Salvage the stove-in crates", "title": "PRY IT LOOSE", "kind": "pry", "strikes": 3, "seconds": 6, "challenge": { "profile": "ship_repair" } },
+      "yields": [{ "item": "planks", "count": 2 }, { "item": "nails", "count": 2 }, { "item": "sailcloth", "count": 1 }],
+      "results": { "success": 1, "partial": 0.5 },
+      "knock": { "hp": 6, "floor": 0.25 },
+      "uses": 3
+    },
+    "hold_barrels": {
+      "type": "cache",
+      "label": "the provision barrels",
+      "room": "cargo_hold",
+      "at": [[17, 5], [18, 5]],
+      "reach": 1,
+      "action": { "label": "Open the provision barrels", "seconds": 4 },
+      "yields": [{ "item": "salt_fish", "count": 2 }, { "item": "oats", "count": 3 }],
+      "uses": 1
+    },
+    "hold_bilge": {
+      "type": "recovery",
+      "label": "the bilge",
+      "room": "cargo_hold",
+      "at": [[10, 15]],
+      "reach": 1,
+      "action": { "label": "Scavenge the bilge", "seconds": 12 },
+      "yields": [{ "item": "planks", "count": 1 }, { "item": "nails", "count": 1 }],
+      "cooldown": 60
+    },
+    "hold_sacking": {
+      "type": "recovery",
+      "label": "the old sacking",
+      "room": "cargo_hold",
+      "at": [[18, 10], [17, 15]],
+      "reach": 1,
+      "action": { "label": "Cut canvas from the sacking", "seconds": 10 },
+      "yields": [{ "item": "sailcloth", "count": 1 }, { "item": "rope", "count": 1 }],
+      "cooldown": 90
+    },
+    "galley_sacks": {
+      "type": "cache",
+      "label": "the galley sacks",
+      "room": "galley",
+      "at": [[8, 4], [9, 4]],
+      "reach": 1,
+      "action": { "label": "Take from the galley sacks", "seconds": 3 },
+      "yields": [{ "item": "onions", "count": 2 }, { "item": "garlic", "count": 1 }, { "item": "beans", "count": 2 }],
+      "uses": 1,
+      "restock": { "every": 240, "add": 1, "max": 1 }
+    },
+    "galley_jugs": {
+      "type": "cache",
+      "label": "the grog jugs",
+      "room": "galley",
+      "at": [[15, 6], [16, 6]],
+      "reach": 1,
+      "action": { "label": "Pour a tot of grog", "seconds": 2 },
+      "yields": [{ "item": "grog_tot", "count": 1 }],
+      "uses": 2,
+      "restock": { "every": 180, "add": 1, "max": 2 }
+    }
+  },
+  "//gear": "Protective gear: story items given a use while worn, one to a slot, put on and taken off by hand (Respond, or a script), never by itself. Worn gear stays in the pack (a story check for it still finds it; nothing can sell, store or cook it). Its effects on the beard and the lungs are the beard's (data/ship/beard.json equipment); here: the slot, what it can't be worn with, a knock's share (the helmet), and charges (the cloth works while it is wet: it dries while he breathes bad air, and is wetted again at water).",
+  "gear": {
+    "slots": { "head": "Head", "eyes": "Eyes", "face": "Face", "beard": "Beard" },
+    "items": {
+      "beard_wrap": { "slot": "beard", "note": "Keeps the beard from soaking: it catches less." },
+      "wet_cloth": { "slot": "face", "note": "Filters what reaches the lungs while it is wet.", "charges": { "max": 120, "label": "wet", "empty": "dry" } },
+      "bottle_goggles": { "slot": "eyes", "note": "Keeps the sting of a gassy beard out of the eyes." },
+      "clay_pot_helmet": { "slot": "head", "note": "Takes the edge off a knock while salvaging.", "knock": 0.5, "notWith": ["bottle_goggles"], "notWithReason": "Bob's Pot comes down over the goggles." }
+    },
+    "water": [
+      { "room": "galley", "at": [[16, 4]], "reach": 1, "label": "the water barrel" },
+      { "room": "cargo_hold", "at": [[18, 6]], "reach": 1, "label": "the water barrel" },
+      { "room": "washroom", "at": [[7, 5], [2, 4]], "reach": 1, "label": "the washroom tub" }
+    ]
+  },
+  "//effects": "Timed effects of food and draughts, on the hazard clock (saved). One per group at a time: a new meal replaces the last meal's, the same one again only restarts its clock (never stacks). work: emergency work takes this much as long; hurt: the share of bad air's harm he takes; zone: pixels added to a repair, salvage or cooking bar's green zone (negative: shakier hands); lungs: what reaches his lungs (a draught: taken with the Frog Grog ward, the smaller, never on top). Bounded by limits.",
+  "effects": {
+    "full_belly": { "label": "Full belly", "short": "FED", "group": "meal", "seconds": 240, "work": 0.85, "note": "Emergency work goes quicker." },
+    "steady_hands": { "label": "Steady hands", "short": "STEADY", "group": "meal", "seconds": 180, "zone": 4, "note": "A wider green on the repair bars." },
+    "warm_belly": { "label": "Warm belly", "short": "WARM", "group": "meal", "seconds": 240, "hurt": 0.5, "note": "Bad air hurts him half as much." },
+    "grog_ward": { "label": "Grog-warded", "short": "GROG", "group": "draught", "seconds": 90, "lungs": 0.6, "zone": -4, "note": "Less gets to the lungs; the hands wobble." }
+  },
+  "limits": { "work": 0.8, "hurt": 0.5, "lungs": 0.35, "zone": 6, "seconds": 600, "recover": 30, "give": 99 },
+  "//stations": "The galley's cooking station: the stove (standing next to it).",
+  "stations": {
+    "stove": { "label": "the galley stove", "room": "galley", "at": [[1, 4], [2, 4], [1, 5], [2, 5]], "reach": 1 }
+  },
+  "//recipes": "Galley recipes: ingredients (from the pack, and the stores where they may be spent), the stir on the timing bar (success: 'serves.success' portions, partial fewer; a failure scorches it: its 'waste' is lost, a cost a retry keeps, and nothing cooks), then 'seconds' of work and 'simmer' seconds of hazard time before it can be served (he can leave it). One pot at a time. known: false for a recipe a script teaches (learnRecipe).",
+  "recipes": {
+    "bean_stew": {
+      "name": "Bean Stew",
+      "ingredients": [{ "item": "beans", "count": 2 }, { "item": "onions", "count": 1 }],
+      "station": "stove",
+      "product": "bean_stew",
+      "serves": { "success": 2, "partial": 1 },
+      "waste": [{ "item": "beans", "count": 1 }],
+      "seconds": 4,
+      "simmer": 30,
+      "action": { "title": "STIR THE STEW", "kind": "stir", "strikes": 3, "challenge": { "profile": "ship_repair" } }
+    },
+    "oat_porridge": {
+      "name": "Oat Porridge",
+      "ingredients": [{ "item": "oats", "count": 2 }],
+      "station": "stove",
+      "product": "oat_porridge",
+      "serves": { "success": 2, "partial": 1 },
+      "waste": [{ "item": "oats", "count": 1 }],
+      "seconds": 3,
+      "simmer": 20,
+      "action": { "title": "STIR THE PORRIDGE", "kind": "stir", "strikes": 3, "challenge": { "profile": "ship_repair" } }
+    },
+    "fish_chowder": {
+      "name": "Fish Chowder",
+      "ingredients": [{ "item": "salt_fish", "count": 1 }, { "item": "onions", "count": 1 }, { "item": "oats", "count": 1 }],
+      "station": "stove",
+      "product": "fish_chowder",
+      "serves": { "success": 2, "partial": 1 },
+      "waste": [{ "item": "salt_fish", "count": 1 }],
+      "seconds": 5,
+      "simmer": 40,
+      "action": { "title": "STIR THE CHOWDER", "kind": "stir", "strikes": 3, "challenge": { "profile": "ship_repair" } }
+    },
+    "garlic_broth": {
+      "name": "Garlic Broth",
+      "ingredients": [{ "item": "garlic", "count": 1 }, { "item": "onions", "count": 1 }],
+      "station": "stove",
+      "product": "garlic_broth",
+      "serves": { "success": 2, "partial": 1 },
+      "waste": [{ "item": "garlic", "count": 1 }],
+      "seconds": 3,
+      "simmer": 20,
+      "action": { "title": "STIR THE BROTH", "kind": "stir", "strikes": 3, "challenge": { "profile": "ship_repair" } }
+    }
+  }
+}

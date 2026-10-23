@@ -29,11 +29,14 @@ export class GameSession {
     // Prompt 7: the air knows where the captain breathes, and how bad air hurts him (docs/gameplay-overhaul/11-atmosphere-and-ventilation.md).
     this.ship.air.nameOf = this.ship.hazards.nameOf;
     this.ship.air.where = () => this.location?.map ?? null;
-    this.ship.air.hurt = (hp, floor) => this.chokeLeader(hp, floor);
+    // Prompt 10: a warm belly takes the edge off (the supplies' hurt factor: 1 while that system is off).
+    this.ship.air.hurt = (hp, floor) => this.chokeLeader(hp * this.ship.supplies.factor('hurt'), floor);
     // Prompt 8: the Grand Stenchmasters' pressure reads the story (where they are; Brogath's Stability) (docs/gameplay-overhaul/12-pressure-and-eruptions.md).
     this.ship.pressure.session = this;
     // Prompt 9: the Stink Beard reads the content, what the captain carries (what he can wear over it) and where he is (docs/gameplay-overhaul/13-beard-saturation.md).
     this.ship.beard.session = this;
+    // Prompt 10: the supplies read the content, the pack and where the captain is (docs/gameplay-overhaul/14-resources-and-cooking.md).
+    this.ship.supplies.session = this;
     this.playTime = 0; // seconds
     this.createdAt = new Date().toISOString();
     // Per-play state that is deliberately never saved (fume exposure...).

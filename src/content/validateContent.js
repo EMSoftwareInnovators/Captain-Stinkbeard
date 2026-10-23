@@ -28,6 +28,7 @@ import { airDataProblems, airRoom, substance, connection, connectionKind, AIR_ST
 import { pressureDataProblems, subjectDef, subjectIds, profileDef, profileIds } from '../systems/ship/pressure.js';
 import { beardDataProblems, contaminant as beardContaminant, contaminantIds, beardStatus, beardStatusIds, CARE_ACTIONS, PURGE_PROFILES } from '../systems/ship/beard.js';
 import { DutyPlan } from '../systems/hazards/sharkDuty.js';
+import { suppliesDataProblems, shipEffectProblems, storeDef, storeIds, sourceDef, sourceIds, recipeDef, recipeIds, effectDef, effectIds, gearDef, gearIds, classOf, supplyLimits, SOURCE_OPS } from '../systems/ship/supplies.js';
 
 /** The least time a shark on an opted-in watch may give before it bites (a walk across the deck). */
 const MIN_SHARK_WINDOW_MS = 3000;
@@ -301,6 +302,51 @@ function validateParam(type, value, check, sctx) {
     case 'beardItem':
       if (!check.ctx.db.shipBeard?.equipment?.[value] || String(value).startsWith('//')) check.error(`"${value}" isn't mapped to wear over the beard (data/ship/beard.json equipment)`);
       return;
+    // Prompt 10 supplies (data/ship/supplies.json): stores, sources, recipes, effects, gear; an item the supplies may handle (never a key item).
+    case 'supplyStore':
+      if (!storeDef(check.ctx.db, value)) check.error(`unknown store "${value}" (data/ship/supplies.json stores: ${storeIds(check.ctx.db).join(', ')})`);
+      return;
+    case 'supplySource':
+      if (!sourceDef(check.ctx.db, value)) check.error(`unknown supply source "${value}" (data/ship/supplies.json sources: ${sourceIds(check.ctx.db).join(', ')})`);
+      return;
+    case 'supplyRecipe':
+      if (!recipeDef(check.ctx.db, value)) check.error(`unknown recipe "${value}" (data/ship/supplies.json recipes: ${recipeIds(check.ctx.db).join(', ')})`);
+      return;
+    case 'supplyEffect':
+      if (!effectDef(check.ctx.db, value)) check.error(`unknown supply effect "${value}" (data/ship/supplies.json effects: ${effectIds(check.ctx.db).join(', ')})`);
+      return;
+    case 'gearItem':
+      if (!gearDef(check.ctx.db, value)) check.error(`"${value}" isn't gear (data/ship/supplies.json gear.items: ${gearIds(check.ctx.db).join(', ')})`);
+      return;
+    case 'supplyItem': {
+      const it = check.ctx.db.items.get(value);
+      if (!it) check.error(`unknown item "${value}"`);
+      else if (it.type === 'key') check.error(`"${value}" is a story key item: the supplies never move or use it`);
+      else if (!classOf(check.ctx.db, value)) check.error(`"${value}" isn't a supply (data/ship/supplies.json classes)`);
+      return;
+    }
+    case 'supplyBill': {
+      if (!Array.isArray(value) || !value.length) return check.error('expected a list of { item, count }');
+      const seen = new Set();
+      for (const c of value) {
+        const it = check.ctx.db.items.get(c?.item);
+        if (!it) check.error(`unknown item "${c?.item}"`);
+        else if (it.type === 'key') check.error(`"${c.item}" is a story key item: never stored`);
+        if (!(Number.isInteger(c?.count ?? 1) && (c?.count ?? 1) >= 1 && (c?.count ?? 1) <= supplyLimits(check.ctx.db).give)) check.error(`"${c?.item}": count must be a whole number 1 to ${supplyLimits(check.ctx.db).give}`);
+        if (seen.has(c?.item)) check.error(`"${c?.item}" twice (one entry per item)`);
+        seen.add(c?.item);
+      }
+      return;
+    }
+    case 'supplyTo':
+      if (!['store', 'pack'].includes(value)) check.error(`"to" is store or pack (got "${value}")`);
+      return;
+    case 'supplyMenu':
+      if (!['deposit', 'withdraw'].includes(value)) check.error(`supplyMenu is deposit or withdraw (got "${value}")`);
+      return;
+    case 'supplyOp':
+      if (!SOURCE_OPS.includes(value)) check.error(`a source op is ${SOURCE_OPS.join(', ')} (got "${value}")`);
+      return;
     case 'challenge':
       // The shape here; the rules (and the steps they run) in validateChallenge.
       if (typeof value === 'string') return check.ref('challenge profile', value, check.ctx.db.challenges);
@@ -521,6 +567,33 @@ function validateStep(step, check, sctx) {
     if (name === 'pressureErupt' && step.controlled === true && step.profile !== undefined) check.error('pressureErupt: a controlled release takes its size from him; give "profile" or "controlled", not both');
     if (name === 'pressureRestrain' && step.challenge !== undefined) validateChallenge(step.challenge, 'repair', check.at('pressureRestrain.challenge'), sctx, { strikes: check.ctx.db.shipPressure?.actions?.restrain?.strikes });
   }
+  // Prompt 10: whole, positive amounts; a transfer the store would refuse; only a salvage or a stir is a challenge.
+  if (['supplyTransfer', 'supplySource', 'supplyTake', 'supplySetback', 'cook'].includes(name)) {
+    const db = check.ctx.db;
+    const lim = supplyLimits(db);
+    if (step.count !== undefined && !(Number.isInteger(step.count) && step.count >= 1 && step.count <= lim.give)) check.error(`${name}: "count" must be a whole number 1 to ${lim.give}`);
+    if (name === 'supplyTransfer' && step.to === 'store' && storeDef(db, step.supplyTransfer)) {
+      const cls = classOf(db, step.item);
+      if (cls && !storeDef(db, step.supplyTransfer).accepts.includes(cls)) check.error(`supplyTransfer: ${storeDef(db, step.supplyTransfer).label} doesn't take ${cls}`);
+    }
+    if (name === 'supplySource' && step.op !== 'restock' && step.count !== undefined) check.error('supplySource: "count" is only for a restock');
+    if (name === 'supplyTake' && step.challenge !== undefined) {
+      if (sourceDef(db, step.supplyTake)?.type !== 'salvage') check.error('supplyTake: only a salvage is a challenge (a search or a recovery is time)');
+      else validateChallenge(step.challenge, 'repair', check.at('supplyTake.challenge'), sctx, { strikes: sourceDef(db, step.supplyTake).action.strikes });
+    }
+    if (name === 'cook' && step.challenge !== undefined) validateChallenge(step.challenge, 'repair', check.at('cook.challenge'), sctx, { strikes: recipeDef(db, step.cook)?.action?.strikes });
+    if (name === 'supplySetback') {
+      if (!['salvage', 'cook'].includes(step.supplySetback)) check.error('supplySetback: "salvage" (a knock) or "cook" (scorched), as a challenge cost');
+      if (step.supplySetback === 'salvage' && !step.source) check.error('supplySetback salvage needs "source"');
+      if (step.supplySetback === 'cook' && !step.recipe) check.error('supplySetback cook needs "recipe"');
+    }
+  }
+  if (name === 'suppliesSystem' && typeof step.suppliesSystem !== 'boolean') check.error('suppliesSystem: true or false');
+  // Prompt 10: an item the story takes or swaps is quest-critical: the supplies must never store, spend or cook it.
+  if (name === 'takeItem' || name === 'swapItem') {
+    const cls = classOf(check.ctx.db, step[name]);
+    if (cls && cls !== 'equipment') check.error(`${name} "${step[name]}": a story step needs it, so it can't be a supply (${cls} in data/ship/supplies.json classes): the stores could hold it when the story looks for it`);
+  }
   // Prompt 9: amounts within limits; a derived status can't be applied; scrubbing is a challenge, rinsing isn't.
   if (name.startsWith('beard') && name !== 'beard' && name !== 'beardPuff') {
     const bd = check.ctx.db.shipBeard;
@@ -710,6 +783,7 @@ function validateEffects(effects, check) {
       if (typeof e.seconds !== 'number' || e.seconds <= 0) ec.error('fumeWard needs positive "seconds"');
       if (e.scale !== undefined && (typeof e.scale !== 'number' || e.scale < 0 || e.scale > 1)) ec.error('fumeWard "scale" must be 0..1');
     }
+    if (e.type === 'shipEffect') for (const p of shipEffectProblems(check.ctx.db, e)) ec.error(p);
     if (e.type === 'sideEffect') {
       if (!Array.isArray(e.table) || e.table.length === 0) return ec.error('sideEffect needs a non-empty "table"');
       e.table.forEach((row, j) => {
@@ -908,6 +982,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
   for (const problem of airDataProblems(db)) C('data/ship').error(problem);
   for (const problem of pressureDataProblems(db)) C('data/ship').error(problem);
   for (const problem of beardDataProblems(db)) C('data/ship').error(problem);
+  for (const problem of suppliesDataProblems(db)) C('data/ship').error(problem);
   // A subject's "available" is a story condition like any other.
   for (const id of subjectIds(db)) {
     const cond = db.shipPressure.subjects[id].available;
@@ -960,6 +1035,24 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       }
       if (!cfg?.failure) c.error(`[${d}] a scrub's challenge must be able to fail ("failure": true)`);
       else if (cfg.onFailure.mustRetry) c.error(`[${d}] a scrub can't be must-win: the rags may run out`);
+    }
+  }
+
+  // Prompt 10: a salvage's and a stir's challenge: each failure costs something, so it must always be possible to give up.
+  const supplyBars = [...sourceIds(db).filter((id) => sourceDef(db, id).type === 'salvage').map((id) => [`sources.${id}`, sourceDef(db, id).action]), ...recipeIds(db).map((id) => [`recipes.${id}`, recipeDef(db, id).action])];
+  for (const [where, action] of supplyBars) {
+    const c = C(`data/ship/supplies.json (${where})`);
+    const spec = action?.challenge ?? { profile: 'ship_repair' };
+    for (const problem of challengeProblems(db, spec, { kind: 'repair', step: { strikes: action?.strikes } })) c.error(`challenge: ${problem}`);
+    for (const d of DIFFICULTIES) {
+      let cfg = null;
+      try {
+        cfg = challengeConfig(db, spec, { kind: 'repair', id: 'check', difficulty: d });
+      } catch {
+        break;
+      }
+      if (!cfg?.failure) c.error(`[${d}] its challenge must be able to fail ("failure": true)`);
+      else if (cfg.onFailure.mustRetry) c.error(`[${d}] it can't be must-win: what it costs may run out`);
     }
   }
 

@@ -10,6 +10,8 @@ import { pressureAdvice, pressureHere } from '../../systems/ship/pressureRespons
 import { beardHere, scrubCost } from '../../systems/ship/beardResponse.js';
 import { careRooms } from '../../systems/ship/beard.js';
 import { shipTuning } from '../../systems/ship/integrity.js';
+import { supplyData, storeIds, storeDef, sourcesHere, sourceDef, recipeIds, recipeDef, gearSlots, gearDef } from '../../systems/ship/supplies.js';
+import { suppliesHere, missingFor, itemList } from '../../systems/ship/supplyResponse.js';
 
 /** A condition's colour mark (the word beside it always says the same thing). */
 const TONE = { healthy: 'g', worn: 'w', damaged: 'y', critical: 'o', disabled: 'r' };
@@ -37,6 +39,12 @@ const TONE = { healthy: 'g', worn: 'w', damaged: 'y', critical: 'o', disabled: '
  * Beard system is on (no chapter turns it on), the captain's beard is a row:
  * how full, what it holds (broadly), its conditions, how well it protects,
  * the purge risk, and where and with what it can be cleaned.
+ *
+ * Prompt 10 (docs/gameplay-overhaul/14-resources-and-cooking.md): while the
+ * supplies system is on (no chapter turns it on), rows for the ship's stores
+ * (what is in them, by class), his gear (each slot, how wet the cloth is),
+ * the galley (the pot, the recipes and what each is missing), the food and
+ * draught effects running, and the places to search in this room.
  */
 export class ShipPage {
   constructor(scene, rect) {
@@ -98,6 +106,20 @@ export class ShipPage {
       const right = b.phase === 'overload' ? `PURGE ${b.left}s` : `${b.shown}% ${b.stage === 'heavy' ? 'HEAVY' : b.label.toUpperCase()}`;
       items.push({ label: 'Your beard', value: 'hz:beard', right, rightColor: toneColor[b.phase === 'overload' ? 'r' : b.tone] ?? 0xffffff });
     }
+    // Prompt 10: the supplies, whenever that system is on.
+    const sup = ship.supplies;
+    if (sup.on && supplyData(this.app.content)) {
+      for (const st of storeIds(this.app.content)) items.push({ label: 'Ship\'s stores', value: `sup:store:${st}`, right: `${sup.storeTotal(st)}/${storeDef(this.app.content, st).capacity}`, rightColor: 0xffffff });
+      const worn = sup.wornGear();
+      items.push({ label: 'Your gear', value: 'sup:gear', right: worn.length ? `${worn.length} WORN` : 'NONE', rightColor: worn.some((i) => sup.spent(i)) ? 0xf8d86c : 0xffffff });
+      const pot = sup.cooking;
+      const known = recipeIds(this.app.content).filter((r) => sup.knows(r)).length;
+      items.push({ label: 'Galley', value: 'sup:galley', right: pot ? (sup.ready ? 'READY' : `COOKING ${pot.left}s`) : `${known} RECIPES`, rightColor: pot && sup.ready ? 0x8cd46a : 0xffffff });
+      const fx = sup.effectList();
+      if (fx.length) items.push({ label: 'Food & draughts', value: 'sup:effects', right: fx.map((e) => `${e.short} ${e.left}s`).join(' '), rightColor: 0x8cd46a });
+      const here = sourcesHere(this.app.content, this.session.location);
+      if (here.length) items.push({ label: 'To search here', value: 'sup:here', right: `${here.filter((id) => sup.available(id).ok).length}/${here.length} READY`, rightColor: 0xffffff });
+    }
     this.menu = new ListMenu(scene, {
       x: rect.x + 24,
       y: rect.y + 34,
@@ -126,6 +148,10 @@ export class ShipPage {
     const id = this.menu?.selected?.value;
     if (id?.startsWith('hz:')) {
       this.renderHazard(id.slice(3));
+      return;
+    }
+    if (id?.startsWith('sup:')) {
+      this.renderSupplies(id.slice(4));
       return;
     }
     const sec = id ? this.session.ship.section(id) : null;
@@ -310,6 +336,72 @@ export class ShipPage {
     line(beardHere(session) ? `{btn:confirm} <y>Respond</>` : '');
   }
 
+  /** Prompt 10: the supplies' rows: the stores, his gear, the galley, food and draughts, and what can be searched here. */
+  renderSupplies(what) {
+    const { scene, rect } = this;
+    const session = this.session;
+    const content = this.app.content;
+    const sup = session.ship.supplies;
+    const D = 21;
+    const x = rect.x + 12;
+    const width = rect.w - 24;
+    let y = rect.y + 117;
+    const bottom = rect.y + rect.h - 8;
+    const line = (text) => {
+      const left = Math.floor((bottom - y) / 11);
+      if (left < 1 || !text) return;
+      const tx = this.detail.add(addText(scene, x, y, text, { depth: D, maxWidth: width, maxLines: left }));
+      y += tx.text.split('\n').length * 11 + 2;
+    };
+    const name = (id) => content.items.get(id)?.name ?? id;
+    const place = (r) => (content.maps.get(r)?.name ?? r).replace(/^The /, '');
+    if (what.startsWith('store:')) {
+      const st = what.slice(6);
+      const def = storeDef(content, st);
+      line(`<y>The ship's stores</> (${place(def.room)}): ${sup.storeTotal(st)}/${def.capacity}.`);
+      const items = sup.storeItems(st);
+      const byClass = {};
+      for (const i of items) (byClass[i.cls] ??= []).push(i);
+      const classes = supplyData(content).classes;
+      if (!items.length) line('<k>Empty.</>');
+      for (const [cls, list] of Object.entries(byClass)) line(`<k>${classes[cls]?.label ?? cls}:</> ${itemList(content, list)}`);
+      line('<k>Repairs use what you carry: fetch from here. The galley cooks from it.</>');
+    } else if (what === 'gear') {
+      const slots = gearSlots(content).map((slot) => {
+        const item = sup.wornIn(slot);
+        const c = item ? gearDef(content, item).charges : null;
+        const wet = c ? ` ${sup.spent(item) ? `<y>${c.empty.toUpperCase()}</>` : `${c.label} ${Math.round((sup.charge(item) / c.max) * 100)}%`}` : '';
+        return `${supplyData(content).gear.slots[slot]}: ${item ? `<g>${name(item)}</>${wet}` : '<k>-</>'}`;
+      });
+      line(slots.join('  '));
+      const worn = sup.wornGear().filter((i) => gearDef(content, i));
+      if (worn.length) line(`<k>${worn.map((i) => gearDef(content, i).note).join(' ')}</>`);
+      line(suppliesHere(session) ? '{btn:confirm} <y>Respond</> <k>(wear, take off)</>' : '<k>Wear or take off what you carry with Respond.</>');
+    } else if (what === 'galley') {
+      if (sup.cooking) {
+        const r = recipeDef(content, sup.cooking.recipe);
+        line(sup.ready ? `<g>${r.name} is ready:</> ${sup.cooking.serves} to serve at the stove.` : `<y>${r.name}</> on the stove: ${sup.cooking.left}s to go (${sup.cooking.serves} to serve).`);
+      }
+      for (const id of recipeIds(content)) {
+        if (!sup.knows(id)) continue;
+        const r = recipeDef(content, id);
+        const missing = missingFor(session, id, 'galley');
+        line(`${r.name}: ${missing.length ? `<r>missing ${missing.map((m) => `${name(m.item)} ${m.have}/${m.need}`).join(', ')}</>` : '<g>can cook</>'} <k>(${r.simmer}s)</>`);
+      }
+    } else if (what === 'effects') {
+      for (const e of sup.effectList()) line(`<g>${e.label}</> ${e.left}s: <k>${e.note}</>`);
+    } else if (what === 'here') {
+      for (const id of sourcesHere(content, session.location)) {
+        const def = sourceDef(content, id);
+        const a = sup.available(id);
+        const st = sup.sourceState(id);
+        const state = a.ok ? (Number.isFinite(st.left) ? `<g>${st.left} left</>` : '<g>ready</>') : a.wait ? `<k>picked clean ${a.wait}s</>` : st.restockIn > 0 ? `<k>empty, more in ${st.restockIn}s</>` : '<k>empty</>';
+        line(`${def.label.replace(/^the /, '').replace(/^./, (c) => c.toUpperCase())}: ${state}`);
+      }
+      line(suppliesHere(session) ? '{btn:confirm} <y>Respond</>' : '');
+    }
+  }
+
   /** Confirm on an emergency in this room: close the menu and open the Respond choice in the world. */
   respond(hid) {
     if (this.started) return;
@@ -361,6 +453,17 @@ export class ShipPage {
   repair(id) {
     if (id?.startsWith('hz:')) {
       this.respond(id.slice(3));
+      return;
+    }
+    // Prompt 10: a supplies row opens Respond where he stands, when there's something to do there.
+    if (id?.startsWith('sup:')) {
+      if (this.started || !suppliesHere(this.session)) {
+        this.app.audio.ui('buzzer');
+        return;
+      }
+      this.started = true;
+      this.app.audio.ui('confirm');
+      this.scene.close({ then: (world) => world.runScript([{ emergency: true }]) });
       return;
     }
     if (this.started) return;

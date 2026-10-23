@@ -69,6 +69,9 @@ function systemsState(content, session) {
     // Prompt 9: the Stink Beard system (switched on, what it holds, conditions kept, worn). No chapter switches it on.
     const b = session.ship.beard;
     out.ship.beard = { on: b.on, held: Object.keys(b.held).sort(), statuses: Object.keys(b.statuses).sort(), worn: [...b.worn].sort(), purges: b.count };
+    // Prompt 10: the supplies system (switched on, what the stores hold, sources touched, the pot, effects running). No chapter switches it on.
+    const u = session.ship.supplies;
+    out.ship.supplies = { on: u.on, stored: Object.keys(u.stores).sort().map((st) => `${st}:${u.storeTotal(st)}`), sources: Object.keys(u.sources).sort(), cooking: u.cooking?.recipe ?? null, effects: Object.keys(u.effects).sort() };
   }
   return out;
 }

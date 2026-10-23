@@ -45,6 +45,7 @@ import { shipTuning } from '../systems/ship/integrity.js';
 import { hazardData } from '../systems/ship/hazards.js';
 import { emergencySummary } from '../systems/ship/response.js';
 import { captainFactors } from '../systems/ship/airResponse.js';
+import { supplyLimits } from '../systems/ship/supplies.js';
 import { HazardClock } from '../systems/ship/hazardClock.js';
 
 // Step durations chosen so a 60 Hz frame moves a whole number of pixels:
@@ -1308,6 +1309,8 @@ export class WorldScene extends BaseScene {
   onPlayerStep() {
     const p = this.player;
     this.session.location = { map: this.model.id, x: p.tx, y: p.ty, facing: p.facing };
+    // Prompt 10: the supplies' places (a source, the stores, the stove, water) are within reach or not: Respond follows him.
+    if (this.session.ship.supplies.on) this.hazardDirty = true;
     this.stage.tetherStep(p.tx, p.ty);
     const warp = this.warpAt(p.tx, p.ty);
     if (warp && this.warpUnlocked(warp)) {
@@ -1772,7 +1775,11 @@ export class WorldScene extends BaseScene {
     const ward = this.session.transient.fumeWard;
     // Prompt 9: the wet cloth worn over the beard (beardWear) protects like the rescue gear, and never on top of it (the smaller of the two).
     const cloth = Math.min(this.session.story.has('rescue_gear_on') ? 0.7 : 1, ship.beard.lungFactor);
-    const protect = cloth * (ward?.ms > 0 ? ward.scale : 1);
+    // Prompt 10: a draught (a grog tot, while the supplies system is on) is taken with the Frog Grog ward, the smaller of the
+    // two, never on top and never past the supplies' floor; without one, the ward exactly as before.
+    const legacyWard = ward?.ms > 0 ? ward.scale : 1;
+    const draught = ship.supplies.factor('lungs');
+    const protect = cloth * (draught < 1 ? Math.max(supplyLimits(this.content).lungs, Math.min(legacyWard, draught)) : legacyWard);
     ship.air.access = this.app.flags.fumeImmunity ? 0 : this.app.settings.fumeScale() * protect;
     ship.air.legacyOwns = level === 'dense' || level === 'center';
     // Prompt 9: the fume hazard option reaches the beard's gagging fits (Off: none); the HUD reads it on the difficulty in play.

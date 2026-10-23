@@ -233,6 +233,24 @@ export const COMMAND_SCHEMAS = {
   beardCare: { beardCare: 'beardCare', announce: 'boolean?', ...CHALLENGE_PARAMS },
   beardSetback: { beardSetback: 'string', announce: 'boolean?' },
   beardWear: { beardWear: 'beardItem', remove: 'boolean?', announce: 'boolean?', outcomeValue: 'string?' },
+  // Shipboard resources and cooking (overhaul Prompt 10, docs/gameplay-overhaul/14-resources-and-cooking.md): opt-in stores, sources,
+  // gear, food and draughts, the galley. The pack is the ordinary inventory: giveItem and takeItem still give and take from it.
+  suppliesSystem: { suppliesSystem: 'boolean' },
+  supplyStore: { supplyStore: 'supplyStore', give: 'supplyBill?', take: 'supplyBill?', empty: 'boolean?', outcomeValue: 'string?' },
+  supplyTransfer: { supplyTransfer: 'supplyStore', item: 'supplyItem', count: 'number?', all: 'boolean?', to: 'supplyTo', anywhere: 'boolean?', announce: 'boolean?', outcomeValue: 'string?' },
+  supplyMenu: { supplyMenu: 'supplyMenu', store: 'supplyStore' },
+  supplyCheck: { supplyCheck: 'supplyStore' },
+  supplySource: { supplySource: 'supplySource', op: 'supplyOp', count: 'number?' },
+  supplyTake: { supplyTake: 'supplySource', anywhere: 'boolean?', announce: 'boolean?', ...CHALLENGE_PARAMS },
+  supplySetback: { supplySetback: 'string', source: 'supplySource?', recipe: 'supplyRecipe?' },
+  gearEquip: { gearEquip: 'gearItem', remove: 'boolean?', announce: 'boolean?', outcomeValue: 'string?' },
+  gearRecharge: { gearRecharge: 'gearItem', anywhere: 'boolean?', announce: 'boolean?' },
+  useSupply: { useSupply: 'supplyItem', announce: 'boolean?', outcomeValue: 'string?' },
+  supplyEffect: { supplyEffect: 'supplyEffect', remove: 'boolean?' },
+  learnRecipe: { learnRecipe: 'supplyRecipe' },
+  cook: { cook: 'supplyRecipe', anywhere: 'boolean?', announce: 'boolean?', ...CHALLENGE_PARAMS },
+  serve: { serve: 'boolean', anywhere: 'boolean?', announce: 'boolean?', outcomeValue: 'string?' },
+  cookReport: { cookReport: 'boolean' },
 };
 
 /** Commands that may carry "async": true (start and continue without waiting). */

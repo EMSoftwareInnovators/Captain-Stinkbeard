@@ -10,6 +10,8 @@ import { asArray } from '../../core/util.js';
  *   { "type": "applyStatus", "status": "braced", "duration": 3, "chance": 1 }
  *   { "type": "restore", "resource": "command", "amount": 1 }   ("*": whatever the target runs on)
  *   { "type": "fumeWard", "seconds": 90, "scale": 0.5 }   fumes build slower for a while (field)
+ *   { "type": "shipEffect", "effect": "full_belly" }    overhaul Prompt 10: a timed supplies effect (data/ship/supplies.json),
+ *   { "type": "shipEffect", "recover": 25 }              or minor recovery of bad-air exposure; only while that system is on
  *   { "type": "sideEffect", "table": [                  one weighted surprise (Frog Grog)
  *       { "id": "warmed_up", "weight": 3, "status": "warmed_up", "duration": 3, "text": "…" },
  *       { "id": "belching", "weight": 2, "status": "belching", "duration": 2, "field": [ …effects ] } ] }
@@ -19,7 +21,7 @@ import { asArray } from '../../core/util.js';
  * statusIds(), restoreResource(name, n). Characters in the field only support
  * HP effects; statuses exist only in battle.
  */
-export const EFFECT_TYPES = ['heal', 'revive', 'cure', 'applyStatus', 'restore', 'damage', 'fumeWard', 'sideEffect'];
+export const EFFECT_TYPES = ['heal', 'revive', 'cure', 'applyStatus', 'restore', 'damage', 'fumeWard', 'sideEffect', 'shipEffect'];
 
 function weightedPick(table, rng) {
   const list = asArray(table);
@@ -84,6 +86,18 @@ export function applyEffect(effect, target, { rng = null, statuses = null, sessi
       session.transient.fumeWard = { ms: Math.max(ms, cur?.ms ?? 0), scale: Math.min(effect.scale ?? 0.5, cur?.ms > 0 ? cur.scale : 1) };
       return { type: 'fumeWard', applied: true, seconds: effect.seconds ?? 60 };
     }
+    case 'shipEffect': {
+      // Overhaul Prompt 10 (docs/gameplay-overhaul/14-resources-and-cooking.md): the captain's own, in the field, while the
+      // supplies system is on: a timed effect (one per group, never stacking) or a little of the lungs cleared.
+      const supplies = session?.ship?.supplies;
+      if (!supplies?.on || target !== session.party?.members?.[0]) return { type: 'shipEffect', applied: false };
+      if (effect.recover) {
+        const r = supplies.recover(effect.recover);
+        return { type: 'shipEffect', applied: r.ok, recovered: r.cleared };
+      }
+      const r = supplies.applyEffect(effect.effect, { tuning: supplies.tuning });
+      return { type: 'shipEffect', applied: r.ok, effect: effect.effect, seconds: r.seconds ?? 0, replaced: r.replaced ?? null };
+    }
     case 'sideEffect': {
       // One weighted pick from a small table. In battle it may apply a short
       // status; in the field only its "field" effects and its line of flavour.
@@ -111,7 +125,7 @@ export function applyEffects(effects, target, opts) {
  * Whether using an item on a target would do anything. Used by menus to avoid
  * wasting consumables ("It would have no effect.").
  */
-export function wouldAffect(effects, target) {
+export function wouldAffect(effects, target, session = null) {
   return asArray(effects).some((e) => {
     switch (e.type) {
       case 'heal':
@@ -127,6 +141,9 @@ export function wouldAffect(effects, target) {
       case 'fumeWard':
       case 'sideEffect':
         return target.isAlive();
+      case 'shipEffect':
+        // Only while the supplies system is on, and only for the captain: otherwise the item isn't wasted.
+        return !!session?.ship?.supplies?.on && target === session.party?.members?.[0] && target.isAlive() && (!e.recover || session.ship.air.exposure > 0);
       default:
         return false;
     }

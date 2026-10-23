@@ -587,6 +587,10 @@ export class DebugScene extends BaseScene {
     out.push({ label: 'Beard', right: `${b.on ? '' : '<k>off</> '}${bi.shown}% ${bi.label}${bi.phase !== 'idle' ? ` ${bi.phase} ${bi.left}s` : ''}${bi.statuses.length ? ` ${bi.statuses.map((x) => x.short).join(' ')}` : ''}` });
     for (const c of bi.contents.slice(0, 5)) out.push({ label: `  ${c.label}`, right: `${c.amount.toFixed(1)}` });
     for (const [label, steps] of DEBUG_SHIP.beard) out.push({ label, action: () => this.runInWorld(steps) });
+    // Prompt 10: the supplies (the stores, what each source has left, the pot, effects).
+    const u = s.ship.supplies;
+    out.push({ label: 'Supplies', right: `${u.on ? '' : '<k>off</> '}stores ${u.storeTotal('hold')}${u.cooking ? `, pot ${u.cooking.recipe} ${u.cooking.left}s` : ''}${Object.keys(u.effects).length ? `, ${Object.keys(u.effects).join(' ')}` : ''}` });
+    for (const [label, steps] of DEBUG_SHIP.supplies) out.push({ label, action: () => this.runInWorld(steps) });
     out.push({ label: 'Take every repair material', action: () => {
       for (const id of DEBUG_SHIP.materials) if (s.inventory.count(id)) s.inventory.remove(id, s.inventory.count(id));
       this.rerender();

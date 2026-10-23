@@ -11,6 +11,7 @@ export const DEBUG_SHIP = {
     ['Air demo (crew quarters, clean air, sealing supplies)', 'air_demo'],
     ['Pressure demo (crew quarters by Brogath and Garrick, supplies)', 'pressure_demo'],
     ['Beard demo (crew quarters by the washroom, rags, the beard wrap, cloth and goggles)', 'beard_demo'],
+    ['Supplies demo (cargo hold by the stores; the galley up the stairs; the gear)', 'supplies_demo'],
   ],
   /**
    * Prompt 6 (docs/gameplay-overhaul/10-flooding-and-fire.md, "Trying it"):
@@ -161,6 +162,58 @@ export const DEBUG_SHIP = {
     ['Wear the beard wrap', [{ beardWear: 'beard_wrap' }]],
     ['Let 10 seconds pass', [{ hazardClock: 10 }]],
     ['Wash it clean and switch it off', [{ beardClean: true }, { beardStatus: 'hornet_nested', remove: true }, { beardSaturation: false }]],
+  ],
+  /**
+   * Prompt 10 (docs/gameplay-overhaul/14-resources-and-cooking.md, "Debug
+   * demo"): the supplies scenarios, from the supplies_demo preset (the cargo
+   * hold by the ship's stores; the galley up the stairs). Each switches the
+   * system on; then act where you stand with V (pad X): search, salvage, put
+   * away and take out, cook, serve, wear and eat. The sources remember what
+   * they gave (leave the room and come back; save and load).
+   */
+  supplies: [
+    ['Supplies A: salvage and storage (search the loose crates, salvage the stove-in ones, put it all in the stores)', [
+      { suppliesSystem: true },
+      { tutorial: 'Search the loose crates and salvage the stove-in ones (V by them), then put what you found in the ship\'s stores by the big crates. Leave the hold and come back: what you took stays taken.', title: 'Supplies' },
+    ]],
+    ['Supplies B: the repair loop (a leak in the hold; the materials are in the stores, not on you)', [
+      { suppliesSystem: true },
+      { supplyTransfer: 'hold', item: 'planks', all: true, to: 'store', anywhere: true, announce: false },
+      { supplyTransfer: 'hold', item: 'nails', all: true, to: 'store', anywhere: true, announce: false },
+      { supplyStore: 'hold', give: [{ item: 'planks', count: 2 }, { item: 'nails', count: 3 }] },
+      { leak: 'hull_port', severity: 'leak', source: 'debug' },
+    ]],
+    ['Supplies C: gear and draughts (bad air in the hold; the cloth, a grog tot, Frog Grog)', [
+      { suppliesSystem: true },
+      { beardSaturation: true },
+      { beardClean: true },
+      { airAdd: 'cargo_hold', substance: 'smoke', pct: 20 },
+      { airSource: 'cargo_hold', substance: 'smoke', rate: 3, seconds: 240, label: 'a smouldering bale', source: 'debug' },
+      { giveItem: 'grog_tot', count: 1 },
+      { giveItem: 'frog_grog', count: 1 },
+    ]],
+    ['Supplies D: cooking (ingredients in the stores: up to the galley stove, stir, simmer, serve, eat)', [
+      { suppliesSystem: true },
+      { supplyStore: 'hold', give: [{ item: 'beans', count: 4 }, { item: 'onions', count: 2 }, { item: 'oats', count: 4 }] },
+    ]],
+    ['Supplies E: scarcity (nothing on you, the stores bare, every cache taken; a leak; the bilge and the sacking come back)', [
+      { suppliesSystem: true },
+      { supplyTransfer: 'hold', item: 'planks', all: true, to: 'store', anywhere: true, announce: false },
+      { supplyTransfer: 'hold', item: 'nails', all: true, to: 'store', anywhere: true, announce: false },
+      { supplyTransfer: 'hold', item: 'sailcloth', all: true, to: 'store', anywhere: true, announce: false },
+      { supplyStore: 'hold', empty: true },
+      { supplySource: 'hold_crates', op: 'deplete' },
+      { supplySource: 'hold_wreckage', op: 'deplete' },
+      { supplySource: 'hold_barrels', op: 'deplete' },
+      { leak: 'hull_port', severity: 'leak', source: 'debug' },
+    ]],
+    ['Supplies F: saves and retries (beans and onions on you: cook, fail the stir, retry; salvage; save and load)', [
+      { suppliesSystem: true },
+      { giveItem: 'beans', count: 4 },
+      { giveItem: 'onions', count: 2 },
+    ]],
+    ['Let 30 seconds pass', [{ hazardClock: 30 }]],
+    ['Switch the supplies off', [{ suppliesSystem: false }]],
   ],
   scenes: [
     ['A shark bites the port hull (40)', [{ shipDamage: 'hull_port', amount: 40, category: 'shark', source: 'debug' }]],

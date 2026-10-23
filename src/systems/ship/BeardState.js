@@ -1,4 +1,5 @@
 import { isPlainObject, asArray } from '../../core/util.js';
+import { gearDef } from './supplies.js';
 import { SHIP_TUNING_DEFAULTS, SHIP_TUNING } from './integrity.js';
 import { airRoom, airData } from './air.js';
 import { beardData, contaminantIds, contaminant, contaminantFromAir, beardStatusIds, beardStatus, stageForPct, stageIndex, BEARD_PHASES } from './beard.js';
@@ -146,6 +147,8 @@ export class BeardState {
   wornFactor(key) {
     let k = 1;
     for (const item of this.wornItems()) {
+      // Prompt 10: a charged item worn out (the cloth dried, while the supplies system is on) gives nothing until recharged.
+      if (this.ship?.supplies?.spent(item)) continue;
       const v = this.data.equipment[item][key];
       if (typeof v === 'number') k *= v;
     }
@@ -436,7 +439,11 @@ export class BeardState {
     if (!e || item.startsWith('//')) return { ok: false, reason: `${item} isn't something to wear over a beard` };
     if (on) {
       if ((this.session?.inventory?.count(item) ?? 0) <= 0) return { ok: false, reason: `You don't have ${e.label}.` };
-      if (!this.worn.includes(item)) this.worn.push(item);
+      // Prompt 10: gear the supplies data knows goes on by its rules (one to a slot, what it can't be worn with).
+      if (this.ship?.supplies && gearDef(this.content, item)) {
+        const r = this.ship.supplies.equip(item);
+        if (!r.ok) return r;
+      } else if (!this.worn.includes(item)) this.worn.push(item);
     } else this.worn = this.worn.filter((x) => x !== item);
     this.changed();
     return { ok: true, label: e.label };
@@ -765,7 +772,8 @@ export class BeardState {
     this.sniffLock = Math.round(n(state.sniffLock, 0, LOCK_MAX, 0));
     this.sniffClear = Math.round(n(state.sniffClear, 0, LOCK_MAX, 0));
     for (const item of asArray(state.worn)) {
-      if (typeof item !== 'string' || !data.equipment?.[item] || item.startsWith('//')) {
+      // The one list of worn gear: the beard's own and (Prompt 10) the supplies' gear, the helmet with it.
+      if (typeof item !== 'string' || item.startsWith('//') || !(data.equipment?.[item] || gearDef(this.content, item))) {
         onWarning(`beard: dropped worn "${item}"`);
         continue;
       }

@@ -4,6 +4,7 @@ import { HazardState } from './HazardState.js';
 import { AirState } from './AirState.js';
 import { PressureState } from './PressureState.js';
 import { BeardState } from './BeardState.js';
+import { SupplyState } from './SupplyState.js';
 
 /**
  * The ship's condition (docs/gameplay-overhaul/09-ship-integrity.md): each
@@ -34,8 +35,10 @@ import { BeardState } from './BeardState.js';
  * (./HazardState.js), its air room by room (Prompt 7) is `this.air`
  * (./AirState.js), and the Grand Stenchmasters' pressure (Prompt 8) is
  * `this.pressure` (./PressureState.js), and the captain's Stink Beard
- * (Prompt 9) is `this.beard` (./BeardState.js), all saved and checkpointed
- * with it, and all moved by one clock: `tick()`.
+ * (Prompt 9) is `this.beard` (./BeardState.js), and its supplies (Prompt
+ * 10: the stores, the sources, food and draught effects, the galley pot) are
+ * `this.supplies` (./SupplyState.js), all saved and checkpointed with it, and
+ * all moved by one clock: `tick()`.
  */
 const SEEN_LIMIT = 128;
 /** Event ids a save and a checkpoint keep (all of them: at most SEEN_LIMIT). */
@@ -54,12 +57,13 @@ export class ShipState {
     this.air = new AirState({ ship: this, def: air, bus });
     this.pressure = new PressureState({ ship: this, def: pressure, bus });
     this.beard = new BeardState({ ship: this, bus });
+    this.supplies = new SupplyState({ ship: this, bus });
     this.reset();
   }
 
-  /** Something to move on the hazard clock: an emergency, anything in the air, a Grand Stenchmaster under pressure, or a beard holding something. */
+  /** Something to move on the hazard clock: an emergency, anything in the air, a Grand Stenchmaster under pressure, a beard holding something, or supplies on a clock (an effect, a pot, a restock). */
   get envActive() {
-    return this.hazards.active || this.air.active || this.air.smokeToCome() || this.pressure.active || this.beard.active;
+    return this.hazards.active || this.air.active || this.air.smokeToCome() || this.pressure.active || this.beard.active || this.supplies.active;
   }
 
   /**
@@ -71,14 +75,17 @@ export class ShipState {
    * conditions, the overload countdown and a purge, which pours into the air
    * from the next second). The one clock: the world calls it while the
    * captain is free, the emergency work tick by tick, `hazardClock` on
-   * purpose. Returns true if anything moved.
+   * purpose. Then the supplies' second (Prompt 10: effects run down,
+   * sources restock, the pot simmers, the cloth dries in what he just
+   * breathed). Returns true if anything moved.
    */
   tick(tuning) {
     const p = this.pressure.tick(tuning);
     const a = this.hazards.tick(tuning);
     const b = this.air.tick(tuning);
     const c = this.beard.tick(tuning);
-    return p || a || b || c;
+    const d = this.supplies.tick(tuning);
+    return p || a || b || c || d;
   }
 
   get ids() {
@@ -283,7 +290,7 @@ export class ShipState {
   }
 
   serialize() {
-    return { sections: Object.fromEntries(this.ids.map((id) => [id, this.hp.get(id)])), hazards: this.hazards.serialize(), air: this.air.serialize(), pressure: this.pressure.serialize(), beard: this.beard.serialize(), events: [...this.seen].slice(-SAVED_EVENTS) };
+    return { sections: Object.fromEntries(this.ids.map((id) => [id, this.hp.get(id)])), hazards: this.hazards.serialize(), air: this.air.serialize(), pressure: this.pressure.serialize(), beard: this.beard.serialize(), supplies: this.supplies.serialize(), events: [...this.seen].slice(-SAVED_EVENTS) };
   }
 
   /**
@@ -316,6 +323,8 @@ export class ShipState {
     this.pressure.load(state?.pressure, onWarning);
     // The beard (a save from before version 22 has none: off and clean; the old beard tags are the story's, never read as contamination).
     this.beard.load(state?.beard, onWarning);
+    // The supplies (a save from before version 23 has none: off, empty stores, every source as the data has it; nothing invented).
+    this.supplies.load(state?.supplies, onWarning);
     this.bus?.emit('ship:loaded', {});
     this.bus?.emit('hazard:changed', {});
     this.bus?.emit('ship:changed', { section: null });

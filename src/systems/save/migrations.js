@@ -408,6 +408,19 @@ Object.assign(MIGRATIONS, {
    * an older build from loading a save and silently dropping a beard in play.
    */
   21: (state) => fillLayout(state),
+  /**
+   * 22 -> 23 (overhaul Prompt 10: shipboard resources and cooking,
+   * docs/gameplay-overhaul/14-resources-and-cooking.md). The ship gains
+   * "supplies" (whether the system is on, the stores' stock, each source's
+   * state, timed food and draught effects, the galley pot, how wet the cloth
+   * is, recipes taught). A version 22 save had none, and no chapter switches
+   * it on, so it stays absent: loading reads that as off, the stores empty
+   * and every source as the data has it. Nothing is given retroactively; the
+   * inventory, its key items and Frog Grog load exactly as they were. What
+   * is worn stays the beard's list. The bump stops an older build from
+   * loading a save and silently dropping the stores.
+   */
+  22: (state) => fillLayout(state),
 });
 
 export function migrateState(state, fromVersion, toVersion, migrations = MIGRATIONS) {

@@ -1,0 +1,98 @@
+[
+ {
+  "//": "Overhaul Prompt 10 (docs/gameplay-overhaul/14-resources-and-cooking.md): the galley's ingredients, its cooked food and a tot of grog. Only the opt-in supplies system hands these out (data/ship/supplies.json sources and recipes); no chapter gives or takes them.",
+  "id": "beans",
+  "name": "Beans",
+  "type": "material",
+  "icon": "sack",
+  "value": 2,
+  "maxStack": 20,
+  "description": "Dried beans, a sack of them. The galley's answer to everything. Cook them."
+ },
+ {
+  "id": "onions",
+  "name": "Onions",
+  "type": "material",
+  "icon": "onion",
+  "value": 2,
+  "maxStack": 20,
+  "description": "Ship's onions, sprouting a little. Cook them."
+ },
+ {
+  "id": "oats",
+  "name": "Oats",
+  "type": "material",
+  "icon": "sack",
+  "value": 2,
+  "maxStack": 20,
+  "description": "A bag of rolled oats, mostly oats. Cook them."
+ },
+ {
+  "id": "garlic",
+  "name": "Garlic",
+  "type": "material",
+  "icon": "onion",
+  "value": 3,
+  "maxStack": 20,
+  "description": "A string of garlic. Strong enough to argue with. Cook it."
+ },
+ {
+  "id": "salt_fish",
+  "name": "Salt Fish",
+  "type": "material",
+  "icon": "fish",
+  "value": 4,
+  "maxStack": 20,
+  "description": "Salted, dried, flat and firm. Soak it and cook it."
+ },
+ {
+  "id": "bean_stew",
+  "name": "Bean Stew",
+  "type": "consumable",
+  "icon": "bowl",
+  "value": 6,
+  "maxStack": 9,
+  "description": "Thick and filling. Restores 25 HP; a full belly makes emergency work quicker for a while.",
+  "use": { "context": ["field"], "effects": [{ "type": "heal", "amount": 25 }, { "type": "shipEffect", "effect": "full_belly" }] }
+ },
+ {
+  "id": "oat_porridge",
+  "name": "Oat Porridge",
+  "type": "consumable",
+  "icon": "bowl",
+  "value": 4,
+  "maxStack": 9,
+  "description": "Plain and warm. Restores 15 HP; steady hands widen the green on repair bars for a while.",
+  "use": { "context": ["field"], "effects": [{ "type": "heal", "amount": 15 }, { "type": "shipEffect", "effect": "steady_hands" }] }
+ },
+ {
+  "id": "fish_chowder",
+  "name": "Fish Chowder",
+  "type": "consumable",
+  "icon": "bowl",
+  "value": 8,
+  "maxStack": 9,
+  "description": "Hot and salty. Restores 40 HP; a warm belly halves the harm bad air does for a while.",
+  "use": { "context": ["field"], "effects": [{ "type": "heal", "amount": 40 }, { "type": "shipEffect", "effect": "warm_belly" }] }
+ },
+ {
+  "id": "garlic_broth",
+  "name": "Garlic Broth",
+  "type": "consumable",
+  "icon": "bowl",
+  "value": 5,
+  "maxStack": 9,
+  "description": "Clears the head. Restores 10 HP and clears 25 points of bad-air exposure from the lungs.",
+  "use": { "context": ["field"], "effects": [{ "type": "heal", "amount": 10 }, { "type": "shipEffect", "recover": 25 }] }
+ },
+ {
+  "id": "grog_tot",
+  "name": "Grog Tot",
+  "type": "consumable",
+  "icon": "tot",
+  "value": 5,
+  "maxStack": 9,
+  "description": "A measured tot from the galley jugs (not the Frog Grog itself). Restores 10 HP; less bad air reaches the lungs for 90s, but the hands wobble.",
+  "use": { "context": ["field"], "effects": [{ "type": "heal", "amount": 10 }, { "type": "shipEffect", "effect": "grog_ward" }] }
+ }
+]

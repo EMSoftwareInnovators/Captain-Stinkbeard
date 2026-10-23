@@ -17,7 +17,7 @@ import { challengeConfig } from '../challenge/config.js';
 import { ChallengeRun, runChallenge, challengeLog, chapterOf } from '../challenge/runner.js';
 import { captureCheckpoint } from '../challenge/checkpoint.js';
 import { normalizePrefs } from '../challenge/difficulty.js';
-import { shipTuning, resolveRepair, repairIdFor, affordableAttempts, sumItems } from '../ship/integrity.js';
+import { shipTuning, resolveRepair, repairIdFor, affordableAttempts, sumItems, scaleCount } from '../ship/integrity.js';
 import { hazardData, fireRoom } from '../ship/hazards.js';
 import { responseOptions, patchWaste, roomLabel } from '../ship/response.js';
 import { airRoom } from '../ship/air.js';
@@ -26,6 +26,9 @@ import { subjectDef, stageInfo, pressureData } from '../ship/pressure.js';
 import { subjectOptions, pressureGroups, pressureReport } from '../ship/pressureResponse.js';
 import { beardData } from '../ship/beard.js';
 import { beardOptions, beardReport, sniffReport } from '../ship/beardResponse.js';
+import { sourceDef, recipeDef, storeDef, storesHere, stationHere, waterHere } from '../ship/supplies.js';
+import { supplyGroups, supplySeconds, barZone, missingFor, storeReport, recipeReport, effectNote } from '../ship/supplyResponse.js';
+import { applyEffects, wouldAffect, itemUsableIn } from '../effects/effects.js';
 import { tunedTensionDef } from '../tension.js';
 
 /** Story Phase 14: a stability subject (data/story/stability) with its defaults. */
@@ -388,6 +391,19 @@ function quietly(ctx, step, fn) {
 /** The ship tuning of the difficulty in play. */
 function tuningOf(ctx) {
   return shipTuning(ctx.session.content ?? ctx.content, challengePrefs(ctx).difficulty);
+}
+
+/** A supply step that can't be done: says why (unless quiet), records "refused", changes nothing. */
+async function refused(ctx, step, reason) {
+  if (step.announce !== false && reason !== 'off') await shipNotice(ctx, `<r>${reason}</>`);
+  if (step.outcomeValue) ctx.session.story.setValue(step.outcomeValue, 'refused');
+  return null;
+}
+
+/** What eating or drinking one did, in a line (the Items menu says the same). */
+function supplyUseText(session, target, def, results) {
+  const healed = results.filter((r) => r.type === 'heal').reduce((n, r) => n + r.amount, 0);
+  return [healed ? `${target.name} recovers <g>${healed}</> HP.` : `${target.name} has the ${def.name}.`, effectNote(session.content, results)].filter(Boolean).join(' ');
 }
 
 function shipDamageText(ctx, r) {
@@ -927,7 +943,7 @@ export function createCommandImplementations() {
           committed = { items, done: ship.commitRepair({ section, restore, items, inventory: session.inventory, source: `repair:${repair.id}` }) };
           if (!committed.done.ok) throw new Error(`shipRepair ${section}: ${committed.done.reason} (the plan said there was enough)`);
         };
-        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: repair.kind, strikes: repair.strikes, title: repair.title, speed: 1, zone: 26, challenge: info });
+        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: repair.kind, strikes: repair.strikes, title: repair.title, speed: 1, zone: barZone(ctx.session), challenge: info });
         const { record, goto } = await playChallenge(ctx, frame, cfg, attempt, settle);
         if (committed) {
           const items = committed.items;
@@ -1095,7 +1111,7 @@ export function createCommandImplementations() {
           if (!takeAll(session.inventory, opt.cost)) throw new Error(`patchLeak ${leakId}: materials gone (the plan said there were enough)`);
           committed = hz.patchLeak(leakId, rec.outcome);
         };
-        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: pdef.kind, strikes: pdef.strikes, title: pdef.title, speed: 1, zone: 26, challenge: info });
+        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: pdef.kind, strikes: pdef.strikes, title: pdef.title, speed: 1, zone: barZone(ctx.session), challenge: info });
         const { record, goto } = await playChallenge(ctx, frame, cfg, attempt, settle);
         if (committed && step.announce !== false) await shipNotice(ctx, `<k>Used ${itemList(content, opt.cost)}.</>`);
         else if (!committed && step.announce !== false && record.outcome === 'failure') {
@@ -1124,7 +1140,9 @@ export function createCommandImplementations() {
       const airOpts = airOptions(session, room, { difficulty: prefs.difficulty, always: pGroups.length > 0 });
       // Prompt 9: the captain's own beard, wherever he is, while that system is on (docs/gameplay-overhaul/13-beard-saturation.md).
       const beardOpts = beardOptions(session, { difficulty: prefs.difficulty });
-      if (!hazardOpts.length && !airOpts.length && !pGroups.length && !beardOpts.length) {
+      // Prompt 10: the supplies where he stands (a source, the stores, the stove, water) and his gear, while that system is on (docs/gameplay-overhaul/14-resources-and-cooking.md).
+      const sGroups = supplyGroups(session, { difficulty: prefs.difficulty });
+      if (!hazardOpts.length && !airOpts.length && !pGroups.length && !beardOpts.length && !sGroups.length) {
         if (step.announce !== false) await shipNotice(ctx, '<k>Nothing to do about an emergency here.</>');
         return null;
       }
@@ -1148,7 +1166,7 @@ export function createCommandImplementations() {
         return opts[index] ?? null;
       };
       // More than one kind of trouble here: which first (short lists, not one long one).
-      const groups = [...pGroups, ...(hazardOpts.length ? [{ label: 'Fight the emergency', ok: true, list: hazardOpts }] : []), ...(airOpts.length ? [{ label: 'Air and vents', ok: true, list: airOpts }] : []), ...(beardOpts.length ? [{ label: 'Your beard', ok: true, list: beardOpts }] : [])];
+      const groups = [...pGroups, ...(hazardOpts.length ? [{ label: 'Fight the emergency', ok: true, list: hazardOpts }] : []), ...(airOpts.length ? [{ label: 'Air and vents', ok: true, list: airOpts }] : []), ...(beardOpts.length ? [{ label: 'Your beard', ok: true, list: beardOpts }] : []), ...sGroups];
       let opts = groups[0].list;
       if (groups.length > 1) {
         const pick = await choose(groups);
@@ -1183,6 +1201,14 @@ export function createCommandImplementations() {
       else if (picked.action === 'wring') next = { beardWring: true };
       else if (picked.action === 'rinse' || picked.action === 'scrub') next = { beardCare: picked.action };
       else if (picked.action === 'wear' || picked.action === 'remove') next = { beardWear: picked.item, remove: picked.action === 'remove' };
+      else if (picked.action === 'source') next = { supplyTake: picked.source };
+      else if (picked.action === 'storeCheck') next = { supplyCheck: picked.store };
+      else if (picked.action === 'deposit' || picked.action === 'withdraw') next = { supplyMenu: picked.action, store: picked.store };
+      else if (picked.action === 'cook') next = { cook: picked.recipe };
+      else if (picked.action === 'serve') next = { serve: true };
+      else if (picked.action === 'recipes') next = { cookReport: true };
+      else if (picked.action === 'equip' || picked.action === 'unequip') next = { gearEquip: picked.item, remove: picked.action === 'unequip' };
+      else if (picked.action === 'recharge') next = { gearRecharge: picked.item };
       else if (picked.connection) next = { airControl: picked.connection, state: picked.to };
       else next = { hazardAction: picked.action, ...(picked.station ? { station: picked.station } : {}) };
       return ctx.runner.execBranch([next], ctx, frame);
@@ -1310,7 +1336,7 @@ export function createCommandImplementations() {
           if (!takeAll(session.inventory, opt.cost)) throw new Error(`airSeal ${opt.connection}: materials gone (the plan said there were enough)`);
           committed = air.setConnection(opt.connection, 'sealed');
         };
-        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: sdef.kind, strikes: sdef.strikes, title: sdef.title, speed: 1, zone: 26, challenge: info });
+        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: sdef.kind, strikes: sdef.strikes, title: sdef.title, speed: 1, zone: barZone(ctx.session), challenge: info });
         const { record, goto } = await playChallenge(ctx, frame, cfg, attempt, settle);
         if (committed?.ok && step.announce !== false) await shipNotice(ctx, `<g>Sealed</> ${c.label}. <k>Used ${itemList(content, opt.cost)}.</>`);
         else if (!committed?.ok && step.announce !== false && record.outcome === 'failure') {
@@ -1364,7 +1390,7 @@ export function createCommandImplementations() {
           if (!takeAll(session.inventory, opt.cost)) throw new Error(`airMend ${opt.connection}: materials gone (the plan said there were enough)`);
           committed = air.setConnection(opt.connection, null, { damaged: false });
         };
-        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: mdef.kind, strikes: mdef.strikes, title: mdef.title, speed: 1, zone: 26, challenge: info });
+        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: mdef.kind, strikes: mdef.strikes, title: mdef.title, speed: 1, zone: barZone(ctx.session), challenge: info });
         const { record, goto } = await playChallenge(ctx, frame, cfg, attempt, settle);
         if (committed?.ok && step.announce !== false) await shipNotice(ctx, `<g>Mended</> ${c.label}. <k>Used ${itemList(content, opt.cost)}.</>`);
         else if (!committed?.ok && step.announce !== false && record.outcome === 'failure') {
@@ -1554,7 +1580,7 @@ export function createCommandImplementations() {
           if (rec.outcome !== 'success' && rec.outcome !== 'partial') return;
           if (pr.ready(id).ok) held = pr.restrained(id, tuningOf(ctx));
         };
-        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: act.kind, strikes: act.strikes, title: act.title, speed: 1, zone: 26, challenge: info });
+        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: act.kind, strikes: act.strikes, title: act.title, speed: 1, zone: barZone(ctx.session), challenge: info });
         const { record, goto } = await playChallenge(ctx, frame, cfg, attempt, settle);
         if (!held && step.announce !== false && record.outcome === 'failure') await shipNotice(ctx, `<r>He couldn't hold it.</> <k>${def.name} is worse, and won't try again for a while.</>`);
         return challengeFollowUp(ctx, frame, step, cfg, record, goto);
@@ -1754,7 +1780,7 @@ export function createCommandImplementations() {
           // A scrub gets the hornets out too.
           for (const s of b.statusList(tuningOf(ctx))) if (beardData(content).statuses[s.id]?.clearedBy?.scrub) quietly(ctx, step, () => b.removeStatus(s.id, tuningOf(ctx)));
         };
-        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: sdef.kind, strikes: sdef.strikes, title: sdef.title, speed: 1, zone: 26, challenge: info });
+        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: sdef.kind, strikes: sdef.strikes, title: sdef.title, speed: 1, zone: barZone(ctx.session), challenge: info });
         const { record, goto } = await playChallenge(ctx, frame, cfg, attempt, settle);
         if (committed?.ok && step.announce !== false) await shipNotice(ctx, `<g>Scrubbed${record.outcome === 'partial' ? ', roughly' : ''}.</> <k>Your beard is ${pctNow()}% full. Used ${itemList(content, cost)}.</>`);
         else if (!committed?.ok && step.announce !== false && record.outcome === 'failure') {
@@ -1786,6 +1812,327 @@ export function createCommandImplementations() {
       }
       if (step.announce !== false) await shipNotice(ctx, step.remove ? `Took off ${r.label}.` : `Wearing ${r.label} over your beard.`);
       if (step.outcomeValue) ctx.session.story.setValue(step.outcomeValue, step.remove ? 'removed' : 'worn');
+      return null;
+    },
+    // --- Prompt 10: shipboard resources and cooking (docs/gameplay-overhaul/14-resources-and-cooking.md) ---
+    /** Switches the supplies system on or off: { "suppliesSystem": true }. Opt-in: no chapter does. Off keeps the stores and sources as they are. */
+    suppliesSystem: (step, ctx) => {
+      const sup = ctx.session.ship.supplies;
+      if (!sup.data) throw new Error('suppliesSystem: no data/ship/supplies.json');
+      sup.on = step.suppliesSystem !== false;
+      sup.tuning = tuningOf(ctx);
+      sup.changed('on');
+      return null;
+    },
+    /**
+     * A script stocks or empties a store straight (no pack involved):
+     * { "supplyStore": store, "give"?: [{ item, count }], "take"?: [{ item, count }], "empty"? }.
+     * All of it or none (within capacity; only what the store holds).
+     */
+    supplyStore: (step, ctx) => {
+      const sup = ctx.session.ship.supplies;
+      const store = step.supplyStore;
+      // "empty": true: everything in it is gone (spoiled, stolen, washed out), before anything given.
+      if (step.empty) {
+        delete sup.stores[store];
+        sup.changed('stores');
+      }
+      const give = sumItems(asArray(step.give));
+      const take = sumItems(asArray(step.take));
+      const total = give.reduce((n, c) => n + c.count, 0) - take.reduce((n, c) => n + c.count, 0);
+      for (const c of take) if (sup.storeCount(store, c.item) < c.count) return refused(ctx, step, `The stores don't have ${c.count} ${itemName(sup.content, c.item)}.`);
+      for (const c of give) {
+        const why = sup.storeRefusal(store, c.item, c.count);
+        if (why && !/room for|full/.test(why)) return refused(ctx, step, why);
+      }
+      if (sup.storeTotal(store) + total > storeDef(sup.content, store).capacity) return refused(ctx, step, 'The stores are full.');
+      for (const c of take) sup.unstock(store, c.item, c.count);
+      for (const c of give) sup.stores[store] = { ...(sup.stores[store] ?? {}), [c.item]: sup.storeCount(store, c.item) + c.count };
+      sup.changed('stores');
+      if (step.outcomeValue) ctx.session.story.setValue(step.outcomeValue, 'done');
+      return null;
+    },
+    /**
+     * Moves supplies between the pack and a store: { "supplyTransfer": store,
+     * "item", "count" | "all", "to": "store" | "pack", "anywhere"? }. The captain must
+     * be at the store unless the script says "anywhere" (a quartermaster's
+     * errand). Whole or nothing; refused, it says why.
+     */
+    supplyTransfer: async (step, ctx) => {
+      const session = ctx.session;
+      const sup = session.ship.supplies;
+      const store = step.supplyTransfer;
+      if (!sup.on) return refused(ctx, step, 'off');
+      if (!step.anywhere && !storesHere(session.content, session.location).includes(store)) return refused(ctx, step, `You're not at ${storeDef(session.content, store)?.label ?? 'the stores'}.`);
+      // "all": every one there is (none: nothing happens).
+      const n = step.all ? (step.to === 'pack' ? sup.storeCount(store, step.item) : session.inventory.count(step.item)) : step.count ?? 1;
+      if (step.all && n === 0) return null;
+      const r = step.to === 'pack' ? sup.withdraw(store, step.item, n) : sup.deposit(store, step.item, n);
+      if (!r.ok) return refused(ctx, step, r.reason);
+      if (step.announce !== false) await shipNotice(ctx, step.to === 'pack' ? `Took ${n} ${itemName(session.content, step.item)} from the stores.` : `Put ${n} ${itemName(session.content, step.item)} in the stores. <k>(${sup.storeTotal(store)}/${storeDef(session.content, store).capacity})</>`);
+      if (step.outcomeValue) session.story.setValue(step.outcomeValue, 'done');
+      return null;
+    },
+    /** "Put supplies away" / "Take supplies out" at the stores: which item, then how many. */
+    supplyMenu: async (step, ctx, frame) => {
+      const session = ctx.session;
+      const sup = session.ship.supplies;
+      const content = session.content;
+      const store = step.store;
+      const deposit = step.supplyMenu === 'deposit';
+      const rows = deposit
+        ? session.inventory.entries().filter((e) => !sup.storeRefusal(store, e.id, 1)).map((e) => ({ item: e.id, have: e.count }))
+        : sup.storeItems(store).map((e) => ({ item: e.item, have: Math.min(e.count, sup.packRoom(e.item)) })).filter((e) => e.have > 0);
+      if (!rows.length) {
+        await ctx.services?.dialogue?.close?.();
+        await shipNotice(ctx, `<k>${deposit ? 'Nothing you carry goes in the stores.' : 'Nothing you can carry out.'}</>`);
+        return null;
+      }
+      const choose = (prompt, options) => service(ctx, 'dialogue', 'choice').choose({ prompt: parseLine(prompt), options: [...options.map((text) => ({ text })), { text: 'Never mind' }], cancelIndex: options.length });
+      const shown = rows.slice(0, 6);
+      const pick = await choose(deposit ? 'Put away what?' : 'Take out what?', shown.map((r) => `${itemName(content, r.item)} <k>(${deposit ? 'carrying' : 'stored'} ${deposit ? r.have : sup.storeCount(store, r.item)})</>`));
+      const row = shown[pick];
+      if (!row) {
+        await ctx.services?.dialogue?.close?.();
+        return null;
+      }
+      const room = deposit ? storeDef(content, store).capacity - sup.storeTotal(store) : row.have;
+      const most = Math.min(row.have, room);
+      const amounts = [...new Set([1, 5, most].filter((n) => n >= 1 && n <= most))];
+      const k = await choose(`How many? <k>(up to ${most})</>`, amounts.map((n) => (n === most && n > 1 ? `All ${n}` : `${n}`)));
+      await ctx.services?.dialogue?.close?.();
+      if (amounts[k] === undefined) return null;
+      return ctx.runner.execBranch([{ supplyTransfer: store, item: row.item, count: amounts[k], to: deposit ? 'store' : 'pack' }], ctx, frame);
+    },
+    /** "Check the stores": the stock, by class, in the dialogue box. */
+    supplyCheck: async (step, ctx) => {
+      for (const text of storeReport(ctx.session, step.supplyCheck)) await service(ctx, 'dialogue', 'narrate').say({ speaker: null, expression: null, text });
+      await ctx.services?.dialogue?.close?.();
+      return null;
+    },
+    /** A script opens, empties or restocks a source: { "supplySource": id, "op": "open" | "deplete" | "restock", "count"? }. */
+    supplySource: (step, ctx) => {
+      const r = ctx.session.ship.supplies.sourceOp(step.supplySource, step.op, step.count ?? null);
+      if (!r.ok) throw new Error(`supplySource ${step.supplySource}: ${r.reason}`);
+      return null;
+    },
+    /**
+     * The captain takes from a source where he stands: { "supplyTake": id }.
+     * A cache or a recovery is seconds of work (the ship goes on meanwhile);
+     * a salvage is a timing bar (success: all, partial: its share, a failure
+     * a knock, a cost a retry keeps). Then the source is a use emptier (a
+     * recovery's cooldown starts). Refused, it says why, and costs nothing.
+     */
+    supplyTake: async (step, ctx, frame) => {
+      const session = ctx.session;
+      const sup = session.ship.supplies;
+      const content = session.content;
+      const prefs = challengePrefs(ctx);
+      const id = step.supplyTake;
+      const def = sourceDef(content, id);
+      if (!def) throw new Error(`supplyTake: no source "${id}"`);
+      if (!sup.on) return refused(ctx, step, 'off');
+      const opt = supplyGroups(session, { difficulty: prefs.difficulty }).flatMap((g) => g.list).find((o) => o.action === 'source' && o.source === id);
+      if (!step.anywhere && !opt) return refused(ctx, step, `You're not at ${def.label}.`);
+      const a = sup.available(id);
+      if (!a.ok || (opt && !opt.ok)) return refused(ctx, step, opt?.reason ?? a.reason);
+      sup.tuning = tuningOf(ctx);
+      const hz = session.ship.hazards;
+      const secs = supplySeconds(session, def.action.seconds);
+      const found = async (r) => {
+        if (step.announce === false) return;
+        if (r.ok) await shipNotice(ctx, `<g>Found</> ${itemList(content, r.items)}.${def.type === 'recovery' ? ` <k>Picked clean for ${sup.sourceState(id).cooldown}s.</>` : ''}`);
+        else await shipNotice(ctx, `<r>${r.reason}</>`);
+      };
+      if (def.type !== 'salvage') {
+        hz.working = true;
+        let r;
+        try {
+          for (let i = 0; i < secs; i++) await workTick(ctx, def.action.label, i, secs);
+          r = sup.take(id, { difficulty: prefs.difficulty });
+        } finally {
+          hz.working = false;
+          ctx.services?.ui?.work?.(null);
+        }
+        await found(r);
+        if (step.outcomeValue) session.story.setValue(step.outcomeValue, r.ok ? 'found' : 'refused');
+        return null;
+      }
+      hz.working = true;
+      try {
+        const base = challengeConfig(content, step.challenge ?? def.action.challenge ?? { profile: 'ship_repair' }, { kind: 'repair', id: `supply:${id}`, difficulty: prefs.difficulty });
+        const cfg = { ...base, onFailure: { ...base.onFailure, mustRetry: false, continue: true, costs: [...base.onFailure.costs, ...(def.knock ? [{ supplySetback: 'salvage', source: id }] : [])] } };
+        let got = null;
+        const settle = async (rec) => {
+          if (rec.outcome !== 'success' && rec.outcome !== 'partial') return;
+          for (let i = 0; i < secs; i++) await workTick(ctx, def.action.label, i, secs);
+          got = sup.take(id, { share: def.results[rec.outcome], difficulty: prefs.difficulty });
+        };
+        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: def.action.kind, strikes: def.action.strikes, title: def.action.title, speed: 1, zone: barZone(session, { supply: true, difficulty: prefs.difficulty }), challenge: info });
+        const { record, goto } = await playChallenge(ctx, frame, cfg, attempt, settle);
+        if (got) await found(got);
+        else if (record.outcome === 'failure' && step.announce !== false) await shipNotice(ctx, `<r>It wouldn't come loose.</>${record.consequences.costs && def.knock ? ' <k>That hurt.</>' : ''}`);
+        return challengeFollowUp(ctx, frame, step, cfg, record, goto);
+      } finally {
+        hz.working = false;
+        ctx.services?.ui?.work?.(null);
+      }
+    },
+    /** A failed salvage or stir, as a challenge cost (kept through a retry): a knock (through the helmet), or the scorched waste. */
+    supplySetback: (step, ctx) => {
+      const session = ctx.session;
+      const sup = session.ship.supplies;
+      if (step.supplySetback === 'salvage') {
+        const k = sourceDef(session.content, step.source)?.knock;
+        if (!k) return null;
+        const lost = session.chokeLeader(k.hp * sup.knockFactor(), k.floor);
+        if (lost > 0) sup.notice(`supplies:knock:${step.source}`, `<o>A crate shifts:</> -${lost} HP.`, 'o');
+        return null;
+      }
+      if (step.supplySetback === 'cook') {
+        const r = recipeDef(session.content, step.recipe);
+        const t = tuningOf(ctx);
+        const waste = asArray(r?.waste).map((c) => ({ item: c.item, count: scaleCount(c.count ?? 1, t.costScale) }));
+        // What is left of it, never more than there is (the attempts were counted against it).
+        const { count } = sup.reach('cook', session.location?.map);
+        const can = waste.map((c) => ({ item: c.item, count: Math.min(c.count, count(c.item)) })).filter((c) => c.count > 0);
+        if (can.length) sup.spend(can, 'cook', session.location?.map);
+      }
+      return null;
+    },
+    /** Puts gear on or takes it off: { "gearEquip": item, "remove"? }. By hand only: one to a slot, what it can't go with refused. */
+    gearEquip: async (step, ctx) => {
+      const sup = ctx.session.ship.supplies;
+      const r = step.remove ? sup.unequip(step.gearEquip) : sup.equip(step.gearEquip);
+      if (!r.ok) return refused(ctx, step, r.reason);
+      if (step.announce !== false) await shipNotice(ctx, step.remove ? `Took off ${r.label}.` : `Wearing ${r.label}.${r.replaced ? ` <k>(Took off ${itemName(ctx.session.content, r.replaced)}.)</>` : ''}`);
+      if (step.outcomeValue) ctx.session.story.setValue(step.outcomeValue, step.remove ? 'removed' : 'worn');
+      return null;
+    },
+    /** Wets the cloth again at water: { "gearRecharge": item, "anywhere"? } (two seconds of work). */
+    gearRecharge: async (step, ctx) => {
+      const session = ctx.session;
+      const sup = session.ship.supplies;
+      const water = waterHere(session.content, session.location);
+      if (!step.anywhere && !water) return refused(ctx, step, 'No water here.');
+      const hz = session.ship.hazards;
+      if (hz.working) return refused(ctx, step, 'Already at work.');
+      hz.working = true;
+      try {
+        for (let i = 0; i < 2; i++) await workTick(ctx, `Wetting ${itemName(session.content, step.gearRecharge)}`, i, 2);
+      } finally {
+        hz.working = false;
+        ctx.services?.ui?.work?.(null);
+      }
+      const r = sup.recharge(step.gearRecharge);
+      if (!r.ok) return refused(ctx, step, r.reason);
+      if (step.announce !== false) await shipNotice(ctx, `<g>${r.label}: wet again.</>`);
+      return null;
+    },
+    /**
+     * The captain eats or drinks one: { "useSupply": item }. Exactly the Items
+     * menu's use: one taken, its effects once (a timed effect through the
+     * supplies, one per group). Refused (nothing taken) if it would do nothing.
+     */
+    useSupply: async (step, ctx) => {
+      const session = ctx.session;
+      const def = session.content.items.get(step.useSupply);
+      const captain = session.party.members[0];
+      if (!def || !itemUsableIn(def, 'field') || session.inventory.count(step.useSupply) <= 0) return refused(ctx, step, `No ${def?.name ?? step.useSupply} to use.`);
+      if (!captain || !wouldAffect(def.use.effects, captain, session)) return refused(ctx, step, 'It would have no effect right now.');
+      session.inventory.remove(step.useSupply, 1);
+      const results = applyEffects(def.use.effects, captain, { session });
+      if (step.announce !== false) await shipNotice(ctx, supplyUseText(session, captain, def, results));
+      if (step.outcomeValue) session.story.setValue(step.outcomeValue, 'used');
+      return null;
+    },
+    /** Starts or ends a timed effect straight (a script, a test): { "supplyEffect": id, "remove"? }. */
+    supplyEffect: (step, ctx) => {
+      const sup = ctx.session.ship.supplies;
+      if (step.remove) sup.removeEffect(step.supplyEffect);
+      else sup.applyEffect(step.supplyEffect, { tuning: tuningOf(ctx) });
+      return null;
+    },
+    /** Teaches a recipe the data keeps back: { "learnRecipe": id }. */
+    learnRecipe: (step, ctx) => {
+      const r = ctx.session.ship.supplies.learn(step.learnRecipe);
+      if (!r.ok) throw new Error(`learnRecipe: ${r.reason}`);
+      return null;
+    },
+    /**
+     * Cooks a recipe at its station: { "cook": recipe, "anywhere"? }. The
+     * stir on the timing bar decides it: success and partial take the
+     * ingredients (the pack first, then the stores the cook may draw on from
+     * here), seconds of work, and put the pot on to simmer (then "serve"); a
+     * failure scorches it (its waste lost: a cost a retry keeps) and nothing
+     * cooks. Refused, it says why, and costs nothing.
+     */
+    cook: async (step, ctx, frame) => {
+      const session = ctx.session;
+      const sup = session.ship.supplies;
+      const content = session.content;
+      const prefs = challengePrefs(ctx);
+      const id = step.cook;
+      const r = recipeDef(content, id);
+      if (!r) throw new Error(`cook: no recipe "${id}"`);
+      if (!sup.on) return refused(ctx, step, 'off');
+      const room = session.location?.map;
+      const atStation = stationHere(content, session.location) === r.station;
+      const missing = missingFor(session, id, room);
+      const why = (!step.anywhere && !atStation ? `You need ${content.shipSupplies.stations[r.station].label}.` : null) ?? (!sup.knows(id) ? "You don't know that recipe." : null) ?? (sup.cooking ? 'Something is already on the stove.' : null) ?? (session.ship.hazards.working ? 'Already at work.' : null) ?? (missing.length ? `Missing: ${missing.map((m) => `${itemName(content, m.item)} ${m.have}/${m.need}`).join(', ')}.` : null);
+      if (why) return refused(ctx, step, why);
+      sup.tuning = tuningOf(ctx);
+      const t = tuningOf(ctx);
+      const waste = asArray(r.waste).map((c) => ({ item: c.item, count: scaleCount(c.count ?? 1, t.costScale) }));
+      const attempts = affordableAttempts({ worst: r.ingredients.map((c) => ({ item: c.item, count: c.count ?? 1 })), results: { failure: { waste } } }, sup.reach('cook', room).count);
+      const hz = session.ship.hazards;
+      hz.working = true;
+      try {
+        const base = challengeConfig(content, step.challenge ?? r.action.challenge ?? { profile: 'ship_repair' }, { kind: 'repair', id: `cook:${id}`, difficulty: prefs.difficulty });
+        const limit = Number.isFinite(attempts) ? attempts : null;
+        const cfg = {
+          ...base,
+          retry: { ...base.retry, maxAttempts: base.retry.maxAttempts === null ? limit : limit === null ? base.retry.maxAttempts : Math.min(base.retry.maxAttempts, limit) },
+          onFailure: { ...base.onFailure, mustRetry: false, continue: true, costs: [...base.onFailure.costs, { supplySetback: 'cook', recipe: id }] },
+        };
+        let started = null;
+        const settle = async (rec) => {
+          if (rec.outcome !== 'success' && rec.outcome !== 'partial') return;
+          const secs = supplySeconds(session, r.seconds);
+          for (let i = 0; i < secs; i++) await workTick(ctx, `Cooking ${r.name}`, i, secs);
+          const paid = sup.spend(r.ingredients, 'cook', session.location?.map);
+          if (!paid.ok) throw new Error(`cook ${id}: the ingredients are gone (the plan said there were enough)`);
+          started = sup.startCooking(id, r.serves[rec.outcome]);
+        };
+        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: r.action.kind, strikes: r.action.strikes, title: r.action.title, speed: 1, zone: barZone(session, { supply: true, difficulty: prefs.difficulty }), challenge: info });
+        const { record, goto } = await playChallenge(ctx, frame, cfg, attempt, settle);
+        if (started?.ok && step.announce !== false) await shipNotice(ctx, `<g>${r.name} is on${record.outcome === 'partial' ? ' (a bit lumpy)' : ''}:</> ${sup.cooking.serves} to serve in ${sup.cooking.left}s. <k>Used ${itemList(content, r.ingredients)}.</>`);
+        else if (!started && record.outcome === 'failure' && step.announce !== false) {
+          const wasted = record.consequences.costs ? sumItems(...Array.from({ length: record.consequences.costs }, () => waste)) : [];
+          await shipNotice(ctx, `<r>Scorched!</> Nothing fit to eat.${wasted.length ? ` <k>Wasted ${itemList(content, wasted)}.</>` : ''}`);
+        }
+        return challengeFollowUp(ctx, frame, step, cfg, record, goto);
+      } finally {
+        hz.working = false;
+        ctx.services?.ui?.work?.(null);
+      }
+    },
+    /** Serves the pot when it is ready: { "serve": true, "anywhere"? }. Once: the portions into the pack. */
+    serve: async (step, ctx) => {
+      const session = ctx.session;
+      const sup = session.ship.supplies;
+      const station = sup.cooking ? recipeDef(session.content, sup.cooking.recipe)?.station : null;
+      if (!step.anywhere && station && stationHere(session.content, session.location) !== station) return refused(ctx, step, 'Serve it at the stove.');
+      const r = sup.serve();
+      if (!r.ok) return refused(ctx, step, r.reason);
+      if (step.announce !== false) await shipNotice(ctx, `<g>Served</> ${r.count} ${itemName(session.content, r.item)}. <k>Eat from the Items menu.</>`);
+      if (step.outcomeValue) session.story.setValue(step.outcomeValue, 'served');
+      return null;
+    },
+    /** "What can I cook?": the known recipes, what they need, what's missing, in the dialogue box. */
+    cookReport: async (step, ctx) => {
+      for (const text of recipeReport(ctx.session)) await service(ctx, 'dialogue', 'narrate').say({ speaker: null, expression: null, text });
+      await ctx.services?.dialogue?.close?.();
       return null;
     },
     /**

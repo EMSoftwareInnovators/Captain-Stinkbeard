@@ -5,6 +5,8 @@ import { UiLayer } from './UiLayer.js';
 import { TabBar } from './TabBar.js';
 import { applyEffects, wouldAffect, itemUsableIn } from '../../systems/effects/effects.js';
 import { resolveVariant } from '../../systems/story/progress.js';
+import { classOf, storeIds, gearDef } from '../../systems/ship/supplies.js';
+import { effectNote } from '../../systems/ship/supplyResponse.js';
 
 const TABS = [
   // Repair materials (overhaul Prompt 5) are listed with the supplies, after them, and greyed: they're used up by repairs (Pause > Ship).
@@ -110,7 +112,14 @@ export class ItemsPage {
   describe() {
     const e = this.entries()[this.menu?.index ?? 0];
     if (!this.descText) return;
-    const text = e ? e.def.description ?? '' : TABS[this.tabIndex].id === 'key' ? 'Important things you are carrying.' : '';
+    let text = e ? e.def.description ?? '' : TABS[this.tabIndex].id === 'key' ? 'Important things you are carrying.' : '';
+    // Prompt 10: with the supplies on, what the ship's stores hold of it, and whether a piece of gear is worn.
+    const sup = this.session.ship?.supplies;
+    if (e && sup?.on) {
+      const stored = storeIds(this.app.content).reduce((n, st) => n + sup.storeCount(st, e.id), 0);
+      if (classOf(this.app.content, e.id) && e.def.type !== 'key') text += `\n<k>In the ship's stores: ${stored}.</>`;
+      if (gearDef(this.app.content, e.id)) text += sup.wornGear().includes(e.id) ? '\n<g>Worn.</>' : '\n<k>Not worn: put it on with Respond.</>';
+    }
     this.descText.destroy();
     this.descText = this.layer.add(addText(this.scene, this.rect.x + 12, this.descY, text, { maxWidth: this.rect.w - 24, maxLines: this.descLines, depth: 21 }));
   }
@@ -137,7 +146,7 @@ export class ItemsPage {
     const members = this.session.party.members;
     const target = members.length === 1 ? members[0] : await this.pickMember(members);
     if (!target) return;
-    if (!wouldAffect(def.use?.effects, target)) {
+    if (!wouldAffect(def.use?.effects, target, this.session)) {
       audio.ui('buzzer');
       this.flash('It would have no effect right now.');
       return;
@@ -147,6 +156,9 @@ export class ItemsPage {
     const healed = results.filter((r) => r.type === 'heal').reduce((s, r) => s + r.amount, 0);
     audio.sfx(def.useSfx ?? 'heal');
     this.flash(healed ? `${target.name} recovers <g>${healed}</> HP.` : `${target.name} uses the ${def.name}.`);
+    // Prompt 10: food and draughts say what they started (a line of their own, a moment later).
+    const note = effectNote(this.app.content, results);
+    if (note) this.scene.time.delayedCall(1300, () => this.flash(note));
     // A side effect (Frog Grog) gets its own line a moment later.
     const side = results.find((r) => r.type === 'sideEffect' && r.text);
     if (side) this.scene.time.delayedCall(1300, () => this.flash(side.text));

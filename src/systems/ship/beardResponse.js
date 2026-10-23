@@ -1,4 +1,5 @@
 import { asArray } from '../../core/util.js';
+import { gearDef } from './supplies.js';
 import { shipTuning, scaleCount } from './integrity.js';
 import { airRoom } from './air.js';
 import { beardData, careStation, careRooms, stageIndex } from './beard.js';
@@ -87,6 +88,8 @@ export function beardOptions(session, { difficulty = 'captain' } = {}) {
   // What can be worn over it (only what he carries).
   for (const [item, e] of Object.entries(data.equipment ?? {})) {
     if (item.startsWith('//') || session.inventory.count(item) <= 0) continue;
+    // Prompt 10: with the supplies on, gear is put on under "Your gear" (slots, what goes with what): not twice.
+    if (session.ship.supplies?.on && gearDef(content, item)) continue;
     const worn = b.worn.includes(item);
     out.push({ action: worn ? 'remove' : 'wear', item, label: `${worn ? 'Take off' : 'Wear'} ${e.label}`, ok: true, reason: null, seconds: 0 });
   }

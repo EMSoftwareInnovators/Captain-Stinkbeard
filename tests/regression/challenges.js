@@ -107,6 +107,16 @@ export const CHALLENGE_KINDS = Object.freeze({
     outcomes: { success: 'scrubbed: most of it out (rinse: a share, no bar), the hornets with it', partial: 'scrubbed, roughly: about half out', failure: 'the rag wasted and the stink stirred up (a little out, a gag); another try while the rags last' },
     retry: 'offered while the hold can pay for a rag; the waste stays', blocksProgression: false, softlockRisk: 'none: no chapter uses it, and a beard can always be rinsed with water alone', note: 'a scrub always plays as a strict challenge (the ship_repair profile); a rinse is water and seconds of work, no bar; no chapter step uses either', source: 'src/systems/ship/BeardState.js, src/systems/script/commands.js (beardCare)',
   },
+  supplyTake: {
+    label: 'Searching and salvaging the ship\'s supplies (Prompt 10)', commands: ['supplyTake'], input: 'timed',
+    outcomes: { success: 'salvaged: everything it gives (a search or a recovery: no bar, seconds of work)', partial: 'pried loose, partly: its share', failure: 'it wouldn\'t come loose: a knock (through the helmet), the source untouched; another try' },
+    retry: 'offered; each failed try is a knock (a cost a retry keeps, never below the floor)', blocksProgression: false, softlockRisk: 'none: no chapter uses it; the bilge and the sacking always come back', note: 'a salvage always plays as a strict challenge (the ship_repair profile); a search or a recovery is seconds of work; no chapter step uses either', source: 'src/systems/ship/SupplyState.js, src/systems/script/commands.js (supplyTake)',
+  },
+  cook: {
+    label: 'Cooking at the galley stove (Prompt 10)', commands: ['cook'], input: 'timed',
+    outcomes: { success: 'on the stove: the full pot to serve once it has simmered', partial: 'on the stove, lumpy: fewer portions', failure: 'scorched: its waste lost, nothing cooks; another try while the ingredients last' },
+    retry: 'offered while what he can reach pays for a try; the waste stays', blocksProgression: false, softlockRisk: 'none: no chapter uses it, and nothing needs a meal', note: 'always plays as a strict challenge (the ship_repair profile); no chapter step uses it', source: 'src/systems/ship/SupplyState.js, src/systems/script/commands.js (cook)',
+  },
   dice: {
     label: 'Grand Dice', commands: ['dice'], input: 'none',
     outcomes: { success: null, partial: null, failure: null },

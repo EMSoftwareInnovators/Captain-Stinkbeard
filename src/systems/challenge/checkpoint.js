@@ -103,7 +103,7 @@ export function restoreCheckpoint(session, cp, { keep = {} } = {}) {
  * or repaired ([before, after] integrity).
  */
 export function diffStates(before, after) {
-  const out = { flagsSet: [], flagsCleared: [], vars: {}, values: {}, quests: {}, items: {}, gold: 0, ship: {}, hazards: {}, air: {}, pressure: {}, beard: {} };
+  const out = { flagsSet: [], flagsCleared: [], vars: {}, values: {}, quests: {}, items: {}, gold: 0, ship: {}, hazards: {}, air: {}, pressure: {}, beard: {}, supplies: {} };
   if (!before || !after) return out;
   const fb = new Set(before.story?.flags ?? []);
   const fa = new Set(after.story?.flags ?? []);
@@ -189,10 +189,34 @@ export function diffStates(before, after) {
   const sb2 = Object.keys(bb.statuses ?? {}).sort().join(',');
   if (sa2 !== sb2) out.beard.statuses = [sa2, sb2];
   if ((ba.worn ?? []).join(',') !== (bb.worn ?? []).join(',')) out.beard.worn = [ba.worn ?? [], bb.worn ?? []];
+  // Prompt 10: the supplies: switched on, each store's stock, what each source has left, the pot, the effects running.
+  const ua = before.ship?.supplies ?? {};
+  const ub = after.ship?.supplies ?? {};
+  if ((ua.on ?? null) !== (ub.on ?? null)) out.supplies.on = [ua.on ?? null, ub.on ?? null];
+  const stock = {};
+  for (const st of new Set([...Object.keys(ua.stores ?? {}), ...Object.keys(ub.stores ?? {})])) {
+    for (const item of new Set([...Object.keys(ua.stores?.[st] ?? {}), ...Object.keys(ub.stores?.[st] ?? {})])) {
+      const x = ua.stores?.[st]?.[item] ?? 0;
+      const y = ub.stores?.[st]?.[item] ?? 0;
+      if (x !== y) stock[`${st}:${item}`] = y - x;
+    }
+  }
+  if (Object.keys(stock).length) out.supplies.stores = stock;
+  const left = {};
+  for (const id of new Set([...Object.keys(ua.sources ?? {}), ...Object.keys(ub.sources ?? {})])) {
+    const x = ua.sources?.[id]?.taken ?? 0;
+    const y = ub.sources?.[id]?.taken ?? 0;
+    if (x !== y) left[id] = y - x;
+  }
+  if (Object.keys(left).length) out.supplies.taken = left;
+  const pot = (u) => (u.cooking ? `${u.cooking.recipe}:${u.cooking.serves}` : null);
+  if (pot(ua) !== pot(ub)) out.supplies.cooking = [pot(ua), pot(ub)];
+  const fx = (u) => Object.keys(u.effects ?? {}).sort().join(',');
+  if (fx(ua) !== fx(ub)) out.supplies.effects = [fx(ua), fx(ub)];
   return out;
 }
 
 /** True when a diff records no change at all. */
 export function isEmptyDiff(d) {
-  return !d.flagsSet.length && !d.flagsCleared.length && !Object.keys(d.vars).length && !Object.keys(d.values).length && !Object.keys(d.quests).length && !Object.keys(d.items).length && !d.gold && !Object.keys(d.ship ?? {}).length && !Object.keys(d.hazards ?? {}).length && !Object.keys(d.air ?? {}).length && !Object.keys(d.pressure ?? {}).length && !Object.keys(d.beard ?? {}).length;
+  return !d.flagsSet.length && !d.flagsCleared.length && !Object.keys(d.vars).length && !Object.keys(d.values).length && !Object.keys(d.quests).length && !Object.keys(d.items).length && !d.gold && !Object.keys(d.ship ?? {}).length && !Object.keys(d.hazards ?? {}).length && !Object.keys(d.air ?? {}).length && !Object.keys(d.pressure ?? {}).length && !Object.keys(d.beard ?? {}).length && !Object.keys(d.supplies ?? {}).length;
 }

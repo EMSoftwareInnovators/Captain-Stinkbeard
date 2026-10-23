@@ -34,6 +34,9 @@ export const NON_CHALLENGE_COMMANDS = Object.freeze([
   'pressureCheck', 'pressureSoothe', 'pressureRelease',
   // Prompt 9 beard: the switch, event deposits, washes, conditions, purges, the captain's look, sniff, wring and what he wears (a scrub is a challenge: beardCare).
   'beardSaturation', 'beardAdd', 'beardClean', 'beardStatus', 'beardPurge', 'beardInspect', 'beardSniff', 'beardWring', 'beardSetback', 'beardWear',
+  // Prompt 10 supplies: the switch, the stores, transfers, the sources a script opens or empties, gear, eating, effects, recipes, serving
+  // (a salvage and a stir are challenges: supplyTake, cook).
+  'suppliesSystem', 'supplyStore', 'supplyTransfer', 'supplyMenu', 'supplyCheck', 'supplySource', 'supplySetback', 'gearEquip', 'gearRecharge', 'useSupply', 'supplyEffect', 'learnRecipe', 'serve', 'cookReport',
   'showObject', 'spawn', 'sprite', 'spriteFrame', 'stability', 'startQuest', 'swapItem', 'takeGold', 'takeItem', 'tether', 'tint', 'token',
   'transition', 'tutorial', 'tvProgram', 'tvSet', 'vista', 'vistaEnd', 'vistaFrame', 'vistaFx', 'vistaMove', 'vistaShow', 'vistaSpin', 'wait', 'wear',
 ]);

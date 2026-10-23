@@ -416,6 +416,73 @@ export const CONDITION_OPERATORS = {
     },
   },
 
+  /**
+   * Overhaul Prompt 10: the ship's supplies (docs/gameplay-overhaul/14-resources-and-cooking.md).
+   *   { "supplies": { "active": true } }                                   the system switched on
+   *   { "supplies": { "has": "planks", "count": { "gte": 2 } } }           in the pack (count: default 1 or more)
+   *   { "supplies": { "stored": "planks", "store": "hold", "count": 3 } }  in a store (store: default any)
+   *   { "supplies": { "reach": "beans", "count": 2 } }                     the pack and the stores the cook can draw on from here
+   *   { "supplies": { "source": "hold_crates", "left": 0 } }               what a source has left (a recovery: always)
+   *   { "supplies": { "source": "hold_bilge", "ready": true } }            can be taken from now
+   *   { "supplies": { "wearing": "clay_pot_helmet" } }                     worn (and still carried)
+   *   { "supplies": { "effect": "full_belly" } }                           a food or draught effect running
+   *   { "supplies": { "cooking": true } } / { "cooking": "bean_stew" }      a pot on (any, or that one)
+   *   { "supplies": { "ready": true } }                                    the pot is ready to serve
+   *   { "supplies": { "canCook": "bean_stew" } }                           known, nothing on, nothing missing
+   *   { "supplies": { "knows": "fish_chowder" } }                          a recipe known
+   */
+  supplies: {
+    evaluate: (v, s) => {
+      const u = s.ship?.supplies;
+      if (!u) return false;
+      if ('active' in v && u.on !== v.active) return false;
+      const n = (x) => (v.count === undefined ? x >= 1 : compare(x, v.count));
+      if ('has' in v && !n(s.inventory?.count(v.has) ?? 0)) return false;
+      if ('stored' in v) {
+        const stores = v.store ? [v.store] : Object.keys(u.stores);
+        if (!n(stores.reduce((k, st) => k + u.storeCount(st, v.stored), 0))) return false;
+      }
+      if ('reach' in v && !n(u.reach('cook', s.location?.map).count(v.reach))) return false;
+      if ('source' in v) {
+        const st = u.sourceState(v.source);
+        if (!st) return false;
+        if ('left' in v && !(Number.isFinite(st.left) ? compare(st.left, v.left) : true)) return false;
+        if ('ready' in v && u.available(v.source).ok !== v.ready) return false;
+      }
+      if ('wearing' in v && !u.wornGear().includes(v.wearing)) return false;
+      if ('effect' in v && !u.effects[v.effect]) return false;
+      if ('cooking' in v && (v.cooking === true ? !u.cooking : v.cooking === false ? !!u.cooking : u.cooking?.recipe !== v.cooking)) return false;
+      if ('ready' in v && !('source' in v) && u.ready !== v.ready) return false;
+      if ('knows' in v && !u.knows(v.knows)) return false;
+      if ('canCook' in v) {
+        const r = s.content?.shipSupplies?.recipes?.[v.canCook];
+        if (!r || !u.on || u.cooking || !u.knows(v.canCook)) return false;
+        const reach = u.reach('cook', s.location?.map);
+        if (asArray(r.ingredients).some((c) => reach.count(c.item) < (c.count ?? 1))) return false;
+      }
+      return true;
+    },
+    validate: (v, c) => {
+      if (!isPlainObject(v)) return c.error('supplies condition needs { ... }');
+      const data = c.ctx?.db?.shipSupplies;
+      const keys = ['active', 'has', 'stored', 'store', 'reach', 'count', 'source', 'left', 'ready', 'wearing', 'effect', 'cooking', 'canCook', 'knows'];
+      for (const k of Object.keys(v)) if (!keys.includes(k)) c.error(`supplies condition: unknown key "${k}"`);
+      const items = c.ctx?.db?.items;
+      for (const k of ['has', 'stored', 'reach']) if (k in v && items && !items.get?.(v[k])) c.error(`supplies condition: unknown item "${v[k]}"`);
+      if ('store' in v && data && !data.stores?.[v.store]) c.error(`supplies condition: unknown store "${v.store}"`);
+      if ('source' in v && data && !data.sources?.[v.source]) c.error(`supplies condition: unknown source "${v.source}"`);
+      if (('left' in v) && !('source' in v)) c.error('supplies condition: "left" goes with "source"');
+      if ('wearing' in v && data && !data.gear?.items?.[v.wearing]) c.error(`supplies condition: "${v.wearing}" isn't gear`);
+      if ('effect' in v && data && !data.effects?.[v.effect]) c.error(`supplies condition: unknown effect "${v.effect}"`);
+      for (const k of ['canCook', 'knows']) if (k in v && data && !data.recipes?.[v[k]]) c.error(`supplies condition: unknown recipe "${v[k]}"`);
+      if ('cooking' in v && typeof v.cooking !== 'boolean' && data && !data.recipes?.[v.cooking]) c.error(`supplies condition: "cooking" is true, false or a recipe`);
+      const cmp = (x) => typeof x === 'number' || (isPlainObject(x) && Object.keys(x).every((op) => COMPARE_KEYS.includes(op)));
+      for (const k of ['count', 'left']) if (k in v && !cmp(v[k])) c.error(`supplies condition: "${k}" is a number or { lt, gte, ... }`);
+      for (const k of ['active', 'ready']) if (k in v && typeof v[k] !== 'boolean') c.error(`supplies condition: "${k}" must be true or false`);
+      return undefined;
+    },
+  },
+
   all: {
     evaluate: (v, s) => asArray(v).every((cond) => evaluateCondition(cond, s)),
     validate: (v, c) => asArray(v).forEach((cond) => validateCondition(cond, c)),
