@@ -66,6 +66,9 @@ function systemsState(content, session) {
     const pr = session.ship.pressure;
     const subs = Object.entries(pr.subjects);
     out.ship.pressure = { subjects: subs.map(([id]) => id).sort(), on: subs.filter(([, st]) => st.on).map(([id]) => id).sort(), pending: subs.filter(([, st]) => st.phase !== 'idle').map(([id]) => id).sort() };
+    // Prompt 9: the Stink Beard system (switched on, what it holds, conditions kept, worn). No chapter switches it on.
+    const b = session.ship.beard;
+    out.ship.beard = { on: b.on, held: Object.keys(b.held).sort(), statuses: Object.keys(b.statuses).sort(), worn: [...b.worn].sort(), purges: b.count };
   }
   return out;
 }

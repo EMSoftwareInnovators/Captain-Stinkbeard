@@ -102,6 +102,11 @@ export const CHALLENGE_KINDS = Object.freeze({
     outcomes: { success: 'held: the pressure falls now, stored up for later', partial: 'held, roughly', failure: 'he is worse, and won\'t try again for a while' },
     retry: 'offered; each failed try leaves him worse (a cost a retry keeps)', blocksProgression: false, softlockRisk: 'none: no chapter uses it, and a failed hold never ends the game', note: 'always plays as a strict challenge (the ship_repair profile); no chapter step uses it', source: 'src/systems/ship/PressureState.js, src/systems/script/commands.js (pressureRestrain)',
   },
+  beardCare: {
+    label: 'Grooming the Stink Beard at the washroom tub (Prompt 9)', commands: ['beardCare'], input: 'timed',
+    outcomes: { success: 'scrubbed: most of it out (rinse: a share, no bar), the hornets with it', partial: 'scrubbed, roughly: about half out', failure: 'the rag wasted and the stink stirred up (a little out, a gag); another try while the rags last' },
+    retry: 'offered while the hold can pay for a rag; the waste stays', blocksProgression: false, softlockRisk: 'none: no chapter uses it, and a beard can always be rinsed with water alone', note: 'a scrub always plays as a strict challenge (the ship_repair profile); a rinse is water and seconds of work, no bar; no chapter step uses either', source: 'src/systems/ship/BeardState.js, src/systems/script/commands.js (beardCare)',
+  },
   dice: {
     label: 'Grand Dice', commands: ['dice'], input: 'none',
     outcomes: { success: null, partial: null, failure: null },

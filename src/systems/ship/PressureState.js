@@ -510,6 +510,12 @@ export class PressureState {
     if (prof.gas) out.gas = this.emit(id, def, prof, where, tuning, st.count);
     // 4. Fire, only when the profile asks for it.
     if (prof.ignite && fireRoom(content, where)) out.fire = this.ship.hazards.ignite({ room: where, intensity: prof.ignite.intensity, source: `pressure:${id}` });
+    // 4b. Prompt 9: the residue it leaves in the captain's beard, if he is close and that system is on (the subject's "beard";
+    // a deposit, once per eruption: the gas itself reaches his beard only as he breathes it, like any other).
+    if (def.beard && this.ship.beard?.on) {
+      const at = this.npcAt?.(def.npc) ?? this.availability(id).where ?? null;
+      out.beard = this.ship.beard.contaminate({ source: `pressure:${id}`, room: where, at, reach: def.beard.reach ?? null, intensity: intensity / 100, contaminant: def.beard.contaminant, amount: def.beard.amount, eventId: `${eid}:beard` }, tuning);
+    }
     // 5. Relief, then the cooldown (longer on a gentler difficulty).
     st.held = 0;
     st.strain = 0;

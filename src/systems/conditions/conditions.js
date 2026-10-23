@@ -369,6 +369,53 @@ export const CONDITION_OPERATORS = {
     },
   },
 
+  /**
+   * Overhaul Prompt 9: the captain's Stink Beard (docs/gameplay-overhaul/13-beard-saturation.md).
+   * Not the story's beard tags (those are flags: { "flag": "beard_SMOKE" }).
+   *   { "beardSaturation": { "active": true } }                      the system switched on
+   *   { "beardSaturation": { "stage": ["heavy", "critical"] } }      clean ... overloaded
+   *   { "beardSaturation": { "pct": { "gte": 60 } } }                how full (percent of this difficulty's capacity)
+   *   { "beardSaturation": { "contains": "smoke", "amount": { "gte": 10 } } }   a contaminant held (amount: units)
+   *   { "beardSaturation": { "status": "gagging" } }                 a condition on now
+   *   { "beardSaturation": { "phase": "overload" } }                 idle, overload or cooldown
+   *   { "beardSaturation": { "wearing": "beard_wrap" } }             worn over it
+   *   { "beardSaturation": { "purged": { "gte": 1 } } }              purges so far
+   */
+  beardSaturation: {
+    evaluate: (v, s) => {
+      const b = s.ship?.beard;
+      if (!b) return false;
+      if ('active' in v && b.on !== v.active) return false;
+      if (!b.on && Object.keys(v).some((k) => k !== 'active')) return false;
+      if ('stage' in v && !asArray(v.stage).includes(b.stage().id)) return false;
+      if ('pct' in v && !compare(Math.floor(b.pct()), v.pct)) return false;
+      if ('contains' in v && !(b.amount(v.contains) > 0)) return false;
+      if ('amount' in v && !compare(Math.round(v.contains ? b.amount(v.contains) : b.total), v.amount)) return false;
+      if ('status' in v && !asArray(v.status).some((id) => b.statusOn(id))) return false;
+      if ('phase' in v && !asArray(v.phase).includes(b.phase)) return false;
+      if ('wearing' in v && !b.wornItems().includes(v.wearing)) return false;
+      if ('purged' in v && !compare(b.count, v.purged)) return false;
+      return true;
+    },
+    validate: (v, c) => {
+      if (!isPlainObject(v)) return c.error('beardSaturation condition needs { ... }');
+      const data = c.ctx?.db?.shipBeard;
+      const keys = ['active', 'stage', 'pct', 'contains', 'amount', 'status', 'phase', 'wearing', 'purged'];
+      for (const k of Object.keys(v)) if (!keys.includes(k)) c.error(`beardSaturation condition: unknown key "${k}"`);
+      const stages = (data?.stages ?? []).map((st) => st.id);
+      for (const st of asArray(v.stage ?? [])) if (stages.length && !stages.includes(st)) c.error(`beardSaturation condition: unknown stage "${st}" (use: ${stages.join(', ')})`);
+      for (const ph of asArray(v.phase ?? [])) if (!['idle', 'overload', 'cooldown'].includes(ph)) c.error(`beardSaturation condition: unknown phase "${ph}" (idle, overload, cooldown)`);
+      if ('contains' in v && data && !data.contaminants?.[v.contains]) c.error(`beardSaturation condition: unknown contaminant "${v.contains}"`);
+      if ('contains' in v && data?.contaminants?.[v.contains]?.debugOnly) c.error(`beardSaturation condition: "${v.contains}" is for the debug demo and tests only`);
+      for (const st of asArray(v.status ?? [])) if (data && !data.statuses?.[st]) c.error(`beardSaturation condition: unknown status "${st}"`);
+      if ('wearing' in v && data && !data.equipment?.[v.wearing]) c.error(`beardSaturation condition: "${v.wearing}" isn't worn over the beard`);
+      const cmp = (x) => typeof x === 'number' || (isPlainObject(x) && Object.keys(x).every((op) => COMPARE_KEYS.includes(op)));
+      for (const k of ['pct', 'amount', 'purged']) if (k in v && !cmp(v[k])) c.error(`beardSaturation condition: "${k}" is a number or { lt, gte, ... }`);
+      if ('active' in v && typeof v.active !== 'boolean') c.error('beardSaturation condition: "active" must be true or false');
+      return undefined;
+    },
+  },
+
   all: {
     evaluate: (v, s) => asArray(v).every((cond) => evaluateCondition(cond, s)),
     validate: (v, c) => asArray(v).forEach((cond) => validateCondition(cond, c)),

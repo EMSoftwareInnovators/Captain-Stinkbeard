@@ -1,8 +1,9 @@
 import { asArray } from '../../core/util.js';
 import { shipTuning, scaleCount, sumItems } from './integrity.js';
 import { hazardData, stationsIn, fireStage, fireRank, leakSeverity, severityRank } from './hazards.js';
-import { airOptions, exposureFactors } from './airResponse.js';
+import { airOptions, captainFactors } from './airResponse.js';
 import { pressureHere, pressureWord } from './pressureResponse.js';
+import { beardHere, beardWord } from './beardResponse.js';
 
 /**
  * What the captain can do about an emergency where he stands
@@ -27,9 +28,9 @@ import { pressureHere, pressureWord } from './pressureResponse.js';
 const itemName = (content, id) => content.items?.get?.(id)?.name ?? id;
 const itemList = (content, list) => list.map((c) => `${c.count} ${itemName(content, c.item)}`).join(', ');
 
-/** How much longer work takes in a room: its flood stage (1 when dry) times the captain's lungs (Prompt 7: 1 when clear). */
+/** How much longer work takes in a room: its flood stage (1 when dry) times the captain's lungs (Prompt 7: 1 when clear) and beard (Prompt 9: 1 when off). */
 export function workFactor(session, room) {
-  return (session.ship.hazards.waterIn(room).stage.work ?? 1) * exposureFactors(session).work;
+  return (session.ship.hazards.waterIn(room).stage.work ?? 1) * captainFactors(session).work;
 }
 
 /** Seconds an action takes in a room: its own, longer in deep water. */
@@ -131,13 +132,15 @@ export function responseOptions(session, room = session.location?.map, { difficu
  */
 export function emergencySummary(session, room = session.location?.map, { difficulty = 'captain' } = {}) {
   const hz = session.ship.hazards;
-  // Prompt 7: bad air (foul or worse) is an emergency too, weighed with the rest; Prompt 8: so is a Grand Stenchmaster building up.
-  const list = [...hz.emergencies().filter((e) => e.kind !== 'leak' || e.open), ...session.ship.air.emergencies(), ...session.ship.pressure.emergencies()].sort((a, b) => b.weight - a.weight || a.id.localeCompare(b.id));
-  const respond = (hz.any && responseOptions(session, room, { difficulty }).length > 0) || airOptions(session, room, { difficulty }).length > 0 || pressureHere(session, room);
+  // Prompt 7: bad air (foul or worse) is an emergency too, weighed with the rest; Prompt 8: so is a Grand Stenchmaster building up;
+  // Prompt 9: so is the captain's beard, saturated or worse (only while that system is on).
+  const tuning = shipTuning(session.content, difficulty);
+  const list = [...hz.emergencies().filter((e) => e.kind !== 'leak' || e.open), ...session.ship.air.emergencies(), ...session.ship.pressure.emergencies(), ...session.ship.beard.emergencies(tuning)].sort((a, b) => b.weight - a.weight || a.id.localeCompare(b.id));
+  const respond = (hz.any && responseOptions(session, room, { difficulty }).length > 0) || airOptions(session, room, { difficulty }).length > 0 || pressureHere(session, room) || beardHere(session);
   if (!list.length) return respond ? { items: [], more: 0, stability: 'steady', here: false, respond } : null;
   const name = (r) => session.content.maps?.get?.(r)?.name?.replace(/^The /, '') ?? r;
   const airTone = (e) => (e.stage === 'deadly' ? 'r' : e.stage === 'toxic' ? 'o' : 'y');
-  const word = (e) => (e.kind === 'fire' ? `<o>FIRE</> ${name(e.room)} ${e.label.toUpperCase()}` : e.kind === 'flood' ? `<${e.pct >= 65 ? 'r' : 'y'}>WATER</> ${name(e.room)} ${e.pct}%` : e.kind === 'air' ? `<${airTone(e)}>AIR</> ${name(e.room)} ${e.label.toUpperCase()}` : e.kind === 'pressure' ? pressureWord(e) : `<r>LEAK</> ${name(e.room)}`);
+  const word = (e) => (e.kind === 'fire' ? `<o>FIRE</> ${name(e.room)} ${e.label.toUpperCase()}` : e.kind === 'flood' ? `<${e.pct >= 65 ? 'r' : 'y'}>WATER</> ${name(e.room)} ${e.pct}%` : e.kind === 'air' ? `<${airTone(e)}>AIR</> ${name(e.room)} ${e.label.toUpperCase()}` : e.kind === 'pressure' ? pressureWord(e) : e.kind === 'beard' ? beardWord(e) : `<r>LEAK</> ${name(e.room)}`);
   return { items: list.slice(0, 2).map(word), more: Math.max(0, list.length - 2), stability: hz.stability().state, here: list.some((e) => e.room === room), respond };
 }
 
@@ -157,7 +160,7 @@ export function emergencyLine(state, fits = () => true) {
 /** True if anything can be done (or explained) here: the world shows "Respond". */
 export function hasResponse(session, room = session.location?.map) {
   const hz = session.ship.hazards;
-  if (airOptions(session, room).length > 0 || pressureHere(session, room)) return true;
+  if (airOptions(session, room).length > 0 || pressureHere(session, room) || beardHere(session)) return true;
   if (!hz.any) return false;
   return responseOptions(session, room).length > 0;
 }

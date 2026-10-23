@@ -70,6 +70,8 @@ export function subjectDef(content, id) {
     reach: raw.reach ?? 3,
     cues: raw.cues ?? null,
     puff: raw.puff ?? null,
+    // Prompt 9: what an eruption leaves in the captain's beard if he is close (only while that system is on).
+    beard: raw.beard ?? null,
   };
   byContent.set(id, def);
   return def;
@@ -269,7 +271,7 @@ export function pressureDataProblems(content) {
 function subjectProblems(content, id, sa, { lim, sfxOk }) {
   const out = [];
   const raw = pressureData(content).subjects[id];
-  const knownKeys = ['name', 'npc', 'legacy', 'available', 'min', 'max', 'start', 'at', 'substance', 'triggers', 'calms', 'strain', 'modifiers', 'soothe', 'restrain', 'release', 'eruption', 'reach', 'cues', 'puff'];
+  const knownKeys = ['name', 'npc', 'legacy', 'available', 'min', 'max', 'start', 'at', 'substance', 'triggers', 'calms', 'strain', 'modifiers', 'soothe', 'restrain', 'release', 'eruption', 'reach', 'cues', 'puff', 'beard'];
   for (const key of Object.keys(raw)) if (!key.startsWith('//') && !knownKeys.includes(key)) out.push(`${sa}: unknown field "${key}"`);
   if (!/^[a-z][a-z0-9_]*$/.test(id)) out.push(`${sa}: ids are lower_snake_case`);
   if (content.npcs?.get && !content.npcs.get(raw.npc ?? id)) out.push(`${sa}: unknown character "${raw.npc ?? id}" (a subject is a character who is really aboard)`);
@@ -284,6 +286,20 @@ function subjectProblems(content, id, sa, { lim, sfxOk }) {
   const def = subjectDef(content, id);
   if (!def) return out;
   if (!substance(content, raw.substance)) out.push(`${sa}: unknown substance "${raw.substance}" (data/ship/air.json)`);
+  // Prompt 9: an eruption's residue in the captain's beard (a deposit, not from the air: the eruption's gas is breathed like any other).
+  if (raw.beard !== undefined) {
+    const b = raw.beard;
+    const c = isPlainObject(b) ? content.shipBeard?.contaminants?.[b.contaminant] : null;
+    if (!isPlainObject(b)) out.push(`${sa}: beard is { contaminant, amount, reach? }`);
+    else {
+      for (const k of Object.keys(b)) if (!['contaminant', 'amount', 'reach'].includes(k)) out.push(`${sa}: beard: unknown field "${k}"`);
+      if (!c) out.push(`${sa}: beard: unknown contaminant "${b.contaminant}" (data/ship/beard.json)`);
+      else if (c.air !== undefined || !c.supernatural) out.push(`${sa}: beard: an eruption leaves a supernatural residue (its gas is breathed like any other: never both)`);
+      else if (c.debugOnly) out.push(`${sa}: beard: "${b.contaminant}" is for the debug demo and tests only`);
+      if (!(num(b.amount) && b.amount > 0 && b.amount <= 50)) out.push(`${sa}: beard: amount must be above 0, at most 50`);
+      if (b.reach !== undefined && !(Number.isInteger(b.reach) && b.reach >= 1 && b.reach <= 12)) out.push(`${sa}: beard: reach must be 1 to 12 tiles`);
+    }
+  }
   // Thresholds: every one, rising, inside the range.
   let prev = def.min;
   for (const s of THRESHOLD_STAGES) {

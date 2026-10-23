@@ -31,10 +31,21 @@ export function exposureFactors(session) {
   return { work: st.work ?? 1, walk: st.walk ?? 1, stage: st };
 }
 
-/** Seconds an air action takes in a room: its own, longer in deep water and with bad lungs. */
+/**
+ * How much slower the captain works and walks: his lungs, times his beard
+ * (Prompt 9: its stage and conditions, 1 while the system is off, which is
+ * every chapter).
+ */
+export function captainFactors(session) {
+  const lungs = exposureFactors(session);
+  const beard = session.ship.beard?.factors() ?? { work: 1, walk: 1 };
+  return { work: lungs.work * beard.work, walk: lungs.walk * beard.walk };
+}
+
+/** Seconds an air action takes in a room: its own, longer in deep water, with bad lungs or a heavy beard. */
 export function airSeconds(session, room, base) {
   const water = session.ship.hazards.waterIn(room).stage.work ?? 1;
-  return Math.max(1, Math.round(base * water * exposureFactors(session).work));
+  return Math.max(1, Math.round(base * water * captainFactors(session).work));
 }
 
 /** A seal's bill and a failed try's waste on a difficulty. */

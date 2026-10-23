@@ -32,6 +32,8 @@ export class GameSession {
     this.ship.air.hurt = (hp, floor) => this.chokeLeader(hp, floor);
     // Prompt 8: the Grand Stenchmasters' pressure reads the story (where they are; Brogath's Stability) (docs/gameplay-overhaul/12-pressure-and-eruptions.md).
     this.ship.pressure.session = this;
+    // Prompt 9: the Stink Beard reads the content, what the captain carries (what he can wear over it) and where he is (docs/gameplay-overhaul/13-beard-saturation.md).
+    this.ship.beard.session = this;
     this.playTime = 0; // seconds
     this.createdAt = new Date().toISOString();
     // Per-play state that is deliberately never saved (fume exposure...).

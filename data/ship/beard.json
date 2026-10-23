@@ -1,0 +1,60 @@
+{
+  "//": "Overhaul Prompt 9: Stink Beard Saturation (docs/gameplay-overhaul/13-beard-saturation.md). What the captain's beard holds, by contaminant, and what that does. Opt-in: nothing happens until a script switches it on (beardSaturation), and no chapter does. Separate from the Story Phase 16 contamination tags (data/story/beard.json: the beard's story record, read by dialogue, looks and the hornets) and the Phase 17 cosmetic puffs, which are untouched. The beard intercepts part of each gas the captain breathes: the air it takes in leaves the room (counted as 'absorbed'), what passes reaches his lungs (then the wet cloth, Frog Grog and the fume hazard option, as before). It keeps what it holds until washed out or purged back into the room.",
+  "capacity": 100,
+  "//breath": "Units of room air drawn through the beard a second: of a gas at pct% of the room, breath x pct / 100 units pass, and it catches its share of those (the stage absorb x the contaminant absorb x what he wears). His lungs breathe the rest.",
+  "breath": 10,
+  "//contaminants": "absorb: how readily the beard takes it from the air (0 for one that never comes from the air); potency: what a unit held gives off into his lungs at the heavy stages and when sniffed; cleans: how readily washing removes it; release: the air substance it becomes when purged; irritant: counts toward gagging; paranoia: counts toward paranoia; supernatural: deposited by an event, never drawn from the air; debugOnly: for the debug demo and tests, never story content.",
+  "contaminants": {
+    "smoke": { "label": "Smoke", "short": "SMOKE", "air": "smoke", "absorb": 1, "potency": 0.02, "cleans": 1, "release": "smoke" },
+    "vapor": { "label": "Irritating vapor", "short": "VAPOR", "air": "vapor", "absorb": 0.8, "potency": 0.05, "cleans": 1, "release": "vapor", "irritant": true },
+    "heavy_gas": { "label": "Heavy gas", "short": "HEAVY", "air": "heavy_gas", "absorb": 0.5, "potency": 0.08, "cleans": 0.8, "release": "heavy_gas", "irritant": true },
+    "stench_residue": { "label": "Stenchmaster residue", "short": "RESIDUE", "supernatural": true, "potency": 0.06, "cleans": 0.4, "release": "vapor" },
+    "test_musk": { "label": "Strange musk (test)", "short": "MUSK?", "supernatural": true, "debugOnly": true, "potency": 0.02, "cleans": 0.6, "release": "vapor", "paranoia": true }
+  },
+  "//stages": "By how full the beard is (percent of capacity, which the difficulty scales). absorb: the share of each breath it catches (times the contaminant's absorb); offgas: what it gives off into his lungs each second, per unit held times potency; work and walk: how much slower he is.",
+  "stages": [
+    { "id": "clean", "label": "clean", "below": 2, "tone": "g", "absorb": 0.55 },
+    { "id": "trace", "label": "trace", "below": 15, "tone": "g", "absorb": 0.55 },
+    { "id": "noticeable", "label": "noticeable", "below": 35, "tone": "w", "absorb": 0.5 },
+    { "id": "saturated", "label": "saturated", "below": 60, "tone": "y", "absorb": 0.35, "work": 1.05 },
+    { "id": "heavy", "label": "heavily saturated", "below": 80, "tone": "o", "absorb": 0.2, "offgas": 0.1, "work": 1.1 },
+    { "id": "critical", "label": "critical", "below": 100, "tone": "r", "absorb": 0.1, "offgas": 0.2, "work": 1.15, "walk": 1.05, "puffs": 6 },
+    { "id": "overloaded", "label": "overloaded", "tone": "r", "absorb": 0, "offgas": 0.35, "work": 1.2, "walk": 1.1, "puffs": 4 }
+  ],
+  "//statuses": "derived: present while the beard's contents say so (not saved); contaminant: while enough of its kind is held, then for 'linger' seconds; applied: by a script or an event, for its seconds or until cleared. Effects: work, walk; gagEvery (a gagging fit stops him); perception (paranoia: false alerts every alertEvery seconds, a hallucinated label over somebody nearby; never on the HUD line, never a changed name); hook (an event for later systems, every buzzEvery seconds).",
+  "statuses": {
+    "saturated": { "label": "Saturated", "short": "SATURATED", "tone": "y", "kind": "derived", "atStage": "saturated", "note": "Holds less, protects less." },
+    "gagging": { "label": "Gagging", "short": "GAGGING", "tone": "o", "kind": "derived", "irritant": 30, "effects": { "gagEvery": 8, "work": 1.15 }, "note": "Irritating gas in the beard: fits of gagging." },
+    "paranoid": {
+      "label": "Paranoid", "short": "PARANOID", "tone": "p", "kind": "contaminant", "paranoia": 8, "linger": 20, "effects": { "perception": true, "alertEvery": 12 },
+      "note": "Everyone looks like a Grand Stenchmaster. What isn't real is marked (?); real warnings are on the HUD line.",
+      "visions": [
+        "(?) GRAND STENCHMASTER ALERT: something is building up right behind you.",
+        "(?) Was that a Grand Stenchmaster? It looked enormous. It looked at your beard.",
+        "(?) A rumble below decks. Or was it your stomach?",
+        "(?) Somebody whispered \"eruption\". Nobody is there."
+      ]
+    },
+    "hornet_nested": { "label": "Hornet-nested", "short": "HORNETS", "tone": "o", "kind": "applied", "seconds": 300, "effects": { "work": 1.1, "buzzEvery": 9, "hook": "beard:hornets" }, "clearedBy": { "smoke": 12, "scrub": true }, "note": "Hornets live in it. Smoke drives them out; so does a scrub." }
+  },
+  "//purge": "Releases from the beard into the room he is in, as finite air sources (never more than leaves the beard). overload: when it is full, after a warning countdown (warnScale); controlled: the captain wrings it out. After any purge the beard takes in nothing for 'cooldown' seconds (no release-and-reabsorb loop).",
+  "purge": {
+    "overload": { "label": "an involuntary purge", "warn": 10, "share": 0.5, "rate": 12, "cooldown": 30 },
+    "controlled": { "label": "wrung out", "share": 0.4, "rate": 10, "cooldown": 15, "seconds": 3 },
+    "catastrophic": { "label": "a catastrophic purge", "share": 1, "rate": 20, "cooldown": 60 }
+  },
+  "sniff": { "lock": 10, "exposure": 0.6, "interrupt": 15 },
+  "//care": "Beard care, at a station (the washroom's tub and basin: no new fixture), standing next to one (reach, in tiles). rinse: water only, seconds of work, a share of each contaminant (times its 'cleans' and the difficulty's cleanScale). scrub: a rag of sailcloth on the timing bar: success, partial and failure remove these shares; a failure wastes the rag and the stirred-up stink makes him gag. Refused in deep water or in foul air.",
+  "care": {
+    "stations": [{ "room": "washroom", "label": "the washroom tub", "at": [[7, 5], [2, 4]], "reach": 1 }],
+    "rinse": { "label": "Rinse the beard", "seconds": 6, "share": 0.3 },
+    "scrub": { "label": "Scrub the beard", "title": "SCRUB IT OUT", "kind": "scrub", "strikes": 3, "seconds": 8, "cost": [{ "item": "sailcloth", "count": 1 }], "results": { "success": 0.8, "partial": 0.5, "failure": 0.1 }, "challenge": { "profile": "ship_repair" } }
+  },
+  "//equipment": "Story key items mapped to effects, only while worn (beardWear, or Respond while the system is on: the item must be held; nothing is worn by itself). absorb: how much of its share the beard still catches (the wrap keeps it from soaking, so more reaches the lungs); lungs: what reaches his lungs (the wet cloth; the rescue's rescue_gear_on already protects the lungs the same way, and the two never stack); irritant: how much irritant counts toward gagging (the goggles keep the sting out of his eyes).",
+  "equipment": {
+    "beard_wrap": { "label": "the beard wrap", "absorb": 0.35 },
+    "wet_cloth": { "label": "the wet cloth", "lungs": 0.7 },
+    "bottle_goggles": { "label": "the bottle goggles", "irritant": 0.5 }
+  },
+  "limits": { "statusSeconds": 600, "addAmount": 100 }
+}

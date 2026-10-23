@@ -35,6 +35,7 @@ import { SharkDuty } from '../world/SharkDuty.js';
 import { intensityValue } from '../systems/bank.js';
 import { StabilityRunner } from '../world/StabilityRunner.js';
 import { PressureCues } from '../world/PressureCues.js';
+import { BeardCues } from '../world/BeardCues.js';
 import { SharkstormLayer } from '../world/SharkstormLayer.js';
 import { mapDisplayName } from '../maps/mapName.js';
 import { mapBackground } from '../maps/mapBackground.js';
@@ -43,7 +44,7 @@ import { HazardLayer } from '../world/HazardLayer.js';
 import { shipTuning } from '../systems/ship/integrity.js';
 import { hazardData } from '../systems/ship/hazards.js';
 import { emergencySummary } from '../systems/ship/response.js';
-import { exposureFactors } from '../systems/ship/airResponse.js';
+import { captainFactors } from '../systems/ship/airResponse.js';
 import { HazardClock } from '../systems/ship/hazardClock.js';
 
 // Step durations chosen so a 60 Hz frame moves a whole number of pixels:
@@ -149,6 +150,8 @@ export class WorldScene extends BaseScene {
     this.stability = new StabilityRunner(this);
     // Overhaul Prompt 8: a Grand Stenchmaster's warnings and eruptions in the world (the rules: systems/ship/PressureState.js).
     this.pressureCues = new PressureCues(this);
+    // Overhaul Prompt 9: the Stink Beard's fits, puffs, purges and visions in the world (the rules: systems/ship/BeardState.js).
+    this.beardCues = new BeardCues(this);
     this.grade = this.add.rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0xffffff).setOrigin(0).setScrollFactor(0).setDepth(75000).setBlendMode('MULTIPLY');
     this.applyReducedEffects();
     this.refreshStory({ immediate: true });
@@ -210,6 +213,7 @@ export class WorldScene extends BaseScene {
     this.hazardLayer?.destroy();
     this.stability?.destroy();
     this.pressureCues?.destroy();
+    this.beardCues?.destroy();
     this.fx?.destroy();
     this.barks?.clear();
     this.stage?.clear();
@@ -1766,9 +1770,14 @@ export class WorldScene extends BaseScene {
     const level = this.playerFumeLevel();
     // The protection the legacy fumes honour protects from the ship's air too: the wet cloth, a swig of Frog Grog.
     const ward = this.session.transient.fumeWard;
-    const protect = (this.session.story.has('rescue_gear_on') ? 0.7 : 1) * (ward?.ms > 0 ? ward.scale : 1);
+    // Prompt 9: the wet cloth worn over the beard (beardWear) protects like the rescue gear, and never on top of it (the smaller of the two).
+    const cloth = Math.min(this.session.story.has('rescue_gear_on') ? 0.7 : 1, ship.beard.lungFactor);
+    const protect = cloth * (ward?.ms > 0 ? ward.scale : 1);
     ship.air.access = this.app.flags.fumeImmunity ? 0 : this.app.settings.fumeScale() * protect;
     ship.air.legacyOwns = level === 'dense' || level === 'center';
+    // Prompt 9: the fume hazard option reaches the beard's gagging fits (Off: none); the HUD reads it on the difficulty in play.
+    ship.beard.fume = this.app.flags.fumeImmunity ? 0 : this.app.settings.fumeScale();
+    if (ship.beard.on) ship.beard.tuning = shipTuning(this.content, this.app.settings.challengePrefs().difficulty);
     this.hazardClock.advance(dt, {
       active: ship.envActive,
       eligible: !busy && !this.leaving && !this.collapsing && !this.scene.get('Debug')?.open,
@@ -1796,7 +1805,7 @@ export class WorldScene extends BaseScene {
     const room = this.model.id;
     this.hazardLayer.sync(room);
     // Deep water and bad lungs both slow him (Prompt 7: the exposure stage's "walk").
-    this.wade = (hz.waterIn(room).stage.wade ?? 1) * exposureFactors(this.session).walk;
+    this.wade = (hz.waterIn(room).stage.wade ?? 1) * captainFactors(this.session).walk;
     // Prompt 7: walking into bad air is never a surprise: it is named as he arrives (once per room and quality).
     const air = this.session.ship.air.airIn(room);
     if (air.index > 0 && this.airWarned !== `${room}:${air.quality.id}`) {

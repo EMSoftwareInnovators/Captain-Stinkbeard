@@ -3,6 +3,7 @@ import { thresholdFor, sumItems } from './integrity.js';
 import { HazardState } from './HazardState.js';
 import { AirState } from './AirState.js';
 import { PressureState } from './PressureState.js';
+import { BeardState } from './BeardState.js';
 
 /**
  * The ship's condition (docs/gameplay-overhaul/09-ship-integrity.md): each
@@ -32,8 +33,9 @@ import { PressureState } from './PressureState.js';
  * Its emergencies (leaks, water, fire: Prompt 6) are `this.hazards`
  * (./HazardState.js), its air room by room (Prompt 7) is `this.air`
  * (./AirState.js), and the Grand Stenchmasters' pressure (Prompt 8) is
- * `this.pressure` (./PressureState.js), all saved and checkpointed with it,
- * and all moved by one clock: `tick()`.
+ * `this.pressure` (./PressureState.js), and the captain's Stink Beard
+ * (Prompt 9) is `this.beard` (./BeardState.js), all saved and checkpointed
+ * with it, and all moved by one clock: `tick()`.
  */
 const SEEN_LIMIT = 128;
 /** Event ids a save and a checkpoint keep (all of them: at most SEEN_LIMIT). */
@@ -51,27 +53,32 @@ export class ShipState {
     this.hazards = new HazardState({ ship: this, def: hazards, bus });
     this.air = new AirState({ ship: this, def: air, bus });
     this.pressure = new PressureState({ ship: this, def: pressure, bus });
+    this.beard = new BeardState({ ship: this, bus });
     this.reset();
   }
 
-  /** Something to move on the hazard clock: an emergency, anything in the air, or a Grand Stenchmaster under pressure. */
+  /** Something to move on the hazard clock: an emergency, anything in the air, a Grand Stenchmaster under pressure, or a beard holding something. */
   get envActive() {
-    return this.hazards.active || this.air.active || this.air.smokeToCome() || this.pressure.active;
+    return this.hazards.active || this.air.active || this.air.smokeToCome() || this.pressure.active || this.beard.active;
   }
 
   /**
    * One step of hazard time for everything environmental, in order: the
    * pressure (buildup, and an eruption's damage, blast and gas source), the
    * leaks, water and fire, then the air (which pours the sources, reads the
-   * fires' smoke, moves the gas and lets the captain breathe). The one
-   * clock: the world calls it while the captain is free, the emergency work
-   * tick by tick, `hazardClock` on purpose. Returns true if anything moved.
+   * fires' smoke, moves the gas and lets the captain breathe: through his
+   * beard, which takes its share then), then the beard's own second (its
+   * conditions, the overload countdown and a purge, which pours into the air
+   * from the next second). The one clock: the world calls it while the
+   * captain is free, the emergency work tick by tick, `hazardClock` on
+   * purpose. Returns true if anything moved.
    */
   tick(tuning) {
     const p = this.pressure.tick(tuning);
     const a = this.hazards.tick(tuning);
     const b = this.air.tick(tuning);
-    return p || a || b;
+    const c = this.beard.tick(tuning);
+    return p || a || b || c;
   }
 
   get ids() {
@@ -152,9 +159,9 @@ export class ShipState {
     return this.ids.every((id) => this.hp.get(id) >= this.def.sections[id].max);
   }
 
-  /** True when nothing is wrong at all: every section whole, no hazard (leak, water, fire, buckets carried), clean air, every opening at its default, no pressure in play. */
+  /** True when nothing is wrong at all: every section whole, no hazard (leak, water, fire, buckets carried), clean air, every opening at its default, no pressure in play, the beard system never used. */
   get untouched() {
-    return this.pristine && !this.hazards.any && !this.air.active && !Object.keys(this.air.links).length && this.pressure.untouched;
+    return this.pristine && !this.hazards.any && !this.air.active && !Object.keys(this.air.links).length && this.pressure.untouched && this.beard.untouched;
   }
 
   /**
@@ -276,7 +283,7 @@ export class ShipState {
   }
 
   serialize() {
-    return { sections: Object.fromEntries(this.ids.map((id) => [id, this.hp.get(id)])), hazards: this.hazards.serialize(), air: this.air.serialize(), pressure: this.pressure.serialize(), events: [...this.seen].slice(-SAVED_EVENTS) };
+    return { sections: Object.fromEntries(this.ids.map((id) => [id, this.hp.get(id)])), hazards: this.hazards.serialize(), air: this.air.serialize(), pressure: this.pressure.serialize(), beard: this.beard.serialize(), events: [...this.seen].slice(-SAVED_EVENTS) };
   }
 
   /**
@@ -307,6 +314,8 @@ export class ShipState {
     this.air.load(state?.air, onWarning);
     // The pressure (a save from before version 21 has none: every subject off, nothing pending, nothing invented).
     this.pressure.load(state?.pressure, onWarning);
+    // The beard (a save from before version 22 has none: off and clean; the old beard tags are the story's, never read as contamination).
+    this.beard.load(state?.beard, onWarning);
     this.bus?.emit('ship:loaded', {});
     this.bus?.emit('hazard:changed', {});
     this.bus?.emit('ship:changed', { section: null });

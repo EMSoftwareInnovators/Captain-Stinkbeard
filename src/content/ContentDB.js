@@ -126,6 +126,7 @@ const SINGLE_FILES = {
   // Prompt 7: the ship's air, room by room (docs/gameplay-overhaul/11-atmosphere-and-ventilation.md).
   'ship/air.json': 'shipAir',
   'ship/pressure.json': 'shipPressure',
+  'ship/beard.json': 'shipBeard',
 };
 
 export const REGISTRY_KINDS = [
@@ -154,6 +155,7 @@ export class ContentDB {
     this.shipHazards = null;
     this.shipAir = null;
     this.shipPressure = null;
+    this.shipBeard = null;
     this.loadErrors = [];
     this.extensions = []; // { kind: 'npcs'|'characters', rec, source }
     this.files = Object.keys(files).map(relativePath).sort(byPath);

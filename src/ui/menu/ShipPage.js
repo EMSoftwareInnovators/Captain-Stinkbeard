@@ -7,6 +7,9 @@ import { responseOptions, advice, roomLabel } from '../../systems/ship/response.
 import { fireRoom, leakSeverity } from '../../systems/ship/hazards.js';
 import { airOptions, airAdvice, exposureFactors, shortName } from '../../systems/ship/airResponse.js';
 import { pressureAdvice, pressureHere } from '../../systems/ship/pressureResponse.js';
+import { beardHere, scrubCost } from '../../systems/ship/beardResponse.js';
+import { careRooms } from '../../systems/ship/beard.js';
+import { shipTuning } from '../../systems/ship/integrity.js';
 
 /** A condition's colour mark (the word beside it always says the same thing). */
 const TONE = { healthy: 'g', worn: 'w', damaged: 'y', critical: 'o', disabled: 'r' };
@@ -29,6 +32,11 @@ const TONE = { healthy: 'g', worn: 'w', damaged: 'y', critical: 'o', disabled: '
  * whose air is foul or worse are emergencies too (what's in it, where it
  * comes from, the room's openings), and the captain's own lungs while
  * they're short of clear.
+ *
+ * Prompt 9 (docs/gameplay-overhaul/13-beard-saturation.md): while the Stink
+ * Beard system is on (no chapter turns it on), the captain's beard is a row:
+ * how full, what it holds (broadly), its conditions, how well it protects,
+ * the purge risk, and where and with what it can be cleaned.
  */
 export class ShipPage {
   constructor(scene, rect) {
@@ -84,6 +92,12 @@ export class ShipPage {
     // Prompt 8: a Grand Stenchmaster building up (words for the stage, not only colour).
     const toneColor = { g: 0x8cd46a, w: 0xffffff, y: 0xf8d86c, o: 0xf8a040, r: 0xf07860 };
     for (const e of ship.pressure.emergencies()) items.push({ label: `Pressure: ${e.name}`, value: `hz:${e.id}`, right: `${e.label.toUpperCase()}${e.held ? ' HELD' : ''}${e.left !== null ? ` ${e.left}s` : ''}`, rightColor: toneColor[e.tone] ?? 0xf8d86c });
+    // Prompt 9: his beard, whenever that system is on (clean included: it's where it is cleaned from).
+    if (ship.beard.on) {
+      const b = ship.beard.info(this.tuning());
+      const right = b.phase === 'overload' ? `PURGE ${b.left}s` : `${b.shown}% ${b.stage === 'heavy' ? 'HEAVY' : b.label.toUpperCase()}`;
+      items.push({ label: 'Your beard', value: 'hz:beard', right, rightColor: toneColor[b.phase === 'overload' ? 'r' : b.tone] ?? 0xffffff });
+    }
     this.menu = new ListMenu(scene, {
       x: rect.x + 24,
       y: rect.y + 34,
@@ -163,6 +177,10 @@ export class ShipPage {
     }
     if (hid.startsWith('pressure:')) {
       this.renderPressure(hid.slice(9));
+      return;
+    }
+    if (hid === 'beard') {
+      this.renderBeard();
       return;
     }
     const { scene, rect } = this;
@@ -261,10 +279,51 @@ export class ShipPage {
     line(session.location?.map === i.room ? `{btn:confirm} <y>Respond here</>` : `<k>Go to ${where} to deal with him.</>`);
   }
 
+  /** The ship tuning of the difficulty in play (the beard's capacity). */
+  tuning() {
+    return shipTuning(this.app.content, this.app.settings.challengePrefs().difficulty);
+  }
+
+  /** The captain's beard: how full, what it holds (broadly), conditions, protection, purge risk, where and with what to clean it. */
+  renderBeard() {
+    const { scene, rect } = this;
+    const session = this.session;
+    const t = this.tuning();
+    const i = session.ship.beard.info(t);
+    const D = 21;
+    const x = rect.x + 12;
+    const width = rect.w - 24;
+    let y = rect.y + 117;
+    const line = (text) => {
+      const tx = this.detail.add(addText(scene, x, y, text, { depth: D, maxWidth: width }));
+      y += tx.text.split('\n').length * 11 + 2;
+    };
+    const trend = i.trend === 'rising' ? ', filling' : i.trend === 'falling' ? ', clearing' : '';
+    const held = i.contents.filter((c) => c.share >= 0.1).map((c) => c.short);
+    line(`<${i.tone}>${i.label.toUpperCase()}</> ${i.shown}%${trend}.${held.length ? ` <k>Holds:</> ${held.join(', ')}.` : ''}`);
+    const st = i.statuses.filter((s) => s.id !== 'saturated');
+    const risk = i.phase === 'overload' ? `<r>PURGE IN ${i.left} s.</>` : i.risk === 'high' ? '<r>Close to purging.</>' : i.phase === 'cooldown' ? `<k>Just purged (${i.left} s).</>` : '';
+    line(`${st.length ? `${st.map((s) => `<${s.tone}>${s.short}</>${s.left !== null ? ` ${s.left}s` : ''}`).join(', ')}. ` : ''}<k>Catches ~${Math.round(i.protection * 100)}% of smoke.</> ${risk}`);
+    const rag = scrubCost(session.content, this.app.settings.challengePrefs().difficulty).map((c) => `${c.count} ${this.app.content.items.get(c.item)?.name ?? c.item} (${session.inventory.count(c.item)})`).join(', ');
+    line(`<k>Wash it at the ${careRooms(session.content).map((r) => this.app.content.maps.get(r)?.name?.replace(/^The /, '') ?? r).join(', ')} tub: rinse, or scrub (${rag}).</>`);
+    // The risk is in the line above; what to do about it is Respond (the full report is "Look at your beard").
+    line(beardHere(session) ? `{btn:confirm} <y>Respond</>` : '');
+  }
+
   /** Confirm on an emergency in this room: close the menu and open the Respond choice in the world. */
   respond(hid) {
     if (this.started) return;
     const room = this.session.location?.map;
+    if (hid === 'beard') {
+      if (!beardHere(this.session)) {
+        this.app.audio.ui('buzzer');
+        return;
+      }
+      this.started = true;
+      this.app.audio.ui('confirm');
+      this.scene.close({ then: (world) => world.runScript([{ emergency: true }]) });
+      return;
+    }
     if (hid.startsWith('pressure:')) {
       const i = this.session.ship.pressure.info(hid.slice(9));
       if (!(i && i.room === room && pressureHere(this.session, room))) {

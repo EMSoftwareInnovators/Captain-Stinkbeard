@@ -24,6 +24,8 @@ import { airRoom } from '../ship/air.js';
 import { airOptions, airReport, sealWaste, mendWaste } from '../ship/airResponse.js';
 import { subjectDef, stageInfo, pressureData } from '../ship/pressure.js';
 import { subjectOptions, pressureGroups, pressureReport } from '../ship/pressureResponse.js';
+import { beardData } from '../ship/beard.js';
+import { beardOptions, beardReport, sniffReport } from '../ship/beardResponse.js';
 import { tunedTensionDef } from '../tension.js';
 
 /** Story Phase 14: a stability subject (data/story/stability) with its defaults. */
@@ -370,15 +372,16 @@ function claimHazardEvent(ctx, step) {
 
 /** Runs `fn` with the hazards' own notices held back when the step says "announce": false. */
 function quietly(ctx, step, fn) {
-  const { hazards: hz, air, pressure } = ctx.session.ship;
-  const was = [hz.quiet, air.quiet, pressure.quiet];
+  const { hazards: hz, air, pressure, beard } = ctx.session.ship;
+  const was = [hz.quiet, air.quiet, pressure.quiet, beard.quiet];
   hz.quiet = step.announce === false;
   air.quiet = step.announce === false;
   pressure.quiet = step.announce === false;
+  beard.quiet = step.announce === false;
   try {
     return fn();
   } finally {
-    [hz.quiet, air.quiet, pressure.quiet] = was;
+    [hz.quiet, air.quiet, pressure.quiet, beard.quiet] = was;
   }
 }
 
@@ -1119,7 +1122,9 @@ export function createCommandImplementations() {
       const pGroups = pressureGroups(session, room);
       // Prompt 7: the air's actions in this room (docs/gameplay-overhaul/11-atmosphere-and-ventilation.md).
       const airOpts = airOptions(session, room, { difficulty: prefs.difficulty, always: pGroups.length > 0 });
-      if (!hazardOpts.length && !airOpts.length && !pGroups.length) {
+      // Prompt 9: the captain's own beard, wherever he is, while that system is on (docs/gameplay-overhaul/13-beard-saturation.md).
+      const beardOpts = beardOptions(session, { difficulty: prefs.difficulty });
+      if (!hazardOpts.length && !airOpts.length && !pGroups.length && !beardOpts.length) {
         if (step.announce !== false) await shipNotice(ctx, '<k>Nothing to do about an emergency here.</>');
         return null;
       }
@@ -1143,7 +1148,7 @@ export function createCommandImplementations() {
         return opts[index] ?? null;
       };
       // More than one kind of trouble here: which first (short lists, not one long one).
-      const groups = [...pGroups, ...(hazardOpts.length ? [{ label: 'Fight the emergency', ok: true, list: hazardOpts }] : []), ...(airOpts.length ? [{ label: 'Air and vents', ok: true, list: airOpts }] : [])];
+      const groups = [...pGroups, ...(hazardOpts.length ? [{ label: 'Fight the emergency', ok: true, list: hazardOpts }] : []), ...(airOpts.length ? [{ label: 'Air and vents', ok: true, list: airOpts }] : []), ...(beardOpts.length ? [{ label: 'Your beard', ok: true, list: beardOpts }] : [])];
       let opts = groups[0].list;
       if (groups.length > 1) {
         const pick = await choose(groups);
@@ -1173,6 +1178,11 @@ export function createCommandImplementations() {
       else if (picked.action === 'soothe') next = { pressureSoothe: picked.subject };
       else if (picked.action === 'restrain') next = { pressureRestrain: picked.subject };
       else if (picked.action === 'release') next = { pressureRelease: picked.subject };
+      else if (picked.action === 'inspect') next = { beardInspect: true };
+      else if (picked.action === 'sniff') next = { beardSniff: true };
+      else if (picked.action === 'wring') next = { beardWring: true };
+      else if (picked.action === 'rinse' || picked.action === 'scrub') next = { beardCare: picked.action };
+      else if (picked.action === 'wear' || picked.action === 'remove') next = { beardWear: picked.item, remove: picked.action === 'remove' };
       else if (picked.connection) next = { airControl: picked.connection, state: picked.to };
       else next = { hazardAction: picked.action, ...(picked.station ? { station: picked.station } : {}) };
       return ctx.runner.execBranch([next], ctx, frame);
@@ -1585,6 +1595,197 @@ export function createCommandImplementations() {
       }
       const r = pr.ready(id).ok ? pr.erupt(id, { controlled: true, tuning: tuningOf(ctx) }) : { ok: false };
       if (step.outcomeValue) session.story.setValue(step.outcomeValue, r.ok ? r.level : 'refused');
+      return null;
+    },
+    // --- Prompt 9: the Stink Beard (docs/gameplay-overhaul/13-beard-saturation.md) ---
+    /** Switches Beard Saturation on or off: { "beardSaturation": true }. Opt-in: no chapter does. Off keeps what it holds. */
+    beardSaturation: (step, ctx) => {
+      const r = ctx.session.ship.beard.enable(step.beardSaturation !== false);
+      if (!r.ok) throw new Error(`beardSaturation: ${r.reason}`);
+      return null;
+    },
+    /**
+     * A deposit that isn't from the air (an event, a splash): { "beardAdd":
+     * contaminant, "amount", "eventId"? }. Never past capacity (the rest is
+     * refused); once per event id; off, nothing happens.
+     */
+    beardAdd: (step, ctx) => {
+      if (challengeStateOf(ctx) === 'resolved' && step.authorized !== true) return null;
+      const r = quietly(ctx, step, () => ctx.session.ship.beard.deposit(step.beardAdd, step.amount, tuningOf(ctx), { eventId: scopedEventId(ctx, step.eventId ?? null) }));
+      if (!r.ok && r.reason !== 'off' && r.reason !== 'duplicate event') throw new Error(`beardAdd ${step.beardAdd}: ${r.reason}`);
+      return null;
+    },
+    /** A scripted wash: { "beardClean": true } (everything) or { "beardClean": contaminant }, "share"? (0 to 1, exactly that). */
+    beardClean: (step, ctx) => {
+      const r = quietly(ctx, step, () => ctx.session.ship.beard.clean({ share: step.share ?? 1, contaminant: step.beardClean === true ? null : step.beardClean }, tuningOf(ctx)));
+      if (!r.ok) throw new Error(`beardClean: ${r.reason}`);
+      return null;
+    },
+    /** A condition by an event: { "beardStatus": id, "seconds"? }, or { "beardStatus": id, "remove": true }. Never a derived one. */
+    beardStatus: (step, ctx) => {
+      const b = ctx.session.ship.beard;
+      const r = quietly(ctx, step, () => (step.remove ? b.removeStatus(step.beardStatus, tuningOf(ctx)) : b.applyStatus(step.beardStatus, step.seconds ?? null, tuningOf(ctx))));
+      if (!r.ok && r.reason !== 'off') throw new Error(`beardStatus ${step.beardStatus}: ${r.reason}`);
+      return null;
+    },
+    /**
+     * A purge now: { "beardPurge": "controlled" | "overload" | "catastrophic",
+     * "room"?, "eventId"? }: its share into the room (or the open), then the
+     * cooldown. Once per event id; nothing in it, or off: refused.
+     */
+    beardPurge: (step, ctx) => {
+      if (challengeStateOf(ctx) === 'resolved' && step.authorized !== true) return null;
+      const b = ctx.session.ship.beard;
+      const r = quietly(ctx, step, () => b.purge(step.beardPurge, tuningOf(ctx), { room: step.room ?? null, eventId: scopedEventId(ctx, step.eventId ?? null) }));
+      if (step.outcomeValue) ctx.session.story.setValue(step.outcomeValue, r.ok ? 'purged' : 'refused');
+      return null;
+    },
+    /** "Look at your beard": the report, in the dialogue box (broad: no figures). */
+    beardInspect: async (step, ctx) => {
+      if (!ctx.session.ship.beard.on || !beardData(ctx.session.content)) {
+        await shipNotice(ctx, '<k>A magnificent beard. Nothing more to say about it.</>');
+        return null;
+      }
+      for (const text of beardReport(ctx.session, tuningOf(ctx))) await service(ctx, 'dialogue', 'narrate').say({ speaker: null, expression: null, text });
+      await ctx.services?.dialogue?.close?.();
+      return null;
+    },
+    /** "Sniff your beard": the detail an inspection doesn't give, at a price (a whiff into his lungs, a gag), then a lock. */
+    beardSniff: async (step, ctx) => {
+      const r = quietly(ctx, step, () => ctx.session.ship.beard.sniff(tuningOf(ctx)));
+      if (!r.ok) {
+        if (step.announce !== false) await shipNotice(ctx, `<r>${r.reason === 'off' ? 'Just a beard.' : r.reason}</>`);
+        if (step.outcomeValue) ctx.session.story.setValue(step.outcomeValue, 'refused');
+        return null;
+      }
+      if (step.announce !== false) {
+        for (const text of sniffReport(ctx.session, r, tuningOf(ctx))) await service(ctx, 'dialogue', 'narrate').say({ speaker: null, expression: null, text });
+        await ctx.services?.dialogue?.close?.();
+      }
+      if (step.outcomeValue) ctx.session.story.setValue(step.outcomeValue, r.gag ? 'gagged' : 'sniffed');
+      return null;
+    },
+    /**
+     * The captain wrings his beard out, here (seconds of work, while the
+     * rest goes on): a controlled purge into this room. If it purged by
+     * itself while he worked, that came first.
+     */
+    beardWring: async (step, ctx) => {
+      const session = ctx.session;
+      const opt = beardOptions(session, { difficulty: challengePrefs(ctx).difficulty }).find((o) => o.action === 'wring');
+      if (!opt?.ok) {
+        if (step.announce !== false) await shipNotice(ctx, `<r>${opt?.reason ?? 'Just a beard.'}</>`);
+        if (step.outcomeValue) session.story.setValue(step.outcomeValue, 'refused');
+        return null;
+      }
+      const b = session.ship.beard;
+      const before = b.count;
+      const hz = session.ship.hazards;
+      hz.working = true;
+      try {
+        for (let i = 0; i < opt.seconds; i++) await workTick(ctx, 'Wringing out your beard', i, opt.seconds);
+      } finally {
+        hz.working = false;
+        ctx.services?.ui?.work?.(null);
+      }
+      if (b.count !== before) {
+        if (step.outcomeValue) session.story.setValue(step.outcomeValue, 'late');
+        return null;
+      }
+      const r = b.on && b.phase !== 'cooldown' ? quietly(ctx, step, () => b.purge('controlled', tuningOf(ctx))) : { ok: false };
+      if (step.outcomeValue) session.story.setValue(step.outcomeValue, r.ok ? 'wrung' : 'refused');
+      return null;
+    },
+    /**
+     * Beard care at a station (the washroom tub or basin): { "beardCare":
+     * "rinse" } (water and seconds of work) or { "beardCare": "scrub" } (a
+     * sailcloth rag on the timing bar: success, partial or failure take
+     * their shares out; a failed try wastes the rag and stirs the stink up,
+     * a cost "Try again" keeps). Refused away from a station, in deep water
+     * or foul air.
+     */
+    beardCare: async (step, ctx, frame) => {
+      const session = ctx.session;
+      const content = session.content ?? ctx.content;
+      const prefs = challengePrefs(ctx);
+      const action = step.beardCare;
+      const opt = beardOptions(session, { difficulty: prefs.difficulty }).find((o) => o.action === action);
+      if (!opt?.ok) {
+        if (step.announce !== false) await shipNotice(ctx, `<r>${opt?.reason ?? 'Just a beard.'}</>`);
+        if (step.outcomeValue) session.story.setValue(step.outcomeValue, 'refused');
+        return null;
+      }
+      const b = session.ship.beard;
+      const care = beardData(content).care;
+      const hz = session.ship.hazards;
+      const pctNow = () => Math.floor(b.pct(tuningOf(ctx)));
+      if (action === 'rinse') {
+        hz.working = true;
+        try {
+          for (let i = 0; i < opt.seconds; i++) await workTick(ctx, 'Rinsing your beard', i, opt.seconds);
+        } finally {
+          hz.working = false;
+          ctx.services?.ui?.work?.(null);
+        }
+        const r = b.on ? quietly(ctx, step, () => b.clean({ share: care.rinse.share, care: true }, tuningOf(ctx))) : { ok: false };
+        if (r.ok && step.announce !== false) await shipNotice(ctx, `<g>Rinsed.</> <k>Your beard is ${pctNow()}% full.</>`);
+        if (step.outcomeValue) session.story.setValue(step.outcomeValue, r.ok ? 'rinsed' : 'refused');
+        return null;
+      }
+      const sdef = care.scrub;
+      const cost = opt.cost;
+      const attempts = affordableAttempts({ worst: cost, results: { failure: { waste: cost } } }, (id) => session.inventory.count(id));
+      hz.working = true;
+      try {
+        const base = challengeConfig(content, step.challenge ?? sdef.challenge, { kind: 'repair', id: 'beard:scrub', difficulty: prefs.difficulty });
+        const limit = Number.isFinite(attempts) ? attempts : null;
+        const cfg = {
+          ...base,
+          retry: { ...base.retry, maxAttempts: base.retry.maxAttempts === null ? limit : limit === null ? base.retry.maxAttempts : Math.min(base.retry.maxAttempts, limit) },
+          onFailure: { ...base.onFailure, mustRetry: false, continue: true, costs: [...base.onFailure.costs, ...cost.map((x) => ({ takeItem: x.item, count: x.count, silent: true })), { beardSetback: 'scrub' }] },
+        };
+        let committed = null;
+        const settle = async (rec) => {
+          if (rec.outcome !== 'success' && rec.outcome !== 'partial') return;
+          for (let i = 0; i < opt.seconds; i++) await workTick(ctx, 'Scrubbing your beard', i, opt.seconds);
+          if (!b.on) return;
+          if (!takeAll(session.inventory, cost)) throw new Error('beardCare scrub: the rag is gone (the plan said there was one)');
+          committed = quietly(ctx, step, () => b.clean({ share: sdef.results[rec.outcome], care: true }, tuningOf(ctx)));
+          // A scrub gets the hornets out too.
+          for (const s of b.statusList(tuningOf(ctx))) if (beardData(content).statuses[s.id]?.clearedBy?.scrub) quietly(ctx, step, () => b.removeStatus(s.id, tuningOf(ctx)));
+        };
+        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: sdef.kind, strikes: sdef.strikes, title: sdef.title, speed: 1, zone: 26, challenge: info });
+        const { record, goto } = await playChallenge(ctx, frame, cfg, attempt, settle);
+        if (committed?.ok && step.announce !== false) await shipNotice(ctx, `<g>Scrubbed${record.outcome === 'partial' ? ', roughly' : ''}.</> <k>Your beard is ${pctNow()}% full. Used ${itemList(content, cost)}.</>`);
+        else if (!committed?.ok && step.announce !== false && record.outcome === 'failure') {
+          const wasted = record.consequences.costs ? sumItems(...Array.from({ length: record.consequences.costs }, () => cost)) : [];
+          await shipNotice(ctx, `<r>It only stirred the stink up.</>${wasted.length ? ` <k>Wasted ${itemList(content, wasted)}.</>` : ''}`);
+        }
+        return challengeFollowUp(ctx, frame, step, cfg, record, goto);
+      } finally {
+        hz.working = false;
+        ctx.services?.ui?.work?.(null);
+      }
+    },
+    /** A failed scrub, as a challenge cost (kept through a retry): the rag's little bit out, and a gag. */
+    beardSetback: (step, ctx) => {
+      const b = ctx.session.ship.beard;
+      if (!b.on) return null;
+      const share = beardData(ctx.session.content)?.care?.scrub?.results?.failure ?? 0;
+      if (share > 0) quietly(ctx, step, () => b.clean({ share, care: true }, tuningOf(ctx)));
+      if (b.fume > 0) b.bus?.emit('beard:gag', { cause: 'scrub' });
+      return null;
+    },
+    /** Wears an item over the beard (one the data maps, one he carries), or takes it off: { "beardWear": item, "remove"? }. */
+    beardWear: async (step, ctx) => {
+      const r = ctx.session.ship.beard.wear(step.beardWear, step.remove !== true);
+      if (!r.ok) {
+        if (step.announce !== false) await shipNotice(ctx, `<r>${r.reason}</>`);
+        if (step.outcomeValue) ctx.session.story.setValue(step.outcomeValue, 'refused');
+        return null;
+      }
+      if (step.announce !== false) await shipNotice(ctx, step.remove ? `Took off ${r.label}.` : `Wearing ${r.label} over your beard.`);
+      if (step.outcomeValue) ctx.session.story.setValue(step.outcomeValue, step.remove ? 'removed' : 'worn');
       return null;
     },
     /**

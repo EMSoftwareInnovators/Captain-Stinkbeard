@@ -723,15 +723,15 @@ describe('checkpoints and retry-safe gas events', () => {
 });
 
 // ---------------------------------------------------------------------------------------------
-describe('saves (version 20, since Prompt 8 21)', () => {
+describe('saves (version 20, since Prompt 8 21, Prompt 9 22)', () => {
   it('the air saves and loads exactly, and goes on the same way afterwards', async () => {
-    expect(SAVE_VERSION).toBe(21);
+    expect(SAVE_VERSION).toBe(22);
     const s = demo();
     const air = s.session.ship.air;
     await s.run([...DEBUG_SHIP.air[4][1], { airControl: 'galley_door', state: 'closed' }, { hazardClock: 12 }]);
     expect(air.exposure).toBeGreaterThan(0);
     const t = reloadStory(s);
-    expect(t.record.version).toBe(21);
+    expect(t.record.version).toBe(22);
     expect(t.session.ship.air.serialize()).toEqual(air.serialize());
     tick(s.session.ship, 30);
     tick(t.session.ship, 30);

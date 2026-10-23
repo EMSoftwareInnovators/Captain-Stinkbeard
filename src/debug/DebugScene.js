@@ -581,6 +581,12 @@ export class DebugScene extends BaseScene {
       out.push({ label: `Pressure: ${i.name}`, right: `${i.on ? '' : '<k>off</> '}${i.shown} ${i.label}${i.held ? ` held ${Math.round(i.held)}` : ''} ${i.phase}${i.left ? ` ${i.left}s` : ''}${i.available ? '' : ' <k>away</>'}` });
     }
     for (const [label, steps] of DEBUG_SHIP.pressure) out.push({ label, action: () => this.runInWorld(steps) });
+    // Prompt 9: the captain's Stink Beard.
+    const b = s.ship.beard;
+    const bi = b.info();
+    out.push({ label: 'Beard', right: `${b.on ? '' : '<k>off</> '}${bi.shown}% ${bi.label}${bi.phase !== 'idle' ? ` ${bi.phase} ${bi.left}s` : ''}${bi.statuses.length ? ` ${bi.statuses.map((x) => x.short).join(' ')}` : ''}` });
+    for (const c of bi.contents.slice(0, 5)) out.push({ label: `  ${c.label}`, right: `${c.amount.toFixed(1)}` });
+    for (const [label, steps] of DEBUG_SHIP.beard) out.push({ label, action: () => this.runInWorld(steps) });
     out.push({ label: 'Take every repair material', action: () => {
       for (const id of DEBUG_SHIP.materials) if (s.inventory.count(id)) s.inventory.remove(id, s.inventory.count(id));
       this.rerender();

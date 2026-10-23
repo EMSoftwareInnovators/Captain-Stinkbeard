@@ -176,14 +176,14 @@ describe('3. the choice persists', () => {
 
 // ---------------------------------------------------------------------------------------------
 describe('4. a save holds no difficulty', () => {
-  it('saves (version 21 since Prompts 5 to 8 added the ship, its hazards, its air and its pressure) load as they are, on the device\'s difficulty', async () => {
-    expect(SAVE_VERSION).toBe(21);
+  it('saves (version 22 since Prompts 5 to 9 added the ship, its hazards, its air, its pressure and the beard) load as they are, on the device\'s difficulty', async () => {
+    expect(SAVE_VERSION).toBe(22);
     const live = session();
     const storage = new MemoryStorage();
     const saves = new SaveManager({ storage, content });
     expect(saves.save(2, live).ok).toBe(true);
     const raw = JSON.parse(storage.getItem(saves.key(2)));
-    expect(raw.version).toBe(21);
+    expect(raw.version).toBe(22);
     expect(Object.keys(raw.state).sort()).toEqual(['createdAt', 'inventory', 'location', 'party', 'playTime', 'quests', 'ship', 'story', 'world']);
     expect(JSON.stringify(raw)).not.toMatch(/difficulty|timingAssist|classicBar/);
     const read = saves.read(2);

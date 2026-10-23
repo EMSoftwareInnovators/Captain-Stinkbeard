@@ -39,8 +39,13 @@ export const SHIP_TUNING = Object.freeze({
   calmScale: [0.5, 1.5],
   holdScale: [0.5, 1.5],
   releaseScale: [0.5, 1.5],
+  // Prompt 9 beard (docs/gameplay-overhaul/13-beard-saturation.md): how much the beard holds before it is full (a smaller
+  // beard saturates sooner, so it stops protecting sooner and purges sooner) and what washing it achieves. The overload
+  // warning is warnScale's; what it gives off into his lungs is exposureScale's.
+  beardCapacityScale: [0.5, 1.5],
+  cleanScale: [0.5, 1.5],
 });
-export const SHIP_TUNING_DEFAULTS = Object.freeze({ damageScale: 1, repairScale: 1, costScale: 1, leakScale: 1, fireScale: 1, responseScale: 1, exposureScale: 1, recoveryScale: 1, ventScale: 1, pressureScale: 1, warnScale: 1, calmScale: 1, holdScale: 1, releaseScale: 1, grace: true });
+export const SHIP_TUNING_DEFAULTS = Object.freeze({ damageScale: 1, repairScale: 1, costScale: 1, leakScale: 1, fireScale: 1, responseScale: 1, exposureScale: 1, recoveryScale: 1, ventScale: 1, pressureScale: 1, warnScale: 1, calmScale: 1, holdScale: 1, releaseScale: 1, beardCapacityScale: 1, cleanScale: 1, grace: true });
 
 /** The outcomes a repair names results for. */
 export const REPAIR_OUTCOMES = Object.freeze(['success', 'partial', 'failure']);

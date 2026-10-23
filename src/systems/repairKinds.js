@@ -50,6 +50,8 @@ export const REPAIR_KINDS = {
   solder: { title: 'SOLDER IT', hint: 'Touch on the green!', stat: 'speed', hit: 'solder_hiss', miss: 'mk2_zzzt', done: 'mk2_tube_ping', speed: 125 },
   // Overhaul Prompt 8: coaching a Grand Stenchmaster to hold it in (docs/gameplay-overhaul/12-pressure-and-eruptions.md).
   restrain: { title: 'HOLD IT IN', hint: 'Breathe with him on the green!', stat: 'defense', hit: 'cardboard_creak', miss: 'puff_tiny', done: 'stomach_bubble', speed: 125 },
+  // Overhaul Prompt 9: scrubbing the captain's beard clean at the washroom tub (docs/gameplay-overhaul/13-beard-saturation.md).
+  scrub: { title: 'SCRUB IT OUT', hint: 'Scrub on the green!', stat: 'speed', hit: 'broom_sweep', miss: 'pot_slop', done: 'splash', speed: 130 },
 };
 
 /** The sounds each kind plays (the validator checks they exist). */

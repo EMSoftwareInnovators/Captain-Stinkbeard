@@ -396,6 +396,18 @@ Object.assign(MIGRATIONS, {
    * save and silently dropping a pressure in play.
    */
   20: (state) => fillLayout(state),
+  /**
+   * 21 -> 22 (overhaul Prompt 9: Stink Beard Saturation,
+   * docs/gameplay-overhaul/13-beard-saturation.md). The ship gains "beard"
+   * (whether the system is on, what the beard holds of each contaminant, its
+   * kept conditions, purge cycle, locks and what is worn over it). A version
+   * 21 save had none, and no chapter switches it on, so it stays absent:
+   * loading reads that as off and clean. The Story Phase 16 beard tags
+   * (story flags "beard_*") are the story's and load exactly as they were;
+   * they are never turned into contamination or conditions. The bump stops
+   * an older build from loading a save and silently dropping a beard in play.
+   */
+  21: (state) => fillLayout(state),
 });
 
 export function migrateState(state, fromVersion, toVersion, migrations = MIGRATIONS) {

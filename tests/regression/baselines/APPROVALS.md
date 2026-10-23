@@ -432,3 +432,74 @@ Across phases
   CHANGED    challenges: kinds.pressureRestrain: undefined -> {"blocksProgression":false,"input":"timed","label":"Coaching a Grand Stenchmaster to hold it in (Prompt 8)","retry":"offered; each failed try leaves him worse (a cost a retry keeps)","softlockRisk":"none: no chapter uses it, and a failed hold never ends the game","support":{"failure":true,"partial":true,"success":true}}
 ```
 
+## 2026-10-23 (on 36e9684)
+
+Reason: Prompt 9 (Stink Beard Saturation): every phase snapshot gains ship.beard (off, holding nothing, no conditions, nothing worn, no purges: no chapter switches it on); the debug preset beard_demo adds one crew_quarters coordinate; the challenge registry gains beardCare (the scrub at the washroom tub). No story, room, crew or coordinate of any chapter changed.
+
+Files: phase-01.json, phase-02.json, phase-03.json, phase-04.json, phase-05.json, phase-06.json, phase-07.json, phase-08.json, phase-09.json, phase-10.json, phase-11.json, phase-12.json, phase-13.json, phase-14.json, phase-15.json, phase-16.json, phase-17.json, coords.json, challenges.json
+
+Changes: 0 regression, 0 warning, 0 improvement, 23 change
+
+```
+Approved changes: 23 changes
+
+Phase 1
+  CHANGED    gameplay.systems.ship: {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"beard":{"held":[],"on":false,"purges":0,"statuses":[],"worn":[]},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 2
+  CHANGED    gameplay.systems.ship: {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"beard":{"held":[],"on":false,"purges":0,"statuses":[],"worn":[]},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 3
+  CHANGED    gameplay.systems.ship: {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"beard":{"held":[],"on":false,"purges":0,"statuses":[],"worn":[]},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 4
+  CHANGED    gameplay.systems.ship: {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"beard":{"held":[],"on":false,"purges":0,"statuses":[],"worn":[]},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 5
+  CHANGED    gameplay.systems.ship: {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"beard":{"held":[],"on":false,"purges":0,"statuses":[],"worn":[]},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 6
+  CHANGED    gameplay.systems.ship: {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"beard":{"held":[],"on":false,"purges":0,"statuses":[],"worn":[]},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 7
+  CHANGED    gameplay.systems.ship: {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"beard":{"held":[],"on":false,"purges":0,"statuses":[],"worn":[]},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 8
+  CHANGED    gameplay.systems.ship: {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"beard":{"held":[],"on":false,"purges":0,"statuses":[],"worn":[]},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 9
+  CHANGED    gameplay.systems.ship: {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"beard":{"held":[],"on":false,"purges":0,"statuses":[],"worn":[]},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 10
+  CHANGED    gameplay.systems.ship: {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"beard":{"held":[],"on":false,"purges":0,"statuses":[],"worn":[]},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 11
+  CHANGED    gameplay.systems.ship: {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"beard":{"held":[],"on":false,"purges":0,"statuses":[],"worn":[]},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 12
+  CHANGED    gameplay.systems.ship: {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"beard":{"held":[],"on":false,"purges":0,"statuses":[],"worn":[]},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 13
+  CHANGED    gameplay.systems.ship: {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"beard":{"held":[],"on":false,"purges":0,"statuses":[],"worn":[]},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 14
+  CHANGED    gameplay.systems.ship: {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"beard":{"held":[],"on":false,"purges":0,"statuses":[],"worn":[]},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 15
+  CHANGED    gameplay.systems.ship: {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"beard":{"held":[],"on":false,"purges":0,"statuses":[],"worn":[]},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 16
+  CHANGED    gameplay.systems.ship: {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"beard":{"held":[],"on":false,"purges":0,"statuses":[],"worn":[]},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Phase 17
+  CHANGED    gameplay.systems.ship: {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}} -> {"air":{"exposure":0,"links":[],"rooms":[],"sources":0},"beard":{"held":[],"on":false,"purges":0,"statuses":[],"worn":[]},"destroyed":false,"hazards":{"buckets":0,"fires":[],"leaks":0,"stability":"steady","water":[]},"overall":100,"pressure":{"on":[],"pending":[],"subjects":[]},"sections":{"bow":80,"deck":60,"hull_port":100,"hull_starboard":100,"rigging":60,"stern":80}}
+
+Across phases
+  CHANGED    coords: byKind.preset position: 339 -> 340
+  CHANGED    coords: byRoom.crew_quarters.files.data/debug/presets.json: 60 -> 61
+  CHANGED    coords: byRoom.crew_quarters.kinds.preset position: 60 -> 61
+  CHANGED    coords: byRoom.crew_quarters.total: 1368 -> 1369
+  CHANGED    coords: total: 8224 -> 8225
+  CHANGED    challenges: kinds.beardCare: undefined -> {"blocksProgression":false,"input":"timed","label":"Grooming the Stink Beard at the washroom tub (Prompt 9)","retry":"offered while the hold can pay for a rag; the waste stays","softlockRisk":"none: no chapter uses it, and a beard can always be rinsed with water alone","support":{"failure":true,"partial":true,"success":true}}
+```
+

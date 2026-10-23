@@ -31,7 +31,10 @@ export const NON_CHALLENGE_COMMANDS = Object.freeze([
   'airSource', 'airStop', 'airAdd', 'airVent', 'airConnection', 'airCheck', 'airControl',
   // Prompt 8 pressure: subjects, triggers and releases, and the captain's check, calm and controlled release (a hold is a challenge: pressureRestrain).
   'pressureSubject', 'pressureTrigger', 'pressureCalm', 'pressureAdd', 'pressureHold', 'pressureModifier', 'pressureErupt', 'pressureSettle', 'pressureSetback',
-  'pressureCheck', 'pressureSoothe', 'pressureRelease', 'showObject', 'spawn', 'sprite', 'spriteFrame', 'stability', 'startQuest', 'swapItem', 'takeGold', 'takeItem', 'tether', 'tint', 'token',
+  'pressureCheck', 'pressureSoothe', 'pressureRelease',
+  // Prompt 9 beard: the switch, event deposits, washes, conditions, purges, the captain's look, sniff, wring and what he wears (a scrub is a challenge: beardCare).
+  'beardSaturation', 'beardAdd', 'beardClean', 'beardStatus', 'beardPurge', 'beardInspect', 'beardSniff', 'beardWring', 'beardSetback', 'beardWear',
+  'showObject', 'spawn', 'sprite', 'spriteFrame', 'stability', 'startQuest', 'swapItem', 'takeGold', 'takeItem', 'tether', 'tint', 'token',
   'transition', 'tutorial', 'tvProgram', 'tvSet', 'vista', 'vistaEnd', 'vistaFrame', 'vistaFx', 'vistaMove', 'vistaShow', 'vistaSpin', 'wait', 'wear',
 ]);
 

@@ -12,6 +12,7 @@
  *   floodRoom fireRoom leakSection leakSeverity hazardAction
  *   airRoom airSubstance airConnection airState
  *   pressureSubject pressureProfile
+ *   beardContaminant beardStatus beardPurge beardCare beardItem
  * A trailing "?" marks a param optional. The command's own key is listed too.
  */
 /**
@@ -219,6 +220,19 @@ export const COMMAND_SCHEMAS = {
   pressureSoothe: { pressureSoothe: 'pressureSubject', announce: 'boolean?', outcomeValue: 'string?' },
   pressureRestrain: { pressureRestrain: 'pressureSubject', announce: 'boolean?', ...CHALLENGE_PARAMS },
   pressureRelease: { pressureRelease: 'pressureSubject', announce: 'boolean?', outcomeValue: 'string?' },
+  // The captain's Stink Beard (overhaul Prompt 9, docs/gameplay-overhaul/13-beard-saturation.md): opt-in saturation, event deposits,
+  // conditions, purges and the captain's care. Not the story's beard tags ("beard") or puffs ("beardPuff"), which are untouched.
+  beardSaturation: { beardSaturation: 'boolean' },
+  beardAdd: { beardAdd: 'beardContaminant', amount: 'number', eventId: 'string?', announce: 'boolean?', authorized: 'boolean?' },
+  beardClean: { beardClean: 'any', share: 'number?', announce: 'boolean?' },
+  beardStatus: { beardStatus: 'beardStatus', seconds: 'number?', remove: 'boolean?', announce: 'boolean?' },
+  beardPurge: { beardPurge: 'beardPurge', room: 'airRoom?', eventId: 'string?', announce: 'boolean?', authorized: 'boolean?', outcomeValue: 'string?' },
+  beardInspect: { beardInspect: 'boolean' },
+  beardSniff: { beardSniff: 'boolean', announce: 'boolean?', outcomeValue: 'string?' },
+  beardWring: { beardWring: 'boolean', announce: 'boolean?', outcomeValue: 'string?' },
+  beardCare: { beardCare: 'beardCare', announce: 'boolean?', ...CHALLENGE_PARAMS },
+  beardSetback: { beardSetback: 'string', announce: 'boolean?' },
+  beardWear: { beardWear: 'beardItem', remove: 'boolean?', announce: 'boolean?', outcomeValue: 'string?' },
 };
 
 /** Commands that may carry "async": true (start and continue without waiting). */

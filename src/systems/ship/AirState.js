@@ -55,9 +55,10 @@ export class AirState {
     this.links = {};
     this.exposure = 0;
     this.next = 1;
-    // Per play: what left the ship, the fits and hurts' countdowns, each room's last total and quality (trends and notices).
+    // Per play: what left the ship, what the captain's beard took in (Prompt 9), the fits and hurts' countdowns, each room's last total and quality (trends and notices).
     this.vented = {};
     this.decayed = {};
+    this.absorbed = {};
     this.coughIn = 0;
     this.hurtIn = 0;
     this.prev = {};
@@ -178,6 +179,28 @@ export class AirState {
     this.gas[room][sub] = (this.gas[room][sub] ?? 0) + add;
     this.changed();
     return add;
+  }
+
+  /** Prompt 9: gas the captain's beard takes out of a room's air (it leaves the room for the beard; counted as absorbed). Returns how much. */
+  takeGas(room, sub, units) {
+    const have = this.gas[room]?.[sub] ?? 0;
+    const n = Math.min(have, Math.max(0, Number(units) || 0));
+    if (!(n > 0)) return 0;
+    this.gas[room][sub] -= n;
+    this.absorbed[sub] = (this.absorbed[sub] ?? 0) + n;
+    this.tidy(room);
+    this.changed();
+    return n;
+  }
+
+  /** Prompt 9: a dose straight into his lungs (a sniff of the beard), through the fume option and the difficulty. Returns what it added. */
+  inhale(amount, tuning = SHIP_TUNING_DEFAULTS) {
+    const max = this.def?.exposure?.max ?? 100;
+    const n = Math.max(0, Number(amount) || 0) * Math.max(0, this.access) * (tuning.exposureScale ?? 1);
+    const before = this.exposure;
+    this.exposure = Math.min(max, this.exposure + n);
+    if (this.exposure !== before) this.changed();
+    return this.exposure - before;
   }
 
   /** Gas out of the ship from a room (one substance, or all with `sub` null): `share` of it (0 to 1). Counted as vented. */
@@ -378,13 +401,29 @@ export class AirState {
     const room = this.where?.() ?? null;
     const air = room ? this.airIn(room) : null;
     const was = exposureStage(this.def, this.exposure);
-    const gain = (air?.index ?? 0) * (tuning.exposureScale ?? 1) * Math.max(0, this.access);
+    // Prompt 9 (docs/gameplay-overhaul/13-beard-saturation.md): with the Stink Beard switched on, it catches its
+    // share of each gas first (out of the room, into the beard) and his lungs breathe the rest; at heavy and worse
+    // it gives off what it holds. Off (every chapter), this is the air's own index, exactly as before.
+    const beard = this.ship?.beard;
+    let index = air?.index ?? 0;
+    let fromBeard = 0;
+    if (beard?.on) {
+      if (room && air?.known && air.subs.length) {
+        const caught = beard.absorb(room, air, tuning);
+        if (Object.keys(caught).length) index = this.indexThrough(air, caught);
+      }
+      fromBeard = beard.offgas(tuning);
+    }
+    const lungs = (tuning.exposureScale ?? 1) * Math.max(0, this.access);
+    const gain = index * lungs;
+    const off = fromBeard * lungs;
     if (this.legacyOwns) {
       // A legacy fume zone has his lungs this second (systems/hazards/fumes.js): one exposure, never two.
-    } else if (gain > 0) this.exposure = Math.min(max, this.exposure + gain);
-    else if (this.exposure > 0) {
+    } else if (gain > 0) this.exposure = Math.min(max, this.exposure + gain + off);
+    else if (this.exposure > 0 || off > 0) {
+      // Clean air: he recovers, less fast with a beard giving off into his face (faster than it can give off, on every difficulty, in clean air).
       const hazy = air && air.known && air.total >= (this.def.quality?.trace ?? 1);
-      this.exposure = Math.max(0, this.exposure - (hazy ? ex.recoverHazy ?? 2 : ex.recover ?? 5) * (tuning.recoveryScale ?? 1));
+      this.exposure = Math.max(0, Math.min(max, this.exposure + off - (hazy ? ex.recoverHazy ?? 2 : ex.recover ?? 5) * (tuning.recoveryScale ?? 1)));
       if (this.exposure < 0.01) this.exposure = 0;
     }
     const stage = exposureStage(this.def, this.exposure);
@@ -406,6 +445,17 @@ export class AirState {
         if (lost > 0) this.notice('air:hurt', `<r>Choking:</> -${lost} HP. <k>Get to clean air!</>`, 'r');
       }
     } else this.hurtIn = 0;
+  }
+
+  /** The index of a breath after the beard caught a share of each gas (each gas at (1 - share) of its concentration, against its safe level). */
+  indexThrough(air, caught) {
+    const sdef = { shipAir: this.def };
+    let index = 0;
+    for (const s of air.subs) {
+      const def = substance(sdef, s.id);
+      index += Math.max(0, s.pct * (1 - (caught[s.id] ?? 0)) - def.safe) * def.potency;
+    }
+    return index;
   }
 
   /** Each room's quality id, for the notices. */

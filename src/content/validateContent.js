@@ -26,6 +26,7 @@ import { shipDataProblems } from '../systems/ship/integrity.js';
 import { hazardDataProblems, compartment, compartmentIds, fireRoom, flammableRooms, leakSections, leakSeverity } from '../systems/ship/hazards.js';
 import { airDataProblems, airRoom, substance, connection, connectionKind, AIR_STATES } from '../systems/ship/air.js';
 import { pressureDataProblems, subjectDef, subjectIds, profileDef, profileIds } from '../systems/ship/pressure.js';
+import { beardDataProblems, contaminant as beardContaminant, contaminantIds, beardStatus, beardStatusIds, CARE_ACTIONS, PURGE_PROFILES } from '../systems/ship/beard.js';
 import { DutyPlan } from '../systems/hazards/sharkDuty.js';
 
 /** The least time a shark on an opted-in watch may give before it bites (a walk across the deck). */
@@ -281,6 +282,25 @@ function validateParam(type, value, check, sctx) {
     case 'pressureProfile':
       if (!profileDef(check.ctx.db, value)) check.error(`unknown release profile "${value}" (data/ship/pressure.json profiles: ${profileIds(check.ctx.db).join(', ')})`);
       return;
+    // Prompt 9 beard (data/ship/beard.json): contaminants (never a debug-only one in content), statuses, purges, care, what can be worn.
+    case 'beardContaminant': {
+      const c = beardContaminant(check.ctx.db, value);
+      if (!c) check.error(`unknown beard contaminant "${value}" (data/ship/beard.json contaminants: ${contaminantIds(check.ctx.db).join(', ')})`);
+      else if (c.debugOnly) check.error(`beard contaminant "${value}" is for the debug demo and tests only, never story content`);
+      return;
+    }
+    case 'beardStatus':
+      if (!beardStatus(check.ctx.db, value)) check.error(`unknown beard status "${value}" (data/ship/beard.json statuses: ${beardStatusIds(check.ctx.db).join(', ')})`);
+      return;
+    case 'beardPurge':
+      if (!PURGE_PROFILES.includes(value)) check.error(`a beard purge is ${PURGE_PROFILES.join(', ')} (got "${value}")`);
+      return;
+    case 'beardCare':
+      if (!CARE_ACTIONS.includes(value)) check.error(`beard care is ${CARE_ACTIONS.join(' or ')} (got "${value}")`);
+      return;
+    case 'beardItem':
+      if (!check.ctx.db.shipBeard?.equipment?.[value] || String(value).startsWith('//')) check.error(`"${value}" isn't mapped to wear over the beard (data/ship/beard.json equipment)`);
+      return;
     case 'challenge':
       // The shape here; the rules (and the steps they run) in validateChallenge.
       if (typeof value === 'string') return check.ref('challenge profile', value, check.ctx.db.challenges);
@@ -500,6 +520,28 @@ function validateStep(step, check, sctx) {
     if (name === 'pressureSetback' && step.action !== undefined && step.action !== 'restrain') check.error('pressureSetback: "action" is "restrain"');
     if (name === 'pressureErupt' && step.controlled === true && step.profile !== undefined) check.error('pressureErupt: a controlled release takes its size from him; give "profile" or "controlled", not both');
     if (name === 'pressureRestrain' && step.challenge !== undefined) validateChallenge(step.challenge, 'repair', check.at('pressureRestrain.challenge'), sctx, { strikes: check.ctx.db.shipPressure?.actions?.restrain?.strikes });
+  }
+  // Prompt 9: amounts within limits; a derived status can't be applied; scrubbing is a challenge, rinsing isn't.
+  if (name.startsWith('beard') && name !== 'beard' && name !== 'beardPuff') {
+    const bd = check.ctx.db.shipBeard;
+    const most = bd?.limits?.addAmount ?? 100;
+    if (name === 'beardAdd' && !(Number.isFinite(step.amount) && step.amount > 0 && step.amount <= most)) check.error(`beardAdd: "amount" must be above 0, at most ${most}`);
+    if (name === 'beardClean') {
+      if (step.beardClean !== true && !beardContaminant(check.ctx.db, step.beardClean)) check.error('beardClean: true (everything) or a contaminant of data/ship/beard.json');
+      if (step.share !== undefined && !(Number.isFinite(step.share) && step.share > 0 && step.share <= 1)) check.error('beardClean: "share" must be above 0, at most 1');
+    }
+    if (name === 'beardStatus') {
+      const st = beardStatus(check.ctx.db, step.beardStatus);
+      if (st?.kind === 'derived' && !step.remove) check.error(`beardStatus: ${st.label} comes from what the beard holds; it can't be applied`);
+      const lim = bd?.limits?.statusSeconds ?? 600;
+      if (step.seconds !== undefined && !(Number.isInteger(step.seconds) && step.seconds >= 1 && step.seconds <= lim)) check.error(`beardStatus: "seconds" must be whole, 1 to ${lim}`);
+    }
+    if (name === 'beardSaturation' && typeof step.beardSaturation !== 'boolean') check.error('beardSaturation: true or false');
+    if (name === 'beardSetback' && step.beardSetback !== 'scrub') check.error('beardSetback: "scrub" (a failed scrub, as a challenge cost)');
+    if (name === 'beardCare' && step.challenge !== undefined) {
+      if (step.beardCare !== 'scrub') check.error('beardCare: only a scrub is a challenge (a rinse is water and time)');
+      else validateChallenge(step.challenge, 'repair', check.at('beardCare.challenge'), sctx, { strikes: bd?.care?.scrub?.strikes });
+    }
   }
   if ((name === 'repair' || name === 'sashTension') && step.challenge === undefined && ['outcomeValue', 'ifSuccess', 'ifPartial', 'ifFailure'].some((k) => k in step)) {
     check.error('outcomeValue / ifSuccess / ifPartial / ifFailure need a "challenge" (a legacy step always succeeds)');
@@ -865,6 +907,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
   for (const problem of hazardDataProblems(db)) C('data/ship').error(problem);
   for (const problem of airDataProblems(db)) C('data/ship').error(problem);
   for (const problem of pressureDataProblems(db)) C('data/ship').error(problem);
+  for (const problem of beardDataProblems(db)) C('data/ship').error(problem);
   // A subject's "available" is a story condition like any other.
   for (const id of subjectIds(db)) {
     const cond = db.shipPressure.subjects[id].available;
@@ -900,6 +943,23 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
       }
       if (!cfg?.failure) c.error(`[${d}] a ship repair's challenge must be able to fail ("failure": true)`);
       else if (cfg.onFailure.mustRetry) c.error(`[${d}] a ship repair can't be must-win: the materials may run out`);
+    }
+  }
+
+  // Prompt 9: the beard scrub's challenge: a rag per try, so it must always be possible to give up.
+  if (db.shipBeard?.care?.scrub) {
+    const c = C('data/ship/beard.json (care.scrub)');
+    const spec = db.shipBeard.care.scrub.challenge ?? { profile: 'ship_repair' };
+    for (const problem of challengeProblems(db, spec, { kind: 'repair', step: { strikes: db.shipBeard.care.scrub.strikes } })) c.error(`challenge: ${problem}`);
+    for (const d of DIFFICULTIES) {
+      let cfg = null;
+      try {
+        cfg = challengeConfig(db, spec, { kind: 'repair', id: 'check', difficulty: d });
+      } catch {
+        break;
+      }
+      if (!cfg?.failure) c.error(`[${d}] a scrub's challenge must be able to fail ("failure": true)`);
+      else if (cfg.onFailure.mustRetry) c.error(`[${d}] a scrub can't be must-win: the rags may run out`);
     }
   }
 

@@ -10,6 +10,7 @@ export const DEBUG_SHIP = {
     ['Emergency demo (cargo hold by the bilge pump, supplies, a healthy ship)', 'hazard_demo'],
     ['Air demo (crew quarters, clean air, sealing supplies)', 'air_demo'],
     ['Pressure demo (crew quarters by Brogath and Garrick, supplies)', 'pressure_demo'],
+    ['Beard demo (crew quarters by the washroom, rags, the beard wrap, cloth and goggles)', 'beard_demo'],
   ],
   /**
    * Prompt 6 (docs/gameplay-overhaul/10-flooding-and-fire.md, "Trying it"):
@@ -107,6 +108,59 @@ export const DEBUG_SHIP = {
       { pressureSettle: 'brogath' }, { pressureSubject: 'brogath', on: false },
       { pressureSettle: 'garrick' }, { pressureSubject: 'garrick', on: false },
     ]],
+  ],
+  /**
+   * Prompt 9 (docs/gameplay-overhaul/13-beard-saturation.md, "Trying it"):
+   * the Stink Beard scenarios, from the beard_demo preset (the crew
+   * quarters, the washroom next door). Each switches the system on (no
+   * chapter does) and sets the scene; then it all runs on hazard time, and
+   * the captain looks after his beard with V (pad X): look, sniff, wring it
+   * out, rinse or scrub it at the washroom tub, wear something over it.
+   * "test_musk" (E) is a debug-only contaminant: story content can't use it.
+   */
+  beard: [
+    ['Beard A: smoke pouring into the crew quarters (the beard fills, protects, then less)', [
+      { beardSaturation: true },
+      { beardClean: true },
+      { airSource: 'crew_quarters', substance: 'smoke', rate: 6, seconds: 90, label: 'a smouldering hammock', source: 'debug' },
+    ]],
+    ['Beard B: mixed contamination (smoke, vapor, residue, heavy gas about; save and load)', [
+      { beardSaturation: true },
+      { beardClean: true },
+      { beardAdd: 'smoke', amount: 14 },
+      { beardAdd: 'vapor', amount: 16 },
+      { beardAdd: 'stench_residue', amount: 8 },
+      { airAdd: 'crew_quarters', substance: 'heavy_gas', pct: 12 },
+    ]],
+    ['Beard C: overloaded (a purge is coming: wring it out where you can air it, or let it go)', [
+      { beardSaturation: true },
+      { beardClean: true },
+      { beardAdd: 'smoke', amount: 55 },
+      { beardAdd: 'vapor', amount: 50 },
+    ]],
+    // No smoke in it: smoke would drive the hornets straight out.
+    ['Beard D: filthy, and hornets in it (the washroom tub: rinse, or scrub with sailcloth)', [
+      { beardSaturation: true },
+      { beardClean: true },
+      { beardAdd: 'vapor', amount: 26 },
+      { beardAdd: 'heavy_gas', amount: 18 },
+      { beardAdd: 'stench_residue', amount: 8 },
+      { beardStatus: 'hornet_nested' },
+    ]],
+    ['Beard E: a strange musk (test only: paranoia; what isn\'t real is marked (?); sniff to snap out of it)', [
+      { beardSaturation: true },
+      { beardClean: true },
+      { beardAdd: 'test_musk', amount: 14 },
+    ]],
+    ['Beard F: heavy with vapor (save, scrub, fail, retry; or wring it out and reload)', [
+      { beardSaturation: true },
+      { beardClean: true },
+      { beardAdd: 'vapor', amount: 62 },
+      { beardAdd: 'smoke', amount: 8 },
+    ]],
+    ['Wear the beard wrap', [{ beardWear: 'beard_wrap' }]],
+    ['Let 10 seconds pass', [{ hazardClock: 10 }]],
+    ['Wash it clean and switch it off', [{ beardClean: true }, { beardStatus: 'hornet_nested', remove: true }, { beardSaturation: false }]],
   ],
   scenes: [
     ['A shark bites the port hull (40)', [{ shipDamage: 'hull_port', amount: 40, category: 'shark', source: 'debug' }]],

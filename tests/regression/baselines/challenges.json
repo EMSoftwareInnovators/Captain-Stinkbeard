@@ -79,6 +79,18 @@
     "success": true
    }
   },
+  "beardCare": {
+   "blocksProgression": false,
+   "input": "timed",
+   "label": "Grooming the Stink Beard at the washroom tub (Prompt 9)",
+   "retry": "offered while the hold can pay for a rag; the waste stays",
+   "softlockRisk": "none: no chapter uses it, and a beard can always be rinsed with water alone",
+   "support": {
+    "failure": true,
+    "partial": true,
+    "success": true
+   }
+  },
   "conversion": {
    "blocksProgression": false,
    "input": "none",

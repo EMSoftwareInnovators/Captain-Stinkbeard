@@ -103,7 +103,7 @@ export function restoreCheckpoint(session, cp, { keep = {} } = {}) {
  * or repaired ([before, after] integrity).
  */
 export function diffStates(before, after) {
-  const out = { flagsSet: [], flagsCleared: [], vars: {}, values: {}, quests: {}, items: {}, gold: 0, ship: {}, hazards: {}, air: {}, pressure: {} };
+  const out = { flagsSet: [], flagsCleared: [], vars: {}, values: {}, quests: {}, items: {}, gold: 0, ship: {}, hazards: {}, air: {}, pressure: {}, beard: {} };
   if (!before || !after) return out;
   const fb = new Set(before.story?.flags ?? []);
   const fa = new Set(after.story?.flags ?? []);
@@ -174,10 +174,25 @@ export function diffStates(before, after) {
     for (const k of ['p', 'held']) if (Math.round(x[k] ?? 0) !== Math.round(y[k] ?? 0)) d[k] = [Math.round(x[k] ?? 0), Math.round(y[k] ?? 0)];
     if (Object.keys(d).length) out.pressure[id] = d;
   }
+  // Prompt 9: the captain's beard: switched on, what it holds of each contaminant, its kept conditions, purges, what is worn.
+  const ba = before.ship?.beard ?? {};
+  const bb = after.ship?.beard ?? {};
+  for (const k of ['on', 'phase', 'count']) if ((ba[k] ?? null) !== (bb[k] ?? null)) out.beard[k] = [ba[k] ?? null, bb[k] ?? null];
+  const held = {};
+  for (const id of new Set([...Object.keys(ba.held ?? {}), ...Object.keys(bb.held ?? {})])) {
+    const x = Math.round(ba.held?.[id] ?? 0);
+    const y = Math.round(bb.held?.[id] ?? 0);
+    if (x !== y) held[id] = [x, y];
+  }
+  if (Object.keys(held).length) out.beard.held = held;
+  const sa2 = Object.keys(ba.statuses ?? {}).sort().join(',');
+  const sb2 = Object.keys(bb.statuses ?? {}).sort().join(',');
+  if (sa2 !== sb2) out.beard.statuses = [sa2, sb2];
+  if ((ba.worn ?? []).join(',') !== (bb.worn ?? []).join(',')) out.beard.worn = [ba.worn ?? [], bb.worn ?? []];
   return out;
 }
 
 /** True when a diff records no change at all. */
 export function isEmptyDiff(d) {
-  return !d.flagsSet.length && !d.flagsCleared.length && !Object.keys(d.vars).length && !Object.keys(d.values).length && !Object.keys(d.quests).length && !Object.keys(d.items).length && !d.gold && !Object.keys(d.ship ?? {}).length && !Object.keys(d.hazards ?? {}).length && !Object.keys(d.air ?? {}).length && !Object.keys(d.pressure ?? {}).length;
+  return !d.flagsSet.length && !d.flagsCleared.length && !Object.keys(d.vars).length && !Object.keys(d.values).length && !Object.keys(d.quests).length && !Object.keys(d.items).length && !d.gold && !Object.keys(d.ship ?? {}).length && !Object.keys(d.hazards ?? {}).length && !Object.keys(d.air ?? {}).length && !Object.keys(d.pressure ?? {}).length && !Object.keys(d.beard ?? {}).length;
 }

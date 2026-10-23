@@ -56,6 +56,7 @@
       "release": { "label": "Help Brogath let it out gently", "controlScale": 0.7, "seconds": 3, "minStage": "building" },
       "eruption": { "warn": 8, "cooldown": 30, "after": 10, "heldWeight": 1, "cancelBelow": 85 },
       "reach": 3,
+      "beard": { "contaminant": "stench_residue", "amount": 12, "reach": 4 },
       "puff": { "every": 5, "sfx": "puff_tiny", "bark": "<k>*pfft*</>" }
     },
     "garrick": {
@@ -88,6 +89,7 @@
       "release": { "label": "Let Garrick let it out, carefully", "controlScale": 0.5, "seconds": 2, "minStage": "uneasy" },
       "eruption": { "warn": 10, "cooldown": 30, "after": 5, "heldWeight": 0.75, "cancelBelow": 80 },
       "reach": 3,
+      "beard": { "contaminant": "stench_residue", "amount": 12, "reach": 4 },
       "cues": {
         "uneasy": { "bark": "<k>*grrrlb*</>", "sfx": "stomach_growl" },
         "building": { "bark": "<y>*GRRRLB*</>", "sfx": "stomach_glorp" },
