@@ -83,7 +83,8 @@ export function supplyGroups(session, { difficulty = 'captain' } = {}) {
     const def = sourceDef(content, id);
     const a = sup.available(id);
     const secs = supplySeconds(session, def.action.seconds);
-    const left = Number.isFinite(a.left) && def.type !== 'recovery' ? ` [${a.left} left]` : '';
+    const st = sup.sourceState(id);
+    const left = def.type !== 'recovery' ? ` [${st.left} left]` : st.cooldown > 0 ? ` [${st.cooldown}s]` : '';
     const reason = blocked ?? (a.ok ? null : a.reason);
     return { action: 'source', source: id, label: `${def.action.label} (${secs}s)${left}`, ok: !reason, reason, seconds: secs, type: def.type };
   });

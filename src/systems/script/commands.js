@@ -1889,9 +1889,18 @@ export function createCommandImplementations() {
         return null;
       }
       const choose = (prompt, options) => service(ctx, 'dialogue', 'choice').choose({ prompt: parseLine(prompt), options: [...options.map((text) => ({ text })), { text: 'Never mind' }], cancelIndex: options.length });
-      const shown = rows.slice(0, 6);
-      const pick = await choose(deposit ? 'Put away what?' : 'Take out what?', shown.map((r) => `${itemName(content, r.item)} <k>(${deposit ? 'carrying' : 'stored'} ${deposit ? r.have : sup.storeCount(store, r.item)})</>`));
-      const row = shown[pick];
+      // Five to a page (the choice box doesn't scroll), "More..." for the next.
+      const PER = 5;
+      const pages = Math.ceil(rows.length / PER);
+      let row = null;
+      for (let page = 0; ; page = (page + 1) % pages) {
+        const shown = rows.slice(page * PER, page * PER + PER);
+        const labels = shown.map((r) => `${itemName(content, r.item)} <k>(${deposit ? 'carrying' : 'stored'} ${deposit ? r.have : sup.storeCount(store, r.item)})</>`);
+        const pick = await choose(deposit ? 'Put away what?' : 'Take out what?', pages > 1 ? [...labels, `More... <k>(${page + 1}/${pages})</>`] : labels);
+        if (pages > 1 && pick === shown.length) continue;
+        row = shown[pick] ?? null;
+        break;
+      }
       if (!row) {
         await ctx.services?.dialogue?.close?.();
         return null;

@@ -182,6 +182,12 @@ export class ShipPage {
     const name = (c) => this.app.content.items.get(c.item)?.name ?? c.item;
     const needs = plan.repair.cost.map((c) => `${have(c) >= c.count ? '' : '<r>'}${c.count} ${name(c)} (${have(c)})${have(c) >= c.count ? '' : '</>'}`).join(', ');
     line(`<k>${plan.repair.label}:</> ${needs}`);
+    // Prompt 10: what's short in the pack but in the ship's stores (repairs pay from the pack: fetch it).
+    const sup = this.session.ship.supplies;
+    if (sup.on) {
+      const stored = plan.repair.cost.filter((c) => have(c) < c.count).map((c) => ({ c, n: storeIds(this.app.content).reduce((k, st) => k + sup.storeCount(st, c.item), 0) })).filter((x) => x.n > 0);
+      if (stored.length) line(`<y>In the stores:</> ${stored.map((x) => `${x.n} ${name(x.c)}`).join(', ')} <k>(fetch it)</>`);
+    }
     const extra = plan.repair.results.partial.extra;
     if (extra.length) line(`<k>Rough work: +${extra.map((c) => `${c.count} ${name(c)}`).join(', ')}</>`);
     if (plan.ok) {
@@ -370,10 +376,11 @@ export class ShipPage {
       const slots = gearSlots(content).map((slot) => {
         const item = sup.wornIn(slot);
         const c = item ? gearDef(content, item).charges : null;
-        const wet = c ? ` ${sup.spent(item) ? `<y>${c.empty.toUpperCase()}</>` : `${c.label} ${Math.round((sup.charge(item) / c.max) * 100)}%`}` : '';
+        const wet = c ? ` (${sup.spent(item) ? `<y>${c.empty.toUpperCase()}</>` : `${c.label} ${Math.round((sup.charge(item) / c.max) * 100)}%`})` : '';
         return `${supplyData(content).gear.slots[slot]}: ${item ? `<g>${name(item)}</>${wet}` : '<k>-</>'}`;
       });
-      line(slots.join('  '));
+      // Two slots to a line (a slot and what's in it never split across lines).
+      for (let i = 0; i < slots.length; i += 2) line(slots.slice(i, i + 2).join('   '));
       const worn = sup.wornGear().filter((i) => gearDef(content, i));
       if (worn.length) line(`<k>${worn.map((i) => gearDef(content, i).note).join(' ')}</>`);
       line(suppliesHere(session) ? '{btn:confirm} <y>Respond</> <k>(wear, take off)</>' : '<k>Wear or take off what you carry with Respond.</>');
