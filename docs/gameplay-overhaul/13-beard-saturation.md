@@ -269,7 +269,16 @@ Tests: `tests/beard.test.js` (52: the model and data, absorption and conservatio
 
 ## 18. Performance findings
 
-The beard does a few multiplications per gas per second while it is on, nothing per frame, and nothing at all while off (every chapter). A thousand seconds of smoke with every condition on stays bounded (tested: under 2.5 s headless, a few hundred bytes of save, at most five timers). In the browser (`perf/scenes.spec.js`, the `beard_demo` scene: smoke pouring, the beard absorbing, gagging, hornets and visions): see the numbers in the final report of Prompt 9 and `tmp/perf/`; they are within the same diagnostic limits as the pressure demo.
+The beard does a few multiplications per gas per second while it is on, nothing per frame, and nothing at all while off (every chapter). Headless, a thousand seconds of smoke with every condition on stays bounded (tested: under 2.5 s, a few hundred bytes of save, at most five timers).
+
+In the browser (`perf/scenes.spec.js`, `PERF_RUNS=3 PERF_ONLY=p17_complete,beard_demo`, Chromium with SwiftShader software rendering, 4 CPUs; medians of three runs), the `beard_demo` scene (smoke pouring into the quarters, the beard absorbing it each second, gagging, hornets and paranoia's visions, the HUD line) against the same room at the end of the game:
+
+| Scene (crew quarters) | build ms | work p95 still / walking | frame avg still / walking | display objects | heap MB |
+|---|---|---|---|---|---|
+| `p17_complete` | 32.4 | 4.4 / 4.0 ms | 21.6 / 21.8 ms | 189 | 92.6 |
+| `beard_demo` | 38.3 | 5.1 / 5.0 ms | 23.8 / 22.2 ms | 191 | 93.1 |
+
+About a millisecond more of the game's own work per frame with everything on (Prompt 8's pressure demo measured 4.6 / 4.6 ms in the same place), well inside the 12 ms diagnostic limit; frame times are the software renderer's (p95 33 ms in every scene, as before); two more display objects (a bark). The production bundle grew by 55.7 kB raw, 14.9 kB gzip, 12.7 kB brotli (7256.7 / 1850.9 / 1411.5 kB, from 7201 / 1836 / 1398.8).
 
 ## 19. Known limitations
 
