@@ -289,7 +289,35 @@ Plus "Let 30 seconds pass" and "Switch the supplies off". The real runtime throu
 
 **Browser** (`e2e/supplies.spec.js`, 4): salvage and storage with the keyboard (leave and come back; the Ship page); cooking with a gamepad (scorched, Try again, simmer, serve, eat from the Items menu); gear and draughts (the wet cloth, Bob's Pot refusing the goggles, a tot, Frog Grog from the Items menu, saved and continued); scarcity on Brutal (the bilge, picked clean, back again).
 
-RESULTS_PLACEHOLDER
+**The rest, run for this prompt** (this machine: 4 CPUs, Chromium with SwiftShader software rendering):
+
+| Run | Result |
+|---|---|
+| Vitest, the whole suite | 1248 passed and 2 failed on the first run, both expected: the ship tuning keys list and the regression baselines; fixed (the list) and approved (the baselines, below); the two files and the supplies and content tests then all pass |
+| Content validation | passes |
+| Regression compare | 24 changes, all intended: the 17 phase snapshots gain a `supplies` row (off and empty in every phase), the coordinate index counts the `supplies_demo` preset's position, the challenge registry lists `supplyTake` and `cook`; approved with that reason |
+| Walkers, fail-once, Brutal / Deckhand / Captain | 16 files, 505 tests and 3902 challenge runs each, all passed (200 s, 143 s, 153 s) |
+| Browser smoke (`@smoke`, two halves) | 21 of 21 (1.0 h) and 23 of 23 (34.5 min) passed |
+| Browser, supplies, beard and ship specs in full | 9 of 9 passed (14 min) |
+| Build | passes |
+
+**Performance.** The supplies do nothing per frame: their clock is the hazard clock's second, sparse state, and while off (every chapter) nothing at all. Headless, a busy minute (two effects, four sources counting, a pot, a drying cloth) costs well under a millisecond a tick (tested). In the browser (`perf/scenes.spec.js`, `PERF_RUNS=3 PERF_ONLY=p17_complete,supplies_demo`; medians of three runs), the `supplies_demo` scene (effects ticking, restocks and recoveries counting, a pot on, the cloth drying in smoke, Respond recomputed as he walks) against the same room at the end of the game:
+
+| Scene (cargo hold) | build ms | work p95 still / walking | frame avg still / walking | display objects | heap MB |
+|---|---|---|---|---|---|
+| `p17_complete` | 27.1 | 2.1 / 1.6 ms | 16.67 / 16.67 ms | 177 | 93.8 |
+| `supplies_demo` | 19.5 | 2.1 / 2.2 ms | 16.74 / 16.67 ms | 177 | 93.9 |
+
+About half a millisecond more of the game's own work per frame while walking (Respond's reach is recomputed on each step), well inside the 12 ms diagnostic limit; no extra display objects (the supplies draw nothing in the world); the same heap. The production bundle grew by 72.7 kB raw, 20.7 kB gzip, 17.3 kB brotli (7329.4 / 1871.6 / 1428.8 kB, from 7256.7 / 1850.9 / 1411.5): the data, the five icons and the code.
+
+**The known timing tests** (investigated as the brief asked; nothing raised, nothing weakened, Phase 2 content untouched):
+
+| Test | Failure mode | On the previous commit (`e83f9cb`) | Targeted rerun | This prompt implicated |
+|---|---|---|---|---|
+| `e2e/phase2.spec.js` "the rescue: rope, cloth, Dead Center, collapse and the haul-out" (the chapter 6 hatch) | deterministic: going down the hatch without the gear, the captain arrives in the galley instead of being turned back (expected `main_deck`, received `galley`) | fails the same way | fails the same way | no (Phase 2's hatch warp; no supplies code runs) |
+| `tests/phase2.test.js` "every preset applies to a fresh game without errors" | none now: 3.3 to 3.5 s idle (three runs), passed in the full suite; near the 5 s limit only under load | (Prompt 9: 5.4 to 5.6 s under load) | passes | no; its cost is the quests' per-flag refresh while a preset is applied (06's roadmap findings) |
+| `tests/phase14_story.test.js` "the barricade's shield..." | none now: 3.0 to 3.3 s idle (three runs), passed in the full suite; load-sensitive | (Prompt 9: timed out once under load) | passes | no |
+| The Captain walker under load | see LOAD_PLACEHOLDER | | | |
 
 ## 21. Limitations
 
