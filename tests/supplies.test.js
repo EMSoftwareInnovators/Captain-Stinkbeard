@@ -62,10 +62,16 @@ const fixtureErrors = (steps) => {
   return validateContent(new ContentDB(files)).errors.join('\n');
 };
 /** The data problems with data/ship/supplies.json changed (the content itself is not changed). */
+/**
+ * The data problems with data/ship/supplies.json changed: the loaded content with only that file's data swapped
+ * (the rest of the content is read through, unchanged; no rebuild per case).
+ */
 const dataProblems = (change) => {
-  const files = structuredClone(FILES);
-  change(files['/data/ship/supplies.json'], files);
-  return suppliesDataProblems(new ContentDB(files)).join('\n');
+  const supplies = structuredClone(FILES['/data/ship/supplies.json']);
+  change(supplies);
+  const db = Object.create(content);
+  db.shipSupplies = supplies;
+  return suppliesDataProblems(db).join('\n');
 };
 const DIFFS = ['deckhand', 'captain', 'brutal'];
 const T = (d = 'captain') => shipTuning(content, d);
@@ -218,7 +224,10 @@ describe('the data: classes, sources, stores, gear, effects and recipes', () => 
     ]);
     for (const re of [/unknown store "attic"/, /"treasure_key" is a story key item/, /"count" must be a whole number 1 to 99/, /"to" is store or pack/, /"planks": count must be a whole number 1 to 99/, /unknown supply source "the_sea"/, /a source op is open, deplete, restock/, /only a salvage is a challenge/, /unknown recipe "cake"/, /"cutlass" isn't gear/, /unknown supply effect "invincible"/, /suppliesSystem: true or false|expected boolean/, /supplies condition: unknown item "gold_bars"/, /supplies condition: unknown source "the_sea"/, /"cooking" is true, false or a recipe/, /supplies condition: unknown key "flying"/]) expect(errs).toMatch(re);
     // The demo scenarios validate.
-    for (const [label, steps] of DEBUG_SHIP.supplies) expect(fixtureErrors(steps), label).toBe('');
+    // The demo scenarios validate (all in one fixture file: one validation).
+    const files = structuredClone(FILES);
+    files['/data/story/cutscenes/zz_supplies_scenarios.json'] = Object.fromEntries(DEBUG_SHIP.supplies.map(([, steps], i) => [`zz.supplies_scenario_${i}`, steps]));
+    expect(validateContent(new ContentDB(files)).errors.filter((e) => e.includes('zz_supplies_scenarios'))).toEqual([]);
   });
 
   it('every new command is classed for the regression harness: a challenge (salvage, cooking) or not', () => {
@@ -854,10 +863,18 @@ describe('legacy protection: no chapter opts in', () => {
     const baselines = import.meta.glob('/tests/regression/baselines/phase-*.json', { eager: true, import: 'default' });
     expect(Object.keys(baselines).length).toBe(17);
     for (const [file, snap] of Object.entries(baselines)) expect([file, snap.gameplay.systems.ship.supplies]).toEqual([file, { on: false, stored: [], sources: [], cooking: null, effects: [] }]);
+    // No debug preset switches it on: none of their plans or scripts names a supplies command (a preset's plan sets
+    // story state only), and the demo's own preset, as applied, starts with it off.
     for (const p of content.debugPresets.list()) {
+      const plan = resolvePreset(content, p.id);
+      const script = plan.script ? JSON.stringify(content.scripts.get(plan.script) ?? null) : '';
+      for (const c of cmds) expect(script.includes(`"${c}":`), `${p.id} script uses ${c}`).toBe(false);
+      expect(Object.keys(plan).sort(), p.id).toEqual(['clearFlags', 'flags', 'gold', 'id', 'items', 'location', 'name', 'party', 'quests', 'script', 'takeItems', 'values', 'vars']);
+    }
+    for (const id of ['supplies_demo', 'beard_demo', 'p17_complete']) {
       const t = GameSession.newGame({ content, bus: new EventBus() });
-      applyPresetPlan(t, resolvePreset(content, p.id));
-      expect(t.ship.supplies.on, p.id).toBe(false);
+      applyPresetPlan(t, resolvePreset(content, id));
+      expect([id, t.ship.supplies.on, t.ship.supplies.untouched]).toEqual([id, false, true]);
     }
   });
 
