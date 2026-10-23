@@ -975,6 +975,51 @@ Opt-in: no chapter switches a subject on, and Brogath's Phase 14 Stability
   effects). UI: the HUD line (`emergencySummary`), Pause > Ship rows.
   Debug: F2 > Ship and the `pressure_demo` preset.
 
+## Stink Beard Saturation (overhaul Prompt 9)
+
+The captain's beard as a filter and a store: it catches part of every gas
+he breathes (that gas leaves the room), holds it by kind, protects less as
+it fills, gives off what it holds when heavy, and purges into the room when
+full. See
+[gameplay-overhaul/13-beard-saturation.md](gameplay-overhaul/13-beard-saturation.md).
+Opt-in: no chapter switches it on. The Story Phase 16 beard tags (flags
+`beard_*`, `src/systems/beard.js`) and the Phase 17 puffs are separate and
+unchanged.
+
+- Data: `data/ship/beard.json` (ContentDB `shipBeard`): contaminants (from
+  the air or deposited, with potency, how they wash out and what they purge
+  as), stages, statuses (derived, contaminant, applied), purge profiles, the
+  sniff, care stations and actions, equipment, limits.
+- `src/systems/ship/beard.js`: pure lookups and the validator.
+  `src/systems/ship/BeardState.js`: `session.ship.beard`, saved inside the
+  `ship` domain (`{}` until first used): composition, the purge cycle, kept
+  statuses and timers, locks, worn items, counts. Events: `hazard:notice` /
+  `hazard:changed`, `beard:gag`, `beard:puff`, `beard:purged`,
+  `beard:hallucinate`, `beard:hornets`.
+- The air: `AirState.breathe` lets the beard take its share of each gas
+  first (`BeardState.absorb` -> `AirState.takeGas`, counted as `absorbed`),
+  then his lungs breathe the rest (`indexThrough`), plus what a heavy beard
+  gives off; protections (fume option, rescue gear or the worn wet cloth,
+  Frog Grog, `exposureScale`) apply after the beard, once each. Off, the air
+  breathes exactly as before.
+- One clock: `ShipState.tick()` ticks pressure, hazards, the air (the beard
+  absorbs inside it), then the beard's own second (statuses, effects, the
+  overload countdown and its purge, the cooldown). An eruption's residue is
+  a deposit (`PressureState.erupt`, a subject's `beard`), never counted with
+  its gas.
+- The captain's side: `src/systems/ship/beardResponse.js` (look, sniff,
+  wring, rinse and scrub at the washroom tub, wear; the reports; HUD words).
+  Commands: `beardSaturation`, `beardAdd`, `beardClean`, `beardStatus`,
+  `beardPurge` (scenes), `beardInspect`, `beardSniff`, `beardWring`,
+  `beardCare` (a scrub is the `scrub` timing bar), `beardWear`, and
+  `beardSetback` (a failed scrub's cost). `emergency` offers "Your beard".
+  The `beardSaturation` condition reads it. `captainFactors` (lungs and
+  beard) slows work and walking.
+- World: `src/world/BeardCues.js` (gagging fits, warning puffs, purges,
+  paranoia's marked visions and false label, the hornets' buzz; no motion
+  with reduced effects). UI: the HUD line (the beard first), Pause > Ship
+  "Your beard". Debug: F2 > Ship and the `beard_demo` preset.
+
 ## Battle
 
 `BattleEngine` (`src/systems/battle/`) owns the rules and is fully

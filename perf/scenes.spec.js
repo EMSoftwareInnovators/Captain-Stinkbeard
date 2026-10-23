@@ -66,6 +66,23 @@ const SCENES = [
       p.addModifier('garrick', 'digesting');
     },
   },
+  // Prompt 9 (docs/gameplay-overhaul/13-beard-saturation.md, "Performance findings"): the beard soaking up smoke while measured,
+  // every condition on (gagging, hornets, paranoia's visions), the HUD line and the air ticking.
+  {
+    preset: 'beard_demo',
+    rooms: ['crew_quarters'],
+    why: 'the beard in play in the quarters: smoke pouring, the beard absorbing it each second, gagging, hornets and paranoia\'s visions, the HUD line',
+    setup: () => {
+      const s = window.__GAME__.app.session.ship;
+      const b = s.beard;
+      b.enable(true);
+      b.deposit('vapor', 32);
+      b.deposit('test_musk', 9);
+      b.applyStatus('hornet_nested', 600);
+      s.air.addGas('crew_quarters', 'smoke', 40);
+      s.air.startSource({ room: 'crew_quarters', substance: 'smoke', rate: 3, seconds: 600, source: 'perf' });
+    },
+  },
 ];
 
 /** Diagnostic limits: a measurement past one is flagged in the report, nothing fails. */

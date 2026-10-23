@@ -141,7 +141,9 @@ export function emergencySummary(session, room = session.location?.map, { diffic
   const name = (r) => session.content.maps?.get?.(r)?.name?.replace(/^The /, '') ?? r;
   const airTone = (e) => (e.stage === 'deadly' ? 'r' : e.stage === 'toxic' ? 'o' : 'y');
   const word = (e) => (e.kind === 'fire' ? `<o>FIRE</> ${name(e.room)} ${e.label.toUpperCase()}` : e.kind === 'flood' ? `<${e.pct >= 65 ? 'r' : 'y'}>WATER</> ${name(e.room)} ${e.pct}%` : e.kind === 'air' ? `<${airTone(e)}>AIR</> ${name(e.room)} ${e.label.toUpperCase()}` : e.kind === 'pressure' ? pressureWord(e) : e.kind === 'beard' ? beardWord(e) : `<r>LEAK</> ${name(e.room)}`);
-  return { items: list.slice(0, 2).map(word), more: Math.max(0, list.length - 2), stability: hz.stability().state, here: list.some((e) => e.room === room), respond };
+  // Prompt 9: the beard is his own, always where he is: when it is listed it takes the first place, the worst of the rest after it.
+  const shown = [...list.filter((e) => e.kind === 'beard'), ...list.filter((e) => e.kind !== 'beard')].slice(0, 2);
+  return { items: shown.map(word), more: Math.max(0, list.length - shown.length), stability: hz.stability().state, here: list.some((e) => e.room === room), respond };
 }
 
 /**

@@ -76,6 +76,7 @@ Each system is data-driven, engine-independent (rules in `src/systems/`, drawing
 - **Care:** washing in the washroom lowers it, the beard wrap slows intake, shaving resets it (Chapter 220 offers the shave, optionally).
 - **Extends:** `beard.js` (tags as flags), `BeardPuffs.js`, the hallucination sprite swaps used in Phase 13 and Phase 17.
 - **Acceptance:** the existing beard tags still read the same in dialogue conditions; saturation is an added value with a save default of 0.
+- **Built (Prompt 9):** saturation by contaminant on the captain's beard, filled from the room's air as he breathes (conserved), stages that protect less as it fills, Saturated, Gagging, Paranoid (marked visions, fair) and Hornet-nested (a hook), warning puffs, involuntary and controlled purges into the room without loops, a sniff and a look, rinsing and scrubbing at the washroom tub, the wrap, cloth and goggles as an opt-in mapping, and eruption residue, all opt-in and unused by the campaign: [13-beard-saturation.md](13-beard-saturation.md). The benefits that need other systems (repelling sharks, luring Agnes, the appraisal nose, crew keeping their distance), shaving, and the named gases are left to later prompts.
 
 ### S4. Crew AI and conditions
 

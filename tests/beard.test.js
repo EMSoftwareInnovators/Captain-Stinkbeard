@@ -458,6 +458,17 @@ describe('overload and purging', () => {
     expect(rose).toBe(0);
   });
 
+  it('its own purge ids never jam: one already taken is skipped, and the countdown always ends in a purge', () => {
+    const s = session();
+    const b = on(s);
+    s.ship.claimEvent('beard:purge:1');
+    s.ship.claimEvent('beard:purge:2');
+    b.deposit('smoke', 100);
+    tick(s.ship, 11);
+    expect([b.count, b.phase]).toEqual([3, 'cooldown']);
+    expect([...s.ship.seen].filter((e) => e.startsWith('beard:purge:'))).toEqual(['beard:purge:1', 'beard:purge:2', 'beard:purge:3']);
+  });
+
   it('wringing it out: seconds of work, its share into this room, refused with nothing in it or just after a purge; it beats the countdown', async () => {
     const s = demo();
     await s.run([{ beardSaturation: true }, { beardWring: true, outcomeValue: 'fx_w' }]);
@@ -863,6 +874,13 @@ describe('commands, conditions, Respond, the HUD and the Ship page', () => {
     e = emergencySummary(s.session);
     expect(e.items).toEqual(['<r>BEARD</> OVERLOADED <r>10s</>']);
     expect(beardWord({ stage: 'critical', tone: 'r', pct: 85, label: 'critical', left: null, statuses: [] })).toBe('<r>BEARD</> CRITICAL <k>PURGE RISK</>');
+    // Worse air all around: the beard keeps the first place (his own, always here), the worst of the rest after it.
+    const t = demo();
+    await t.run([...scenario('D'), { airAdd: 'crew_quarters', substance: 'heavy_gas', pct: 40 }, { airAdd: 'galley', substance: 'vapor', pct: 60 }, { airAdd: 'washroom', substance: 'smoke', pct: 90 }]);
+    const tl = emergencySummary(t.session);
+    expect(tl.items[0]).toMatch(/^<y>BEARD<\/> 52% SATURATED/);
+    expect(tl.items[1]).toMatch(/AIR/);
+    expect(tl.more).toBe(2);
     // Respond: the beard's own list (no other trouble here), and what is picked runs.
     const opts = beardOptions(s.session);
     expect(opts.map((o) => o.action)).toEqual(['inspect', 'sniff', 'wring', 'rinse', 'scrub', 'wear', 'wear', 'wear']);

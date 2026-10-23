@@ -280,6 +280,8 @@ the cancel button (default: the last option).
 | `airMend` | opening, ... | the captain mends a door or hatch a blast damaged (planks and nails; a challenge) |
 | `pressureSubject` / `pressureTrigger` / `pressureCalm` / `pressureAdd` / `pressureHold` / `pressureModifier` / `pressureErupt` / `pressureSettle` | subject, ... | a Grand Stenchmaster's pressure: switch it on, triggers, calms, holds, modifiers, a release (see "Grand Stenchmaster pressure" at the end) |
 | `pressureCheck` / `pressureSoothe` / `pressureRestrain` / `pressureRelease` | subject, ... | the captain's interventions: the report, calming him, holding it in (a challenge), a controlled release |
+| `beardSaturation` / `beardAdd` / `beardClean` / `beardStatus` / `beardPurge` | switch, contaminant, ... | the Stink Beard: switch it on, a deposit, a wash, a condition, a purge (see "The Stink Beard" at the end; not the story's `beard` tags) |
+| `beardInspect` / `beardSniff` / `beardWring` / `beardCare` / `beardWear` | ... | the captain and his beard: a look, a sniff, wringing it out, rinsing or scrubbing it at the washroom tub (a scrub is a challenge), wearing something over it |
 | `giveGold` / `takeGold` | amount, `silent` | gold |
 | `startQuest` | quest, `silent` | start a quest |
 | `completeObjective` | `"quest.objective"` | finish an objective |
@@ -370,6 +372,7 @@ Used by `if` everywhere (dialogue selectors, steps, choices, map objects, warps,
 | `hazard` | `{ "hazard": { "fire": "galley", "stage": ["blazing", "inferno"] } }`: the ship's emergencies (see "Flooding and fire") |
 | `air` | `{ "air": { "room": "galley", "quality": ["toxic", "deadly"] } }`: the ship's air and the captain's lungs (see "The ship's air") |
 | `pressure` | `{ "pressure": { "subject": "garrick", "stage": ["critical", "imminent"] } }`: a Grand Stenchmaster's pressure (see "Grand Stenchmaster pressure") |
+| `beardSaturation` | `{ "beardSaturation": { "stage": ["heavy", "critical"], "status": "gagging" } }`: the Stink Beard (see "The Stink Beard"; the story's tags are flags: `{ "flag": "beard_skunk_haze" }`) |
 
 ## Story flags and variables
 
@@ -2179,3 +2182,52 @@ lungs), supplies the materials the mending needs, and tests every difficulty.
 Everything else is in
 [gameplay-overhaul/12-pressure-and-eruptions.md](gameplay-overhaul/12-pressure-and-eruptions.md).
 
+## The Stink Beard
+
+The captain's beard as a filter and a store, defined in `data/ship/beard.json`.
+No chapter uses it. It does nothing until a script switches it on; then it
+catches part of every gas he breathes (that gas leaves the room), holds it
+by contaminant, protects less as it fills, gives off what it holds when
+heavy, and purges into his room when full. The story's beard tags
+(`beard`, flags `beard_*`) and puffs (`beardPuff`) are separate and never
+read by it.
+
+```json
+{ "beardSaturation": true }
+{ "beardAdd": "stench_residue", "amount": 10, "eventId": "p60_splash" }
+{ "beardClean": true }
+{ "beardClean": "vapor", "share": 0.5 }
+{ "beardStatus": "hornet_nested", "seconds": 120 }
+{ "beardStatus": "hornet_nested", "remove": true }
+{ "beardPurge": "controlled" }
+{ "beardInspect": true }
+{ "beardSniff": true, "outcomeValue": "p60_sniff" }
+{ "beardWring": true }
+{ "beardCare": "rinse" }
+{ "beardCare": "scrub", "outcomeValue": "p60_scrub" }
+{ "beardWear": "beard_wrap" }
+```
+
+- **Contaminants** are `smoke`, `vapor` and `heavy_gas` (from the air: the beard takes them as he breathes) and `stench_residue` (deposited by an eruption or a script). `test_musk` is for the debug demo and tests only: content can't use it. A new one is a data entry.
+- **Statuses**: `saturated` and `gagging` come from what it holds (they can't be applied); `paranoid` from a paranoia contaminant or an explicit `beardStatus`; `hornet_nested` is applied, ends after its seconds, and smoke or a scrub drives it out. Every applied status ends.
+- **Care** is at the washroom tub or basin, in breathable air: a rinse is water and seconds; a scrub costs sailcloth and plays the timing bar (a failure wastes the rag, kept through a retry).
+- **Event ids.** An `eventId` on `beardAdd` or `beardPurge` applies once, scoped to the challenge attempt or charge it runs in.
+- **Eruptions.** A subject's `"beard": { "contaminant": "stench_residue", "amount": 12, "reach": 4 }` in `data/ship/pressure.json` leaves residue in the beard when the captain is close; its gas reaches the beard only as he breathes it.
+
+The condition:
+
+```json
+{ "beardSaturation": { "active": true } }
+{ "beardSaturation": { "stage": ["heavy", "critical", "overloaded"] } }
+{ "beardSaturation": { "pct": { "gte": 60 } } }
+{ "beardSaturation": { "contains": "vapor", "amount": { "gte": 10 } } }
+{ "beardSaturation": { "status": "gagging" } }
+{ "beardSaturation": { "phase": "overload" } }
+{ "beardSaturation": { "wearing": "beard_wrap", "purged": 0 } }
+```
+
+A chapter that turns the beard on supplies sailcloth for scrubbing (or relies
+on rinsing, which is free), never needs a sniff or a scrub to progress,
+switches it off again if the scene is over, and tests every difficulty.
+Everything else is in
+[gameplay-overhaul/13-beard-saturation.md](gameplay-overhaul/13-beard-saturation.md).

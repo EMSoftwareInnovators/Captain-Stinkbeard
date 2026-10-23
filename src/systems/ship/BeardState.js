@@ -456,8 +456,12 @@ export class BeardState {
     if (!pd) return fail(`unknown purge "${profile}"`);
     if (!this.on) return fail('off');
     if (!(this.total > TRACE)) return fail('nothing to purge');
-    const eid = eventId ?? `beard:purge:${this.count + 1}`;
-    if (!this.ship.claimEvent(eid)) return fail('duplicate event');
+    // Its own ids skip one already taken (only a script's own id can make a purge a duplicate).
+    let eid = eventId;
+    if (eid === null) {
+      for (let i = 0; i < 129 && !this.ship.claimEvent(`beard:purge:${this.count + 1}`); i++) this.count += 1;
+      eid = `beard:purge:${this.count + 1}`;
+    } else if (!this.ship.claimEvent(eid)) return fail('duplicate event');
     this.count += 1;
     const where = room ?? this.captainRoom();
     const bySub = {};
@@ -551,7 +555,10 @@ export class BeardState {
     if (this.sniffLock > 0) this.sniffLock -= 1;
     if (this.sniffClear > 0) this.sniffClear -= 1;
     this.keepStatuses(tuning, true);
-    for (const s of this.statusList(tuning)) this.effects(s);
+    const list = this.statusList(tuning);
+    for (const s of list) this.effects(s);
+    // A status that has ended starts its interval afresh if it comes back (and a save keeps no stale timer).
+    for (const id of Object.keys(this.timers)) if (id !== 'puff' && !list.some((s) => s.id === id)) delete this.timers[id];
     const st = this.stage(tuning);
     // Warning puffs at critical and worse (a cue only: no gas).
     if (st.puffs) {
@@ -563,7 +570,11 @@ export class BeardState {
     } else delete this.timers.puff;
     if (this.phase === 'overload' && was === 'overload') {
       this.left -= 1;
-      if (this.left <= 0) this.purge('overload', tuning);
+      // A purge that can't happen (its event already applied) ends the countdown: full again, it starts afresh.
+      if (this.left <= 0 && !this.purge('overload', tuning).ok) {
+        this.phase = 'idle';
+        this.left = 0;
+      }
       else if (this.left <= 3) this.notice(`beard:overload:${this.count}:${this.left}`, `<r>BEARD PURGE IN ${this.left}!</>`, 'r');
     } else if (this.phase === 'cooldown' && was === 'cooldown') {
       this.left -= 1;

@@ -162,7 +162,12 @@ captain's exposure), and a version 19 save loads with clean air; version 21,
 overhaul Prompt 8, adds `ship.pressure` (each touched subject's switch,
 pressure, carried fraction, what it holds, strain, phase and seconds left,
 locks, modifiers, eruption count, prompt turn), and a version 20 save loads
-with every subject off; the example
+with every subject off; version 22, overhaul Prompt 9, adds `ship.beard`
+(the Stink Beard's switch, what it holds of each contaminant, its purge
+phase and seconds left, kept statuses with their seconds, effect timers, the
+sniff's lock and interruption, worn items, purge and vision counts; `{}`
+until it is first used), and a version 21 save loads with it off and clean
+(the story's beard tags stay flags); the example
 shows a version 5 record). Story Phase 17's two new party members (Ledger and Tilda) are
 ordinary `party` entries, so the cartridge budget's four party slots still
 hold (the captain, Ledger, Tilda, one spare):
@@ -199,7 +204,10 @@ byte, a percentage; openings 15 × 2 bits; 4 sources × 6 bytes; exposure 1
 byte), Grand Stenchmaster pressure about 30 bytes (2 subjects × 15: switch
 and phase 1, pressure 1, held 1, strain and locks 2, seconds left 1,
 eruption count 1, 4 modifiers × 2 (id, seconds left); Brogath's pressure
-is already a story variable), checksum 2 bytes —
+is already a story variable), the Stink Beard about 16 bytes (switch, phase
+and seconds left 2; 5 contaminants × 1 byte, units of a 100-unit beard, a
+150 maximum; 2 kept statuses × 2 bytes; 3 effect timers 3; sniff locks 2;
+worn items 1 bit each; purge count 1), checksum 2 bytes —
 well under 1 KB. Four slots (3 manual + autosave) fit easily in 8 KB SRAM.
 
 Versioning: every format change bumps `SAVE_VERSION` and adds a migration

@@ -452,7 +452,7 @@ varieties need their own mechanics:
 - the Coffin Sock: lingering, attached to cloth;
 - Chicken-Town: transforming;
 - the Fire-Waft: ignites, with `ignite` and fire spread;
-- the Beard Joint: Beard Saturation, Prompt 9.
+- the Beard Joint: built on Beard Saturation (Prompt 9: [13-beard-saturation.md](13-beard-saturation.md)), which so far adds only the generic residue an eruption leaves in the captain's beard (a subject's `beard`); the Beard Joint itself, and its intoxication, are not implemented.
 
 Each should be added as:
 1. a substance in `data/ship/air.json` with its own behaviour fields, where the air needs them;
