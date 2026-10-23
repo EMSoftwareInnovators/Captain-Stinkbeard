@@ -172,6 +172,16 @@ test('salvage and storage with the keyboard: search the loose crates, put it in 
   expect(detail).toMatch(/The ship's stores \(Cargo Hold\): 3\/60/);
   expect(detail).toMatch(/Repair materials: 3 Planks/);
   expect(detail).toMatch(/Repairs use what you carry/);
+  // Confirm on the row: the menu closes and Respond opens where he stands, waiting (the press that chose the row
+  // is not taken again as a choice).
+  await keys.confirm();
+  await g.waitFor(() => !!window.__GAME__.app.overlay.dialogue.choiceMenu, null, 10000);
+  await g.wait(500);
+  expect(await g.uiState()).toBe('choice');
+  expect(await g.eval(() => window.__GAME__.app.overlay.dialogue.choiceMenu.index)).toBe(0);
+  expect((await sup(g)).planks).toBe(0);
+  await keys.cancel();
+  await g.idle();
   expect(errors).toEqual([]);
 });
 
