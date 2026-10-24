@@ -293,7 +293,7 @@ Plus "Let 30 seconds pass" and "Switch the supplies off". The real runtime throu
 
 | Run | Result |
 |---|---|
-| Vitest, the whole suite | 1248 passed and 2 failed on the first run, both expected: the ship tuning keys list and the regression baselines; fixed (the list) and approved (the baselines, below); the two files and the supplies and content tests then all pass |
+| Vitest, the whole suite | the final run: 55 files, 1250 of 1250 passed (186 s). The first run had 2 expected failures (the ship tuning keys list, the regression baselines), fixed and approved (below) |
 | Content validation | passes |
 | Regression compare | 24 changes, all intended: the 17 phase snapshots gain a `supplies` row (off and empty in every phase), the coordinate index counts the `supplies_demo` preset's position, the challenge registry lists `supplyTake` and `cook`; approved with that reason |
 | Walkers, fail-once, Brutal / Deckhand / Captain | 16 files, 505 tests and 3902 challenge runs each, all passed (200 s, 143 s, 153 s) |
@@ -317,7 +317,7 @@ About half a millisecond more of the game's own work per frame while walking (Re
 | `e2e/phase2.spec.js` "the rescue: rope, cloth, Dead Center, collapse and the haul-out" (the chapter 6 hatch) | deterministic: going down the hatch without the gear, the captain arrives in the galley instead of being turned back (expected `main_deck`, received `galley`) | fails the same way | fails the same way | no (Phase 2's hatch warp; no supplies code runs) |
 | `tests/phase2.test.js` "every preset applies to a fresh game without errors" | none now: 3.3 to 3.5 s idle (three runs), passed in the full suite; near the 5 s limit only under load | (Prompt 9: 5.4 to 5.6 s under load) | passes | no; its cost is the quests' per-flag refresh while a preset is applied (06's roadmap findings) |
 | `tests/phase14_story.test.js` "the barricade's shield..." | none now: 3.0 to 3.3 s idle (three runs), passed in the full suite; load-sensitive | (Prompt 9: timed out once under load) | passes | no |
-| The Captain walker under load | see LOAD_PLACEHOLDER | | | |
+| The Captain walker under load (`node tools/walk-challenges.mjs failOnce`) | Vitest's 5 s per-test timeout in the longest story walks (Phases 14 to 17) when another suite runs beside it on the 4 CPUs: 5.0 to 5.8 s each, a different handful every run; at idle all 505 pass (153 s) | yes: run side by side under the same load, this commit had 5 timeouts and the previous commit 4 (223 s and 224 s for the whole walk) | passes at idle | no (the same walk time; no supplies code runs in a chapter) |
 
 ## 21. Limitations
 
