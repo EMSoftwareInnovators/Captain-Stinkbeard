@@ -119,6 +119,7 @@ Each system is data-driven, engine-independent (rules in `src/systems/`, drawing
 
 - **What:** a consequence ledger of story values (ship damage carried, crew dazed, Squawks’s feathers, treasure value, evidence strength, morale) that later chapters read for variants and difficulty. It **never gates mandatory story**: consequences change cost, dialogue variants and difficulty, not whether a chapter can be completed.
 - **Extends:** existing story values and `variants` on NPCs and dialogue.
+- **Built (Prompt 11):** a ledger beside the story values rather than inside them (they stay the story's): eight data-defined consequences (penalties, advantages, narrative records) with severity levels, stacking, caps, clocks on the hazard clock and chapter milestones, opposites and recurrence; bounded modifiers fed through the one place each system resolves its numbers (a ship bar's green, work, repairs, a bill, pumping); recovery through rest, meals and maintenance where the player can reach; challenge outcome tables; save v24; the Captain's Journal; and the validator rule this section asked for: a consequence condition on anything that starts a chapter, opens a door, places a person or moves a main quest is refused. No chapter uses it yet: [15-consequences-and-recovery.md](15-consequences-and-recovery.md).
 
 ### S10. Checkpoints, failure and assists
 

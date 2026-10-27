@@ -149,7 +149,7 @@ frame is required. Button prompt glyphs are per device (`PROMPT_GLYPHS`).
 
 ## Save schema
 
-`src/systems/save/SaveManager.js`, current `SAVE_VERSION = 21` (versions 5
+`src/systems/save/SaveManager.js`, current `SAVE_VERSION = 24` (versions 5
 to 17 keep this layout, their migrations only rename, fill in or, from 17,
 drop a party member listed twice; version 18, overhaul Prompt 5, adds
 `"ship": { "sections": { "hull_port": 100, ... } }`, six section integrities;
@@ -173,7 +173,13 @@ touched source's uses left, restock and cooldown seconds, food and draught
 effects with their seconds, the galley pot, the wet cloth's charges,
 recipes taught; sparse, `{}` until first used; worn gear stays in
 `ship.beard.worn`), and a version 22 save loads with it off and empty
-(nothing given retroactively); the example
+(nothing given retroactively); version 24, overhaul Prompt 11, adds a
+top-level `consequences` (the consequence ledger: its switch, an instance
+counter, each held consequence's id, level, state, strength, cap, full
+duration and clocks left, source, event id, time, times applied, worst
+level and Journal mark; a bounded history of what ended and how; the event
+ids applied, at most 128; how often each was ever applied; milestones
+marked), and a version 23 save loads with it empty (nothing invented); the example
 shows a version 5 record). Story Phase 17's two new party members (Ledger and Tilda) are
 ordinary `party` entries, so the cartridge budget's four party slots still
 hold (the captain, Ledger, Tilda, one spare):

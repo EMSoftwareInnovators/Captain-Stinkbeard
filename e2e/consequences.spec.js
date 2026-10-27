@@ -99,12 +99,22 @@ async function openPage(g, value, { open, up, down, confirm }) {
   await confirm();
   await g.waitFor(() => window.__GAME__.game.scene.getScene('Menu').page?.focused === true, null, 5000);
 }
-/** The Journal page: its rows (label, right) and the selected entry's detail text. */
+/** The Journal page: its rows (label, right) and the selected entry's detail text (as shown in the panel, lines joined). */
 const journal = (g) => g.eval(() => {
   const p = window.__GAME__.game.scene.getScene('Menu').page;
   const strip = (t) => String(t ?? '').replace(/<[^>]*>/g, '');
-  return { rows: p.menu.items.map((i) => `${strip(i.label)}|${strip(i.right)}`), index: p.menu.index, detail: p.detail.objects.map((o) => o.text ?? '').join(' / ') };
+  return { rows: p.menu.items.map((i) => `${strip(i.label)}|${strip(i.right)}`), index: p.menu.index, detail: p.detail.objects.map((o) => o.text ?? '').join(' / ').replace(/\s+/g, ' ') };
 });
+/** "Read all" (Confirm): the whole entry, a page at a time, as any long Journal entry; closed again with Cancel. */
+async function readAll(g, { confirm, cancel }) {
+  await confirm();
+  await g.waitFor(() => !!window.__GAME__.game.scene.getScene('Menu').page.reader, null, 5000);
+  const text = await g.eval(() => window.__GAME__.game.scene.getScene('Menu').page.reader.pages.flat().map((p) => p.text.replace(/<[^>]*>/g, '')).join(' / '));
+  await g.wait(250);
+  await cancel();
+  await g.waitFor(() => !window.__GAME__.game.scene.getScene('Menu').page.reader, null, 5000);
+  return text;
+}
 const KEYS = (g) => ({
   respondKey: () => g.tap('KeyV', 50, 500),
   open: () => g.tap('KeyC', 50, 600),
@@ -143,6 +153,11 @@ test('a mistake carried into another room and read in the Captain\'s Journal, wi
   await choose(g, /^Carry on$/, keys);
   await done(g);
   expect((await ledger(g)).held).toEqual({ shaken: 1, crew_doubts: 1, in_the_groove: 1 });
+  // Free in the world, the hazard clock runs it down (scenes, bars and room changes don't count).
+  const left = () => g.eval(() => window.__GAME__.app.session.consequences.held('shaken').left);
+  const was = await left();
+  await g.wait(3500);
+  expect(was - (await left())).toBeGreaterThanOrEqual(2);
   const said = await toasts(g);
   for (const re of [/^IN THE GROOVE: work goes quicker/, /^RATTLED HANDS: repair timing is less forgiving\.$/, /^CREW DOUBTS noted in the Journal\.$/]) expect(said.some((t) => re.test(t)), `${re} in ${said.join(' | ')}`).toBe(true);
 
@@ -155,14 +170,18 @@ test('a mistake carried into another room and read in the Captain\'s Journal, wi
 
   // Pause > Journal: the ledger at the top, NEW until read; each says what it does and what puts it right.
   await openPage(g, 'log:captains_journal', keys);
+  // The entry the page opens on is read at once (as any Journal entry); the others stay NEW until visited.
   const first = await journal(g);
-  expect(first.rows.slice(0, 3)).toEqual(['Rattled Hands|NEW', 'Crew Doubts|NEW', 'In the Groove|NEW']);
+  expect(first.rows.slice(0, 3)).toEqual(['Rattled Hands|Condition', 'Crew Doubts|NEW', 'In the Groove|NEW']);
   expect(first.detail).toMatch(/Active: Shaky \(1 of 2\)/);
   expect(first.detail).toMatch(/Repair timing is less forgiving\. Green -3\./);
-  expect(first.detail).toMatch(/Rest in a hammock, in the crew quarters \(15s\): ends it\. Go to the Crew Quarters\./);
+  expect(first.detail).toMatch(/Read all$/);
+  const whole = await readAll(g, keys);
+  expect(whole).toMatch(/Recover {2}Rest in a hammock, in the crew quarters \(15s\): ends it\. Go to the Crew Quarters\./);
+  expect(whole).toMatch(/Ends {2}By itself in [45]:\d\d\./);
   await keys.down();
   const second = await journal(g);
-  expect(second.rows[0]).toBe('Rattled Hands|Condition');
+  expect(second.rows.slice(0, 2)).toEqual(['Rattled Hands|Condition', 'Crew Doubts|Crew']);
   expect(second.detail).toMatch(/They're too polite to say so/);
   await keys.cancel();
   await keys.cancel();
@@ -203,17 +222,21 @@ test('recovery with a gamepad: the Journal says what it needs, a rest in the cre
   // Read it first: Rattled, and where the rest is.
   await openPage(g, 'log:captains_journal', pad);
   const page = await journal(g);
-  expect(page.rows.slice(0, 2)).toEqual(['Rattled Hands|NEW', 'Bone-Tired|NEW']);
+  expect(page.rows.slice(0, 2)).toEqual(['Rattled Hands|Condition', 'Bone-Tired|NEW']);
   expect(page.detail).toMatch(/Active: Rattled \(2 of 2\)/);
-  expect(page.detail).toMatch(/\(25s\): ends it\. Go to the Crew Quarters\./);
-  expect(page.detail).toMatch(/Eat a hot meal, a galley meal, eaten from Items: eases it\. You have one\./);
+  const whole = await readAll(g, pad);
+  expect(whole).toMatch(/\(25s\): ends it\. Go to the Crew Quarters\./);
+  expect(whole).toMatch(/Eat a hot meal, a galley meal, eaten from Items: eases it\. You have one\./);
   await pad.cancel();
   await pad.cancel();
   await g.idle();
   // Nothing to rest on in the hold; in the crew quarters, Respond offers the hammock.
   await go(g, at('crew_quarters', 8, 5, 'down'));
   await watchToasts(g);
+  // The supplies are on (the demo's meal), so his gear is offered too; the rest is under "Rest and readiness".
   await pad.respondKey();
+  expect(await choose(g, /^Rest and readiness$/, pad)).toEqual(['Your gear', 'Rest and readiness', 'Leave it']);
+  await g.wait(250);
   const offered = await choose(g, /^Rest in a hammock \(25s\)$/, pad);
   expect(offered).toEqual(['Rest in a hammock (25s)', 'Leave it']);
   await g.idle(60000);
@@ -246,7 +269,10 @@ test('an advantage earned with Respond, used on a repair, saved and continued, t
   // Switched on (the demo's own step): Respond in the hold offers laying out the tools.
   await run(g, scenario('C'));
   await watchToasts(g);
+  // In the hold the bilge pump's group always comes first (greyed while the bilge is dry): ours is next.
   await keys.respondKey();
+  expect(await choose(g, /^Rest and readiness$/, keys)).toEqual(['Fight the emergency', 'Rest and readiness', 'Leave it']);
+  await g.wait(250);
   await choose(g, /^Lay out the tools \(12s, 1 Nails\)$/, keys);
   await g.idle(60000);
   expect((await ledger(g)).held).toEqual({ well_prepared: 1 });

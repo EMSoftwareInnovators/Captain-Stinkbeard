@@ -2288,3 +2288,54 @@ the supplies on rewards with ordinary `giveItem`, never needs a meal to
 progress, keeps a recovery within reach of any repair it asks for, and
 tests every difficulty. Everything else is in
 [gameplay-overhaul/14-resources-and-cooking.md](gameplay-overhaul/14-resources-and-cooking.md).
+
+## Consequences
+
+What a mistake, a choice or good preparation leaves behind, defined in
+`data/consequences/ledger.json`. No chapter uses them. A consequence is
+applied by a script or by a challenge's outcome table, changes how the
+ship's systems treat the captain until it ends or is put right, and shows
+in the Captain's Journal.
+
+```json
+{ "shipRepair": "hull_port", "challenge": { "profile": "ship_repair", "consequences": "my_table" } }
+{ "consequence": "shaken", "severity": 1, "eventId": "ch_storm_slip" }
+{ "consequenceOutcome": "my_table", "outcome": "failure", "eventId": "ch_scene" }
+{ "consequenceSeverity": "shaken", "by": -1 }
+{ "consequenceCheck": "shaken", "value": "ch_hands" }
+{ "consequenceRecover": "rest" }
+{ "consequenceMilestone": "chapter" }
+{ "consequenceResolve": "crew_doubts", "authorized": true }
+```
+
+```json
+{ "consequence": { "id": "shaken", "active": true } }
+{ "consequence": { "id": "shaken", "severity": { "gte": 2 } } }
+{ "consequence": { "id": "crew_doubts", "resolved": true } }
+{ "consequence": { "earned": "well_prepared" } }
+{ "consequence": { "modifier": "zone", "lt": 0 } }
+```
+
+An **outcome table** (`tables`) lists what each way a challenge can end
+leaves: `success` and `partial` (once, after it), `failure` (when an
+attempt fails: undone by Try again, kept if he carries on), `retry` (each
+Try again: kept through later retries), `accept` (carrying on), `fallback`
+(going back). Adding a **definition**: a title, a short tag, a category, a
+kind (negative, positive, narrative), a description in the captain's
+voice, one short effect sentence (it is also the notice), 1 to 3 levels
+(a label and modifiers: `zone`, `work`, `repair`, `response`, `costAdd`,
+pointing the way its kind says), `max`, a stacking policy, clocks
+(`expires`: seconds, milestones, uses), and for a penalty a recovery that
+doesn't need what it impairs (or an end). An advantage always ends and
+never adds up. Adding a **method**: a room id and, if it needs one, an
+existing fixture (never tiles, no new furniture), seconds, a bill whose
+items can be had again on every difficulty.
+
+Never put a `consequence` condition on a chapter start, a door, a
+trigger, a person the story needs, or a step that moves a main quest: the
+validator refuses it (consequences change cost, difficulty and dialogue,
+never whether the story can go on). Don't add consequences in a
+challenge's difficulty block (the ledger scales them once). Give
+once-only events an `eventId`. Run `npm run consequences` after any
+change. Everything else is in
+[gameplay-overhaul/15-consequences-and-recovery.md](gameplay-overhaul/15-consequences-and-recovery.md).

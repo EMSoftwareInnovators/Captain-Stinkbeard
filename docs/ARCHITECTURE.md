@@ -1060,6 +1060,59 @@ session's `Inventory` and the items are ordinary `data/items` entries.
   reads it. UI: Respond, Pause > Ship rows, Pause > Items descriptions.
   Debug: F2 > Ship and the `supplies_demo` preset.
 
+## Consequence ledger (overhaul Prompt 11)
+
+What a mistake, a hard choice or good preparation leaves the captain with,
+carried across rooms, chapters and saves until it ends or is put right. See
+[gameplay-overhaul/15-consequences-and-recovery.md](gameplay-overhaul/15-consequences-and-recovery.md).
+Opt-in: no chapter applies anything.
+
+- Data: `data/consequences/ledger.json` (ContentDB `consequences`):
+  categories, limits, definitions (levels and modifiers, stacking, clocks,
+  recovery, opposites), methods (by room and fixture, never tiles),
+  outcome tables, milestones, the Journal host. Each difficulty preset's
+  `consequences` block (strength, duration, cap, actionCost, actionTime).
+- `src/systems/consequences/ledger.js`: pure lookups, the difficulty's
+  tuning, level modifiers, combining and bounding, bills and seconds, the
+  data validator. `ConsequenceLedger.js`: `session.consequences`, beside
+  the ship (not inside it), saved at the top of the state (v24) and
+  checkpointed (the `consequences` domain): entries (one per consequence),
+  a bounded history, event ids, counts, milestones. The difficulty is read
+  once, when an entry is created; modifiers are derived and cached until
+  something changes.
+- One clock: `GameSession.tickHazards` ticks the ship then the ledger;
+  `hazardsActive` keeps the world's hazard clock running while a
+  consequence runs down. The world, the work ticks and `hazardClock` all go
+  through it.
+- Joined, not duplicated: the captain's condition on a ship bar
+  (`barCondition`: food, draughts and consequences together, bounded) is a
+  flat layer in `timingBarSettings` after the challenge and the leader's
+  stat, before the assists; `captainFactors` (work); `repairPlan` (repair
+  efficiency, the bill); `hazardAction` (pumping); a meal's `shipEffect`
+  eases what the ledger lists (`ConsequenceLedger.provision`).
+- Challenges: a spec's `consequences` (an outcome table) is compiled by
+  `challengeConfig` into consequence steps in the runner's lists
+  (`onSuccess`, `onPartial`, `onFailedAttempt`, `onRetry`,
+  `onFailure.consequences`, `onFallback`), each in its own event scope;
+  records list what the ledger did (`consequences.ledger`).
+- The captain's side: `src/systems/consequences/recovery.js` (Respond's
+  "Rest and readiness", requirements and availability, notices, the
+  Journal's lines). Commands: `consequence`, `consequenceSeverity`,
+  `consequenceCheck`, `consequenceResolve` (authorized only),
+  `consequenceOutcome`, `consequenceRecover`, `consequencePrepare`,
+  `consequenceMilestone`, `consequenceSystem`, `consequenceReport`. The
+  `consequence` condition reads it.
+- Safety: `src/systems/consequences/safety.js` (every ship bar winnable
+  at the worst condition, every recovery material recoverable, the
+  report: `npm run consequences`); the validator refuses consequence
+  conditions on mandatory progression (chapter starts, story triggers,
+  doors, map triggers, people's places, steps and choices that move a main
+  quest or a progress flag).
+- UI: the Captain's Journal (`LogPage`) shows the ledger at the top;
+  `logAvailable(log, session, id)` opens it for the ledger alone; toasts
+  (the overlay's `consequence` kind lets a repeat go). Debug: F2 > Ship and
+  the `consequences_demo` preset.
+
 ## Battle
 
 `BattleEngine` (`src/systems/battle/`) owns the rules and is fully

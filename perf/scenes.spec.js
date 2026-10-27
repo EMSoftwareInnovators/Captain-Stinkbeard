@@ -105,6 +105,27 @@ const SCENES = [
       s.ship.air.startSource({ room: 'cargo_hold', substance: 'smoke', rate: 2, seconds: 600, source: 'perf' });
     },
   },
+  // Prompt 11 (docs/gameplay-overhaul/15-consequences-and-recovery.md, "Performance results"): the consequence ledger in play
+  // while measured (timed entries running down on the hazard clock, a chapter-long one and a shipboard one held, the history
+  // full), a meal's effect ticking, and Respond's recovery check following him as he walks.
+  {
+    preset: 'consequences_demo',
+    rooms: ['cargo_hold'],
+    why: 'the consequence ledger in play in the hold: Rattled, Bone-Tired and In the Groove running down each second, Short of Kit and a Fouled Pump held, a full history, a meal effect, Respond offering the kit and the pump',
+    setup: () => {
+      const s = window.__GAME__.app.session;
+      const L = s.consequences;
+      const T = { strength: 1, duration: 1, cap: 0, actionCost: 1, actionTime: 1 };
+      for (let i = 0; i < 30; i++) {
+        L.apply({ id: 'crew_doubts', tuning: T });
+        L.resolve('crew_doubts');
+      }
+      for (const [id, severity] of [['shaken', 2], ['exhausted', 1], ['poorly_prepared', 1], ['fouled_pump', 1], ['in_the_groove', 1]]) L.apply({ id, severity, tuning: T });
+      L.on = true;
+      s.ship.supplies.on = true;
+      s.ship.supplies.applyEffect('full_belly');
+    },
+  },
 ];
 
 /** Diagnostic limits: a measurement past one is flagged in the report, nothing fails. */
