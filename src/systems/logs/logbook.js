@@ -1,5 +1,7 @@
 import { evaluateCondition } from '../conditions/conditions.js';
 import { resolveVariant } from '../story/progress.js';
+import { ledgerData } from '../consequences/ledger.js';
+import { hasJournalEntries } from '../consequences/recovery.js';
 
 /**
  * Logbooks (data/logs/*.json): in-world records that fill in as the story
@@ -28,9 +30,19 @@ function stateKey(logId) {
   return `${LOG_STATE_PREFIX}${logId}`;
 }
 
-/** The log can be opened (from the menu or its in-world object). */
-export function logAvailable(log, session) {
-  return !log.if || evaluateCondition(log.if, session);
+/** Prompt 11: the logbook that shows the consequence ledger (data/consequences/ledger.json "journal"), or null. */
+export function ledgerHost(content) {
+  return ledgerData(content)?.journal?.log ?? null;
+}
+
+/**
+ * The log can be opened (from the menu or its in-world object). Prompt 11:
+ * the ledger's host (the Captain's Journal, given its id) also opens for the
+ * ledger alone, before its own first entry.
+ */
+export function logAvailable(log, session, logId = null) {
+  if (!log.if || evaluateCondition(log.if, session)) return true;
+  return !!logId && ledgerHost(session.content) === logId && hasJournalEntries(session);
 }
 
 /** Entries unlocked right now, in data order, with their story variants applied. */

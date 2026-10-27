@@ -88,7 +88,7 @@ export class MenuScene extends BaseScene {
   navEntries() {
     const logs = [];
     for (const [id, log] of this.app.content.logs.map) {
-      if (logAvailable(log, this.session)) logs.push({ label: log.menuLabel ?? log.title, value: `log:${id}`, page: LogPage, args: { logId: id } });
+      if (logAvailable(log, this.session, id)) logs.push({ label: log.menuLabel ?? log.title, value: `log:${id}`, page: LogPage, args: { logId: id } });
     }
     const at = NAV.findIndex((n) => n.value === 'ship') + 1;
     return [...NAV.slice(0, at), ...logs, ...NAV.slice(at)];

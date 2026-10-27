@@ -45,19 +45,23 @@ export const MIN_WINDOW_MS = 50;
  *                    "speed" / "zone", or "speedScale" / "zoneAdd" on the step's;
  *                    "maxFumbles" / "timeLimit" only when it can fail (strict)
  *   the leader's     stat bonus (-0.25 .. 0.6): more green, a slower marker; and luck
+ *   the captain's    condition (Prompt 11, ship bars only): food, draughts and his
+ *                    consequences, in pixels of green, never past the bar's bounds
  *   the player's     assist (resolveAssists; a challenge's attempt brings its own):
  *                    timing (slower, more green, more time, cues) and, strict
  *                    only, the classic bar's widening
  * Pure, so the overlay and the test bots run exactly the same numbers. With no
  * challenge and no assist it is the bar the game has always had.
  */
-export function timingBarSettings({ baseSpeed = TIMING_DEFAULTS.speed, speed = 1, zone = TIMING_DEFAULTS.zone, strikes = TIMING_DEFAULTS.strikes, barW = TIMING_DEFAULTS.barW, challenge = null, bonus = 0, luck = 0, assist = challenge?.assist ?? null, auto = false, fumbleLock = TIMING_DEFAULTS.fumbleLock } = {}) {
+export function timingBarSettings({ baseSpeed = TIMING_DEFAULTS.speed, speed = 1, zone = TIMING_DEFAULTS.zone, strikes = TIMING_DEFAULTS.strikes, barW = TIMING_DEFAULTS.barW, challenge = null, bonus = 0, luck = 0, condition = null, assist = challenge?.assist ?? null, auto = false, fumbleLock = TIMING_DEFAULTS.fumbleLock } = {}) {
   const strict = !!challenge?.strict;
   const mech = challenge ? challenge.mechanics ?? {} : {};
   const speedMul = mech.speed ?? speed * (mech.speedScale ?? 1);
   const zoneW = mech.zone ?? zone + (mech.zoneAdd ?? 0);
   let px = baseSpeed * speedMul * (1 - bonus * 0.25);
   let green = Math.max(MIN_ZONE, Math.round(zoneW * (1 + bonus)));
+  // The captain's condition, flat: after the difficulty, the challenge and his stat, before any assist (none on a legacy bar).
+  if (condition?.zone) green = Math.max(MIN_ZONE, Math.min(barW - TIMING_DEFAULTS.margin * 2, green + condition.zone));
   let timeLimit = strict ? mech.timeLimit : undefined;
   const timing = assist?.timing ?? null;
   if (timing) {

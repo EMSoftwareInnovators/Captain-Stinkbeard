@@ -731,7 +731,7 @@ describe('21-23. saves (version 18, since Prompt 6 19)', () => {
   }
 
   it('21. a version 17 save loads with a whole ship and everything else as it was', () => {
-    expect(SAVE_VERSION).toBe(23);
+    expect(SAVE_VERSION).toBe(24);
     const s = session();
     stock(s, { planks: 3 });
     s.story.setVar('fx_kept', 7);
@@ -781,7 +781,7 @@ describe('21-23. saves (version 18, since Prompt 6 19)', () => {
     s.session.ship.applyDamage({ section: 'rigging', amount: 500, tuning: { grace: false } });
     s.session.ship.applyDamage({ section: 'deck', amount: 12, eventId: 'fx_ev' });
     const t = reloadStory(s);
-    expect(t.record.version).toBe(23);
+    expect(t.record.version).toBe(24);
     expect(t.record.state.ship.sections).toEqual({ ...WHOLE, hull_port: 60, rigging: 0, deck: 48 });
     // Since Prompt 6 the ship also saves its emergencies (none here) and the damage events applied (retry-safe, tests/hazards.test.js).
     expect(t.record.state.ship.hazards).toMatchObject({ leaks: [], water: {}, fires: [] });
@@ -830,7 +830,8 @@ describe('21-23. saves (version 18, since Prompt 6 19)', () => {
 // ---------------------------------------------------------------------------------------------
 describe('24-25. the campaign is unchanged', () => {
   it('24. no chapter damages, repairs or checks the ship, or hands out materials; legacy repairs take nothing', async () => {
-    const campaign = Object.entries(FILES).filter(([p]) => !/^\/data\/(ship|debug|difficulty)\//.test(p) && p !== '/data/items/materials.json');
+    // The overhaul's own system data (the ship, the consequence ledger's recovery bills) and the debug and difficulty data aren't the campaign.
+    const campaign = Object.entries(FILES).filter(([p]) => !/^\/data\/(ship|debug|difficulty|consequences)\//.test(p) && p !== '/data/items/materials.json');
     expect(campaign.length).toBeGreaterThan(100);
     const text = campaign.map(([, v]) => JSON.stringify(v)).join('\n');
     expect(text).not.toMatch(/"ship(Damage|Restore|Repair)"/);

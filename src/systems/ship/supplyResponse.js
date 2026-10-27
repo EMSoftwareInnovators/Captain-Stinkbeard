@@ -1,6 +1,7 @@
 import { asArray } from '../../core/util.js';
 import { shipTuning } from './integrity.js';
 import { captainFactors } from './airResponse.js';
+import { ledgerLimits, consequenceDef } from '../consequences/ledger.js';
 import {
   supplyData,
   classOf,
@@ -38,14 +39,37 @@ export function supplySeconds(session, base) {
   return Math.max(1, Math.round(base * water * captainFactors(session).work));
 }
 
-/**
- * A timing bar's green zone (pixels): the base every ship repair has, plus
- * a meal's steady hands or a draught's wobble (only while the supplies are
- * on), plus, for salvage and cooking, the difficulty's supplyZone.
- */
-export function barZone(session, { supply = false, difficulty = 'captain' } = {}) {
+/** A ship bar's base green (pixels): what every ship repair has, plus, for salvage and cooking, the difficulty's supplyZone. */
+export function barBase(session, { supply = false, difficulty = 'captain' } = {}) {
   const t = supply ? shipTuning(session.content, difficulty) : null;
-  return Math.max(10, BASE_ZONE + (session.ship.supplies?.factor('zone') ?? 0) + (supply ? t.supplyZone ?? 0 : 0));
+  return BASE_ZONE + (supply ? t.supplyZone ?? 0 : 0);
+}
+
+/**
+ * The captain's condition on a ship bar (pixels of green; Prompt 11,
+ * docs/gameplay-overhaul/15-consequences-and-recovery.md, "Precedence"): a
+ * meal's steady hands or a draught's wobble (only while the supplies are
+ * on) and his consequences (Rattled Hands, Ready for Anything), held
+ * together to the ledger's condition bounds. The bar adds it after the
+ * challenge's own numbers and the captain's stat, before any assist.
+ */
+export function barCondition(session) {
+  const food = session.ship.supplies?.factor('zone') ?? 0;
+  const ledger = session.consequences?.factor('zone') ?? 0;
+  const [lo, hi] = ledgerLimits(session.content).condition;
+  return { zone: Math.max(lo, Math.min(hi, food + ledger)) };
+}
+
+/** The condition for a bar about to be played: an advantage that helps the green is used up (once per run: a retry's restore gives it back). */
+export function takeBarCondition(session) {
+  const c = barCondition(session);
+  session.consequences?.useUp('zone');
+  return c;
+}
+
+/** A timing bar's green before the challenge's own numbers (reports and tests): the base plus the captain's condition. */
+export function barZone(session, opts = {}) {
+  return Math.max(10, barBase(session, opts) + barCondition(session).zone);
 }
 
 /** Why work can't be done here now (null when it can). */
@@ -180,7 +204,10 @@ export function sourcePreview(session, id, difficulty = 'captain') {
 export function effectNote(content, results) {
   const fx = asArray(results).find((r) => r.type === 'shipEffect' && r.applied);
   if (!fx) return '';
-  if (fx.effect) return `<k>${effectDef(content, fx.effect)?.label} ${fx.seconds}s.</>`;
+  // Prompt 11: what the meal eased in the consequence ledger.
+  const eased = asArray(fx.eased).map((r) => consequenceDef(content, r.id)?.title).filter(Boolean);
+  const also = eased.length ? ` <y>${eased.join(', ')} eased.</>` : '';
+  if (fx.effect) return `<k>${effectDef(content, fx.effect)?.label} ${fx.seconds}s.</>${also}`;
   return fx.recovered ? `<k>Lungs clearer (-${fx.recovered}).</>` : '';
 }
 

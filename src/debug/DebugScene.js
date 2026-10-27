@@ -595,6 +595,16 @@ export class DebugScene extends BaseScene {
       for (const id of DEBUG_SHIP.materials) if (s.inventory.count(id)) s.inventory.remove(id, s.inventory.count(id));
       this.rerender();
     } });
+    // Prompt 11: the consequence ledger (what is held: level, clocks; how much has ended).
+    const L = s.consequences;
+    out.push({ label: 'Consequences', right: `${L.on ? '' : '<k>prep off</> '}held ${L.entries.size}, ended ${L.history.length}` });
+    for (const e of L.list().slice(0, 6)) out.push({ label: `  ${e.id}`, right: `${e.state === 'contained' ? 'eased' : `L${e.level}/${e.cap}`}${e.left !== null ? ` ${e.left}s` : ''}${e.miles !== null ? ` ${e.miles}ch` : ''}${e.uses !== null ? ` ${e.uses}x` : ''}` });
+    for (const [label, steps] of DEBUG_SHIP.consequences) out.push({ label, action: () => this.runInWorld(steps) });
+    out.push({ label: 'Clear the ledger (debug)', action: () => {
+      L.reset();
+      L.changed(null, 'cleared');
+      this.rerender();
+    } });
     return out;
   }
 

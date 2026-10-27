@@ -37,6 +37,10 @@ export const NON_CHALLENGE_COMMANDS = Object.freeze([
   // Prompt 10 supplies: the switch, the stores, transfers, the sources a script opens or empties, gear, eating, effects, recipes, serving
   // (a salvage and a stir are challenges: supplyTake, cook).
   'suppliesSystem', 'supplyStore', 'supplyTransfer', 'supplyMenu', 'supplyCheck', 'supplySource', 'supplySetback', 'gearEquip', 'gearRecharge', 'useSupply', 'supplyEffect', 'learnRecipe', 'serve', 'cookReport',
+  // Prompt 11 the consequence ledger: apply, change, check, clear, record an outcome, recover and prepare (seconds of work or rest, no bar),
+  // milestones, the switch, the report.
+  'consequence', 'consequenceSeverity', 'consequenceCheck', 'consequenceResolve', 'consequenceOutcome', 'consequenceRecover', 'consequencePrepare',
+  'consequenceMilestone', 'consequenceSystem', 'consequenceReport',
   'showObject', 'spawn', 'sprite', 'spriteFrame', 'stability', 'startQuest', 'swapItem', 'takeGold', 'takeItem', 'tether', 'tint', 'token',
   'transition', 'tutorial', 'tvProgram', 'tvSet', 'vista', 'vistaEnd', 'vistaFrame', 'vistaFx', 'vistaMove', 'vistaShow', 'vistaSpin', 'wait', 'wear',
 ]);

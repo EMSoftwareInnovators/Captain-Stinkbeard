@@ -794,15 +794,15 @@ describe('checkpoints and challenge outcomes', () => {
 });
 
 // ---------------------------------------------------------------------------------------------
-describe('saves (version 19, since Prompt 7 20, Prompt 8 21, Prompt 9 22, Prompt 10 23)', () => {
+describe('saves (version 19, since Prompt 7 20, Prompt 8 21, Prompt 9 22, Prompt 10 23, Prompt 11 24)', () => {
   it('an emergency saves and loads exactly, and goes on the same way afterwards', async () => {
-    expect(SAVE_VERSION).toBe(23);
+    expect(SAVE_VERSION).toBe(24);
     const s = demo();
     const hz = s.session.ship.hazards;
     await s.run([...BREACH(), { ignite: 'galley', intensity: 45 }, { hazardAction: 'fetch' }]);
     tick(hz, 7);
     const t = reloadStory(s);
-    expect(t.record.version).toBe(23);
+    expect(t.record.version).toBe(24);
     expect(t.session.ship.serialize()).toEqual(s.session.ship.serialize());
     expect(t.session.ship.hazards.buckets).toBe(hz.buckets);
     tick(hz, 30);

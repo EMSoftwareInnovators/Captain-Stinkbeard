@@ -27,8 +27,10 @@ import { subjectOptions, pressureGroups, pressureReport } from '../ship/pressure
 import { beardData } from '../ship/beard.js';
 import { beardOptions, beardReport, sniffReport } from '../ship/beardResponse.js';
 import { sourceDef, recipeDef, storeDef, storesHere, stationHere, waterHere } from '../ship/supplies.js';
-import { supplyGroups, supplySeconds, barZone, missingFor, storeReport, recipeReport, effectNote } from '../ship/supplyResponse.js';
+import { supplyGroups, supplySeconds, barBase, takeBarCondition, missingFor, storeReport, recipeReport, effectNote } from '../ship/supplyResponse.js';
 import { applyEffects, wouldAffect, itemUsableIn } from '../effects/effects.js';
+import { methodDef, consequenceDef, consequenceTuning, methodBill, tableLists } from '../consequences/ledger.js';
+import { consequenceOptions, methodWork, methodBlocked, methodSecondsHere, consequenceNotice, mealInPack, levelLabel } from '../consequences/recovery.js';
 import { tunedTensionDef } from '../tension.js';
 
 /** Story Phase 14: a stability subject (data/story/stability) with its defaults. */
@@ -364,7 +366,7 @@ function takeAll(inventory, items) {
 async function workTick(ctx, label, done, of) {
   ctx.services?.ui?.work?.({ label, done, of });
   await ctx.wait(hazardData(ctx.session.content ?? ctx.content)?.tickMs ?? 1000);
-  ctx.session.ship.tick(shipTuning(ctx.session.content ?? ctx.content, challengePrefs(ctx).difficulty));
+  ctx.session.tickHazards(shipTuning(ctx.session.content ?? ctx.content, challengePrefs(ctx).difficulty));
 }
 
 /** A step that starts a hazard, if its event (scoped as above) hasn't happened and its challenge hasn't resolved. */
@@ -400,6 +402,57 @@ async function refused(ctx, step, reason) {
   return null;
 }
 
+// --- Prompt 11: the consequence ledger (docs/gameplay-overhaul/15-consequences-and-recovery.md) ---
+
+/** What a change to the ledger did, as a short notice (repeats of the same one are let go by the overlay). */
+async function consequenceSay(ctx, r) {
+  const text = consequenceNotice(ctx.session.content ?? ctx.content, r);
+  if (text) await ctx.services?.ui?.notify?.({ kind: 'consequence', text, key: `cq:${r.id}:${r.op}` });
+}
+
+/** A consequence step that can't be done: says why (unless quiet), records "refused", changes nothing. */
+async function consequenceRefused(ctx, step, reason) {
+  if (step.announce !== false && !/^(challenge already resolved|not authorized|off)$/.test(reason)) await shipNotice(ctx, `<r>${reason}</>`);
+  if (step.outcomeValue) ctx.session.story.setValue(step.outcomeValue, 'refused');
+  return null;
+}
+
+/** Which way of ending a challenge a list belongs to, from its event scope (the source a ledger entry keeps). */
+function outcomeOfScope(scope) {
+  const s = String(scope ?? '');
+  if (/:onSuccess$/.test(s)) return 'success';
+  if (/:onPartial$/.test(s)) return 'partial';
+  if (/:onFailure$/.test(s)) return 'accept';
+  if (/:onFallback$/.test(s)) return 'fallback';
+  if (/:retry:\d+$/.test(s)) return 'retry';
+  if (/:(failed|cost):\d+$/.test(s)) return 'failure';
+  return null;
+}
+
+/**
+ * Applies one consequence (the "consequence" command, and each application
+ * of "consequenceOutcome"): inside a challenge's lists its event id is scoped
+ * to the charge or list and its difficulty is the run's; the record lists
+ * what the ledger did, so the two always agree.
+ */
+async function applyConsequence(ctx, frame, step) {
+  const session = ctx.session;
+  const content = session.content ?? ctx.content;
+  const ch = ctx.challenge ?? null;
+  // A run that has closed can't leave anything more behind (a stale callback), unless the script says so.
+  if (challengeStateOf(ctx) === 'resolved' && step.authorized !== true) return consequenceRefused(ctx, step, 'challenge already resolved');
+  const difficulty = ch?.difficulty ?? challengePrefs(ctx).difficulty;
+  const eventId = scopedEventId(ctx, step.eventId ?? (ch ? step.consequence : null));
+  const source = { kind: ch ? 'challenge' : step.source ? 'event' : 'script', id: ch?.id ?? step.source ?? frame?.id ?? null, chapter: ch?.chapter ?? chapterOf(frame?.id), outcome: ch ? outcomeOfScope(ctx.eventScope) : null };
+  const r = session.consequences.apply({ id: step.consequence, severity: step.severity ?? 1, source, eventId, tuning: consequenceTuning(content, difficulty) });
+  const op = r.ok ? r.op : r.reason === 'duplicate event' ? 'duplicate' : 'refused';
+  if (ch) ch.consequences.ledger.push({ id: step.consequence, op, level: r.level ?? 0, scope: ctx.eventScope ?? null });
+  if (step.outcomeValue) session.story.setValue(step.outcomeValue, op);
+  if (r.ok && r.op !== 'kept' && step.announce !== false) await consequenceSay(ctx, r);
+  for (const o of r.superseded ?? []) if (step.announce !== false) await consequenceSay(ctx, { ok: true, op: 'resolved', id: o, how: 'superseded' });
+  return r;
+}
+
 /** What eating or drinking one did, in a line (the Items menu says the same). */
 function supplyUseText(session, target, def, results) {
   const healed = results.filter((r) => r.type === 'heal').reduce((n, r) => n + r.amount, 0);
@@ -415,6 +468,18 @@ function shipDamageText(ctx, r) {
 }
 
 /**
+ * Prompt 11: a repair's bill with `extra` more of its main material (its
+ * first; never below 1 of anything), and its worst case with it. The
+ * difficulty has already scaled the bill; this is added after, never scaled.
+ */
+function withExtraCost(repair, extra) {
+  const main = repair.cost[0]?.item;
+  if (!main) return repair;
+  const bump = (list) => list.map((c) => (c.item === main ? { ...c, count: Math.max(1, c.count + extra) } : c));
+  return { ...repair, cost: bump(repair.cost), worst: bump(repair.worst), extraCost: extra };
+}
+
+/**
  * Can this section be repaired here and now, and with what? Everything the
  * Ship page and the shipRepair command show and check, without changing
  * anything.
@@ -427,16 +492,20 @@ export function repairPlan(session, sectionId, { difficulty = 'captain', anywher
   if (!sec.repairable) return { ok: false, reason: 'unrepairable', section: sec, message: `The ${sec.name.toLowerCase()} can't be repaired.` };
   if (sec.hp >= sec.max) return { ok: false, reason: 'whole', section: sec, message: `The ${sec.name.toLowerCase()} needs no repair.` };
   const def = content.ship.sections[sectionId];
-  const repair = resolveRepair(content, repairId ?? repairIdFor(def, sec.hp), difficulty);
+  let repair = resolveRepair(content, repairId ?? repairIdFor(def, sec.hp), difficulty);
   if (!repair) return { ok: false, reason: 'unknown', section: sec, message: 'No repair is known for that.' };
   const room = session.location?.map ?? null;
   const here = anywhere || sec.rooms.includes(room);
+  // Prompt 11: Short of Kit makes the bill dearer (more of its main material); nothing changes with an empty ledger.
+  const extra = session.consequences?.factor('costAdd') ?? 0;
+  if (extra) repair = withExtraCost(repair, extra);
   const missing = repair.worst.filter((c) => session.inventory.count(c.item) < c.count).map((c) => ({ ...c, have: session.inventory.count(c.item) }));
   const attempts = affordableAttempts(repair, (id) => session.inventory.count(id));
   const rooms = sec.rooms.map((m) => content.maps.get(m)?.name ?? m);
   // Prompt 6: water where he works makes a repair restore less (none when it's too deep), and a burning section can't be repaired.
+  // Prompt 11: so do his consequences (the ledger's repair factor: 1 with an empty ledger).
   const water = ship.hazards.waterIn(room);
-  const efficiency = water.stage.repair ?? 1;
+  const efficiency = (water.stage.repair ?? 1) * (session.consequences?.factor('repair') ?? 1);
   const burning = ship.hazards.fires.find((f) => (fireRoom(content, f.room)?.burns ?? []).some((b) => b.section === sectionId)) ?? null;
   if (ship.isLocked(sectionId)) return { ok: false, reason: 'busy', section: sec, repair, missing, attempts, here, rooms, efficiency, message: 'That repair is already under way.' };
   if (!here) return { ok: false, reason: 'elsewhere', section: sec, repair, missing, attempts, here, rooms, efficiency, message: `Work on the ${sec.name.toLowerCase()} from: ${rooms.join(', ')}.` };
@@ -943,7 +1012,7 @@ export function createCommandImplementations() {
           committed = { items, done: ship.commitRepair({ section, restore, items, inventory: session.inventory, source: `repair:${repair.id}` }) };
           if (!committed.done.ok) throw new Error(`shipRepair ${section}: ${committed.done.reason} (the plan said there was enough)`);
         };
-        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: repair.kind, strikes: repair.strikes, title: repair.title, speed: 1, zone: barZone(ctx.session), challenge: info });
+        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: repair.kind, strikes: repair.strikes, title: repair.title, speed: 1, zone: barBase(ctx.session), condition: takeBarCondition(ctx.session), challenge: info });
         const { record, goto } = await playChallenge(ctx, frame, cfg, attempt, settle);
         if (committed) {
           const items = committed.items;
@@ -1002,7 +1071,7 @@ export function createCommandImplementations() {
     /** Hazard time passes during an authored sequence (seconds): normally scenes stop the clock. */
     hazardClock: (step, ctx) => {
       const tuning = shipTuning(ctx.session.content ?? ctx.content, challengePrefs(ctx).difficulty);
-      for (let i = 0; i < Math.max(0, Math.floor(step.hazardClock)); i++) ctx.session.ship.tick(tuning);
+      for (let i = 0; i < Math.max(0, Math.floor(step.hazardClock)); i++) ctx.session.tickHazards(tuning);
       return null;
     },
     /**
@@ -1029,9 +1098,11 @@ export function createCommandImplementations() {
       const actions = hazardData(content).actions;
       const a = actions[opt.action];
       if (opt.cost?.length && !takeAll(session.inventory, opt.cost)) throw new Error(`hazardAction ${opt.action}: materials gone (the plan said there were enough)`);
+      // Prompt 11: the water a pump or a bail shifts follows the captain's consequences too (a Fouled Pump; 1 with an empty ledger).
+      const pumping = session.consequences?.factor('response') ?? 1;
       hz.working = true;
       try {
-        const per = ((a.amount ?? 0) * tuning.responseScale) / opt.seconds;
+        const per = ((a.amount ?? 0) * tuning.responseScale * pumping) / opt.seconds;
         let moved = 0;
         // Pumping draws from the deepest compartment it drains, each tick; bailing from the room he's in.
         const deepest = () => asArray(opt.target).map((r) => hz.waterIn(r)).filter((w) => w.units > 0).sort((x, y) => y.exact - x.exact)[0]?.room ?? null;
@@ -1111,7 +1182,7 @@ export function createCommandImplementations() {
           if (!takeAll(session.inventory, opt.cost)) throw new Error(`patchLeak ${leakId}: materials gone (the plan said there were enough)`);
           committed = hz.patchLeak(leakId, rec.outcome);
         };
-        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: pdef.kind, strikes: pdef.strikes, title: pdef.title, speed: 1, zone: barZone(ctx.session), challenge: info });
+        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: pdef.kind, strikes: pdef.strikes, title: pdef.title, speed: 1, zone: barBase(ctx.session), condition: takeBarCondition(ctx.session), challenge: info });
         const { record, goto } = await playChallenge(ctx, frame, cfg, attempt, settle);
         if (committed && step.announce !== false) await shipNotice(ctx, `<k>Used ${itemList(content, opt.cost)}.</>`);
         else if (!committed && step.announce !== false && record.outcome === 'failure') {
@@ -1142,7 +1213,9 @@ export function createCommandImplementations() {
       const beardOpts = beardOptions(session, { difficulty: prefs.difficulty });
       // Prompt 10: the supplies where he stands (a source, the stores, the stove, water) and his gear, while that system is on (docs/gameplay-overhaul/14-resources-and-cooking.md).
       const sGroups = supplyGroups(session, { difficulty: prefs.difficulty });
-      if (!hazardOpts.length && !airOpts.length && !pGroups.length && !beardOpts.length && !sGroups.length) {
+      // Prompt 11: putting a consequence right, or preparing, where he stands (docs/gameplay-overhaul/15-consequences-and-recovery.md).
+      const cOpts = consequenceOptions(session, { difficulty: prefs.difficulty });
+      if (!hazardOpts.length && !airOpts.length && !pGroups.length && !beardOpts.length && !sGroups.length && !cOpts.length) {
         if (step.announce !== false) await shipNotice(ctx, '<k>Nothing to do about an emergency here.</>');
         return null;
       }
@@ -1166,7 +1239,7 @@ export function createCommandImplementations() {
         return opts[index] ?? null;
       };
       // More than one kind of trouble here: which first (short lists, not one long one).
-      const groups = [...pGroups, ...(hazardOpts.length ? [{ label: 'Fight the emergency', ok: true, list: hazardOpts }] : []), ...(airOpts.length ? [{ label: 'Air and vents', ok: true, list: airOpts }] : []), ...(beardOpts.length ? [{ label: 'Your beard', ok: true, list: beardOpts }] : []), ...sGroups];
+      const groups = [...pGroups, ...(hazardOpts.length ? [{ label: 'Fight the emergency', ok: true, list: hazardOpts }] : []), ...(airOpts.length ? [{ label: 'Air and vents', ok: true, list: airOpts }] : []), ...(beardOpts.length ? [{ label: 'Your beard', ok: true, list: beardOpts }] : []), ...sGroups, ...(cOpts.length ? [{ label: 'Rest and readiness', ok: true, list: cOpts }] : [])];
       let opts = groups[0].list;
       if (groups.length > 1) {
         const pick = await choose(groups);
@@ -1209,6 +1282,8 @@ export function createCommandImplementations() {
       else if (picked.action === 'recipes') next = { cookReport: true };
       else if (picked.action === 'equip' || picked.action === 'unequip') next = { gearEquip: picked.item, remove: picked.action === 'unequip' };
       else if (picked.action === 'recharge') next = { gearRecharge: picked.item };
+      else if (picked.action === 'recover') next = { consequenceRecover: picked.method };
+      else if (picked.action === 'prepare') next = { consequencePrepare: picked.method };
       else if (picked.connection) next = { airControl: picked.connection, state: picked.to };
       else next = { hazardAction: picked.action, ...(picked.station ? { station: picked.station } : {}) };
       return ctx.runner.execBranch([next], ctx, frame);
@@ -1336,7 +1411,7 @@ export function createCommandImplementations() {
           if (!takeAll(session.inventory, opt.cost)) throw new Error(`airSeal ${opt.connection}: materials gone (the plan said there were enough)`);
           committed = air.setConnection(opt.connection, 'sealed');
         };
-        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: sdef.kind, strikes: sdef.strikes, title: sdef.title, speed: 1, zone: barZone(ctx.session), challenge: info });
+        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: sdef.kind, strikes: sdef.strikes, title: sdef.title, speed: 1, zone: barBase(ctx.session), condition: takeBarCondition(ctx.session), challenge: info });
         const { record, goto } = await playChallenge(ctx, frame, cfg, attempt, settle);
         if (committed?.ok && step.announce !== false) await shipNotice(ctx, `<g>Sealed</> ${c.label}. <k>Used ${itemList(content, opt.cost)}.</>`);
         else if (!committed?.ok && step.announce !== false && record.outcome === 'failure') {
@@ -1390,7 +1465,7 @@ export function createCommandImplementations() {
           if (!takeAll(session.inventory, opt.cost)) throw new Error(`airMend ${opt.connection}: materials gone (the plan said there were enough)`);
           committed = air.setConnection(opt.connection, null, { damaged: false });
         };
-        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: mdef.kind, strikes: mdef.strikes, title: mdef.title, speed: 1, zone: barZone(ctx.session), challenge: info });
+        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: mdef.kind, strikes: mdef.strikes, title: mdef.title, speed: 1, zone: barBase(ctx.session), condition: takeBarCondition(ctx.session), challenge: info });
         const { record, goto } = await playChallenge(ctx, frame, cfg, attempt, settle);
         if (committed?.ok && step.announce !== false) await shipNotice(ctx, `<g>Mended</> ${c.label}. <k>Used ${itemList(content, opt.cost)}.</>`);
         else if (!committed?.ok && step.announce !== false && record.outcome === 'failure') {
@@ -1580,7 +1655,7 @@ export function createCommandImplementations() {
           if (rec.outcome !== 'success' && rec.outcome !== 'partial') return;
           if (pr.ready(id).ok) held = pr.restrained(id, tuningOf(ctx));
         };
-        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: act.kind, strikes: act.strikes, title: act.title, speed: 1, zone: barZone(ctx.session), challenge: info });
+        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: act.kind, strikes: act.strikes, title: act.title, speed: 1, zone: barBase(ctx.session), condition: takeBarCondition(ctx.session), challenge: info });
         const { record, goto } = await playChallenge(ctx, frame, cfg, attempt, settle);
         if (!held && step.announce !== false && record.outcome === 'failure') await shipNotice(ctx, `<r>He couldn't hold it.</> <k>${def.name} is worse, and won't try again for a while.</>`);
         return challengeFollowUp(ctx, frame, step, cfg, record, goto);
@@ -1780,7 +1855,7 @@ export function createCommandImplementations() {
           // A scrub gets the hornets out too.
           for (const s of b.statusList(tuningOf(ctx))) if (beardData(content).statuses[s.id]?.clearedBy?.scrub) quietly(ctx, step, () => b.removeStatus(s.id, tuningOf(ctx)));
         };
-        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: sdef.kind, strikes: sdef.strikes, title: sdef.title, speed: 1, zone: barZone(ctx.session), challenge: info });
+        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: sdef.kind, strikes: sdef.strikes, title: sdef.title, speed: 1, zone: barBase(ctx.session), condition: takeBarCondition(ctx.session), challenge: info });
         const { record, goto } = await playChallenge(ctx, frame, cfg, attempt, settle);
         if (committed?.ok && step.announce !== false) await shipNotice(ctx, `<g>Scrubbed${record.outcome === 'partial' ? ', roughly' : ''}.</> <k>Your beard is ${pctNow()}% full. Used ${itemList(content, cost)}.</>`);
         else if (!committed?.ok && step.announce !== false && record.outcome === 'failure') {
@@ -1977,7 +2052,7 @@ export function createCommandImplementations() {
           for (let i = 0; i < secs; i++) await workTick(ctx, def.action.label, i, secs);
           got = sup.take(id, { share: def.results[rec.outcome], difficulty: prefs.difficulty });
         };
-        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: def.action.kind, strikes: def.action.strikes, title: def.action.title, speed: 1, zone: barZone(session, { supply: true, difficulty: prefs.difficulty }), challenge: info });
+        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: def.action.kind, strikes: def.action.strikes, title: def.action.title, speed: 1, zone: barBase(session, { supply: true, difficulty: prefs.difficulty }), condition: takeBarCondition(session), challenge: info });
         const { record, goto } = await playChallenge(ctx, frame, cfg, attempt, settle);
         if (got) await found(got);
         else if (record.outcome === 'failure' && step.announce !== false) await shipNotice(ctx, `<r>It wouldn't come loose.</>${record.consequences.costs && def.knock ? ' <k>That hurt.</>' : ''}`);
@@ -2113,7 +2188,7 @@ export function createCommandImplementations() {
           if (!paid.ok) throw new Error(`cook ${id}: the ingredients are gone (the plan said there were enough)`);
           started = sup.startCooking(id, r.serves[rec.outcome]);
         };
-        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: r.action.kind, strikes: r.action.strikes, title: r.action.title, speed: 1, zone: barZone(session, { supply: true, difficulty: prefs.difficulty }), challenge: info });
+        const attempt = (info) => service(ctx, 'ui', 'timingBar').timingBar({ kind: r.action.kind, strikes: r.action.strikes, title: r.action.title, speed: 1, zone: barBase(session, { supply: true, difficulty: prefs.difficulty }), condition: takeBarCondition(session), challenge: info });
         const { record, goto } = await playChallenge(ctx, frame, cfg, attempt, settle);
         if (started?.ok && step.announce !== false) await shipNotice(ctx, `<g>${r.name} is on${record.outcome === 'partial' ? ' (a bit lumpy)' : ''}:</> ${sup.cooking.serves} to serve in ${sup.cooking.left}s. <k>Used ${itemList(content, r.ingredients)}.</>`);
         else if (!started && record.outcome === 'failure' && step.announce !== false) {
@@ -2178,6 +2253,162 @@ export function createCommandImplementations() {
       const next = Math.min(w.stages.length - 1, Math.max(at, want));
       ctx.session.story.setValue(w.value, w.stages[next]);
     },
+    // --- Prompt 11: the consequence ledger (docs/gameplay-overhaul/15-consequences-and-recovery.md) ---
+    // No chapter uses any of these: every existing chapter plays exactly as before.
+    /**
+     * Applies a consequence: { "consequence": id, "severity"?, "eventId"?,
+     * "source"?, "announce"?, "outcomeValue"? }. Its stacking decides a
+     * repeat. An "eventId" makes it land once; inside a challenge's lists it
+     * is scoped to the charge or list on its own (a retried attempt can land
+     * again, a doubled callback can't); elsewhere without one it lands every
+     * time. The difficulty is read once, when it is created (in a challenge,
+     * the run's). "outcomeValue" gets what happened: applied, worsened,
+     * capped, refreshed, flared, kept, duplicate or refused.
+     */
+    consequence: async (step, ctx, frame) => {
+      await applyConsequence(ctx, frame, step);
+      return null;
+    },
+    /** A held consequence's severity, within 1 and its cap: { "consequenceSeverity": id, "to" | "by", "announce"?, "outcomeValue"? }. Ending it is a recovery's job. */
+    consequenceSeverity: async (step, ctx) => {
+      const r = ctx.session.consequences.setSeverity(step.consequenceSeverity, { to: step.to ?? null, by: step.by ?? null });
+      if (step.outcomeValue) ctx.session.story.setValue(step.outcomeValue, r.ok ? r.op : 'refused');
+      if (r.ok && r.op !== 'kept' && step.announce !== false) await consequenceSay(ctx, r);
+      return null;
+    },
+    /** Where a consequence stands, into a story value (for dialogue variants): { "consequenceCheck": id, "value": name }: active, contained, recovered, resolved or none. */
+    consequenceCheck: (step, ctx) => {
+      ctx.session.story.setValue(step.value, ctx.session.consequences.state(step.consequenceCheck));
+      return null;
+    },
+    /** Ends a held consequence outright, only when a story beat says so: { "consequenceResolve": id, "authorized": true, "how"?, "announce"?, "outcomeValue"? }. */
+    consequenceResolve: async (step, ctx) => {
+      if (step.authorized !== true) return consequenceRefused(ctx, step, 'not authorized');
+      const r = ctx.session.consequences.resolve(step.consequenceResolve, step.how ?? 'cleared');
+      if (step.outcomeValue) ctx.session.story.setValue(step.outcomeValue, r.ok ? 'resolved' : 'refused');
+      if (r.ok && step.announce !== false) await consequenceSay(ctx, r);
+      return null;
+    },
+    /**
+     * Records an outcome that isn't a challenge (a scene going wrong, a
+     * choice) against an outcome table: { "consequenceOutcome": table,
+     * "outcome": success | partial | failure | retry | accept | fallback,
+     * "eventId"?, "announce"? }. Each of the list's consequences is applied
+     * as by "consequence" ("eventId" makes the whole outcome land once).
+     */
+    consequenceOutcome: async (step, ctx, frame) => {
+      const list = tableLists(step.consequenceOutcome, ctx.session.content ?? ctx.content)[step.outcome] ?? [];
+      for (const a of list) await applyConsequence(ctx, frame, { consequence: a.id, severity: a.severity, eventId: step.eventId ? `${step.eventId}:${a.id}` : undefined, announce: step.announce, source: step.consequenceOutcome });
+      return null;
+    },
+    /**
+     * Puts consequences right the way the data says, for real:
+     * { "consequenceRecover": method, "anywhere"?, "announce"?, "outcomeValue"? }.
+     * He must be where it is done (unless "anywhere"), pay its bill and
+     * spend its seconds of hazard time (the ship's emergencies go on
+     * meanwhile; a rest is never slowed by being tired, work is); then what
+     * it recovers ends and what it eases eases a level. A meal ("provision")
+     * is eaten from the pack through the item's own effect. Refused, it says
+     * why and changes nothing.
+     */
+    consequenceRecover: async (step, ctx, frame) => {
+      const session = ctx.session;
+      const content = session.content ?? ctx.content;
+      const prefs = challengePrefs(ctx);
+      const id = step.consequenceRecover;
+      const m = methodDef(content, id);
+      if (!m || m.kind === 'prepare') throw new Error(`consequenceRecover: "${id}" is not a recovery method`);
+      const work = methodWork(session, id).filter((w) => w.result !== 'earn');
+      if (!work.length) return consequenceRefused(ctx, step, 'Nothing to put right that way.');
+      if (m.kind === 'provision') {
+        const meal = mealInPack(session, id);
+        if (!meal) return consequenceRefused(ctx, step, 'No meal to hand.');
+        return ctx.runner.execBranch([{ useSupply: meal, announce: step.announce, outcomeValue: step.outcomeValue }], ctx, frame);
+      }
+      const reason = methodBlocked(session, id, { difficulty: prefs.difficulty, anywhere: step.anywhere === true });
+      if (reason) return consequenceRefused(ctx, step, reason);
+      const level = Math.max(1, ...work.map((w) => w.level ?? 1));
+      const secs = methodSecondsHere(session, id, level, { difficulty: prefs.difficulty });
+      const bill = methodBill(content, id, consequenceTuning(content, prefs.difficulty));
+      if (bill.length && !takeAll(session.inventory, bill)) throw new Error(`consequenceRecover ${id}: materials gone (the plan said there were enough)`);
+      const hz = session.ship.hazards;
+      hz.working = true;
+      try {
+        for (let i = 0; i < secs; i++) await workTick(ctx, m.verb, i, secs);
+      } finally {
+        hz.working = false;
+        ctx.services?.ui?.work?.(null);
+      }
+      // What it was for may have worn off meanwhile: then there's nothing left to do.
+      const done = work.map((w) => (w.result === 'contain' ? session.consequences.contain(w.id, id) : session.consequences.recover(w.id, id))).filter((r) => r.ok);
+      if (step.announce !== false) for (const r of done) await consequenceSay(ctx, r);
+      if (step.outcomeValue) session.story.setValue(step.outcomeValue, done.length ? 'recovered' : 'refused');
+      return null;
+    },
+    /**
+     * Earns an advantage by preparing, for real: { "consequencePrepare":
+     * method, "anywhere"?, "announce"?, "outcomeValue"? }: where it is done,
+     * its bill and seconds of work, then the advantage (its stacking decides
+     * a repeat). Only while the ledger is switched on (consequenceSystem).
+     */
+    consequencePrepare: async (step, ctx, frame) => {
+      const session = ctx.session;
+      const content = session.content ?? ctx.content;
+      const prefs = challengePrefs(ctx);
+      const id = step.consequencePrepare;
+      const m = methodDef(content, id);
+      if (!m || m.kind !== 'prepare') throw new Error(`consequencePrepare: "${id}" is not a preparation`);
+      if (!session.consequences.on) return consequenceRefused(ctx, step, 'off');
+      const work = methodWork(session, id).filter((w) => w.result === 'earn');
+      const reason = methodBlocked(session, id, { difficulty: prefs.difficulty, anywhere: step.anywhere === true });
+      if (!work.length || reason) return consequenceRefused(ctx, step, reason ?? 'Nothing to prepare that way.');
+      const secs = methodSecondsHere(session, id, 1, { difficulty: prefs.difficulty });
+      const bill = methodBill(content, id, consequenceTuning(content, prefs.difficulty));
+      if (bill.length && !takeAll(session.inventory, bill)) throw new Error(`consequencePrepare ${id}: materials gone (the plan said there were enough)`);
+      const hz = session.ship.hazards;
+      hz.working = true;
+      try {
+        for (let i = 0; i < secs; i++) await workTick(ctx, m.verb, i, secs);
+      } finally {
+        hz.working = false;
+        ctx.services?.ui?.work?.(null);
+      }
+      let last = null;
+      for (const w of work) last = await applyConsequence(ctx, frame, { consequence: w.id, source: id, announce: step.announce });
+      if (step.outcomeValue) session.story.setValue(step.outcomeValue, last?.ok ? last.op : 'refused');
+      return null;
+    },
+    /** A milestone for the ledger (a chapter has passed): { "consequenceMilestone": "chapter" }. What counts chapters runs down. No chapter marks one yet. */
+    consequenceMilestone: async (step, ctx) => {
+      const r = ctx.session.consequences.milestone(step.consequenceMilestone);
+      if (!r.ok) throw new Error(`consequenceMilestone: ${r.reason}`);
+      if (step.announce !== false) for (const id of r.ended) await consequenceSay(ctx, { ok: true, op: 'resolved', id, how: 'milestone' });
+      return null;
+    },
+    /** The ledger's interactive layer on or off: { "consequenceSystem": true } (preparations offered where he stands). What is held stays held; recoveries are always offered. */
+    consequenceSystem: (step, ctx) => {
+      ctx.session.consequences.on = step.consequenceSystem !== false;
+      ctx.session.consequences.changed(null, 'on');
+      return null;
+    },
+    /** "How am I holding up?": what the captain carries, in the dialogue box (the Captain's Journal has the rest). */
+    consequenceReport: async (step, ctx) => {
+      const session = ctx.session;
+      const content = session.content ?? ctx.content;
+      const lines = [];
+      for (const e of session.consequences.list()) {
+        const def = consequenceDef(content, e.id);
+        if (!def || def.visibility === 'hidden') continue;
+        const lv = e.state === 'contained' ? 'eased' : levelLabel(def, e.level);
+        const tone = { negative: 'r', positive: 'g' }[def.kind] ?? 'y';
+        lines.push(`<${tone}>${def.title}</>${lv ? ` <k>(${lv})</>` : ''}: ${def.effect}`);
+      }
+      if (!lines.length) lines.push('<k>Nothing weighing on you. The Journal keeps the rest.</>');
+      for (const text of lines) await service(ctx, 'dialogue', 'narrate').say({ speaker: null, expression: null, text });
+      await ctx.services?.dialogue?.close?.();
+      return null;
+    },
+
     // --- Story Phase 14 ---------------------------------------------------------
     /**
      * Brogath Stability (systems/stability.js). trigger/calm apply a data

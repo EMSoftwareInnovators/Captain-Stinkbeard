@@ -46,7 +46,7 @@ export function playTimingBar(cfg, hand = 'perfect', rnd = Math.random) {
  */
 export function repairBarConfig(opts, info = null, { bonus = 0, assist = info?.assist ?? null } = {}) {
   const K = REPAIR_KINDS[opts.kind] ?? REPAIR_KINDS.hull;
-  return timingBarSettings({ baseSpeed: K.speed ?? 150, speed: opts.speed ?? 1, zone: opts.zone ?? 26, strikes: opts.strikes ?? 3, barW: TIMING_DEFAULTS.barW, challenge: info, bonus, assist });
+  return timingBarSettings({ baseSpeed: K.speed ?? 150, speed: opts.speed ?? 1, zone: opts.zone ?? 26, strikes: opts.strikes ?? 3, barW: TIMING_DEFAULTS.barW, challenge: info, bonus, condition: opts.condition ?? null, assist });
 }
 
 /**

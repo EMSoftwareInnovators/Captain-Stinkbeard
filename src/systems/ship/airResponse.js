@@ -41,7 +41,9 @@ export function captainFactors(session) {
   const beard = session.ship.beard?.factors() ?? { work: 1, walk: 1 };
   // Prompt 10: a full belly makes the work quicker (1 while the supplies system is off; never below its floor).
   const fed = session.ship.supplies?.factor('work') ?? 1;
-  return { work: lungs.work * beard.work * fed, walk: lungs.walk * beard.walk };
+  // Prompt 11: his consequences (Bone-Tired slower, In the Groove quicker; 1 with an empty ledger, which is every chapter).
+  const condition = session.consequences?.factor('work') ?? 1;
+  return { work: lungs.work * beard.work * fed * condition, walk: lungs.walk * beard.walk };
 }
 
 /** Seconds an air action takes in a room: its own, longer in deep water, with bad lungs or a heavy beard. */

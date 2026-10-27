@@ -483,9 +483,89 @@ export const CONDITION_OPERATORS = {
     },
   },
 
+  /**
+   * Overhaul Prompt 11: the consequence ledger (docs/gameplay-overhaul/15-consequences-and-recovery.md).
+   * For costs, difficulty and dialogue variants, never on a mandatory objective's way (the validator refuses it there).
+   *   { "consequence": { "id": "shaken", "active": true } }             in force now (a contained one isn't)
+   *   { "consequence": { "id": "shaken", "held": true } }               held at all (in force or contained)
+   *   { "consequence": { "id": "shaken", "severity": { "gte": 2 } } }   the level in force (0 when contained or not held)
+   *   { "consequence": { "id": "shaken", "state": "recovered" } }       active, contained, recovered, resolved or none (the latest)
+   *   { "consequence": { "id": "shaken", "resolved": true } }           it has ended before and isn't held now
+   *   { "consequence": { "id": "shaken", "ever": true } }               it has ever happened
+   *   { "consequence": { "id": "shaken", "times": { "gte": 3 } } }      how often it has been applied
+   *   { "consequence": { "earned": "well_prepared" } }                  an advantage ever earned
+   *   { "consequence": { "modifier": "zone", "lt": 0 } }                what the ledger does to the next challenge now (zone, work, repair, response, costAdd)
+   *   { "consequence": { "category": "condition", "count": { "gte": 1 } } }   how many held in a category (count: default 1 or more)
+   *   { "consequence": { "any": true } }                                anything held at all
+   */
+  consequence: {
+    evaluate: (v, s) => {
+      const L = s.consequences;
+      if (!L) return false;
+      if ('any' in v && L.entries.size > 0 !== v.any) return false;
+      if ('earned' in v && !L.ever(v.earned)) return false;
+      if ('modifier' in v) {
+        const x = L.factor(v.modifier);
+        for (const op of COMPARE_KEYS) if (op in v && !compare(x, { [op]: v[op] })) return false;
+      }
+      if ('category' in v) {
+        const n = L.inCategory(v.category).length;
+        if (!(v.count === undefined ? n >= 1 : compare(n, v.count))) return false;
+      }
+      if ('id' in v) {
+        const e = L.held(v.id);
+        if ('active' in v && (e?.state === 'active') !== v.active) return false;
+        if ('held' in v && !!e !== v.held) return false;
+        if ('severity' in v && !compare(L.level(v.id), v.severity)) return false;
+        if ('state' in v && !asArray(v.state).includes(L.state(v.id))) return false;
+        if ('resolved' in v && (!e && !!L.lastEnded(v.id)) !== v.resolved) return false;
+        if ('ever' in v && L.ever(v.id) !== v.ever) return false;
+        if ('times' in v && !compare(L.times(v.id), v.times)) return false;
+      }
+      return true;
+    },
+    validate: (v, c) => {
+      if (!isPlainObject(v)) return c.error('consequence condition needs { ... }');
+      // Prompt 11's rule: a consequence changes cost, difficulty and dialogue, never whether the story can go on.
+      if (c.gate) c.error(`consequences never gate mandatory story (${c.gate}): use them for costs, difficulty and dialogue variants`);
+      const data = c.ctx?.db?.consequences;
+      const defs = data?.definitions ?? {};
+      const keys = ['id', 'active', 'held', 'severity', 'state', 'resolved', 'ever', 'times', 'earned', 'modifier', 'category', 'count', 'any', ...COMPARE_KEYS];
+      for (const k of Object.keys(v)) if (!keys.includes(k)) c.error(`consequence condition: unknown key "${k}"`);
+      const def = 'id' in v ? defs[v.id] : null;
+      if ('id' in v && (!def || String(v.id).startsWith('//'))) c.error(`consequence condition: unknown consequence "${v.id}"`);
+      const perId = ['active', 'held', 'severity', 'state', 'resolved', 'ever', 'times'];
+      for (const k of perId) if (k in v && !('id' in v)) c.error(`consequence condition: "${k}" goes with "id"`);
+      for (const k of ['active', 'held', 'resolved', 'ever', 'any']) if (k in v && typeof v[k] !== 'boolean') c.error(`consequence condition: "${k}" must be true or false`);
+      const cmp = (x) => typeof x === 'number' || (isPlainObject(x) && Object.keys(x).length > 0 && Object.keys(x).every((op) => COMPARE_KEYS.includes(op) && typeof x[op] === 'number'));
+      for (const k of ['severity', 'times', 'count']) if (k in v && !cmp(v[k])) c.error(`consequence condition: "${k}" is a number or { lt, gte, ... }`);
+      if (def && isPlainObject(v.severity)) {
+        const levels = asArray(def.levels).length;
+        for (const [op, n] of Object.entries(v.severity)) if (!(Number.isInteger(n) && n >= 0 && n <= levels)) c.error(`consequence condition: severity ${op} ${n} is outside "${v.id}"'s levels (0 to ${levels})`);
+      }
+      for (const st of asArray(v.state ?? [])) if (!['active', 'contained', 'recovered', 'resolved', 'none'].includes(st)) c.error(`consequence condition: unknown state "${st}" (active, contained, recovered, resolved, none)`);
+      if ('earned' in v && defs[v.earned]?.kind !== 'positive') c.error(`consequence condition: "earned" names an advantage ("${v.earned}" isn't one)`);
+      if ('modifier' in v && !['zone', 'work', 'repair', 'response', 'costAdd'].includes(v.modifier)) c.error(`consequence condition: unknown modifier "${v.modifier}" (zone, work, repair, response, costAdd)`);
+      const ops = COMPARE_KEYS.filter((op) => op in v);
+      if (ops.length && !('modifier' in v)) c.error('consequence condition: a comparison goes with "modifier"');
+      if ('modifier' in v && !ops.length) c.error('consequence condition: "modifier" needs a comparison (lt, gte, ...)');
+      for (const op of ops) if (typeof v[op] !== 'number') c.error(`consequence condition: "${op}" needs a number`);
+      if ('category' in v && !data?.categories?.[v.category]) c.error(`consequence condition: unknown category "${v.category}"`);
+      if ('count' in v && !('category' in v)) c.error('consequence condition: "count" goes with "category"');
+      // Requirements that can never hold together.
+      if (v.active === true && (v.held === false || v.resolved === true || v.ever === false)) c.error('consequence condition: can never hold (in force, yet not held, ended or never happened)');
+      if (v.held === true && (v.resolved === true || v.ever === false)) c.error('consequence condition: can never hold (held, yet ended or never happened)');
+      if (v.active === false && cmp(v.severity) && (typeof v.severity === 'number' ? v.severity >= 1 : (v.severity.gte ?? 0) >= 1 || (v.severity.gt ?? -1) >= 0 || (v.severity.eq ?? 0) >= 1)) c.error('consequence condition: can never hold (not in force, yet a severity of 1 or more)');
+      return undefined;
+    },
+  },
+
   all: {
     evaluate: (v, s) => asArray(v).every((cond) => evaluateCondition(cond, s)),
-    validate: (v, c) => asArray(v).forEach((cond) => validateCondition(cond, c)),
+    validate: (v, c) => {
+      asArray(v).forEach((cond) => validateCondition(cond, c));
+      opposedRequirements(asArray(v), c);
+    },
   },
   any: {
     evaluate: (v, s) => asArray(v).some((cond) => evaluateCondition(cond, s)),
@@ -514,10 +594,24 @@ export function evaluateCondition(cond, session) {
  * Validates a condition. `check` is a ReferenceChecker (see content/validateContent.js)
  * providing flag(), quest(), objective(), item(), character(), map(), comparison(), error().
  */
+/**
+ * Prompt 11: requirements in one conjunction that can never hold together:
+ * two consequences that oppose each other (applying one ends the other)
+ * both required to be held.
+ */
+function opposedRequirements(list, check) {
+  const defs = check.ctx?.db?.consequences?.definitions ?? {};
+  const held = list.filter((c) => isPlainObject(c?.consequence) && (c.consequence.active === true || c.consequence.held === true)).map((c) => c.consequence.id);
+  for (const a of held) {
+    for (const b of asArray(defs[a]?.opposes)) if (held.includes(b) && a < b) check.error(`consequence conditions can never hold together: "${a}" and "${b}" oppose each other (one ends the other)`);
+  }
+}
+
 export function validateCondition(cond, check) {
   if (cond === undefined || cond === null || typeof cond === 'boolean') return;
   if (Array.isArray(cond)) {
     cond.forEach((c) => validateCondition(c, check));
+    opposedRequirements(cond, check);
     return;
   }
   if (!isPlainObject(cond)) {

@@ -47,6 +47,7 @@ import { emergencySummary } from '../systems/ship/response.js';
 import { captainFactors } from '../systems/ship/airResponse.js';
 import { supplyLimits } from '../systems/ship/supplies.js';
 import { HazardClock } from '../systems/ship/hazardClock.js';
+import { consequenceNotice } from '../systems/consequences/recovery.js';
 
 // Step durations chosen so a 60 Hz frame moves a whole number of pixels:
 // walking is 2 px per frame (8 frames per tile), running 3 px per frame.
@@ -193,6 +194,12 @@ export class WorldScene extends BaseScene {
       this.app.bus.on('hazard:notice', (n) => this.onHazardNotice(n)),
       // Prompt 7: bad lungs make him cough: a fit stops him a moment.
       this.app.bus.on('air:cough', () => this.onAirCough()),
+      // Prompt 11: a consequence applied, eased or ended: Respond follows (rest in the crew quarters, sort the kit);
+      // one that ran out by itself (worn off, used up) is mentioned, once.
+      this.app.bus.on('consequence:changed', () => {
+        this.hazardDirty = true;
+      }),
+      this.app.bus.on('consequence:ended', (e) => this.onConsequenceEnded(e)),
     ];
     this.refreshShipBadge();
     this.events.once('shutdown', () => this.cleanup());
@@ -1785,10 +1792,11 @@ export class WorldScene extends BaseScene {
     // Prompt 9: the fume hazard option reaches the beard's gagging fits (Off: none); the HUD reads it on the difficulty in play.
     ship.beard.fume = this.app.flags.fumeImmunity ? 0 : this.app.settings.fumeScale();
     if (ship.beard.on) ship.beard.tuning = shipTuning(this.content, this.app.settings.challengePrefs().difficulty);
+    // Prompt 11: the one clock moves the consequence ledger's timed entries too (session.tickHazards).
     this.hazardClock.advance(dt, {
-      active: ship.envActive,
+      active: this.session.hazardsActive,
       eligible: !busy && !this.leaving && !this.collapsing && !this.scene.get('Debug')?.open,
-      tick: () => ship.tick(shipTuning(this.content, this.app.settings.challengePrefs().difficulty)),
+      tick: () => this.session.tickHazards(shipTuning(this.content, this.app.settings.challengePrefs().difficulty)),
     });
     if (this.hazardDirty) {
       this.hazardDirty = false;
@@ -1823,6 +1831,13 @@ export class WorldScene extends BaseScene {
     const summary = emergencySummary(this.session, room, { difficulty: this.app.settings.challengePrefs().difficulty });
     this.emergencyHere = !!summary?.respond;
     this.app.overlay?.setEmergency(summary?.items.length ? summary : null);
+  }
+
+  /** Prompt 11: a consequence that ran out by itself says so (one that was put right, a script announces). */
+  onConsequenceEnded(e) {
+    if (e.how !== 'expired' && e.how !== 'used up') return;
+    const text = consequenceNotice(this.content, { ok: true, op: e.state, id: e.id, how: e.how });
+    if (text) this.onHazardNotice({ key: `cq:${e.id}:${e.how}`, text });
   }
 
   /** A hazard changed stage: a toast and a sound, once per change (a repeat of the same notice within 4 s is dropped). */

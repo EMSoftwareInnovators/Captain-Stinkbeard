@@ -5,6 +5,7 @@ import { airOptions, captainFactors } from './airResponse.js';
 import { pressureHere, pressureWord } from './pressureResponse.js';
 import { beardHere, beardWord } from './beardResponse.js';
 import { suppliesHere } from './supplyResponse.js';
+import { consequencesHere } from '../consequences/recovery.js';
 
 /**
  * What the captain can do about an emergency where he stands
@@ -137,7 +138,8 @@ export function emergencySummary(session, room = session.location?.map, { diffic
   // Prompt 9: so is the captain's beard, saturated or worse (only while that system is on).
   const tuning = shipTuning(session.content, difficulty);
   const list = [...hz.emergencies().filter((e) => e.kind !== 'leak' || e.open), ...session.ship.air.emergencies(), ...session.ship.pressure.emergencies(), ...session.ship.beard.emergencies(tuning)].sort((a, b) => b.weight - a.weight || a.id.localeCompare(b.id));
-  const respond = (hz.any && responseOptions(session, room, { difficulty }).length > 0) || airOptions(session, room, { difficulty }).length > 0 || pressureHere(session, room) || beardHere(session) || suppliesHere(session);
+  // Prompt 11: a recovery or preparation here (rest in the crew quarters, sort the kit) shows Respond too.
+  const respond = (hz.any && responseOptions(session, room, { difficulty }).length > 0) || airOptions(session, room, { difficulty }).length > 0 || pressureHere(session, room) || beardHere(session) || suppliesHere(session) || consequencesHere(session);
   if (!list.length) return respond ? { items: [], more: 0, stability: 'steady', here: false, respond } : null;
   const name = (r) => session.content.maps?.get?.(r)?.name?.replace(/^The /, '') ?? r;
   const airTone = (e) => (e.stage === 'deadly' ? 'r' : e.stage === 'toxic' ? 'o' : 'y');
@@ -163,7 +165,7 @@ export function emergencyLine(state, fits = () => true) {
 /** True if anything can be done (or explained) here: the world shows "Respond". */
 export function hasResponse(session, room = session.location?.map) {
   const hz = session.ship.hazards;
-  if (airOptions(session, room).length > 0 || pressureHere(session, room) || beardHere(session) || suppliesHere(session)) return true;
+  if (airOptions(session, room).length > 0 || pressureHere(session, room) || beardHere(session) || suppliesHere(session) || consequencesHere(session)) return true;
   if (!hz.any) return false;
   return responseOptions(session, room).length > 0;
 }

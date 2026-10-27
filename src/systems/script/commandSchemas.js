@@ -13,6 +13,8 @@
  *   airRoom airSubstance airConnection airState
  *   pressureSubject pressureProfile
  *   beardContaminant beardStatus beardPurge beardCare beardItem
+ *   supplyStore supplySource supplyRecipe supplyEffect supplyItem supplyBill supplyTo supplyMenu supplyOp gearItem
+ *   consequence consequenceSeverity consequenceTable consequenceOutcome consequenceMethod consequenceMilestone
  * A trailing "?" marks a param optional. The command's own key is listed too.
  */
 /**
@@ -251,6 +253,18 @@ export const COMMAND_SCHEMAS = {
   cook: { cook: 'supplyRecipe', anywhere: 'boolean?', announce: 'boolean?', ...CHALLENGE_PARAMS },
   serve: { serve: 'boolean', anywhere: 'boolean?', announce: 'boolean?', outcomeValue: 'string?' },
   cookReport: { cookReport: 'boolean' },
+  // The consequence ledger (overhaul Prompt 11, docs/gameplay-overhaul/15-consequences-and-recovery.md): apply, change, check,
+  // clear (authorized only), record an outcome, recover, prepare, mark a milestone, switch, report. Opt-in: no chapter uses any.
+  consequence: { consequence: 'consequence', severity: 'consequenceSeverity?', eventId: 'string?', source: 'string?', authorized: 'boolean?', announce: 'boolean?', outcomeValue: 'string?' },
+  consequenceSeverity: { consequenceSeverity: 'consequence', to: 'consequenceSeverity?', by: 'number?', announce: 'boolean?', outcomeValue: 'string?' },
+  consequenceCheck: { consequenceCheck: 'consequence', value: 'string' },
+  consequenceResolve: { consequenceResolve: 'consequence', authorized: 'boolean', how: 'string?', announce: 'boolean?', outcomeValue: 'string?' },
+  consequenceOutcome: { consequenceOutcome: 'consequenceTable', outcome: 'consequenceOutcome', eventId: 'string?', announce: 'boolean?' },
+  consequenceRecover: { consequenceRecover: 'consequenceMethod', anywhere: 'boolean?', announce: 'boolean?', outcomeValue: 'string?' },
+  consequencePrepare: { consequencePrepare: 'consequenceMethod', anywhere: 'boolean?', announce: 'boolean?', outcomeValue: 'string?' },
+  consequenceMilestone: { consequenceMilestone: 'consequenceMilestone', announce: 'boolean?' },
+  consequenceSystem: { consequenceSystem: 'boolean' },
+  consequenceReport: { consequenceReport: 'boolean' },
 };
 
 /** Commands that may carry "async": true (start and continue without waiting). */

@@ -742,15 +742,15 @@ describe('one clock', () => {
 });
 
 // ---------------------------------------------------------------------------------------------
-describe('saves and checkpoints (version 22, since Prompt 10 23)', () => {
+describe('saves and checkpoints (version 22, since Prompt 10 23, Prompt 11 24)', () => {
   it('the beard saves and loads exactly, and goes on the same way afterwards', async () => {
     let s = demo();
     await s.run([...scenario('B'), { beardStatus: 'hornet_nested' }, { beardAdd: 'test_musk', amount: 9 }, { beardWear: 'beard_wrap' }, { hazardClock: 7 }]);
     const ref = demo();
     await ref.run([...scenario('B'), { beardStatus: 'hornet_nested' }, { beardAdd: 'test_musk', amount: 9 }, { beardWear: 'beard_wrap' }, { hazardClock: 7 }]);
-    expect(SAVE_VERSION).toBe(23);
+    expect(SAVE_VERSION).toBe(24);
     s = reloadStory(s);
-    expect(s.record.version).toBe(23);
+    expect(s.record.version).toBe(24);
     expect(s.session.ship.beard.serialize()).toEqual(ref.session.ship.beard.serialize());
     const notes = noticesOf(s.bus);
     tick(s.session.ship, 60);

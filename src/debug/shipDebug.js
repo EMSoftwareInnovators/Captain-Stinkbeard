@@ -12,6 +12,7 @@ export const DEBUG_SHIP = {
     ['Pressure demo (crew quarters by Brogath and Garrick, supplies)', 'pressure_demo'],
     ['Beard demo (crew quarters by the washroom, rags, the beard wrap, cloth and goggles)', 'beard_demo'],
     ['Supplies demo (cargo hold by the stores; the galley up the stairs; the gear)', 'supplies_demo'],
+    ['Consequences demo (cargo hold by the bilge pump; the crew quarters next door; materials and a bean stew)', 'consequences_demo'],
   ],
   /**
    * Prompt 6 (docs/gameplay-overhaul/10-flooding-and-fire.md, "Trying it"):
@@ -214,6 +215,74 @@ export const DEBUG_SHIP = {
     ]],
     ['Let 30 seconds pass', [{ hazardClock: 30 }]],
     ['Switch the supplies off', [{ suppliesSystem: false }]],
+  ],
+  /**
+   * Prompt 11 (docs/gameplay-overhaul/15-consequences-and-recovery.md, "Debug
+   * demo"): the consequence scenarios, from the consequences_demo preset (the
+   * cargo hold by the bilge pump; the galley up the stairs, the crew
+   * quarters and the main deck beyond it). Each plays the game's own repairs, Respond
+   * and Journal; the demo's repairs carry the debug-only "demo_repair"
+   * outcome table (a clean one: In the Groove; a rough one: Short of Kit; a
+   * failed attempt: Rattled Hands, undone by Try again; each Try again:
+   * Bone-Tired, kept; carrying on: Crew Doubts). No chapter is touched.
+   */
+  consequences: [
+    ['Consequences A: a mistake (a clean repair, then one you botch and carry on from; then mend the deck upstairs: the green is tighter)', [
+      { consequenceSystem: true },
+      { shipDamage: ['hull_port', 'hull_starboard'], amount: 30, category: 'impact', scale: false, source: 'debug', announce: false },
+      { shipDamage: 'deck', amount: 25, category: 'impact', scale: false, source: 'debug', announce: false },
+      { tutorial: 'First repair the port hull cleanly (no fumbles). Then fumble the starboard hull on purpose and choose Carry on. After that, go up to the main deck and mend the deck (Pause > Ship): see the green. Pause > Journal shows what you carry.', title: 'Consequences' },
+      { shipRepair: 'hull_port', anywhere: true, challenge: { profile: 'ship_repair', id: 'demo_clean', consequences: 'demo_repair' } },
+      { shipRepair: 'hull_starboard', anywhere: true, challenge: { profile: 'ship_repair', id: 'demo_botch', consequences: 'demo_repair' } },
+    ]],
+    ['Consequences B: recovery (Rattled and Bone-Tired: read the Journal, rest in the crew quarters or eat the stew, then repair again)', [
+      { suppliesSystem: true },
+      { consequence: 'shaken', severity: 2, source: 'debug' },
+      { consequence: 'exhausted', source: 'debug', announce: false },
+      { shipDamage: 'hull_port', amount: 30, category: 'impact', scale: false, source: 'debug', announce: false },
+      { tutorial: 'Pause > Journal: each one says what puts it right and whether you can do it here. Rest in a hammock in the crew quarters (V there: it takes time), or eat the bean stew from Items (it eases them a level). Then repair the port hull (Pause > Ship): the green is back.', title: 'Consequences' },
+    ]],
+    ['Consequences C: an advantage (lay out the tools here, then repair twice with a wider green: it is used up)', [
+      { consequenceSystem: true },
+      { shipDamage: ['hull_port', 'hull_starboard'], amount: 25, category: 'impact', scale: false, source: 'debug', announce: false },
+      { tutorial: 'V here: Lay out the tools (it takes a nail and some seconds). Then repair the port hull and the starboard hull (Pause > Ship): the green is wider for two repairs, then the advantage is used up. It also wears off in time.', title: 'Consequences' },
+    ]],
+    ['Consequences D: repeated failure (fail, Try again, fail...: Bone-Tired builds to its cap; Rattled comes and goes with each try; then a second botch)', [
+      { shipDamage: ['hull_port', 'hull_starboard'], amount: 35, category: 'impact', scale: false, source: 'debug', announce: false },
+      { giveItem: 'planks', count: 6, silent: true },
+      { giveItem: 'nails', count: 8, silent: true },
+      { tutorial: 'Fumble this repair, choose Try again, fumble again... Each Try again leaves you more Bone-Tired (it stays); the Rattled Hands of a failed try go back with the retry. Carry on at the end, then botch the next one too: Rattled Hands builds up. A rest in the crew quarters still puts it all right.', title: 'Consequences' },
+      { shipRepair: 'hull_port', anywhere: true, challenge: { profile: 'ship_repair', id: 'demo_again', consequences: 'demo_repair' } },
+      { shipRepair: 'hull_starboard', anywhere: true, challenge: { profile: 'ship_repair', id: 'demo_again_2', consequences: 'demo_repair' } },
+    ]],
+    ['Consequences E: across chapters (Short of Kit lasts two chapters: mark one, save and load, a repair costs more; sort the kit, or let a second chapter pass)', [
+      { consequence: 'poorly_prepared', source: 'debug' },
+      { consequence: 'crew_doubts', source: 'debug', announce: false },
+      { shipDamage: 'hull_port', amount: 30, category: 'impact', scale: false, source: 'debug', announce: false },
+      { tutorial: 'F2 > Ship: "Mark a chapter milestone" stands in for a chapter ending. Save and load: it is still there. Pause > Ship: the hull repair now costs an extra plank. Put it right with V here (Sort out the kit: a rope), or let a second chapter pass. The Journal remembers it either way.', title: 'Consequences' },
+    ]],
+    ['Consequences F: combined emergency (a leak in the hold, little to patch it with, a fouled pump, and you are bone-tired: rest first, or press on)', [
+      { suppliesSystem: true },
+      { supplyTransfer: 'hold', item: 'planks', all: true, to: 'store', anywhere: true, announce: false },
+      { supplyTransfer: 'hold', item: 'nails', all: true, to: 'store', anywhere: true, announce: false },
+      { supplyTransfer: 'hold', item: 'sailcloth', all: true, to: 'store', anywhere: true, announce: false },
+      { supplyStore: 'hold', empty: true },
+      { giveItem: 'planks', count: 2, silent: true },
+      { giveItem: 'nails', count: 3, silent: true },
+      { giveItem: 'sailcloth', count: 1, silent: true },
+      { consequence: 'exhausted', severity: 2, source: 'debug' },
+      { consequence: 'fouled_pump', source: 'debug', announce: false },
+      { shipDamage: 'hull_port', amount: 40, category: 'impact', scale: false, source: 'debug', announce: false },
+      { leak: 'hull_port', severity: 'leak', source: 'debug' },
+      { choice: [
+        { text: 'Rest first, then deal with it', then: [{ tutorial: 'The crew quarters are through the galley, up the stairs: rest there (V) while the water rises, then come back fresh. Clear the pump (V by it: your sailcloth) or pump it fouled; patch the leak.', title: 'Consequences' }] },
+        { text: 'Press on as you are', then: [{ consequence: 'pressed_on', source: 'debug' }, { tutorial: 'Bone-Tired, every job takes longer. Patch the leak (V), clear the pump (V: your sailcloth) or pump it fouled. Your choice is in the Journal.', title: 'Consequences' }] },
+      ], prompt: 'Water in the hold, and your legs are lead.' },
+    ]],
+    ['Mark a chapter milestone (stands in for a chapter ending)', [{ consequenceMilestone: 'chapter' }]],
+    ['How am I holding up? (the report)', [{ consequenceReport: true }]],
+    ['Let 60 seconds pass', [{ hazardClock: 60 }]],
+    ['Switch the ledger\'s preparations off', [{ consequenceSystem: false }]],
   ],
   scenes: [
     ['A shark bites the port hull (40)', [{ shipDamage: 'hull_port', amount: 40, category: 'shark', source: 'debug' }]],

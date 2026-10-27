@@ -73,6 +73,9 @@ function systemsState(content, session) {
     const u = session.ship.supplies;
     out.ship.supplies = { on: u.on, stored: Object.keys(u.stores).sort().map((st) => `${st}:${u.storeTotal(st)}`), sources: Object.keys(u.sources).sort(), cooking: u.cooking?.recipe ?? null, effects: Object.keys(u.effects).sort() };
   }
+  // Prompt 11: the consequence ledger (switched on, what is held, how much has ended). No chapter applies a consequence: every phase ends with it empty.
+  const L = session.consequences;
+  if (L) out.consequences = { on: L.on, held: [...L.entries.keys()].sort(), ended: L.history.length, milestones: Object.values(L.marks).reduce((n, m) => n + m, 0) };
   return out;
 }
 

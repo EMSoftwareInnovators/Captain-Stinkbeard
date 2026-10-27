@@ -4,6 +4,7 @@ import { Inventory } from './inventory/Inventory.js';
 import { Party } from './party/Party.js';
 import { QuestSystem } from './quests/QuestSystem.js';
 import { ShipState } from './ship/ShipState.js';
+import { ConsequenceLedger } from './consequences/ConsequenceLedger.js';
 import { resolveVariant } from './story/progress.js';
 import { deepClone } from '../core/util.js';
 
@@ -37,6 +38,9 @@ export class GameSession {
     this.ship.beard.session = this;
     // Prompt 10: the supplies read the content, the pack and where the captain is (docs/gameplay-overhaul/14-resources-and-cooking.md).
     this.ship.supplies.session = this;
+    // Prompt 11: the consequence ledger, what mistakes and preparation leave behind (docs/gameplay-overhaul/15-consequences-and-recovery.md).
+    this.consequences = new ConsequenceLedger({ bus });
+    this.consequences.session = this;
     this.playTime = 0; // seconds
     this.createdAt = new Date().toISOString();
     // Per-play state that is deliberately never saved (fume exposure...).
@@ -55,6 +59,23 @@ export class GameSession {
     const lost = Math.max(0, Math.min(Math.floor(hp), m.hp - min));
     if (lost > 0) m.hp -= lost;
     return lost;
+  }
+
+  /**
+   * One second of hazard time, the one clock (Prompt 6): the ship's
+   * emergencies, air, pressure, beard and supplies, then the consequence
+   * ledger's timed entries (Prompt 11). The world calls it while the captain
+   * is free, the emergency work tick by tick, "hazardClock" on purpose.
+   */
+  tickHazards(tuning) {
+    const a = this.ship.tick(tuning);
+    const b = this.consequences.tick();
+    return a || b;
+  }
+
+  /** Something to move on the hazard clock: anything environmental, or a consequence running down. */
+  get hazardsActive() {
+    return this.ship.envActive || this.consequences.active;
   }
 
   /** Creates a fresh playthrough from data/game.json → newGame. */
@@ -111,6 +132,7 @@ export class GameSession {
       party: this.party.serialize(),
       quests: this.quests.serialize(),
       ship: this.ship.serialize(),
+      consequences: this.consequences.serialize(),
       location: { ...this.location },
       playTime: Math.floor(this.playTime),
       createdAt: this.createdAt,
@@ -125,6 +147,8 @@ export class GameSession {
     this.party.load(s.party, onWarning);
     this.quests.load(s.quests, onWarning);
     this.ship.load(s.ship, onWarning);
+    // Prompt 11: a save from before version 24 has no ledger: empty, nothing invented.
+    this.consequences.load(s.consequences, onWarning);
     this.location = { map: s.location?.map ?? null, x: s.location?.x ?? 0, y: s.location?.y ?? 0, facing: s.location?.facing ?? 'down' };
     this.playTime = Number.isFinite(s.playTime) ? s.playTime : 0;
     this.createdAt = s.createdAt ?? this.createdAt;

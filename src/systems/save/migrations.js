@@ -421,6 +421,20 @@ Object.assign(MIGRATIONS, {
    * loading a save and silently dropping the stores.
    */
   22: (state) => fillLayout(state),
+  /**
+   * 23 -> 24 (overhaul Prompt 11: persistent consequences and recovery,
+   * docs/gameplay-overhaul/15-consequences-and-recovery.md). The session
+   * gains "consequences" (the ledger: what is held, its severity, source and
+   * clocks, a bounded history of what ended, the event ids applied, how often
+   * each happened, the milestones marked). A version 23 save had none, and no
+   * chapter applies a consequence, so it stays absent: loading reads that as
+   * an empty ledger. Nothing is invented from the story, the challenges or
+   * the ship (a damaged hull, a failed repair or a beard full of smoke stays
+   * its own system's, never becomes a consequence); every system loads
+   * exactly as it was. The bump stops an older build from loading a save
+   * and silently dropping the ledger.
+   */
+  23: (state) => fillLayout(state),
 });
 
 export function migrateState(state, fromVersion, toVersion, migrations = MIGRATIONS) {

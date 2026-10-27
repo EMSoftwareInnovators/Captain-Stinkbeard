@@ -10,7 +10,9 @@
       "sashTension": { "tolerance": 5, "graceAdd": 0.6, "swayScale": 0.85 },
       "sharkDuty": { "reactionScale": 1.3 }
     },
-    "ship": { "damageScale": 0.75, "repairScale": 1.25, "costScale": 0.5, "grace": true, "leakScale": 0.6, "fireScale": 0.6, "responseScale": 1.3, "exposureScale": 0.6, "recoveryScale": 1.4, "ventScale": 1.25, "pressureScale": 0.75, "warnScale": 1.5, "calmScale": 1.3, "holdScale": 0.75, "releaseScale": 0.75, "beardCapacityScale": 1.4, "cleanScale": 1.3, "supplyYieldScale": 1.25, "restockScale": 0.75, "supplyZone": 4, "effectScale": 1.25 }
+    "ship": { "damageScale": 0.75, "repairScale": 1.25, "costScale": 0.5, "grace": true, "leakScale": 0.6, "fireScale": 0.6, "responseScale": 1.3, "exposureScale": 0.6, "recoveryScale": 1.4, "ventScale": 1.25, "pressureScale": 0.75, "warnScale": 1.5, "calmScale": 1.3, "holdScale": 0.75, "releaseScale": 0.75, "beardCapacityScale": 1.4, "cleanScale": 1.3, "supplyYieldScale": 1.25, "restockScale": 0.75, "supplyZone": 4, "effectScale": 1.25 },
+    "//consequences": "The consequence ledger on this difficulty (docs/gameplay-overhaul/15-consequences-and-recovery.md): a penalty's strength, its duration and how far a repeat can take it (cap: levels below its max), fixed when it is created; what a recovery or preparation costs and how long it takes. Advantages are the same on every difficulty.",
+    "consequences": { "strength": 0.6, "duration": 0.6, "cap": -1, "actionCost": 0.5, "actionTime": 0.75 }
   },
   "captain": {
     "order": 1,
@@ -19,7 +21,8 @@
     "tagline": "Challenging",
     "summary": "The voyage as meant. Timing, preparation and nerve all count, failure has a price, and mashing the button won't save you.",
     "challenges": {},
-    "ship": {}
+    "ship": {},
+    "consequences": {}
   },
   "brutal": {
     "order": 2,
@@ -31,6 +34,7 @@
       "sashTension": { "tolerance": -3, "graceAdd": -0.4, "swayScale": 1.15 },
       "sharkDuty": { "reactionScale": 0.85 }
     },
-    "ship": { "damageScale": 1.25, "repairScale": 0.85, "costScale": 1.5, "grace": false, "leakScale": 1.3, "fireScale": 1.3, "responseScale": 0.85, "exposureScale": 1.35, "recoveryScale": 0.75, "ventScale": 0.85, "pressureScale": 1.25, "warnScale": 0.65, "calmScale": 0.8, "holdScale": 1.25, "releaseScale": 1.25, "beardCapacityScale": 0.7, "cleanScale": 0.75, "supplyYieldScale": 0.75, "restockScale": 1.5, "supplyZone": -4, "effectScale": 0.8 }
+    "ship": { "damageScale": 1.25, "repairScale": 0.85, "costScale": 1.5, "grace": false, "leakScale": 1.3, "fireScale": 1.3, "responseScale": 0.85, "exposureScale": 1.35, "recoveryScale": 0.75, "ventScale": 0.85, "pressureScale": 1.25, "warnScale": 0.65, "calmScale": 0.8, "holdScale": 1.25, "releaseScale": 1.25, "beardCapacityScale": 0.7, "cleanScale": 0.75, "supplyYieldScale": 0.75, "restockScale": 1.5, "supplyZone": -4, "effectScale": 0.8 },
+    "consequences": { "strength": 1.35, "duration": 1.5, "cap": 1, "actionCost": 1.5, "actionTime": 1.25 }
   }
 }

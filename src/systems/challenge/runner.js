@@ -104,6 +104,8 @@ export class ChallengeRun {
     this.assist = null;
     this.checkpoint = null;
     this.charged = 0;
+    // Prompt 11: how many times "Try again" was chosen (its consequences are kept through every later retry).
+    this.retries = 0;
     this.start = null;
   }
 
@@ -209,6 +211,26 @@ export class ChallengeRun {
 
   async replayCosts(hooks) {
     for (let i = 0; i < this.charged; i++) await hooks.runSteps?.(this.config.onFailure.costs, { scope: `cost:${i + 1}` });
+    // Prompt 11: each earlier "Try again"'s consequences are kept like a cost (charged again after the restore, each once).
+    const kept = this.config.onRetry?.consequences ?? [];
+    if (kept.length) for (let i = 0; i < this.retries; i++) await hooks.runSteps?.(kept, { scope: `retry:${i + 1}` });
+  }
+
+  /** Prompt 11: a restore undid what the ledger was given so far (the record says so; the sticky ones are charged again after it). */
+  undoLedger() {
+    for (const x of this.record.consequences.ledger ?? []) x.undone = true;
+  }
+
+  /**
+   * Prompt 11: the failed attempt's own consequences (an outcome table's
+   * "failure"), in that attempt's scope: Try again restores the checkpoint
+   * and so undoes them; carrying on keeps them.
+   */
+  async failAttempt(hooks) {
+    const steps = this.config.onFailedAttempt?.consequences ?? [];
+    if (!steps.length) return;
+    await hooks.runSteps?.(steps, { scope: `failed:${this.record.attempt}` });
+    this.record.consequences.applied.push(`onFailedAttempt:${this.record.attempt}`);
   }
 
   /** Back to the checkpoint (as configured), costs re-applied, and a fresh attempt. */
@@ -216,8 +238,16 @@ export class ChallengeRun {
     this.record.decision = 'retry';
     if (this.config.retry.restore && this.checkpoint) {
       restoreCheckpoint(this.session, this.checkpoint, { keep: this.config.keep });
+      this.undoLedger();
       await this.replayCosts(hooks);
       await hooks.onRestored?.(this.checkpoint);
+    }
+    // Prompt 11: what choosing to try again costs (an outcome table's "retry"), kept through every later retry.
+    const steps = this.config.onRetry?.consequences ?? [];
+    this.retries += 1;
+    if (steps.length) {
+      await hooks.runSteps?.(steps, { scope: `retry:${this.retries}` });
+      this.record.consequences.applied.push(`onRetry:${this.retries}`);
     }
     this.nextAttempt();
   }
@@ -227,8 +257,15 @@ export class ChallengeRun {
     const cp = challengeLog(this.session).checkpoint(this.config.onFailure.fallback);
     this.record.decision = 'fallback';
     restoreCheckpoint(this.session, cp, { keep: this.config.keep });
+    this.undoLedger();
     await this.replayCosts(hooks);
     await hooks.onRestored?.(cp);
+    // Prompt 11: going back is a choice too (an outcome table's "fallback"), once.
+    const steps = this.config.onFallback?.consequences ?? [];
+    if (steps.length) {
+      await hooks.runSteps?.(steps, { scope: 'onFallback' });
+      this.record.consequences.applied.push('onFallback');
+    }
     this.record.state = 'resolved';
     return cp.extra.resume;
   }
@@ -252,6 +289,14 @@ export class ChallengeRun {
     if (!steps.length) return;
     await hooks.runSteps?.(steps, { scope: 'onPartial' });
     this.record.consequences.applied.push('onPartial');
+  }
+
+  /** Prompt 11: a success's consequences (an advantage earned), once, before the run closes. */
+  async settleSuccess(hooks = {}) {
+    const steps = this.config.onSuccess?.consequences ?? [];
+    if (!steps.length) return;
+    await hooks.runSteps?.(steps, { scope: 'onSuccess' });
+    this.record.consequences.applied.push('onSuccess');
   }
 
   /** Given up without an outcome (a watch left behind for good): no outcome is invented. */
@@ -280,7 +325,8 @@ export const ATTEMPT_GUARD = 500;
  * @param {(info) => Promise<object>} hooks.attempt   plays one attempt, returns the mechanic's metrics
  * @param {(record, options) => Promise<string>} hooks.decide   asks the player (an option id)
  * @param {(steps, meta) => Promise<void>} [hooks.runSteps]  runs consequence / cost steps; `meta.scope` names the
- *   charge or list (cost:1, cost:2, onFailure, onPartial), so a damage event in them lands once per charge
+ *   charge or list (cost:1, cost:2, onFailure, onPartial; Prompt 11: onSuccess, failed:N, retry:N, onFallback), so a
+ *   damage event or a consequence in them lands once per charge
  * @param {(checkpoint) => Promise<void>} [hooks.onRestored]  puts the world back (the captain's tile, input)
  * @param {(record) => Promise<void>} [hooks.settle]  commits what the final outcome earns (a ship repair takes its
  *   materials and restores the section), after the outcome and its consequences and before the run closes, so the
@@ -297,9 +343,11 @@ export async function runChallenge(run, hooks) {
       const rec = run.finish(metrics);
       if (rec.state === 'resolved') {
         if (rec.outcome === 'partial') await run.settlePartial(hooks);
+        else if (rec.outcome === 'success') await run.settleSuccess(hooks);
         break;
       }
       await run.chargeCosts(hooks);
+      await run.failAttempt(hooks);
       const wanted = run.autoDecision() ?? (await hooks.decide(rec, rec.options));
       // Only an option that was offered can be taken (a stale or doubled input can't pick another).
       const choice = rec.options.some((o) => o.id === wanted) ? wanted : rec.options[0].id;

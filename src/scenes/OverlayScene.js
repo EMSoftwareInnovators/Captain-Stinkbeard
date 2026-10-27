@@ -148,6 +148,15 @@ export class OverlayScene extends BaseScene {
       case 'ship':
         this.toasts.push({ text: n.text, hold: 2400 });
         break;
+      // Prompt 11: the consequence ledger (docs/gameplay-overhaul/15-consequences-and-recovery.md): one short line; the same one again within 3 s is let go.
+      case 'consequence': {
+        const now = this.time?.now ?? 0;
+        this.consequenceSeen ??= new Map();
+        if (n.key && now - (this.consequenceSeen.get(n.key) ?? -Infinity) < 3000) break;
+        if (n.key) this.consequenceSeen.set(n.key, now);
+        this.toasts.push({ text: n.text, hold: 2400 });
+        break;
+      }
       default:
         this.toasts.push({ text: String(n.text ?? n.kind) });
     }
@@ -466,7 +475,7 @@ export class OverlayScene extends BaseScene {
    * and challenge.strict, it runs in strict mode: no widening, a fumble limit
    * or a clock, and it can end in a real failure.
    */
-  timingBar({ kind = 'hull', strikes = 3, title = null, speed = 1, zone: zoneWidth = 26, challenge = null } = {}) {
+  timingBar({ kind = 'hull', strikes = 3, title = null, speed = 1, zone: zoneWidth = 26, condition = null, challenge = null } = {}) {
     const K = REPAIR_KINDS[kind] ?? REPAIR_KINDS.hull;
     const skill = this.skillFor(K.stat);
     return new Promise((resolve) => {
@@ -516,6 +525,8 @@ export class OverlayScene extends BaseScene {
         challenge,
         bonus: skill?.bonus ?? 0,
         luck: skill ? skill.luck : 0,
+        // Prompt 11: the captain's condition on a ship bar (food, draughts, consequences).
+        condition,
         assist,
         auto: !!this.app.flags?.autoTiming,
         fumbleLock: FUMBLE_MS,

@@ -129,6 +129,8 @@ const SINGLE_FILES = {
   'ship/beard.json': 'shipBeard',
   // Prompt 10: shipboard resources, stores, gear, effects and the galley's recipes (docs/gameplay-overhaul/14-resources-and-cooking.md).
   'ship/supplies.json': 'shipSupplies',
+  // Prompt 11: the consequence ledger's definitions, recovery methods and outcome tables (docs/gameplay-overhaul/15-consequences-and-recovery.md).
+  'consequences/ledger.json': 'consequences',
 };
 
 export const REGISTRY_KINDS = [
@@ -159,6 +161,7 @@ export class ContentDB {
     this.shipPressure = null;
     this.shipBeard = null;
     this.shipSupplies = null;
+    this.consequences = null;
     this.loadErrors = [];
     this.extensions = []; // { kind: 'npcs'|'characters', rec, source }
     this.files = Object.keys(files).map(relativePath).sort(byPath);

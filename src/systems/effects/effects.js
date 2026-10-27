@@ -96,7 +96,9 @@ export function applyEffect(effect, target, { rng = null, statuses = null, sessi
         return { type: 'shipEffect', applied: r.ok, recovered: r.cleared };
       }
       const r = supplies.applyEffect(effect.effect, { tuning: supplies.tuning });
-      return { type: 'shipEffect', applied: r.ok, effect: effect.effect, seconds: r.seconds ?? 0, replaced: r.replaced ?? null };
+      // Prompt 11: a meal eases what the consequence ledger says a meal eases (Rattled Hands, Bone-Tired), once per meal.
+      const eased = r.ok ? session.consequences?.provision(effect.effect) ?? [] : [];
+      return { type: 'shipEffect', applied: r.ok, effect: effect.effect, seconds: r.seconds ?? 0, replaced: r.replaced ?? null, ...(eased.length ? { eased } : {}) };
     }
     case 'sideEffect': {
       // One weighted pick from a small table. In battle it may apply a short

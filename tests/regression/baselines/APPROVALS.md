@@ -575,3 +575,73 @@ Across phases
   CHANGED    challenges: kinds.supplyTake: undefined -> {"blocksProgression":false,"input":"timed","label":"Searching and salvaging the ship's supplies (Prompt 10)","retry":"offered; each failed try is a knock (a cost a retry keeps, never below the floor)","softlockRisk":"none: no chapter uses it; the bilge and the sacking always come back","support":{"failure":true,"partial":true,"success":true}}
 ```
 
+## 2026-10-27 (on da74b11)
+
+Reason: Prompt 11 (consequence ledger): every phase snapshot gains gameplay.systems.consequences, empty at every phase end (no chapter applies, records or marks anything in the ledger); the coordinate index counts the new consequences_demo debug preset in the cargo hold (one preset position). No story, quest, crew, room, NPC or prop change.
+
+Files: phase-01.json, phase-02.json, phase-03.json, phase-04.json, phase-05.json, phase-06.json, phase-07.json, phase-08.json, phase-09.json, phase-10.json, phase-11.json, phase-12.json, phase-13.json, phase-14.json, phase-15.json, phase-16.json, phase-17.json, coords.json
+
+Changes: 0 regression, 0 warning, 0 improvement, 22 change
+
+```
+Approved changes: 22 changes
+
+Phase 1
+  CHANGED    gameplay.systems.consequences: null -> {"ended":0,"held":[],"milestones":0,"on":false}
+
+Phase 2
+  CHANGED    gameplay.systems.consequences: null -> {"ended":0,"held":[],"milestones":0,"on":false}
+
+Phase 3
+  CHANGED    gameplay.systems.consequences: null -> {"ended":0,"held":[],"milestones":0,"on":false}
+
+Phase 4
+  CHANGED    gameplay.systems.consequences: null -> {"ended":0,"held":[],"milestones":0,"on":false}
+
+Phase 5
+  CHANGED    gameplay.systems.consequences: null -> {"ended":0,"held":[],"milestones":0,"on":false}
+
+Phase 6
+  CHANGED    gameplay.systems.consequences: null -> {"ended":0,"held":[],"milestones":0,"on":false}
+
+Phase 7
+  CHANGED    gameplay.systems.consequences: null -> {"ended":0,"held":[],"milestones":0,"on":false}
+
+Phase 8
+  CHANGED    gameplay.systems.consequences: null -> {"ended":0,"held":[],"milestones":0,"on":false}
+
+Phase 9
+  CHANGED    gameplay.systems.consequences: null -> {"ended":0,"held":[],"milestones":0,"on":false}
+
+Phase 10
+  CHANGED    gameplay.systems.consequences: null -> {"ended":0,"held":[],"milestones":0,"on":false}
+
+Phase 11
+  CHANGED    gameplay.systems.consequences: null -> {"ended":0,"held":[],"milestones":0,"on":false}
+
+Phase 12
+  CHANGED    gameplay.systems.consequences: null -> {"ended":0,"held":[],"milestones":0,"on":false}
+
+Phase 13
+  CHANGED    gameplay.systems.consequences: null -> {"ended":0,"held":[],"milestones":0,"on":false}
+
+Phase 14
+  CHANGED    gameplay.systems.consequences: null -> {"ended":0,"held":[],"milestones":0,"on":false}
+
+Phase 15
+  CHANGED    gameplay.systems.consequences: null -> {"ended":0,"held":[],"milestones":0,"on":false}
+
+Phase 16
+  CHANGED    gameplay.systems.consequences: null -> {"ended":0,"held":[],"milestones":0,"on":false}
+
+Phase 17
+  CHANGED    gameplay.systems.consequences: null -> {"ended":0,"held":[],"milestones":0,"on":false}
+
+Across phases
+  CHANGED    coords: byKind.preset position: 341 -> 342
+  CHANGED    coords: byRoom.cargo_hold.files.data/debug/presets.json: 46 -> 47
+  CHANGED    coords: byRoom.cargo_hold.kinds.preset position: 46 -> 47
+  CHANGED    coords: byRoom.cargo_hold.total: 765 -> 766
+  CHANGED    coords: total: 8226 -> 8227
+```
+

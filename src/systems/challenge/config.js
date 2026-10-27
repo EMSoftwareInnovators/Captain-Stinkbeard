@@ -3,6 +3,7 @@ import { CHECKPOINT_DOMAINS } from './checkpoint.js';
 import { kindDef } from './kinds.js';
 import { ruleMetrics, ruleOps, RULE_OPS, reachableOutcomes } from './outcome.js';
 import { DIFFICULTIES, DEFAULT_DIFFICULTY, presetTuning } from './difficulty.js';
+import { tableLists, tableDef, tableProblems, consequenceDef } from '../consequences/ledger.js';
 
 /**
  * A challenge's configuration (docs/gameplay-overhaul/07-challenge-outcomes.md):
@@ -33,6 +34,9 @@ import { DIFFICULTIES, DEFAULT_DIFFICULTY, presetTuning } from './difficulty.js'
  *     "checkpoint": true,      // false: retries don't restore anything
  *     "announce": false,       // show a short result toast on success / partial
  *     "assists": { "classic": true },   // false: the player's classic bar doesn't apply here
+ *     "consequences": "demo_repair",  // Prompt 11: an outcome table (data/consequences/ledger.json "tables"), or the lists themselves:
+ *                                     // { success, partial, failure, retry, accept, fallback } of { id, severity }. Never per difficulty:
+ *                                     // the ledger's own difficulty table scales them (docs/gameplay-overhaul/15-consequences-and-recovery.md)
  *     "difficulty": {          // per difficulty (docs/gameplay-overhaul/08-difficulty-and-accessibility.md)
  *       "deckhand": { "mechanics": { "maxFumbles": 4 } },
  *       "brutal": { "mechanics": { "maxFumbles": 1 }, "onFailure": { "costs": [...] } }
@@ -44,7 +48,7 @@ import { DIFFICULTIES, DEFAULT_DIFFICULTY, presetTuning } from './difficulty.js'
  * profile then its block for the difficulty, the challenge then its block.
  * Accessibility assists come last, per attempt (ChallengeRun).
  */
-const TOP_KEYS = ['profile', 'id', 'kind', 'label', 'enabled', 'failure', 'mechanics', 'intent', 'outcomes', 'score', 'grades', 'retry', 'onFailure', 'onPartial', 'keep', 'checkpoint', 'announce', 'assists', 'difficulty'];
+const TOP_KEYS = ['profile', 'id', 'kind', 'label', 'enabled', 'failure', 'mechanics', 'intent', 'outcomes', 'score', 'grades', 'retry', 'onFailure', 'onPartial', 'keep', 'checkpoint', 'announce', 'assists', 'consequences', 'difficulty'];
 export const PROFILE_KEYS = TOP_KEYS.filter((k) => !['profile', 'id', 'enabled'].includes(k));
 const RETRY_KEYS = ['policy', 'maxAttempts', 'restore'];
 const FAILURE_KEYS = ['mustRetry', 'continue', 'prompt', 'costs', 'consequences', 'fallback'];
@@ -88,6 +92,22 @@ function layer(acc, over, pairs = {}) {
   return out;
 }
 
+/**
+ * Prompt 11: an outcome table as the steps the runner runs, one consequence
+ * step per application, each list in its own event scope (so a repeated
+ * callback lands once, and a retried attempt can land again):
+ *   success, partial   once, after that outcome (onSuccess, onPartial)
+ *   failure            when an attempt fails; undone by Try again (the checkpoint), kept if he carries on (onFailedAttempt)
+ *   retry              each time he chooses Try again, and kept through every later retry (onRetry)
+ *   accept             once, when he carries on after a failure (with onFailure's consequences)
+ *   fallback           once, when he chooses Go back (onFallback)
+ */
+export function consequenceSteps(content, spec) {
+  const lists = tableLists(spec, content);
+  const steps = (list) => list.map((a) => ({ consequence: a.id, severity: a.severity, eventId: a.id }));
+  return Object.fromEntries(Object.entries(lists).map(([o, list]) => [o, steps(list)]));
+}
+
 /** The profile a spec names, if any (data/challenges). */
 export function challengeProfile(content, id) {
   return content?.challenges?.get?.(id) ?? null;
@@ -124,6 +144,7 @@ export function challengeConfig(content, spec, { kind, id = null, difficulty = D
   const intent = m.intent ?? null;
   const outcomes = m.outcomes ?? (intent && k.intents?.[intent]) ?? {};
   const onFailure = { mustRetry: false, continue: false, prompt: true, costs: [], consequences: [], fallback: null, ...(m.onFailure ?? {}) };
+  const ledger = consequenceSteps(content, m.consequences ?? null);
   return {
     id: m.id ?? id,
     kind: kindId,
@@ -137,8 +158,14 @@ export function challengeConfig(content, spec, { kind, id = null, difficulty = D
     score: m.score ?? null,
     grades: m.grades ?? null,
     retry: { policy: 'offer', maxAttempts: null, restore: true, ...(m.retry ?? {}) },
-    onFailure: { ...onFailure, costs: asArray(onFailure.costs), consequences: asArray(onFailure.consequences) },
-    onPartial: { consequences: asArray(m.onPartial?.consequences) },
+    onFailure: { ...onFailure, costs: asArray(onFailure.costs), consequences: [...asArray(onFailure.consequences), ...ledger.accept] },
+    onPartial: { consequences: [...asArray(m.onPartial?.consequences), ...ledger.partial] },
+    // Prompt 11: the outcome table's other lists (empty without one: the runner then behaves exactly as before).
+    onSuccess: { consequences: ledger.success },
+    onFailedAttempt: { consequences: ledger.failure },
+    onRetry: { consequences: ledger.retry },
+    onFallback: { consequences: ledger.fallback },
+    consequences: typeof m.consequences === 'string' ? m.consequences : m.consequences ? 'inline' : null,
     keep: { flags: asArray(m.keep?.flags), vars: asArray(m.keep?.vars), values: asArray(m.keep?.values) },
     checkpoint: m.checkpoint === false ? false : { domains: m.checkpoint?.domains ?? CHECKPOINT_DOMAINS },
     announce: m.announce === true,
@@ -159,6 +186,9 @@ export function configRules(cfg) {
     retry: { ...cfg.retry },
     onFailure: { mustRetry: cfg.onFailure.mustRetry, continue: cfg.onFailure.continue, costs: cfg.onFailure.costs.length, consequences: cfg.onFailure.consequences.length, fallback: cfg.onFailure.fallback },
     onPartial: cfg.onPartial.consequences.length,
+    // Prompt 11: the outcome table a run carries (its id, "inline", or null), and how many consequences each way of ending applies.
+    consequences: cfg.consequences ?? null,
+    ledger: Object.fromEntries(['onSuccess', 'onFailedAttempt', 'onRetry', 'onFallback'].map((k) => [k, cfg[k]?.consequences.length ?? 0])),
   };
 }
 
@@ -166,11 +196,13 @@ export function configRules(cfg) {
 const GIVING = ['giveItem', 'giveGold', 'grantRewards', 'giveXp'];
 
 /** A failure cost that isn't one: something given, or a negative amount taken. */
-function costProblems(costs) {
+function costProblems(costs, content = null) {
   const out = [];
   for (const step of asArray(costs)) {
     if (!isPlainObject(step)) continue;
     for (const g of GIVING) if (g in step) out.push(`onFailure.costs: "${g}" gives something; a cost can only take (use onPartial / consequences for rewards)`);
+    // Prompt 11: an advantage is never a cost.
+    if ('consequence' in step && consequenceDef(content, step.consequence)?.kind === 'positive') out.push(`onFailure.costs: "${step.consequence}" is an advantage; a cost can only take`);
     if ('takeItem' in step && step.count !== undefined && !(step.count > 0)) out.push('onFailure.costs: takeItem "count" must be positive');
     if ('takeGold' in step && !(step.takeGold > 0)) out.push('onFailure.costs: takeGold must be positive');
   }
@@ -205,7 +237,8 @@ function difficultyBlockProblems(blocks, k, where = '', kind = '') {
     }
     for (const key of Object.keys(block)) {
       if (isComment(key)) continue;
-      if (!DIFFICULTY_KEYS.includes(key)) out.push(`${where}difficulty.${d} can't change "${key}" (a difficulty changes only the stakes: ${DIFFICULTY_KEYS.join(', ')}; the objective stays the same)`);
+      if (key === 'consequences') out.push(`${where}difficulty.${d} can't change "consequences": the ledger's own difficulty table scales them (never twice)`);
+      else if (!DIFFICULTY_KEYS.includes(key)) out.push(`${where}difficulty.${d} can't change "${key}" (a difficulty changes only the stakes: ${DIFFICULTY_KEYS.join(', ')}; the objective stays the same)`);
     }
     out.push(...keyProblems(block, k, `${where}difficulty.${d}: `, kind));
   }
@@ -213,7 +246,7 @@ function difficultyBlockProblems(blocks, k, where = '', kind = '') {
 }
 
 /** Everything wrong with one resolved config (one difficulty). */
-function resolvedProblems(cfg, k, step) {
+function resolvedProblems(cfg, k, step, content = null) {
   const out = [];
   if (cfg.intent && !k.intents?.[cfg.intent]) out.push(`${cfg.kind} has no intent "${cfg.intent}"`);
   for (const [name, rule] of Object.entries(cfg.outcomes)) {
@@ -242,7 +275,7 @@ function resolvedProblems(cfg, k, step) {
     if (f.mustRetry && cfg.retry.policy === 'none') out.push('onFailure.mustRetry needs retries');
     if (!f.mustRetry && !f.continue && (limited || cfg.retry.policy === 'none')) out.push('when attempts can run out, onFailure.continue must be true (or the story has no way forward)');
     if (cfg.retry.restore && cfg.checkpoint === false) out.push('retry.restore needs a checkpoint ("checkpoint": false turns it off)');
-    out.push(...costProblems(f.costs));
+    out.push(...costProblems(f.costs, content));
   }
   if (k.problems) out.push(...k.problems(cfg.mechanics, step));
   // Every outcome the rules name must be one an attempt can really end in.
@@ -276,6 +309,7 @@ export function challengeProblems(content, spec, { kind = null, step = {} } = {}
   const k = kindDef(base.kind);
   for (const key of Object.keys(raw)) if (!isComment(key) && !TOP_KEYS.includes(key)) out.push(`unknown challenge field "${key}"`);
   out.push(...specKeyProblems(raw, base.kind));
+  out.push(...consequenceSpecProblems(content, raw.consequences));
   if (!base.failure && (raw.onFailure || raw.retry) && !Object.values(raw.difficulty ?? {}).some((b) => b?.failure === true)) {
     out.push('onFailure / retry are set but failure is not enabled ("failure": true)');
   }
@@ -290,13 +324,21 @@ export function challengeProblems(content, spec, { kind = null, step = {} } = {}
       continue;
     }
     if (!cfg) continue;
-    for (const msg of new Set(resolvedProblems(cfg, k, step))) {
+    for (const msg of new Set(resolvedProblems(cfg, k, step, content))) {
       if (!byMessage.has(msg)) byMessage.set(msg, []);
       byMessage.get(msg).push(d);
     }
   }
   for (const [msg, ds] of byMessage) out.push(ds.length === DIFFICULTIES.length ? msg : `[${ds.join(', ')}] ${msg}`);
   return out;
+}
+
+/** Prompt 11: a challenge's "consequences": a known outcome table, or valid lists of known consequences. */
+export function consequenceSpecProblems(content, spec) {
+  if (spec === undefined || spec === null) return [];
+  if (typeof spec === 'string') return tableDef(content, spec) ? [] : [`consequences: unknown outcome table "${spec}" (data/consequences/ledger.json tables)`];
+  if (!isPlainObject(spec)) return ['consequences: an outcome table id, or { success, partial, failure, retry, accept, fallback } lists'];
+  return tableProblems(content, spec, 'consequences');
 }
 
 /**

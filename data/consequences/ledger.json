@@ -1,0 +1,221 @@
+{
+  "//": "The consequence ledger (overhaul Prompt 11, docs/gameplay-overhaul/15-consequences-and-recovery.md): what a mistake, a hard choice or good preparation leaves behind, kept beyond the room, the chapter and the save, and how it is put right. The ledger records implications only: the hull is Ship Integrity's, water is the flooding's, fire the hazards', gas the air's, the beard its own, materials the inventory's and the stores', Brogath's Stability the story's. No chapter applies anything here yet: every existing chapter plays exactly as before.",
+
+  "//categories": "What kind of consequence it is (the Journal groups and orders them this way).",
+  "categories": {
+    "condition": { "label": "Condition", "order": 0 },
+    "preparation": { "label": "Preparation", "order": 1 },
+    "shipboard": { "label": "Shipboard", "order": 2 },
+    "resources": { "label": "Resources", "order": 3 },
+    "crew": { "label": "Crew", "order": 4 },
+    "tactical": { "label": "Advantage", "order": 5 },
+    "narrative": { "label": "Remembered", "order": 6 }
+  },
+
+  "//limits": "Bounds on everything at once: each modifier's combined total (zone: pixels of a ship bar's green; work, repair, response: multipliers; costAdd: extra of a repair bill's main material), the captain's whole condition on a bar (condition: food, draughts and consequences together, in pixels: the validator checks every ship bar stays winnable at its worst), the longest duration (seconds of hazard time), milestones and uses, how many severity levels a consequence may have, and how much the ledger remembers (ended entries, event ids).",
+  "limits": {
+    "zone": [-6, 4],
+    "condition": [-6, 6],
+    "work": [0.85, 1.5],
+    "repair": [0.75, 1.15],
+    "response": [0.6, 1.15],
+    "costAdd": [-1, 2],
+    "seconds": 1200,
+    "milestones": 5,
+    "uses": 3,
+    "levels": 3,
+    "history": 24,
+    "events": 128
+  },
+
+  "//definitions": "Each consequence: title and short tag, category, kind (negative, positive, narrative), description and the effect in words, visibility (shown in the Journal, or hidden), its severity levels (each a label and its modifiers), max (the highest level on Captain; Deckhand one lower, Brutal one higher, within the levels), stacking (none, refresh, replace, add, reject), expires (seconds of hazard time, chapter milestones, uses), recur (fresh, once, escalate), opposes (applying it ends these), recovery (methods below and what each does: recover, or contain: one level eased), earn (the preparation that grants a positive), affectsChallenges (it changes a ship bar's green), permanent (a decision that stands).",
+  "definitions": {
+    "shaken": {
+      "title": "Rattled Hands",
+      "short": "RATTLED",
+      "category": "condition",
+      "kind": "negative",
+      "description": "That last repair did your nerves no favors.",
+      "effect": "Repair timing is less forgiving.",
+      "visibility": "shown",
+      "levels": [
+        { "label": "Shaky", "zone": -3 },
+        { "label": "Rattled", "zone": -4 },
+        { "label": "Wrecked", "zone": -6 }
+      ],
+      "max": 2,
+      "stacking": "add",
+      "expires": { "seconds": 300 },
+      "recur": "fresh",
+      "recovery": [
+        { "method": "rest", "result": "recover" },
+        { "method": "meal", "result": "contain" }
+      ],
+      "affectsChallenges": true
+    },
+    "exhausted": {
+      "title": "Bone-Tired",
+      "short": "TIRED",
+      "category": "condition",
+      "kind": "negative",
+      "description": "Every plank weighs twice what it did this morning.",
+      "effect": "Work takes longer.",
+      "visibility": "shown",
+      "levels": [
+        { "label": "Weary", "work": 1.2 },
+        { "label": "Spent", "work": 1.35 },
+        { "label": "Dead on your feet", "work": 1.5 }
+      ],
+      "max": 2,
+      "stacking": "add",
+      "expires": { "seconds": 480 },
+      "recur": "fresh",
+      "recovery": [
+        { "method": "rest", "result": "recover" },
+        { "method": "meal", "result": "contain" }
+      ],
+      "affectsChallenges": false
+    },
+    "poorly_prepared": {
+      "title": "Short of Kit",
+      "short": "KIT",
+      "category": "preparation",
+      "kind": "negative",
+      "description": "The tools are all over the hold, and half of them are wet.",
+      "effect": "Repairs cost more; scattered, they hold less.",
+      "visibility": "shown",
+      "levels": [
+        { "label": "Untidy", "costAdd": 1 },
+        { "label": "Scattered", "costAdd": 2, "repair": 0.85 }
+      ],
+      "max": 1,
+      "stacking": "replace",
+      "expires": { "milestones": 2 },
+      "recur": "fresh",
+      "opposes": ["well_prepared"],
+      "recovery": [
+        { "method": "sort_kit", "result": "recover" }
+      ],
+      "affectsChallenges": false
+    },
+    "fouled_pump": {
+      "title": "Fouled Pump",
+      "short": "PUMP",
+      "category": "shipboard",
+      "kind": "negative",
+      "description": "Something from the bilge is in the pump. It wheezes.",
+      "effect": "Pumping and bailing shift less water.",
+      "visibility": "shown",
+      "levels": [
+        { "label": "Wheezing", "response": 0.75 },
+        { "label": "Choked", "response": 0.6 }
+      ],
+      "max": 1,
+      "stacking": "replace",
+      "recur": "fresh",
+      "recovery": [
+        { "method": "clear_pump", "result": "recover" }
+      ],
+      "affectsChallenges": false
+    },
+    "well_prepared": {
+      "title": "Ready for Anything",
+      "short": "READY",
+      "category": "preparation",
+      "kind": "positive",
+      "description": "Tools laid out in order, every nail where your hand expects it.",
+      "effect": "Repair timing is more forgiving.",
+      "visibility": "shown",
+      "levels": [
+        { "label": "Ready", "zone": 3 }
+      ],
+      "max": 1,
+      "stacking": "refresh",
+      "expires": { "seconds": 360, "uses": 2 },
+      "recur": "fresh",
+      "opposes": ["poorly_prepared"],
+      "earn": [{ "method": "lay_out" }],
+      "affectsChallenges": true
+    },
+    "in_the_groove": {
+      "title": "In the Groove",
+      "short": "GROOVE",
+      "category": "tactical",
+      "kind": "positive",
+      "description": "A clean job. Your hands remember how it goes.",
+      "effect": "Work goes quicker, and repairs hold better.",
+      "visibility": "shown",
+      "levels": [
+        { "label": "Flowing", "work": 0.85, "repair": 1.1 }
+      ],
+      "max": 1,
+      "stacking": "refresh",
+      "expires": { "seconds": 150 },
+      "recur": "fresh",
+      "affectsChallenges": false
+    },
+    "crew_doubts": {
+      "title": "Crew Doubts",
+      "short": "DOUBTS",
+      "category": "crew",
+      "kind": "narrative",
+      "description": "The crew saw that go wrong. They're too polite to say so. Mostly.",
+      "effect": "None yet. They'll remember it.",
+      "visibility": "shown",
+      "levels": [
+        { "label": "Muttering" }
+      ],
+      "max": 1,
+      "stacking": "refresh",
+      "expires": { "milestones": 2 },
+      "recur": "fresh",
+      "affectsChallenges": false
+    },
+    "pressed_on": {
+      "title": "Pressed On",
+      "short": "PRESSED",
+      "category": "narrative",
+      "kind": "narrative",
+      "description": "You chose the work over your own two feet.",
+      "effect": "None. It's a choice you made.",
+      "visibility": "shown",
+      "levels": [
+        { "label": "Decided" }
+      ],
+      "max": 1,
+      "stacking": "none",
+      "recur": "once",
+      "permanent": true,
+      "affectsChallenges": false
+    }
+  },
+
+  "//methods": "How a consequence is put right, or an advantage earned (done: how it reads afterwards), through the game's own interactions (the world's Respond button, the Items menu). Places are room ids and existing fixtures (the bilge pump station), never tiles. rest: seconds of hazard time in the room, no work (being tired never slows a rest); provision: eating a meal of this supplies effect group (from Items, while the supplies are on); maintain and prepare: seconds of work in the room (longer in water, with bad lungs, a heavy beard, tired) and a bill. Seconds and bills follow the difficulty (consequences.actionTime and actionCost); perLevel adds seconds for each level past the first.",
+  "methods": {
+    "rest": { "kind": "rest", "label": "Rest in a hammock", "verb": "Resting", "done": "rested it off", "room": "crew_quarters", "seconds": 15, "perLevel": 10, "where": "in the crew quarters" },
+    "meal": { "kind": "provision", "label": "Eat a hot meal", "done": "a hot meal took the edge off", "group": "meal", "where": "a galley meal, eaten from Items" },
+    "sort_kit": { "kind": "maintain", "label": "Sort out the kit", "verb": "Sorting the kit", "done": "the kit is sorted", "room": "cargo_hold", "seconds": 15, "cost": [{ "item": "rope", "count": 1 }], "where": "in the cargo hold" },
+    "clear_pump": { "kind": "maintain", "label": "Clear the bilge pump", "verb": "Clearing the pump", "done": "the pump runs clean", "room": "cargo_hold", "station": "bilge_pump", "seconds": 18, "cost": [{ "item": "sailcloth", "count": 1 }], "where": "at the bilge pump" },
+    "lay_out": { "kind": "prepare", "label": "Lay out the tools", "verb": "Laying out the tools", "done": "the tools are laid out", "room": "cargo_hold", "seconds": 12, "cost": [{ "item": "nails", "count": 1 }], "where": "in the cargo hold" }
+  },
+
+  "//tables": "Outcome tables a challenge names (\"consequences\": \"<table>\") or a script records (consequenceOutcome): what each way it can end leaves behind. success and partial: once, after the outcome; failure: when an attempt fails, undone by Try again (the checkpoint) and kept if he carries on; retry: each time he chooses Try again, kept through every later retry; accept: once, when he carries on after a failure; fallback: once, when he chooses Go back. debugOnly tables are for the debug demo and tests: no chapter may use them.",
+  "tables": {
+    "demo_repair": {
+      "label": "The consequence demo's repair",
+      "debugOnly": true,
+      "success": [{ "id": "in_the_groove" }],
+      "partial": [{ "id": "poorly_prepared" }],
+      "failure": [{ "id": "shaken" }],
+      "retry": [{ "id": "exhausted" }],
+      "accept": [{ "id": "crew_doubts" }],
+      "fallback": []
+    }
+  },
+
+  "//milestones": "The milestones a script can mark (consequenceMilestone). No chapter marks one yet: chapter-spanning consequences only count down when a script says a chapter has passed.",
+  "milestones": ["chapter"],
+
+  "//journal": "Where the ledger is shown: the Captain's Journal (data/logs/phase9.json), at the top, active first, then what has ended. The Journal opens for the ledger even before its own first entry.",
+  "journal": { "log": "captains_journal" }
+}

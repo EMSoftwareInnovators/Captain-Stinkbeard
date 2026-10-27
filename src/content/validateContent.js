@@ -29,6 +29,8 @@ import { pressureDataProblems, subjectDef, subjectIds, profileDef, profileIds } 
 import { beardDataProblems, contaminant as beardContaminant, contaminantIds, beardStatus, beardStatusIds, CARE_ACTIONS, PURGE_PROFILES } from '../systems/ship/beard.js';
 import { DutyPlan } from '../systems/hazards/sharkDuty.js';
 import { suppliesDataProblems, shipEffectProblems, storeDef, storeIds, sourceDef, sourceIds, recipeDef, recipeIds, effectDef, effectIds, gearDef, gearIds, classOf, supplyLimits, SOURCE_OPS } from '../systems/ship/supplies.js';
+import { ledgerDataProblems, consequenceDef, consequenceIds, tableDef, tableIds, methodDef, methodIds, TABLE_OUTCOMES, MILESTONES } from '../systems/consequences/ledger.js';
+import { barFeasibility, recoveryResources } from '../systems/consequences/safety.js';
 
 /** The least time a shark on an opted-in watch may give before it bites (a walk across the deck). */
 const MIN_SHARK_WINDOW_MS = 3000;
@@ -39,13 +41,20 @@ const MIN_SHARK_WINDOW_MS = 3000;
  * `npm run validate`. Errors mean the content is broken; fix them.
  */
 class Checker {
-  constructor(ctx, path) {
+  constructor(ctx, path, gate = null) {
     this.ctx = ctx;
     this.path = path;
+    // Prompt 11: why conditions checked here gate mandatory story (a chapter start, a door...), or null.
+    this.gate = gate;
   }
 
   at(sub) {
-    return new Checker(this.ctx, `${this.path} › ${sub}`);
+    return new Checker(this.ctx, `${this.path} › ${sub}`, this.gate);
+  }
+
+  /** The same place, for conditions that gate mandatory story (no consequence may decide them). */
+  gating(reason) {
+    return new Checker(this.ctx, this.path, reason);
   }
 
   error(msg) {
@@ -347,6 +356,28 @@ function validateParam(type, value, check, sctx) {
     case 'supplyOp':
       if (!SOURCE_OPS.includes(value)) check.error(`a source op is ${SOURCE_OPS.join(', ')} (got "${value}")`);
       return;
+    // Prompt 11 the consequence ledger (data/consequences/ledger.json): consequences, severities, outcome tables (never a debug-only one in content), methods, milestones.
+    case 'consequence':
+      if (!consequenceDef(check.ctx.db, value)) check.error(`unknown consequence "${value}" (data/consequences/ledger.json definitions: ${consequenceIds(check.ctx.db).join(', ')})`);
+      return;
+    case 'consequenceSeverity':
+      if (!(Number.isInteger(value) && value >= 1 && value <= 3)) check.error(`a severity is a whole level, 1 to 3 (got ${JSON.stringify(value)})`);
+      return;
+    case 'consequenceTable': {
+      const t = tableDef(check.ctx.db, value);
+      if (!t) check.error(`unknown outcome table "${value}" (data/consequences/ledger.json tables: ${tableIds(check.ctx.db).join(', ')})`);
+      else if (t.debugOnly && !check.ctx.debug) check.error(`outcome table "${value}" is for the debug demo and tests only, never story content`);
+      return;
+    }
+    case 'consequenceOutcome':
+      if (!TABLE_OUTCOMES.includes(value)) check.error(`an outcome is ${TABLE_OUTCOMES.join(', ')} (got "${value}")`);
+      return;
+    case 'consequenceMethod':
+      if (!methodDef(check.ctx.db, value)) check.error(`unknown method "${value}" (data/consequences/ledger.json methods: ${methodIds(check.ctx.db).join(', ')})`);
+      return;
+    case 'consequenceMilestone':
+      if (!MILESTONES.includes(value)) check.error(`a milestone is ${MILESTONES.join(', ')} (got "${value}")`);
+      return;
     case 'challenge':
       // The shape here; the rules (and the steps they run) in validateChallenge.
       if (typeof value === 'string') return check.ref('challenge profile', value, check.ctx.db.challenges);
@@ -382,6 +413,8 @@ function validateChallenge(spec, kind, check, sctx, step = {}) {
   if (typeof spec !== 'string' && !isPlainObject(spec)) return;
   if (typeof spec === 'string' && !check.ctx.db.challenges?.has?.(spec)) return;
   for (const problem of challengeProblems(check.ctx.db, spec, { kind, step })) check.error(problem);
+  // Prompt 11: a debug-only outcome table never in story content.
+  if (isPlainObject(spec) && typeof spec.consequences === 'string' && tableDef(check.ctx.db, spec.consequences)?.debugOnly && !check.ctx.debug) check.error(`consequences: outcome table "${spec.consequences}" is for the debug demo and tests only, never story content`);
   let cfg = null;
   try {
     cfg = challengeConfig(check.ctx.db, spec, { kind, id: 'check' });
@@ -397,6 +430,39 @@ function validateChallenge(spec, kind, check, sctx, step = {}) {
   }
   for (const [path, list] of Object.entries(steps)) if (list !== undefined) validateParam('steps', list, check.at(path), sctx);
   for (const f of cfg.keep.flags) check.flag(f);
+}
+
+const QUEST_COMMANDS = ['startQuest', 'completeObjective', 'advanceObjective', 'completeQuest'];
+
+/**
+ * Prompt 11 (heuristic): does a step, or anything in its branches, move the
+ * main story on? A main quest started, advanced or completed, or a flag set or
+ * cleared that a chapter start or a main quest's objective reads. A "goto"
+ * or a "call" isn't followed (docs/gameplay-overhaul/15-consequences-and-recovery.md, "Validation limits").
+ */
+function movesStory(step, ctx, depth = 0) {
+  if (!isPlainObject(step) || depth > 8) return false;
+  const db = ctx.db;
+  for (const k of QUEST_COMMANDS) {
+    if (!(k in step)) continue;
+    const quest = String(step[k]).split('.')[0];
+    if (db.quests.get(quest)?.category === 'main') return true;
+  }
+  for (const k of ['setFlag', 'clearFlag']) if (k in step && asArray(step[k]).some((f) => ctx.progressFlags.has(f))) return true;
+  const branches = [step.then, step.else, ...asArray(step.choice).map((o) => o?.then), ...asArray(step.parallel)];
+  return branches.some((b) => Array.isArray(b) && b.some((x) => movesStory(x, ctx, depth + 1)));
+}
+
+/** The flags a condition reads (for the chapter starts' progress flags). */
+function conditionFlags(cond, out) {
+  if (Array.isArray(cond)) cond.forEach((c) => conditionFlags(c, out));
+  else if (isPlainObject(cond)) {
+    for (const [k, v] of Object.entries(cond)) {
+      if (k === 'flag' || k === 'notFlag' || k === 'anyFlag') asArray(v).forEach((f) => out.add(f));
+      else if (k === 'all' || k === 'any' || k === 'not') conditionFlags(v, out);
+    }
+  }
+  return out;
 }
 
 function validateStep(step, check, sctx) {
@@ -415,7 +481,8 @@ function validateStep(step, check, sctx) {
     check.error(err.message);
     return;
   }
-  if ('if' in step) check.condition(step.if);
+  // Prompt 11: a condition that decides whether the main story moves on is a gate (no consequence may decide it).
+  if ('if' in step) (movesStory(step, check.ctx) ? check.gating('a step that moves the main story on') : check).condition(step.if);
   if (name === 'if') {
     for (const k of Object.keys(step)) if (!STEP_MODIFIERS.has(k) && !isCommentKey(k)) check.error(`unexpected key "${k}" in branch`);
     for (const branch of ['then', 'else']) {
@@ -448,7 +515,7 @@ function validateStep(step, check, sctx) {
       for (const k of Object.keys(opt)) if (!['text', 'if', 'goto', 'then', 'end'].includes(k) && !isCommentKey(k)) oc.error(`unknown option key "${k}"`);
       if (typeof opt.text !== 'string') oc.error('choice option needs "text"');
       else validateText(opt.text, oc);
-      if ('if' in opt) oc.condition(opt.if);
+      if ('if' in opt) (asArray(opt.then).some((x) => movesStory(x, check.ctx)) ? oc.gating('a choice that moves the main story on') : oc).condition(opt.if);
       if ('goto' in opt) validateParam('label', opt.goto, oc, sctx);
       if ('then' in opt) validateParam('steps', opt.then, oc, sctx);
     });
@@ -589,6 +656,24 @@ function validateStep(step, check, sctx) {
     }
   }
   if (name === 'suppliesSystem' && typeof step.suppliesSystem !== 'boolean') check.error('suppliesSystem: true or false');
+  // Prompt 11: severities within a consequence's levels; clearing only when the script says so; a recovery recovers, a preparation prepares.
+  if (name.startsWith('consequence')) {
+    const db = check.ctx.db;
+    const def = consequenceDef(db, step[name]);
+    const levels = def ? asArray(def.levels).length : 3;
+    if (name === 'consequence' && step.severity !== undefined && def && step.severity > levels) check.error(`consequence: "${step.consequence}" has ${levels} level${levels === 1 ? '' : 's'}`);
+    if (name === 'consequenceSeverity') {
+      if ((step.to === undefined) === (step.by === undefined)) check.error('consequenceSeverity: give "to" or "by" (one of them)');
+      if (step.to !== undefined && def && step.to > levels) check.error(`consequenceSeverity: "${step.consequenceSeverity}" has ${levels} level${levels === 1 ? '' : 's'}`);
+      if (step.by !== undefined && !(Number.isInteger(step.by) && step.by !== 0 && Math.abs(step.by) <= 2)) check.error('consequenceSeverity: "by" is a whole number of levels, -2 to 2, not 0');
+      if (def?.kind === 'narrative') check.error(`consequenceSeverity: "${step.consequenceSeverity}" is a narrative record (one level)`);
+    }
+    if (name === 'consequenceResolve' && step.authorized !== true) check.error('consequenceResolve: a consequence is cleared outright only when the script says so ("authorized": true); otherwise it is put right by a recovery');
+    if (name === 'consequence' && step.authorized !== undefined && step.authorized !== true) check.error('consequence: "authorized" is true or left out');
+    if (name === 'consequenceRecover' && methodDef(db, step.consequenceRecover)?.kind === 'prepare') check.error(`consequenceRecover: "${step.consequenceRecover}" prepares (use consequencePrepare)`);
+    if (name === 'consequencePrepare' && methodDef(db, step.consequencePrepare) && methodDef(db, step.consequencePrepare).kind !== 'prepare') check.error(`consequencePrepare: "${step.consequencePrepare}" is a recovery (use consequenceRecover)`);
+    if (name === 'consequenceSystem' && typeof step.consequenceSystem !== 'boolean') check.error('consequenceSystem: true or false');
+  }
   // Prompt 10: an item the story takes or swaps is quest-critical: the supplies must never store, spend or cook it.
   if (name === 'takeItem' || name === 'swapItem') {
     const cls = classOf(check.ctx.db, step[name]);
@@ -885,9 +970,12 @@ function spawnIds(db) {
   return db.spawnIdCache;
 }
 
-export function validateContent(db, { art = ART_REGISTRY } = {}) {
-  const ctx = { db, art, errors: [...db.loadErrors, ...(db.speakerErrors || [])], warnings: [], usedFlags: new Set(), usedScripts: new Set() };
+export function validateContent(db, { art = ART_REGISTRY, debug = false } = {}) {
+  const ctx = { db, art, debug, errors: [...db.loadErrors, ...(db.speakerErrors || [])], warnings: [], usedFlags: new Set(), usedScripts: new Set(), progressFlags: new Set() };
   const C = (path) => new Checker(ctx, path);
+  // Prompt 11: the flags that move the main story on (chapter starts read them, main quests wait on them): no consequence may decide them.
+  for (const ch of db.game?.chapters ?? []) conditionFlags(ch.if, ctx.progressFlags);
+  for (const q of db.quests.list()) if (q.category === 'main') for (const o of q.objectives ?? []) if (o.type === 'flag' && typeof o.target === 'string') ctx.progressFlags.add(o.target);
 
   // game.json
   const g = db.game;
@@ -904,7 +992,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
     (g.chapters || []).forEach((ch, i) => {
       const cc = c.at(`chapters[${i}]`);
       if (typeof ch.name !== 'string') cc.error('chapter needs a name');
-      if ('if' in ch) cc.condition(ch.if);
+      if ('if' in ch) cc.gating('a chapter start').condition(ch.if);
     });
     (g.timeOfDay || []).forEach((t, i) => {
       const tc = c.at(`timeOfDay[${i}]`);
@@ -983,6 +1071,12 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
   for (const problem of pressureDataProblems(db)) C('data/ship').error(problem);
   for (const problem of beardDataProblems(db)) C('data/ship').error(problem);
   for (const problem of suppliesDataProblems(db)) C('data/ship').error(problem);
+  // Prompt 11: the consequence ledger's data, every ship bar winnable at the captain's worst condition, every recovery material recoverable.
+  for (const problem of ledgerDataProblems(db)) C('data/consequences').error(problem);
+  if (db.consequences) {
+    for (const problem of barFeasibility(db).problems) C('data/consequences/ledger.json (limits.condition)').error(problem);
+    for (const problem of recoveryResources(db).problems) C('data/consequences/ledger.json (methods)').error(problem);
+  }
   // A subject's "available" is a story condition like any other.
   for (const id of subjectIds(db)) {
     const cond = db.shipPressure.subjects[id].available;
@@ -1578,7 +1672,8 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
         oc.error(`position ${obj.x},${obj.y} is outside the map`);
         continue;
       }
-      if ('if' in obj) oc.condition(obj.if);
+      // Prompt 11: a door, a trigger or a person can stand between the captain and the story: their conditions are gates.
+      if ('if' in obj) (['warp', 'trigger', 'npc'].includes(obj.type) ? oc.gating(`a ${obj.type === 'npc' ? "person's place" : obj.type}`) : oc).condition(obj.if);
       const walkable = !isSolid(model, obj.x, obj.y);
       switch (obj.type) {
         case 'spawn':
@@ -1727,7 +1822,7 @@ export function validateContent(db, { art = ART_REGISTRY } = {}) {
   for (const t of db.storyTriggers.list()) {
     const c = C(`${db.storyTriggers.sourceOf(t.id)} (${t.id})`);
     if (!('if' in t)) c.error('story trigger needs "if"');
-    else c.condition(t.if);
+    else c.gating('a story trigger').condition(t.if);
     c.script(t.script);
   }
 

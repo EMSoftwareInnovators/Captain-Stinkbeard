@@ -270,7 +270,8 @@ export function createRecord({ id, kind, chapter = null, event = null, script = 
     checkpoint: null,
     decision: null,
     accepted: false,
-    consequences: { costs: 0, onFailure: 0, applied: [] },
+    // Prompt 11: "ledger" lists what each consequence step did to the consequence ledger ({ id, op, level, scope }), so the record and the ledger agree.
+    consequences: { costs: 0, onFailure: 0, applied: [], ledger: [] },
     transitions: null,
     history: [],
   };

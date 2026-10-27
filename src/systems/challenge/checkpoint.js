@@ -6,7 +6,7 @@ import { deepClone, asArray } from '../../core/util.js';
  * A checkpoint is the session's persistent state, exactly what a save holds
  * (story flags, variables and values; quests; inventory and gold; the
  * party's levels, HP and equipment; world objects opened, beaten or marked;
- * the ship's condition, its leaks, water and fires; the captain's map and tile), plus the per-play hazards a save leaves out
+ * the ship's condition, its leaks, water and fires; the consequence ledger (Prompt 11); the captain's map and tile), plus the per-play hazards a save leaves out
  * (fume exposure). Restoring one is therefore never more inconsistent than
  * loading a save, and it is never written to a save: checkpoints live in the
  * session's per-play state only.
@@ -18,7 +18,7 @@ import { deepClone, asArray } from '../../core/util.js';
  * NPC placements and story props follow the story, so the world restages
  * them when it hears "session:restored".
  */
-export const CHECKPOINT_DOMAINS = Object.freeze(['story', 'quests', 'inventory', 'party', 'world', 'ship', 'location']);
+export const CHECKPOINT_DOMAINS = Object.freeze(['story', 'quests', 'inventory', 'party', 'world', 'ship', 'consequences', 'location']);
 
 /**
  * @param {import('../GameSession.js').GameSession} session
@@ -87,6 +87,8 @@ export function restoreCheckpoint(session, cp, { keep = {} } = {}) {
   if (d.party) session.party.load(deepClone(d.party), warn);
   if (d.world) session.world.load(deepClone(d.world));
   if (d.ship && session.ship) session.ship.load(deepClone(d.ship), warn);
+  // Prompt 11: what the captain carries goes back too (an attempt's consequence is undone; a sticky one is charged again by the runner).
+  if (d.consequences && session.consequences) session.consequences.load(deepClone(d.consequences), warn);
   if (d.location) session.location = { ...session.location, ...deepClone(d.location) };
   writeKeep(session, kept);
   const exposure = session.transient?.exposure;
@@ -103,7 +105,7 @@ export function restoreCheckpoint(session, cp, { keep = {} } = {}) {
  * or repaired ([before, after] integrity).
  */
 export function diffStates(before, after) {
-  const out = { flagsSet: [], flagsCleared: [], vars: {}, values: {}, quests: {}, items: {}, gold: 0, ship: {}, hazards: {}, air: {}, pressure: {}, beard: {}, supplies: {} };
+  const out = { flagsSet: [], flagsCleared: [], vars: {}, values: {}, quests: {}, items: {}, gold: 0, ship: {}, hazards: {}, air: {}, pressure: {}, beard: {}, supplies: {}, consequences: {} };
   if (!before || !after) return out;
   const fb = new Set(before.story?.flags ?? []);
   const fa = new Set(after.story?.flags ?? []);
@@ -213,10 +215,18 @@ export function diffStates(before, after) {
   if (pot(ua) !== pot(ub)) out.supplies.cooking = [pot(ua), pot(ub)];
   const fx = (u) => Object.keys(u.effects ?? {}).sort().join(',');
   if (fx(ua) !== fx(ub)) out.supplies.effects = [fx(ua), fx(ub)];
+  // Prompt 11: the consequence ledger: each held consequence's level ("contained" when eased off; null when not held), and what ended.
+  const carried = (c) => Object.fromEntries((c?.entries ?? []).map((e) => [e.id, e.state === 'contained' ? 'contained' : e.level]));
+  const ca = carried(before.consequences);
+  const cb = carried(after.consequences);
+  for (const id of new Set([...Object.keys(ca), ...Object.keys(cb)])) if ((ca[id] ?? null) !== (cb[id] ?? null)) out.consequences[id] = [ca[id] ?? null, cb[id] ?? null];
+  const endedA = new Set((before.consequences?.history ?? []).map((h) => h.n));
+  const ended = (after.consequences?.history ?? []).filter((h) => !endedA.has(h.n)).map((h) => `${h.id}:${h.how}`);
+  if (ended.length) out.consequences.ended = ended;
   return out;
 }
 
 /** True when a diff records no change at all. */
 export function isEmptyDiff(d) {
-  return !d.flagsSet.length && !d.flagsCleared.length && !Object.keys(d.vars).length && !Object.keys(d.values).length && !Object.keys(d.quests).length && !Object.keys(d.items).length && !d.gold && !Object.keys(d.ship ?? {}).length && !Object.keys(d.hazards ?? {}).length && !Object.keys(d.air ?? {}).length && !Object.keys(d.pressure ?? {}).length && !Object.keys(d.beard ?? {}).length && !Object.keys(d.supplies ?? {}).length;
+  return !d.flagsSet.length && !d.flagsCleared.length && !Object.keys(d.vars).length && !Object.keys(d.values).length && !Object.keys(d.quests).length && !Object.keys(d.items).length && !d.gold && !Object.keys(d.ship ?? {}).length && !Object.keys(d.hazards ?? {}).length && !Object.keys(d.air ?? {}).length && !Object.keys(d.pressure ?? {}).length && !Object.keys(d.beard ?? {}).length && !Object.keys(d.supplies ?? {}).length && !Object.keys(d.consequences ?? {}).length;
 }
