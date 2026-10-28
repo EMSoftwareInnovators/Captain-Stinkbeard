@@ -583,6 +583,14 @@ overhaul's system data (`data/consequences/`, like `data/ship/`).
   continued).
 - Smoke (`npm run e2e:smoke`): 45 of 45, on one worker (1.6 h on this
   machine), the consequences spec's keyboard test among them.
+- The rest of the browser tests of every system this prompt touches (the
+  ship bars, Respond, the Journal: `atmosphere`, `beard`, `challenges`,
+  `consequences`, `difficulty`, `hazards`, `pressure`, `ship`,
+  `supplies`, without `@smoke`): 17 of 17.
+- The Phase 2 hatch test (`e2e/phase2.spec.js`, "the rescue...",
+  `@scenes`) still fails at its first step, identically (expected
+  `main_deck`, got `galley`): the failure recorded since Prompt 7,
+  untouched as instructed. No new browser failure.
 - Walkers (`node tools/walk-challenges.mjs failOnce`, then `brutal`,
   `deckhand`): 505 of 505 each, 3902 challenge runs each (as before: the
   runner's new lists are empty for every chapter).
@@ -620,9 +628,9 @@ options are worked out when the room or the ledger changes (the world's
 `hazardDirty`), and the Journal's lines are built when the page opens.
 No per-frame check, no per-quest check, no second timer.
 
-Bundle (`npm run perf:bundle`): 7390.6 kB raw, 1889.9 kB gzip, 1443.3 kB
-brotli, from 7329.4, 1871.6 and 1428.8 after Prompt 10 (+61.2, +18.3,
-+14.5 kB: the four modules and the ledger's data). The build passes.
+Bundle (`npm run perf:bundle`): 7392.3 kB raw, 1890.6 kB gzip, 1444.3 kB
+brotli, from 7329.4, 1871.6 and 1428.8 after Prompt 10 (+62.9, +19.0,
++15.5 kB: the four modules and the ledger's data). The build passes.
 
 ## 21. Known limitations
 
