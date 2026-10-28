@@ -2323,7 +2323,12 @@ export function createCommandImplementations() {
       if (m.kind === 'provision') {
         const meal = mealInPack(session, id);
         if (!meal) return consequenceRefused(ctx, step, 'No meal to hand.');
-        return ctx.runner.execBranch([{ useSupply: meal, announce: step.announce, outcomeValue: step.outcomeValue }], ctx, frame);
+        // Eaten through the item's own effect, which eases what the ledger says a meal eases.
+        const was = (w) => `${session.consequences.held(w.id)?.state}:${session.consequences.level(w.id)}`;
+        const before = work.map(was).join();
+        await ctx.runner.execBranch([{ useSupply: meal, announce: step.announce }], ctx, frame);
+        if (step.outcomeValue) session.story.setValue(step.outcomeValue, work.map(was).join() !== before ? 'recovered' : 'refused');
+        return null;
       }
       const reason = methodBlocked(session, id, { difficulty: prefs.difficulty, anywhere: step.anywhere === true });
       if (reason) return consequenceRefused(ctx, step, reason);

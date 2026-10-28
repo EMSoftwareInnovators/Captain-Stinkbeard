@@ -1020,8 +1020,8 @@ describe('10. the debug scenarios, played headless (the browser plays them too)'
         await s.run([{ consequenceRecover: 'rest' }]);
         expect(held(s)).toEqual({});
       } else {
-        await s.run([{ consequenceRecover: 'meal' }]);
-        expect(held(s)).toEqual({ shaken: 1, exhausted: 'contained' });
+        await s.run([{ consequenceRecover: 'meal', outcomeValue: 'cq_meal' }]);
+        expect([held(s), s.session.story.getValue('cq_meal')]).toEqual([{ shaken: 1, exhausted: 'contained' }, 'recovered']);
       }
       s.playHands('perfect');
       room(s, 'cargo_hold');

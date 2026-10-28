@@ -214,6 +214,14 @@ one flat layer, bounded together), then the accessibility assists (Timing
 Assist, Classic Bar), which no consequence ever reduces. A legacy story
 bar has no condition layer at all.
 
+Prompt 10's meals and draughts moved into this layer: their green was
+added to the base before the leader's stat multiplied it, and is now
+flat after it, as the order above says. In the harness (no leader stat)
+every number is identical; in the game a +4 meal is now +4 px whatever the
+captain's stat (it was +4 times 0.75 to 1.6, so at most a pixel or two
+different). The absolute `zone` a challenge may set replaces only the
+base, never the condition.
+
 A positive advantage that counts `uses` is used up by each ship bar it
 helps, once per run: the use is taken as the attempt starts, and a Try
 again's restore gives it back with the checkpoint, so a retried repair
