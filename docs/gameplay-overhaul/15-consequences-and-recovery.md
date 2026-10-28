@@ -576,10 +576,13 @@ save version (now 24) in six files, the save's top-level keys (now with
 `consequences`) in two, and the ship test's campaign scan, which skips the
 overhaul's system data (`data/consequences/`, like `data/ship/`).
 
-- Full Vitest: 1304 tests in 56 files, all passing (before the
-  save-shape pins were updated: 1302 and those two, by design).
+- Full Vitest: 1304 tests in 56 files, all passing, in 184 s, with no
+  test near its timeout. (Before the two save-shape pins were updated,
+  1302 passed and those two failed, by design.)
 - `e2e/consequences.spec.js`: 3 of 3 (the keyboard, a gamepad, a save
   continued).
+- Smoke (`npm run e2e:smoke`): 45 of 45, on one worker (1.6 h on this
+  machine), the consequences spec's keyboard test among them.
 - Walkers (`node tools/walk-challenges.mjs failOnce`, then `brutal`,
   `deckhand`): 505 of 505 each, 3902 challenge runs each (as before: the
   runner's new lists are empty for every chapter).
@@ -589,6 +592,12 @@ overhaul's system data (`data/consequences/`, like `data/ship/`).
   holds; no story, quest, crew, room, NPC or prop change.
 - Content validation: 0 errors. `npm run consequences`: no problems.
   `npm run economy`: unchanged, no problems.
+- The crew, room and challenge reports (`node tools/regress.mjs crew`,
+  `rooms`, `challenges`) are identical to Prompt 10's.
+- The Phase 2 preset sweep (`tests/phase2.test.js`, "every preset
+  applies...") takes 3.4 to 3.6 s at idle (three runs) with the one preset
+  this prompt adds, as before; the batched quest refresh that would speed
+  it up is still not applied (it changes saved progress counters).
 
 ## 20. Performance results
 
