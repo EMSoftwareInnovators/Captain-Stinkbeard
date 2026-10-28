@@ -596,6 +596,11 @@ describe('4. challenge outcomes: each way of ending leaves its own, once, and th
     expect(challengeProblems(content, { profile: 'ship_repair', onFailure: { costs: [{ consequence: 'well_prepared' }] } }, { kind: 'repair' }).join()).toMatch(/is an advantage; a cost can only take/);
     expect(challengeProblems(content, { profile: 'ship_repair', consequences: 'ghost_table' }, { kind: 'repair' }).join()).toMatch(/unknown outcome table "ghost_table"/);
     expect(challengeProblems(content, { profile: 'ship_repair', consequences: { success: [{ id: 'shaken', severity: 9 }] } }, { kind: 'repair' }).join()).toMatch(/severity must be a whole number/);
+    // A failed attempt's consequences are undone by Try again only through the checkpoint: a retry that doesn't restore is refused.
+    const failing = { profile: 'ship_repair', consequences: { failure: [{ id: 'shaken' }] } };
+    expect(challengeProblems(content, { ...failing, retry: { restore: false } }, { kind: 'repair' }).join()).toMatch(/consequences\.failure needs a retry that restores the checkpoint/);
+    expect(challengeProblems(content, { ...failing, retry: { policy: 'none' } }, { kind: 'repair' }).join()).not.toMatch(/consequences\.failure/);
+    expect(challengeProblems(content, failing, { kind: 'repair' })).toEqual([]);
   });
 });
 

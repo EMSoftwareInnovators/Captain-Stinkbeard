@@ -2318,7 +2318,8 @@ in the Captain's Journal.
 
 An **outcome table** (`tables`) lists what each way a challenge can end
 leaves: `success` and `partial` (once, after it), `failure` (when an
-attempt fails: undone by Try again, kept if he carries on), `retry` (each
+attempt fails: undone by Try again, so the challenge's retry must
+restore its checkpoint; kept if he carries on), `retry` (each
 Try again: kept through later retries), `accept` (carrying on), `fallback`
 (going back). Adding a **definition**: a title, a short tag, a category, a
 kind (negative, positive, narrative), a description in the captain's

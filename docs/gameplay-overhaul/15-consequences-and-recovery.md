@@ -287,6 +287,11 @@ counts), exactly like loading a save. Then:
   everything after it, a scripted recovery and its cost alike, as a load
   would.)
 
+Only a restore can undo an attempt, so the validator refuses a `failure`
+list on a challenge whose Try again doesn't restore its checkpoint
+(`retry.restore` false, or no checkpoint): each failed attempt's penalty
+would be kept. What retrying itself should cost goes in `retry`.
+
 Tested over repeated retries, a save and a load in between, and the final
 resolution: no entry is ever duplicated, nothing accumulates past its cap,
 and the event memory and the history stay bounded.
@@ -489,6 +494,8 @@ story can go on. The validator (and `npm run consequences`, modelled on
   preparation bills has a renewable source or a shop on every difficulty.
 - **Contradictions**: two opposing consequences required together, and
   self-contradicting conditions, are refused.
+- **Retry stays honest**: a challenge's `failure` consequences need a
+  retry that restores the checkpoint (section 8).
 - **Nothing to complete, cancel or reinterpret**: no consequence command
   touches a quest, an objective or a flag (tested over all six
   scenarios).
@@ -556,7 +563,7 @@ Journal's words measured with the game's font):
 | 1. The data | 3 | the definitions validate and use every modifier; 26 kinds of bad data are refused (unknown ids and categories, unsupported effects, bad severities and durations, contradictory stacking, missing or impossible recovery, bad items, rooms and stations, wrong-way and out-of-bound modifiers, one-way opposites, hidden penalties, permanent penalties, uses on a penalty, endless advantages, a mislabelled `affectsChallenges`, advantages in failure lists, bad tables, a bad condition bound, a bad Journal host); the difficulty table's bounds |
 | 2. The ledger | 7 | empty and untouched at new games and late presets; create, change, end and remember; invalid ids and severities change nothing; all five stacking policies, caps, contain and flare; opposites, `once`, `escalate`; the difficulty read only at creation; event ids (duplicates refused, memory bounded at 128); the history bounded at 24 |
 | 3. Real modifiers | 8 | the next ship bar's green -3 and -4 (Rattled), +3 (Ready); an advantage used once per run, a retry giving the use back; work +20%, -15%, multiplied; a repair +10% (In the Groove), +1 plank (Short of Kit), 5 planks and 24 restored on Brutal (the difficulty's bill first, the extra never scaled again); pumping 24 vs 18; the precedence (flat after the stat, assists after it, food and consequences bounded together); Deckhand -2 for 3:00, Captain -4 for 5:00, Brutal -6 (bounded) for 7:30; expiry on the hazard clock only |
-| 4. Challenge outcomes | 9 | success, partial, a failure carried on, fail-retry-win (the attempt's penalty undone and marked so in the record, the retry's kept, the cost kept), repeated failure to the cap on Captain and Brutal with one entry each, a doubled callback landing nothing, a closed run refusing more, going back with its own consequences, no table changing nothing, a recovery not undone by a later retry, difficulty blocks and costs refused |
+| 4. Challenge outcomes | 9 | success, partial, a failure carried on, fail-retry-win (the attempt's penalty undone and marked so in the record, the retry's kept, the cost kept), repeated failure to the cap on Captain and Brutal with one entry each, a doubled callback landing nothing, a closed run refusing more, going back with its own consequences, no table changing nothing, a recovery not undone by a later retry, difficulty blocks and costs refused, a failure list without a restoring retry refused |
 | 5. Recovery | 5 | rest only in the crew quarters, 25 s while the leak fills the hold, 19 s on Brutal, refused in a fire; a meal easing and containing (not with the supplies off); sorting the kit and clearing the pump, refused without the materials, 1 or 2 rope by difficulty, slowed by Bone-Tired; laying out the tools only while on; nothing cleared without `authorized`; every recovery material recoverable |
 | 6. Persistence | 5 | rooms and scenes change nothing; milestones count down; a save and a load go on identically (v24); versions 17 to 23 load empty; damaged data loads safely; checkpoints capture and restore, the diff names levels and endings; every query |
 | 7. Progression safety | 4 | every ship bar winnable at the worst condition (and -10 refused); consequence conditions refused on a chapter start, a story trigger, a door, a step and a choice that move the main story on, allowed in dialogue; opposites and contradictions refused; a dozen command mistakes refused, the debug scenarios valid; all six scenarios leave quests, flags and the room untouched |

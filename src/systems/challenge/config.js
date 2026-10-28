@@ -275,6 +275,8 @@ function resolvedProblems(cfg, k, step, content = null) {
     if (f.mustRetry && cfg.retry.policy === 'none') out.push('onFailure.mustRetry needs retries');
     if (!f.mustRetry && !f.continue && (limited || cfg.retry.policy === 'none')) out.push('when attempts can run out, onFailure.continue must be true (or the story has no way forward)');
     if (cfg.retry.restore && cfg.checkpoint === false) out.push('retry.restore needs a checkpoint ("checkpoint": false turns it off)');
+    // Prompt 11: Try again undoes a failed attempt's consequences only by restoring the checkpoint; without one each attempt's would be kept.
+    if (cfg.onFailedAttempt.consequences.length && cfg.retry.policy !== 'none' && !(cfg.retry.restore && cfg.checkpoint !== false)) out.push('consequences.failure needs a retry that restores the checkpoint (retry.restore): without it, Try again would keep every failed attempt\'s consequences (put what retrying costs in "retry")');
     out.push(...costProblems(f.costs, content));
   }
   if (k.problems) out.push(...k.problems(cfg.mechanics, step));
