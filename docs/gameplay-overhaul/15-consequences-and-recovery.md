@@ -545,11 +545,68 @@ the preparations off, and clear the ledger (debug only).
 
 ## 19. Automated tests
 
-RESULTS-TESTS
+`tests/consequences.test.js`, 54 tests through the real runtime paths
+(the story harness's sessions, the script runner and its commands, the
+challenge runner with its checkpoints and decisions, the game's own timing
+bar played by simulated hands, saves through the real `SaveManager`, the
+Journal's words measured with the game's font):
+
+| Group | Tests | What they prove |
+|---|---|---|
+| 1. The data | 3 | the definitions validate and use every modifier; 26 kinds of bad data are refused (unknown ids and categories, unsupported effects, bad severities and durations, contradictory stacking, missing or impossible recovery, bad items, rooms and stations, wrong-way and out-of-bound modifiers, one-way opposites, hidden penalties, permanent penalties, uses on a penalty, endless advantages, a mislabelled `affectsChallenges`, advantages in failure lists, bad tables, a bad condition bound, a bad Journal host); the difficulty table's bounds |
+| 2. The ledger | 7 | empty and untouched at new games and late presets; create, change, end and remember; invalid ids and severities change nothing; all five stacking policies, caps, contain and flare; opposites, `once`, `escalate`; the difficulty read only at creation; event ids (duplicates refused, memory bounded at 128); the history bounded at 24 |
+| 3. Real modifiers | 8 | the next ship bar's green -3 and -4 (Rattled), +3 (Ready); an advantage used once per run, a retry giving the use back; work +20%, -15%, multiplied; a repair +10% (In the Groove), +1 plank (Short of Kit), 5 planks and 24 restored on Brutal (the difficulty's bill first, the extra never scaled again); pumping 24 vs 18; the precedence (flat after the stat, assists after it, food and consequences bounded together); Deckhand -2 for 3:00, Captain -4 for 5:00, Brutal -6 (bounded) for 7:30; expiry on the hazard clock only |
+| 4. Challenge outcomes | 9 | success, partial, a failure carried on, fail-retry-win (the attempt's penalty undone and marked so in the record, the retry's kept, the cost kept), repeated failure to the cap on Captain and Brutal with one entry each, a doubled callback landing nothing, a closed run refusing more, going back with its own consequences, no table changing nothing, a recovery not undone by a later retry, difficulty blocks and costs refused |
+| 5. Recovery | 5 | rest only in the crew quarters, 25 s while the leak fills the hold, 19 s on Brutal, refused in a fire; a meal easing and containing (not with the supplies off); sorting the kit and clearing the pump, refused without the materials, 1 or 2 rope by difficulty, slowed by Bone-Tired; laying out the tools only while on; nothing cleared without `authorized`; every recovery material recoverable |
+| 6. Persistence | 5 | rooms and scenes change nothing; milestones count down; a save and a load go on identically (v24); versions 17 to 23 load empty; damaged data loads safely; checkpoints capture and restore, the diff names levels and endings; every query |
+| 7. Progression safety | 4 | every ship bar winnable at the worst condition (and -10 refused); consequence conditions refused on a chapter start, a story trigger, a door, a step and a choice that move the main story on, allowed in dialogue; opposites and contradictions refused; a dozen command mistakes refused, the debug scenarios valid; all six scenarios leave quests, flags and the room untouched |
+| 8. The Journal and notices | 5 | the order, the NEW marks, every line of an entry and its availability; every line and notice fits (the panel, the list, two toast lines); the Journal opening for the ledger before the crownskull; one notice per change, quiet steps silent |
+| 9. The campaign | 2 | no command, condition or table anywhere outside the debug demo; a legacy failure, a cutscene and the ship's own systems never create an entry |
+| 10. The scenarios | 6 | A to F played headless (D and F on Captain and Brutal, F on both paths) |
+
+Existing tests changed only where they pin what this prompt changes: the
+save version (now 24) in six files, the save's top-level keys (now with
+`consequences`) in two, and the ship test's campaign scan, which skips the
+overhaul's system data (`data/consequences/`, like `data/ship/`).
+
+- Full Vitest: 1304 tests in 56 files, all passing (before the
+  save-shape pins were updated: 1302 and those two, by design).
+- `e2e/consequences.spec.js`: 3 of 3 (the keyboard, a gamepad, a save
+  continued).
+- Walkers (`node tools/walk-challenges.mjs failOnce`, then `brutal`,
+  `deckhand`): 505 of 505 each, 3902 challenge runs each (as before: the
+  runner's new lists are empty for every chapter).
+- Regression (`node tools/regress.mjs compare`): 22 changes, all approved
+  with a reason (the empty ledger at each of the 17 phase ends; the new
+  demo preset's position in the coordinate index); every hard invariant
+  holds; no story, quest, crew, room, NPC or prop change.
+- Content validation: 0 errors. `npm run consequences`: no problems.
+  `npm run economy`: unchanged, no problems.
 
 ## 20. Performance results
 
-RESULTS-PERF
+Measured with `PERF_ONLY=consequences_demo,supplies_demo PERF_RUNS=2
+npm run perf` (Chromium with software rendering, 4 CPUs; compare runs on
+the same machine). The consequences scene holds Rattled, Bone-Tired and
+In the Groove running down each second, Short of Kit and a Fouled Pump, a
+full history and a meal effect, with Respond offering the kit and the
+pump; the supplies scene (Prompt 10) is beside it for comparison:
+
+| Scene | build ms | still: work p95 | walk: work p95 | still: frame avg | walk: frame avg | heap MB |
+|---|---|---|---|---|---|---|
+| supplies_demo | 35.7 (17.3 to 54.1) | 2.2 | 2.2 | 16.70 | 16.83 | 94.7 |
+| consequences_demo | 16.0 (15.7 to 16.2) | 1.8 | 2.2 | 16.81 | 16.67 | 95.3 |
+
+The ledger costs nothing a frame can see: its modifiers are computed only
+when something changes (a cache cleared by `changed()`), the hazard clock's
+second touches only the seconds left (at most eight entries), Respond's
+options are worked out when the room or the ledger changes (the world's
+`hazardDirty`), and the Journal's lines are built when the page opens.
+No per-frame check, no per-quest check, no second timer.
+
+Bundle (`npm run perf:bundle`): 7390.6 kB raw, 1889.9 kB gzip, 1443.3 kB
+brotli, from 7329.4, 1871.6 and 1428.8 after Prompt 10 (+61.2, +18.3,
++14.5 kB: the four modules and the ledger's data). The build passes.
 
 ## 21. Known limitations
 
